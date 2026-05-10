@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEON Quant Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-light: #475569;
+      --line: #e2e8f0;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --green: #16a34a;
+      --amber: #d97706;
+      --red: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: #fff;
+    }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+    .hero {
+      background: radial-gradient(circle at top right, #1e3a8a, var(--bg) 55%);
+      color: #fff;
+      padding: 24px 0 64px;
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; letter-spacing: .3px; font-size: 1.1rem; }
+    .hero-content { padding-top: 48px; max-width: 820px; }
+    .tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, .14);
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; margin: 14px 0; }
+    h2 { font-size: clamp(1.45rem, 3vw, 2rem); margin: 0 0 14px; }
+    h3 { margin: 0; }
+    .subtitle { color: #cbd5e1; font-size: 1.02rem; margin: 0; }
+    .hero-metrics {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      margin-top: 28px;
+      max-width: 760px;
+    }
+    .metric {
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .metric span {
+      display: block;
+      color: #cbd5e1;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .metric strong { display: block; margin-top: 4px; font-size: 1.05rem; }
+    .section { padding: 64px 0; }
+    .section-soft { background: var(--bg-soft); }
+    .sync-note { margin: 0 0 20px; color: var(--text-light); font-size: .95rem; }
+    .brief-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, .8fr);
+      gap: 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, .05);
+    }
+    .chat-item p {
+      margin: 8px 0 0;
+      color: var(--text-light);
+      white-space: pre-line;
+    }
+    .executive-card {
+      border-top: 4px solid var(--primary);
+    }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #eff6ff;
+      color: var(--primary-dark);
+      font-size: .8rem;
+      font-weight: 700;
+    }
+    .badge.high { background: #fef2f2; color: var(--red); }
+    .badge.medium { background: #fffbeb; color: var(--amber); }
+    .badge.low { background: #f0fdf4; color: var(--green); }
+    .point-list, .risk-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .point {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+    }
+    .point p, .watch-card p, .source-card p { margin: 8px 0 0; color: var(--text-light); }
+    .source-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .source-links a {
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      color: var(--primary-dark);
+      background: #eff6ff;
+      padding: 6px 10px;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .source-links a:hover {
+      border-color: var(--primary);
+      background: #dbeafe;
+    }
+    .watch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+    .section-title p { margin: 0; color: var(--text-light); }
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .source-card {
+      overflow: hidden;
+      padding: 0;
+    }
+    .source-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #dbeafe, #f8fafc);
+      display: block;
+    }
+    .source-body { padding: 18px; }
+    .source-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: var(--text-light);
+      font-size: .82rem;
+    }
+    .source-card a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .source-card a:hover h3 { color: var(--primary-dark); }
+    .source-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #fff;
+      background: var(--primary);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: .9rem;
+    }
+    .source-url {
+      display: block;
+      margin-top: 8px;
+      color: var(--text-light);
+      font-size: .78rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .fallback-image {
+      display: grid;
+      place-items: center;
+      height: 150px;
+      background: radial-gradient(circle at top right, #bfdbfe, #e2e8f0);
+      color: #1e3a8a;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .footer {
+      background: #020617;
+      color: #cbd5e1;
+      padding: 22px 0;
+    }
+    @media (max-width: 860px) {
+      .brief-layout { grid-template-columns: 1fr; }
+      .section-title { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <nav class="nav">
+        <div class="logo">LEON Quant Labs</div>
+      </nav>
+      <div class="hero-content">
+        <p class="tag">DAILY INTELLIGENCE</p>
+        <h1>LEON Quant Labs</h1>
+        <p class="subtitle">Bản tin macro hằng ngày, chọn lọc từ các nguồn dữ liệu thị trường và kinh tế công khai.</p>
+        <div class="hero-metrics">
+          <div class="metric">
+            <span>Market impact</span>
+            <strong id="heroImpact">Đang cập nhật</strong>
+          </div>
+          <div class="metric">
+            <span>Nguồn phân tích</span>
+            <strong id="heroArticles">--</strong>
+          </div>
+          <div class="metric">
+            <span>Cập nhật</span>
+            <strong id="heroUpdated">--</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section section-soft">
+      <div class="container">
+        <h2 id="chatSectionTitle">Cập nhật tin tức hàng ngày</h2>
+        <p id="syncNote" class="sync-note">Đang tải dữ liệu mới nhất...</p>
+        <div id="briefRoot"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Tin ảnh hưởng tới bản tổng hợp</h2>
+            <p>Các link gốc được chọn vì có tác động trực tiếp tới các luận điểm trong bản tin.</p>
+          </div>
+        </div>
+        <div id="sourceGrid" class="source-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 LEON Quant Labs</p>
+    </div>
+  </footer>
+
+  <script>
+    function impactClass(value) {
+      const text = String(value || "").toLowerCase();
+      if (text.includes("high")) return "high";
+      if (text.includes("medium")) return "medium";
+      if (text.includes("low")) return "low";
+      return "";
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatDate(value) {
+      if (!value) return "--";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "--";
+      return date.toLocaleString("vi-VN", {
+        day: "2-digit",
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function getHostName(value) {
+      try {
+        return new URL(value).hostname.replace(/^www\./, "");
+      } catch {
+        return "Nguồn gốc";
+      }
+    }
+
+    function createItemCard(item) {
+      const card = document.createElement("article");
+      card.className = "card chat-item";
+
+      const title = document.createElement("h3");
+      title.textContent = item.title || "Bản tin";
+
+      const content = document.createElement("p");
+      content.textContent = item.content || "";
+
+      card.appendChild(title);
+      card.appendChild(content);
+      return card;
+    }
+
+    function createPointCard(item) {
+      const point = document.createElement("div");
+      point.className = "point";
+      const impact = item.impact || "Medium";
+      const sourceLinks = Array.isArray(item.sources)
+        ? item.sources.map((url, index) => `
+          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+            Đọc bài gốc ${index + 1} · ${escapeHtml(getHostName(url))}
+          </a>
+        `).join("")
+        : "";
+      point.innerHTML = `
+        <div class="badge-row">
+          <span class="badge ${impactClass(impact)}">${escapeHtml(impact)}</span>
+        </div>
+        <h3>${escapeHtml(item.title || "Ý chính")}</h3>
+        <p>${escapeHtml(item.detail || "")}</p>
+        ${sourceLinks ? `<div class="source-links">${sourceLinks}</div>` : ""}
+      `;
+      return point;
+    }
+
+    function createSourceCard(item) {
+      const card = document.createElement("article");
+      card.className = "card source-card";
+
+      const image = item.image_url
+        ? `<img class="source-image" src="${escapeHtml(item.image_url)}" alt="">`
+        : `<div class="fallback-image">LEON</div>`;
+
+      card.innerHTML = `
+        <a href="${escapeHtml(item.url || "#")}" target="_blank" rel="noopener noreferrer">
+          ${image}
+          <div class="source-body">
+            <div class="source-meta">
+              <span>${escapeHtml(item.source || "Nguồn gốc")}</span>
+              <span>${escapeHtml(item.region || "")}</span>
+              <span>${escapeHtml(formatDate(item.published_at))}</span>
+            </div>
+            <h3>${escapeHtml(item.title || "Tin liên quan")}</h3>
+            <p>${escapeHtml(item.summary || item.theme || "")}</p>
+            <span class="source-link">Đọc nguồn gốc</span>
+            <span class="source-url">${escapeHtml(getHostName(item.url || ""))}</span>
+          </div>
+        </a>
+      `;
+      return card;
+    }
+
+    function renderStructuredBrief(data) {
+      const root = document.getElementById("briefRoot");
+      root.innerHTML = "";
+
+      const layout = document.createElement("div");
+      layout.className = "brief-layout";
+
+      const main = document.createElement("article");
+      main.className = "card executive-card";
+      main.innerHTML = `
+        <div class="badge-row">
+          <span class="badge">${escapeHtml(data.sectionLabel || "Daily Macro Intelligence")}</span>
+          <span class="badge ${impactClass(data.marketImpact)}">Market impact: ${escapeHtml(data.marketImpact || "Mixed")}</span>
+        </div>
+        <h3>${escapeHtml(data.chatSectionTitle || "Macro Daily Brief")}</h3>
+        <p>${escapeHtml(data.executiveSummary || "")}</p>
+      `;
+
+      const side = document.createElement("aside");
+      side.className = "card";
+      side.innerHTML = "<h3>Rủi ro cần theo dõi</h3>";
+      const riskList = document.createElement("div");
+      riskList.className = "risk-list";
+      for (const risk of data.risksToWatch || []) {
+        const riskEl = document.createElement("div");
+        riskEl.className = "point";
+        riskEl.textContent = risk;
+        riskList.appendChild(riskEl);
+      }
+      side.appendChild(riskList);
+
+      layout.appendChild(main);
+      layout.appendChild(side);
+      root.appendChild(layout);
+
+      const points = document.createElement("div");
+      points.className = "point-list";
+      for (const item of data.keyPoints || []) {
+        points.appendChild(createPointCard(item));
+      }
+      root.appendChild(points);
+
+      const watchGrid = document.createElement("div");
+      watchGrid.className = "watch-grid";
+      if (data.vietnamWatch) {
+        const vn = document.createElement("article");
+        vn.className = "card watch-card";
+        vn.innerHTML = `<h3>Việt Nam watch</h3><p>${escapeHtml(data.vietnamWatch)}</p>`;
+        watchGrid.appendChild(vn);
+      }
+      if (data.globalWatch) {
+        const global = document.createElement("article");
+        global.className = "card watch-card";
+        global.innerHTML = `<h3>Global watch</h3><p>${escapeHtml(data.globalWatch)}</p>`;
+        watchGrid.appendChild(global);
+      }
+      if (data.editorNotes) {
+        const notes = document.createElement("article");
+        notes.className = "card watch-card";
+        notes.innerHTML = `<h3>Ghi chú dữ liệu</h3><p>${escapeHtml(data.editorNotes)}</p>`;
+        watchGrid.appendChild(notes);
+      }
+      root.appendChild(watchGrid);
+    }
+
+    function renderFeed(data, noteText) {
+      const feedEl = document.getElementById("chatFeed");
+      const briefRoot = document.getElementById("briefRoot");
+      const titleEl = document.getElementById("chatSectionTitle");
+      const noteEl = document.getElementById("syncNote");
+      const sourceGrid = document.getElementById("sourceGrid");
+
+      titleEl.textContent = data.chatSectionTitle || "Cập nhật tin tức hàng ngày";
+      noteEl.textContent = noteText || "";
+      sourceGrid.innerHTML = "";
+
+      document.getElementById("heroImpact").textContent = data.marketImpact || "Mixed";
+      document.getElementById("heroArticles").textContent = data.stats?.articlesAnalyzed
+        ? `${data.stats.articlesAnalyzed} bài`
+        : "--";
+      document.getElementById("heroUpdated").textContent = formatDate(data.generatedAt);
+
+      if (data.executiveSummary || Array.isArray(data.keyPoints)) {
+        renderStructuredBrief(data);
+      } else {
+        briefRoot.innerHTML = "";
+        const items = Array.isArray(data.chatItems) ? data.chatItems : [];
+        if (!items.length) {
+          briefRoot.appendChild(createItemCard({
+            title: "Chưa có nội dung",
+            content: "Bản tin mới sẽ được cập nhật khi dữ liệu trong ngày sẵn sàng."
+          }));
+        } else {
+          for (const item of items) {
+            briefRoot.appendChild(createItemCard(item));
+          }
+        }
+      }
+
+      for (const article of data.featuredArticles || []) {
+        sourceGrid.appendChild(createSourceCard(article));
+      }
+    }
+
+    async function loadFeedConfig() {
+      try {
+        const response = await fetch("feed-config.json");
+        if (!response.ok) throw new Error("No feed-config");
+        return await response.json();
+      } catch {
+        return {};
+      }
+    }
+
+    async function fetchFeedFromUrl(url) {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) throw new Error("Remote feed unavailable");
+      return await response.json();
+    }
+
+    async function fetchLocalFeed() {
+      try {
+        const response = await fetch(`content.json?ts=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error("Khong the tai content.json");
+        return await response.json();
+      } catch {
+        return {
+          chatSectionTitle: "Cập nhật tin tức hàng ngày",
+          chatItems: [
+            {
+              title: "Lỗi tải dữ liệu",
+              content: "Dữ liệu bản tin hiện chưa sẵn sàng. Vui lòng thử lại sau."
+            }
+          ]
+        };
+      }
+    }
+
+    let refreshTimer = null;
+
+    async function loadChatContent() {
+      const config = await loadFeedConfig();
+      const remoteUrl = config.remoteFeedUrl || "";
+      const preferLocal = Boolean(config.preferLocal);
+      const refreshSeconds = Number(config.refreshSeconds || 0);
+
+      if (preferLocal) {
+        const localData = await fetchLocalFeed();
+        renderFeed(localData, "Đang hiển thị bản tin mới nhất.");
+      } else if (remoteUrl) {
+        try {
+          const remoteData = await fetchFeedFromUrl(remoteUrl);
+          renderFeed(remoteData, "Đang hiển thị bản tin mới nhất.");
+        } catch {
+          const localData = await fetchLocalFeed();
+          renderFeed(localData, "Đang hiển thị bản tin đã lưu gần nhất.");
+        }
+      } else {
+        const localData = await fetchLocalFeed();
+        renderFeed(localData, "Đang hiển thị bản tin đã lưu gần nhất.");
+      }
+
+      if (refreshSeconds >= 30 && !refreshTimer) {
+        refreshTimer = setInterval(loadChatContent, refreshSeconds * 1000);
+      }
+    }
+
+    loadChatContent();
+  </script>
+</body>
+</html>

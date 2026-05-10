@@ -1,0 +1,52 @@
+name: Daily Macro Brief
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-brief:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Crawl public macro news
+        run: |
+          python crawl_financial_news.py --per-source-limit 0 --max-total 0 --today-only --macro-only --macro-min-score 4
+
+      - name: Summarize source articles with Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+        run: |
+          python summarize_news_gemini.py --max-articles 40
+
+      - name: Final editorial pass with GPT
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_FINAL_MODEL: gpt-4o-mini
+        run: |
+          python finalize_summary_gpt.py --model gpt-4o-mini
+
+      - name: Build public website content
+        run: |
+          python build_website_content.py --max-featured 12
+
+      - name: Commit updated brief
+        run: |
+          git config user.name "daily-brief-bot"
+          git config user.email "daily-brief-bot@users.noreply.github.com"
+          git add news_output.json enriched_news.json gemini_summary.json final_summary.json content.json
+          git commit -m "Update daily macro brief" || echo "No content changes to commit"
+          git push
