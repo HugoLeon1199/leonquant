@@ -325,6 +325,12 @@
       return new URL(name, siteBaseUrl()).href;
     }
 
+    /** JSON từ mạng đôi khi có BOM (UTF-8) — JSON.parse sẽ lỗi nếu không bỏ. */
+    async function readJsonResponse(response) {
+      const text = await response.text();
+      return JSON.parse(String(text).replace(/^\uFEFF/, "").trim());
+    }
+
     function camelScenarioFromSnake(sp) {
       if (!sp || typeof sp !== "object") return {};
       const one = (k) => {
@@ -663,7 +669,7 @@
       try {
         const r = await fetch(assetUrl("feed-config.json"));
         if (!r.ok) return { preferLocal: true };
-        const j = await r.json();
+        const j = await readJsonResponse(r);
         if (j.preferLocal === undefined) j.preferLocal = true;
         return j;
       } catch {
@@ -675,7 +681,7 @@
       try {
         const r = await fetch(`${assetUrl("content.json")}?ts=${Date.now()}`, { cache: "no-store" });
         if (!r.ok) throw new Error("bad");
-        return await r.json();
+        return await readJsonResponse(r);
       } catch (e) {
         console.error(e);
         return {
@@ -710,7 +716,7 @@
           try {
             const r = await fetch(remoteUrl, { cache: "no-store" });
             if (!r.ok) throw new Error("bad remote");
-            data = await r.json();
+            data = await readJsonResponse(r);
           } catch {
             data = await fetchLocalFeed();
           }
