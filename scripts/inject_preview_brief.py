@@ -36,7 +36,7 @@ def main() -> int:
     s.setdefault(
         "world_to_vietnam",
         "Khi USD global mạnh và risk-off, SBV có xu hướng quản lý tỷ giá linh hoạt và giữ ổn định kỳ vọng; "
-        "lãi suất trong nước và thanh khoản NH vẫn là kênh truyền đầu tiên lên TTCK và tín dụt.",
+        "lãi suất trong nước và thanh khoản NH vẫn là kênh truyền đầu tiên lên TTCK và tín dụng.",
     )
     s.setdefault(
         "asset_impacts",
