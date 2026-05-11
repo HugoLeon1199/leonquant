@@ -298,7 +298,8 @@
     </div>
   </footer>
 
-  <script>
+  <!-- Rocket Loader (Cloudflare) có thể làm lệch script inline; tắt cho block này -->
+  <script data-cfasync="false">
     const ND = "—";
 
     /** Gốc site để fetch content.json / feed-config đúng dù trang mở tại /landing_page/ hay /repo/landing_page/ */
@@ -728,7 +729,14 @@
       }
     }
 
-    loadChatContent();
+    function startBriefApp() {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => void loadChatContent());
+      } else {
+        void loadChatContent();
+      }
+    }
+    startBriefApp();
   </script>
 </body>
 </html>
