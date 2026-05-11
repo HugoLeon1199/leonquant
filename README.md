@@ -1,4 +1,4 @@
-# LEON Quant — AI Macro Research Desk
+# LEON Quant — Vietnam Macro & Market Strategy Brief
 
 **Repo:** [github.com/HugoLeon1199/leonquant](https://github.com/HugoLeon1199/leonquant)
 
@@ -6,21 +6,23 @@ Trang tĩnh (GitHub Pages): `https://hugoleon1199.github.io/leonquant/`
 
 ## Pipeline (giữ nguyên thứ tự)
 
-1. `crawl_financial_news.py` — crawl tin.
-2. `summarize_news_gemini.py` — Gemini tóm tắt / themes / important articles.
-3. `finalize_summary_gpt.py` — **bước duy nhất gọi GPT mạnh**: sinh **`final_summary.json`** theo schema **Daily Macro Intelligence** (tiếng Việt, desk note), có validator + repair 1 lần + fallback từ Gemini nếu vẫn lỗi.
-4. `build_website_content.py` — gộp macro + toàn bộ bài enriched → **`content.json`** (camelCase cho web).
-5. `landing_page.html` — đọc `content.json`, hiển thị research desk (dark, static).
+1. `crawl_financial_news.py` — thu thập tin.
+2. `summarize_news_gemini.py` — tóm tắt nội bộ / themes / important articles.
+3. `finalize_summary_gpt.py` — lớp biên tập cuối: sinh **`final_summary.json`** theo **Investment Strategy Brief** (tiếng Việt, ghi chú chiến lược), có validator + sửa JSON + bản dự phòng khi lỗi.
+4. `build_website_content.py` — gộp brief + toàn bộ bài enriched → **`content.json`** (camelCase cho web, không đẩy metadata nội bộ ra trang công khai).
+5. `landing_page.html` — đọc `content.json`, hiển thị brief (dark, static).
 
-## Schema output (`final_summary.json` → `summary`)
+Trang công khai được định vị như **ấn phẩm nghiên cứu vĩ mô / chiến lược** cho nhà đầu tư Việt Nam; **không** hiển thị disclaimer, bảng điều khiển kiểu dashboard, hay nhãn về chất lượng nguồn / liên kết xác minh.
 
-Trường chính: `title`, `date`, `market_regime`, `daily_thesis`, `thirty_second_summary`, `what_changed`, `top_macro_drivers` (3–5), `asset_impact_heatmap` (≥6), `vietnam_investor_lens`, `scenario_map` (xác suất tổng 100), `key_variables_to_watch`, `source_quality`, `final_takeaway`, `disclaimer`. Chi tiết trong `finalize_summary_gpt.py` (`validate_final_summary`).
+## Schema (`final_summary.json` → `summary`)
+
+Các trường chính: `title`, `date`, `generated_at`, `publication_intro`, `main_thesis`, `global_macro_drivers`, `vietnam_transmission`, `quick_actions`, `allocation_guide`, `sector_priority`, `increase_risk_signals`, `reduce_risk_signals`, `scenario_plan`, `final_takeaway`. Chi tiết trong `finalize_summary_gpt.py` (`validate_final_summary`). Thống kê pipeline (số bài quét, v.v.) nằm ở `meta`, không nằm trong `summary`.
 
 ## Biến môi trường (chi phí & chất lượng)
 
 | Biến | Mặc định | Ý nghĩa |
 |------|----------|---------|
-| `OPENAI_API_KEY` | (bắt buộc khi chạy GPT) | Secret — **không commit**. |
+| `OPENAI_API_KEY` | (bắt buộc khi chạy bước OpenAI) | Secret — **không commit**. |
 | `OPENAI_MODEL` | `gpt-5.4-mini` (fallback `OPENAI_FINAL_MODEL`) | Model bước cuối. |
 | `OPENAI_TEMPERATURE` | `0.2` | |
 | `OPENAI_MAX_OUTPUT_TOKENS` | `4500` | |
@@ -29,7 +31,7 @@ Trường chính: `title`, `date`, `market_regime`, `daily_thesis`, `thirty_seco
 | `MAX_LIVE_SNIPPETS` | `6` | Số URL fetch live verify. |
 | `MAX_REPAIR_RETRIES` | `1` | Sửa JSON lần 2 nếu validate fail. |
 
-**Tiết kiệm:** chỉ Gemini + crawl xử lý hàng loạt; GPT chỉ nhận evidence đã lọc + snippet; cache nội dung cắt tại `.cache/article_cache.json`; repair chỉ gửi JSON lỗi + message, không gửi lại toàn bộ evidence.
+**Tiết kiệm:** cache nội dung cắt tại `.cache/article_cache.json`; bước sửa JSON chỉ gửi bản lỗi + message lỗi.
 
 ## Chạy local
 
@@ -39,21 +41,21 @@ cd path\to\leonquant-repo
 python finalize_summary_gpt.py --update-content --skip-web-verify
 # Hoặc chỉ build web từ final_summary hiện có:
 python build_website_content.py --skip-images
+python validate_content.py
 ```
 
-**Không có Python:** áp seed + đồng bộ `content.json` bằng Node (không gọi GPT):
+**GitHub Pages chỉ thấy thay đổi sau khi bạn `git push`.** Nếu `python`/`py` trên Windows trỏ sai (ví dụ `D:\python.exe` không tồn tại), đồng bộ `final_summary.json` + `content.json` từ seed bằng Node:
 
 ```powershell
-node scripts/regen_macro_artifacts.mjs
+node scripts/sync_public_brief.mjs
 ```
-
-Chỉnh nội dung mẫu: `scripts/macro_intelligence_seed.json` rồi chạy lại lệnh trên.
 
 Preview UI không gọi API (Python):
 
 ```powershell
 python scripts\inject_preview_brief.py
 python build_website_content.py --skip-images
+python validate_content.py
 ```
 
 ## GitHub Actions

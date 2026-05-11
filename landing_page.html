@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEON Quant Labs — Daily Macro Intelligence</title>
-  <meta name="description" content="AI-powered macro research desk for Vietnamese investors — market regime, transmission chains, scenarios, Vietnam lens.">
+  <title>LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường</title>
+  <meta name="description" content="Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam — brief kết nối diễn biến toàn cầu với hành động danh mục.">
   <style>
     :root {
       --bg0: #05080f;
       --bg1: #0c1220;
       --bg2: #111a2e;
       --glass: rgba(255, 255, 255, .055);
-      --glass2: rgba(255, 255, 255, .09);
       --border: rgba(255, 255, 255, .12);
       --text: #e8edf5;
       --muted: #94a3b8;
@@ -19,9 +18,6 @@
       --cyan: #22d3ee;
       --cyan-dim: #0891b2;
       --gold: #fbbf24;
-      --green: #4ade80;
-      --red: #fb7185;
-      --amber: #fcd34d;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -29,20 +25,19 @@
       margin: 0;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.55;
       background:
-        radial-gradient(ellipse 120% 80% at 10% -10%, rgba(34, 211, 238, .12), transparent 50%),
-        radial-gradient(ellipse 90% 60% at 90% 10%, rgba(251, 191, 36, .07), transparent 45%),
+        radial-gradient(ellipse 120% 80% at 10% -10%, rgba(34, 211, 238, .1), transparent 50%),
+        radial-gradient(ellipse 90% 60% at 90% 10%, rgba(251, 191, 36, .06), transparent 45%),
         linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 40%, var(--bg2) 100%);
       min-height: 100vh;
     }
     a { color: var(--cyan); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .container { width: min(1180px, 92%); margin: 0 auto; }
+    .container { width: min(1020px, 92%); margin: 0 auto; }
 
-    /* Nav / Hero */
     .hero {
-      padding: 20px 0 64px;
+      padding: 28px 0 48px;
       border-bottom: 1px solid var(--border);
     }
     .nav {
@@ -58,154 +53,53 @@
       gap: 10px;
       font-weight: 800;
       letter-spacing: -.03em;
-      font-size: 1.05rem;
-      color: var(--text);
+      font-size: 1.02rem;
     }
     .logo-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
       background: linear-gradient(135deg, var(--cyan), var(--gold));
       display: grid;
       place-items: center;
-      font-size: .75rem;
+      font-size: .72rem;
       font-weight: 900;
       color: #0a0f18;
     }
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      font-size: .88rem;
-      font-weight: 600;
-    }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-    }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .84rem; font-weight: 600; }
+    .nav-links a { color: var(--muted); }
     .nav-links a:hover { color: var(--text); }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .85fr);
-      gap: 36px;
-      align-items: start;
-      margin-top: 40px;
-    }
-    .tag {
-      display: inline-block;
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      background: var(--glass2);
-      border: 1px solid var(--border);
-      color: var(--cyan);
-    }
+
     h1 {
-      margin: 16px 0 14px;
-      font-size: clamp(2rem, 5vw, 3.25rem);
-      line-height: 1.08;
+      margin: 20px 0 12px;
+      font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+      line-height: 1.1;
       letter-spacing: -.04em;
     }
     .hero-sub {
-      font-size: 1.2rem;
+      font-size: 1.08rem;
       color: var(--muted);
       margin: 0 0 12px;
-      font-weight: 600;
-      letter-spacing: -.02em;
+      font-weight: 650;
     }
-    .hero-desc {
-      margin: 0;
-      max-width: 640px;
-      color: var(--faint);
-      font-size: 1.02rem;
-    }
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 10px 20px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: .92rem;
-      border: 1px solid transparent;
-      cursor: pointer;
-      text-decoration: none !important;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--cyan), var(--cyan-dim));
-      color: #041016;
-      box-shadow: 0 12px 32px rgba(34, 211, 238, .22);
-    }
-    .btn-ghost {
-      background: var(--glass);
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    .glass-card {
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
-      backdrop-filter: blur(14px);
-    }
-    .hero-side-title {
-      margin: 0 0 8px;
-      font-size: 1.08rem;
-      font-weight: 800;
-    }
-    .hero-side-p {
-      margin: 0;
-      font-size: .92rem;
-      color: var(--muted);
-    }
-    .snapshot-grid {
+    .hero-desc { margin: 0 0 16px; max-width: 58ch; color: var(--faint); }
+    .hero-qs {
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .snap-cell {
-      background: rgba(0, 0, 0, .2);
-      border-radius: 12px;
-      padding: 12px;
-      border: 1px solid var(--border);
-    }
-    .snap-cell span {
-      display: block;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--faint);
-    }
-    .snap-cell strong {
-      display: block;
-      margin-top: 6px;
+      gap: 8px;
+      color: var(--muted);
       font-size: .95rem;
-      color: var(--text);
     }
+    .hero-qs li::before { content: "— "; color: var(--gold); }
 
-    /* Sections */
-    section { padding: 56px 0; }
-    section.alt {
-      background: rgba(0, 0, 0, .18);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
+    section { padding: 44px 0; }
+    section.alt { background: rgba(0,0,0,.16); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
     .eyebrow {
-      margin: 0 0 8px;
-      font-size: .72rem;
+      margin: 0 0 6px;
+      font-size: .68rem;
       font-weight: 800;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -213,250 +107,110 @@
     }
     .section-head h2 {
       margin: 0;
-      font-size: clamp(1.45rem, 3vw, 1.85rem);
+      font-size: clamp(1.2rem, 2.8vw, 1.55rem);
       letter-spacing: -.03em;
     }
-    .section-head p {
-      margin: 10px 0 0;
-      max-width: 720px;
-      color: var(--muted);
-      font-size: .98rem;
-    }
-    .section-head { margin-bottom: 24px; }
+    .section-head p { margin: 8px 0 0; max-width: 68ch; color: var(--muted); font-size: .94rem; }
+    .section-head { margin-bottom: 18px; }
 
-    .card-main {
-      border-radius: 22px;
-      padding: 28px;
-      background: linear-gradient(145deg, rgba(34, 211, 238, .08), rgba(251, 191, 36, .05));
-      border: 1px solid var(--border);
-    }
-    .card-main p {
-      margin: 0;
-      font-size: 1.08rem;
-      line-height: 1.7;
-      color: #e2e8f0;
-    }
-
-    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .pill {
-      font-size: .78rem;
-      font-weight: 700;
-      padding: 5px 11px;
-      border-radius: 999px;
-      background: var(--glass2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .box-muted {
-      border-radius: 16px;
-      padding: 18px 20px;
-      background: var(--glass);
-      border: 1px solid var(--border);
-      margin-top: 16px;
-    }
-    .box-muted .lbl {
-      margin: 0 0 8px;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-    .box-muted p { margin: 0; color: var(--muted); line-height: 1.65; }
-
-    .drivers-grid {
-      display: grid;
-      gap: 18px;
-    }
-    @media (min-width: 900px) {
-      .drivers-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    .driver-card {
+    .thesis-block {
       border-radius: 18px;
-      padding: 20px;
+      padding: 22px 24px;
+      background: linear-gradient(145deg, rgba(34, 211, 238, .07), rgba(251, 191, 36, .06));
+      border: 1px solid var(--border);
+    }
+    .thesis-block p { margin: 0 0 12px; color: #e2e8f0; }
+    .thesis-block p:last-child { margin-bottom: 0; }
+    .lbl { font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+
+    .cards {
+      display: grid;
+      gap: 14px;
+    }
+    @media (min-width: 860px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    .card {
+      border-radius: 14px;
+      padding: 18px;
       background: var(--glass);
       border: 1px solid var(--border);
     }
-    .driver-card h3 {
-      margin: 0 0 12px;
-      font-size: 1.05rem;
-      letter-spacing: -.02em;
-    }
-    .driver-card .k {
-      font-size: .78rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--faint);
-      margin-top: 12px;
-      margin-bottom: 4px;
-    }
-    .driver-card .v {
-      margin: 0;
-      font-size: .93rem;
-      color: var(--muted);
-    }
-    .chain {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .chain span {
-      font-size: .82rem;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(34, 211, 238, .12);
-      border: 1px solid rgba(34, 211, 238, .25);
-      color: #a5f3fc;
-    }
-    .chain i {
-      font-style: normal;
-      color: var(--faint);
-      font-size: .8rem;
-    }
+    .card h3 { margin: 0 0 10px; font-size: 1rem; }
+    .card .sub { font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); margin-top: 10px; }
+    .card .body { margin: 0; font-size: .9rem; color: var(--muted); }
 
-    .badge-d {
-      display: inline-block;
-      font-size: .72rem;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-    }
-    .d-bullish { background: rgba(74, 222, 128, .18); color: var(--green); }
-    .d-bearish { background: rgba(251, 113, 133, .18); color: var(--red); }
-    .d-neutral { background: rgba(148, 163, 184, .2); color: #cbd5e1; }
-    .d-mixed { background: rgba(252, 211, 77, .16); color: var(--amber); }
+    .chain-list { margin: 12px 0 0; padding-left: 1.1rem; color: var(--muted); font-size: .9rem; }
 
-    .heatmap-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
-    table.heat {
+    .data-table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); margin-top: 12px; }
+    table.data {
       width: 100%;
       border-collapse: collapse;
       font-size: .86rem;
     }
-    table.heat th, table.heat td {
-      padding: 12px 14px;
+    table.data th, table.data td {
+      padding: 11px 12px;
       text-align: left;
       border-bottom: 1px solid var(--border);
+      vertical-align: top;
     }
-    table.heat th {
-      background: rgba(0, 0, 0, .35);
+    table.data th {
+      background: rgba(0,0,0,.32);
       font-weight: 800;
-      font-size: .74rem;
+      font-size: .7rem;
       text-transform: uppercase;
-      letter-spacing: .05em;
+      letter-spacing: .06em;
       color: var(--faint);
+      white-space: nowrap;
     }
-    table.heat td { color: var(--muted); }
-    table.heat tr:last-child td { border-bottom: none; }
+    table.data tr:last-child td { border-bottom: none; }
+    table.data td { color: var(--muted); }
 
-    .vil-grid {
+    .scenario-grid {
       display: grid;
       gap: 14px;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
-    .vil-card {
+    @media (min-width: 860px) {
+      .scenario-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .sc {
       border-radius: 14px;
-      padding: 16px;
+      padding: 18px;
       background: var(--glass);
       border: 1px solid var(--border);
+      border-top: 3px solid var(--cyan);
     }
-    .vil-card .ch {
-      font-weight: 800;
-      font-size: .88rem;
-      color: var(--gold);
-      margin: 0 0 8px;
-    }
-    .vil-card p { margin: 0; font-size: .9rem; color: var(--muted); }
+    .sc.bull { border-top-color: #4ade80; }
+    .sc.bear { border-top-color: #fb7185; }
+    .sc h3 { margin: 0 0 8px; font-size: .98rem; }
+    .sc p { margin: 0; font-size: .88rem; color: var(--muted); }
 
-    .scenario-row {
-      display: grid;
-      gap: 16px;
-    }
-    @media (min-width: 900px) {
-      .scenario-row { grid-template-columns: repeat(3, 1fr); }
-    }
-    .sc-card {
+    .takeaway {
       border-radius: 16px;
       padding: 20px;
-      background: var(--glass);
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
+      background: rgba(251, 191, 36, .07);
+      border: 1px solid rgba(251, 191, 36, .25);
     }
-    .sc-card::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto 0;
-      height: 3px;
-      background: var(--cyan);
-      opacity: .7;
-    }
-    .sc-card.bull::before { background: var(--green); }
-    .sc-card.bear::before { background: var(--red); }
-    .prob {
-      display: inline-block;
-      font-size: .75rem;
-      font-weight: 900;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      margin-bottom: 10px;
-    }
-    .sc-card h3 { margin: 0 0 10px; font-size: 1rem; }
-    .sc-card p { margin: 0; font-size: .9rem; color: var(--muted); }
-    .sc-card ul { margin: 10px 0 0; padding-left: 1.1rem; color: var(--faint); font-size: .88rem; }
+    .takeaway p { margin: 0; color: #e2e8f0; font-size: .98rem; }
 
-    .var-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    }
-    .var-cell {
-      border-radius: 12px;
-      padding: 14px;
-      background: rgba(0, 0, 0, .22);
-      border: 1px solid var(--border);
-    }
-    .var-cell strong { display: block; margin-bottom: 6px; font-size: .9rem; }
-    .var-cell span { font-size: .86rem; color: var(--muted); }
+    .secondary-head h2 { font-size: 1.1rem; color: var(--faint); }
 
-    .sq-box {
-      border-radius: 16px;
-      padding: 20px;
-      background: var(--glass);
-      border: 1px solid var(--border);
-    }
-    .sq-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      margin-bottom: 14px;
-    }
-    .sq-item span { font-size: .72rem; color: var(--faint); text-transform: uppercase; font-weight: 700; }
-    .sq-item strong { display: block; font-size: 1.25rem; color: var(--text); }
-
-    /* Source library */
     .source-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(292px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+      gap: 16px;
     }
     .source-card {
-      border-radius: 18px;
+      border-radius: 16px;
       overflow: hidden;
       background: var(--glass);
       border: 1px solid var(--border);
+      opacity: .92;
     }
     .source-card a { color: inherit; text-decoration: none !important; display: block; }
-    .source-thumb { position: relative; min-height: 140px; }
     .source-image {
       width: 100%;
-      height: 140px;
+      height: 120px;
       object-fit: cover;
       display: block;
       background: var(--bg2);
@@ -464,115 +218,32 @@
     .fallback-image {
       display: grid;
       place-items: center;
-      height: 140px;
+      height: 120px;
       background: linear-gradient(135deg, #1e293b, #0f172a);
       color: var(--cyan);
       font-weight: 800;
-      font-size: .75rem;
+      font-size: .7rem;
       letter-spacing: .12em;
     }
-    .source-body { padding: 16px; }
-    .source-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 10px;
-      font-size: .78rem;
-      color: var(--faint);
-      margin-bottom: 8px;
-    }
-    .cat-pill {
-      font-size: .65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(34, 211, 238, .12);
-      color: var(--cyan);
-    }
-    .source-body h3 { margin: 0 0 8px; font-size: 1rem; letter-spacing: -.02em; }
-    .source-body p { margin: 0; font-size: .88rem; color: var(--muted); line-height: 1.45; }
-    .read-pill {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: .82rem;
-      font-weight: 800;
-      color: var(--cyan);
-    }
+    .source-body { padding: 14px; }
+    .source-meta { font-size: .75rem; color: var(--faint); margin-bottom: 6px; }
+    .source-body h3 { margin: 0 0 6px; font-size: .95rem; }
+    .source-body p { margin: 0; font-size: .85rem; color: var(--muted); line-height: 1.45; }
+    .read-pill { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--cyan); }
 
-    .footer {
-      padding: 28px 0;
-      border-top: 1px solid var(--border);
-      color: var(--faint);
-      font-size: .88rem;
-    }
-    .footer strong { color: var(--muted); }
-
-    .sync-note { margin: 0 0 20px; color: var(--muted); font-size: .92rem; }
-    .summary-pre {
-      margin: 0;
-      white-space: pre-wrap;
-      line-height: 1.55;
-    }
-    .market-data-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    }
-    .mk-cell {
-      border-radius: 14px;
-      padding: 14px 16px;
-      background: var(--glass);
-      border: 1px solid var(--border);
-    }
-    .mk-name {
-      font-size: .72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--faint);
-      display: block;
-      margin-bottom: 6px;
-    }
-    .mk-val { font-size: 1rem; color: var(--text); font-weight: 700; }
-    .mk-ch.up { color: var(--green); font-weight: 800; }
-    .mk-ch.down { color: var(--red); font-weight: 800; }
-    .mk-miss { font-size: .88rem; color: var(--muted); font-weight: 600; }
-    .mk-note { font-size: .78rem; color: var(--faint); display: block; margin-top: 6px; }
-    .mk-banner { margin: 14px 0 0; font-size: .92rem; color: var(--muted); }
-
-    .thesis-hero {
-      margin-top: 20px;
-      padding: 32px 28px;
-      border-radius: 24px;
-      background: linear-gradient(145deg, rgba(251, 191, 36, .14), rgba(34, 211, 238, .08));
-      border: 1px solid rgba(251, 191, 36, .38);
-      box-shadow: 0 24px 56px rgba(0, 0, 0, .28);
-    }
-    .thesis-hero .lbl { color: var(--gold); }
-    .thesis-hero .thesis-body {
-      margin: 14px 0 0;
-      font-size: clamp(1.12rem, 2.5vw, 1.48rem);
-      line-height: 1.72;
-      color: #f1f5f9;
-      font-weight: 650;
-    }
+    .sync-note { margin: 0 0 16px; color: var(--muted); font-size: .9rem; }
     .error-card {
-      border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
+      border-radius: 14px;
       background: rgba(251, 113, 133, .08);
-      border: 1px solid rgba(251, 113, 133, .3);
+      border: 1px solid rgba(251, 113, 133, .28);
       color: var(--muted);
     }
-
-    /* Legacy brief (old schema) */
-    .legacy-story { padding: 16px 0; border-bottom: 1px solid var(--border); }
-    .legacy-story:last-child { border-bottom: none; }
-    .legacy-h { margin: 0 0 10px; font-size: 1rem; }
-
-    @media (max-width: 860px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .snapshot-grid { grid-template-columns: 1fr; }
+    .footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      color: var(--faint);
+      font-size: .85rem;
     }
   </style>
 </head>
@@ -582,63 +253,39 @@
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links">
-          <a href="#market-data">Market Data</a>
-          <a href="#research">Research</a>
-          <a href="#thesis">Thesis</a>
-          <a href="#drivers">Drivers</a>
-          <a href="#heatmap">Heatmap</a>
-          <a href="#vietnam">Vietnam</a>
-          <a href="#scenarios">Scenarios</a>
-          <a href="#sources">Source Library</a>
+          <a href="#brief">Brief</a>
+          <a href="#macro">Vĩ mô</a>
+          <a href="#actions">Hành động</a>
+          <a href="#reference">Tin nền</a>
         </div>
       </nav>
-      <div class="hero-grid">
-        <div>
-          <p class="tag">Research desk</p>
-          <h1>LEON Quant Labs</h1>
-          <p class="hero-sub">Daily Macro Intelligence for Serious Investors</p>
-          <p class="hero-desc">
-            AI-powered macro research desk giúp nhà đầu tư Việt Nam hiểu nhanh market regime,
-            chuỗi tác động vĩ mô toàn cầu và rủi ro truyền vào tài sản Việt Nam mỗi ngày.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#research">Đọc bản tin hôm nay</a>
-            <a class="btn btn-ghost" href="#sources">Xem nguồn dữ liệu</a>
-          </div>
-        </div>
-        <div class="glass-card">
-          <p class="tag">Research Snapshot</p>
-          <h2 class="hero-side-title">Trạng thái pipeline</h2>
-          <p class="hero-side-p">Regime, risk tone, nguồn đã quét và thời điểm cập nhật.</p>
-          <div class="snapshot-grid">
-            <div class="snap-cell"><span>Market Regime</span><strong id="snapRegime">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Primary Driver</span><strong id="snapPrimary">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Risk Tone</span><strong id="snapRisk">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Confidence</span><strong id="snapConf">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Sources Scanned</span><strong id="snapScan">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Articles Selected</span><strong id="snapPick">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Verified Links</span><strong id="snapVer">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Last Updated</span><strong id="snapUp">Đang tải…</strong></div>
-          </div>
-        </div>
-      </div>
+      <h1>LEON Quant Labs</h1>
+      <p class="hero-sub" id="heroSubtitle">Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam</p>
+      <p class="hero-desc" id="heroDescription">
+        LEON Quant Labs tập trung vào việc chuyển biến động vĩ mô toàn cầu thành góc nhìn đầu tư có thể hành động tại thị trường Việt Nam.
+      </p>
+      <ul class="hero-qs">
+        <li>Thế giới đang tác động gì?</li>
+        <li>Việt Nam bị ảnh hưởng thế nào?</li>
+        <li>Nhà đầu tư nên hành động ra sao?</li>
+      </ul>
     </div>
   </header>
 
   <main>
-    <section id="research" class="alt">
+    <section id="brief" class="alt">
       <div class="container">
         <p id="syncNote" class="sync-note"></p>
         <div id="briefRoot"></div>
       </div>
     </section>
 
-    <section id="sources">
-      <div class="container" style="max-width: min(1320px, 95%);">
-        <div class="section-head" id="source-library">
-          <p class="eyebrow">Source Library</p>
-          <h2 id="sourceGridTitle">Tin đã crawl</h2>
-          <p>Toàn bộ bài trong pipeline — metadata từ trang nguồn khi fetch được. Mục research ở trên luôn ưu tiên.</p>
+    <section id="reference">
+      <div class="container" style="max-width: min(1180px, 95%);">
+        <div class="section-head secondary-head">
+          <p class="eyebrow">Tham khảo</p>
+          <h2 id="sourceGridTitle">Tin nền tham khảo</h2>
+          <p>Danh mục bài được hệ thống thu thập trong ngày — dùng để đối chiếu ngữ cảnh, không phải trọng tâm brief.</p>
         </div>
         <div id="sourceGrid" class="source-grid"></div>
       </div>
@@ -647,32 +294,12 @@
 
   <footer class="footer">
     <div class="container">
-      <p id="footerDisc">© 2026 LEON Quant Labs. Nội dung chỉ phục vụ nghiên cứu và giáo dục; không phải khuyến nghị đầu tư.</p>
+      <p>© 2026 LEON Quant Labs</p>
     </div>
   </footer>
 
   <script>
-    const ND =
-      "Dữ liệu phần này chưa đủ để hiển thị; không dùng làm luận điểm chính.";
-    const MS_FALLBACK =
-      "Dữ liệu trực tiếp chưa khả dụng; phân tích dựa trên nguồn tin đã crawl.";
-    const VN_LENS_ORDER = [
-      "USD/VND",
-      "Khối ngoại",
-      "Lãi suất",
-      "VN-Index",
-      "Ngân hàng",
-      "Bất động sản",
-      "Chứng khoán",
-      "Xuất khẩu",
-      "Độ rộng thị trường",
-      "Thanh khoản",
-    ];
-
-    function show(v, fallback) {
-      const t = String(v ?? "").trim();
-      return t || fallback || ND;
-    }
+    const ND = "—";
 
     function escapeHtml(value) {
       return String(value || "")
@@ -684,370 +311,130 @@
     }
 
     function formatDateVi(value) {
-      if (!value) return "Chưa có generatedAt trong content.json";
+      if (!value) return "";
       const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return String(value) || "Không đọc được ngày giờ";
+      if (Number.isNaN(date.getTime())) return String(value);
       return date.toLocaleString("vi-VN", {
         day: "2-digit", month: "2-digit", year: "numeric",
-        hour: "2-digit", minute: "2-digit"
+        hour: "2-digit", minute: "2-digit",
       });
-    }
-
-    function formatDateOnly(value) {
-      if (!value) return ND;
-      const raw = String(value).trim();
-      if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
-        const [y, m, d] = raw.split("-");
-        return `${d}/${m}/${y}`;
-      }
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return raw || ND;
-      return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
     }
 
     function getHostName(u) {
       try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
     }
 
-    function dirClass(d) {
-      const x = String(d || "").toLowerCase();
-      if (x === "bullish") return "d-bullish";
-      if (x === "bearish") return "d-bearish";
-      if (x === "mixed") return "d-mixed";
-      return "d-neutral";
+    function renderTable(headers, rows) {
+      let h = `<div class="data-table-wrap"><table class="data"><thead><tr>`;
+      for (const x of headers) h += `<th>${escapeHtml(x)}</th>`;
+      h += `</tr></thead><tbody>`;
+      for (const row of rows) {
+        h += `<tr>`;
+        for (const cell of row) h += `<td>${cell}</td>`;
+        h += `</tr>`;
+      }
+      h += `</tbody></table></div>`;
+      return h;
     }
 
-    function normKey(s) {
-      return String(s || "")
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, " ");
-    }
+    function buildBriefHtml(data) {
+      const pub = data.publicationIntro || {};
+      const mt = data.mainThesis || {};
+      const heroSub = document.getElementById("heroSubtitle");
+      const heroDesc = document.getElementById("heroDescription");
+      if (heroSub && pub.headline) heroSub.textContent = pub.headline;
+      if (heroDesc && pub.description) heroDesc.textContent = pub.description;
 
-    function mergeVietnamLensChannels(vil) {
-      const raw = vil && Array.isArray(vil.channels) ? vil.channels : [];
-      const map = new Map();
-      for (const c of raw) {
-        if (!c || typeof c !== "object") continue;
-        const label = String(c.channel || "").trim();
-        if (!label) continue;
-        const txt = String(c.analysis || "").trim();
-        map.set(normKey(label), txt);
-        map.set(label, txt);
-      }
-      return VN_LENS_ORDER.map((label) => {
-        let txt = map.get(label) || map.get(normKey(label)) || "";
-        if (!txt) {
-          for (const [k, v] of map.entries()) {
-            if (!v) continue;
-            const nk = normKey(label);
-            if (nk.includes(k) || k.includes(nk)) {
-              txt = v;
-              break;
-            }
-          }
-        }
-        return { channel: label, analysis: txt || ND };
-      });
-    }
+      const drivers = Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : [];
+      const qa = Array.isArray(data.quickActions) ? data.quickActions : [];
+      const ag = Array.isArray(data.allocationGuide) ? data.allocationGuide : [];
+      const sp = Array.isArray(data.sectorPriority) ? data.sectorPriority : [];
+      const ir = Array.isArray(data.increaseRiskSignals) ? data.increaseRiskSignals : [];
+      const rr = Array.isArray(data.reduceRiskSignals) ? data.reduceRiskSignals : [];
+      const vt = data.vietnamTransmission || {};
+      const chains = Array.isArray(vt.chains) ? vt.chains : [];
+      const scen = data.scenarioPlan || {};
 
-    function buildMarketSnapshotHtml(ms) {
-      const obj = ms && typeof ms === "object" ? ms : {};
-      const assets = Array.isArray(obj.assets) ? obj.assets : [];
-      const cov = String(obj.coverage_note || "").trim();
-      let html = `<div class="section-head" id="market-data"><p class="eyebrow">Live inputs</p><h2>Market Data Snapshot</h2>`;
-      html += `<p>${escapeHtml(cov || MS_FALLBACK)}</p></div>`;
-      if (!assets.length) {
-        html += `<div class="box-muted"><p>${escapeHtml(MS_FALLBACK)}</p></div>`;
-        return html;
-      }
-      let anyOk = false;
-      html += `<div class="market-data-grid">`;
-      for (const a of assets) {
-        if (!a || typeof a !== "object") continue;
-        const st = String(a.status || "").trim();
-        if (st === "ok" && a.price != null) anyOk = true;
-        const name = escapeHtml(a.name || a.symbol || "Asset");
-        let inner = "";
-        if (st === "ok" && a.price != null) {
-          const cur =
-            a.currency === "pct"
-              ? "%"
-              : a.currency
-                ? " " + escapeHtml(a.currency)
-                : "";
-          const priceStr =
-            typeof a.price === "number"
-              ? a.price.toLocaleString("en-US", { maximumFractionDigits: 4 })
-              : escapeHtml(String(a.price));
-          let chHtml = "";
-          if (a.change_pct != null && Number.isFinite(Number(a.change_pct))) {
-            const ch = Number(a.change_pct);
-            const sign = ch > 0 ? "+" : "";
-            const cls = ch >= 0 ? "up" : "down";
-            chHtml = ` <span class="mk-ch ${cls}">(${sign}${ch.toFixed(2)}%)</span>`;
-          }
-          inner = `${priceStr}${cur}${chHtml}`;
-          const src = escapeHtml(String(a.source || "yahoo_finance_chart"));
-          inner += `<span class="mk-note">Nguồn giá: ${src}</span>`;
-        } else {
-          inner = `<span class="mk-miss">${escapeHtml(MS_FALLBACK)}</span>`;
-        }
-        if (a.note && st !== "ok") {
-          inner += `<span class="mk-note">${escapeHtml(a.note)}</span>`;
-        }
-        html += `<div class="mk-cell"><span class="mk-name">${name}</span><strong class="mk-val">${inner}</strong></div>`;
-      }
+      let html = "";
+
+      html += `<div class="section-head" id="macro"><p class="eyebrow">Luận điểm</p><h2>Luận điểm chính hôm nay</h2></div>`;
+      html += `<div class="thesis-block">`;
+      html += `<p class="lbl">Trạng thái / nhịp thị trường</p><p>${escapeHtml(mt.regime || ND)}</p>`;
+      html += `<p class="lbl">Luận điểm</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
+      html += `<p class="lbl">Kết luận hành động</p><p>${escapeHtml(mt.actionConclusion || ND)}</p>`;
       html += `</div>`;
-      if (!anyOk) {
-        html += `<p class="mk-banner">${escapeHtml(MS_FALLBACK)}</p>`;
-      }
-      return html;
-    }
 
-    function setSnapCell(id, text) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = text;
-    }
-
-    function updateSnapshot(data) {
-      const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : {};
-      const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
-      const st = data.stats && typeof data.stats === "object" ? data.stats : {};
-      const nScan = sq.sources_scanned != null ? sq.sources_scanned : st.articlesInEnriched ?? st.articlesCrawled;
-      const nPick = sq.articles_selected != null ? sq.articles_selected : Math.min(18, nScan || 0);
-      const nVer = sq.verified_links != null ? sq.verified_links : 0;
-      setSnapCell("snapRegime", show(mr.regime, ND));
-      setSnapCell("snapPrimary", show(mr.primary_driver, show(data.marketImpact, ND)));
-      setSnapCell("snapRisk", show(mr.risk_tone, show(mr.regime, ND)));
-      setSnapCell("snapConf", show(mr.confidence, ND));
-      setSnapCell("snapScan", nScan != null && nScan !== "" ? String(nScan) : "0");
-      setSnapCell("snapPick", nPick != null && nPick !== "" ? String(nPick) : "0");
-      setSnapCell("snapVer", String(nVer));
-      setSnapCell("snapUp", formatDateVi(data.generatedAt));
-    }
-
-    function renderTransmission(chain) {
-      const arr = Array.isArray(chain) ? chain : [];
-      if (!arr.length) return `<p class="v">${escapeHtml(ND)}</p>`;
-      const parts = arr.map((s) => `<span>${escapeHtml(s)}</span>`);
-      const arrows = [];
-      for (let i = 0; i < parts.length; i++) {
-        arrows.push(parts[i]);
-        if (i < parts.length - 1) arrows.push('<i>→</i>');
-      }
-      return `<div class="chain">${arrows.join("")}</div>`;
-    }
-
-    function buildMacroDeskHtml(data) {
-      const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : {};
-      const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
-      const st = data.stats && typeof data.stats === "object" ? data.stats : {};
-
-      const thesisRaw = String(data.dailyThesis || "").trim();
-      let thesis = thesisRaw;
-      if (!thesis) thesis = String(data.thirtySecondSummary || "").trim();
-      if (!thesis) thesis = ND;
-
-      let t30 = String(data.thirtySecondSummary || "").trim();
-      if (!t30) t30 = thesisRaw ? (thesisRaw.length > 420 ? thesisRaw.slice(0, 420) + "…" : thesisRaw) : ND;
-
-      let wc = String(data.whatChanged || "").trim();
-      if (!wc) wc = ND;
-
-      const drivers = Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers.filter((d) => d && typeof d === "object") : [];
-
-      const heat = Array.isArray(data.assetImpactHeatmap) ? data.assetImpactHeatmap.filter((r) => r && typeof r === "object") : [];
-
-      const vil = data.vietnamInvestorLens && typeof data.vietnamInvestorLens === "object" ? data.vietnamInvestorLens : {};
-      const sm = data.scenarioMap && typeof data.scenarioMap === "object" ? data.scenarioMap : {};
-      const kvw = Array.isArray(data.keyVariablesToWatch) ? data.keyVariablesToWatch.filter((v) => v && typeof v === "object") : [];
-
-      let ft = String(data.finalTakeaway || "").trim();
-      if (!ft) ft = ND;
-
-      const disc = String(data.disclaimer || "").trim() ||
-        "Nội dung chỉ phục vụ nghiên cứu và giáo dục; không phải khuyến nghị đầu tư hay tư vấn tài chính.";
-
-      const bd = data.date
-        ? formatDateOnly(data.date)
-        : data.briefDate
-          ? formatDateOnly(data.briefDate)
-          : formatDateOnly(data.generatedAt);
-      const titleLine = escapeHtml(data.title || data.chatSectionTitle || "LEON Quant Labs — Daily Macro Intelligence");
-
-      let html = `<div class="section-head" id="snapshot"><p class="eyebrow">Research Snapshot</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Thesis → regime → what changed → drivers → transmission → Vietnam lens → scenarios.</p></div>`;
-
-      html += buildMarketSnapshotHtml(data.marketSnapshot);
-
-      html += `<div class="thesis-hero" id="thesis"><p class="lbl">Daily Thesis</p><p class="thesis-body">${escapeHtml(thesis)}</p></div>`;
-
-      html += `<article class="card-main" id="market-regime-card"><p class="lbl" style="margin:0 0 8px;font-size:.72rem;">Market Regime</p>`;
-      html += `<p><strong>Regime.</strong> ${escapeHtml(show(mr.regime, ND))}</p>`;
-      html += `<p style="margin-top:12px"><strong>Primary driver:</strong> ${escapeHtml(show(mr.primary_driver, ND))}</p>`;
-      html += `<p style="margin-top:8px"><strong>Secondary driver:</strong> ${escapeHtml(show(mr.secondary_driver, ND))}</p>`;
-      html += `<p style="margin-top:8px"><strong>Risk tone:</strong> ${escapeHtml(show(mr.risk_tone, ND))}</p>`;
-      html += `<p style="margin-top:8px"><strong>Confidence:</strong> ${escapeHtml(show(mr.confidence, ND))}</p>`;
-      html += `<p style="margin-top:8px"><strong>Invalidation:</strong> ${escapeHtml(show(mr.invalidation, ND))}</p>`;
-      html += `</article>`;
-
-      html += `<div class="box-muted" id="t30"><p class="lbl">30-Second Summary</p><p class="summary-pre">${escapeHtml(t30)}</p></div>`;
-      html += `<div class="box-muted" id="what-changed"><p class="lbl">What Changed</p><p>${escapeHtml(wc)}</p></div>`;
-
-      html += `<div class="section-head" id="drivers" style="margin-top:40px"><p class="eyebrow">Macro drivers</p><h2>Top Macro Drivers</h2><p>Fact → why it matters → transmission → confidence.</p></div>`;
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
       if (!drivers.length) {
-        html += `<div class="box-muted"><p>${escapeHtml(ND)}</p></div>`;
+        html += `<p class="error-card">Chưa có nội dung vĩ mô.</p>`;
       } else {
-        html += `<div class="drivers-grid">`;
-        for (const d of drivers) {
-          const conf = d.confidence && typeof d.confidence === "object" ? d.confidence : {};
-          const assets = Array.isArray(d.assets_affected) ? d.assets_affected : [];
-          const chainHtml = renderTransmission(d.transmission_chain);
-          html += `<article class="driver-card">`;
-          html += `<h3>${escapeHtml(show(d.headline, ND))}</h3>`;
-          html += `<div class="k">Fact</div><p class="v">${escapeHtml(show(d.fact, ND))}</p>`;
-          html += `<div class="k">Why it matters</div><p class="v">${escapeHtml(show(d.why_it_matters, ND))}</p>`;
-          html += `<div class="k">Transmission</div>${chainHtml}`;
-          if (assets.length) {
-            html += `<div class="pill-row">`;
-            for (const a of assets) html += `<span class="pill">${escapeHtml(a)}</span>`;
-            html += `</div>`;
-          }
-          html += `<div class="k">Time horizon</div><p class="v">${escapeHtml(show(d.time_horizon, ND))}</p>`;
-          html += `<div class="k">Confidence (fact / impact)</div><p class="v">${escapeHtml(show(conf.fact, ND))} / ${escapeHtml(show(conf.impact, ND))}</p>`;
-          html += `<div class="k">What could prove this wrong</div><p class="v">${escapeHtml(show(d.what_could_prove_this_wrong, ND))}</p>`;
-          html += `</article>`;
+        html += `<div class="cards">`;
+        for (let i = 0; i < drivers.length; i++) {
+          const d = drivers[i];
+          html += `<article class="card"><h3>${i + 1}. ${escapeHtml(d.title || ND)}</h3>`;
+          html += `<p class="sub">Phân tích</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
+          html += `<p class="sub">Tác động tới Việt Nam</p><p class="body">${escapeHtml(d.vietnamImpact || ND)}</p></article>`;
         }
         html += `</div>`;
       }
 
-      html += `<div class="section-head" id="heatmap" style="margin-top:40px"><p class="eyebrow">Cross-asset</p><h2>Asset Impact Heatmap</h2></div>`;
-      html += `<div class="heatmap-wrap"><table class="heat"><thead><tr><th>Asset</th><th>Direction</th><th>Strength</th><th>Horizon</th><th>Main reason</th><th>Watch risk</th></tr></thead><tbody>`;
-      if (!heat.length) {
-        html += `<tr><td colspan="6">${escapeHtml(ND)}</td></tr>`;
-      } else {
-        for (const row of heat) {
-          const dc = dirClass(row.direction);
-          html += `<tr><td>${escapeHtml(show(row.asset, ND))}</td><td><span class="badge-d ${dc}">${escapeHtml(show(row.direction, "Neutral"))}</span></td>`;
-          html += `<td>${escapeHtml(show(row.strength, ND))}</td><td>${escapeHtml(show(row.horizon, ND))}</td>`;
-          html += `<td>${escapeHtml(show(row.main_reason, ND))}</td><td>${escapeHtml(show(row.watch_risk, ND))}</td></tr>`;
-        }
-      }
-      html += `</tbody></table></div>`;
-
-      const vsum = String(vil.summary || "").trim() || ND;
-      const vch = mergeVietnamLensChannels(vil);
-      html += `<div class="section-head" id="vietnam" style="margin-top:40px"><p class="eyebrow">Localization</p><h2>Vietnam Investor Lens</h2></div>`;
-      html += `<div class="box-muted"><p class="lbl">Summary</p><p>${escapeHtml(vsum)}</p></div>`;
-      html += `<div class="vil-grid" style="margin-top:16px">`;
-      for (const c of vch) {
-        html += `<div class="vil-card"><p class="ch">${escapeHtml(c.channel)}</p><p>${escapeHtml(c.analysis)}</p></div>`;
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Truyền dẫn</p><h2>Chuỗi tác động đến Việt Nam</h2></div>`;
+      html += `<div class="thesis-block"><p>${escapeHtml(vt.summary || ND)}</p>`;
+      if (chains.length) {
+        html += `<ul class="chain-list">`;
+        for (const c of chains) html += `<li>${escapeHtml(c)}</li>`;
+        html += `</ul>`;
       }
       html += `</div>`;
 
-      const bc = sm.base_case && typeof sm.base_case === "object" ? sm.base_case : {};
-      const bu = sm.bull_case && typeof sm.bull_case === "object" ? sm.bull_case : {};
-      const be = sm.bear_case && typeof sm.bear_case === "object" ? sm.bear_case : {};
-      html += `<div class="section-head" id="scenarios" style="margin-top:40px"><p class="eyebrow">Probabilities</p><h2>Scenario Map</h2></div>`;
-      const probLbl = (p) =>
-        p === null || p === undefined || String(p).trim() === ""
-          ? escapeHtml(ND)
-          : `${escapeHtml(String(p))}%`;
-      html += `<div class="scenario-row">`;
-      html += `<article class="sc-card"><span class="prob">${probLbl(bc.probability)} · Base</span><h3>Base case</h3><p>${escapeHtml(show(bc.description, ND))}</p>`;
-      if (Array.isArray(bc.signals_to_watch) && bc.signals_to_watch.length) {
-        html += `<ul>${bc.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
-      }
-      html += `</article>`;
-      html += `<article class="sc-card bull"><span class="prob">${probLbl(bu.probability)} · Bull</span><h3>Bull case</h3><p>${escapeHtml(show(bu.description, ND))}</p>`;
-      if (Array.isArray(bu.signals_to_watch) && bu.signals_to_watch.length) {
-        html += `<ul>${bu.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
-      }
-      html += `</article>`;
-      html += `<article class="sc-card bear"><span class="prob">${probLbl(be.probability)} · Bear</span><h3>Bear case</h3><p>${escapeHtml(show(be.description, ND))}</p>`;
-      if (Array.isArray(be.signals_to_watch) && be.signals_to_watch.length) {
-        html += `<ul>${be.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
-      }
-      html += `</article></div>`;
+      html += `<div class="section-head" id="actions" style="margin-top:36px"><p class="eyebrow">Thực thi</p><h2>Hành động nhanh hôm nay</h2></div>`;
+      html += renderTable(
+        ["Trạng thái nhà đầu tư", "Hành động phù hợp"],
+        qa.map((r) => [escapeHtml(r.investorState || ND), escapeHtml(r.action || ND)]),
+      );
 
-      html += `<div class="section-head" id="watchlist" style="margin-top:40px"><p class="eyebrow">Watchlist</p><h2>Key Variables to Watch</h2></div>`;
-      if (!kvw.length) {
-        html += `<div class="box-muted"><p>${escapeHtml(ND)}</p></div>`;
-      } else {
-        html += `<div class="var-grid">`;
-        for (const v of kvw) {
-          html += `<div class="var-cell"><strong>${escapeHtml(show(v.variable, ND))}</strong><span>${escapeHtml(show(v.why_it_matters, ND))}</span></div>`;
-        }
-        html += `</div>`;
-      }
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Danh mục</p><h2>Phân bổ vốn tham khảo</h2></div>`;
+      html += renderTable(
+        ["Hồ sơ rủi ro", "Cổ phiếu", "Tiền mặt", "Margin"],
+        ag.map((r) => [
+          escapeHtml(r.profile || ND),
+          escapeHtml(r.stocks || ND),
+          escapeHtml(r.cash || ND),
+          escapeHtml(r.margin || ND),
+        ]),
+      );
 
-      const nScan = sq.sources_scanned != null ? sq.sources_scanned : st.articlesInEnriched ?? st.articlesCrawled ?? ND;
-      const nPick = sq.articles_selected != null ? sq.articles_selected : ND;
-      const nVer = sq.verified_links != null ? sq.verified_links : ND;
-      html += `<div class="section-head" id="source-quality" style="margin-top:40px"><p class="eyebrow">Process</p><h2>Source Quality</h2></div>`;
-      html += `<div class="sq-box"><div class="sq-grid">`;
-      html += `<div class="sq-item"><span>Sources scanned</span><strong>${escapeHtml(String(nScan))}</strong></div>`;
-      html += `<div class="sq-item"><span>Articles selected</span><strong>${escapeHtml(String(nPick))}</strong></div>`;
-      html += `<div class="sq-item"><span>Verified links</span><strong>${escapeHtml(String(nVer))}</strong></div>`;
-      html += `</div>`;
-      html += `<p style="margin:0;font-size:.9rem;color:var(--muted)">${escapeHtml(show(sq.coverage_note, ND))}</p>`;
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Ngành</p><h2>Ưu tiên nhóm ngành</h2></div>`;
+      html += renderTable(
+        ["Nhóm ngành", "Quan điểm", "Hành động"],
+        sp.map((r) => [escapeHtml(r.sector || ND), escapeHtml(r.view || ND), escapeHtml(r.action || ND)]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Tăng tỷ trọng</p><h2>Tín hiệu để tăng tỷ trọng</h2></div>`;
+      html += renderTable(
+        ["Tín hiệu", "Ý nghĩa"],
+        ir.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.meaning || ND)]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Rủi ro</p><h2>Tín hiệu cần giảm rủi ro</h2></div>`;
+      html += renderTable(
+        ["Tín hiệu cảnh báo", "Hành động"],
+        rr.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.action || ND)]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Kịch bản</p><h2>Kế hoạch theo 3 kịch bản</h2></div>`;
+      const b = scen.baseCase || {};
+      const u = scen.bullCase || {};
+      const e = scen.bearCase || {};
+      html += `<div class="scenario-grid">`;
+      html += `<article class="sc"><h3>${escapeHtml(b.title || "Kịch bản cơ sở")}</h3><p>${escapeHtml(b.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(b.action || ND)}</p></article>`;
+      html += `<article class="sc bull"><h3>${escapeHtml(u.title || "Kịch bản tích cực")}</h3><p>${escapeHtml(u.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(u.action || ND)}</p></article>`;
+      html += `<article class="sc bear"><h3>${escapeHtml(e.title || "Kịch bản tiêu cực")}</h3><p>${escapeHtml(e.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(e.action || ND)}</p></article>`;
       html += `</div>`;
 
-      html += `<div class="box-muted" style="margin-top:24px" id="final-takeaway"><p class="lbl">Final Takeaway</p><p>${escapeHtml(ft)}</p></div>`;
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Đóng phiên</p><h2>Kết luận hôm nay</h2></div>`;
+      html += `<div class="takeaway"><p>${escapeHtml(data.finalTakeaway || ND)}</p></div>`;
 
-      html += `<div class="section-head" id="disclaimer-block" style="margin-top:32px"><p class="eyebrow">Compliance</p><h2>Disclaimer</h2></div>`;
-      html += `<div class="box-muted"><p>${escapeHtml(disc)}</p></div>`;
-
-      const fe = document.getElementById("footerDisc");
-      if (fe) fe.innerHTML = `<strong>Disclaimer.</strong> ${escapeHtml(disc)} © 2026 LEON Quant Labs.`;
-
-      return html;
-    }
-
-    function isMacroIntelligenceContent(data) {
-      if (data.schemaVersion === "macro-intelligence-v1") return true;
-      const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : null;
-      if (mr && (String(mr.regime || "").trim() || String(mr.primary_driver || "").trim())) return true;
-      if (data.dailyThesis && String(data.dailyThesis).trim()) return true;
-      if (data.whatChanged && String(data.whatChanged).trim()) return true;
-      const drivers = Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers : [];
-      if (drivers.length > 0) return true;
-      const heat = Array.isArray(data.assetImpactHeatmap) ? data.assetImpactHeatmap : [];
-      if (heat.length > 0) return true;
-      const vil = data.vietnamInvestorLens && typeof data.vietnamInvestorLens === "object" ? data.vietnamInvestorLens : null;
-      if (vil && (String(vil.summary || "").trim() || (Array.isArray(vil.channels) && vil.channels.length > 0))) return true;
-      const sm = data.scenarioMap && typeof data.scenarioMap === "object" ? data.scenarioMap : null;
-      if (sm && sm.base_case && sm.bull_case && sm.bear_case) return true;
-      const kvw = Array.isArray(data.keyVariablesToWatch) ? data.keyVariablesToWatch : [];
-      if (kvw.length > 0) return true;
-      if (data.finalTakeaway && String(data.finalTakeaway).trim()) return true;
-      if (data.sourceQuality && typeof data.sourceQuality === "object" && String(data.sourceQuality.coverage_note || "").trim()) return true;
-      return false;
-    }
-
-    function buildLegacyProBriefHtml(data) {
-      const t30 = data.thirtySecondSummary && String(data.thirtySecondSummary).trim();
-      const stories = Array.isArray(data.briefStories) ? data.briefStories : [];
-      const tbl = Array.isArray(data.assetImpactTable) ? data.assetImpactTable : [];
-      if (!t30 && !stories.length && !tbl.length) return "";
-      let html = `<div class="section-head"><p class="eyebrow">Archive layout</p><h2>Bản tin (schema trước)</h2></div>`;
-      if (t30) html += `<div class="box-muted"><p class="lbl">30-second summary</p><p>${escapeHtml(t30)}</p></div>`;
-      for (let i = 0; i < stories.length; i++) {
-        const s = stories[i];
-        if (!s || typeof s !== "object") continue;
-        html += `<div class="legacy-story"><h3 class="legacy-h">${i + 1}. ${escapeHtml(s.headline || s.title || ND)}</h3>`;
-        if (s.body) html += `<p class="v">${escapeHtml(s.body)}</p>`;
-        if (s.so_what || s.soWhat) html += `<p class="v"><strong>So What:</strong> ${escapeHtml(s.so_what || s.soWhat)}</p>`;
-        html += `</div>`;
-      }
-      if (tbl.length) {
-        html += `<div class="heatmap-wrap" style="margin-top:20px"><table class="heat"><thead><tr><th>Nhóm</th><th>Tác động</th><th>Lý do</th></tr></thead><tbody>`;
-        for (const row of tbl) {
-          if (!row || typeof row !== "object") continue;
-          html += `<tr><td>${escapeHtml(row.group || ND)}</td><td>${escapeHtml(show(row.impact_today || row.impact, ND))}</td><td>${escapeHtml(show(row.main_reason, ND))}</td></tr>`;
-        }
-        html += `</tbody></table></div>`;
-      }
       return html;
     }
 
@@ -1059,7 +446,6 @@
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       const thumb = document.createElement("div");
-      thumb.className = "source-thumb";
       if (item.image_url) {
         const img = document.createElement("img");
         img.className = "source-image";
@@ -1067,31 +453,16 @@
         img.alt = "";
         img.loading = "lazy";
         img.referrerPolicy = "no-referrer";
-        img.onerror = () => { thumb.innerHTML = '<div class="fallback-image">LEON</div>'; };
+        img.onerror = () => { thumb.innerHTML = '<div class="fallback-image">LQ</div>'; };
         thumb.appendChild(img);
       } else {
-        thumb.innerHTML = '<div class="fallback-image">LEON</div>';
+        thumb.innerHTML = '<div class="fallback-image">LQ</div>';
       }
       const body = document.createElement("div");
       body.className = "source-body";
       const meta = document.createElement("div");
       meta.className = "source-meta";
-      if (item.category) {
-        const pill = document.createElement("span");
-        pill.className = "cat-pill";
-        pill.textContent = item.category;
-        meta.appendChild(pill);
-      }
-      ["source", "region"].forEach((k) => {
-        if (item[k]) {
-          const sp = document.createElement("span");
-          sp.textContent = item[k];
-          meta.appendChild(sp);
-        }
-      });
-      const dt = document.createElement("span");
-      dt.textContent = formatDateVi(item.published_at);
-      meta.appendChild(dt);
+      meta.textContent = [item.category, item.source, formatDateVi(item.published_at)].filter(Boolean).join(" · ");
       const h = document.createElement("h3");
       h.textContent = item.title || "Tin";
       const p = document.createElement("p");
@@ -1109,72 +480,29 @@
       return card;
     }
 
-    function renderBrief(data) {
-      const root = document.getElementById("briefRoot");
-      if (!root) return;
-      root.innerHTML = "";
-      const useLegacy =
-        data.legacyProBrief &&
-        Array.isArray(data.briefStories) &&
-        data.briefStories.length > 0 &&
-        data.schemaVersion !== "macro-intelligence-v1";
-      if (!useLegacy) {
-        root.innerHTML = buildMacroDeskHtml(data);
-        return;
-      }
-      const leg = buildLegacyProBriefHtml(data);
-      if (leg) {
-        root.innerHTML = leg;
-        return;
-      }
-      const items = Array.isArray(data.chatItems) ? data.chatItems : [];
-      if (items.length) {
-        let h = `<div class="section-head"><p class="eyebrow">Brief</p><h2>${escapeHtml(data.chatSectionTitle || "Bản tin")}</h2></div>`;
-        for (const it of items) {
-          h += `<div class="box-muted"><p>${escapeHtml(it.content || "")}</p></div>`;
-        }
-        root.innerHTML = h;
-      } else {
-        root.innerHTML = `<div class="error-card">Chưa có nội dung research cho phiên này. Kiểm tra pipeline hoặc content.json.</div>`;
-      }
-    }
-
-    function renderFeed(data, noteText) {
+    function renderPage(data) {
       const sync = document.getElementById("syncNote");
       if (sync) {
-        if (noteText) {
-          sync.textContent = noteText;
-        } else {
-          const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
-          sync.textContent = st
-            ? `Đã tải bản Macro Intelligence · Cập nhật: ${st} · Nguồn: content.json (GitHub Pages). Nếu vẫn thấy bản cũ, nhấn Ctrl+F5.`
-            : "";
+        const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
+        sync.textContent = st
+          ? `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
+          : "";
+      }
+      const root = document.getElementById("briefRoot");
+      if (root) {
+        try {
+          root.innerHTML = buildBriefHtml(data);
+        } catch (e) {
+          console.error(e);
+          root.innerHTML = `<div class="error-card">Không render được brief: ${escapeHtml(e.message || e)}</div>`;
         }
       }
-      try {
-        updateSnapshot(data);
-      } catch (e) {
-        console.error("updateSnapshot", e);
-      }
-      try {
-        renderBrief(data);
-      } catch (e) {
-        console.error("renderBrief", e);
-        const root = document.getElementById("briefRoot");
-        if (root) {
-          root.innerHTML =
-            `<div class="error-card"><p><strong>Không thể render phần research.</strong></p>` +
-            `<p class="v">${escapeHtml(String(e && e.message ? e.message : e))}</p>` +
-            `<p class="v">Mở DevTools → Console để xem chi tiết; kiểm tra content.json có đủ schema Macro Intelligence.</p></div>`;
-        }
-      }
-      const articles = Array.isArray(data.allArticles) && data.allArticles.length
-        ? data.allArticles : (data.featuredArticles || []);
+      const articles = Array.isArray(data.allArticles) ? data.allArticles : [];
       const grid = document.getElementById("sourceGrid");
+      const titleEl = document.getElementById("sourceGridTitle");
+      if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;
       if (grid) {
         grid.innerHTML = "";
-        const titleEl = document.getElementById("sourceGridTitle");
-        if (titleEl) titleEl.textContent = `Tin đã crawl (${articles.length})`;
         for (const article of articles) grid.appendChild(createSourceCard(article));
       }
     }
@@ -1196,52 +524,49 @@
         const r = await fetch(`content.json?ts=${Date.now()}`, { cache: "no-store" });
         if (!r.ok) throw new Error("bad");
         return await r.json();
-      } catch {
+      } catch (e) {
+        console.error(e);
         return {
-          chatSectionTitle: "LEON Quant Labs",
-          chatItems: [{ title: "Lỗi tải", content: "Không đọc được content.json. Kiểm tra đường dẫn hoặc bản deploy." }],
+          siteTitle: "LEON Quant Labs",
+          publicationIntro: {},
+          mainThesis: {},
+          globalMacroDrivers: [],
+          quickActions: [],
+          allocationGuide: [],
+          sectorPriority: [],
+          increaseRiskSignals: [],
+          reduceRiskSignals: [],
+          vietnamTransmission: { summary: "", chains: [] },
+          scenarioPlan: {},
+          finalTakeaway: "",
           allArticles: [],
-          sourceQuality: {},
-          marketRegime: {},
-          marketSnapshot: { generated_at: "", assets: [], coverage_note: "" },
+          generatedAt: "",
         };
       }
     }
 
     async function loadChatContent() {
       const sync = document.getElementById("syncNote");
-      if (sync) sync.textContent = "Đang tải bản tin mới nhất...";
+      if (sync) sync.textContent = "Đang tải brief…";
       try {
         const config = await loadFeedConfig();
         const remoteUrl = config.remoteFeedUrl || "";
         const preferLocal = Boolean(config.preferLocal);
-        if (preferLocal) {
-          renderFeed(await fetchLocalFeed(), "");
-        } else if (remoteUrl) {
+        let data;
+        if (preferLocal) data = await fetchLocalFeed();
+        else if (remoteUrl) {
           try {
             const r = await fetch(remoteUrl, { cache: "no-store" });
             if (!r.ok) throw new Error("bad remote");
-            renderFeed(await r.json(), "");
+            data = await r.json();
           } catch {
-            renderFeed(await fetchLocalFeed(), "");
+            data = await fetchLocalFeed();
           }
-        } else {
-          renderFeed(await fetchLocalFeed(), "");
-        }
+        } else data = await fetchLocalFeed();
+        renderPage(data);
       } catch (err) {
         console.error(err);
-        const fb = {
-          chatSectionTitle: "LEON Quant Labs",
-          title: "LEON Quant Labs — Daily Macro Intelligence",
-          chatItems: [],
-          allArticles: [],
-          sourceQuality: {},
-          marketRegime: {},
-          marketSnapshot: { generated_at: "", assets: [], coverage_note: "" },
-          stats: {},
-          generatedAt: "",
-        };
-        renderFeed(fb, "Không thể tải cấu hình feed; kiểm tra mạng và feed-config.json.");
+        renderPage({ allArticles: [], generatedAt: "", publicationIntro: {}, mainThesis: {} });
       }
     }
 
