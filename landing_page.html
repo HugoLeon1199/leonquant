@@ -285,7 +285,7 @@
         <div class="section-head secondary-head">
           <p class="eyebrow">Tham khảo</p>
           <h2 id="sourceGridTitle">Tin nền tham khảo</h2>
-          <p>Bài báo chọn lọc trong ngày — để đối chiếu ngữ cảnh; không phải trọng tâm của bản brief phía trên.</p>
+          <p>Danh mục tin nền được chọn lọc trong ngày — dùng để đối chiếu ngữ cảnh, không phải trọng tâm brief.</p>
         </div>
         <div id="sourceGrid" class="source-grid"></div>
       </div>
@@ -300,6 +300,145 @@
 
   <script>
     const ND = "—";
+
+    /** Gốc site để fetch content.json / feed-config đúng dù trang mở tại /landing_page/ hay /repo/landing_page/ */
+    function siteBaseUrl() {
+      if (window.location.protocol === "file:") {
+        return new URL(".", window.location.href).href;
+      }
+      let path = window.location.pathname.replace(/\/$/, "");
+      for (const suf of ["/index.html", "/landing_page.html", "/landing_page"]) {
+        if (path.endsWith(suf)) {
+          path = path.slice(0, -suf.length);
+          break;
+        }
+      }
+      if (path.endsWith(".html")) {
+        path = path.slice(0, path.lastIndexOf("/"));
+      }
+      const dir = path === "" ? "/" : path + "/";
+      return new URL(dir, window.location.origin).href;
+    }
+
+    function assetUrl(filename) {
+      const name = String(filename).replace(/^\//, "");
+      return new URL(name, siteBaseUrl()).href;
+    }
+
+    function camelScenarioFromSnake(sp) {
+      if (!sp || typeof sp !== "object") return {};
+      const one = (k) => {
+        const o = sp[k] || {};
+        return {
+          title: String(o.title || ""),
+          description: String(o.description || ""),
+          action: String(o.action || ""),
+        };
+      };
+      return {
+        baseCase: one("base_case"),
+        bullCase: one("bull_case"),
+        bearCase: one("bear_case"),
+      };
+    }
+
+    /** final_summary.summary (snake_case) → cùng shape camelCase như content.json */
+    function briefFromSnakeSummary(s) {
+      if (!s || typeof s !== "object") return {};
+      const pub = s.publication_intro || {};
+      const mt = s.main_thesis || {};
+      const vt = s.vietnam_transmission || {};
+      const sp = s.scenario_plan || {};
+      const ob = (x) => x && typeof x === "object";
+      return {
+        publicationIntro: {
+          headline: String(pub.headline || ""),
+          description: String(pub.description || ""),
+        },
+        mainThesis: {
+          regime: String(mt.regime || ""),
+          thesis: String(mt.thesis || ""),
+          actionConclusion: String(mt.action_conclusion || ""),
+        },
+        globalMacroDrivers: (Array.isArray(s.global_macro_drivers) ? s.global_macro_drivers : [])
+          .filter(ob)
+          .map((r) => ({
+            title: String(r.title || ""),
+            analysis: String(r.analysis || ""),
+            vietnamImpact: String(r.vietnam_impact || ""),
+          })),
+        vietnamTransmission: {
+          summary: String(vt.summary || ""),
+          chains: Array.isArray(vt.chains) ? vt.chains.map(String) : [],
+        },
+        quickActions: (Array.isArray(s.quick_actions) ? s.quick_actions : [])
+          .filter(ob)
+          .map((r) => ({
+            investorState: String(r.investor_state || ""),
+            action: String(r.action || ""),
+          })),
+        allocationGuide: (Array.isArray(s.allocation_guide) ? s.allocation_guide : [])
+          .filter(ob)
+          .map((r) => ({
+            profile: String(r.profile || ""),
+            stocks: String(r.stocks || ""),
+            cash: String(r.cash || ""),
+            margin: String(r.margin || ""),
+          })),
+        sectorPriority: (Array.isArray(s.sector_priority) ? s.sector_priority : [])
+          .filter(ob)
+          .map((r) => ({
+            sector: String(r.sector || ""),
+            view: String(r.view || ""),
+            action: String(r.action || ""),
+          })),
+        increaseRiskSignals: (Array.isArray(s.increase_risk_signals) ? s.increase_risk_signals : [])
+          .filter(ob)
+          .map((r) => ({
+            signal: String(r.signal || ""),
+            meaning: String(r.meaning || ""),
+          })),
+        reduceRiskSignals: (Array.isArray(s.reduce_risk_signals) ? s.reduce_risk_signals : [])
+          .filter(ob)
+          .map((r) => ({
+            signal: String(r.signal || ""),
+            action: String(r.action || ""),
+          })),
+        scenarioPlan: camelScenarioFromSnake(ob(sp) ? sp : {}),
+        finalTakeaway: String(s.final_takeaway || ""),
+      };
+    }
+
+    function normalizeContentPayload(raw) {
+      if (!raw || typeof raw !== "object") return raw;
+      const snake = raw.summary;
+      if (!snake || typeof snake !== "object") return raw;
+      const hasSnakeBrief =
+        (snake.main_thesis && typeof snake.main_thesis === "object") ||
+        (Array.isArray(snake.global_macro_drivers) && snake.global_macro_drivers.length > 0);
+      if (!hasSnakeBrief) return raw;
+
+      const b = briefFromSnakeSummary(snake);
+      const m = { ...raw };
+      const mt = m.mainThesis;
+      const mtEmpty =
+        !mt || typeof mt !== "object" || (!String(mt.thesis || "").trim() && !String(mt.regime || "").trim());
+      if (mtEmpty) m.mainThesis = b.mainThesis;
+      if (!Array.isArray(m.globalMacroDrivers) || !m.globalMacroDrivers.length) m.globalMacroDrivers = b.globalMacroDrivers;
+      const vt = m.vietnamTransmission;
+      if (!vt || typeof vt !== "object" || !String(vt.summary || "").trim()) m.vietnamTransmission = b.vietnamTransmission;
+      if (!Array.isArray(m.quickActions) || !m.quickActions.length) m.quickActions = b.quickActions;
+      if (!Array.isArray(m.allocationGuide) || !m.allocationGuide.length) m.allocationGuide = b.allocationGuide;
+      if (!Array.isArray(m.sectorPriority) || !m.sectorPriority.length) m.sectorPriority = b.sectorPriority;
+      if (!Array.isArray(m.increaseRiskSignals) || !m.increaseRiskSignals.length) m.increaseRiskSignals = b.increaseRiskSignals;
+      if (!Array.isArray(m.reduceRiskSignals) || !m.reduceRiskSignals.length) m.reduceRiskSignals = b.reduceRiskSignals;
+      const sp = m.scenarioPlan;
+      if (!sp || typeof sp !== "object" || (!sp.baseCase && !sp.bullCase && !sp.bearCase))
+        m.scenarioPlan = b.scenarioPlan;
+      if (!String(m.finalTakeaway || "").trim()) m.finalTakeaway = b.finalTakeaway;
+      if (!m.publicationIntro?.headline) m.publicationIntro = b.publicationIntro;
+      return m;
+    }
 
     function escapeHtml(value) {
       return String(value || "")
@@ -345,12 +484,24 @@
       if (heroSub && pub.headline) heroSub.textContent = pub.headline;
       if (heroDesc && pub.description) heroDesc.textContent = pub.description;
 
-      const drivers = Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : [];
-      const qa = Array.isArray(data.quickActions) ? data.quickActions : [];
-      const ag = Array.isArray(data.allocationGuide) ? data.allocationGuide : [];
-      const sp = Array.isArray(data.sectorPriority) ? data.sectorPriority : [];
-      const ir = Array.isArray(data.increaseRiskSignals) ? data.increaseRiskSignals : [];
-      const rr = Array.isArray(data.reduceRiskSignals) ? data.reduceRiskSignals : [];
+      const drivers = (Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : []).filter(
+        (r) => r && typeof r === "object",
+      );
+      const qa = (Array.isArray(data.quickActions) ? data.quickActions : []).filter(
+        (r) => r && typeof r === "object",
+      );
+      const ag = (Array.isArray(data.allocationGuide) ? data.allocationGuide : []).filter(
+        (r) => r && typeof r === "object",
+      );
+      const sp = (Array.isArray(data.sectorPriority) ? data.sectorPriority : []).filter(
+        (r) => r && typeof r === "object",
+      );
+      const ir = (Array.isArray(data.increaseRiskSignals) ? data.increaseRiskSignals : []).filter(
+        (r) => r && typeof r === "object",
+      );
+      const rr = (Array.isArray(data.reduceRiskSignals) ? data.reduceRiskSignals : []).filter(
+        (r) => r && typeof r === "object",
+      );
       const vt = data.vietnamTransmission || {};
       const chains = Array.isArray(vt.chains) ? vt.chains : [];
       const scen = data.scenarioPlan || {};
@@ -481,9 +632,10 @@
     }
 
     function renderPage(data) {
+      const payload = normalizeContentPayload(data && typeof data === "object" ? data : {});
       const sync = document.getElementById("syncNote");
       if (sync) {
-        const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
+        const st = payload.generatedAt ? formatDateVi(payload.generatedAt) : "";
         sync.textContent = st
           ? `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
           : "";
@@ -491,13 +643,13 @@
       const root = document.getElementById("briefRoot");
       if (root) {
         try {
-          root.innerHTML = buildBriefHtml(data);
+          root.innerHTML = buildBriefHtml(payload);
         } catch (e) {
           console.error(e);
           root.innerHTML = `<div class="error-card">Không render được brief: ${escapeHtml(e.message || e)}</div>`;
         }
       }
-      const articles = Array.isArray(data.allArticles) ? data.allArticles : [];
+      const articles = Array.isArray(payload.allArticles) ? payload.allArticles : [];
       const grid = document.getElementById("sourceGrid");
       const titleEl = document.getElementById("sourceGridTitle");
       if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;
@@ -509,7 +661,7 @@
 
     async function loadFeedConfig() {
       try {
-        const r = await fetch("feed-config.json");
+        const r = await fetch(assetUrl("feed-config.json"));
         if (!r.ok) return { preferLocal: true };
         const j = await r.json();
         if (j.preferLocal === undefined) j.preferLocal = true;
@@ -521,7 +673,7 @@
 
     async function fetchLocalFeed() {
       try {
-        const r = await fetch(`content.json?ts=${Date.now()}`, { cache: "no-store" });
+        const r = await fetch(`${assetUrl("content.json")}?ts=${Date.now()}`, { cache: "no-store" });
         if (!r.ok) throw new Error("bad");
         return await r.json();
       } catch (e) {
