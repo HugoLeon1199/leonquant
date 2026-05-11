@@ -41,7 +41,7 @@ jobs:
 
       - name: Build public website content
         run: |
-          python build_website_content.py --skip-images
+          python build_website_content.py --metadata-timeout 14
 
       - name: Commit updated brief
         run: |

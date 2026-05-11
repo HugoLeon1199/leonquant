@@ -232,7 +232,102 @@
     }
     .world-card { border-top: 4px solid var(--primary); }
     .vn-card { border-top: 4px solid var(--gold); }
-    .section-sources {
+    .glance-card {
+      border-top: 4px solid #6366f1;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .so-what-chain {
+      font-size: 1.05rem;
+      font-weight: 750;
+      color: #1e293b;
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      background: linear-gradient(90deg, #eef2ff, #f8fafc);
+      border-radius: 14px;
+      border: 1px solid #e0e7ff;
+      line-height: 1.5;
+    }
+    .world-vn-bridge {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--line);
+      font-size: .98rem;
+      font-weight: 650;
+      color: #334155;
+    }
+    .world-vn-bridge .lbl { color: var(--gold); font-weight: 800; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .heat-cell {
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: #0f172a;
+      border: 1px solid rgba(15, 23, 42, .08);
+    }
+    .heat-hot { background: linear-gradient(145deg, #fecaca, #fca5a5); }
+    .heat-warm { background: linear-gradient(145deg, #fde68a, #fcd34d); }
+    .heat-cool { background: linear-gradient(145deg, #e2e8f0, #cbd5e1); }
+    .heat-ice { background: linear-gradient(145deg, #dbeafe, #93c5fd); }
+    .asset-row {
+      display: grid;
+      grid-template-columns: minmax(100px, 140px) 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .asset-row:last-child { border-bottom: none; }
+    .asset-pill {
+      font-size: .72rem;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 999px;
+      text-align: center;
+    }
+    .bias-bullish { background: #dcfce7; color: #166534; }
+    .bias-bearish { background: #fee2e2; color: #991b1b; }
+    .bias-mixed { background: #fef3c7; color: #92400e; }
+    .bias-neutral { background: #f1f5f9; color: #475569; }
+    .asset-note { font-size: .9rem; color: #475569; margin: 0; line-height: 1.45; }
+    .compare-block { margin-top: 8px; }
+    .compare-row { margin-bottom: 16px; }
+    .compare-row h4 { margin: 0 0 8px; font-size: .88rem; font-weight: 800; color: #0f172a; }
+    .compare-bars {
+      display: grid;
+      gap: 6px;
+    }
+    .bar-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      color: var(--text-light);
+    }
+    .bar-line span:first-child { min-width: 52px; font-weight: 700; color: #647d8b; }
+    .bar-track {
+      flex: 1;
+      height: 10px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+    .bar-fill-actual { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+    .bar-fill-forecast { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #94a3b8, #64748b); }
+    .bar-val { font-weight: 700; color: #334155; min-width: 56px; text-align: right; font-size: .8rem; }
+    .source-thumb { position: relative; min-height: 150px; }
+    .source-thumb .fallback-image { display: none; }
+    .source-thumb.fallback-only .fallback-image { display: grid; }
+    .source-thumb.fallback-only .source-image { display: none !important; }
       background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 38%, #ffffff 100%);
     }
     .category-pill {
@@ -474,7 +569,7 @@
         <div class="hero-content">
           <p class="tag">Daily Macro Intelligence</p>
           <h1>Tóm tắt vĩ mô thế giới và Việt Nam cho người bận rộn.</h1>
-          <p class="subtitle">Hai đoạn tóm tắt biên tập và danh sách đầy đủ tin đã crawl — mở link để đọc bản đầy đủ, minh bạch nguồn.</p>
+          <p class="subtitle">Tóm tắt vĩ mô, chuỗi tác động (So What), heatmap nhanh và đủ link đã crawl — mở bài gốc để đọc đầy đủ.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#brief">Đọc bản tin</a>
           </div>
@@ -509,7 +604,7 @@
           <div>
             <p class="eyebrow">Daily brief</p>
             <h2 id="chatSectionTitle">Bản tin hàng ngày</h2>
-            <p>Hai ô dưới đây là phần tóm tắt; kéo xuống để xem toàn bộ tin trong ngày.</p>
+            <p>Hai ô tóm tắt vĩ mô; phía trên có thêm tác động tài sản (So What), heatmap và thực tế so với dự báo khi có số liệu trong nguồn.</p>
           </div>
         </div>
         <p id="syncNote" class="sync-note">Đang tải dữ liệu mới nhất...</p>
@@ -582,33 +677,145 @@
       return card;
     }
 
+    function heatClass(s) {
+      const x = String(s || "").toLowerCase();
+      if (x === "hot") return "heat-hot";
+      if (x === "warm") return "heat-warm";
+      if (x === "ice") return "heat-ice";
+      return "heat-cool";
+    }
+
+    function biasClass(b) {
+      const x = String(b || "").toLowerCase();
+      if (x === "bullish") return "bias-bullish";
+      if (x === "bearish") return "bias-bearish";
+      if (x === "mixed") return "bias-mixed";
+      return "bias-neutral";
+    }
+
+    function clampPct(n) {
+      const x = Number(n);
+      if (Number.isNaN(x)) return 0;
+      return Math.max(0, Math.min(100, x));
+    }
+
+    function buildGlanceCardHtml(data) {
+      const chain = data.soWhatChain && String(data.soWhatChain).trim();
+      const heats = Array.isArray(data.macroHeatLabels) ? data.macroHeatLabels : [];
+      const assets = Array.isArray(data.assetImpacts) ? data.assetImpacts : [];
+      const comps = Array.isArray(data.actualVsForecast) ? data.actualVsForecast : [];
+
+      let html = `<p class="eyebrow">Tác động & trực quan</p>`;
+      if (chain) {
+        html += `<p class="so-what-chain" title="So What?">${escapeHtml(chain)}</p>`;
+      }
+
+      if (heats.length) {
+        html += `<h4 class="narrative-h" style="margin-top:4px">Nhiệt độ chủ đề (nhanh)</h4><div class="heatmap-grid">`;
+        for (const h of heats) {
+          if (!h || typeof h !== "object") continue;
+          const lab = h.label || h.name || "—";
+          const sent = heatClass(h.sentiment);
+          html += `<div class="heat-cell ${sent}">${escapeHtml(lab)}</div>`;
+        }
+        html += `</div>`;
+      }
+
+      if (assets.length) {
+        html += `<h4 class="narrative-h" style="margin-top:4px">Theo tài sản (So What?)</h4>`;
+        for (const a of assets) {
+          if (!a || typeof a !== "object") continue;
+          const an = a.asset || "—";
+          const bias = biasClass(a.bias);
+          const note = a.note || "";
+          html += `<div class="asset-row"><span class="asset-pill ${bias}">${escapeHtml(an)}</span><p class="asset-note">${escapeHtml(note)}</p></div>`;
+        }
+      }
+
+      if (comps.length) {
+        html += `<h4 class="narrative-h" style="margin-top:12px">Thực tế vs dự báo (từ nguồn)</h4><div class="compare-block">`;
+        for (const c of comps) {
+          if (!c || typeof c !== "object") continue;
+          const ind = c.indicator || c.name || "Chỉ báo";
+          const act = c.actual != null ? String(c.actual) : "—";
+          const fc = c.forecast != null ? String(c.forecast) : "—";
+          let pa = clampPct(c.actual_pct);
+          let pf = clampPct(c.forecast_pct);
+          if (pa === 0 && pf === 0 && (act !== "—" || fc !== "—")) {
+            pa = 72;
+            pf = 45;
+          } else {
+            if (pa > 0 && pf === 0) pf = Math.min(100, Math.max(12, pa * 0.55));
+            if (pf > 0 && pa === 0) pa = Math.min(100, Math.max(12, pf * 0.55));
+          }
+          pa = Math.max(6, pa);
+          pf = Math.max(6, pf);
+          html += `<div class="compare-row"><h4>${escapeHtml(ind)}</h4><div class="compare-bars">`;
+          html += `<div class="bar-line"><span>Thực tế</span><div class="bar-track"><div class="bar-fill-actual" style="width:${pa}%"></div></div><span class="bar-val">${escapeHtml(act)}</span></div>`;
+          html += `<div class="bar-line"><span>Dự báo</span><div class="bar-track"><div class="bar-fill-forecast" style="width:${pf}%"></div></div><span class="bar-val">${escapeHtml(fc)}</span></div>`;
+          html += `</div></div>`;
+        }
+        html += `</div>`;
+      }
+
+      if (!chain && !heats.length && !assets.length && !comps.length) {
+        html += `<p class="narrative-p">Sau lần chạy GPT tiếp theo, khối này sẽ có chuỗi tác động, heatmap và so sánh thực tế–dự báo (khi có số trong nguồn).</p>`;
+      }
+
+      return html;
+    }
+
     function createSourceCard(item) {
       const card = document.createElement("article");
       card.className = "card source-card";
 
-      const image = item.image_url
-        ? `<img class="source-image" src="${escapeHtml(item.image_url)}" alt="">`
-        : `<div class="fallback-image">LEON</div>`;
+      const a = document.createElement("a");
+      a.href = item.url || "#";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
 
-      const cat = item.category ? `<span class="category-pill">${escapeHtml(item.category)}</span>` : "";
+      const thumb = document.createElement("div");
+      thumb.className = "source-thumb";
 
-      card.innerHTML = `
-        <a href="${escapeHtml(item.url || "#")}" target="_blank" rel="noopener noreferrer">
-          ${image}
-          <div class="source-body">
-            <div class="source-meta">
-              ${cat}
-              <span>${escapeHtml(item.source || "Nguồn")}</span>
-              <span>${escapeHtml(item.region || "")}</span>
-              <span>${escapeHtml(formatDate(item.published_at))}</span>
-            </div>
-            <h3>${escapeHtml(item.title || "Tin")}</h3>
-            <p>${escapeHtml(item.summary || "")}</p>
-            <span class="source-link">Đọc bài đầy đủ</span>
-            <span class="source-url">${escapeHtml(getHostName(item.url || ""))}</span>
-          </div>
-        </a>
+      if (item.image_url) {
+        const img = document.createElement("img");
+        img.className = "source-image";
+        img.src = item.image_url;
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.referrerPolicy = "no-referrer";
+        img.onerror = () => {
+          thumb.classList.add("fallback-only");
+        };
+        thumb.appendChild(img);
+      } else {
+        thumb.classList.add("fallback-only");
+      }
+
+      const fb = document.createElement("div");
+      fb.className = "fallback-image";
+      fb.textContent = "LEON";
+      thumb.appendChild(fb);
+
+      const srcBody = document.createElement("div");
+      srcBody.className = "source-body";
+      srcBody.innerHTML = `
+        <div class="source-meta">
+          ${item.category ? `<span class="category-pill">${escapeHtml(item.category)}</span>` : ""}
+          <span>${escapeHtml(item.source || "Nguồn")}</span>
+          <span>${escapeHtml(item.region || "")}</span>
+          <span>${escapeHtml(formatDate(item.published_at))}</span>
+        </div>
+        <h3>${escapeHtml(item.title || "Tin")}</h3>
+        <p>${escapeHtml(item.summary || "")}</p>
+        <span class="source-link">Đọc bài đầy đủ</span>
+        <span class="source-url">${escapeHtml(getHostName(item.url || ""))}</span>
       `;
+
+      a.appendChild(thumb);
+      a.appendChild(srcBody);
+      card.appendChild(a);
       return card;
     }
 
@@ -637,15 +844,24 @@
       const wv = data.webVerification && typeof data.webVerification === "object" ? data.webVerification : {};
       const mw = macroWorldBlocks(data);
       const vm = vietnamBlocks(data);
+      const wtv = data.worldToVietnam && String(data.worldToVietnam).trim();
+
+      const glance = document.createElement("article");
+      glance.className = "card glance-card";
+      glance.innerHTML = buildGlanceCardHtml(data);
 
       const world = document.createElement("article");
       world.className = "card world-card";
-      world.innerHTML = `
+      let worldHtml = `
         <p class="eyebrow">Vĩ mô thế giới</p>
         <p class="narrative-p"><strong>Market impact:</strong> ${escapeHtml(data.marketImpact || "Mixed")}</p>
         ${data.executiveSummary ? `<p class="exec-lead">${escapeHtml(data.executiveSummary)}</p>` : ""}
         <p class="narrative-p">${escapeHtml(mw || "Đang cập nhật nội dung vĩ mô thế giới.")}</p>
       `;
+      if (wtv) {
+        worldHtml += `<div class="world-vn-bridge"><span class="lbl">Kết nối Việt Nam</span>${escapeHtml(wtv)}</div>`;
+      }
+      world.innerHTML = worldHtml;
 
       let vnInner = `
         <p class="eyebrow">Việt Nam — từ thế giới và trong nước</p>
@@ -669,6 +885,7 @@
       vn.className = "card vn-card";
       vn.innerHTML = vnInner;
 
+      stack.appendChild(glance);
       stack.appendChild(world);
       stack.appendChild(vn);
       root.appendChild(stack);
@@ -703,6 +920,7 @@
         (data.executiveSummary && String(data.executiveSummary).trim())
         || macroWorldBlocks(data)
         || vietnamBlocks(data)
+        || (data.soWhatChain && String(data.soWhatChain).trim())
       );
 
       if (hasBrief) {

@@ -14,7 +14,10 @@ PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_FINAL_FILE = PROJECT_DIR / "final_summary.json"
 DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "content.json"
-USER_AGENT = "LEONQuantLabsMetadataFetcher/0.1 (personal research; contact: local-dev)"
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 LEONQuantLabs/1.0"
+)
 
 
 class MetadataExtractor(HTMLParser):
@@ -24,18 +27,35 @@ class MetadataExtractor(HTMLParser):
         self.description = ""
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        if tag != "meta":
+        attr_map = {key.lower(): value or "" for key, value in attrs}
+
+        if tag == "meta":
+            prop = attr_map.get("property", "").lower()
+            name = attr_map.get("name", "").lower()
+            content = attr_map.get("content", "")
+            if not content:
+                return
+
+            if prop in {"og:image", "og:image:url", "twitter:image"} and not self.image_url:
+                self.image_url = content.strip()
+            elif name in {"twitter:image", "twitter:image:src"} and not self.image_url:
+                self.image_url = content.strip()
+            elif (
+                prop in {"og:description", "twitter:description"}
+                or name
+                in {
+                    "description",
+                    "twitter:description",
+                }
+            ) and not self.description:
+                self.description = clean_text(content)
             return
 
-        attr_map = {key.lower(): value or "" for key, value in attrs}
-        prop = attr_map.get("property", "").lower()
-        name = attr_map.get("name", "").lower()
-        content = attr_map.get("content", "")
-
-        if prop in {"og:image", "twitter:image"} and content and not self.image_url:
-            self.image_url = content.strip()
-        elif (prop == "og:description" or name == "description") and content and not self.description:
-            self.description = clean_text(content)
+        if tag == "link":
+            rel = attr_map.get("rel", "").lower()
+            href = attr_map.get("href", "")
+            if rel == "image_src" and href and not self.image_url:
+                self.image_url = href.strip()
 
 
 def clean_text(value: str | None) -> str:
@@ -147,6 +167,14 @@ def build_payload(
     web_ver = summary.get("web_verification") if isinstance(summary.get("web_verification"), dict) else {}
     risks = summary.get("risks_to_watch", [])
 
+    def _list(key: str) -> list[Any]:
+        v = summary.get(key)
+        return v if isinstance(v, list) else []
+
+    asset_impacts = _list("asset_impacts")
+    actual_vs = _list("actual_vs_forecast")
+    heat_labels = _list("macro_heat_labels")
+
     narrative_fallback = "\n\n".join(p for p in (mw, vm) if p).strip()
 
     return {
@@ -161,6 +189,11 @@ def build_payload(
         "macroGlobal": summary.get("macro_global", ""),
         "internationalMarkets": summary.get("international_markets", ""),
         "vietnamImplications": summary.get("vietnam_implications", ""),
+        "soWhatChain": str(summary.get("so_what_chain", "") or "").strip(),
+        "worldToVietnam": str(summary.get("world_to_vietnam", "") or "").strip(),
+        "assetImpacts": asset_impacts,
+        "actualVsForecast": actual_vs,
+        "macroHeatLabels": heat_labels,
         "webVerification": web_ver,
         "risksToWatch": risks if isinstance(risks, list) else [],
         "allArticles": all_articles,
@@ -168,7 +201,7 @@ def build_payload(
         "stats": {
             "articlesCrawled": len(all_articles),
             "articlesInEnriched": enriched_payload.get("count", len(enriched_payload.get("articles", []))),
-            "pipeline": "Crawl + Gemini + GPT (2 khối) + đủ link trong ngày",
+            "pipeline": "Crawl + Gemini + GPT (So What / heatmap / VN bridge) + ảnh og khi fetch được",
         },
         "chatItems": [
             {
@@ -199,7 +232,7 @@ def main() -> int:
     parser.add_argument(
         "--metadata-timeout",
         type=int,
-        default=6,
+        default=10,
         help="Seconds per URL when fetching og:image/description",
     )
     parser.add_argument("--skip-images", action="store_true", help="Do not fetch og metadata (faster)")

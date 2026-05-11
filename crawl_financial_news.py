@@ -422,8 +422,8 @@ def main() -> None:
                 DEFAULT_FINAL_FILE,
                 DEFAULT_ENRICHED_FILE,
                 DEFAULT_CONTENT_FILE,
-                fetch_images=False,
-                metadata_timeout=6,
+                fetch_images=True,
+                metadata_timeout=12,
             )
             print(f"Website content: {n} article cards -> {DEFAULT_CONTENT_FILE}")
         else:

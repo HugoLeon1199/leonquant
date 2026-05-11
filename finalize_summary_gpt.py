@@ -212,10 +212,22 @@ Nhiệm vụ:
 - Tổng hợp Gemini + evidence; đối chiếu live_web_snippets khi có.
 - Không bịa số liệu; thiếu dữ liệu thì nói "chưa đủ dữ liệu xác nhận".
 - CHỈ hai khối nội dung dài:
-  + macro_world: Vĩ mô thế giới trong ngày + truyền sang thị trường quốc tế (USD, lãi suất, risk, hàng hóa) — một đoạn 6–12 câu, gọn.
-  + vietnam_macro: Việt Nam — tác động từ thế giới và trong nước (TTCK, NH/tín dụng, tỷ giá, hàng hóa, dòng vốn) — 6–12 câu, gọn.
+  + macro_world: Vĩ mô thế giới trong ngày + truyền sang thị trường quốc tế (USD, lãi suất, risk, hàng hóa) — một đoạn 4–8 câu, súc tích (không lan man).
+  + vietnam_macro: Việt Nam — tác động từ thế giới và trong nước (TTCK, NH/tín dụng, tỷ giá, hàng hóa, dòng vốn) — 4–8 câu; nhắc lãi trong nước / SBV khi có căn cứ trong evidence.
 - executive_summary: 0 hoặc 1 câu dẫn; có thể "".
 - market_impact: Risk-on | Risk-off | Neutral | Mixed
+
+"Tác động" (bắt buộc):
+- so_what_chain: MỘT dòng chuỗi nhân quả kiểu "A → B → C" (ví dụ: dữ liệu/góc thế giới → DXY hoặc lợi suất → hệ quả lên Vàng / USD-VND / TTCK). Dùng mũi tên →, không bullet dài.
+- asset_impacts: 4–6 mục, mỗi mục: asset (tên ngắn: Vàng, DXY/USD, TTCK VN, USD/VND, Lãi suất VN, Hàng hóa, v.v.), bias (bullish | bearish | neutral | mixed), note (một câu "vì sao" với ND).
+
+Kết nối Việt Nam (bắt buộc):
+- world_to_vietnam: đúng MỘT câu: tin/kênh thế giới trong ngày tác động trực tiếp thế nào lên VN (tỷ giá, thanh khoản NH, chính sách SBV hoặc lãi suất trong nước khi có trong evidence).
+
+Trực quan — thực tế vs dự báo:
+- actual_vs_forecast: tối đa 4 dòng, CHỈ khi evidence/live snippet có số cụ thể; mỗi dòng: indicator (tên chỉ báo), actual (số hoặc chuỗi ngắn), forecast (kỳ vọng), actual_pct và forecast_pct là hai số 0–100 để vẽ thanh so sánh (cùng thang: quy ước max của ngày = 100, hoặc hai giá trị tương đối trong cùng chỉ báo). Nếu không đủ số: trả mảng rỗng [].
+- macro_heat_labels: tối đa 6 nhãn vi mô trong ngày (vd: US yields, Risk, Oil, VN liquidity,…), mỗi phần tử: label, sentiment (hot | warm | cool | ice) — để heatmap (hot=căng/nguy cơ tăng, warm=tích cực nhẹ, cool=trung tính/dị giảm, ice=trầm/xả).
+
 - risks_to_watch: tối đa 3 mục rất ngắn; hoặc []
 - web_verification: summary 1 câu (việc đã kiểm, không lặp bản chính); checks tối đa {checks_cap} mục (url, status: confirmed | partial | unavailable | mismatch, note ngắn).
 
@@ -227,6 +239,11 @@ Trả về DUY NHẤT JSON:
   "executive_summary": "",
   "macro_world": "",
   "vietnam_macro": "",
+  "so_what_chain": "",
+  "asset_impacts": [],
+  "world_to_vietnam": "",
+  "actual_vs_forecast": [],
+  "macro_heat_labels": [],
   "market_impact": "Mixed",
   "risks_to_watch": [],
   "web_verification": {{
@@ -360,8 +377,8 @@ def main() -> int:
             Path(args.output),
             Path(args.enriched_input),
             DEFAULT_CONTENT_FILE,
-            fetch_images=False,
-            metadata_timeout=6,
+            fetch_images=True,
+            metadata_timeout=12,
         )
         print(f"Website content: {n} article cards -> {DEFAULT_CONTENT_FILE}")
 
