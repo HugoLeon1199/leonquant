@@ -11,7 +11,7 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from build_website_content import rebuild_content_json
+from build_website_content import load_market_snapshot_json, rebuild_content_json
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -21,6 +21,7 @@ DEFAULT_GEMINI_FILE = PROJECT_DIR / "gemini_summary.json"
 DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "final_summary.json"
 DEFAULT_CONTENT_FILE = PROJECT_DIR / "content.json"
+DEFAULT_MARKET_SNAPSHOT_FILE = PROJECT_DIR / "market_snapshot.json"
 DEFAULT_ENV_FILE = PROJECT_DIR / ".env"
 OPENAI_CHAT_COMPLETIONS_URL = "https://api.openai.com/v1/chat/completions"
 VERIFY_USER_AGENT = "LEONQuantLabsWebVerify/0.1 (editorial pipeline; facts check)"
@@ -402,12 +403,13 @@ def build_prompt(
     gemini_payload: dict[str, Any],
     evidence: list[dict[str, str]],
     live_page_snippets: list[dict[str, str]],
+    market_snapshot: dict[str, Any],
     *,
     brief_date: str,
 ) -> str:
     gemini_summary = gemini_payload.get("summary", {})
     payload = {
-        "brief_date_hint": brief_date,
+        "market_snapshot": market_snapshot,
         "gemini_summary": gemini_summary,
         "evidence_articles": evidence,
         "live_web_snippets": live_page_snippets,
@@ -423,14 +425,20 @@ asset_impact_table, executive_summary, macro_world, vietnam_macro, macro_global,
 vietnam_implications, so_what_chain, world_to_vietnam, market_impact, global_watch, vietnam_watch,
 asset_impacts, actual_vs_forecast, macro_heat_labels, risks_to_watch, web_verification.
 
-Shape reference (fill all required string/array/object fields; probabilities sum to 100):
+Shape reference (fill all required string/array/object fields; scenario probabilities sum to 100):
 {SCHEMA_JSON_EXAMPLE}
 
 Rules:
 - market_regime: regime, primary_driver, secondary_driver (may be empty string), risk_tone, confidence, invalidation — all strings.
 - top_macro_drivers: 3 to 5 objects; confidence.fact and confidence.impact each exactly High, Medium, or Low.
 - asset_impact_heatmap: at least 6 rows; direction/strength/horizon must use allowed enums.
-- scenario_map: three cases; integer probabilities summing to 100.
+- scenario_map: three cases; integer probabilities summing to 100; each case must have a substantive description string.
+
+MARKET SNAPSHOT (strict):
+- `market_snapshot` in the input is the ONLY source you may use for current asset prices and percentage changes.
+- If market_snapshot shows status other than ok or price/change_pct is null, do NOT invent a number; say data is missing where relevant and lower confidence.
+- If news evidence mentions price movement but market_snapshot lacks a valid figure, describe qualitatively only and lower confidence.
+- If both market_snapshot and evidence lack support, do not treat that asset as a top_macro_driver headline driver.
 
 Use Vietnamese prose in narrative string fields. JSON only, no markdown, no URLs inside analytical text."""
 
@@ -440,48 +448,38 @@ You are the final editor of LEON Quant Labs, an AI-powered macro research desk f
 Your job is NOT to summarize random news.
 Your job is to produce one coherent daily macro intelligence note.
 
-Core principle:
-Every daily brief must identify ONE dominant daily macro thesis.
-All selected stories must support, challenge, or qualify that thesis.
-Do not produce a list of unrelated news.
+Every brief must have ONE dominant daily thesis.
+All drivers must support, challenge, or qualify that thesis.
 
 Audience:
 Serious Vietnamese investors, traders, analysts, and experienced market readers.
-They do not want generic news.
-They want market regime, causality, transmission channels, Vietnam relevance, scenarios, confidence, invalidation, and what to watch next.
 
-Writing style:
+They need:
+- Market regime
+- What changed versus expectations
+- Causal transmission chain
+- Vietnam investor lens
+- Asset impact heatmap
+- Scenario map
+- Confidence
+- What could prove this wrong
+- Key variables to watch
+
+Writing rules:
 - Vietnamese.
-- Concise but analytical.
 - Professional desk-note style.
+- Concise but analytical.
 - No hype.
 - No financial advice.
-- Separate facts from inference.
 - Never invent numbers.
 - Never invent sources.
-- If evidence is weak, say confidence is Medium or Low.
-- Always explain “So What”.
-- Always include “What could prove this wrong”.
-- Prefer 3 to 5 macro drivers only.
-- Avoid unrelated local news unless it affects Vietnam macro, VN-Index, banking, FX, foreign flows, inflation, policy, liquidity, or major sectors.
+- If evidence is weak, lower confidence.
+- If data is missing, state clearly that it is missing.
+- Do not use an asset as a main driver if neither evidence nor market_snapshot supports it.
+- Return JSON only.
 
-Required thinking:
-1. Identify the dominant macro thesis first.
-2. Identify current market regime.
-3. Explain what changed versus market expectations.
-4. Select only the most important macro drivers.
-5. For each driver, explain: Fact; Why it matters; Transmission chain; Assets affected; Time horizon; Confidence; What could prove this wrong.
-6. Translate global macro into Vietnam investor lens (USD/VND, foreign flows, rates, VN-Index, sectors, breadth, liquidity).
-7. Create base/bull/bear scenarios. Probabilities must sum to 100.
-8. Create key variables to watch.
-9. Return JSON only. No markdown. No commentary outside JSON.
-
-Important anti-hallucination rules:
-- Use only evidence from input JSON and live snippets.
-- If a number is not in evidence, do not create it.
-- If two sources conflict, say “dữ liệu chưa đồng nhất” and lower confidence.
-- Do not include raw URLs inside the article text.
-- Source quality must honestly describe coverage limitations.
+Required structure of thinking (reflect in the JSON fields, not as commentary):
+Thesis → regime → what changed → drivers (with transmission) → Vietnam lens channels → scenarios → watchlist.
 """.strip()
 
     return f"""{editorial}
@@ -516,8 +514,10 @@ def call_openai(
                     "You are a strict JSON-only macro research editor for Vietnamese investors. "
                     "Output only the Macro Intelligence schema keys specified by the user; "
                     "never key_points, brief_stories, asset_impact_table, macro_world, vietnam_macro, "
-                    "so_what_chain, executive_summary, or any other legacy brief fields. "
-                    "Do not invent facts or numbers. Obey the schema exactly."
+                    "so_what_chain, executive_summary, asset_impacts, or any other legacy brief fields. "
+                    "Use market_snapshot from the user message as the ONLY source for current prices "
+                    "or percentage changes; if values are missing, do not invent them. "
+                    "Obey the schema exactly."
                 ),
             },
             {
@@ -568,6 +568,9 @@ executive_summary, so_what_chain, editor_notes, and any other legacy keys.
 Schema shape:
 {SCHEMA_JSON_EXAMPLE}
 
+Each scenario_map case must have a non-empty description string.
+Respect market_snapshot rules: never invent prices not present in the original user input context.
+
 Broken JSON:
 {bad_json_text[:100_000]}
 """.strip()
@@ -583,6 +586,28 @@ Broken JSON:
 
 def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
     errors: list[str] = []
+
+    def _legacy_truthy(val: Any) -> bool:
+        if val is None:
+            return False
+        if isinstance(val, str):
+            return bool(val.strip())
+        if isinstance(val, (list, dict, set)):
+            return len(val) > 0
+        return bool(val)
+
+    for legacy_k in (
+        "key_points",
+        "brief_stories",
+        "asset_impact_table",
+        "macro_world",
+        "vietnam_macro",
+        "so_what_chain",
+        "asset_impacts",
+        "executive_summary",
+    ):
+        if legacy_k in data and _legacy_truthy(data.get(legacy_k)):
+            errors.append(f"legacy_schema_forbidden:{legacy_k}")
 
     def need_str(key: str, path: str) -> None:
         v = data.get(key)
@@ -668,6 +693,10 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
             if case not in sm or not isinstance(sm[case], dict):
                 errors.append(f"scenario_map.{case}:missing")
         if isinstance(sm, dict) and all(k in sm for k in ("base_case", "bull_case", "bear_case")):
+            for case in ("base_case", "bull_case", "bear_case"):
+                sub = sm[case]
+                if isinstance(sub, dict) and not str(sub.get("description", "")).strip():
+                    errors.append(f"scenario_map.{case}.description:empty")
             try:
                 pb = float(sm["base_case"].get("probability", -1))
                 pu = float(sm["bull_case"].get("probability", -1))
@@ -809,12 +838,34 @@ def build_fallback_summary(
         "vietnam_investor_lens": {
             "summary": vwatch or "Xem kênh chi tiết bên dưới — dữ liệu fallback.",
             "channels": [
-                {"channel": "VN-Index", "analysis": vwatch or "Theo dõi dòng tiền nội bộ."},
-                {"channel": "USD/VND", "analysis": "Biến động USD toàn cầu có thể tác động qua kỳ vọng tỷ giá."},
-                {"channel": "Khối ngoại", "analysis": "Theo dõi khớp lệnh và room ngoại khi thị trường biến động."},
-                {"channel": "Lãi suất", "analysis": "Spread chính sách có thể ảnh hưởng chi phí vốn."},
-                {"channel": "Độ rộng thị trường", "analysis": "Ưu tiên tin có đề cập thanh khoản/phân hóa nếu có."},
-                {"channel": "Thanh khoản", "analysis": "Quan sát phiên khi tin lớn từ thế giới."},
+                {
+                    "channel": "USD/VND",
+                    "analysis": (
+                        vwatch
+                        or "Biến động USD toàn cầu truyền vào kỳ vọng tỷ giá; bám sát phát ngôn chính sách và thanh khoản USD."
+                    ),
+                },
+                {
+                    "channel": "Khối ngoại",
+                    "analysis": "Room và dòng ETF/ passive có thể tách nhịp khỏi chỉ số khi risk-off global.",
+                },
+                {"channel": "Lãi suất", "analysis": "Spread lãi suất quốc tế ảnh hưởng chi phí vốn và định giá tài sản dài hạn."},
+                {
+                    "channel": "VN-Index",
+                    "analysis": (vwatch or "Ưu tiên độ rộng và dòng tiền nội bộ hơn điểm số đỉnh."),
+                },
+                {
+                    "channel": "Ngân hàng",
+                    "analysis": "Nợ xấu và margin hệ thống là proxy sớm cho nhịp tín dụng và cổ phiếu nhóm tài chính.",
+                },
+                {
+                    "channel": "Bất động sản",
+                    "analysis": "Thanh khoản và chi phí vốn chi phối tốc độ hấp thụ; theo dõi chính sách và trái phiếu doanh nghiệp liên quan.",
+                },
+                {"channel": "Chứng khoán", "analysis": "Margin và trạng thái broker cho biết đòn bẩy retail trong nhịp sóng."},
+                {"channel": "Xuất khẩu", "analysis": "DN XNK nhạy USD/VND và logistics; theo dõi cầu bên ngoài từ PMI/đối tác."},
+                {"channel": "Độ rộng thị trường", "analysis": "Tỷ lệ cổ phiếu tăng/giảm và RS là tín hiệu sớm khi bluechip gánh chỉ số."},
+                {"channel": "Thanh khoản", "analysis": "Khối lượng phiên tin lớn quyết định mức độ biến động có ‘nuốt’ được hay không."},
             ],
         },
         "scenario_map": {
@@ -879,6 +930,11 @@ def main() -> int:
     parser.add_argument("--skip-web-verify", action="store_true")
     parser.add_argument("--update-content", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--market-snapshot-input",
+        default=str(DEFAULT_MARKET_SNAPSHOT_FILE),
+        help="Path to market_snapshot.json (from fetch_market_snapshot.py)",
+    )
     args = parser.parse_args()
 
     load_env_file(DEFAULT_ENV_FILE)
@@ -921,7 +977,14 @@ def main() -> int:
         brief_date = gs_time[:10]
 
     verified_ok = sum(1 for s in live_snippets if str(s.get("fetch_status", "")).startswith("ok"))
-    prompt = build_prompt(gemini_payload, evidence, live_snippets, brief_date=brief_date)
+    market_snap = load_market_snapshot_json(Path(args.market_snapshot_input))
+    prompt = build_prompt(
+        gemini_payload,
+        evidence,
+        live_snippets,
+        market_snap,
+        brief_date=brief_date,
+    )
 
     print(f"Model: {model}")
     print(f"Prompt chars: {len(prompt)}")
@@ -934,6 +997,7 @@ def main() -> int:
     meta = {
         "gemini_input": str(Path(args.gemini_input).resolve()),
         "enriched_input": str(Path(args.enriched_input).resolve()),
+        "market_snapshot_input": str(Path(args.market_snapshot_input).resolve()),
         "model": model,
         "max_evidence_chars": max_evidence,
         "max_final_articles": max_final,

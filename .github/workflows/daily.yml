@@ -25,6 +25,10 @@ jobs:
         run: |
           python crawl_financial_news.py --per-source-limit 0 --max-total 0 --today-only --macro-only --macro-min-score 4
 
+      - name: Fetch market snapshot (best-effort quotes)
+        run: |
+          python fetch_market_snapshot.py
+
       - name: Summarize source articles with Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -53,6 +57,6 @@ jobs:
         run: |
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
-          git add news_output.json enriched_news.json gemini_summary.json final_summary.json content.json
+          git add news_output.json enriched_news.json gemini_summary.json market_snapshot.json final_summary.json content.json
           git commit -m "Update daily macro brief" || echo "No content changes to commit"
           git push

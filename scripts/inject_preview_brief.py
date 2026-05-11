@@ -6,6 +6,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from finalize_summary_gpt import strip_summary_to_macro_schema
+
 PROJECT = Path(__file__).resolve().parent.parent
 FINAL_JSON = PROJECT / "final_summary.json"
 
@@ -110,9 +112,12 @@ def main() -> int:
             {"channel": "Khối ngoại", "analysis": "Room/FTSE-MSCI narrative có thể tạo flow trung hạn nhưng phụ thuộc global risk."},
             {"channel": "Lãi suất", "analysis": "Spread global ảnh hưởng giá trị hiện tại; NH là proxy đầu tiên."},
             {"channel": "VN-Index", "analysis": "Đỉnh chỉ số không đồng nghĩa độ rộng tốt — ưu tiên chỉ báo breadth."},
-            {"channel": "Nhóm ngành", "analysis": "Bank vs broker vs bất động sản phản ứng khác nhau với chi phí vốn."},
-            {"channel": "Độ rộng thị trường", "analysis": "ADV declining/up ratio là tín hiệu sớm cho điều chỉnh kỹ thuật."},
-            {"channel": "Thanh khoản", "analysis": "Phiên tin lớn: đặt khối lượng và biến động basis lên trên điểm số."},
+            {"channel": "Ngân hàng", "analysis": "Chất lượng tín dụng & margin hệ thống phản ánh sớm nhịp tín dụng."},
+            {"channel": "Bất động sản", "analysis": "Thanh khoản secondary và chi phí vốn chi phối tốc độ hấp thụ."},
+            {"channel": "Chứng khoán", "analysis": "Margin và trạng thái broker là proxy đòn bẩy retail."},
+            {"channel": "Xuất khẩu", "analysis": "DN XNK nhạy USD/VND và logistics; bám PMI/đối tác chính."},
+            {"channel": "Độ rộng thị trường", "analysis": "adv/dec và RS là tín hiệu sớm khi bluechip gánh chỉ số."},
+            {"channel": "Thanh khoản", "analysis": "Phiên tin lớn: khối lượng và độ biến động quan trọng hơn điểm số."},
         ],
     }
     s["scenario_map"] = {
@@ -145,12 +150,14 @@ def main() -> int:
         "coverage_note": "Demo inject — chạy finalize_summary_gpt.py để điền số liệu thực từ pipeline.",
     }
     s["final_takeaway"] = (
-        "Ưu tiên quan sát **double axis**: (1) Fed/real yield vs (2) oil premium. Ở Việt Nam, đừng chỉ nhìn điểm số — "
-        "breadth và USD/VND là hai chỉ báo ‘early warning’ cho nhịp điều chỉnh."
+        "Ưu tiên quan sát double axis: (1) Fed/real yield vs (2) oil premium. Ở Việt Nam, đừng chỉ nhìn điểm số — "
+        "breadth và USD/VND là hai chỉ báo early warning cho nhịp điều chỉnh."
     )
     s["disclaimer"] = (
         "Nội dung chỉ phục vụ mục đích nghiên cứu và giáo dục; không phải khuyến nghị đầu tư hay dịch vụ tư vấn tài chính."
     )
+
+    strip_summary_to_macro_schema(s)
 
     data["generated_at"] = now.isoformat()
     data["meta"] = {**(data.get("meta") if isinstance(data.get("meta"), dict) else {}), "injected_preview": True}

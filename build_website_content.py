@@ -14,6 +14,7 @@ PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_FINAL_FILE = PROJECT_DIR / "final_summary.json"
 DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "content.json"
+DEFAULT_MARKET_SNAPSHOT_FILE = PROJECT_DIR / "market_snapshot.json"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 LEONQuantLabs/1.0"
@@ -56,6 +57,33 @@ class MetadataExtractor(HTMLParser):
             href = attr_map.get("href", "")
             if rel == "image_src" and href and not self.image_url:
                 self.image_url = href.strip()
+
+
+def load_market_snapshot_json(path: Path | None = None) -> dict[str, Any]:
+    """Đọc market_snapshot.json; không raise. Trả về skeleton nếu thiếu/lỗi."""
+    p = path or DEFAULT_MARKET_SNAPSHOT_FILE
+    if not p.exists():
+        return {
+            "generated_at": "",
+            "assets": [],
+            "coverage_note": "Chưa có market_snapshot.json — chạy fetch_market_snapshot.py trước bước GPT.",
+        }
+    try:
+        data = load_json(p)
+        if not isinstance(data, dict):
+            raise ValueError("not an object")
+        data.setdefault("generated_at", "")
+        data.setdefault("assets", [])
+        if not isinstance(data.get("assets"), list):
+            data["assets"] = []
+        data.setdefault("coverage_note", "")
+        return data
+    except (json.JSONDecodeError, OSError, ValueError):
+        return {
+            "generated_at": "",
+            "assets": [],
+            "coverage_note": "Không đọc được market_snapshot.json (JSON lỗi hoặc file hỏng).",
+        }
 
 
 def clean_text(value: str | None) -> str:
@@ -206,6 +234,8 @@ def build_payload(
     final_payload: dict[str, Any],
     enriched_payload: dict[str, Any],
     all_articles: list[dict[str, Any]],
+    *,
+    market_snapshot: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     summary = final_payload.get("summary", {})
     generated_at = (
@@ -269,9 +299,13 @@ def build_payload(
     regime_line = str(mr_for_impact.get("regime", "") or "").strip()
     market_impact_val = regime_line or str(summary.get("market_impact", "") or "").strip() or "Mixed"
 
+    ms_payload = market_snapshot if market_snapshot is not None else load_market_snapshot_json()
+
     return {
         "siteTitle": "LEON Quant Labs",
         "sectionLabel": "Daily Macro Intelligence for Serious Investors",
+        "title": chat_title,
+        "date": brief_date,
         "generatedAt": generated_at,
         "briefDate": brief_date,
         "chatSectionTitle": chat_title,
@@ -301,6 +335,7 @@ def build_payload(
         "scenarioMap": scenario_map,
         "keyVariablesToWatch": key_vars,
         "sourceQuality": source_quality,
+        "marketSnapshot": ms_payload,
         "finalTakeaway": final_take,
         "disclaimer": disclaimer,
         "schemaVersion": "macro-intelligence-v1",
@@ -310,7 +345,7 @@ def build_payload(
         "stats": {
             "articlesCrawled": len(all_articles),
             "articlesInEnriched": enriched_payload.get("count", len(enriched_payload.get("articles", []))),
-            "pipeline": "Crawl → Gemini → GPT (Macro Intelligence) → content.json",
+            "pipeline": "Crawl → Market snapshot → Gemini → GPT (Macro Intelligence) → content.json",
         },
         "chatItems": [
             {
@@ -356,7 +391,7 @@ def main() -> int:
         not args.skip_images,
         args.metadata_timeout,
     )
-    payload = build_payload(final_payload, enriched_payload, all_cards)
+    payload = build_payload(final_payload, enriched_payload, all_cards, market_snapshot=None)
     Path(args.output).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"Done: {len(all_cards)} article cards -> {args.output}")
@@ -370,6 +405,7 @@ def rebuild_content_json(
     *,
     fetch_images: bool = True,
     metadata_timeout: int = 6,
+    market_snapshot_path: Path | None = None,
 ) -> int:
     """Dựng đủ payload website (macro + toàn bộ bài enriched) từ final_summary hoặc gemini_summary."""
     final_payload = load_json(final_payload_path)
@@ -379,7 +415,8 @@ def rebuild_content_json(
         fetch_images,
         metadata_timeout,
     )
-    payload = build_payload(final_payload, enriched_payload, all_cards)
+    ms = load_market_snapshot_json(market_snapshot_path)
+    payload = build_payload(final_payload, enriched_payload, all_cards, market_snapshot=ms)
     output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return len(all_cards)
 

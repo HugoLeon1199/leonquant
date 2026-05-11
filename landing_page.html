@@ -509,6 +509,49 @@
     .footer strong { color: var(--muted); }
 
     .sync-note { margin: 0 0 20px; color: var(--muted); font-size: .92rem; }
+    .market-data-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    .mk-cell {
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+    }
+    .mk-name {
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--faint);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .mk-val { font-size: 1rem; color: var(--text); font-weight: 700; }
+    .mk-ch.up { color: var(--green); font-weight: 800; }
+    .mk-ch.down { color: var(--red); font-weight: 800; }
+    .mk-miss { font-size: .88rem; color: var(--muted); font-weight: 600; }
+    .mk-note { font-size: .78rem; color: var(--faint); display: block; margin-top: 6px; }
+    .mk-banner { margin: 14px 0 0; font-size: .92rem; color: var(--muted); }
+
+    .thesis-hero {
+      margin-top: 20px;
+      padding: 32px 28px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(251, 191, 36, .14), rgba(34, 211, 238, .08));
+      border: 1px solid rgba(251, 191, 36, .38);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, .28);
+    }
+    .thesis-hero .lbl { color: var(--gold); }
+    .thesis-hero .thesis-body {
+      margin: 14px 0 0;
+      font-size: clamp(1.12rem, 2.5vw, 1.48rem);
+      line-height: 1.72;
+      color: #f1f5f9;
+      font-weight: 650;
+    }
     .error-card {
       border-radius: 16px;
       padding: 24px;
@@ -534,6 +577,7 @@
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links">
+          <a href="#market-data">Market data</a>
           <a href="#research">Snapshot</a>
           <a href="#thesis">Thesis</a>
           <a href="#drivers">Drivers</a>
@@ -558,18 +602,18 @@
           </div>
         </div>
         <div class="glass-card">
-          <p class="tag">Live snapshot</p>
+          <p class="tag">Research snapshot</p>
           <h2 class="hero-side-title">Trạng thái pipeline</h2>
           <p class="hero-side-p">Regime, risk tone, nguồn đã quét và thời điểm cập nhật.</p>
           <div class="snapshot-grid">
-            <div class="snap-cell"><span>Market regime</span><strong id="snapRegime">—</strong></div>
-            <div class="snap-cell"><span>Primary driver</span><strong id="snapPrimary">—</strong></div>
-            <div class="snap-cell"><span>Risk tone</span><strong id="snapRisk">—</strong></div>
-            <div class="snap-cell"><span>Confidence</span><strong id="snapConf">—</strong></div>
-            <div class="snap-cell"><span>Sources scanned</span><strong id="snapScan">—</strong></div>
-            <div class="snap-cell"><span>Articles selected</span><strong id="snapPick">—</strong></div>
-            <div class="snap-cell"><span>Verified links</span><strong id="snapVer">—</strong></div>
-            <div class="snap-cell"><span>Last updated</span><strong id="snapUp">—</strong></div>
+            <div class="snap-cell"><span>Market regime</span><strong id="snapRegime">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Primary driver</span><strong id="snapPrimary">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Risk tone</span><strong id="snapRisk">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Confidence</span><strong id="snapConf">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Sources scanned</span><strong id="snapScan">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Articles selected</span><strong id="snapPick">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Verified links</span><strong id="snapVer">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Last updated</span><strong id="snapUp">Đang tải…</strong></div>
           </div>
         </div>
       </div>
@@ -586,7 +630,7 @@
 
     <section id="sources">
       <div class="container" style="max-width: min(1320px, 95%);">
-        <div class="section-head">
+        <div class="section-head" id="source-library">
           <p class="eyebrow">Source library</p>
           <h2 id="sourceGridTitle">Tin đã crawl</h2>
           <p>Toàn bộ bài trong pipeline — metadata từ trang nguồn khi fetch được. Mục research ở trên luôn ưu tiên.</p>
@@ -605,6 +649,20 @@
   <script>
     const ND =
       "Dữ liệu phần này chưa đủ để hiển thị; không dùng làm luận điểm chính.";
+    const MS_FALLBACK =
+      "Dữ liệu trực tiếp chưa khả dụng; phân tích dựa trên nguồn tin đã crawl.";
+    const VN_LENS_ORDER = [
+      "USD/VND",
+      "Khối ngoại",
+      "Lãi suất",
+      "VN-Index",
+      "Ngân hàng",
+      "Bất động sản",
+      "Chứng khoán",
+      "Xuất khẩu",
+      "Độ rộng thị trường",
+      "Thanh khoản",
+    ];
 
     function show(v, fallback) {
       const t = String(v ?? "").trim();
@@ -652,6 +710,92 @@
       if (x === "bearish") return "d-bearish";
       if (x === "mixed") return "d-mixed";
       return "d-neutral";
+    }
+
+    function normKey(s) {
+      return String(s || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+    }
+
+    function mergeVietnamLensChannels(vil) {
+      const raw = vil && Array.isArray(vil.channels) ? vil.channels : [];
+      const map = new Map();
+      for (const c of raw) {
+        if (!c || typeof c !== "object") continue;
+        const label = String(c.channel || "").trim();
+        if (!label) continue;
+        const txt = String(c.analysis || "").trim();
+        map.set(normKey(label), txt);
+        map.set(label, txt);
+      }
+      return VN_LENS_ORDER.map((label) => {
+        let txt = map.get(label) || map.get(normKey(label)) || "";
+        if (!txt) {
+          for (const [k, v] of map.entries()) {
+            if (!v) continue;
+            const nk = normKey(label);
+            if (nk.includes(k) || k.includes(nk)) {
+              txt = v;
+              break;
+            }
+          }
+        }
+        return { channel: label, analysis: txt || ND };
+      });
+    }
+
+    function buildMarketSnapshotHtml(ms) {
+      const obj = ms && typeof ms === "object" ? ms : {};
+      const assets = Array.isArray(obj.assets) ? obj.assets : [];
+      const cov = String(obj.coverage_note || "").trim();
+      let html = `<div class="section-head" id="market-data"><p class="eyebrow">Live inputs</p><h2>Market data snapshot</h2>`;
+      html += `<p>${escapeHtml(cov || MS_FALLBACK)}</p></div>`;
+      if (!assets.length) {
+        html += `<div class="box-muted"><p>${escapeHtml(MS_FALLBACK)}</p></div>`;
+        return html;
+      }
+      let anyOk = false;
+      html += `<div class="market-data-grid">`;
+      for (const a of assets) {
+        if (!a || typeof a !== "object") continue;
+        const st = String(a.status || "").trim();
+        if (st === "ok" && a.price != null) anyOk = true;
+        const name = escapeHtml(a.name || a.symbol || "Asset");
+        let inner = "";
+        if (st === "ok" && a.price != null) {
+          const cur =
+            a.currency === "pct"
+              ? "%"
+              : a.currency
+                ? " " + escapeHtml(a.currency)
+                : "";
+          const priceStr =
+            typeof a.price === "number"
+              ? a.price.toLocaleString("en-US", { maximumFractionDigits: 4 })
+              : escapeHtml(String(a.price));
+          let chHtml = "";
+          if (a.change_pct != null && Number.isFinite(Number(a.change_pct))) {
+            const ch = Number(a.change_pct);
+            const sign = ch > 0 ? "+" : "";
+            const cls = ch >= 0 ? "up" : "down";
+            chHtml = ` <span class="mk-ch ${cls}">(${sign}${ch.toFixed(2)}%)</span>`;
+          }
+          inner = `${priceStr}${cur}${chHtml}`;
+        } else {
+          inner = `<span class="mk-miss">${escapeHtml(MS_FALLBACK)}</span>`;
+        }
+        if (a.note && st !== "ok") {
+          inner += `<span class="mk-note">${escapeHtml(a.note)}</span>`;
+        }
+        html += `<div class="mk-cell"><span class="mk-name">${name}</span><strong class="mk-val">${inner}</strong></div>`;
+      }
+      html += `</div>`;
+      if (!anyOk) {
+        html += `<p class="mk-banner">${escapeHtml(MS_FALLBACK)}</p>`;
+      }
+      return html;
     }
 
     function updateSnapshot(data) {
@@ -713,10 +857,18 @@
       const disc = String(data.disclaimer || "").trim() ||
         "Nội dung chỉ phục vụ nghiên cứu và giáo dục; không phải khuyến nghị đầu tư hay tư vấn tài chính.";
 
-      const bd = data.briefDate ? formatDateOnly(data.briefDate) : formatDateOnly(data.generatedAt);
-      const titleLine = escapeHtml(data.chatSectionTitle || "LEON Quant Labs — Daily Macro Intelligence");
+      const bd = data.date
+        ? formatDateOnly(data.date)
+        : data.briefDate
+          ? formatDateOnly(data.briefDate)
+          : formatDateOnly(data.generatedAt);
+      const titleLine = escapeHtml(data.title || data.chatSectionTitle || "LEON Quant Labs — Daily Macro Intelligence");
 
-      let html = `<div class="section-head" id="snapshot"><p class="eyebrow">Research snapshot</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Khối dưới đây đồng bộ với <code>content.json</code> (schema Macro Intelligence).</p></div>`;
+      let html = `<div class="section-head" id="snapshot"><p class="eyebrow">Research desk note</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Thesis → regime → what changed → drivers → transmission → Vietnam lens → scenarios.</p></div>`;
+
+      html += buildMarketSnapshotHtml(data.marketSnapshot);
+
+      html += `<div class="thesis-hero" id="thesis"><p class="lbl">Daily thesis</p><p class="thesis-body">${escapeHtml(thesis)}</p></div>`;
 
       html += `<article class="card-main" id="market-regime-card"><p class="lbl" style="margin:0 0 8px;font-size:.72rem;">Market regime</p>`;
       html += `<p><strong>Regime.</strong> ${escapeHtml(show(mr.regime, ND))}</p>`;
@@ -727,7 +879,6 @@
       html += `<p style="margin-top:8px"><strong>Invalidation:</strong> ${escapeHtml(show(mr.invalidation, ND))}</p>`;
       html += `</article>`;
 
-      html += `<div class="box-muted" style="margin-top:20px" id="daily-thesis"><p class="lbl">Daily thesis</p><p>${escapeHtml(thesis)}</p></div>`;
       html += `<div class="box-muted" id="t30"><p class="lbl">30-second summary</p><p>${escapeHtml(t30)}</p></div>`;
       html += `<div class="box-muted" id="what-changed"><p class="lbl">What changed</p><p>${escapeHtml(wc)}</p></div>`;
 
@@ -773,18 +924,14 @@
       html += `</tbody></table></div>`;
 
       const vsum = String(vil.summary || "").trim() || ND;
-      const vch = Array.isArray(vil.channels) ? vil.channels : [];
+      const vch = mergeVietnamLensChannels(vil);
       html += `<div class="section-head" id="vietnam" style="margin-top:40px"><p class="eyebrow">Localization</p><h2>Vietnam investor lens</h2></div>`;
       html += `<div class="box-muted"><p class="lbl">Summary</p><p>${escapeHtml(vsum)}</p></div>`;
-      if (vch.length) {
-        html += `<div class="vil-grid" style="margin-top:16px">`;
-        for (const c of vch) {
-          html += `<div class="vil-card"><p class="ch">${escapeHtml(show(c.channel, ND))}</p><p>${escapeHtml(show(c.analysis, ND))}</p></div>`;
-        }
-        html += `</div>`;
-      } else {
-        html += `<div class="box-muted" style="margin-top:12px"><p>${escapeHtml(ND)}</p></div>`;
+      html += `<div class="vil-grid" style="margin-top:16px">`;
+      for (const c of vch) {
+        html += `<div class="vil-card"><p class="ch">${escapeHtml(c.channel)}</p><p>${escapeHtml(c.analysis)}</p></div>`;
       }
+      html += `</div>`;
 
       const bc = sm.base_case && typeof sm.base_case === "object" ? sm.base_case : {};
       const bu = sm.bull_case && typeof sm.bull_case === "object" ? sm.bull_case : {};
@@ -1011,6 +1158,7 @@
           allArticles: [],
           sourceQuality: {},
           marketRegime: {},
+          marketSnapshot: { generated_at: "", assets: [], coverage_note: "" },
         };
       }
     }

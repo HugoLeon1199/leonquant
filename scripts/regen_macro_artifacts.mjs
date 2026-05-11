@@ -42,6 +42,26 @@ function main() {
   const finalPath = path.join(root, "final_summary.json");
   const contentPath = path.join(root, "content.json");
   const enrichedPath = path.join(root, "enriched_news.json");
+  const snapPath = path.join(root, "market_snapshot.json");
+
+  function readMarketSnapshot() {
+    if (!fs.existsSync(snapPath)) {
+      return {
+        generated_at: "",
+        assets: [],
+        coverage_note: "Chưa có market_snapshot.json — chạy fetch_market_snapshot.py.",
+      };
+    }
+    try {
+      return JSON.parse(fs.readFileSync(snapPath, "utf8"));
+    } catch {
+      return {
+        generated_at: "",
+        assets: [],
+        coverage_note: "Không đọc được market_snapshot.json.",
+      };
+    }
+  }
 
   const seed = readJson(seedPath);
   const data = readJson(finalPath);
@@ -124,6 +144,9 @@ function main() {
     disclaimer: s.disclaimer || "",
     schemaVersion: "macro-intelligence-v1",
     legacyProBrief: false,
+    marketSnapshot: readMarketSnapshot(),
+    title: s.title,
+    date: s.date || day,
     chatItems: [
       {
         title: s.title,
