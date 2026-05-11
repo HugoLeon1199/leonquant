@@ -30,6 +30,7 @@ jobs:
           python3 -m json.tool content.json > /dev/null
           mkdir -p _site
           cp landing_page.html index.html content.json _site/
+          cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
 
       - uses: actions/configure-pages@v5
