@@ -8,6 +8,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
+from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
 
 
@@ -18,8 +19,88 @@ DEFAULT_OUTPUT_FILE = PROJECT_DIR / "content.json"
 DEFAULT_MARKET_SNAPSHOT_FILE = PROJECT_DIR / "market_snapshot.json"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 LEONQuantLabs/1.0"
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 LEONQuantLabs/1.0"
 )
+FETCH_HTML_MAX_BYTES = 450_000
+IMG_TAG_RE = re.compile(
+    r'(?is)<img\b[^>]*?\b(?:src|data-src|data-original|data-lazy-src)\s*=\s*'
+    r'["\']([^"\'>\s]+)["\']',
+)
+PLAIN_HTTP_IMAGE_RE = re.compile(
+    r'https?://[^\s"\'<>]+\.(?:jpg|jpeg|png|webp|gif)(?:\?[^\s"\'<>]*)?',
+    re.IGNORECASE,
+)
+SKIP_IMAGE_SUBSTR = (
+    "pixel",
+    "tracking",
+    "1x1",
+    "spacer",
+    "blank.gif",
+    "transparent",
+    "analytics",
+    "emoji",
+    "favicon",
+    "/icon",
+    "logo-small",
+)
+
+
+def normalize_media_url(page_url: str, raw: str) -> str:
+    u = (raw or "").strip()
+    if not u or u.startswith("data:"):
+        return ""
+    u = u.replace("&amp;", "&")
+    if u.startswith("//"):
+        u = "https:" + u
+    elif not urlparse(u).netloc:
+        u = urljoin(page_url, u)
+    low = u.lower()
+    if any(s in low for s in SKIP_IMAGE_SUBSTR):
+        return ""
+    return u
+
+
+def _json_ld_image_urls(html: str) -> list[str]:
+    out: list[str] = []
+    for m in re.finditer(r'(?is)<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html):
+        blob = m.group(1)
+        if '"image"' not in blob and "'image'" not in blob:
+            continue
+        for um in re.finditer(
+            r'(?i)"image"\s*:\s*"(https?:[^"]+)"',
+            blob,
+        ):
+            out.append(um.group(1))
+        for um in re.finditer(
+            r'(?i)"image"\s*:\s*\[\s*"(https?:[^"]+)"',
+            blob,
+        ):
+            out.append(um.group(1))
+    return out
+
+
+def extract_image_from_html(html: str, page_url: str) -> str:
+    """Khi og:image thiếu: thử JSON-LD, rồi thẻ <img> (lazy-load)."""
+    for cand in _json_ld_image_urls(html):
+        nu = normalize_media_url(page_url, cand)
+        if nu:
+            return nu
+    for m in IMG_TAG_RE.finditer(html[:400_000]):
+        nu = normalize_media_url(page_url, m.group(1))
+        if nu:
+            return nu
+    return ""
+
+
+def extract_image_from_plaintext(text: str) -> str:
+    """Một số bài có URL ảnh lẫn trong text thuần (không HTML)."""
+    for m in PLAIN_HTTP_IMAGE_RE.finditer(text[:50_000]):
+        u = m.group(0)
+        low = u.lower()
+        if any(s in low for s in SKIP_IMAGE_SUBSTR):
+            continue
+        return u
+    return ""
 
 _LIST_MINS: dict[str, int] = {
     "global_macro_drivers": 3,
@@ -44,12 +125,21 @@ class MetadataExtractor(HTMLParser):
             prop = attr_map.get("property", "").lower()
             name = attr_map.get("name", "").lower()
             content = attr_map.get("content", "")
+            itemprop = attr_map.get("itemprop", "").lower()
             if not content:
                 return
 
-            if prop in {"og:image", "og:image:url", "twitter:image"} and not self.image_url:
+            image_props = (
+                "og:image",
+                "og:image:url",
+                "og:image:secure_url",
+                "twitter:image",
+            )
+            if prop in image_props and not self.image_url:
                 self.image_url = content.strip()
-            elif name in {"twitter:image", "twitter:image:src"} and not self.image_url:
+            elif name in {"twitter:image", "twitter:image:src", "thumbnail"} and not self.image_url:
+                self.image_url = content.strip()
+            elif itemprop == "image" and not self.image_url:
                 self.image_url = content.strip()
             elif (
                 prop in {"og:description", "twitter:description"}
@@ -65,7 +155,10 @@ class MetadataExtractor(HTMLParser):
         if tag == "link":
             rel = attr_map.get("rel", "").lower()
             href = attr_map.get("href", "")
+            as_attr = attr_map.get("as", "").lower()
             if rel == "image_src" and href and not self.image_url:
+                self.image_url = href.strip()
+            if rel == "preload" and as_attr == "image" and href and not self.image_url:
                 self.image_url = href.strip()
 
 
@@ -111,15 +204,28 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def fetch_metadata(url: str, timeout: int) -> dict[str, str]:
     try:
-        request = Request(url, headers={"User-Agent": USER_AGENT})
+        request = Request(
+            url,
+            headers={
+                "User-Agent": USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
+            },
+        )
         with urlopen(request, timeout=timeout) as response:
-            raw = response.read(300_000)
+            raw = response.read(FETCH_HTML_MAX_BYTES)
             charset = response.headers.get_content_charset() or "utf-8"
         html = raw.decode(charset, errors="replace")
         extractor = MetadataExtractor()
-        extractor.feed(html)
+        try:
+            extractor.feed(html)
+        except Exception:
+            pass
+        image_url = normalize_media_url(url, extractor.image_url)
+        if not image_url:
+            image_url = extract_image_from_html(html, url)
         return {
-            "image_url": extractor.image_url,
+            "image_url": image_url,
             "description": extractor.description,
             "metadata_status": "ok",
         }
@@ -176,6 +282,10 @@ def build_all_article_cards(
             else {"image_url": "", "description": "", "metadata_status": "skipped"}
         )
         summary_text = clean_text(str(article.get("summary") or metadata.get("description") or ""))
+        image_url = (metadata.get("image_url") or "").strip()
+        if not image_url:
+            blob = str(article.get("content_for_ai") or article.get("summary") or "")
+            image_url = extract_image_from_plaintext(blob)
         cards.append(
             {
                 "title": article.get("title", "Tin"),
@@ -185,7 +295,7 @@ def build_all_article_cards(
                 "region": article.get("region", ""),
                 "published_at": article.get("published_at", ""),
                 "summary": summary_text,
-                "image_url": metadata.get("image_url", ""),
+                "image_url": image_url,
                 "metadata_status": metadata.get("metadata_status", ""),
             }
         )
