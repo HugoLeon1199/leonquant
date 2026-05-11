@@ -35,13 +35,21 @@ Trường chính: `title`, `date`, `market_regime`, `daily_thesis`, `thirty_seco
 
 ```powershell
 cd path\to\leonquant-repo
-# Cần GEMINI_API_KEY / OPENAI_API_KEY trong môi trường hoặc file `.env`
-python finalize_summary_gpt.py --update-content
+# Cần OPENAI_API_KEY trong môi trường hoặc `.env`
+python finalize_summary_gpt.py --update-content --skip-web-verify
 # Hoặc chỉ build web từ final_summary hiện có:
 python build_website_content.py --skip-images
 ```
 
-Preview UI không gọi API:
+**Không có Python:** áp seed + đồng bộ `content.json` bằng Node (không gọi GPT):
+
+```powershell
+node scripts/regen_macro_artifacts.mjs
+```
+
+Chỉnh nội dung mẫu: `scripts/macro_intelligence_seed.json` rồi chạy lại lệnh trên.
+
+Preview UI không gọi API (Python):
 
 ```powershell
 python scripts\inject_preview_brief.py

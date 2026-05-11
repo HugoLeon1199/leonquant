@@ -821,6 +821,27 @@
       return html;
     }
 
+    function isMacroIntelligenceContent(data) {
+      if (data.schemaVersion === "macro-intelligence-v1") return true;
+      const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : null;
+      if (mr && (String(mr.regime || "").trim() || String(mr.primary_driver || "").trim())) return true;
+      if (data.dailyThesis && String(data.dailyThesis).trim()) return true;
+      if (data.whatChanged && String(data.whatChanged).trim()) return true;
+      const drivers = Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers : [];
+      if (drivers.length > 0) return true;
+      const heat = Array.isArray(data.assetImpactHeatmap) ? data.assetImpactHeatmap : [];
+      if (heat.length > 0) return true;
+      const vil = data.vietnamInvestorLens && typeof data.vietnamInvestorLens === "object" ? data.vietnamInvestorLens : null;
+      if (vil && (String(vil.summary || "").trim() || (Array.isArray(vil.channels) && vil.channels.length > 0))) return true;
+      const sm = data.scenarioMap && typeof data.scenarioMap === "object" ? data.scenarioMap : null;
+      if (sm && sm.base_case && sm.bull_case && sm.bear_case) return true;
+      const kvw = Array.isArray(data.keyVariablesToWatch) ? data.keyVariablesToWatch : [];
+      if (kvw.length > 0) return true;
+      if (data.finalTakeaway && String(data.finalTakeaway).trim()) return true;
+      if (data.sourceQuality && typeof data.sourceQuality === "object" && String(data.sourceQuality.coverage_note || "").trim()) return true;
+      return false;
+    }
+
     function buildLegacyProBriefHtml(data) {
       const t30 = data.thirtySecondSummary && String(data.thirtySecondSummary).trim();
       const stories = Array.isArray(data.briefStories) ? data.briefStories : [];
@@ -908,13 +929,7 @@
     function renderBrief(data) {
       const root = document.getElementById("briefRoot");
       root.innerHTML = "";
-      const drivers = data.topMacroDrivers && Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers : [];
-      const hasNew = Boolean(
-        data.dailyThesis && String(data.dailyThesis).trim()
-        || (drivers.length > 0)
-        || (data.assetImpactHeatmap && data.assetImpactHeatmap.length >= 6)
-      );
-      if (hasNew) {
+      if (isMacroIntelligenceContent(data)) {
         root.innerHTML = buildMacroDeskHtml(data);
         return;
       }

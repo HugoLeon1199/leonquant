@@ -169,6 +169,39 @@ def _heatmap_rows_from_new(summary: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
+def _has_macro_intelligence_schema(summary: dict[str, Any]) -> bool:
+    """Schema mới (Daily Macro Intelligence): có ít nhất một khối chính."""
+    mr = summary.get("market_regime") if isinstance(summary.get("market_regime"), dict) else {}
+    if mr and (
+        str(mr.get("regime", "")).strip()
+        or str(mr.get("primary_driver", "")).strip()
+    ):
+        return True
+    if str(summary.get("daily_thesis", "") or "").strip():
+        return True
+    if str(summary.get("what_changed", "") or "").strip():
+        return True
+    tmd = summary.get("top_macro_drivers")
+    if isinstance(tmd, list) and len(tmd) > 0:
+        return True
+    heat = summary.get("asset_impact_heatmap")
+    if isinstance(heat, list) and len(heat) > 0:
+        return True
+    vil = summary.get("vietnam_investor_lens") if isinstance(summary.get("vietnam_investor_lens"), dict) else {}
+    ch = vil.get("channels") if isinstance(vil.get("channels"), list) else []
+    if vil and (str(vil.get("summary", "")).strip() or len(ch) > 0):
+        return True
+    sm = summary.get("scenario_map") if isinstance(summary.get("scenario_map"), dict) else {}
+    if sm and all(k in sm for k in ("base_case", "bull_case", "bear_case")):
+        return True
+    kvw = summary.get("key_variables_to_watch")
+    if isinstance(kvw, list) and len(kvw) > 0:
+        return True
+    if str(summary.get("final_takeaway", "") or "").strip():
+        return True
+    return False
+
+
 def build_payload(
     final_payload: dict[str, Any],
     enriched_payload: dict[str, Any],
@@ -197,6 +230,10 @@ def build_payload(
     brief_stories = _list("brief_stories")
     asset_impact_table = _list("asset_impact_table")
 
+    new_intel = _has_macro_intelligence_schema(summary)
+    if new_intel:
+        brief_stories = []
+        asset_impact_table = []
     mw = _macro_world(summary)
     vm = _vietnam_macro(summary)
 
@@ -226,14 +263,12 @@ def build_payload(
         asset_impact_table = _heatmap_rows_from_new(summary)
 
     legacy_has_pro = bool(
-        t303
-        or (brief_stories and len(brief_stories) > 0)
-        or (asset_impact_table and len(asset_impact_table) > 0)
-    )
-    new_intel = bool(
-        (market_regime and str(market_regime.get("regime", "")).strip())
-        or (daily_thesis and len(daily_thesis) > 3)
-        or (top_macro_drivers and len(top_macro_drivers) > 0)
+        (not new_intel)
+        and (
+            t303
+            or (brief_stories and len(brief_stories) > 0)
+            or (asset_impact_table and len(asset_impact_table) > 0)
+        )
     )
 
     return {
@@ -271,7 +306,7 @@ def build_payload(
         "finalTakeaway": final_take,
         "disclaimer": disclaimer,
         "schemaVersion": "macro-intelligence-v1",
-        "legacyProBrief": legacy_has_pro and not new_intel,
+        "legacyProBrief": legacy_has_pro,
         "allArticles": all_articles,
         "featuredArticles": all_articles,
         "stats": {

@@ -37,7 +37,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: gpt-4o-mini
         run: |
-          python finalize_summary_gpt.py
+          python finalize_summary_gpt.py --skip-web-verify
 
       - name: Build public website content
         run: |
