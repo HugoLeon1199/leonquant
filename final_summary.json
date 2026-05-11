@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-11T03:54:06.417969+00:00",
+  "generated_at": "2026-05-11T09:28:34.667073+00:00",
   "meta": {
     "gemini_input": "/home/runner/work/leonquant/leonquant/gemini_summary.json",
     "enriched_input": "/home/runner/work/leonquant/leonquant/enriched_news.json",
@@ -49,11 +49,65 @@
     "risks_to_watch": [
       "Nợ xấu ngân hàng Việt Nam tiếp tục gia tăng và tỷ lệ bao phủ giảm.",
       "Áp lực lãi suất và tỷ giá tại Việt Nam do căng thẳng thanh khoản và biến động toàn cầu.",
-      "Xung đột địa chính trị ở Trung Đông kéo dài, gây biến động giá năng lượng và lạm phát toàn cầu.",
-      "Chính sách tiền tệ của Fed có thể duy trì thắt chặt lâu hơn dự kiến.",
-      "Sự phân hóa của thị trường chứng khoán Việt Nam, với dòng tiền chưa lan tỏa rộng.",
-      "Rủi ro dư cung trong ngành nông sản Việt Nam."
+      "Xung đột địa chính trị ở Trung Đông kéo dài, gây biến động giá năng lượng và lạm phát toàn cầu."
     ],
-    "editor_notes": "Dữ liệu từ các nguồn đáng tin cậy, nhưng cần theo dõi thêm về diễn biến nợ xấu và tác động của chính sách tiền tệ toàn cầu."
+    "editor_notes": "Dữ liệu từ các nguồn đáng tin cậy, nhưng cần theo dõi thêm về diễn biến nợ xấu và tác động của chính sách tiền tệ toàn cầu.",
+    "macro_world": "Kinh tế toàn cầu đang bị ảnh hưởng bởi chênh lệch lãi suất lớn giữa các ngân hàng trung ương, đặc biệt là giữa Fed và BoJ. Căng thẳng địa chính trị ở Trung Đông tiếp tục là rủi ro lớn, ảnh hưởng đến giá năng lượng và lạm phát toàn cầu.",
+    "vietnam_macro": "Kinh tế Việt Nam đang chịu áp lực từ nợ xấu gia tăng trong ngành ngân hàng, trong khi ngành chứng khoán có triển vọng tích cực từ kế hoạch tăng vốn và nâng hạng thị trường. Tuy nhiên, cần theo dõi sự phân hóa và thanh khoản trên thị trường.",
+    "so_what_chain": "Fed giữ lãi cao + dữ liệu việc làm Mỹ vượt kỳ vọng → USD/DXY củng cố → áp lực lên USD/VND và vàng (chốt lời); can thiệp JPY bình ổn ngắn hạn nhưng spread lãi suất vẫn nghiêng về USD; risk địa chính trị đẩy biến động dầu/hàng hóa.",
+    "world_to_vietnam": "Khi USD global mạnh và risk-off, SBV có xu hướng quản lý tỷ giá linh hoạt và giữ ổn định kỳ vọng; lãi suất trong nước và thanh khoản NH vẫn là kênh truyền đầu tiên lên TTCK và tín dụt.",
+    "asset_impacts": [
+      {
+        "asset": "Vàng",
+        "bias": "mixed",
+        "note": "Áp lực từ USD nhưng rủi ro địa chính trị vẫn hỗ trợ kênh phòng thủ ngắn hạn."
+      },
+      {
+        "asset": "USD / DXY",
+        "bias": "bullish",
+        "note": "Dữ liệu lao động mạnh hơn dự báo củng cố kịch bản Fed chậm nới."
+      },
+      {
+        "asset": "USD/VND",
+        "bias": "bullish",
+        "note": "Dollar mạnh toàn cầu thường tạo nhịp căng margin tỷ giá; theo dõi can thiệp/sẵn sàng ngoại tệ."
+      },
+      {
+        "asset": "TTCK VN",
+        "bias": "mixed",
+        "note": "Nhịp nâng hạng / tăng vốn CK tích cực trung hạn nhưng nhóm vốn hóa và nợ xấu NH phân hóa ngắn hạn."
+      }
+    ],
+    "macro_heat_labels": [
+      {
+        "label": "US yields / Fed path",
+        "sentiment": "hot"
+      },
+      {
+        "label": "JPY intervention",
+        "sentiment": "warm"
+      },
+      {
+        "label": "Oil / Hormuz risk",
+        "sentiment": "hot"
+      },
+      {
+        "label": "VN – bank NPL",
+        "sentiment": "warm"
+      },
+      {
+        "label": "VN – upgrade / margin",
+        "sentiment": "cool"
+      }
+    ],
+    "actual_vs_forecast": [
+      {
+        "indicator": "NFP Mỹ (tháng 4, khu vực tư)",
+        "actual": "115k",
+        "forecast": "62k",
+        "actual_pct": 92,
+        "forecast_pct": 50
+      }
+    ]
   }
 }

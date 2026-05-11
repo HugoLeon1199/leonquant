@@ -1,7 +1,7 @@
 {
   "siteTitle": "LEON Quant Labs",
   "sectionLabel": "Daily Macro Intelligence",
-  "generatedAt": "2026-05-11T03:54:06.417969+00:00",
+  "generatedAt": "2026-05-11T09:28:34.667073+00:00",
   "chatSectionTitle": "Macro Daily Brief",
   "marketImpact": "Mixed",
   "executiveSummary": "Thị trường tài chính Việt Nam đang đối mặt với áp lực gia tăng từ nợ xấu ngân hàng, với tổng nợ xấu tăng gần 30.000 tỷ đồng trong quý I/2026. Ngành chứng khoán có triển vọng tích cực nhờ kế hoạch tăng vốn lớn và kỳ vọng nâng hạng thị trường. Trên toàn cầu, Nhật Bản đã chi 35 tỷ USD để hỗ trợ đồng Yên, nhưng hiệu quả vẫn chưa rõ ràng do chênh lệch lãi suất lớn với Fed. Căng thẳng địa chính trị Mỹ-Iran tiếp tục ảnh hưởng đến giá dầu và hàng hóa, gây biến động trong lạm phát toàn cầu.",
@@ -10,14 +10,66 @@
   "macroGlobal": "",
   "internationalMarkets": "",
   "vietnamImplications": "",
+  "soWhatChain": "Fed giữ lãi cao + dữ liệu việc làm Mỹ vượt kỳ vọng → USD/DXY củng cố → áp lực lên USD/VND và vàng (chốt lời); can thiệp JPY bình ổn ngắn hạn nhưng spread lãi suất vẫn nghiêng về USD; risk địa chính trị đẩy biến động dầu/hàng hóa.",
+  "worldToVietnam": "Khi USD global mạnh và risk-off, SBV có xu hướng quản lý tỷ giá linh hoạt và giữ ổn định kỳ vọng; lãi suất trong nước và thanh khoản NH vẫn là kênh truyền đầu tiên lên TTCK và tín dụt.",
+  "assetImpacts": [
+    {
+      "asset": "Vàng",
+      "bias": "mixed",
+      "note": "Áp lực từ USD nhưng rủi ro địa chính trị vẫn hỗ trợ kênh phòng thủ ngắn hạn."
+    },
+    {
+      "asset": "USD / DXY",
+      "bias": "bullish",
+      "note": "Dữ liệu lao động mạnh hơn dự báo củng cố kịch bản Fed chậm nới."
+    },
+    {
+      "asset": "USD/VND",
+      "bias": "bullish",
+      "note": "Dollar mạnh toàn cầu thường tạo nhịp căng margin tỷ giá; theo dõi can thiệp/sẵn sàng ngoại tệ."
+    },
+    {
+      "asset": "TTCK VN",
+      "bias": "mixed",
+      "note": "Nhịp nâng hạng / tăng vốn CK tích cực trung hạn nhưng nhóm vốn hóa và nợ xấu NH phân hóa ngắn hạn."
+    }
+  ],
+  "actualVsForecast": [
+    {
+      "indicator": "NFP Mỹ (tháng 4, khu vực tư)",
+      "actual": "115k",
+      "forecast": "62k",
+      "actual_pct": 92,
+      "forecast_pct": 50
+    }
+  ],
+  "macroHeatLabels": [
+    {
+      "label": "US yields / Fed path",
+      "sentiment": "hot"
+    },
+    {
+      "label": "JPY intervention",
+      "sentiment": "warm"
+    },
+    {
+      "label": "Oil / Hormuz risk",
+      "sentiment": "hot"
+    },
+    {
+      "label": "VN – bank NPL",
+      "sentiment": "warm"
+    },
+    {
+      "label": "VN – upgrade / margin",
+      "sentiment": "cool"
+    }
+  ],
   "webVerification": {},
   "risksToWatch": [
     "Nợ xấu ngân hàng Việt Nam tiếp tục gia tăng và tỷ lệ bao phủ giảm.",
     "Áp lực lãi suất và tỷ giá tại Việt Nam do căng thẳng thanh khoản và biến động toàn cầu.",
-    "Xung đột địa chính trị ở Trung Đông kéo dài, gây biến động giá năng lượng và lạm phát toàn cầu.",
-    "Chính sách tiền tệ của Fed có thể duy trì thắt chặt lâu hơn dự kiến.",
-    "Sự phân hóa của thị trường chứng khoán Việt Nam, với dòng tiền chưa lan tỏa rộng.",
-    "Rủi ro dư cung trong ngành nông sản Việt Nam."
+    "Xung đột địa chính trị ở Trung Đông kéo dài, gây biến động giá năng lượng và lạm phát toàn cầu."
   ],
   "allArticles": [
     {
@@ -840,7 +892,7 @@
   "stats": {
     "articlesCrawled": 37,
     "articlesInEnriched": 37,
-    "pipeline": "Crawl + Gemini + GPT (2 khối) + đủ link trong ngày"
+    "pipeline": "Crawl + Gemini + GPT (So What / heatmap / VN bridge) + ảnh og khi fetch được"
   },
   "chatItems": [
     {
