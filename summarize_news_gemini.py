@@ -12,6 +12,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+from build_website_content import rebuild_content_json
 
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_INPUT_FILE = PROJECT_DIR / "news_output.json"
@@ -261,48 +262,6 @@ def write_enriched(path: Path, source_payload: dict[str, Any], articles: list[di
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def write_content_json(path: Path, summary: dict[str, Any]) -> None:
-    cards = [
-        {
-            "title": summary.get("title", "Macro Daily Brief"),
-            "content": (
-                f"{summary.get('executive_summary', '')}\n\n"
-                f"Market impact: {summary.get('market_impact', 'Mixed')}"
-            ).strip(),
-        }
-    ]
-
-    key_themes = summary.get("key_themes", [])
-    if key_themes:
-        cards.append(
-            {
-                "title": "Chủ đề chính",
-                "content": "\n\n".join(
-                    f"- {item.get('theme', 'Theme')}: {item.get('summary', '')} "
-                    f"(Impact: {item.get('impact', 'N/A')})"
-                    for item in key_themes
-                    if isinstance(item, dict)
-                ),
-            }
-        )
-
-    if summary.get("vietnam_watch"):
-        cards.append({"title": "Việt Nam watch", "content": summary["vietnam_watch"]})
-
-    if summary.get("global_watch"):
-        cards.append({"title": "Global watch", "content": summary["global_watch"]})
-
-    risks = summary.get("risks_to_watch", [])
-    if risks:
-        cards.append({"title": "Rủi ro cần theo dõi", "content": "\n".join(f"- {risk}" for risk in risks)})
-
-    payload = {
-        "chatSectionTitle": "Cập nhật macro từ Gemini",
-        "chatItems": cards,
-    }
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description="Fetch article details and summarize with Gemini API.")
     parser.add_argument("--input", default=str(DEFAULT_INPUT_FILE), help="Path to news_output.json")
@@ -354,11 +313,16 @@ def main() -> int:
     write_summary(Path(args.output), summary, meta)
 
     if args.update_content:
-        write_content_json(DEFAULT_CONTENT_FILE, summary)
+        n = rebuild_content_json(
+            Path(args.output),
+            Path(args.enriched_output),
+            DEFAULT_CONTENT_FILE,
+            fetch_images=False,
+            metadata_timeout=6,
+        )
+        print(f"Website content: {n} article cards -> {DEFAULT_CONTENT_FILE}")
 
     print(f"Done: summary written to {args.output}")
-    if args.update_content:
-        print(f"Website content updated: {DEFAULT_CONTENT_FILE}")
     return 0
 
 

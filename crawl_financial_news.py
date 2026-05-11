@@ -15,6 +15,8 @@ from xml.etree import ElementTree
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_SOURCES_FILE = PROJECT_DIR / "news_sources.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "news_output.json"
+DEFAULT_FINAL_FILE = PROJECT_DIR / "final_summary.json"
+DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
 DEFAULT_CONTENT_FILE = PROJECT_DIR / "content.json"
 
 USER_AGENT = (
@@ -413,7 +415,19 @@ def main() -> None:
     write_output(Path(args.output), articles, errors)
 
     if args.update_content:
-        write_content_json(DEFAULT_CONTENT_FILE, articles)
+        if DEFAULT_FINAL_FILE.is_file() and DEFAULT_ENRICHED_FILE.is_file():
+            from build_website_content import rebuild_content_json
+
+            n = rebuild_content_json(
+                DEFAULT_FINAL_FILE,
+                DEFAULT_ENRICHED_FILE,
+                DEFAULT_CONTENT_FILE,
+                fetch_images=False,
+                metadata_timeout=6,
+            )
+            print(f"Website content: {n} article cards -> {DEFAULT_CONTENT_FILE}")
+        else:
+            write_content_json(DEFAULT_CONTENT_FILE, articles)
 
     print(f"Done: {len(articles)} unique articles -> {args.output}")
     if errors:

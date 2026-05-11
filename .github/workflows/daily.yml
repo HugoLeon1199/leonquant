@@ -41,7 +41,7 @@ jobs:
 
       - name: Build public website content
         run: |
-          python build_website_content.py --max-featured 12
+          python build_website_content.py --skip-images
 
       - name: Commit updated brief
         run: |

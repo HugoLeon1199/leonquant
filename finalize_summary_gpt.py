@@ -11,6 +11,9 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
+from build_website_content import rebuild_content_json
+
+
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_GEMINI_FILE = PROJECT_DIR / "gemini_summary.json"
 DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
@@ -158,6 +161,27 @@ def verification_urls_from_evidence(evidence: list[dict[str, str]], max_urls: in
     return urls
 
 
+def verification_urls_fill(
+    enriched_payload: dict[str, Any],
+    evidence: list[dict[str, str]],
+    max_urls: int,
+) -> list[str]:
+    """Ưu tiên URL trong evidence (Gemini), sau đó lấy thêm từ toàn bộ crawl cho đủ slot kiểm chứng."""
+    urls = verification_urls_from_evidence(evidence, max_urls)
+    if len(urls) >= max_urls:
+        return urls
+    seen = set(urls)
+    for article in enriched_payload.get("articles", []):
+        u = str(article.get("url", ""))
+        if not u or u in seen:
+            continue
+        seen.add(u)
+        urls.append(u)
+        if len(urls) >= max_urls:
+            break
+    return urls
+
+
 def build_prompt(
     gemini_payload: dict[str, Any],
     enriched_payload: dict[str, Any],
@@ -172,58 +196,42 @@ def build_prompt(
         "live_web_snippets": live_page_snippets,
     }
 
+    checks_cap = len(live_page_snippets)
     return f"""
-Bạn là biên tập viên cuối cùng cho LEON Quant Labs. Giọng văn cao cấp, súc tích,
-theo phong cách ghi chép trong nhóm đầu tư chuyên sâu: ưu tiên luận điểm có thể
-hành động, không khẩu hiệu, không mục lục, không đọc như bài PR.
+Bạn là biên tập cuối của LEON Quant Labs. Viết tiếng Việt súc tích, kiểu ghi chú cho nhà đầu tư bận rộn:
+không khẩu hiệu, không mục lục, không tạo nhiều lớp "watch / góc bổ sung / ghi chú biên tập" — chỉ hai khối chữ chính.
 
-Input gồm:
-1. Bản tổng hợp từ Gemini (có thể có lệch so với nguồn).
-2. Các đoạn bài gốc đã crawl (evidence_articles) — trích dẫn nội dung đã lưu tại thời điểm crawl.
-3. live_web_snippets: đoạn trích TỪ WEB VỪA FETCH LẠI (tiêu đề trang + og:description hoặc đoạn text rút gọn).
-   Dùng mục này để KIỂM CHỨNG nhanh: nếu snippet không chứa số liệu/claim mà Gemini đưa ra, hãy làm mềm hoặc bỏ claim,
-   ghi trong web_verification. Không cần kiểm từng URL; chỉ cần đủ để xác nhật hoặc phát hiện lệch rõ rệt.
+Trên web: (1) vĩ mô thế giới, (2) vĩ mô Việt Nam; phía dưới là danh sách đầy đủ link bài crawl (hệ thống tự liệt kê). Không liệt kê URL trong bài trừ khi trích số liệu.
+
+Input:
+1. Bản Gemini (có thể lệch nguồn).
+2. evidence_articles — trích crawl đã lưu.
+3. live_web_snippets — đoạn fetch lại từ web. Dùng kiểm chỉnh claim; ghi ngắn trong web_verification.checks. Không cần kiểm hết URL.
 
 Nhiệm vụ:
-- Tổng hợp từ Gemini + evidence; sau đó đối chiếu với live_web_snippets (khi có).
-- Không bịa số liệu. Số liệu chỉ giữ nếu xuất hiện trong evidence_articles hoặc được live_web_snippets hỗ trợ;
-  nếu không chắc, nói "chưa đủ dữ liệu xác nhận" thay vì suy diễn.
-- Cấu trúc nội dung theo dòng suy luận đầu tư (trình bày liền mạch trên web, không cần heading mục lục máy móc):
-  + macro_global: tin vĩ mô / sự kiện toàn cầu nổi bật HÔM NAY là gì (2–4 câu, cụ thể).
-  + international_markets: truyền qua các thị trường quốc tế thế nào (lãi suất, USD, risk-on/off,
-    chỉ số lớn, hàng hóa năng lượng/kim loại nếu liên quan) — 3–6 câu.
-  + vietnam_implications: hàm ý cho Việt Nam — TTCK, hệ thống tài chính–ngân hàng,
-    tỷ giá–vĩ mô, hàng hóa/dầu ảnh hưởng tới VN, dòng vốn — 4–7 câu, có thể gắn kênh truyền rõ ràng.
-- executive_summary: 1–2 câu "one-liner" tổng kết cho người bận.
-- key_points: 3–6 ý, mỗi ý 2–3 câu, luôn có sources là URL từ evidence (trùng với bài đã dùng).
-- web_verification: tóm tắt 1–3 câu về việc kiểm chứng; checks liệt kê tối đa {len(live_page_snippets)} dòng
-  (url, status: confirmed | partial | unavailable | mismatch, note ngắn).
+- Tổng hợp Gemini + evidence; đối chiếu live_web_snippets khi có.
+- Không bịa số liệu; thiếu dữ liệu thì nói "chưa đủ dữ liệu xác nhận".
+- CHỈ hai khối nội dung dài:
+  + macro_world: Vĩ mô thế giới trong ngày + truyền sang thị trường quốc tế (USD, lãi suất, risk, hàng hóa) — một đoạn 6–12 câu, gọn.
+  + vietnam_macro: Việt Nam — tác động từ thế giới và trong nước (TTCK, NH/tín dụng, tỷ giá, hàng hóa, dòng vốn) — 6–12 câu, gọn.
+- executive_summary: 0 hoặc 1 câu dẫn; có thể "".
+- market_impact: Risk-on | Risk-off | Neutral | Mixed
+- risks_to_watch: tối đa 3 mục rất ngắn; hoặc []
+- web_verification: summary 1 câu (việc đã kiểm, không lặp bản chính); checks tối đa {checks_cap} mục (url, status: confirmed | partial | unavailable | mismatch, note ngắn).
 
-Trả về DUY NHẤT JSON hợp lệ theo schema:
+KHÔNG trả về: key_points, vietnam_watch, global_watch, editor_notes, macro_global, international_markets, vietnam_implications như field riêng — chỉ macro_world và vietnam_macro.
+
+Trả về DUY NHẤT JSON:
 {{
   "title": "Macro Daily Brief",
-  "macro_global": "2-4 câu",
-  "international_markets": "3-6 câu",
-  "vietnam_implications": "4-7 câu",
-  "executive_summary": "1-2 câu one-liner",
-  "market_impact": "Risk-on | Risk-off | Neutral | Mixed",
-  "key_points": [
-    {{
-      "title": "Ý chính",
-      "detail": "2-3 câu",
-      "impact": "High | Medium | Low",
-      "sources": ["URL"]
-    }}
-  ],
-  "vietnam_watch": "Bản rút gọn 1 đoạn đồng bộ với vietnam_implications (1-3 câu) hoặc để trống nếu trùng hoàn toàn",
-  "global_watch": "Bản rút gọn 1 đoạn đồng bộ với international_markets (1-3 câu) hoặc để trống",
-  "risks_to_watch": ["Rủi ro 1", "Rủi ro 2"],
-  "editor_notes": "Ghi chú chất lượng dữ liệu, giới hạn mô hình",
+  "executive_summary": "",
+  "macro_world": "",
+  "vietnam_macro": "",
+  "market_impact": "Mixed",
+  "risks_to_watch": [],
   "web_verification": {{
-    "summary": "1-3 câu",
-    "checks": [
-      {{"url": "https://...", "status": "confirmed", "note": "ngắn"}}
-    ]
+    "summary": "",
+    "checks": []
   }}
 }}
 
@@ -278,83 +286,6 @@ def write_summary(path: Path, summary: dict[str, Any], meta: dict[str, Any]) -> 
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def write_content_json(path: Path, summary: dict[str, Any]) -> None:
-    lead = summary.get("executive_summary", "").strip()
-    macro = summary.get("macro_global", "").strip()
-    intl = summary.get("international_markets", "").strip()
-    vn = summary.get("vietnam_implications", "").strip()
-    narrative = "\n\n".join(
-        part
-        for part in (
-            lead,
-            f"Vĩ mô toàn cầu:\n{macro}" if macro else "",
-            f"Kênh quốc tế:\n{intl}" if intl else "",
-            f"Hàm ý Việt Nam:\n{vn}" if vn else "",
-        )
-        if part
-    )
-
-    cards = [
-        {
-            "title": summary.get("title", "Macro Daily Brief"),
-            "content": (
-                f"{narrative}\n\nMarket impact: {summary.get('market_impact', 'Mixed')}"
-            ).strip(),
-        }
-    ]
-
-    key_points = summary.get("key_points", [])
-    if key_points:
-        cards.append(
-            {
-                "title": "Điểm chính",
-                "content": "\n\n".join(
-                    f"- {item.get('title', 'Ý chính')}: {item.get('detail', '')} "
-                    f"(Impact: {item.get('impact', 'N/A')})"
-                    for item in key_points
-                    if isinstance(item, dict)
-                ),
-            }
-        )
-
-    wv = summary.get("web_verification") if isinstance(summary.get("web_verification"), dict) else {}
-    if wv.get("summary"):
-        checks = wv.get("checks") or []
-        check_lines = ""
-        if isinstance(checks, list) and checks:
-            lines = []
-            for c in checks:
-                if not isinstance(c, dict):
-                    continue
-                lines.append(f"  · {c.get('url', '')} [{c.get('status', '')}] {c.get('note', '')}")
-            check_lines = "\n".join(lines)
-        cards.append(
-            {
-                "title": "Kiểm chứng nhanh từ web",
-                "content": "\n".join(p for p in (wv.get("summary", ""), check_lines) if p),
-            }
-        )
-
-    if summary.get("vietnam_watch"):
-        cards.append({"title": "Việt Nam watch", "content": summary["vietnam_watch"]})
-
-    if summary.get("global_watch"):
-        cards.append({"title": "Global watch", "content": summary["global_watch"]})
-
-    risks = summary.get("risks_to_watch", [])
-    if risks:
-        cards.append({"title": "Rủi ro cần theo dõi", "content": "\n".join(f"- {risk}" for risk in risks)})
-
-    if summary.get("editor_notes"):
-        cards.append({"title": "Ghi chú dữ liệu", "content": summary["editor_notes"]})
-
-    payload = {
-        "chatSectionTitle": "Macro Daily Brief",
-        "chatItems": cards,
-    }
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description="Finalize Gemini summary with a low-cost OpenAI model.")
     parser.add_argument("--gemini-input", default=str(DEFAULT_GEMINI_FILE), help="Path to gemini_summary.json")
@@ -379,7 +310,7 @@ def main() -> int:
     gemini_payload = load_json(Path(args.gemini_input))
     enriched_payload = load_json(Path(args.enriched_input))
     evidence = compact_evidence(gemini_payload, enriched_payload, args.max_evidence_chars)
-    verify_urls = verification_urls_from_evidence(evidence, args.verify_urls_max)
+    verify_urls = verification_urls_fill(enriched_payload, evidence, args.verify_urls_max)
 
     live_snippets: list[dict[str, str]] = []
     if not args.skip_web_verify:
@@ -425,11 +356,16 @@ def main() -> int:
     write_summary(Path(args.output), summary, meta)
 
     if args.update_content:
-        write_content_json(DEFAULT_CONTENT_FILE, summary)
+        n = rebuild_content_json(
+            Path(args.output),
+            Path(args.enriched_input),
+            DEFAULT_CONTENT_FILE,
+            fetch_images=False,
+            metadata_timeout=6,
+        )
+        print(f"Website content: {n} article cards -> {DEFAULT_CONTENT_FILE}")
 
     print(f"Done: final summary written to {args.output}")
-    if args.update_content:
-        print(f"Website content updated: {DEFAULT_CONTENT_FILE}")
     return 0
 
 

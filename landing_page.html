@@ -223,6 +223,29 @@
       grid-template-columns: minmax(0, 1.4fr) minmax(280px, .8fr);
       gap: 20px;
     }
+    .brief-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .world-card { border-top: 4px solid var(--primary); }
+    .vn-card { border-top: 4px solid var(--gold); }
+    .section-sources {
+      background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 38%, #ffffff 100%);
+    }
+    .category-pill {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      background: #e0f2fe;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
@@ -322,8 +345,8 @@
     }
     .source-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
     .source-card {
       overflow: hidden;
@@ -450,23 +473,23 @@
       <div class="hero-grid">
         <div class="hero-content">
           <p class="tag">Daily Macro Intelligence</p>
-          <h1>Tin vi mô, thị trường và rủi ro được cô đọng cho nhà đầu tư bận rộn.</h1>
-          <p class="subtitle">Bản tin được biên tập để đọc liền mạch trên một trang — không mục lục, không thuyết minh tự động. Luận điểm ưu tiên kênh truyền vĩ mô → thị trường quốc tế → Việt Nam (TTCK, tài chính, hàng hóa).</p>
+          <h1>Tóm tắt vĩ mô thế giới và Việt Nam cho người bận rộn.</h1>
+          <p class="subtitle">Hai đoạn tóm tắt biên tập và danh sách đầy đủ tin đã crawl — mở link để đọc bản đầy đủ, minh bạch nguồn.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#brief">Đọc bản tin</a>
           </div>
         </div>
         <aside class="hero-card" aria-label="Thông tin bản tin">
           <p class="tag">Live Snapshot</p>
-          <h2>Market dashboard cập nhật tự động</h2>
-          <p>Theo dõi nhanh mức độ ảnh hưởng, số bài được phân tích và thời điểm bản tin mới nhất được tạo.</p>
+          <h2>Tóm tắt trong ngày</h2>
+          <p>Market impact, số tin crawl và thời điểm tạo bản tin.</p>
           <div class="hero-metrics">
             <div class="metric">
               <span>Market impact</span>
               <strong id="heroImpact">Đang cập nhật</strong>
             </div>
             <div class="metric">
-              <span>Nguồn phân tích</span>
+              <span>Tin đã crawl</span>
               <strong id="heroArticles">--</strong>
             </div>
             <div class="metric">
@@ -485,8 +508,8 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Daily brief</p>
-            <h2 id="chatSectionTitle">Cập nhật tin tức hàng ngày</h2>
-            <p>Bản tin trình bày theo một dòng suy luận: vĩ mô toàn cầu là gì, truyền sang thế giới thế nào, rồi hàm ý cụ thể tới TTCK và hệ thống tài chính Việt Nam.</p>
+            <h2 id="chatSectionTitle">Bản tin hàng ngày</h2>
+            <p>Hai ô dưới đây là phần tóm tắt; kéo xuống để xem toàn bộ tin trong ngày.</p>
           </div>
         </div>
         <p id="syncNote" class="sync-note">Đang tải dữ liệu mới nhất...</p>
@@ -494,13 +517,13 @@
       </div>
     </section>
 
-    <section id="sources" class="section">
-      <div class="container">
+    <section id="sources" class="section section-sources">
+      <div class="container" style="max-width: min(1400px, 96%);">
         <div class="section-title">
           <div>
-            <p class="eyebrow">Source watchlist</p>
-            <h2>Tin ảnh hưởng tới bản tổng hợp</h2>
-            <p>Các link gốc được chọn vì có tác động trực tiếp tới luận điểm chính trong bản tin hôm nay.</p>
+            <p class="eyebrow">Đầy đủ nguồn</p>
+            <h2 id="sourceGridTitle">Tin đã crawl trong ngày</h2>
+            <p>Toàn bộ bài lấy được từ pipeline crawl — có ảnh và mô tả khi trang nguồn cung cấp. Bấm vào thẻ để đọc bản đầy đủ.</p>
           </div>
         </div>
         <div id="sourceGrid" class="source-grid"></div>
@@ -515,14 +538,6 @@
   </footer>
 
   <script>
-    function impactClass(value) {
-      const text = String(value || "").toLowerCase();
-      if (text.includes("high")) return "high";
-      if (text.includes("medium")) return "medium";
-      if (text.includes("low")) return "low";
-      return "";
-    }
-
     function escapeHtml(value) {
       return String(value || "")
         .replace(/&/g, "&amp;")
@@ -567,28 +582,6 @@
       return card;
     }
 
-    function createPointCard(item) {
-      const point = document.createElement("div");
-      point.className = "point";
-      const impact = item.impact || "Medium";
-      const sourceLinks = Array.isArray(item.sources)
-        ? item.sources.map((url, index) => `
-          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-            Đọc bài gốc ${index + 1} · ${escapeHtml(getHostName(url))}
-          </a>
-        `).join("")
-        : "";
-      point.innerHTML = `
-        <div class="badge-row">
-          <span class="badge ${impactClass(impact)}">${escapeHtml(impact)}</span>
-        </div>
-        <h3>${escapeHtml(item.title || "Ý chính")}</h3>
-        <p>${escapeHtml(item.detail || "")}</p>
-        ${sourceLinks ? `<div class="source-links">${sourceLinks}</div>` : ""}
-      `;
-      return point;
-    }
-
     function createSourceCard(item) {
       const card = document.createElement("article");
       card.className = "card source-card";
@@ -597,18 +590,21 @@
         ? `<img class="source-image" src="${escapeHtml(item.image_url)}" alt="">`
         : `<div class="fallback-image">LEON</div>`;
 
+      const cat = item.category ? `<span class="category-pill">${escapeHtml(item.category)}</span>` : "";
+
       card.innerHTML = `
         <a href="${escapeHtml(item.url || "#")}" target="_blank" rel="noopener noreferrer">
           ${image}
           <div class="source-body">
             <div class="source-meta">
-              <span>${escapeHtml(item.source || "Nguồn gốc")}</span>
+              ${cat}
+              <span>${escapeHtml(item.source || "Nguồn")}</span>
               <span>${escapeHtml(item.region || "")}</span>
               <span>${escapeHtml(formatDate(item.published_at))}</span>
             </div>
-            <h3>${escapeHtml(item.title || "Tin liên quan")}</h3>
-            <p>${escapeHtml(item.summary || item.theme || "")}</p>
-            <span class="source-link">Đọc nguồn gốc</span>
+            <h3>${escapeHtml(item.title || "Tin")}</h3>
+            <p>${escapeHtml(item.summary || "")}</p>
+            <span class="source-link">Đọc bài đầy đủ</span>
             <span class="source-url">${escapeHtml(getHostName(item.url || ""))}</span>
           </div>
         </a>
@@ -616,122 +612,100 @@
       return card;
     }
 
+    function macroWorldBlocks(data) {
+      if (data.macroWorld && String(data.macroWorld).trim()) return data.macroWorld;
+      const parts = [data.macroGlobal, data.internationalMarkets].filter((x) => x && String(x).trim());
+      const merged = parts.join("\n\n");
+      if (merged) return merged;
+      if (data.globalWatch && String(data.globalWatch).trim()) return data.globalWatch;
+      return "";
+    }
+
+    function vietnamBlocks(data) {
+      if (data.vietnamMacro && String(data.vietnamMacro).trim()) return data.vietnamMacro;
+      if (data.vietnamImplications && String(data.vietnamImplications).trim()) return data.vietnamImplications;
+      if (data.vietnamWatch && String(data.vietnamWatch).trim()) return data.vietnamWatch;
+      return "";
+    }
+
     function renderStructuredBrief(data) {
       const root = document.getElementById("briefRoot");
       root.innerHTML = "";
-
-      const layout = document.createElement("div");
-      layout.className = "brief-layout";
-
-      const main = document.createElement("article");
-      main.className = "card executive-card";
+      const stack = document.createElement("div");
+      stack.className = "brief-stack";
 
       const wv = data.webVerification && typeof data.webVerification === "object" ? data.webVerification : {};
-      let verifyHtml = "";
+      const mw = macroWorldBlocks(data);
+      const vm = vietnamBlocks(data);
+
+      const world = document.createElement("article");
+      world.className = "card world-card";
+      world.innerHTML = `
+        <p class="eyebrow">Vĩ mô thế giới</p>
+        <p class="narrative-p"><strong>Market impact:</strong> ${escapeHtml(data.marketImpact || "Mixed")}</p>
+        ${data.executiveSummary ? `<p class="exec-lead">${escapeHtml(data.executiveSummary)}</p>` : ""}
+        <p class="narrative-p">${escapeHtml(mw || "Đang cập nhật nội dung vĩ mô thế giới.")}</p>
+      `;
+
+      let vnInner = `
+        <p class="eyebrow">Việt Nam — từ thế giới và trong nước</p>
+        <p class="narrative-p">${escapeHtml(vm || "Đang cập nhật nội dung Việt Nam.")}</p>
+      `;
+      const risks = data.risksToWatch || [];
+      if (risks.length) {
+        vnInner += `<h4 class="narrative-h" style="margin-top:16px">Rủi ro cần lưu ý</h4><ul class="verify-list">${risks.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ul>`;
+      }
       if (wv.summary) {
-        verifyHtml += `<h4 class="narrative-h">Kiểm chứng nhanh (web)</h4><p class="narrative-p">${escapeHtml(wv.summary)}</p>`;
+        vnInner += `<h4 class="narrative-h" style="margin-top:16px">Kiểm chứng nguồn</h4><p class="narrative-p">${escapeHtml(wv.summary)}</p>`;
         if (Array.isArray(wv.checks) && wv.checks.length) {
-          verifyHtml += "<ul class=\"verify-list\">";
-          for (const c of wv.checks) {
-            if (!c || typeof c !== "object") continue;
-            verifyHtml += `<li><span class="verify-status">${escapeHtml(c.status || "")}</span> ${escapeHtml(c.note || "")} — ${escapeHtml(getHostName(c.url || ""))}</li>`;
-          }
-          verifyHtml += "</ul>";
+          vnInner += `<ul class="verify-list">${wv.checks.map((c) => {
+            if (!c || typeof c !== "object") return "";
+            return `<li><span class="verify-status">${escapeHtml(c.status || "")}</span> ${escapeHtml(c.note || "")} — ${escapeHtml(getHostName(c.url || ""))}</li>`;
+          }).join("")}</ul>`;
         }
       }
 
-      const parts = [];
-      parts.push(`
-        <div class="badge-row">
-          <span class="badge">${escapeHtml(data.sectionLabel || "Daily Macro Intelligence")}</span>
-          <span class="badge ${impactClass(data.marketImpact)}">Market impact: ${escapeHtml(data.marketImpact || "Mixed")}</span>
-        </div>
-        <h3>${escapeHtml(data.chatSectionTitle || "Macro Daily Brief")}</h3>
-      `);
-      if (data.executiveSummary) {
-        parts.push(`<p class="exec-lead">${escapeHtml(data.executiveSummary)}</p>`);
-      }
-      if (data.macroGlobal) {
-        parts.push(`<h4 class="narrative-h">Vĩ mô toàn cầu</h4><p class="narrative-p">${escapeHtml(data.macroGlobal)}</p>`);
-      }
-      if (data.internationalMarkets) {
-        parts.push(`<h4 class="narrative-h">Truyền sang thị trường quốc tế</h4><p class="narrative-p">${escapeHtml(data.internationalMarkets)}</p>`);
-      }
-      if (data.vietnamImplications) {
-        parts.push(`<h4 class="narrative-h">Hàm ý cho Việt Nam (TTCK, tài chính, hàng hóa)</h4><p class="narrative-p">${escapeHtml(data.vietnamImplications)}</p>`);
-      }
-      parts.push(verifyHtml);
-      main.innerHTML = parts.filter(Boolean).join("");
+      const vn = document.createElement("article");
+      vn.className = "card vn-card";
+      vn.innerHTML = vnInner;
 
-      const side = document.createElement("aside");
-      side.className = "card";
-      side.innerHTML = "<h3>Rủi ro cần theo dõi</h3>";
-      const riskList = document.createElement("div");
-      riskList.className = "risk-list";
-      for (const risk of data.risksToWatch || []) {
-        const riskEl = document.createElement("div");
-        riskEl.className = "point";
-        riskEl.textContent = risk;
-        riskList.appendChild(riskEl);
-      }
-      side.appendChild(riskList);
-
-      layout.appendChild(main);
-      layout.appendChild(side);
-      root.appendChild(layout);
-
-      const points = document.createElement("div");
-      points.className = "point-list";
-      for (const item of data.keyPoints || []) {
-        points.appendChild(createPointCard(item));
-      }
-      root.appendChild(points);
-
-      const watchGrid = document.createElement("div");
-      watchGrid.className = "watch-grid";
-      const vnExtra = data.vietnamWatch && String(data.vietnamWatch).trim() && data.vietnamWatch !== data.vietnamImplications;
-      if (vnExtra) {
-        const vn = document.createElement("article");
-        vn.className = "card watch-card";
-        vn.innerHTML = `<h3>Việt Nam — góc bổ sung</h3><p>${escapeHtml(data.vietnamWatch)}</p>`;
-        watchGrid.appendChild(vn);
-      }
-      const glExtra = data.globalWatch && String(data.globalWatch).trim() && data.globalWatch !== data.internationalMarkets;
-      if (glExtra) {
-        const global = document.createElement("article");
-        global.className = "card watch-card";
-        global.innerHTML = `<h3>Thế giới — góc bổ sung</h3><p>${escapeHtml(data.globalWatch)}</p>`;
-        watchGrid.appendChild(global);
-      }
-      if (data.editorNotes) {
-        const notes = document.createElement("article");
-        notes.className = "card watch-card";
-        notes.innerHTML = `<h3>Ghi chú biên tập</h3><p>${escapeHtml(data.editorNotes)}</p>`;
-        watchGrid.appendChild(notes);
-      }
-      if (watchGrid.childElementCount) {
-        root.appendChild(watchGrid);
-      }
+      stack.appendChild(world);
+      stack.appendChild(vn);
+      root.appendChild(stack);
     }
 
     function renderFeed(data, noteText) {
-      const feedEl = document.getElementById("chatFeed");
       const briefRoot = document.getElementById("briefRoot");
       const titleEl = document.getElementById("chatSectionTitle");
       const noteEl = document.getElementById("syncNote");
       const sourceGrid = document.getElementById("sourceGrid");
+      const sourceTitleEl = document.getElementById("sourceGridTitle");
 
-      titleEl.textContent = data.chatSectionTitle || "Cập nhật tin tức hàng ngày";
+      titleEl.textContent = data.chatSectionTitle || "Bản tin hàng ngày";
       noteEl.textContent = noteText || "";
       sourceGrid.innerHTML = "";
 
       document.getElementById("heroImpact").textContent = data.marketImpact || "Mixed";
-      document.getElementById("heroArticles").textContent = data.stats?.articlesAnalyzed
-        ? `${data.stats.articlesAnalyzed} bài`
-        : "--";
+
+      const articles = Array.isArray(data.allArticles) && data.allArticles.length
+        ? data.allArticles
+        : (data.featuredArticles || []);
+
+      const nStats = data.stats?.articlesCrawled ?? data.stats?.articlesAnalyzed ?? articles.length;
+      document.getElementById("heroArticles").textContent = nStats ? `${nStats} tin` : "--";
       document.getElementById("heroUpdated").textContent = formatDate(data.generatedAt);
 
-      if (data.executiveSummary || data.macroGlobal || data.internationalMarkets || data.vietnamImplications || Array.isArray(data.keyPoints)) {
+      if (sourceTitleEl) {
+        sourceTitleEl.textContent = `Tin đã crawl trong ngày (${articles.length})`;
+      }
+
+      const hasBrief = Boolean(
+        (data.executiveSummary && String(data.executiveSummary).trim())
+        || macroWorldBlocks(data)
+        || vietnamBlocks(data)
+      );
+
+      if (hasBrief) {
         renderStructuredBrief(data);
       } else {
         briefRoot.innerHTML = "";
@@ -748,7 +722,7 @@
         }
       }
 
-      for (const article of data.featuredArticles || []) {
+      for (const article of articles) {
         sourceGrid.appendChild(createSourceCard(article));
       }
     }
