@@ -257,6 +257,7 @@
       color: #334155;
     }
     .world-vn-bridge .lbl { color: var(--gold); font-weight: 800; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+    .world-vn-bridge .bridge-txt { display: block; margin: 0; }
     .heatmap-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -324,10 +325,84 @@
     .bar-fill-actual { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
     .bar-fill-forecast { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #94a3b8, #64748b); }
     .bar-val { font-weight: 700; color: #334155; min-width: 56px; text-align: right; font-size: .8rem; }
+    .pro-brief-card { border-top: 4px solid var(--gold); max-width: 920px; margin: 0 auto; }
+    .pro-brief-kicker { margin: 0 0 6px; font-size: .95rem; font-weight: 800; color: #0f172a; letter-spacing: -.02em; }
+    .pro-brief-date { margin: 0 0 16px; color: var(--text-light); font-size: .9rem; }
+    .thirty-box {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+    .thirty-box .lbl {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      margin: 0 0 8px;
+    }
+    .thirty-box p { margin: 0; color: #334155; line-height: 1.65; font-size: .98rem; }
+    .story-block {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .story-block:last-of-type { border-bottom: none; }
+    .story-headline {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -.02em;
+      line-height: 1.35;
+    }
+    .story-num { color: var(--primary-dark); margin-right: 6px; }
+    .story-body { margin: 0 0 12px; color: #475569; font-size: .95rem; line-height: 1.65; white-space: pre-line; }
+    .story-sowhat, .story-assets, .story-impact {
+      margin: 8px 0 0;
+      font-size: .92rem;
+      color: #334155;
+      line-height: 1.55;
+    }
+    .story-sowhat strong, .story-assets strong, .story-impact strong { color: #0f172a; }
+    .impact-tag {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 800;
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .heatmap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      margin-top: 8px;
+    }
+    .heatmap-table th, .heatmap-table td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .heatmap-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #0f172a;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .heatmap-table td { color: #475569; }
+    .heatmap-table-wrap { overflow-x: auto; margin-top: 12px; }
     .source-thumb { position: relative; min-height: 150px; }
     .source-thumb .fallback-image { display: none; }
     .source-thumb.fallback-only .fallback-image { display: grid; }
     .source-thumb.fallback-only .source-image { display: none !important; }
+    .section-sources {
       background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 38%, #ffffff 100%);
     }
     .category-pill {
@@ -654,6 +729,17 @@
       });
     }
 
+    function formatBriefDateOnly(value) {
+      if (!value) return "--";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "--";
+      return date.toLocaleDateString("vi-VN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+    }
+
     function getHostName(value) {
       try {
         return new URL(value).hostname.replace(/^www\./, "");
@@ -697,6 +783,64 @@
       const x = Number(n);
       if (Number.isNaN(x)) return 0;
       return Math.max(0, Math.min(100, x));
+    }
+
+    function formatBriefDateOnly(value) {
+      if (!value) return "--";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "--";
+      return date.toLocaleDateString("vi-VN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+    }
+
+    function buildProBriefHtml(data) {
+      const t30 = data.thirtySecondSummary && String(data.thirtySecondSummary).trim();
+      const stories = Array.isArray(data.briefStories) ? data.briefStories : [];
+      const tbl = Array.isArray(data.assetImpactTable) ? data.assetImpactTable : [];
+      if (!t30 && !stories.length && !tbl.length) return "";
+
+      let html = `<p class="eyebrow">Bản tin chính</p>`;
+      html += `<p class="pro-brief-kicker">LEON Quant Labs — Daily Macro Brief</p>`;
+      html += `<p class="pro-brief-date">Ngày ${escapeHtml(formatBriefDateOnly(data.generatedAt))}</p>`;
+
+      if (t30) {
+        html += `<div class="thirty-box"><p class="lbl">Tóm tắt 30 giây</p><p>${escapeHtml(t30)}</p></div>`;
+      }
+
+      for (let i = 0; i < stories.length; i += 1) {
+        const s = stories[i];
+        if (!s || typeof s !== "object") continue;
+        const head = s.headline || s.title || "—";
+        const body = s.body || s.detail || "";
+        const sw = s.so_what || s.soWhat || "";
+        const ast = s.assets || s.assets_affected || "";
+        const lev = s.impact_level || s.impactLevel || "";
+        html += `<div class="story-block">`;
+        html += `<h3 class="story-headline"><span class="story-num">${i + 1}.</span>${escapeHtml(head)}</h3>`;
+        if (body) html += `<p class="story-body">${escapeHtml(body)}</p>`;
+        if (sw) html += `<p class="story-sowhat"><strong>So What:</strong> ${escapeHtml(sw)}</p>`;
+        if (ast) html += `<p class="story-assets"><strong>Tài sản ảnh hưởng:</strong> ${escapeHtml(ast)}</p>`;
+        if (lev) html += `<p class="story-impact"><strong>Mức tác động:</strong><span class="impact-tag">${escapeHtml(lev)}</span></p>`;
+        html += `</div>`;
+      }
+
+      if (tbl.length) {
+        html += `<h4 class="narrative-h" style="margin-top:20px">Bảng heatmap theo nhóm tài sản</h4>`;
+        html += `<div class="heatmap-table-wrap"><table class="heatmap-table"><thead><tr><th>Nhóm tài sản</th><th>Tác động hôm nay</th><th>Lý do chính</th></tr></thead><tbody>`;
+        for (const row of tbl) {
+          if (!row || typeof row !== "object") continue;
+          const g = row.group || row.nhom || "—";
+          const im = row.impact_today || row.impact || "—";
+          const rs = row.main_reason || row.reason || "";
+          html += `<tr><td>${escapeHtml(g)}</td><td>${escapeHtml(im)}</td><td>${escapeHtml(rs)}</td></tr>`;
+        }
+        html += `</tbody></table></div>`;
+      }
+
+      return html;
     }
 
     function buildGlanceCardHtml(data) {
@@ -846,20 +990,35 @@
       const vm = vietnamBlocks(data);
       const wtv = data.worldToVietnam && String(data.worldToVietnam).trim();
 
-      const glance = document.createElement("article");
-      glance.className = "card glance-card";
-      glance.innerHTML = buildGlanceCardHtml(data);
+      const proHtml = buildProBriefHtml(data);
+      const stories = Array.isArray(data.briefStories) ? data.briefStories : [];
+
+      if (proHtml) {
+        const pro = document.createElement("article");
+        pro.className = "card pro-brief-card";
+        pro.innerHTML = proHtml;
+        stack.appendChild(pro);
+      }
+
+      if (!stories.length) {
+        const glance = document.createElement("article");
+        glance.className = "card glance-card";
+        glance.innerHTML = buildGlanceCardHtml(data);
+        stack.appendChild(glance);
+      }
 
       const world = document.createElement("article");
       world.className = "card world-card";
+      const showExecLead = data.executiveSummary && String(data.executiveSummary).trim()
+        && !(data.thirtySecondSummary && String(data.thirtySecondSummary).trim());
       let worldHtml = `
         <p class="eyebrow">Vĩ mô thế giới</p>
         <p class="narrative-p"><strong>Market impact:</strong> ${escapeHtml(data.marketImpact || "Mixed")}</p>
-        ${data.executiveSummary ? `<p class="exec-lead">${escapeHtml(data.executiveSummary)}</p>` : ""}
+        ${showExecLead ? `<p class="exec-lead">${escapeHtml(data.executiveSummary)}</p>` : ""}
         <p class="narrative-p">${escapeHtml(mw || "Đang cập nhật nội dung vĩ mô thế giới.")}</p>
       `;
       if (wtv) {
-        worldHtml += `<div class="world-vn-bridge"><span class="lbl">Kết nối Việt Nam</span>${escapeHtml(wtv)}</div>`;
+        worldHtml += `<div class="world-vn-bridge"><span class="lbl">Kết nối Việt Nam</span><span class="bridge-txt">${escapeHtml(wtv)}</span></div>`;
       }
       world.innerHTML = worldHtml;
 
@@ -885,7 +1044,6 @@
       vn.className = "card vn-card";
       vn.innerHTML = vnInner;
 
-      stack.appendChild(glance);
       stack.appendChild(world);
       stack.appendChild(vn);
       root.appendChild(stack);
@@ -898,7 +1056,7 @@
       const sourceGrid = document.getElementById("sourceGrid");
       const sourceTitleEl = document.getElementById("sourceGridTitle");
 
-      titleEl.textContent = data.chatSectionTitle || "Bản tin hàng ngày";
+      titleEl.textContent = data.chatSectionTitle || "LEON Quant Labs — Daily Macro Brief";
       noteEl.textContent = noteText || "";
       sourceGrid.innerHTML = "";
 
@@ -918,6 +1076,9 @@
 
       const hasBrief = Boolean(
         (data.executiveSummary && String(data.executiveSummary).trim())
+        || (data.thirtySecondSummary && String(data.thirtySecondSummary).trim())
+        || (Array.isArray(data.briefStories) && data.briefStories.length)
+        || (Array.isArray(data.assetImpactTable) && data.assetImpactTable.length)
         || macroWorldBlocks(data)
         || vietnamBlocks(data)
         || (data.soWhatChain && String(data.soWhatChain).trim())

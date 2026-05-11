@@ -161,9 +161,10 @@ def build_payload(
 ) -> dict[str, Any]:
     summary = final_payload.get("summary", {})
     generated_at = final_payload.get("generated_at") or datetime.now(timezone.utc).isoformat()
-    mw = _macro_world(summary)
-    vm = _vietnam_macro(summary)
+    t303 = str(summary.get("thirty_second_summary", "") or "").strip()
     exec_lead = str(summary.get("executive_summary", "") or "").strip()
+    if not t303 and exec_lead:
+        t303 = exec_lead
     web_ver = summary.get("web_verification") if isinstance(summary.get("web_verification"), dict) else {}
     risks = summary.get("risks_to_watch", [])
 
@@ -174,6 +175,11 @@ def build_payload(
     asset_impacts = _list("asset_impacts")
     actual_vs = _list("actual_vs_forecast")
     heat_labels = _list("macro_heat_labels")
+    brief_stories = _list("brief_stories")
+    asset_impact_table = _list("asset_impact_table")
+
+    mw = _macro_world(summary)
+    vm = _vietnam_macro(summary)
 
     narrative_fallback = "\n\n".join(p for p in (mw, vm) if p).strip()
 
@@ -181,9 +187,12 @@ def build_payload(
         "siteTitle": "LEON Quant Labs",
         "sectionLabel": "Daily Macro Intelligence",
         "generatedAt": generated_at,
-        "chatSectionTitle": summary.get("title", "Macro Daily Brief"),
+        "chatSectionTitle": summary.get("title", "LEON Quant Labs — Daily Macro Brief"),
         "marketImpact": summary.get("market_impact", "Mixed"),
         "executiveSummary": exec_lead,
+        "thirtySecondSummary": t303,
+        "briefStories": brief_stories,
+        "assetImpactTable": asset_impact_table,
         "macroWorld": mw,
         "vietnamMacro": vm,
         "macroGlobal": summary.get("macro_global", ""),
@@ -205,11 +214,11 @@ def build_payload(
         },
         "chatItems": [
             {
-                "title": summary.get("title", "Macro Daily Brief"),
+                "title": summary.get("title", "LEON Quant Labs — Daily Macro Brief"),
                 "content": "\n\n".join(
                     p
                     for p in (
-                        exec_lead,
+                        t303,
                         mw,
                         vm,
                         f"Market impact: {summary.get('market_impact', 'Mixed')}",

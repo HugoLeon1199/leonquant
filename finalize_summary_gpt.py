@@ -198,45 +198,61 @@ def build_prompt(
 
     checks_cap = len(live_page_snippets)
     return f"""
-Bạn là biên tập cuối của LEON Quant Labs. Viết tiếng Việt súc tích, kiểu ghi chú cho nhà đầu tư bận rộn:
-không khẩu hiệu, không mục lục, không tạo nhiều lớp "watch / góc bổ sung / ghi chú biên tập" — chỉ hai khối chữ chính.
-
-Trên web: (1) vĩ mô thế giới, (2) vĩ mô Việt Nam; phía dưới là danh sách đầy đủ link bài crawl (hệ thống tự liệt kê). Không liệt kê URL trong bài trừ khi trích số liệu.
+Bạn là biên tập cuối của LEON Quant Labs. Viết tiếng Việt súc tích, giọng **ghi chú sáng cho nhà đầu tư** (sell-side / desk note).
+Không khẩu hiệu. Không URL trong bài trừ khi cần trích nguồn số liệu trong ngoặc (vd tên hãng tin) — hãy dùng cụm như "báo X ghi nhận" chỉ khi evidence hoặc live_web_snippets có căn cứ; **không bịa** trích dẫn.
 
 Input:
 1. Bản Gemini (có thể lệch nguồn).
 2. evidence_articles — trích crawl đã lưu.
-3. live_web_snippets — đoạn fetch lại từ web. Dùng kiểm chỉnh claim; ghi ngắn trong web_verification.checks. Không cần kiểm hết URL.
+3. live_web_snippets — đoạn fetch lại từ web. Dùng kiểm chỉnh claim; ghi trong web_verification.checks.
 
-Nhiệm vụ:
-- Tổng hợp Gemini + evidence; đối chiếu live_web_snippets khi có.
-- Không bịa số liệu; thiếu dữ liệu thì nói "chưa đủ dữ liệu xác nhận".
-- CHỈ hai khối nội dung dài:
-  + macro_world: Vĩ mô thế giới trong ngày + truyền sang thị trường quốc tế (USD, lãi suất, risk, hàng hóa) — một đoạn 4–8 câu, súc tích (không lan man).
-  + vietnam_macro: Việt Nam — tác động từ thế giới và trong nước (TTCK, NH/tín dụng, tỷ giá, hàng hóa, dòng vốn) — 4–8 câu; nhắc lãi trong nước / SBV khi có căn cứ trong evidence.
-- executive_summary: 0 hoặc 1 câu dẫn; có thể "".
-- market_impact: Risk-on | Risk-off | Neutral | Mixed
+**Cấu trúc bản tin (bắt buộc)**
 
-"Tác động" (bắt buộc):
-- so_what_chain: MỘT dòng chuỗi nhân quả kiểu "A → B → C" (ví dụ: dữ liệu/góc thế giới → DXY hoặc lợi suất → hệ quả lên Vàng / USD-VND / TTCK). Dùng mũi tên →, không bullet dài.
-- asset_impacts: 4–6 mục, mỗi mục: asset (tên ngắn: Vàng, DXY/USD, TTCK VN, USD/VND, Lãi suất VN, Hàng hóa, v.v.), bias (bullish | bearish | neutral | mixed), note (một câu "vì sao" với ND).
+1) thirty_second_summary: Một đoạn **4–6 câu**, độc lập, gói **3 biến số / 3 luồng chính** trong ngày + 1 câu về Việt Nam (TTCK / dòng tiền). Kiểu "Tóm tắt 30 giây".
 
-Kết nối Việt Nam (bắt buộc):
-- world_to_vietnam: đúng MỘT câu: tin/kênh thế giới trong ngày tác động trực tiếp thế nào lên VN (tỷ giá, thanh khoản NH, chính sách SBV hoặc lãi suất trong nước khi có trong evidence).
+2) brief_stories: **4–6 mục** (theo tin lớn trong ngày), mỗi mục là object:
+   - headline: tiêu đề mục (ngắn, có ý).
+   - body: 2–5 câu diễn giải, có số/khung thời gian nếu evidence có; không lặp lại nguyên headline.
+   - so_what: đoạn **So What** — vì sao ND quan tâm, truyền sang lạm phát / Fed / USD / dòng vốn, v.v.
+   - assets: chuỗi một dòng, ví dụ "Dầu, USD, vàng, trái phiếu Mỹ, TTCK mới nổi, Việt Nam".
+   - impact_level: một trong: "Cao" | "Trung bình" | "Trung bình đến cao" | "Thấp".
 
-Trực quan — thực tế vs dự báo:
-- actual_vs_forecast: tối đa 4 dòng, CHỈ khi evidence/live snippet có số cụ thể; mỗi dòng: indicator (tên chỉ báo), actual (số hoặc chuỗi ngắn), forecast (kỳ vọng), actual_pct và forecast_pct là hai số 0–100 để vẽ thanh so sánh (cùng thang: quy ước max của ngày = 100, hoặc hai giá trị tương đối trong cùng chỉ báo). Nếu không đủ số: trả mảng rỗng [].
-- macro_heat_labels: tối đa 6 nhãn vi mô trong ngày (vd: US yields, Risk, Oil, VN liquidity,…), mỗi phần tử: label, sentiment (hot | warm | cool | ice) — để heatmap (hot=căng/nguy cơ tăng, warm=tích cực nhẹ, cool=trung tính/dị giảm, ice=trầm/xả).
+3) asset_impact_table: **bảng heatmap** (6–10 dòng), mỗi dòng:
+   - group: tên nhóm tài sản (ưu tiên tiếng Việt hoặc quen thuộc VN: "Dầu", "USD", "Vàng", "VN-Index", …).
+   - impact_today: nhận định ngắn (vd "Tích cực mạnh", "Tiêu cực ngắn hạn", "Trung tính / Thận trọng").
+   - main_reason: **một cụm** lý do chính.
 
-- risks_to_watch: tối đa 3 mục rất ngắn; hoặc []
-- web_verification: summary 1 câu (việc đã kiểm, không lặp bản chính); checks tối đa {checks_cap} mục (url, status: confirmed | partial | unavailable | mismatch, note ngắn).
+4) macro_world: 1 đoạn **4–7 câu** tổng hợp **chỉ kênh thế giới** (bổ sung cho stories, không copy nguyên 30 giây).
 
-KHÔNG trả về: key_points, vietnam_watch, global_watch, editor_notes, macro_global, international_markets, vietnam_implications như field riêng — chỉ macro_world và vietnam_macro.
+5) vietnam_macro: 1 đoạn **4–7 câu** Việt Nam (vĩ mô + dòng tiền TTCK, NH, tỷ giá khi có evidence).
+
+6) world_to_vietnam: **đúng một câu** cầu nối "thế giới → kênh truyền vào VN" (SBV, USD/VND, khối ngoại, lãi suất).
+
+7) executive_summary: để **""** (rỗng) nếu đã có thirty_second_summary; tránh trùng lặp.
+
+8) market_impact: Risk-on | Risk-off | Neutral | Mixed
+
+9) so_what_chain: **một dòng** chuỗi "A → B → C" (tổng quan nhanh); có thể rút từ thirty_second_summary.
+
+10) asset_impacts: 4–6 mục cho dashboard nhỏ: asset, bias (bullish|bearish|neutral|mixed), note (một câu).
+
+11) actual_vs_forecast: tối đa 4 dòng khi có số trong evidence/snippets (indicator, actual, forecast, actual_pct, forecast_pct 0–100).
+
+12) macro_heat_labels: tối đa 6 mục {{label, sentiment: hot|warm|cool|ice}} cho ô màu nhanh (optional, có thể [] nếu đã đủ bảng).
+
+13) risks_to_watch: tối đa 3 bullet ngắn.
+
+14) web_verification: summary 1 câu; checks tối đa {checks_cap} (url, status, note).
+
+KHÔNG trả về: key_points, vietnam_watch, global_watch, editor_notes riêng (có thể gom vào stories/macro).
 
 Trả về DUY NHẤT JSON:
 {{
-  "title": "Macro Daily Brief",
+  "title": "LEON Quant Labs — Daily Macro Brief",
   "executive_summary": "",
+  "thirty_second_summary": "",
+  "brief_stories": [],
+  "asset_impact_table": [],
   "macro_world": "",
   "vietnam_macro": "",
   "so_what_chain": "",
