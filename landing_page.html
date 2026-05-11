@@ -369,6 +369,37 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+    .exec-lead {
+      font-size: 1.08rem;
+      font-weight: 650;
+      color: #334155;
+      margin: 0 0 16px;
+      line-height: 1.55;
+    }
+    .narrative-h {
+      margin: 22px 0 8px;
+      font-size: .95rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+      color: #0f172a;
+      text-transform: uppercase;
+    }
+    .narrative-p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.65;
+    }
+    .verify-list {
+      margin: 12px 0 0;
+      padding-left: 1.1rem;
+      color: #64748b;
+      font-size: .92rem;
+    }
+    .verify-list li { margin-bottom: 6px; }
+    .verify-status {
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
     .fallback-image {
       display: grid;
       place-items: center;
@@ -415,20 +446,14 @@
     <div class="container">
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
-        <div class="nav-links">
-          <a href="#brief">Daily Brief</a>
-          <a href="#process">Method</a>
-          <a href="#sources">Sources</a>
-        </div>
       </nav>
       <div class="hero-grid">
         <div class="hero-content">
           <p class="tag">Daily Macro Intelligence</p>
           <h1>Tin vi mô, thị trường và rủi ro được cô đọng cho nhà đầu tư bận rộn.</h1>
-          <p class="subtitle">LEON Quant Labs quét các nguồn tin tài chính, lọc tín hiệu quan trọng và chuyển thành bản brief hằng ngày: ngắn gọn, có nguồn, tập trung vào tác động thị trường.</p>
+          <p class="subtitle">Bản tin được biên tập để đọc liền mạch trên một trang — không mục lục, không thuyết minh tự động. Luận điểm ưu tiên kênh truyền vĩ mô → thị trường quốc tế → Việt Nam (TTCK, tài chính, hàng hóa).</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#brief">Xem bản tin hôm nay</a>
-            <a class="btn btn-ghost" href="#sources">Kiểm tra nguồn tin</a>
+            <a class="btn btn-primary" href="#brief">Đọc bản tin</a>
           </div>
         </div>
         <aside class="hero-card" aria-label="Thông tin bản tin">
@@ -461,40 +486,11 @@
           <div>
             <p class="eyebrow">Daily brief</p>
             <h2 id="chatSectionTitle">Cập nhật tin tức hàng ngày</h2>
-            <p>Bản tổng hợp ưu tiên các sự kiện có thể ảnh hưởng đến VN-Index, lãi suất, tỷ giá, hàng hóa và dòng vốn toàn cầu.</p>
+            <p>Bản tin trình bày theo một dòng suy luận: vĩ mô toàn cầu là gì, truyền sang thế giới thế nào, rồi hàm ý cụ thể tới TTCK và hệ thống tài chính Việt Nam.</p>
           </div>
         </div>
         <p id="syncNote" class="sync-note">Đang tải dữ liệu mới nhất...</p>
         <div id="briefRoot"></div>
-      </div>
-    </section>
-
-    <section id="process" class="section">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Research method</p>
-            <h2>Từ tin tức rời rạc đến insight có thể hành động</h2>
-            <p>Mục tiêu của trang không phải đưa thật nhiều tin, mà là giúp bạn nhìn ra điều gì đáng chú ý và vì sao nó quan trọng với thị trường.</p>
-          </div>
-        </div>
-        <div class="value-grid">
-          <article class="value-card">
-            <span>01</span>
-            <h3>Lọc tín hiệu</h3>
-            <p>Tập trung vào các tin có tác động đến lãi suất, tỷ giá, lợi nhuận doanh nghiệp, dòng vốn và khẩu vị rủi ro.</p>
-          </article>
-          <article class="value-card">
-            <span>02</span>
-            <h3>Tóm tắt có ngữ cảnh</h3>
-            <p>Mỗi luận điểm đi kèm bối cảnh Việt Nam hoặc toàn cầu để tránh đọc tin theo từng mảnh rời rạc.</p>
-          </article>
-          <article class="value-card">
-            <span>03</span>
-            <h3>Minh bạch nguồn</h3>
-            <p>Các nguồn gốc được giữ lại để bạn có thể kiểm chứng thông tin trước khi đưa vào quy trình đầu tư.</p>
-          </article>
-        </div>
       </div>
     </section>
 
@@ -514,7 +510,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© 2026 LEON Quant Labs. Market intelligence for disciplined investors.</p>
+      <p>© 2026 LEON Quant Labs. Nội dung chỉ phục vụ nghiên cứu và giáo dục; không phải lời khuyên đầu tư hay tư vấn tài chính cá nhân.</p>
     </div>
   </footer>
 
@@ -629,14 +625,43 @@
 
       const main = document.createElement("article");
       main.className = "card executive-card";
-      main.innerHTML = `
+
+      const wv = data.webVerification && typeof data.webVerification === "object" ? data.webVerification : {};
+      let verifyHtml = "";
+      if (wv.summary) {
+        verifyHtml += `<h4 class="narrative-h">Kiểm chứng nhanh (web)</h4><p class="narrative-p">${escapeHtml(wv.summary)}</p>`;
+        if (Array.isArray(wv.checks) && wv.checks.length) {
+          verifyHtml += "<ul class=\"verify-list\">";
+          for (const c of wv.checks) {
+            if (!c || typeof c !== "object") continue;
+            verifyHtml += `<li><span class="verify-status">${escapeHtml(c.status || "")}</span> ${escapeHtml(c.note || "")} — ${escapeHtml(getHostName(c.url || ""))}</li>`;
+          }
+          verifyHtml += "</ul>";
+        }
+      }
+
+      const parts = [];
+      parts.push(`
         <div class="badge-row">
           <span class="badge">${escapeHtml(data.sectionLabel || "Daily Macro Intelligence")}</span>
           <span class="badge ${impactClass(data.marketImpact)}">Market impact: ${escapeHtml(data.marketImpact || "Mixed")}</span>
         </div>
         <h3>${escapeHtml(data.chatSectionTitle || "Macro Daily Brief")}</h3>
-        <p>${escapeHtml(data.executiveSummary || "")}</p>
-      `;
+      `);
+      if (data.executiveSummary) {
+        parts.push(`<p class="exec-lead">${escapeHtml(data.executiveSummary)}</p>`);
+      }
+      if (data.macroGlobal) {
+        parts.push(`<h4 class="narrative-h">Vĩ mô toàn cầu</h4><p class="narrative-p">${escapeHtml(data.macroGlobal)}</p>`);
+      }
+      if (data.internationalMarkets) {
+        parts.push(`<h4 class="narrative-h">Truyền sang thị trường quốc tế</h4><p class="narrative-p">${escapeHtml(data.internationalMarkets)}</p>`);
+      }
+      if (data.vietnamImplications) {
+        parts.push(`<h4 class="narrative-h">Hàm ý cho Việt Nam (TTCK, tài chính, hàng hóa)</h4><p class="narrative-p">${escapeHtml(data.vietnamImplications)}</p>`);
+      }
+      parts.push(verifyHtml);
+      main.innerHTML = parts.filter(Boolean).join("");
 
       const side = document.createElement("aside");
       side.className = "card";
@@ -664,25 +689,29 @@
 
       const watchGrid = document.createElement("div");
       watchGrid.className = "watch-grid";
-      if (data.vietnamWatch) {
+      const vnExtra = data.vietnamWatch && String(data.vietnamWatch).trim() && data.vietnamWatch !== data.vietnamImplications;
+      if (vnExtra) {
         const vn = document.createElement("article");
         vn.className = "card watch-card";
-        vn.innerHTML = `<h3>Việt Nam watch</h3><p>${escapeHtml(data.vietnamWatch)}</p>`;
+        vn.innerHTML = `<h3>Việt Nam — góc bổ sung</h3><p>${escapeHtml(data.vietnamWatch)}</p>`;
         watchGrid.appendChild(vn);
       }
-      if (data.globalWatch) {
+      const glExtra = data.globalWatch && String(data.globalWatch).trim() && data.globalWatch !== data.internationalMarkets;
+      if (glExtra) {
         const global = document.createElement("article");
         global.className = "card watch-card";
-        global.innerHTML = `<h3>Global watch</h3><p>${escapeHtml(data.globalWatch)}</p>`;
+        global.innerHTML = `<h3>Thế giới — góc bổ sung</h3><p>${escapeHtml(data.globalWatch)}</p>`;
         watchGrid.appendChild(global);
       }
       if (data.editorNotes) {
         const notes = document.createElement("article");
         notes.className = "card watch-card";
-        notes.innerHTML = `<h3>Ghi chú dữ liệu</h3><p>${escapeHtml(data.editorNotes)}</p>`;
+        notes.innerHTML = `<h3>Ghi chú biên tập</h3><p>${escapeHtml(data.editorNotes)}</p>`;
         watchGrid.appendChild(notes);
       }
-      root.appendChild(watchGrid);
+      if (watchGrid.childElementCount) {
+        root.appendChild(watchGrid);
+      }
     }
 
     function renderFeed(data, noteText) {
@@ -702,7 +731,7 @@
         : "--";
       document.getElementById("heroUpdated").textContent = formatDate(data.generatedAt);
 
-      if (data.executiveSummary || Array.isArray(data.keyPoints)) {
+      if (data.executiveSummary || data.macroGlobal || data.internationalMarkets || data.vietnamImplications || Array.isArray(data.keyPoints)) {
         renderStructuredBrief(data);
       } else {
         briefRoot.innerHTML = "";

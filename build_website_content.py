@@ -150,6 +150,11 @@ def build_payload(final_payload: dict[str, Any], enriched_payload: dict[str, Any
     generated_at = final_payload.get("generated_at") or datetime.now(timezone.utc).isoformat()
     key_points = summary.get("key_points", [])
     risks = summary.get("risks_to_watch", [])
+    macro_g = str(summary.get("macro_global", "") or "")
+    intl = str(summary.get("international_markets", "") or "")
+    vn_imp = str(summary.get("vietnam_implications", "") or "")
+    exec_sum = str(summary.get("executive_summary", "") or "")
+    web_ver = summary.get("web_verification") if isinstance(summary.get("web_verification"), dict) else {}
 
     return {
         "siteTitle": "LEON Quant Labs",
@@ -157,7 +162,11 @@ def build_payload(final_payload: dict[str, Any], enriched_payload: dict[str, Any
         "generatedAt": generated_at,
         "chatSectionTitle": summary.get("title", "Macro Daily Brief"),
         "marketImpact": summary.get("market_impact", "Mixed"),
-        "executiveSummary": summary.get("executive_summary", ""),
+        "executiveSummary": exec_sum,
+        "macroGlobal": macro_g,
+        "internationalMarkets": intl,
+        "vietnamImplications": vn_imp,
+        "webVerification": web_ver,
         "keyPoints": key_points,
         "vietnamWatch": summary.get("vietnam_watch", ""),
         "globalWatch": summary.get("global_watch", ""),
@@ -168,13 +177,13 @@ def build_payload(final_payload: dict[str, Any], enriched_payload: dict[str, Any
         "stats": {
             "articlesAnalyzed": enriched_payload.get("count", len(enriched_payload.get("articles", []))),
             "featuredLinks": len(featured_articles),
-            "pipeline": "Public sources + editorial review",
+            "pipeline": "Gemini + GPT editorial + targeted live URL verification",
         },
         "chatItems": [
             {
                 "title": summary.get("title", "Macro Daily Brief"),
                 "content": (
-                    f"{summary.get('executive_summary', '')}\n\n"
+                    f"{exec_sum}\n\n{macro_g}\n\n{intl}\n\n{vn_imp}\n\n"
                     f"Market impact: {summary.get('market_impact', 'Mixed')}"
                 ).strip(),
             },

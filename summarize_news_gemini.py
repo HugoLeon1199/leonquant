@@ -176,11 +176,12 @@ def compact_for_gemini(articles: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def build_prompt(enriched_articles: list[dict[str, Any]]) -> str:
     article_json = json.dumps(compact_for_gemini(enriched_articles), ensure_ascii=False)
     return f"""
-Bạn là analyst vĩ mô và thị trường cho LEON Quant Labs.
+Bạn là analyst vĩ mô và thị trường cấp cao cho LEON Quant Labs. Phong cách ghi chú đầu tư: súc tích, ưu tiên kênh truyền và hàm ý thị trường, không khẩu hiệu.
 
 Nhiệm vụ:
 - Đọc dữ liệu bài viết đã crawl bên dưới. Mỗi bài có title, nguồn, URL, RSS summary và article_text nếu lấy được.
-- Tổng hợp bằng tiếng Việt, ngắn gọn nhưng có giá trị đầu tư.
+- Tổng hợp bằng tiếng Việt theo logic: (1) sự kiện/tin vĩ mô toàn cầu nổi bật, (2) kênh ảnh hưởng tới thị trường quốc tế, (3) hàm ý tới Việt Nam (TTCK, hệ thống tài chính–ngân hàng, tỷ giá/lạm phát, hàng hóa liên quan VN, dòng vốn).
+- executive_summary: one-liner hoặc 2 câu cực ngắn tóm "trọng tâm hôm nay".
 - Chỉ dùng dữ liệu được cung cấp. Không bịa số liệu, không suy diễn quá mức.
 - Nếu dữ liệu mâu thuẫn hoặc thiếu ngữ cảnh, ghi rõ "chưa đủ dữ liệu".
 - Ưu tiên: vĩ mô, lãi suất, tín dụng, ngân hàng, chứng khoán, hàng hóa/vàng/dầu, dòng vốn, chính sách, rủi ro địa chính trị.
@@ -189,18 +190,18 @@ Nhiệm vụ:
 Trả về DUY NHẤT JSON hợp lệ theo schema:
 {{
   "title": "Macro Daily Brief",
-  "executive_summary": "5-8 câu tổng quan quan trọng nhất",
+  "executive_summary": "1-3 câu trọng tâm tuyệt đối ngắn",
   "market_impact": "Risk-on | Risk-off | Neutral | Mixed",
   "key_themes": [
     {{
       "theme": "Tên chủ đề",
-      "summary": "Tóm tắt 2-4 câu dựa trên dữ liệu",
+      "summary": "Tóm tắt 2-4 câu; nên phản ánh bối cảnh global và/hoặc kênh truyền sang VN nếu có trong dữ liệu",
       "impact": "High | Medium | Low",
       "source_urls": ["URL liên quan"]
     }}
   ],
-  "vietnam_watch": "Nhận định riêng cho Việt Nam",
-  "global_watch": "Nhận định riêng cho quốc tế",
+  "vietnam_watch": "Góc Việt Nam (ngắn gọn, có thể tách khác executive nếu cần)",
+  "global_watch": "Góc quốc tế (ngắn)",
   "risks_to_watch": ["Rủi ro 1", "Rủi ro 2"],
   "important_articles": [
     {{
