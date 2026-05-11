@@ -15,6 +15,16 @@ Sau khi bật Pages (một lần), URL mặc định:
 3. Lưu. Workflow **Deploy GitHub Pages** sẽ chạy khi push `main` (hoặc chạy tay tab **Actions**).
 4. Vài phút sau, mở lại URL trên.
 
+### Bật Pages bằng API (không vào Settings)
+
+Cần **Personal Access Token** (classic: scope `repo`, hoặc fine-grained: quản trị repo + Pages). **Đừng dán token vào chat** — chỉ đặt trong terminal:
+
+```powershell
+$env:GITHUB_TOKEN = "ghp_..."   # token của bạn
+cd path\to\leonquant-repo
+.\scripts\enable_github_pages.ps1
+```
+
 ### Cách bật thay thế (Deploy từ branch)
 
 1. **Settings** → **Pages** → Source: **Deploy from branch**.
