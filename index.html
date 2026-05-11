@@ -3,13 +3,574 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=landing_page.html">
-  <title>LEON Quant Labs</title>
-  <script>
-    window.location.replace("landing_page.html");
-  </script>
+  <title>LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường</title>
+  <meta name="description" content="Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam — brief kết nối diễn biến toàn cầu với hành động danh mục.">
+  <style>
+    :root {
+      --bg0: #05080f;
+      --bg1: #0c1220;
+      --bg2: #111a2e;
+      --glass: rgba(255, 255, 255, .055);
+      --border: rgba(255, 255, 255, .12);
+      --text: #e8edf5;
+      --muted: #94a3b8;
+      --faint: #64748b;
+      --cyan: #22d3ee;
+      --cyan-dim: #0891b2;
+      --gold: #fbbf24;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.55;
+      background:
+        radial-gradient(ellipse 120% 80% at 10% -10%, rgba(34, 211, 238, .1), transparent 50%),
+        radial-gradient(ellipse 90% 60% at 90% 10%, rgba(251, 191, 36, .06), transparent 45%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 40%, var(--bg2) 100%);
+      min-height: 100vh;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: min(1020px, 92%); margin: 0 auto; }
+
+    .hero {
+      padding: 28px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-size: 1.02rem;
+    }
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--cyan), var(--gold));
+      display: grid;
+      place-items: center;
+      font-size: .72rem;
+      font-weight: 900;
+      color: #0a0f18;
+    }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .84rem; font-weight: 600; }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+
+    h1 {
+      margin: 20px 0 12px;
+      font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+      line-height: 1.1;
+      letter-spacing: -.04em;
+    }
+    .hero-sub {
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin: 0 0 12px;
+      font-weight: 650;
+    }
+    .hero-desc { margin: 0 0 16px; max-width: 58ch; color: var(--faint); }
+    .hero-qs {
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .hero-qs li::before { content: "— "; color: var(--gold); }
+
+    section { padding: 44px 0; }
+    section.alt { background: rgba(0,0,0,.16); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+      letter-spacing: -.03em;
+    }
+    .section-head p { margin: 8px 0 0; max-width: 68ch; color: var(--muted); font-size: .94rem; }
+    .section-head { margin-bottom: 18px; }
+
+    .thesis-block {
+      border-radius: 18px;
+      padding: 22px 24px;
+      background: linear-gradient(145deg, rgba(34, 211, 238, .07), rgba(251, 191, 36, .06));
+      border: 1px solid var(--border);
+    }
+    .thesis-block p { margin: 0 0 12px; color: #e2e8f0; }
+    .thesis-block p:last-child { margin-bottom: 0; }
+    .lbl { font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+
+    .cards {
+      display: grid;
+      gap: 14px;
+    }
+    @media (min-width: 860px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    .card {
+      border-radius: 14px;
+      padding: 18px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 1rem; }
+    .card .sub { font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); margin-top: 10px; }
+    .card .body { margin: 0; font-size: .9rem; color: var(--muted); }
+
+    .chain-list { margin: 12px 0 0; padding-left: 1.1rem; color: var(--muted); font-size: .9rem; }
+
+    .data-table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); margin-top: 12px; }
+    table.data {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .86rem;
+    }
+    table.data th, table.data td {
+      padding: 11px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.data th {
+      background: rgba(0,0,0,.32);
+      font-weight: 800;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--faint);
+      white-space: nowrap;
+    }
+    table.data tr:last-child td { border-bottom: none; }
+    table.data td { color: var(--muted); }
+
+    .scenario-grid {
+      display: grid;
+      gap: 14px;
+    }
+    @media (min-width: 860px) {
+      .scenario-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .sc {
+      border-radius: 14px;
+      padding: 18px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--cyan);
+    }
+    .sc.bull { border-top-color: #4ade80; }
+    .sc.bear { border-top-color: #fb7185; }
+    .sc h3 { margin: 0 0 8px; font-size: .98rem; }
+    .sc p { margin: 0; font-size: .88rem; color: var(--muted); }
+
+    .takeaway {
+      border-radius: 16px;
+      padding: 20px;
+      background: rgba(251, 191, 36, .07);
+      border: 1px solid rgba(251, 191, 36, .25);
+    }
+    .takeaway p { margin: 0; color: #e2e8f0; font-size: .98rem; }
+
+    .secondary-head h2 { font-size: 1.1rem; color: var(--faint); }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+      gap: 16px;
+    }
+    .source-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      opacity: .92;
+    }
+    .source-card a { color: inherit; text-decoration: none !important; display: block; }
+    .source-image {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+      background: var(--bg2);
+    }
+    .fallback-image {
+      display: grid;
+      place-items: center;
+      height: 120px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: .7rem;
+      letter-spacing: .12em;
+    }
+    .source-body { padding: 14px; }
+    .source-meta { font-size: .75rem; color: var(--faint); margin-bottom: 6px; }
+    .source-body h3 { margin: 0 0 6px; font-size: .95rem; }
+    .source-body p { margin: 0; font-size: .85rem; color: var(--muted); line-height: 1.45; }
+    .read-pill { display: inline-block; margin-top: 10px; font-size: .8rem; font-weight: 800; color: var(--cyan); }
+
+    .sync-note { margin: 0 0 16px; color: var(--muted); font-size: .9rem; }
+    .error-card {
+      padding: 20px;
+      border-radius: 14px;
+      background: rgba(251, 113, 133, .08);
+      border: 1px solid rgba(251, 113, 133, .28);
+      color: var(--muted);
+    }
+    .footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      color: var(--faint);
+      font-size: .85rem;
+    }
+  </style>
 </head>
 <body>
-  <p>Đang mở LEON Quant Labs...</p>
+  <header class="hero">
+    <div class="container">
+      <nav class="nav">
+        <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
+        <div class="nav-links">
+          <a href="#brief">Brief</a>
+          <a href="#macro">Vĩ mô</a>
+          <a href="#actions">Hành động</a>
+          <a href="#reference">Tin nền</a>
+        </div>
+      </nav>
+      <h1>LEON Quant Labs</h1>
+      <p class="hero-sub" id="heroSubtitle">Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam</p>
+      <p class="hero-desc" id="heroDescription">
+        LEON Quant Labs tập trung vào việc chuyển biến động vĩ mô toàn cầu thành góc nhìn đầu tư có thể hành động tại thị trường Việt Nam.
+      </p>
+      <ul class="hero-qs">
+        <li>Thế giới đang tác động gì?</li>
+        <li>Việt Nam bị ảnh hưởng thế nào?</li>
+        <li>Nhà đầu tư nên hành động ra sao?</li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section id="brief" class="alt">
+      <div class="container">
+        <p id="syncNote" class="sync-note"></p>
+        <div id="briefRoot"></div>
+      </div>
+    </section>
+
+    <section id="reference">
+      <div class="container" style="max-width: min(1180px, 95%);">
+        <div class="section-head secondary-head">
+          <p class="eyebrow">Tham khảo</p>
+          <h2 id="sourceGridTitle">Tin nền tham khảo</h2>
+          <p>Bài báo chọn lọc trong ngày — để đối chiếu ngữ cảnh; không phải trọng tâm của bản brief phía trên.</p>
+        </div>
+        <div id="sourceGrid" class="source-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 LEON Quant Labs</p>
+    </div>
+  </footer>
+
+  <script>
+    const ND = "—";
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatDateVi(value) {
+      if (!value) return "";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return String(value);
+      return date.toLocaleString("vi-VN", {
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit",
+      });
+    }
+
+    function getHostName(u) {
+      try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
+    }
+
+    function renderTable(headers, rows) {
+      let h = `<div class="data-table-wrap"><table class="data"><thead><tr>`;
+      for (const x of headers) h += `<th>${escapeHtml(x)}</th>`;
+      h += `</tr></thead><tbody>`;
+      for (const row of rows) {
+        h += `<tr>`;
+        for (const cell of row) h += `<td>${cell}</td>`;
+        h += `</tr>`;
+      }
+      h += `</tbody></table></div>`;
+      return h;
+    }
+
+    function buildBriefHtml(data) {
+      const pub = data.publicationIntro || {};
+      const mt = data.mainThesis || {};
+      const heroSub = document.getElementById("heroSubtitle");
+      const heroDesc = document.getElementById("heroDescription");
+      if (heroSub && pub.headline) heroSub.textContent = pub.headline;
+      if (heroDesc && pub.description) heroDesc.textContent = pub.description;
+
+      const drivers = Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : [];
+      const qa = Array.isArray(data.quickActions) ? data.quickActions : [];
+      const ag = Array.isArray(data.allocationGuide) ? data.allocationGuide : [];
+      const sp = Array.isArray(data.sectorPriority) ? data.sectorPriority : [];
+      const ir = Array.isArray(data.increaseRiskSignals) ? data.increaseRiskSignals : [];
+      const rr = Array.isArray(data.reduceRiskSignals) ? data.reduceRiskSignals : [];
+      const vt = data.vietnamTransmission || {};
+      const chains = Array.isArray(vt.chains) ? vt.chains : [];
+      const scen = data.scenarioPlan || {};
+
+      let html = "";
+
+      html += `<div class="section-head" id="macro"><p class="eyebrow">Luận điểm</p><h2>Luận điểm chính hôm nay</h2></div>`;
+      html += `<div class="thesis-block">`;
+      html += `<p class="lbl">Trạng thái / nhịp thị trường</p><p>${escapeHtml(mt.regime || ND)}</p>`;
+      html += `<p class="lbl">Luận điểm</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
+      html += `<p class="lbl">Kết luận hành động</p><p>${escapeHtml(mt.actionConclusion || ND)}</p>`;
+      html += `</div>`;
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
+      if (!drivers.length) {
+        html += `<p class="error-card">Chưa có nội dung vĩ mô.</p>`;
+      } else {
+        html += `<div class="cards">`;
+        for (let i = 0; i < drivers.length; i++) {
+          const d = drivers[i];
+          html += `<article class="card"><h3>${i + 1}. ${escapeHtml(d.title || ND)}</h3>`;
+          html += `<p class="sub">Phân tích</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
+          html += `<p class="sub">Tác động tới Việt Nam</p><p class="body">${escapeHtml(d.vietnamImpact || ND)}</p></article>`;
+        }
+        html += `</div>`;
+      }
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Truyền dẫn</p><h2>Chuỗi tác động đến Việt Nam</h2></div>`;
+      html += `<div class="thesis-block"><p>${escapeHtml(vt.summary || ND)}</p>`;
+      if (chains.length) {
+        html += `<ul class="chain-list">`;
+        for (const c of chains) html += `<li>${escapeHtml(c)}</li>`;
+        html += `</ul>`;
+      }
+      html += `</div>`;
+
+      html += `<div class="section-head" id="actions" style="margin-top:36px"><p class="eyebrow">Thực thi</p><h2>Hành động nhanh hôm nay</h2></div>`;
+      html += renderTable(
+        ["Trạng thái nhà đầu tư", "Hành động phù hợp"],
+        qa.map((r) => [escapeHtml(r.investorState || ND), escapeHtml(r.action || ND)]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Danh mục</p><h2>Phân bổ vốn tham khảo</h2></div>`;
+      html += renderTable(
+        ["Hồ sơ rủi ro", "Cổ phiếu", "Tiền mặt", "Margin"],
+        ag.map((r) => [
+          escapeHtml(r.profile || ND),
+          escapeHtml(r.stocks || ND),
+          escapeHtml(r.cash || ND),
+          escapeHtml(r.margin || ND),
+        ]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Ngành</p><h2>Ưu tiên nhóm ngành</h2></div>`;
+      html += renderTable(
+        ["Nhóm ngành", "Quan điểm", "Hành động"],
+        sp.map((r) => [escapeHtml(r.sector || ND), escapeHtml(r.view || ND), escapeHtml(r.action || ND)]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Tăng tỷ trọng</p><h2>Tín hiệu để tăng tỷ trọng</h2></div>`;
+      html += renderTable(
+        ["Tín hiệu", "Ý nghĩa"],
+        ir.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.meaning || ND)]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Rủi ro</p><h2>Tín hiệu cần giảm rủi ro</h2></div>`;
+      html += renderTable(
+        ["Tín hiệu cảnh báo", "Hành động"],
+        rr.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.action || ND)]),
+      );
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Kịch bản</p><h2>Kế hoạch theo 3 kịch bản</h2></div>`;
+      const b = scen.baseCase || {};
+      const u = scen.bullCase || {};
+      const e = scen.bearCase || {};
+      html += `<div class="scenario-grid">`;
+      html += `<article class="sc"><h3>${escapeHtml(b.title || "Kịch bản cơ sở")}</h3><p>${escapeHtml(b.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(b.action || ND)}</p></article>`;
+      html += `<article class="sc bull"><h3>${escapeHtml(u.title || "Kịch bản tích cực")}</h3><p>${escapeHtml(u.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(u.action || ND)}</p></article>`;
+      html += `<article class="sc bear"><h3>${escapeHtml(e.title || "Kịch bản tiêu cực")}</h3><p>${escapeHtml(e.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(e.action || ND)}</p></article>`;
+      html += `</div>`;
+
+      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Đóng phiên</p><h2>Kết luận hôm nay</h2></div>`;
+      html += `<div class="takeaway"><p>${escapeHtml(data.finalTakeaway || ND)}</p></div>`;
+
+      return html;
+    }
+
+    function createSourceCard(item) {
+      const card = document.createElement("article");
+      card.className = "source-card";
+      const a = document.createElement("a");
+      a.href = item.url || "#";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      const thumb = document.createElement("div");
+      if (item.image_url) {
+        const img = document.createElement("img");
+        img.className = "source-image";
+        img.src = item.image_url;
+        img.alt = "";
+        img.loading = "lazy";
+        img.referrerPolicy = "no-referrer";
+        img.onerror = () => { thumb.innerHTML = '<div class="fallback-image">LQ</div>'; };
+        thumb.appendChild(img);
+      } else {
+        thumb.innerHTML = '<div class="fallback-image">LQ</div>';
+      }
+      const body = document.createElement("div");
+      body.className = "source-body";
+      const meta = document.createElement("div");
+      meta.className = "source-meta";
+      meta.textContent = [item.category, item.source, formatDateVi(item.published_at)].filter(Boolean).join(" · ");
+      const h = document.createElement("h3");
+      h.textContent = item.title || "Tin";
+      const p = document.createElement("p");
+      p.textContent = item.summary || "";
+      const rp = document.createElement("span");
+      rp.className = "read-pill";
+      rp.textContent = "Đọc bài gốc → " + getHostName(item.url || "");
+      body.appendChild(meta);
+      body.appendChild(h);
+      body.appendChild(p);
+      body.appendChild(rp);
+      a.appendChild(thumb);
+      a.appendChild(body);
+      card.appendChild(a);
+      return card;
+    }
+
+    function renderPage(data) {
+      const sync = document.getElementById("syncNote");
+      if (sync) {
+        const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
+        sync.textContent = st
+          ? `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
+          : "";
+      }
+      const root = document.getElementById("briefRoot");
+      if (root) {
+        try {
+          root.innerHTML = buildBriefHtml(data);
+        } catch (e) {
+          console.error(e);
+          root.innerHTML = `<div class="error-card">Không render được brief: ${escapeHtml(e.message || e)}</div>`;
+        }
+      }
+      const articles = Array.isArray(data.allArticles) ? data.allArticles : [];
+      const grid = document.getElementById("sourceGrid");
+      const titleEl = document.getElementById("sourceGridTitle");
+      if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;
+      if (grid) {
+        grid.innerHTML = "";
+        for (const article of articles) grid.appendChild(createSourceCard(article));
+      }
+    }
+
+    async function loadFeedConfig() {
+      try {
+        const r = await fetch("feed-config.json");
+        if (!r.ok) return { preferLocal: true };
+        const j = await r.json();
+        if (j.preferLocal === undefined) j.preferLocal = true;
+        return j;
+      } catch {
+        return { preferLocal: true };
+      }
+    }
+
+    async function fetchLocalFeed() {
+      try {
+        const r = await fetch(`content.json?ts=${Date.now()}`, { cache: "no-store" });
+        if (!r.ok) throw new Error("bad");
+        return await r.json();
+      } catch (e) {
+        console.error(e);
+        return {
+          siteTitle: "LEON Quant Labs",
+          publicationIntro: {},
+          mainThesis: {},
+          globalMacroDrivers: [],
+          quickActions: [],
+          allocationGuide: [],
+          sectorPriority: [],
+          increaseRiskSignals: [],
+          reduceRiskSignals: [],
+          vietnamTransmission: { summary: "", chains: [] },
+          scenarioPlan: {},
+          finalTakeaway: "",
+          allArticles: [],
+          generatedAt: "",
+        };
+      }
+    }
+
+    async function loadChatContent() {
+      const sync = document.getElementById("syncNote");
+      if (sync) sync.textContent = "Đang tải brief…";
+      try {
+        const config = await loadFeedConfig();
+        const remoteUrl = config.remoteFeedUrl || "";
+        const preferLocal = Boolean(config.preferLocal);
+        let data;
+        if (preferLocal) data = await fetchLocalFeed();
+        else if (remoteUrl) {
+          try {
+            const r = await fetch(remoteUrl, { cache: "no-store" });
+            if (!r.ok) throw new Error("bad remote");
+            data = await r.json();
+          } catch {
+            data = await fetchLocalFeed();
+          }
+        } else data = await fetchLocalFeed();
+        renderPage(data);
+      } catch (err) {
+        console.error(err);
+        renderPage({ allArticles: [], generatedAt: "", publicationIntro: {}, mainThesis: {} });
+      }
+    }
+
+    loadChatContent();
+  </script>
 </body>
 </html>

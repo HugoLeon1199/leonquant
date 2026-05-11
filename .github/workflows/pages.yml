@@ -28,8 +28,12 @@ jobs:
       - name: Bundle static site (chỉ file web, không upload cả repo)
         run: |
           python3 -m json.tool content.json > /dev/null
-          mkdir -p _site
-          cp landing_page.html index.html content.json _site/
+          mkdir -p _site/landing_page
+          # Một nguồn: landing_page.html → trang chủ, /landing_page.html, /landing_page/
+          cp landing_page.html _site/index.html
+          cp landing_page.html _site/landing_page.html
+          cp landing_page.html _site/landing_page/index.html
+          cp content.json _site/
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
 
