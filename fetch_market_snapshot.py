@@ -29,10 +29,10 @@ ASSET_DEFINITIONS: list[tuple[str, str, str]] = [
     ("SI=F", "Silver (COMEX)", "USD"),
     ("BTC-USD", "Bitcoin", "USD"),
     ("ETH-USD", "Ethereum", "USD"),
-    ("DX-Y.NYB", "US Dollar Index (DXY)", "USD"),
+    ("DX-Y.NYB", "US Dollar Index (DXY proxy)", "USD"),
     ("^TNX", "US Treasury 10Y yield", "pct"),
-    ("VND=X", "USD/VND", "VND"),
-    ("VNM", "VN-Index proxy (VanEck Vietnam ETF)", "USD"),
+    ("VND=X", "USD/VND (spot, Yahoo)", "VND"),
+    ("FUEVN100.VN", "VN-Index proxy (VN100 ETF FUEVN100)", "VND"),
 ]
 
 

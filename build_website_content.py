@@ -391,7 +391,12 @@ def main() -> int:
         not args.skip_images,
         args.metadata_timeout,
     )
-    payload = build_payload(final_payload, enriched_payload, all_cards, market_snapshot=None)
+    payload = build_payload(
+        final_payload,
+        enriched_payload,
+        all_cards,
+        market_snapshot=load_market_snapshot_json(),
+    )
     Path(args.output).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"Done: {len(all_cards)} article cards -> {args.output}")

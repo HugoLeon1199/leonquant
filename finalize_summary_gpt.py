@@ -467,8 +467,12 @@ They need:
 
 Writing rules:
 - Vietnamese.
-- Professional desk-note style.
-- Concise but analytical.
+- Professional desk-note style: short, sharp, thesis-led — not a 10-page report.
+- Target ~900–1500 characters of Vietnamese across all narrative fields combined (stay concise).
+- daily_thesis: 1–2 tight paragraphs, ONE dominant thesis.
+- thirty_second_summary: 3–5 short bullets or sentences (each on its own line is OK inside the string).
+- top_macro_drivers: 3–5 drivers only; each must support, challenge, or qualify the thesis.
+- final_takeaway: one short sharp paragraph.
 - No hype.
 - No financial advice.
 - Never invent numbers.
@@ -563,7 +567,7 @@ top_macro_drivers, asset_impact_heatmap, vietnam_investor_lens, scenario_map,
 key_variables_to_watch, source_quality, final_takeaway, disclaimer.
 
 Remove entirely: key_points, brief_stories, asset_impact_table, macro_world, vietnam_macro,
-executive_summary, so_what_chain, editor_notes, and any other legacy keys.
+executive_summary, so_what_chain, editor_notes, asset_impacts, and any other legacy keys.
 
 Schema shape:
 {SCHEMA_JSON_EXAMPLE}
@@ -624,8 +628,12 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
     if not isinstance(mr, dict):
         errors.append("market_regime:not_object")
     else:
-        for k in ("regime", "primary_driver", "risk_tone", "confidence", "invalidation"):
-            if not str(mr.get(k, "")).strip():
+        for k in ("regime", "primary_driver", "secondary_driver", "risk_tone", "confidence", "invalidation"):
+            if k not in mr:
+                errors.append(f"market_regime.{k}:missing")
+            elif not isinstance(mr.get(k), str):
+                errors.append(f"market_regime.{k}:not_string")
+            elif k != "secondary_driver" and not str(mr.get(k, "")).strip():
                 errors.append(f"market_regime.{k}:empty")
 
     drivers = data.get("top_macro_drivers")
@@ -668,6 +676,10 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
                 errors.append(f"heatmap[{i}].strength:invalid")
             if str(row.get("horizon", "")).strip() not in allowed_horizon:
                 errors.append(f"heatmap[{i}].horizon:invalid")
+            if not str(row.get("main_reason", "")).strip():
+                errors.append(f"heatmap[{i}].main_reason:empty")
+            if not str(row.get("watch_risk", "")).strip():
+                errors.append(f"heatmap[{i}].watch_risk:empty")
 
     vil = data.get("vietnam_investor_lens")
     if not isinstance(vil, dict):
@@ -707,12 +719,38 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
                 errors.append("scenario_map.probabilities:invalid")
 
     kvw = data.get("key_variables_to_watch")
-    if not isinstance(kvw, list) or len(kvw) < 1:
-        errors.append("key_variables_to_watch:need_list")
+    if not isinstance(kvw, list) or len(kvw) < 4:
+        errors.append("key_variables_to_watch:need_at_least_4")
+    else:
+        for i, item in enumerate(kvw):
+            if not isinstance(item, dict):
+                errors.append(f"key_variables_to_watch[{i}]:not_object")
+                continue
+            if not str(item.get("variable", "")).strip():
+                errors.append(f"key_variables_to_watch[{i}].variable:empty")
+            if not str(item.get("why_it_matters", "")).strip():
+                errors.append(f"key_variables_to_watch[{i}].why_it_matters:empty")
 
     sq = data.get("source_quality")
     if not isinstance(sq, dict):
         errors.append("source_quality:not_object")
+    else:
+
+        def _count_ok(val: Any) -> bool:
+            if isinstance(val, bool):
+                return False
+            if isinstance(val, int):
+                return True
+            return isinstance(val, float) and val == val  # not NaN
+
+        for fld in ("sources_scanned", "articles_selected", "verified_links"):
+            if not _count_ok(sq.get(fld)):
+                errors.append(f"source_quality.{fld}:need_integer")
+        cn = sq.get("coverage_note")
+        if "coverage_note" not in sq:
+            errors.append("source_quality.coverage_note:missing")
+        elif not isinstance(cn, str):
+            errors.append("source_quality.coverage_note:not_string")
 
     return (len(errors) == 0, errors)
 
@@ -741,6 +779,13 @@ def merge_pipeline_metadata(
         note = f"{note} {coverage_note_extra}".strip() if note else coverage_note_extra
     sq["coverage_note"] = note
     summary["source_quality"] = sq
+    mr = summary.get("market_regime")
+    if isinstance(mr, dict):
+        for k in ("regime", "primary_driver", "secondary_driver", "risk_tone", "confidence", "invalidation"):
+            if k not in mr or mr[k] is None:
+                mr[k] = ""
+            elif not isinstance(mr[k], str):
+                mr[k] = str(mr[k])
     if not str(summary.get("disclaimer", "")).strip():
         summary["disclaimer"] = DEFAULT_DISCLAIMER
 
@@ -889,6 +934,7 @@ def build_fallback_summary(
             {"variable": "Giá dầu", "why_it_matters": "Kênh lạm phát và tâm lý risk-off."},
             {"variable": "Phát ngôn Fed", "why_it_matters": "Định hình kỳ vọng lãi suất thực."},
             {"variable": "USD/VND", "why_it_matters": "Kênh trực tiếp cho nhà đầu tư Việt Nam."},
+            {"variable": "Độ rộng TTCK VN", "why_it_matters": "Phân hóa bluechip vs midcap cho biết độ bền nhịp sóng."},
         ],
         "source_quality": {
             "sources_scanned": enriched_count,

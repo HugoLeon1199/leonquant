@@ -33,16 +33,28 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
         "generatedAt",
         "marketRegime",
         "dailyThesis",
+        "thirtySecondSummary",
+        "whatChanged",
         "topMacroDrivers",
+        "assetImpactHeatmap",
+        "vietnamInvestorLens",
         "scenarioMap",
+        "keyVariablesToWatch",
+        "sourceQuality",
         "marketSnapshot",
+        "finalTakeaway",
+        "disclaimer",
         "allArticles",
+        "stats",
     ):
         if key not in c:
             err.append(f"content.json missing key: {key}")
     ms = c.get("marketSnapshot")
     if ms is not None and not isinstance(ms, dict):
         err.append("content.marketSnapshot must be object")
+    st = c.get("stats")
+    if not isinstance(st, dict):
+        err.append("content.stats must be object")
     return (len(err) == 0, err)
 
 
@@ -71,11 +83,6 @@ def main() -> int:
             f"Summary must only contain Macro Intelligence keys; remove: {sorted(extra)}",
             file=sys.stderr,
         )
-        return 1
-    legacy_deny = ("key_points", "brief_stories", "asset_impact_table")
-    bad = [k for k in legacy_deny if k in summary and summary[k]]
-    if bad:
-        print(f"Legacy schema keys must be empty or absent: {bad}", file=sys.stderr)
         return 1
     print("OK: final_summary.json passes Macro Intelligence validation.")
     cpath = Path(args.content_input)

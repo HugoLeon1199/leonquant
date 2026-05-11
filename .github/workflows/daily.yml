@@ -21,6 +21,10 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Verify pipeline scripts compile
+        run: |
+          python -m py_compile finalize_summary_gpt.py build_website_content.py validate_content.py fetch_market_snapshot.py summarize_news_gemini.py crawl_financial_news.py
+
       - name: Crawl public macro news
         run: |
           python crawl_financial_news.py --per-source-limit 0 --max-total 0 --today-only --macro-only --macro-min-score 4
@@ -49,6 +53,7 @@ jobs:
 
       - name: Validate JSON artifacts
         run: |
+          python -m json.tool market_snapshot.json > /dev/null
           python -m json.tool final_summary.json > /dev/null
           python -m json.tool content.json > /dev/null
           python validate_content.py
@@ -57,6 +62,6 @@ jobs:
         run: |
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
-          git add news_output.json enriched_news.json gemini_summary.json market_snapshot.json final_summary.json content.json
+          git add news_output.json enriched_news.json gemini_summary.json market_snapshot.json final_summary.json content.json feed-config.json
           git commit -m "Update daily macro brief" || echo "No content changes to commit"
           git push

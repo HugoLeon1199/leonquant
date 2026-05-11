@@ -509,6 +509,11 @@
     .footer strong { color: var(--muted); }
 
     .sync-note { margin: 0 0 20px; color: var(--muted); font-size: .92rem; }
+    .summary-pre {
+      margin: 0;
+      white-space: pre-wrap;
+      line-height: 1.55;
+    }
     .market-data-grid {
       display: grid;
       gap: 12px;
@@ -577,14 +582,14 @@
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links">
-          <a href="#market-data">Market data</a>
-          <a href="#research">Snapshot</a>
+          <a href="#market-data">Market Data</a>
+          <a href="#research">Research</a>
           <a href="#thesis">Thesis</a>
           <a href="#drivers">Drivers</a>
           <a href="#heatmap">Heatmap</a>
           <a href="#vietnam">Vietnam</a>
           <a href="#scenarios">Scenarios</a>
-          <a href="#sources">Sources</a>
+          <a href="#sources">Source Library</a>
         </div>
       </nav>
       <div class="hero-grid">
@@ -602,18 +607,18 @@
           </div>
         </div>
         <div class="glass-card">
-          <p class="tag">Research snapshot</p>
+          <p class="tag">Research Snapshot</p>
           <h2 class="hero-side-title">Trạng thái pipeline</h2>
           <p class="hero-side-p">Regime, risk tone, nguồn đã quét và thời điểm cập nhật.</p>
           <div class="snapshot-grid">
-            <div class="snap-cell"><span>Market regime</span><strong id="snapRegime">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Primary driver</span><strong id="snapPrimary">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Risk tone</span><strong id="snapRisk">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Market Regime</span><strong id="snapRegime">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Primary Driver</span><strong id="snapPrimary">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Risk Tone</span><strong id="snapRisk">Đang tải…</strong></div>
             <div class="snap-cell"><span>Confidence</span><strong id="snapConf">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Sources scanned</span><strong id="snapScan">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Articles selected</span><strong id="snapPick">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Verified links</span><strong id="snapVer">Đang tải…</strong></div>
-            <div class="snap-cell"><span>Last updated</span><strong id="snapUp">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Sources Scanned</span><strong id="snapScan">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Articles Selected</span><strong id="snapPick">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Verified Links</span><strong id="snapVer">Đang tải…</strong></div>
+            <div class="snap-cell"><span>Last Updated</span><strong id="snapUp">Đang tải…</strong></div>
           </div>
         </div>
       </div>
@@ -631,7 +636,7 @@
     <section id="sources">
       <div class="container" style="max-width: min(1320px, 95%);">
         <div class="section-head" id="source-library">
-          <p class="eyebrow">Source library</p>
+          <p class="eyebrow">Source Library</p>
           <h2 id="sourceGridTitle">Tin đã crawl</h2>
           <p>Toàn bộ bài trong pipeline — metadata từ trang nguồn khi fetch được. Mục research ở trên luôn ưu tiên.</p>
         </div>
@@ -750,7 +755,7 @@
       const obj = ms && typeof ms === "object" ? ms : {};
       const assets = Array.isArray(obj.assets) ? obj.assets : [];
       const cov = String(obj.coverage_note || "").trim();
-      let html = `<div class="section-head" id="market-data"><p class="eyebrow">Live inputs</p><h2>Market data snapshot</h2>`;
+      let html = `<div class="section-head" id="market-data"><p class="eyebrow">Live inputs</p><h2>Market Data Snapshot</h2>`;
       html += `<p>${escapeHtml(cov || MS_FALLBACK)}</p></div>`;
       if (!assets.length) {
         html += `<div class="box-muted"><p>${escapeHtml(MS_FALLBACK)}</p></div>`;
@@ -783,6 +788,8 @@
             chHtml = ` <span class="mk-ch ${cls}">(${sign}${ch.toFixed(2)}%)</span>`;
           }
           inner = `${priceStr}${cur}${chHtml}`;
+          const src = escapeHtml(String(a.source || "yahoo_finance_chart"));
+          inner += `<span class="mk-note">Nguồn giá: ${src}</span>`;
         } else {
           inner = `<span class="mk-miss">${escapeHtml(MS_FALLBACK)}</span>`;
         }
@@ -798,6 +805,11 @@
       return html;
     }
 
+    function setSnapCell(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+
     function updateSnapshot(data) {
       const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : {};
       const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
@@ -805,14 +817,14 @@
       const nScan = sq.sources_scanned != null ? sq.sources_scanned : st.articlesInEnriched ?? st.articlesCrawled;
       const nPick = sq.articles_selected != null ? sq.articles_selected : Math.min(18, nScan || 0);
       const nVer = sq.verified_links != null ? sq.verified_links : 0;
-      document.getElementById("snapRegime").textContent = show(mr.regime, ND);
-      document.getElementById("snapPrimary").textContent = show(mr.primary_driver, show(data.marketImpact, ND));
-      document.getElementById("snapRisk").textContent = show(mr.risk_tone, show(mr.regime, ND));
-      document.getElementById("snapConf").textContent = show(mr.confidence, ND);
-      document.getElementById("snapScan").textContent = nScan != null && nScan !== "" ? String(nScan) : "0";
-      document.getElementById("snapPick").textContent = nPick != null && nPick !== "" ? String(nPick) : "0";
-      document.getElementById("snapVer").textContent = String(nVer);
-      document.getElementById("snapUp").textContent = formatDateVi(data.generatedAt);
+      setSnapCell("snapRegime", show(mr.regime, ND));
+      setSnapCell("snapPrimary", show(mr.primary_driver, show(data.marketImpact, ND)));
+      setSnapCell("snapRisk", show(mr.risk_tone, show(mr.regime, ND)));
+      setSnapCell("snapConf", show(mr.confidence, ND));
+      setSnapCell("snapScan", nScan != null && nScan !== "" ? String(nScan) : "0");
+      setSnapCell("snapPick", nPick != null && nPick !== "" ? String(nPick) : "0");
+      setSnapCell("snapVer", String(nVer));
+      setSnapCell("snapUp", formatDateVi(data.generatedAt));
     }
 
     function renderTransmission(chain) {
@@ -864,13 +876,13 @@
           : formatDateOnly(data.generatedAt);
       const titleLine = escapeHtml(data.title || data.chatSectionTitle || "LEON Quant Labs — Daily Macro Intelligence");
 
-      let html = `<div class="section-head" id="snapshot"><p class="eyebrow">Research desk note</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Thesis → regime → what changed → drivers → transmission → Vietnam lens → scenarios.</p></div>`;
+      let html = `<div class="section-head" id="snapshot"><p class="eyebrow">Research Snapshot</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Thesis → regime → what changed → drivers → transmission → Vietnam lens → scenarios.</p></div>`;
 
       html += buildMarketSnapshotHtml(data.marketSnapshot);
 
-      html += `<div class="thesis-hero" id="thesis"><p class="lbl">Daily thesis</p><p class="thesis-body">${escapeHtml(thesis)}</p></div>`;
+      html += `<div class="thesis-hero" id="thesis"><p class="lbl">Daily Thesis</p><p class="thesis-body">${escapeHtml(thesis)}</p></div>`;
 
-      html += `<article class="card-main" id="market-regime-card"><p class="lbl" style="margin:0 0 8px;font-size:.72rem;">Market regime</p>`;
+      html += `<article class="card-main" id="market-regime-card"><p class="lbl" style="margin:0 0 8px;font-size:.72rem;">Market Regime</p>`;
       html += `<p><strong>Regime.</strong> ${escapeHtml(show(mr.regime, ND))}</p>`;
       html += `<p style="margin-top:12px"><strong>Primary driver:</strong> ${escapeHtml(show(mr.primary_driver, ND))}</p>`;
       html += `<p style="margin-top:8px"><strong>Secondary driver:</strong> ${escapeHtml(show(mr.secondary_driver, ND))}</p>`;
@@ -879,10 +891,10 @@
       html += `<p style="margin-top:8px"><strong>Invalidation:</strong> ${escapeHtml(show(mr.invalidation, ND))}</p>`;
       html += `</article>`;
 
-      html += `<div class="box-muted" id="t30"><p class="lbl">30-second summary</p><p>${escapeHtml(t30)}</p></div>`;
-      html += `<div class="box-muted" id="what-changed"><p class="lbl">What changed</p><p>${escapeHtml(wc)}</p></div>`;
+      html += `<div class="box-muted" id="t30"><p class="lbl">30-Second Summary</p><p class="summary-pre">${escapeHtml(t30)}</p></div>`;
+      html += `<div class="box-muted" id="what-changed"><p class="lbl">What Changed</p><p>${escapeHtml(wc)}</p></div>`;
 
-      html += `<div class="section-head" id="drivers" style="margin-top:40px"><p class="eyebrow">Macro drivers</p><h2>Top macro drivers</h2><p>Fact → why it matters → transmission → confidence.</p></div>`;
+      html += `<div class="section-head" id="drivers" style="margin-top:40px"><p class="eyebrow">Macro drivers</p><h2>Top Macro Drivers</h2><p>Fact → why it matters → transmission → confidence.</p></div>`;
       if (!drivers.length) {
         html += `<div class="box-muted"><p>${escapeHtml(ND)}</p></div>`;
       } else {
@@ -909,7 +921,7 @@
         html += `</div>`;
       }
 
-      html += `<div class="section-head" id="heatmap" style="margin-top:40px"><p class="eyebrow">Cross-asset</p><h2>Asset impact heatmap</h2></div>`;
+      html += `<div class="section-head" id="heatmap" style="margin-top:40px"><p class="eyebrow">Cross-asset</p><h2>Asset Impact Heatmap</h2></div>`;
       html += `<div class="heatmap-wrap"><table class="heat"><thead><tr><th>Asset</th><th>Direction</th><th>Strength</th><th>Horizon</th><th>Main reason</th><th>Watch risk</th></tr></thead><tbody>`;
       if (!heat.length) {
         html += `<tr><td colspan="6">${escapeHtml(ND)}</td></tr>`;
@@ -925,7 +937,7 @@
 
       const vsum = String(vil.summary || "").trim() || ND;
       const vch = mergeVietnamLensChannels(vil);
-      html += `<div class="section-head" id="vietnam" style="margin-top:40px"><p class="eyebrow">Localization</p><h2>Vietnam investor lens</h2></div>`;
+      html += `<div class="section-head" id="vietnam" style="margin-top:40px"><p class="eyebrow">Localization</p><h2>Vietnam Investor Lens</h2></div>`;
       html += `<div class="box-muted"><p class="lbl">Summary</p><p>${escapeHtml(vsum)}</p></div>`;
       html += `<div class="vil-grid" style="margin-top:16px">`;
       for (const c of vch) {
@@ -936,7 +948,7 @@
       const bc = sm.base_case && typeof sm.base_case === "object" ? sm.base_case : {};
       const bu = sm.bull_case && typeof sm.bull_case === "object" ? sm.bull_case : {};
       const be = sm.bear_case && typeof sm.bear_case === "object" ? sm.bear_case : {};
-      html += `<div class="section-head" id="scenarios" style="margin-top:40px"><p class="eyebrow">Probabilities</p><h2>Scenario map</h2></div>`;
+      html += `<div class="section-head" id="scenarios" style="margin-top:40px"><p class="eyebrow">Probabilities</p><h2>Scenario Map</h2></div>`;
       const probLbl = (p) =>
         p === null || p === undefined || String(p).trim() === ""
           ? escapeHtml(ND)
@@ -958,7 +970,7 @@
       }
       html += `</article></div>`;
 
-      html += `<div class="section-head" id="watchlist" style="margin-top:40px"><p class="eyebrow">Watchlist</p><h2>Key variables to watch</h2></div>`;
+      html += `<div class="section-head" id="watchlist" style="margin-top:40px"><p class="eyebrow">Watchlist</p><h2>Key Variables to Watch</h2></div>`;
       if (!kvw.length) {
         html += `<div class="box-muted"><p>${escapeHtml(ND)}</p></div>`;
       } else {
@@ -972,7 +984,7 @@
       const nScan = sq.sources_scanned != null ? sq.sources_scanned : st.articlesInEnriched ?? st.articlesCrawled ?? ND;
       const nPick = sq.articles_selected != null ? sq.articles_selected : ND;
       const nVer = sq.verified_links != null ? sq.verified_links : ND;
-      html += `<div class="section-head" id="source-quality" style="margin-top:40px"><p class="eyebrow">Process</p><h2>Source quality</h2></div>`;
+      html += `<div class="section-head" id="source-quality" style="margin-top:40px"><p class="eyebrow">Process</p><h2>Source Quality</h2></div>`;
       html += `<div class="sq-box"><div class="sq-grid">`;
       html += `<div class="sq-item"><span>Sources scanned</span><strong>${escapeHtml(String(nScan))}</strong></div>`;
       html += `<div class="sq-item"><span>Articles selected</span><strong>${escapeHtml(String(nPick))}</strong></div>`;
@@ -981,7 +993,7 @@
       html += `<p style="margin:0;font-size:.9rem;color:var(--muted)">${escapeHtml(show(sq.coverage_note, ND))}</p>`;
       html += `</div>`;
 
-      html += `<div class="box-muted" style="margin-top:24px" id="final-takeaway"><p class="lbl">Final takeaway</p><p>${escapeHtml(ft)}</p></div>`;
+      html += `<div class="box-muted" style="margin-top:24px" id="final-takeaway"><p class="lbl">Final Takeaway</p><p>${escapeHtml(ft)}</p></div>`;
 
       html += `<div class="section-head" id="disclaimer-block" style="margin-top:32px"><p class="eyebrow">Compliance</p><h2>Disclaimer</h2></div>`;
       html += `<div class="box-muted"><p>${escapeHtml(disc)}</p></div>`;
@@ -1023,7 +1035,7 @@
       for (let i = 0; i < stories.length; i++) {
         const s = stories[i];
         if (!s || typeof s !== "object") continue;
-        html += `<div class="legacy-story"><h3 class="legacy-h">${i + 1}. ${escapeHtml(s.headline || s.title || "—")}</h3>`;
+        html += `<div class="legacy-story"><h3 class="legacy-h">${i + 1}. ${escapeHtml(s.headline || s.title || ND)}</h3>`;
         if (s.body) html += `<p class="v">${escapeHtml(s.body)}</p>`;
         if (s.so_what || s.soWhat) html += `<p class="v"><strong>So What:</strong> ${escapeHtml(s.so_what || s.soWhat)}</p>`;
         html += `</div>`;
@@ -1032,7 +1044,7 @@
         html += `<div class="heatmap-wrap" style="margin-top:20px"><table class="heat"><thead><tr><th>Nhóm</th><th>Tác động</th><th>Lý do</th></tr></thead><tbody>`;
         for (const row of tbl) {
           if (!row || typeof row !== "object") continue;
-          html += `<tr><td>${escapeHtml(row.group || "—")}</td><td>${escapeHtml(row.impact_today || row.impact || "")}</td><td>${escapeHtml(row.main_reason || "")}</td></tr>`;
+          html += `<tr><td>${escapeHtml(row.group || ND)}</td><td>${escapeHtml(show(row.impact_today || row.impact, ND))}</td><td>${escapeHtml(show(row.main_reason, ND))}</td></tr>`;
         }
         html += `</tbody></table></div>`;
       }
@@ -1099,6 +1111,7 @@
 
     function renderBrief(data) {
       const root = document.getElementById("briefRoot");
+      if (!root) return;
       root.innerHTML = "";
       const useLegacy =
         data.legacyProBrief &&
@@ -1127,23 +1140,46 @@
     }
 
     function renderFeed(data, noteText) {
-      document.getElementById("syncNote").textContent = noteText || "";
-      updateSnapshot(data);
-      renderBrief(data);
+      const sync = document.getElementById("syncNote");
+      if (sync) sync.textContent = noteText || "";
+      try {
+        updateSnapshot(data);
+      } catch (e) {
+        console.error("updateSnapshot", e);
+      }
+      try {
+        renderBrief(data);
+      } catch (e) {
+        console.error("renderBrief", e);
+        const root = document.getElementById("briefRoot");
+        if (root) {
+          root.innerHTML =
+            `<div class="error-card"><p><strong>Không thể render phần research.</strong></p>` +
+            `<p class="v">${escapeHtml(String(e && e.message ? e.message : e))}</p>` +
+            `<p class="v">Mở DevTools → Console để xem chi tiết; kiểm tra content.json có đủ schema Macro Intelligence.</p></div>`;
+        }
+      }
       const articles = Array.isArray(data.allArticles) && data.allArticles.length
         ? data.allArticles : (data.featuredArticles || []);
       const grid = document.getElementById("sourceGrid");
-      grid.innerHTML = "";
-      document.getElementById("sourceGridTitle").textContent = `Tin đã crawl (${articles.length})`;
-      for (const article of articles) grid.appendChild(createSourceCard(article));
+      if (grid) {
+        grid.innerHTML = "";
+        const titleEl = document.getElementById("sourceGridTitle");
+        if (titleEl) titleEl.textContent = `Tin đã crawl (${articles.length})`;
+        for (const article of articles) grid.appendChild(createSourceCard(article));
+      }
     }
 
     async function loadFeedConfig() {
       try {
         const r = await fetch("feed-config.json");
-        if (!r.ok) return {};
-        return await r.json();
-      } catch { return {}; }
+        if (!r.ok) return { preferLocal: true };
+        const j = await r.json();
+        if (j.preferLocal === undefined) j.preferLocal = true;
+        return j;
+      } catch {
+        return { preferLocal: true };
+      }
     }
 
     async function fetchLocalFeed() {
@@ -1164,21 +1200,39 @@
     }
 
     async function loadChatContent() {
-      const config = await loadFeedConfig();
-      const remoteUrl = config.remoteFeedUrl || "";
-      const preferLocal = Boolean(config.preferLocal);
-      if (preferLocal) {
-        renderFeed(await fetchLocalFeed(), "");
-      } else if (remoteUrl) {
-        try {
-          const r = await fetch(remoteUrl, { cache: "no-store" });
-          if (!r.ok) throw new Error("x");
-          renderFeed(await r.json(), "");
-        } catch {
+      const sync = document.getElementById("syncNote");
+      if (sync) sync.textContent = "Đang tải bản tin mới nhất...";
+      try {
+        const config = await loadFeedConfig();
+        const remoteUrl = config.remoteFeedUrl || "";
+        const preferLocal = Boolean(config.preferLocal);
+        if (preferLocal) {
+          renderFeed(await fetchLocalFeed(), "");
+        } else if (remoteUrl) {
+          try {
+            const r = await fetch(remoteUrl, { cache: "no-store" });
+            if (!r.ok) throw new Error("bad remote");
+            renderFeed(await r.json(), "");
+          } catch {
+            renderFeed(await fetchLocalFeed(), "");
+          }
+        } else {
           renderFeed(await fetchLocalFeed(), "");
         }
-      } else {
-        renderFeed(await fetchLocalFeed(), "");
+      } catch (err) {
+        console.error(err);
+        const fb = {
+          chatSectionTitle: "LEON Quant Labs",
+          title: "LEON Quant Labs — Daily Macro Intelligence",
+          chatItems: [],
+          allArticles: [],
+          sourceQuality: {},
+          marketRegime: {},
+          marketSnapshot: { generated_at: "", assets: [], coverage_note: "" },
+          stats: {},
+          generatedAt: "",
+        };
+        renderFeed(fb, "Không thể tải cấu hình feed; kiểm tra mạng và feed-config.json.");
       }
     }
 
