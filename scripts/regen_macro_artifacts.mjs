@@ -10,6 +10,30 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const seedPath = path.join(__dirname, "macro_intelligence_seed.json");
 
+const MACRO_INTELLIGENCE_SUMMARY_KEYS = new Set([
+  "title",
+  "date",
+  "generated_at",
+  "market_regime",
+  "daily_thesis",
+  "thirty_second_summary",
+  "what_changed",
+  "top_macro_drivers",
+  "asset_impact_heatmap",
+  "vietnam_investor_lens",
+  "scenario_map",
+  "key_variables_to_watch",
+  "source_quality",
+  "final_takeaway",
+  "disclaimer",
+]);
+
+function stripSummaryToMacroSchema(s) {
+  for (const k of Object.keys(s)) {
+    if (!MACRO_INTELLIGENCE_SUMMARY_KEYS.has(k)) delete s[k];
+  }
+}
+
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, "utf8"));
 }
@@ -37,9 +61,6 @@ function main() {
   Object.assign(s, seed);
   s.date = day;
   s.generated_at = now;
-  s.executive_summary = "";
-  s.brief_stories = [];
-  s.asset_impact_table = [];
 
   s.source_quality = {
     sources_scanned: total,
@@ -56,18 +77,16 @@ function main() {
     regenerated_at: now,
   };
 
+  stripSummaryToMacroSchema(s);
+
   fs.writeFileSync(finalPath, JSON.stringify(data, null, 2), "utf8");
   console.log("Wrote", finalPath);
 
-  const heatRows = [];
-  for (const row of s.asset_impact_heatmap || []) {
-    if (!row || typeof row !== "object") continue;
-    heatRows.push({
-      group: row.asset || "—",
-      impact_today: `${row.direction || ""} · ${row.strength || ""}`.replace(/^ ·|· $/g, "").trim(),
-      main_reason: row.main_reason || "",
-    });
-  }
+  const preservedArticles = Array.isArray(content.allArticles) ? content.allArticles : [];
+  const regimeLine =
+    typeof s.market_regime === "object" && s.market_regime
+      ? String(s.market_regime.regime || "").trim()
+      : "";
 
   Object.assign(content, {
     siteTitle: "LEON Quant Labs",
@@ -75,23 +94,23 @@ function main() {
     generatedAt: s.generated_at || now,
     briefDate: s.date || day,
     chatSectionTitle: s.title,
-    marketImpact: s.market_impact || "Mixed",
-    executiveSummary: s.executive_summary || "",
+    marketImpact: regimeLine || "Mixed",
+    executiveSummary: "",
     thirtySecondSummary: s.thirty_second_summary || "",
     briefStories: [],
-    assetImpactTable: heatRows,
-    macroWorld: s.macro_world || "",
-    vietnamMacro: s.vietnam_macro || "",
-    macroGlobal: s.macro_global || "",
-    internationalMarkets: s.international_markets || "",
-    vietnamImplications: s.vietnam_implications || "",
-    soWhatChain: s.so_what_chain || "",
-    worldToVietnam: s.world_to_vietnam || "",
-    assetImpacts: Array.isArray(s.asset_impacts) ? s.asset_impacts : content.assetImpacts || [],
-    actualVsForecast: Array.isArray(s.actual_vs_forecast) ? s.actual_vs_forecast : content.actualVsForecast || [],
-    macroHeatLabels: Array.isArray(s.macro_heat_labels) ? s.macro_heat_labels : content.macroHeatLabels || [],
-    webVerification: typeof s.web_verification === "object" && s.web_verification ? s.web_verification : {},
-    risksToWatch: Array.isArray(s.risks_to_watch) ? s.risks_to_watch : content.risksToWatch || [],
+    assetImpactTable: [],
+    macroWorld: "",
+    vietnamMacro: "",
+    macroGlobal: "",
+    internationalMarkets: "",
+    vietnamImplications: "",
+    soWhatChain: "",
+    worldToVietnam: "",
+    assetImpacts: Array.isArray(content.assetImpacts) ? content.assetImpacts : [],
+    actualVsForecast: Array.isArray(content.actualVsForecast) ? content.actualVsForecast : [],
+    macroHeatLabels: Array.isArray(content.macroHeatLabels) ? content.macroHeatLabels : [],
+    webVerification: typeof content.webVerification === "object" && content.webVerification ? content.webVerification : {},
+    risksToWatch: Array.isArray(content.risksToWatch) ? content.risksToWatch : [],
     marketRegime: s.market_regime || {},
     dailyThesis: s.daily_thesis || "",
     whatChanged: s.what_changed || "",
@@ -108,11 +127,19 @@ function main() {
     chatItems: [
       {
         title: s.title,
-        content: [s.daily_thesis, s.macro_world, s.vietnam_macro, s.what_changed]
+        content: [s.daily_thesis, s.what_changed, s.final_takeaway, regimeLine ? `Market regime: ${regimeLine}` : ""]
           .filter((x) => x && String(x).trim())
           .join("\n\n"),
       },
     ],
+    allArticles: preservedArticles,
+    featuredArticles: preservedArticles,
+    stats: {
+      ...(typeof content.stats === "object" ? content.stats : {}),
+      articlesCrawled: preservedArticles.length,
+      articlesInEnriched: total,
+      pipeline: "Crawl → Gemini → GPT / seed (Macro Intelligence) → content.json",
+    },
   });
 
   fs.writeFileSync(contentPath, JSON.stringify(content, null, 2), "utf8");

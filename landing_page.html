@@ -568,7 +568,7 @@
             <div class="snap-cell"><span>Confidence</span><strong id="snapConf">—</strong></div>
             <div class="snap-cell"><span>Sources scanned</span><strong id="snapScan">—</strong></div>
             <div class="snap-cell"><span>Articles selected</span><strong id="snapPick">—</strong></div>
-            <div class="snap-cell"><span>Verified links</span><strong id="snapVer">​—</strong></div>
+            <div class="snap-cell"><span>Verified links</span><strong id="snapVer">—</strong></div>
             <div class="snap-cell"><span>Last updated</span><strong id="snapUp">—</strong></div>
           </div>
         </div>
@@ -603,6 +603,14 @@
   </footer>
 
   <script>
+    const ND =
+      "Dữ liệu phần này chưa đủ để hiển thị; không dùng làm luận điểm chính.";
+
+    function show(v, fallback) {
+      const t = String(v ?? "").trim();
+      return t || fallback || ND;
+    }
+
     function escapeHtml(value) {
       return String(value || "")
         .replace(/&/g, "&amp;")
@@ -613,9 +621,9 @@
     }
 
     function formatDateVi(value) {
-      if (!value) return "—";
+      if (!value) return "Chưa có generatedAt trong content.json";
       const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return "—";
+      if (Number.isNaN(date.getTime())) return String(value) || "Không đọc được ngày giờ";
       return date.toLocaleString("vi-VN", {
         day: "2-digit", month: "2-digit", year: "numeric",
         hour: "2-digit", minute: "2-digit"
@@ -623,14 +631,14 @@
     }
 
     function formatDateOnly(value) {
-      if (!value) return "—";
+      if (!value) return ND;
       const raw = String(value).trim();
       if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
         const [y, m, d] = raw.split("-");
         return `${d}/${m}/${y}`;
       }
       const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return raw || "—";
+      if (Number.isNaN(date.getTime())) return raw || ND;
       return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
     }
 
@@ -649,22 +657,23 @@
     function updateSnapshot(data) {
       const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : {};
       const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
-      document.getElementById("snapRegime").textContent = mr.regime || "—";
-      document.getElementById("snapPrimary").textContent = mr.primary_driver || "—";
-      document.getElementById("snapRisk").textContent = mr.risk_tone || "—";
-      document.getElementById("snapConf").textContent = mr.confidence || "—";
-      document.getElementById("snapScan").textContent =
-        sq.sources_scanned != null ? String(sq.sources_scanned) : (data.stats?.articlesInEnriched ?? "—");
-      document.getElementById("snapPick").textContent =
-        sq.articles_selected != null ? String(sq.articles_selected) : "—";
-      document.getElementById("snapVer").textContent =
-        sq.verified_links != null ? String(sq.verified_links) : "—";
+      const st = data.stats && typeof data.stats === "object" ? data.stats : {};
+      const nScan = sq.sources_scanned != null ? sq.sources_scanned : st.articlesInEnriched ?? st.articlesCrawled;
+      const nPick = sq.articles_selected != null ? sq.articles_selected : Math.min(18, nScan || 0);
+      const nVer = sq.verified_links != null ? sq.verified_links : 0;
+      document.getElementById("snapRegime").textContent = show(mr.regime, ND);
+      document.getElementById("snapPrimary").textContent = show(mr.primary_driver, show(data.marketImpact, ND));
+      document.getElementById("snapRisk").textContent = show(mr.risk_tone, show(mr.regime, ND));
+      document.getElementById("snapConf").textContent = show(mr.confidence, ND);
+      document.getElementById("snapScan").textContent = nScan != null && nScan !== "" ? String(nScan) : "0";
+      document.getElementById("snapPick").textContent = nPick != null && nPick !== "" ? String(nPick) : "0";
+      document.getElementById("snapVer").textContent = String(nVer);
       document.getElementById("snapUp").textContent = formatDateVi(data.generatedAt);
     }
 
     function renderTransmission(chain) {
       const arr = Array.isArray(chain) ? chain : [];
-      if (!arr.length) return "";
+      if (!arr.length) return `<p class="v">${escapeHtml(ND)}</p>`;
       const parts = arr.map((s) => `<span>${escapeHtml(s)}</span>`);
       const arrows = [];
       for (let i = 0; i < parts.length; i++) {
@@ -675,148 +684,163 @@
     }
 
     function buildMacroDeskHtml(data) {
-      const mr = data.marketRegime || {};
-      const thesis = String(data.dailyThesis || "").trim();
-      const t30 = String(data.thirtySecondSummary || "").trim();
-      const wc = String(data.whatChanged || "").trim();
-      const drivers = Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers : [];
-      const heat = Array.isArray(data.assetImpactHeatmap) ? data.assetImpactHeatmap : [];
+      const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : {};
+      const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
+      const st = data.stats && typeof data.stats === "object" ? data.stats : {};
+
+      const thesisRaw = String(data.dailyThesis || "").trim();
+      let thesis = thesisRaw;
+      if (!thesis) thesis = String(data.thirtySecondSummary || "").trim();
+      if (!thesis) thesis = ND;
+
+      let t30 = String(data.thirtySecondSummary || "").trim();
+      if (!t30) t30 = thesisRaw ? (thesisRaw.length > 420 ? thesisRaw.slice(0, 420) + "…" : thesisRaw) : ND;
+
+      let wc = String(data.whatChanged || "").trim();
+      if (!wc) wc = ND;
+
+      const drivers = Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers.filter((d) => d && typeof d === "object") : [];
+
+      const heat = Array.isArray(data.assetImpactHeatmap) ? data.assetImpactHeatmap.filter((r) => r && typeof r === "object") : [];
+
       const vil = data.vietnamInvestorLens && typeof data.vietnamInvestorLens === "object" ? data.vietnamInvestorLens : {};
       const sm = data.scenarioMap && typeof data.scenarioMap === "object" ? data.scenarioMap : {};
-      const kvw = Array.isArray(data.keyVariablesToWatch) ? data.keyVariablesToWatch : [];
-      const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
-      const ft = String(data.finalTakeaway || "").trim();
-      const disc = String(data.disclaimer || "").trim();
+      const kvw = Array.isArray(data.keyVariablesToWatch) ? data.keyVariablesToWatch.filter((v) => v && typeof v === "object") : [];
+
+      let ft = String(data.finalTakeaway || "").trim();
+      if (!ft) ft = ND;
+
+      const disc = String(data.disclaimer || "").trim() ||
+        "Nội dung chỉ phục vụ nghiên cứu và giáo dục; không phải khuyến nghị đầu tư hay tư vấn tài chính.";
+
       const bd = data.briefDate ? formatDateOnly(data.briefDate) : formatDateOnly(data.generatedAt);
       const titleLine = escapeHtml(data.chatSectionTitle || "LEON Quant Labs — Daily Macro Intelligence");
 
-      let html = `<div class="section-head" id="thesis"><p class="eyebrow">Research note</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Góc nhìn desk: regime → drivers → kênh vào Việt Nam.</p></div>`;
+      let html = `<div class="section-head" id="snapshot"><p class="eyebrow">Research snapshot</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Khối dưới đây đồng bộ với <code>content.json</code> (schema Macro Intelligence).</p></div>`;
 
-      if (thesis) {
-        html += `<article class="card-main"><p><strong>Daily thesis.</strong> ${escapeHtml(thesis)}</p></article>`;
-      }
+      html += `<article class="card-main" id="market-regime-card"><p class="lbl" style="margin:0 0 8px;font-size:.72rem;">Market regime</p>`;
+      html += `<p><strong>Regime.</strong> ${escapeHtml(show(mr.regime, ND))}</p>`;
+      html += `<p style="margin-top:12px"><strong>Primary driver:</strong> ${escapeHtml(show(mr.primary_driver, ND))}</p>`;
+      html += `<p style="margin-top:8px"><strong>Secondary driver:</strong> ${escapeHtml(show(mr.secondary_driver, ND))}</p>`;
+      html += `<p style="margin-top:8px"><strong>Risk tone:</strong> ${escapeHtml(show(mr.risk_tone, ND))}</p>`;
+      html += `<p style="margin-top:8px"><strong>Confidence:</strong> ${escapeHtml(show(mr.confidence, ND))}</p>`;
+      html += `<p style="margin-top:8px"><strong>Invalidation:</strong> ${escapeHtml(show(mr.invalidation, ND))}</p>`;
+      html += `</article>`;
 
-      if (t30) {
-        html += `<div class="box-muted" style="margin-top:20px"><p class="lbl">30-second summary</p><p>${escapeHtml(t30)}</p></div>`;
-      }
-      if (wc) {
-        html += `<div class="box-muted"><p class="lbl">What changed</p><p>${escapeHtml(wc)}</p></div>`;
-      }
+      html += `<div class="box-muted" style="margin-top:20px" id="daily-thesis"><p class="lbl">Daily thesis</p><p>${escapeHtml(thesis)}</p></div>`;
+      html += `<div class="box-muted" id="t30"><p class="lbl">30-second summary</p><p>${escapeHtml(t30)}</p></div>`;
+      html += `<div class="box-muted" id="what-changed"><p class="lbl">What changed</p><p>${escapeHtml(wc)}</p></div>`;
 
-      if (String(mr.invalidation || "").trim()) {
-        html += `<div class="box-muted"><p class="lbl">Invalidation</p><p>${escapeHtml(mr.invalidation)}</p></div>`;
-      }
-
-      if (drivers.length) {
-        html += `<div class="section-head" id="drivers" style="margin-top:40px"><p class="eyebrow">Macro drivers</p><h2>Top macro drivers</h2><p>Mỗi mục: fact → why it matters → transmission → confidence.</p></div>`;
+      html += `<div class="section-head" id="drivers" style="margin-top:40px"><p class="eyebrow">Macro drivers</p><h2>Top macro drivers</h2><p>Fact → why it matters → transmission → confidence.</p></div>`;
+      if (!drivers.length) {
+        html += `<div class="box-muted"><p>${escapeHtml(ND)}</p></div>`;
+      } else {
         html += `<div class="drivers-grid">`;
         for (const d of drivers) {
-          if (!d || typeof d !== "object") continue;
           const conf = d.confidence && typeof d.confidence === "object" ? d.confidence : {};
           const assets = Array.isArray(d.assets_affected) ? d.assets_affected : [];
+          const chainHtml = renderTransmission(d.transmission_chain);
           html += `<article class="driver-card">`;
-          html += `<h3>${escapeHtml(d.headline || "—")}</h3>`;
-          html += `<div class="k">Fact</div><p class="v">${escapeHtml(d.fact || "")}</p>`;
-          html += `<div class="k">Why it matters</div><p class="v">${escapeHtml(d.why_it_matters || "")}</p>`;
-          html += `<div class="k">Transmission</div>`;
-          html += renderTransmission(d.transmission_chain);
+          html += `<h3>${escapeHtml(show(d.headline, ND))}</h3>`;
+          html += `<div class="k">Fact</div><p class="v">${escapeHtml(show(d.fact, ND))}</p>`;
+          html += `<div class="k">Why it matters</div><p class="v">${escapeHtml(show(d.why_it_matters, ND))}</p>`;
+          html += `<div class="k">Transmission</div>${chainHtml}`;
           if (assets.length) {
             html += `<div class="pill-row">`;
             for (const a of assets) html += `<span class="pill">${escapeHtml(a)}</span>`;
             html += `</div>`;
           }
-          html += `<div class="k">Time horizon</div><p class="v">${escapeHtml(d.time_horizon || "—")}</p>`;
-          html += `<div class="k">Confidence (fact / impact)</div><p class="v">${escapeHtml(conf.fact || "—")} / ${escapeHtml(conf.impact || "—")}</p>`;
-          html += `<div class="k">What could prove this wrong</div><p class="v">${escapeHtml(d.what_could_prove_this_wrong || "")}</p>`;
+          html += `<div class="k">Time horizon</div><p class="v">${escapeHtml(show(d.time_horizon, ND))}</p>`;
+          html += `<div class="k">Confidence (fact / impact)</div><p class="v">${escapeHtml(show(conf.fact, ND))} / ${escapeHtml(show(conf.impact, ND))}</p>`;
+          html += `<div class="k">What could prove this wrong</div><p class="v">${escapeHtml(show(d.what_could_prove_this_wrong, ND))}</p>`;
           html += `</article>`;
         }
         html += `</div>`;
       }
 
-      if (heat.length) {
-        html += `<div class="section-head" id="heatmap" style="margin-top:40px"><p class="eyebrow">Cross-asset</p><h2>Asset impact heatmap</h2></div>`;
-        html += `<div class="heatmap-wrap"><table class="heat"><thead><tr><th>Asset</th><th>Direction</th><th>Strength</th><th>Horizon</th><th>Main reason</th><th>Watch risk</th></tr></thead><tbody>`;
+      html += `<div class="section-head" id="heatmap" style="margin-top:40px"><p class="eyebrow">Cross-asset</p><h2>Asset impact heatmap</h2></div>`;
+      html += `<div class="heatmap-wrap"><table class="heat"><thead><tr><th>Asset</th><th>Direction</th><th>Strength</th><th>Horizon</th><th>Main reason</th><th>Watch risk</th></tr></thead><tbody>`;
+      if (!heat.length) {
+        html += `<tr><td colspan="6">${escapeHtml(ND)}</td></tr>`;
+      } else {
         for (const row of heat) {
-          if (!row || typeof row !== "object") continue;
-          const bc = dirClass(row.direction);
-          html += `<tr><td>${escapeHtml(row.asset || "—")}</td><td><span class="badge-d ${bc}">${escapeHtml(row.direction || "")}</span></td>`;
-          html += `<td>${escapeHtml(row.strength || "")}</td><td>${escapeHtml(row.horizon || "")}</td>`;
-          html += `<td>${escapeHtml(row.main_reason || "")}</td><td>${escapeHtml(row.watch_risk || "")}</td></tr>`;
+          const dc = dirClass(row.direction);
+          html += `<tr><td>${escapeHtml(show(row.asset, ND))}</td><td><span class="badge-d ${dc}">${escapeHtml(show(row.direction, "Neutral"))}</span></td>`;
+          html += `<td>${escapeHtml(show(row.strength, ND))}</td><td>${escapeHtml(show(row.horizon, ND))}</td>`;
+          html += `<td>${escapeHtml(show(row.main_reason, ND))}</td><td>${escapeHtml(show(row.watch_risk, ND))}</td></tr>`;
         }
-        html += `</tbody></table></div>`;
       }
+      html += `</tbody></table></div>`;
 
-      const vsum = String(vil.summary || "").trim();
+      const vsum = String(vil.summary || "").trim() || ND;
       const vch = Array.isArray(vil.channels) ? vil.channels : [];
       html += `<div class="section-head" id="vietnam" style="margin-top:40px"><p class="eyebrow">Localization</p><h2>Vietnam investor lens</h2></div>`;
-      if (vsum) html += `<div class="box-muted"><p class="lbl">Summary</p><p>${escapeHtml(vsum)}</p></div>`;
-      if (data.worldToVietnam && String(data.worldToVietnam).trim()) {
-        html += `<div class="box-muted"><p class="lbl">Global → Vietnam (bridge)</p><p>${escapeHtml(data.worldToVietnam)}</p></div>`;
-      }
+      html += `<div class="box-muted"><p class="lbl">Summary</p><p>${escapeHtml(vsum)}</p></div>`;
       if (vch.length) {
         html += `<div class="vil-grid" style="margin-top:16px">`;
         for (const c of vch) {
-          if (!c || typeof c !== "object") continue;
-          html += `<div class="vil-card"><p class="ch">${escapeHtml(c.channel || "—")}</p><p>${escapeHtml(c.analysis || "")}</p></div>`;
+          html += `<div class="vil-card"><p class="ch">${escapeHtml(show(c.channel, ND))}</p><p>${escapeHtml(show(c.analysis, ND))}</p></div>`;
         }
         html += `</div>`;
+      } else {
+        html += `<div class="box-muted" style="margin-top:12px"><p>${escapeHtml(ND)}</p></div>`;
       }
 
       const bc = sm.base_case && typeof sm.base_case === "object" ? sm.base_case : {};
       const bu = sm.bull_case && typeof sm.bull_case === "object" ? sm.bull_case : {};
       const be = sm.bear_case && typeof sm.bear_case === "object" ? sm.bear_case : {};
       html += `<div class="section-head" id="scenarios" style="margin-top:40px"><p class="eyebrow">Probabilities</p><h2>Scenario map</h2></div>`;
+      const probLbl = (p) =>
+        p === null || p === undefined || String(p).trim() === ""
+          ? escapeHtml(ND)
+          : `${escapeHtml(String(p))}%`;
       html += `<div class="scenario-row">`;
-      html += `<article class="sc-card"><span class="prob">${escapeHtml(String(bc.probability ?? ""))}% · Base</span><h3>Base case</h3><p>${escapeHtml(bc.description || "")}</p>`;
+      html += `<article class="sc-card"><span class="prob">${probLbl(bc.probability)} · Base</span><h3>Base case</h3><p>${escapeHtml(show(bc.description, ND))}</p>`;
       if (Array.isArray(bc.signals_to_watch) && bc.signals_to_watch.length) {
         html += `<ul>${bc.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
       }
       html += `</article>`;
-      html += `<article class="sc-card bull"><span class="prob">${escapeHtml(String(bu.probability ?? ""))}% · Bull</span><h3>Bull case</h3><p>${escapeHtml(bu.description || "")}</p>`;
+      html += `<article class="sc-card bull"><span class="prob">${probLbl(bu.probability)} · Bull</span><h3>Bull case</h3><p>${escapeHtml(show(bu.description, ND))}</p>`;
       if (Array.isArray(bu.signals_to_watch) && bu.signals_to_watch.length) {
         html += `<ul>${bu.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
       }
       html += `</article>`;
-      html += `<article class="sc-card bear"><span class="prob">${escapeHtml(String(be.probability ?? ""))}% · Bear</span><h3>Bear case</h3><p>${escapeHtml(be.description || "")}</p>`;
+      html += `<article class="sc-card bear"><span class="prob">${probLbl(be.probability)} · Bear</span><h3>Bear case</h3><p>${escapeHtml(show(be.description, ND))}</p>`;
       if (Array.isArray(be.signals_to_watch) && be.signals_to_watch.length) {
         html += `<ul>${be.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
       }
       html += `</article></div>`;
 
-      if (kvw.length) {
-        html += `<div class="section-head" style="margin-top:40px"><p class="eyebrow">Watchlist</p><h2>Key variables</h2></div>`;
+      html += `<div class="section-head" id="watchlist" style="margin-top:40px"><p class="eyebrow">Watchlist</p><h2>Key variables to watch</h2></div>`;
+      if (!kvw.length) {
+        html += `<div class="box-muted"><p>${escapeHtml(ND)}</p></div>`;
+      } else {
         html += `<div class="var-grid">`;
         for (const v of kvw) {
-          if (!v || typeof v !== "object") continue;
-          html += `<div class="var-cell"><strong>${escapeHtml(v.variable || "—")}</strong><span>${escapeHtml(v.why_it_matters || "")}</span></div>`;
+          html += `<div class="var-cell"><strong>${escapeHtml(show(v.variable, ND))}</strong><span>${escapeHtml(show(v.why_it_matters, ND))}</span></div>`;
         }
         html += `</div>`;
       }
 
-      html += `<div class="section-head" style="margin-top:40px"><p class="eyebrow">Process</p><h2>Source quality</h2></div>`;
+      const nScan = sq.sources_scanned != null ? sq.sources_scanned : st.articlesInEnriched ?? st.articlesCrawled ?? ND;
+      const nPick = sq.articles_selected != null ? sq.articles_selected : ND;
+      const nVer = sq.verified_links != null ? sq.verified_links : ND;
+      html += `<div class="section-head" id="source-quality" style="margin-top:40px"><p class="eyebrow">Process</p><h2>Source quality</h2></div>`;
       html += `<div class="sq-box"><div class="sq-grid">`;
-      html += `<div class="sq-item"><span>Sources scanned</span><strong>${escapeHtml(String(sq.sources_scanned ?? "—"))}</strong></div>`;
-      html += `<div class="sq-item"><span>Articles selected</span><strong>${escapeHtml(String(sq.articles_selected ?? "—"))}</strong></div>`;
-      html += `<div class="sq-item"><span>Verified links</span><strong>${escapeHtml(String(sq.verified_links ?? "—"))}</strong></div>`;
+      html += `<div class="sq-item"><span>Sources scanned</span><strong>${escapeHtml(String(nScan))}</strong></div>`;
+      html += `<div class="sq-item"><span>Articles selected</span><strong>${escapeHtml(String(nPick))}</strong></div>`;
+      html += `<div class="sq-item"><span>Verified links</span><strong>${escapeHtml(String(nVer))}</strong></div>`;
       html += `</div>`;
-      if (sq.coverage_note) html += `<p style="margin:0;font-size:.9rem;color:var(--muted)">${escapeHtml(sq.coverage_note)}</p>`;
+      html += `<p style="margin:0;font-size:.9rem;color:var(--muted)">${escapeHtml(show(sq.coverage_note, ND))}</p>`;
       html += `</div>`;
 
-      if (ft) {
-        html += `<div class="box-muted" style="margin-top:24px"><p class="lbl">Final takeaway</p><p>${escapeHtml(ft)}</p></div>`;
-      }
+      html += `<div class="box-muted" style="margin-top:24px" id="final-takeaway"><p class="lbl">Final takeaway</p><p>${escapeHtml(ft)}</p></div>`;
 
-      if (data.macroWorld && String(data.macroWorld).trim()) {
-        html += `<div class="box-muted" style="margin-top:16px"><p class="lbl">Global context (extended)</p><p>${escapeHtml(data.macroWorld)}</p></div>`;
-      }
-      if (data.vietnamMacro && String(data.vietnamMacro).trim()) {
-        html += `<div class="box-muted"><p class="lbl">Vietnam context (extended)</p><p>${escapeHtml(data.vietnamMacro)}</p></div>`;
-      }
+      html += `<div class="section-head" id="disclaimer-block" style="margin-top:32px"><p class="eyebrow">Compliance</p><h2>Disclaimer</h2></div>`;
+      html += `<div class="box-muted"><p>${escapeHtml(disc)}</p></div>`;
 
-      if (disc) {
-        const fe = document.getElementById("footerDisc");
-        if (fe) fe.innerHTML = `<strong>Disclaimer.</strong> ${escapeHtml(disc)} © 2026 LEON Quant Labs.`;
-      }
+      const fe = document.getElementById("footerDisc");
+      if (fe) fe.innerHTML = `<strong>Disclaimer.</strong> ${escapeHtml(disc)} © 2026 LEON Quant Labs.`;
 
       return html;
     }
@@ -929,7 +953,12 @@
     function renderBrief(data) {
       const root = document.getElementById("briefRoot");
       root.innerHTML = "";
-      if (isMacroIntelligenceContent(data)) {
+      const useLegacy =
+        data.legacyProBrief &&
+        Array.isArray(data.briefStories) &&
+        data.briefStories.length > 0 &&
+        data.schemaVersion !== "macro-intelligence-v1";
+      if (!useLegacy) {
         root.innerHTML = buildMacroDeskHtml(data);
         return;
       }

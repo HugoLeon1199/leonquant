@@ -234,10 +234,13 @@ def build_payload(
     if new_intel:
         brief_stories = []
         asset_impact_table = []
-    mw = _macro_world(summary)
-    vm = _vietnam_macro(summary)
-
-    narrative_fallback = "\n\n".join(p for p in (mw, vm) if p).strip()
+        mw = ""
+        vm = ""
+        narrative_fallback = ""
+    else:
+        mw = _macro_world(summary)
+        vm = _vietnam_macro(summary)
+        narrative_fallback = "\n\n".join(p for p in (mw, vm) if p).strip()
     daily_thesis = str(summary.get("daily_thesis", "") or "").strip()
     what_changed = str(summary.get("what_changed", "") or "").strip()
     final_take = str(summary.get("final_takeaway", "") or "").strip()
@@ -259,17 +262,12 @@ def build_payload(
     brief_date = str(summary.get("date", "") or "").strip()
 
     chat_title = summary.get("title", "LEON Quant Labs — Daily Macro Intelligence")
-    if asset_impact_heatmap and not asset_impact_table:
+    if not new_intel and asset_impact_heatmap and not asset_impact_table:
         asset_impact_table = _heatmap_rows_from_new(summary)
 
-    legacy_has_pro = bool(
-        (not new_intel)
-        and (
-            t303
-            or (brief_stories and len(brief_stories) > 0)
-            or (asset_impact_table and len(asset_impact_table) > 0)
-        )
-    )
+    mr_for_impact = market_regime if isinstance(market_regime, dict) else {}
+    regime_line = str(mr_for_impact.get("regime", "") or "").strip()
+    market_impact_val = regime_line or str(summary.get("market_impact", "") or "").strip() or "Mixed"
 
     return {
         "siteTitle": "LEON Quant Labs",
@@ -277,7 +275,7 @@ def build_payload(
         "generatedAt": generated_at,
         "briefDate": brief_date,
         "chatSectionTitle": chat_title,
-        "marketImpact": summary.get("market_impact", "Mixed"),
+        "marketImpact": market_impact_val,
         "executiveSummary": exec_lead,
         "thirtySecondSummary": t303,
         "briefStories": brief_stories,
@@ -306,7 +304,7 @@ def build_payload(
         "finalTakeaway": final_take,
         "disclaimer": disclaimer,
         "schemaVersion": "macro-intelligence-v1",
-        "legacyProBrief": legacy_has_pro,
+        "legacyProBrief": False,
         "allArticles": all_articles,
         "featuredArticles": all_articles,
         "stats": {
@@ -317,18 +315,19 @@ def build_payload(
         "chatItems": [
             {
                 "title": chat_title,
-                "content": "\n\n".join(
-                    p
-                    for p in (
-                        daily_thesis or t303,
-                        mw,
-                        vm,
-                        what_changed,
-                        f"Market impact: {summary.get('market_impact', 'Mixed')}",
-                    )
-                    if str(p).strip()
-                ).strip()
-                or narrative_fallback,
+                "content": (
+                    "\n\n".join(
+                        p
+                        for p in (
+                            daily_thesis or t303,
+                            what_changed,
+                            final_take,
+                            f"Market regime: {regime_line}" if regime_line else "",
+                        )
+                        if str(p).strip()
+                    ).strip()
+                    or narrative_fallback
+                ),
             },
         ],
     }

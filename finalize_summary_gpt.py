@@ -74,6 +74,81 @@ DEFAULT_DISCLAIMER = (
     "không phải dịch vụ tư vấn tài chính. Thông tin có thể chưa đầy đủ hoặc đã lỗi thời."
 )
 
+# Chỉ các key này được phép trong `summary` sau bước finalize (schema Macro Intelligence).
+MACRO_INTELLIGENCE_SUMMARY_KEYS = frozenset(
+    {
+        "title",
+        "date",
+        "generated_at",
+        "market_regime",
+        "daily_thesis",
+        "thirty_second_summary",
+        "what_changed",
+        "top_macro_drivers",
+        "asset_impact_heatmap",
+        "vietnam_investor_lens",
+        "scenario_map",
+        "key_variables_to_watch",
+        "source_quality",
+        "final_takeaway",
+        "disclaimer",
+    }
+)
+
+SCHEMA_JSON_EXAMPLE = """{
+  "title": "LEON Quant Labs — Daily Macro Intelligence",
+  "date": "YYYY-MM-DD",
+  "generated_at": "ISO-8601",
+  "market_regime": {
+    "regime": "",
+    "primary_driver": "",
+    "secondary_driver": "",
+    "risk_tone": "",
+    "confidence": "",
+    "invalidation": ""
+  },
+  "daily_thesis": "",
+  "thirty_second_summary": "",
+  "what_changed": "",
+  "top_macro_drivers": [
+    {
+      "headline": "",
+      "fact": "",
+      "why_it_matters": "",
+      "transmission_chain": [],
+      "assets_affected": [],
+      "time_horizon": "",
+      "confidence": { "fact": "High|Medium|Low", "impact": "High|Medium|Low" },
+      "what_could_prove_this_wrong": ""
+    }
+  ],
+  "asset_impact_heatmap": [
+    {
+      "asset": "",
+      "direction": "Bullish|Bearish|Neutral|Mixed",
+      "strength": "High|Medium|Low",
+      "horizon": "Intraday|1-5 days|1-2 weeks|1-3 months",
+      "main_reason": "",
+      "watch_risk": ""
+    }
+  ],
+  "vietnam_investor_lens": { "summary": "", "channels": [ { "channel": "", "analysis": "" } ] },
+  "scenario_map": {
+    "base_case": { "probability": 55, "description": "", "signals_to_watch": [] },
+    "bull_case": { "probability": 25, "description": "", "signals_to_watch": [] },
+    "bear_case": { "probability": 20, "description": "", "signals_to_watch": [] }
+  },
+  "key_variables_to_watch": [ { "variable": "", "why_it_matters": "" } ],
+  "source_quality": {
+    "sources_scanned": 0,
+    "articles_selected": 0,
+    "verified_links": 0,
+    "coverage_note": ""
+  },
+  "final_takeaway": "",
+  "disclaimer": ""
+}"""
+
 
 def env_str(key: str, default: str) -> str:
     raw = os.environ.get(key)
@@ -338,30 +413,26 @@ def build_prompt(
         "live_web_snippets": live_page_snippets,
     }
 
-    schema_hint = """Return a single JSON object with these keys exactly:
+    schema_hint = f"""Return ONE JSON object. Keys MUST be EXACTLY this set and no others:
 title, date, generated_at, market_regime, daily_thesis, thirty_second_summary, what_changed,
 top_macro_drivers, asset_impact_heatmap, vietnam_investor_lens, scenario_map,
 key_variables_to_watch, source_quality, final_takeaway, disclaimer.
 
-market_regime: regime, primary_driver, secondary_driver, risk_tone, confidence, invalidation (all strings).
+FORBIDDEN — do not output these keys under any name: key_points, editor_notes, brief_stories,
+asset_impact_table, executive_summary, macro_world, vietnam_macro, macro_global, international_markets,
+vietnam_implications, so_what_chain, world_to_vietnam, market_impact, global_watch, vietnam_watch,
+asset_impacts, actual_vs_forecast, macro_heat_labels, risks_to_watch, web_verification.
 
-top_macro_drivers: 3 to 5 items; each has headline, fact, why_it_matters, transmission_chain (array of short strings),
-assets_affected (array of strings), time_horizon (string), confidence {fact, impact each High|Medium|Low},
-what_could_prove_this_wrong (string).
+Shape reference (fill all required string/array/object fields; probabilities sum to 100):
+{SCHEMA_JSON_EXAMPLE}
 
-asset_impact_heatmap: at least 6 rows; each has asset, direction Bullish|Bearish|Neutral|Mixed,
-strength High|Medium|Low, horizon Intraday|1-5 days|1-2 weeks|1-3 months, main_reason, watch_risk.
+Rules:
+- market_regime: regime, primary_driver, secondary_driver (may be empty string), risk_tone, confidence, invalidation — all strings.
+- top_macro_drivers: 3 to 5 objects; confidence.fact and confidence.impact each exactly High, Medium, or Low.
+- asset_impact_heatmap: at least 6 rows; direction/strength/horizon must use allowed enums.
+- scenario_map: three cases; integer probabilities summing to 100.
 
-vietnam_investor_lens: summary, channels array of {channel, analysis}.
-
-scenario_map: base_case, bull_case, bear_case each probability (integer 0-100), description, signals_to_watch (array).
-Probabilities must sum to 100.
-
-key_variables_to_watch: array of {variable, why_it_matters}.
-
-source_quality: sources_scanned, articles_selected, verified_links (integers), coverage_note (string).
-
-Use Vietnamese prose in string fields. JSON only, no markdown, no URLs inside analytical text."""
+Use Vietnamese prose in narrative string fields. JSON only, no markdown, no URLs inside analytical text."""
 
     editorial = """
 You are the final editor of LEON Quant Labs, an AI-powered macro research desk for Vietnamese investors.
@@ -443,7 +514,10 @@ def call_openai(
                 "role": "system",
                 "content": (
                     "You are a strict JSON-only macro research editor for Vietnamese investors. "
-                    "Do not invent facts or numbers. Obey the user's schema exactly."
+                    "Output only the Macro Intelligence schema keys specified by the user; "
+                    "never key_points, brief_stories, asset_impact_table, macro_world, vietnam_macro, "
+                    "so_what_chain, executive_summary, or any other legacy brief fields. "
+                    "Do not invent facts or numbers. Obey the schema exactly."
                 ),
             },
             {
@@ -483,7 +557,16 @@ def repair_json_with_gpt(
     prompt = f"""The following JSON failed validation.
 Errors: {err_blob}
 
-Fix the JSON to satisfy the LEON Quant Daily Macro Intelligence schema (all required keys, 3-5 drivers, heatmap >=6 rows, scenario probabilities sum 100, non-empty strings where required). Return ONLY fixed JSON, no markdown.
+Return ONLY valid JSON. The root object MUST contain EXACTLY these keys and no others:
+title, date, generated_at, market_regime, daily_thesis, thirty_second_summary, what_changed,
+top_macro_drivers, asset_impact_heatmap, vietnam_investor_lens, scenario_map,
+key_variables_to_watch, source_quality, final_takeaway, disclaimer.
+
+Remove entirely: key_points, brief_stories, asset_impact_table, macro_world, vietnam_macro,
+executive_summary, so_what_chain, editor_notes, and any other legacy keys.
+
+Schema shape:
+{SCHEMA_JSON_EXAMPLE}
 
 Broken JSON:
 {bad_json_text[:100_000]}
@@ -762,13 +845,16 @@ def build_fallback_summary(
             "verified_links": verified_links,
             "coverage_note": "Fallback mode: final GPT output failed validation.",
         },
-        "final_takeaway": gwatch[:800] or "Ưu tiên xác minh dữ liệu; đây là bản fallback từ Gemini.",
+        "final_takeaway": gwatch[:800] or "Ưu tiên xác minh dữ liệu; đây là bản fallback từ Gemini (chưa qua GPT).",
         "disclaimer": DEFAULT_DISCLAIMER,
-        "macro_world": str(gs.get("macro_world", "") or gwatch),
-        "vietnam_macro": str(gs.get("vietnam_macro", "") or vwatch),
-        "world_to_vietnam": str(gs.get("world_to_vietnam", "") or ""),
-        "market_impact": str(gs.get("market_impact", "Mixed") or "Mixed"),
     }
+
+
+def strip_summary_to_macro_schema(summary: dict[str, Any]) -> None:
+    """Giữ đúng schema Macro Intelligence; xóa mọi key legacy hoặc thừa từ GPT/Gemini."""
+    for k in list(summary.keys()):
+        if k not in MACRO_INTELLIGENCE_SUMMARY_KEYS:
+            summary.pop(k, None)
 
 
 def write_summary(path: Path, summary: dict[str, Any], meta: dict[str, Any]) -> None:
@@ -885,6 +971,7 @@ def main() -> int:
             articles_selected=ev_stats["articles_selected"],
             verified_links=verified_ok,
         )
+        strip_summary_to_macro_schema(summary)
         ok, errs = validate_final_summary(summary)
         if not ok:
             print("Validation failed:", errs, file=sys.stderr)
@@ -912,6 +999,7 @@ def main() -> int:
                         articles_selected=ev_stats["articles_selected"],
                         verified_links=verified_ok,
                     )
+                    strip_summary_to_macro_schema(summary)
                     ok, errs = validate_final_summary(summary)
                     if ok:
                         print("Repaired JSON passed validation.")
@@ -937,6 +1025,7 @@ def main() -> int:
                     verified_links=verified_ok,
                     coverage_note_extra="Fallback mode: final GPT output failed validation.",
                 )
+                strip_summary_to_macro_schema(summary)
                 used_fallback = True
     else:
         summary = build_fallback_summary(
@@ -956,9 +1045,11 @@ def main() -> int:
             verified_links=verified_ok,
             coverage_note_extra="Fallback mode: OpenAI request failed.",
         )
+        strip_summary_to_macro_schema(summary)
         used_fallback = True
 
     meta["used_fallback"] = used_fallback
+    strip_summary_to_macro_schema(summary)
     write_summary(Path(args.output), summary, meta)
 
     if args.update_content:
