@@ -1141,7 +1141,16 @@
 
     function renderFeed(data, noteText) {
       const sync = document.getElementById("syncNote");
-      if (sync) sync.textContent = noteText || "";
+      if (sync) {
+        if (noteText) {
+          sync.textContent = noteText;
+        } else {
+          const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
+          sync.textContent = st
+            ? `Đã tải bản Macro Intelligence · Cập nhật: ${st} · Nguồn: content.json (GitHub Pages). Nếu vẫn thấy bản cũ, nhấn Ctrl+F5.`
+            : "";
+        }
+      }
       try {
         updateSnapshot(data);
       } catch (e) {
