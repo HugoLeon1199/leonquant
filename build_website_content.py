@@ -154,13 +154,32 @@ def build_all_article_cards(
     return cards
 
 
+def _heatmap_rows_from_new(summary: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for row in summary.get("asset_impact_heatmap", []) or []:
+        if not isinstance(row, dict):
+            continue
+        rows.append(
+            {
+                "group": row.get("asset", "—"),
+                "impact_today": f"{row.get('direction', '')} · {row.get('strength', '')}".strip(" ·"),
+                "main_reason": str(row.get("main_reason", "") or ""),
+            }
+        )
+    return rows
+
+
 def build_payload(
     final_payload: dict[str, Any],
     enriched_payload: dict[str, Any],
     all_articles: list[dict[str, Any]],
 ) -> dict[str, Any]:
     summary = final_payload.get("summary", {})
-    generated_at = final_payload.get("generated_at") or datetime.now(timezone.utc).isoformat()
+    generated_at = (
+        str(summary.get("generated_at", "")).strip()
+        or final_payload.get("generated_at")
+        or datetime.now(timezone.utc).isoformat()
+    )
     t303 = str(summary.get("thirty_second_summary", "") or "").strip()
     exec_lead = str(summary.get("executive_summary", "") or "").strip()
     if not t303 and exec_lead:
@@ -182,12 +201,47 @@ def build_payload(
     vm = _vietnam_macro(summary)
 
     narrative_fallback = "\n\n".join(p for p in (mw, vm) if p).strip()
+    daily_thesis = str(summary.get("daily_thesis", "") or "").strip()
+    what_changed = str(summary.get("what_changed", "") or "").strip()
+    final_take = str(summary.get("final_takeaway", "") or "").strip()
+    disclaimer = str(summary.get("disclaimer", "") or "").strip()
+
+    market_regime = summary.get("market_regime") if isinstance(summary.get("market_regime"), dict) else {}
+    top_macro_drivers = summary.get("top_macro_drivers") if isinstance(summary.get("top_macro_drivers"), list) else []
+    asset_impact_heatmap = (
+        summary.get("asset_impact_heatmap") if isinstance(summary.get("asset_impact_heatmap"), list) else []
+    )
+    vietnam_lens = (
+        summary.get("vietnam_investor_lens") if isinstance(summary.get("vietnam_investor_lens"), dict) else {}
+    )
+    scenario_map = summary.get("scenario_map") if isinstance(summary.get("scenario_map"), dict) else {}
+    key_vars = (
+        summary.get("key_variables_to_watch") if isinstance(summary.get("key_variables_to_watch"), list) else []
+    )
+    source_quality = summary.get("source_quality") if isinstance(summary.get("source_quality"), dict) else {}
+    brief_date = str(summary.get("date", "") or "").strip()
+
+    chat_title = summary.get("title", "LEON Quant Labs — Daily Macro Intelligence")
+    if asset_impact_heatmap and not asset_impact_table:
+        asset_impact_table = _heatmap_rows_from_new(summary)
+
+    legacy_has_pro = bool(
+        t303
+        or (brief_stories and len(brief_stories) > 0)
+        or (asset_impact_table and len(asset_impact_table) > 0)
+    )
+    new_intel = bool(
+        (market_regime and str(market_regime.get("regime", "")).strip())
+        or (daily_thesis and len(daily_thesis) > 3)
+        or (top_macro_drivers and len(top_macro_drivers) > 0)
+    )
 
     return {
         "siteTitle": "LEON Quant Labs",
-        "sectionLabel": "Daily Macro Intelligence",
+        "sectionLabel": "Daily Macro Intelligence for Serious Investors",
         "generatedAt": generated_at,
-        "chatSectionTitle": summary.get("title", "LEON Quant Labs — Daily Macro Brief"),
+        "briefDate": brief_date,
+        "chatSectionTitle": chat_title,
         "marketImpact": summary.get("market_impact", "Mixed"),
         "executiveSummary": exec_lead,
         "thirtySecondSummary": t303,
@@ -205,22 +259,36 @@ def build_payload(
         "macroHeatLabels": heat_labels,
         "webVerification": web_ver,
         "risksToWatch": risks if isinstance(risks, list) else [],
+        "marketRegime": market_regime,
+        "dailyThesis": daily_thesis,
+        "whatChanged": what_changed,
+        "topMacroDrivers": top_macro_drivers,
+        "assetImpactHeatmap": asset_impact_heatmap,
+        "vietnamInvestorLens": vietnam_lens,
+        "scenarioMap": scenario_map,
+        "keyVariablesToWatch": key_vars,
+        "sourceQuality": source_quality,
+        "finalTakeaway": final_take,
+        "disclaimer": disclaimer,
+        "schemaVersion": "macro-intelligence-v1",
+        "legacyProBrief": legacy_has_pro and not new_intel,
         "allArticles": all_articles,
         "featuredArticles": all_articles,
         "stats": {
             "articlesCrawled": len(all_articles),
             "articlesInEnriched": enriched_payload.get("count", len(enriched_payload.get("articles", []))),
-            "pipeline": "Crawl + Gemini + GPT (So What / heatmap / VN bridge) + ảnh og khi fetch được",
+            "pipeline": "Crawl → Gemini → GPT (Macro Intelligence) → content.json",
         },
         "chatItems": [
             {
-                "title": summary.get("title", "LEON Quant Labs — Daily Macro Brief"),
+                "title": chat_title,
                 "content": "\n\n".join(
                     p
                     for p in (
-                        t303,
+                        daily_thesis or t303,
                         mw,
                         vm,
+                        what_changed,
                         f"Market impact: {summary.get('market_impact', 'Mixed')}",
                     )
                     if str(p).strip()

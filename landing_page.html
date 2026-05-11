@@ -3,634 +3,528 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEON Quant Labs - Daily Macro Intelligence</title>
-  <meta name="description" content="LEON Quant Labs tong hop tin tuc vi mo, thi truong Viet Nam va global market thanh ban tin hang ngay de nha dau tu ra quyet dinh nhanh hon.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <title>LEON Quant Labs — Daily Macro Intelligence</title>
+  <meta name="description" content="AI-powered macro research desk for Vietnamese investors — market regime, transmission chains, scenarios, Vietnam lens.">
   <style>
     :root {
-      --bg: #06111f;
-      --bg-2: #0d1b2f;
-      --bg-soft: #f6f8fb;
-      --card: #ffffff;
-      --text: #0f172a;
-      --text-light: #64748b;
-      --line: #e2e8f0;
-      --primary: #0ea5e9;
-      --primary-dark: #0369a1;
-      --gold: #d99b35;
-      --green: #16a34a;
-      --amber: #d97706;
-      --red: #dc2626;
-      --shadow: 0 22px 70px rgba(15, 23, 42, .12);
+      --bg0: #05080f;
+      --bg1: #0c1220;
+      --bg2: #111a2e;
+      --glass: rgba(255, 255, 255, .055);
+      --glass2: rgba(255, 255, 255, .09);
+      --border: rgba(255, 255, 255, .12);
+      --text: #e8edf5;
+      --muted: #94a3b8;
+      --faint: #64748b;
+      --cyan: #22d3ee;
+      --cyan-dim: #0891b2;
+      --gold: #fbbf24;
+      --green: #4ade80;
+      --red: #fb7185;
+      --amber: #fcd34d;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "Inter", sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: var(--text);
       line-height: 1.6;
       background:
-        radial-gradient(circle at top left, rgba(14, 165, 233, .08), transparent 28rem),
-        #ffffff;
+        radial-gradient(ellipse 120% 80% at 10% -10%, rgba(34, 211, 238, .12), transparent 50%),
+        radial-gradient(ellipse 90% 60% at 90% 10%, rgba(251, 191, 36, .07), transparent 45%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 40%, var(--bg2) 100%);
+      min-height: 100vh;
     }
-    a { color: inherit; }
-    .container { width: min(1220px, 92%); margin: 0 auto; }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+
+    /* Nav / Hero */
     .hero {
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 78% 8%, rgba(14, 165, 233, .34), transparent 26rem),
-        radial-gradient(circle at 16% 20%, rgba(217, 155, 53, .18), transparent 24rem),
-        linear-gradient(135deg, #020617 0%, var(--bg) 48%, var(--bg-2) 100%);
-      color: #fff;
-      padding: 22px 0 78px;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -16%;
-      bottom: -44%;
-      width: 720px;
-      height: 420px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .055);
-      transform: rotate(-8deg);
+      padding: 20px 0 64px;
+      border-bottom: 1px solid var(--border);
     }
     .nav {
-      position: relative;
-      z-index: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
+      flex-wrap: wrap;
     }
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
       font-weight: 800;
-      letter-spacing: -.02em;
-      font-size: 1.08rem;
+      letter-spacing: -.03em;
+      font-size: 1.05rem;
+      color: var(--text);
     }
     .logo-mark {
-      display: grid;
-      place-items: center;
       width: 36px;
       height: 36px;
       border-radius: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--gold));
-      color: #fff;
-      font-size: .82rem;
-      letter-spacing: .02em;
+      background: linear-gradient(135deg, var(--cyan), var(--gold));
+      display: grid;
+      place-items: center;
+      font-size: .75rem;
+      font-weight: 900;
+      color: #0a0f18;
     }
     .nav-links {
       display: flex;
-      gap: 20px;
-      color: #cbd5e1;
-      font-size: .92rem;
-      font-weight: 700;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: .88rem;
+      font-weight: 600;
     }
     .nav-links a {
+      color: var(--muted);
       text-decoration: none;
     }
-    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover { color: var(--text); }
     .hero-grid {
-      position: relative;
-      z-index: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1.16fr) minmax(320px, .84fr);
-      gap: 34px;
-      align-items: center;
-      padding-top: 58px;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .85fr);
+      gap: 36px;
+      align-items: start;
+      margin-top: 40px;
     }
-    .hero-content { max-width: 850px; }
     .tag {
       display: inline-block;
-      background: rgba(14, 165, 233, .14);
-      border: 1px solid rgba(255, 255, 255, .2);
+      padding: 5px 11px;
       border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: .12em;
+      letter-spacing: .1em;
       text-transform: uppercase;
+      background: var(--glass2);
+      border: 1px solid var(--border);
+      color: var(--cyan);
     }
     h1 {
-      max-width: 840px;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: .98;
-      letter-spacing: -.065em;
-      margin: 18px 0 18px;
+      margin: 16px 0 14px;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
     }
-    h2 {
-      font-size: clamp(1.55rem, 3vw, 2.35rem);
-      line-height: 1.12;
-      letter-spacing: -.045em;
-      margin: 0;
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin: 0 0 12px;
+      font-weight: 600;
+      letter-spacing: -.02em;
     }
-    h3 { margin: 0; letter-spacing: -.02em; }
-    .subtitle {
-      color: #cbd5e1;
-      font-size: 1.08rem;
+    .hero-desc {
       margin: 0;
-      max-width: 720px;
+      max-width: 640px;
+      color: var(--faint);
+      font-size: 1.02rem;
     }
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 26px;
+      margin-top: 24px;
     }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 44px;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 999px;
-      border: 1px solid transparent;
-      text-decoration: none;
       font-weight: 800;
+      font-size: .92rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none !important;
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      box-shadow: 0 14px 28px rgba(14, 165, 233, .28);
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dim));
+      color: #041016;
+      box-shadow: 0 12px 32px rgba(34, 211, 238, .22);
     }
     .btn-ghost {
-      border-color: rgba(255, 255, 255, .28);
-      color: #fff;
-      background: rgba(255, 255, 255, .06);
+      background: var(--glass);
+      border-color: var(--border);
+      color: var(--text);
     }
-    .hero-card {
-      border: 1px solid rgba(255, 255, 255, .15);
-      border-radius: 28px;
-      padding: 26px;
-      background: rgba(255, 255, 255, .1);
-      box-shadow: 0 28px 90px rgba(0, 0, 0, .28);
-      backdrop-filter: blur(18px);
+
+    .glass-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(14px);
     }
-    .hero-card h2 { color: #fff; font-size: clamp(1.45rem, 3vw, 2.2rem); }
-    .hero-card p { color: #dbeafe; margin: 12px 0 0; }
-    .hero-metrics {
+    .hero-side-title {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+      font-weight: 800;
+    }
+    .hero-side-p {
+      margin: 0;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+    .snapshot-grid {
       display: grid;
-      gap: 12px;
-      grid-template-columns: 1fr;
-      margin-top: 22px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 18px;
     }
-    .metric {
-      background: rgba(255, 255, 255, .1);
-      border: 1px solid rgba(255, 255, 255, .16);
-      border-radius: 14px;
-      padding: 14px;
+    .snap-cell {
+      background: rgba(0, 0, 0, .2);
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
     }
-    .metric span {
+    .snap-cell span {
       display: block;
-      color: #cbd5e1;
-      font-size: .78rem;
-      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 800;
       letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--faint);
     }
-    .metric strong { display: block; margin-top: 4px; font-size: 1.05rem; }
-    .section { padding: 78px 0; }
-    .section-soft {
-      background:
-        radial-gradient(circle at top left, rgba(14, 165, 233, .11), transparent 24rem),
-        var(--bg-soft);
+    .snap-cell strong {
+      display: block;
+      margin-top: 6px;
+      font-size: .95rem;
+      color: var(--text);
     }
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 22px;
-      margin-bottom: 24px;
+
+    /* Sections */
+    section { padding: 56px 0; }
+    section.alt {
+      background: rgba(0, 0, 0, .18);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .section-heading p { max-width: 620px; margin: 10px 0 0; color: var(--text-light); }
     .eyebrow {
       margin: 0 0 8px;
-      color: var(--primary-dark);
-      font-size: .76rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .sync-note { margin: 0 0 20px; color: var(--text-light); font-size: .95rem; }
-    .brief-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(280px, .8fr);
-      gap: 20px;
-    }
-    .brief-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      max-width: 920px;
-      margin: 0 auto;
-    }
-    .world-card { border-top: 4px solid var(--primary); }
-    .vn-card { border-top: 4px solid var(--gold); }
-    .glance-card {
-      border-top: 4px solid #6366f1;
-      max-width: 920px;
-      margin: 0 auto;
-    }
-    .so-what-chain {
-      font-size: 1.05rem;
-      font-weight: 750;
-      color: #1e293b;
-      margin: 0 0 18px;
-      padding: 14px 16px;
-      background: linear-gradient(90deg, #eef2ff, #f8fafc);
-      border-radius: 14px;
-      border: 1px solid #e0e7ff;
-      line-height: 1.5;
-    }
-    .world-vn-bridge {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--line);
-      font-size: .98rem;
-      font-weight: 650;
-      color: #334155;
-    }
-    .world-vn-bridge .lbl { color: var(--gold); font-weight: 800; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 6px; }
-    .world-vn-bridge .bridge-txt { display: block; margin: 0; }
-    .heatmap-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .heat-cell {
-      border-radius: 12px;
-      padding: 12px 10px;
-      text-align: center;
-      font-size: .78rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      color: #0f172a;
-      border: 1px solid rgba(15, 23, 42, .08);
-    }
-    .heat-hot { background: linear-gradient(145deg, #fecaca, #fca5a5); }
-    .heat-warm { background: linear-gradient(145deg, #fde68a, #fcd34d); }
-    .heat-cool { background: linear-gradient(145deg, #e2e8f0, #cbd5e1); }
-    .heat-ice { background: linear-gradient(145deg, #dbeafe, #93c5fd); }
-    .asset-row {
-      display: grid;
-      grid-template-columns: minmax(100px, 140px) 1fr;
-      gap: 12px;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .asset-row:last-child { border-bottom: none; }
-    .asset-pill {
       font-size: .72rem;
       font-weight: 800;
-      padding: 6px 10px;
-      border-radius: 999px;
-      text-align: center;
-    }
-    .bias-bullish { background: #dcfce7; color: #166534; }
-    .bias-bearish { background: #fee2e2; color: #991b1b; }
-    .bias-mixed { background: #fef3c7; color: #92400e; }
-    .bias-neutral { background: #f1f5f9; color: #475569; }
-    .asset-note { font-size: .9rem; color: #475569; margin: 0; line-height: 1.45; }
-    .compare-block { margin-top: 8px; }
-    .compare-row { margin-bottom: 16px; }
-    .compare-row h4 { margin: 0 0 8px; font-size: .88rem; font-weight: 800; color: #0f172a; }
-    .compare-bars {
-      display: grid;
-      gap: 6px;
-    }
-    .bar-line {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: .78rem;
-      color: var(--text-light);
-    }
-    .bar-line span:first-child { min-width: 52px; font-weight: 700; color: #647d8b; }
-    .bar-track {
-      flex: 1;
-      height: 10px;
-      border-radius: 999px;
-      background: #e2e8f0;
-      overflow: hidden;
-    }
-    .bar-fill-actual { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
-    .bar-fill-forecast { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #94a3b8, #64748b); }
-    .bar-val { font-weight: 700; color: #334155; min-width: 56px; text-align: right; font-size: .8rem; }
-    .pro-brief-card { border-top: 4px solid var(--gold); max-width: 920px; margin: 0 auto; }
-    .pro-brief-kicker { margin: 0 0 6px; font-size: .95rem; font-weight: 800; color: #0f172a; letter-spacing: -.02em; }
-    .pro-brief-date { margin: 0 0 16px; color: var(--text-light); font-size: .9rem; }
-    .thirty-box {
-      padding: 16px 18px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-      border: 1px solid var(--line);
-      margin-bottom: 8px;
-    }
-    .thirty-box .lbl {
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .1em;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      color: var(--primary-dark);
+      color: var(--cyan);
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 1.85rem);
+      letter-spacing: -.03em;
+    }
+    .section-head p {
+      margin: 10px 0 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+    .section-head { margin-bottom: 24px; }
+
+    .card-main {
+      border-radius: 22px;
+      padding: 28px;
+      background: linear-gradient(145deg, rgba(34, 211, 238, .08), rgba(251, 191, 36, .05));
+      border: 1px solid var(--border);
+    }
+    .card-main p {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .pill {
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: var(--glass2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .box-muted {
+      border-radius: 16px;
+      padding: 18px 20px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      margin-top: 16px;
+    }
+    .box-muted .lbl {
       margin: 0 0 8px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--gold);
     }
-    .thirty-box p { margin: 0; color: #334155; line-height: 1.65; font-size: .98rem; }
-    .story-block {
-      padding: 18px 0;
-      border-bottom: 1px solid var(--line);
+    .box-muted p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    .drivers-grid {
+      display: grid;
+      gap: 18px;
     }
-    .story-block:last-of-type { border-bottom: none; }
-    .story-headline {
+    @media (min-width: 900px) {
+      .drivers-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .driver-card {
+      border-radius: 18px;
+      padding: 20px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+    }
+    .driver-card h3 {
       margin: 0 0 12px;
       font-size: 1.05rem;
-      font-weight: 800;
-      color: #0f172a;
       letter-spacing: -.02em;
-      line-height: 1.35;
     }
-    .story-num { color: var(--primary-dark); margin-right: 6px; }
-    .story-body { margin: 0 0 12px; color: #475569; font-size: .95rem; line-height: 1.65; white-space: pre-line; }
-    .story-sowhat, .story-assets, .story-impact {
-      margin: 8px 0 0;
-      font-size: .92rem;
-      color: #334155;
-      line-height: 1.55;
-    }
-    .story-sowhat strong, .story-assets strong, .story-impact strong { color: #0f172a; }
-    .impact-tag {
-      display: inline-block;
-      margin-left: 6px;
-      padding: 3px 10px;
-      border-radius: 999px;
+    .driver-card .k {
       font-size: .78rem;
       font-weight: 800;
-      background: #fef3c7;
-      color: #92400e;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--faint);
+      margin-top: 12px;
+      margin-bottom: 4px;
     }
-    .heatmap-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .88rem;
+    .driver-card .v {
+      margin: 0;
+      font-size: .93rem;
+      color: var(--muted);
+    }
+    .chain {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
       margin-top: 8px;
     }
-    .heatmap-table th, .heatmap-table td {
-      border: 1px solid var(--line);
-      padding: 10px 12px;
-      text-align: left;
-      vertical-align: top;
+    .chain span {
+      font-size: .82rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, .12);
+      border: 1px solid rgba(34, 211, 238, .25);
+      color: #a5f3fc;
     }
-    .heatmap-table th {
-      background: #f8fafc;
-      font-weight: 800;
-      color: #0f172a;
-      font-size: .78rem;
-      text-transform: uppercase;
-      letter-spacing: .04em;
+    .chain i {
+      font-style: normal;
+      color: var(--faint);
+      font-size: .8rem;
     }
-    .heatmap-table td { color: #475569; }
-    .heatmap-table-wrap { overflow-x: auto; margin-top: 12px; }
-    .source-thumb { position: relative; min-height: 150px; }
-    .source-thumb .fallback-image { display: none; }
-    .source-thumb.fallback-only .fallback-image { display: grid; }
-    .source-thumb.fallback-only .source-image { display: none !important; }
-    .section-sources {
-      background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 38%, #ffffff 100%);
-    }
-    .category-pill {
+
+    .badge-d {
       display: inline-block;
       font-size: .72rem;
       font-weight: 800;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--primary-dark);
-      background: #e0f2fe;
       padding: 4px 10px;
       border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 12px 34px rgba(15, 23, 42, .06);
+    .d-bullish { background: rgba(74, 222, 128, .18); color: var(--green); }
+    .d-bearish { background: rgba(251, 113, 133, .18); color: var(--red); }
+    .d-neutral { background: rgba(148, 163, 184, .2); color: #cbd5e1; }
+    .d-mixed { background: rgba(252, 211, 77, .16); color: var(--amber); }
+
+    .heatmap-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
+    table.heat {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .86rem;
     }
-    .chat-item p {
-      margin: 8px 0 0;
-      color: var(--text-light);
-      white-space: pre-line;
+    table.heat th, table.heat td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
     }
-    .executive-card {
-      border-top: 4px solid var(--gold);
+    table.heat th {
+      background: rgba(0, 0, 0, .35);
+      font-weight: 800;
+      font-size: .74rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--faint);
     }
-    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
-    .badge {
-      display: inline-flex;
-      align-items: center;
+    table.heat td { color: var(--muted); }
+    table.heat tr:last-child td { border-bottom: none; }
+
+    .vil-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .vil-card {
+      border-radius: 14px;
+      padding: 16px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+    }
+    .vil-card .ch {
+      font-weight: 800;
+      font-size: .88rem;
+      color: var(--gold);
+      margin: 0 0 8px;
+    }
+    .vil-card p { margin: 0; font-size: .9rem; color: var(--muted); }
+
+    .scenario-row {
+      display: grid;
+      gap: 16px;
+    }
+    @media (min-width: 900px) {
+      .scenario-row { grid-template-columns: repeat(3, 1fr); }
+    }
+    .sc-card {
+      border-radius: 16px;
+      padding: 20px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .sc-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: var(--cyan);
+      opacity: .7;
+    }
+    .sc-card.bull::before { background: var(--green); }
+    .sc-card.bear::before { background: var(--red); }
+    .prob {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 900;
+      padding: 4px 10px;
       border-radius: 999px;
-      padding: 5px 10px;
-      background: #eff6ff;
-      color: var(--primary-dark);
-      font-size: .8rem;
-      font-weight: 700;
+      background: rgba(255,255,255,.08);
+      margin-bottom: 10px;
     }
-    .badge.high { background: #fef2f2; color: var(--red); }
-    .badge.medium { background: #fffbeb; color: var(--amber); }
-    .badge.low { background: #f0fdf4; color: var(--green); }
-    .point-list, .risk-list {
+    .sc-card h3 { margin: 0 0 10px; font-size: 1rem; }
+    .sc-card p { margin: 0; font-size: .9rem; color: var(--muted); }
+    .sc-card ul { margin: 10px 0 0; padding-left: 1.1rem; color: var(--faint); font-size: .88rem; }
+
+    .var-grid {
       display: grid;
       gap: 12px;
-      margin-top: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
-    .point {
-      border: 1px solid var(--line);
-      border-radius: 14px;
+    .var-cell {
+      border-radius: 12px;
       padding: 14px;
-      background: #fff;
+      background: rgba(0, 0, 0, .22);
+      border: 1px solid var(--border);
     }
-    .point p, .watch-card p, .source-card p { margin: 8px 0 0; color: var(--text-light); }
-    .source-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
+    .var-cell strong { display: block; margin-bottom: 6px; font-size: .9rem; }
+    .var-cell span { font-size: .86rem; color: var(--muted); }
+
+    .sq-box {
+      border-radius: 16px;
+      padding: 20px;
+      background: var(--glass);
+      border: 1px solid var(--border);
     }
-    .source-links a {
-      border: 1px solid #bae6fd;
-      border-radius: 999px;
-      color: var(--primary-dark);
-      background: #f0f9ff;
-      padding: 6px 10px;
-      text-decoration: none;
-      font-size: .82rem;
-      font-weight: 700;
-    }
-    .source-links a:hover {
-      border-color: var(--primary);
-      background: #dbeafe;
-    }
-    .watch-grid {
+    .sq-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      margin-bottom: 14px;
     }
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: end;
-      margin-bottom: 20px;
-    }
-    .section-title p { margin: 0; color: var(--text-light); }
-    .value-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: var(--line);
-      box-shadow: var(--shadow);
-    }
-    .value-card {
-      padding: 26px;
-      background: #fff;
-    }
-    .value-card span {
-      color: var(--gold);
-      font-weight: 800;
-    }
-    .value-card p {
-      color: var(--text-light);
-      margin: 10px 0 0;
-    }
+    .sq-item span { font-size: .72rem; color: var(--faint); text-transform: uppercase; font-weight: 700; }
+    .sq-item strong { display: block; font-size: 1.25rem; color: var(--text); }
+
+    /* Source library */
     .source-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(292px, 1fr));
+      gap: 18px;
     }
     .source-card {
+      border-radius: 18px;
       overflow: hidden;
-      padding: 0;
+      background: var(--glass);
+      border: 1px solid var(--border);
     }
+    .source-card a { color: inherit; text-decoration: none !important; display: block; }
+    .source-thumb { position: relative; min-height: 140px; }
     .source-image {
       width: 100%;
-      height: 150px;
+      height: 140px;
       object-fit: cover;
-      background: linear-gradient(135deg, #dbeafe, #f8fafc);
       display: block;
-    }
-    .source-body { padding: 18px; }
-    .source-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-      color: var(--text-light);
-      font-size: .82rem;
-    }
-    .source-card a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .source-card a:hover h3 { color: var(--primary-dark); }
-    .source-link {
-      display: inline-block;
-      margin-top: 12px;
-      color: #fff;
-      background: var(--primary);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-weight: 700;
-      font-size: .9rem;
-    }
-    .source-url {
-      display: block;
-      margin-top: 8px;
-      color: var(--text-light);
-      font-size: .78rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .exec-lead {
-      font-size: 1.08rem;
-      font-weight: 650;
-      color: #334155;
-      margin: 0 0 16px;
-      line-height: 1.55;
-    }
-    .narrative-h {
-      margin: 22px 0 8px;
-      font-size: .95rem;
-      font-weight: 800;
-      letter-spacing: .02em;
-      color: #0f172a;
-      text-transform: uppercase;
-    }
-    .narrative-p {
-      margin: 0;
-      color: #475569;
-      line-height: 1.65;
-    }
-    .verify-list {
-      margin: 12px 0 0;
-      padding-left: 1.1rem;
-      color: #64748b;
-      font-size: .92rem;
-    }
-    .verify-list li { margin-bottom: 6px; }
-    .verify-status {
-      font-weight: 800;
-      color: var(--primary-dark);
+      background: var(--bg2);
     }
     .fallback-image {
       display: grid;
       place-items: center;
-      height: 150px;
-      background: radial-gradient(circle at top right, #bfdbfe, #e2e8f0);
-      color: #1e3a8a;
+      height: 140px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: var(--cyan);
       font-weight: 800;
-      letter-spacing: .08em;
+      font-size: .75rem;
+      letter-spacing: .12em;
     }
+    .source-body { padding: 16px; }
+    .source-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      font-size: .78rem;
+      color: var(--faint);
+      margin-bottom: 8px;
+    }
+    .cat-pill {
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, .12);
+      color: var(--cyan);
+    }
+    .source-body h3 { margin: 0 0 8px; font-size: 1rem; letter-spacing: -.02em; }
+    .source-body p { margin: 0; font-size: .88rem; color: var(--muted); line-height: 1.45; }
+    .read-pill {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: .82rem;
+      font-weight: 800;
+      color: var(--cyan);
+    }
+
     .footer {
-      background: #020617;
-      color: #cbd5e1;
-      padding: 22px 0;
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      color: var(--faint);
+      font-size: .88rem;
     }
-    .footer p { margin: 0; }
+    .footer strong { color: var(--muted); }
+
+    .sync-note { margin: 0 0 20px; color: var(--muted); font-size: .92rem; }
+    .error-card {
+      border-radius: 16px;
+      padding: 24px;
+      background: rgba(251, 113, 133, .08);
+      border: 1px solid rgba(251, 113, 133, .3);
+      color: var(--muted);
+    }
+
+    /* Legacy brief (old schema) */
+    .legacy-story { padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .legacy-story:last-child { border-bottom: none; }
+    .legacy-h { margin: 0 0 10px; font-size: 1rem; }
+
     @media (max-width: 860px) {
-      .hero-grid,
-      .brief-layout,
-      .value-grid {
-        grid-template-columns: 1fr;
-      }
-      .section-title,
-      .section-heading {
-        display: block;
-      }
-      .nav {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-      .nav-links {
-        flex-wrap: wrap;
-      }
-    }
-    @media (max-width: 560px) {
-      .hero { padding-bottom: 56px; }
-      .hero-grid { padding-top: 36px; }
-      .section { padding: 56px 0; }
-      .hero-card { padding: 22px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .snapshot-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -639,62 +533,63 @@
     <div class="container">
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
+        <div class="nav-links">
+          <a href="#research">Snapshot</a>
+          <a href="#thesis">Thesis</a>
+          <a href="#drivers">Drivers</a>
+          <a href="#heatmap">Heatmap</a>
+          <a href="#vietnam">Vietnam</a>
+          <a href="#scenarios">Scenarios</a>
+          <a href="#sources">Sources</a>
+        </div>
       </nav>
       <div class="hero-grid">
-        <div class="hero-content">
-          <p class="tag">Daily Macro Intelligence</p>
-          <h1>Tóm tắt vĩ mô thế giới và Việt Nam cho người bận rộn.</h1>
-          <p class="subtitle">Tóm tắt vĩ mô, chuỗi tác động (So What), heatmap nhanh và đủ link đã crawl — mở bài gốc để đọc đầy đủ.</p>
+        <div>
+          <p class="tag">Research desk</p>
+          <h1>LEON Quant Labs</h1>
+          <p class="hero-sub">Daily Macro Intelligence for Serious Investors</p>
+          <p class="hero-desc">
+            AI-powered macro research desk giúp nhà đầu tư Việt Nam hiểu nhanh market regime,
+            chuỗi tác động vĩ mô toàn cầu và rủi ro truyền vào tài sản Việt Nam mỗi ngày.
+          </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#brief">Đọc bản tin</a>
+            <a class="btn btn-primary" href="#research">Đọc bản tin hôm nay</a>
+            <a class="btn btn-ghost" href="#sources">Xem nguồn dữ liệu</a>
           </div>
         </div>
-        <aside class="hero-card" aria-label="Thông tin bản tin">
-          <p class="tag">Live Snapshot</p>
-          <h2>Tóm tắt trong ngày</h2>
-          <p>Market impact, số tin crawl và thời điểm tạo bản tin.</p>
-          <div class="hero-metrics">
-            <div class="metric">
-              <span>Market impact</span>
-              <strong id="heroImpact">Đang cập nhật</strong>
-            </div>
-            <div class="metric">
-              <span>Tin đã crawl</span>
-              <strong id="heroArticles">--</strong>
-            </div>
-            <div class="metric">
-              <span>Cập nhật</span>
-              <strong id="heroUpdated">--</strong>
-            </div>
+        <div class="glass-card">
+          <p class="tag">Live snapshot</p>
+          <h2 class="hero-side-title">Trạng thái pipeline</h2>
+          <p class="hero-side-p">Regime, risk tone, nguồn đã quét và thời điểm cập nhật.</p>
+          <div class="snapshot-grid">
+            <div class="snap-cell"><span>Market regime</span><strong id="snapRegime">—</strong></div>
+            <div class="snap-cell"><span>Primary driver</span><strong id="snapPrimary">—</strong></div>
+            <div class="snap-cell"><span>Risk tone</span><strong id="snapRisk">—</strong></div>
+            <div class="snap-cell"><span>Confidence</span><strong id="snapConf">—</strong></div>
+            <div class="snap-cell"><span>Sources scanned</span><strong id="snapScan">—</strong></div>
+            <div class="snap-cell"><span>Articles selected</span><strong id="snapPick">—</strong></div>
+            <div class="snap-cell"><span>Verified links</span><strong id="snapVer">​—</strong></div>
+            <div class="snap-cell"><span>Last updated</span><strong id="snapUp">—</strong></div>
           </div>
-        </aside>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
-    <section id="brief" class="section section-soft">
+    <section id="research" class="alt">
       <div class="container">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Daily brief</p>
-            <h2 id="chatSectionTitle">Bản tin hàng ngày</h2>
-            <p>Hai ô tóm tắt vĩ mô; phía trên có thêm tác động tài sản (So What), heatmap và thực tế so với dự báo khi có số liệu trong nguồn.</p>
-          </div>
-        </div>
-        <p id="syncNote" class="sync-note">Đang tải dữ liệu mới nhất...</p>
+        <p id="syncNote" class="sync-note"></p>
         <div id="briefRoot"></div>
       </div>
     </section>
 
-    <section id="sources" class="section section-sources">
-      <div class="container" style="max-width: min(1400px, 96%);">
-        <div class="section-title">
-          <div>
-            <p class="eyebrow">Đầy đủ nguồn</p>
-            <h2 id="sourceGridTitle">Tin đã crawl trong ngày</h2>
-            <p>Toàn bộ bài lấy được từ pipeline crawl — có ảnh và mô tả khi trang nguồn cung cấp. Bấm vào thẻ để đọc bản đầy đủ.</p>
-          </div>
+    <section id="sources">
+      <div class="container" style="max-width: min(1320px, 95%);">
+        <div class="section-head">
+          <p class="eyebrow">Source library</p>
+          <h2 id="sourceGridTitle">Tin đã crawl</h2>
+          <p>Toàn bộ bài trong pipeline — metadata từ trang nguồn khi fetch được. Mục research ở trên luôn ưu tiên.</p>
         </div>
         <div id="sourceGrid" class="source-grid"></div>
       </div>
@@ -703,7 +598,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© 2026 LEON Quant Labs. Nội dung chỉ phục vụ nghiên cứu và giáo dục; không phải lời khuyên đầu tư hay tư vấn tài chính cá nhân.</p>
+      <p id="footerDisc">© 2026 LEON Quant Labs. Nội dung chỉ phục vụ nghiên cứu và giáo dục; không phải khuyến nghị đầu tư.</p>
     </div>
   </footer>
 
@@ -717,455 +612,381 @@
         .replace(/'/g, "&#039;");
     }
 
-    function formatDate(value) {
-      if (!value) return "--";
+    function formatDateVi(value) {
+      if (!value) return "—";
       const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return "--";
+      if (Number.isNaN(date.getTime())) return "—";
       return date.toLocaleString("vi-VN", {
-        day: "2-digit",
-        month: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit"
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit"
       });
     }
 
-    function formatBriefDateOnly(value) {
-      if (!value) return "--";
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return "--";
-      return date.toLocaleDateString("vi-VN", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-      });
-    }
-
-    function getHostName(value) {
-      try {
-        return new URL(value).hostname.replace(/^www\./, "");
-      } catch {
-        return "Nguồn gốc";
+    function formatDateOnly(value) {
+      if (!value) return "—";
+      const raw = String(value).trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+        const [y, m, d] = raw.split("-");
+        return `${d}/${m}/${y}`;
       }
-    }
-
-    function createItemCard(item) {
-      const card = document.createElement("article");
-      card.className = "card chat-item";
-
-      const title = document.createElement("h3");
-      title.textContent = item.title || "Bản tin";
-
-      const content = document.createElement("p");
-      content.textContent = item.content || "";
-
-      card.appendChild(title);
-      card.appendChild(content);
-      return card;
-    }
-
-    function heatClass(s) {
-      const x = String(s || "").toLowerCase();
-      if (x === "hot") return "heat-hot";
-      if (x === "warm") return "heat-warm";
-      if (x === "ice") return "heat-ice";
-      return "heat-cool";
-    }
-
-    function biasClass(b) {
-      const x = String(b || "").toLowerCase();
-      if (x === "bullish") return "bias-bullish";
-      if (x === "bearish") return "bias-bearish";
-      if (x === "mixed") return "bias-mixed";
-      return "bias-neutral";
-    }
-
-    function clampPct(n) {
-      const x = Number(n);
-      if (Number.isNaN(x)) return 0;
-      return Math.max(0, Math.min(100, x));
-    }
-
-    function formatBriefDateOnly(value) {
-      if (!value) return "--";
       const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return "--";
-      return date.toLocaleDateString("vi-VN", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-      });
+      if (Number.isNaN(date.getTime())) return raw || "—";
+      return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
     }
 
-    function buildProBriefHtml(data) {
-      const t30 = data.thirtySecondSummary && String(data.thirtySecondSummary).trim();
-      const stories = Array.isArray(data.briefStories) ? data.briefStories : [];
-      const tbl = Array.isArray(data.assetImpactTable) ? data.assetImpactTable : [];
-      if (!t30 && !stories.length && !tbl.length) return "";
+    function getHostName(u) {
+      try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
+    }
 
-      let html = `<p class="eyebrow">Bản tin chính</p>`;
-      html += `<p class="pro-brief-kicker">LEON Quant Labs — Daily Macro Brief</p>`;
-      html += `<p class="pro-brief-date">Ngày ${escapeHtml(formatBriefDateOnly(data.generatedAt))}</p>`;
+    function dirClass(d) {
+      const x = String(d || "").toLowerCase();
+      if (x === "bullish") return "d-bullish";
+      if (x === "bearish") return "d-bearish";
+      if (x === "mixed") return "d-mixed";
+      return "d-neutral";
+    }
+
+    function updateSnapshot(data) {
+      const mr = data.marketRegime && typeof data.marketRegime === "object" ? data.marketRegime : {};
+      const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
+      document.getElementById("snapRegime").textContent = mr.regime || "—";
+      document.getElementById("snapPrimary").textContent = mr.primary_driver || "—";
+      document.getElementById("snapRisk").textContent = mr.risk_tone || "—";
+      document.getElementById("snapConf").textContent = mr.confidence || "—";
+      document.getElementById("snapScan").textContent =
+        sq.sources_scanned != null ? String(sq.sources_scanned) : (data.stats?.articlesInEnriched ?? "—");
+      document.getElementById("snapPick").textContent =
+        sq.articles_selected != null ? String(sq.articles_selected) : "—";
+      document.getElementById("snapVer").textContent =
+        sq.verified_links != null ? String(sq.verified_links) : "—";
+      document.getElementById("snapUp").textContent = formatDateVi(data.generatedAt);
+    }
+
+    function renderTransmission(chain) {
+      const arr = Array.isArray(chain) ? chain : [];
+      if (!arr.length) return "";
+      const parts = arr.map((s) => `<span>${escapeHtml(s)}</span>`);
+      const arrows = [];
+      for (let i = 0; i < parts.length; i++) {
+        arrows.push(parts[i]);
+        if (i < parts.length - 1) arrows.push('<i>→</i>');
+      }
+      return `<div class="chain">${arrows.join("")}</div>`;
+    }
+
+    function buildMacroDeskHtml(data) {
+      const mr = data.marketRegime || {};
+      const thesis = String(data.dailyThesis || "").trim();
+      const t30 = String(data.thirtySecondSummary || "").trim();
+      const wc = String(data.whatChanged || "").trim();
+      const drivers = Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers : [];
+      const heat = Array.isArray(data.assetImpactHeatmap) ? data.assetImpactHeatmap : [];
+      const vil = data.vietnamInvestorLens && typeof data.vietnamInvestorLens === "object" ? data.vietnamInvestorLens : {};
+      const sm = data.scenarioMap && typeof data.scenarioMap === "object" ? data.scenarioMap : {};
+      const kvw = Array.isArray(data.keyVariablesToWatch) ? data.keyVariablesToWatch : [];
+      const sq = data.sourceQuality && typeof data.sourceQuality === "object" ? data.sourceQuality : {};
+      const ft = String(data.finalTakeaway || "").trim();
+      const disc = String(data.disclaimer || "").trim();
+      const bd = data.briefDate ? formatDateOnly(data.briefDate) : formatDateOnly(data.generatedAt);
+      const titleLine = escapeHtml(data.chatSectionTitle || "LEON Quant Labs — Daily Macro Intelligence");
+
+      let html = `<div class="section-head" id="thesis"><p class="eyebrow">Research note</p><h2>${titleLine}</h2><p>Ngày ${escapeHtml(bd)} · Góc nhìn desk: regime → drivers → kênh vào Việt Nam.</p></div>`;
+
+      if (thesis) {
+        html += `<article class="card-main"><p><strong>Daily thesis.</strong> ${escapeHtml(thesis)}</p></article>`;
+      }
 
       if (t30) {
-        html += `<div class="thirty-box"><p class="lbl">Tóm tắt 30 giây</p><p>${escapeHtml(t30)}</p></div>`;
+        html += `<div class="box-muted" style="margin-top:20px"><p class="lbl">30-second summary</p><p>${escapeHtml(t30)}</p></div>`;
+      }
+      if (wc) {
+        html += `<div class="box-muted"><p class="lbl">What changed</p><p>${escapeHtml(wc)}</p></div>`;
       }
 
-      for (let i = 0; i < stories.length; i += 1) {
-        const s = stories[i];
-        if (!s || typeof s !== "object") continue;
-        const head = s.headline || s.title || "—";
-        const body = s.body || s.detail || "";
-        const sw = s.so_what || s.soWhat || "";
-        const ast = s.assets || s.assets_affected || "";
-        const lev = s.impact_level || s.impactLevel || "";
-        html += `<div class="story-block">`;
-        html += `<h3 class="story-headline"><span class="story-num">${i + 1}.</span>${escapeHtml(head)}</h3>`;
-        if (body) html += `<p class="story-body">${escapeHtml(body)}</p>`;
-        if (sw) html += `<p class="story-sowhat"><strong>So What:</strong> ${escapeHtml(sw)}</p>`;
-        if (ast) html += `<p class="story-assets"><strong>Tài sản ảnh hưởng:</strong> ${escapeHtml(ast)}</p>`;
-        if (lev) html += `<p class="story-impact"><strong>Mức tác động:</strong><span class="impact-tag">${escapeHtml(lev)}</span></p>`;
+      if (String(mr.invalidation || "").trim()) {
+        html += `<div class="box-muted"><p class="lbl">Invalidation</p><p>${escapeHtml(mr.invalidation)}</p></div>`;
+      }
+
+      if (drivers.length) {
+        html += `<div class="section-head" id="drivers" style="margin-top:40px"><p class="eyebrow">Macro drivers</p><h2>Top macro drivers</h2><p>Mỗi mục: fact → why it matters → transmission → confidence.</p></div>`;
+        html += `<div class="drivers-grid">`;
+        for (const d of drivers) {
+          if (!d || typeof d !== "object") continue;
+          const conf = d.confidence && typeof d.confidence === "object" ? d.confidence : {};
+          const assets = Array.isArray(d.assets_affected) ? d.assets_affected : [];
+          html += `<article class="driver-card">`;
+          html += `<h3>${escapeHtml(d.headline || "—")}</h3>`;
+          html += `<div class="k">Fact</div><p class="v">${escapeHtml(d.fact || "")}</p>`;
+          html += `<div class="k">Why it matters</div><p class="v">${escapeHtml(d.why_it_matters || "")}</p>`;
+          html += `<div class="k">Transmission</div>`;
+          html += renderTransmission(d.transmission_chain);
+          if (assets.length) {
+            html += `<div class="pill-row">`;
+            for (const a of assets) html += `<span class="pill">${escapeHtml(a)}</span>`;
+            html += `</div>`;
+          }
+          html += `<div class="k">Time horizon</div><p class="v">${escapeHtml(d.time_horizon || "—")}</p>`;
+          html += `<div class="k">Confidence (fact / impact)</div><p class="v">${escapeHtml(conf.fact || "—")} / ${escapeHtml(conf.impact || "—")}</p>`;
+          html += `<div class="k">What could prove this wrong</div><p class="v">${escapeHtml(d.what_could_prove_this_wrong || "")}</p>`;
+          html += `</article>`;
+        }
         html += `</div>`;
       }
 
-      if (tbl.length) {
-        html += `<h4 class="narrative-h" style="margin-top:20px">Bảng heatmap theo nhóm tài sản</h4>`;
-        html += `<div class="heatmap-table-wrap"><table class="heatmap-table"><thead><tr><th>Nhóm tài sản</th><th>Tác động hôm nay</th><th>Lý do chính</th></tr></thead><tbody>`;
-        for (const row of tbl) {
+      if (heat.length) {
+        html += `<div class="section-head" id="heatmap" style="margin-top:40px"><p class="eyebrow">Cross-asset</p><h2>Asset impact heatmap</h2></div>`;
+        html += `<div class="heatmap-wrap"><table class="heat"><thead><tr><th>Asset</th><th>Direction</th><th>Strength</th><th>Horizon</th><th>Main reason</th><th>Watch risk</th></tr></thead><tbody>`;
+        for (const row of heat) {
           if (!row || typeof row !== "object") continue;
-          const g = row.group || row.nhom || "—";
-          const im = row.impact_today || row.impact || "—";
-          const rs = row.main_reason || row.reason || "";
-          html += `<tr><td>${escapeHtml(g)}</td><td>${escapeHtml(im)}</td><td>${escapeHtml(rs)}</td></tr>`;
+          const bc = dirClass(row.direction);
+          html += `<tr><td>${escapeHtml(row.asset || "—")}</td><td><span class="badge-d ${bc}">${escapeHtml(row.direction || "")}</span></td>`;
+          html += `<td>${escapeHtml(row.strength || "")}</td><td>${escapeHtml(row.horizon || "")}</td>`;
+          html += `<td>${escapeHtml(row.main_reason || "")}</td><td>${escapeHtml(row.watch_risk || "")}</td></tr>`;
         }
         html += `</tbody></table></div>`;
+      }
+
+      const vsum = String(vil.summary || "").trim();
+      const vch = Array.isArray(vil.channels) ? vil.channels : [];
+      html += `<div class="section-head" id="vietnam" style="margin-top:40px"><p class="eyebrow">Localization</p><h2>Vietnam investor lens</h2></div>`;
+      if (vsum) html += `<div class="box-muted"><p class="lbl">Summary</p><p>${escapeHtml(vsum)}</p></div>`;
+      if (data.worldToVietnam && String(data.worldToVietnam).trim()) {
+        html += `<div class="box-muted"><p class="lbl">Global → Vietnam (bridge)</p><p>${escapeHtml(data.worldToVietnam)}</p></div>`;
+      }
+      if (vch.length) {
+        html += `<div class="vil-grid" style="margin-top:16px">`;
+        for (const c of vch) {
+          if (!c || typeof c !== "object") continue;
+          html += `<div class="vil-card"><p class="ch">${escapeHtml(c.channel || "—")}</p><p>${escapeHtml(c.analysis || "")}</p></div>`;
+        }
+        html += `</div>`;
+      }
+
+      const bc = sm.base_case && typeof sm.base_case === "object" ? sm.base_case : {};
+      const bu = sm.bull_case && typeof sm.bull_case === "object" ? sm.bull_case : {};
+      const be = sm.bear_case && typeof sm.bear_case === "object" ? sm.bear_case : {};
+      html += `<div class="section-head" id="scenarios" style="margin-top:40px"><p class="eyebrow">Probabilities</p><h2>Scenario map</h2></div>`;
+      html += `<div class="scenario-row">`;
+      html += `<article class="sc-card"><span class="prob">${escapeHtml(String(bc.probability ?? ""))}% · Base</span><h3>Base case</h3><p>${escapeHtml(bc.description || "")}</p>`;
+      if (Array.isArray(bc.signals_to_watch) && bc.signals_to_watch.length) {
+        html += `<ul>${bc.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
+      }
+      html += `</article>`;
+      html += `<article class="sc-card bull"><span class="prob">${escapeHtml(String(bu.probability ?? ""))}% · Bull</span><h3>Bull case</h3><p>${escapeHtml(bu.description || "")}</p>`;
+      if (Array.isArray(bu.signals_to_watch) && bu.signals_to_watch.length) {
+        html += `<ul>${bu.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
+      }
+      html += `</article>`;
+      html += `<article class="sc-card bear"><span class="prob">${escapeHtml(String(be.probability ?? ""))}% · Bear</span><h3>Bear case</h3><p>${escapeHtml(be.description || "")}</p>`;
+      if (Array.isArray(be.signals_to_watch) && be.signals_to_watch.length) {
+        html += `<ul>${be.signals_to_watch.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
+      }
+      html += `</article></div>`;
+
+      if (kvw.length) {
+        html += `<div class="section-head" style="margin-top:40px"><p class="eyebrow">Watchlist</p><h2>Key variables</h2></div>`;
+        html += `<div class="var-grid">`;
+        for (const v of kvw) {
+          if (!v || typeof v !== "object") continue;
+          html += `<div class="var-cell"><strong>${escapeHtml(v.variable || "—")}</strong><span>${escapeHtml(v.why_it_matters || "")}</span></div>`;
+        }
+        html += `</div>`;
+      }
+
+      html += `<div class="section-head" style="margin-top:40px"><p class="eyebrow">Process</p><h2>Source quality</h2></div>`;
+      html += `<div class="sq-box"><div class="sq-grid">`;
+      html += `<div class="sq-item"><span>Sources scanned</span><strong>${escapeHtml(String(sq.sources_scanned ?? "—"))}</strong></div>`;
+      html += `<div class="sq-item"><span>Articles selected</span><strong>${escapeHtml(String(sq.articles_selected ?? "—"))}</strong></div>`;
+      html += `<div class="sq-item"><span>Verified links</span><strong>${escapeHtml(String(sq.verified_links ?? "—"))}</strong></div>`;
+      html += `</div>`;
+      if (sq.coverage_note) html += `<p style="margin:0;font-size:.9rem;color:var(--muted)">${escapeHtml(sq.coverage_note)}</p>`;
+      html += `</div>`;
+
+      if (ft) {
+        html += `<div class="box-muted" style="margin-top:24px"><p class="lbl">Final takeaway</p><p>${escapeHtml(ft)}</p></div>`;
+      }
+
+      if (data.macroWorld && String(data.macroWorld).trim()) {
+        html += `<div class="box-muted" style="margin-top:16px"><p class="lbl">Global context (extended)</p><p>${escapeHtml(data.macroWorld)}</p></div>`;
+      }
+      if (data.vietnamMacro && String(data.vietnamMacro).trim()) {
+        html += `<div class="box-muted"><p class="lbl">Vietnam context (extended)</p><p>${escapeHtml(data.vietnamMacro)}</p></div>`;
+      }
+
+      if (disc) {
+        const fe = document.getElementById("footerDisc");
+        if (fe) fe.innerHTML = `<strong>Disclaimer.</strong> ${escapeHtml(disc)} © 2026 LEON Quant Labs.`;
       }
 
       return html;
     }
 
-    function buildGlanceCardHtml(data) {
-      const chain = data.soWhatChain && String(data.soWhatChain).trim();
-      const heats = Array.isArray(data.macroHeatLabels) ? data.macroHeatLabels : [];
-      const assets = Array.isArray(data.assetImpacts) ? data.assetImpacts : [];
-      const comps = Array.isArray(data.actualVsForecast) ? data.actualVsForecast : [];
-
-      let html = `<p class="eyebrow">Tác động & trực quan</p>`;
-      if (chain) {
-        html += `<p class="so-what-chain" title="So What?">${escapeHtml(chain)}</p>`;
-      }
-
-      if (heats.length) {
-        html += `<h4 class="narrative-h" style="margin-top:4px">Nhiệt độ chủ đề (nhanh)</h4><div class="heatmap-grid">`;
-        for (const h of heats) {
-          if (!h || typeof h !== "object") continue;
-          const lab = h.label || h.name || "—";
-          const sent = heatClass(h.sentiment);
-          html += `<div class="heat-cell ${sent}">${escapeHtml(lab)}</div>`;
-        }
+    function buildLegacyProBriefHtml(data) {
+      const t30 = data.thirtySecondSummary && String(data.thirtySecondSummary).trim();
+      const stories = Array.isArray(data.briefStories) ? data.briefStories : [];
+      const tbl = Array.isArray(data.assetImpactTable) ? data.assetImpactTable : [];
+      if (!t30 && !stories.length && !tbl.length) return "";
+      let html = `<div class="section-head"><p class="eyebrow">Archive layout</p><h2>Bản tin (schema trước)</h2></div>`;
+      if (t30) html += `<div class="box-muted"><p class="lbl">30-second summary</p><p>${escapeHtml(t30)}</p></div>`;
+      for (let i = 0; i < stories.length; i++) {
+        const s = stories[i];
+        if (!s || typeof s !== "object") continue;
+        html += `<div class="legacy-story"><h3 class="legacy-h">${i + 1}. ${escapeHtml(s.headline || s.title || "—")}</h3>`;
+        if (s.body) html += `<p class="v">${escapeHtml(s.body)}</p>`;
+        if (s.so_what || s.soWhat) html += `<p class="v"><strong>So What:</strong> ${escapeHtml(s.so_what || s.soWhat)}</p>`;
         html += `</div>`;
       }
-
-      if (assets.length) {
-        html += `<h4 class="narrative-h" style="margin-top:4px">Theo tài sản (So What?)</h4>`;
-        for (const a of assets) {
-          if (!a || typeof a !== "object") continue;
-          const an = a.asset || "—";
-          const bias = biasClass(a.bias);
-          const note = a.note || "";
-          html += `<div class="asset-row"><span class="asset-pill ${bias}">${escapeHtml(an)}</span><p class="asset-note">${escapeHtml(note)}</p></div>`;
+      if (tbl.length) {
+        html += `<div class="heatmap-wrap" style="margin-top:20px"><table class="heat"><thead><tr><th>Nhóm</th><th>Tác động</th><th>Lý do</th></tr></thead><tbody>`;
+        for (const row of tbl) {
+          if (!row || typeof row !== "object") continue;
+          html += `<tr><td>${escapeHtml(row.group || "—")}</td><td>${escapeHtml(row.impact_today || row.impact || "")}</td><td>${escapeHtml(row.main_reason || "")}</td></tr>`;
         }
+        html += `</tbody></table></div>`;
       }
-
-      if (comps.length) {
-        html += `<h4 class="narrative-h" style="margin-top:12px">Thực tế vs dự báo (từ nguồn)</h4><div class="compare-block">`;
-        for (const c of comps) {
-          if (!c || typeof c !== "object") continue;
-          const ind = c.indicator || c.name || "Chỉ báo";
-          const act = c.actual != null ? String(c.actual) : "—";
-          const fc = c.forecast != null ? String(c.forecast) : "—";
-          let pa = clampPct(c.actual_pct);
-          let pf = clampPct(c.forecast_pct);
-          if (pa === 0 && pf === 0 && (act !== "—" || fc !== "—")) {
-            pa = 72;
-            pf = 45;
-          } else {
-            if (pa > 0 && pf === 0) pf = Math.min(100, Math.max(12, pa * 0.55));
-            if (pf > 0 && pa === 0) pa = Math.min(100, Math.max(12, pf * 0.55));
-          }
-          pa = Math.max(6, pa);
-          pf = Math.max(6, pf);
-          html += `<div class="compare-row"><h4>${escapeHtml(ind)}</h4><div class="compare-bars">`;
-          html += `<div class="bar-line"><span>Thực tế</span><div class="bar-track"><div class="bar-fill-actual" style="width:${pa}%"></div></div><span class="bar-val">${escapeHtml(act)}</span></div>`;
-          html += `<div class="bar-line"><span>Dự báo</span><div class="bar-track"><div class="bar-fill-forecast" style="width:${pf}%"></div></div><span class="bar-val">${escapeHtml(fc)}</span></div>`;
-          html += `</div></div>`;
-        }
-        html += `</div>`;
-      }
-
-      if (!chain && !heats.length && !assets.length && !comps.length) {
-        html += `<p class="narrative-p">Sau lần chạy GPT tiếp theo, khối này sẽ có chuỗi tác động, heatmap và so sánh thực tế–dự báo (khi có số trong nguồn).</p>`;
-      }
-
       return html;
     }
 
     function createSourceCard(item) {
       const card = document.createElement("article");
-      card.className = "card source-card";
-
+      card.className = "source-card";
       const a = document.createElement("a");
       a.href = item.url || "#";
       a.target = "_blank";
       a.rel = "noopener noreferrer";
-
       const thumb = document.createElement("div");
       thumb.className = "source-thumb";
-
       if (item.image_url) {
         const img = document.createElement("img");
         img.className = "source-image";
         img.src = item.image_url;
         img.alt = "";
         img.loading = "lazy";
-        img.decoding = "async";
         img.referrerPolicy = "no-referrer";
-        img.onerror = () => {
-          thumb.classList.add("fallback-only");
-        };
+        img.onerror = () => { thumb.innerHTML = '<div class="fallback-image">LEON</div>'; };
         thumb.appendChild(img);
       } else {
-        thumb.classList.add("fallback-only");
+        thumb.innerHTML = '<div class="fallback-image">LEON</div>';
       }
-
-      const fb = document.createElement("div");
-      fb.className = "fallback-image";
-      fb.textContent = "LEON";
-      thumb.appendChild(fb);
-
-      const srcBody = document.createElement("div");
-      srcBody.className = "source-body";
-      srcBody.innerHTML = `
-        <div class="source-meta">
-          ${item.category ? `<span class="category-pill">${escapeHtml(item.category)}</span>` : ""}
-          <span>${escapeHtml(item.source || "Nguồn")}</span>
-          <span>${escapeHtml(item.region || "")}</span>
-          <span>${escapeHtml(formatDate(item.published_at))}</span>
-        </div>
-        <h3>${escapeHtml(item.title || "Tin")}</h3>
-        <p>${escapeHtml(item.summary || "")}</p>
-        <span class="source-link">Đọc bài đầy đủ</span>
-        <span class="source-url">${escapeHtml(getHostName(item.url || ""))}</span>
-      `;
-
+      const body = document.createElement("div");
+      body.className = "source-body";
+      const meta = document.createElement("div");
+      meta.className = "source-meta";
+      if (item.category) {
+        const pill = document.createElement("span");
+        pill.className = "cat-pill";
+        pill.textContent = item.category;
+        meta.appendChild(pill);
+      }
+      ["source", "region"].forEach((k) => {
+        if (item[k]) {
+          const sp = document.createElement("span");
+          sp.textContent = item[k];
+          meta.appendChild(sp);
+        }
+      });
+      const dt = document.createElement("span");
+      dt.textContent = formatDateVi(item.published_at);
+      meta.appendChild(dt);
+      const h = document.createElement("h3");
+      h.textContent = item.title || "Tin";
+      const p = document.createElement("p");
+      p.textContent = item.summary || "";
+      const rp = document.createElement("span");
+      rp.className = "read-pill";
+      rp.textContent = "Đọc bài gốc → " + getHostName(item.url || "");
+      body.appendChild(meta);
+      body.appendChild(h);
+      body.appendChild(p);
+      body.appendChild(rp);
       a.appendChild(thumb);
-      a.appendChild(srcBody);
+      a.appendChild(body);
       card.appendChild(a);
       return card;
     }
 
-    function macroWorldBlocks(data) {
-      if (data.macroWorld && String(data.macroWorld).trim()) return data.macroWorld;
-      const parts = [data.macroGlobal, data.internationalMarkets].filter((x) => x && String(x).trim());
-      const merged = parts.join("\n\n");
-      if (merged) return merged;
-      if (data.globalWatch && String(data.globalWatch).trim()) return data.globalWatch;
-      return "";
-    }
-
-    function vietnamBlocks(data) {
-      if (data.vietnamMacro && String(data.vietnamMacro).trim()) return data.vietnamMacro;
-      if (data.vietnamImplications && String(data.vietnamImplications).trim()) return data.vietnamImplications;
-      if (data.vietnamWatch && String(data.vietnamWatch).trim()) return data.vietnamWatch;
-      return "";
-    }
-
-    function renderStructuredBrief(data) {
+    function renderBrief(data) {
       const root = document.getElementById("briefRoot");
       root.innerHTML = "";
-      const stack = document.createElement("div");
-      stack.className = "brief-stack";
-
-      const wv = data.webVerification && typeof data.webVerification === "object" ? data.webVerification : {};
-      const mw = macroWorldBlocks(data);
-      const vm = vietnamBlocks(data);
-      const wtv = data.worldToVietnam && String(data.worldToVietnam).trim();
-
-      const proHtml = buildProBriefHtml(data);
-      const stories = Array.isArray(data.briefStories) ? data.briefStories : [];
-
-      if (proHtml) {
-        const pro = document.createElement("article");
-        pro.className = "card pro-brief-card";
-        pro.innerHTML = proHtml;
-        stack.appendChild(pro);
+      const drivers = data.topMacroDrivers && Array.isArray(data.topMacroDrivers) ? data.topMacroDrivers : [];
+      const hasNew = Boolean(
+        data.dailyThesis && String(data.dailyThesis).trim()
+        || (drivers.length > 0)
+        || (data.assetImpactHeatmap && data.assetImpactHeatmap.length >= 6)
+      );
+      if (hasNew) {
+        root.innerHTML = buildMacroDeskHtml(data);
+        return;
       }
-
-      if (!stories.length) {
-        const glance = document.createElement("article");
-        glance.className = "card glance-card";
-        glance.innerHTML = buildGlanceCardHtml(data);
-        stack.appendChild(glance);
+      const leg = buildLegacyProBriefHtml(data);
+      if (leg) {
+        root.innerHTML = leg;
+        return;
       }
-
-      const world = document.createElement("article");
-      world.className = "card world-card";
-      const showExecLead = data.executiveSummary && String(data.executiveSummary).trim()
-        && !(data.thirtySecondSummary && String(data.thirtySecondSummary).trim());
-      let worldHtml = `
-        <p class="eyebrow">Vĩ mô thế giới</p>
-        <p class="narrative-p"><strong>Market impact:</strong> ${escapeHtml(data.marketImpact || "Mixed")}</p>
-        ${showExecLead ? `<p class="exec-lead">${escapeHtml(data.executiveSummary)}</p>` : ""}
-        <p class="narrative-p">${escapeHtml(mw || "Đang cập nhật nội dung vĩ mô thế giới.")}</p>
-      `;
-      if (wtv) {
-        worldHtml += `<div class="world-vn-bridge"><span class="lbl">Kết nối Việt Nam</span><span class="bridge-txt">${escapeHtml(wtv)}</span></div>`;
-      }
-      world.innerHTML = worldHtml;
-
-      let vnInner = `
-        <p class="eyebrow">Việt Nam — từ thế giới và trong nước</p>
-        <p class="narrative-p">${escapeHtml(vm || "Đang cập nhật nội dung Việt Nam.")}</p>
-      `;
-      const risks = data.risksToWatch || [];
-      if (risks.length) {
-        vnInner += `<h4 class="narrative-h" style="margin-top:16px">Rủi ro cần lưu ý</h4><ul class="verify-list">${risks.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ul>`;
-      }
-      if (wv.summary) {
-        vnInner += `<h4 class="narrative-h" style="margin-top:16px">Kiểm chứng nguồn</h4><p class="narrative-p">${escapeHtml(wv.summary)}</p>`;
-        if (Array.isArray(wv.checks) && wv.checks.length) {
-          vnInner += `<ul class="verify-list">${wv.checks.map((c) => {
-            if (!c || typeof c !== "object") return "";
-            return `<li><span class="verify-status">${escapeHtml(c.status || "")}</span> ${escapeHtml(c.note || "")} — ${escapeHtml(getHostName(c.url || ""))}</li>`;
-          }).join("")}</ul>`;
+      const items = Array.isArray(data.chatItems) ? data.chatItems : [];
+      if (items.length) {
+        let h = `<div class="section-head"><p class="eyebrow">Brief</p><h2>${escapeHtml(data.chatSectionTitle || "Bản tin")}</h2></div>`;
+        for (const it of items) {
+          h += `<div class="box-muted"><p>${escapeHtml(it.content || "")}</p></div>`;
         }
+        root.innerHTML = h;
+      } else {
+        root.innerHTML = `<div class="error-card">Chưa có nội dung research cho phiên này. Kiểm tra pipeline hoặc content.json.</div>`;
       }
-
-      const vn = document.createElement("article");
-      vn.className = "card vn-card";
-      vn.innerHTML = vnInner;
-
-      stack.appendChild(world);
-      stack.appendChild(vn);
-      root.appendChild(stack);
     }
 
     function renderFeed(data, noteText) {
-      const briefRoot = document.getElementById("briefRoot");
-      const titleEl = document.getElementById("chatSectionTitle");
-      const noteEl = document.getElementById("syncNote");
-      const sourceGrid = document.getElementById("sourceGrid");
-      const sourceTitleEl = document.getElementById("sourceGridTitle");
-
-      titleEl.textContent = data.chatSectionTitle || "LEON Quant Labs — Daily Macro Brief";
-      noteEl.textContent = noteText || "";
-      sourceGrid.innerHTML = "";
-
-      document.getElementById("heroImpact").textContent = data.marketImpact || "Mixed";
-
+      document.getElementById("syncNote").textContent = noteText || "";
+      updateSnapshot(data);
+      renderBrief(data);
       const articles = Array.isArray(data.allArticles) && data.allArticles.length
-        ? data.allArticles
-        : (data.featuredArticles || []);
-
-      const nStats = data.stats?.articlesCrawled ?? data.stats?.articlesAnalyzed ?? articles.length;
-      document.getElementById("heroArticles").textContent = nStats ? `${nStats} tin` : "--";
-      document.getElementById("heroUpdated").textContent = formatDate(data.generatedAt);
-
-      if (sourceTitleEl) {
-        sourceTitleEl.textContent = `Tin đã crawl trong ngày (${articles.length})`;
-      }
-
-      const hasBrief = Boolean(
-        (data.executiveSummary && String(data.executiveSummary).trim())
-        || (data.thirtySecondSummary && String(data.thirtySecondSummary).trim())
-        || (Array.isArray(data.briefStories) && data.briefStories.length)
-        || (Array.isArray(data.assetImpactTable) && data.assetImpactTable.length)
-        || macroWorldBlocks(data)
-        || vietnamBlocks(data)
-        || (data.soWhatChain && String(data.soWhatChain).trim())
-      );
-
-      if (hasBrief) {
-        renderStructuredBrief(data);
-      } else {
-        briefRoot.innerHTML = "";
-        const items = Array.isArray(data.chatItems) ? data.chatItems : [];
-        if (!items.length) {
-          briefRoot.appendChild(createItemCard({
-            title: "Chưa có nội dung",
-            content: "Bản tin mới sẽ được cập nhật khi dữ liệu trong ngày sẵn sàng."
-          }));
-        } else {
-          for (const item of items) {
-            briefRoot.appendChild(createItemCard(item));
-          }
-        }
-      }
-
-      for (const article of articles) {
-        sourceGrid.appendChild(createSourceCard(article));
-      }
+        ? data.allArticles : (data.featuredArticles || []);
+      const grid = document.getElementById("sourceGrid");
+      grid.innerHTML = "";
+      document.getElementById("sourceGridTitle").textContent = `Tin đã crawl (${articles.length})`;
+      for (const article of articles) grid.appendChild(createSourceCard(article));
     }
 
     async function loadFeedConfig() {
       try {
-        const response = await fetch("feed-config.json");
-        if (!response.ok) throw new Error("No feed-config");
-        return await response.json();
-      } catch {
-        return {};
-      }
-    }
-
-    async function fetchFeedFromUrl(url) {
-      const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) throw new Error("Remote feed unavailable");
-      return await response.json();
+        const r = await fetch("feed-config.json");
+        if (!r.ok) return {};
+        return await r.json();
+      } catch { return {}; }
     }
 
     async function fetchLocalFeed() {
       try {
-        const response = await fetch(`content.json?ts=${Date.now()}`, { cache: "no-store" });
-        if (!response.ok) throw new Error("Khong the tai content.json");
-        return await response.json();
+        const r = await fetch(`content.json?ts=${Date.now()}`, { cache: "no-store" });
+        if (!r.ok) throw new Error("bad");
+        return await r.json();
       } catch {
         return {
-          chatSectionTitle: "Cập nhật tin tức hàng ngày",
-          chatItems: [
-            {
-              title: "Lỗi tải dữ liệu",
-              content: "Dữ liệu bản tin hiện chưa sẵn sàng. Vui lòng thử lại sau."
-            }
-          ]
+          chatSectionTitle: "LEON Quant Labs",
+          chatItems: [{ title: "Lỗi tải", content: "Không đọc được content.json. Kiểm tra đường dẫn hoặc bản deploy." }],
+          allArticles: [],
+          sourceQuality: {},
+          marketRegime: {},
         };
       }
     }
-
-    let refreshTimer = null;
 
     async function loadChatContent() {
       const config = await loadFeedConfig();
       const remoteUrl = config.remoteFeedUrl || "";
       const preferLocal = Boolean(config.preferLocal);
-      const refreshSeconds = Number(config.refreshSeconds || 0);
-
       if (preferLocal) {
-        const localData = await fetchLocalFeed();
-        renderFeed(localData, "Đang hiển thị bản tin mới nhất.");
+        renderFeed(await fetchLocalFeed(), "");
       } else if (remoteUrl) {
         try {
-          const remoteData = await fetchFeedFromUrl(remoteUrl);
-          renderFeed(remoteData, "Đang hiển thị bản tin mới nhất.");
+          const r = await fetch(remoteUrl, { cache: "no-store" });
+          if (!r.ok) throw new Error("x");
+          renderFeed(await r.json(), "");
         } catch {
-          const localData = await fetchLocalFeed();
-          renderFeed(localData, "Đang hiển thị bản tin đã lưu gần nhất.");
+          renderFeed(await fetchLocalFeed(), "");
         }
       } else {
-        const localData = await fetchLocalFeed();
-        renderFeed(localData, "Đang hiển thị bản tin đã lưu gần nhất.");
-      }
-
-      if (refreshSeconds >= 30 && !refreshTimer) {
-        refreshTimer = setInterval(loadChatContent, refreshSeconds * 1000);
+        renderFeed(await fetchLocalFeed(), "");
       }
     }
 

@@ -35,13 +35,19 @@ jobs:
       - name: Final editorial pass with GPT
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_FINAL_MODEL: gpt-4o-mini
+          OPENAI_MODEL: gpt-4o-mini
         run: |
-          python finalize_summary_gpt.py --model gpt-4o-mini
+          python finalize_summary_gpt.py
 
       - name: Build public website content
         run: |
           python build_website_content.py --metadata-timeout 14
+
+      - name: Validate JSON artifacts
+        run: |
+          python -m json.tool final_summary.json > /dev/null
+          python -m json.tool content.json > /dev/null
+          python validate_content.py
 
       - name: Commit updated brief
         run: |
