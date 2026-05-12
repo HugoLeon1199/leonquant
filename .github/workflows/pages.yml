@@ -55,3 +55,16 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      # leonquant.com thường qua Cloudflare; edge có thể giữ HTML cũ (thiếu brief nhúng) dù GitHub đã deploy mới.
+      # Thêm repo secrets: CF_ZONE_ID + CF_API_TOKEN (Cache Purge:Edit) để tự xóa cache sau mỗi deploy.
+      - name: Purge Cloudflare cache (optional — bật bằng secrets CF_ZONE_ID + CF_API_TOKEN)
+        if: ${{ secrets.CF_API_TOKEN != '' && secrets.CF_ZONE_ID != '' }}
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: |
+          curl -sS -f -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"hosts":["leonquant.com","www.leonquant.com"]}'
