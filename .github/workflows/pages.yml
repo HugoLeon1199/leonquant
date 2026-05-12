@@ -37,6 +37,16 @@ jobs:
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Nhúng brief + tin vào HTML (hiển thị ngay cả khi fetch/JS lỗi)
+        run: |
+          node scripts/embed_public_brief_into_html.mjs _site/index.html _site/content.json
+          node scripts/embed_public_brief_into_html.mjs _site/landing_page.html _site/content.json
+          node scripts/embed_public_brief_into_html.mjs _site/landing_page/index.html _site/content.json
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3

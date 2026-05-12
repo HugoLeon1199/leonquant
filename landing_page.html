@@ -335,6 +335,10 @@
       if (window.location.protocol === "file:") {
         return new URL(".", window.location.href).href;
       }
+      const host = window.location.hostname.replace(/^www\./, "").toLowerCase();
+      if (host === "leonquant.com") {
+        return `${window.location.origin}/`;
+      }
       let path = window.location.pathname.replace(/\/$/, "");
       for (const suf of ["/index.html", "/landing_page.html", "/landing_page"]) {
         if (path.endsWith(suf)) {
@@ -735,6 +739,16 @@
       return card;
     }
 
+    function isPayloadUsable(payload) {
+      if (!payload || typeof payload !== "object") return false;
+      const mt = payload.mainThesis;
+      if (mt && typeof mt === "object" && (String(mt.thesis || "").trim() || String(mt.regime || "").trim())) {
+        return true;
+      }
+      const d = payload.globalMacroDrivers;
+      return Array.isArray(d) && d.length > 0;
+    }
+
     function renderPage(data) {
       const payload = normalizeContentPayload(data && typeof data === "object" ? data : {});
       const sync = document.getElementById("syncNote");
@@ -744,14 +758,23 @@
           ? `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
           : "";
       }
-      renderBriefSections(payload);
+      const embeddedBrief = document.getElementById("brief")?.getAttribute("data-embedded-brief") === "1";
+      const usable = isPayloadUsable(payload);
+      if (usable || !embeddedBrief) {
+        renderBriefSections(payload);
+      } else {
+        applyHeroBranding(payload);
+      }
       const articles = Array.isArray(payload.allArticles) ? payload.allArticles : [];
       const grid = document.getElementById("sourceGrid");
       const titleEl = document.getElementById("sourceGridTitle");
-      if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;
-      if (grid) {
-        grid.innerHTML = "";
-        for (const article of articles) grid.appendChild(createSourceCard(article));
+      const gridEmbedded = grid?.getAttribute("data-embedded-articles") === "1";
+      if (articles.length > 0 || !gridEmbedded) {
+        if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;
+        if (grid) {
+          grid.innerHTML = "";
+          for (const article of articles) grid.appendChild(createSourceCard(article));
+        }
       }
     }
 
@@ -774,22 +797,7 @@
         return await readJsonResponse(r);
       } catch (e) {
         console.error(e);
-        return {
-          siteTitle: "LEON Quant Labs",
-          publicationIntro: {},
-          mainThesis: {},
-          globalMacroDrivers: [],
-          quickActions: [],
-          allocationGuide: [],
-          sectorPriority: [],
-          increaseRiskSignals: [],
-          reduceRiskSignals: [],
-          vietnamTransmission: { summary: "", chains: [] },
-          scenarioPlan: {},
-          finalTakeaway: "",
-          allArticles: [],
-          generatedAt: "",
-        };
+        return null;
       }
     }
 
@@ -811,10 +819,19 @@
             data = await fetchLocalFeed();
           }
         } else data = await fetchLocalFeed();
+        if (!data) {
+          if (sync) {
+            const emb = document.getElementById("brief")?.getAttribute("data-embedded-brief") === "1";
+            sync.textContent = emb
+              ? "Hiển thị bản brief đóng gói sẵn — không tải được content.json (thử Ctrl+F5 hoặc kiểm tra mạng)."
+              : "Không tải được content.json.";
+          }
+          return;
+        }
         renderPage(data);
       } catch (err) {
         console.error(err);
-        renderPage({ allArticles: [], generatedAt: "", publicationIntro: {}, mainThesis: {} });
+        if (sync) sync.textContent = "Lỗi khi tải brief.";
       }
     }
 
