@@ -449,6 +449,8 @@ INVESTMENT LOGIC (mandatory):
 - main_thesis.action_conclusion: Portfolio stance only — no direct buy calls for gold, oil, or single commodities.
   Prefer wording like: không rút lui hoàn toàn, không mua đuổi; giữ tỷ trọng vừa phải; ưu tiên cổ phiếu khỏe;
   hạn chế margin; chờ xác nhận dòng tiền.
+- scenario_plan (base/bull/bear).action: Same portfolio-stance language as above — adjust equity weight, margin,
+  cash buffer, and concentration risk; do NOT give direct “mua vàng / mua dầu / trú ẩn vàng” instructions.
 
 STYLE:
 - Short, sharp, desk-note tone; no hype; no chatbot phrasing; no news-aggregator feel.

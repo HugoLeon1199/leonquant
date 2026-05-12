@@ -98,6 +98,21 @@ const CANONICAL_QUICK_STATES = [
   "Đang kẹt cổ phiếu yếu",
 ];
 
+const QUICK_ACTION_FALLBACKS = {
+  "Cầm nhiều tiền mặt":
+    "Chuẩn bị danh mục theo 3 kịch bản; chỉ giải ngân khi VN-Index, thanh khoản và độ rộng cùng xác nhận.",
+  "Đang nắm cổ phiếu tốt":
+    "Ưu tiên giữ mã chất lượng; tăng thêm tỷ trọng chỉ khi bứt nền kèm volume; dùng chốt lời theo lớp.",
+  "Đang lãi ngắn hạn":
+    "Chốt lời từng phần ở kháng cự; giữ phần cốt lõi; tránh dùng margin để kéo thêm rủi ro.",
+  "Đang dùng margin cao":
+    "Ưu tiên hạ đòn bẩy khi biên an toàn thu hẹp; không mua đuổi trong nhịp nhiễu hoặc thiếu xác nhận dòng tiền.",
+  "Muốn mua mới":
+    "Mua có kế hoạch, phân bổ theo danh mục; chờ pull-back có cấu trúc; tránh dồn tập trung một mã.",
+  "Đang kẹt cổ phiếu yếu":
+    "Cắt giảm dứt khoát phần yếu/thanh khoản kém; không trung bình giá xuống thác; tập trung vốn vào mã chất lượng.",
+};
+
 const JARGON_PATTERNS = [
   /\bAI\b/g,
   /\bGPT\b/g,
@@ -118,16 +133,19 @@ const GLOBAL_KW_RE =
   /fed|mỹ|my\b|usd|dxy|lợi suất|loi suat|dầu|dau|lạm phát|lam phat|trung quốc|trung quoc|thương mại|thuong mai|địa chính trị|dia chinh tri|toàn cầu|toan cau|euro|ecb|opec|brent|thế giới|the gioi|global|china|oil|inflation|geopolit|imf/i;
 
 const INCREASE_BAD_RE =
-  /(giá )?dầu.*tăng mạnh|giá vàng.*tăng mạnh|leo thang|xấu đi|bán ròng mạnh|(lạm phát cao hơn|lam phat cao hon)|USD\/VND tăng nhanh|thủng hỗ trợ|suy yếu đồng loạt|suy yeu dong loat|rủi ro hệ thống|căng thẳng địa chính trị/i;
+  /(giá )?dầu.*tăng mạnh|giá vàng.*tăng mạnh|leo thang|xấu đi|bán ròng mạnh|lạm phát.*cao hơn|lam phat.*cao hon|dự kiến.*lạm phát|du kien.*lam phat|dữ liệu lạm phát|du lieu lam phat|gián đoạn.*chuỗi|gian doan.*chuo|gián đoạn.*cung|tắc nghẽn.*cung|chuỗi cung ứng.*(gián|tắc|rủi ro)|USD\/VND tăng nhanh|thủng hỗ trợ|suy yếu đồng loạt|suy yeu dong loat|rủi ro hệ thống|căng thẳng địa chính trị/i;
 
 const INCREASE_EXCEPTION_RE =
   /giảm bán|giam ban|ổn định|on dinh|hạ nhiệt|ha nhiet|cải thiện|co phieu khỏe/i;
 
 const REDUCE_GOOD_RE =
-  /tăng trưởng ổn định|tang truong on dinh|lạm phát thấp hơn|lam phat thap hon|ngân hàng cải thiện|ngan hang cai thien|khối ngoại mua ròng|khoi ngoai mua rong|USD\/VND ổn định|thanh khoản cải thiện|thanh khoan cai thien/i;
+  /tăng trưởng.*ổn định|tang truong.*on dinh|lạm phát thấp hơn|lam phat thap hon|ngân hàng cải thiện|ngan hang cai thien|khối ngoại mua ròng|khoi ngoai mua rong|USD\/VND ổn định|thanh khoản cải thiện|thanh khoan cai thien|đầu tư công tăng|dau tu cong tang|đầu tư công.*tốc|tăng tốc đầu tư công/i;
 
 const DIRECT_ASSET_PITCH_RE =
   /(tăng cường\s+)?nắm giữ.*(vàng|dầu thô|vàng và dầu)|mua\s+(vàng|dầu)|khuyến nghị.*(vàng|dầu)|ưu tiên.*(vàng|dầu)(?!\s+cao)/i;
+
+const SCENARIO_ACTION_PORTFOLIO_RE =
+  /(tăng cường\s+)?nắm giữ.*(vàng|dầu|tài sản trú ẩn)|mua\s+(vàng|dầu)|tăng cường đầu tư vào\s+(cổ phiếu|hạ tầng)/i;
 
 const LIST_MINS = { increase_risk_signals: 4, reduce_risk_signals: 4, sector_priority: 6 };
 
@@ -279,7 +297,14 @@ function sanitizeStrategyBriefSnake(snake) {
           "Tín hiệu xác nhận dòng tiền / vĩ mô thuận lợi hơn; có thể từng bước tăng tỷ trọng có kiểm soát.",
       });
     } else {
-      newRed.push({ signal: sig, action: act || "Thận trọng; quan sát thêm." });
+      let actAdj = act;
+      if (
+        DIRECT_ASSET_PITCH_RE.test(actAdj) ||
+        (/vàng/i.test(actAdj) && (/nắm giữ/i.test(actAdj) || /mua/i.test(actAdj)))
+      ) {
+        actAdj = "Thận trọng; ưu tiên quản trị vốn và hạn chế đuổi giá khi biến động gia tăng.";
+      }
+      newRed.push({ signal: sig, action: actAdj || "Thận trọng; quan sát thêm." });
     }
   }
 
@@ -349,7 +374,35 @@ function sanitizeStrategyBriefSnake(snake) {
         action: act || "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản.",
       });
     }
-    out.quick_actions = ordered.slice(0, 8);
+    const actsNonempty = ordered.map((x) => String(x.action || "").trim()).filter(Boolean);
+    if (actsNonempty.length >= 4 && new Set(actsNonempty).size <= 2) {
+      out.quick_actions = CANONICAL_QUICK_STATES.map((c) => ({
+        investor_state: c,
+        action: QUICK_ACTION_FALLBACKS[c],
+      })).slice(0, 8);
+    } else {
+      out.quick_actions = ordered.slice(0, 8);
+    }
+  }
+
+  const spPlan = out.scenario_plan;
+  if (spPlan && typeof spPlan === "object") {
+    const scenarioSafe = {
+      base_case:
+        "Giữ tỷ trọng cân bằng theo hồ sơ rủi ro; ưu tiên chất lượng và thanh khoản; hạn chế margin khi chưa có xác nhận dòng tiền.",
+      bull_case:
+        "Tăng dần tỷ trọng cổ phiếu trong danh mục khi độ rộng và thanh khoản xác nhận; tránh dồn quá tập trung một nhóm.",
+      bear_case:
+        "Hạ đòn bẩy; nâng tiền mặt; chỉ giữ cổ phiếu chất lượng cao và thanh khoản tốt.",
+    };
+    for (const [caseKey, safeAct] of Object.entries(scenarioSafe)) {
+      const blk = spPlan[caseKey];
+      if (!blk || typeof blk !== "object") continue;
+      const act = String(blk.action || "").trim();
+      if (SCENARIO_ACTION_PORTFOLIO_RE.test(act) || DIRECT_ASSET_PITCH_RE.test(act)) {
+        blk.action = safeAct;
+      }
+    }
   }
 
   let ft = String(out.final_takeaway || "").trim();

@@ -175,8 +175,11 @@ _GLOBAL_MACRO_KEYWORDS_RE = re.compile(
 
 # Risk-on item mistakenly listed under increase_risk_signals
 _INCREASE_BAD_SIGNAL_RE = re.compile(
-    r"(giá )?dầu.*tăng mạnh|giá vàng.*tăng mạnh|leo thang|xấu đi|bán ròng mạnh|lạm phát cao hơn dự kiến|"
-    r"lạm phát cao hơn|lam phat cao hon|USD/VND tăng nhanh|thủng hỗ trợ|suy yếu đồng loạt|suy yeu dong loat|"
+    r"(giá )?dầu.*tăng mạnh|giá vàng.*tăng mạnh|leo thang|xấu đi|bán ròng mạnh|"
+    r"lạm phát.*cao hơn|lam phat.*cao hon|dự kiến.*lạm phát|du kien.*lam phat|"
+    r"dữ liệu lạm phát|du lieu lam phat|"
+    r"gián đoạn.*chuỗi|gian doan.*chuo|gián đoạn.*cung|tắc nghẽn.*cung|chuỗi cung ứng.*(gián|tắc|rủi ro)|"
+    r"USD/VND tăng nhanh|thủng hỗ trợ|suy yếu đồng loạt|suy yeu dong loat|"
     r"rủi ro hệ thống|căng thẳng địa chính trị",
     re.IGNORECASE,
 )
@@ -185,11 +188,19 @@ _INCREASE_BAD_EXCEPTION_RE = re.compile(
     re.IGNORECASE,
 )
 
-# Positive confirmation wrongly under reduce_risk_signals
+# Positive confirmation wrongly under reduce_risk_signals,
+# or public investment / capex that confirms risk-on — move to increase list.
 _REDUCE_GOOD_SIGNAL_RE = re.compile(
-    r"tăng trưởng ổn định|tang truong on dinh|lạm phát thấp hơn|lam phat thap hon|"
+    r"tăng trưởng.*ổn định|tang truong.*on dinh|lạm phát thấp hơn|lam phat thap hon|"
     r"ngân hàng cải thiện|ngan hang cai thien|khối ngoại mua ròng|khoi ngoai mua rong|"
-    r"USD/VND ổn định|thanh khoản cải thiện|thanh khoan cai thien",
+    r"USD/VND ổn định|thanh khoản cải thiện|thanh khoan cai thien|"
+    r"đầu tư công tăng|dau tu cong tang|đầu tư công.*tốc|tăng tốc đầu tư công",
+    re.IGNORECASE,
+)
+
+_SCENARIO_ACTION_PORTFOLIO_RE = re.compile(
+    r"(tăng cường\s+)?nắm giữ.*(vàng|dầu|tài sản trú ẩn)|mua\s+(vàng|dầu)|"
+    r"tăng cường đầu tư vào\s+(cổ phiếu|hạ tầng)",
     re.IGNORECASE,
 )
 
@@ -249,6 +260,27 @@ _CANONICAL_QUICK_STATES: tuple[str, ...] = (
     "Muốn mua mới",
     "Đang kẹt cổ phiếu yếu",
 )
+
+_QUICK_ACTION_FALLBACKS: dict[str, str] = {
+    "Cầm nhiều tiền mặt": (
+        "Chuẩn bị danh mục theo 3 kịch bản; chỉ giải ngân khi VN-Index, thanh khoản và độ rộng cùng xác nhận."
+    ),
+    "Đang nắm cổ phiếu tốt": (
+        "Ưu tiên giữ mã chất lượng; tăng thêm tỷ trọng chỉ khi bứt nền kèm volume; dùng chốt lời theo lớp."
+    ),
+    "Đang lãi ngắn hạn": (
+        "Chốt lời từng phần ở kháng cự; giữ phần cốt lõi; tránh dùng margin để kéo thêm rủi ro."
+    ),
+    "Đang dùng margin cao": (
+        "Ưu tiên hạ đòn bẩy khi biên an toàn thu hẹp; không mua đuổi trong nhịp nhiễu hoặc thiếu xác nhận dòng tiền."
+    ),
+    "Muốn mua mới": (
+        "Mua có kế hoạch, phân bổ theo danh mục; chờ pull-back có cấu trúc; tránh dồn tập trung một mã."
+    ),
+    "Đang kẹt cổ phiếu yếu": (
+        "Cắt giảm dứt khoát phần yếu/thanh khoản kém; không trung bình giá xuống thác; tập trung vốn vào mã chất lượng."
+    ),
+}
 
 
 def _strip_public_jargon_string(value: str) -> str:
@@ -382,6 +414,10 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
                 }
             )
         else:
+            if _DIRECT_ASSET_PITCH_RE.search(act) or (
+                "vàng" in act.lower() and ("nắm giữ" in act.lower() or "mua" in act.lower())
+            ):
+                act = "Thận trọng; ưu tiên quản trị vốn và hạn chế đuổi giá khi biến động gia tăng."
             new_red.append({"signal": sig, "action": act or "Thận trọng; quan sát thêm."})
 
     def _dedupe_inc(items: list[dict[str, str]]) -> list[dict[str, str]]:
@@ -469,7 +505,33 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
                     "action": act or "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản.",
                 }
             )
+        acts_nonempty = [str(x.get("action", "") or "").strip() for x in ordered if str(x.get("action", "") or "").strip()]
+        if len(acts_nonempty) >= 4 and len(set(acts_nonempty)) <= 2:
+            ordered = [{"investor_state": c, "action": _QUICK_ACTION_FALLBACKS[c]} for c in _CANONICAL_QUICK_STATES]
         out["quick_actions"] = ordered[:8]
+
+    sp_plan = out.get("scenario_plan")
+    if isinstance(sp_plan, dict):
+        _scenario_safe_action = {
+            "base_case": (
+                "Giữ tỷ trọng cân bằng theo hồ sơ rủi ro; ưu tiên chất lượng và thanh khoản; "
+                "hạn chế margin khi chưa có xác nhận dòng tiền."
+            ),
+            "bull_case": (
+                "Tăng dần tỷ trọng cổ phiếu trong danh mục khi độ rộng và thanh khoản xác nhận; "
+                "tránh dồn quá tập trung một nhóm."
+            ),
+            "bear_case": (
+                "Hạ đòn bẩy; nâng tiền mặt; chỉ giữ cổ phiếu chất lượng cao và thanh khoản tốt."
+            ),
+        }
+        for case_key, safe_act in _scenario_safe_action.items():
+            blk = sp_plan.get(case_key)
+            if not isinstance(blk, dict):
+                continue
+            act = str(blk.get("action", "") or "").strip()
+            if _SCENARIO_ACTION_PORTFOLIO_RE.search(act) or _DIRECT_ASSET_PITCH_RE.search(act):
+                blk["action"] = safe_act
 
     ft = str(out.get("final_takeaway", "") or "").strip()
     if len(ft) > 520:

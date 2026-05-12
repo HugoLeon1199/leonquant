@@ -31,14 +31,15 @@ PUBLIC_FORBIDDEN_RE = re.compile(
 )
 
 _INCREASE_BAD_SUBSTR = re.compile(
-    r"(giá )?dầu.*tăng mạnh|giá vàng.*tăng mạnh|leo thang|xấu đi|bán ròng mạnh|lạm phát cao hơn|"
+    r"(giá )?dầu.*tăng mạnh|giá vàng.*tăng mạnh|leo thang|xấu đi|bán ròng mạnh|"
+    r"lạm phát.*cao hơn|dữ liệu lạm phát|du lieu lam phat|gián đoạn.*cung|gián đoạn.*chuỗi|"
     r"USD/VND tăng nhanh|thủng hỗ trợ|suy yếu đồng loạt|căng thẳng địa chính trị",
     re.IGNORECASE,
 )
 
 _REDUCE_GOOD_SUBSTR = re.compile(
-    r"tăng trưởng ổn định|lạm phát thấp hơn|ngân hàng cải thiện|khối ngoại mua ròng|USD/VND ổn định|"
-    r"thanh khoản cải thiện",
+    r"tăng trưởng.*ổn định|lạm phát thấp hơn|ngân hàng cải thiện|khối ngoại mua ròng|USD/VND ổn định|"
+    r"thanh khoản cải thiện|đầu tư công tăng|đầu tư công.*tốc|tăng tốc đầu tư công",
     re.IGNORECASE,
 )
 

@@ -261,14 +261,26 @@ function main() {
   for (let i = 0; i < ids.length; i++) {
     const id = ids[i];
     const inner = parts[keys[i]] || "";
-    const re = new RegExp(`<div id="${id}" class="brief-block"></div>`, "g");
-    html = html.replace(re, `<div id="${id}" class="brief-block">${inner}</div>`);
+    const pattern = `<div\\s+id="${id}"\\s+class="brief-block"\\s*>\\s*</div>`;
+    if (!new RegExp(pattern, "i").test(html)) {
+      console.error(`Placeholder not found for #${id}; brief-block must be empty in source HTML.`);
+      process.exit(1);
+    }
+    html = html.replace(
+      new RegExp(pattern, "gi"),
+      `<div id="${id}" class="brief-block">${inner}</div>`,
+    );
   }
 
   const articles = Array.isArray(data.allArticles) ? data.allArticles : [];
   const gridInner = buildArticleCardsHtml(articles);
+  const gridPattern = `<div\\s+id="sourceGrid"\\s+class="source-grid"\\s*>\\s*</div>`;
+  if (!new RegExp(gridPattern, "i").test(html)) {
+    console.error('Placeholder not found for #sourceGrid (empty source-grid div).');
+    process.exit(1);
+  }
   html = html.replace(
-    `<div id="sourceGrid" class="source-grid"></div>`,
+    new RegExp(gridPattern, "gi"),
     `<div id="sourceGrid" class="source-grid" data-embedded-articles="1">${gridInner}</div>`,
   );
   html = html.replace(

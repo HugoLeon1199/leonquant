@@ -381,6 +381,13 @@
       };
     }
 
+    function isStrategyBriefSnakeObject(snake) {
+      if (!snake || typeof snake !== "object" || Array.isArray(snake)) return false;
+      if (snake.main_thesis && typeof snake.main_thesis === "object") return true;
+      if (Array.isArray(snake.global_macro_drivers) && snake.global_macro_drivers.length > 0) return true;
+      return false;
+    }
+
     /** final_summary.summary (snake_case) → cùng shape camelCase như content.json */
     function briefFromSnakeSummary(s) {
       if (!s || typeof s !== "object") return {};
@@ -454,9 +461,11 @@
       const hasCamelBrief =
         mt0 &&
         typeof mt0 === "object" &&
-        (String(mt0.thesis || "").trim() || String(mt0.regime || "").trim());
+        (String(mt0.thesis || "").trim() ||
+          String(mt0.regime || "").trim() ||
+          String(mt0.actionConclusion || "").trim());
       const snake = raw.summary;
-      if (!snake || typeof snake !== "object" || Array.isArray(snake)) return raw;
+      if (!isStrategyBriefSnakeObject(snake)) return raw;
       if (hasCamelBrief) return raw;
       const hasSnakeBrief =
         (snake.main_thesis && typeof snake.main_thesis === "object") ||
@@ -467,7 +476,11 @@
       const m = { ...raw };
       const mt = m.mainThesis;
       const mtEmpty =
-        !mt || typeof mt !== "object" || (!String(mt.thesis || "").trim() && !String(mt.regime || "").trim());
+        !mt ||
+        typeof mt !== "object" ||
+        (!String(mt.thesis || "").trim() &&
+          !String(mt.regime || "").trim() &&
+          !String(mt.actionConclusion || "").trim());
       if (mtEmpty) m.mainThesis = b.mainThesis;
       if (!Array.isArray(m.globalMacroDrivers) || !m.globalMacroDrivers.length) m.globalMacroDrivers = b.globalMacroDrivers;
       const vt = m.vietnamTransmission;
@@ -742,11 +755,28 @@
     function isPayloadUsable(payload) {
       if (!payload || typeof payload !== "object") return false;
       const mt = payload.mainThesis;
-      if (mt && typeof mt === "object" && (String(mt.thesis || "").trim() || String(mt.regime || "").trim())) {
-        return true;
+      if (mt && typeof mt === "object") {
+        if (
+          String(mt.thesis || "").trim() ||
+          String(mt.regime || "").trim() ||
+          String(mt.actionConclusion || "").trim()
+        ) {
+          return true;
+        }
       }
       const d = payload.globalMacroDrivers;
-      return Array.isArray(d) && d.length > 0;
+      if (Array.isArray(d) && d.length > 0) return true;
+      if (Array.isArray(payload.quickActions) && payload.quickActions.length > 0) return true;
+      if (Array.isArray(payload.allocationGuide) && payload.allocationGuide.length > 0) return true;
+      if (Array.isArray(payload.sectorPriority) && payload.sectorPriority.length > 0) return true;
+      if (Array.isArray(payload.increaseRiskSignals) && payload.increaseRiskSignals.length > 0) return true;
+      if (Array.isArray(payload.reduceRiskSignals) && payload.reduceRiskSignals.length > 0) return true;
+      const sp = payload.scenarioPlan;
+      if (sp && typeof sp === "object" && (sp.baseCase || sp.bullCase || sp.bearCase)) return true;
+      if (String(payload.finalTakeaway || "").trim()) return true;
+      const vt = payload.vietnamTransmission;
+      if (vt && typeof vt === "object" && String(vt.summary || "").trim()) return true;
+      return false;
     }
 
     function renderPage(data) {

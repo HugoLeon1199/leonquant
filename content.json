@@ -40,27 +40,27 @@
   "quickActions": [
     {
       "investorState": "Cầm nhiều tiền mặt",
-      "action": "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản."
+      "action": "Chuẩn bị danh mục theo 3 kịch bản; chỉ giải ngân khi VN-Index, thanh khoản và độ rộng cùng xác nhận."
     },
     {
       "investorState": "Đang nắm cổ phiếu tốt",
-      "action": "Theo dõi sát sao tình hình tái cấu trúc và điều chỉnh danh mục nếu cần."
+      "action": "Ưu tiên giữ mã chất lượng; tăng thêm tỷ trọng chỉ khi bứt nền kèm volume; dùng chốt lời theo lớp."
     },
     {
       "investorState": "Đang lãi ngắn hạn",
-      "action": "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản."
+      "action": "Chốt lời từng phần ở kháng cự; giữ phần cốt lõi; tránh dùng margin để kéo thêm rủi ro."
     },
     {
       "investorState": "Đang dùng margin cao",
-      "action": "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản."
+      "action": "Ưu tiên hạ đòn bẩy khi biên an toàn thu hẹp; không mua đuổi trong nhịp nhiễu hoặc thiếu xác nhận dòng tiền."
     },
     {
       "investorState": "Muốn mua mới",
-      "action": "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản."
+      "action": "Mua có kế hoạch, phân bổ theo danh mục; chờ pull-back có cấu trúc; tránh dồn tập trung một mã."
     },
     {
       "investorState": "Đang kẹt cổ phiếu yếu",
-      "action": "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản."
+      "action": "Cắt giảm dứt khoát phần yếu/thanh khoản kém; không trung bình giá xuống thác; tập trung vốn vào mã chất lượng."
     }
   ],
   "allocationGuide": [
@@ -127,12 +127,8 @@
   ],
   "increaseRiskSignals": [
     {
-      "signal": "Dữ liệu lạm phát Mỹ cao hơn dự kiến",
-      "meaning": "Có thể dẫn đến lãi suất tăng."
-    },
-    {
-      "signal": "Gián đoạn chuỗi cung ứng",
-      "meaning": "Có thể ảnh hưởng đến giá hàng hóa."
+      "signal": "Tăng trưởng kinh tế ổn định",
+      "meaning": "Tín hiệu xác nhận dòng tiền / vĩ mô thuận lợi hơn; có thể từng bước tăng tỷ trọng có kiểm soát."
     },
     {
       "signal": "Dữ liệu lạm phát thấp hơn dự kiến",
@@ -140,6 +136,10 @@
     },
     {
       "signal": "Tình hình ngân hàng cải thiện",
+      "meaning": "Tín hiệu xác nhận dòng tiền / vĩ mô thuận lợi hơn; có thể từng bước tăng tỷ trọng có kiểm soát."
+    },
+    {
+      "signal": "Đầu tư công tăng tốc",
       "meaning": "Tín hiệu xác nhận dòng tiền / vĩ mô thuận lợi hơn; có thể từng bước tăng tỷ trọng có kiểm soát."
     }
   ],
@@ -153,32 +153,32 @@
       "action": "Giữ kỷ luật vốn; không mua đuổi khi tín hiệu rủi ro chi phối."
     },
     {
+      "signal": "Dữ liệu lạm phát Mỹ cao hơn dự kiến",
+      "action": "Giữ kỷ luật vốn; không mua đuổi khi tín hiệu rủi ro chi phối."
+    },
+    {
       "signal": "Tình hình tài chính ngân hàng xấu đi",
       "action": "Giữ kỷ luật vốn; không mua đuổi khi tín hiệu rủi ro chi phối."
     },
     {
+      "signal": "Gián đoạn chuỗi cung ứng",
+      "action": "Giữ kỷ luật vốn; không mua đuổi khi tín hiệu rủi ro chi phối."
+    },
+    {
       "signal": "Giá vàng tăng mạnh",
-      "action": "Cân nhắc tăng cường nắm giữ vàng."
-    },
-    {
-      "signal": "Tăng trưởng kinh tế ổn định",
-      "action": "Có thể tạo cơ hội đầu tư."
-    },
-    {
-      "signal": "Đầu tư công tăng tốc",
-      "action": "Theo dõi các dự án hạ tầng lớn."
+      "action": "Thận trọng; ưu tiên quản trị vốn và hạn chế đuổi giá khi biến động gia tăng."
     }
   ],
   "scenarioPlan": {
     "baseCase": {
       "title": "Kịch bản cơ sở",
       "description": "Giá dầu và vàng tiếp tục tăng, lạm phát duy trì ở mức cao.",
-      "action": "Tăng cường nắm giữ tài sản trú ẩn."
+      "action": "Giữ tỷ trọng cân bằng theo hồ sơ rủi ro; ưu tiên chất lượng và thanh khoản; hạn chế margin khi chưa có xác nhận dòng tiền."
     },
     "bullCase": {
       "title": "Kịch bản tích cực",
       "description": "Kinh tế phục hồi nhanh chóng, lạm phát giảm.",
-      "action": "Tăng cường đầu tư vào cổ phiếu và hạ tầng."
+      "action": "Tăng dần tỷ trọng cổ phiếu trong danh mục khi độ rộng và thanh khoản xác nhận; tránh dồn quá tập trung một nhóm."
     },
     "bearCase": {
       "title": "Kịch bản tiêu cực",
