@@ -1,8 +1,8 @@
 {
   "siteTitle": "LEON Quant Labs",
-  "sectionLabel": "Góc nhìn vĩ mô và chiến lược thị trường",
+  "sectionLabel": "Global Market Strategy Brief",
   "generatedAt": "2026-05-12T03:35:47+00:00",
-  "schemaVersion": "investment-strategy-brief-v1",
+  "schemaVersion": "global-market-strategy-brief-v2",
   "publicationIntro": {
     "headline": "Căng thẳng địa chính trị và lạm phát toàn cầu tác động mạnh đến thị trường Việt Nam.",
     "description": "Giá dầu và vàng tăng cao, trong khi ngành ngân hàng và đầu tư hạ tầng đang trong quá trình tái cấu trúc."
@@ -12,119 +12,235 @@
     "thesis": "Căng thẳng Mỹ-Iran đang đẩy giá dầu và vàng lên cao, ảnh hưởng đến lạm phát toàn cầu và tâm lý thị trường.",
     "actionConclusion": "Không cần rút lui hoàn toàn, nhưng cũng không nên mua đuổi. Chiến lược phù hợp là giữ tỷ trọng vừa phải, ưu tiên cổ phiếu khỏe, hạn chế margin và chờ xác nhận từ dòng tiền."
   },
+  "whatChanged": [
+    {
+      "variable": "Lãi suất / lợi suất Mỹ",
+      "change": "Theo dữ liệu thị trường trong ngày",
+      "meaning": "Neo kỳ vọng Fed và chi phí vốn toàn cầu."
+    },
+    {
+      "variable": "USD / DXY",
+      "change": "Theo hướng trong ngày",
+      "meaning": "Ảnh hưởng tài sản nhạy FX và dòng vốn xuyên biên giới."
+    },
+    {
+      "variable": "Dầu / năng lượng",
+      "change": "Theo áp lực lạm phát kỳ vọng",
+      "meaning": "Tác động chuỗi chi phí và tâm lý risk-off."
+    },
+    {
+      "variable": "Cổ phiếu & thanh khoản",
+      "change": "Phân hóa có thể tiếp diễn",
+      "meaning": "Ưu tiên tài sản khỏe, tránh mua đuổi nhịp mỏng."
+    }
+  ],
+  "marketRegimeScore": {
+    "totalScore": 0,
+    "regime": "Trung tính",
+    "items": [
+      {
+        "axis": "Lãi suất / lợi suất",
+        "signal": "Theo dõi phản ứng lợi suất thực trong ngày",
+        "score": 0
+      },
+      {
+        "axis": "USD / tỷ giá",
+        "signal": "Biến động USD ảnh hưởng risk appetite",
+        "score": 0
+      },
+      {
+        "axis": "Dầu / lạm phát",
+        "signal": "Áp lực lạm phát kỳ vọng từ năng lượng",
+        "score": 0
+      },
+      {
+        "axis": "Thanh khoản",
+        "signal": "Cần đối chiếu khối lượng với diễn biến giá",
+        "score": 0
+      },
+      {
+        "axis": "Độ rộng thị trường",
+        "signal": "Phân hóa có thể tiếp diễn",
+        "score": 0
+      },
+      {
+        "axis": "Nhóm dẫn dắt",
+        "signal": "Ưu tiên nhóm giữ nền và dòng tiền",
+        "score": 0
+      }
+    ],
+    "interpretation": "Điểm tổng hợp minh họa nhịp ngày; không thay thế xác nhận trên thị trường thật."
+  },
   "globalMacroDrivers": [
     {
       "title": "Căng thẳng Mỹ-Iran",
       "analysis": "Căng thẳng gia tăng giữa Mỹ và Iran đã dẫn đến sự tăng giá mạnh của dầu thô và vàng.",
-      "vietnamImpact": "Giá dầu Brent hiện ở mức 105.11 USD, tăng 3.79%, có thể gây áp lực lên lạm phát trong nước."
+      "marketImpact": "Giá dầu Brent hiện ở mức 105.11 USD, tăng 3.79%, có thể gây áp lực lên lạm phát trong nước."
     },
     {
       "title": "Dữ liệu lạm phát Mỹ",
       "analysis": "Thị trường đang chờ đợi dữ liệu lạm phát Mỹ, có thể ảnh hưởng đến chính sách tiền tệ của Fed.",
-      "vietnamImpact": "Nếu lạm phát cao hơn dự kiến, có thể dẫn đến lãi suất cao hơn, ảnh hưởng đến chi phí vay tại Việt Nam."
+      "marketImpact": "Nếu lạm phát cao hơn dự kiến, có thể dẫn đến lãi suất cao hơn, ảnh hưởng đến chi phí vay tại Việt Nam."
     },
     {
       "title": "Lãi suất Mỹ còn cao",
       "analysis": "Khi Fed chưa vội hạ lãi suất, lợi suất trái phiếu Mỹ dễ duy trì ở vùng tương đối cao. Chi phí vốn toàn cầu đắt hơn và tài sản rủi ro khó mở rộng định giá mạnh nếu không có tin tích cực rõ ràng.",
-      "vietnamImpact": "Kênh tâm lý risk-off và dòng vốn: nhà đầu tư mới nổi thường thận trọng hơn; cổ phiếu Việt Nam cần dựa nhiều vào dòng tiền nội."
+      "marketImpact": "Định giá tài sản rủi ro toàn cầu thắt lại; thanh khoản dồn về tài sản an toàn và USD; thị trường mới nổi chịu áp lực kỳ vọng lợi suất."
     }
   ],
-  "vietnamTransmission": {
-    "summary": "Căng thẳng địa chính trị và lạm phát toàn cầu đang tác động mạnh đến thị trường Việt Nam, đặc biệt là trong các lĩnh vực ngân hàng và hạ tầng.",
-    "chains": [
-      "Giá dầu tăng → Tăng chi phí sản xuất → Áp lực lạm phát tại Việt Nam.",
-      "Căng thẳng địa chính trị → Tăng nhu cầu trú ẩn vào vàng → Giá vàng trong nước tăng.",
-      "Tái cấu trúc ngân hàng → Cải thiện quản trị → Tăng cường niềm tin của nhà đầu tư."
-    ]
-  },
+  "intermarketMap": [
+    {
+      "asset": "Cổ phiếu Mỹ",
+      "state": "Theo lợi suất và định giá",
+      "action": "Giữ tỷ trọng theo khẩu vị; tránh mua đuổi."
+    },
+    {
+      "asset": "Cổ phiếu Việt Nam",
+      "state": "Phân hóa",
+      "action": "Tập trung nhóm giữ nền, có thanh khoản và dòng tiền."
+    },
+    {
+      "asset": "Thị trường mới nổi",
+      "state": "Nhạy USD và risk appetite",
+      "action": "Hạn chế đòn bẩy khi chưa xác nhận dòng tiền."
+    },
+    {
+      "asset": "Vàng",
+      "state": "Theo USD và lợi suất thực",
+      "action": "Có thể giữ vai trò phòng thủ vừa phải trong danh mục."
+    },
+    {
+      "asset": "Dầu",
+      "state": "Biến động cung cầu",
+      "action": "Theo dõi tác động lạm phát kỳ vọng; không tập trung đơn nhất."
+    },
+    {
+      "asset": "Trái phiếu / lợi suất",
+      "state": "Neo theo chính sách",
+      "action": "Ưu tiên chất lượng tín dụng và kỳ hạn phù hợp."
+    },
+    {
+      "asset": "Crypto",
+      "state": "Biến động cao",
+      "action": "Giới hạn tỷ trọng; tránh đòn bẩy lớn."
+    },
+    {
+      "asset": "Tiền mặt",
+      "state": "Linh hoạt",
+      "action": "Giữ buffer để chờ xác nhận đồng thuận."
+    }
+  ],
+  "transmissionChains": [
+    "Giá dầu tăng → Tăng chi phí sản xuất → Áp lực lạm phát tại Việt Nam.",
+    "Căng thẳng địa chính trị → Tăng nhu cầu trú ẩn vào vàng → Giá vàng trong nước tăng.",
+    "Tái cấu trúc ngân hàng → Cải thiện quản trị → Tăng cường niềm tin của nhà đầu tư."
+  ],
   "quickActions": [
     {
       "investorState": "Cầm nhiều tiền mặt",
-      "action": "Chuẩn bị danh mục theo 3 kịch bản; chỉ giải ngân khi VN-Index, thanh khoản và độ rộng cùng xác nhận."
+      "action": "Tìm kiếm cơ hội đầu tư vào các dự án hạ tầng sắp khởi động."
     },
     {
-      "investorState": "Đang nắm cổ phiếu tốt",
-      "action": "Ưu tiên giữ mã chất lượng; tăng thêm tỷ trọng chỉ khi bứt nền kèm volume; dùng chốt lời theo lớp."
+      "investorState": "Đang nắm tài sản khỏe",
+      "action": "Theo dõi sát sao tình hình tái cấu trúc và điều chỉnh danh mục nếu cần."
     },
     {
       "investorState": "Đang lãi ngắn hạn",
-      "action": "Chốt lời từng phần ở kháng cự; giữ phần cốt lõi; tránh dùng margin để kéo thêm rủi ro."
+      "action": "Theo dõi sát sao tình hình tái cấu trúc và điều chỉnh danh mục nếu cần."
     },
     {
-      "investorState": "Đang dùng margin cao",
-      "action": "Ưu tiên hạ đòn bẩy khi biên an toàn thu hẹp; không mua đuổi trong nhịp nhiễu hoặc thiếu xác nhận dòng tiền."
+      "investorState": "Đang dùng margin / đòn bẩy",
+      "action": "Theo dõi sát sao tình hình tái cấu trúc và điều chỉnh danh mục nếu cần."
     },
     {
       "investorState": "Muốn mua mới",
-      "action": "Mua có kế hoạch, phân bổ theo danh mục; chờ pull-back có cấu trúc; tránh dồn tập trung một mã."
+      "action": "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản."
     },
     {
-      "investorState": "Đang kẹt cổ phiếu yếu",
-      "action": "Cắt giảm dứt khoát phần yếu/thanh khoản kém; không trung bình giá xuống thác; tập trung vốn vào mã chất lượng."
+      "investorState": "Đang kẹt tài sản yếu",
+      "action": "Theo dõi sát sao tình hình tái cấu trúc và điều chỉnh danh mục nếu cần."
     }
   ],
   "allocationGuide": [
     {
       "profile": "Thận trọng",
       "stocks": "30–40%",
-      "cash": "60–70%",
-      "margin": "Không dùng"
+      "cash": "45–55%",
+      "goldDefense": "10–15%",
+      "cryptoHighRisk": "0–5%",
+      "leverage": "Không dùng"
     },
     {
       "profile": "Cân bằng",
       "stocks": "50–60%",
-      "cash": "40–50%",
-      "margin": "Rất thấp"
+      "cash": "30–40%",
+      "goldDefense": "5–10%",
+      "cryptoHighRisk": "0–5%",
+      "leverage": "Rất thấp"
     },
     {
       "profile": "Chủ động",
       "stocks": "60–70%",
-      "cash": "30–40%",
-      "margin": "Chỉ dùng khi thị trường xác nhận"
+      "cash": "20–30%",
+      "goldDefense": "5–10%",
+      "cryptoHighRisk": "5–10%",
+      "leverage": "Chỉ dùng khi thị trường xác nhận"
+    },
+    {
+      "profile": "Rủi ro cao",
+      "stocks": "70–80%",
+      "cash": "10–20%",
+      "goldDefense": "0–10%",
+      "cryptoHighRisk": "5–15%",
+      "leverage": "Có kỷ luật chặt"
     }
   ],
-  "sectorPriority": [
-    {
-      "sector": "Ngân hàng",
-      "view": "Tích cực có chọn lọc",
-      "action": "Ưu tiên mã nền tảng và room tín dụng lành mạnh."
-    },
-    {
-      "sector": "Dầu khí",
-      "view": "Tích cực ngắn hạn có điều kiện",
-      "action": "Theo giá dầu; quản trị nhịp điều chỉnh."
-    },
-    {
-      "sector": "Chứng khoán",
-      "view": "Phụ thuộc thanh khoản",
-      "action": "Chỉ mạnh khi dòng tiền cá nhân bền."
-    },
-    {
-      "sector": "Khu công nghiệp",
-      "view": "Trung tính tích cực",
-      "action": "Chọn KCN có lấp đầy và khách ổn định."
-    },
-    {
-      "sector": "Xuất khẩu",
-      "view": "Trung tính",
-      "action": "Lưu ý USD/VND và cầu bên ngoài."
-    },
-    {
-      "sector": "Bất động sản",
-      "view": "Thận trọng",
-      "action": "Chỉ xem dự án có dòng tiền và pháp lý rõ."
-    },
-    {
-      "sector": "Thép",
-      "view": "Trung tính thận trọng",
-      "action": "Bám giá nguyên liệu và biên."
-    },
-    {
-      "sector": "Bán lẻ",
-      "view": "Chọn lọc",
-      "action": "Ưu tiên chuỗi có động lực same-store."
-    }
-  ],
+  "priorityAndAvoid": {
+    "prioritize": [
+      {
+        "asset": "Cổ phiếu chất lượng, dòng tiền rõ",
+        "reason": "Giảm rủi ro đuổi nhịp mỏng."
+      },
+      {
+        "asset": "Nhóm dẫn dắt giữ nền",
+        "reason": "Ổn định tương đối khi phân hóa."
+      },
+      {
+        "asset": "Tiền mặt có kế hoạch",
+        "reason": "Giữ quyền chủ động khi tín hiệu chưa đồng thuận."
+      },
+      {
+        "asset": "Vàng (phòng thủ vừa phải)",
+        "reason": "Cân bằng rủi ro hệ thống và USD."
+      },
+      {
+        "asset": "Trái phiếu chất lượng",
+        "reason": "Neo khi risk-off."
+      }
+    ],
+    "avoidOrBeCareful": [
+      {
+        "asset": "Tài sản đầu cơ tăng nóng",
+        "reason": "Thanh khoản mỏng, dễ đảo chiều."
+      },
+      {
+        "asset": "Đòn bẩy cao khi chưa xác nhận",
+        "reason": "Rủi ro thanh lý trong biến động."
+      },
+      {
+        "asset": "Crypto tỷ trọng lớn",
+        "reason": "Biến động và thanh khoản không đồng nhất."
+      },
+      {
+        "asset": "Tập trung một nhóm quá mức",
+        "reason": "Giảm khả năng chịu shock."
+      },
+      {
+        "asset": "Mua đuổi khi độ rộng yếu",
+        "reason": "Nhịp tăng thiếu dòng tiền xác nhận."
+      }
+    ]
+  },
   "increaseRiskSignals": [
     {
       "signal": "Tăng trưởng kinh tế ổn định",
@@ -169,6 +285,24 @@
       "action": "Thận trọng; ưu tiên quản trị vốn và hạn chế đuổi giá khi biến động gia tăng."
     }
   ],
+  "intradayPlaybook": [
+    {
+      "marketCondition": "Tăng mạnh nhưng thanh khoản yếu",
+      "action": "Không mua đuổi."
+    },
+    {
+      "marketCondition": "Tăng cùng thanh khoản và độ rộng tốt",
+      "action": "Có thể tăng tỷ trọng từng phần có kỷ luật."
+    },
+    {
+      "marketCondition": "Giảm nhẹ với thanh khoản thấp",
+      "action": "Quan sát; chưa cần phản ứng mạnh."
+    },
+    {
+      "marketCondition": "Giảm mạnh với thanh khoản cao",
+      "action": "Hạ tỷ trọng; giảm đòn bẩy."
+    }
+  ],
   "scenarioPlan": {
     "baseCase": {
       "title": "Kịch bản cơ sở",
@@ -186,7 +320,21 @@
       "action": "Giảm thiểu rủi ro, tăng cường nắm giữ tiền mặt."
     }
   },
-  "finalTakeaway": "Nhà đầu tư nên chuẩn bị cho những biến động từ căng thẳng địa chính trị và lạm phát, đồng thời tìm kiếm cơ hội trong các lĩnh vực hạ tầng và ngân hàng.",
+  "viewChangeTriggers": {
+    "morePositiveIf": [
+      "USD suy yếu rõ",
+      "Lợi suất Mỹ hạ nhiệt",
+      "Dầu ổn định",
+      "Thanh khoản tăng cùng giá"
+    ],
+    "moreNegativeIf": [
+      "USD tăng mạnh",
+      "Lợi suất Mỹ tăng nhanh",
+      "Dầu tăng sốc",
+      "Chỉ số tăng nhưng độ rộng yếu"
+    ]
+  },
+  "finalDecision": "Nhà đầu tư nên chuẩn bị cho những biến động từ căng thẳng địa chính trị và lạm phát, đồng thời tìm kiếm cơ hội trong các lĩnh vực hạ tầng và ngân hàng.",
   "allArticles": [
     {
       "title": "Tỷ giá euro ngày 12/5: Tăng/giảm trái chiều tại nhiều ngân hàng",
@@ -196,8 +344,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T10:09:39+00:00",
       "summary": "Tỷ giá euro tại các ngân hàng sáng ngày 12/5 diễn biến không cùng pha. Tương tự, thị trường tự do ghi nhận tăng 17 đồng ở chiều mua nhưng giảm 3 đồng ở chiều bán.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/crawl-20260512100806380-20260512100806525-avatar-15x10-2026051210090299.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Digital Trust in Finance: CAEX chia sẻ quan điểm xây dựng sàn tài sản mã hóa",
@@ -207,8 +355,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T08:53:00+00:00",
       "summary": "Trong bối cảnh Việt Nam bắt đầu mở đường cho thị trường tài sản mã hóa thông qua khung pháp lý thí điểm theo Nghị quyết 05/2025/NQ-CP, điều thị trường quan tâm không chỉ là doanh nghiệp nào sẽ tham gia, mà còn là cách các doanh nghiệp đó xây dựng nền tảng, quản trị rủi ro và bảo vệ người dùng như thế nào.",
-      "image_url": "https://cafebiz.cafebizcdn.vn/thumb_w/1200/162123310254002176/2026/5/11/facebook-17785312651961846772910-0-0-412-787-crop-1778531681491685333891.jpg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Giá tiêu hôm nay 12/5: Tiêu Indonesia và Brazil đồng loạt tăng",
@@ -218,8 +366,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T08:43:33+00:00",
       "summary": "Giá tiêu hôm nay tại thị trường trong nước nhìn chung vẫn ổn định, trong khi tại Indonesia và Brazil ghi nhận xu hướng tăng nhẹ. Theo IPC, thị trường Mỹ cho thấy xu hướng vững hơn, nhờ hoạt động mua hàng gia tăng cho các đơn hàng giao từ tháng 10-12/2026 và nhu cầu quý I/2027.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/gia-tieu-12-5-20260512084109786-avatar-15x10-20260512084341364.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Tài sản của một ngân hàng giảm hơn 57.000 tỷ đồng",
@@ -229,8 +377,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T08:42:00+00:00",
       "summary": "Kết thúc quý I/2026, tổng tài sản của ngân hàng này giảm hơn 57.000 tỷ đồng, lùi khỏi mốc 900.000 tỷ đồng. Cùng với đó, lợi nhuận trước thuế của ngân hàng cũng giảm gần một nửa do chi phí dự phòng rủi ro tín dụng tăng đột biến.",
-      "image_url": "https://cafebiz.cafebizcdn.vn/thumb_w/1200/162123310254002176/2026/5/12/avatar1778550548693-1778550549098744829734.jpeg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Tỷ giá USD hôm nay 12/5: Tăng khi nhu cầu trú ẩn an toàn được thúc đẩy bởi thất bại ngoại giao Mỹ-Iran",
@@ -240,8 +388,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T08:41:54+00:00",
       "summary": "Đồng USD lên giá nhẹ nhờ nhu cầu trú ẩn an toàn sau phản hồi của Tehran về đề nghị đàm phán của Washington. Trong nước, giá mua bán USD ghi nhận phiên tăng thứ hai liên tiếp ở hầu hết ngân hàng.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/10/lynxnpeb740wml-20260510164321680-avatar-15x10-2026051016442872.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "TOP 10 ngân hàng có lãi cao nhất từ kinh doanh ngoại hối quý I/2026: Phân hoá cực mạnh",
@@ -251,8 +399,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T08:33:48+00:00",
       "summary": "Vietcombank tiếp tục dẫn đầu về kinh doanh ngoại hối trong khi nhiều ngân hàng ghi nhận lỗ từ mảng này.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/avatar-fb-lt-ngoai-hoi-20260512080641360-avatar-fb-20260512081829131.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "VIB và Visa thúc đẩy hợp tác toàn diện hướng tới phát triển hệ sinh thái thanh toán số Việt Nam",
@@ -262,8 +410,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T08:00:00+00:00",
       "summary": "Trong hành trình hiện thực hóa mục tiêu dẫn đầu thị trường thẻ tại Việt Nam, Ngân hàng Quốc Tế (VIB) đang tiếp tục mở rộng hợp tác với các đối tác thanh toán toàn cầu nhằm phát triển hệ sinh thái thẻ và thanh toán số thế hệ mới.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/photo-import-20260512070704956-avatar-15x10-20260512071107939.jpeg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Giá cao su hôm nay 12/5: Nhật Bản giảm do nhu cầu lốp xe yếu và tồn kho tăng",
@@ -273,8 +421,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T07:52:07+00:00",
       "summary": "Giá cao su kỳ hạn tại Nhật Bản và Trung Quốc đồng loạt giảm khi nhu cầu tiêu thụ lốp xe chậm lại, trong khi lượng tồn kho tiếp tục gia tăng gây áp lực lên thị trường.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/z6861001228007d26731a0005c761abad0d841cf6f9741-20260512073749928-avatar-15x10-2026051207382572.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Giá thép hôm nay 12/5: Tiếp đà tăng",
@@ -284,8 +432,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T07:29:32+00:00",
       "summary": "Giá thép giảm nhẹ trong khi quặng sắt tiếp tục đi lên khi dữ liệu mới từ Trung Quốc cho thấy tồn kho và nguồn cung giảm, xuất khẩu thép hạ nhiệt giúp cải thiện biên lợi nhuận của các nhà máy thép.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/z7295615535140bf3246edf1c2d3f975d26bc6eb838bfc-202605120727257-avatar-15x10-20260512072815404.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Giá cà phê hôm nay 12/5: Thị trường khởi sắc, giá cà phê tăng mạnh trên các sàn giao dịch",
@@ -295,8 +443,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T07:16:03+00:00",
       "summary": "Giá cà phê hôm nay đồng loạt đi lên trên các sàn giao dịch, trong đó robusta tăng mạnh 92 USD/tấn, còn arabica tăng 7,5 US cent/pound. Thị trường tiếp tục được hỗ trợ bởi tâm lý găm hàng tại Brazil, khi nông dân nước này hạn chế bán ra trong bối cảnh đồng nội tệ tăng giá mạnh so với USD.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/gia-ca-phe-12-5-20260512071329350-avatar-15x10-20260512071618308.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Ngành dệt may vẫn loay hoay bài toán tự chủ khâu dệt – nhuộm",
@@ -306,8 +454,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T07:03:42+00:00",
       "summary": "Dù liên tục duy trì vị thế nhóm đầu thế giới về xuất khẩu, nhưng khả năng tự chủ ở các khâu then chốt như dệt, nhuộm và hoàn tất của ngành dệt may Việt Nam vẫn chưa theo kịp yêu cầu hội nhập sâu rộng.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/crawl-20260512070106470-avatar-15x10-20260512070357830.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Giá vàng hôm nay 12/5: Vàng SJC và vàng nhẫn bật tăng 1,8 triệu đồng, lên 167 triệu đồng/lượng",
@@ -317,8 +465,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T07:03:33+00:00",
       "summary": "Phiên sáng 12/5, giá vàng trong nước quay đầu tăng mạnh. Trên thị trường thế giới, giá vàng tiếp đà tăng khi giới đầu tư đánh giá những diễn biến mới trong quan hệ ngoại giao Mỹ - Iran và chờ đợi các dữ liệu lạm phát quan trọng của Mỹ sẽ được công bố vào cuối tuần này.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/screen-shot-2023-07-08-at-65110-am-20260512065736860-avatar-15x10-20260512065829295.png?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Xuất khẩu phân bón tăng vọt trong tháng 4",
@@ -328,8 +476,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T07:00:00+00:00",
       "summary": "Riêng trong tháng 4, lượng phân bón xuất khẩu gấp 2,3 lần so với cùng kỳ năm ngoái ở mức mức 379.088 tấn. Điều này đi kèm với giá bán tăng đã giúp kim ngạch xuất khẩu phân bón trong tháng 4 cao gấp 3,3 lần so với cùng kỳ năm ngoái, đạt gần 230 triệu USD.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/11/08-08-2022173046phan-bon-hoa-hoc-0-16863146906741435133780-20260511175909224-avatar-15x10-20260511180024143.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Giá heo hơi hôm nay 12/5: Biến động trái chiều, 71.000 đồng/kg vẫn là mức giao dịch cao nhất",
@@ -339,8 +487,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T06:30:37+00:00",
       "summary": "Trong khi thị trường heo hơi miền Bắc và miền Trung - Tây Nguyên vẫn duy trì đà tăng tại một số địa phương, miền Nam lại ghi nhận sự đảo chiều giảm nhẹ.",
-      "image_url": "https://cdn1.vietnambiz.vn/1881912202208555/images/2026/05/12/ky-thuat-chan-nuoi-lon-thit-nang-suat-cao-20251229062857648-avatar-15x10-2026051206402923.jpg?width=600&height=315",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Chuẩn quản trị quốc tế: “Hạ tầng niềm tin” của hệ thống ngân hàng",
@@ -350,8 +498,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T03:00:00+00:00",
       "summary": "Ngành ngân hàng Việt Nam đang bước vào một giai đoạn phát triển mới, nơi yêu cầu về minh bạch, quản trị và kiểm soát rủi ro được đặt vào vị trí trung tâm.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/11/photo1778496129933-17784961300611983642349-1778510335940104302710.png",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Cận cảnh cầu huyết mạch hơn 114 tỷ ở Huế 'đứng bánh' do nhà thầu chây ì thi công",
@@ -361,8 +509,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T03:00:00+00:00",
       "summary": "Nhà thầu thường xuyên chậm tiến độ khiến chủ đầu tư phải chấm dứt hoạt động, khiến dự án nâng cấp, mở rộng cầu Vỹ Dạ (TP Huế) đang phải tạm dừng thi công.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778551188754-1778551189644562428201.jpg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Loạt ngân hàng thay đổi nhân sự cấp cao",
@@ -372,8 +520,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T02:46:00+00:00",
       "summary": "Sau mùa đại hội đồng cổ đông thường niên 2026, hàng loạt ngân hàng như OCB, MSB, Sacombank hay Eximbank đồng loạt có biến động ở thượng tầng quản trị với các quyết định bổ nhiệm, miễn nhiệm và từ nhiệm lãnh đạo cấp cao.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778553979001-17785539794401509518769.png",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Cận cảnh toàn tuyến đường cao tốc nối TP Đồng Nai với TPHCM trước ngày thông xe",
@@ -383,8 +531,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T02:35:00+00:00",
       "summary": "Đơn vị thi công đang chạy nước rút hoàn thiện 16 km còn lại tuyến đường cao tốc Biên Hòa-Vũng Tàu để thông xe toàn tuyến trước ngày 18-5",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778550596338-17785505971091109210850.jpeg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Thứ trưởng Bộ Công an: “Các phương thức lừa đảo, chiếm đoạt tài sản ngày càng tinh vi, có tổ chức, sự hỗ trợ của công nghệ AI đã tạo ra những “niềm tin giả” rất khó nhận diện”",
@@ -394,8 +542,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T02:31:00+00:00",
       "summary": "Trong bối cảnh AI đang tái định hình lĩnh vực tài chính – ngân hàng, lãnh đạo Bộ Công an cảnh báo các hình thức lừa đảo, chiếm đoạt tài sản trên không gian mạng ngày càng tinh vi, có tổ chức, thậm chí tạo ra những “niềm tin giả” khó nhận diện, qua đó đặt ra yêu cầu cấp thiết về xây dựng hệ sinh thái tài chính số an toàn và đáng tin cậy.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/dsc8006-1778552110609-1778552110987783304865-37-0-1042-1920-crop-1778552144994728330615.jpg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Giá vàng SJC, vàng nhẫn sáng ngày 12/5: Bật tăng gần 2 triệu đồng/lượng",
@@ -405,8 +553,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T02:21:00+00:00",
       "summary": "Giá vàng trong nước tăng trở lại sau phiên giảm sâu.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778552458319-1778552458839859200141.jpg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Từ tháng 7, một địa phương được tăng mức xử phạt vi phạm hành chính tối đa gấp 2 lần",
@@ -416,8 +564,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T02:09:00+00:00",
       "summary": "Địa phương này được phép áp dụng mức xử phạt vi phạm hành chính cao hơn nhưng không vượt quá 2 lần mức phạt chung do Chính phủ quy định trong nhiều lĩnh vực.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778551771172-17785517717812113040384.jpg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Bí thư Trần Lưu Quang: TP.HCM sắp khởi động loạt dự án tổng vốn hơn 10 tỷ USD",
@@ -427,8 +575,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T01:31:00+00:00",
       "summary": "Các dự án khởi công cuối tháng 6, đầu tháng 7, trong đó có các tuyến đường sắt, cao tốc và tuyến đường sắt đô thị kết nối từ Thủ Thiêm đến sân bay Long Thành.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778544744127-17785447445341748757576.jpg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Tài sản của một ngân hàng giảm hơn 57.000 tỷ đồng",
@@ -438,8 +586,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T01:19:00+00:00",
       "summary": "Kết thúc quý I/2026, tổng tài sản của ngân hàng này giảm hơn 57.000 tỷ đồng, lùi khỏi mốc 900.000 tỷ đồng. Cùng với đó, lợi nhuận trước thuế của ngân hàng cũng giảm gần một nửa do chi phí dự phòng rủi ro tín dụng tăng đột biến.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778545716700-17785457171511542937031.jpeg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "VIB và Visa thúc đẩy hợp tác toàn diện hướng tới phát triển hệ sinh thái thanh toán số Việt Nam",
@@ -449,8 +597,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T01:00:00+00:00",
       "summary": "Trong hành trình hiện thực hóa mục tiêu dẫn đầu thị trường thẻ tại Việt Nam, Ngân hàng Quốc Tế (VIB) đang tiếp tục mở rộng hợp tác với các đối tác thanh toán toàn cầu nhằm phát triển hệ sinh thái thẻ và thanh toán số thế hệ mới.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/anh-man-hinh-2026-05-12-luc-094216-17785537682421594028996-44-0-708-1268-crop-1778553773312468763630.png",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Tư nhân tham gia kiến tạo hạ tầng: khi doanh nghiệp bước vào “phần khó” của nền kinh tế",
@@ -460,8 +608,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T01:00:00+00:00",
       "summary": "Trong nhiều năm, hạ tầng thường được xem là “phần việc khó” của nền kinh tế - nơi đòi hỏi vốn đầu tư lớn, thời gian hoàn vốn kéo dài và mức độ rủi ro vượt ra ngoài khả năng của phần lớn doanh nghiệp. Đây cũng là lý do khiến các lĩnh vực như năng lượng, cảng biển hay logistics từng gắn liền với vai trò của Nhà nước.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/avatar1778546953725-17785469542761381214185-0-0-408-779-crop-1778548232448996823227.png",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Bank of Japan Accounts (May 10)",
@@ -471,8 +619,8 @@
       "region": "japan",
       "published_at": "2026-05-12T01:00:00+00:00",
       "summary": "",
-      "image_url": "https://www.boj.or.jp/common2/img/common/og_img.jpg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Dấu mốc quan trọng tại công trình cầu đi bộ 1.000 tỷ qua sông Sài Gòn",
@@ -482,8 +630,8 @@
       "region": "vietnam",
       "published_at": "2026-05-12T00:47:00+00:00",
       "summary": "Chiều 11/5, lãnh đạo TPHCM đã thị sát công trường cầu đi bộ qua sông Sài Gòn và chứng kiến công tác đổ mẻ bê tông đầu tiên của bệ trụ cầu chính TC2 - cột mốc quan trọng đánh dấu dự án bước vào giai đoạn thi công kết cấu trọng điểm.",
-      "image_url": "https://cafefcdn.com/thumb_w/1200/203337114487263232/2026/5/12/photo-1778545574435-1778545574666345367126-0-72-782-1323-crop-17785457088312087484953.png",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Cell phone data shows Trump's trade policies are hurting more than just Canadian tourism",
@@ -493,8 +641,8 @@
       "region": "global",
       "published_at": "2026-05-12T00:30:04Z",
       "summary": "Canadians appear to be making far fewer work trips, new cell phone data show. Bloomberg/Getty Images Donald Trump's trade war has had a large impact on Canadian tourism. New analysis out of the University of Toronto suggests that other areas of the US economy have taken a major hit as well. The findings underscore how the relationship between Canada and the US is under strain. The economic effects of President Donald Trump's disruptive approach to foreign policy are coming into sharper focus with a year's worth of data. As expected, a range of numbers like border crossings and hotel bookings show how Trump's trade war has killed off a large segment of Canadian tourism . But new analysis from the University of Toronto's School of Cities now shows that other areas of the economy have taken a major hit as well. Using cell phone data, researchers Karen Chapple, Yihoi Jung, and Jeff Allen documented an average year-over-year decline in Canadian visits to US cities of approximately 42%. That's a much larger hit than the 25% drop previously estimated based on border crossing data. \"The top 20 cities were a number of big metros that aren't exactly known as, you know, big tourist areas,\" Chapple told Business Insider. A visualization of the drop-off of Canadian tourism to US cities, based on cell phone data analysis. https://mappingtariffs.org/canada-us-visits While the drop-offs in Las Vegas and Orlando could reasonably be attributed to less tourism, major commercial hubs like New York, Los Angeles, San Francisco, Dallas, and Houston also saw significant declines. The researchers attribute the change to fewer tech and finance employees making work trips. \"I fly to San Francisco all the time,\" Chapple said. \"It's a tech flight to San Francisco — that's who's with me on the flight.\" Chapple said her team was particularly surprised by mid-sized cities like Grand Rapids and Flint, Michigan, which have robust automotive industry relationships that are increasingly complicated by the White House's changing tariff policy. \"High-tech and financial centres like San Francisco and Houston appear to be experiencing reductions not only in tourists but also in business-related travel, reflecting changing travel preferences due to broader economic uncertainties on both sides of the border,\" the researchers wrote. \"As another example, Grand Rapids, which has close ties to the automotive industry in Ontario, has experienced the second largest drop in visitation, likely due to the tariffs.\" The findings underscore how the ties between Canada and the US are under strain: Of the 267 cities included in the analysis, only three saw increased Canadian visits last year compared to the year before. It took about three years for Canadian visits to largely recover the plunge that followed the COVID-19 pandemic, and it's still too early to tell how long this latest dip will last. Read the original article on Business Insider",
-      "image_url": "https://i.insider.com/6a0266cbc9dd4cb81cda9617?width=1200&format=jpeg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "GitLab employees are the latest to face layoffs limbo. Read the CEO's memo about restructuring 'openly.'",
@@ -504,8 +652,8 @@
       "region": "global",
       "published_at": "2026-05-12T00:10:44Z",
       "summary": "GitLab's CEO announced plans to lay off an unspecified number of employees. Jaque Silva/NurPhoto via Getty Images GitLab stock is down after hours following its plans to lay off staff as it looks to meet the \"agentic era.\" \"The planning is happening openly, including a voluntary separation window,\" GitLab's CEO wrote in a memo. The CEO acknowledged the limbo period \"creates real uncertainty for our team over the next few weeks.\" GitLab employees are the latest group to be sweating it out for a few weeks as they wait to learn whether they dodged the layoff blade. The software company, which had 2,580 employees as of January, announced on Monday that it was restructuring to meet \"the agentic era\" and planned to cut an unspecified number of its workforce by June 1. Shares in the company fell 7% after hours following the announcement. GitLab CEO Bill Staples wrote in a memo to employees and investors that the restructuring would happen \"openly\" and entail flattening the org chart — removing \"up to three layers of management so leaders are closer to the work.\" The company's research and development teams will be reorganized into around 60 \"smaller, more empowered teams with end-to-end ownership,\" Staples wrote. AI agents will also be embedded into GitLab's internal processes, he wrote, \"automating the reviews, approvals, and handoffs to speed us up,\" and that means the company will \"right-size\" roles accordingly. The CEO said that GitLab, which makes a software platform to help coders manage projects and tasks, is evolving its strategy \"for the future state of software engineering.\" \"As the cost of producing software collapses, demand for it will expand. Last year, the developer platform market used to be measured in tens of dollars per user per month, this year it is hundreds/user/month and headed to thousands,\" Staples wrote. Addressing the state of developer industry itself, GitLab's CEO said that \"the supply of deep technical problems is multiplying, and the engineers who can solve them will be among the scarcest and most valuable talent in the market.\" Read GitLab CEO Bill Staples' memo to employees: GitLab Act 2 A letter to our customers and our investors. We've been working through some significant changes inside GitLab over the past few days, and I want to share them with you directly. The email I sent the team is included below for full context. The agentic era affords GitLab the largest opportunity in our history as a company, and we're making the structural and strategic decisions to meet it. This letter has three parts. First, the operational and structural news, which is hard. Second, the strategic thesis we're betting on. And finally, what this means specifically for you, our customers and investors. The structural news This morning we shared with team members that we're beginning a restructuring process at GitLab, and we're running it differently than most. The planning is happening openly, including a voluntary separation window. That creates real uncertainty for our team over the next few weeks, but we believe the outcome will be better for it. Where we can, we plan to finalize the new shape of the company on or before June 1. Where local requirements apply we will not make any changes until the local process is complete. Four operational changes are part of the workforce reduction. 1. We're reevaluating our operational footprint, and are planning to reduce the number of countries by up to 30% where we have small teams. We'll continue serving customers in those markets through our partner network. 2. We're planning to flatten the organization, removing up to three layers of management in some functions so leaders are closer to the work. 3. We're re-organizing R&D to create roughly 60 smaller, more empowered teams with end-to-end ownership, nearly doubling the number of independent teams. 4. We're rewiring internal processes with AI agents, automating the reviews, approvals, and handoffs to speed us up, and plan to right-size roles across the company to follow suit. Operational changes and the update to our strategy are happening together: they are related but independent. Operationally, we grew into a shape that was right for the last era and isn't right for this one. The strategy below is what we're betting on next, and stands on its own. We are reaffirming our Q1 and full year FY27 guidance today. The final scope and financial impact of the restructuring will be shared on our June 2 earnings call, once we've finished the plan and received approval by our board. Our Core Beliefs Underpinning the changes we're making today, and our go forward strategy are 10 core beliefs that span the world we're building for, the architectural bets we're making and how we'll deliver. The world we're building for We're evolving our strategy to optimize for the future state of software engineering: 1- Software will be built by machines, directed by people. AI is the substrate on which future software gets built. Agents will plan, code, review, deploy, and repair. Humans still own the judgment that matters most: architecture, deep understanding of the customer problem, the tradeoffs that require taste. This is why we built and released the Duo Agent Platform in January. Our first quarter adoption is promising, and we're ready to accelerate. 2- The agentic era multiplies demand for software. Software has been the force multiplier behind nearly every business transformation of the last two decades. The constraint was the cost and time of producing and managing it. That constraint is collapsing. As the cost of producing software collapses, demand for it will expand. Last year, the developer platform market used to be measured in tens of dollars per user per month, this year it is hundreds/user/month and headed to thousands. Not only is the value of software for builders increasing, but we believe there will be more software and builders than ever, and we will serve an increasing volume of both. 3- The consequential work belongs to engineers. Engineering has always been about more than writing code. Great engineers are problem solvers and builders who care about system design, distributed systems, reasoning through failures, safely integrating new capability into critical systems, and making decisions under ambiguity. These are exactly the skills the agentic era needs more of, especially as the volume of software increases. The supply of deep technical problems is multiplying, and the engineers who can solve them will be among the scarcest and most valuable talent in the market. Our core users' roles are evolving, their importance is only increasing. The architectural bets we're making Platforms that weren't built for machine scale are starting to break under it. Winning means investing in the fundamentals that really matter: security, performance, scalability, reliability and user experience. We're making five, fundamental architectural bets. Each one is underway and we plan to deliver without disruption to GitLab customers that depend on us every day. 4- Machine-scale infrastructure. Agents open merge requests in parallel, trigger pipelines around the clock, and push commits at a rate no human team ever did. Git itself wasn't designed for that load, and bolting AI onto platforms not built for agents is the biggest mistake of this era. We're doing a generational rebuild of the underlying infrastructure to handle agent-rate work as the default. Git itself is being reengineered for machine scale. The monolith is giving way to modern, API-first, composable services. And agent-specific APIs are being built so agents can act as first-class users of the platform, not as bolted-on consumers of human-shaped interfaces. The value of this 100x scale infrastructure, and the reliability and performance it provides is much higher than the generation of infrastructure in the market today. 5- Orchestration across the full lifecycle. A single agent that writes code or opens a merge request produces activity. Enterprises don't need agent activity. They need running software that moves the business forward. Orchestration is the layer that gets you there. It coordinates agents across the lifecycle, assigning work, managing state, passing context, resolving conflicts, enforcing policy, and keeping a human in the loop when it matters. CI/CD is one of the components getting reimagined. The GitLab pipeline was designed to take human-rate commits and ship them safely; in the agentic era our orchestration service becomes the runtime that coordinates agents, validates the work and enforces guardrails, and drives change all the way to production at machine rate. 6- Context is our superpower. Every dev tool vendor is converging on similar code generation capabilities. Enterprise AI bills are climbing as fast as adoption. What doesn't commoditize is the unique context the model gets to work with: a data model that connects planning, code, review, security, deployment, and operations across every project and repository, accumulated over years of a team's work. We're investing in that connected data model as a first-class, API-accessible service, and it delivers more value with every human and agent action. Context is what lets agents spend fewer tokens and deliver better results. 7- Governance built into the core. Governance is what lets enterprises move fast in the agentic era. Like a race car, it doesn't matter how fast you can go if you can't maintain control. As agents take on more of the work, enterprises need a platform that can enforce who's allowed to do what, prove what happened and why, and keep sensitive code and data where it belongs. We're building identity, audit, policy, and deployment flexibility as core platform services that every agent, pipeline, and merge request runs through by default, rather than a separate product layered on top. 8- One platform, three modes. Trillions of lines of code run the world's businesses today. Rewriting most of it is too risky and too expensive to justify. The cloud era taught us enterprises run hybrid, and operating across that mix has been painful, expensive, and never fully solved. The agentic era will be the same. Every enterprise will live across a spectrum of human-owned, agent-assisted, and agent-autonomous work. We're building one platform, one data model, one governance system that operates across all three modes, and delivering it cloud and model neutral. How we'll deliver it 9- A flexible business model. As the way software gets built changes, the business model must evolve with it. Agentic AI can augment teams, perform real work and the business model must scale with the cost and value of the work performed. We're keeping what works: the predictability of subscriptions for what customers have today. We've already added consumption pricing for the work agents do, with other major players following over the past few months. Next, we're introducing more flexibility to mix both as the way of work evolves. 10- Culture of excellence. Operational character is a key differentiator. What matters most right now is the ability to move quickly, own outcomes, and deliver real value to our customers. Speed with Quality, Ownership Mindset, and Customer Outcomes are our new operating principles, built on a culture of excellence. To our customers For our customers, the most important thing today is what doesn't change. The support, roadmap commitments, contractual terms — all of it continues without disruption. Your account team is available to walk you through today's news if you'd like a conversation. Where you should expect to see us evolve is in the quality, depth and pace of innovation we ship. We will lead the way in agentic engineering by being customer zero of our platform, demonstrating with our innovation and our results the success you can bet on as our customers. Our vision for the product and business model is clearer than it has ever been and we're accelerating the work. We'll share the next wave of our innovation roadmap at GitLab Transcend on June 10, 2026 and hope you'll join us. To our investors Today's announcement is a deliberate move to lead in a market we believe is in the middle of its largest shift in twenty years. The opportunity here isn't incremental growth on a DevSecOps platform — we're building toward becoming the trusted enterprise platform for software creation in the AI era. We look forward to sharing an update on the business and our Q1 results in our upcoming earnings call on June 2, 2026. We'll also share the final scope and financial impact of the restructuring at that time, although we anticipate reinvesting the majority of savings into accelerating our progress against the specific growth and technological initiatives that we've outlined. This is the most consequential work we've taken on as a company. We'll prove it in the innovation we bring to market, how we serve our customers, and how we create value for our shareholders over the near- and long-term. Thank you, -Bill Staples CEO, GitLab Read the original article on Business Insider",
-      "image_url": "https://i.insider.com/6a025f2cc9dd4cb81cda95fe?width=1200&format=jpeg",
-      "metadata_status": "ok"
+      "image_url": "",
+      "metadata_status": "skipped"
     },
     {
       "title": "Australia business confidence shaken as costs climb, survey shows",
@@ -516,7 +664,7 @@
       "published_at": "2026-05-12 01:49:10",
       "summary": "",
       "image_url": "",
-      "metadata_status": "error: HTTP Error 403: Forbidden"
+      "metadata_status": "skipped"
     }
   ],
   "stats": {
@@ -625,7 +773,7 @@
       {
         "symbol": "VND=X",
         "name": "USD/VND (spot, Yahoo)",
-        "price": 26320,
+        "price": 26320.0,
         "change_pct": 0.1522,
         "currency": "VND",
         "timestamp": "2026-05-12T01:25:31+00:00",
@@ -636,7 +784,7 @@
       {
         "symbol": "FUEVN100.VN",
         "name": "VN-Index proxy (VN100 ETF FUEVN100)",
-        "price": 26850,
+        "price": 26850.0,
         "change_pct": 2.2468,
         "currency": "VND",
         "timestamp": "2026-05-12T03:17:24+00:00",

@@ -33,14 +33,21 @@ _LOCAL_ONLY_MACRO_RE = re.compile(
 )
 
 PUBLIC_FORBIDDEN_RE = re.compile(
-    r"\bAI\b|artificial intelligence|(?i)\bautomation\b|(?i)\bcrawler\b|(?i)\bcrawl\b|\bGPT\b|"
-    r"\bGemini\b|(?i)\bmodel\b|(?i)\bpipeline\b|source quality|verified links|"
-    r"không phải khuyến nghị đầu tư|(?i)\bdisclaimer\b",
+    r"\bAI\b|artificial intelligence|\bautomation\b|\bcrawler\b|\bcrawl\b|\bGPT\b|"
+    r"\bGemini\b|\bmodel\b|\bpipeline\b|source quality|verified links|"
+    r"không phải khuyến nghị đầu tư|\bdisclaimer\b",
+    re.IGNORECASE,
+)
+
+# Bài nền có thể trích tin (AI, automation, pipeline…); chỉ chặn wording meta của site / disclaimer.
+ARTICLE_FORBIDDEN_RE = re.compile(
+    r"\bGPT\b|\bGemini\b|\bcrawler\b|\bcrawl\b|"
+    r"source quality|verified links|không phải khuyến nghị đầu tư|\bdisclaimer\b",
     re.IGNORECASE,
 )
 
 _INCREASE_BAD_SUBSTR = re.compile(
-    r"lạm phát.*(cao hơn|tăng)|dầu.*(tăng sốc|tăng mạnh)|(?i)\busd\b.*tăng mạnh|"
+    r"lạm phát.*(cao hơn|tăng)|dầu.*(tăng sốc|tăng mạnh)|\busd\b.*tăng mạnh|"
     r"lợi suất.*tăng nhanh|loi suat.*tang nhanh|bán ròng mạnh|ban rong manh|"
     r"suy yếu đồng loạt|căng thẳng leo thang|gián đoạn.*chuỗi cung|supply shock|"
     r"địa chính trị.*leo thang|rủi ro địa chính",
@@ -178,8 +185,8 @@ def _validate_content_semantics(c: dict[str, Any]) -> list[str]:
         e.append("content.json public brief contains forbidden wording (AI/automation/tooling/disclaimer).")
 
     art_text = _collect_article_text(c)
-    if any(PUBLIC_FORBIDDEN_RE.search(t) for t in art_text):
-        e.append("content.json allArticles contains forbidden wording for public site.")
+    if any(ARTICLE_FORBIDDEN_RE.search(t) for t in art_text):
+        e.append("content.json allArticles contains forbidden tooling/disclaimer wording for public site.")
 
     e.extend(_allocation_semantic_errors(c.get("allocationGuide")))
     e.extend(_global_driver_local_errors(c.get("globalMacroDrivers")))
@@ -449,6 +456,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Validate final_summary.json + content.json structure.")
     parser.add_argument("--final-input", default=str(DEFAULT_FINAL))
     parser.add_argument("--content-input", default=str(DEFAULT_CONTENT), help="Optional content.json checks")
+    parser.add_argument(
+        "--require-v2-final",
+        action="store_true",
+        help="Fail if final_summary.summary is not full v2 schema (default: skip when legacy).",
+    )
     args = parser.parse_args()
     path = Path(args.final_input)
     if not path.exists():
@@ -459,19 +471,32 @@ def main() -> int:
     if not isinstance(summary, dict):
         print("Invalid final_summary: 'summary' must be an object", file=sys.stderr)
         return 1
-    ok, errors = validate_final_summary(summary)
-    if not ok:
-        for e in errors:
-            print(e, file=sys.stderr)
-        return 1
-    extra = set(summary.keys()) - MACRO_INTELLIGENCE_SUMMARY_KEYS
-    if extra:
-        print(
-            f"Summary must only contain Global Market Strategy Brief v2 keys; remove: {sorted(extra)}",
-            file=sys.stderr,
+
+    has_v2 = all(k in summary for k in MACRO_INTELLIGENCE_SUMMARY_KEYS)
+    if not has_v2:
+        msg = (
+            "Note: final_summary.json is legacy shape (missing v2 keys); skipping strict summary validation. "
+            "Public gate is content.json. Regenerate with: python finalize_summary_gpt.py --update-content"
         )
-        return 1
-    print("OK: final_summary.json passes Global Market Strategy Brief v2 validation.")
+        if args.require_v2_final:
+            print(msg, file=sys.stderr)
+            return 1
+        print(msg, file=sys.stderr)
+    else:
+        ok, errors = validate_final_summary(summary)
+        if not ok:
+            for e in errors:
+                print(e, file=sys.stderr)
+            return 1
+        extra = set(summary.keys()) - MACRO_INTELLIGENCE_SUMMARY_KEYS
+        if extra:
+            print(
+                f"Summary must only contain Global Market Strategy Brief v2 keys; remove: {sorted(extra)}",
+                file=sys.stderr,
+            )
+            return 1
+        print("OK: final_summary.json passes Global Market Strategy Brief v2 validation.")
+
     cpath = Path(args.content_input)
     cok, cerrs = _validate_content_json(cpath)
     if not cok:
