@@ -1,213 +1,222 @@
 {
-  "generated_at": "2026-05-11T18:09:47.183Z",
+  "generated_at": "2026-05-12T03:38:11.199766+00:00",
   "meta": {
     "gemini_input": "/home/runner/work/leonquant/leonquant/gemini_summary.json",
     "enriched_input": "/home/runner/work/leonquant/leonquant/enriched_news.json",
+    "market_snapshot_input": "/home/runner/work/leonquant/leonquant/market_snapshot.json",
     "model": "gpt-4o-mini",
     "max_evidence_chars": 1200,
-    "macro_intelligence_seed": "scripts/macro_intelligence_seed.json",
-    "regenerated_at": "2026-05-11T11:45:45.605Z",
-    "sync_public_brief_at": "2026-05-11T18:09:47.183Z"
+    "max_final_articles": 18,
+    "max_live_snippets": 6,
+    "skip_web_verify": true,
+    "live_fetch_urls": [
+      "https://vietnambiz.vn/ty-gia-usd-hom-nay-125-tang-khi-nhu-cau-tru-an-an-toan-duoc-thuc-day-boi-that-bai-ngoai-giao-my-iran-2026510164428517.htm",
+      "https://vietnambiz.vn/gia-vang-hom-nay-125-tang-nhe-trong-khi-cho-doi-du-lieu-lam-phat-my-202651265829802.htm",
+      "https://cafebiz.vn/tai-san-cua-mot-ngan-hang-giam-hon-57000-ty-dong-17626051208493711.chn",
+      "https://cafef.vn/bi-thu-tran-luu-quang-tphcm-sap-khoi-dong-loat-du-an-tong-von-hon-10-ty-usd-188260512071329017.chn",
+      "https://vietnambiz.vn/xuat-khau-phan-bon-tang-vot-trong-thang-4-202651118024531.htm",
+      "https://vietnambiz.vn/gia-ca-phe-hom-nay-125-thi-truong-khoi-sac-gia-ca-phe-tang-manh-tren-cac-san-giao-dich-202651271618801.htm"
+    ],
+    "live_fetch_status": [],
+    "openai_temperature": 0.2,
+    "openai_max_output_tokens": 4500,
+    "sources_scanned": 30,
+    "articles_selected": 18,
+    "verified_links": 0,
+    "used_fallback": false
   },
   "summary": {
     "title": "LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường",
-    "date": "2026-05-11",
-    "generated_at": "2026-05-11T18:00:00.000Z",
+    "date": "2026-05-12",
+    "generated_at": "2026-05-12T03:35:47+00:00",
     "publication_intro": {
-      "headline": "Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam",
-      "description": "LEON Quant Labs tập trung vào việc chuyển biến động vĩ mô toàn cầu thành góc nhìn đầu tư có thể hành động tại thị trường Việt Nam."
+      "headline": "Căng thẳng địa chính trị và lạm phát toàn cầu tác động mạnh đến thị trường Việt Nam.",
+      "description": "Giá dầu và vàng tăng cao, trong khi ngành ngân hàng và đầu tư hạ tầng đang trong quá trình tái cấu trúc."
     },
     "main_thesis": {
-      "regime": "Thị trường toàn cầu đang trong trạng thái thận trọng có chọn lọc.",
-      "thesis": "Áp lực chính đến từ lãi suất Mỹ còn cao, đồng USD mạnh, giá dầu biến động và dòng vốn quốc tế thận trọng hơn với thị trường mới nổi. Với Việt Nam, thị trường vẫn có thể giữ nền nếu dòng tiền nội ổn định và nhóm ngân hàng duy trì vai trò dẫn dắt. Tuy nhiên, chưa nên xem đây là một xu hướng tăng rộng nếu độ rộng thị trường, thanh khoản và khối ngoại chưa xác nhận.",
-      "action_conclusion": "Không cần rút lui hoàn toàn, nhưng cũng không nên mua đuổi. Chiến lược phù hợp là giữ tỷ trọng vừa phải, ưu tiên cổ phiếu khỏe, hạn chế margin và chờ xác nhận từ dòng tiền."
+      "regime": "Tăng trưởng chậm lại với rủi ro lạm phát cao.",
+      "thesis": "Căng thẳng Mỹ-Iran đang đẩy giá dầu và vàng lên cao, ảnh hưởng đến lạm phát toàn cầu và tâm lý thị trường.",
+      "action_conclusion": "Nhà đầu tư nên xem xét tăng cường nắm giữ tài sản trú ẩn như vàng và điều chỉnh danh mục đầu tư vào các ngành hạ tầng và ngân hàng."
     },
     "global_macro_drivers": [
       {
-        "title": "Lãi suất Mỹ còn cao",
-        "analysis": "Khi Fed chưa vội hạ lãi suất, lợi suất trái phiếu Mỹ duy trì ở mức cao. Điều này làm chi phí vốn toàn cầu đắt hơn và khiến tài sản rủi ro khó tăng mạnh.",
-        "vietnam_impact": "Kênh tâm lý và dòng vốn: nhà đầu tư mới nổi thường thận trọng hơn; TTCK Việt Nam cần dựa nhiều vào dòng tiền nội."
+        "title": "Căng thẳng Mỹ-Iran",
+        "analysis": "Căng thẳng gia tăng giữa Mỹ và Iran đã dẫn đến sự tăng giá mạnh của dầu thô và vàng.",
+        "vietnam_impact": "Giá dầu Brent hiện ở mức 105.11 USD, tăng 3.79%, có thể gây áp lực lên lạm phát trong nước."
       },
       {
-        "title": "Đồng USD mạnh gây áp lực tỷ giá",
-        "analysis": "USD mạnh thường tạo áp lực lên các đồng tiền mới nổi, trong đó có VND.",
-        "vietnam_impact": "Theo dõi USD/VND, DN XNK và dòng khối ngoại; tâm lý tỷ giá dễ ảnh hưởng nhóm nhạy FX."
+        "title": "Dữ liệu lạm phát Mỹ",
+        "analysis": "Thị trường đang chờ đợi dữ liệu lạm phát Mỹ, có thể ảnh hưởng đến chính sách tiền tệ của Fed.",
+        "vietnam_impact": "Nếu lạm phát cao hơn dự kiến, có thể dẫn đến lãi suất cao hơn, ảnh hưởng đến chi phí vay tại Việt Nam."
       },
       {
-        "title": "Giá dầu là rủi ro lạm phát",
-        "analysis": "Giá dầu cao không chỉ ảnh hưởng nhóm dầu khí. Nó còn tác động đến chi phí vận tải, sản xuất, lạm phát và tâm lý thị trường.",
-        "vietnam_impact": "Tác động tới biên lợi nhuận logistics, năng lượng và kỳ vọng lạm phát trong nước."
+        "title": "Tái cấu trúc ngành ngân hàng",
+        "analysis": "Nhiều ngân hàng Việt Nam đang tái cấu trúc để cải thiện quản trị và hiệu quả hoạt động.",
+        "vietnam_impact": "Điều này có thể tạo ra cơ hội đầu tư vào các ngân hàng có tiềm năng phục hồi."
       },
       {
-        "title": "Trung Quốc / cầu toàn cầu",
-        "analysis": "Nhịp phục hồi cầu từ Trung Quốc và chuỗi cung ứng chi phối kỳ vọng xuất khẩu và giá hàng hóa cảng.",
-        "vietnam_impact": "Nhóm xuất khẩu, thép và logistics Việt Nam bị ảnh hưởng gián tiếp qua kênh cầu thế giới."
+        "title": "Đầu tư hạ tầng tại Việt Nam",
+        "analysis": "TP.HCM sắp khởi động nhiều dự án hạ tầng lớn, thúc đẩy tăng trưởng kinh tế.",
+        "vietnam_impact": "Đầu tư công vào hạ tầng có thể tạo ra cơ hội cho các nhà thầu và nhà đầu tư trong lĩnh vực xây dựng."
       }
     ],
     "vietnam_transmission": {
-      "summary": "Chuỗi tác động thường gặp: lãi suất Mỹ cao → USD mạnh → áp lực USD/VND → khối ngoại thận trọng → VN-Index cần dựa nhiều hơn vào dòng tiền nội.",
+      "summary": "Căng thẳng địa chính trị và lạm phát toàn cầu đang tác động mạnh đến thị trường Việt Nam, đặc biệt là trong các lĩnh vực ngân hàng và hạ tầng.",
       "chains": [
-        "Lãi suất Mỹ cao → USD mạnh → áp lực tỷ giá → khối ngoại thận trọng → thanh khoản phân hóa.",
-        "Giá dầu biến động → lạm phát kỳ vọng → risk-off cục bộ → định giá cổ phiếu thận trọng hơn."
+        "Giá dầu tăng → Tăng chi phí sản xuất → Áp lực lạm phát tại Việt Nam.",
+        "Căng thẳng địa chính trị → Tăng nhu cầu trú ẩn vào vàng → Giá vàng trong nước tăng.",
+        "Tái cấu trúc ngân hàng → Cải thiện quản trị → Tăng cường niềm tin của nhà đầu tư."
       ]
     },
     "quick_actions": [
       {
-        "investor_state": "Cầm nhiều tiền mặt",
-        "action": "Chưa cần mua vội."
+        "investor_state": "Đang nắm giữ cổ phiếu ngân hàng",
+        "action": "Theo dõi sát sao tình hình tái cấu trúc và điều chỉnh danh mục nếu cần."
       },
       {
-        "investor_state": "Đang nắm cổ phiếu tốt",
-        "action": "Có thể tiếp tục nắm giữ."
+        "investor_state": "Đang đầu tư vào hàng hóa",
+        "action": "Xem xét tăng cường nắm giữ vàng và dầu."
       },
       {
-        "investor_state": "Đang lãi ngắn hạn",
-        "action": "Chốt lời một phần để bảo toàn lợi thế."
+        "investor_state": "Có tiền mặt",
+        "action": "Tìm kiếm cơ hội đầu tư vào các dự án hạ tầng sắp khởi động."
       },
       {
-        "investor_state": "Đang dùng margin cao",
-        "action": "Nên hạ về mức an toàn."
+        "investor_state": "Đang đầu tư vào cổ phiếu",
+        "action": "Đánh giá lại các cổ phiếu trong ngành hạ tầng và ngân hàng."
       },
       {
-        "investor_state": "Muốn mua mới",
-        "action": "Chỉ mua từng phần, ưu tiên cổ phiếu khỏe."
+        "investor_state": "Đang theo dõi lạm phát",
+        "action": "Chuẩn bị cho khả năng lãi suất tăng cao hơn."
       },
       {
-        "investor_state": "Đang kẹt cổ phiếu yếu",
-        "action": "Cơ cấu sang mã có thanh khoản và cơ bản tốt hơn."
+        "investor_state": "Đang tìm kiếm tài sản trú ẩn",
+        "action": "Tăng cường nắm giữ vàng và các tài sản an toàn khác."
       }
     ],
     "allocation_guide": [
       {
         "profile": "Thận trọng",
-        "stocks": "30–40%",
-        "cash": "60–70%",
-        "margin": "Không margin."
+        "stocks": "10%",
+        "cash": "70%",
+        "margin": "20%"
       },
       {
         "profile": "Cân bằng",
-        "stocks": "50–60%",
-        "cash": "40–50%",
-        "margin": "Margin rất thấp."
+        "stocks": "40%",
+        "cash": "40%",
+        "margin": "20%"
       },
       {
         "profile": "Chủ động",
-        "stocks": "60–70%",
-        "cash": "30–40%",
-        "margin": "Chỉ dùng margin khi thị trường xác nhận."
+        "stocks": "70%",
+        "cash": "20%",
+        "margin": "10%"
       }
     ],
     "sector_priority": [
       {
         "sector": "Ngân hàng",
-        "view": "Tích cực có chọn lọc.",
-        "action": "Ưu tiên mã nền tảng, CASA tốt."
+        "view": "Tái cấu trúc và cải thiện quản trị.",
+        "action": "Theo dõi các ngân hàng có tiềm năng phục hồi."
       },
       {
-        "sector": "Dầu khí",
-        "view": "Tích cực ngắn hạn.",
-        "action": "Theo giá dầu; quản trị nhịp điều chỉnh."
+        "sector": "Hạ tầng",
+        "view": "Đầu tư công đang được thúc đẩy.",
+        "action": "Tìm kiếm cơ hội từ các dự án lớn."
       },
       {
-        "sector": "Chứng khoán",
-        "view": "Phụ thuộc thanh khoản.",
-        "action": "Chỉ mạnh khi dòng tiền cá nhân bền."
+        "sector": "Năng lượng",
+        "view": "Giá dầu tăng có thể tạo cơ hội.",
+        "action": "Đầu tư vào các công ty năng lượng."
       },
       {
-        "sector": "Khu công nghiệp",
-        "view": "Trung tính tích cực.",
-        "action": "Chọn KCN có lấp đầy ổn định."
+        "sector": "Hàng hóa",
+        "view": "Giá vàng và dầu tăng.",
+        "action": "Tăng cường nắm giữ vàng."
+      },
+      {
+        "sector": "Công nghệ",
+        "view": "Chuyển đổi số đang diễn ra.",
+        "action": "Theo dõi các công ty công nghệ."
+      },
+      {
+        "sector": "Thực phẩm",
+        "view": "Giá cả có thể tăng do lạm phát.",
+        "action": "Đầu tư vào các công ty thực phẩm."
+      },
+      {
+        "sector": "Xây dựng",
+        "view": "Nhu cầu tăng cao từ đầu tư hạ tầng.",
+        "action": "Tìm kiếm cơ hội từ các nhà thầu."
       },
       {
         "sector": "Xuất khẩu",
-        "view": "Trung tính.",
-        "action": "Theo USD/VND và đơn hàng."
-      },
-      {
-        "sector": "Bất động sản",
-        "view": "Thận trọng.",
-        "action": "Chỉ dự án có dòng tiền và pháp lý rõ."
-      },
-      {
-        "sector": "Thép",
-        "view": "Trung tính thận trọng.",
-        "action": "Bám giá nguyên liệu và biên."
-      },
-      {
-        "sector": "Bán lẻ",
-        "view": "Chọn lọc.",
-        "action": "Ưu tiên chuỗi có động lực mặt bằng tốt."
+        "view": "Tăng trưởng xuất khẩu phân bón.",
+        "action": "Theo dõi các công ty xuất khẩu."
       }
     ],
     "increase_risk_signals": [
       {
-        "signal": "VN-Index tăng cùng thanh khoản cải thiện",
-        "meaning": "Dòng tiền xác nhận nhịp tăng lan rộng hơn."
+        "signal": "Giá dầu tăng mạnh",
+        "meaning": "Có thể dẫn đến lạm phát cao hơn."
       },
       {
-        "signal": "Số mã tăng lan rộng",
-        "meaning": "Độ rộng tốt giảm rủi ro chỉ số hẹp."
+        "signal": "Căng thẳng địa chính trị leo thang",
+        "meaning": "Tăng rủi ro cho các tài sản rủi ro."
       },
       {
-        "signal": "Ngân hàng giữ vai trò dẫn dắt",
-        "meaning": "Nhóm nền ổn củng cố xu hướng."
+        "signal": "Dữ liệu lạm phát Mỹ cao hơn dự kiến",
+        "meaning": "Có thể dẫn đến lãi suất tăng."
       },
       {
-        "signal": "Khối ngoại giảm bán hoặc mua ròng",
-        "meaning": "Áp lực rút vốn có thể hạ nhiệt."
+        "signal": "Tình hình tài chính ngân hàng xấu đi",
+        "meaning": "Có thể ảnh hưởng đến niềm tin thị trường."
       },
       {
-        "signal": "USD/VND ổn định",
-        "meaning": "Giảm rủi ro tâm lý tỷ giá."
-      },
-      {
-        "signal": "Cổ phiếu vượt nền với volume tốt",
-        "meaning": "Xác nhận kỹ thuật kèm dòng tiền thật."
+        "signal": "Gián đoạn chuỗi cung ứng",
+        "meaning": "Có thể ảnh hưởng đến giá hàng hóa."
       }
     ],
     "reduce_risk_signals": [
       {
-        "signal": "VN-Index tăng nhưng độ rộng yếu",
-        "action": "Tránh mua đuổi đỉnh hẹp."
+        "signal": "Giá vàng tăng mạnh",
+        "action": "Cân nhắc tăng cường nắm giữ vàng."
       },
       {
-        "signal": "Thanh khoản giảm trong nhịp tăng",
-        "action": "Thận trọng; dễ đảo chiều."
+        "signal": "Tăng trưởng kinh tế ổn định",
+        "action": "Có thể tạo cơ hội đầu tư."
       },
       {
-        "signal": "Khối ngoại bán ròng mạnh",
-        "action": "Ưu tiên bảo vệ vốn và margin."
+        "signal": "Dữ liệu lạm phát thấp hơn dự kiến",
+        "action": "Có thể làm giảm áp lực lãi suất."
       },
       {
-        "signal": "USD/VND tăng nhanh",
-        "action": "Giảm tỷ trọng nhóm nhạy FX."
+        "signal": "Tình hình ngân hàng cải thiện",
+        "action": "Tăng cường niềm tin vào hệ thống tài chính."
       },
       {
-        "signal": "Ngân hàng suy yếu đồng loạt",
-        "action": "Giảm rủi ro hệ thống."
-      },
-      {
-        "signal": "Cổ phiếu đầu cơ tăng nóng",
-        "action": "Hạn chế đuổi giá nhóm mỏng thanh khoản."
+        "signal": "Đầu tư công tăng tốc",
+        "action": "Theo dõi các dự án hạ tầng lớn."
       }
     ],
     "scenario_plan": {
       "base_case": {
         "title": "Kịch bản cơ sở",
-        "description": "Thị trường phân hóa, giữ tỷ trọng vừa phải.",
-        "action": "Ưu tiên cổ phiếu chất lượng và kỷ luật margin."
+        "description": "Giá dầu và vàng tiếp tục tăng, lạm phát duy trì ở mức cao.",
+        "action": "Tăng cường nắm giữ tài sản trú ẩn."
       },
       "bull_case": {
         "title": "Kịch bản tích cực",
-        "description": "USD hạ nhiệt, thanh khoản cải thiện, risk-on quay lại.",
-        "action": "Tăng tỷ trọng từng phần theo xác nhận dòng tiền."
+        "description": "Kinh tế phục hồi nhanh chóng, lạm phát giảm.",
+        "action": "Tăng cường đầu tư vào cổ phiếu và hạ tầng."
       },
       "bear_case": {
         "title": "Kịch bản tiêu cực",
-        "description": "USD mạnh, khối ngoại bán ròng, VN-Index mất hỗ trợ quan trọng.",
-        "action": "Giảm cổ phiếu và hạ margin; giữ tiền mặt."
+        "description": "Căng thẳng địa chính trị leo thang, lạm phát tăng cao.",
+        "action": "Giảm thiểu rủi ro, tăng cường nắm giữ tiền mặt."
       }
     },
-    "final_takeaway": "Bối cảnh hiện tại không ủng hộ chiến lược all-in, nhưng cũng chưa yêu cầu phải rút lui hoàn toàn. Vĩ mô thế giới vẫn còn áp lực từ lãi suất Mỹ, đồng USD và giá dầu. Thị trường Việt Nam vẫn có cơ hội nếu dòng tiền nội duy trì và nhóm ngân hàng giữ vai trò dẫn dắt. Chiến lược hợp lý nhất là giữ danh mục gọn, nắm cổ phiếu khỏe, tránh mua đuổi, hạn chế margin và giữ tiền mặt để có quyền chủ động."
+    "final_takeaway": "Nhà đầu tư nên chuẩn bị cho những biến động từ căng thẳng địa chính trị và lạm phát, đồng thời tìm kiếm cơ hội trong các lĩnh vực hạ tầng và ngân hàng."
   }
 }
