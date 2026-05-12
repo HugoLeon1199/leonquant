@@ -107,12 +107,58 @@ _LIST_MINS: dict[str, int] = {
     "what_changed": 4,
     "quick_actions": 6,
     "allocation_guide": 4,
-    "increase_risk_signals": 4,
-    "reduce_risk_signals": 4,
+    "increase_risk_signals": 5,
+    "reduce_risk_signals": 5,
     "intermarket_map": 6,
     "transmission_chains": 3,
-    "intraday_playbook": 4,
+    "intraday_playbook": 5,
+    "market_regime_axes": 5,
 }
+
+
+def regime_label_for_total_score(total: int) -> str:
+    """Nhãn regime khớp rubric chiến lược (tổng điểm trục -1/0/+1)."""
+    if total >= 3:
+        return "Risk-on"
+    if total >= 1:
+        return "Tích cực có chọn lọc"
+    if total == 0:
+        return "Trung tính"
+    if total >= -2:
+        return "Thận trọng có chọn lọc"
+    return "Phòng thủ"
+
+
+def _normalize_market_regime_score(mrs: dict[str, Any]) -> None:
+    """Cộng lại total_score, kẹp điểm trục {-1,0,1}, gán regime đúng rubric."""
+    items_raw = mrs.get("items")
+    if not isinstance(items_raw, list):
+        return
+    norm_items: list[dict[str, Any]] = []
+    for it in items_raw:
+        if not isinstance(it, dict):
+            continue
+        ax = str(it.get("axis", "") or "").strip()
+        sig = str(it.get("signal", "") or "").strip()
+        if not ax or not sig:
+            continue
+        try:
+            sc = int(it.get("score", 0) or 0)
+        except (TypeError, ValueError):
+            sc = 0
+        sc = max(-1, min(1, sc))
+        norm_items.append({"axis": ax, "signal": sig, "score": sc})
+    if len(norm_items) < _LIST_MINS["market_regime_axes"]:
+        d = _default_market_regime_score()
+        mrs.clear()
+        mrs.update(d)
+        return
+    if len(norm_items) > 6:
+        norm_items = norm_items[:6]
+    total = sum(int(x["score"]) for x in norm_items)
+    mrs["items"] = norm_items
+    mrs["total_score"] = total
+    mrs["regime"] = regime_label_for_total_score(total)
 
 SAFE_ALLOCATION_GUIDE_V2: list[dict[str, str]] = [
     {
@@ -137,7 +183,7 @@ SAFE_ALLOCATION_GUIDE_V2: list[dict[str, str]] = [
         "cash": "20–30%",
         "gold_defense": "5–10%",
         "crypto_high_risk": "5–10%",
-        "leverage": "Chỉ dùng khi thị trường xác nhận",
+        "leverage": "Chỉ dùng khi xác nhận",
     },
     {
         "profile": "Rủi ro cao",
@@ -207,6 +253,15 @@ _GLOBAL_MACRO_KEYWORDS_RE = re.compile(
     r"thương mại|thuong mai|địa chính trị|dia chinh tri|toàn cầu|toan cau|euro|ecb|opec|brent|wto|imf|"
     r"thế giới|the gioi|global|china|oil|inflation|rate|yield|geopolit|trade war",
     re.IGNORECASE,
+)
+
+# Tin nội địa thuần (hạ tầng địa phương, một NH, dự án đô thị) — không làm "global macro driver".
+_LOCAL_ONLY_DOMESTIC_RE = re.compile(
+    r"(?i)\b("
+    r"cao tốc|long thành|sân bay long|tái cấu trúc ngân hàng|vietcombank|\bacb\b|\bbidv\b|\bssi\b|"
+    r"vingroup|hoà phát|hòa phát|dự án bot|đường sắt đô thị|tp\.?hcm|hà nội|ha noi|"
+    r"khởi động.*?dự án|tổng vốn.*?(tỷ|ty)\s*usd|cục dự trữ"
+    r")\b",
 )
 
 # Risk-on item mistakenly listed under increase_risk_signals
@@ -337,27 +392,60 @@ def _sanitize_strings_in_brief_obj(obj: Any) -> Any:
 
 
 def _allocation_guide_violates(rows: Any) -> bool:
-    if not isinstance(rows, list) or len(rows) < 4:
+    if not isinstance(rows, list) or len(rows) != 4:
         return True
+    canon = {"thận trọng", "cân bằng", "chủ động", "rủi ro cao"}
+    profiles: set[str] = set()
     for r in rows:
         if not isinstance(r, dict):
             return True
-        profile = str(r.get("profile", "") or "").lower()
+        p = str(r.get("profile", "") or "").strip().lower()
+        profiles.add(p)
+        profile = p
         lev = str(r.get("leverage", "") or r.get("margin", "") or "")
+        lev_l = lev.lower()
         if "thận trọng" in profile or "than trong" in profile:
             if re.search(r"\d\s*%", lev):
                 return True
-        if "cân bằng" in profile or "can bang" in profile:
-            if re.search(r"(?:^|[^\d])(?:10|20|30)\s*%", lev, re.IGNORECASE):
+            if re.search(
+                r"\b(cao|đầy|chủ động margin|margin cao|đòn bẩy cao|kỷ luật chặt)\b",
+                lev,
+                re.IGNORECASE,
+            ):
                 return True
-            if re.search(r"\b(cao|đầy đủ|đầy)\b", lev, re.IGNORECASE) and "rất thấp" not in lev.lower():
-                if re.search(r"\d\s*%", lev):
-                    return True
+        if "cân bằng" in profile or "can bang" in profile:
+            if re.search(r"(?:^|[^\d])(?:70|80)\s*%", lev, re.IGNORECASE):
+                return True
+            if re.search(r"\b(đòn bẩy cao|margin cao)\b", lev, re.IGNORECASE):
+                return True
+            if re.search(r"\b(margin|đòn bẩy)\b", lev, re.IGNORECASE) and "rất thấp" not in lev_l:
+                return True
+    if profiles != canon:
+        return True
     return False
 
 
+def _canonical_sort_allocation_guide(rows: list[dict[str, Any]]) -> None:
+    order = {"thận trọng": 0, "cân bằng": 1, "chủ động": 2, "rủi ro cao": 3}
+    rows.sort(key=lambda r: order.get(str(r.get("profile", "") or "").strip().lower(), 99))
+
+
+_STRONG_GLOBAL_ANCHOR_RE = re.compile(
+    r"fed|fomc|lợi suất\s*mỹ|loi suat my|treasury|kỳ hạn\s*10|us\s*yield|dxy|"
+    r"brent|wti|opec|iran|dollar\s*index|trung quốc|trung quoc|wto|imf|"
+    r"cầu toàn cầu|toan cau|global growth|địa chính trị.*(mỹ|my|iran)|"
+    r"chính sách tiền tệ.*(mỹ|fed)",
+    re.IGNORECASE,
+)
+
+
 def _macro_driver_is_global(row: dict[str, Any]) -> bool:
-    blob = f"{row.get('title', '')} {row.get('analysis', '')}"
+    blob = (
+        f"{row.get('title', '')} {row.get('analysis', '')} "
+        f"{row.get('market_impact', '')} {row.get('vietnam_impact', '')}"
+    )
+    if _LOCAL_ONLY_DOMESTIC_RE.search(blob) and not _STRONG_GLOBAL_ANCHOR_RE.search(blob):
+        return False
     return bool(_GLOBAL_MACRO_KEYWORDS_RE.search(blob))
 
 
@@ -417,6 +505,8 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
     ag = out.get("allocation_guide")
     if _allocation_guide_violates(ag):
         out["allocation_guide"] = copy.deepcopy(SAFE_ALLOCATION_GUIDE_V2)
+    elif isinstance(out.get("allocation_guide"), list):
+        _canonical_sort_allocation_guide(out["allocation_guide"])
 
     inc_raw = out.get("increase_risk_signals")
     red_raw = out.get("reduce_risk_signals")
@@ -432,7 +522,11 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
         meaning = str(r.get("meaning", "") or "").strip()
         if not sig:
             continue
-        if _INCREASE_BAD_SIGNAL_RE.search(sig) and not _INCREASE_BAD_EXCEPTION_RE.search(sig):
+        inc_blob = f"{sig} {meaning}"
+        if (
+            _INCREASE_BAD_SIGNAL_RE.search(inc_blob)
+            and not _INCREASE_BAD_EXCEPTION_RE.search(inc_blob)
+        ):
             new_red.append(
                 {
                     "signal": sig,
@@ -449,7 +543,7 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
         act = str(r.get("action", "") or "").strip()
         if not sig:
             continue
-        if _REDUCE_GOOD_SIGNAL_RE.search(sig):
+        if _REDUCE_GOOD_SIGNAL_RE.search(f"{sig} {act}"):
             new_inc.append(
                 {
                     "signal": sig,
@@ -581,6 +675,10 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
             act = str(blk.get("action", "") or "").strip()
             if _SCENARIO_ACTION_PORTFOLIO_RE.search(act) or _DIRECT_ASSET_PITCH_RE.search(act):
                 blk["action"] = safe_act
+
+    mrs_n = out.get("market_regime_score")
+    if isinstance(mrs_n, dict):
+        _normalize_market_regime_score(mrs_n)
 
     fd = str(out.get("final_decision", "") or "").strip()
     if len(fd) > 520:
@@ -864,6 +962,8 @@ def _default_intraday_playbook_fallback() -> list[dict[str, str]]:
         {"market_condition": "Tăng cùng thanh khoản và độ rộng tốt", "action": "Có thể tăng tỷ trọng từng phần có kỷ luật."},
         {"market_condition": "Giảm nhẹ với thanh khoản thấp", "action": "Quan sát; chưa cần phản ứng mạnh."},
         {"market_condition": "Giảm mạnh với thanh khoản cao", "action": "Hạ tỷ trọng; giảm đòn bẩy."},
+        {"market_condition": "Đi ngang phân hóa", "action": "Giữ tài sản khỏe; loại bỏ tài sản yếu."},
+        {"market_condition": "Tin tiêu cực nhưng giá không phản ánh mạnh", "action": "Theo dõi khả năng hấp thụ thông tin."},
     ]
 
 
@@ -920,6 +1020,16 @@ def _migrate_snake_to_global_strategy_v2(out: dict[str, Any]) -> None:
     if not isinstance(mrs, dict) or not isinstance(mrs.get("items"), list):
         out["market_regime_score"] = _default_market_regime_score()
     else:
+        _n_axes = sum(
+            1
+            for it in mrs["items"]
+            if isinstance(it, dict)
+            and str(it.get("axis", "") or "").strip()
+            and str(it.get("signal", "") or "").strip()
+        )
+        if _n_axes < _LIST_MINS["market_regime_axes"]:
+            out["market_regime_score"] = _default_market_regime_score()
+            mrs = out["market_regime_score"]
         mrs.setdefault("total_score", 0)
         mrs.setdefault("regime", "Trung tính")
         mrs.setdefault("interpretation", "")
@@ -932,13 +1042,16 @@ def _migrate_snake_to_global_strategy_v2(out: dict[str, Any]) -> None:
     if not isinstance(pa, dict):
         out["priority_and_avoid"] = _default_priority_and_avoid_fallback()
     else:
-        if not isinstance(pa.get("prioritize"), list) or len(pa["prioritize"]) < 4:
+        if not isinstance(pa.get("prioritize"), list) or len(pa["prioritize"]) < 5:
             pa["prioritize"] = _default_priority_and_avoid_fallback()["prioritize"]
-        if not isinstance(pa.get("avoid_or_be_careful"), list) or len(pa["avoid_or_be_careful"]) < 4:
+        if not isinstance(pa.get("avoid_or_be_careful"), list) or len(pa["avoid_or_be_careful"]) < 5:
             pa["avoid_or_be_careful"] = _default_priority_and_avoid_fallback()["avoid_or_be_careful"]
 
     ip = out.get("intraday_playbook")
-    if not isinstance(ip, list) or len([x for x in ip if isinstance(x, dict)]) < _LIST_MINS["intraday_playbook"]:
+    if (
+        not isinstance(ip, list)
+        or len([x for x in ip if isinstance(x, dict)]) < _LIST_MINS["intraday_playbook"]
+    ):
         out["intraday_playbook"] = _default_intraday_playbook_fallback()
 
     vct = out.get("view_change_triggers")
@@ -1261,7 +1374,7 @@ def coerce_summary_to_strategy_brief(
                         "score": score_i,
                     }
                 )
-        if len(items) >= 4:
+        if len(items) >= _LIST_MINS["market_regime_axes"]:
             out["market_regime_score"] = {
                 "total_score": int(mrs.get("total_score", 0) or 0),
                 "regime": str(mrs.get("regime", "") or "").strip() or out["market_regime_score"]["regime"],
@@ -1306,7 +1419,7 @@ def coerce_summary_to_strategy_brief(
                 and str(r.get("asset", "") or "").strip()
                 and str(r.get("reason", "") or "").strip()
             ]
-            if len(pr_o) >= 4 and len(av_o) >= 4:
+            if len(pr_o) >= 5 and len(av_o) >= 5:
                 out["priority_and_avoid"] = {"prioritize": pr_o, "avoid_or_be_careful": av_o}
 
     ip = summary.get("intraday_playbook")
@@ -1566,6 +1679,170 @@ def strategy_brief_to_public_json(snake: dict[str, Any]) -> dict[str, Any]:
             ],
         },
         "finalDecision": str(snake.get("final_decision", "") or ""),
+    }
+
+
+def public_payload_to_snake_summary(content: dict[str, Any]) -> dict[str, Any]:
+    """Từ content.json (camelCase public) suy ra object summary snake_case cho final_summary.json."""
+    pub = content.get("publicationIntro") if isinstance(content.get("publicationIntro"), dict) else {}
+    mt = content.get("mainThesis") if isinstance(content.get("mainThesis"), dict) else {}
+    mrs = content.get("marketRegimeScore") if isinstance(content.get("marketRegimeScore"), dict) else {}
+    pa = content.get("priorityAndAvoid") if isinstance(content.get("priorityAndAvoid"), dict) else {}
+    sp = content.get("scenarioPlan") if isinstance(content.get("scenarioPlan"), dict) else {}
+    vct = content.get("viewChangeTriggers") if isinstance(content.get("viewChangeTriggers"), dict) else {}
+
+    mscore_items = []
+    if isinstance(mrs.get("items"), list):
+        for it in mrs["items"]:
+            if not isinstance(it, dict):
+                continue
+            try:
+                sc = int(it.get("score", 0) or 0)
+            except (TypeError, ValueError):
+                sc = 0
+            mscore_items.append(
+                {
+                    "axis": str(it.get("axis", "") or ""),
+                    "signal": str(it.get("signal", "") or ""),
+                    "score": sc,
+                }
+            )
+
+    pri = pa.get("prioritize") if isinstance(pa.get("prioritize"), list) else []
+    avo = pa.get("avoidOrBeCareful") if isinstance(pa.get("avoidOrBeCareful"), list) else []
+
+    def _scen_brief(case_camel: str) -> dict[str, str]:
+        blk = sp.get(case_camel) if isinstance(sp.get(case_camel), dict) else {}
+        return {
+            "title": str(blk.get("title", "") or ""),
+            "description": str(blk.get("description", "") or ""),
+            "action": str(blk.get("action", "") or ""),
+        }
+
+    em = content.get("editorialMeta") if isinstance(content.get("editorialMeta"), dict) else {}
+    title = str(em.get("briefTitle", "") or "").strip() or "LEON Quant Labs — Global Market Strategy Brief"
+    brief_date = str(em.get("briefDate", "") or "").strip()
+    if not brief_date:
+        ga = str(content.get("generatedAt", "") or "")
+        brief_date = ga[:10] if len(ga) >= 10 else ""
+
+    return {
+        "title": title,
+        "date": brief_date,
+        "generated_at": str(content.get("generatedAt", "") or ""),
+        "publication_intro": {
+            "headline": str(pub.get("headline", "") or ""),
+            "description": str(pub.get("description", "") or ""),
+        },
+        "main_thesis": {
+            "regime": str(mt.get("regime", "") or ""),
+            "thesis": str(mt.get("thesis", "") or ""),
+            "action_conclusion": str(mt.get("actionConclusion", "") or ""),
+        },
+        "what_changed": [
+            {
+                "variable": str(r.get("variable", "") or ""),
+                "change": str(r.get("change", "") or ""),
+                "meaning": str(r.get("meaning", "") or ""),
+            }
+            for r in content.get("whatChanged", [])
+            if isinstance(r, dict)
+        ],
+        "market_regime_score": {
+            "total_score": int(mrs.get("totalScore", 0) or 0),
+            "regime": str(mrs.get("regime", "") or ""),
+            "items": mscore_items,
+            "interpretation": str(mrs.get("interpretation", "") or ""),
+        },
+        "global_macro_drivers": [
+            {
+                "title": str(r.get("title", "") or ""),
+                "analysis": str(r.get("analysis", "") or ""),
+                "market_impact": str(r.get("marketImpact", "") or ""),
+            }
+            for r in content.get("globalMacroDrivers", [])
+            if isinstance(r, dict)
+        ],
+        "intermarket_map": [
+            {
+                "asset": str(r.get("asset", "") or ""),
+                "state": str(r.get("state", "") or ""),
+                "action": str(r.get("action", "") or ""),
+            }
+            for r in content.get("intermarketMap", [])
+            if isinstance(r, dict)
+        ],
+        "transmission_chains": [
+            str(x) for x in (content.get("transmissionChains") or []) if isinstance(x, str)
+        ],
+        "quick_actions": [
+            {
+                "investor_state": str(r.get("investorState", "") or ""),
+                "action": str(r.get("action", "") or ""),
+            }
+            for r in content.get("quickActions", [])
+            if isinstance(r, dict)
+        ],
+        "allocation_guide": [
+            {
+                "profile": str(r.get("profile", "") or ""),
+                "stocks": str(r.get("stocks", "") or ""),
+                "cash": str(r.get("cash", "") or ""),
+                "gold_defense": str(r.get("goldDefense", "") or ""),
+                "crypto_high_risk": str(r.get("cryptoHighRisk", "") or ""),
+                "leverage": str(r.get("leverage", "") or ""),
+            }
+            for r in content.get("allocationGuide", [])
+            if isinstance(r, dict)
+        ],
+        "priority_and_avoid": {
+            "prioritize": [
+                {"asset": str(r.get("asset", "") or ""), "reason": str(r.get("reason", "") or "")}
+                for r in pri
+                if isinstance(r, dict)
+            ],
+            "avoid_or_be_careful": [
+                {"asset": str(r.get("asset", "") or ""), "reason": str(r.get("reason", "") or "")}
+                for r in avo
+                if isinstance(r, dict)
+            ],
+        },
+        "increase_risk_signals": [
+            {"signal": str(r.get("signal", "") or ""), "meaning": str(r.get("meaning", "") or "")}
+            for r in content.get("increaseRiskSignals", [])
+            if isinstance(r, dict)
+        ],
+        "reduce_risk_signals": [
+            {"signal": str(r.get("signal", "") or ""), "action": str(r.get("action", "") or "")}
+            for r in content.get("reduceRiskSignals", [])
+            if isinstance(r, dict)
+        ],
+        "intraday_playbook": [
+            {
+                "market_condition": str(r.get("marketCondition", "") or ""),
+                "action": str(r.get("action", "") or ""),
+            }
+            for r in content.get("intradayPlaybook", [])
+            if isinstance(r, dict)
+        ],
+        "scenario_plan": {
+            "base_case": _scen_brief("baseCase"),
+            "bull_case": _scen_brief("bullCase"),
+            "bear_case": _scen_brief("bearCase"),
+        },
+        "view_change_triggers": {
+            "more_positive_if": [
+                str(x)
+                for x in (vct.get("morePositiveIf") or [])
+                if isinstance(x, str) and x.strip()
+            ],
+            "more_negative_if": [
+                str(x)
+                for x in (vct.get("moreNegativeIf") or [])
+                if isinstance(x, str) and x.strip()
+            ],
+        },
+        "final_decision": str(content.get("finalDecision", "") or ""),
     }
 
 

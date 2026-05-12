@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from build_website_content import _LIST_MINS
+from build_website_content import _LIST_MINS, regime_label_for_total_score
 from finalize_summary_gpt import MACRO_INTELLIGENCE_SUMMARY_KEYS, validate_final_summary
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -27,9 +27,15 @@ _GLOBAL_KW_RE = re.compile(
 _LOCAL_ONLY_MACRO_RE = re.compile(
     r"(?i)\b("
     r"cao tốc|long thành|sân bay long|tái cấu trúc ngân hàng|vietcombank|\bacb\b|\bbidv\b|\bssi\b|"
-    r"vingroup|hoà phát|hòa phát|dự án bot|đường sắt đô thị|"
-    r"cục dự trữ|nghị quyết.*?nội địa.*?chỉ"
+    r"vingroup|hoà phát|hòa phát|dự án bot|đường sắt đô thị|tp\.?hcm|hà nội|ha noi|"
+    r"khởi động.*?dự án|tổng vốn.*?(tỷ|ty)\s*usd|cục dự trữ|nghị quyết.*?nội địa.*?chỉ"
     r")\b",
+)
+
+_STRONG_GLOBAL_ANCHOR_RE = re.compile(
+    r"fed|fomc|lợi suất\s*mỹ|loi suat my|treasury|dxy|brent|wti|opec|iran|"
+    r"trung quốc|trung quoc|wto|imf|global growth|cầu toàn cầu",
+    re.IGNORECASE,
 )
 
 PUBLIC_FORBIDDEN_RE = re.compile(
@@ -47,16 +53,20 @@ ARTICLE_FORBIDDEN_RE = re.compile(
 )
 
 _INCREASE_BAD_SUBSTR = re.compile(
-    r"lạm phát.*(cao hơn|tăng)|dầu.*(tăng sốc|tăng mạnh)|\busd\b.*tăng mạnh|"
+    r"lạm phát.*(cao hơn|tăng)|lam phat.*(cao hon|tang)|dầu.*(tăng sốc|tăng mạnh)|"
+    r"\busd\b.*tăng mạnh|usd tang manh|"
     r"lợi suất.*tăng nhanh|loi suat.*tang nhanh|bán ròng mạnh|ban rong manh|"
-    r"suy yếu đồng loạt|căng thẳng leo thang|gián đoạn.*chuỗi cung|supply shock|"
-    r"địa chính trị.*leo thang|rủi ro địa chính",
+    r"suy yếu đồng loạt|suy yeu dong loat|căng thẳng leo thang|cang thang leo thang|"
+    r"gián đoạn.*chuỗi cung|gian doan.*chuo|supply shock|"
+    r"địa chính trị.*leo thang|dia chinh tri.*leo thang|rủi ro địa chính",
     re.IGNORECASE,
 )
 
 _REDUCE_GOOD_SUBSTR = re.compile(
-    r"(?i)usd\s+suy yếu|lợi suất.*hạ nhiệt|loi suat.*ha nhiet|thanh khoản.*cải thiện|"
-    r"độ rộng.*cải thiện|khối ngoại mua ròng|dầu ổn định|tang truong on dinh|tăng trưởng ổn định",
+    r"(?i)usd\s+suy yếu|usd suy yeu|lợi suất.*hạ nhiệt|loi suat.*ha nhiet|"
+    r"thanh khoản.*cải thiện|thanh khoan.*cai thien|độ rộng.*cải thiện|"
+    r"khối ngoại mua ròng|khoi ngoai mua rong|dầu ổn định|dau on dinh|"
+    r"tăng trưởng ổn định|tang truong on dinh|tăng trưởng.*ổn định",
     re.IGNORECASE,
 )
 
@@ -157,10 +167,14 @@ def _global_driver_local_errors(rows: Any) -> list[str]:
     for i, row in enumerate(rows):
         if not isinstance(row, dict):
             continue
-        blob = f"{row.get('title', '')} {row.get('analysis', '')}"
-        if _LOCAL_ONLY_MACRO_RE.search(blob) and not _GLOBAL_KW_RE.search(blob):
+        blob = (
+            f"{row.get('title', '')} {row.get('analysis', '')} "
+            f"{row.get('marketImpact', '')}"
+        )
+        if _LOCAL_ONLY_MACRO_RE.search(blob) and not _STRONG_GLOBAL_ANCHOR_RE.search(blob):
             e.append(
-                f"content.globalMacroDrivers[{i}]: looks local-only (not global macro); move Vietnam specifics elsewhere.",
+                f"content.globalMacroDrivers[{i}]: looks local-only (not global macro); "
+                "move Vietnam infrastructure or single-name domestic stories elsewhere.",
             )
     return e
 
@@ -198,9 +212,10 @@ def _validate_content_semantics(c: dict[str, Any]) -> list[str]:
             if not isinstance(row, dict):
                 continue
             sig = str(row.get("signal", "") or "")
-            if _INCREASE_BAD_SUBSTR.search(sig):
+            meaning = str(row.get("meaning", "") or "")
+            if _INCREASE_BAD_SUBSTR.search(sig) or _INCREASE_BAD_SUBSTR.search(meaning):
                 e.append(
-                    f"content.increaseRiskSignals[{i}]: signal looks risk-off, not confirmation: {sig[:80]!r}",
+                    f"content.increaseRiskSignals[{i}]: row looks risk-off, not confirmation: {sig[:80]!r}",
                 )
 
     rrs = c.get("reduceRiskSignals")
@@ -209,9 +224,10 @@ def _validate_content_semantics(c: dict[str, Any]) -> list[str]:
             if not isinstance(row, dict):
                 continue
             sig = str(row.get("signal", "") or "")
-            if _REDUCE_GOOD_SUBSTR.search(sig):
+            act = str(row.get("action", "") or "")
+            if _REDUCE_GOOD_SUBSTR.search(sig) or _REDUCE_GOOD_SUBSTR.search(act):
                 e.append(
-                    f"content.reduceRiskSignals[{i}]: signal looks risk-on, not warning: {sig[:80]!r}",
+                    f"content.reduceRiskSignals[{i}]: row looks risk-on, not warning: {sig[:80]!r}",
                 )
 
     gmd = c.get("globalMacroDrivers")
@@ -220,7 +236,10 @@ def _validate_content_semantics(c: dict[str, Any]) -> list[str]:
         for row in gmd:
             if not isinstance(row, dict):
                 continue
-            blob = f"{row.get('title', '')} {row.get('analysis', '')}"
+            blob = (
+                f"{row.get('title', '')} {row.get('analysis', '')} "
+                f"{row.get('marketImpact', '')}"
+            )
             if _GLOBAL_KW_RE.search(blob):
                 global_hits += 1
         if global_hits < 2:
@@ -306,6 +325,8 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
     wc = c.get("whatChanged")
     if not isinstance(wc, list) or len(wc) < _LIST_MINS["what_changed"]:
         err.append(f"content.whatChanged must have at least {_LIST_MINS['what_changed']} items")
+    elif len(wc) > 6:
+        err.append("content.whatChanged must have at most 6 items")
     else:
         for i, row in enumerate(wc):
             if not isinstance(row, dict):
@@ -320,10 +341,45 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
         err.append("content.marketRegimeScore must be object")
     else:
         items = mrs.get("items")
-        if not isinstance(items, list) or len(items) < 4:
-            err.append("content.marketRegimeScore.items must have at least 4 axes")
+        if not isinstance(items, list) or len(items) < _LIST_MINS["market_regime_axes"]:
+            err.append(f"content.marketRegimeScore.items must have at least {_LIST_MINS['market_regime_axes']} axes")
+        elif len(items) > 6:
+            err.append("content.marketRegimeScore.items must have at most 6 axes")
         if mrs.get("totalScore") is None:
             err.append("content.marketRegimeScore.totalScore must be present")
+        else:
+            try:
+                ts = int(mrs["totalScore"])
+            except (TypeError, ValueError):
+                err.append("content.marketRegimeScore.totalScore must be integer")
+            else:
+                if isinstance(items, list) and len(items) >= _LIST_MINS["market_regime_axes"]:
+                    calc = 0
+                    score_ok = True
+                    for it in items:
+                        if not isinstance(it, dict):
+                            continue
+                        try:
+                            sc_axis = int(it.get("score", 0) or 0)
+                        except (TypeError, ValueError):
+                            score_ok = False
+                            err.append("content.marketRegimeScore.items: invalid score")
+                            break
+                        if sc_axis not in (-1, 0, 1):
+                            score_ok = False
+                            err.append("content.marketRegimeScore.items: each score must be -1, 0, or 1")
+                            break
+                        calc += sc_axis
+                    if score_ok and calc != ts:
+                        err.append(
+                            f"content.marketRegimeScore.totalScore ({ts}) must equal sum of axis scores ({calc})",
+                        )
+                    elif score_ok and calc == ts:
+                        exp = regime_label_for_total_score(ts)
+                        if str(mrs.get("regime", "")).strip() != exp:
+                            err.append(
+                                f"content.marketRegimeScore.regime must be {exp!r} for totalScore {ts}",
+                            )
         if not str(mrs.get("regime", "")).strip():
             err.append("content.marketRegimeScore.regime must be non-empty")
         if not str(mrs.get("interpretation", "")).strip():
@@ -332,6 +388,8 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
     gmd = c.get("globalMacroDrivers")
     if not isinstance(gmd, list) or len(gmd) < _LIST_MINS["global_macro_drivers"]:
         err.append(f"content.globalMacroDrivers must have at least {_LIST_MINS['global_macro_drivers']} items")
+    elif len(gmd) > 4:
+        err.append("content.globalMacroDrivers must have at most 4 items")
     else:
         for i, row in enumerate(gmd):
             if not isinstance(row, dict):
@@ -363,13 +421,19 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
         err.append(f"content.transmissionChains must have at least {_LIST_MINS['transmission_chains']} strings")
 
     qa = c.get("quickActions")
-    if not isinstance(qa, list) or len(qa) < _LIST_MINS["quick_actions"]:
-        err.append(f"content.quickActions must have at least {_LIST_MINS['quick_actions']} items")
+    if not isinstance(qa, list) or len(qa) != 6:
+        err.append("content.quickActions must have exactly 6 items (one per canonical investor state)")
 
     ag = c.get("allocationGuide")
-    if not isinstance(ag, list) or len(ag) < _LIST_MINS["allocation_guide"]:
-        err.append(f"content.allocationGuide must have at least {_LIST_MINS['allocation_guide']} items")
+    if not isinstance(ag, list) or len(ag) != 4:
+        err.append("content.allocationGuide must have exactly 4 risk profiles")
     else:
+        canon_prof = {"thận trọng", "cân bằng", "chủ động", "rủi ro cao"}
+        got_prof = {str(r.get("profile", "") or "").strip().lower() for r in ag if isinstance(r, dict)}
+        if got_prof != canon_prof:
+            err.append(
+                "content.allocationGuide profiles must be exactly: Thận trọng, Cân bằng, Chủ động, Rủi ro cao",
+            )
         for i, row in enumerate(ag):
             if not isinstance(row, dict):
                 err.append(f"content.allocationGuide[{i}] must be object")
@@ -389,8 +453,26 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
         av = pa.get("avoidOrBeCareful")
         if not isinstance(pr, list) or len(pr) < 5:
             err.append("content.priorityAndAvoid.prioritize must have at least 5 items")
+        elif len(pr) > 6:
+            err.append("content.priorityAndAvoid.prioritize must have at most 6 items")
         if not isinstance(av, list) or len(av) < 5:
             err.append("content.priorityAndAvoid.avoidOrBeCareful must have at least 5 items")
+        elif len(av) > 6:
+            err.append("content.priorityAndAvoid.avoidOrBeCareful must have at most 6 items")
+        if isinstance(pr, list):
+            for i, row in enumerate(pr):
+                if not isinstance(row, dict):
+                    err.append(f"content.priorityAndAvoid.prioritize[{i}] must be object")
+                    continue
+                if not str(row.get("asset", "") or "").strip() or not str(row.get("reason", "") or "").strip():
+                    err.append(f"content.priorityAndAvoid.prioritize[{i}] incomplete")
+        if isinstance(av, list):
+            for i, row in enumerate(av):
+                if not isinstance(row, dict):
+                    err.append(f"content.priorityAndAvoid.avoidOrBeCareful[{i}] must be object")
+                    continue
+                if not str(row.get("asset", "") or "").strip() or not str(row.get("reason", "") or "").strip():
+                    err.append(f"content.priorityAndAvoid.avoidOrBeCareful[{i}] incomplete")
 
     irs = c.get("increaseRiskSignals")
     if not isinstance(irs, list) or len(irs) < _LIST_MINS["increase_risk_signals"]:
@@ -403,6 +485,16 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
     ipb = c.get("intradayPlaybook")
     if not isinstance(ipb, list) or len(ipb) < _LIST_MINS["intraday_playbook"]:
         err.append(f"content.intradayPlaybook must have at least {_LIST_MINS['intraday_playbook']} items")
+    elif len(ipb) > 7:
+        err.append("content.intradayPlaybook must have at most 7 items")
+    elif isinstance(ipb, list):
+        for i, row in enumerate(ipb):
+            if not isinstance(row, dict):
+                err.append(f"content.intradayPlaybook[{i}] must be object")
+                continue
+            for f in ("marketCondition", "action"):
+                if not str(row.get(f, "") or "").strip():
+                    err.append(f"content.intradayPlaybook[{i}].{f} must be non-empty")
 
     scenario = c.get("scenarioPlan")
     if not isinstance(scenario, dict):

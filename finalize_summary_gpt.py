@@ -11,7 +11,12 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from build_website_content import _default_strategy_snake, load_market_snapshot_json, rebuild_content_json
+from build_website_content import (
+    _default_strategy_snake,
+    load_market_snapshot_json,
+    rebuild_content_json,
+    regime_label_for_total_score,
+)
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -427,25 +432,28 @@ Shape:
 {SCHEMA_JSON_EXAMPLE}
 
 Counts / rules:
-- Thinking chain: Market → Regime → Transmission → Allocation → Action → Trigger. Content changes daily from inputs; do not quote fixed regimes or numbers without market_snapshot support.
-- what_changed: 4 to 6 items (variable / change / meaning). Use qualitative wording if precise deltas are missing.
-- market_regime_score: 5–6 axes; each item score must be -1, 0, or +1. total_score must be consistent with regime label per rubric (>=3 risk-on; 1–2 selective positive; 0 neutral; -1 to -2 cautious selective; <=-3 defensive).
-- global_macro_drivers: 3 or 4 items — GLOBAL only (Fed/US rates/yields, USD/DXY/FX, oil/inflation, China/trade/demand, geopolitics as it affects oil/USD/inflation/risk appetite). Use market_impact (cross-market transmission, not purely domestic Vietnam headlines). No Vietnam-only infra, single domestic bank story, or local project as a “global” driver.
-- intermarket_map: cover US equities, Vietnam equities, EM, gold, oil, bonds/yields, crypto, cash — each row asset/state/action.
-- transmission_chains: 3–5 causal strings (not disconnected headlines).
+- Thinking chain: Market → Regime → Transmission → Allocation → Action → Trigger. Content changes daily from inputs; never hard-code a fixed regime, score, or driver — derive from evidence. Fallback language is allowed when data is thin, but stay evidence-anchored.
+- what_changed: 4 to 6 items (variable / change / meaning). Suggested lenses: US rates/yields, USD/DXY, oil, gold, equities, crypto, China/global growth, Vietnam/VN-Index, foreign flows when evidenced.
+- market_regime_score: 5–6 axes; each item score must be -1, 0, or +1. total_score MUST equal the sum of axis scores and MUST match regime label: >=3 Risk-on; 1–2 Tích cực có chọn lọc; 0 Trung tính; -1 to -2 Thận trọng có chọn lọc; <=-3 Phòng thủ.
+- global_macro_drivers: 3 or 4 items — GLOBAL only (Fed/US rates/yields, DXY/FX, oil/inflation, China/trade/demand, geopolitics as it affects oil/USD/inflation/risk appetite). Use market_impact as cross-market transmission. No Vietnam-only infrastructure, municipal projects, or single domestic bank story as a global driver; Vietnam effects belong in intermarket/transmission/articles.
+- intermarket_map: rows for US equities, Vietnam equities, EM, gold, oil, bonds/yields, crypto, cash — asset/state/action.
+- transmission_chains: 3–5 causal strings (arrows / consequence chains), not headlines in isolation.
 - quick_actions: exactly 6 items; investor_state MUST be exactly (verbatim):
   "Cầm nhiều tiền mặt", "Đang nắm tài sản khỏe", "Đang lãi ngắn hạn", "Đang dùng margin / đòn bẩy",
   "Muốn mua mới", "Đang kẹt tài sản yếu".
-  Actions must be specific and not copy-pasted across rows.
+  Actions must be distinct per state (not copy-pasted).
 - allocation_guide: exactly 4 profiles "Thận trọng", "Cân bằng", "Chủ động", "Rủi ro cao" with stocks, cash, gold_defense, crypto_high_risk, leverage.
-  Thận trọng: thấp cổ phiếu, cao tiền mặt, vàng phòng thủ vừa phải, crypto tối thiểu, KHÔNG đòn bẩy cao.
-  Never assign aggressive leverage to Thận trọng / Cân bằng.
+  Thận trọng baseline: stocks 30–40%, cash 45–55%, gold_defense 10–15%, crypto_high_risk 0–5%, leverage Không dùng.
+  Cân bằng: stocks 50–60%, cash 30–40%, gold_defense 5–10%, crypto 0–5%, leverage Rất thấp.
+  Chủ động: stocks 60–70%, cash 20–30%, gold_defense 5–10%, crypto 5–10%, leverage Chỉ dùng khi xác nhận.
+  Rủi ro cao: stocks 70–80%, cash 10–20%, gold_defense 0–10%, crypto 5–15%, leverage Có kỷ luật chặt.
+  Never assign high leverage to Thận trọng / Cân bằng.
 - priority_and_avoid: 5–6 prioritize rows and 5–6 avoid_or_be_careful rows (asset + reason), adapted to evidence.
-- increase_risk_signals: 5 or 6 items — ONLY positive confirmation (rates cooling, USD softer, stable oil, better breadth/liquidity, leaders holding, lighter foreign selling). NO risk-off shocks here.
-- reduce_risk_signals: 5 or 6 items — ONLY warnings (USD spike, yields jumping, oil shock, narrow breadth rally, liquidity deterioration, leaders rolling over, speculative blow-off, heavy foreign selling).
-- intraday_playbook: 5–7 rows tied to price action (liquidity, breadth), not headline emotion.
+- increase_risk_signals: 5 or 6 items — ONLY positive confirmation (rates cooling, USD softer, stable oil, better breadth/liquidity, leaders holding, lighter foreign selling). NO risk-off shocks here (no inflation shock, oil spike, USD surge as a positive).
+- reduce_risk_signals: 5 or 6 items — ONLY warnings (USD spike, yields jumping, oil shock, narrow breadth rally, liquidity deterioration, leaders rolling over, speculative blow-off, heavy foreign selling). No “USD yếu / lợi suất hạ nhiệt / mua ròng” positives here.
+- intraday_playbook: 5–7 rows from price/liquidity/breadth behavior, not headline emotion.
 - view_change_triggers: lists of strings (>=4 each) for what would make the stance more positive vs more negative.
-- final_decision: one concise closing stance (portfolio language; no direct "buy gold/oil/crypto").
+- final_decision: one concise, action-oriented closing sentence (portfolio stance; no direct commodity buy instructions).
 
 MARKET DATA (strict):
 - `market_snapshot` is the ONLY source for specific prices or percentage changes.
@@ -459,39 +467,47 @@ You are the final editor of LEON Quant Labs, a serious Vietnamese investment res
 Your job is NOT to summarize news.
 Your job is to turn daily global macro and market information into a concise, actionable Global Market Strategy Brief.
 
-The structure is fixed, but the content must change every day based strictly on the evidence provided (market_snapshot, enriched articles, editorial notes, live excerpts when present).
+Inputs (evidence only — do not name or describe internal tools in the output text):
+- market_snapshot (quantitative, when status ok)
+- enriched reference articles and excerpts from global/Vietnam markets
+- upstream editorial notes and themes (for context only; do not quote tool jargon)
+
+The structure is fixed, but the content must change every day based strictly on the evidence.
 
 Core chain you must reflect in writing:
 Market → Regime → Transmission → Allocation → Action → Trigger.
 
-The brief must help readers:
-- understand the market regime
-- identify what changed today
-- understand global macro drivers
-- connect global macro to assets
-- decide portfolio stance
-- know what to prioritize or avoid
-- know when to increase risk
-- know when to reduce risk
-- know the base / bull / bear scenarios
+The brief must help readers answer:
+1) What is the current market regime?
+2) What changed today?
+3) What global macro forces matter most?
+4) How do they affect different asset classes?
+5) What should investors do with allocation, risk, sectors, and cash?
+6) When should investors increase or reduce risk?
+7) What are the scenarios and action plans?
 
-PUBLIC OUTPUT RULES (JSON strings are shown to readers):
-- Do NOT mention artificial intelligence, automation, web crawling, “GPT”, “Gemini”, internal tooling, training data,
-  “models”, “pipelines”, “source quality”, “verified links”, “disclaimer”, or “đây không phải khuyến nghị đầu tư”.
-- Write as a human investment research desk would: calm, precise, professional Vietnamese.
+Section-by-section (must satisfy in strings):
+- main_thesis: risk-on / neutral / risk-off / selective; dominant pressure; stance (see example style in rubric).
+- what_changed: 4–6 items; qualitative wording allowed when numbers missing.
+- market_regime_score: 5–6 axes; scores only −1/0/+1; total_score = sum; regime label MUST match total_score rubric exactly.
+- global_macro_drivers: 3–4 items; strictly global; market_impact is cross-market transmission (not Vietnam-only infra/bank stories).
+- transmission_chains: causal chains with → style consequences, grounded in evidence.
+- quick_actions: six canonical states; materially different actions per row.
+- allocation_guide: exactly four profiles (Thận trọng / Cân bằng / Chủ động / Rủi ro cao) with baseline ranges; never high leverage in Thận trọng / Cân bằng.
+- increase_risk_signals vs reduce_risk_signals: strictly separated polarity; no upside framing in reduce list.
+- intraday_playbook: 5–7 rows from liquidity/breadth behavior.
+- scenario_plan & view_change_triggers: portfolio-stance language; final_decision one punchy sentence.
+
+PUBLIC OUTPUT RULES (every JSON string may appear on the website):
+- Never mention artificial intelligence, automation, web crawling/crawlers, “GPT”, “Gemini”, internal tooling,
+  “models”, “pipelines”, “source quality”, “verified links”, “disclaimer”, or “không phải khuyến nghị đầu tư”.
+- Tone: calm, precise, professional Vietnamese — not hype, not chatbot, not news-aggregator listing.
 
 Writing rules:
-- Short but meaningful. No hype. No chatbot tone. No generic news digest.
-- Every section must connect to investor action.
+- Short but meaningful. Every section must connect to investor action.
 - Prefer causal chains over isolated headlines; prefer portfolio stance over direct buy/sell calls.
 - Do not say “mua vàng”, “mua dầu”, “mua crypto”, or imperative commodity trades.
 - Prefer: ưu tiên, theo dõi, giữ tỷ trọng, tăng từng phần, giảm rủi ro, hạn chế đòn bẩy.
-
-Risk lists:
-- increase_risk_signals: confirmations only; never place negative macro shocks here.
-- reduce_risk_signals: warnings only; never place “USD yếu / lợi suất hạ nhiệt / mua ròng” style positives here.
-
-Scenarios (scenario_plan.*.action): portfolio stance language — equity weight, cash buffer, leverage discipline, concentration — never direct commodity instructions.
 
 If evidence is weak or uneven, state it cautiously. Do not fabricate yesterday’s exact levels.
 """.strip()
@@ -646,9 +662,11 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
         errors.append("market_regime_score:not_object")
     else:
         items = mrs.get("items")
-        if not isinstance(items, list) or len(items) < 4:
-            errors.append("market_regime_score.items:need_at_least_4")
-        else:
+        if not isinstance(items, list) or len(items) < 5:
+            errors.append("market_regime_score.items:need_at_least_5")
+        elif len(items) > 6:
+            errors.append("market_regime_score.items:at_most_6")
+        if isinstance(items, list):
             for i, it in enumerate(items):
                 if not isinstance(it, dict):
                     errors.append(f"market_regime_score.items[{i}]:not_object")
@@ -664,6 +682,35 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
                     continue
                 if si not in (-1, 0, 1):
                     errors.append(f"market_regime_score.items[{i}].score:not_in_-1_0_1")
+        ts_raw = mrs.get("total_score")
+        if ts_raw is None:
+            errors.append("market_regime_score.total_score:missing")
+        else:
+            try:
+                ts = int(ts_raw)
+            except (TypeError, ValueError):
+                errors.append("market_regime_score.total_score:bad")
+            else:
+                if isinstance(items, list) and len(items) >= 5:
+                    calc = 0
+                    sum_ok = True
+                    for it in items:
+                        if isinstance(it, dict):
+                            try:
+                                calc += int(it.get("score", 0) or 0)
+                            except (TypeError, ValueError):
+                                sum_ok = False
+                                break
+                    if sum_ok and calc != ts:
+                        errors.append(
+                            f"market_regime_score.total_score ({ts}) must equal sum of axis scores ({calc})",
+                        )
+                    elif sum_ok and calc == ts:
+                        exp_reg = regime_label_for_total_score(ts)
+                        if str(mrs.get("regime", "")).strip() != exp_reg:
+                            errors.append(
+                                f"market_regime_score.regime must be {exp_reg!r} for total_score {ts}",
+                            )
         if not str(mrs.get("regime", "")).strip():
             errors.append("market_regime_score.regime:empty")
         if not str(mrs.get("interpretation", "")).strip():
@@ -674,6 +721,8 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
         errors.append("global_macro_drivers:not_list")
     elif len(gmd) < 3:
         errors.append("global_macro_drivers:need_at_least_3")
+    elif len(gmd) > 4:
+        errors.append("global_macro_drivers:at_most_4")
     else:
         for i, row in enumerate(gmd):
             if not isinstance(row, dict):
@@ -745,9 +794,13 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
     ag = data.get("allocation_guide")
     if not isinstance(ag, list):
         errors.append("allocation_guide:not_list")
-    elif len(ag) < 4:
-        errors.append("allocation_guide:need_at_least_4")
+    elif len(ag) != 4:
+        errors.append("allocation_guide:must_be_exactly_4")
     else:
+        canon_p = {"thận trọng", "cân bằng", "chủ động", "rủi ro cao"}
+        got_p = {str(r.get("profile", "") or "").strip().lower() for r in ag if isinstance(r, dict)}
+        if got_p != canon_p:
+            errors.append("allocation_guide:profiles_must_be_four_canonical")
         for i, row in enumerate(ag):
             if not isinstance(row, dict):
                 errors.append(f"allocation_guide[{i}]:not_object")
@@ -771,8 +824,12 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
         av = pa.get("avoid_or_be_careful")
         if not isinstance(pr, list) or len(pr) < 5:
             errors.append("priority_and_avoid.prioritize:need_at_least_5")
+        elif len(pr) > 6:
+            errors.append("priority_and_avoid.prioritize:at_most_6")
         if not isinstance(av, list) or len(av) < 5:
             errors.append("priority_and_avoid.avoid_or_be_careful:need_at_least_5")
+        elif len(av) > 6:
+            errors.append("priority_and_avoid.avoid_or_be_careful:at_most_6")
         if isinstance(pr, list):
             for i, row in enumerate(pr):
                 if not isinstance(row, dict):
@@ -788,10 +845,21 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
                 if not str(row.get("asset", "") or "").strip() or not str(row.get("reason", "") or "").strip():
                     errors.append(f"priority_and_avoid.avoid_or_be_careful[{i}]:incomplete")
 
-    _obj_list("increase_risk_signals", 4, ("signal", "meaning"))
-    _obj_list("reduce_risk_signals", 4, ("signal", "action"))
-
-    _obj_list("intraday_playbook", 4, ("market_condition", "action"))
+    ip = data.get("intraday_playbook")
+    if not isinstance(ip, list):
+        errors.append("intraday_playbook:not_list")
+    elif len(ip) < 5:
+        errors.append("intraday_playbook:need_at_least_5")
+    elif len(ip) > 7:
+        errors.append("intraday_playbook:at_most_7")
+    else:
+        for i, row in enumerate(ip):
+            if not isinstance(row, dict):
+                errors.append(f"intraday_playbook[{i}]:not_object")
+                continue
+            for f in ("market_condition", "action"):
+                if not str(row.get(f, "") or "").strip():
+                    errors.append(f"intraday_playbook[{i}].{f}:empty")
 
     vct = data.get("view_change_triggers")
     if not isinstance(vct, dict):
