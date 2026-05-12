@@ -60,18 +60,28 @@ function buildBriefParts(data) {
   const drivers = (Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : []).filter(
     (r) => r && typeof r === "object",
   );
+  const wc = (Array.isArray(data.whatChanged) ? data.whatChanged : []).filter((r) => r && typeof r === "object");
+  const mscore = data.marketRegimeScore || {};
+  const mItems = Array.isArray(mscore.items) ? mscore.items : [];
+  const im = (Array.isArray(data.intermarketMap) ? data.intermarketMap : []).filter((r) => r && typeof r === "object");
+  const chains = Array.isArray(data.transmissionChains) ? data.transmissionChains : [];
   const qa = (Array.isArray(data.quickActions) ? data.quickActions : []).filter((r) => r && typeof r === "object");
   const ag = (Array.isArray(data.allocationGuide) ? data.allocationGuide : []).filter((r) => r && typeof r === "object");
-  const sp = (Array.isArray(data.sectorPriority) ? data.sectorPriority : []).filter((r) => r && typeof r === "object");
+  const pa = data.priorityAndAvoid || {};
+  const pri = Array.isArray(pa.prioritize) ? pa.prioritize : [];
+  const avo = Array.isArray(pa.avoidOrBeCareful) ? pa.avoidOrBeCareful : [];
   const ir = (Array.isArray(data.increaseRiskSignals) ? data.increaseRiskSignals : []).filter(
     (r) => r && typeof r === "object",
   );
   const rr = (Array.isArray(data.reduceRiskSignals) ? data.reduceRiskSignals : []).filter(
     (r) => r && typeof r === "object",
   );
-  const vt = data.vietnamTransmission || {};
-  const chains = Array.isArray(vt.chains) ? vt.chains : [];
+  const ip = (Array.isArray(data.intradayPlaybook) ? data.intradayPlaybook : []).filter((r) => r && typeof r === "object");
   const scen = data.scenarioPlan || {};
+  const vct = data.viewChangeTriggers || {};
+  const mp = Array.isArray(vct.morePositiveIf) ? vct.morePositiveIf : [];
+  const mn = Array.isArray(vct.moreNegativeIf) ? vct.moreNegativeIf : [];
+  const marketImpact = (d) => String(d.marketImpact || d.vietnamImpact || ND);
 
   let thesisHtml = "";
   thesisHtml += `<div class="section-head"><p class="eyebrow">Luận điểm</p><h2>Luận điểm chính hôm nay</h2></div>`;
@@ -80,6 +90,35 @@ function buildBriefParts(data) {
   thesisHtml += `<p class="lbl">Luận điểm</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
   thesisHtml += `<p class="lbl">Kết luận hành động</p><p>${escapeHtml(mt.actionConclusion || ND)}</p>`;
   thesisHtml += `</div>`;
+
+  let whatChangedHtml = "";
+  whatChangedHtml += `<div class="section-head"><p class="eyebrow">Thay đổi</p><h2>Điều thay đổi quan trọng</h2></div>`;
+  if (!wc.length) {
+    whatChangedHtml += `<p class="error-card">Chưa có mục thay đổi.</p>`;
+  } else {
+    whatChangedHtml += renderTable(
+      ["Biến số", "Diễn biến", "Ý nghĩa"],
+      wc.map((r) => [
+        escapeHtml(r.variable || ND),
+        escapeHtml(r.change || ND),
+        escapeHtml(r.meaning || ND),
+      ]),
+    );
+  }
+
+  let regimeHtml = "";
+  regimeHtml += `<div class="section-head"><p class="eyebrow">Regime</p><h2>Market Regime Score</h2></div>`;
+  regimeHtml += `<div class="thesis-block compact-regime">`;
+  regimeHtml += `<p><span class="lbl">Tổng điểm</span> ${escapeHtml(String(mscore.totalScore ?? ND))} · `;
+  regimeHtml += `<span class="lbl">Nhãn</span> ${escapeHtml(mscore.regime || ND)}</p>`;
+  regimeHtml += `<p class="body">${escapeHtml(mscore.interpretation || ND)}</p>`;
+  regimeHtml += `</div>`;
+  if (mItems.length) {
+    regimeHtml += renderTable(
+      ["Trục", "Tín hiệu", "Điểm"],
+      mItems.map((r) => [escapeHtml(r.axis || ND), escapeHtml(r.signal || ND), escapeHtml(String(r.score ?? ND))]),
+    );
+  }
 
   let macroHtml = "";
   macroHtml += `<div class="section-head"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
@@ -91,20 +130,35 @@ function buildBriefParts(data) {
       const d = drivers[i];
       macroHtml += `<article class="card"><h3>${i + 1}. ${escapeHtml(d.title || ND)}</h3>`;
       macroHtml += `<p class="sub">Phân tích</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
-      macroHtml += `<p class="sub">Tác động tới Việt Nam</p><p class="body">${escapeHtml(d.vietnamImpact || ND)}</p></article>`;
+      macroHtml += `<p class="sub">Tác động liên thị trường</p><p class="body">${escapeHtml(marketImpact(d))}</p></article>`;
     }
     macroHtml += `</div>`;
   }
 
+  let interHtml = "";
+  interHtml += `<div class="section-head"><p class="eyebrow">Liên thị trường</p><h2>Bản đồ liên thị trường</h2></div>`;
+  if (!im.length) {
+    interHtml += `<p class="error-card">Chưa có bản đồ liên thị trường.</p>`;
+  } else {
+    interHtml += renderTable(
+      ["Tài sản", "Trạng thái", "Gợi ý xử lý"],
+      im.map((r) => [
+        escapeHtml(r.asset || ND),
+        escapeHtml(r.state || ND),
+        escapeHtml(r.action || ND),
+      ]),
+    );
+  }
+
   let transmissionHtml = "";
-  transmissionHtml += `<div class="section-head"><p class="eyebrow">Truyền dẫn</p><h2>Chuỗi tác động đến Việt Nam</h2></div>`;
-  transmissionHtml += `<div class="thesis-block"><p>${escapeHtml(vt.summary || ND)}</p>`;
+  transmissionHtml += `<div class="section-head"><p class="eyebrow">Truyền dẫn</p><h2>Chuỗi truyền dẫn vào danh mục</h2></div>`;
   if (chains.length) {
     transmissionHtml += `<ul class="chain-list">`;
     for (const c of chains) transmissionHtml += `<li>${escapeHtml(c)}</li>`;
     transmissionHtml += `</ul>`;
+  } else {
+    transmissionHtml += `<p class="error-card">Chưa có chuỗi truyền dẫn.</p>`;
   }
-  transmissionHtml += `</div>`;
 
   let actionsHtml = "";
   actionsHtml += `<div class="section-head"><p class="eyebrow">Thực thi</p><h2>Hành động nhanh hôm nay</h2></div>`;
@@ -116,38 +170,53 @@ function buildBriefParts(data) {
   let allocationHtml = "";
   allocationHtml += `<div class="section-head"><p class="eyebrow">Danh mục</p><h2>Phân bổ vốn tham khảo</h2></div>`;
   allocationHtml += renderTable(
-    ["Hồ sơ rủi ro", "Cổ phiếu", "Tiền mặt", "Margin"],
+    ["Hồ sơ rủi ro", "Cổ phiếu", "Tiền mặt", "Vàng / phòng thủ", "Crypto (rủi ro cao)", "Đòn bẩy"],
     ag.map((r) => [
       escapeHtml(r.profile || ND),
       escapeHtml(r.stocks || ND),
       escapeHtml(r.cash || ND),
-      escapeHtml(r.margin || ND),
+      escapeHtml(r.goldDefense || ND),
+      escapeHtml(r.cryptoHighRisk || ND),
+      escapeHtml(r.leverage || r.margin || ND),
     ]),
   );
 
-  let sectorsHtml = "";
-  sectorsHtml += `<div class="section-head"><p class="eyebrow">Ngành</p><h2>Ưu tiên nhóm ngành</h2></div>`;
-  sectorsHtml += renderTable(
-    ["Nhóm ngành", "Quan điểm", "Hành động"],
-    sp.map((r) => [escapeHtml(r.sector || ND), escapeHtml(r.view || ND), escapeHtml(r.action || ND)]),
+  let priorityHtml = "";
+  priorityHtml += `<div class="section-head"><p class="eyebrow">Ưu tiên</p><h2>Ưu tiên và thận trọng</h2></div>`;
+  priorityHtml += `<h3 class="subhead">Ưu tiên</h3>`;
+  priorityHtml += renderTable(
+    ["Hạng mục", "Lý do"],
+    pri.filter((r) => r && typeof r === "object").map((r) => [escapeHtml(r.asset || ND), escapeHtml(r.reason || ND)]),
+  );
+  priorityHtml += `<h3 class="subhead" style="margin-top:20px">Thận trọng / hạn chế</h3>`;
+  priorityHtml += renderTable(
+    ["Hạng mục", "Lý do"],
+    avo.filter((r) => r && typeof r === "object").map((r) => [escapeHtml(r.asset || ND), escapeHtml(r.reason || ND)]),
   );
 
   let riskOnHtml = "";
-  riskOnHtml += `<div class="section-head"><p class="eyebrow">Tăng tỷ trọng</p><h2>Tín hiệu để tăng tỷ trọng</h2></div>`;
+  riskOnHtml += `<div class="section-head"><p class="eyebrow">Tăng rủi ro</p><h2>Tín hiệu để tăng rủi ro</h2></div>`;
   riskOnHtml += renderTable(
     ["Tín hiệu", "Ý nghĩa"],
     ir.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.meaning || ND)]),
   );
 
   let riskOffHtml = "";
-  riskOffHtml += `<div class="section-head"><p class="eyebrow">Rủi ro</p><h2>Tín hiệu cần giảm rủi ro</h2></div>`;
+  riskOffHtml += `<div class="section-head"><p class="eyebrow">Giảm rủi ro</p><h2>Tín hiệu cần giảm rủi ro</h2></div>`;
   riskOffHtml += renderTable(
     ["Tín hiệu cảnh báo", "Hành động"],
     rr.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.action || ND)]),
   );
 
+  let intradayHtml = "";
+  intradayHtml += `<div class="section-head"><p class="eyebrow">Phiên</p><h2>Playbook trong phiên</h2></div>`;
+  intradayHtml += renderTable(
+    ["Điều kiện hành vi", "Gợi ý"],
+    ip.map((r) => [escapeHtml(r.marketCondition || ND), escapeHtml(r.action || ND)]),
+  );
+
   let scenariosHtml = "";
-  scenariosHtml += `<div class="section-head"><p class="eyebrow">Kịch bản</p><h2>Kế hoạch theo 3 kịch bản</h2></div>`;
+  scenariosHtml += `<div class="section-head"><p class="eyebrow">Kịch bản</p><h2>Kịch bản thị trường</h2></div>`;
   const b = scen.baseCase || {};
   const u = scen.bullCase || {};
   const e = scen.bearCase || {};
@@ -157,21 +226,35 @@ function buildBriefParts(data) {
   scenariosHtml += `<article class="sc bear"><h3>${escapeHtml(e.title || "Kịch bản tiêu cực")}</h3><p>${escapeHtml(e.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(e.action || ND)}</p></article>`;
   scenariosHtml += `</div>`;
 
-  let takeawayHtml = "";
-  takeawayHtml += `<div class="section-head"><p class="eyebrow">Đóng phiên</p><h2>Kết luận hôm nay</h2></div>`;
-  takeawayHtml += `<div class="takeaway"><p>${escapeHtml(data.finalTakeaway || ND)}</p></div>`;
+  let triggersHtml = "";
+  triggersHtml += `<div class="section-head"><p class="eyebrow">Theo dõi</p><h2>Điều gì sẽ làm thay đổi quan điểm?</h2></div>`;
+  triggersHtml += `<div class="two-col-triggers">`;
+  triggersHtml += `<div><p class="sub">Thiên lệch tích cực hơn nếu</p><ul class="chain-list">`;
+  for (const t of mp) triggersHtml += `<li>${escapeHtml(t)}</li>`;
+  triggersHtml += `</ul></div><div><p class="sub">Thiên lệch tiêu cực hơn nếu</p><ul class="chain-list">`;
+  for (const t of mn) triggersHtml += `<li>${escapeHtml(t)}</li>`;
+  triggersHtml += `</ul></div></div>`;
+
+  let finalHtml = "";
+  finalHtml += `<div class="section-head"><p class="eyebrow">Đóng phiên</p><h2>Câu quyết định cuối cùng</h2></div>`;
+  finalHtml += `<div class="takeaway"><p>${escapeHtml(data.finalDecision || ND)}</p></div>`;
 
   return {
     thesis: thesisHtml,
+    whatChanged: whatChangedHtml,
+    regime: regimeHtml,
     macro: macroHtml,
+    intermarket: interHtml,
     transmission: transmissionHtml,
     actions: actionsHtml,
     allocation: allocationHtml,
-    sectors: sectorsHtml,
+    priority: priorityHtml,
     riskOn: riskOnHtml,
     riskOff: riskOffHtml,
+    intraday: intradayHtml,
     scenarios: scenariosHtml,
-    takeaway: takeawayHtml,
+    triggers: triggersHtml,
+    finalDecision: finalHtml,
   };
 }
 
@@ -232,27 +315,37 @@ function main() {
   const parts = buildBriefParts(data);
   const ids = [
     "sectionThesis",
+    "sectionWhatChanged",
+    "sectionRegimeScore",
     "sectionMacro",
+    "sectionIntermarket",
     "sectionTransmission",
     "sectionActions",
     "sectionAllocation",
-    "sectionSectors",
+    "sectionPriority",
     "sectionRiskOn",
     "sectionRiskOff",
+    "sectionIntraday",
     "sectionScenarios",
-    "sectionTakeaway",
+    "sectionViewTriggers",
+    "sectionFinalDecision",
   ];
   const keys = [
     "thesis",
+    "whatChanged",
+    "regime",
     "macro",
+    "intermarket",
     "transmission",
     "actions",
     "allocation",
-    "sectors",
+    "priority",
     "riskOn",
     "riskOff",
+    "intraday",
     "scenarios",
-    "takeaway",
+    "triggers",
+    "finalDecision",
   ];
 
   let html = fs.readFileSync(pagePath, "utf8");

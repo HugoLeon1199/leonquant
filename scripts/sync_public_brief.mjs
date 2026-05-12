@@ -1,83 +1,14 @@
 /**
- * Đồng bộ final_summary.summary (seed) → content.json (camelCase) khi chưa chạy Python.
- * Giữ nguyên allArticles + marketSnapshot từ content.json cũ.
+ * Đồng bộ scripts/strategy_brief_seed_summary.json → final_summary.json rồi dựng content.json
+ * qua build_website_content.py (Global Market Strategy Brief v2).
  */
 import fs from "fs";
 import path from "path";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
-
-function camelScenario(sp) {
-  const out = {};
-  const pairs = [
-    ["base_case", "baseCase"],
-    ["bull_case", "bullCase"],
-    ["bear_case", "bearCase"],
-  ];
-  for (const [snake, camel] of pairs) {
-    const b = (sp && sp[snake]) || {};
-    out[camel] = {
-      title: b.title || "",
-      description: b.description || "",
-      action: b.action || "",
-    };
-  }
-  return out;
-}
-
-function toPublic(snake) {
-  const pub = snake.publication_intro || {};
-  const mt = snake.main_thesis || {};
-  const vt = snake.vietnam_transmission || {};
-  const sp = snake.scenario_plan || {};
-  return {
-    publicationIntro: {
-      headline: pub.headline || "",
-      description: pub.description || "",
-    },
-    mainThesis: {
-      regime: mt.regime || "",
-      thesis: mt.thesis || "",
-      actionConclusion: mt.action_conclusion || "",
-    },
-    globalMacroDrivers: (snake.global_macro_drivers || []).map((r) => ({
-      title: r.title || "",
-      analysis: r.analysis || "",
-      vietnamImpact: r.vietnam_impact || "",
-    })),
-    vietnamTransmission: {
-      summary: vt.summary || "",
-      chains: Array.isArray(vt.chains) ? vt.chains : [],
-    },
-    quickActions: (snake.quick_actions || []).map((r) => ({
-      investorState: r.investor_state || "",
-      action: r.action || "",
-    })),
-    allocationGuide: (snake.allocation_guide || []).map((r) => ({
-      profile: r.profile || "",
-      stocks: r.stocks || "",
-      cash: r.cash || "",
-      margin: r.margin || "",
-    })),
-    sectorPriority: (snake.sector_priority || []).map((r) => ({
-      sector: r.sector || "",
-      view: r.view || "",
-      action: r.action || "",
-    })),
-    increaseRiskSignals: (snake.increase_risk_signals || []).map((r) => ({
-      signal: r.signal || "",
-      meaning: r.meaning || "",
-    })),
-    reduceRiskSignals: (snake.reduce_risk_signals || []).map((r) => ({
-      signal: r.signal || "",
-      action: r.action || "",
-    })),
-    scenarioPlan: camelScenario(sp),
-    finalTakeaway: snake.final_takeaway || "",
-  };
-}
 
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, "utf8"));
@@ -101,54 +32,29 @@ function main() {
   };
   fs.writeFileSync(finalPath, JSON.stringify(final, null, 2), "utf8");
 
-  const contentPath = path.join(root, "content.json");
-  const oldContent = readJson(contentPath);
-  const brief = toPublic(seedSummary);
+  const pyArgs = ["build_website_content.py", "--skip-images"];
+  const attempts =
+    process.platform === "win32"
+      ? [
+          { cmd: "py", args: ["-3", ...pyArgs] },
+          { cmd: "python", args: pyArgs },
+          { cmd: "python3", args: pyArgs },
+        ]
+      : [
+          { cmd: "python3", args: pyArgs },
+          { cmd: "python", args: pyArgs },
+        ];
 
-  let enrichedCount = 0;
-  try {
-    const en = readJson(path.join(root, "enriched_news.json"));
-    enrichedCount = en.count ?? en.articles?.length ?? 0;
-  } catch {
-    /* ok */
+  for (const { cmd, args } of attempts) {
+    const r = spawnSync(cmd, args, { cwd: root, stdio: "inherit" });
+    if (r.status === 0) {
+      console.log("Wrote", finalPath, "+ content.json via build_website_content.py");
+      return;
+    }
   }
 
-  const articles = Array.isArray(oldContent.allArticles) ? oldContent.allArticles : [];
-
-  const newContent = {
-    siteTitle: "LEON Quant Labs",
-    sectionLabel: "Góc nhìn vĩ mô và chiến lược thị trường",
-    generatedAt: seedSummary.generated_at,
-    schemaVersion: "investment-strategy-brief-v1",
-    publicationIntro: brief.publicationIntro,
-    mainThesis: brief.mainThesis,
-    globalMacroDrivers: brief.globalMacroDrivers,
-    vietnamTransmission: brief.vietnamTransmission,
-    quickActions: brief.quickActions,
-    allocationGuide: brief.allocationGuide,
-    sectorPriority: brief.sectorPriority,
-    increaseRiskSignals: brief.increaseRiskSignals,
-    reduceRiskSignals: brief.reduceRiskSignals,
-    scenarioPlan: brief.scenarioPlan,
-    finalTakeaway: brief.finalTakeaway,
-    allArticles: articles,
-    stats: {
-      articlesCrawled: articles.length,
-      articlesInEnriched: enrichedCount,
-    },
-    editorialMeta: {
-      briefDate: seedSummary.date,
-      briefTitle: seedSummary.title,
-    },
-    marketSnapshot:
-      oldContent.marketSnapshot && typeof oldContent.marketSnapshot === "object"
-        ? oldContent.marketSnapshot
-        : { generated_at: "", assets: [], coverage_note: "" },
-  };
-
-  fs.writeFileSync(contentPath, JSON.stringify(newContent, null, 2), "utf8");
-  console.log("Wrote", finalPath);
-  console.log("Wrote", contentPath);
+  console.error("Đã cập nhật final_summary.json nhưng build_website_content.py không chạy được.");
+  process.exit(1);
 }
 
 main();

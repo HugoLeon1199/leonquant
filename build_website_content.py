@@ -104,18 +104,53 @@ def extract_image_from_plaintext(text: str) -> str:
 
 _LIST_MINS: dict[str, int] = {
     "global_macro_drivers": 3,
+    "what_changed": 4,
     "quick_actions": 6,
-    "allocation_guide": 3,
-    "sector_priority": 6,
+    "allocation_guide": 4,
     "increase_risk_signals": 4,
     "reduce_risk_signals": 4,
+    "intermarket_map": 6,
+    "transmission_chains": 3,
+    "intraday_playbook": 4,
 }
 
-SAFE_ALLOCATION_GUIDE: list[dict[str, str]] = [
-    {"profile": "Thận trọng", "stocks": "30–40%", "cash": "60–70%", "margin": "Không dùng"},
-    {"profile": "Cân bằng", "stocks": "50–60%", "cash": "40–50%", "margin": "Rất thấp"},
-    {"profile": "Chủ động", "stocks": "60–70%", "cash": "30–40%", "margin": "Chỉ dùng khi thị trường xác nhận"},
+SAFE_ALLOCATION_GUIDE_V2: list[dict[str, str]] = [
+    {
+        "profile": "Thận trọng",
+        "stocks": "30–40%",
+        "cash": "45–55%",
+        "gold_defense": "10–15%",
+        "crypto_high_risk": "0–5%",
+        "leverage": "Không dùng",
+    },
+    {
+        "profile": "Cân bằng",
+        "stocks": "50–60%",
+        "cash": "30–40%",
+        "gold_defense": "5–10%",
+        "crypto_high_risk": "0–5%",
+        "leverage": "Rất thấp",
+    },
+    {
+        "profile": "Chủ động",
+        "stocks": "60–70%",
+        "cash": "20–30%",
+        "gold_defense": "5–10%",
+        "crypto_high_risk": "5–10%",
+        "leverage": "Chỉ dùng khi thị trường xác nhận",
+    },
+    {
+        "profile": "Rủi ro cao",
+        "stocks": "70–80%",
+        "cash": "10–20%",
+        "gold_defense": "0–10%",
+        "crypto_high_risk": "5–15%",
+        "leverage": "Có kỷ luật chặt",
+    },
 ]
+
+# Back-compat alias
+SAFE_ALLOCATION_GUIDE = SAFE_ALLOCATION_GUIDE_V2
 
 SAFE_ACTION_CONCLUSION = (
     "Không cần rút lui hoàn toàn, nhưng cũng không nên mua đuổi. Chiến lược phù hợp là giữ tỷ trọng vừa phải, "
@@ -160,6 +195,7 @@ PUBLIC_JARGON_REPLACEMENTS: tuple[tuple[str, str], ...] = (
     (r"(?i)\bcrawler\b", ""),
     (r"(?i)\bcrawl\b", ""),
     (r"(?i)\bpipeline\b", ""),
+    (r"(?i)\bmodel\b", ""),
     (r"(?i)\bsource quality\b", ""),
     (r"(?i)\bverified links\b", ""),
     (r"(?i)\bkhông phải khuyến nghị đầu tư\b", ""),
@@ -218,9 +254,9 @@ DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET: list[dict[str, str]] = [
             "Khi Fed chưa vội hạ lãi suất, lợi suất trái phiếu Mỹ dễ duy trì ở vùng tương đối cao. "
             "Chi phí vốn toàn cầu đắt hơn và tài sản rủi ro khó mở rộng định giá mạnh nếu không có tin tích cực rõ ràng."
         ),
-        "vietnam_impact": (
-            "Kênh tâm lý risk-off và dòng vốn: nhà đầu tư mới nổi thường thận trọng hơn; "
-            "cổ phiếu Việt Nam cần dựa nhiều vào dòng tiền nội."
+        "market_impact": (
+            "Định giá tài sản rủi ro toàn cầu thắt lại; thanh khoản dồn về tài sản an toàn và USD; "
+            "thị trường mới nổi chịu áp lực kỳ vọng lợi suất."
         ),
     },
     {
@@ -228,15 +264,15 @@ DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET: list[dict[str, str]] = [
         "analysis": (
             "USD mạnh thường kéo chi phí nhập khẩu hàng hóa USD và làm thắt tài chính cho các DN có nợ ngoại tệ."
         ),
-        "vietnam_impact": "Áp lực lên USD/VND và kỳ vọng chính sách; khối ngoại có thể cân nhắc tốc độ phân bổ.",
+        "market_impact": "Hàng hóa USD, trái phiếu EM và tài sản nhạy FX chịu áp lực; vàng và tiền tệ đối trọng biến động theo thận trọng Fed.",
     },
     {
         "title": "Giá dầu là rủi ro lạm phát",
         "analysis": (
             "Dầu cao không chỉ tác động nhóm năng lượng mà lan sang vận tải, sản xuất và kỳ vọng lạm phát."
         ),
-        "vietnam_impact": (
-            "Biên lợi nhuận DN sử dụng năng lượng và logistics chịu áp lực; tâm lý thị trường dễ nhạy với shock giá."
+        "market_impact": (
+            "Nhóm năng lượng và chuỗi chi phí đầu vào chịu áp lực; kỳ vọng lạm phát đẩy lợi suất thực và tâm lý risk-off."
         ),
     },
 ]
@@ -254,30 +290,30 @@ DEFAULT_SECTOR_PRIORITY_SNIPPET: list[dict[str, str]] = [
 
 _CANONICAL_QUICK_STATES: tuple[str, ...] = (
     "Cầm nhiều tiền mặt",
-    "Đang nắm cổ phiếu tốt",
+    "Đang nắm tài sản khỏe",
     "Đang lãi ngắn hạn",
-    "Đang dùng margin cao",
+    "Đang dùng margin / đòn bẩy",
     "Muốn mua mới",
-    "Đang kẹt cổ phiếu yếu",
+    "Đang kẹt tài sản yếu",
 )
 
 _QUICK_ACTION_FALLBACKS: dict[str, str] = {
     "Cầm nhiều tiền mặt": (
         "Chuẩn bị danh mục theo 3 kịch bản; chỉ giải ngân khi VN-Index, thanh khoản và độ rộng cùng xác nhận."
     ),
-    "Đang nắm cổ phiếu tốt": (
+    "Đang nắm tài sản khỏe": (
         "Ưu tiên giữ mã chất lượng; tăng thêm tỷ trọng chỉ khi bứt nền kèm volume; dùng chốt lời theo lớp."
     ),
     "Đang lãi ngắn hạn": (
         "Chốt lời từng phần ở kháng cự; giữ phần cốt lõi; tránh dùng margin để kéo thêm rủi ro."
     ),
-    "Đang dùng margin cao": (
+    "Đang dùng margin / đòn bẩy": (
         "Ưu tiên hạ đòn bẩy khi biên an toàn thu hẹp; không mua đuổi trong nhịp nhiễu hoặc thiếu xác nhận dòng tiền."
     ),
     "Muốn mua mới": (
         "Mua có kế hoạch, phân bổ theo danh mục; chờ pull-back có cấu trúc; tránh dồn tập trung một mã."
     ),
-    "Đang kẹt cổ phiếu yếu": (
+    "Đang kẹt tài sản yếu": (
         "Cắt giảm dứt khoát phần yếu/thanh khoản kém; không trung bình giá xuống thác; tập trung vốn vào mã chất lượng."
     ),
 }
@@ -301,21 +337,21 @@ def _sanitize_strings_in_brief_obj(obj: Any) -> Any:
 
 
 def _allocation_guide_violates(rows: Any) -> bool:
-    if not isinstance(rows, list):
+    if not isinstance(rows, list) or len(rows) < 4:
         return True
     for r in rows:
         if not isinstance(r, dict):
             return True
         profile = str(r.get("profile", "") or "").lower()
-        margin = str(r.get("margin", "") or "")
+        lev = str(r.get("leverage", "") or r.get("margin", "") or "")
         if "thận trọng" in profile or "than trong" in profile:
-            if re.search(r"\d\s*%", margin):
+            if re.search(r"\d\s*%", lev):
                 return True
         if "cân bằng" in profile or "can bang" in profile:
-            if re.search(r"(?:^|[^\d])(?:10|20|30)\s*%", margin, re.IGNORECASE):
+            if re.search(r"(?:^|[^\d])(?:10|20|30)\s*%", lev, re.IGNORECASE):
                 return True
-            if re.search(r"\b(cao|đầy đủ|đầy)\b", margin, re.IGNORECASE) and "rất thấp" not in margin.lower():
-                if re.search(r"\d\s*%", margin):
+            if re.search(r"\b(cao|đầy đủ|đầy)\b", lev, re.IGNORECASE) and "rất thấp" not in lev.lower():
+                if re.search(r"\d\s*%", lev):
                     return True
     return False
 
@@ -336,29 +372,39 @@ def _sector_in_stable_universe(name: str) -> bool:
 
 
 def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
-    """Post-process GPT output: jargon strip, allocation/signals/sectors/global sanity."""
+    """Post-process GPT output: jargon strip, allocation/signals/global sanity (Global Market Strategy Brief v2)."""
     out = copy.deepcopy(snake)
+    _migrate_snake_to_global_strategy_v2(out)
+
     for key in (
         "title",
         "publication_intro",
         "main_thesis",
-        "vietnam_transmission",
+        "market_regime_score",
         "scenario_plan",
-        "final_takeaway",
+        "final_decision",
+        "view_change_triggers",
     ):
         if key in out:
             out[key] = _sanitize_strings_in_brief_obj(out[key])
 
     for list_key in (
+        "what_changed",
         "global_macro_drivers",
+        "intermarket_map",
+        "transmission_chains",
         "quick_actions",
         "allocation_guide",
-        "sector_priority",
         "increase_risk_signals",
         "reduce_risk_signals",
+        "intraday_playbook",
     ):
         if list_key in out:
             out[list_key] = _sanitize_strings_in_brief_obj(out[list_key])
+
+    pa = out.get("priority_and_avoid")
+    if isinstance(pa, dict):
+        out["priority_and_avoid"] = _sanitize_strings_in_brief_obj(pa)
 
     mt = out.get("main_thesis")
     if isinstance(mt, dict):
@@ -370,13 +416,13 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
 
     ag = out.get("allocation_guide")
     if _allocation_guide_violates(ag):
-        out["allocation_guide"] = copy.deepcopy(SAFE_ALLOCATION_GUIDE)
+        out["allocation_guide"] = copy.deepcopy(SAFE_ALLOCATION_GUIDE_V2)
 
     inc_raw = out.get("increase_risk_signals")
     red_raw = out.get("reduce_risk_signals")
     inc = inc_raw if isinstance(inc_raw, list) else []
     red = red_raw if isinstance(red_raw, list) else []
-    new_inc = []
+    new_inc: list[dict[str, str]] = []
     new_red: list[dict[str, str]] = []
 
     for r in inc:
@@ -459,15 +505,18 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
     out["increase_risk_signals"] = new_inc[:8]
     out["reduce_risk_signals"] = new_red[:8]
 
-    sp_list = out.get("sector_priority")
-    if isinstance(sp_list, list):
-        bad = sum(1 for r in sp_list if isinstance(r, dict) and not _sector_in_stable_universe(str(r.get("sector", ""))))
-        if bad > 2 or len(sp_list) < _LIST_MINS["sector_priority"]:
-            out["sector_priority"] = copy.deepcopy(DEFAULT_SECTOR_PRIORITY_SNIPPET)
-
     gmd = out.get("global_macro_drivers")
     if isinstance(gmd, list):
-        global_rows = [dict(r) for r in gmd if isinstance(r, dict) and _macro_driver_is_global(r)]
+        global_rows = []
+        for r in gmd:
+            if not isinstance(r, dict):
+                continue
+            row = dict(r)
+            if not str(row.get("market_impact", "") or "").strip():
+                row["market_impact"] = str(row.get("vietnam_impact", "") or "").strip()
+            row.pop("vietnam_impact", None)
+            if _macro_driver_is_global(row):
+                global_rows.append(row)
         if len(global_rows) < 2:
             out["global_macro_drivers"] = copy.deepcopy(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET)
         else:
@@ -533,11 +582,15 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
             if _SCENARIO_ACTION_PORTFOLIO_RE.search(act) or _DIRECT_ASSET_PITCH_RE.search(act):
                 blk["action"] = safe_act
 
-    ft = str(out.get("final_takeaway", "") or "").strip()
-    if len(ft) > 520:
-        out["final_takeaway"] = ft[:517].rstrip() + "…"
+    fd = str(out.get("final_decision", "") or "").strip()
+    if len(fd) > 520:
+        out["final_decision"] = fd[:517].rstrip() + "…"
 
+    _migrate_snake_to_global_strategy_v2(out)
     return out
+
+
+sanitize_investment_brief = sanitize_strategy_brief_snake
 
 
 class MetadataExtractor(HTMLParser):
@@ -730,107 +783,230 @@ def build_all_article_cards(
     return cards
 
 
-def _default_strategy_snake(*, brief_date: str, generated_at: str) -> dict[str, Any]:
-    """Shell hợp lệ cho website khi thiếu dữ liệu — giữ tone nghiên cứu, không nhắc tooling."""
+def _default_market_regime_score() -> dict[str, Any]:
     return {
-        "title": "LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường",
+        "total_score": 0,
+        "regime": "Trung tính",
+        "items": [
+            {"axis": "Lãi suất / lợi suất", "signal": "Theo dõi phản ứng lợi suất thực trong ngày", "score": 0},
+            {"axis": "USD / tỷ giá", "signal": "Biến động USD ảnh hưởng risk appetite", "score": 0},
+            {"axis": "Dầu / lạm phát", "signal": "Áp lực lạm phát kỳ vọng từ năng lượng", "score": 0},
+            {"axis": "Thanh khoản", "signal": "Cần đối chiếu khối lượng với diễn biến giá", "score": 0},
+            {"axis": "Độ rộng thị trường", "signal": "Phân hóa có thể tiếp diễn", "score": 0},
+            {"axis": "Nhóm dẫn dắt", "signal": "Ưu tiên nhóm giữ nền và dòng tiền", "score": 0},
+        ],
+        "interpretation": (
+            "Điểm tổng hợp minh họa nhịp ngày; không thay thế xác nhận trên thị trường thật."
+        ),
+    }
+
+
+def _default_what_changed_fallback() -> list[dict[str, str]]:
+    return [
+        {
+            "variable": "Lãi suất / lợi suất Mỹ",
+            "change": "Theo dữ liệu thị trường trong ngày",
+            "meaning": "Neo kỳ vọng Fed và chi phí vốn toàn cầu.",
+        },
+        {
+            "variable": "USD / DXY",
+            "change": "Theo hướng trong ngày",
+            "meaning": "Ảnh hưởng tài sản nhạy FX và dòng vốn xuyên biên giới.",
+        },
+        {
+            "variable": "Dầu / năng lượng",
+            "change": "Theo áp lực lạm phát kỳ vọng",
+            "meaning": "Tác động chuỗi chi phí và tâm lý risk-off.",
+        },
+        {
+            "variable": "Cổ phiếu & thanh khoản",
+            "change": "Phân hóa có thể tiếp diễn",
+            "meaning": "Ưu tiên tài sản khỏe, tránh mua đuổi nhịp mỏng.",
+        },
+    ]
+
+
+def _default_intermarket_map_fallback() -> list[dict[str, str]]:
+    return [
+        {"asset": "Cổ phiếu Mỹ", "state": "Theo lợi suất và định giá", "action": "Giữ tỷ trọng theo khẩu vị; tránh mua đuổi."},
+        {"asset": "Cổ phiếu Việt Nam", "state": "Phân hóa", "action": "Tập trung nhóm giữ nền, có thanh khoản và dòng tiền."},
+        {"asset": "Thị trường mới nổi", "state": "Nhạy USD và risk appetite", "action": "Hạn chế đòn bẩy khi chưa xác nhận dòng tiền."},
+        {"asset": "Vàng", "state": "Theo USD và lợi suất thực", "action": "Có thể giữ vai trò phòng thủ vừa phải trong danh mục."},
+        {"asset": "Dầu", "state": "Biến động cung cầu", "action": "Theo dõi tác động lạm phát kỳ vọng; không tập trung đơn nhất."},
+        {"asset": "Trái phiếu / lợi suất", "state": "Neo theo chính sách", "action": "Ưu tiên chất lượng tín dụng và kỳ hạn phù hợp."},
+        {"asset": "Crypto", "state": "Biến động cao", "action": "Giới hạn tỷ trọng; tránh đòn bẩy lớn."},
+        {"asset": "Tiền mặt", "state": "Linh hoạt", "action": "Giữ buffer để chờ xác nhận đồng thuận."},
+    ]
+
+
+def _default_priority_and_avoid_fallback() -> dict[str, Any]:
+    return {
+        "prioritize": [
+            {"asset": "Cổ phiếu chất lượng, dòng tiền rõ", "reason": "Giảm rủi ro đuổi nhịp mỏng."},
+            {"asset": "Nhóm dẫn dắt giữ nền", "reason": "Ổn định tương đối khi phân hóa."},
+            {"asset": "Tiền mặt có kế hoạch", "reason": "Giữ quyền chủ động khi tín hiệu chưa đồng thuận."},
+            {"asset": "Vàng (phòng thủ vừa phải)", "reason": "Cân bằng rủi ro hệ thống và USD."},
+            {"asset": "Trái phiếu chất lượng", "reason": "Neo khi risk-off."},
+        ],
+        "avoid_or_be_careful": [
+            {"asset": "Tài sản đầu cơ tăng nóng", "reason": "Thanh khoản mỏng, dễ đảo chiều."},
+            {"asset": "Đòn bẩy cao khi chưa xác nhận", "reason": "Rủi ro thanh lý trong biến động."},
+            {"asset": "Crypto tỷ trọng lớn", "reason": "Biến động và thanh khoản không đồng nhất."},
+            {"asset": "Tập trung một nhóm quá mức", "reason": "Giảm khả năng chịu shock."},
+            {"asset": "Mua đuổi khi độ rộng yếu", "reason": "Nhịp tăng thiếu dòng tiền xác nhận."},
+        ],
+    }
+
+
+def _default_intraday_playbook_fallback() -> list[dict[str, str]]:
+    return [
+        {"market_condition": "Tăng mạnh nhưng thanh khoản yếu", "action": "Không mua đuổi."},
+        {"market_condition": "Tăng cùng thanh khoản và độ rộng tốt", "action": "Có thể tăng tỷ trọng từng phần có kỷ luật."},
+        {"market_condition": "Giảm nhẹ với thanh khoản thấp", "action": "Quan sát; chưa cần phản ứng mạnh."},
+        {"market_condition": "Giảm mạnh với thanh khoản cao", "action": "Hạ tỷ trọng; giảm đòn bẩy."},
+    ]
+
+
+def _default_view_change_triggers_fallback() -> dict[str, Any]:
+    return {
+        "more_positive_if": [
+            "USD suy yếu rõ",
+            "Lợi suất Mỹ hạ nhiệt",
+            "Dầu ổn định",
+            "Thanh khoản tăng cùng giá",
+        ],
+        "more_negative_if": [
+            "USD tăng mạnh",
+            "Lợi suất Mỹ tăng nhanh",
+            "Dầu tăng sốc",
+            "Chỉ số tăng nhưng độ rộng yếu",
+        ],
+    }
+
+
+def _migrate_snake_to_global_strategy_v2(out: dict[str, Any]) -> None:
+    """Chuẩn hoá brief snake_case sang Global Market Strategy Brief v2 (bổ sung field, bỏ legacy)."""
+    gmd = out.get("global_macro_drivers")
+    if isinstance(gmd, list):
+        for d in gmd:
+            if not isinstance(d, dict):
+                continue
+            if not str(d.get("market_impact", "") or "").strip():
+                d["market_impact"] = str(d.get("vietnam_impact", "") or "").strip()
+            d.pop("vietnam_impact", None)
+
+    vt = out.get("vietnam_transmission")
+    chains_from_vt: list[str] = []
+    if isinstance(vt, dict):
+        ch = vt.get("chains")
+        if isinstance(ch, list):
+            chains_from_vt = [str(x).strip() for x in ch if isinstance(x, str) and str(x).strip()]
+
+    tc = out.get("transmission_chains")
+    if not isinstance(tc, list) or len([x for x in tc if isinstance(x, str) and x.strip()]) < _LIST_MINS[
+        "transmission_chains"
+    ]:
+        out["transmission_chains"] = chains_from_vt or [
+            "Lãi suất Mỹ cao → USD mạnh → EM và tài sản rủi ro chịu áp lực định giá.",
+            "Dầu biến động → lạm phát kỳ vọng → tâm lý thận trọng với tài sản rủi ro.",
+            "Thanh khoản yếu trong nhịp tăng → dễ đảo chiều; ưu tiên kỷ luật vốn.",
+        ]
+
+    wc = out.get("what_changed")
+    if not isinstance(wc, list) or len([x for x in wc if isinstance(x, dict)]) < _LIST_MINS["what_changed"]:
+        out["what_changed"] = _default_what_changed_fallback()
+
+    mrs = out.get("market_regime_score")
+    if not isinstance(mrs, dict) or not isinstance(mrs.get("items"), list):
+        out["market_regime_score"] = _default_market_regime_score()
+    else:
+        mrs.setdefault("total_score", 0)
+        mrs.setdefault("regime", "Trung tính")
+        mrs.setdefault("interpretation", "")
+
+    im = out.get("intermarket_map")
+    if not isinstance(im, list) or len([x for x in im if isinstance(x, dict)]) < _LIST_MINS["intermarket_map"]:
+        out["intermarket_map"] = _default_intermarket_map_fallback()
+
+    pa = out.get("priority_and_avoid")
+    if not isinstance(pa, dict):
+        out["priority_and_avoid"] = _default_priority_and_avoid_fallback()
+    else:
+        if not isinstance(pa.get("prioritize"), list) or len(pa["prioritize"]) < 4:
+            pa["prioritize"] = _default_priority_and_avoid_fallback()["prioritize"]
+        if not isinstance(pa.get("avoid_or_be_careful"), list) or len(pa["avoid_or_be_careful"]) < 4:
+            pa["avoid_or_be_careful"] = _default_priority_and_avoid_fallback()["avoid_or_be_careful"]
+
+    ip = out.get("intraday_playbook")
+    if not isinstance(ip, list) or len([x for x in ip if isinstance(x, dict)]) < _LIST_MINS["intraday_playbook"]:
+        out["intraday_playbook"] = _default_intraday_playbook_fallback()
+
+    vct = out.get("view_change_triggers")
+    if not isinstance(vct, dict):
+        out["view_change_triggers"] = _default_view_change_triggers_fallback()
+    vct = out["view_change_triggers"]
+    assert isinstance(vct, dict)
+    if not isinstance(vct.get("more_positive_if"), list) or len(vct["more_positive_if"]) < 3:
+        vct["more_positive_if"] = _default_view_change_triggers_fallback()["more_positive_if"]
+    if not isinstance(vct.get("more_negative_if"), list) or len(vct["more_negative_if"]) < 3:
+        vct["more_negative_if"] = _default_view_change_triggers_fallback()["more_negative_if"]
+
+    fd = str(out.get("final_decision", "") or "").strip()
+    if not fd:
+        out["final_decision"] = str(out.get("final_takeaway", "") or "").strip() or (
+            "Giữ tư thế chọn lọc; không mua đuổi; hạn chế đòn bẩy cao. "
+            "Ưu tiên tài sản khỏe và tiền mặt chủ động; chỉ tăng rủi ro khi USD, lợi suất, thanh khoản và độ rộng cùng xác nhận."
+        )
+
+    ag = out.get("allocation_guide")
+    if not isinstance(ag, list) or len(ag) < 4:
+        out["allocation_guide"] = copy.deepcopy(SAFE_ALLOCATION_GUIDE_V2)
+
+    out.pop("vietnam_transmission", None)
+    out.pop("sector_priority", None)
+    out.pop("final_takeaway", None)
+
+
+def _default_strategy_snake(*, brief_date: str, generated_at: str) -> dict[str, Any]:
+    """Shell Global Market Strategy Brief v2 khi thiếu dữ liệu — tone nghiên cứu, không nhắc tooling."""
+    base = {
+        "title": "LEON Quant Labs — Global Market Strategy Brief",
         "date": brief_date,
         "generated_at": generated_at,
         "publication_intro": {
-            "headline": "Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam",
+            "headline": "Góc nhìn chiến lược thị trường toàn cầu cho nhà đầu tư Việt Nam",
             "description": (
-                "LEON Quant Labs tập trung vào việc chuyển biến động vĩ mô toàn cầu thành góc nhìn đầu tư "
-                "có thể hành động tại thị trường Việt Nam."
+                "LEON Quant Labs chuyển biến động vĩ mô và thanh khoản toàn cầu thành khung hành động danh mục "
+                "ngắn gọn, có thể theo dõi theo ngày."
             ),
         },
         "main_thesis": {
             "regime": "Thận trọng có chọn lọc",
             "thesis": (
-                "Thị trường toàn cầu chịu ảnh hưởng từ lãi suất Mỹ, đồng USD, giá dầu và dòng vốn quốc tế. "
-                "Với Việt Nam, cơ hội vẫn tồn tại nhưng phụ thuộc vào thanh khoản nội địa, nhóm dẫn dắt và hoạt động của khối ngoại."
+                "Áp lực chính đến từ lãi suất Mỹ, USD, dầu và kỳ vọng tăng trưởng. "
+                "Thị trường đang ở trạng thái thận trọng có chọn lọc; cần đối chiếu dòng tiền thật."
             ),
             "action_conclusion": (
-                "Không cần rút lui hoàn toàn, nhưng cũng không nên mua đuổi. Ưu tiên cổ phiếu khỏe, giữ tỷ trọng vừa phải, "
-                "hạn chế margin và chờ xác nhận từ dòng tiền."
+                "Chiến lược phù hợp là giữ tỷ trọng vừa phải, ưu tiên tài sản khỏe, hạn chế đòn bẩy và chỉ tăng rủi ro khi có xác nhận."
             ),
         },
-        "global_macro_drivers": [
-            {
-                "title": "Lãi suất Mỹ còn cao",
-                "analysis": (
-                    "Khi Fed chưa vội hạ lãi suất, lợi suất trái phiếu Mỹ dễ duy trì ở vùng tương đối cao. "
-                    "Chi phí vốn toàn cầu đắt hơn và tài sản rủi ro khó mở rộng định giá mạnh nếu không có tin tích cực rõ ràng."
-                ),
-                "vietnam_impact": (
-                    "Kênh tâm lý risk-off và dòng vốn: nhà đầu tư mới nổi thường thận trọng hơn; cổ phiếu Việt Nam cần dựa nhiều vào dòng tiền nội."
-                ),
-            },
-            {
-                "title": "Đồng USD mạnh gây áp lực tỷ giá",
-                "analysis": (
-                    "USD mạnh thường kéo chi phí nhập khẩu hàng hóa USD và làm thắt tài chính cho các DN có nợ ngoại tệ."
-                ),
-                "vietnam_impact": "Áp lực lên USD/VND và kỳ vọng chính sách; khối ngoại có thể cân nhắc tốc độ phân bổ.",
-            },
-            {
-                "title": "Giá dầu là rủi ro lạm phát",
-                "analysis": (
-                    "Dầu cao không chỉ tác động nhóm năng lượng mà lan sang vận tải, sản xuất và kỳ vọng lạm phát."
-                ),
-                "vietnam_impact": (
-                    "Biên lợi nhuận DN sử dụng năng lượng và logistics chịu áp lực; tâm lý thị trường dễ nhạy với shock giá."
-                ),
-            },
+        "what_changed": _default_what_changed_fallback(),
+        "market_regime_score": _default_market_regime_score(),
+        "global_macro_drivers": copy.deepcopy(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET),
+        "intermarket_map": _default_intermarket_map_fallback(),
+        "transmission_chains": [
+            "Lãi suất Mỹ cao → USD mạnh → thị trường mới nổi và tài sản rủi ro chịu áp lực định giá.",
+            "Dầu biến động → lạm phát kỳ vọng → Fed thận trọng hơn → tài sản rủi ro khó tăng đồng thuận.",
+            "Thanh khoản yếu trong nhịp tăng → ưu tiên kỷ luật vốn và tránh mua đuổi.",
         ],
-        "vietnam_transmission": {
-            "summary": (
-                "Chuỗi tác động thường gặp: lãi suất Mỹ cao → USD mạnh → áp lực USD/VND → khối ngoại thận trọng hơn "
-                "→ VN-Index cần dựa nhiều hơn vào dòng tiền nội và nhóm dẫn dắt."
-            ),
-            "chains": [
-                "Lãi suất Mỹ cao → USD mạnh → áp lực USD/VND → khối ngoại thận trọng.",
-                "Giá dầu biến động → lạm phát kỳ vọng → tâm lý risk-off → định giá tài sản rủi ro thắt lại.",
-            ],
-        },
         "quick_actions": [
-            {"investor_state": "Cầm nhiều tiền mặt", "action": "Chưa cần mua vội; theo dõi thanh khoản và độ rộng."},
-            {"investor_state": "Đang nắm cổ phiếu tốt", "action": "Có thể tiếp tục nắm; đặt điểm hạ tỷ trọng nếu thị trường suy yếu đồng loạt."},
-            {"investor_state": "Đang lãi ngắn hạn", "action": "Chốt lời một phần để bảo toàn lợi thế; tránh mua thêm đuổi đỉnh."},
-            {"investor_state": "Đang dùng margin cao", "action": "Hạ đòn bẩy về mức an toàn; ưu tiên sống sót qua nhịp biến động."},
-            {"investor_state": "Muốn mua mới", "action": "Chỉ tích sườn nhỏ; chọn cổ phiếu khỏe có dòng tiền xác nhận."},
-            {"investor_state": "Đang kẹt cổ phiếu yếu", "action": "Cơ cấu sang mã có cơ bản và thanh khoản tốt hơn."},
+            {"investor_state": s, "action": _QUICK_ACTION_FALLBACKS[s]} for s in _CANONICAL_QUICK_STATES
         ],
-        "allocation_guide": [
-            {"profile": "Thận trọng", "stocks": "30–40%", "cash": "60–70%", "margin": "Không dùng"},
-            {"profile": "Cân bằng", "stocks": "50–60%", "cash": "40–50%", "margin": "Rất thấp khi thị trường xác nhận"},
-            {"profile": "Chủ động", "stocks": "60–70%", "cash": "30–40%", "margin": "Chỉ khi sóng và thanh khoản rõ ràng"},
-        ],
-        "sector_priority": [
-            {"sector": "Ngân hàng", "view": "Tích cực có chọn lọc", "action": "Ưu tiên mã nền tảng và room tín dụng lành mạnh."},
-            {"sector": "Dầu khí", "view": "Tích cực ngắn hạn có điều kiện", "action": "Theo giá dầu; quản trị nhịp điều chỉnh."},
-            {"sector": "Chứng khoán", "view": "Phụ thuộc thanh khoản", "action": "Chỉ mạnh khi dòng tiền cá nhân bền."},
-            {"sector": "Khu công nghiệp", "view": "Trung tính tích cực", "action": "Chọn KCN có lấp đầy và khách ổn định."},
-            {"sector": "Xuất khẩu", "view": "Trung tính", "action": "Lưu ý USD/VND và cầu bên ngoài."},
-            {"sector": "Bất động sản", "view": "Thận trọng", "action": "Chỉ xem dự án có dòng tiền và pháp lý rõ."},
-            {"sector": "Thép", "view": "Trung tính thận trọng", "action": "Bám giá nguyên liệu và biên."},
-            {"sector": "Bán lẻ", "view": "Chọn lọc", "action": "Ưu tiên chuỗi có động lực same-store."},
-        ],
-        "increase_risk_signals": [
-            {"signal": "VN-Index tăng cùng thanh khoản cải thiện", "meaning": "Dòng tiền xác nhận nhịp tăng có thể lan rộng."},
-            {"signal": "Số mã tăng lan rộng", "meaning": "Độ rộng tốt giảm rủi ro chỉ số ‘giả vờ’."},
-            {"signal": "Ngân hàng giữ vai trò dẫn dắt", "meaning": "Nhóm nền ổn định thường củng cố xu hướng."},
-            {"signal": "Khối ngoại giảm bán hoặc mua ròng", "meaning": "Áp lực bán có thể hạ nhiệt."},
-            {"signal": "USD/VND ổn định", "meaning": "Giảm rủi ro tâm lý tỷ giá."},
-            {"signal": "Cổ phiếu vượt nền với volume tốt", "meaning": "Xác nhận kỹ thuật có hỗ trợ dòng tiền."},
-        ],
-        "reduce_risk_signals": [
-            {"signal": "VN-Index tăng nhưng độ rộng yếu", "action": "Tránh mua đuổi đỉnh hẹp."},
-            {"signal": "Thanh khoản giảm trong nhịp tăng", "action": "Thận trọng; dễ đảo chiều nhanh."},
-            {"signal": "Khối ngoại bán ròng mạnh", "action": "Ưu tiên giữ tiền mặt bảo vệ vốn."},
-            {"signal": "USD/VND tăng nhanh", "action": "Xem xét giảm tỷ trọng nhóm nhạy FX và margin."},
-            {"signal": "Ngân hàng suy yếu đồng loạt", "action": "Tín hiệu stress hệ thống; giảm rủi ro."},
-            {"signal": "Cổ phiếu đầu cơ tăng nóng", "action": "Rủi ro bull trap; không chasing nhóm mỏng thanh khoản."},
-        ],
+        "allocation_guide": copy.deepcopy(SAFE_ALLOCATION_GUIDE_V2),
+        "priority_and_avoid": _default_priority_and_avoid_fallback(),
+        "increase_risk_signals": copy.deepcopy(SAFE_INCREASE_RISK_SIGNALS),
+        "reduce_risk_signals": copy.deepcopy(SAFE_REDUCE_RISK_SIGNALS),
+        "intraday_playbook": _default_intraday_playbook_fallback(),
         "scenario_plan": {
             "base_case": {
                 "title": "Kịch bản cơ sở",
@@ -840,21 +1016,21 @@ def _default_strategy_snake(*, brief_date: str, generated_at: str) -> dict[str, 
             "bull_case": {
                 "title": "Kịch bản tích cực",
                 "description": "USD hạ nhiệt, thanh khoản cải thiện, rủi ro hệ thống không leo thang.",
-                "action": "Tăng tỷ trọng từng phần theo nhịp xác nhận; giữ cash để còn quyền chủ động.",
+                "action": "Tăng tỷ trọng từng phần theo nhịp xác nhận; giữ tiền mặt để còn quyền chủ động.",
             },
             "bear_case": {
                 "title": "Kịch bản tiêu cực",
-                "description": "USD mạnh, khối ngoại bán ròng, VN-Index mất các ngưỡng hỗ trợ quan trọng.",
-                "action": "Giảm cổ phiếu, hạ margin; ưu tiên an toàn vốn.",
+                "description": "USD mạnh, thanh khoản suy yếu, định giá tài sản rủi ro thắt lại.",
+                "action": "Hạ đòn bẩy; nâng tiền mặt; chỉ giữ tài sản chất lượng cao và thanh khoản tốt.",
             },
         },
-        "final_takeaway": (
-            "Bối cảnh hiện tại không ủng hộ chiến lược all-in, nhưng cũng chưa yêu cầu phải rút lui hoàn toàn. "
-            "Vĩ mô thế giới vẫn còn áp lực từ lãi suất Mỹ, đồng USD và giá dầu. Thị trường Việt Nam vẫn có cơ hội nếu dòng tiền nội "
-            "duy trì và nhóm ngân hàng giữ vai trò dẫn dắt. Chiến lược hợp lý là giữ danh mục gọn, nắm cổ phiếu khỏe, tránh mua đuổi, "
-            "hạn chế margin và giữ tiền mặt để có quyền chủ động."
+        "view_change_triggers": _default_view_change_triggers_fallback(),
+        "final_decision": (
+            "Trạng thái hôm nay: chọn lọc, không mua đuổi, không dùng đòn bẩy cao. "
+            "Giữ tiền mặt chủ động, nắm tài sản khỏe và chỉ tăng rủi ro khi USD, lợi suất, thanh khoản và độ rộng cùng xác nhận."
         ),
     }
+    return base
 
 
 def _is_investment_strategy_brief(summary: dict[str, Any]) -> bool:
@@ -907,7 +1083,7 @@ def _legacy_to_strategy_snake(summary: dict[str, Any], *, brief_date: str, gener
             {
                 "title": str(d.get("headline", "") or "").strip() or "Nhịp vĩ mô",
                 "analysis": analysis or "—",
-                "vietnam_impact": vn_imp or "Cần theo dõi kênh USD/VND, khối ngoại và thanh khoản nội.",
+                "vietnam_impact": vn_imp or "Ảnh hưởng qua kênh lãi suất, USD và risk appetite toàn cầu.",
             }
         )
 
@@ -1022,15 +1198,11 @@ def coerce_summary_to_strategy_brief(
 
     vt = summary.get("vietnam_transmission")
     if isinstance(vt, dict):
-        if str(vt.get("summary", "")).strip():
-            out["vietnam_transmission"]["summary"] = str(vt["summary"]).strip()
         ch = vt.get("chains")
-        if (
-            isinstance(ch, list)
-            and len(ch) > 0
-            and all(isinstance(x, str) and x.strip() for x in ch)
-        ):
-            out["vietnam_transmission"]["chains"] = ch
+        if isinstance(ch, list):
+            chains_clean = [str(x).strip() for x in ch if isinstance(x, str) and str(x).strip()]
+            if len(chains_clean) >= _LIST_MINS["transmission_chains"]:
+                out["transmission_chains"] = chains_clean
 
     sp = summary.get("scenario_plan")
     if isinstance(sp, dict):
@@ -1042,14 +1214,180 @@ def coerce_summary_to_strategy_brief(
                 if str(blk.get(f, "")).strip():
                     out["scenario_plan"][case][f] = str(blk[f]).strip()
 
-    if str(summary.get("final_takeaway", "")).strip():
-        out["final_takeaway"] = str(summary["final_takeaway"]).strip()
+    if str(summary.get("final_decision", "")).strip():
+        out["final_decision"] = str(summary["final_decision"]).strip()
+    elif str(summary.get("final_takeaway", "")).strip():
+        out["final_decision"] = str(summary["final_takeaway"]).strip()
+
+    tc = summary.get("transmission_chains")
+    if isinstance(tc, list):
+        chains_clean = [str(x).strip() for x in tc if isinstance(x, str) and str(x).strip()]
+        if len(chains_clean) >= _LIST_MINS["transmission_chains"]:
+            out["transmission_chains"] = chains_clean
+
+    wc = summary.get("what_changed")
+    if isinstance(wc, list):
+        rows_wc = []
+        for r in wc:
+            if not isinstance(r, dict):
+                continue
+            if all(str(r.get(f, "") or "").strip() for f in ("variable", "change", "meaning")):
+                rows_wc.append(
+                    {
+                        "variable": str(r["variable"]).strip(),
+                        "change": str(r["change"]).strip(),
+                        "meaning": str(r["meaning"]).strip(),
+                    }
+                )
+        if len(rows_wc) >= _LIST_MINS["what_changed"]:
+            out["what_changed"] = rows_wc
+
+    mrs = summary.get("market_regime_score")
+    if isinstance(mrs, dict) and isinstance(mrs.get("items"), list):
+        items = []
+        for it in mrs["items"]:
+            if not isinstance(it, dict):
+                continue
+            if all(str(it.get(f, "") or "").strip() for f in ("axis", "signal")):
+                sc = it.get("score", 0)
+                try:
+                    score_i = int(sc)
+                except (TypeError, ValueError):
+                    score_i = 0
+                items.append(
+                    {
+                        "axis": str(it["axis"]).strip(),
+                        "signal": str(it["signal"]).strip(),
+                        "score": score_i,
+                    }
+                )
+        if len(items) >= 4:
+            out["market_regime_score"] = {
+                "total_score": int(mrs.get("total_score", 0) or 0),
+                "regime": str(mrs.get("regime", "") or "").strip() or out["market_regime_score"]["regime"],
+                "items": items,
+                "interpretation": str(mrs.get("interpretation", "") or "").strip()
+                or out["market_regime_score"]["interpretation"],
+            }
+
+    im = summary.get("intermarket_map")
+    if isinstance(im, list):
+        rows_im = []
+        for r in im:
+            if not isinstance(r, dict):
+                continue
+            if all(str(r.get(f, "") or "").strip() for f in ("asset", "state", "action")):
+                rows_im.append(
+                    {
+                        "asset": str(r["asset"]).strip(),
+                        "state": str(r["state"]).strip(),
+                        "action": str(r["action"]).strip(),
+                    }
+                )
+        if len(rows_im) >= _LIST_MINS["intermarket_map"]:
+            out["intermarket_map"] = rows_im
+
+    pa = summary.get("priority_and_avoid")
+    if isinstance(pa, dict):
+        pr = pa.get("prioritize")
+        av = pa.get("avoid_or_be_careful")
+        if isinstance(pr, list) and isinstance(av, list):
+            pr_o = [
+                {"asset": str(r["asset"]).strip(), "reason": str(r["reason"]).strip()}
+                for r in pr
+                if isinstance(r, dict)
+                and str(r.get("asset", "") or "").strip()
+                and str(r.get("reason", "") or "").strip()
+            ]
+            av_o = [
+                {"asset": str(r["asset"]).strip(), "reason": str(r["reason"]).strip()}
+                for r in av
+                if isinstance(r, dict)
+                and str(r.get("asset", "") or "").strip()
+                and str(r.get("reason", "") or "").strip()
+            ]
+            if len(pr_o) >= 4 and len(av_o) >= 4:
+                out["priority_and_avoid"] = {"prioritize": pr_o, "avoid_or_be_careful": av_o}
+
+    ip = summary.get("intraday_playbook")
+    if isinstance(ip, list):
+        rows_ip = []
+        for r in ip:
+            if not isinstance(r, dict):
+                continue
+            if all(str(r.get(f, "") or "").strip() for f in ("market_condition", "action")):
+                rows_ip.append(
+                    {
+                        "market_condition": str(r["market_condition"]).strip(),
+                        "action": str(r["action"]).strip(),
+                    }
+                )
+        if len(rows_ip) >= _LIST_MINS["intraday_playbook"]:
+            out["intraday_playbook"] = rows_ip
+
+    vct = summary.get("view_change_triggers")
+    if isinstance(vct, dict):
+        mp = vct.get("more_positive_if")
+        mn = vct.get("more_negative_if")
+        if isinstance(mp, list) and isinstance(mn, list):
+            mp_o = [str(x).strip() for x in mp if isinstance(x, str) and str(x).strip()]
+            mn_o = [str(x).strip() for x in mn if isinstance(x, str) and str(x).strip()]
+            if len(mp_o) >= 3 and len(mn_o) >= 3:
+                out["view_change_triggers"] = {"more_positive_if": mp_o, "more_negative_if": mn_o}
+
+    gmd = summary.get("global_macro_drivers")
+    if isinstance(gmd, list):
+        rows_g = []
+        for r in gmd:
+            if not isinstance(r, dict):
+                continue
+            t = str(r.get("title", "") or "").strip()
+            a = str(r.get("analysis", "") or "").strip()
+            mi = str(r.get("market_impact", "") or r.get("vietnam_impact", "") or "").strip()
+            if t and a and mi:
+                rows_g.append({"title": t, "analysis": a, "market_impact": mi})
+        if len(rows_g) >= _LIST_MINS["global_macro_drivers"]:
+            out["global_macro_drivers"] = rows_g
+
+    qa = summary.get("quick_actions")
+    if isinstance(qa, list):
+        rows = [
+            r
+            for r in qa
+            if isinstance(r, dict)
+            and str(r.get("investor_state", "") or "").strip()
+            and str(r.get("action", "") or "").strip()
+        ]
+        if len(rows) >= _LIST_MINS["quick_actions"]:
+            out["quick_actions"] = rows
+
+    ag = summary.get("allocation_guide")
+    if isinstance(ag, list):
+        rows_a = []
+        for r in ag:
+            if not isinstance(r, dict):
+                continue
+            prof = str(r.get("profile", "") or "").strip()
+            st = str(r.get("stocks", "") or "").strip()
+            ca = str(r.get("cash", "") or "").strip()
+            gd = str(r.get("gold_defense", "") or "").strip()
+            cr = str(r.get("crypto_high_risk", "") or "").strip()
+            lev = str(r.get("leverage", "") or r.get("margin", "") or "").strip()
+            if prof and st and ca and lev:
+                rows_a.append(
+                    {
+                        "profile": prof,
+                        "stocks": st,
+                        "cash": ca,
+                        "gold_defense": gd or "—",
+                        "crypto_high_risk": cr or "—",
+                        "leverage": lev,
+                    }
+                )
+        if len(rows_a) >= _LIST_MINS["allocation_guide"]:
+            out["allocation_guide"] = rows_a
 
     for key, fields in (
-        ("global_macro_drivers", ("title", "analysis", "vietnam_impact")),
-        ("quick_actions", ("investor_state", "action")),
-        ("allocation_guide", ("profile", "stocks", "cash", "margin")),
-        ("sector_priority", ("sector", "view", "action")),
         ("increase_risk_signals", ("signal", "meaning")),
         ("reduce_risk_signals", ("signal", "action")),
     ):
@@ -1083,11 +1421,34 @@ def _camel_case_scenario_plan(sp: dict[str, Any]) -> dict[str, Any]:
 
 
 def strategy_brief_to_public_json(snake: dict[str, Any]) -> dict[str, Any]:
-    """Chuyển summary snake_case (final_summary) sang camelCase cho landing page."""
+    """Chuyển summary snake_case (final_summary) sang camelCase cho landing page (v2)."""
     pub = snake.get("publication_intro", {})
     mt = snake.get("main_thesis", {})
-    vt = snake.get("vietnam_transmission", {})
     sp = snake.get("scenario_plan", {})
+    mrs = snake.get("market_regime_score", {})
+    pa = snake.get("priority_and_avoid", {})
+    vct = snake.get("view_change_triggers", {})
+
+    mscore_items = []
+    if isinstance(mrs, dict) and isinstance(mrs.get("items"), list):
+        for it in mrs["items"]:
+            if not isinstance(it, dict):
+                continue
+            try:
+                sc = int(it.get("score", 0) or 0)
+            except (TypeError, ValueError):
+                sc = 0
+            mscore_items.append(
+                {
+                    "axis": str(it.get("axis", "") or ""),
+                    "signal": str(it.get("signal", "") or ""),
+                    "score": sc,
+                }
+            )
+
+    pri = pa.get("prioritize") if isinstance(pa, dict) else []
+    avo = pa.get("avoid_or_be_careful") if isinstance(pa, dict) else []
+
     return {
         "publicationIntro": {
             "headline": pub.get("headline", "") if isinstance(pub, dict) else "",
@@ -1098,19 +1459,44 @@ def strategy_brief_to_public_json(snake: dict[str, Any]) -> dict[str, Any]:
             "thesis": mt.get("thesis", "") if isinstance(mt, dict) else "",
             "actionConclusion": mt.get("action_conclusion", "") if isinstance(mt, dict) else "",
         },
+        "whatChanged": [
+            {
+                "variable": str(r.get("variable", "") or ""),
+                "change": str(r.get("change", "") or ""),
+                "meaning": str(r.get("meaning", "") or ""),
+            }
+            for r in snake.get("what_changed", [])
+            if isinstance(r, dict)
+        ],
+        "marketRegimeScore": {
+            "totalScore": int(mrs.get("total_score", 0) or 0) if isinstance(mrs, dict) else 0,
+            "regime": str(mrs.get("regime", "") or "") if isinstance(mrs, dict) else "",
+            "items": mscore_items,
+            "interpretation": str(mrs.get("interpretation", "") or "") if isinstance(mrs, dict) else "",
+        },
         "globalMacroDrivers": [
             {
                 "title": r.get("title", ""),
                 "analysis": r.get("analysis", ""),
-                "vietnamImpact": r.get("vietnam_impact", ""),
+                "marketImpact": str(
+                    r.get("market_impact", "") or r.get("vietnam_impact", "") or "",
+                ),
             }
             for r in snake.get("global_macro_drivers", [])
             if isinstance(r, dict)
         ],
-        "vietnamTransmission": {
-            "summary": vt.get("summary", "") if isinstance(vt, dict) else "",
-            "chains": vt.get("chains", []) if isinstance(vt, dict) and isinstance(vt.get("chains"), list) else [],
-        },
+        "intermarketMap": [
+            {
+                "asset": str(r.get("asset", "") or ""),
+                "state": str(r.get("state", "") or ""),
+                "action": str(r.get("action", "") or ""),
+            }
+            for r in snake.get("intermarket_map", [])
+            if isinstance(r, dict)
+        ],
+        "transmissionChains": [
+            str(x) for x in (snake.get("transmission_chains") or []) if isinstance(x, str)
+        ],
         "quickActions": [
             {"investorState": r.get("investor_state", ""), "action": r.get("action", "")}
             for r in snake.get("quick_actions", [])
@@ -1121,16 +1507,25 @@ def strategy_brief_to_public_json(snake: dict[str, Any]) -> dict[str, Any]:
                 "profile": r.get("profile", ""),
                 "stocks": r.get("stocks", ""),
                 "cash": r.get("cash", ""),
-                "margin": r.get("margin", ""),
+                "goldDefense": str(r.get("gold_defense", "") or r.get("goldDefense", "") or ""),
+                "cryptoHighRisk": str(r.get("crypto_high_risk", "") or r.get("cryptoHighRisk", "") or ""),
+                "leverage": str(r.get("leverage", "") or r.get("margin", "") or ""),
             }
             for r in snake.get("allocation_guide", [])
             if isinstance(r, dict)
         ],
-        "sectorPriority": [
-            {"sector": r.get("sector", ""), "view": r.get("view", ""), "action": r.get("action", "")}
-            for r in snake.get("sector_priority", [])
-            if isinstance(r, dict)
-        ],
+        "priorityAndAvoid": {
+            "prioritize": [
+                {"asset": str(r.get("asset", "") or ""), "reason": str(r.get("reason", "") or "")}
+                for r in (pri if isinstance(pri, list) else [])
+                if isinstance(r, dict)
+            ],
+            "avoidOrBeCareful": [
+                {"asset": str(r.get("asset", "") or ""), "reason": str(r.get("reason", "") or "")}
+                for r in (avo if isinstance(avo, list) else [])
+                if isinstance(r, dict)
+            ],
+        },
         "increaseRiskSignals": [
             {"signal": r.get("signal", ""), "meaning": r.get("meaning", "")}
             for r in snake.get("increase_risk_signals", [])
@@ -1141,8 +1536,36 @@ def strategy_brief_to_public_json(snake: dict[str, Any]) -> dict[str, Any]:
             for r in snake.get("reduce_risk_signals", [])
             if isinstance(r, dict)
         ],
+        "intradayPlaybook": [
+            {
+                "marketCondition": str(r.get("market_condition", "") or ""),
+                "action": str(r.get("action", "") or ""),
+            }
+            for r in snake.get("intraday_playbook", [])
+            if isinstance(r, dict)
+        ],
         "scenarioPlan": _camel_case_scenario_plan(sp if isinstance(sp, dict) else {}),
-        "finalTakeaway": str(snake.get("final_takeaway", "") or ""),
+        "viewChangeTriggers": {
+            "morePositiveIf": [
+                str(x)
+                for x in (
+                    (vct.get("more_positive_if") or [])
+                    if isinstance(vct, dict)
+                    else []
+                )
+                if isinstance(x, str) and x.strip()
+            ],
+            "moreNegativeIf": [
+                str(x)
+                for x in (
+                    (vct.get("more_negative_if") or [])
+                    if isinstance(vct, dict)
+                    else []
+                )
+                if isinstance(x, str) and x.strip()
+            ],
+        },
+        "finalDecision": str(snake.get("final_decision", "") or ""),
     }
 
 
@@ -1178,20 +1601,10 @@ def build_payload(
 
     return {
         "siteTitle": "LEON Quant Labs",
-        "sectionLabel": "Góc nhìn vĩ mô và chiến lược thị trường",
+        "sectionLabel": "Global Market Strategy Brief",
         "generatedAt": generated_at,
-        "schemaVersion": "investment-strategy-brief-v1",
-        "publicationIntro": brief["publicationIntro"],
-        "mainThesis": brief["mainThesis"],
-        "globalMacroDrivers": brief["globalMacroDrivers"],
-        "vietnamTransmission": brief["vietnamTransmission"],
-        "quickActions": brief["quickActions"],
-        "allocationGuide": brief["allocationGuide"],
-        "sectorPriority": brief["sectorPriority"],
-        "increaseRiskSignals": brief["increaseRiskSignals"],
-        "reduceRiskSignals": brief["reduceRiskSignals"],
-        "scenarioPlan": brief["scenarioPlan"],
-        "finalTakeaway": brief["finalTakeaway"],
+        "schemaVersion": "global-market-strategy-brief-v2",
+        **brief,
         "allArticles": all_articles,
         "stats": {
             "articlesCrawled": len(all_articles),

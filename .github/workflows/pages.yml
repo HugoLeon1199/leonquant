@@ -51,9 +51,16 @@ jobs:
         run: |
           grep -Fq 'Luận điểm chính hôm nay' _site/index.html
           grep -Fq 'data-embedded-brief="1"' _site/index.html
+          grep -Fq 'Điều thay đổi quan trọng' _site/index.html
+          grep -Fq 'Market Regime Score' _site/index.html
+          grep -Fq 'Bản đồ liên thị trường' _site/index.html
           grep -Fq 'Hành động nhanh hôm nay' _site/index.html
           grep -Fq 'Phân bổ vốn tham khảo' _site/index.html
-          grep -Fq 'Kế hoạch theo 3 kịch bản' _site/index.html
+          grep -Fq 'Ưu tiên và thận trọng' _site/index.html
+          grep -Fq 'Playbook trong phiên' _site/index.html
+          grep -Fq 'Kịch bản thị trường' _site/index.html
+          grep -Fq 'Câu quyết định cuối cùng' _site/index.html
+          grep -Fq 'Tin nền tham khảo' _site/index.html
 
       - uses: actions/configure-pages@v5
 

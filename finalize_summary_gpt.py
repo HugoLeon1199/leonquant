@@ -11,7 +11,7 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from build_website_content import load_market_snapshot_json, rebuild_content_json
+from build_website_content import _default_strategy_snake, load_market_snapshot_json, rebuild_content_json
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -24,7 +24,7 @@ DEFAULT_CONTENT_FILE = PROJECT_DIR / "content.json"
 DEFAULT_MARKET_SNAPSHOT_FILE = PROJECT_DIR / "market_snapshot.json"
 DEFAULT_ENV_FILE = PROJECT_DIR / ".env"
 OPENAI_CHAT_COMPLETIONS_URL = "https://api.openai.com/v1/chat/completions"
-VERIFY_USER_AGENT = "LEONQuantLabsWebVerify/0.1 (editorial pipeline; facts check)"
+VERIFY_USER_AGENT = "LEONQuantLabsWebVerify/0.1 (editorial reference fetch; facts check)"
 
 MACRO_CATEGORY_KEYWORDS = (
     "economy",
@@ -70,7 +70,7 @@ EXCLUDE_KEYWORDS = (
     "horoscope",
 )
 
-# Schema công khai: Investment Strategy Brief (không disclaimer / source_quality trong summary).
+# Schema snake_case: Global Market Strategy Brief v2 (build_website_content sẽ migrate/sanitize trước khi ra content.json).
 STRATEGY_BRIEF_SUMMARY_KEYS = frozenset(
     {
         "title",
@@ -78,15 +78,20 @@ STRATEGY_BRIEF_SUMMARY_KEYS = frozenset(
         "generated_at",
         "publication_intro",
         "main_thesis",
+        "what_changed",
+        "market_regime_score",
         "global_macro_drivers",
-        "vietnam_transmission",
+        "intermarket_map",
+        "transmission_chains",
         "quick_actions",
         "allocation_guide",
-        "sector_priority",
+        "priority_and_avoid",
         "increase_risk_signals",
         "reduce_risk_signals",
+        "intraday_playbook",
         "scenario_plan",
-        "final_takeaway",
+        "view_change_triggers",
+        "final_decision",
     }
 )
 
@@ -94,26 +99,51 @@ STRATEGY_BRIEF_SUMMARY_KEYS = frozenset(
 MACRO_INTELLIGENCE_SUMMARY_KEYS = STRATEGY_BRIEF_SUMMARY_KEYS
 
 SCHEMA_JSON_EXAMPLE = """{
-  "title": "LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường",
+  "title": "LEON Quant Labs — Global Market Strategy Brief",
   "date": "YYYY-MM-DD",
   "generated_at": "ISO-8601",
   "publication_intro": { "headline": "", "description": "" },
   "main_thesis": { "regime": "", "thesis": "", "action_conclusion": "" },
+  "what_changed": [ { "variable": "", "change": "", "meaning": "" } ],
+  "market_regime_score": {
+    "total_score": 0,
+    "regime": "",
+    "items": [ { "axis": "", "signal": "", "score": 0 } ],
+    "interpretation": ""
+  },
   "global_macro_drivers": [
-    { "title": "", "analysis": "", "vietnam_impact": "" }
+    { "title": "", "analysis": "", "market_impact": "" }
   ],
-  "vietnam_transmission": { "summary": "", "chains": [] },
+  "intermarket_map": [ { "asset": "", "state": "", "action": "" } ],
+  "transmission_chains": [ "…" ],
   "quick_actions": [ { "investor_state": "", "action": "" } ],
-  "allocation_guide": [ { "profile": "", "stocks": "", "cash": "", "margin": "" } ],
-  "sector_priority": [ { "sector": "", "view": "", "action": "" } ],
+  "allocation_guide": [
+    {
+      "profile": "",
+      "stocks": "",
+      "cash": "",
+      "gold_defense": "",
+      "crypto_high_risk": "",
+      "leverage": ""
+    }
+  ],
+  "priority_and_avoid": {
+    "prioritize": [ { "asset": "", "reason": "" } ],
+    "avoid_or_be_careful": [ { "asset": "", "reason": "" } ]
+  },
   "increase_risk_signals": [ { "signal": "", "meaning": "" } ],
   "reduce_risk_signals": [ { "signal": "", "action": "" } ],
+  "intraday_playbook": [ { "market_condition": "", "action": "" } ],
   "scenario_plan": {
     "base_case": { "title": "Kịch bản cơ sở", "description": "", "action": "" },
     "bull_case": { "title": "Kịch bản tích cực", "description": "", "action": "" },
     "bear_case": { "title": "Kịch bản tiêu cực", "description": "", "action": "" }
   },
-  "final_takeaway": ""
+  "view_change_triggers": {
+    "more_positive_if": [ "" ],
+    "more_negative_if": [ "" ]
+  },
+  "final_decision": ""
 }"""
 
 
@@ -384,33 +414,38 @@ def build_prompt(
     }
 
     schema_hint = f"""Return ONE JSON object. Keys MUST be EXACTLY this set and no others:
-title, date, generated_at, publication_intro, main_thesis, global_macro_drivers,
-vietnam_transmission, quick_actions, allocation_guide, sector_priority,
-increase_risk_signals, reduce_risk_signals, scenario_plan, final_takeaway.
+title, date, generated_at, publication_intro, main_thesis, what_changed, market_regime_score,
+global_macro_drivers, intermarket_map, transmission_chains, quick_actions, allocation_guide,
+priority_and_avoid, increase_risk_signals, reduce_risk_signals, intraday_playbook,
+scenario_plan, view_change_triggers, final_decision.
 
-Do NOT output: market_regime, daily_thesis, source_quality, disclaimer, key_points,
-brief_stories, asset_impact_heatmap, vietnam_investor_lens, scenario_map,
-key_variables_to_watch, top_macro_drivers, or any keys not listed above.
+Do NOT output: vietnam_transmission, sector_priority, final_takeaway, source_quality, disclaimer,
+market_regime, daily_thesis, asset_impact_heatmap, vietnam_investor_lens, scenario_map,
+top_macro_drivers, or any keys not listed above.
 
 Shape:
 {SCHEMA_JSON_EXAMPLE}
 
-Counts:
-- global_macro_drivers: 3 or 4 items — each title+analysis must be GLOBAL (Fed/US rates/yields, USD/DXY/FX,
-  oil/inflation, China/trade/global demand, geopolitics only as it affects oil/inflation/USD/risk appetite).
-  Do NOT use Vietnam-only stories (local bank restructuring, HCMC infrastructure, domestic projects) as a
-  "global" driver — put those in vietnam_transmission or sector_priority instead.
-- quick_actions: exactly 6 items; investor_state MUST be one of these strings (verbatim):
-  "Cầm nhiều tiền mặt", "Đang nắm cổ phiếu tốt", "Đang lãi ngắn hạn", "Đang dùng margin cao",
-  "Muốn mua mới", "Đang kẹt cổ phiếu yếu".
-- allocation_guide: 3 rows: profiles "Thận trọng", "Cân bằng", "Chủ động" with guardrails:
-  Thận trọng: stocks about 30–40%, cash 60–70%, margin "Không dùng" or 0% only (never 10%/20% margin).
-  Cân bằng: stocks about 50–60%, cash 40–50%, margin "Rất thấp" / not encouraged — never 20% margin.
-  Chủ động: stocks about 60–70%, cash 30–40%, margin only when market confirms (wording, not aggressive defaults).
-- sector_priority: 6–8 items; prefer the sector universe listed in INVESTMENT LOGIC.
-- increase_risk_signals: 5 or 6 items (positive confirmation only).
-- reduce_risk_signals: 5 or 6 items (risk-off / warning only).
-- vietnam_transmission.chains: list of strings (causal chains).
+Counts / rules:
+- Thinking chain: Market → Regime → Transmission → Allocation → Action → Trigger. Content changes daily from inputs; do not quote fixed regimes or numbers without market_snapshot support.
+- what_changed: 4 to 6 items (variable / change / meaning). Use qualitative wording if precise deltas are missing.
+- market_regime_score: 5–6 axes; each item score must be -1, 0, or +1. total_score must be consistent with regime label per rubric (>=3 risk-on; 1–2 selective positive; 0 neutral; -1 to -2 cautious selective; <=-3 defensive).
+- global_macro_drivers: 3 or 4 items — GLOBAL only (Fed/US rates/yields, USD/DXY/FX, oil/inflation, China/trade/demand, geopolitics as it affects oil/USD/inflation/risk appetite). Use market_impact (cross-market transmission, not purely domestic Vietnam headlines). No Vietnam-only infra, single domestic bank story, or local project as a “global” driver.
+- intermarket_map: cover US equities, Vietnam equities, EM, gold, oil, bonds/yields, crypto, cash — each row asset/state/action.
+- transmission_chains: 3–5 causal strings (not disconnected headlines).
+- quick_actions: exactly 6 items; investor_state MUST be exactly (verbatim):
+  "Cầm nhiều tiền mặt", "Đang nắm tài sản khỏe", "Đang lãi ngắn hạn", "Đang dùng margin / đòn bẩy",
+  "Muốn mua mới", "Đang kẹt tài sản yếu".
+  Actions must be specific and not copy-pasted across rows.
+- allocation_guide: exactly 4 profiles "Thận trọng", "Cân bằng", "Chủ động", "Rủi ro cao" with stocks, cash, gold_defense, crypto_high_risk, leverage.
+  Thận trọng: thấp cổ phiếu, cao tiền mặt, vàng phòng thủ vừa phải, crypto tối thiểu, KHÔNG đòn bẩy cao.
+  Never assign aggressive leverage to Thận trọng / Cân bằng.
+- priority_and_avoid: 5–6 prioritize rows and 5–6 avoid_or_be_careful rows (asset + reason), adapted to evidence.
+- increase_risk_signals: 5 or 6 items — ONLY positive confirmation (rates cooling, USD softer, stable oil, better breadth/liquidity, leaders holding, lighter foreign selling). NO risk-off shocks here.
+- reduce_risk_signals: 5 or 6 items — ONLY warnings (USD spike, yields jumping, oil shock, narrow breadth rally, liquidity deterioration, leaders rolling over, speculative blow-off, heavy foreign selling).
+- intraday_playbook: 5–7 rows tied to price action (liquidity, breadth), not headline emotion.
+- view_change_triggers: lists of strings (>=4 each) for what would make the stance more positive vs more negative.
+- final_decision: one concise closing stance (portfolio language; no direct "buy gold/oil/crypto").
 
 MARKET DATA (strict):
 - `market_snapshot` is the ONLY source for specific prices or percentage changes.
@@ -419,44 +454,46 @@ MARKET DATA (strict):
 LANGUAGE: Vietnamese only in all string fields. JSON only, no markdown, no URLs in analytical text."""
 
     editorial = """
-You are the final editor of LEON Quant Labs, an independent Vietnamese investment research publication.
+You are the final editor of LEON Quant Labs, a serious Vietnamese investment research publication.
 
 Your job is NOT to summarize news.
-Your job is to turn global macro developments into a concise, actionable market strategy brief for Vietnamese investors.
+Your job is to turn daily global macro and market information into a concise, actionable Global Market Strategy Brief.
 
-PUBLIC OUTPUT RULES (the JSON will be read by investors):
-- Do NOT mention artificial intelligence, automation, crawling, models, pipelines, or how content was produced.
-- Do NOT include a disclaimer section or field; do NOT say "this is not financial advice."
-- Write as a serious human-edited investment research desk would.
-- Every section must connect to what a Vietnamese investor should watch or do.
+The structure is fixed, but the content must change every day based strictly on the evidence provided (market_snapshot, enriched articles, editorial notes, live excerpts when present).
 
-AUDIENCE:
-Vietnamese investors, traders, and analysts who need:
-(1) what is moving global macro, (2) how it transmits into Vietnam, (3) what to do on allocation, sectors, and risk.
+Core chain you must reflect in writing:
+Market → Regime → Transmission → Allocation → Action → Trigger.
 
-INVESTMENT LOGIC (mandatory):
-- increase_risk_signals: ONLY positive confirmation for adding risk in Vietnam equities (e.g. VN-Index up with
-  better liquidity, breadth improving, banks leading, foreign net buy or lighter selling, USD/VND stable,
-  stocks breaking resistance on volume). NEVER list oil spikes, geopolitical escalation, or hot US inflation as
-  "increase risk" signals — those belong in reduce_risk_signals.
-- reduce_risk_signals: ONLY warnings / risk-off (narrow breadth in a rally, falling liquidity in a rally,
-  heavy foreign selling, fast USD/VND rise, banks weakening together, speculative fever, oil spike pressuring
-  inflation, US inflation above expectations). NEVER list stable growth, below-expectation inflation, bank
-  improvement, or foreign net buy here — those are NOT reduce-risk signals.
-- sector_priority: Prefer this Vietnamese market universe unless evidence is very strong to deviate:
-  Ngân hàng; Dầu khí; Chứng khoán; Khu công nghiệp; Xuất khẩu; Bất động sản; Thép; Bán lẻ.
-  Avoid random "Công nghệ", "Thực phẩm", "Hàng hóa" unless Vietnam-market evidence is decisive.
-- main_thesis.action_conclusion: Portfolio stance only — no direct buy calls for gold, oil, or single commodities.
-  Prefer wording like: không rút lui hoàn toàn, không mua đuổi; giữ tỷ trọng vừa phải; ưu tiên cổ phiếu khỏe;
-  hạn chế margin; chờ xác nhận dòng tiền.
-- scenario_plan (base/bull/bear).action: Same portfolio-stance language as above — adjust equity weight, margin,
-  cash buffer, and concentration risk; do NOT give direct “mua vàng / mua dầu / trú ẩn vàng” instructions.
+The brief must help readers:
+- understand the market regime
+- identify what changed today
+- understand global macro drivers
+- connect global macro to assets
+- decide portfolio stance
+- know what to prioritize or avoid
+- know when to increase risk
+- know when to reduce risk
+- know the base / bull / bear scenarios
 
-STYLE:
-- Short, sharp, desk-note tone; no hype; no chatbot phrasing; no news-aggregator feel.
-- Prefer causal chains over isolated headlines; actionable language over pure description.
-- If evidence in inputs is weak, use cautious wording. Do not overstate certainty.
-- Bias toward market-strategy framing for Vietnamese equities, not repeating headlines without transmission.
+PUBLIC OUTPUT RULES (JSON strings are shown to readers):
+- Do NOT mention artificial intelligence, automation, web crawling, “GPT”, “Gemini”, internal tooling, training data,
+  “models”, “pipelines”, “source quality”, “verified links”, “disclaimer”, or “đây không phải khuyến nghị đầu tư”.
+- Write as a human investment research desk would: calm, precise, professional Vietnamese.
+
+Writing rules:
+- Short but meaningful. No hype. No chatbot tone. No generic news digest.
+- Every section must connect to investor action.
+- Prefer causal chains over isolated headlines; prefer portfolio stance over direct buy/sell calls.
+- Do not say “mua vàng”, “mua dầu”, “mua crypto”, or imperative commodity trades.
+- Prefer: ưu tiên, theo dõi, giữ tỷ trọng, tăng từng phần, giảm rủi ro, hạn chế đòn bẩy.
+
+Risk lists:
+- increase_risk_signals: confirmations only; never place negative macro shocks here.
+- reduce_risk_signals: warnings only; never place “USD yếu / lợi suất hạ nhiệt / mua ròng” style positives here.
+
+Scenarios (scenario_plan.*.action): portfolio stance language — equity weight, cash buffer, leverage discipline, concentration — never direct commodity instructions.
+
+If evidence is weak or uneven, state it cautiously. Do not fabricate yesterday’s exact levels.
 """.strip()
 
     return f"""{editorial}
@@ -486,10 +523,10 @@ def call_openai(
             {
                 "role": "system",
                 "content": (
-                    "You output only valid JSON for the LEON Quant Labs Investment Strategy Brief. "
+                    "You output only valid JSON for the LEON Quant Labs Global Market Strategy Brief (v2). "
                     "Never include keys outside the user schema. "
-                    "Never mention AI, automation, web crawling, language models, pipelines, or internal tooling in any string "
-                    "meant for readers. "
+                    "Never mention AI, automation, web crawling, GPT, Gemini, models, pipelines, or internal tooling in any "
+                    "reader-facing string. "
                     "Use market_snapshot from the user message as the ONLY source for specific price figures or percentages. "
                     "Obey the user schema exactly."
                 ),
@@ -532,18 +569,19 @@ def repair_json_with_gpt(
 Errors: {err_blob}
 
 Return ONLY valid JSON. The root object MUST contain EXACTLY these keys and no others:
-title, date, generated_at, publication_intro, main_thesis, global_macro_drivers,
-vietnam_transmission, quick_actions, allocation_guide, sector_priority,
-increase_risk_signals, reduce_risk_signals, scenario_plan, final_takeaway.
+title, date, generated_at, publication_intro, main_thesis, what_changed, market_regime_score,
+global_macro_drivers, intermarket_map, transmission_chains, quick_actions, allocation_guide,
+priority_and_avoid, increase_risk_signals, reduce_risk_signals, intraday_playbook,
+scenario_plan, view_change_triggers, final_decision.
 
-Remove legacy keys such as market_regime, daily_thesis, source_quality, disclaimer,
-top_macro_drivers, asset_impact_heatmap, vietnam_investor_lens, scenario_map,
+Remove legacy keys such as vietnam_transmission, sector_priority, final_takeaway, market_regime, daily_thesis,
+source_quality, disclaimer, top_macro_drivers, asset_impact_heatmap, vietnam_investor_lens, scenario_map,
 key_variables_to_watch, or any other fields not in the list above.
 
 Schema shape:
 {SCHEMA_JSON_EXAMPLE}
 
-Do not mention AI, automation, or production tooling in strings for readers.
+Do not mention AI, automation, GPT, Gemini, crawling, models, pipelines, or internal tooling in strings for readers.
 Use market_snapshot rules from the original prompt: never invent prices.
 
 Broken JSON:
@@ -560,7 +598,7 @@ Broken JSON:
 
 
 def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
-    """Validate `summary` object inside final_summary.json (Investment Strategy Brief)."""
+    """Validate `summary` object inside final_summary.json (Global Market Strategy Brief v2)."""
     errors: list[str] = []
 
     if not isinstance(data, dict):
@@ -586,11 +624,7 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
             if not str(mt.get(f, "")).strip():
                 errors.append(f"main_thesis.{f}:empty")
 
-    def _obj_list(
-        key: str,
-        min_n: int,
-        fields: tuple[str, ...],
-    ) -> None:
+    def _obj_list(key: str, min_n: int, fields: tuple[str, ...]) -> None:
         items = data.get(key)
         if not isinstance(items, list):
             errors.append(f"{key}:not_list")
@@ -605,26 +639,170 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
                 if not str(row.get(f, "")).strip():
                     errors.append(f"{key}[{i}].{f}:empty")
 
-    _obj_list("global_macro_drivers", 3, ("title", "analysis", "vietnam_impact"))
-    _obj_list("quick_actions", 6, ("investor_state", "action"))
-    _obj_list("allocation_guide", 3, ("profile", "stocks", "cash", "margin"))
-    _obj_list("sector_priority", 6, ("sector", "view", "action"))
+    _obj_list("what_changed", 4, ("variable", "change", "meaning"))
+
+    mrs = data.get("market_regime_score")
+    if not isinstance(mrs, dict):
+        errors.append("market_regime_score:not_object")
+    else:
+        items = mrs.get("items")
+        if not isinstance(items, list) or len(items) < 4:
+            errors.append("market_regime_score.items:need_at_least_4")
+        else:
+            for i, it in enumerate(items):
+                if not isinstance(it, dict):
+                    errors.append(f"market_regime_score.items[{i}]:not_object")
+                    continue
+                for f in ("axis", "signal"):
+                    if not str(it.get(f, "")).strip():
+                        errors.append(f"market_regime_score.items[{i}].{f}:empty")
+                sc = it.get("score", 0)
+                try:
+                    si = int(sc)
+                except (TypeError, ValueError):
+                    errors.append(f"market_regime_score.items[{i}].score:bad")
+                    continue
+                if si not in (-1, 0, 1):
+                    errors.append(f"market_regime_score.items[{i}].score:not_in_-1_0_1")
+        if not str(mrs.get("regime", "")).strip():
+            errors.append("market_regime_score.regime:empty")
+        if not str(mrs.get("interpretation", "")).strip():
+            errors.append("market_regime_score.interpretation:empty")
+
+    gmd = data.get("global_macro_drivers")
+    if not isinstance(gmd, list):
+        errors.append("global_macro_drivers:not_list")
+    elif len(gmd) < 3:
+        errors.append("global_macro_drivers:need_at_least_3")
+    else:
+        for i, row in enumerate(gmd):
+            if not isinstance(row, dict):
+                errors.append(f"global_macro_drivers[{i}]:not_object")
+                continue
+            for f in ("title", "analysis"):
+                if not str(row.get(f, "")).strip():
+                    errors.append(f"global_macro_drivers[{i}].{f}:empty")
+            impact = str(row.get("market_impact", "") or row.get("vietnam_impact", "") or "").strip()
+            if not impact:
+                errors.append(f"global_macro_drivers[{i}].market_impact:empty")
+
+    im = data.get("intermarket_map")
+    if not isinstance(im, list):
+        errors.append("intermarket_map:not_list")
+    elif len(im) < 6:
+        errors.append("intermarket_map:need_at_least_6")
+    else:
+        for i, row in enumerate(im):
+            if not isinstance(row, dict):
+                errors.append(f"intermarket_map[{i}]:not_object")
+                continue
+            for f in ("asset", "state", "action"):
+                if not str(row.get(f, "")).strip():
+                    errors.append(f"intermarket_map[{i}].{f}:empty")
+
+    tc = data.get("transmission_chains")
+    if not isinstance(tc, list):
+        errors.append("transmission_chains:not_list")
+    elif len([x for x in tc if isinstance(x, str) and x.strip()]) < 3:
+        errors.append("transmission_chains:need_at_least_3_strings")
+    else:
+        for i, c in enumerate(tc):
+            if not isinstance(c, str) or not c.strip():
+                errors.append(f"transmission_chains[{i}]:empty")
+
+    canonical_states = (
+        "Cầm nhiều tiền mặt",
+        "Đang nắm tài sản khỏe",
+        "Đang lãi ngắn hạn",
+        "Đang dùng margin / đòn bẩy",
+        "Muốn mua mới",
+        "Đang kẹt tài sản yếu",
+    )
+    qa = data.get("quick_actions")
+    if not isinstance(qa, list):
+        errors.append("quick_actions:not_list")
+    elif len(qa) != 6:
+        errors.append(f"quick_actions:must_be_exactly_6_items_got_{len(qa)}")
+    else:
+        seen_states: set[str] = set()
+        for i, row in enumerate(qa):
+            if not isinstance(row, dict):
+                errors.append(f"quick_actions[{i}]:not_object")
+                continue
+            st = str(row.get("investor_state", "") or "").strip()
+            act = str(row.get("action", "") or "").strip()
+            if not act:
+                errors.append(f"quick_actions[{i}].action:empty")
+            if st not in canonical_states:
+                errors.append(f"quick_actions[{i}].investor_state:not_canonical:{st!r}")
+            elif st.lower() in seen_states:
+                errors.append(f"quick_actions:duplicate_state:{st!r}")
+            else:
+                seen_states.add(st.lower())
+        if len(seen_states) != 6:
+            errors.append("quick_actions:need_exactly_6_distinct_canonical_states")
+
+    ag = data.get("allocation_guide")
+    if not isinstance(ag, list):
+        errors.append("allocation_guide:not_list")
+    elif len(ag) < 4:
+        errors.append("allocation_guide:need_at_least_4")
+    else:
+        for i, row in enumerate(ag):
+            if not isinstance(row, dict):
+                errors.append(f"allocation_guide[{i}]:not_object")
+                continue
+            for f in ("profile", "stocks", "cash"):
+                if not str(row.get(f, "") or "").strip():
+                    errors.append(f"allocation_guide[{i}].{f}:empty")
+            lev = str(row.get("leverage", "") or row.get("margin", "") or "").strip()
+            if not lev:
+                errors.append(f"allocation_guide[{i}].leverage:empty")
+            if not str(row.get("gold_defense", "") or "").strip():
+                errors.append(f"allocation_guide[{i}].gold_defense:empty")
+            if not str(row.get("crypto_high_risk", "") or "").strip():
+                errors.append(f"allocation_guide[{i}].crypto_high_risk:empty")
+
+    pa = data.get("priority_and_avoid")
+    if not isinstance(pa, dict):
+        errors.append("priority_and_avoid:not_object")
+    else:
+        pr = pa.get("prioritize")
+        av = pa.get("avoid_or_be_careful")
+        if not isinstance(pr, list) or len(pr) < 5:
+            errors.append("priority_and_avoid.prioritize:need_at_least_5")
+        if not isinstance(av, list) or len(av) < 5:
+            errors.append("priority_and_avoid.avoid_or_be_careful:need_at_least_5")
+        if isinstance(pr, list):
+            for i, row in enumerate(pr):
+                if not isinstance(row, dict):
+                    errors.append(f"priority_and_avoid.prioritize[{i}]:not_object")
+                    continue
+                if not str(row.get("asset", "") or "").strip() or not str(row.get("reason", "") or "").strip():
+                    errors.append(f"priority_and_avoid.prioritize[{i}]:incomplete")
+        if isinstance(av, list):
+            for i, row in enumerate(av):
+                if not isinstance(row, dict):
+                    errors.append(f"priority_and_avoid.avoid_or_be_careful[{i}]:not_object")
+                    continue
+                if not str(row.get("asset", "") or "").strip() or not str(row.get("reason", "") or "").strip():
+                    errors.append(f"priority_and_avoid.avoid_or_be_careful[{i}]:incomplete")
+
     _obj_list("increase_risk_signals", 4, ("signal", "meaning"))
     _obj_list("reduce_risk_signals", 4, ("signal", "action"))
 
-    vt = data.get("vietnam_transmission")
-    if not isinstance(vt, dict):
-        errors.append("vietnam_transmission:not_object")
+    _obj_list("intraday_playbook", 4, ("market_condition", "action"))
+
+    vct = data.get("view_change_triggers")
+    if not isinstance(vct, dict):
+        errors.append("view_change_triggers:not_object")
     else:
-        if not str(vt.get("summary", "")).strip():
-            errors.append("vietnam_transmission.summary:empty")
-        ch = vt.get("chains")
-        if ch is not None and not isinstance(ch, list):
-            errors.append("vietnam_transmission.chains:bad")
-        elif isinstance(ch, list):
-            for i, c in enumerate(ch):
-                if not isinstance(c, str) or not c.strip():
-                    errors.append(f"vietnam_transmission.chains[{i}]:empty")
+        mp = vct.get("more_positive_if")
+        mn = vct.get("more_negative_if")
+        if not isinstance(mp, list) or len([x for x in mp if isinstance(x, str) and x.strip()]) < 4:
+            errors.append("view_change_triggers.more_positive_if:need_at_least_4")
+        if not isinstance(mn, list) or len([x for x in mn if isinstance(x, str) and x.strip()]) < 4:
+            errors.append("view_change_triggers.more_negative_if:need_at_least_4")
 
     sp = data.get("scenario_plan")
     if not isinstance(sp, dict):
@@ -639,12 +817,15 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
                     if not str(sc.get(f, "")).strip():
                         errors.append(f"scenario_plan.{case}.{f}:empty")
 
-    if not str(data.get("final_takeaway", "")).strip():
-        errors.append("final_takeaway:empty")
+    if not str(data.get("final_decision", "")).strip():
+        errors.append("final_decision:empty")
 
     forbidden_public = (
         "source_quality",
         "disclaimer",
+        "vietnam_transmission",
+        "sector_priority",
+        "final_takeaway",
         "market_regime",
         "daily_thesis",
         "asset_impact_heatmap",
@@ -652,6 +833,16 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
     for fk in forbidden_public:
         if fk in data:
             errors.append(f"forbidden_public_field:{fk}")
+
+    qa2 = data.get("quick_actions")
+    if isinstance(qa2, list) and len(qa2) >= 4:
+        act_texts = [
+            str(r.get("action", "") or "").strip()
+            for r in qa2
+            if isinstance(r, dict) and str(r.get("action", "") or "").strip()
+        ]
+        if len(set(act_texts)) <= 2 and len(act_texts) >= 4:
+            errors.append("quick_actions:actions_too_repetitive")
 
     return (len(errors) == 0, errors)
 
@@ -662,7 +853,7 @@ def merge_strategy_summary_defaults(
     generated_at_iso: str,
     brief_date: str,
 ) -> None:
-    summary["title"] = summary.get("title") or "LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường"
+    summary["title"] = summary.get("title") or "LEON Quant Labs — Global Market Strategy Brief"
     summary["date"] = summary.get("date") or brief_date
     summary["generated_at"] = summary.get("generated_at") or generated_at_iso
     for leak in ("source_quality", "disclaimer", "web_verification", "market_regime"):
@@ -679,143 +870,21 @@ def build_fallback_summary(
     brief_date: str,
 ) -> dict[str, Any]:
     del enriched_count, evidence_count, verified_links
+    base = _default_strategy_snake(brief_date=brief_date, generated_at=generated_at_iso)
     gs = gemini_payload.get("summary", {}) if isinstance(gemini_payload.get("summary"), dict) else {}
     extra_ctx = (
         str(gs.get("executive_summary", "")).strip()
         or str(gs.get("global_watch", "")).strip()
         or str(gs.get("title", "")).strip()
     )
-    thesis_body = (
-        "Thị trường toàn cầu chịu ảnh hưởng từ lãi suất Mỹ, đồng USD, giá dầu và dòng vốn quốc tế. "
-        "Với Việt Nam, cơ hội vẫn tồn tại nhưng phụ thuộc vào thanh khoản nội địa, nhóm dẫn dắt và hoạt động của khối ngoại."
-    )
     if extra_ctx:
-        thesis_body = f"{thesis_body} Bối cảnh tin tức hiện có: {extra_ctx[:900]}"
-
-    return {
-        "title": "LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường",
-        "date": brief_date,
-        "generated_at": generated_at_iso,
-        "publication_intro": {
-            "headline": "Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam",
-            "description": (
-                "LEON Quant Labs tập trung vào việc chuyển biến động vĩ mô toàn cầu thành góc nhìn đầu tư "
-                "có thể hành động tại thị trường Việt Nam."
-            ),
-        },
-        "main_thesis": {
-            "regime": "Thận trọng có chọn lọc",
-            "thesis": thesis_body,
-            "action_conclusion": (
-                "Không cần rút lui hoàn toàn, nhưng cũng không nên mua đuổi. Ưu tiên cổ phiếu khỏe, giữ tỷ trọng vừa phải, "
-                "hạn chế margin và chờ xác nhận từ dòng tiền."
-            ),
-        },
-        "global_macro_drivers": [
-            {
-                "title": "Lãi suất Mỹ còn cao",
-                "analysis": (
-                    "Khi Fed chưa vội hạ lãi suất, lợi suất trái phiếu Mỹ dễ duy trì ở vùng tương đối cao. "
-                    "Chi phí vốn toàn cầu đắt hơn và tài sản rủi ro khó mở rộng định giá mạnh nếu không có tin tích cực rõ ràng."
-                ),
-                "vietnam_impact": (
-                    "Kênh tâm lý risk-off và dòng vốn: nhà đầu tư mới nởi thường thận trọng hơn; cổ phiếu Việt Nam cần dựa nhiều vào dòng tiền nội."
-                ),
-            },
-            {
-                "title": "Đồng USD mạnh gây áp lực tỷ giá",
-                "analysis": (
-                    "USD mạnh thường kéo chi phí nhập khẩu hàng hóa USD và làm thắt tài chính cho các DN có nợ ngoại tệ."
-                ),
-                "vietnam_impact": "Áp lực lên USD/VND và kỳ vọng chính sách; khối ngoại có thể cân nhắc tốc độ phân bổ.",
-            },
-            {
-                "title": "Giá dầu là rủi ro lạm phát",
-                "analysis": (
-                    "Dầu cao không chỉ tác động nhóm năng lượng mà lan sang vận tải, sản xuất và kỳ vọng lạm phát."
-                ),
-                "vietnam_impact": (
-                    "Biên lợi nhuận DN sử dụng năng lượng và logistics chịu áp lực; tâm lý thị trường dễ nhạy với shock giá."
-                ),
-            },
-        ],
-        "vietnam_transmission": {
-            "summary": (
-                "Chuỗi tác động thường gặp: lãi suất Mỹ cao → USD mạnh → áp lực USD/VND → khối ngoại thận trọng hơn "
-                "→ VN-Index cần dựa nhiều hơn vào dòng tiền nội và nhóm dẫn dắt."
-            ),
-            "chains": [
-                "Lãi suất Mỹ cao → USD mạnh → áp lực USD/VND → khối ngoại thận trọng.",
-                "Giá dầu biến động → lạm phát kỳ vọng → tâm lý risk-off → định giá tài sản rủi ro thắt lại.",
-            ],
-        },
-        "quick_actions": [
-            {"investor_state": "Cầm nhiều tiền mặt", "action": "Chưa cần mua vội; ưu tiên theo dõi thanh khoản và độ rộng."},
-            {"investor_state": "Đang nắm cổ phiếu tốt", "action": "Có thể tiếp tục nắm; đặt điểm cắt lỗ/hạ tỷ trọng nếu thị trường suy yếu đồng loạt."},
-            {"investor_state": "Đang lãi ngắn hạn", "action": "Chốt lời một phần để bảo toàn lợi thế; tránh mua thêm đuổi đỉnh."},
-            {"investor_state": "Đang dùng margin cao", "action": "Hạ đòn bẩy về mức an toàn; ưu tiên sống sót qua nhịp biến động."},
-            {"investor_state": "Muốn mua mới", "action": "Chỉ tích sườn nhỏ; chọn cổ phiếu khỏe có dòng tiền xác nhận."},
-            {"investor_state": "Đang kẹt cổ phiếu yếu", "action": "Không cố gồng; cơ cấu sang mã có cơ bản và thanh khoản tốt hơn."},
-        ],
-        "allocation_guide": [
-            {"profile": "Thận trọng", "stocks": "30–40%", "cash": "60–70%", "margin": "Không dùng"},
-            {"profile": "Cân bằng", "stocks": "50–60%", "cash": "40–50%", "margin": "Rất thấp, chỉ khi thị trường xác nhận"},
-            {"profile": "Chủ động", "stocks": "60–70%", "cash": "30–40%", "margin": "Chỉ khi sóng và thanh khoản rõ ràng"},
-        ],
-        "sector_priority": [
-            {"sector": "Ngân hàng", "view": "Tích cực có chọn lọc", "action": "Ưu tiên mã có CASA tốt và room tín dụng lành mạnh."},
-            {"sector": "Dầu khí", "view": "Tích cực ngắn hạn có điều kiện", "action": "Theo giá dầu và tin địa chính trị; quản trị nhịp điều chỉnh."},
-            {"sector": "Chứng khoán", "view": "Phụ thuộc thanh khoản", "action": "Chỉ mạnh khi dòng tiền cá nhân/ margin bền."},
-            {"sector": "Khu công nghiệp", "view": "Trung tính tích cực", "action": "Chọn KCN có kế hoạch lấp đầy và khách lớn ổn định."},
-            {"sector": "Xuất khẩu", "view": "Trung tính", "action": "Lưu ý USD/VND và cầu bên ngoài."},
-            {"sector": "Bất động sản", "view": "Thận trọng", "action": "Chỉ xem các dự án có dòng tiền và pháp lý rõ."},
-            {"sector": "Thép", "view": "Trung tính thận trọng", "action": "Bám giá nguyên liệu và biên lợi nhuận."},
-            {"sector": "Bán lẻ", "view": "Chọn lọc", "action": "Ưu tiên chuỗi có same-store tốt và kiểm soát chi phí."},
-        ],
-        "increase_risk_signals": [
-            {"signal": "VN-Index tăng cùng thanh khoản cải thiện", "meaning": "Dòng tiền xác nhận nhịp tăng có thể lan rộng hơn."},
-            {"signal": "Số mã tăng lan rộng", "meaning": "Độ rộng tốt giảm rủi ro ‘chỉ số giả vờ’."},
-            {"signal": "Ngân hàng giữ vai trò dẫn dắt", "meaning": "Nhóm nền tảng ổn định thường củng cố xu hướng."},
-            {"signal": "Khối ngoại giảm bán hoặc mua ròng", "meaning": "Áp lực bán ETF/passive có thể hạ nhiệt."},
-            {"signal": "USD/VND ổn định", "meaning": "Giảm rủi ro tâm lý tỷ giá với danh mục nội địa."},
-            {"signal": "Cổ phiếu vượt nền với volume tốt", "meaning": "Xác nhận kỹ thuật có đỡ dòng tiền thật."},
-        ],
-        "reduce_risk_signals": [
-            {"signal": "VN-Index tăng nhưng độ rộng yếu", "action": "Hạ kỳ vọng; tránh mua đuổi đỉnh hẹp."},
-            {"signal": "Thanh khoản giảm trong nhịp tăng", "action": "Thận trọng; dễ đảo chiều nhanh."},
-            {"signal": "Khối ngoại bán ròng mạnh", "action": "Ưu tiên giữ tiền mặt bảo vệ vốn."},
-            {"signal": "USD/VND tăng nhanh", "action": "Xem xét giảm tỷ trọng nhóm nhạy FX và margin."},
-            {"signal": "Ngân hàng suy yếu đồng loạt", "action": "Tín hiệu hệ thống tài chính stress; giảm rủi ro."},
-            {"signal": "Cổ phiếu đầu cơ tăng nóng", "action": "Rủi ro bull trap; không chasing nhóm mỏng thanh khoản."},
-        ],
-        "scenario_plan": {
-            "base_case": {
-                "title": "Kịch bản cơ sở",
-                "description": "Thị trường phân hóa; vĩ mô vẫn có điểm nghẽn nhưng chưa vỡ trận.",
-                "action": "Giữ tỷ trọng vừa phải; ưu tiên cổ phiếu chất lượng và quản trị margin.",
-            },
-            "bull_case": {
-                "title": "Kịch bản tích cực",
-                "description": "USD hạ nhiệt, thanh khoản cải thiện, rủi ro hệ thống không leo thang.",
-                "action": "Tăng tỷ trọng từng phần theo nhịp xác nhận; giữ cash để còn quyền chủ động.",
-            },
-            "bear_case": {
-                "title": "Kịch bản tiêu cực",
-                "description": "USD mạnh, khối ngoại bán ròng, VN-Index mất các ngưỡng hỗ trợ quan trọng.",
-                "action": "Giảm cổ phiếu, hạ margin; ưu tiên an toàn vốn và thanh khoản cá nhân.",
-            },
-        },
-        "final_takeaway": (
-            "Bối cảnh hiện tại không ủng hộ chiến lược all-in, nhưng cũng chưa yêu cầu phải rút lui hoàn toàn. "
-            "Vĩ mô thế giới vẫn còn áp lực từ lãi suất Mỹ, đồng USD và giá dầu. Thị trường Việt Nam vẫn có cơ hội nếu dòng tiền nội "
-            "duy trì và nhóm ngân hàng giữ vai trò dẫn dắt. Chiến lược hợp lý là giữ danh mục gọn, nắm cổ phiếu khỏe, tránh mua đuổi, "
-            "hạn chế margin và giữ tiền mặt để có quyền chủ động."
-        ),
-    }
+        mt = base["main_thesis"]
+        mt["thesis"] = (str(mt.get("thesis", "") or "").strip() + " Bối cảnh tin tức hiện có: " + extra_ctx[:900]).strip()
+    return base
 
 
 def strip_summary_to_macro_schema(summary: dict[str, Any]) -> None:
-    """Giữ đúng schema Investment Strategy Brief; xoá mọi key không thuộc public summary."""
+    """Giữ đúng schema Global Market Strategy Brief v2; xoá mọi key không thuộc summary."""
     for k in list(summary.keys()):
         if k not in MACRO_INTELLIGENCE_SUMMARY_KEYS:
             summary.pop(k, None)
@@ -832,7 +901,7 @@ def write_summary(path: Path, summary: dict[str, Any], meta: dict[str, Any]) -> 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Finalize editorial pass — Investment Strategy Brief JSON (OpenAI).",
+        description="Finalize editorial pass — Global Market Strategy Brief v2 JSON (OpenAI).",
     )
     parser.add_argument("--gemini-input", default=str(DEFAULT_GEMINI_FILE))
     parser.add_argument("--enriched-input", default=str(DEFAULT_ENRICHED_FILE))
@@ -996,7 +1065,7 @@ def main() -> int:
                 )
                 strip_summary_to_macro_schema(summary)
                 used_fallback = True
-                meta["pipeline_note"] = "Fallback: final editorial output failed validation."
+                meta["fallback_reason"] = "Fallback: final editorial output failed validation."
     else:
         summary = build_fallback_summary(
             gemini_payload,
@@ -1013,7 +1082,7 @@ def main() -> int:
         )
         strip_summary_to_macro_schema(summary)
         used_fallback = True
-        meta["pipeline_note"] = "Fallback: OpenAI request failed."
+        meta["fallback_reason"] = "Fallback: OpenAI request failed."
 
     meta["sources_scanned"] = ev_stats["sources_scanned"]
     meta["articles_selected"] = ev_stats["articles_selected"]
