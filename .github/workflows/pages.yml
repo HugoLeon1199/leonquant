@@ -64,18 +64,5 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-      # Không dùng secrets trong `if:` (GitHub từ chối parse workflow).
-      # Bật purge: thêm CF_ZONE_ID + CF_API_TOKEN (Cache Purge:Edit); thiếu secret → bỏ qua.
-      - name: Purge Cloudflare cache (optional — cần CF_ZONE_ID + CF_API_TOKEN)
-        env:
-          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        run: |
-          if [ -z "${CF_API_TOKEN:-}" ] || [ -z "${CF_ZONE_ID:-}" ]; then
-            echo "Skip Cloudflare purge (set CF_ZONE_ID + CF_API_TOKEN để bật)."
-            exit 0
-          fi
-          curl -sS -f -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
-            -H "Authorization: Bearer ${CF_API_TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data '{"hosts":["leonquant.com","www.leonquant.com"]}'
+      # Purge Cloudflare: làm tay trên dashboard sau deploy, hoặc dùng rule cache riêng.
+      # (Không gọi API purge ở đây — tránh workflow phải tham chiếu secrets trong step/env.)
