@@ -396,12 +396,20 @@ Shape:
 {SCHEMA_JSON_EXAMPLE}
 
 Counts:
-- global_macro_drivers: 3 or 4 items.
-- quick_actions: at least 6 items covering common investor situations.
-- allocation_guide: 3 items (Thận trọng, Cân bằng, Chủ động).
-- sector_priority: 6–8 Vietnamese sectors.
-- increase_risk_signals: 5 or 6 items.
-- reduce_risk_signals: 5 or 6 items.
+- global_macro_drivers: 3 or 4 items — each title+analysis must be GLOBAL (Fed/US rates/yields, USD/DXY/FX,
+  oil/inflation, China/trade/global demand, geopolitics only as it affects oil/inflation/USD/risk appetite).
+  Do NOT use Vietnam-only stories (local bank restructuring, HCMC infrastructure, domestic projects) as a
+  "global" driver — put those in vietnam_transmission or sector_priority instead.
+- quick_actions: exactly 6 items; investor_state MUST be one of these strings (verbatim):
+  "Cầm nhiều tiền mặt", "Đang nắm cổ phiếu tốt", "Đang lãi ngắn hạn", "Đang dùng margin cao",
+  "Muốn mua mới", "Đang kẹt cổ phiếu yếu".
+- allocation_guide: 3 rows: profiles "Thận trọng", "Cân bằng", "Chủ động" with guardrails:
+  Thận trọng: stocks about 30–40%, cash 60–70%, margin "Không dùng" or 0% only (never 10%/20% margin).
+  Cân bằng: stocks about 50–60%, cash 40–50%, margin "Rất thấp" / not encouraged — never 20% margin.
+  Chủ động: stocks about 60–70%, cash 30–40%, margin only when market confirms (wording, not aggressive defaults).
+- sector_priority: 6–8 items; prefer the sector universe listed in INVESTMENT LOGIC.
+- increase_risk_signals: 5 or 6 items (positive confirmation only).
+- reduce_risk_signals: 5 or 6 items (risk-off / warning only).
 - vietnam_transmission.chains: list of strings (causal chains).
 
 MARKET DATA (strict):
@@ -426,14 +434,27 @@ AUDIENCE:
 Vietnamese investors, traders, and analysts who need:
 (1) what is moving global macro, (2) how it transmits into Vietnam, (3) what to do on allocation, sectors, and risk.
 
+INVESTMENT LOGIC (mandatory):
+- increase_risk_signals: ONLY positive confirmation for adding risk in Vietnam equities (e.g. VN-Index up with
+  better liquidity, breadth improving, banks leading, foreign net buy or lighter selling, USD/VND stable,
+  stocks breaking resistance on volume). NEVER list oil spikes, geopolitical escalation, or hot US inflation as
+  "increase risk" signals — those belong in reduce_risk_signals.
+- reduce_risk_signals: ONLY warnings / risk-off (narrow breadth in a rally, falling liquidity in a rally,
+  heavy foreign selling, fast USD/VND rise, banks weakening together, speculative fever, oil spike pressuring
+  inflation, US inflation above expectations). NEVER list stable growth, below-expectation inflation, bank
+  improvement, or foreign net buy here — those are NOT reduce-risk signals.
+- sector_priority: Prefer this Vietnamese market universe unless evidence is very strong to deviate:
+  Ngân hàng; Dầu khí; Chứng khoán; Khu công nghiệp; Xuất khẩu; Bất động sản; Thép; Bán lẻ.
+  Avoid random "Công nghệ", "Thực phẩm", "Hàng hóa" unless Vietnam-market evidence is decisive.
+- main_thesis.action_conclusion: Portfolio stance only — no direct buy calls for gold, oil, or single commodities.
+  Prefer wording like: không rút lui hoàn toàn, không mua đuổi; giữ tỷ trọng vừa phải; ưu tiên cổ phiếu khỏe;
+  hạn chế margin; chờ xác nhận dòng tiền.
+
 STYLE:
 - Short, sharp, desk-note tone; no hype; no chatbot phrasing; no news-aggregator feel.
 - Prefer causal chains over isolated headlines; actionable language over pure description.
 - If evidence in inputs is weak, use cautious wording. Do not overstate certainty.
-
-THINKING ORDER:
-Global macro → transmission → Vietnam impact → investor actions → allocation → sectors →
-signals to add risk → signals to cut risk → three scenarios → closing takeaway.
+- Bias toward market-strategy framing for Vietnamese equities, not repeating headlines without transmission.
 """.strip()
 
     return f"""{editorial}
@@ -583,7 +604,7 @@ def validate_final_summary(data: dict[str, Any]) -> tuple[bool, list[str]]:
                     errors.append(f"{key}[{i}].{f}:empty")
 
     _obj_list("global_macro_drivers", 3, ("title", "analysis", "vietnam_impact"))
-    _obj_list("quick_actions", 4, ("investor_state", "action"))
+    _obj_list("quick_actions", 6, ("investor_state", "action"))
     _obj_list("allocation_guide", 3, ("profile", "stocks", "cash", "margin"))
     _obj_list("sector_priority", 6, ("sector", "view", "action"))
     _obj_list("increase_risk_signals", 4, ("signal", "meaning"))

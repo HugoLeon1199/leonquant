@@ -195,6 +195,18 @@
 
     .secondary-head h2 { font-size: 1.1rem; color: var(--faint); }
 
+    .brief-block { margin-bottom: 32px; }
+    .brief-block:last-of-type { margin-bottom: 8px; }
+
+    section.reference-secondary {
+      opacity: 0.92;
+      padding-top: 36px;
+      padding-bottom: 48px;
+    }
+    section.reference-secondary .section-head h2 {
+      font-size: 1.02rem;
+    }
+
     .source-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
@@ -253,9 +265,16 @@
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links">
-          <a href="#brief">Brief</a>
-          <a href="#macro">Vĩ mô</a>
-          <a href="#actions">Hành động</a>
+          <a href="#sectionThesis">Luận điểm</a>
+          <a href="#sectionMacro">Vĩ mô</a>
+          <a href="#sectionTransmission">Truyền dẫn</a>
+          <a href="#sectionActions">Hành động</a>
+          <a href="#sectionAllocation">Phân bổ</a>
+          <a href="#sectionSectors">Ngành</a>
+          <a href="#sectionRiskOn">Tăng tỷ trọng</a>
+          <a href="#sectionRiskOff">Giảm rủi ro</a>
+          <a href="#sectionScenarios">Kịch bản</a>
+          <a href="#sectionTakeaway">Kết luận</a>
           <a href="#reference">Tin nền</a>
         </div>
       </nav>
@@ -276,11 +295,20 @@
     <section id="brief" class="alt">
       <div class="container">
         <p id="syncNote" class="sync-note"></p>
-        <div id="briefRoot"></div>
+        <div id="sectionThesis" class="brief-block"></div>
+        <div id="sectionMacro" class="brief-block"></div>
+        <div id="sectionTransmission" class="brief-block"></div>
+        <div id="sectionActions" class="brief-block"></div>
+        <div id="sectionAllocation" class="brief-block"></div>
+        <div id="sectionSectors" class="brief-block"></div>
+        <div id="sectionRiskOn" class="brief-block"></div>
+        <div id="sectionRiskOff" class="brief-block"></div>
+        <div id="sectionScenarios" class="brief-block"></div>
+        <div id="sectionTakeaway" class="brief-block"></div>
       </div>
     </section>
 
-    <section id="reference">
+    <section id="reference" class="reference-secondary">
       <div class="container" style="max-width: min(1180px, 95%);">
         <div class="section-head secondary-head">
           <p class="eyebrow">Tham khảo</p>
@@ -418,8 +446,14 @@
 
     function normalizeContentPayload(raw) {
       if (!raw || typeof raw !== "object") return raw;
+      const mt0 = raw.mainThesis;
+      const hasCamelBrief =
+        mt0 &&
+        typeof mt0 === "object" &&
+        (String(mt0.thesis || "").trim() || String(mt0.regime || "").trim());
       const snake = raw.summary;
-      if (!snake || typeof snake !== "object") return raw;
+      if (!snake || typeof snake !== "object" || Array.isArray(snake)) return raw;
+      if (hasCamelBrief) return raw;
       const hasSnakeBrief =
         (snake.main_thesis && typeof snake.main_thesis === "object") ||
         (Array.isArray(snake.global_macro_drivers) && snake.global_macro_drivers.length > 0);
@@ -483,14 +517,16 @@
       return h;
     }
 
-    function buildBriefHtml(data) {
+    function applyHeroBranding(data) {
       const pub = data.publicationIntro || {};
-      const mt = data.mainThesis || {};
       const heroSub = document.getElementById("heroSubtitle");
       const heroDesc = document.getElementById("heroDescription");
       if (heroSub && pub.headline) heroSub.textContent = pub.headline;
       if (heroDesc && pub.description) heroDesc.textContent = pub.description;
+    }
 
+    function buildBriefParts(data) {
+      const mt = data.mainThesis || {};
       const drivers = (Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : []).filter(
         (r) => r && typeof r === "object",
       );
@@ -513,46 +549,49 @@
       const chains = Array.isArray(vt.chains) ? vt.chains : [];
       const scen = data.scenarioPlan || {};
 
-      let html = "";
+      let thesisHtml = "";
+      thesisHtml += `<div class="section-head"><p class="eyebrow">Luận điểm</p><h2>Luận điểm chính hôm nay</h2></div>`;
+      thesisHtml += `<div class="thesis-block">`;
+      thesisHtml += `<p class="lbl">Trạng thái / nhịp thị trường</p><p>${escapeHtml(mt.regime || ND)}</p>`;
+      thesisHtml += `<p class="lbl">Luận điểm</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
+      thesisHtml += `<p class="lbl">Kết luận hành động</p><p>${escapeHtml(mt.actionConclusion || ND)}</p>`;
+      thesisHtml += `</div>`;
 
-      html += `<div class="section-head" id="macro"><p class="eyebrow">Luận điểm</p><h2>Luận điểm chính hôm nay</h2></div>`;
-      html += `<div class="thesis-block">`;
-      html += `<p class="lbl">Trạng thái / nhịp thị trường</p><p>${escapeHtml(mt.regime || ND)}</p>`;
-      html += `<p class="lbl">Luận điểm</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
-      html += `<p class="lbl">Kết luận hành động</p><p>${escapeHtml(mt.actionConclusion || ND)}</p>`;
-      html += `</div>`;
-
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
+      let macroHtml = "";
+      macroHtml += `<div class="section-head"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
       if (!drivers.length) {
-        html += `<p class="error-card">Chưa có nội dung vĩ mô.</p>`;
+        macroHtml += `<p class="error-card">Chưa có nội dung vĩ mô.</p>`;
       } else {
-        html += `<div class="cards">`;
+        macroHtml += `<div class="cards">`;
         for (let i = 0; i < drivers.length; i++) {
           const d = drivers[i];
-          html += `<article class="card"><h3>${i + 1}. ${escapeHtml(d.title || ND)}</h3>`;
-          html += `<p class="sub">Phân tích</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
-          html += `<p class="sub">Tác động tới Việt Nam</p><p class="body">${escapeHtml(d.vietnamImpact || ND)}</p></article>`;
+          macroHtml += `<article class="card"><h3>${i + 1}. ${escapeHtml(d.title || ND)}</h3>`;
+          macroHtml += `<p class="sub">Phân tích</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
+          macroHtml += `<p class="sub">Tác động tới Việt Nam</p><p class="body">${escapeHtml(d.vietnamImpact || ND)}</p></article>`;
         }
-        html += `</div>`;
+        macroHtml += `</div>`;
       }
 
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Truyền dẫn</p><h2>Chuỗi tác động đến Việt Nam</h2></div>`;
-      html += `<div class="thesis-block"><p>${escapeHtml(vt.summary || ND)}</p>`;
+      let transmissionHtml = "";
+      transmissionHtml += `<div class="section-head"><p class="eyebrow">Truyền dẫn</p><h2>Chuỗi tác động đến Việt Nam</h2></div>`;
+      transmissionHtml += `<div class="thesis-block"><p>${escapeHtml(vt.summary || ND)}</p>`;
       if (chains.length) {
-        html += `<ul class="chain-list">`;
-        for (const c of chains) html += `<li>${escapeHtml(c)}</li>`;
-        html += `</ul>`;
+        transmissionHtml += `<ul class="chain-list">`;
+        for (const c of chains) transmissionHtml += `<li>${escapeHtml(c)}</li>`;
+        transmissionHtml += `</ul>`;
       }
-      html += `</div>`;
+      transmissionHtml += `</div>`;
 
-      html += `<div class="section-head" id="actions" style="margin-top:36px"><p class="eyebrow">Thực thi</p><h2>Hành động nhanh hôm nay</h2></div>`;
-      html += renderTable(
+      let actionsHtml = "";
+      actionsHtml += `<div class="section-head"><p class="eyebrow">Thực thi</p><h2>Hành động nhanh hôm nay</h2></div>`;
+      actionsHtml += renderTable(
         ["Trạng thái nhà đầu tư", "Hành động phù hợp"],
         qa.map((r) => [escapeHtml(r.investorState || ND), escapeHtml(r.action || ND)]),
       );
 
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Danh mục</p><h2>Phân bổ vốn tham khảo</h2></div>`;
-      html += renderTable(
+      let allocationHtml = "";
+      allocationHtml += `<div class="section-head"><p class="eyebrow">Danh mục</p><h2>Phân bổ vốn tham khảo</h2></div>`;
+      allocationHtml += renderTable(
         ["Hồ sơ rủi ro", "Cổ phiếu", "Tiền mặt", "Margin"],
         ag.map((r) => [
           escapeHtml(r.profile || ND),
@@ -562,38 +601,96 @@
         ]),
       );
 
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Ngành</p><h2>Ưu tiên nhóm ngành</h2></div>`;
-      html += renderTable(
+      let sectorsHtml = "";
+      sectorsHtml += `<div class="section-head"><p class="eyebrow">Ngành</p><h2>Ưu tiên nhóm ngành</h2></div>`;
+      sectorsHtml += renderTable(
         ["Nhóm ngành", "Quan điểm", "Hành động"],
         sp.map((r) => [escapeHtml(r.sector || ND), escapeHtml(r.view || ND), escapeHtml(r.action || ND)]),
       );
 
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Tăng tỷ trọng</p><h2>Tín hiệu để tăng tỷ trọng</h2></div>`;
-      html += renderTable(
+      let riskOnHtml = "";
+      riskOnHtml += `<div class="section-head"><p class="eyebrow">Tăng tỷ trọng</p><h2>Tín hiệu để tăng tỷ trọng</h2></div>`;
+      riskOnHtml += renderTable(
         ["Tín hiệu", "Ý nghĩa"],
         ir.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.meaning || ND)]),
       );
 
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Rủi ro</p><h2>Tín hiệu cần giảm rủi ro</h2></div>`;
-      html += renderTable(
+      let riskOffHtml = "";
+      riskOffHtml += `<div class="section-head"><p class="eyebrow">Rủi ro</p><h2>Tín hiệu cần giảm rủi ro</h2></div>`;
+      riskOffHtml += renderTable(
         ["Tín hiệu cảnh báo", "Hành động"],
         rr.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.action || ND)]),
       );
 
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Kịch bản</p><h2>Kế hoạch theo 3 kịch bản</h2></div>`;
+      let scenariosHtml = "";
+      scenariosHtml += `<div class="section-head"><p class="eyebrow">Kịch bản</p><h2>Kế hoạch theo 3 kịch bản</h2></div>`;
       const b = scen.baseCase || {};
       const u = scen.bullCase || {};
       const e = scen.bearCase || {};
-      html += `<div class="scenario-grid">`;
-      html += `<article class="sc"><h3>${escapeHtml(b.title || "Kịch bản cơ sở")}</h3><p>${escapeHtml(b.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(b.action || ND)}</p></article>`;
-      html += `<article class="sc bull"><h3>${escapeHtml(u.title || "Kịch bản tích cực")}</h3><p>${escapeHtml(u.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(u.action || ND)}</p></article>`;
-      html += `<article class="sc bear"><h3>${escapeHtml(e.title || "Kịch bản tiêu cực")}</h3><p>${escapeHtml(e.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(e.action || ND)}</p></article>`;
-      html += `</div>`;
+      scenariosHtml += `<div class="scenario-grid">`;
+      scenariosHtml += `<article class="sc"><h3>${escapeHtml(b.title || "Kịch bản cơ sở")}</h3><p>${escapeHtml(b.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(b.action || ND)}</p></article>`;
+      scenariosHtml += `<article class="sc bull"><h3>${escapeHtml(u.title || "Kịch bản tích cực")}</h3><p>${escapeHtml(u.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(u.action || ND)}</p></article>`;
+      scenariosHtml += `<article class="sc bear"><h3>${escapeHtml(e.title || "Kịch bản tiêu cực")}</h3><p>${escapeHtml(e.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(e.action || ND)}</p></article>`;
+      scenariosHtml += `</div>`;
 
-      html += `<div class="section-head" style="margin-top:36px"><p class="eyebrow">Đóng phiên</p><h2>Kết luận hôm nay</h2></div>`;
-      html += `<div class="takeaway"><p>${escapeHtml(data.finalTakeaway || ND)}</p></div>`;
+      let takeawayHtml = "";
+      takeawayHtml += `<div class="section-head"><p class="eyebrow">Đóng phiên</p><h2>Kết luận hôm nay</h2></div>`;
+      takeawayHtml += `<div class="takeaway"><p>${escapeHtml(data.finalTakeaway || ND)}</p></div>`;
 
-      return html;
+      return {
+        thesis: thesisHtml,
+        macro: macroHtml,
+        transmission: transmissionHtml,
+        actions: actionsHtml,
+        allocation: allocationHtml,
+        sectors: sectorsHtml,
+        riskOn: riskOnHtml,
+        riskOff: riskOffHtml,
+        scenarios: scenariosHtml,
+        takeaway: takeawayHtml,
+      };
+    }
+
+    function renderBriefSections(payload) {
+      applyHeroBranding(payload);
+      let parts;
+      try {
+        parts = buildBriefParts(payload);
+      } catch (e) {
+        console.error(e);
+        const msg = `<div class="error-card">Không render được brief: ${escapeHtml(e.message || e)}</div>`;
+        const fall = document.getElementById("sectionThesis");
+        if (fall) fall.innerHTML = msg;
+        return;
+      }
+      const ids = [
+        "sectionThesis",
+        "sectionMacro",
+        "sectionTransmission",
+        "sectionActions",
+        "sectionAllocation",
+        "sectionSectors",
+        "sectionRiskOn",
+        "sectionRiskOff",
+        "sectionScenarios",
+        "sectionTakeaway",
+      ];
+      const keys = [
+        "thesis",
+        "macro",
+        "transmission",
+        "actions",
+        "allocation",
+        "sectors",
+        "riskOn",
+        "riskOff",
+        "scenarios",
+        "takeaway",
+      ];
+      for (let i = 0; i < ids.length; i++) {
+        const el = document.getElementById(ids[i]);
+        if (el) el.innerHTML = parts[keys[i]] || "";
+      }
     }
 
     function createSourceCard(item) {
@@ -647,15 +744,7 @@
           ? `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
           : "";
       }
-      const root = document.getElementById("briefRoot");
-      if (root) {
-        try {
-          root.innerHTML = buildBriefHtml(payload);
-        } catch (e) {
-          console.error(e);
-          root.innerHTML = `<div class="error-card">Không render được brief: ${escapeHtml(e.message || e)}</div>`;
-        }
-      }
+      renderBriefSections(payload);
       const articles = Array.isArray(payload.allArticles) ? payload.allArticles : [];
       const grid = document.getElementById("sourceGrid");
       const titleEl = document.getElementById("sourceGridTitle");

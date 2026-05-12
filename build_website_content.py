@@ -104,12 +104,378 @@ def extract_image_from_plaintext(text: str) -> str:
 
 _LIST_MINS: dict[str, int] = {
     "global_macro_drivers": 3,
-    "quick_actions": 4,
+    "quick_actions": 6,
     "allocation_guide": 3,
     "sector_priority": 6,
     "increase_risk_signals": 4,
     "reduce_risk_signals": 4,
 }
+
+SAFE_ALLOCATION_GUIDE: list[dict[str, str]] = [
+    {"profile": "Thận trọng", "stocks": "30–40%", "cash": "60–70%", "margin": "Không dùng"},
+    {"profile": "Cân bằng", "stocks": "50–60%", "cash": "40–50%", "margin": "Rất thấp"},
+    {"profile": "Chủ động", "stocks": "60–70%", "cash": "30–40%", "margin": "Chỉ dùng khi thị trường xác nhận"},
+]
+
+SAFE_ACTION_CONCLUSION = (
+    "Không cần rút lui hoàn toàn, nhưng cũng không nên mua đuổi. Chiến lược phù hợp là giữ tỷ trọng vừa phải, "
+    "ưu tiên cổ phiếu khỏe, hạn chế margin và chờ xác nhận từ dòng tiền."
+)
+
+SAFE_INCREASE_RISK_SIGNALS: list[dict[str, str]] = [
+    {"signal": "VN-Index tăng cùng thanh khoản cải thiện", "meaning": "Dòng tiền thật quay lại."},
+    {"signal": "Số mã tăng lan rộng", "meaning": "Độ rộng thị trường khỏe hơn."},
+    {"signal": "Ngân hàng giữ vai trò dẫn dắt", "meaning": "Chỉ số có trụ đỡ tốt hơn."},
+    {"signal": "Khối ngoại giảm bán hoặc mua ròng", "meaning": "Áp lực vốn ngoại hạ nhiệt."},
+    {"signal": "USD/VND ổn định", "meaning": "Rủi ro tỷ giá giảm."},
+    {"signal": "Cổ phiếu vượt nền với volume tốt", "meaning": "Có điểm mua rõ hơn."},
+]
+
+SAFE_REDUCE_RISK_SIGNALS: list[dict[str, str]] = [
+    {"signal": "VN-Index tăng nhưng độ rộng yếu", "action": "Không mua đuổi."},
+    {"signal": "Thanh khoản giảm trong nhịp tăng", "action": "Giữ tiền mặt cao hơn."},
+    {"signal": "Khối ngoại bán ròng mạnh", "action": "Giảm nhóm nhạy cảm với dòng vốn."},
+    {"signal": "USD/VND tăng nhanh", "action": "Hạn chế margin."},
+    {"signal": "Ngân hàng suy yếu đồng loạt", "action": "Hạ tỷ trọng cổ phiếu."},
+    {"signal": "Cổ phiếu đầu cơ tăng nóng", "action": "Chốt lời từng phần, không đuổi giá."},
+]
+
+STABLE_VN_SECTOR_NAMES = (
+    "Ngân hàng",
+    "Dầu khí",
+    "Chứng khoán",
+    "Khu công nghiệp",
+    "Xuất khẩu",
+    "Bất động sản",
+    "Thép",
+    "Bán lẻ",
+)
+
+PUBLIC_JARGON_REPLACEMENTS: tuple[tuple[str, str], ...] = (
+    (r"\bAI\b", ""),
+    (r"\bGPT\b", ""),
+    (r"\bGemini\b", ""),
+    (r"(?i)\bartificial intelligence\b", ""),
+    (r"(?i)\bautomation\b", ""),
+    (r"(?i)\bcrawler\b", ""),
+    (r"(?i)\bcrawl\b", ""),
+    (r"(?i)\bpipeline\b", ""),
+    (r"(?i)\bsource quality\b", ""),
+    (r"(?i)\bverified links\b", ""),
+    (r"(?i)\bkhông phải khuyến nghị đầu tư\b", ""),
+    (r"(?i)\bdisclaimer\b", ""),
+)
+
+_GLOBAL_MACRO_KEYWORDS_RE = re.compile(
+    r"fed|mỹ|my\b|usd|dxy|lợi suất|loi suat|dầu|dau|lạm phát|lam phat|trung quốc|trung quoc|"
+    r"thương mại|thuong mai|địa chính trị|dia chinh tri|toàn cầu|toan cau|euro|ecb|opec|brent|wto|imf|"
+    r"thế giới|the gioi|global|china|oil|inflation|rate|yield|geopolit|trade war",
+    re.IGNORECASE,
+)
+
+# Risk-on item mistakenly listed under increase_risk_signals
+_INCREASE_BAD_SIGNAL_RE = re.compile(
+    r"(giá )?dầu.*tăng mạnh|giá vàng.*tăng mạnh|leo thang|xấu đi|bán ròng mạnh|lạm phát cao hơn dự kiến|"
+    r"lạm phát cao hơn|lam phat cao hon|USD/VND tăng nhanh|thủng hỗ trợ|suy yếu đồng loạt|suy yeu dong loat|"
+    r"rủi ro hệ thống|căng thẳng địa chính trị",
+    re.IGNORECASE,
+)
+_INCREASE_BAD_EXCEPTION_RE = re.compile(
+    r"giảm bán|giam ban|ổn định|on dinh|hạ nhiệt|ha nhiet|cải thiện|co phieu khỏe",
+    re.IGNORECASE,
+)
+
+# Positive confirmation wrongly under reduce_risk_signals
+_REDUCE_GOOD_SIGNAL_RE = re.compile(
+    r"tăng trưởng ổn định|tang truong on dinh|lạm phát thấp hơn|lam phat thap hon|"
+    r"ngân hàng cải thiện|ngan hang cai thien|khối ngoại mua ròng|khoi ngoai mua rong|"
+    r"USD/VND ổn định|thanh khoản cải thiện|thanh khoan cai thien",
+    re.IGNORECASE,
+)
+
+_DIRECT_ASSET_PITCH_RE = re.compile(
+    r"(tăng cường\s+)?nắm giữ.*(vàng|dầu thô|vàng và dầu)|"
+    r"mua\s+(vàng|dầu)|khuyến nghị.*(vàng|dầu)|"
+    r"ưu tiên.*(vàng|dầu)(?!\s+cao)",
+    re.IGNORECASE,
+)
+
+DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET: list[dict[str, str]] = [
+    {
+        "title": "Lãi suất Mỹ còn cao",
+        "analysis": (
+            "Khi Fed chưa vội hạ lãi suất, lợi suất trái phiếu Mỹ dễ duy trì ở vùng tương đối cao. "
+            "Chi phí vốn toàn cầu đắt hơn và tài sản rủi ro khó mở rộng định giá mạnh nếu không có tin tích cực rõ ràng."
+        ),
+        "vietnam_impact": (
+            "Kênh tâm lý risk-off và dòng vốn: nhà đầu tư mới nổi thường thận trọng hơn; "
+            "cổ phiếu Việt Nam cần dựa nhiều vào dòng tiền nội."
+        ),
+    },
+    {
+        "title": "Đồng USD mạnh gây áp lực tỷ giá",
+        "analysis": (
+            "USD mạnh thường kéo chi phí nhập khẩu hàng hóa USD và làm thắt tài chính cho các DN có nợ ngoại tệ."
+        ),
+        "vietnam_impact": "Áp lực lên USD/VND và kỳ vọng chính sách; khối ngoại có thể cân nhắc tốc độ phân bổ.",
+    },
+    {
+        "title": "Giá dầu là rủi ro lạm phát",
+        "analysis": (
+            "Dầu cao không chỉ tác động nhóm năng lượng mà lan sang vận tải, sản xuất và kỳ vọng lạm phát."
+        ),
+        "vietnam_impact": (
+            "Biên lợi nhuận DN sử dụng năng lượng và logistics chịu áp lực; tâm lý thị trường dễ nhạy với shock giá."
+        ),
+    },
+]
+
+DEFAULT_SECTOR_PRIORITY_SNIPPET: list[dict[str, str]] = [
+    {"sector": "Ngân hàng", "view": "Tích cực có chọn lọc", "action": "Ưu tiên mã nền tảng và room tín dụng lành mạnh."},
+    {"sector": "Dầu khí", "view": "Tích cực ngắn hạn có điều kiện", "action": "Theo giá dầu; quản trị nhịp điều chỉnh."},
+    {"sector": "Chứng khoán", "view": "Phụ thuộc thanh khoản", "action": "Chỉ mạnh khi dòng tiền cá nhân bền."},
+    {"sector": "Khu công nghiệp", "view": "Trung tính tích cực", "action": "Chọn KCN có lấp đầy và khách ổn định."},
+    {"sector": "Xuất khẩu", "view": "Trung tính", "action": "Lưu ý USD/VND và cầu bên ngoài."},
+    {"sector": "Bất động sản", "view": "Thận trọng", "action": "Chỉ xem dự án có dòng tiền và pháp lý rõ."},
+    {"sector": "Thép", "view": "Trung tính thận trọng", "action": "Bám giá nguyên liệu và biên."},
+    {"sector": "Bán lẻ", "view": "Chọn lọc", "action": "Ưu tiên chuỗi có động lực same-store."},
+]
+
+_CANONICAL_QUICK_STATES: tuple[str, ...] = (
+    "Cầm nhiều tiền mặt",
+    "Đang nắm cổ phiếu tốt",
+    "Đang lãi ngắn hạn",
+    "Đang dùng margin cao",
+    "Muốn mua mới",
+    "Đang kẹt cổ phiếu yếu",
+)
+
+
+def _strip_public_jargon_string(value: str) -> str:
+    out = value or ""
+    for pat, repl in PUBLIC_JARGON_REPLACEMENTS:
+        out = re.sub(pat, repl, out, flags=0 if "?" in pat else 0)
+    return re.sub(r"\s+", " ", out).strip()
+
+
+def _sanitize_strings_in_brief_obj(obj: Any) -> Any:
+    if isinstance(obj, str):
+        return _strip_public_jargon_string(obj)
+    if isinstance(obj, dict):
+        return {k: _sanitize_strings_in_brief_obj(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_sanitize_strings_in_brief_obj(v) for v in obj]
+    return obj
+
+
+def _allocation_guide_violates(rows: Any) -> bool:
+    if not isinstance(rows, list):
+        return True
+    for r in rows:
+        if not isinstance(r, dict):
+            return True
+        profile = str(r.get("profile", "") or "").lower()
+        margin = str(r.get("margin", "") or "")
+        if "thận trọng" in profile or "than trong" in profile:
+            if re.search(r"\d\s*%", margin):
+                return True
+        if "cân bằng" in profile or "can bang" in profile:
+            if re.search(r"(?:^|[^\d])(?:10|20|30)\s*%", margin, re.IGNORECASE):
+                return True
+            if re.search(r"\b(cao|đầy đủ|đầy)\b", margin, re.IGNORECASE) and "rất thấp" not in margin.lower():
+                if re.search(r"\d\s*%", margin):
+                    return True
+    return False
+
+
+def _macro_driver_is_global(row: dict[str, Any]) -> bool:
+    blob = f"{row.get('title', '')} {row.get('analysis', '')}"
+    return bool(_GLOBAL_MACRO_KEYWORDS_RE.search(blob))
+
+
+def _sector_in_stable_universe(name: str) -> bool:
+    n = (name or "").strip().lower()
+    if not n:
+        return False
+    for s in STABLE_VN_SECTOR_NAMES:
+        if s.lower() == n:
+            return True
+    return False
+
+
+def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
+    """Post-process GPT output: jargon strip, allocation/signals/sectors/global sanity."""
+    out = copy.deepcopy(snake)
+    for key in (
+        "title",
+        "publication_intro",
+        "main_thesis",
+        "vietnam_transmission",
+        "scenario_plan",
+        "final_takeaway",
+    ):
+        if key in out:
+            out[key] = _sanitize_strings_in_brief_obj(out[key])
+
+    for list_key in (
+        "global_macro_drivers",
+        "quick_actions",
+        "allocation_guide",
+        "sector_priority",
+        "increase_risk_signals",
+        "reduce_risk_signals",
+    ):
+        if list_key in out:
+            out[list_key] = _sanitize_strings_in_brief_obj(out[list_key])
+
+    mt = out.get("main_thesis")
+    if isinstance(mt, dict):
+        ac = str(mt.get("action_conclusion", "") or "")
+        if _DIRECT_ASSET_PITCH_RE.search(ac) or (
+            "trú ẩn" in ac.lower() and ("vàng" in ac.lower() or "dầu" in ac.lower())
+        ):
+            mt["action_conclusion"] = SAFE_ACTION_CONCLUSION
+
+    ag = out.get("allocation_guide")
+    if _allocation_guide_violates(ag):
+        out["allocation_guide"] = copy.deepcopy(SAFE_ALLOCATION_GUIDE)
+
+    inc_raw = out.get("increase_risk_signals")
+    red_raw = out.get("reduce_risk_signals")
+    inc = inc_raw if isinstance(inc_raw, list) else []
+    red = red_raw if isinstance(red_raw, list) else []
+    new_inc = []
+    new_red: list[dict[str, str]] = []
+
+    for r in inc:
+        if not isinstance(r, dict):
+            continue
+        sig = str(r.get("signal", "") or "").strip()
+        meaning = str(r.get("meaning", "") or "").strip()
+        if not sig:
+            continue
+        if _INCREASE_BAD_SIGNAL_RE.search(sig) and not _INCREASE_BAD_EXCEPTION_RE.search(sig):
+            new_red.append(
+                {
+                    "signal": sig,
+                    "action": "Giữ kỷ luật vốn; không mua đuổi khi tín hiệu rủi ro chi phối.",
+                }
+            )
+        else:
+            new_inc.append({"signal": sig, "meaning": meaning or "—"})
+
+    for r in red:
+        if not isinstance(r, dict):
+            continue
+        sig = str(r.get("signal", "") or "").strip()
+        act = str(r.get("action", "") or "").strip()
+        if not sig:
+            continue
+        if _REDUCE_GOOD_SIGNAL_RE.search(sig):
+            new_inc.append(
+                {
+                    "signal": sig,
+                    "meaning": (
+                        "Tín hiệu xác nhận dòng tiền / vĩ mô thuận lợi hơn; "
+                        "có thể từng bước tăng tỷ trọng có kiểm soát."
+                    ),
+                }
+            )
+        else:
+            new_red.append({"signal": sig, "action": act or "Thận trọng; quan sát thêm."})
+
+    def _dedupe_inc(items: list[dict[str, str]]) -> list[dict[str, str]]:
+        seen: set[str] = set()
+        outl: list[dict[str, str]] = []
+        for it in items:
+            k = (it.get("signal") or "").strip().lower()
+            if not k or k in seen:
+                continue
+            seen.add(k)
+            outl.append(it)
+        return outl
+
+    def _dedupe_red(items: list[dict[str, str]]) -> list[dict[str, str]]:
+        seen: set[str] = set()
+        outl: list[dict[str, str]] = []
+        for it in items:
+            k = (it.get("signal") or "").strip().lower()
+            if not k or k in seen:
+                continue
+            seen.add(k)
+            outl.append(it)
+        return outl
+
+    new_inc = _dedupe_inc(new_inc)
+    new_red = _dedupe_red(new_red)
+    if len(new_inc) < _LIST_MINS["increase_risk_signals"]:
+        for fb in SAFE_INCREASE_RISK_SIGNALS:
+            if len(new_inc) >= 6:
+                break
+            if fb["signal"].lower() not in {x["signal"].lower() for x in new_inc}:
+                new_inc.append(dict(fb))
+    if len(new_red) < _LIST_MINS["reduce_risk_signals"]:
+        for fb in SAFE_REDUCE_RISK_SIGNALS:
+            if len(new_red) >= 6:
+                break
+            if fb["signal"].lower() not in {x["signal"].lower() for x in new_red}:
+                new_red.append(dict(fb))
+    out["increase_risk_signals"] = new_inc[:8]
+    out["reduce_risk_signals"] = new_red[:8]
+
+    sp_list = out.get("sector_priority")
+    if isinstance(sp_list, list):
+        bad = sum(1 for r in sp_list if isinstance(r, dict) and not _sector_in_stable_universe(str(r.get("sector", ""))))
+        if bad > 2 or len(sp_list) < _LIST_MINS["sector_priority"]:
+            out["sector_priority"] = copy.deepcopy(DEFAULT_SECTOR_PRIORITY_SNIPPET)
+
+    gmd = out.get("global_macro_drivers")
+    if isinstance(gmd, list):
+        global_rows = [dict(r) for r in gmd if isinstance(r, dict) and _macro_driver_is_global(r)]
+        if len(global_rows) < 2:
+            out["global_macro_drivers"] = copy.deepcopy(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET)
+        else:
+            merged = global_rows[:]
+            i = 0
+            while len(merged) < 3 and i < len(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET):
+                cand = DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET[i]
+                if not any(str(c.get("title")) == str(cand.get("title")) for c in merged):
+                    merged.append(copy.deepcopy(cand))
+                i += 1
+            out["global_macro_drivers"] = merged[:4]
+
+    qa = out.get("quick_actions")
+    if isinstance(qa, list) and qa:
+        by_lower: dict[str, str] = {}
+        for r in qa:
+            if not isinstance(r, dict):
+                continue
+            st = str(r.get("investor_state", "") or "").strip()
+            if st:
+                by_lower[st.lower()] = str(r.get("action", "") or "").strip()
+        ordered: list[dict[str, str]] = []
+        for canon in _CANONICAL_QUICK_STATES:
+            act = by_lower.get(canon.lower(), "")
+            if not act:
+                for lk, ac in by_lower.items():
+                    if lk in canon.lower() or any(
+                        tok and tok in lk for tok in canon.lower().split() if len(tok) > 3
+                    ):
+                        act = ac
+                        break
+            ordered.append(
+                {
+                    "investor_state": canon,
+                    "action": act or "Giữ kỷ luật vốn; chờ tín hiệu rõ trên VN-Index và thanh khoản.",
+                }
+            )
+        out["quick_actions"] = ordered[:8]
+
+    ft = str(out.get("final_takeaway", "") or "").strip()
+    if len(ft) > 520:
+        out["final_takeaway"] = ft[:517].rstrip() + "…"
+
+    return out
 
 
 class MetadataExtractor(HTMLParser):
@@ -742,6 +1108,7 @@ def build_payload(
         brief_date=brief_date or datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         generated_at=generated_at,
     )
+    snake = sanitize_strategy_brief_snake(snake)
     brief = strategy_brief_to_public_json(snake)
     ms_payload = market_snapshot if market_snapshot is not None else load_market_snapshot_json()
 
