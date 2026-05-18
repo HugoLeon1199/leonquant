@@ -23,11 +23,14 @@ jobs:
 
       - name: Verify pipeline scripts compile
         run: |
-          python -m py_compile finalize_summary_gpt.py build_website_content.py validate_content.py fetch_market_snapshot.py summarize_news_gemini.py crawl_financial_news.py
+          python -m py_compile finalize_summary_gpt.py build_website_content.py validate_content.py fetch_market_snapshot.py summarize_news_gemini.py crawl_financial_news.py scripts/validate_news_sources_tiered.py scripts/build_news_sources_tiered.py
+
+      - name: Validate tiered RSS config
+        run: python scripts/validate_news_sources_tiered.py
 
       - name: Crawl public macro news
         run: |
-          python crawl_financial_news.py --per-source-limit 0 --max-total 0 --today-only --macro-only --macro-min-score 4
+          python crawl_financial_news.py --sources config/news_sources_tiered.json --per-source-limit 0 --max-total 0 --today-only --macro-only --macro-min-score 4
 
       - name: Fetch market snapshot (best-effort quotes)
         run: |

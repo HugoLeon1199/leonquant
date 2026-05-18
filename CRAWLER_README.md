@@ -4,7 +4,10 @@ This MVP collects public finance/crypto RSS feeds and writes a clean JSON file f
 
 ## Files
 
-- `news_sources.json` - RSS sources and categories.
+- `news_sources.json` - RSS sources and categories (flat `{ "sources": [...] }`).
+- `config/news_sources_tiered.json` - Same feeds grouped by **tier** (aligned with `config/sources_seed.txt` taxonomy); use `--sources config/news_sources_tiered.json`. Each article gains optional `tier` / `tier_title`.
+- `config/sources_seed.txt` - Homepage/section URLs per tier (reference only; crawler still needs RSS URLs in JSON).
+- `scripts/build_news_sources_tiered.py` - Regenerate tiered JSON from `news_sources.json` + extras.
 - `crawl_financial_news.py` - crawler script.
 - `news_output.json` - raw normalized output for AI/API processing.
 - `content.json` - optional website fallback output when running with `--update-content`.

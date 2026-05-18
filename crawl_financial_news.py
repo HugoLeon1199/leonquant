@@ -219,9 +219,38 @@ def parse_xml_root(xml_bytes: bytes) -> ElementTree.Element:
 
 
 def load_sources(path: Path) -> list[dict[str, str]]:
+    """Load flat ``sources`` or flatten ``tiers[]`` (see ``config/news_sources_tiered.json``)."""
     with path.open("r", encoding="utf-8") as file:
         payload = json.load(file)
-    return payload.get("sources", [])
+    flat = payload.get("sources")
+    if isinstance(flat, list):
+        return [s for s in flat if isinstance(s, dict)]
+
+    tiers = payload.get("tiers")
+    if isinstance(tiers, list):
+        out: list[dict[str, str]] = []
+        for tier in tiers:
+            if not isinstance(tier, dict):
+                continue
+            tier_id = str(tier.get("id") or "")
+            tier_title = str(tier.get("title") or "")
+            for raw in tier.get("sources") or []:
+                if not isinstance(raw, dict):
+                    continue
+                row: dict[str, str] = {
+                    "name": str(raw.get("name") or "Unknown"),
+                    "url": str(raw.get("url") or ""),
+                    "category": str(raw.get("category") or "general"),
+                    "region": str(raw.get("region") or "unknown"),
+                }
+                if tier_id:
+                    row["tier"] = tier_id
+                if tier_title:
+                    row["tier_title"] = tier_title
+                out.append(row)
+        return out
+
+    return []
 
 
 def parse_rss(xml_bytes: bytes, source: dict[str, str], limit: int) -> list[dict[str, Any]]:
@@ -255,6 +284,8 @@ def parse_rss(xml_bytes: bytes, source: dict[str, str], limit: int) -> list[dict
                 "source": source.get("name", "Unknown"),
                 "category": source.get("category", "general"),
                 "region": source.get("region", "unknown"),
+                "tier": source.get("tier", ""),
+                "tier_title": source.get("tier_title", ""),
             }
         )
     return articles
@@ -383,7 +414,11 @@ def write_content_json(path: Path, articles: list[dict[str, Any]]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Crawl public finance/crypto RSS feeds.")
-    parser.add_argument("--sources", default=str(DEFAULT_SOURCES_FILE), help="Path to news_sources.json")
+    parser.add_argument(
+        "--sources",
+        default=str(DEFAULT_SOURCES_FILE),
+        help="Path to news_sources.json or config/news_sources_tiered.json",
+    )
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT_FILE), help="Path to output JSON")
     parser.add_argument("--per-source-limit", type=int, default=0, help="Max items per source. Use 0 for no limit.")
     parser.add_argument("--max-total", type=int, default=0, help="Max unique items in final output. Use 0 for no limit.")
