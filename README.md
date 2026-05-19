@@ -6,7 +6,7 @@ Trang tĩnh (GitHub Pages): `https://hugoleon1199.github.io/leonquant/`
 
 ## Pipeline (giữ nguyên thứ tự)
 
-1. `crawl_financial_news.py` — thu thập tin.
+1. **`scripts/run_intel_full_daily.py`** (+ `leon_web_intel/`) — profile (tuỳ) + Scrapy theo tier → **`news_output.json`**. Hằng ngày thêm **`--skip-profile`** khi DuckDB đã có profile (xem docstring script).
 2. `summarize_news_gemini.py` — tóm tắt nội bộ / themes / important articles.
 3. `finalize_summary_gpt.py` — lớp biên tập cuối: sinh **`final_summary.json`** theo **Investment Strategy Brief** (tiếng Việt, ghi chú chiến lược), có validator + sửa JSON + bản dự phòng khi lỗi.
 4. `build_website_content.py` — gộp brief + toàn bộ bài enriched → **`content.json`** (camelCase cho web, không đẩy metadata nội bộ ra trang công khai).
@@ -60,9 +60,31 @@ python validate_content.py
 
 ## GitHub Actions
 
-- **`daily.yml`:** crawl → Gemini → GPT → `build_website_content` → **`python -m json.tool`** trên `final_summary.json` và `content.json` → **`python validate_content.py`** → commit.
+- **`daily.yml`:** Leon Web Intel crawl (cache DuckDB → `--skip-profile` khi config không đổi) → Gemini → GPT → `build_website_content` → validate → commit.
 - **Secrets:** `GEMINI_API_KEY`, `OPENAI_API_KEY` (repository secrets).
+
+## Leon Web Intel (Scrapy + DuckDB)
+
+Phần **`leon_web_intel/`** là bản **rút gọn** (profile RSS/sitemap/HTML + Scrapy theo tier → DuckDB → export `news_output.json`). Đã **bỏ** API Hub / GDELT và các script orchestration nặng; upstream tham chiếu [Crawl-Web-Repository](https://github.com/HugoLeon1199/Crawl-Web-Repository).
+
+**Phụ thuộc Python:**
+
+```powershell
+cd path\to\leonquant
+py -3.11 -m venv .venv
+.\.venv\Scripts\activate
+pip install -r leon_web_intel/requirements.txt
+playwright install
+```
+
+**Chạy tier → `news_output.json`** (không gọi Gemini/GPT):
+
+```powershell
+python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --skip-profile
+```
+
+Lần đầu hoặc sau khi đổi `config/sources_seed.txt` / tiers / `crawl_rules.yaml`: chạy **không** có `--skip-profile` để làm lại bước phân loại (profiler).
 
 ## Tài liệu thêm
 
-`CRAWLER_README.md`, `GPT_SUMMARY_README.md`.
+`GPT_SUMMARY_README.md`.

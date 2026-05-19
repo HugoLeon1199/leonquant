@@ -1,7 +1,6 @@
-# Leon Quant — tiered site roots / sections (same convention as leon_web_intel `sources_*.txt`).
-# Crawler RSS của repo này dùng `news_sources.json` hoặc `news_sources_tiered.json` (URL là feed RSS).
-# File `.txt` này giữ phạm vi & nhóm nguồn để đối chiếu với profiler/HTML crawl bên leon_web_intel;
-# thêm feed RSS mới: đặt entry vào `config/news_sources_tiered.json` đúng `tier`.
+# Leon Quant — tiered site roots / sections for Leon Web Intel (`run_profile.py --input`).
+# Mỗi dòng URL (không comment) là seed để profiler phân loại RSS / sitemap / HTML.
+# Thêm site: thêm URL vào đúng nhóm tier; chạy lại profiler khi cần (bỏ `--skip-profile`).
 
 # =========================
 # VIETNAM - FINANCE / STOCK / ECONOMY
@@ -54,15 +53,17 @@ https://vov.vn/kinh-te
 https://baotintuc.vn/kinh-te-128ct0.htm
 https://nhandan.vn/kinh-te
 https://vtcnews.vn/kinh-te-29.html
+# playwright_fallback: daily Scrapy uses RSS/sitemap/HTML only (no JS render)
 https://laodong.vn/kinh-doanh
 https://plo.vn/kinh-te
 https://www.sggp.org.vn/kinh-te
 https://www.qdnd.vn/kinh-te
-https://baophapluat.vn/kinh-te
+https://baophapluat.vn
 
 # =========================
 # VIETNAM - REAL ESTATE / CONSTRUCTION / PLANNING
 # =========================
+# playwright_fallback (see config/README.md)
 https://batdongsan.com.vn
 https://cafeland.vn
 https://reatimes.vn
@@ -113,6 +114,7 @@ https://www.eia.gov
 # INTERNATIONAL - MARKET / FOREX / GOLD / COMMODITY
 # =========================
 https://www.investing.com/news
+# playwright_fallback — calendar page often JS-only
 https://www.forexfactory.com/news
 https://www.forexfactory.com/calendar
 https://www.fxstreet.com/news

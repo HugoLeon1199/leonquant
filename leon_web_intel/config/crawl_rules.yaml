@@ -1,0 +1,97 @@
+user_agent: "LeonWebIntelBot/0.1 (+local research project)"
+# Email for SEC / OpenAlex / Crossref / NCBI UA — set env WEB_INTEL_CONTACT_EMAIL or config/crawl_rules.local.yaml (gitignored)
+contact_email: null
+contact_display_name: "LeonWebIntel"
+ncbi_tool_name: "leon_web_intel"
+# --- Max-intake profile (still robots.txt, no paywall/CAPTCHA bypass) ---
+request_timeout_seconds: 45
+max_retries: 6
+default_delay_seconds: 0.85
+concurrency: 32
+scrapy_concurrent_requests: 56
+scrapy_concurrent_requests_per_domain: 10
+profile_cache_days: 7
+http_cache_enabled: true
+
+# Cap RSS URLs collected from homepage + paths; probes are further limited by profiler_max_rss_http_attempts.
+max_rss_candidates: 96
+profiler_max_rss_http_attempts: 40
+max_sitemap_candidates: 800
+max_sitemaps_to_parse_in_profiler: 120
+max_urls_from_sitemap_in_profiler: 200000
+# Production Scrapy: cap sitemap XML fetches per source_id (RSS-sized budget). 0 = no cap.
+sitemap_scrapy_max_index_children: 5
+sitemap_scrapy_max_xml_per_source: 20
+
+min_extract_text_length: 80
+min_article_content_length: 80
+sample_max_articles_per_source: 10000
+
+rss_candidate_paths:
+  - /feed
+  - /rss
+  - /rss.xml
+  - /atom.xml
+  - /feed.xml
+  - /rss.htm
+  - /rss.html
+  - /news/rss
+  - /rss/news.xml
+
+sitemap_candidate_paths:
+  - /sitemap.xml
+  - /sitemap_index.xml
+  - /sitemap-news.xml
+  - /news-sitemap.xml
+  - /sitemap.xml.gz
+
+js_detection:
+  min_text_length: 220
+  script_count_threshold: 28
+  js_keywords:
+    - "__NEXT_DATA__"
+    - "window.__INITIAL_STATE__"
+    - "id=\"root\""
+    - "id=\"app\""
+    - "app-root"
+
+paywall_keywords:
+  - subscribe
+  - subscription
+  - premium
+  - sign in to continue
+  - login to continue
+  - register to read
+  - paywall
+  - captcha
+  - access denied
+  - forbidden
+  - cloudflare
+  - verify you are human
+
+login_keywords:
+  - sign in
+  - log in
+  - login
+  - register to read
+
+captcha_keywords:
+  - captcha
+  - verify you are human
+  - recaptcha
+
+# Empty list = always attempt full HTML extract when the spider schedules the URL (no domain downgrade).
+prefer_metadata_only_domains: []
+
+keep_extract_despite_access_signal_if_meets_min_length: true
+today_allow_undated_uncertain_urls: true
+# RSS/sitemap discovery + pipeline date filter + export "today" slice: last N local days ending on target date.
+recent_calendar_days: 2
+
+# Post-crawl: persist domains the HTTP/RSS/sitemap stack cannot use (not "no article today").
+uncrawlable_min_block_errors: 5
+crawl_skip_list_enabled: true
+
+# No article feed / placeholder — do not waste crawl budget.
+manual_skip_domains:
+  - enternews.vn

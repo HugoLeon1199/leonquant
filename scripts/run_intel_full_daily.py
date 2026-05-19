@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
-"""Leon Quant: profile once on full seed, then Scrapy today-mode per tier → news_output.json.
+"""Leon Quant: profile seed sources, then Scrapy (today-mode) per tier → ``news_output.json``.
 
-Requires sibling repo ``leon_web_intel`` (or ``LEON_WEB_INTEL_ROOT``). Does **not** run Gemini/GPT/build web.
+Engine: vendored ``leon_web_intel/`` or ``LEON_WEB_INTEL_ROOT``. Does **not** run Gemini/GPT/build web.
 
-Typical:
+**Profile vs crawl**
+  - First run (empty DB) or after you change ``config/sources_seed.txt`` / tiers / ``crawl_rules.yaml``:
+    run **without** ``--skip-profile`` so ``run_profile.py`` refreshes DuckDB ``source_profiles``.
+  - Day-to-day (profiles already OK): use ``--skip-profile`` — only Scrapy + export; much faster.
+
+**Typical**
   python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh
+  python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --skip-profile
+  Full re-profile (ignore 7-day cache) then crawl:
+  python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --force-refresh-profile
 """
 
 from __future__ import annotations
@@ -13,7 +21,9 @@ import argparse
 import os
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 QUANT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -22,7 +32,18 @@ def intel_root() -> Path:
     env = os.environ.get("LEON_WEB_INTEL_ROOT")
     if env:
         return Path(env).resolve()
+    vendored = QUANT_ROOT / "leon_web_intel"
+    if (vendored / "run_profile.py").is_file():
+        return vendored
     return QUANT_ROOT.parent / "leon_web_intel"
+
+
+def resolve_crawl_calendar_date(date_arg: str, tz_name: str) -> str:
+    """Pin ``today`` once per run so Scrapy and export use the same calendar day."""
+    s = date_arg.strip()
+    if s.lower() == "today":
+        return datetime.now(ZoneInfo(tz_name)).date().isoformat()
+    return s
 
 
 def run(cmd: list[str], *, cwd: Path, timeout: int | None = None) -> int:
@@ -54,15 +75,48 @@ def main() -> int:
     parser.add_argument("--max-urls-per-source", type=int, default=50)
     parser.add_argument("--close-spider-timeout", type=int, default=3600)
     parser.add_argument("--skip-profile", action="store_true")
+    parser.add_argument(
+        "--force-refresh-profile",
+        action="store_true",
+        help="Pass --force-refresh to run_profile.py (re-profile every source; ignores 7-day cache).",
+    )
     parser.add_argument("--profile-timeout", type=int, default=None)
     parser.add_argument("--tier-timeout", type=int, default=None)
-    parser.add_argument("--news-output", type=Path, default=QUANT_ROOT / "news_output.json")
+    parser.add_argument(
+        "--output-today",
+        type=Path,
+        default=QUANT_ROOT / "news_output_today.json",
+        help="Articles for --date in --timezone",
+    )
+    parser.add_argument(
+        "--output-all",
+        type=Path,
+        default=QUANT_ROOT / "news_output_all.json",
+        help="All articles in DuckDB (any day)",
+    )
+    parser.add_argument(
+        "--no-crawl-skip",
+        action="store_true",
+        help="Retry sources on source_crawl_skip (e.g. after access-control rule change)",
+    )
     args = parser.parse_args()
+
+    crawl_date = resolve_crawl_calendar_date(args.date, args.timezone)
+    if args.date.strip().lower() == "today":
+        print(f"Crawl/export calendar date (pinned): {crawl_date} ({args.timezone})")
+
+    if args.skip_profile and args.force_refresh_profile:
+        print("ERROR: --force-refresh-profile cannot be used with --skip-profile", file=sys.stderr)
+        return 2
 
     root = intel_root()
     if not (root / "run_profile.py").is_file():
         print(f"ERROR: leon_web_intel not found at {root}", file=sys.stderr)
-        print("Set LEON_WEB_INTEL_ROOT or place leon_web_intel next to leonquant.", file=sys.stderr)
+        print(
+            "Set LEON_WEB_INTEL_ROOT, clone github.com/HugoLeon1199/Crawl-Web-Repository, "
+            "or use the vendored leonquant/leon_web_intel tree.",
+            file=sys.stderr,
+        )
         return 2
 
     py = sys.executable
@@ -86,6 +140,8 @@ def main() -> int:
         ]
         if args.profile_limit and args.profile_limit > 0:
             profile_cmd.extend(["--limit", str(args.profile_limit)])
+        if args.force_refresh_profile:
+            profile_cmd.append("--force-refresh")
         rc = run(profile_cmd, cwd=root, timeout=args.profile_timeout)
         if rc != 0:
             return rc
@@ -104,7 +160,7 @@ def main() -> int:
                 str(args.profile_limit),
                 "--today-only",
                 "--date",
-                args.date,
+                crawl_date,
                 "--timezone",
                 args.timezone,
                 "--max-urls-per-source",
@@ -113,29 +169,58 @@ def main() -> int:
                 str(args.close_spider_timeout),
                 "--domain-allowlist-file",
                 str(tier_path.resolve()),
-            ],
+            ]
+            + (["--no-crawl-skip"] if args.no_crawl_skip else []),
             cwd=root,
             timeout=args.tier_timeout,
         )
         if rc != 0:
             print(f"WARN: tier {tier_path.name} exited {rc}", file=sys.stderr)
 
-    return run(
+    skip_refresh = run(
+        [
+            py,
+            str((QUANT_ROOT / "scripts" / "refresh_source_crawl_skip.py").resolve()),
+            "--db",
+            str(db),
+        ],
+        cwd=QUANT_ROOT,
+        timeout=120,
+    )
+    if skip_refresh != 0:
+        print(f"WARN: refresh_source_crawl_skip exited {skip_refresh}", file=sys.stderr)
+
+    export_rc = run(
         [
             py,
             str((QUANT_ROOT / "scripts" / "export_intel_to_news_output.py").resolve()),
             "--db",
             str(db),
             "--date",
-            args.date,
+            crawl_date,
             "--timezone",
             args.timezone,
-            "--output",
-            str(args.news_output.resolve()),
+            "--output-today",
+            str(args.output_today.resolve()),
+            "--output-all",
+            str(args.output_all.resolve()),
         ],
         cwd=QUANT_ROOT,
         timeout=None,
     )
+    for post, post_args in (
+        ("crawl_baseline_snapshot.py", [str(db)]),
+        ("source_coverage_report.py", [str(db)]),
+        ("investigate_zero_article_sources.py", []),
+    ):
+        post_rc = run(
+            [py, str((QUANT_ROOT / "scripts" / post).resolve()), *post_args],
+            cwd=QUANT_ROOT,
+            timeout=120,
+        )
+        if post_rc != 0:
+            print(f"WARN: {post} exited {post_rc}", file=sys.stderr)
+    return export_rc
 
 
 if __name__ == "__main__":

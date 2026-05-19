@@ -1,0 +1,43 @@
+
+[SKIP-blocked] https://dantri.com.vn/kinh-doanh.htm
+  HTTP 200 | len=612048 | title='Tin kinh doanh: Thị trường, tài chính, kinh tế, doanh nghiệp | Báo Dân trí'
+  signals: paywall=True login=False captcha=True
+  co HTML bai (heuristic): False
+
+[SKIP-blocked] https://cafebiz.vn
+  HTTP 200 | len=418523 | title='CafeBiz - Thông tin kinh doanh - Doanh nhân'
+  signals: paywall=False login=False captcha=False
+  co HTML bai (heuristic): False
+
+[SKIP-blocked] https://tuoitre.vn/kinh-doanh.htm
+  HTTP 200 | len=224064 | title='Kinh doanh – tin kinh tế thị trường, tài chính và chứng khoán - Tuổi Trẻ Online'
+  signals: paywall=False login=True captcha=False
+  co HTML bai (heuristic): False
+
+[SKIP-reuters] https://www.reuters.com/markets/
+  HTTP 401 | len=771 | title='reuters.com'
+  signals: paywall=True login=False captcha=True
+  co HTML bai (heuristic): False
+
+[OK-NotToday] https://cafef.vn
+  HTTP 200 | len=194297 | title='Kênh thông tin kinh tế - tài chính Việt Nam'
+  signals: paywall=False login=False captcha=False
+  co HTML bai (heuristic): False
+
+[OK-hasDB] https://vneconomy.vn
+  HTTP 200 | len=345049 | title='Nh&#x1ECB;p s&#x1ED1;ng kinh t&#x1EBF; Vi&#x1EC7;t Nam &amp; Th&#x1EBF; gi&#x1EDB;i - VnEconomy'
+  signals: paywall=True login=True captcha=False
+  co HTML bai (heuristic): False
+
+[OK-hasDB] https://plo.vn
+  HTTP 200 | len=160670 | title='Báo Pháp Luật TP. Hồ Chí Minh (Ho Chi Minh City Law Newspaper) - Cập nhật tin tức mới nhất, tin nhan'
+  signals: paywall=False login=False captcha=False
+  co HTML bai (heuristic): True
+
+[SKIP-profile] https://www.hnx.vn
+  LOI: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)
+
+[UNCLEAR] https://vnexpress.net/kinh-doanh
+  HTTP 200 | len=267945 | title='Tin kinh doanh: Thị trường, tài chính, kinh tế, doanh nghiệp - VnExpress Kinh Doanh'
+  signals: paywall=True login=False captcha=True
+  co HTML bai (heuristic): False

@@ -6,3 +6,21 @@ __pycache__/
 *.log
 *.tmp
 *.bak
+
+# Leon Web Intel (vendored crawler) — runtime artifacts
+leon_web_intel/data/db/*.duckdb
+leon_web_intel/data/cache/
+leon_web_intel/data/exports/*
+!leon_web_intel/data/exports/.gitkeep
+!leon_web_intel/data/exports/source_coverage_report.csv
+!leon_web_intel/data/exports/profile_summary.md
+!leon_web_intel/data/exports/review_sources_strict.csv
+!leon_web_intel/data/exports/review_sources.csv
+leon_web_intel/logs/*
+!leon_web_intel/logs/.gitkeep
+leon_web_intel/data/raw/html/*
+!leon_web_intel/data/raw/html/.gitkeep
+leon_web_intel/data/raw/rss/*
+!leon_web_intel/data/raw/rss/.gitkeep
+leon_web_intel/data/raw/sitemap/*
+!leon_web_intel/data/raw/sitemap/.gitkeep
