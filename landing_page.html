@@ -527,6 +527,26 @@
     .article-link-rows li { font-size: .82rem; }
 
     body.digest-mode .source-grid { display: none; }
+    body.digest-mode .hero-qs { display: none; }
+    body.digest-mode .hero h1 { font-size: clamp(1.35rem, 3vw, 1.75rem); margin-bottom: 0.35rem; }
+    body.digest-mode .hero-sub { margin-bottom: 0.5rem; }
+
+    .digest-report { scroll-margin-top: 88px; }
+    .digest-report-head { margin-bottom: 1rem; }
+    .digest-report-head h2 {
+      margin: 0 0 0.45rem;
+      font-size: clamp(1.25rem, 2.6vw, 1.65rem);
+      line-height: 1.25;
+    }
+    .digest-report-lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      max-width: 42rem;
+    }
+    .digest-report-extra { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    body.digest-mode #sectionDigestHighlights { display: none !important; }
   </style>
 </head>
 <body>
@@ -887,9 +907,7 @@
       const heroDesc = document.getElementById("heroDescription");
       if (heroSub) {
         if (digestMode) {
-          heroSub.textContent =
-            (data.sectionLabel && String(data.sectionLabel).trim()) ||
-            "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
+          heroSub.textContent = "Toàn cảnh tin tức 48 giờ";
         } else {
           heroSub.textContent =
             (data.sectionLabel && String(data.sectionLabel).trim()) ||
@@ -901,7 +919,7 @@
         if (digestMode) {
           heroDesc.textContent =
             String(data.digestHeroBlurb || "").trim() ||
-            "Rà soát các diễn biến nổi bật trên báo chí Việt Nam và quốc tế trong 48 giờ gần nhất — trình bày theo lĩnh vực, kèm liên kết sang bài gốc.";
+            "Trang tổng hợp tin tức thế giới và Việt Nam trong 48 giờ qua.";
         } else {
           const short =
             String(pub.description || "").trim().slice(0, 220) ||
@@ -949,6 +967,22 @@
       for (const it of items) h += `<li>${escapeHtml(it)}</li>`;
       h += `</ul>`;
       return h;
+    }
+
+    function mergeOverviewBullets(exec, intl, vn) {
+      const seen = new Set();
+      const out = [];
+      for (const list of [exec, intl, vn]) {
+        for (const b of list) {
+          const t = String(b || "").trim();
+          if (!t) continue;
+          const key = t.toLowerCase().slice(0, 80);
+          if (seen.has(key)) continue;
+          seen.add(key);
+          out.push(t);
+        }
+      }
+      return out;
     }
 
     function sectorSlug(name) {
@@ -1014,15 +1048,6 @@
       }
       html += `</div>`;
       return html;
-    }
-
-    function buildDigestTocHtml(sectors) {
-      let h = `<ul class="digest-toc">`;
-      h += `<li><a href="#sectionThesis">Tóm tắt & lĩnh vực</a></li>`;
-      h += `<li><a href="#sectionDigestHighlights">Toàn cảnh chi tiết</a></li>`;
-      h += `<li><a href="#reference">Nguồn tin tham khảo</a></li>`;
-      h += `</ul>`;
-      return h;
     }
 
     function sectorPartId(sectorId, part) {
@@ -1106,39 +1131,44 @@
         intl,
       );
       const vnBullets = getDigestBullets(data, "digestVietnamBullets", vn);
+      const overviewBullets = mergeOverviewBullets(execBullets, intlBullets, vnBullets);
 
-      const pub = data.publicationIntro || {};
-      const headline =
-        String(data.sectionLabel || "").trim() ||
+      const reportTitle =
+        String(data.digestReportTitle || "").trim() ||
         "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
 
       const mainToc = [];
-      if (mt.thesis) mainToc.push({ id: "exec", label: "Tóm tắt điều hành" });
-      if (sectors.length) mainToc.push({ id: "sectors", label: `Lĩnh vực (${sectors.length})` });
+      if (overviewBullets.length) mainToc.push({ id: "overview", label: "Tổng quan" });
+      if (sectors.length) mainToc.push({ id: "sectors", label: `Theo lĩnh vực (${sectors.length})` });
       for (const s of sectors) {
         const name = String(s.name || "").trim();
         if (!name) continue;
         mainToc.push({ id: sectorSlug(name), label: name, external: true });
       }
+      mainToc.push({ id: "reference", label: "Nguồn tin", external: true });
 
-      let thesisHtml = `<div class="section-head"><p class="eyebrow">Nội dung chính</p><h2>${escapeHtml(headline)}</h2></div>`;
+      let thesisHtml = `<article id="digest-report" class="digest-report">`;
+      thesisHtml += `<header class="digest-report-head">`;
+      thesisHtml += `<h2>${escapeHtml(reportTitle)}</h2>`;
+      thesisHtml += `<p class="digest-report-lead">Bản tin tổng quan trong cửa sổ 48 giờ qua — thế giới và Việt Nam.</p>`;
+      thesisHtml += `</header>`;
       thesisHtml += `<div class="digest-main-panel">`;
       if (mainToc.length) {
-        thesisHtml += `<ul class="overview-mini-toc" aria-label="Mục lục nội dung chính">`;
+        thesisHtml += `<ul class="overview-mini-toc" aria-label="Mục lục bản tin">`;
         for (const it of mainToc) {
           const href = it.external ? `#${it.id}` : `#digest-main--${it.id}`;
           thesisHtml += `<li><a href="${href}">${escapeHtml(it.label)}</a></li>`;
         }
         thesisHtml += `</ul>`;
       }
-      if (execBullets.length) {
-        thesisHtml += `<div class="digest-main-exec overview-part" id="digest-main--exec">`;
-        thesisHtml += `<p class="sector-part-title">Tóm tắt điều hành</p>`;
-        thesisHtml += buildProseBulletsHtml(execBullets);
-        thesisHtml += `</div>`;
+      if (overviewBullets.length) {
+        thesisHtml += `<section class="overview-part" id="digest-main--overview">`;
+        thesisHtml += `<p class="sector-part-title">Tổng quan</p>`;
+        thesisHtml += buildProseBulletsHtml(overviewBullets);
+        thesisHtml += `</section>`;
       }
-      thesisHtml += `<div class="digest-main-sectors overview-part" id="digest-main--sectors">`;
-      thesisHtml += `<p class="sector-part-title">Nội dung theo lĩnh vực (${sectors.length})</p>`;
+      thesisHtml += `<section class="digest-main-sectors overview-part" id="digest-main--sectors">`;
+      thesisHtml += `<p class="sector-part-title">Theo lĩnh vực (${sectors.length})</p>`;
       if (!sectors.length) {
         thesisHtml += `<p class="error-card">Chưa có lĩnh vực trong digest.</p>`;
       } else {
@@ -1147,61 +1177,31 @@
           thesisHtml += buildSectorBlockHtml(sectors[i], i);
         }
       }
-      thesisHtml += `</div></div>`;
-
-      const supplementToc = [];
-      if (intlBullets.length) supplementToc.push({ id: "intl", label: "Quốc tế" });
-      if (vnBullets.length) supplementToc.push({ id: "vn", label: "Việt Nam" });
-      if (notable.length) supplementToc.push({ id: "notable", label: `Tin chọn (${notable.length})` });
-      if (gaps) supplementToc.push({ id: "gaps", label: "Hạn chế" });
-
-      let highlightsHtml = "";
-      if (supplementToc.length) {
-        highlightsHtml += `<div class="section-head"><p class="eyebrow">Bổ sung</p><h2>Toàn cảnh chi tiết</h2></div>`;
-        highlightsHtml += `<div class="thesis-block prose-block">`;
-        highlightsHtml += `<ul class="overview-mini-toc" aria-label="Mục lục bổ sung">`;
-        for (const it of supplementToc) {
-          highlightsHtml += `<li><a href="#digest-supplement--${it.id}">${escapeHtml(it.label)}</a></li>`;
-        }
-        highlightsHtml += `</ul>`;
-        if (intlBullets.length) {
-          highlightsHtml += `<div class="overview-part" id="digest-supplement--intl">`;
-          highlightsHtml += `<p class="sector-part-title">Quốc tế</p>`;
-          highlightsHtml += buildProseBulletsHtml(intlBullets);
-          highlightsHtml += `</div>`;
-        }
-        if (vnBullets.length) {
-          highlightsHtml += `<div class="overview-part" id="digest-supplement--vn">`;
-          highlightsHtml += `<p class="sector-part-title">Việt Nam</p>`;
-          highlightsHtml += buildProseBulletsHtml(vnBullets);
-          highlightsHtml += `</div>`;
-        }
-        if (notable.length) {
-          highlightsHtml += `<div class="overview-part" id="digest-supplement--notable">`;
-          highlightsHtml += `<p class="sector-part-title">Tin chọn lọc</p>`;
-          highlightsHtml += buildLinkRowsHtml(
-            notable.map((a) => ({
-              url: a.url,
-              title: a.title,
-              source: [a.source, a.whyNotable].filter(Boolean).join(" · "),
-              host: getHostName(a.url || ""),
-            })),
-          );
-          highlightsHtml += `</div>`;
-        }
-        if (gaps) {
-          highlightsHtml += `<div class="overview-part" id="digest-supplement--gaps">`;
-          highlightsHtml += `<p class="sector-part-title">Hạn chế / khoảng trống</p><p>${escapeHtml(gaps)}</p></div>`;
-        }
-        highlightsHtml += `</div>`;
+      thesisHtml += `</section>`;
+      if (notable.length) {
+        thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--notable">`;
+        thesisHtml += `<p class="sector-part-title">Tin đáng chú ý</p>`;
+        thesisHtml += buildLinkRowsHtml(
+          notable.map((a) => ({
+            url: a.url,
+            title: a.title,
+            source: [a.source, a.whyNotable].filter(Boolean).join(" · "),
+            host: getHostName(a.url || ""),
+          })),
+        );
+        thesisHtml += `</section>`;
       }
+      if (gaps) {
+        thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--gaps">`;
+        thesisHtml += `<p class="sector-part-title">Ghi chú</p><p class="hint">${escapeHtml(gaps)}</p></section>`;
+      }
+      thesisHtml += `</div></article>`;
 
       const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
       let articleIndexHtml = "";
       if (articles.length) {
-        articleIndexHtml += `<p class="hint">Tổng hợp dựa trên ${articles.length} bài từ các nguồn tin trong cửa sổ 48 giờ.</p>`;
         articleIndexHtml += `<details class="article-index-wrap">`;
-        articleIndexHtml += `<summary>Xem danh sách liên kết nguồn (${articles.length})</summary>`;
+        articleIndexHtml += `<summary>Danh sách liên kết nguồn</summary>`;
         articleIndexHtml += `<div class="article-index-scroll">`;
         articleIndexHtml += buildLinkRowsHtml(
           articles.map((a) => ({
@@ -1218,7 +1218,7 @@
         linkIndex: "",
         thesis: thesisHtml,
         whatChanged: "",
-        digestHighlights: highlightsHtml,
+        digestHighlights: "",
         regime: "",
         macro: "",
         intermarket: "",
@@ -1239,19 +1239,8 @@
     function updateDigestNav() {
       const nav = document.getElementById("navLinks");
       if (!nav) return;
-      nav.innerHTML = `
-        <a href="#sectionThesis">Tóm tắt & lĩnh vực</a>
-        <a href="#sectionDigestHighlights">Toàn cảnh</a>
-        <a href="#reference">Nguồn tin</a>
-      `;
+      nav.innerHTML = `<a href="#digest-report">Toàn cảnh tin tức 48h</a>`;
       document.body.classList.add("digest-mode");
-      const qs = document.querySelector(".hero-qs");
-      if (qs) {
-        qs.innerHTML = `
-          <li>Việt Nam và thế giới: tin nổi bật trong 48 giờ qua, gom theo lĩnh vực</li>
-          <li>Mỗi mục có liên kết mở bài báo gốc để đối chiếu và đọc thêm</li>
-        `;
-      }
     }
 
     function buildBriefParts(data) {
@@ -1716,17 +1705,14 @@
       const titleEl = document.getElementById("sourceGridTitle");
       const gridEmbedded = grid?.getAttribute("data-embedded-articles") === "1";
       if (digestMode) {
-        if (titleEl) {
-          titleEl.textContent = "Báo cáo tổng hợp từ nguồn tin tức";
-        }
+        if (titleEl) titleEl.textContent = "Nguồn tin tức";
         const descEl = document.getElementById("sourceGridDesc");
         if (descEl) {
-          const n = (payload.articleLinkIndex || articles).length;
-          descEl.textContent = n
-            ? `${n} liên kết bài gốc trong cửa sổ 48 giờ — mở để đối chiếu.`
-            : "";
-          descEl.style.display = n ? "" : "none";
+          descEl.textContent = "Nội dung được tổng hợp từ các nguồn tin trong 48 giờ qua.";
+          descEl.style.display = "";
         }
+        const refEyebrow = document.querySelector("#reference .secondary-head .eyebrow");
+        if (refEyebrow) refEyebrow.textContent = "Tham khảo";
         if (grid) grid.innerHTML = "";
       } else if (articles.length > 0 || !gridEmbedded) {
         if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;

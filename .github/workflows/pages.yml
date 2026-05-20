@@ -72,7 +72,9 @@ jobs:
           grep -Fq 'data-embedded-articles="1"' _site/index.html
           grep -Fq 'Luận điểm chính hôm nay' _site/index.html
           grep -Fq 'Điều thay đổi quan trọng' _site/index.html
-          grep -Fq 'Báo cáo tổng hợp từ nguồn tin tức' _site/index.html || grep -Fq 'Tóm tắt điều hành' _site/index.html
+          grep -Fq 'id="digest-report"' _site/index.html
+          grep -Fq 'Toàn cảnh tin tức 48h' _site/index.html
+          grep -Fq 'Nguồn tin tức' _site/index.html
           # Digest mode: sector cards + multisector flag in content.json
           python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); assert len(d.get('globalMacroDrivers') or [])>=8"
 

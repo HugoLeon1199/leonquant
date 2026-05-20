@@ -2199,16 +2199,16 @@ def build_payload(
     payload: dict[str, Any] = {
         "siteTitle": "LEON Quant Labs",
         "sectionLabel": (
-            "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)"
+            "Toàn cảnh tin tức 48 giờ"
             if from_digest
             else "Global Market Strategy Brief"
         ),
         **(
             {
                 "digestHeroBlurb": (
-                    "Cửa sổ 48 giờ: các diễn biến nổi bật trên báo chí Việt Nam và quốc tế, "
-                    "trình bày theo lĩnh vực — kèm liên kết sang bài gốc để đối chiếu."
+                    "Trang tổng hợp tin tức thế giới và Việt Nam trong 48 giờ qua."
                 ),
+                "digestReportTitle": "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)",
             }
             if from_digest
             else {}
