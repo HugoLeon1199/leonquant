@@ -762,7 +762,12 @@
           pub.headline ||
           heroSub.textContent;
       }
-      if (heroDesc && pub.description) heroDesc.textContent = pub.description;
+      if (heroDesc) {
+        const short =
+          String(pub.description || "").trim().slice(0, 220) ||
+          "Tóm tắt đầy đủ và liên kết nguồn nằm ngay bên dưới.";
+        heroDesc.textContent = short + (String(pub.description || "").length > 220 ? "…" : "");
+      }
     }
 
     function sectorSlug(name) {
@@ -832,8 +837,7 @@
 
     function buildDigestTocHtml(sectors) {
       let h = `<ul class="digest-toc">`;
-      h += `<li><a href="#sectionThesis">Tổng quan</a></li>`;
-      h += `<li><a href="#sectionDigestHighlights">Điểm nổi bật</a></li>`;
+      h += `<li><a href="#sectionThesis">Bản tin tổng hợp & toàn cảnh</a></li>`;
       for (const s of sectors) {
         const name = String(s.name || "").trim();
         if (!name) continue;
@@ -857,48 +861,56 @@
       let linkIndexHtml = buildDigestLinkIndexHtml(data);
       linkIndexHtml += buildDigestTocHtml(sectors);
 
-      let thesisHtml = `<div class="section-head"><p class="eyebrow">Tổng quan</p><h2>Bản tin 48 giờ</h2></div>`;
+      const pub = data.publicationIntro || {};
+      const headline =
+        reading ||
+        String(pub.headline || "").trim() ||
+        String(data.sectionLabel || "").trim() ||
+        "Bản tin tổng hợp 48 giờ";
+
+      let thesisHtml = `<div class="section-head"><p class="eyebrow">Bản tin</p><h2>Tổng hợp & toàn cảnh (48 giờ)</h2></div>`;
       thesisHtml += `<div class="thesis-block prose-block">`;
-      if (reading) thesisHtml += `<p class="lbl">Tiêu đề</p><p>${escapeHtml(reading)}</p>`;
-      if (mt.regime) thesisHtml += `<p class="lbl">Nhịp / trạng thái</p><p>${escapeHtml(mt.regime)}</p>`;
-      thesisHtml += `<p class="lbl">Tóm tắt điều hành</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
-      if (mt.actionConclusion && mt.actionConclusion !== mt.thesis) {
-        thesisHtml += `<p class="lbl">Kết luận</p><p>${escapeHtml(mt.actionConclusion)}</p>`;
+      thesisHtml += `<p class="lbl">Tiêu đề</p><p>${escapeHtml(headline)}</p>`;
+      if (mt.thesis) {
+        thesisHtml += `<p class="lbl">Tóm tắt điều hành</p><p>${escapeHtml(mt.thesis)}</p>`;
+      }
+      if (vn) {
+        thesisHtml += `<p class="lbl">Toàn cảnh — Việt Nam</p><p>${escapeHtml(vn)}</p>`;
+      }
+      if (intl) {
+        thesisHtml += `<p class="lbl">Toàn cảnh — Quốc tế</p><p>${escapeHtml(intl)}</p>`;
+      }
+      if (tl.length) {
+        thesisHtml += `<p class="lbl">Dòng thời gian</p>`;
+        for (const day of tl) {
+          if (!day || typeof day !== "object") continue;
+          thesisHtml += `<p class="sub">${escapeHtml(day.date || ND)}</p><ul class="sector-points">`;
+          for (const head of day.headlines || []) {
+            if (String(head || "").trim()) thesisHtml += `<li>${escapeHtml(head)}</li>`;
+          }
+          thesisHtml += `</ul>`;
+        }
+      }
+      if (notable.length) {
+        thesisHtml += `<p class="lbl">Tin chọn lọc</p>`;
+        thesisHtml += buildLinkRowsHtml(
+          notable.map((a) => ({
+            url: a.url,
+            title: a.title,
+            source: [a.source, a.whyNotable].filter(Boolean).join(" · "),
+            host: getHostName(a.url || ""),
+          })),
+        );
+      }
+      if (gaps) {
+        thesisHtml += `<p class="lbl">Hạn chế / khoảng trống</p><p>${escapeHtml(gaps)}</p>`;
+      }
+      if (!mt.thesis && !vn && !intl && !tl.length && !notable.length && !gaps) {
+        thesisHtml += `<p>${escapeHtml(ND)}</p>`;
       }
       thesisHtml += `</div>`;
 
-      let highlightsHtml = "";
-      if (vn || intl || tl.length || notable.length || gaps) {
-        highlightsHtml += `<div class="section-head"><p class="eyebrow">Toàn cảnh</p><h2>Điểm nổi bật</h2></div><div class="prose-block">`;
-        if (vn) highlightsHtml += `<h4>Việt Nam</h4><p>${escapeHtml(vn)}</p>`;
-        if (intl) highlightsHtml += `<h4>Quốc tế</h4><p>${escapeHtml(intl)}</p>`;
-        highlightsHtml += `</div>`;
-        if (tl.length) {
-          highlightsHtml += `<h4 style="margin:1.25rem 0 .5rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Dòng thời gian</h4>`;
-          for (const day of tl) {
-            if (!day || typeof day !== "object") continue;
-            highlightsHtml += `<p class="sub">${escapeHtml(day.date || ND)}</p><ul class="sector-points">`;
-            for (const head of day.headlines || []) {
-              if (String(head || "").trim()) highlightsHtml += `<li>${escapeHtml(head)}</li>`;
-            }
-            highlightsHtml += `</ul>`;
-          }
-        }
-        if (notable.length) {
-          highlightsHtml += `<h4 style="margin:1.25rem 0 .5rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Tin chọn lọc</h4>`;
-          highlightsHtml += buildLinkRowsHtml(
-            notable.map((a) => ({
-              url: a.url,
-              title: a.title,
-              source: [a.source, a.whyNotable].filter(Boolean).join(" · "),
-              host: getHostName(a.url || ""),
-            })),
-          );
-        }
-        if (gaps) {
-          highlightsHtml += `<h4 style="margin:1.25rem 0 .5rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Hạn chế / khoảng trống</h4><p class="body">${escapeHtml(gaps)}</p>`;
-        }
-      }
+      const highlightsHtml = "";
 
       let sectorsHtml = `<div class="section-head"><p class="eyebrow">Chi tiết</p><h2>Nội dung theo lĩnh vực (${sectors.length})</h2></div>`;
       if (!sectors.length) {
@@ -970,8 +982,7 @@
       if (!nav) return;
       nav.innerHTML = `
         <a href="#sectionLinkIndex">Liên kết</a>
-        <a href="#sectionThesis">Tổng quan</a>
-        <a href="#sectionDigestHighlights">Nổi bật</a>
+        <a href="#sectionThesis">Bản tin tổng hợp</a>
         <a href="#sectionMacro">Lĩnh vực</a>
         <a href="#sectionArticleIndex">Danh sách bài</a>
       `;
@@ -1343,7 +1354,10 @@
           wc.style.display = "none";
         }
         const dh = document.getElementById("sectionDigestHighlights");
-        if (dh && !(parts.digestHighlights || "").trim()) dh.style.display = "none";
+        if (dh) {
+          dh.innerHTML = "";
+          dh.style.display = "none";
+        }
       }
     }
 
