@@ -331,40 +331,150 @@
       font-weight: 600;
     }
 
+    .sectors-index {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, .18);
+      border: 1px solid var(--border);
+    }
+    .sectors-index .lbl-inline {
+      margin: 0 0 10px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .sectors-index ol {
+      margin: 0;
+      padding: 0 0 0 1.2rem;
+      columns: 2;
+      column-gap: 24px;
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+    @media (max-width: 640px) {
+      .sectors-index ol { columns: 1; }
+    }
+    .sectors-index a { font-weight: 650; text-decoration: none !important; }
+    .sectors-index a:hover { text-decoration: underline !important; }
+
     .sector-block {
       border-radius: 16px;
-      padding: 20px 22px;
-      margin-bottom: 14px;
+      padding: 0;
+      margin-bottom: 18px;
       background: var(--glass);
       border: 1px solid var(--border);
       scroll-margin-top: 72px;
+      overflow: hidden;
     }
-    .sector-block h3 {
-      margin: 0 0 12px;
-      font-size: 1.08rem;
+    .sector-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, .15);
+    }
+    .sector-num {
+      flex-shrink: 0;
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--bg0);
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dim));
+    }
+    .sector-head h3 {
+      margin: 0;
+      font-size: 1.05rem;
       letter-spacing: -.02em;
+      line-height: 1.35;
+    }
+    .sector-mini-toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 20px 14px;
+      margin: 0;
+      list-style: none;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      background: rgba(34, 211, 238, .03);
+    }
+    .sector-mini-toc li { margin: 0; }
+    .sector-mini-toc a {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: .74rem;
+      font-weight: 700;
+      color: var(--muted);
+      border: 1px solid transparent;
+      text-decoration: none !important;
+    }
+    .sector-mini-toc a:hover {
+      color: var(--cyan);
+      border-color: rgba(34, 211, 238, .25);
+      background: rgba(34, 211, 238, .08);
+    }
+    .sector-body { padding: 16px 20px 20px; }
+    .sector-part {
+      scroll-margin-top: 88px;
+      padding-top: 4px;
+      margin-bottom: 18px;
+    }
+    .sector-part:last-child { margin-bottom: 0; }
+    .sector-part-title {
+      margin: 0 0 10px;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
     }
     .sector-block .sector-summary {
-      margin: 0 0 14px;
+      margin: 0;
       color: #cbd5e1;
       font-size: .92rem;
-      line-height: 1.6;
-    }
-    .sector-block h4 {
-      margin: 14px 0 8px;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--faint);
+      line-height: 1.65;
     }
     .sector-points {
       margin: 0;
       padding-left: 1.15rem;
       color: var(--muted);
       font-size: .9rem;
+      line-height: 1.55;
     }
-    .sector-points li { margin-bottom: 6px; }
+    .sector-points li { margin-bottom: 8px; }
+
+    .overview-mini-toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 16px;
+      padding: 0 0 14px;
+      border-bottom: 1px solid var(--border);
+      list-style: none;
+    }
+    .overview-mini-toc a {
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-size: .76rem;
+      font-weight: 700;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      text-decoration: none !important;
+    }
+    .overview-mini-toc a:hover {
+      color: var(--cyan);
+      border-color: rgba(34, 211, 238, .3);
+    }
+    .overview-part { scroll-margin-top: 88px; margin-bottom: 16px; }
+    .overview-part:last-child { margin-bottom: 0; }
 
     .prose-block p {
       margin: 0 0 12px;
@@ -837,14 +947,77 @@
 
     function buildDigestTocHtml(sectors) {
       let h = `<ul class="digest-toc">`;
-      h += `<li><a href="#sectionThesis">Bản tin tổng hợp & toàn cảnh</a></li>`;
-      for (const s of sectors) {
-        const name = String(s.name || "").trim();
-        if (!name) continue;
-        h += `<li><a href="#${sectorSlug(name)}">${escapeHtml(name)}</a></li>`;
-      }
+      h += `<li><a href="#sectionThesis">Bản tin tổng hợp</a></li>`;
+      h += `<li><a href="#sectionMacro">Lĩnh vực</a></li>`;
       h += `<li><a href="#sectionArticleIndex">Danh sách bài</a></li>`;
       h += `</ul>`;
+      return h;
+    }
+
+    function sectorPartId(sectorId, part) {
+      return `${sectorId}--${part}`;
+    }
+
+    function buildSectorMiniToc(sectorId, items) {
+      if (!items.length) return "";
+      let h = `<ul class="sector-mini-toc" aria-label="Mục lục trong lĩnh vực">`;
+      for (const it of items) {
+        h += `<li><a href="#${sectorPartId(sectorId, it.id)}">${escapeHtml(it.label)}</a></li>`;
+      }
+      h += `</ul>`;
+      return h;
+    }
+
+    function buildSectorsIndexHtml(sectors) {
+      let h = `<div class="sectors-index"><p class="lbl-inline">Mục lục ${sectors.length} lĩnh vực</p><ol>`;
+      for (let i = 0; i < sectors.length; i++) {
+        const name = String(sectors[i].name || "").trim();
+        if (!name) continue;
+        const id = sectorSlug(name);
+        h += `<li><a href="#${id}">${i + 1}. ${escapeHtml(name)}</a></li>`;
+      }
+      h += `</ol></div>`;
+      return h;
+    }
+
+    function buildSectorBlockHtml(s, index) {
+      const name = String(s.name || "").trim() || "Lĩnh vực";
+      const id = sectorSlug(name);
+      const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
+      const links = Array.isArray(s.links) ? s.links : [];
+      const hasSummary = Boolean(String(s.summary || "").trim());
+      const tocItems = [];
+      if (hasSummary) tocItems.push({ id: "summary", label: "Tóm tắt" });
+      if (pts.length) tocItems.push({ id: "points", label: `Điểm chính (${pts.length})` });
+      if (links.length) tocItems.push({ id: "sources", label: `Nguồn (${links.length})` });
+
+      let h = `<article class="sector-block" id="${id}">`;
+      h += `<header class="sector-head"><span class="sector-num">${String(index + 1).padStart(2, "0")}</span>`;
+      h += `<h3>${escapeHtml(name)}</h3></header>`;
+      h += buildSectorMiniToc(id, tocItems);
+      h += `<div class="sector-body">`;
+
+      if (hasSummary) {
+        h += `<section class="sector-part" id="${sectorPartId(id, "summary")}">`;
+        h += `<p class="sector-part-title">Tóm tắt</p>`;
+        h += `<p class="sector-summary">${escapeHtml(s.summary)}</p></section>`;
+      }
+      if (pts.length) {
+        h += `<section class="sector-part" id="${sectorPartId(id, "points")}">`;
+        h += `<p class="sector-part-title">Điểm chính</p><ul class="sector-points">`;
+        for (const p of pts) h += `<li>${escapeHtml(p)}</li>`;
+        h += `</ul></section>`;
+      }
+      if (links.length) {
+        h += `<section class="sector-part" id="${sectorPartId(id, "sources")}">`;
+        h += `<p class="sector-part-title">Nguồn tham khảo</p>`;
+        h += buildLinkRowsHtml(links);
+        h += `</section>`;
+      }
+      if (!hasSummary && !pts.length && !links.length) {
+        h += `<p class="hint">Chưa có nội dung chi tiết cho lĩnh vực này.</p>`;
+      }
+      h += `</div></article>`;
       return h;
     }
 
@@ -868,20 +1041,40 @@
         String(data.sectionLabel || "").trim() ||
         "Bản tin tổng hợp 48 giờ";
 
+      const overviewToc = [];
+      overviewToc.push({ id: "title", label: "Tiêu đề" });
+      if (mt.thesis) overviewToc.push({ id: "exec", label: "Tóm tắt" });
+      if (vn) overviewToc.push({ id: "vn", label: "Việt Nam" });
+      if (intl) overviewToc.push({ id: "intl", label: "Quốc tế" });
+      if (tl.length) overviewToc.push({ id: "timeline", label: "Timeline" });
+      if (notable.length) overviewToc.push({ id: "notable", label: `Tin chọn (${notable.length})` });
+      if (gaps) overviewToc.push({ id: "gaps", label: "Hạn chế" });
+
       let thesisHtml = `<div class="section-head"><p class="eyebrow">Bản tin</p><h2>Tổng hợp & toàn cảnh (48 giờ)</h2></div>`;
       thesisHtml += `<div class="thesis-block prose-block">`;
-      thesisHtml += `<p class="lbl">Tiêu đề</p><p>${escapeHtml(headline)}</p>`;
+      thesisHtml += `<ul class="overview-mini-toc" aria-label="Mục lục bản tin">`;
+      for (const it of overviewToc) {
+        thesisHtml += `<li><a href="#digest-overview--${it.id}">${escapeHtml(it.label)}</a></li>`;
+      }
+      thesisHtml += `</ul>`;
+
+      thesisHtml += `<div class="overview-part" id="digest-overview--title">`;
+      thesisHtml += `<p class="sector-part-title">Tiêu đề</p><p>${escapeHtml(headline)}</p></div>`;
       if (mt.thesis) {
-        thesisHtml += `<p class="lbl">Tóm tắt điều hành</p><p>${escapeHtml(mt.thesis)}</p>`;
+        thesisHtml += `<div class="overview-part" id="digest-overview--exec">`;
+        thesisHtml += `<p class="sector-part-title">Tóm tắt điều hành</p><p>${escapeHtml(mt.thesis)}</p></div>`;
       }
       if (vn) {
-        thesisHtml += `<p class="lbl">Toàn cảnh — Việt Nam</p><p>${escapeHtml(vn)}</p>`;
+        thesisHtml += `<div class="overview-part" id="digest-overview--vn">`;
+        thesisHtml += `<p class="sector-part-title">Toàn cảnh — Việt Nam</p><p>${escapeHtml(vn)}</p></div>`;
       }
       if (intl) {
-        thesisHtml += `<p class="lbl">Toàn cảnh — Quốc tế</p><p>${escapeHtml(intl)}</p>`;
+        thesisHtml += `<div class="overview-part" id="digest-overview--intl">`;
+        thesisHtml += `<p class="sector-part-title">Toàn cảnh — Quốc tế</p><p>${escapeHtml(intl)}</p></div>`;
       }
       if (tl.length) {
-        thesisHtml += `<p class="lbl">Dòng thời gian</p>`;
+        thesisHtml += `<div class="overview-part" id="digest-overview--timeline">`;
+        thesisHtml += `<p class="sector-part-title">Dòng thời gian</p>`;
         for (const day of tl) {
           if (!day || typeof day !== "object") continue;
           thesisHtml += `<p class="sub">${escapeHtml(day.date || ND)}</p><ul class="sector-points">`;
@@ -890,9 +1083,11 @@
           }
           thesisHtml += `</ul>`;
         }
+        thesisHtml += `</div>`;
       }
       if (notable.length) {
-        thesisHtml += `<p class="lbl">Tin chọn lọc</p>`;
+        thesisHtml += `<div class="overview-part" id="digest-overview--notable">`;
+        thesisHtml += `<p class="sector-part-title">Tin chọn lọc</p>`;
         thesisHtml += buildLinkRowsHtml(
           notable.map((a) => ({
             url: a.url,
@@ -901,13 +1096,13 @@
             host: getHostName(a.url || ""),
           })),
         );
+        thesisHtml += `</div>`;
       }
       if (gaps) {
-        thesisHtml += `<p class="lbl">Hạn chế / khoảng trống</p><p>${escapeHtml(gaps)}</p>`;
+        thesisHtml += `<div class="overview-part" id="digest-overview--gaps">`;
+        thesisHtml += `<p class="sector-part-title">Hạn chế / khoảng trống</p><p>${escapeHtml(gaps)}</p></div>`;
       }
-      if (!mt.thesis && !vn && !intl && !tl.length && !notable.length && !gaps) {
-        thesisHtml += `<p>${escapeHtml(ND)}</p>`;
-      }
+      if (!overviewToc.length) thesisHtml += `<p>${escapeHtml(ND)}</p>`;
       thesisHtml += `</div>`;
 
       const highlightsHtml = "";
@@ -916,24 +1111,9 @@
       if (!sectors.length) {
         sectorsHtml += `<p class="error-card">Chưa có lĩnh vực trong digest.</p>`;
       } else {
+        sectorsHtml += buildSectorsIndexHtml(sectors);
         for (let i = 0; i < sectors.length; i++) {
-          const s = sectors[i];
-          const id = sectorSlug(s.name);
-          sectorsHtml += `<article class="sector-block" id="${id}">`;
-          sectorsHtml += `<h3>${i + 1}. ${escapeHtml(s.name || ND)}</h3>`;
-          if (s.summary) sectorsHtml += `<p class="sector-summary">${escapeHtml(s.summary)}</p>`;
-          const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
-          if (pts.length) {
-            sectorsHtml += `<h4>Điểm chính</h4><ul class="sector-points">`;
-            for (const p of pts) sectorsHtml += `<li>${escapeHtml(p)}</li>`;
-            sectorsHtml += `</ul>`;
-          }
-          const links = Array.isArray(s.links) ? s.links : [];
-          if (links.length) {
-            sectorsHtml += `<h4>Nguồn (${links.length})</h4>`;
-            sectorsHtml += buildLinkRowsHtml(links);
-          }
-          sectorsHtml += `</article>`;
+          sectorsHtml += buildSectorBlockHtml(sectors[i], i);
         }
       }
 
