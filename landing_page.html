@@ -264,6 +264,141 @@
       color: var(--faint);
       font-size: .85rem;
     }
+
+    /* —— Digest mode (bản tin đa ngành) —— */
+    .digest-toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 20px;
+      padding: 0;
+      list-style: none;
+    }
+    .digest-toc a {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 700;
+      background: rgba(34, 211, 238, .08);
+      border: 1px solid rgba(34, 211, 238, .22);
+      color: var(--cyan);
+      text-decoration: none !important;
+    }
+    .digest-toc a:hover { background: rgba(34, 211, 238, .16); }
+
+    .link-index-panel {
+      border-radius: 16px;
+      padding: 18px 20px;
+      background: rgba(34, 211, 238, .05);
+      border: 1px solid rgba(34, 211, 238, .2);
+      margin-bottom: 8px;
+    }
+    .link-index-panel .hint {
+      margin: 0 0 14px;
+      font-size: .88rem;
+      color: var(--muted);
+    }
+    .link-group { margin-bottom: 16px; }
+    .link-group:last-child { margin-bottom: 0; }
+    .link-group h3 {
+      margin: 0 0 8px;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .link-rows { margin: 0; padding: 0; list-style: none; }
+    .link-rows li {
+      margin: 0 0 6px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, .22);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      line-height: 1.4;
+    }
+    .link-rows a {
+      font-weight: 650;
+      word-break: break-word;
+    }
+    .link-rows .link-meta {
+      display: block;
+      margin-top: 3px;
+      font-size: .74rem;
+      color: var(--faint);
+      font-weight: 600;
+    }
+
+    .sector-block {
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      scroll-margin-top: 72px;
+    }
+    .sector-block h3 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
+      letter-spacing: -.02em;
+    }
+    .sector-block .sector-summary {
+      margin: 0 0 14px;
+      color: #cbd5e1;
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+    .sector-block h4 {
+      margin: 14px 0 8px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .sector-points {
+      margin: 0;
+      padding-left: 1.15rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .sector-points li { margin-bottom: 6px; }
+
+    .prose-block p {
+      margin: 0 0 12px;
+      color: #cbd5e1;
+      font-size: .94rem;
+      line-height: 1.65;
+    }
+    .prose-block p:last-child { margin-bottom: 0; }
+
+    .article-index-wrap {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, .2);
+      overflow: hidden;
+    }
+    .article-index-wrap summary {
+      cursor: pointer;
+      padding: 14px 18px;
+      font-weight: 750;
+      font-size: .92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .article-index-wrap summary::-webkit-details-marker { display: none; }
+    .article-index-scroll {
+      max-height: 420px;
+      overflow-y: auto;
+      padding: 0 14px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .article-link-rows li { font-size: .82rem; }
+
+    body.digest-mode .reference-secondary .section-head p:last-child { display: none; }
+    body.digest-mode .source-grid { display: none; }
   </style>
 </head>
 <body>
@@ -271,22 +406,11 @@
     <div class="container">
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
-        <div class="nav-links">
+        <div class="nav-links" id="navLinks">
           <a href="#sectionThesis">Luận điểm</a>
           <a href="#sectionWhatChanged">Thay đổi</a>
           <a href="#sectionRegimeScore">Regime</a>
           <a href="#sectionMacro">Vĩ mô</a>
-          <a href="#sectionIntermarket">Liên thị trường</a>
-          <a href="#sectionTransmission">Truyền dẫn</a>
-          <a href="#sectionActions">Hành động</a>
-          <a href="#sectionAllocation">Phân bổ</a>
-          <a href="#sectionPriority">Ưu tiên</a>
-          <a href="#sectionRiskOn">Tăng rủi ro</a>
-          <a href="#sectionRiskOff">Giảm rủi ro</a>
-          <a href="#sectionIntraday">Phiên</a>
-          <a href="#sectionScenarios">Kịch bản</a>
-          <a href="#sectionViewTriggers">Quan điểm</a>
-          <a href="#sectionFinalDecision">Kết luận</a>
           <a href="#reference">Tin nền</a>
         </div>
       </nav>
@@ -307,9 +431,11 @@
     <section id="brief" class="alt">
       <div class="container">
         <p id="syncNote" class="sync-note"></p>
+        <!-- Chỉ mục nguồn — digest layout -->
+        <div id="sectionLinkIndex" class="brief-block"></div>
         <div id="sectionThesis" class="brief-block"></div>
-        <div id="sectionWhatChanged" class="brief-block"></div>
         <div id="sectionDigestHighlights" class="brief-block"></div>
+        <div id="sectionWhatChanged" class="brief-block"></div>
         <div id="sectionRegimeScore" class="brief-block"></div>
         <div id="sectionMacro" class="brief-block"></div>
         <div id="sectionIntermarket" class="brief-block"></div>
@@ -330,9 +456,10 @@
       <div class="container" style="max-width: min(1180px, 95%);">
         <div class="section-head secondary-head">
           <p class="eyebrow">Tham khảo</p>
-          <h2 id="sourceGridTitle">Tin nền tham khảo</h2>
-          <p>Danh mục tin nền được chọn lọc trong ngày — dùng để đối chiếu ngữ cảnh, không phải trọng tâm brief.</p>
+          <h2 id="sourceGridTitle">Danh sách bài trong cửa sổ crawl</h2>
+          <p id="sourceGridDesc">Liên kết gốc (không ảnh) — mở tab mới để đọc chi tiết.</p>
         </div>
+        <div id="sectionArticleIndex" class="brief-block"></div>
         <div id="sourceGrid" class="source-grid"></div>
       </div>
     </section>
@@ -638,8 +765,230 @@
       if (heroDesc && pub.description) heroDesc.textContent = pub.description;
     }
 
+    function sectorSlug(name) {
+      return (
+        "sector-" +
+        String(name || "linh-vuc")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "")
+      );
+    }
+
+    function ensureDigestSectors(data) {
+      if (Array.isArray(data.digestSectors) && data.digestSectors.length) {
+        return data.digestSectors.filter((s) => s && typeof s === "object");
+      }
+      const drivers = Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : [];
+      return drivers.map((d) => ({
+        name: d.title || "Lĩnh vực",
+        summary: d.analysis || "",
+        keyPoints: String(d.marketImpact || "")
+          .split("\n")
+          .map((x) => x.replace(/^•\s*/, "").trim())
+          .filter(Boolean),
+        links: [],
+      }));
+    }
+
+    function buildLinkRowsHtml(links) {
+      if (!links.length) return `<p class="hint">Chưa có liên kết nguồn.</p>`;
+      let h = `<ul class="link-rows">`;
+      for (const L of links) {
+        const u = String(L.url || "").trim();
+        if (!u) continue;
+        const title = escapeHtml(L.title || L.host || u);
+        const meta = [L.source, L.host].filter(Boolean).join(" · ");
+        h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
+        if (meta) h += `<span class="link-meta">${escapeHtml(meta)}</span>`;
+        h += `</li>`;
+      }
+      h += `</ul>`;
+      return h;
+    }
+
+    function buildDigestLinkIndexHtml(data) {
+      const index = Array.isArray(data.digestLinkIndex) ? data.digestLinkIndex : [];
+      const groups = new Map();
+      for (const row of index) {
+        if (!row || typeof row !== "object") continue;
+        const g = String(row.group || row.sector || "Khác").trim() || "Khác";
+        if (!groups.has(g)) groups.set(g, []);
+        groups.get(g).push(row);
+      }
+      let html = `<div class="section-head"><p class="eyebrow">Liên kết</p><h2>Chỉ mục nguồn & bài đọc</h2></div>`;
+      html += `<div class="link-index-panel"><p class="hint">Mỗi URL một dòng — nhấn để mở bài gốc. Nhóm theo lĩnh vực / tin chọn.</p>`;
+      for (const [group, rows] of groups) {
+        html += `<div class="link-group"><h3>${escapeHtml(group)} (${rows.length})</h3>`;
+        html += buildLinkRowsHtml(rows);
+        html += `</div>`;
+      }
+      html += `</div>`;
+      return html;
+    }
+
+    function buildDigestTocHtml(sectors) {
+      let h = `<ul class="digest-toc">`;
+      h += `<li><a href="#sectionThesis">Tổng quan</a></li>`;
+      h += `<li><a href="#sectionDigestHighlights">Điểm nổi bật</a></li>`;
+      for (const s of sectors) {
+        const name = String(s.name || "").trim();
+        if (!name) continue;
+        h += `<li><a href="#${sectorSlug(name)}">${escapeHtml(name)}</a></li>`;
+      }
+      h += `<li><a href="#sectionArticleIndex">Danh sách bài</a></li>`;
+      h += `</ul>`;
+      return h;
+    }
+
+    function buildDigestBriefParts(data) {
+      const mt = data.mainThesis || {};
+      const sectors = ensureDigestSectors(data);
+      const vn = String(data.digestVietnamHighlights || "").trim();
+      const intl = String(data.digestInternationalHighlights || "").trim();
+      const gaps = String(data.digestGapsAndLimits || "").trim();
+      const tl = Array.isArray(data.digestTimeline) ? data.digestTimeline : [];
+      const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
+      const reading = String(data.editorialMeta?.briefTitle || "").trim();
+
+      let linkIndexHtml = buildDigestLinkIndexHtml(data);
+      linkIndexHtml += buildDigestTocHtml(sectors);
+
+      let thesisHtml = `<div class="section-head"><p class="eyebrow">Tổng quan</p><h2>Bản tin 48 giờ</h2></div>`;
+      thesisHtml += `<div class="thesis-block prose-block">`;
+      if (reading) thesisHtml += `<p class="lbl">Tiêu đề</p><p>${escapeHtml(reading)}</p>`;
+      if (mt.regime) thesisHtml += `<p class="lbl">Nhịp / trạng thái</p><p>${escapeHtml(mt.regime)}</p>`;
+      thesisHtml += `<p class="lbl">Tóm tắt điều hành</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
+      if (mt.actionConclusion && mt.actionConclusion !== mt.thesis) {
+        thesisHtml += `<p class="lbl">Kết luận</p><p>${escapeHtml(mt.actionConclusion)}</p>`;
+      }
+      thesisHtml += `</div>`;
+
+      let highlightsHtml = "";
+      if (vn || intl || tl.length || notable.length || gaps) {
+        highlightsHtml += `<div class="section-head"><p class="eyebrow">Toàn cảnh</p><h2>Điểm nổi bật</h2></div><div class="prose-block">`;
+        if (vn) highlightsHtml += `<h4>Việt Nam</h4><p>${escapeHtml(vn)}</p>`;
+        if (intl) highlightsHtml += `<h4>Quốc tế</h4><p>${escapeHtml(intl)}</p>`;
+        highlightsHtml += `</div>`;
+        if (tl.length) {
+          highlightsHtml += `<h4 style="margin:1.25rem 0 .5rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Dòng thời gian</h4>`;
+          for (const day of tl) {
+            if (!day || typeof day !== "object") continue;
+            highlightsHtml += `<p class="sub">${escapeHtml(day.date || ND)}</p><ul class="sector-points">`;
+            for (const head of day.headlines || []) {
+              if (String(head || "").trim()) highlightsHtml += `<li>${escapeHtml(head)}</li>`;
+            }
+            highlightsHtml += `</ul>`;
+          }
+        }
+        if (notable.length) {
+          highlightsHtml += `<h4 style="margin:1.25rem 0 .5rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Tin chọn lọc</h4>`;
+          highlightsHtml += buildLinkRowsHtml(
+            notable.map((a) => ({
+              url: a.url,
+              title: a.title,
+              source: [a.source, a.whyNotable].filter(Boolean).join(" · "),
+              host: getHostName(a.url || ""),
+            })),
+          );
+        }
+        if (gaps) {
+          highlightsHtml += `<h4 style="margin:1.25rem 0 .5rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Hạn chế / khoảng trống</h4><p class="body">${escapeHtml(gaps)}</p>`;
+        }
+      }
+
+      let sectorsHtml = `<div class="section-head"><p class="eyebrow">Chi tiết</p><h2>Nội dung theo lĩnh vực (${sectors.length})</h2></div>`;
+      if (!sectors.length) {
+        sectorsHtml += `<p class="error-card">Chưa có lĩnh vực trong digest.</p>`;
+      } else {
+        for (let i = 0; i < sectors.length; i++) {
+          const s = sectors[i];
+          const id = sectorSlug(s.name);
+          sectorsHtml += `<article class="sector-block" id="${id}">`;
+          sectorsHtml += `<h3>${i + 1}. ${escapeHtml(s.name || ND)}</h3>`;
+          if (s.summary) sectorsHtml += `<p class="sector-summary">${escapeHtml(s.summary)}</p>`;
+          const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
+          if (pts.length) {
+            sectorsHtml += `<h4>Điểm chính</h4><ul class="sector-points">`;
+            for (const p of pts) sectorsHtml += `<li>${escapeHtml(p)}</li>`;
+            sectorsHtml += `</ul>`;
+          }
+          const links = Array.isArray(s.links) ? s.links : [];
+          if (links.length) {
+            sectorsHtml += `<h4>Nguồn (${links.length})</h4>`;
+            sectorsHtml += buildLinkRowsHtml(links);
+          }
+          sectorsHtml += `</article>`;
+        }
+      }
+
+      const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
+      let articleIndexHtml = "";
+      if (articles.length) {
+        articleIndexHtml += `<div class="section-head"><p class="eyebrow">Crawl</p><h2>Danh sách bài (${articles.length})</h2></div>`;
+        articleIndexHtml += `<details class="article-index-wrap" open>`;
+        articleIndexHtml += `<summary>Mở rộng / thu gọn toàn bộ liên kết bài trong cửa sổ 48h</summary>`;
+        articleIndexHtml += `<div class="article-index-scroll">`;
+        articleIndexHtml += buildLinkRowsHtml(
+          articles.map((a) => ({
+            url: a.url,
+            title: a.title,
+            source: [a.source, formatDateVi(a.publishedAt)].filter(Boolean).join(" · "),
+            host: a.host || getHostName(a.url || ""),
+          })),
+        );
+        articleIndexHtml += `</div></details>`;
+      }
+
+      return {
+        linkIndex: linkIndexHtml,
+        thesis: thesisHtml,
+        whatChanged: "",
+        digestHighlights: highlightsHtml,
+        regime: "",
+        macro: sectorsHtml,
+        intermarket: "",
+        transmission: "",
+        actions: "",
+        allocation: "",
+        priority: "",
+        riskOn: "",
+        riskOff: "",
+        intraday: "",
+        scenarios: "",
+        triggers: "",
+        finalDecision: "",
+        articleIndex: articleIndexHtml,
+      };
+    }
+
+    function updateDigestNav() {
+      const nav = document.getElementById("navLinks");
+      if (!nav) return;
+      nav.innerHTML = `
+        <a href="#sectionLinkIndex">Liên kết</a>
+        <a href="#sectionThesis">Tổng quan</a>
+        <a href="#sectionDigestHighlights">Nổi bật</a>
+        <a href="#sectionMacro">Lĩnh vực</a>
+        <a href="#sectionArticleIndex">Danh sách bài</a>
+      `;
+      document.body.classList.add("digest-mode");
+      const qs = document.querySelector(".hero-qs");
+      if (qs) {
+        qs.innerHTML = `
+          <li>Đọc nhanh theo lĩnh vực và liên kết nguồn</li>
+          <li>Việt Nam và thế giới trong 48 giờ qua</li>
+          <li>Mở từng URL để đối chiếu bài gốc</li>
+        `;
+      }
+    }
+
     function buildBriefParts(data) {
       const digestMode = data.briefMode === "multisector-digest";
+      if (digestMode) return buildDigestBriefParts(data);
       const mt = data.mainThesis || {};
       const drivers = (Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : []).filter(
         (r) => r && typeof r === "object",
@@ -918,6 +1267,8 @@
     function renderBriefSections(payload) {
       applyHeroBranding(payload);
       const digestMode = payload.briefMode === "multisector-digest";
+      if (digestMode) updateDigestNav();
+      else document.body.classList.remove("digest-mode");
       let parts;
       try {
         parts = buildBriefParts(payload);
@@ -929,6 +1280,7 @@
         return;
       }
       const ids = [
+        "sectionLinkIndex",
         "sectionThesis",
         "sectionWhatChanged",
         "sectionDigestHighlights",
@@ -947,6 +1299,7 @@
         "sectionFinalDecision",
       ];
       const keys = [
+        "linkIndex",
         "thesis",
         "whatChanged",
         "digestHighlights",
@@ -968,8 +1321,13 @@
         const el = document.getElementById(ids[i]);
         if (el) {
           el.innerHTML = parts[keys[i]] || "";
-          el.style.display = "";
+          el.style.display = parts[keys[i]] ? "" : "none";
         }
+      }
+      const artIdx = document.getElementById("sectionArticleIndex");
+      if (artIdx) {
+        artIdx.innerHTML = parts.articleIndex || "";
+        artIdx.style.display = parts.articleIndex ? "" : "none";
       }
       if (digestMode) {
         for (const hid of DIGEST_HIDE_SECTION_IDS) {
@@ -978,6 +1336,11 @@
             el.innerHTML = "";
             el.style.display = "none";
           }
+        }
+        const wc = document.getElementById("sectionWhatChanged");
+        if (wc) {
+          wc.innerHTML = "";
+          wc.style.display = "none";
         }
         const dh = document.getElementById("sectionDigestHighlights");
         if (dh && !(parts.digestHighlights || "").trim()) dh.style.display = "none";
@@ -1072,11 +1435,18 @@
       } else {
         applyHeroBranding(payload);
       }
+      const digestMode = payload.briefMode === "multisector-digest";
       const articles = Array.isArray(payload.allArticles) ? payload.allArticles : [];
       const grid = document.getElementById("sourceGrid");
       const titleEl = document.getElementById("sourceGridTitle");
       const gridEmbedded = grid?.getAttribute("data-embedded-articles") === "1";
-      if (articles.length > 0 || !gridEmbedded) {
+      if (digestMode) {
+        if (titleEl) {
+          const n = (payload.articleLinkIndex || articles).length;
+          titleEl.textContent = `Danh sách bài trong cửa sổ crawl (${n})`;
+        }
+        if (grid) grid.innerHTML = "";
+      } else if (articles.length > 0 || !gridEmbedded) {
         if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;
         if (grid) {
           grid.innerHTML = "";

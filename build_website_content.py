@@ -1181,6 +1181,112 @@ def _is_multisector_digest(summary: dict[str, Any]) -> bool:
     )
 
 
+def _url_hostname(url: str) -> str:
+    try:
+        return urlparse(url).netloc.replace("www.", "")
+    except Exception:
+        return ""
+
+
+def build_digest_web_extras(
+    summary: dict[str, Any],
+    all_articles: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Sectors + link index for digest-mode UI (no images)."""
+    by_url: dict[str, dict[str, Any]] = {}
+    for art in all_articles:
+        u = str(art.get("url") or "").strip()
+        if u and u not in by_url:
+            by_url[u] = art
+
+    seen: set[str] = set()
+    link_index: list[dict[str, str]] = []
+    sectors_out: list[dict[str, Any]] = []
+
+    def add_link(
+        url: str,
+        *,
+        title: str = "",
+        source: str = "",
+        sector: str = "",
+        group: str = "",
+    ) -> None:
+        u = str(url or "").strip()
+        if not u or u in seen:
+            return
+        seen.add(u)
+        art = by_url.get(u)
+        t = (title or (str(art.get("title", "")) if art else "") or "").strip()
+        src = (source or (str(art.get("source", "")) if art else "") or "").strip()
+        link_index.append(
+            {
+                "url": u,
+                "title": t or _url_hostname(u) or u,
+                "host": _url_hostname(u),
+                "source": src,
+                "sector": sector,
+                "group": group or sector or "Khác",
+            }
+        )
+
+    for sector in summary.get("sectors") or []:
+        if not isinstance(sector, dict):
+            continue
+        name = str(sector.get("name", "") or "").strip() or "Lĩnh vực"
+        summ = str(sector.get("summary", "") or "").strip()
+        points = [str(p).strip() for p in (sector.get("key_points") or []) if str(p).strip()]
+        urls = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
+        links: list[dict[str, str]] = []
+        for u in urls:
+            add_link(u, sector=name, group=name)
+            art = by_url.get(u)
+            links.append(
+                {
+                    "url": u,
+                    "title": (str(art.get("title", "")) if art else "") or _url_hostname(u) or u,
+                    "host": _url_hostname(u),
+                    "source": (str(art.get("source", "")) if art else "") or "",
+                }
+            )
+        sectors_out.append(
+            {
+                "name": name,
+                "summary": summ,
+                "keyPoints": points,
+                "links": links,
+            }
+        )
+
+    for row in summary.get("notable_articles") or []:
+        if not isinstance(row, dict):
+            continue
+        add_link(
+            str(row.get("url") or ""),
+            title=str(row.get("title") or ""),
+            source=str(row.get("source") or ""),
+            sector="Tin chọn",
+            group="Tin chọn lọc",
+        )
+
+    article_links = [
+        {
+            "title": str(a.get("title") or "").strip() or _url_hostname(str(a.get("url") or "")),
+            "url": str(a.get("url") or "").strip(),
+            "source": str(a.get("source") or "").strip(),
+            "publishedAt": str(a.get("published_at") or "").strip(),
+            "host": _url_hostname(str(a.get("url") or "")),
+        }
+        for a in all_articles
+        if str(a.get("url") or "").strip()
+    ]
+
+    return {
+        "digestSectors": sectors_out,
+        "digestLinkIndex": link_index,
+        "articleLinkIndex": article_links,
+    }
+
+
 def _digest_multisector_to_strategy_snake(
     summary: dict[str, Any],
     *,
@@ -1217,9 +1323,7 @@ def _digest_multisector_to_strategy_snake(
         analysis = "\n\n".join(x for x in (summ, bullets) if x).strip() or "—"
         urls = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
         impact_parts = [str(p).strip() for p in points if str(p).strip()]
-        if urls:
-            impact_parts.append("Nguồn: " + ", ".join(urls[:4]))
-        market_impact = "\n".join(impact_parts) if impact_parts else summ[:500] or "—"
+        market_impact = "\n".join(impact_parts[:6]) if impact_parts else summ[:500] or "—"
         drivers.append(
             {
                 "title": name,
@@ -2094,8 +2198,14 @@ def build_payload(
                 for a in notable
                 if isinstance(a, dict)
             ]
-        n_sectors = len(brief.get("globalMacroDrivers") or [])
-        print(f"Digest brief: {n_sectors} sector card(s) on web (no 4-cap / no global-only filter).")
+        extras = build_digest_web_extras(raw_summary, all_articles)
+        payload.update(extras)
+        n_sectors = len(extras.get("digestSectors") or [])
+        n_links = len(extras.get("digestLinkIndex") or [])
+        print(
+            f"Digest brief: {n_sectors} sector(s), {n_links} digest link(s), "
+            f"{len(extras.get('articleLinkIndex') or [])} article link(s) (text-only UI)."
+        )
     return payload
 
 

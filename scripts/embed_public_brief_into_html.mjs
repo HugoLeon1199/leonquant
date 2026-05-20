@@ -312,8 +312,10 @@ function main() {
     process.exit(1);
   }
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
-  const parts = buildBriefParts(data);
+  const digestMode = data.briefMode === "multisector-digest";
+  const parts = digestMode ? {} : buildBriefParts(data);
   const ids = [
+    "sectionLinkIndex",
     "sectionThesis",
     "sectionWhatChanged",
     "sectionRegimeScore",
@@ -331,6 +333,7 @@ function main() {
     "sectionFinalDecision",
   ];
   const keys = [
+    "linkIndex",
     "thesis",
     "whatChanged",
     "regime",
@@ -351,22 +354,24 @@ function main() {
   let html = fs.readFileSync(pagePath, "utf8");
   html = updateHero(html, data);
 
-  for (let i = 0; i < ids.length; i++) {
-    const id = ids[i];
-    const inner = parts[keys[i]] || "";
-    const pattern = `<div\\s+id="${id}"\\s+class="brief-block"\\s*>\\s*</div>`;
-    if (!new RegExp(pattern, "i").test(html)) {
-      console.error(`Placeholder not found for #${id}; brief-block must be empty in source HTML.`);
-      process.exit(1);
+  if (!digestMode) {
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      const inner = parts[keys[i]] || "";
+      const pattern = `<div\\s+id="${id}"\\s+class="brief-block"\\s*>\\s*</div>`;
+      if (!new RegExp(pattern, "i").test(html)) {
+        console.error(`Placeholder not found for #${id}; brief-block must be empty in source HTML.`);
+        process.exit(1);
+      }
+      html = html.replace(
+        new RegExp(pattern, "gi"),
+        `<div id="${id}" class="brief-block">${inner}</div>`,
+      );
     }
-    html = html.replace(
-      new RegExp(pattern, "gi"),
-      `<div id="${id}" class="brief-block">${inner}</div>`,
-    );
   }
 
   const articles = Array.isArray(data.allArticles) ? data.allArticles : [];
-  const gridInner = buildArticleCardsHtml(articles);
+  const gridInner = digestMode ? "" : buildArticleCardsHtml(articles);
   const gridPattern = `<div\\s+id="sourceGrid"\\s+class="source-grid"\\s*>\\s*</div>`;
   if (!new RegExp(gridPattern, "i").test(html)) {
     console.error('Placeholder not found for #sourceGrid (empty source-grid div).');
