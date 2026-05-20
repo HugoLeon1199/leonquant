@@ -74,7 +74,7 @@ jobs:
           grep -Fq 'Điều thay đổi quan trọng' _site/index.html
           grep -Fq 'id="digest-report"' _site/index.html
           grep -Fq 'Toàn cảnh tin tức 48h' _site/index.html
-          grep -Fq 'Nguồn tin tức' _site/index.html
+          grep -Fq 'Tin đáng chú ý' _site/index.html
           # Digest mode: sector cards + multisector flag in content.json
           python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); assert len(d.get('globalMacroDrivers') or [])>=8"
 
