@@ -280,6 +280,20 @@ function buildArticleCardsHtml(articles) {
 }
 
 function updateHero(html, data) {
+  const digestMode = data.briefMode === "multisector-digest";
+  if (digestMode) {
+    if (/<body\s+class="/i.test(html)) {
+      html = html.replace(/<body\s+class="([^"]*)"/i, '<body class="$1 digest-mode"');
+    } else {
+      html = html.replace(/<body>/i, '<body class="digest-mode">');
+    }
+    html = html.replace(/(<p class="hero-sub" id="heroSubtitle">)[^<]*/, "$1");
+    html = html.replace(
+      /(<p class="hero-desc" id="heroDescription">\s*)[\s\S]*?(\s*<\/p>)/,
+      "$1$2",
+    );
+    return html;
+  }
   const pub = data.publicationIntro || {};
   const headline = String(pub.headline || "").trim();
   const desc = String(pub.description || "").trim();
@@ -298,9 +312,12 @@ function updateHero(html, data) {
   return html;
 }
 
-function syncNoteHtml(generatedAt) {
+function syncNoteHtml(generatedAt, digestMode) {
   const st = generatedAt ? formatDateVi(generatedAt) : "";
   if (!st) return `<p id="syncNote" class="sync-note"></p>`;
+  if (digestMode) {
+    return `<p id="syncNote" class="sync-note">Tin tức được tổng hợp lúc ${escapeHtml(st)}.</p>`;
+  }
   return `<p id="syncNote" class="sync-note">Bản brief · ${escapeHtml(st)} (bản đóng gói trên trang). Khi tải được content.json, trang sẽ cập nhật tự động.</p>`;
 }
 
@@ -388,7 +405,7 @@ function main() {
 
   html = html.replace(
     /<p id="syncNote" class="sync-note"><\/p>/,
-    syncNoteHtml(data.generatedAt),
+    syncNoteHtml(data.generatedAt, digestMode),
   );
 
   html = html.replace('<section id="brief" class="alt">', '<section id="brief" class="alt" data-embedded-brief="1">');

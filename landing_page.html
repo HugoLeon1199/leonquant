@@ -528,8 +528,22 @@
 
     body.digest-mode .source-grid { display: none; }
     body.digest-mode .hero-qs { display: none; }
-    body.digest-mode .hero h1 { font-size: clamp(1.35rem, 3vw, 1.75rem); margin-bottom: 0.35rem; }
-    body.digest-mode .hero-sub { margin-bottom: 0.5rem; }
+    body.digest-mode .hero h1,
+    body.digest-mode .hero-sub,
+    body.digest-mode .hero-desc { display: none; }
+    body.digest-mode .hero { padding: 22px 0 28px; }
+    body.digest-mode .nav-links { display: none; }
+    body.digest-mode .logo {
+      font-size: clamp(1.55rem, 4vw, 2.35rem);
+      gap: 16px;
+      letter-spacing: -.04em;
+    }
+    body.digest-mode .logo-mark {
+      width: 56px;
+      height: 56px;
+      font-size: 1.05rem;
+      border-radius: 15px;
+    }
 
     .digest-report { scroll-margin-top: 88px; }
     .digest-report-head { margin-bottom: 1rem; }
@@ -909,8 +923,10 @@
       const heroDesc = document.getElementById("heroDescription");
       if (heroSub) {
         if (digestMode) {
-          heroSub.textContent = "Toàn cảnh tin tức 48 giờ";
+          heroSub.textContent = "";
+          heroSub.style.display = "none";
         } else {
+          heroSub.style.display = "";
           heroSub.textContent =
             (data.sectionLabel && String(data.sectionLabel).trim()) ||
             pub.headline ||
@@ -919,9 +935,8 @@
       }
       if (heroDesc) {
         if (digestMode) {
-          heroDesc.textContent =
-            String(data.digestHeroBlurb || "").trim() ||
-            "Trang tổng hợp tin tức thế giới và Việt Nam trong 48 giờ qua.";
+          heroDesc.textContent = "";
+          heroDesc.style.display = "none";
         } else {
           const short =
             String(pub.description || "").trim().slice(0, 220) ||
@@ -1165,7 +1180,7 @@
       const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
       const notableLinks = collectDigestNotableLinks(notable, sectors, []);
       if (notableLinks.length || articles.length) {
-        mainToc.push({ id: "notable", label: "Tin đáng chú ý", external: true });
+        mainToc.push({ id: "notable", label: "Tin đáng chú ý" });
       }
 
       let thesisHtml = `<article id="digest-report" class="digest-report">`;
@@ -1213,7 +1228,7 @@
         }
         if (articles.length) {
           thesisHtml += `<details class="article-index-wrap digest-notable-all">`;
-          thesisHtml += `<summary>Danh sách liên kết nguồn (${articles.length})</summary>`;
+          thesisHtml += `<summary>Bấm vào xem chi tiết</summary>`;
           thesisHtml += `<div class="article-index-scroll">`;
           thesisHtml += buildLinkRowsHtml(
             articles.map((a) => ({
@@ -1258,7 +1273,7 @@
     function updateDigestNav() {
       const nav = document.getElementById("navLinks");
       if (!nav) return;
-      nav.innerHTML = `<a href="#digest-report">Toàn cảnh tin tức 48h</a>`;
+      nav.innerHTML = "";
       document.body.classList.add("digest-mode");
     }
 
@@ -1706,9 +1721,10 @@
       if (sync) {
         const st = payload.generatedAt ? formatDateVi(payload.generatedAt) : "";
         const digestMode = payload.briefMode === "multisector-digest";
-        const label = digestMode ? "Bản tin" : "Bản brief";
         sync.textContent = st
-          ? `${label} · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
+          ? digestMode
+            ? `Tin tức được tổng hợp lúc ${st}.`
+            : `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
           : "";
       }
       const embeddedBrief = document.getElementById("brief")?.getAttribute("data-embedded-brief") === "1";
