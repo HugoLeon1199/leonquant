@@ -53,6 +53,8 @@ jobs:
           cp content.json _site/
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
+          # Custom domain (Settings → Pages → Custom domain phải khớp DNS)
+          echo "leonquant.com" > _site/CNAME
 
       - uses: actions/setup-node@v4
         with:

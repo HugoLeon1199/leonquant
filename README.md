@@ -2,7 +2,9 @@
 
 **Repo:** [github.com/HugoLeon1199/leonquant](https://github.com/HugoLeon1199/leonquant)
 
-Trang tĩnh (GitHub Pages): `https://hugoleon1199.github.io/leonquant/`
+Trang tĩnh (GitHub Pages, **bản mới nhất**): `https://hugoleon1199.github.io/leonquant/`
+
+**Tên miền `leonquant.com`:** nếu vẫn thấy *Global Market Strategy Brief* (bản GPT cũ), DNS/Cloudflare đang trỏ **không** tới GitHub Pages. Trong Cloudflare: CNAME `@` và `www` → `hugoleon1199.github.io`, tắt proxy hoặc bật theo hướng dẫn [GitHub custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site); trên repo: **Settings → Pages → Custom domain** = `leonquant.com`, rồi purge cache Cloudflare.
 
 ## Pipeline (3 bước chính)
 

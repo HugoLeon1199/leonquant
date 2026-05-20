@@ -62,10 +62,14 @@ jobs:
         run: python scripts/run_digest_loop.py
 
       - name: GPT strategy brief (artifact only; public site uses Gemini digest)
-        if: ${{ secrets.OPENAI_API_KEY != '' }}
+        continue-on-error: true
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
+          if [ -z "${OPENAI_API_KEY}" ]; then
+            echo "Skip GPT finalize (OPENAI_API_KEY not set)."
+            exit 0
+          fi
           python finalize_summary_gpt.py \
             --gemini-input gemini_digest_summary.json \
             --enriched-input news_for_ai_clean.json \
