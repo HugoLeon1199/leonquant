@@ -879,20 +879,33 @@
     }
 
     function applyHeroBranding(data) {
+      const digestMode = data.briefMode === "multisector-digest";
       const pub = data.publicationIntro || {};
       const heroSub = document.getElementById("heroSubtitle");
       const heroDesc = document.getElementById("heroDescription");
       if (heroSub) {
-        heroSub.textContent =
-          (data.sectionLabel && String(data.sectionLabel).trim()) ||
-          pub.headline ||
-          heroSub.textContent;
+        if (digestMode) {
+          heroSub.textContent =
+            (data.sectionLabel && String(data.sectionLabel).trim()) ||
+            "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
+        } else {
+          heroSub.textContent =
+            (data.sectionLabel && String(data.sectionLabel).trim()) ||
+            pub.headline ||
+            heroSub.textContent;
+        }
       }
       if (heroDesc) {
-        const short =
-          String(pub.description || "").trim().slice(0, 220) ||
-          "Tóm tắt đầy đủ và liên kết nguồn nằm ngay bên dưới.";
-        heroDesc.textContent = short + (String(pub.description || "").length > 220 ? "…" : "");
+        if (digestMode) {
+          heroDesc.textContent =
+            String(data.digestHeroBlurb || "").trim() ||
+            "Rà soát các diễn biến nổi bật trên báo chí Việt Nam và quốc tế trong 48 giờ gần nhất — trình bày theo lĩnh vực, kèm liên kết sang bài gốc.";
+        } else {
+          const short =
+            String(pub.description || "").trim().slice(0, 220) ||
+            "Tóm tắt đầy đủ và liên kết nguồn nằm ngay bên dưới.";
+          heroDesc.textContent = short + (String(pub.description || "").length > 220 ? "…" : "");
+        }
       }
     }
 
@@ -951,7 +964,7 @@
         groups.get(g).push(row);
       }
       let html = `<div class="section-head"><p class="eyebrow">Liên kết</p><h2>Chỉ mục nguồn & bài đọc</h2></div>`;
-      html += `<div class="link-index-panel"><p class="hint">Mỗi URL một dòng — nhấn để mở bài gốc. Nhóm theo lĩnh vực / tin chọn.</p>`;
+      html += `<div class="link-index-panel"><p class="hint">Liên kết trỏ tới bài báo gốc — nhấn để mở tab mới và đối chiếu. Nhóm theo lĩnh vực.</p>`;
       for (const [group, rows] of groups) {
         html += `<div class="link-group"><h3>${escapeHtml(group)} (${rows.length})</h3>`;
         html += buildLinkRowsHtml(rows);
@@ -1046,17 +1059,13 @@
       const gaps = String(data.digestGapsAndLimits || "").trim();
       const tl = Array.isArray(data.digestTimeline) ? data.digestTimeline : [];
       const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
-      const reading = String(data.editorialMeta?.briefTitle || "").trim();
-
       let linkIndexHtml = buildDigestLinkIndexHtml(data);
       linkIndexHtml += buildDigestTocHtml(sectors);
 
       const pub = data.publicationIntro || {};
       const headline =
-        reading ||
-        String(pub.headline || "").trim() ||
         String(data.sectionLabel || "").trim() ||
-        "Bản tin tổng hợp 48 giờ";
+        "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
 
       const mainToc = [];
       if (mt.thesis) mainToc.push({ id: "exec", label: "Tóm tắt điều hành" });
@@ -1203,9 +1212,8 @@
       const qs = document.querySelector(".hero-qs");
       if (qs) {
         qs.innerHTML = `
-          <li>Đọc nhanh theo lĩnh vực và liên kết nguồn</li>
-          <li>Việt Nam và thế giới trong 48 giờ qua</li>
-          <li>Mở từng URL để đối chiếu bài gốc</li>
+          <li>Việt Nam và thế giới: tin nổi bật trong 48 giờ qua, gom theo lĩnh vực</li>
+          <li>Mỗi mục có liên kết mở bài báo gốc để đối chiếu và đọc thêm</li>
         `;
       }
     }
@@ -1653,8 +1661,10 @@
       const sync = document.getElementById("syncNote");
       if (sync) {
         const st = payload.generatedAt ? formatDateVi(payload.generatedAt) : "";
+        const digestMode = payload.briefMode === "multisector-digest";
+        const label = digestMode ? "Bản tin" : "Bản brief";
         sync.textContent = st
-          ? `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
+          ? `${label} · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
           : "";
       }
       const embeddedBrief = document.getElementById("brief")?.getAttribute("data-embedded-brief") === "1";

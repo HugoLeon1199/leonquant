@@ -2145,9 +2145,19 @@ def build_payload(
     payload: dict[str, Any] = {
         "siteTitle": "LEON Quant Labs",
         "sectionLabel": (
-            "Bản tin tổng hợp đa ngành (48 giờ)"
+            "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)"
             if from_digest
             else "Global Market Strategy Brief"
+        ),
+        **(
+            {
+                "digestHeroBlurb": (
+                    "Cửa sổ 48 giờ: các diễn biến nổi bật trên báo chí Việt Nam và quốc tế, "
+                    "trình bày theo lĩnh vực — kèm liên kết sang bài gốc để đối chiếu."
+                ),
+            }
+            if from_digest
+            else {}
         ),
         "generatedAt": generated_at,
         "schemaVersion": "global-market-strategy-brief-v2",
