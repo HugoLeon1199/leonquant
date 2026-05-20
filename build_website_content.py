@@ -1287,6 +1287,60 @@ def build_digest_web_extras(
     }
 
 
+def _dedupe_preserve_order(lines: list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for line in lines:
+        t = str(line or "").strip()
+        if not t or len(t) < 12:
+            continue
+        key = t.lower()[:96]
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(t)
+    return out
+
+
+def _prose_to_bullet_lines(text: str, *, min_len: int = 20) -> list[str]:
+    raw = str(text or "").strip()
+    if not raw:
+        return []
+    if re.search(r"(?m)^\s*[-•*]\s+", raw):
+        return _dedupe_preserve_order(
+            [re.sub(r"^\s*[-•*]\s+", "", ln).strip() for ln in raw.splitlines() if ln.strip()],
+        )
+    out: list[str] = []
+    paras = re.split(r"\n\s*\n", raw) if "\n\n" in raw else [raw]
+    for para in paras:
+        p = re.sub(r"\s+", " ", para).strip()
+        if not p:
+            continue
+        chunks = re.split(
+            r"(?<=[.!?…])\s+(?=[\"'“‘(A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯ0-9])",
+            p,
+        )
+        if len(chunks) <= 1:
+            chunks = re.split(r"(?<=[;])\s+", p)
+        for c in chunks:
+            c = c.strip()
+            if len(c) >= min_len:
+                out.append(c)
+    return _dedupe_preserve_order(out) or [raw]
+
+
+def _vietnam_overview_extra_bullets(overview: str) -> list[str]:
+    extras: list[str] = []
+    for para in re.split(r"\n\s*\n", str(overview or "").strip()):
+        if re.search(
+            r"việt\s*nam|vn-index|trong nước|đồng nai|hà nội|tp\.?\s*hcm|chứng khoán việt",
+            para,
+            re.IGNORECASE,
+        ):
+            extras.extend(_prose_to_bullet_lines(para))
+    return extras
+
+
 def _digest_multisector_to_strategy_snake(
     summary: dict[str, Any],
     *,
@@ -2186,16 +2240,18 @@ def build_payload(
             payload["digestInternationalHighlights"] = digest_pub["international_highlights"]
         if digest_pub.get("gaps_and_limits"):
             payload["digestGapsAndLimits"] = digest_pub["gaps_and_limits"]
-        timeline = digest_pub.get("timeline")
-        if isinstance(timeline, list) and timeline:
-            payload["digestTimeline"] = [
-                {
-                    "date": str(d.get("date", "") or ""),
-                    "headlines": [str(h) for h in (d.get("headlines") or []) if str(h).strip()],
-                }
-                for d in timeline
-                if isinstance(d, dict)
-            ]
+        overview = str((brief.get("mainThesis") or {}).get("thesis") or "").strip()
+        if overview:
+            payload["digestExecutiveBullets"] = _prose_to_bullet_lines(overview)
+        intl_bullets = _prose_to_bullet_lines(str(digest_pub.get("international_highlights") or ""))
+        if intl_bullets:
+            payload["digestInternationalBullets"] = intl_bullets
+        vn_bullets = _dedupe_preserve_order(
+            _prose_to_bullet_lines(str(digest_pub.get("vietnam_highlights") or ""))
+            + _vietnam_overview_extra_bullets(overview),
+        )
+        if vn_bullets:
+            payload["digestVietnamBullets"] = vn_bullets
         notable = digest_pub.get("notable_articles")
         if isinstance(notable, list) and notable:
             payload["digestNotableArticles"] = [
