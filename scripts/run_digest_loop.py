@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Run batch digest one API call at a time (free-tier friendly)."""
+"""Run batch digest one API call at a time (free-tier friendly).
+
+Timing: each step waits for Gemini to finish, then sleeps 60s before the next step
+(plus 60s before each API call inside summarize_news_gemini.py).
+"""
 from __future__ import annotations
 
 import json
@@ -9,9 +13,14 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DIGEST_MODEL = "gemini-3.1-flash-lite"
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
-PAUSE_BETWEEN_STEPS_SEC = 130
+LOOP_LOG = ROOT / "gemini_digest_loop.log"
+# Free tier: 60s between calls so TPM window can reset (~125k/min).
+PAUSE_BETWEEN_STEPS_SEC = 60
+FREE_TIER_MAX_INPUT_TOKENS = 100_000
+FREE_TIER_SLEEP_SEC = 60
 
 
 def partial_count() -> int:
@@ -39,28 +48,33 @@ def main() -> int:
         total = expected_total()
         label = f"{n}/{total}" if total else str(n)
         print(f"\n=== Step {step} | partials {label} ===", flush=True)
-        rc = subprocess.call(
-            [
-                sys.executable,
-                str(ROOT / "summarize_news_gemini.py"),
-                "--input",
-                str(ROOT / "news_for_ai.json"),
-                "--mode",
-                "digest",
-                "--batch-digest",
-                "--model",
-                "gemini-2.5-flash-lite",
-                "--use-existing-outline",
-                "--resume-partials",
-                "--max-api-calls",
-                "1",
-                "--min-request-interval",
-                "120",
-                "--api-pause",
-                "120",
-            ],
-            cwd=ROOT,
-        )
+        with open(LOOP_LOG, "a", encoding="utf-8") as logf:
+            rc = subprocess.call(
+                [
+                    sys.executable,
+                    str(ROOT / "summarize_news_gemini.py"),
+                    "--input",
+                    str(ROOT / "news_for_ai_clean.json"),
+                    "--mode",
+                    "digest",
+                    "--batch-digest",
+                    "--model",
+                    DIGEST_MODEL,
+                    "--max-input-tokens-per-request",
+                    str(FREE_TIER_MAX_INPUT_TOKENS),
+                    "--use-existing-outline",
+                    "--resume-partials",
+                    "--max-api-calls",
+                    "1",
+                    "--min-request-interval",
+                    str(FREE_TIER_SLEEP_SEC),
+                    "--api-pause",
+                    str(FREE_TIER_SLEEP_SEC),
+                ],
+                cwd=ROOT,
+                stdout=logf,
+                stderr=subprocess.STDOUT,
+            )
         if SUMMARY.is_file():
             print("Done:", SUMMARY)
             return 0

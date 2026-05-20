@@ -309,6 +309,7 @@
         <p id="syncNote" class="sync-note"></p>
         <div id="sectionThesis" class="brief-block"></div>
         <div id="sectionWhatChanged" class="brief-block"></div>
+        <div id="sectionDigestHighlights" class="brief-block"></div>
         <div id="sectionRegimeScore" class="brief-block"></div>
         <div id="sectionMacro" class="brief-block"></div>
         <div id="sectionIntermarket" class="brief-block"></div>
@@ -628,11 +629,17 @@
       const pub = data.publicationIntro || {};
       const heroSub = document.getElementById("heroSubtitle");
       const heroDesc = document.getElementById("heroDescription");
-      if (heroSub && pub.headline) heroSub.textContent = pub.headline;
+      if (heroSub) {
+        heroSub.textContent =
+          (data.sectionLabel && String(data.sectionLabel).trim()) ||
+          pub.headline ||
+          heroSub.textContent;
+      }
       if (heroDesc && pub.description) heroDesc.textContent = pub.description;
     }
 
     function buildBriefParts(data) {
+      const digestMode = data.briefMode === "multisector-digest";
       const mt = data.mainThesis || {};
       const drivers = (Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : []).filter(
         (r) => r && typeof r === "object",
@@ -698,17 +705,67 @@
         );
       }
 
+      let digestHighlightsHtml = "";
+      if (digestMode) {
+        const vn = String(data.digestVietnamHighlights || "").trim();
+        const intl = String(data.digestInternationalHighlights || "").trim();
+        const gaps = String(data.digestGapsAndLimits || "").trim();
+        const tl = Array.isArray(data.digestTimeline) ? data.digestTimeline : [];
+        const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
+        if (vn || intl || tl.length || notable.length || gaps) {
+          digestHighlightsHtml += `<div class="section-head"><p class="eyebrow">Toàn cảnh</p><h2>Điểm nổi bật Việt Nam & thế giới</h2></div>`;
+          if (vn) {
+            digestHighlightsHtml += `<p class="sub">Việt Nam</p><p class="body">${escapeHtml(vn)}</p>`;
+          }
+          if (intl) {
+            digestHighlightsHtml += `<p class="sub">Quốc tế</p><p class="body">${escapeHtml(intl)}</p>`;
+          }
+          if (tl.length) {
+            digestHighlightsHtml += `<div class="section-head" style="margin-top:1.5rem"><p class="eyebrow">Timeline</p><h2>Dòng thời gian</h2></div>`;
+            for (const day of tl) {
+              if (!day || typeof day !== "object") continue;
+              digestHighlightsHtml += `<p class="sub">${escapeHtml(day.date || ND)}</p><ul class="chain-list">`;
+              for (const h of day.headlines || []) {
+                if (String(h || "").trim()) digestHighlightsHtml += `<li>${escapeHtml(h)}</li>`;
+              }
+              digestHighlightsHtml += `</ul>`;
+            }
+          }
+          if (notable.length) {
+            digestHighlightsHtml += `<div class="section-head" style="margin-top:1.5rem"><p class="eyebrow">Tin chọn</p><h2>Bài đáng chú ý</h2></div><div class="cards">`;
+            for (const a of notable) {
+              if (!a || typeof a !== "object") continue;
+              const u = String(a.url || "").trim();
+              const title = escapeHtml(a.title || ND);
+              digestHighlightsHtml += `<article class="card"><h3>${title}</h3>`;
+              digestHighlightsHtml += `<p class="sub">${escapeHtml([a.source, a.whyNotable].filter(Boolean).join(" · "))}</p>`;
+              if (u) {
+                digestHighlightsHtml += `<p class="body"><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">Đọc bài gốc →</a></p>`;
+              }
+              digestHighlightsHtml += `</article>`;
+            }
+            digestHighlightsHtml += `</div>`;
+          }
+          if (gaps) {
+            digestHighlightsHtml += `<p class="sub" style="margin-top:1rem">Hạn chế / khoảng trống</p><p class="body">${escapeHtml(gaps)}</p>`;
+          }
+        }
+      }
+
+      const impactLabel = digestMode ? "Điểm nổi bật" : "Tác động liên thị trường";
       let macroHtml = "";
-      macroHtml += `<div class="section-head"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
+      macroHtml += digestMode
+        ? `<div class="section-head"><p class="eyebrow">Đa ngành</p><h2>Tin theo lĩnh vực (${drivers.length})</h2></div>`
+        : `<div class="section-head"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
       if (!drivers.length) {
-        macroHtml += `<p class="error-card">Chưa có nội dung vĩ mô.</p>`;
+        macroHtml += `<p class="error-card">Chưa có nội dung theo lĩnh vực.</p>`;
       } else {
         macroHtml += `<div class="cards">`;
         for (let i = 0; i < drivers.length; i++) {
           const d = drivers[i];
           macroHtml += `<article class="card"><h3>${i + 1}. ${escapeHtml(d.title || ND)}</h3>`;
-          macroHtml += `<p class="sub">Phân tích</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
-          macroHtml += `<p class="sub">Tác động liên thị trường</p><p class="body">${escapeHtml(marketImpact(d))}</p></article>`;
+          macroHtml += `<p class="sub">Tóm tắt</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
+          macroHtml += `<p class="sub">${impactLabel}</p><p class="body">${escapeHtml(marketImpact(d))}</p></article>`;
         }
         macroHtml += `</div>`;
       }
@@ -827,24 +884,40 @@
       return {
         thesis: thesisHtml,
         whatChanged: whatChangedHtml,
-        regime: regimeHtml,
+        digestHighlights: digestHighlightsHtml,
+        regime: digestMode ? "" : regimeHtml,
         macro: macroHtml,
-        intermarket: interHtml,
+        intermarket: digestMode ? "" : interHtml,
         transmission: transmissionHtml,
-        actions: actionsHtml,
-        allocation: allocationHtml,
-        priority: priorityHtml,
-        riskOn: riskOnHtml,
-        riskOff: riskOffHtml,
-        intraday: intradayHtml,
-        scenarios: scenariosHtml,
-        triggers: triggersHtml,
-        finalDecision: finalHtml,
+        actions: digestMode ? "" : actionsHtml,
+        allocation: digestMode ? "" : allocationHtml,
+        priority: digestMode ? "" : priorityHtml,
+        riskOn: digestMode ? "" : riskOnHtml,
+        riskOff: digestMode ? "" : riskOffHtml,
+        intraday: digestMode ? "" : intradayHtml,
+        scenarios: digestMode ? "" : scenariosHtml,
+        triggers: digestMode ? "" : triggersHtml,
+        finalDecision: digestMode ? "" : finalHtml,
       };
     }
 
+    const DIGEST_HIDE_SECTION_IDS = [
+      "sectionRegimeScore",
+      "sectionIntermarket",
+      "sectionActions",
+      "sectionAllocation",
+      "sectionPriority",
+      "sectionRiskOn",
+      "sectionRiskOff",
+      "sectionIntraday",
+      "sectionScenarios",
+      "sectionViewTriggers",
+      "sectionFinalDecision",
+    ];
+
     function renderBriefSections(payload) {
       applyHeroBranding(payload);
+      const digestMode = payload.briefMode === "multisector-digest";
       let parts;
       try {
         parts = buildBriefParts(payload);
@@ -858,6 +931,7 @@
       const ids = [
         "sectionThesis",
         "sectionWhatChanged",
+        "sectionDigestHighlights",
         "sectionRegimeScore",
         "sectionMacro",
         "sectionIntermarket",
@@ -875,6 +949,7 @@
       const keys = [
         "thesis",
         "whatChanged",
+        "digestHighlights",
         "regime",
         "macro",
         "intermarket",
@@ -891,7 +966,21 @@
       ];
       for (let i = 0; i < ids.length; i++) {
         const el = document.getElementById(ids[i]);
-        if (el) el.innerHTML = parts[keys[i]] || "";
+        if (el) {
+          el.innerHTML = parts[keys[i]] || "";
+          el.style.display = "";
+        }
+      }
+      if (digestMode) {
+        for (const hid of DIGEST_HIDE_SECTION_IDS) {
+          const el = document.getElementById(hid);
+          if (el) {
+            el.innerHTML = "";
+            el.style.display = "none";
+          }
+        }
+        const dh = document.getElementById("sectionDigestHighlights");
+        if (dh && !(parts.digestHighlights || "").trim()) dh.style.display = "none";
       }
     }
 

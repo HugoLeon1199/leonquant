@@ -13,10 +13,10 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-from build_website_content import rebuild_content_json
+from build_website_content import rebuild_content_from_digest, rebuild_content_json
 
 PROJECT_DIR = Path(__file__).resolve().parent
-DEFAULT_INPUT_FILE = PROJECT_DIR / "news_for_ai.json"
+DEFAULT_INPUT_FILE = PROJECT_DIR / "news_for_ai_clean.json"
 DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "gemini_summary.json"
 DEFAULT_DIGEST_OUTPUT_FILE = PROJECT_DIR / "gemini_digest_summary.json"
@@ -24,9 +24,10 @@ DEFAULT_CONTENT_FILE = PROJECT_DIR / "content.json"
 DEFAULT_ENV_FILE = PROJECT_DIR / ".env"
 GEMINI_GENERATE_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 USER_AGENT = "LEONQuantLabsArticleFetcher/0.1 (personal research; contact: local-dev)"
-DIGEST_DEFAULT_MODEL = "gemini-2.5-flash-lite"
-# gemini-2.5-flash-lite: inputTokenLimit=1_048_576, outputTokenLimit=65_536 (API v1beta).
+DIGEST_DEFAULT_MODEL = "gemini-3.1-flash-lite"
+# flash-lite family: inputTokenLimit=1_048_576, outputTokenLimit=65_536 (API v1beta).
 MODEL_INPUT_TOKEN_LIMIT: dict[str, int] = {
+    "gemini-3.1-flash-lite": 1_048_576,
     "gemini-2.5-flash-lite": 1_048_576,
     "gemini-2.5-flash": 1_048_576,
     "gemini-2.0-flash-lite": 1_048_576,
@@ -35,17 +36,89 @@ MODEL_INPUT_TOKEN_LIMIT: dict[str, int] = {
 MODEL_OUTPUT_TOKEN_LIMIT_DEFAULT = 65_536
 OUTPUT_TOKEN_RESERVE = 70_000
 PROMPT_TEMPLATE_TOKEN_SLACK = 12_000
-# Free-tier sizing: keep each request well under TPM bursts (blogs often cite 250k–1M TPM
-# for flash-lite; 100k/request is safe — see ai.google.dev/gemini-api/docs/rate-limits).
-DEFAULT_FREE_TPM_LIMIT = 120_000
+# Free tier flash-lite: ~125k TPM — keep each request at ~100k input tokens.
+# See https://ai.google.dev/gemini-api/docs/rate-limits
 DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST = 100_000
-MIN_REQUEST_INTERVAL_SECONDS = 120.0
+FREE_TIER_TPM_FLASH_LITE = 125_000
+# 0 = use DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST only (no extra TPM shrink).
+DEFAULT_FREE_TPM_LIMIT = 0
+MIN_REQUEST_INTERVAL_SECONDS = 60.0
 MODEL_FREE_TPM_HINT: dict[str, int] = {
-    "gemini-2.5-flash-lite": 1_000_000,
+    "gemini-3.1-flash-lite": FREE_TIER_TPM_FLASH_LITE,
+    "gemini-2.5-flash-lite": FREE_TIER_TPM_FLASH_LITE,
     "gemini-2.5-flash": 250_000,
 }
 # Legacy char cap (ignored when --max-input-tokens-per-request > 0 or auto).
 BATCH_DIGEST_CHUNK_CHARS_DEFAULT = 0
+
+# Đa ngành: taxonomy + ngưỡng tối thiểu (merge không được gom còn 2–3 mảng).
+DIGEST_SECTOR_TAXONOMY: tuple[str, ...] = (
+    "Kinh tế & tài chính",
+    "Chính trị & địa chính trị",
+    "Xã hội & pháp luật",
+    "Công nghệ & khoa học",
+    "Y tế & sức khỏe",
+    "Môi trường & năng lượng",
+    "Thể thao & giải trí",
+    "Văn hóa & giáo dục",
+    "Lao động & doanh nghiệp",
+    "An ninh & quốc phòng",
+)
+DIGEST_MIN_SECTORS_FINAL = 8
+DIGEST_MIN_NOTABLE_FINAL = 12
+DIGEST_MAX_OUTLINE_THEMES = 18
+DIGEST_MERGE_MAX_OUTPUT_TOKENS = 32_768
+
+
+def _digest_multisector_rules_block(*, for_merge: bool = False) -> str:
+    names = " | ".join(DIGEST_SECTOR_TAXONOMY)
+    lines = [
+        "## Phạm vi đa ngành (bắt buộc)",
+        f"- Quét và ghi nhận **mọi** lĩnh vực có tin trong dữ liệu — không chỉ hạ tầng / chứng khoán / AI.",
+        f"- Nhóm chuẩn (dùng đúng hoặc gần tên): {names}.",
+        "- Mỗi nhóm **có tin** → phải có mục riêng (sector / sector_notes / dominant_theme); **không** gộp hết vào 2–3 mục chung.",
+        "- Tin VN và quốc tế đều phải được phân bổ vào đúng lĩnh vực.",
+    ]
+    if for_merge:
+        lines.extend(
+            [
+                f"- **`sectors` cuối cùng: tối thiểu {DIGEST_MIN_SECTORS_FINAL}** mục (nếu dữ liệu có đủ chủ đề).",
+                f"- Mỗi sector: **4–8** `key_points`, **2+** `source_urls` khi có trong partials.",
+                f"- **`notable_articles`: tối thiểu {DIGEST_MIN_NOTABLE_FINAL}**, đa dạng lĩnh vực (không chỉ kinh tế).",
+                "- Mọi `dominant_themes` trong khung toàn cảnh **phải** được phản ánh trong `sectors` hoặc highlights — không bỏ theme chỉ vì gọn JSON.",
+                "- `executive_overview` + `sectors` ≈ **2.000–3.500 từ** tổng (đọc ~10–15 phút).",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                f"- Outline: **tối đa {DIGEST_MAX_OUTLINE_THEMES}** `dominant_themes`, mỗi theme gắn `sectors` phù hợp.",
+                "- Mỗi chunk: ghi **đủ** `sector_notes` cho mọi lĩnh vực có tin trong phần đó (tối đa 10 nhóm/chunk).",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
+    """Cảnh báo sau merge nếu output quá hẹp (không fail pipeline)."""
+    warnings: list[str] = []
+    sectors = summary.get("sectors") if isinstance(summary.get("sectors"), list) else []
+    if len(sectors) < DIGEST_MIN_SECTORS_FINAL:
+        warnings.append(
+            f"sectors chỉ có {len(sectors)} mục (mong đợi ≥{DIGEST_MIN_SECTORS_FINAL} — chạy lại merge hoặc chỉnh prompt)."
+        )
+    notable = summary.get("notable_articles") if isinstance(summary.get("notable_articles"), list) else []
+    if len(notable) < DIGEST_MIN_NOTABLE_FINAL:
+        warnings.append(
+            f"notable_articles chỉ có {len(notable)} mục (mong đợi ≥{DIGEST_MIN_NOTABLE_FINAL})."
+        )
+    for i, sec in enumerate(sectors):
+        if not isinstance(sec, dict):
+            continue
+        kps = sec.get("key_points") if isinstance(sec.get("key_points"), list) else []
+        if len(kps) < 3:
+            warnings.append(f"sectors[{i}] ({sec.get('name', '?')}) chỉ có {len(kps)} key_points.")
+    return warnings
 
 
 class ArticleTextExtractor(HTMLParser):
@@ -206,20 +279,18 @@ def resolve_max_input_tokens_per_request(
     explicit: int,
     tpm_limit: int,
 ) -> int:
-    """Max input tokens per API call (context + free TPM)."""
+    """Max input tokens per API call (model context + optional --tpm-limit ceiling)."""
     context_cap = (
         model_input_token_limit(model)
         - OUTPUT_TOKEN_RESERVE
         - PROMPT_TEMPLATE_TOKEN_SLACK
     )
-    tpm_hint = MODEL_FREE_TPM_HINT.get(model, int(tpm_limit))
-    effective_tpm = min(int(tpm_limit), tpm_hint) if tpm_limit > 0 else tpm_hint
-    # One request should not consume most of a minute's TPM budget.
-    tpm_cap = max(40_000, min(DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST, effective_tpm // 2))
-    auto_cap = min(context_cap, tpm_cap, DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST)
+    per_request = DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST
     if explicit > 0:
-        return min(explicit, context_cap)
-    return auto_cap
+        per_request = explicit
+    if tpm_limit > 0:
+        per_request = min(per_request, int(tpm_limit))
+    return min(context_cap, per_request)
 
 
 def article_digest_payload_tokens(article: dict[str, Any]) -> int:
@@ -480,7 +551,8 @@ Bạn là biên tập viên tổng hợp tin cho LEON Quant Labs.
 
 ## Mục tiêu đầu ra
 - Viết bằng **tiếng Việt**, mạch lạc, đủ chi tiết để người đọc **5–10 phút** nắm **toàn cảnh** tin tức (khoảng 1.500–2.500 từ ở phần narrative chính).
-- **Nhiều lĩnh vực**, không chỉ kinh tế: kinh tế & tài chính, chính trị & địa chính trị, xã hội & pháp luật, công nghệ & khoa học, y tế & môi trường, thể thao & văn hóa — chỉ đề cập mảng nào **thực sự có tin** trong dữ liệu.
+- **Đa ngành bắt buộc:** tối thiểu {DIGEST_MIN_SECTORS_FINAL} mục `sectors` nếu dữ liệu có đủ chủ đề; không thu hẹp còn hạ tầng/chứng khoán/AI.
+{_digest_multisector_rules_block()}
 - Ưu tiên sự kiện lặp lại, tin nhiều nguồn, hoặc hàm ý rộng; gom chủ đề trùng.
 - Mỗi ý quan trọng nên kèm URL từ dữ liệu khi có thể.
 
@@ -549,7 +621,8 @@ Bạn là tổng biên tập tin. Nhiệm vụ: đọc **TOÀN BỘ** danh mục
 - CHỈ dùng danh mục bên dưới. KHÔNG mở URL, KHÔNG tìm web.
 - Phát hiện chủ đề lặp lại trên nhiều nguồn, tin VN vs quốc tế, sự kiện nổi bật nhất.
 - Đây là bước **khung xương**; các bước sau sẽ đọc nội dung chi tiết từng phần — khung phải phản ánh **đủ** {total_articles} bài.
-- JSON gọn: **tối đa 12** `dominant_themes`, **tối đa 3** mục `timeline_sketch`, **không** liệt kê từng bài trong output (chỉ ước lượng số lượng).
+- JSON gọn: **tối đa {DIGEST_MAX_OUTLINE_THEMES}** `dominant_themes` (phủ **đủ** các nhóm lĩnh vực có trong danh mục), **tối đa 3** mục `timeline_sketch`, **không** liệt kê từng bài trong output (chỉ ước lượng số lượng).
+{_digest_multisector_rules_block()}
 
 Cửa sổ: {window_desc}
 
@@ -625,6 +698,8 @@ Bạn là biên tập viên tổng hợp tin. Đây là **phần {batch_index}/{
 ## Quy tắc
 - CHỈ dùng JSON bài viết bên dưới + khung toàn cảnh (nếu có). KHÔNG mở URL, KHÔNG tìm web, KHÔNG bịa.
 - Toàn bộ pipeline có {total_articles} bài; bạn thấy phần này — ghi nhận đủ sự kiện **trong phần được giao**, đối chiếu khung để biết phần này thuộc chủ đề lớn nào.
+- **JSON hợp lệ:** mỗi `summary` tối đa 150 từ; **tối đa 10** `sector_notes` (mỗi lĩnh vực có tin trong phần này phải có 1 mục); mỗi sector **4–8** `key_points`; `notable_articles` tối đa **8**; không lặp URL.
+{_digest_multisector_rules_block()}
 {outline_block}
 ## Cửa sổ: {window_desc}
 
@@ -675,22 +750,24 @@ Bạn là biên tập viên tổng hợp tin LEON Quant Labs.
 
 Đã có {len(partials)} bản tóm tắt **phần** (chi tiết nội dung) từ tổng {total_articles} bài tin 48h. Cửa sổ: {window_desc}.
 {outline_block}
-Nhiệm vụ: **Gộp** thành **một** bản tin duy nhất, tiếng Việt, đọc **5–10 phút** (~1.500–2.500 từ), **toàn cảnh** nhiều lĩnh vực.
+Nhiệm vụ: **Gộp** thành **một** bản tin duy nhất, tiếng Việt, đọc **10–15 phút** (~2.000–3.500 từ), **toàn cảnh đa ngành** (VN + quốc tế).
 - Khung toàn cảnh = xương sống (chủ đề trội trên toàn bộ {total_articles} bài).
-- Partials = chi tiết từng phần — gộp không được làm mất chủ đề lớn trong khung.
+- Partials = chi tiết từng phần — **gộp KHÔNG được làm mất** chủ đề lớn trong khung; **cấm** chỉ giữ 2–3 sector (hạ tầng, CK, AI) nếu partials/outline còn nhiều lĩnh vực khác.
+- Gom `sector_notes` trùng tên lĩnh vực; **không** nhồi mọi thứ vào một mục "Khác".
+{_digest_multisector_rules_block(for_merge=True)}
 CHỈ dùng dữ liệu được cung cấp — không bổ sung từ bên ngoài.
 
 Trả về DUY NHẤT JSON:
 {{
   "title": "Bản tin tổng hợp 48 giờ",
-  "reading_time_minutes": "5-10",
-  "executive_overview": "2-4 đoạn bức tranh chung",
+  "reading_time_minutes": "10-15",
+  "executive_overview": "3-5 đoạn bức tranh chung (đủ lĩnh vực, không chỉ kinh tế)",
   "sectors": [
     {{
-      "name": "...",
-      "summary": "...",
-      "key_points": ["..."],
-      "source_urls": ["..."]
+      "name": "Tên lĩnh vực (theo taxonomy)",
+      "summary": "1-3 đoạn cho lĩnh vực này",
+      "key_points": ["ít nhất 4 ý, mỗi ý 1 câu cụ thể"],
+      "source_urls": ["url1", "url2", "..."]
     }}
   ],
   "vietnam_highlights": "...",
@@ -722,11 +799,59 @@ def run_batch_digest(
     outline_first: bool,
     use_existing_outline: bool,
     resume_partials: bool,
+    merge_only: bool,
     max_api_calls: int,
     dry_run: bool,
 ) -> tuple[dict[str, Any] | None, list[dict[str, Any]], int]:
     global_outline: dict[str, Any] | None = None
     api_calls = 0
+
+    if merge_only:
+        global_outline = load_existing_outline(outline_path)
+        if global_outline:
+            print(f"Loaded outline for merge-only -> {outline_path}")
+        else:
+            print(f"WARN: no outline at {outline_path}; merge without panorama skeleton.", file=sys.stderr)
+        partials = load_existing_partials(partials_path)
+        if not partials:
+            print(f"ERROR: --merge-only needs partials in {partials_path}", file=sys.stderr)
+            return None, [], 0
+        batch_total = int(partials[0].get("batch_total") or 0) or len(partials)
+        if len(partials) < batch_total:
+            print(
+                f"ERROR: only {len(partials)}/{batch_total} partials; finish chunks first.",
+                file=sys.stderr,
+            )
+            return None, partials, 0
+        print(f"Merge-only: {len(partials)} partials, re-running merge with multisector prompts.")
+        if dry_run:
+            mp = build_digest_merge_prompt(
+                [p["summary"] for p in sorted(partials, key=lambda p: int(p.get("batch_index") or 0))],
+                total_articles=total_articles,
+                window_meta=window_meta,
+                global_outline=global_outline,
+            )
+            print(f"Dry-run merge prompt ~{estimate_tokens_from_chars(len(mp))} tokens")
+            return None, partials, 1
+        wait_between_gemini_requests(api_pause_seconds, min_request_interval)
+        merge_prompt = build_digest_merge_prompt(
+            [p["summary"] for p in sorted(partials, key=lambda p: int(p.get("batch_index") or 0))],
+            total_articles=total_articles,
+            window_meta=window_meta,
+            global_outline=global_outline,
+        )
+        final = call_gemini(
+            merge_prompt,
+            model,
+            api_key,
+            timeout=gemini_timeout,
+            min_retry_interval=min_request_interval,
+            max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
+        )
+        if isinstance(final, dict):
+            for w in validate_digest_multisector_coverage(final):
+                print(f"WARN digest coverage: {w}", file=sys.stderr)
+        return final, partials, 1
 
     if use_existing_outline:
         global_outline = load_existing_outline(outline_path)
@@ -826,6 +951,7 @@ def run_batch_digest(
             api_key,
             timeout=gemini_timeout,
             min_retry_interval=min_request_interval,
+            max_output_tokens=16_384,
         )
         api_calls += 1
         entry = {
@@ -879,8 +1005,12 @@ def run_batch_digest(
         api_key,
         timeout=gemini_timeout,
         min_retry_interval=min_request_interval,
+        max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
     )
     api_calls += 1
+    if isinstance(final, dict):
+        for w in validate_digest_multisector_coverage(final):
+            print(f"WARN digest coverage: {w}", file=sys.stderr)
     return final, partials, api_calls
 
 
@@ -965,6 +1095,7 @@ def call_gemini(
     *,
     max_retries: int = 8,
     min_retry_interval: float = MIN_REQUEST_INTERVAL_SECONDS,
+    max_output_tokens: int | None = None,
 ) -> dict[str, Any]:
     url = GEMINI_GENERATE_URL.format(model=model) + "?" + urlencode({"key": api_key})
     payload = {
@@ -972,7 +1103,7 @@ def call_gemini(
         "generationConfig": {
             "temperature": 0.2,
             "responseMimeType": "application/json",
-            "maxOutputTokens": MODEL_OUTPUT_TOKEN_LIMIT_DEFAULT,
+            "maxOutputTokens": max_output_tokens or MODEL_OUTPUT_TOKEN_LIMIT_DEFAULT,
         },
     }
     body = json.dumps(payload).encode("utf-8")
@@ -1104,13 +1235,13 @@ def main() -> int:
         "--max-input-tokens-per-request",
         type=int,
         default=0,
-        help="Cap input tokens per API call (0 = auto from model context + --tpm-limit)",
+        help="Cap input tokens per API call (0 = default 100000, free tier)",
     )
     parser.add_argument(
         "--tpm-limit",
         type=int,
         default=DEFAULT_FREE_TPM_LIMIT,
-        help="Tokens/min hint for auto chunk sizing (default 120000; flash-lite may allow more on AI Studio)",
+        help="Optional ceiling per request (0 = use 100k default for free tier)",
     )
     parser.add_argument(
         "--min-request-interval",
@@ -1127,6 +1258,11 @@ def main() -> int:
         "--resume-partials",
         action="store_true",
         help="Resume chunk passes from gemini_digest_partials.json",
+    )
+    parser.add_argument(
+        "--merge-only",
+        action="store_true",
+        help="Chỉ chạy lại bước merge (cần đủ partials; ~1 API call)",
     )
     parser.add_argument(
         "--max-api-calls",
@@ -1336,6 +1472,7 @@ def main() -> int:
                 outline_first=outline_first,
                 use_existing_outline=use_existing_outline,
                 resume_partials=args.resume_partials,
+                merge_only=args.merge_only,
                 max_api_calls=args.max_api_calls,
                 dry_run=True,
             )
@@ -1365,6 +1502,7 @@ def main() -> int:
                 outline_first=outline_first,
                 use_existing_outline=use_existing_outline,
                 resume_partials=args.resume_partials,
+                merge_only=args.merge_only,
                 max_api_calls=args.max_api_calls,
                 dry_run=False,
             )
@@ -1402,13 +1540,25 @@ def main() -> int:
     write_summary(output_path, summary, meta)
 
     if args.update_content:
-        n = rebuild_content_json(
-            output_path,
-            Path(args.enriched_output),
-            DEFAULT_CONTENT_FILE,
-            fetch_images=True,
-            metadata_timeout=12,
-        )
+        articles_path = Path(args.enriched_output)
+        if not articles_path.is_file():
+            articles_path = input_path
+        if args.mode == "digest" or output_path.name.startswith("gemini_digest"):
+            n = rebuild_content_from_digest(
+                output_path,
+                articles_path,
+                DEFAULT_CONTENT_FILE,
+                fetch_images=True,
+                metadata_timeout=12,
+            )
+        else:
+            n = rebuild_content_json(
+                output_path,
+                articles_path,
+                DEFAULT_CONTENT_FILE,
+                fetch_images=True,
+                metadata_timeout=12,
+            )
         print(f"Website content: {n} article cards -> {DEFAULT_CONTENT_FILE}")
 
     print(f"Done: summary written to {output_path}")

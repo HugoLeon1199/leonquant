@@ -99,6 +99,11 @@ def main() -> int:
         action="store_true",
         help="Retry sources on source_crawl_skip (e.g. after access-control rule change)",
     )
+    parser.add_argument(
+        "--with-observability",
+        action="store_true",
+        help="Chạy thêm baseline/coverage/zero-article reports (debug, chậm hơn)",
+    )
     args = parser.parse_args()
 
     crawl_date = resolve_crawl_calendar_date(args.date, args.timezone)
@@ -208,18 +213,19 @@ def main() -> int:
         cwd=QUANT_ROOT,
         timeout=None,
     )
-    for post, post_args in (
-        ("crawl_baseline_snapshot.py", [str(db)]),
-        ("source_coverage_report.py", [str(db)]),
-        ("investigate_zero_article_sources.py", []),
-    ):
-        post_rc = run(
-            [py, str((QUANT_ROOT / "scripts" / post).resolve()), *post_args],
-            cwd=QUANT_ROOT,
-            timeout=120,
-        )
-        if post_rc != 0:
-            print(f"WARN: {post} exited {post_rc}", file=sys.stderr)
+    if args.with_observability:
+        for post, post_args in (
+            ("crawl_baseline_snapshot.py", [str(db)]),
+            ("source_coverage_report.py", [str(db)]),
+            ("investigate_zero_article_sources.py", []),
+        ):
+            post_rc = run(
+                [py, str((QUANT_ROOT / "scripts" / post).resolve()), *post_args],
+                cwd=QUANT_ROOT,
+                timeout=120,
+            )
+            if post_rc != 0:
+                print(f"WARN: {post} exited {post_rc}", file=sys.stderr)
     return export_rc
 
 

@@ -31,8 +31,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Dựng content.json (Global Market Strategy Brief v2)
-        run: python3 build_website_content.py --skip-images
+      - name: Dựng content.json (từ gemini_digest_summary + bài đã lọc)
+        run: |
+          python3 build_website_content.py \
+            --digest-input gemini_digest_summary.json \
+            --enriched-input news_for_ai_clean.json \
+            --skip-images
 
       - name: Kiểm tra content.json
         run: |

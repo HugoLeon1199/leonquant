@@ -459,9 +459,17 @@ def _sector_in_stable_universe(name: str) -> bool:
     return False
 
 
-def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
+def sanitize_strategy_brief_snake(
+    snake: dict[str, Any],
+    *,
+    multisector_digest: bool = False,
+) -> dict[str, Any]:
     """Post-process GPT output: jargon strip, allocation/signals/global sanity (Global Market Strategy Brief v2)."""
     out = copy.deepcopy(snake)
+    if not multisector_digest:
+        multisector_digest = bool(out.pop("_multisector_digest", False))
+    else:
+        out.pop("_multisector_digest", None)
     _migrate_snake_to_global_strategy_v2(out)
 
     for key in (
@@ -601,27 +609,40 @@ def sanitize_strategy_brief_snake(snake: dict[str, Any]) -> dict[str, Any]:
 
     gmd = out.get("global_macro_drivers")
     if isinstance(gmd, list):
-        global_rows = []
-        for r in gmd:
-            if not isinstance(r, dict):
-                continue
-            row = dict(r)
-            if not str(row.get("market_impact", "") or "").strip():
-                row["market_impact"] = str(row.get("vietnam_impact", "") or "").strip()
-            row.pop("vietnam_impact", None)
-            if _macro_driver_is_global(row):
-                global_rows.append(row)
-        if len(global_rows) < 2:
-            out["global_macro_drivers"] = copy.deepcopy(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET)
+        if multisector_digest:
+            kept: list[dict[str, Any]] = []
+            for r in gmd:
+                if not isinstance(r, dict):
+                    continue
+                row = dict(r)
+                if not str(row.get("market_impact", "") or "").strip():
+                    row["market_impact"] = str(row.get("vietnam_impact", "") or "").strip()
+                row.pop("vietnam_impact", None)
+                kept.append(row)
+            if kept:
+                out["global_macro_drivers"] = kept
         else:
-            merged = global_rows[:]
-            i = 0
-            while len(merged) < 3 and i < len(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET):
-                cand = DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET[i]
-                if not any(str(c.get("title")) == str(cand.get("title")) for c in merged):
-                    merged.append(copy.deepcopy(cand))
-                i += 1
-            out["global_macro_drivers"] = merged[:4]
+            global_rows = []
+            for r in gmd:
+                if not isinstance(r, dict):
+                    continue
+                row = dict(r)
+                if not str(row.get("market_impact", "") or "").strip():
+                    row["market_impact"] = str(row.get("vietnam_impact", "") or "").strip()
+                row.pop("vietnam_impact", None)
+                if _macro_driver_is_global(row):
+                    global_rows.append(row)
+            if len(global_rows) < 2:
+                out["global_macro_drivers"] = copy.deepcopy(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET)
+            else:
+                merged = global_rows[:]
+                i = 0
+                while len(merged) < 3 and i < len(DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET):
+                    cand = DEFAULT_GLOBAL_MACRO_DRIVERS_SNIPPET[i]
+                    if not any(str(c.get("title")) == str(cand.get("title")) for c in merged):
+                        merged.append(copy.deepcopy(cand))
+                    i += 1
+                out["global_macro_drivers"] = merged[:4]
 
     qa = out.get("quick_actions")
     if isinstance(qa, list) and qa:
@@ -1154,6 +1175,142 @@ def _is_investment_strategy_brief(summary: dict[str, Any]) -> bool:
     )
 
 
+def _is_multisector_digest(summary: dict[str, Any]) -> bool:
+    return bool(str(summary.get("executive_overview", "") or "").strip()) and isinstance(
+        summary.get("sectors"), list
+    )
+
+
+def _digest_multisector_to_strategy_snake(
+    summary: dict[str, Any],
+    *,
+    brief_date: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    """Map ``gemini_digest_summary.json`` multisector schema → strategy brief snake_case."""
+    out = copy.deepcopy(_default_strategy_snake(brief_date=brief_date, generated_at=generated_at))
+    title = str(summary.get("title", "") or "").strip()
+    if title:
+        out["title"] = title
+
+    overview = str(summary.get("executive_overview", "") or "").strip()
+    if overview:
+        out["publication_intro"]["headline"] = title or out["publication_intro"]["headline"]
+        out["publication_intro"]["description"] = overview[:1200]
+        out["main_thesis"]["thesis"] = overview
+        first_line = overview.split("\n", 1)[0].strip()
+        if len(first_line) <= 120:
+            out["main_thesis"]["regime"] = first_line
+        action = overview.split("\n\n")[-1].strip() if "\n\n" in overview else overview
+        if len(action) > 520:
+            action = action[:517] + "…"
+        out["main_thesis"]["action_conclusion"] = action
+
+    drivers: list[dict[str, str]] = []
+    for sector in summary.get("sectors") or []:
+        if not isinstance(sector, dict):
+            continue
+        name = str(sector.get("name", "") or "").strip() or "Nhịp ngành"
+        summ = str(sector.get("summary", "") or "").strip()
+        points = sector.get("key_points") or []
+        bullets = "\n".join(f"• {str(p).strip()}" for p in points if str(p).strip())
+        analysis = "\n\n".join(x for x in (summ, bullets) if x).strip() or "—"
+        urls = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
+        impact_parts = [str(p).strip() for p in points if str(p).strip()]
+        if urls:
+            impact_parts.append("Nguồn: " + ", ".join(urls[:4]))
+        market_impact = "\n".join(impact_parts) if impact_parts else summ[:500] or "—"
+        drivers.append(
+            {
+                "title": name,
+                "analysis": analysis,
+                "market_impact": market_impact,
+            }
+        )
+    if drivers:
+        out["global_macro_drivers"] = drivers
+    out["_multisector_digest"] = True
+    out["_digest_public"] = {
+        "vietnam_highlights": str(summary.get("vietnam_highlights", "") or "").strip(),
+        "international_highlights": str(summary.get("international_highlights", "") or "").strip(),
+        "timeline": summary.get("timeline") if isinstance(summary.get("timeline"), list) else [],
+        "notable_articles": (
+            summary.get("notable_articles") if isinstance(summary.get("notable_articles"), list) else []
+        ),
+        "gaps_and_limits": str(summary.get("gaps_and_limits", "") or "").strip(),
+        "reading_time_minutes": str(summary.get("reading_time_minutes", "") or "").strip(),
+    }
+
+    chains: list[str] = []
+    for key in ("vietnam_highlights", "international_highlights"):
+        val = summary.get(key)
+        if isinstance(val, str) and val.strip():
+            chains.append(val.strip())
+        elif isinstance(val, list):
+            for item in val:
+                line = str(item).strip()
+                if line:
+                    chains.append(line)
+    if len(chains) >= _LIST_MINS["transmission_chains"]:
+        out["transmission_chains"] = chains[:8]
+
+    wc_rows: list[dict[str, str]] = []
+    for day in summary.get("timeline") or []:
+        if not isinstance(day, dict):
+            continue
+        day_label = str(day.get("date", "") or "").strip() or brief_date
+        for headline in (day.get("headlines") or [])[:3]:
+            h = str(headline).strip()
+            if not h:
+                continue
+            wc_rows.append(
+                {
+                    "variable": day_label,
+                    "change": h[:280],
+                    "meaning": "Sự kiện nổi bật trong cửa sổ tin 48 giờ.",
+                }
+            )
+    if len(wc_rows) >= _LIST_MINS["what_changed"]:
+        out["what_changed"] = wc_rows[:6]
+
+    gaps = str(summary.get("gaps_and_limits", "") or "").strip()
+    if gaps:
+        out["final_decision"] = gaps[:520]
+
+    _migrate_snake_to_global_strategy_v2(out)
+    return out
+
+
+def articles_payload_from_for_ai(path: Path) -> dict[str, Any]:
+    """``news_for_ai.json`` / ``news_for_ai_clean.json`` → shape for ``build_all_article_cards``."""
+    data = load_json(path)
+    articles: list[dict[str, Any]] = []
+    for row in data.get("articles") or []:
+        if not isinstance(row, dict):
+            continue
+        url = str(row.get("url") or "").strip()
+        if not url:
+            continue
+        text = str(row.get("text") or row.get("content_for_ai") or "").strip()
+        articles.append(
+            {
+                "title": str(row.get("title") or "Tin").strip() or "Tin",
+                "url": url,
+                "source": str(row.get("source") or "").strip(),
+                "category": str(row.get("category") or "").strip(),
+                "region": str(row.get("region") or "").strip(),
+                "published_at": str(row.get("published_at") or "").strip(),
+                "summary": text[:800] if text else "",
+                "content_for_ai": text,
+            }
+        )
+    return {
+        "generated_at": data.get("generated_at"),
+        "count": len(articles),
+        "articles": articles,
+    }
+
+
 def _is_legacy_macro_block(summary: dict[str, Any]) -> bool:
     if isinstance(summary.get("market_regime"), dict):
         return True
@@ -1283,6 +1440,10 @@ def coerce_summary_to_strategy_brief(
         summary = {}
     base = _default_strategy_snake(brief_date=brief_date, generated_at=generated_at)
 
+    if _is_multisector_digest(summary):
+        return _digest_multisector_to_strategy_snake(
+            summary, brief_date=brief_date, generated_at=generated_at
+        )
     if _is_legacy_macro_block(summary) and not _is_investment_strategy_brief(summary):
         summary = _legacy_to_strategy_snake(summary, brief_date=brief_date, generated_at=generated_at)
     elif not _is_investment_strategy_brief(summary):
@@ -1865,20 +2026,25 @@ def build_payload(
     if not brief_date and isinstance(final_payload.get("generated_at"), str):
         brief_date = final_payload["generated_at"][:10]
 
+    from_digest = _is_multisector_digest(raw_summary)
     snake = coerce_summary_to_strategy_brief(
         raw_summary,
         brief_date=brief_date or datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         generated_at=generated_at,
     )
-    snake = sanitize_strategy_brief_snake(snake)
+    snake = sanitize_strategy_brief_snake(snake, multisector_digest=from_digest)
     brief = strategy_brief_to_public_json(snake)
     ms_payload = market_snapshot if market_snapshot is not None else load_market_snapshot_json()
 
     meta = final_payload.get("meta") if isinstance(final_payload.get("meta"), dict) else {}
 
-    return {
+    payload: dict[str, Any] = {
         "siteTitle": "LEON Quant Labs",
-        "sectionLabel": "Global Market Strategy Brief",
+        "sectionLabel": (
+            "Bản tin tổng hợp đa ngành (48 giờ)"
+            if from_digest
+            else "Global Market Strategy Brief"
+        ),
         "generatedAt": generated_at,
         "schemaVersion": "global-market-strategy-brief-v2",
         **brief,
@@ -1897,14 +2063,62 @@ def build_payload(
         },
         "marketSnapshot": ms_payload,
     }
+    if from_digest:
+        payload["briefMode"] = "multisector-digest"
+        digest_pub = snake.get("_digest_public") if isinstance(snake.get("_digest_public"), dict) else {}
+        if digest_pub.get("vietnam_highlights"):
+            payload["digestVietnamHighlights"] = digest_pub["vietnam_highlights"]
+        if digest_pub.get("international_highlights"):
+            payload["digestInternationalHighlights"] = digest_pub["international_highlights"]
+        if digest_pub.get("gaps_and_limits"):
+            payload["digestGapsAndLimits"] = digest_pub["gaps_and_limits"]
+        timeline = digest_pub.get("timeline")
+        if isinstance(timeline, list) and timeline:
+            payload["digestTimeline"] = [
+                {
+                    "date": str(d.get("date", "") or ""),
+                    "headlines": [str(h) for h in (d.get("headlines") or []) if str(h).strip()],
+                }
+                for d in timeline
+                if isinstance(d, dict)
+            ]
+        notable = digest_pub.get("notable_articles")
+        if isinstance(notable, list) and notable:
+            payload["digestNotableArticles"] = [
+                {
+                    "title": str(a.get("title", "") or ""),
+                    "source": str(a.get("source", "") or ""),
+                    "url": str(a.get("url", "") or ""),
+                    "whyNotable": str(a.get("why_notable", "") or ""),
+                }
+                for a in notable
+                if isinstance(a, dict)
+            ]
+        n_sectors = len(brief.get("globalMacroDrivers") or [])
+        print(f"Digest brief: {n_sectors} sector card(s) on web (no 4-cap / no global-only filter).")
+    return payload
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Build content.json: brief chiến lược + toàn bộ bài enriched.",
     )
-    parser.add_argument("--final-input", default=str(DEFAULT_FINAL_FILE), help="Path to final_summary.json")
-    parser.add_argument("--enriched-input", default=str(DEFAULT_ENRICHED_FILE), help="Path to enriched_news.json")
+    parser.add_argument(
+        "--final-input",
+        default=str(DEFAULT_FINAL_FILE),
+        help="Brief JSON: final_summary.json or gemini_digest_summary.json",
+    )
+    parser.add_argument(
+        "--enriched-input",
+        default=str(DEFAULT_ENRICHED_FILE),
+        help="Articles: enriched_news.json, news_for_ai_clean.json, or news_for_ai.json",
+    )
+    parser.add_argument(
+        "--digest-input",
+        type=Path,
+        default=None,
+        help="Shorthand: gemini_digest_summary.json (overrides --final-input)",
+    )
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT_FILE), help="Path to content.json")
     parser.add_argument(
         "--metadata-timeout",
@@ -1915,8 +2129,13 @@ def main() -> int:
     parser.add_argument("--skip-images", action="store_true", help="Do not fetch og metadata (faster)")
     args = parser.parse_args()
 
-    final_payload = load_json(Path(args.final_input))
-    enriched_payload = load_json(Path(args.enriched_input))
+    final_path = Path(args.digest_input or args.final_input)
+    articles_path = Path(args.enriched_input)
+    if articles_path.name.startswith("news_for_ai"):
+        enriched_payload = articles_payload_from_for_ai(articles_path)
+    else:
+        enriched_payload = load_json(articles_path)
+    final_payload = load_json(final_path)
     all_cards = build_all_article_cards(
         enriched_payload,
         not args.skip_images,
@@ -1943,9 +2162,13 @@ def rebuild_content_json(
     metadata_timeout: int = 6,
     market_snapshot_path: Path | None = None,
 ) -> int:
-    """Dựng payload website từ final_summary.json + enriched_news.json."""
+    """Dựng payload website từ brief JSON + danh sách bài (enriched hoặc news_for_ai*)."""
     final_payload = load_json(final_payload_path)
-    enriched_payload = load_json(enriched_path)
+    enriched_path = enriched_path.resolve()
+    if enriched_path.name.startswith("news_for_ai"):
+        enriched_payload = articles_payload_from_for_ai(enriched_path)
+    else:
+        enriched_payload = load_json(enriched_path)
     all_cards = build_all_article_cards(
         enriched_payload,
         fetch_images,
@@ -1955,6 +2178,26 @@ def rebuild_content_json(
     payload = build_payload(final_payload, enriched_payload, all_cards, market_snapshot=ms)
     output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return len(all_cards)
+
+
+def rebuild_content_from_digest(
+    digest_path: Path,
+    articles_path: Path,
+    output_path: Path,
+    *,
+    fetch_images: bool = True,
+    metadata_timeout: int = 6,
+    market_snapshot_path: Path | None = None,
+) -> int:
+    """``gemini_digest_summary.json`` + ``news_for_ai_clean.json`` → ``content.json``."""
+    return rebuild_content_json(
+        digest_path,
+        articles_path,
+        output_path,
+        fetch_images=fetch_images,
+        metadata_timeout=metadata_timeout,
+        market_snapshot_path=market_snapshot_path,
+    )
 
 
 if __name__ == "__main__":

@@ -192,18 +192,24 @@ def _quick_actions_repetition_errors(qa: Any) -> list[str]:
     return []
 
 
+def _is_multisector_digest_content(c: dict[str, Any]) -> bool:
+    return str(c.get("briefMode", "") or "").strip() == "multisector-digest"
+
+
 def _validate_content_semantics(c: dict[str, Any]) -> list[str]:
     e: list[str] = []
+    digest_mode = _is_multisector_digest_content(c)
     brief_text = _collect_public_brief_text(c)
-    if any(PUBLIC_FORBIDDEN_RE.search(t) for t in brief_text):
+    if not digest_mode and any(PUBLIC_FORBIDDEN_RE.search(t) for t in brief_text):
         e.append("content.json public brief contains forbidden wording (AI/automation/tooling/disclaimer).")
 
     art_text = _collect_article_text(c)
-    if any(ARTICLE_FORBIDDEN_RE.search(t) for t in art_text):
+    if not digest_mode and any(ARTICLE_FORBIDDEN_RE.search(t) for t in art_text):
         e.append("content.json allArticles contains forbidden tooling/disclaimer wording for public site.")
 
     e.extend(_allocation_semantic_errors(c.get("allocationGuide")))
-    e.extend(_global_driver_local_errors(c.get("globalMacroDrivers")))
+    if not digest_mode:
+        e.extend(_global_driver_local_errors(c.get("globalMacroDrivers")))
     e.extend(_quick_actions_repetition_errors(c.get("quickActions")))
 
     irs = c.get("increaseRiskSignals")
@@ -231,7 +237,7 @@ def _validate_content_semantics(c: dict[str, Any]) -> list[str]:
                 )
 
     gmd = c.get("globalMacroDrivers")
-    if isinstance(gmd, list):
+    if isinstance(gmd, list) and not digest_mode:
         global_hits = 0
         for row in gmd:
             if not isinstance(row, dict):
@@ -385,11 +391,13 @@ def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
         if not str(mrs.get("interpretation", "")).strip():
             err.append("content.marketRegimeScore.interpretation must be non-empty")
 
+    digest_mode = _is_multisector_digest_content(c)
     gmd = c.get("globalMacroDrivers")
+    gmd_max = 24 if digest_mode else 4
     if not isinstance(gmd, list) or len(gmd) < _LIST_MINS["global_macro_drivers"]:
         err.append(f"content.globalMacroDrivers must have at least {_LIST_MINS['global_macro_drivers']} items")
-    elif len(gmd) > 4:
-        err.append("content.globalMacroDrivers must have at most 4 items")
+    elif len(gmd) > gmd_max:
+        err.append(f"content.globalMacroDrivers must have at most {gmd_max} items")
     else:
         for i, row in enumerate(gmd):
             if not isinstance(row, dict):
@@ -553,7 +561,22 @@ def main() -> int:
         action="store_true",
         help="Fail if final_summary.summary is not full v2 schema (default: skip when legacy).",
     )
+    parser.add_argument(
+        "--content-only",
+        action="store_true",
+        help="Chỉ kiểm tra content.json (pipeline Gemini digest, không cần final_summary).",
+    )
     args = parser.parse_args()
+    if args.content_only:
+        cpath = Path(args.content_input)
+        cok, cerrs = _validate_content_json(cpath)
+        if not cok:
+            for e in cerrs:
+                print(e, file=sys.stderr)
+            return 1
+        print("OK: content.json valid for public brief.")
+        return 0
+
     path = Path(args.final_input)
     if not path.exists():
         print(f"Missing file: {path}", file=sys.stderr)
