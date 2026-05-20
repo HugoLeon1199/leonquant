@@ -43,7 +43,7 @@ python summarize_news_gemini.py --input news_for_ai_clean.json --mode digest --b
 | `gemini_digest_partials.json` | Trung gian (gitignore) |
 | `content.json` | Trang công khai |
 
-`finalize_summary_gpt.py` / `final_summary.json` / `gemini_summary.json` — **legacy**, không còn trong pipeline hằng ngày.
+`finalize_summary_gpt.py` — tùy chọn trên CI khi có `OPENAI_API_KEY` (đọc `gemini_digest_summary.json`, ghi `final_summary.json`; **không** ghi đè web). Trang công khai luôn từ digest Gemini.
 
 ## Biến môi trường
 

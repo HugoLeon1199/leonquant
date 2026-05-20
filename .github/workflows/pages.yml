@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Luôn dựng lại content.json (v2) từ final_summary + enriched trong repo;
+      # Luôn dựng lại content.json từ gemini_digest_summary + news_for_ai_clean trong repo;
       # tránh deploy HTML mới nhưng content.json cũ (thiếu trường → brief trống/sai).
       - uses: actions/setup-python@v5
         with:
@@ -41,7 +41,7 @@ jobs:
       - name: Kiểm tra content.json
         run: |
           python3 -m json.tool content.json > /dev/null
-          python3 validate_content.py
+          python3 validate_content.py --content-only --content-input content.json
 
       - name: Bundle static site (chỉ file web, không upload cả repo)
         run: |
@@ -66,18 +66,13 @@ jobs:
 
       - name: Verify embedded brief (fail nếu HTML thiếu brief)
         run: |
-          grep -Fq 'Luận điểm chính hôm nay' _site/index.html
           grep -Fq 'data-embedded-brief="1"' _site/index.html
+          grep -Fq 'data-embedded-articles="1"' _site/index.html
+          grep -Fq 'Luận điểm chính hôm nay' _site/index.html
           grep -Fq 'Điều thay đổi quan trọng' _site/index.html
-          grep -Fq 'Market Regime Score' _site/index.html
-          grep -Fq 'Bản đồ liên thị trường' _site/index.html
-          grep -Fq 'Hành động nhanh hôm nay' _site/index.html
-          grep -Fq 'Phân bổ vốn tham khảo' _site/index.html
-          grep -Fq 'Ưu tiên và thận trọng' _site/index.html
-          grep -Fq 'Playbook trong phiên' _site/index.html
-          grep -Fq 'Kịch bản thị trường' _site/index.html
-          grep -Fq 'Câu quyết định cuối cùng' _site/index.html
           grep -Fq 'Tin nền tham khảo' _site/index.html
+          # Digest mode: sector cards + multisector flag in content.json
+          python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); assert len(d.get('globalMacroDrivers') or [])>=8"
 
       - uses: actions/configure-pages@v5
 
