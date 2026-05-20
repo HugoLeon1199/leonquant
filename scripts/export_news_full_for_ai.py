@@ -7,12 +7,13 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
 QUANT_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = QUANT_ROOT / "scripts"
 
 
 def resolve_intel_root() -> Path:
@@ -25,33 +26,6 @@ def resolve_intel_root() -> Path:
     return QUANT_ROOT.parent / "leon_web_intel"
 
 
-def host_from_url(url: str) -> str:
-    from urllib.parse import urlparse
-
-    try:
-        netloc = urlparse(url).netloc.lower()
-    except Exception:
-        return ""
-    if netloc.startswith("www."):
-        netloc = netloc[4:]
-    return netloc
-
-
-def published_iso(val: Any) -> str | None:
-    if val is None:
-        return None
-    if hasattr(val, "isoformat"):
-        try:
-            dt = val.to_pydatetime() if hasattr(val, "to_pydatetime") else val  # type: ignore[assignment]
-            if getattr(dt, "tzinfo", None) is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            return dt.astimezone(timezone.utc).isoformat()
-        except Exception:
-            pass
-    s = str(val).strip()
-    return s or None
-
-
 def row_to_ai_article(row: dict[str, Any]) -> dict[str, Any]:
     url = str(row.get("url") or "")
     title = str(row.get("title") or "").strip() or "Untitled"
@@ -59,35 +33,47 @@ def row_to_ai_article(row: dict[str, Any]) -> dict[str, Any]:
     return {
         "title": title,
         "url": url,
-        "published_at": published_iso(row.get("published_at")),
-        "source": host_from_url(url) or str(row.get("source_id") or "intel"),
         "text": content,
     }
 
 
 def resolve_export_calendar_date(date_arg: str, tz_name: str) -> str:
-    s = date_arg.strip()
-    if s.lower() == "today":
-        return datetime.now(ZoneInfo(tz_name)).date().isoformat()
-    return s
+    s = date_arg.strip().lower()
+    tz = ZoneInfo(tz_name)
+    today = datetime.now(tz).date()
+    if s == "today":
+        return today.isoformat()
+    if s == "yesterday":
+        return (today - timedelta(days=1)).isoformat()
+    return date_arg.strip()
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="DuckDB → news_for_ai.json (full text, recent days)")
     parser.add_argument("--db", type=Path, default=QUANT_ROOT / "data" / "web_intel_leonquant.duckdb")
-    parser.add_argument("--date", default="today", help="End date of window (today = now in --timezone)")
+    parser.add_argument(
+        "--date",
+        default="today",
+        help="End day of window: today | yesterday | YYYY-MM-DD (timezone-aware)",
+    )
     parser.add_argument("--timezone", default="Asia/Ho_Chi_Minh")
     parser.add_argument(
         "--recent-calendar-days",
         type=int,
         default=2,
-        help="Include articles from the last N local calendar days ending on --date",
+        help="Local calendar days ending on --date (default 2 = two most recent days)",
     )
     parser.add_argument(
         "--output",
         type=Path,
         default=QUANT_ROOT / "news_for_ai.json",
     )
+    parser.add_argument(
+        "--clean",
+        action="store_true",
+        help="Apply listing/dedup filters (same as clean_news_for_ai.py)",
+    )
+    parser.add_argument("--min-text-chars", type=int, default=250)
     args = parser.parse_args()
 
     intel = resolve_intel_root()
@@ -117,6 +103,15 @@ def main() -> int:
         db.close()
 
     articles = [row_to_ai_article(r) for r in rows]
+    clean_stats: dict[str, int] | None = None
+    if args.clean:
+        sys.path.insert(0, str(SCRIPTS))
+        from news_ai_filters import clean_articles_for_ai  # noqa: E402
+
+        articles, clean_stats = clean_articles_for_ai(
+            articles, min_text_chars=args.min_text_chars
+        )
+
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "purpose": "ai_summarization",
@@ -126,9 +121,11 @@ def main() -> int:
             "timezone": args.timezone,
             "recent_calendar_days": recent_days,
         },
-        "schema": ["title", "url", "published_at", "source", "text"],
+        "schema": ["title", "url", "text"],
         "articles": articles,
     }
+    if clean_stats:
+        payload["clean_stats"] = clean_stats
 
     out = args.output.resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -139,6 +136,12 @@ def main() -> int:
     print(f"Wrote {len(articles)} articles -> {out}")
     print(f"  with text: {with_text} | avg text length: {avg_len} chars")
     print(f"  window: last {recent_days} day(s) ending {export_date} ({args.timezone})")
+    if clean_stats:
+        print(
+            f"  cleaned: -{clean_stats['drop_listing_title_url']} listing(url), "
+            f"-{clean_stats['drop_listing_content']} listing(body), "
+            f"-{clean_stats['drop_dup_url_and_text']} same url+text"
+        )
     return 0
 
 

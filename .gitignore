@@ -7,6 +7,12 @@ __pycache__/
 *.tmp
 *.bak
 
+# AI export / digest run artifacts (regenerate locally)
+news_for_ai_clean.json
+gemini_digest_outline.json
+gemini_digest_partials.json
+gemini_digest_summary.json
+
 # Leon Web Intel (vendored crawler) — runtime artifacts
 leon_web_intel/data/db/*.duckdb
 leon_web_intel/data/cache/
