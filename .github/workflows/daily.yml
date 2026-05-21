@@ -1,8 +1,9 @@
 name: Daily news digest
 
+# 05:00 giờ Việt Nam (UTC+7) = 22:00 UTC ngày hôm trước
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 22 * * *"
   workflow_dispatch:
 
 permissions:
@@ -75,6 +76,12 @@ jobs:
         run: |
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
-          git add news_output_today.json news_for_ai_clean.json gemini_digest_summary.json gemini_digest_outline.json content.json
+          git add \
+            news_output_today.json \
+            news_for_ai_clean.json \
+            gemini_digest_summary.json \
+            gemini_digest_outline.json \
+            content.json \
+            data/web_intel_leonquant.duckdb
           git commit -m "Update daily news digest (crawl + Gemini + web)" || echo "No content changes to commit"
           git push
