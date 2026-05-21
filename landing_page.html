@@ -339,44 +339,6 @@
       font-weight: 600;
     }
 
-    .sectors-nav {
-      margin: 0 0 20px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: rgba(0, 0, 0, .22);
-      border: 1px solid var(--border);
-    }
-    .sectors-nav-label {
-      display: block;
-      margin: 0 0 10px;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--faint);
-    }
-    .sectors-nav-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .sector-pill {
-      display: inline-block;
-      padding: 7px 13px;
-      border-radius: 999px;
-      font-size: .8rem;
-      font-weight: 700;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, .04);
-      text-decoration: none !important;
-      transition: border-color .15s, color .15s, background .15s;
-    }
-    .sector-pill:hover {
-      color: var(--text);
-      border-color: rgba(34, 211, 238, .4);
-      background: rgba(34, 211, 238, .1);
-    }
     .sectors-section-title {
       margin: 0 0 14px;
       font-size: .72rem;
@@ -941,22 +903,6 @@
       return html;
     }
 
-    function buildSectorsNavHtml(sectors) {
-      const names = sectors
-        .map((s) => String(s.name || "").trim())
-        .filter(Boolean);
-      if (!names.length) return "";
-      const n = names.length;
-      let h = `<nav class="sectors-nav" aria-label="Lĩnh vực trong bản tin hôm nay">`;
-      h += `<span class="sectors-nav-label">Hôm nay · ${n} lĩnh vực</span>`;
-      h += `<div class="sectors-nav-pills">`;
-      for (const name of names) {
-        h += `<a class="sector-pill" href="#${sectorSlug(name)}">${escapeHtml(name)}</a>`;
-      }
-      h += `</div></nav>`;
-      return h;
-    }
-
     function buildArticleImageLookup(data) {
       const map = new Map();
       const add = (url, img) => {
@@ -1074,7 +1020,6 @@
       if (!sectors.length) {
         thesisHtml += `<p class="error-card">Chưa có lĩnh vực trong digest.</p>`;
       } else {
-        thesisHtml += buildSectorsNavHtml(sectors);
         for (let i = 0; i < sectors.length; i++) {
           thesisHtml += buildSectorBlockHtml(sectors[i], i);
         }

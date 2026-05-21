@@ -142,20 +142,6 @@ function buildLinkRowsHtml(links) {
   return h;
 }
 
-function buildSectorsNavHtml(sectors) {
-  const names = sectors.map((s) => String(s.name || "").trim()).filter(Boolean);
-  if (!names.length) return "";
-  const n = names.length;
-  let h = `<nav class="sectors-nav" aria-label="Lĩnh vực trong bản tin hôm nay">`;
-  h += `<span class="sectors-nav-label">Hôm nay · ${n} lĩnh vực</span>`;
-  h += `<div class="sectors-nav-pills">`;
-  for (const name of names) {
-    h += `<a class="sector-pill" href="#${sectorSlug(name)}">${escapeHtml(name)}</a>`;
-  }
-  h += `</div></nav>`;
-  return h;
-}
-
 function buildArticleImageLookup(data) {
   const map = new Map();
   const add = (url, img) => {
@@ -259,7 +245,6 @@ function buildDigestThesisHtml(data) {
   if (!sectors.length) {
     thesisHtml += `<p class="error-card">Chưa có lĩnh vực trong digest.</p>`;
   } else {
-    thesisHtml += buildSectorsNavHtml(sectors);
     for (let i = 0; i < sectors.length; i++) {
       thesisHtml += buildSectorBlockHtml(sectors[i], i);
     }
