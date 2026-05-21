@@ -13,7 +13,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-from build_website_content import rebuild_content_from_digest, rebuild_content_json
+from build_website_content import rebuild_content_from_digest
 
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_INPUT_FILE = PROJECT_DIR / "news_for_ai_clean.json"
@@ -1443,7 +1443,7 @@ def main() -> int:
         print(
             f"Batch: outline={outline_extra} + {len(chunks)} chunks "
             f"({pending_partials} pending) + 1 merge "
-            f"≈ {api_est} API calls, est. input tokens ~{est_tokens}, "
+            f"~{api_est} API calls, est. input tokens ~{est_tokens}, "
             f"~{wall_min:.0f} min min spacing"
         )
     else:
@@ -1552,7 +1552,7 @@ def main() -> int:
                 metadata_timeout=12,
             )
         else:
-            n = rebuild_content_json(
+            n = rebuild_content_from_digest(
                 output_path,
                 articles_path,
                 DEFAULT_CONTENT_FILE,

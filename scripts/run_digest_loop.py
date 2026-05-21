@@ -17,8 +17,11 @@ DIGEST_MODEL = "gemini-3.1-flash-lite"
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
 LOOP_LOG = ROOT / "gemini_digest_loop.log"
-# Free tier: 60s between calls so TPM window can reset (~125k/min).
+# Free tier: 60s between successful steps so TPM window can reset (~125k/min).
 PAUSE_BETWEEN_STEPS_SEC = 60
+# Chỉ chờ lâu khi Gemini báo quota/rate-limit; lỗi khác (code, mạng) thử lại sau 90s.
+PAUSE_ON_QUOTA_FAIL_SEC = 300
+PAUSE_ON_OTHER_FAIL_SEC = 90
 FREE_TIER_MAX_INPUT_TOKENS = 100_000
 FREE_TIER_SLEEP_SEC = 60
 
@@ -79,12 +82,21 @@ def main() -> int:
             print("Done:", SUMMARY)
             return 0
         if rc != 0:
-            print(f"Step failed (exit {rc}); wait 5 min for quota...", flush=True)
-            time.sleep(300)
+            tail = ""
+            if LOOP_LOG.is_file():
+                tail = LOOP_LOG.read_text(encoding="utf-8", errors="replace")[-4000:].lower()
+            quota_hit = any(
+                x in tail
+                for x in ("429", "quota", "rate limit", "resource exhausted", "too many requests")
+            )
+            wait = PAUSE_ON_QUOTA_FAIL_SEC if quota_hit else PAUSE_ON_OTHER_FAIL_SEC
+            why = "quota" if quota_hit else "other"
+            print(f"Step failed (exit {rc}); wait {wait}s ({why})...", flush=True)
+            time.sleep(wait)
             continue
         if partial_count() == n:
-            print("No progress this step; wait 5 min...", flush=True)
-            time.sleep(300)
+            print(f"No progress this step; wait {PAUSE_ON_OTHER_FAIL_SEC}s...", flush=True)
+            time.sleep(PAUSE_ON_OTHER_FAIL_SEC)
             continue
         print(f"Wait {PAUSE_BETWEEN_STEPS_SEC}s before next step...", flush=True)
         time.sleep(PAUSE_BETWEEN_STEPS_SEC)
