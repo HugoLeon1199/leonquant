@@ -2221,16 +2221,28 @@ def build_payload(
             payload["digestVietnamBullets"] = vn_bullets
         notable = digest_pub.get("notable_articles")
         if isinstance(notable, list) and notable:
-            payload["digestNotableArticles"] = [
-                {
-                    "title": str(a.get("title", "") or ""),
-                    "source": str(a.get("source", "") or ""),
-                    "url": str(a.get("url", "") or ""),
-                    "whyNotable": str(a.get("why_notable", "") or ""),
-                }
-                for a in notable
-                if isinstance(a, dict)
-            ]
+            by_url = {
+                str(art.get("url") or "").strip(): art
+                for art in all_articles
+                if str(art.get("url") or "").strip()
+            }
+            notable_out: list[dict[str, str]] = []
+            for a in notable:
+                if not isinstance(a, dict):
+                    continue
+                u = str(a.get("url") or "").strip()
+                art = by_url.get(u) if u else None
+                img = str(art.get("image_url") or "").strip() if art else ""
+                notable_out.append(
+                    {
+                        "title": str(a.get("title", "") or ""),
+                        "source": str(a.get("source", "") or ""),
+                        "url": u,
+                        "whyNotable": str(a.get("why_notable", "") or ""),
+                        "imageUrl": img,
+                    }
+                )
+            payload["digestNotableArticles"] = notable_out[:10]
         extras = build_digest_web_extras(raw_summary, all_articles)
         payload.update(extras)
         n_sectors = len(extras.get("digestSectors") or [])

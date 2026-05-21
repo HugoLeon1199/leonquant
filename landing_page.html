@@ -66,9 +66,17 @@
       font-weight: 900;
       color: #0a0f18;
     }
-    .nav-links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .84rem; font-weight: 600; }
-    .nav-links a { color: var(--muted); }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      margin-left: auto;
+      justify-content: flex-end;
+      font-size: .84rem;
+      font-weight: 600;
+    }
+    .nav-links a:not(.nav-hub) { color: var(--muted); }
+    .nav-links a:not(.nav-hub):hover { color: var(--text); }
 
     h1 {
       margin: 20px 0 12px;
@@ -331,34 +339,52 @@
       font-weight: 600;
     }
 
-    .sectors-index {
-      margin: 0 0 18px;
+    .sectors-nav {
+      margin: 0 0 20px;
       padding: 14px 16px;
       border-radius: 14px;
-      background: rgba(0, 0, 0, .18);
+      background: rgba(0, 0, 0, .22);
       border: 1px solid var(--border);
     }
-    .sectors-index .lbl-inline {
+    .sectors-nav-label {
+      display: block;
       margin: 0 0 10px;
-      font-size: .68rem;
+      font-size: .72rem;
       font-weight: 800;
       letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--faint);
     }
-    .sectors-index ol {
-      margin: 0;
-      padding: 0 0 0 1.2rem;
-      columns: 2;
-      column-gap: 24px;
-      font-size: .88rem;
-      line-height: 1.55;
+    .sectors-nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    @media (max-width: 640px) {
-      .sectors-index ol { columns: 1; }
+    .sector-pill {
+      display: inline-block;
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, .04);
+      text-decoration: none !important;
+      transition: border-color .15s, color .15s, background .15s;
     }
-    .sectors-index a { font-weight: 650; text-decoration: none !important; }
-    .sectors-index a:hover { text-decoration: underline !important; }
+    .sector-pill:hover {
+      color: var(--text);
+      border-color: rgba(34, 211, 238, .4);
+      background: rgba(34, 211, 238, .1);
+    }
+    .sectors-section-title {
+      margin: 0 0 14px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
 
     .sector-block {
       border-radius: 16px;
@@ -451,29 +477,7 @@
     }
     .sector-points li { margin-bottom: 8px; }
 
-    .overview-mini-toc {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 0 0 16px;
-      padding: 0 0 14px;
-      border-bottom: 1px solid var(--border);
-      list-style: none;
-    }
-    .overview-mini-toc a {
-      padding: 5px 11px;
-      border-radius: 8px;
-      font-size: .76rem;
-      font-weight: 700;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      text-decoration: none !important;
-    }
-    .overview-mini-toc a:hover {
-      color: var(--cyan);
-      border-color: rgba(34, 211, 238, .3);
-    }
-    .overview-part { scroll-margin-top: 88px; margin-bottom: 16px; }
+    .overview-part { scroll-margin-top: 88px; margin-bottom: 20px; }
     .overview-part:last-child { margin-bottom: 0; }
     ul.prose-bullets { margin: 0.35em 0 0; padding-left: 1.2rem; }
     ul.prose-bullets li { margin-bottom: 0.5em; line-height: 1.58; }
@@ -526,13 +530,124 @@
     }
     .article-link-rows li { font-size: .82rem; }
 
+    .notable-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin: 0 0 20px;
+    }
+    .notable-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, .25);
+      text-decoration: none !important;
+      color: inherit;
+      transition: border-color .2s, transform .2s;
+    }
+    .notable-card:hover {
+      border-color: rgba(34, 211, 238, .45);
+      transform: translateY(-2px);
+    }
+    .notable-card-media {
+      aspect-ratio: 16 / 9;
+      background: rgba(255, 255, 255, .04);
+      overflow: hidden;
+    }
+    .notable-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .notable-card-fallback {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--faint);
+      text-transform: uppercase;
+    }
+    .notable-card-body { padding: 14px 16px 16px; }
+    .notable-card-meta {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin: 0 0 6px;
+    }
+    .notable-card-title {
+      margin: 0 0 8px;
+      font-size: .95rem;
+      font-weight: 750;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .notable-card-why {
+      margin: 0;
+      font-size: .82rem;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .article-archive-wrap { margin-top: 8px; }
+    .article-archive-wrap summary {
+      cursor: pointer;
+      padding: 16px 20px;
+      font-weight: 750;
+      font-size: .95rem;
+      list-style: none;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, .28);
+    }
+    .article-archive-wrap summary::-webkit-details-marker { display: none; }
+    .article-archive-wrap[open] summary {
+      border-radius: 14px 14px 0 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-archive-scroll {
+      max-height: min(70vh, 560px);
+      overflow-y: auto;
+      padding: 12px 16px 16px;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      background: rgba(0, 0, 0, .2);
+    }
+
     body.digest-mode .source-grid { display: none; }
     body.digest-mode .hero-qs { display: none; }
     body.digest-mode .hero h1,
     body.digest-mode .hero-sub,
     body.digest-mode .hero-desc { display: none; }
     body.digest-mode .hero { padding: 22px 0 28px; }
-    body.digest-mode .nav-links { display: none; }
+    .nav-hub {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 750;
+      letter-spacing: .02em;
+      color: var(--text);
+      border: 1px solid rgba(34, 211, 238, .35);
+      background: rgba(34, 211, 238, .1);
+      text-decoration: none !important;
+    }
+    .nav-hub:hover {
+      border-color: var(--cyan);
+      background: rgba(34, 211, 238, .18);
+    }
+    .nav-hub--active {
+      color: #0a0f18;
+      background: linear-gradient(135deg, var(--cyan), #67e8f9);
+      border-color: transparent;
+      cursor: default;
+      pointer-events: none;
+    }
     body.digest-mode .logo {
       font-size: clamp(1.55rem, 4vw, 2.35rem);
       gap: 16px;
@@ -826,60 +941,71 @@
       return html;
     }
 
-    function sectorPartId(sectorId, part) {
-      return `${sectorId}--${part}`;
-    }
-
-    function buildSectorMiniToc(sectorId, items) {
-      if (!items.length) return "";
-      let h = `<ul class="sector-mini-toc" aria-label="Mục lục trong lĩnh vực">`;
-      for (const it of items) {
-        h += `<li><a href="#${sectorPartId(sectorId, it.id)}">${escapeHtml(it.label)}</a></li>`;
+    function buildSectorsNavHtml(sectors) {
+      const names = sectors
+        .map((s) => String(s.name || "").trim())
+        .filter(Boolean);
+      if (!names.length) return "";
+      const n = names.length;
+      let h = `<nav class="sectors-nav" aria-label="Lĩnh vực trong bản tin hôm nay">`;
+      h += `<span class="sectors-nav-label">Hôm nay · ${n} lĩnh vực</span>`;
+      h += `<div class="sectors-nav-pills">`;
+      for (const name of names) {
+        h += `<a class="sector-pill" href="#${sectorSlug(name)}">${escapeHtml(name)}</a>`;
       }
-      h += `</ul>`;
+      h += `</div></nav>`;
       return h;
     }
 
-    function buildSectorsIndexHtml(sectors) {
-      let h = `<div class="sectors-index"><p class="lbl-inline">Mục lục ${sectors.length} lĩnh vực</p><ol>`;
-      for (let i = 0; i < sectors.length; i++) {
-        const name = String(sectors[i].name || "").trim();
-        if (!name) continue;
-        const id = sectorSlug(name);
-        h += `<li><a href="#${id}">${i + 1}. ${escapeHtml(name)}</a></li>`;
-      }
-      h += `</ol></div>`;
-      return h;
-    }
-
-    function collectDigestNotableLinks(notable, sectors, articles) {
-      const seen = new Set();
-      const out = [];
-      const push = (row) => {
-        if (!row || typeof row !== "object") return;
-        const u = String(row.url || "").trim();
-        if (!u || seen.has(u)) return;
-        seen.add(u);
-        out.push({
-          url: u,
-          title: row.title || row.host || u,
-          source: row.source || "",
-          host: row.host || getHostName(u),
-        });
+    function buildArticleImageLookup(data) {
+      const map = new Map();
+      const add = (url, img) => {
+        const u = String(url || "").trim();
+        const i = String(img || "").trim();
+        if (u && i && !map.has(u)) map.set(u, i);
       };
-      for (const a of notable) {
-        push({
-          url: a.url,
-          title: a.title,
-          source: [a.source, a.whyNotable].filter(Boolean).join(" · "),
-          host: getHostName(a.url || ""),
-        });
+      for (const a of Array.isArray(data.allArticles) ? data.allArticles : []) {
+        add(a.url, a.image_url || a.imageUrl);
       }
-      for (const s of sectors) {
-        for (const L of Array.isArray(s.links) ? s.links : []) push(L);
+      for (const a of Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : []) {
+        add(a.url, a.image_url || a.imageUrl);
       }
-      for (const a of articles) push(a);
-      return out;
+      return map;
+    }
+
+    function buildNotableCardsHtml(notable, imageByUrl) {
+      const items = (Array.isArray(notable) ? notable : [])
+        .filter((a) => a && String(a.url || "").trim())
+        .slice(0, 10);
+      if (!items.length) {
+        return `<p class="hint">Chưa có tin nổi bật trong bản digest hôm nay.</p>`;
+      }
+      let h = `<div class="notable-grid">`;
+      for (const a of items) {
+        const u = String(a.url || "").trim();
+        const title = escapeHtml(a.title || u);
+        const meta = escapeHtml(
+          [a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
+        );
+        const why = escapeHtml(String(a.whyNotable || "").trim());
+        const img = String(
+          a.imageUrl || a.image_url || imageByUrl.get(u) || "",
+        ).trim();
+        h += `<a class="notable-card" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
+        h += `<div class="notable-card-media">`;
+        if (img) {
+          h += `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.notable-card-media').innerHTML='<div class=\\'notable-card-fallback\\'>Tin tức</div>'">`;
+        } else {
+          h += `<div class="notable-card-fallback">Tin tức</div>`;
+        }
+        h += `</div><div class="notable-card-body">`;
+        if (meta) h += `<p class="notable-card-meta">${meta}</p>`;
+        h += `<p class="notable-card-title">${title}</p>`;
+        if (why) h += `<p class="notable-card-why">${why}</p>`;
+        h += `</div></a>`;
+      }
+      h += `</div>`;
+      return h;
     }
 
     function buildSectorBlockHtml(s, index) {
@@ -914,7 +1040,10 @@
       const vn = String(data.digestVietnamHighlights || "").trim();
       const intl = String(data.digestInternationalHighlights || "").trim();
       const gaps = String(data.digestGapsAndLimits || "").trim();
-      const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
+      const notable = Array.isArray(data.digestNotableArticles)
+        ? data.digestNotableArticles.slice(0, 10)
+        : [];
+      const imageByUrl = buildArticleImageLookup(data);
       const execBullets = getDigestBullets(data, "digestExecutiveBullets", mt.thesis || "");
       const intlBullets = getDigestBullets(
         data,
@@ -923,72 +1052,42 @@
       );
       const vnBullets = getDigestBullets(data, "digestVietnamBullets", vn);
       const overviewBullets = mergeOverviewBullets(execBullets, intlBullets, vnBullets);
+      const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
 
       const reportTitle =
         String(data.digestReportTitle || "").trim() ||
         "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
-
-      const mainToc = [];
-      if (overviewBullets.length) mainToc.push({ id: "overview", label: "Tổng quan" });
-      if (sectors.length) mainToc.push({ id: "sectors", label: "Chi tiết theo lĩnh vực" });
-      for (const s of sectors) {
-        const name = String(s.name || "").trim();
-        if (!name) continue;
-        mainToc.push({ id: sectorSlug(name), label: name, external: true });
-      }
-      const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
-      const notableLinks = collectDigestNotableLinks(notable, sectors, []);
-      if (notableLinks.length || articles.length) {
-        mainToc.push({ id: "notable", label: "Tin đáng chú ý" });
-      }
 
       let thesisHtml = `<article id="digest-report" class="digest-report">`;
       thesisHtml += `<header class="digest-report-head">`;
       thesisHtml += `<h2>${escapeHtml(reportTitle)}</h2>`;
       thesisHtml += `</header>`;
       thesisHtml += `<div class="digest-main-panel">`;
-      if (mainToc.length) {
-        thesisHtml += `<ul class="overview-mini-toc" aria-label="Mục lục bản tin">`;
-        for (const it of mainToc) {
-          const href = it.external ? `#${it.id}` : `#digest-main--${it.id}`;
-          thesisHtml += `<li><a href="${href}">${escapeHtml(it.label)}</a></li>`;
-        }
-        thesisHtml += `</ul>`;
-      }
       if (overviewBullets.length) {
         thesisHtml += `<section class="overview-part" id="digest-main--overview">`;
-        thesisHtml += `<p class="sector-part-title">Tổng quan</p>`;
+        thesisHtml += `<h3 class="sectors-section-title">Tổng quan</h3>`;
         thesisHtml += buildProseBulletsHtml(overviewBullets);
         thesisHtml += `</section>`;
       }
       thesisHtml += `<section class="digest-main-sectors overview-part" id="digest-main--sectors">`;
-      thesisHtml += `<p class="sector-part-title">Chi tiết theo lĩnh vực</p>`;
+      thesisHtml += `<h3 class="sectors-section-title">Chi tiết theo lĩnh vực</h3>`;
       if (!sectors.length) {
         thesisHtml += `<p class="error-card">Chưa có lĩnh vực trong digest.</p>`;
       } else {
-        thesisHtml += buildSectorsIndexHtml(sectors);
+        thesisHtml += buildSectorsNavHtml(sectors);
         for (let i = 0; i < sectors.length; i++) {
           thesisHtml += buildSectorBlockHtml(sectors[i], i);
         }
       }
       thesisHtml += `</section>`;
-      if (notableLinks.length || articles.length) {
+      if (notable.length || articles.length) {
         thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--notable">`;
-        thesisHtml += `<p class="sector-part-title">Tin đáng chú ý</p>`;
-        if (notableLinks.length) {
-          thesisHtml += buildLinkRowsHtml(
-            notableLinks.map((a) => ({
-              url: a.url,
-              title: a.title,
-              source: a.source,
-              host: a.host || getHostName(a.url || ""),
-            })),
-          );
-        }
+        thesisHtml += `<h3 class="sectors-section-title">Tin đáng chú ý</h3>`;
+        thesisHtml += buildNotableCardsHtml(notable, imageByUrl);
         if (articles.length) {
-          thesisHtml += `<details class="article-index-wrap digest-notable-all">`;
-          thesisHtml += `<summary>Bấm vào xem chi tiết</summary>`;
-          thesisHtml += `<div class="article-index-scroll">`;
+          thesisHtml += `<details class="article-archive-wrap digest-notable-all">`;
+          thesisHtml += `<summary>Bấm vào xem chi tiết · ${articles.length} bài</summary>`;
+          thesisHtml += `<div class="article-archive-scroll">`;
           thesisHtml += buildLinkRowsHtml(
             articles.map((a) => ({
               url: a.url,
@@ -1003,7 +1102,7 @@
       }
       if (gaps) {
         thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--gaps">`;
-        thesisHtml += `<p class="sector-part-title">Ghi chú</p><p class="hint">${escapeHtml(gaps)}</p></section>`;
+        thesisHtml += `<h3 class="sectors-section-title">Ghi chú</h3><p class="hint">${escapeHtml(gaps)}</p></section>`;
       }
       thesisHtml += `</div></article>`;
 
@@ -1029,11 +1128,19 @@
       };
     }
 
-    function updateDigestNav() {
+    function updateSiteNav() {
       const nav = document.getElementById("navLinks");
       if (!nav) return;
-      nav.innerHTML = "";
       document.body.classList.add("digest-mode");
+      const path = (window.location.pathname || "/").replace(/\/+$/, "") || "/";
+      const isHome =
+        path === "/" ||
+        path === "" ||
+        /\/index\.html$/i.test(path) ||
+        /\/landing_page\.html$/i.test(path);
+      const hubClass = isHome ? "nav-hub nav-hub--active" : "nav-hub";
+      const hubHref = isHome ? "#brief" : "/";
+      nav.innerHTML = `<a class="${hubClass}" href="${hubHref}">Tin tức tổng hợp 24h</a>`;
     }
 
     function buildBriefParts(data) {
@@ -1042,7 +1149,7 @@
 
     function renderBriefSections(payload) {
       applyHeroBranding(payload);
-      updateDigestNav();
+      updateSiteNav();
       let parts;
       try {
         parts = buildBriefParts(payload);
@@ -1086,7 +1193,7 @@
         applyHeroBranding(payload);
       }
       const refSec = document.getElementById("reference");
-      if (refSec) refSec.style.display = "";
+      if (refSec) refSec.style.display = usable ? "none" : "";
       const grid = document.getElementById("sourceGrid");
       if (grid) grid.innerHTML = "";
       const titleEl = document.getElementById("sourceGridTitle");

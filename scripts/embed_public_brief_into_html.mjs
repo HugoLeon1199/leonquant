@@ -142,15 +142,66 @@ function buildLinkRowsHtml(links) {
   return h;
 }
 
-function buildSectorsIndexHtml(sectors) {
-  let h = `<div class="sectors-index"><p class="lbl-inline">Mục lục ${sectors.length} lĩnh vực</p><ol>`;
-  for (let i = 0; i < sectors.length; i++) {
-    const name = String(sectors[i].name || "").trim();
-    if (!name) continue;
-    const id = sectorSlug(name);
-    h += `<li><a href="#${id}">${i + 1}. ${escapeHtml(name)}</a></li>`;
+function buildSectorsNavHtml(sectors) {
+  const names = sectors.map((s) => String(s.name || "").trim()).filter(Boolean);
+  if (!names.length) return "";
+  const n = names.length;
+  let h = `<nav class="sectors-nav" aria-label="Lĩnh vực trong bản tin hôm nay">`;
+  h += `<span class="sectors-nav-label">Hôm nay · ${n} lĩnh vực</span>`;
+  h += `<div class="sectors-nav-pills">`;
+  for (const name of names) {
+    h += `<a class="sector-pill" href="#${sectorSlug(name)}">${escapeHtml(name)}</a>`;
   }
-  h += `</ol></div>`;
+  h += `</div></nav>`;
+  return h;
+}
+
+function buildArticleImageLookup(data) {
+  const map = new Map();
+  const add = (url, img) => {
+    const u = String(url || "").trim();
+    const i = String(img || "").trim();
+    if (u && i && !map.has(u)) map.set(u, i);
+  };
+  for (const a of Array.isArray(data.allArticles) ? data.allArticles : []) {
+    add(a.url, a.image_url || a.imageUrl);
+  }
+  for (const a of Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : []) {
+    add(a.url, a.image_url || a.imageUrl);
+  }
+  return map;
+}
+
+function buildNotableCardsHtml(notable, imageByUrl) {
+  const items = (Array.isArray(notable) ? notable : [])
+    .filter((a) => a && String(a.url || "").trim())
+    .slice(0, 10);
+  if (!items.length) {
+    return `<p class="hint">Chưa có tin nổi bật trong bản digest hôm nay.</p>`;
+  }
+  let h = `<div class="notable-grid">`;
+  for (const a of items) {
+    const u = String(a.url || "").trim();
+    const title = escapeHtml(a.title || u);
+    const meta = escapeHtml(
+      [a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
+    );
+    const why = escapeHtml(String(a.whyNotable || "").trim());
+    const img = String(a.imageUrl || a.image_url || imageByUrl.get(u) || "").trim();
+    h += `<a class="notable-card" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
+    h += `<div class="notable-card-media">`;
+    if (img) {
+      h += `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.notable-card-media').innerHTML='<div class=\\'notable-card-fallback\\'>Tin tức</div>'">`;
+    } else {
+      h += `<div class="notable-card-fallback">Tin tức</div>`;
+    }
+    h += `</div><div class="notable-card-body">`;
+    if (meta) h += `<p class="notable-card-meta">${meta}</p>`;
+    h += `<p class="notable-card-title">${title}</p>`;
+    if (why) h += `<p class="notable-card-why">${why}</p>`;
+    h += `</div></a>`;
+  }
+  h += `</div>`;
   return h;
 }
 
@@ -175,109 +226,53 @@ function buildSectorBlockHtml(s, index) {
   return h;
 }
 
-function collectDigestNotableLinks(notable, sectors) {
-  const seen = new Set();
-  const out = [];
-  const push = (row) => {
-    if (!row || typeof row !== "object") return;
-    const u = String(row.url || "").trim();
-    if (!u || seen.has(u)) return;
-    seen.add(u);
-    out.push({
-      url: u,
-      title: row.title || row.host || u,
-      source: row.source || "",
-      host: row.host || getHostName(u),
-    });
-  };
-  for (const a of notable) {
-    push({
-      url: a.url,
-      title: a.title,
-      source: [a.source, a.whyNotable].filter(Boolean).join(" · "),
-      host: getHostName(a.url || ""),
-    });
-  }
-  for (const s of sectors) {
-    for (const L of Array.isArray(s.links) ? s.links : []) push(L);
-  }
-  return out;
-}
-
 function buildDigestThesisHtml(data) {
   const mt = data.mainThesis || {};
   const sectors = ensureDigestSectors(data);
   const vn = String(data.digestVietnamHighlights || "").trim();
   const intl = String(data.digestInternationalHighlights || "").trim();
   const gaps = String(data.digestGapsAndLimits || "").trim();
-  const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
+  const notable = Array.isArray(data.digestNotableArticles)
+    ? data.digestNotableArticles.slice(0, 10)
+    : [];
+  const imageByUrl = buildArticleImageLookup(data);
   const execBullets = getDigestBullets(data, "digestExecutiveBullets", mt.thesis || "");
   const intlBullets = getDigestBullets(data, "digestInternationalBullets", intl);
   const vnBullets = getDigestBullets(data, "digestVietnamBullets", vn);
   const overviewBullets = mergeOverviewBullets(execBullets, intlBullets, vnBullets);
+  const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
   const reportTitle =
     String(data.digestReportTitle || "").trim() ||
     "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
 
-  const mainToc = [];
-  if (overviewBullets.length) mainToc.push({ id: "overview", label: "Tổng quan" });
-  if (sectors.length) mainToc.push({ id: "sectors", label: "Chi tiết theo lĩnh vực" });
-  for (const s of sectors) {
-    const name = String(s.name || "").trim();
-    if (!name) continue;
-    mainToc.push({ id: sectorSlug(name), label: name, external: true });
-  }
-  const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
-  const notableLinks = collectDigestNotableLinks(notable, sectors);
-  if (notableLinks.length || articles.length) {
-    mainToc.push({ id: "notable", label: "Tin đáng chú ý" });
-  }
-
   let thesisHtml = `<article id="digest-report" class="digest-report">`;
   thesisHtml += `<header class="digest-report-head"><h2>${escapeHtml(reportTitle)}</h2></header>`;
   thesisHtml += `<div class="digest-main-panel">`;
-  if (mainToc.length) {
-    thesisHtml += `<ul class="overview-mini-toc" aria-label="Mục lục bản tin">`;
-    for (const it of mainToc) {
-      const href = it.external ? `#${it.id}` : `#digest-main--${it.id}`;
-      thesisHtml += `<li><a href="${href}">${escapeHtml(it.label)}</a></li>`;
-    }
-    thesisHtml += `</ul>`;
-  }
   if (overviewBullets.length) {
     thesisHtml += `<section class="overview-part" id="digest-main--overview">`;
-    thesisHtml += `<p class="sector-part-title">Tổng quan</p>`;
+    thesisHtml += `<h3 class="sectors-section-title">Tổng quan</h3>`;
     thesisHtml += buildProseBulletsHtml(overviewBullets);
     thesisHtml += `</section>`;
   }
   thesisHtml += `<section class="digest-main-sectors overview-part" id="digest-main--sectors">`;
-  thesisHtml += `<p class="sector-part-title">Chi tiết theo lĩnh vực</p>`;
+  thesisHtml += `<h3 class="sectors-section-title">Chi tiết theo lĩnh vực</h3>`;
   if (!sectors.length) {
     thesisHtml += `<p class="error-card">Chưa có lĩnh vực trong digest.</p>`;
   } else {
-    thesisHtml += buildSectorsIndexHtml(sectors);
+    thesisHtml += buildSectorsNavHtml(sectors);
     for (let i = 0; i < sectors.length; i++) {
       thesisHtml += buildSectorBlockHtml(sectors[i], i);
     }
   }
   thesisHtml += `</section>`;
-  if (notableLinks.length || articles.length) {
+  if (notable.length || articles.length) {
     thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--notable">`;
-    thesisHtml += `<p class="sector-part-title">Tin đáng chú ý</p>`;
-    if (notableLinks.length) {
-      thesisHtml += buildLinkRowsHtml(
-        notableLinks.map((a) => ({
-          url: a.url,
-          title: a.title,
-          source: a.source,
-          host: a.host || getHostName(a.url || ""),
-        })),
-      );
-    }
+    thesisHtml += `<h3 class="sectors-section-title">Tin đáng chú ý</h3>`;
+    thesisHtml += buildNotableCardsHtml(notable, imageByUrl);
     if (articles.length) {
-      thesisHtml += `<details class="article-index-wrap digest-notable-all">`;
-      thesisHtml += `<summary>Bấm vào xem chi tiết</summary>`;
-      thesisHtml += `<div class="article-index-scroll">`;
+      thesisHtml += `<details class="article-archive-wrap digest-notable-all">`;
+      thesisHtml += `<summary>Bấm vào xem chi tiết · ${articles.length} bài</summary>`;
+      thesisHtml += `<div class="article-archive-scroll">`;
       thesisHtml += buildLinkRowsHtml(
         articles.map((a) => ({
           url: a.url,
@@ -292,7 +287,7 @@ function buildDigestThesisHtml(data) {
   }
   if (gaps) {
     thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--gaps">`;
-    thesisHtml += `<p class="sector-part-title">Ghi chú</p><p class="hint">${escapeHtml(gaps)}</p></section>`;
+    thesisHtml += `<h3 class="sectors-section-title">Ghi chú</h3><p class="hint">${escapeHtml(gaps)}</p></section>`;
   }
   thesisHtml += `</div></article>`;
   return thesisHtml;
@@ -361,6 +356,10 @@ function main() {
     : `<p id="syncNote" class="sync-note"></p>`;
   html = html.replace(/<p id="syncNote" class="sync-note"><\/p>/, syncHtml);
   html = html.replace('<section id="brief" class="alt">', '<section id="brief" class="alt" data-embedded-brief="1">');
+  html = html.replace(
+    /<div class="nav-links" id="navLinks">\s*<\/div>/i,
+    '<div class="nav-links" id="navLinks"><a class="nav-hub nav-hub--active" href="#brief">Tin tức tổng hợp 24h</a></div>',
+  );
 
   fs.writeFileSync(pagePath, html, "utf8");
   console.log("Embedded digest brief into", pagePath);
