@@ -1,4 +1,4 @@
-name: Daily Macro Brief
+name: Daily news digest
 
 on:
   schedule:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  build-brief:
+  build-digest:
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -37,9 +37,9 @@ jobs:
 
       - name: Verify pipeline scripts compile
         run: |
-          python -m py_compile macro_relevance.py build_website_content.py validate_content.py fetch_market_snapshot.py summarize_news_gemini.py finalize_summary_gpt.py scripts/run_intel_full_daily.py scripts/export_intel_to_news_output.py scripts/export_news_full_for_ai.py scripts/clean_news_for_ai.py scripts/run_daily_brief.py scripts/run_digest_loop.py scripts/test_gemini_digest_preflight.py leon_web_intel/run_profile.py leon_web_intel/run_scrapy.py
+          python -m py_compile macro_relevance.py build_website_content.py validate_content.py summarize_news_gemini.py scripts/run_intel_full_daily.py scripts/export_intel_to_news_output.py scripts/export_news_full_for_ai.py scripts/clean_news_for_ai.py scripts/run_daily_brief.py scripts/run_digest_loop.py scripts/test_gemini_digest_preflight.py leon_web_intel/run_profile.py leon_web_intel/run_scrapy.py
 
-      - name: Crawl macro news (Leon Web Intel)
+      - name: Crawl news (Leon Web Intel)
         run: |
           EXTRA=""
           if [ "${{ steps.cache-intel-db.outputs.cache-hit }}" = "true" ]; then
@@ -52,28 +52,11 @@ jobs:
           python scripts/export_news_full_for_ai.py --date today --recent-calendar-days 2
           python scripts/clean_news_for_ai.py
 
-      - name: Fetch market snapshot (best-effort)
-        run: python fetch_market_snapshot.py
-
       - name: Gemini batch digest (free-tier loop)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: gemini-3.1-flash-lite
+          GEMINI_MODEL: gemini-2.5-flash-lite
         run: python scripts/run_digest_loop.py
-
-      - name: GPT strategy brief (artifact only; public site uses Gemini digest)
-        continue-on-error: true
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          if [ -z "${OPENAI_API_KEY}" ]; then
-            echo "Skip GPT finalize (OPENAI_API_KEY not set)."
-            exit 0
-          fi
-          python finalize_summary_gpt.py \
-            --gemini-input gemini_digest_summary.json \
-            --enriched-input news_for_ai_clean.json \
-            --skip-web-verify
 
       - name: Build public website content
         run: |
@@ -86,12 +69,12 @@ jobs:
         run: |
           python -m json.tool gemini_digest_summary.json > /dev/null
           python -m json.tool content.json > /dev/null
-          python validate_content.py --content-only --content-input content.json
+          python validate_content.py --content-input content.json
 
-      - name: Commit updated brief
+      - name: Commit updated digest
         run: |
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
-          git add news_output_today.json news_output_all.json news_for_ai_clean.json gemini_digest_summary.json gemini_digest_outline.json market_snapshot.json content.json feed-config.json
-          git commit -m "Update daily macro brief (crawl + Gemini digest)" || echo "No content changes to commit"
+          git add news_output_today.json news_for_ai_clean.json gemini_digest_summary.json gemini_digest_outline.json content.json
+          git commit -m "Update daily news digest (crawl + Gemini + web)" || echo "No content changes to commit"
           git push

@@ -1,5 +1,5 @@
 /**
- * Wrapper: dựng content.json qua build_website_content.py (Global Market Strategy Brief v2).
+ * Wrapper: dựng content.json qua build_website_content.py (Gemini digest → web).
  * Luôn ưu tiên Python để tránh lệch logic với sanitize/coerce trong repo.
  *
  * Usage: node scripts/rebuild_content.mjs [--with-images]

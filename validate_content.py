@@ -1,624 +1,74 @@
 #!/usr/bin/env python3
-"""Quality gate: validate final_summary.json + content.json (Global Market Strategy Brief v2)."""
+"""Validate content.json for public multisector digest (48h news)."""
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
 from typing import Any
 
-from build_website_content import _LIST_MINS, regime_label_for_total_score
-from finalize_summary_gpt import MACRO_INTELLIGENCE_SUMMARY_KEYS, validate_final_summary
-
 PROJECT_DIR = Path(__file__).resolve().parent
-DEFAULT_FINAL = PROJECT_DIR / "final_summary.json"
 DEFAULT_CONTENT = PROJECT_DIR / "content.json"
 
-_GLOBAL_KW_RE = re.compile(
-    r"fed|mỹ|my\b|usd|dxy|lợi suất|loi suat|dầu|dau|lạm phát|lam phat|trung quốc|trung quoc|"
-    r"thương mại|thuong mai|địa chính trị|dia chinh tri|toàn cầu|toan cau|euro|ecb|opec|brent|"
-    r"thế giới|the gioi|global|china|oil|inflation|geopolit|imf",
-    re.IGNORECASE,
-)
 
-_LOCAL_ONLY_MACRO_RE = re.compile(
-    r"(?i)\b("
-    r"cao tốc|long thành|sân bay long|tái cấu trúc ngân hàng|vietcombank|\bacb\b|\bbidv\b|\bssi\b|"
-    r"vingroup|hoà phát|hòa phát|dự án bot|đường sắt đô thị|tp\.?hcm|hà nội|ha noi|"
-    r"khởi động.*?dự án|tổng vốn.*?(tỷ|ty)\s*usd|cục dự trữ|nghị quyết.*?nội địa.*?chỉ"
-    r")\b",
-)
-
-_STRONG_GLOBAL_ANCHOR_RE = re.compile(
-    r"fed|fomc|lợi suất\s*mỹ|loi suat my|treasury|dxy|brent|wti|opec|iran|"
-    r"trung quốc|trung quoc|wto|imf|global growth|cầu toàn cầu",
-    re.IGNORECASE,
-)
-
-PUBLIC_FORBIDDEN_RE = re.compile(
-    r"\bAI\b|artificial intelligence|\bautomation\b|\bcrawler\b|\bcrawl\b|\bGPT\b|"
-    r"\bGemini\b|\bmodel\b|\bpipeline\b|source quality|verified links|"
-    r"không phải khuyến nghị đầu tư|\bdisclaimer\b",
-    re.IGNORECASE,
-)
-
-# Bài nền có thể trích tin (AI, automation, pipeline…); chỉ chặn wording meta của site / disclaimer.
-ARTICLE_FORBIDDEN_RE = re.compile(
-    r"\bGPT\b|\bGemini\b|\bcrawler\b|\bcrawl\b|"
-    r"source quality|verified links|không phải khuyến nghị đầu tư|\bdisclaimer\b",
-    re.IGNORECASE,
-)
-
-_INCREASE_BAD_SUBSTR = re.compile(
-    r"lạm phát.*(cao hơn|tăng)|lam phat.*(cao hon|tang)|dầu.*(tăng sốc|tăng mạnh)|"
-    r"\busd\b.*tăng mạnh|usd tang manh|"
-    r"lợi suất.*tăng nhanh|loi suat.*tang nhanh|bán ròng mạnh|ban rong manh|"
-    r"suy yếu đồng loạt|suy yeu dong loat|căng thẳng leo thang|cang thang leo thang|"
-    r"gián đoạn.*chuỗi cung|gian doan.*chuo|supply shock|"
-    r"địa chính trị.*leo thang|dia chinh tri.*leo thang|rủi ro địa chính",
-    re.IGNORECASE,
-)
-
-_REDUCE_GOOD_SUBSTR = re.compile(
-    r"(?i)usd\s+suy yếu|usd suy yeu|lợi suất.*hạ nhiệt|loi suat.*ha nhiet|"
-    r"thanh khoản.*cải thiện|thanh khoan.*cai thien|độ rộng.*cải thiện|"
-    r"khối ngoại mua ròng|khoi ngoai mua rong|dầu ổn định|dau on dinh|"
-    r"tăng trưởng ổn định|tang truong on dinh|tăng trưởng.*ổn định",
-    re.IGNORECASE,
-)
-
-_CANONICAL_INVESTOR_STATES = (
-    "Cầm nhiều tiền mặt",
-    "Đang nắm tài sản khỏe",
-    "Đang lãi ngắn hạn",
-    "Đang dùng margin / đòn bẩy",
-    "Muốn mua mới",
-    "Đang kẹt tài sản yếu",
-)
-
-
-def _strings_from_value(v: Any) -> list[str]:
-    if isinstance(v, str):
-        return [v]
-    if isinstance(v, dict):
-        acc: list[str] = []
-        for vv in v.values():
-            acc.extend(_strings_from_value(vv))
-        return acc
-    if isinstance(v, list):
-        acc = []
-        for item in v:
-            acc.extend(_strings_from_value(item))
-        return acc
-    return []
-
-
-def _collect_public_brief_text(c: dict[str, Any]) -> list[str]:
-    keys = (
-        "siteTitle",
-        "sectionLabel",
-        "publicationIntro",
-        "mainThesis",
-        "whatChanged",
-        "marketRegimeScore",
-        "globalMacroDrivers",
-        "intermarketMap",
-        "transmissionChains",
-        "quickActions",
-        "allocationGuide",
-        "priorityAndAvoid",
-        "increaseRiskSignals",
-        "reduceRiskSignals",
-        "intradayPlaybook",
-        "scenarioPlan",
-        "viewChangeTriggers",
-        "finalDecision",
-    )
-    out: list[str] = []
-    for k in keys:
-        if k in c:
-            out.extend(_strings_from_value(c[k]))
-    return out
-
-
-def _collect_article_text(c: dict[str, Any]) -> list[str]:
-    arts = c.get("allArticles")
-    if not isinstance(arts, list):
-        return []
-    texts: list[str] = []
-    for a in arts:
-        if not isinstance(a, dict):
-            continue
-        for k in ("title", "summary", "category", "source"):
-            texts.append(str(a.get(k, "") or ""))
-    return texts
-
-
-def _allocation_semantic_errors(rows: Any) -> list[str]:
-    e: list[str] = []
-    if not isinstance(rows, list):
-        return ["content.allocationGuide must be a list for semantic check"]
-    for i, r in enumerate(rows):
-        if not isinstance(r, dict):
-            continue
-        profile = str(r.get("profile", "") or "").lower()
-        lev = str(r.get("leverage", "") or r.get("margin", "") or "").lower()
-        if "thận trọng" in profile or "than trong" in profile:
-            if re.search(r"\b(cao|đầy|chủ động margin|margin cao|đòn bẩy cao)\b", lev) and "không" not in lev:
-                if "rất thấp" not in lev:
-                    e.append(
-                        f"content.allocationGuide[{i}]: Thận trọng must not imply high leverage ({lev!r})",
-                    )
-        if "cân bằng" in profile or "can bang" in profile:
-            if re.search(r"đòn bẩy cao|margin cao|\b70\s*%", lev):
-                e.append(
-                    f"content.allocationGuide[{i}]: Cân bằng must not use high leverage ({lev!r})",
-                )
-    return e
-
-
-def _global_driver_local_errors(rows: Any) -> list[str]:
-    e: list[str] = []
-    if not isinstance(rows, list):
-        return e
-    for i, row in enumerate(rows):
-        if not isinstance(row, dict):
-            continue
-        blob = (
-            f"{row.get('title', '')} {row.get('analysis', '')} "
-            f"{row.get('marketImpact', '')}"
-        )
-        if _LOCAL_ONLY_MACRO_RE.search(blob) and not _STRONG_GLOBAL_ANCHOR_RE.search(blob):
-            e.append(
-                f"content.globalMacroDrivers[{i}]: looks local-only (not global macro); "
-                "move Vietnam infrastructure or single-name domestic stories elsewhere.",
-            )
-    return e
-
-
-def _quick_actions_repetition_errors(qa: Any) -> list[str]:
-    if not isinstance(qa, list) or len(qa) < 4:
-        return []
-    actions = [
-        str(r.get("action", "") or "").strip()
-        for r in qa
-        if isinstance(r, dict) and str(r.get("action", "") or "").strip()
-    ]
-    if len(actions) >= 4 and len(set(actions)) <= 2:
-        return ["content.quickActions: actions are too repetitive across investor states."]
-    return []
-
-
-def _is_multisector_digest_content(c: dict[str, Any]) -> bool:
-    return str(c.get("briefMode", "") or "").strip() == "multisector-digest"
-
-
-def _validate_content_semantics(c: dict[str, Any]) -> list[str]:
-    e: list[str] = []
-    digest_mode = _is_multisector_digest_content(c)
-    brief_text = _collect_public_brief_text(c)
-    if not digest_mode and any(PUBLIC_FORBIDDEN_RE.search(t) for t in brief_text):
-        e.append("content.json public brief contains forbidden wording (AI/automation/tooling/disclaimer).")
-
-    art_text = _collect_article_text(c)
-    if not digest_mode and any(ARTICLE_FORBIDDEN_RE.search(t) for t in art_text):
-        e.append("content.json allArticles contains forbidden tooling/disclaimer wording for public site.")
-
-    e.extend(_allocation_semantic_errors(c.get("allocationGuide")))
-    if not digest_mode:
-        e.extend(_global_driver_local_errors(c.get("globalMacroDrivers")))
-    e.extend(_quick_actions_repetition_errors(c.get("quickActions")))
-
-    irs = c.get("increaseRiskSignals")
-    if isinstance(irs, list):
-        for i, row in enumerate(irs):
-            if not isinstance(row, dict):
-                continue
-            sig = str(row.get("signal", "") or "")
-            meaning = str(row.get("meaning", "") or "")
-            if _INCREASE_BAD_SUBSTR.search(sig) or _INCREASE_BAD_SUBSTR.search(meaning):
-                e.append(
-                    f"content.increaseRiskSignals[{i}]: row looks risk-off, not confirmation: {sig[:80]!r}",
-                )
-
-    rrs = c.get("reduceRiskSignals")
-    if isinstance(rrs, list):
-        for i, row in enumerate(rrs):
-            if not isinstance(row, dict):
-                continue
-            sig = str(row.get("signal", "") or "")
-            act = str(row.get("action", "") or "")
-            if _REDUCE_GOOD_SUBSTR.search(sig) or _REDUCE_GOOD_SUBSTR.search(act):
-                e.append(
-                    f"content.reduceRiskSignals[{i}]: row looks risk-on, not warning: {sig[:80]!r}",
-                )
-
-    gmd = c.get("globalMacroDrivers")
-    if isinstance(gmd, list) and not digest_mode:
-        global_hits = 0
-        for row in gmd:
-            if not isinstance(row, dict):
-                continue
-            blob = (
-                f"{row.get('title', '')} {row.get('analysis', '')} "
-                f"{row.get('marketImpact', '')}"
-            )
-            if _GLOBAL_KW_RE.search(blob):
-                global_hits += 1
-        if global_hits < 2:
-            e.append(
-                f"content.globalMacroDrivers: need at least 2 clearly global drivers "
-                f"(Fed/USD/oil/inflation/China/trade/geopolitics); matched {global_hits}.",
-            )
-
-    qa = c.get("quickActions")
-    if isinstance(qa, list):
-        states_lower = {
-            str(r.get("investorState", "") or "").strip().lower()
-            for r in qa
-            if isinstance(r, dict)
-        }
-        for canon in _CANONICAL_INVESTOR_STATES:
-            if canon.lower() not in states_lower:
-                e.append(
-                    f"content.quickActions: missing investor state {canon!r} (expected six canonical labels).",
-                )
-
-    fd = str(c.get("finalDecision", "") or "").strip()
-    if len(fd) > 520:
-        e.append(f"content.finalDecision too long ({len(fd)} chars); keep concise (<=520).")
-
-    return e
-
-
-def _validate_content_json(path: Path) -> tuple[bool, list[str]]:
+def _validate_digest_content(c: dict[str, Any]) -> list[str]:
     err: list[str] = []
-    if not path.exists():
-        return False, [f"Missing content file: {path}"]
-    try:
-        c = json.loads(path.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError) as e:
-        return False, [f"content.json: {e}"]
-    if not isinstance(c, dict):
-        return False, ["content.json: root must be object"]
-
-    if str(c.get("schemaVersion", "") or "").strip() != "global-market-strategy-brief-v2":
-        err.append("content.json schemaVersion must be global-market-strategy-brief-v2")
-
-    for key in (
-        "siteTitle",
-        "sectionLabel",
-        "generatedAt",
-        "schemaVersion",
-        "publicationIntro",
-        "mainThesis",
-        "whatChanged",
-        "marketRegimeScore",
-        "globalMacroDrivers",
-        "intermarketMap",
-        "transmissionChains",
-        "quickActions",
-        "allocationGuide",
-        "priorityAndAvoid",
-        "increaseRiskSignals",
-        "reduceRiskSignals",
-        "intradayPlaybook",
-        "scenarioPlan",
-        "viewChangeTriggers",
-        "finalDecision",
-        "allArticles",
-    ):
-        if key not in c:
-            err.append(f"content.json missing key: {key}")
-
-    pub = c.get("publicationIntro")
-    if not isinstance(pub, dict):
-        err.append("content.publicationIntro must be object")
-    elif not str(pub.get("headline", "")).strip() or not str(pub.get("description", "")).strip():
-        err.append("content.publicationIntro.headline/description must be non-empty")
-
+    if c.get("briefMode") != "multisector-digest":
+        err.append('content.json: briefMode must be "multisector-digest"')
+    if not str(c.get("generatedAt") or "").strip():
+        err.append("content.json: missing generatedAt")
+    sectors = c.get("digestSectors")
+    if not isinstance(sectors, list) or len(sectors) < 1:
+        err.append("content.json: digestSectors must be a non-empty list")
+    else:
+        for i, s in enumerate(sectors[:12]):
+            if not isinstance(s, dict):
+                err.append(f"digestSectors[{i}]: must be object")
+                continue
+            if not str(s.get("name") or "").strip():
+                err.append(f"digestSectors[{i}]: missing name")
     mt = c.get("mainThesis")
-    if not isinstance(mt, dict):
-        err.append("content.mainThesis must be object")
-    else:
-        for f in ("regime", "thesis", "actionConclusion"):
-            if not str(mt.get(f, "")).strip():
-                err.append(f"content.mainThesis.{f} must be non-empty")
-
-    wc = c.get("whatChanged")
-    if not isinstance(wc, list) or len(wc) < _LIST_MINS["what_changed"]:
-        err.append(f"content.whatChanged must have at least {_LIST_MINS['what_changed']} items")
-    elif len(wc) > 6:
-        err.append("content.whatChanged must have at most 6 items")
-    else:
-        for i, row in enumerate(wc):
-            if not isinstance(row, dict):
-                err.append(f"content.whatChanged[{i}] must be object")
-                continue
-            for f in ("variable", "change", "meaning"):
-                if not str(row.get(f, "")).strip():
-                    err.append(f"content.whatChanged[{i}].{f} must be non-empty")
-
-    mrs = c.get("marketRegimeScore")
-    if not isinstance(mrs, dict):
-        err.append("content.marketRegimeScore must be object")
-    else:
-        items = mrs.get("items")
-        if not isinstance(items, list) or len(items) < _LIST_MINS["market_regime_axes"]:
-            err.append(f"content.marketRegimeScore.items must have at least {_LIST_MINS['market_regime_axes']} axes")
-        elif len(items) > 6:
-            err.append("content.marketRegimeScore.items must have at most 6 axes")
-        if mrs.get("totalScore") is None:
-            err.append("content.marketRegimeScore.totalScore must be present")
-        else:
-            try:
-                ts = int(mrs["totalScore"])
-            except (TypeError, ValueError):
-                err.append("content.marketRegimeScore.totalScore must be integer")
-            else:
-                if isinstance(items, list) and len(items) >= _LIST_MINS["market_regime_axes"]:
-                    calc = 0
-                    score_ok = True
-                    for it in items:
-                        if not isinstance(it, dict):
-                            continue
-                        try:
-                            sc_axis = int(it.get("score", 0) or 0)
-                        except (TypeError, ValueError):
-                            score_ok = False
-                            err.append("content.marketRegimeScore.items: invalid score")
-                            break
-                        if sc_axis not in (-1, 0, 1):
-                            score_ok = False
-                            err.append("content.marketRegimeScore.items: each score must be -1, 0, or 1")
-                            break
-                        calc += sc_axis
-                    if score_ok and calc != ts:
-                        err.append(
-                            f"content.marketRegimeScore.totalScore ({ts}) must equal sum of axis scores ({calc})",
-                        )
-                    elif score_ok and calc == ts:
-                        exp = regime_label_for_total_score(ts)
-                        if str(mrs.get("regime", "")).strip() != exp:
-                            err.append(
-                                f"content.marketRegimeScore.regime must be {exp!r} for totalScore {ts}",
-                            )
-        if not str(mrs.get("regime", "")).strip():
-            err.append("content.marketRegimeScore.regime must be non-empty")
-        if not str(mrs.get("interpretation", "")).strip():
-            err.append("content.marketRegimeScore.interpretation must be non-empty")
-
-    digest_mode = _is_multisector_digest_content(c)
-    gmd = c.get("globalMacroDrivers")
-    gmd_max = 24 if digest_mode else 4
-    if not isinstance(gmd, list) or len(gmd) < _LIST_MINS["global_macro_drivers"]:
-        err.append(f"content.globalMacroDrivers must have at least {_LIST_MINS['global_macro_drivers']} items")
-    elif len(gmd) > gmd_max:
-        err.append(f"content.globalMacroDrivers must have at most {gmd_max} items")
-    else:
-        for i, row in enumerate(gmd):
-            if not isinstance(row, dict):
-                err.append(f"content.globalMacroDrivers[{i}] must be object")
-                continue
-            impact = str(row.get("marketImpact", "") or row.get("vietnamImpact", "") or "").strip()
-            for f in ("title", "analysis"):
-                if not str(row.get(f, "")).strip():
-                    err.append(f"content.globalMacroDrivers[{i}].{f} must be non-empty")
-            if not impact:
-                err.append(f"content.globalMacroDrivers[{i}].marketImpact must be non-empty")
-
-    im = c.get("intermarketMap")
-    if not isinstance(im, list) or len(im) < _LIST_MINS["intermarket_map"]:
-        err.append(f"content.intermarketMap must have at least {_LIST_MINS['intermarket_map']} items")
-    else:
-        for i, row in enumerate(im):
-            if not isinstance(row, dict):
-                err.append(f"content.intermarketMap[{i}] must be object")
-                continue
-            for f in ("asset", "state", "action"):
-                if not str(row.get(f, "")).strip():
-                    err.append(f"content.intermarketMap[{i}].{f} must be non-empty")
-
-    tc = c.get("transmissionChains")
-    if not isinstance(tc, list) or len([x for x in tc if isinstance(x, str) and x.strip()]) < _LIST_MINS[
-        "transmission_chains"
-    ]:
-        err.append(f"content.transmissionChains must have at least {_LIST_MINS['transmission_chains']} strings")
-
-    qa = c.get("quickActions")
-    if not isinstance(qa, list) or len(qa) != 6:
-        err.append("content.quickActions must have exactly 6 items (one per canonical investor state)")
-
-    ag = c.get("allocationGuide")
-    if not isinstance(ag, list) or len(ag) != 4:
-        err.append("content.allocationGuide must have exactly 4 risk profiles")
-    else:
-        canon_prof = {"thận trọng", "cân bằng", "chủ động", "rủi ro cao"}
-        got_prof = {str(r.get("profile", "") or "").strip().lower() for r in ag if isinstance(r, dict)}
-        if got_prof != canon_prof:
-            err.append(
-                "content.allocationGuide profiles must be exactly: Thận trọng, Cân bằng, Chủ động, Rủi ro cao",
-            )
-        for i, row in enumerate(ag):
-            if not isinstance(row, dict):
-                err.append(f"content.allocationGuide[{i}] must be object")
-                continue
-            lev = str(row.get("leverage", "") or row.get("margin", "") or "").strip()
-            for f in ("profile", "stocks", "cash", "goldDefense", "cryptoHighRisk"):
-                if not str(row.get(f, "") or "").strip():
-                    err.append(f"content.allocationGuide[{i}].{f} must be non-empty")
-            if not lev:
-                err.append(f"content.allocationGuide[{i}].leverage must be non-empty")
-
-    pa = c.get("priorityAndAvoid")
-    if not isinstance(pa, dict):
-        err.append("content.priorityAndAvoid must be object")
-    else:
-        pr = pa.get("prioritize")
-        av = pa.get("avoidOrBeCareful")
-        if not isinstance(pr, list) or len(pr) < 5:
-            err.append("content.priorityAndAvoid.prioritize must have at least 5 items")
-        elif len(pr) > 6:
-            err.append("content.priorityAndAvoid.prioritize must have at most 6 items")
-        if not isinstance(av, list) or len(av) < 5:
-            err.append("content.priorityAndAvoid.avoidOrBeCareful must have at least 5 items")
-        elif len(av) > 6:
-            err.append("content.priorityAndAvoid.avoidOrBeCareful must have at most 6 items")
-        if isinstance(pr, list):
-            for i, row in enumerate(pr):
-                if not isinstance(row, dict):
-                    err.append(f"content.priorityAndAvoid.prioritize[{i}] must be object")
-                    continue
-                if not str(row.get("asset", "") or "").strip() or not str(row.get("reason", "") or "").strip():
-                    err.append(f"content.priorityAndAvoid.prioritize[{i}] incomplete")
-        if isinstance(av, list):
-            for i, row in enumerate(av):
-                if not isinstance(row, dict):
-                    err.append(f"content.priorityAndAvoid.avoidOrBeCareful[{i}] must be object")
-                    continue
-                if not str(row.get("asset", "") or "").strip() or not str(row.get("reason", "") or "").strip():
-                    err.append(f"content.priorityAndAvoid.avoidOrBeCareful[{i}] incomplete")
-
-    irs = c.get("increaseRiskSignals")
-    if not isinstance(irs, list) or len(irs) < _LIST_MINS["increase_risk_signals"]:
-        err.append(f"content.increaseRiskSignals must have at least {_LIST_MINS['increase_risk_signals']} items")
-
-    rrs = c.get("reduceRiskSignals")
-    if not isinstance(rrs, list) or len(rrs) < _LIST_MINS["reduce_risk_signals"]:
-        err.append(f"content.reduceRiskSignals must have at least {_LIST_MINS['reduce_risk_signals']} items")
-
-    ipb = c.get("intradayPlaybook")
-    if not isinstance(ipb, list) or len(ipb) < _LIST_MINS["intraday_playbook"]:
-        err.append(f"content.intradayPlaybook must have at least {_LIST_MINS['intraday_playbook']} items")
-    elif len(ipb) > 7:
-        err.append("content.intradayPlaybook must have at most 7 items")
-    elif isinstance(ipb, list):
-        for i, row in enumerate(ipb):
-            if not isinstance(row, dict):
-                err.append(f"content.intradayPlaybook[{i}] must be object")
-                continue
-            for f in ("marketCondition", "action"):
-                if not str(row.get(f, "") or "").strip():
-                    err.append(f"content.intradayPlaybook[{i}].{f} must be non-empty")
-
-    scenario = c.get("scenarioPlan")
-    if not isinstance(scenario, dict):
-        err.append("content.scenarioPlan must be object")
-    else:
-        for case in ("baseCase", "bullCase", "bearCase"):
-            sc = scenario.get(case)
-            if not isinstance(sc, dict):
-                err.append(f"content.scenarioPlan.{case} must be object")
-            else:
-                for f in ("title", "description", "action"):
-                    if not str(sc.get(f, "")).strip():
-                        err.append(f"content.scenarioPlan.{case}.{f} must be non-empty")
-
-    vct = c.get("viewChangeTriggers")
-    if not isinstance(vct, dict):
-        err.append("content.viewChangeTriggers must be object")
-    else:
-        mp = vct.get("morePositiveIf")
-        mn = vct.get("moreNegativeIf")
-        if not isinstance(mp, list) or len([x for x in mp if isinstance(x, str) and x.strip()]) < 4:
-            err.append("content.viewChangeTriggers.morePositiveIf must have at least 4 strings")
-        if not isinstance(mn, list) or len([x for x in mn if isinstance(x, str) and x.strip()]) < 4:
-            err.append("content.viewChangeTriggers.moreNegativeIf must have at least 4 strings")
-
-    if not str(c.get("finalDecision", "")).strip():
-        err.append("content.finalDecision must be non-empty string")
-
-    forbidden = (
-        "sourceQuality",
-        "disclaimer",
-        "webVerification",
-        "verifiedLinks",
-        "sourcesScanned",
-        "articlesSelected",
-        "confidence",
-        "vietnamTransmission",
-        "sectorPriority",
-        "finalTakeaway",
-    )
-    for fk in forbidden:
-        if fk in c:
-            err.append(f"content.json must not expose public key: {fk}")
-
-    err.extend(_validate_content_semantics(c))
-
-    return (len(err) == 0, err)
+    if not isinstance(mt, dict) or not str(mt.get("thesis") or "").strip():
+        err.append("content.json: mainThesis.thesis required")
+    articles = c.get("articleLinkIndex")
+    if articles is not None and not isinstance(articles, list):
+        err.append("content.json: articleLinkIndex must be list")
+    return err
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Validate final_summary.json + content.json structure.")
-    parser.add_argument("--final-input", default=str(DEFAULT_FINAL))
-    parser.add_argument("--content-input", default=str(DEFAULT_CONTENT), help="Optional content.json checks")
-    parser.add_argument(
-        "--require-v2-final",
-        action="store_true",
-        help="Fail if final_summary.summary is not full v2 schema (default: skip when legacy).",
-    )
+    parser = argparse.ArgumentParser(description="Validate content.json for digest web.")
+    parser.add_argument("--content-input", default=str(DEFAULT_CONTENT))
     parser.add_argument(
         "--content-only",
         action="store_true",
-        help="Chỉ kiểm tra content.json (pipeline Gemini digest, không cần final_summary).",
+        help="Alias for digest-only validation (default behavior).",
     )
     args = parser.parse_args()
-    if args.content_only:
-        cpath = Path(args.content_input)
-        cok, cerrs = _validate_content_json(cpath)
-        if not cok:
-            for e in cerrs:
-                print(e, file=sys.stderr)
-            return 1
-        print("OK: content.json valid for public brief.")
-        return 0
+    _ = args.content_only
 
-    path = Path(args.final_input)
-    if not path.exists():
+    path = Path(args.content_input)
+    if not path.is_file():
         print(f"Missing file: {path}", file=sys.stderr)
         return 1
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    summary = payload.get("summary")
-    if not isinstance(summary, dict):
-        print("Invalid final_summary: 'summary' must be an object", file=sys.stderr)
+    try:
+        c = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        print(f"Invalid JSON: {e}", file=sys.stderr)
+        return 1
+    if not isinstance(c, dict):
+        print("content.json must be an object", file=sys.stderr)
         return 1
 
-    has_v2 = all(k in summary for k in MACRO_INTELLIGENCE_SUMMARY_KEYS)
-    if not has_v2:
-        msg = (
-            "Note: final_summary.json is legacy shape (missing v2 keys); skipping strict summary validation. "
-            "Public gate is content.json. Regenerate with: python finalize_summary_gpt.py --update-content"
-        )
-        if args.require_v2_final:
-            print(msg, file=sys.stderr)
-            return 1
-        print(msg, file=sys.stderr)
-    else:
-        ok, errors = validate_final_summary(summary)
-        if not ok:
-            for e in errors:
-                print(e, file=sys.stderr)
-            return 1
-        extra = set(summary.keys()) - MACRO_INTELLIGENCE_SUMMARY_KEYS
-        if extra:
-            print(
-                f"Summary must only contain Global Market Strategy Brief v2 keys; remove: {sorted(extra)}",
-                file=sys.stderr,
-            )
-            return 1
-        print("OK: final_summary.json passes Global Market Strategy Brief v2 validation.")
-
-    cpath = Path(args.content_input)
-    cok, cerrs = _validate_content_json(cpath)
-    if not cok:
-        for e in cerrs:
+    errs = _validate_digest_content(c)
+    if errs:
+        for e in errs:
             print(e, file=sys.stderr)
         return 1
-    print("OK: content.json valid for public brief.")
+    n = len(c.get("digestSectors") or [])
+    print(f"OK: content.json valid ({n} sector(s), digest 48h).")
     return 0
 
 

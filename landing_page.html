@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường</title>
-  <meta name="description" content="Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam — brief kết nối diễn biến toàn cầu với hành động danh mục.">
+  <title>LEON Quant Labs — Tổng hợp tin tức 48 giờ</title>
+  <meta name="description" content="Tổng hợp tin tức thế giới và Việt Nam trong 48 giờ qua — theo lĩnh vực, kèm liên kết nguồn.">
   <style>
     :root {
       --bg0: #05080f;
@@ -570,24 +570,11 @@
     <div class="container">
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
-        <div class="nav-links" id="navLinks">
-          <a href="#sectionThesis">Luận điểm</a>
-          <a href="#sectionWhatChanged">Thay đổi</a>
-          <a href="#sectionRegimeScore">Regime</a>
-          <a href="#sectionMacro">Vĩ mô</a>
-          <a href="#reference">Tin nền</a>
-        </div>
+        <div class="nav-links" id="navLinks"></div>
       </nav>
       <h1>LEON Quant Labs</h1>
-      <p class="hero-sub" id="heroSubtitle">Global Market Strategy Brief</p>
-      <p class="hero-desc" id="heroDescription">
-        Khung chiến lược ngắn gọn từ vĩ mô toàn cầu đến danh mục — cập nhật theo ngày.
-      </p>
-      <ul class="hero-qs">
-        <li>Thế giới đang tác động gì?</li>
-        <li>Việt Nam bị ảnh hưởng thế nào?</li>
-        <li>Nhà đầu tư nên hành động ra sao?</li>
-      </ul>
+      <p class="hero-sub" id="heroSubtitle"></p>
+      <p class="hero-desc" id="heroDescription"></p>
     </div>
   </header>
 
@@ -595,24 +582,7 @@
     <section id="brief" class="alt">
       <div class="container">
         <p id="syncNote" class="sync-note"></p>
-        <!-- Digest: nội dung chính → bổ sung → liên kết -->
         <div id="sectionThesis" class="brief-block"></div>
-        <div id="sectionDigestHighlights" class="brief-block"></div>
-        <div id="sectionLinkIndex" class="brief-block"></div>
-        <div id="sectionWhatChanged" class="brief-block"></div>
-        <div id="sectionRegimeScore" class="brief-block"></div>
-        <div id="sectionMacro" class="brief-block"></div>
-        <div id="sectionIntermarket" class="brief-block"></div>
-        <div id="sectionTransmission" class="brief-block"></div>
-        <div id="sectionActions" class="brief-block"></div>
-        <div id="sectionAllocation" class="brief-block"></div>
-        <div id="sectionPriority" class="brief-block"></div>
-        <div id="sectionRiskOn" class="brief-block"></div>
-        <div id="sectionRiskOff" class="brief-block"></div>
-        <div id="sectionIntraday" class="brief-block"></div>
-        <div id="sectionScenarios" class="brief-block"></div>
-        <div id="sectionViewTriggers" class="brief-block"></div>
-        <div id="sectionFinalDecision" class="brief-block"></div>
       </div>
     </section>
 
@@ -620,8 +590,8 @@
       <div class="container" style="max-width: min(1180px, 95%);">
         <div class="section-head secondary-head">
           <p class="eyebrow">Tham khảo</p>
-          <h2 id="sourceGridTitle">Danh sách bài trong cửa sổ crawl</h2>
-          <p id="sourceGridDesc">Liên kết gốc (không ảnh) — mở tab mới để đọc chi tiết.</p>
+          <h2 id="sourceGridTitle">Nguồn tin tức</h2>
+          <p id="sourceGridDesc">Nội dung được tổng hợp từ các nguồn tin trong 48 giờ qua.</p>
         </div>
         <div id="sectionArticleIndex" class="brief-block"></div>
         <div id="sourceGrid" class="source-grid"></div>
@@ -673,211 +643,13 @@
       return JSON.parse(String(text).replace(/^\uFEFF/, "").trim());
     }
 
-    function camelScenarioFromSnake(sp) {
-      if (!sp || typeof sp !== "object") return {};
-      const one = (k) => {
-        const o = sp[k] || {};
-        return {
-          title: String(o.title || ""),
-          description: String(o.description || ""),
-          action: String(o.action || ""),
-        };
-      };
-      return {
-        baseCase: one("base_case"),
-        bullCase: one("bull_case"),
-        bearCase: one("bear_case"),
-      };
-    }
-
-    function isStrategyBriefSnakeObject(snake) {
-      if (!snake || typeof snake !== "object" || Array.isArray(snake)) return false;
-      if (snake.main_thesis && typeof snake.main_thesis === "object") return true;
-      if (Array.isArray(snake.global_macro_drivers) && snake.global_macro_drivers.length > 0) return true;
-      if (Array.isArray(snake.what_changed) && snake.what_changed.length > 0) return true;
-      return false;
-    }
-
-    function marketRegimeFromSnake(mrs) {
-      if (!mrs || typeof mrs !== "object") {
-        return { totalScore: 0, regime: "", items: [], interpretation: "" };
-      }
-      const items = Array.isArray(mrs.items)
-        ? mrs.items.map((it) => ({
-            axis: String((it && it.axis) || ""),
-            signal: String((it && it.signal) || ""),
-            score: Number(it && it.score) || 0,
-          }))
-        : [];
-      return {
-        totalScore: Number(mrs.total_score) || 0,
-        regime: String(mrs.regime || ""),
-        items,
-        interpretation: String(mrs.interpretation || ""),
-      };
-    }
-
-    /** final_summary.summary (snake_case) → cùng shape camelCase như content.json v2 */
-    function briefFromSnakeSummary(s) {
-      if (!s || typeof s !== "object") return {};
-      const pub = s.publication_intro || {};
-      const mt = s.main_thesis || {};
-      const sp = s.scenario_plan || {};
-      const pa = s.priority_and_avoid || {};
-      const vct = s.view_change_triggers || {};
-      const ob = (x) => x && typeof x === "object";
-      const vt = s.vietnam_transmission || {};
-      const chainsFromVt = Array.isArray(vt.chains) ? vt.chains.map(String) : [];
-      const tcRaw = Array.isArray(s.transmission_chains) ? s.transmission_chains.map(String) : [];
-      const transmissionChains = tcRaw.filter(Boolean).length ? tcRaw.filter(Boolean) : chainsFromVt;
-
-      return {
-        publicationIntro: {
-          headline: String(pub.headline || ""),
-          description: String(pub.description || ""),
-        },
-        mainThesis: {
-          regime: String(mt.regime || ""),
-          thesis: String(mt.thesis || ""),
-          actionConclusion: String(mt.action_conclusion || ""),
-        },
-        whatChanged: (Array.isArray(s.what_changed) ? s.what_changed : [])
-          .filter(ob)
-          .map((r) => ({
-            variable: String(r.variable || ""),
-            change: String(r.change || ""),
-            meaning: String(r.meaning || ""),
-          })),
-        marketRegimeScore: marketRegimeFromSnake(s.market_regime_score),
-        globalMacroDrivers: (Array.isArray(s.global_macro_drivers) ? s.global_macro_drivers : [])
-          .filter(ob)
-          .map((r) => ({
-            title: String(r.title || ""),
-            analysis: String(r.analysis || ""),
-            marketImpact: String(r.market_impact || r.vietnam_impact || ""),
-          })),
-        intermarketMap: (Array.isArray(s.intermarket_map) ? s.intermarket_map : [])
-          .filter(ob)
-          .map((r) => ({
-            asset: String(r.asset || ""),
-            state: String(r.state || ""),
-            action: String(r.action || ""),
-          })),
-        transmissionChains,
-        quickActions: (Array.isArray(s.quick_actions) ? s.quick_actions : [])
-          .filter(ob)
-          .map((r) => ({
-            investorState: String(r.investor_state || ""),
-            action: String(r.action || ""),
-          })),
-        allocationGuide: (Array.isArray(s.allocation_guide) ? s.allocation_guide : [])
-          .filter(ob)
-          .map((r) => ({
-            profile: String(r.profile || ""),
-            stocks: String(r.stocks || ""),
-            cash: String(r.cash || ""),
-            goldDefense: String(r.gold_defense || r.goldDefense || ""),
-            cryptoHighRisk: String(r.crypto_high_risk || r.cryptoHighRisk || ""),
-            leverage: String(r.leverage || r.margin || ""),
-          })),
-        priorityAndAvoid: {
-          prioritize: (Array.isArray(pa.prioritize) ? pa.prioritize : [])
-            .filter(ob)
-            .map((r) => ({ asset: String(r.asset || ""), reason: String(r.reason || "") })),
-          avoidOrBeCareful: (Array.isArray(pa.avoid_or_be_careful) ? pa.avoid_or_be_careful : [])
-            .filter(ob)
-            .map((r) => ({ asset: String(r.asset || ""), reason: String(r.reason || "") })),
-        },
-        increaseRiskSignals: (Array.isArray(s.increase_risk_signals) ? s.increase_risk_signals : [])
-          .filter(ob)
-          .map((r) => ({
-            signal: String(r.signal || ""),
-            meaning: String(r.meaning || ""),
-          })),
-        reduceRiskSignals: (Array.isArray(s.reduce_risk_signals) ? s.reduce_risk_signals : [])
-          .filter(ob)
-          .map((r) => ({
-            signal: String(r.signal || ""),
-            action: String(r.action || ""),
-          })),
-        intradayPlaybook: (Array.isArray(s.intraday_playbook) ? s.intraday_playbook : [])
-          .filter(ob)
-          .map((r) => ({
-            marketCondition: String(r.market_condition || ""),
-            action: String(r.action || ""),
-          })),
-        scenarioPlan: camelScenarioFromSnake(ob(sp) ? sp : {}),
-        viewChangeTriggers: {
-          morePositiveIf: Array.isArray(vct.more_positive_if)
-            ? vct.more_positive_if.map(String).filter((x) => x.trim())
-            : [],
-          moreNegativeIf: Array.isArray(vct.more_negative_if)
-            ? vct.more_negative_if.map(String).filter((x) => x.trim())
-            : [],
-        },
-        finalDecision: String(s.final_decision || s.final_takeaway || ""),
-      };
-    }
-
     function normalizeContentPayload(raw) {
       if (!raw || typeof raw !== "object") return raw;
-      const mt0 = raw.mainThesis;
-      const hasCamelBrief =
-        mt0 &&
-        typeof mt0 === "object" &&
-        (String(mt0.thesis || "").trim() ||
-          String(mt0.regime || "").trim() ||
-          String(mt0.actionConclusion || "").trim());
-      const snake = raw.summary;
-      if (!isStrategyBriefSnakeObject(snake)) return raw;
-      if (
-        hasCamelBrief &&
-        Array.isArray(raw.whatChanged) &&
-        raw.whatChanged.length &&
-        String(raw.finalDecision || "").trim()
-      ) {
-        return raw;
+      if (raw.briefMode === "multisector-digest") return raw;
+      if (Array.isArray(raw.digestSectors) && raw.digestSectors.length) {
+        return { ...raw, briefMode: "multisector-digest" };
       }
-      const hasSnakeBrief =
-        (snake.main_thesis && typeof snake.main_thesis === "object") ||
-        (Array.isArray(snake.global_macro_drivers) && snake.global_macro_drivers.length > 0) ||
-        (Array.isArray(snake.what_changed) && snake.what_changed.length > 0);
-      if (!hasSnakeBrief) return raw;
-
-      const b = briefFromSnakeSummary(snake);
-      const m = { ...raw };
-      const mt = m.mainThesis;
-      const mtEmpty =
-        !mt ||
-        typeof mt !== "object" ||
-        (!String(mt.thesis || "").trim() &&
-          !String(mt.regime || "").trim() &&
-          !String(mt.actionConclusion || "").trim());
-      if (mtEmpty) m.mainThesis = b.mainThesis;
-      if (!Array.isArray(m.whatChanged) || !m.whatChanged.length) m.whatChanged = b.whatChanged;
-      if (!m.marketRegimeScore || !m.marketRegimeScore.items || !m.marketRegimeScore.items.length) {
-        m.marketRegimeScore = b.marketRegimeScore;
-      }
-      if (!Array.isArray(m.globalMacroDrivers) || !m.globalMacroDrivers.length) m.globalMacroDrivers = b.globalMacroDrivers;
-      if (!Array.isArray(m.intermarketMap) || !m.intermarketMap.length) m.intermarketMap = b.intermarketMap;
-      if (!Array.isArray(m.transmissionChains) || !m.transmissionChains.length) m.transmissionChains = b.transmissionChains;
-      if (!Array.isArray(m.quickActions) || !m.quickActions.length) m.quickActions = b.quickActions;
-      if (!Array.isArray(m.allocationGuide) || !m.allocationGuide.length) m.allocationGuide = b.allocationGuide;
-      const p0 = m.priorityAndAvoid;
-      if (!p0 || typeof p0 !== "object" || !Array.isArray(p0.prioritize) || !p0.prioritize.length) {
-        m.priorityAndAvoid = b.priorityAndAvoid;
-      }
-      if (!Array.isArray(m.increaseRiskSignals) || !m.increaseRiskSignals.length) m.increaseRiskSignals = b.increaseRiskSignals;
-      if (!Array.isArray(m.reduceRiskSignals) || !m.reduceRiskSignals.length) m.reduceRiskSignals = b.reduceRiskSignals;
-      if (!Array.isArray(m.intradayPlaybook) || !m.intradayPlaybook.length) m.intradayPlaybook = b.intradayPlaybook;
-      const sp = m.scenarioPlan;
-      if (!sp || typeof sp !== "object" || (!sp.baseCase && !sp.bullCase && !sp.bearCase))
-        m.scenarioPlan = b.scenarioPlan;
-      const v0 = m.viewChangeTriggers;
-      if (!v0 || typeof v0 !== "object") m.viewChangeTriggers = b.viewChangeTriggers;
-      if (!String(m.finalDecision || "").trim()) m.finalDecision = b.finalDecision;
-      if (!m.publicationIntro?.headline) m.publicationIntro = b.publicationIntro;
-      return m;
+      return raw;
     }
 
     function escapeHtml(value) {
@@ -901,19 +673,6 @@
 
     function getHostName(u) {
       try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
-    }
-
-    function renderTable(headers, rows) {
-      let h = `<div class="data-table-wrap"><table class="data"><thead><tr>`;
-      for (const x of headers) h += `<th>${escapeHtml(x)}</th>`;
-      h += `</tr></thead><tbody>`;
-      for (const row of rows) {
-        h += `<tr>`;
-        for (const cell of row) h += `<td>${cell}</td>`;
-        h += `</tr>`;
-      }
-      h += `</tbody></table></div>`;
-      return h;
     }
 
     function applyHeroBranding(data) {
@@ -1278,441 +1037,38 @@
     }
 
     function buildBriefParts(data) {
-      const digestMode = data.briefMode === "multisector-digest";
-      if (digestMode) return buildDigestBriefParts(data);
-      const mt = data.mainThesis || {};
-      const drivers = (Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : []).filter(
-        (r) => r && typeof r === "object",
-      );
-      const wc = (Array.isArray(data.whatChanged) ? data.whatChanged : []).filter((r) => r && typeof r === "object");
-      const mscore = data.marketRegimeScore || {};
-      const mItems = Array.isArray(mscore.items) ? mscore.items : [];
-      const im = (Array.isArray(data.intermarketMap) ? data.intermarketMap : []).filter((r) => r && typeof r === "object");
-      const chains = Array.isArray(data.transmissionChains) ? data.transmissionChains : [];
-      const qa = (Array.isArray(data.quickActions) ? data.quickActions : []).filter((r) => r && typeof r === "object");
-      const ag = (Array.isArray(data.allocationGuide) ? data.allocationGuide : []).filter((r) => r && typeof r === "object");
-      const pa = data.priorityAndAvoid || {};
-      const pri = Array.isArray(pa.prioritize) ? pa.prioritize : [];
-      const avo = Array.isArray(pa.avoidOrBeCareful) ? pa.avoidOrBeCareful : [];
-      const ir = (Array.isArray(data.increaseRiskSignals) ? data.increaseRiskSignals : []).filter(
-        (r) => r && typeof r === "object",
-      );
-      const rr = (Array.isArray(data.reduceRiskSignals) ? data.reduceRiskSignals : []).filter(
-        (r) => r && typeof r === "object",
-      );
-      const ip = (Array.isArray(data.intradayPlaybook) ? data.intradayPlaybook : []).filter((r) => r && typeof r === "object");
-      const scen = data.scenarioPlan || {};
-      const vct = data.viewChangeTriggers || {};
-      const mp = Array.isArray(vct.morePositiveIf) ? vct.morePositiveIf : [];
-      const mn = Array.isArray(vct.moreNegativeIf) ? vct.moreNegativeIf : [];
-
-      const marketImpact = (d) => String(d.marketImpact || d.vietnamImpact || ND);
-
-      let thesisHtml = "";
-      thesisHtml += `<div class="section-head"><p class="eyebrow">Luận điểm</p><h2>Luận điểm chính hôm nay</h2></div>`;
-      thesisHtml += `<div class="thesis-block">`;
-      thesisHtml += `<p class="lbl">Trạng thái / nhịp thị trường</p><p>${escapeHtml(mt.regime || ND)}</p>`;
-      thesisHtml += `<p class="lbl">Luận điểm</p><p>${escapeHtml(mt.thesis || ND)}</p>`;
-      thesisHtml += `<p class="lbl">Kết luận hành động</p><p>${escapeHtml(mt.actionConclusion || ND)}</p>`;
-      thesisHtml += `</div>`;
-
-      let whatChangedHtml = "";
-      whatChangedHtml += `<div class="section-head"><p class="eyebrow">Thay đổi</p><h2>Điều thay đổi quan trọng</h2></div>`;
-      if (!wc.length) {
-        whatChangedHtml += `<p class="error-card">Chưa có mục thay đổi.</p>`;
-      } else {
-        whatChangedHtml += renderTable(
-          ["Biến số", "Diễn biến", "Ý nghĩa"],
-          wc.map((r) => [
-            escapeHtml(r.variable || ND),
-            escapeHtml(r.change || ND),
-            escapeHtml(r.meaning || ND),
-          ]),
-        );
-      }
-
-      let regimeHtml = "";
-      regimeHtml += `<div class="section-head"><p class="eyebrow">Regime</p><h2>Market Regime Score</h2></div>`;
-      regimeHtml += `<div class="thesis-block compact-regime">`;
-      regimeHtml += `<p><span class="lbl">Tổng điểm</span> ${escapeHtml(String(mscore.totalScore ?? ND))} · `;
-      regimeHtml += `<span class="lbl">Nhãn</span> ${escapeHtml(mscore.regime || ND)}</p>`;
-      regimeHtml += `<p class="body">${escapeHtml(mscore.interpretation || ND)}</p>`;
-      regimeHtml += `</div>`;
-      if (mItems.length) {
-        regimeHtml += renderTable(
-          ["Trục", "Tín hiệu", "Điểm"],
-          mItems.map((r) => [escapeHtml(r.axis || ND), escapeHtml(r.signal || ND), escapeHtml(String(r.score ?? ND))]),
-        );
-      }
-
-      let digestHighlightsHtml = "";
-      if (digestMode) {
-        const vn = String(data.digestVietnamHighlights || "").trim();
-        const intl = String(data.digestInternationalHighlights || "").trim();
-        const gaps = String(data.digestGapsAndLimits || "").trim();
-        const tl = Array.isArray(data.digestTimeline) ? data.digestTimeline : [];
-        const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
-        if (vn || intl || tl.length || notable.length || gaps) {
-          digestHighlightsHtml += `<div class="section-head"><p class="eyebrow">Toàn cảnh</p><h2>Điểm nổi bật Việt Nam & thế giới</h2></div>`;
-          if (vn) {
-            digestHighlightsHtml += `<p class="sub">Việt Nam</p><p class="body">${escapeHtml(vn)}</p>`;
-          }
-          if (intl) {
-            digestHighlightsHtml += `<p class="sub">Quốc tế</p><p class="body">${escapeHtml(intl)}</p>`;
-          }
-          if (tl.length) {
-            digestHighlightsHtml += `<div class="section-head" style="margin-top:1.5rem"><p class="eyebrow">Timeline</p><h2>Dòng thời gian</h2></div>`;
-            for (const day of tl) {
-              if (!day || typeof day !== "object") continue;
-              digestHighlightsHtml += `<p class="sub">${escapeHtml(day.date || ND)}</p><ul class="chain-list">`;
-              for (const h of day.headlines || []) {
-                if (String(h || "").trim()) digestHighlightsHtml += `<li>${escapeHtml(h)}</li>`;
-              }
-              digestHighlightsHtml += `</ul>`;
-            }
-          }
-          if (notable.length) {
-            digestHighlightsHtml += `<div class="section-head" style="margin-top:1.5rem"><p class="eyebrow">Tin chọn</p><h2>Bài đáng chú ý</h2></div><div class="cards">`;
-            for (const a of notable) {
-              if (!a || typeof a !== "object") continue;
-              const u = String(a.url || "").trim();
-              const title = escapeHtml(a.title || ND);
-              digestHighlightsHtml += `<article class="card"><h3>${title}</h3>`;
-              digestHighlightsHtml += `<p class="sub">${escapeHtml([a.source, a.whyNotable].filter(Boolean).join(" · "))}</p>`;
-              if (u) {
-                digestHighlightsHtml += `<p class="body"><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">Đọc bài gốc →</a></p>`;
-              }
-              digestHighlightsHtml += `</article>`;
-            }
-            digestHighlightsHtml += `</div>`;
-          }
-          if (gaps) {
-            digestHighlightsHtml += `<p class="sub" style="margin-top:1rem">Hạn chế / khoảng trống</p><p class="body">${escapeHtml(gaps)}</p>`;
-          }
-        }
-      }
-
-      const impactLabel = digestMode ? "Điểm nổi bật" : "Tác động liên thị trường";
-      let macroHtml = "";
-      macroHtml += digestMode
-        ? `<div class="section-head"><p class="eyebrow">Đa ngành</p><h2>Tin theo lĩnh vực (${drivers.length})</h2></div>`
-        : `<div class="section-head"><p class="eyebrow">Vĩ mô</p><h2>Vĩ mô thế giới đang tác động gì?</h2></div>`;
-      if (!drivers.length) {
-        macroHtml += `<p class="error-card">Chưa có nội dung theo lĩnh vực.</p>`;
-      } else {
-        macroHtml += `<div class="cards">`;
-        for (let i = 0; i < drivers.length; i++) {
-          const d = drivers[i];
-          macroHtml += `<article class="card"><h3>${i + 1}. ${escapeHtml(d.title || ND)}</h3>`;
-          macroHtml += `<p class="sub">Tóm tắt</p><p class="body">${escapeHtml(d.analysis || ND)}</p>`;
-          macroHtml += `<p class="sub">${impactLabel}</p><p class="body">${escapeHtml(marketImpact(d))}</p></article>`;
-        }
-        macroHtml += `</div>`;
-      }
-
-      let interHtml = "";
-      interHtml += `<div class="section-head"><p class="eyebrow">Liên thị trường</p><h2>Bản đồ liên thị trường</h2></div>`;
-      if (!im.length) {
-        interHtml += `<p class="error-card">Chưa có bản đồ liên thị trường.</p>`;
-      } else {
-        interHtml += renderTable(
-          ["Tài sản", "Trạng thái", "Gợi ý xử lý"],
-          im.map((r) => [
-            escapeHtml(r.asset || ND),
-            escapeHtml(r.state || ND),
-            escapeHtml(r.action || ND),
-          ]),
-        );
-      }
-
-      let transmissionHtml = "";
-      transmissionHtml += `<div class="section-head"><p class="eyebrow">Truyền dẫn</p><h2>Chuỗi truyền dẫn vào danh mục</h2></div>`;
-      if (chains.length) {
-        transmissionHtml += `<ul class="chain-list">`;
-        for (const c of chains) transmissionHtml += `<li>${escapeHtml(c)}</li>`;
-        transmissionHtml += `</ul>`;
-      } else {
-        transmissionHtml += `<p class="error-card">Chưa có chuỗi truyền dẫn.</p>`;
-      }
-
-      let actionsHtml = "";
-      actionsHtml += `<div class="section-head"><p class="eyebrow">Thực thi</p><h2>Hành động nhanh hôm nay</h2></div>`;
-      actionsHtml += renderTable(
-        ["Trạng thái nhà đầu tư", "Hành động phù hợp"],
-        qa.map((r) => [escapeHtml(r.investorState || ND), escapeHtml(r.action || ND)]),
-      );
-
-      let allocationHtml = "";
-      allocationHtml += `<div class="section-head"><p class="eyebrow">Danh mục</p><h2>Phân bổ vốn tham khảo</h2></div>`;
-      allocationHtml += renderTable(
-        ["Hồ sơ rủi ro", "Cổ phiếu", "Tiền mặt", "Vàng / phòng thủ", "Crypto (rủi ro cao)", "Đòn bẩy"],
-        ag.map((r) => [
-          escapeHtml(r.profile || ND),
-          escapeHtml(r.stocks || ND),
-          escapeHtml(r.cash || ND),
-          escapeHtml(r.goldDefense || ND),
-          escapeHtml(r.cryptoHighRisk || ND),
-          escapeHtml(r.leverage || r.margin || ND),
-        ]),
-      );
-
-      let priorityHtml = "";
-      priorityHtml += `<div class="section-head"><p class="eyebrow">Ưu tiên</p><h2>Ưu tiên và thận trọng</h2></div>`;
-      priorityHtml += `<h3 class="subhead">Ưu tiên</h3>`;
-      priorityHtml += renderTable(
-        ["Hạng mục", "Lý do"],
-        pri
-          .filter((r) => r && typeof r === "object")
-          .map((r) => [escapeHtml(r.asset || ND), escapeHtml(r.reason || ND)]),
-      );
-      priorityHtml += `<h3 class="subhead" style="margin-top:20px">Thận trọng / hạn chế</h3>`;
-      priorityHtml += renderTable(
-        ["Hạng mục", "Lý do"],
-        avo
-          .filter((r) => r && typeof r === "object")
-          .map((r) => [escapeHtml(r.asset || ND), escapeHtml(r.reason || ND)]),
-      );
-
-      let riskOnHtml = "";
-      riskOnHtml += `<div class="section-head"><p class="eyebrow">Tăng rủi ro</p><h2>Tín hiệu để tăng rủi ro</h2></div>`;
-      riskOnHtml += renderTable(
-        ["Tín hiệu", "Ý nghĩa"],
-        ir.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.meaning || ND)]),
-      );
-
-      let riskOffHtml = "";
-      riskOffHtml += `<div class="section-head"><p class="eyebrow">Giảm rủi ro</p><h2>Tín hiệu cần giảm rủi ro</h2></div>`;
-      riskOffHtml += renderTable(
-        ["Tín hiệu cảnh báo", "Hành động"],
-        rr.map((r) => [escapeHtml(r.signal || ND), escapeHtml(r.action || ND)]),
-      );
-
-      let intradayHtml = "";
-      intradayHtml += `<div class="section-head"><p class="eyebrow">Phiên</p><h2>Playbook trong phiên</h2></div>`;
-      intradayHtml += renderTable(
-        ["Điều kiện hành vi", "Gợi ý"],
-        ip.map((r) => [
-          escapeHtml(r.marketCondition || ND),
-          escapeHtml(r.action || ND),
-        ]),
-      );
-
-      let scenariosHtml = "";
-      scenariosHtml += `<div class="section-head"><p class="eyebrow">Kịch bản</p><h2>Kịch bản thị trường</h2></div>`;
-      const b = scen.baseCase || {};
-      const u = scen.bullCase || {};
-      const e = scen.bearCase || {};
-      scenariosHtml += `<div class="scenario-grid">`;
-      scenariosHtml += `<article class="sc"><h3>${escapeHtml(b.title || "Kịch bản cơ sở")}</h3><p>${escapeHtml(b.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(b.action || ND)}</p></article>`;
-      scenariosHtml += `<article class="sc bull"><h3>${escapeHtml(u.title || "Kịch bản tích cực")}</h3><p>${escapeHtml(u.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(u.action || ND)}</p></article>`;
-      scenariosHtml += `<article class="sc bear"><h3>${escapeHtml(e.title || "Kịch bản tiêu cực")}</h3><p>${escapeHtml(e.description || ND)}</p><p class="sub" style="margin-top:12px">Hành động</p><p>${escapeHtml(e.action || ND)}</p></article>`;
-      scenariosHtml += `</div>`;
-
-      let triggersHtml = "";
-      triggersHtml += `<div class="section-head"><p class="eyebrow">Theo dõi</p><h2>Điều gì sẽ làm thay đổi quan điểm?</h2></div>`;
-      triggersHtml += `<div class="two-col-triggers">`;
-      triggersHtml += `<div><p class="sub">Thiên lệch tích cực hơn nếu</p><ul class="chain-list">`;
-      for (const t of mp) triggersHtml += `<li>${escapeHtml(t)}</li>`;
-      triggersHtml += `</ul></div><div><p class="sub">Thiên lệch tiêu cực hơn nếu</p><ul class="chain-list">`;
-      for (const t of mn) triggersHtml += `<li>${escapeHtml(t)}</li>`;
-      triggersHtml += `</ul></div></div>`;
-
-      let finalHtml = "";
-      finalHtml += `<div class="section-head"><p class="eyebrow">Đóng phiên</p><h2>Câu quyết định cuối cùng</h2></div>`;
-      finalHtml += `<div class="takeaway"><p>${escapeHtml(data.finalDecision || ND)}</p></div>`;
-
-      return {
-        thesis: thesisHtml,
-        whatChanged: whatChangedHtml,
-        digestHighlights: digestHighlightsHtml,
-        regime: digestMode ? "" : regimeHtml,
-        macro: macroHtml,
-        intermarket: digestMode ? "" : interHtml,
-        transmission: transmissionHtml,
-        actions: digestMode ? "" : actionsHtml,
-        allocation: digestMode ? "" : allocationHtml,
-        priority: digestMode ? "" : priorityHtml,
-        riskOn: digestMode ? "" : riskOnHtml,
-        riskOff: digestMode ? "" : riskOffHtml,
-        intraday: digestMode ? "" : intradayHtml,
-        scenarios: digestMode ? "" : scenariosHtml,
-        triggers: digestMode ? "" : triggersHtml,
-        finalDecision: digestMode ? "" : finalHtml,
-      };
+      return buildDigestBriefParts(data);
     }
-
-    const DIGEST_HIDE_SECTION_IDS = [
-      "sectionRegimeScore",
-      "sectionIntermarket",
-      "sectionActions",
-      "sectionAllocation",
-      "sectionPriority",
-      "sectionRiskOn",
-      "sectionRiskOff",
-      "sectionIntraday",
-      "sectionScenarios",
-      "sectionViewTriggers",
-      "sectionFinalDecision",
-    ];
 
     function renderBriefSections(payload) {
       applyHeroBranding(payload);
-      const digestMode = payload.briefMode === "multisector-digest";
-      if (digestMode) updateDigestNav();
-      else document.body.classList.remove("digest-mode");
+      updateDigestNav();
       let parts;
       try {
         parts = buildBriefParts(payload);
       } catch (e) {
         console.error(e);
-        const msg = `<div class="error-card">Không render được brief: ${escapeHtml(e.message || e)}</div>`;
         const fall = document.getElementById("sectionThesis");
-        if (fall) fall.innerHTML = msg;
+        if (fall) {
+          fall.innerHTML = `<div class="error-card">Không tải được bản tin: ${escapeHtml(e.message || e)}</div>`;
+        }
         return;
       }
-      const ids = [
-        "sectionLinkIndex",
-        "sectionThesis",
-        "sectionWhatChanged",
-        "sectionDigestHighlights",
-        "sectionRegimeScore",
-        "sectionMacro",
-        "sectionIntermarket",
-        "sectionTransmission",
-        "sectionActions",
-        "sectionAllocation",
-        "sectionPriority",
-        "sectionRiskOn",
-        "sectionRiskOff",
-        "sectionIntraday",
-        "sectionScenarios",
-        "sectionViewTriggers",
-        "sectionFinalDecision",
-      ];
-      const keys = [
-        "linkIndex",
-        "thesis",
-        "whatChanged",
-        "digestHighlights",
-        "regime",
-        "macro",
-        "intermarket",
-        "transmission",
-        "actions",
-        "allocation",
-        "priority",
-        "riskOn",
-        "riskOff",
-        "intraday",
-        "scenarios",
-        "triggers",
-        "finalDecision",
-      ];
-      for (let i = 0; i < ids.length; i++) {
-        const el = document.getElementById(ids[i]);
-        if (el) {
-          el.innerHTML = parts[keys[i]] || "";
-          el.style.display = parts[keys[i]] ? "" : "none";
-        }
-      }
+      const thesisEl = document.getElementById("sectionThesis");
+      if (thesisEl) thesisEl.innerHTML = parts.thesis || "";
       const artIdx = document.getElementById("sectionArticleIndex");
       if (artIdx) {
         artIdx.innerHTML = parts.articleIndex || "";
         artIdx.style.display = parts.articleIndex ? "" : "none";
       }
-      if (digestMode) {
-        for (const hid of DIGEST_HIDE_SECTION_IDS) {
-          const el = document.getElementById(hid);
-          if (el) {
-            el.innerHTML = "";
-            el.style.display = "none";
-          }
-        }
-        const wc = document.getElementById("sectionWhatChanged");
-        if (wc) {
-          wc.innerHTML = "";
-          wc.style.display = "none";
-        }
-        const macroEl = document.getElementById("sectionMacro");
-        if (macroEl) {
-          macroEl.innerHTML = "";
-          macroEl.style.display = "none";
-        }
-        const dh = document.getElementById("sectionDigestHighlights");
-        if (dh && !(parts.digestHighlights || "").trim()) dh.style.display = "none";
-      }
-    }
-
-    function createSourceCard(item) {
-      const card = document.createElement("article");
-      card.className = "source-card";
-      const a = document.createElement("a");
-      a.href = item.url || "#";
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      const thumb = document.createElement("div");
-      if (item.image_url) {
-        const img = document.createElement("img");
-        img.className = "source-image";
-        img.src = item.image_url;
-        img.alt = "";
-        img.loading = "lazy";
-        img.referrerPolicy = "no-referrer";
-        img.onerror = () => { thumb.innerHTML = '<div class="fallback-image">LQ</div>'; };
-        thumb.appendChild(img);
-      } else {
-        thumb.innerHTML = '<div class="fallback-image">LQ</div>';
-      }
-      const body = document.createElement("div");
-      body.className = "source-body";
-      const meta = document.createElement("div");
-      meta.className = "source-meta";
-      meta.textContent = [item.category, item.source, formatDateVi(item.published_at)].filter(Boolean).join(" · ");
-      const h = document.createElement("h3");
-      h.textContent = item.title || "Tin";
-      const p = document.createElement("p");
-      p.textContent = item.summary || "";
-      const rp = document.createElement("span");
-      rp.className = "read-pill";
-      rp.textContent = "Đọc bài gốc → " + getHostName(item.url || "");
-      body.appendChild(meta);
-      body.appendChild(h);
-      body.appendChild(p);
-      body.appendChild(rp);
-      a.appendChild(thumb);
-      a.appendChild(body);
-      card.appendChild(a);
-      return card;
     }
 
     function isPayloadUsable(payload) {
       if (!payload || typeof payload !== "object") return false;
+      const sectors = payload.digestSectors || payload.globalMacroDrivers;
+      if (Array.isArray(sectors) && sectors.length > 0) return true;
       const mt = payload.mainThesis;
-      if (mt && typeof mt === "object") {
-        if (
-          String(mt.thesis || "").trim() ||
-          String(mt.regime || "").trim() ||
-          String(mt.actionConclusion || "").trim()
-        ) {
-          return true;
-        }
-      }
-      const d = payload.globalMacroDrivers;
-      if (Array.isArray(d) && d.length > 0) return true;
-      if (Array.isArray(payload.whatChanged) && payload.whatChanged.length > 0) return true;
-      if (Array.isArray(payload.quickActions) && payload.quickActions.length > 0) return true;
-      if (Array.isArray(payload.allocationGuide) && payload.allocationGuide.length > 0) return true;
-      if (Array.isArray(payload.priorityAndAvoid?.prioritize) && payload.priorityAndAvoid.prioritize.length > 0) {
-        return true;
-      }
-      if (Array.isArray(payload.increaseRiskSignals) && payload.increaseRiskSignals.length > 0) return true;
-      if (Array.isArray(payload.reduceRiskSignals) && payload.reduceRiskSignals.length > 0) return true;
-      const sp = payload.scenarioPlan;
-      if (sp && typeof sp === "object" && (sp.baseCase || sp.bullCase || sp.bearCase)) return true;
-      if (String(payload.finalDecision || payload.finalTakeaway || "").trim()) return true;
-      const chains = payload.transmissionChains;
-      if (Array.isArray(chains) && chains.some((x) => String(x || "").trim())) return true;
-      return false;
+      return Boolean(mt && typeof mt === "object" && String(mt.thesis || "").trim());
     }
 
     function renderPage(data) {
@@ -1720,12 +1076,7 @@
       const sync = document.getElementById("syncNote");
       if (sync) {
         const st = payload.generatedAt ? formatDateVi(payload.generatedAt) : "";
-        const digestMode = payload.briefMode === "multisector-digest";
-        sync.textContent = st
-          ? digestMode
-            ? `Tin tức được tổng hợp lúc ${st}.`
-            : `Bản brief · ${st}. Nếu không thấy bản mới, thử tải lại trang (Ctrl+F5).`
-          : "";
+        sync.textContent = st ? `Tin tức được tổng hợp lúc ${st}.` : "";
       }
       const embeddedBrief = document.getElementById("brief")?.getAttribute("data-embedded-brief") === "1";
       const usable = isPayloadUsable(payload);
@@ -1734,26 +1085,15 @@
       } else {
         applyHeroBranding(payload);
       }
-      const digestMode = payload.briefMode === "multisector-digest";
-      const articles = Array.isArray(payload.allArticles) ? payload.allArticles : [];
+      const refSec = document.getElementById("reference");
+      if (refSec) refSec.style.display = "";
       const grid = document.getElementById("sourceGrid");
+      if (grid) grid.innerHTML = "";
       const titleEl = document.getElementById("sourceGridTitle");
-      const gridEmbedded = grid?.getAttribute("data-embedded-articles") === "1";
-      if (digestMode) {
-        const refSec = document.getElementById("reference");
-        if (refSec) refSec.style.display = "none";
-        const artIdx = document.getElementById("sectionArticleIndex");
-        if (artIdx) {
-          artIdx.innerHTML = "";
-          artIdx.style.display = "none";
-        }
-        if (grid) grid.innerHTML = "";
-      } else if (articles.length > 0 || !gridEmbedded) {
-        if (titleEl) titleEl.textContent = `Tin nền tham khảo (${articles.length})`;
-        if (grid) {
-          grid.innerHTML = "";
-          for (const article of articles) grid.appendChild(createSourceCard(article));
-        }
+      if (titleEl) titleEl.textContent = "Nguồn tin tức";
+      const descEl = document.getElementById("sourceGridDesc");
+      if (descEl) {
+        descEl.textContent = "Nội dung được tổng hợp từ các nguồn tin trong 48 giờ qua.";
       }
     }
 

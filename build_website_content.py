@@ -13,10 +13,9 @@ from urllib.request import Request, urlopen
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
-DEFAULT_FINAL_FILE = PROJECT_DIR / "final_summary.json"
+DEFAULT_DIGEST_FILE = PROJECT_DIR / "gemini_digest_summary.json"
 DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "content.json"
-DEFAULT_MARKET_SNAPSHOT_FILE = PROJECT_DIR / "market_snapshot.json"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 LEONQuantLabs/1.0"
@@ -760,33 +759,6 @@ class MetadataExtractor(HTMLParser):
                 self.image_url = href.strip()
             if rel == "preload" and as_attr == "image" and href and not self.image_url:
                 self.image_url = href.strip()
-
-
-def load_market_snapshot_json(path: Path | None = None) -> dict[str, Any]:
-    """Đọc market_snapshot.json; không raise. Trả về skeleton nếu thiếu/lỗi."""
-    p = path or DEFAULT_MARKET_SNAPSHOT_FILE
-    if not p.exists():
-        return {
-            "generated_at": "",
-            "assets": [],
-            "coverage_note": "Chưa có market_snapshot.json — có thể bổ sung để neo số liệu.",
-        }
-    try:
-        data = load_json(p)
-        if not isinstance(data, dict):
-            raise ValueError("not an object")
-        data.setdefault("generated_at", "")
-        data.setdefault("assets", [])
-        if not isinstance(data.get("assets"), list):
-            data["assets"] = []
-        data.setdefault("coverage_note", "")
-        return data
-    except (json.JSONDecodeError, OSError, ValueError):
-        return {
-            "generated_at": "",
-            "assets": [],
-            "coverage_note": "Không đọc được market_snapshot.json (JSON lỗi hoặc file hỏng).",
-        }
 
 
 def clean_text(value: str | None) -> str:
@@ -2169,8 +2141,6 @@ def build_payload(
     final_payload: dict[str, Any],
     enriched_payload: dict[str, Any],
     all_articles: list[dict[str, Any]],
-    *,
-    market_snapshot: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     raw_summary = final_payload.get("summary", {})
     if not isinstance(raw_summary, dict):
@@ -2192,8 +2162,6 @@ def build_payload(
     )
     snake = sanitize_strategy_brief_snake(snake, multisector_digest=from_digest)
     brief = strategy_brief_to_public_json(snake)
-    ms_payload = market_snapshot if market_snapshot is not None else load_market_snapshot_json()
-
     meta = final_payload.get("meta") if isinstance(final_payload.get("meta"), dict) else {}
 
     payload: dict[str, Any] = {
@@ -2229,7 +2197,6 @@ def build_payload(
             "verifiedLinks": meta.get("verified_links"),
             "usedFallback": meta.get("used_fallback"),
         },
-        "marketSnapshot": ms_payload,
     }
     if from_digest:
         payload["briefMode"] = "multisector-digest"
@@ -2277,23 +2244,18 @@ def build_payload(
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Build content.json: brief chiến lược + toàn bộ bài enriched.",
-    )
-    parser.add_argument(
-        "--final-input",
-        default=str(DEFAULT_FINAL_FILE),
-        help="Brief JSON: final_summary.json or gemini_digest_summary.json",
-    )
-    parser.add_argument(
-        "--enriched-input",
-        default=str(DEFAULT_ENRICHED_FILE),
-        help="Articles: enriched_news.json, news_for_ai_clean.json, or news_for_ai.json",
+        description="Build content.json from gemini_digest_summary.json + news_for_ai_clean.json.",
     )
     parser.add_argument(
         "--digest-input",
         type=Path,
-        default=None,
-        help="Shorthand: gemini_digest_summary.json (overrides --final-input)",
+        default=DEFAULT_DIGEST_FILE,
+        help="gemini_digest_summary.json",
+    )
+    parser.add_argument(
+        "--enriched-input",
+        default=str(DEFAULT_ENRICHED_FILE),
+        help="news_for_ai_clean.json (or news_for_ai.json)",
     )
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT_FILE), help="Path to content.json")
     parser.add_argument(
@@ -2305,7 +2267,7 @@ def main() -> int:
     parser.add_argument("--skip-images", action="store_true", help="Do not fetch og metadata (faster)")
     args = parser.parse_args()
 
-    final_path = Path(args.digest_input or args.final_input)
+    final_path = Path(args.digest_input)
     articles_path = Path(args.enriched_input)
     if articles_path.name.startswith("news_for_ai"):
         enriched_payload = articles_payload_from_for_ai(articles_path)
@@ -2317,43 +2279,11 @@ def main() -> int:
         not args.skip_images,
         args.metadata_timeout,
     )
-    payload = build_payload(
-        final_payload,
-        enriched_payload,
-        all_cards,
-        market_snapshot=load_market_snapshot_json(),
-    )
+    payload = build_payload(final_payload, enriched_payload, all_cards)
     Path(args.output).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"Done: {len(all_cards)} article cards -> {args.output}")
     return 0
-
-
-def rebuild_content_json(
-    final_payload_path: Path,
-    enriched_path: Path,
-    output_path: Path,
-    *,
-    fetch_images: bool = True,
-    metadata_timeout: int = 6,
-    market_snapshot_path: Path | None = None,
-) -> int:
-    """Dựng payload website từ brief JSON + danh sách bài (enriched hoặc news_for_ai*)."""
-    final_payload = load_json(final_payload_path)
-    enriched_path = enriched_path.resolve()
-    if enriched_path.name.startswith("news_for_ai"):
-        enriched_payload = articles_payload_from_for_ai(enriched_path)
-    else:
-        enriched_payload = load_json(enriched_path)
-    all_cards = build_all_article_cards(
-        enriched_payload,
-        fetch_images,
-        metadata_timeout,
-    )
-    ms = load_market_snapshot_json(market_snapshot_path)
-    payload = build_payload(final_payload, enriched_payload, all_cards, market_snapshot=ms)
-    output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    return len(all_cards)
 
 
 def rebuild_content_from_digest(
@@ -2363,17 +2293,22 @@ def rebuild_content_from_digest(
     *,
     fetch_images: bool = True,
     metadata_timeout: int = 6,
-    market_snapshot_path: Path | None = None,
 ) -> int:
     """``gemini_digest_summary.json`` + ``news_for_ai_clean.json`` → ``content.json``."""
-    return rebuild_content_json(
-        digest_path,
-        articles_path,
-        output_path,
-        fetch_images=fetch_images,
-        metadata_timeout=metadata_timeout,
-        market_snapshot_path=market_snapshot_path,
+    final_payload = load_json(digest_path)
+    articles_path = articles_path.resolve()
+    if articles_path.name.startswith("news_for_ai"):
+        enriched_payload = articles_payload_from_for_ai(articles_path)
+    else:
+        enriched_payload = load_json(articles_path)
+    all_cards = build_all_article_cards(
+        enriched_payload,
+        fetch_images,
+        metadata_timeout,
     )
+    payload = build_payload(final_payload, enriched_payload, all_cards)
+    output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return len(all_cards)
 
 
 if __name__ == "__main__":
