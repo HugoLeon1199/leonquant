@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LEON Quant Labs — Tổng hợp tin tức 48 giờ</title>
   <meta name="description" content="Tổng hợp tin tức thế giới và Việt Nam trong 48 giờ qua — theo lĩnh vực, kèm liên kết nguồn.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
   <style>
     :root {
+      --font-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       --bg0: #05080f;
       --bg1: #0c1220;
       --bg2: #111a2e;
@@ -20,12 +24,18 @@
       --gold: #fbbf24;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: var(--font-sans);
       color: var(--text);
-      line-height: 1.55;
+      line-height: 1.52;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
       background:
         radial-gradient(ellipse 120% 80% at 10% -10%, rgba(34, 211, 238, .1), transparent 50%),
         radial-gradient(ellipse 90% 60% at 90% 10%, rgba(251, 191, 36, .06), transparent 45%),
@@ -640,6 +650,89 @@
     body.digest-mode #sectionDigestHighlights { display: none !important; }
     body.digest-mode #reference { display: none !important; }
     .digest-notable-all { margin-top: 0.75rem; }
+
+    @media (max-width: 640px) {
+      .container { width: 94%; }
+      section { padding: 28px 0; }
+      section.alt { padding: 24px 0; }
+      .hero { padding: 18px 0 32px; }
+      body.digest-mode .hero { padding: 14px 0 18px; }
+      body.digest-mode .logo {
+        font-size: clamp(1.12rem, 4.8vw, 1.45rem);
+        gap: 10px;
+      }
+      body.digest-mode .logo-mark {
+        width: 42px;
+        height: 42px;
+        font-size: .82rem;
+        border-radius: 12px;
+      }
+      .nav-hub { padding: 7px 12px; font-size: .74rem; }
+      .sync-note { margin-bottom: 12px; font-size: .84rem; }
+      .brief-block { margin-bottom: 22px; }
+
+      .digest-report-head { margin-bottom: 0.75rem; }
+      .digest-report-head h2 {
+        font-size: clamp(1.1rem, 5vw, 1.35rem);
+        line-height: 1.3;
+      }
+      .digest-main-panel {
+        padding: 14px 14px 16px;
+        border-radius: 14px;
+      }
+      .overview-part { margin-bottom: 16px; scroll-margin-top: 64px; }
+      .sectors-section-title { margin-bottom: 10px; font-size: .68rem; }
+      ul.prose-bullets li {
+        margin-bottom: 0.4em;
+        line-height: 1.48;
+        font-size: .9rem;
+      }
+      .sector-block {
+        margin-bottom: 12px;
+        border-radius: 14px;
+        scroll-margin-top: 56px;
+      }
+      .sector-head { padding: 12px 14px 10px; gap: 10px; }
+      .sector-num { width: 1.85rem; height: 1.85rem; font-size: .72rem; }
+      .sector-head h3 { font-size: .98rem; line-height: 1.32; }
+      .sector-body { padding: 12px 14px 14px; }
+      .sector-block .sector-summary {
+        font-size: .88rem;
+        line-height: 1.5;
+      }
+      .sector-points {
+        font-size: .86rem;
+        line-height: 1.48;
+        padding-left: 1rem;
+      }
+      .sector-points li { margin-bottom: 6px; }
+      .digest-report-extra {
+        margin-top: 1rem;
+        padding-top: 0.85rem;
+      }
+
+      .notable-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .notable-card-media { aspect-ratio: 2 / 1; max-height: 160px; }
+      .notable-card-body { padding: 12px 14px 14px; }
+      .notable-card-title { font-size: .9rem; margin-bottom: 6px; }
+      .notable-card-why { font-size: .8rem; line-height: 1.45; }
+
+      .link-rows li {
+        padding: 7px 9px;
+        font-size: .82rem;
+        line-height: 1.38;
+      }
+      .article-archive-wrap summary {
+        padding: 12px 14px;
+        font-size: .88rem;
+      }
+      .article-archive-scroll { max-height: min(55vh, 420px); }
+      .footer { padding: 18px 0; font-size: .8rem; }
+    }
   </style>
 </head>
 <body>
