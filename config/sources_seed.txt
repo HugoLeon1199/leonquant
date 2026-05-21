@@ -1,142 +1,80 @@
-# Leon Quant — tiered site roots / sections for Leon Web Intel (`run_profile.py --input`).
-# Mỗi dòng URL (không comment) là seed để profiler phân loại RSS / sitemap / HTML.
-# Thêm site: thêm URL vào đúng nhóm tier; chạy lại profiler khi cần (bỏ `--skip-profile`).
+# Leon Quant — 6 nhóm nguồn tin (cập nhật 2026-05).
+# Mỗi dòng URL là seed cho profiler (RSS / sitemap / HTML). Chạy:
+#   python scripts/split_sources_seed_into_tiers.py
+#   python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh
+# (bỏ --skip-profile lần đầu sau khi đổi danh sách).
 
 # =========================
-# VIETNAM - FINANCE / STOCK / ECONOMY
+# 1. THOI SU, CHINH TRI & TOAN CANH
+# =========================
+https://vnexpress.net
+https://dantri.com.vn
+https://tuoitre.vn
+https://thanhnien.vn
+https://vietnamnet.vn
+https://baochinhphu.vn
+https://apnews.com
+https://www.bbc.com/news
+https://www.aljazeera.com
+https://www.npr.org
+https://asia.nikkei.com
+https://www.scmp.com
+https://time.com
+https://www.theguardian.com
+
+# =========================
+# 2. KINH TE, TAI CHINH & DAU TU
 # =========================
 https://cafef.vn
-https://vietstock.vn
-https://www.tinnhanhchungkhoan.vn
-https://baodautu.vn
 https://vneconomy.vn
-https://vietnamfinance.vn
-https://vietnambiz.vn
-https://kinhtechungkhoan.vn
-https://markettimes.vn
-https://thitruongtaichinhtiente.vn
-https://cophieu68.vn
-https://nguoiquansat.vn
-https://nhadautu.vn
-https://theleader.vn
-https://taichinhdoanhnghiep.net.vn
-https://tapchikinhtetaichinh.vn
-https://tapchicongthuong.vn
-https://vnbusiness.vn
-https://cafebiz.vn
-https://bnews.vn
-
-# =========================
-# VIETNAM - BUSINESS / POLICY / MACRO
-# =========================
+https://baodautu.vn
 https://thesaigontimes.vn
-https://kinhtedothi.vn
-https://doanhnhansaigon.vn
-https://diendandoanhnghiep.vn
-https://mekongasean.vn
-https://congthuong.vn
-https://thuongtruong.com.vn
-https://doanhnghiephoinhap.vn
-https://vccinews.vn
-https://enternews.vn
-
-# =========================
-# VIETNAM - BIG NEWS SITES / ECONOMY CATEGORY
-# =========================
-https://vnexpress.net/kinh-doanh
-https://tuoitre.vn/kinh-doanh.htm
-https://thanhnien.vn/kinh-te.htm
-https://dantri.com.vn/kinh-doanh.htm
-https://vietnamnet.vn/kinh-doanh
-https://vtv.vn/kinh-te.htm
-https://vov.vn/kinh-te
-https://baotintuc.vn/kinh-te-128ct0.htm
-https://nhandan.vn/kinh-te
-https://vtcnews.vn/kinh-te-29.html
-# playwright_fallback: daily Scrapy uses RSS/sitemap/HTML only (no JS render)
-https://laodong.vn/kinh-doanh
-https://plo.vn/kinh-te
-https://www.sggp.org.vn/kinh-te
-https://www.qdnd.vn/kinh-te
-https://baophapluat.vn
-
-# =========================
-# VIETNAM - REAL ESTATE / CONSTRUCTION / PLANNING
-# =========================
-# playwright_fallback (see config/README.md)
-https://batdongsan.com.vn
-https://cafeland.vn
-https://reatimes.vn
-https://batdongsan.vn
-https://tapchixaydung.vn
-https://baoxaydung.vn
-https://homedy.com
-https://mogi.vn/news
-https://diaoconline.vn
-https://nhadatvui.vn
-
-# =========================
-# VIETNAM - OFFICIAL / POLICY / MARKET INFRASTRUCTURE
-# =========================
-https://www.sbv.gov.vn/vi/trang-chu
-https://chinhphu.vn
-https://baochinhphu.vn/kinh-te.htm
-https://www.mpi.gov.vn/portal/Pages/default.aspx
-https://vsd.vn/vi/
-https://www.hsx.vn
-https://ssc.gov.vn
-https://www.customs.gov.vn
-https://www.gso.gov.vn
-https://www.mof.gov.vn
-https://www.hnx.vn
-https://www.moit.gov.vn
-https://xaydung.gov.vn
-https://monre.gov.vn
-https://mard.gov.vn
-
-# =========================
-# INTERNATIONAL - MACRO / CENTRAL BANK / DATA
-# =========================
-https://www.reuters.com/markets/
-https://www.federalreserve.gov
-https://fred.stlouisfed.org
-https://www.imf.org/en/countries/vnm
-https://www.worldbank.org/ext/en/country/vietnam
-https://www.bis.org
-https://www.ecb.europa.eu
-https://www.boj.or.jp/en
-https://home.treasury.gov
-https://www.bls.gov
-https://www.bea.gov
-https://www.eia.gov
-
-# =========================
-# INTERNATIONAL - MARKET / FOREX / GOLD / COMMODITY
-# =========================
-https://www.investing.com/news
-# playwright_fallback — calendar page often JS-only
-https://www.forexfactory.com/news
-https://www.forexfactory.com/calendar
-https://www.fxstreet.com/news
-https://www.kitco.com/news
-https://www.gold.org/goldhub
-https://oilprice.com
+https://vietstock.vn
 https://tradingeconomics.com
+https://finance.yahoo.com
+https://www.cnbc.com
+https://www.worldbank.org
+https://www.imf.org
+https://oilprice.com
 
 # =========================
-# INTERNATIONAL - CRYPTO
+# 3. CONG NGHE, VIEN THONG & AI
+# =========================
+https://genk.vn
+https://ictnews.vietnamnet.vn
+https://techcrunch.com
+https://www.theverge.com
+https://www.wired.com
+https://venturebeat.com
+https://thenextweb.com
+https://www.engadget.com
+
+# =========================
+# 4. KHOA HOC, Y TE & MOI TRUONG
+# =========================
+https://khoahoc.tv
+https://www.sciencedaily.com
+https://www.livescience.com
+https://www.medicalnewstoday.com
+https://www.space.com
+https://www.nature.com
+https://www.nationalgeographic.com
+
+# =========================
+# 5. PHAP LUAT, DOI SONG & CHUYEN NGANH
+# =========================
+https://plo.vn
+https://laodong.vn
+https://tienphong.vn
+https://baoxaydung.vn
+https://www.theatlantic.com
+https://www.csmonitor.com
+
+# =========================
+# 6. TIEN DIEN TU & BLOCKCHAIN
 # =========================
 https://cointelegraph.com
-https://www.coingecko.com/en/news
-https://decrypt.co/news
+https://www.coindesk.com
+https://decrypt.co
 https://cryptoslate.com
-https://beincrypto.com/type/news/
-https://www.thedefiant.io/news
-
-# =========================
-# INTERNATIONAL - BUSINESS NEWS
-# =========================
-https://apnews.com/business
-https://www.theguardian.com/business
-https://asia.nikkei.com
-https://www.scmp.com/business
+https://www.coingecko.com

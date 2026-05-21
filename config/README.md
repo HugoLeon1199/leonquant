@@ -1,5 +1,7 @@
 # Crawl configuration (Leon Web Intel)
 
+**6 nhóm nguồn** trong `sources_seed.txt`: (1) Thời sự & chính trị, (2) Kinh tế & đầu tư, (3) Công nghệ & AI, (4) Khoa học & y tế, (5) Pháp luật & đời sống, (6) Crypto.
+
 Bước thu tin dùng **`leon_web_intel/`**: `run_profile.py` (đọc URL seed) + `run_scrapy.py` (theo tier).
 
 | File | Vai trò |

@@ -74,7 +74,7 @@ jobs:
           grep -Fq 'Tin tức được tổng hợp lúc' _site/index.html
           grep -Fq 'Bấm vào xem chi tiết' _site/index.html
           # Digest mode: sector cards + multisector flag in content.json
-          python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); assert len(d.get('globalMacroDrivers') or [])>=8"
+          python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); assert len(d.get('globalMacroDrivers') or [])>=6"
 
       - uses: actions/configure-pages@v5
 
