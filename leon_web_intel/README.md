@@ -1,6 +1,6 @@
 # Leon Web Intel (gọn cho Leon Quant)
 
-**Entry:** `run_profile.py` → `run_scrapy.py`. **Output dùng downstream:** DuckDB rồi `leonquant/scripts/export_intel_to_news_output.py` → `news_output.json`.
+**Entry:** `run_profile.py` → `run_scrapy.py`. **Output dùng downstream:** DuckDB → `scripts/export_news_full_for_ai.py` → `news_for_ai_clean.json` (digest).
 
 **Chạy (từ root `leonquant`):**
 

@@ -86,10 +86,8 @@ jobs:
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
           git add \
-            news_output_today.json \
             news_for_ai_clean.json \
             gemini_digest_summary.json \
-            gemini_digest_outline.json \
             content.json \
             data/web_intel_leonquant.duckdb
           git commit -m "Update daily news digest (crawl + Gemini + web)" || echo "No content changes to commit"

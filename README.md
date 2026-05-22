@@ -6,7 +6,7 @@ Trang công khai: [hugoleon1199.github.io/leonquant](https://hugoleon1199.github
 
 ## Pipeline
 
-1. **Crawl** — `scripts/run_intel_full_daily.py` (+ `leon_web_intel/`): Scrapy theo tier → DuckDB → `news_output_today.json`. Hằng ngày thêm `--skip-profile` khi profile đã ổn.
+1. **Crawl** — `scripts/run_intel_full_daily.py` (+ `leon_web_intel/`): Scrapy theo tier → DuckDB. Hằng ngày thêm `--skip-profile` khi profile đã ổn.
 2. **Chuẩn bị AI** — `scripts/export_news_full_for_ai.py` → `news_for_ai.json`, rồi `scripts/clean_news_for_ai.py` → **`news_for_ai_clean.json`**.
 3. **Gemini digest** — `summarize_news_gemini.py` hoặc `scripts/run_digest_loop.py` → **`gemini_digest_summary.json`**.
 4. **Web** — `build_website_content.py` → **`content.json`** → `landing_page.html` (GitHub Pages).
@@ -31,16 +31,16 @@ Merge đa ngành khi đã có partials:
 python summarize_news_gemini.py --input news_for_ai_clean.json --mode digest --batch-digest --merge-only --use-existing-outline --resume-partials
 ```
 
-## Artefact chính
+## Artefact chính (commit trên `main`)
 
 | File | Vai trò |
 |------|---------|
-| `news_output_today.json` | Bài theo ngày crawl |
 | `news_for_ai_clean.json` | Input digest (đã lọc) |
-| `gemini_digest_summary.json` | Bản tin đa ngành 48h (commit) |
-| `gemini_digest_outline.json` | Outline batch (commit, resume) |
-| `gemini_digest_partials.json` | Trung gian (gitignore) |
+| `gemini_digest_summary.json` | Bản tin đa ngành 48h |
 | `content.json` | Dữ liệu trang công khai |
+| `data/web_intel_leonquant.duckdb` | Cache crawl (Actions) |
+
+Sinh local, không commit: `news_output_today.json`, `news_for_ai.json`, `gemini_digest_outline.json`, `gemini_digest_partials.json`.
 
 ## Biến môi trường
 
@@ -61,7 +61,7 @@ python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh 
 
 - **`daily.yml`:** crawl → export → clean → Gemini digest → `content.json` → commit → push `main`.
   - **Lịch:** mỗi ngày **05:00 giờ Việt Nam** (ICT, UTC+7) — cron `0 22 * * *` UTC.
-  - Chạy tay: Actions → *Daily news digest* → *Run workflow*.
+  - Chạy tay: Actions → *Daily news digest* → *Run workflow*, hoặc push thay đổi `.ci-run-digest` lên `main`.
 - **`pages.yml`:** deploy site sau mỗi push `main` (HTML + `content.json` nhúng brief).
 - **Secret bắt buộc:** repo → Settings → Secrets → `GEMINI_API_KEY` (Google AI Studio).
 

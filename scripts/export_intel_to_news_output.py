@@ -266,11 +266,6 @@ def main() -> int:
     write_payload(today_path, today_payload)
     print(f"Wrote {len(today_articles)} articles -> {today_path}")
 
-    legacy = QUANT_ROOT / "news_output.json"
-    if legacy.resolve() != today_path:
-        write_payload(legacy, today_payload)
-        print(f"Wrote {len(today_articles)} articles -> {legacy} (legacy alias of today)")
-
     if not args.today_only:
         all_articles = rows_to_articles(all_rows, manifest, filter_listings=fl)
         all_payload = build_payload(all_articles, db_path=db_path, export_kind="all")

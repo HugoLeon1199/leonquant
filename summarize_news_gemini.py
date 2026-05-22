@@ -66,6 +66,7 @@ DIGEST_NOTABLE_FINAL_COUNT = 9
 DIGEST_MIN_NOTABLE_FINAL = 9
 DIGEST_MAX_OUTLINE_THEMES = 18
 DIGEST_MERGE_MAX_OUTPUT_TOKENS = 32_768
+DIGEST_SECTOR_SUMMARY_MIN_CHARS = 280
 
 
 def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
@@ -98,9 +99,9 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
             [
                 f"- **`sectors`:** đúng **4** phần tử, mã `code`: finance, tech, news, trends (thứ tự cố định).",
                 f"- Mỗi sector: **tối đa {DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` (ngày nhiều tin vẫn không vượt 20).",
-                "- `summary` sector: 2–4 câu **tổng hợp**; `sub_topics` = điểm nhấn, không thay summary.",
+                _digest_sector_summary_rules_block(),
                 f"- **`notable_articles`: đúng {DIGEST_NOTABLE_FINAL_COUNT}** tin nóng nhất (đa dạng 4 mã).",
-                "- `executive_overview` + `sub_topics` ≈ **2.000–3.500 từ** tổng.",
+                "- `executive_overview` + **4× `summary` sector** + `sub_topics` ≈ **2.500–4.000 từ** tổng.",
             ]
         )
     else:
@@ -113,6 +114,19 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
     return "\n".join(lines)
 
 
+def _digest_sector_summary_rules_block() -> str:
+    return "\n".join(
+        [
+            "## Đoạn tổng hợp sector (`summary`) — BẮT BUỘC, văn phong chuyên gia",
+            "- Mỗi sector phải có `summary` **đầy đủ**: **4–6 câu** hoặc khoảng **150–250 từ** tiếng Việt (không phải 1–2 câu chung chung).",
+            "- Viết như **ghi chú phân tích** của chuyên gia kinh tế / biên tập cấp cao: khách quan, mạch lạc, không khẩu hiệu, không “theo nguồn tin”, không copy tiêu đề báo.",
+            "- Cấu trúc gợi ý: (1) **bức tranh 48h** của ngành; (2) **2–3 diễn biến then chốt** (VN + quốc tế khi phù hợp); (3) **kênh ảnh hưởng / hàm ý** (thị trường, chính sách, chuỗi cung ứng, an ninh…); (4) **một câu** điểm cần theo dõi tiếp.",
+            "- `finance`: thị trường, chính sách tiền tệ–tài khóa, tài sản, doanh nghiệh. `tech`: AI, sản phẩm, bán dẫn, đầu tư công nghệ. `news`: địa chính trị, ngoại giao, chính sách công. `trends`: xã hội, tiêu dùng, văn hóa, y tế, môi trường, pháp lý.",
+            "- **Không** liệt kê lại từng dòng `sub_topics`; `sub_topics` chỉ là điểm nhấn có link — `summary` là bài tổng hợp đọc độc lập.",
+        ]
+    )
+
+
 def _digest_sector_json_schema_fragment() -> str:
     blocks = []
     for code, label in DIGEST_FOUR_SECTORS:
@@ -120,7 +134,7 @@ def _digest_sector_json_schema_fragment() -> str:
             f"""    {{
       "code": "{code}",
       "name": "{label}",
-      "summary": "Tối đa 2 câu mở đầu (tùy chọn)",
+      "summary": "4-6 câu (~150-250 từ): phân tích chuyên gia, bức tranh 48h + diễn biến + hàm ý + điểm theo dõi",
       "sub_topics": [
         {{
           "importance_rank": 1,
@@ -174,6 +188,12 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
         elif n_items > DIGEST_MAX_SUB_TOPICS_PER_SECTOR:
             warnings.append(
                 f"sectors[{i}] ({label}) có {n_items} sub_topics (nên ≤{DIGEST_MAX_SUB_TOPICS_PER_SECTOR})."
+            )
+        summ = str(sec.get("summary") or "").strip()
+        if len(summ) < DIGEST_SECTOR_SUMMARY_MIN_CHARS:
+            warnings.append(
+                f"sectors[{i}] ({label}) `summary` chỉ {len(summ)} ký tự "
+                f"(mong đợi ≥{DIGEST_SECTOR_SUMMARY_MIN_CHARS} — đoạn phân tích chuyên gia đầy đủ)."
             )
     missing = DIGEST_SECTOR_CODES - codes_seen
     if missing and len(sectors) < DIGEST_MIN_SECTORS_FINAL:
@@ -747,13 +767,15 @@ def build_digest_chunk_prompt(
             + "\n"
         )
     return f"""
-Bạn là biên tập viên tổng hợp tin. Đây là **phần {batch_index}/{batch_total}** của bản tin 48 giờ (LEON Quant Labs).
+Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính sách) cho LEON Quant Labs. Đây là **phần {batch_index}/{batch_total}** của bản tin 48 giờ.
 
 ## Quy tắc
 - CHỈ dùng JSON bài viết bên dưới + khung toàn cảnh (nếu có). KHÔNG mở URL, KHÔNG tìm web, KHÔNG bịa.
 - Toàn bộ pipeline có {total_articles} bài; bạn thấy phần này — ghi nhận đủ sự kiện **trong phần được giao**, đối chiếu khung để biết phần này thuộc chủ đề lớn nào.
 - **JSON hợp lệ:** `sector_notes` đúng 4 mã; mỗi mã **5–12** `sub_topics` (tổng hợp, không liệt kê hết bài); mỗi mục 1 `headline` + **1** URL **khớp** headline; `notable_articles` tối đa **5**/chunk.
 {_digest_four_sector_rules_block()}
+{_digest_sector_summary_rules_block()}
+- Trong chunk: mỗi `sector_notes[].summary` viết **3–4 câu** nháp phân tích (merge sẽ mở rộng thành bản đầy đủ).
 {outline_block}
 ## Cửa sổ: {window_desc}
 
@@ -766,7 +788,7 @@ Trả về DUY NHẤT JSON:
     {{
       "code": "finance|tech|news|trends",
       "name": "Tên tiếng Việt",
-      "summary": "Tối đa 2 câu",
+      "summary": "3-4 câu phân tích (nháp; merge sẽ viết 4-6 câu đầy đủ)",
       "sub_topics": [{{"importance_rank": 1, "headline": "...", "source_urls": ["một url"]}}]
     }}
   ],
@@ -800,14 +822,15 @@ def build_digest_merge_prompt(
             + "\n"
         )
     return f"""
-Bạn là biên tập viên tổng hợp tin LEON Quant Labs.
+Bạn là **chuyên gia phân tích & biên tập cấp cao** LEON Quant Labs (văn phong ghi chú đầu tư / bản tin vĩ mô, không PR).
 
 Đã có {len(partials)} bản tóm tắt **phần** (chi tiết nội dung) từ tổng {total_articles} bài tin 48h. Cửa sổ: {window_desc}.
 {outline_block}
-Nhiệm vụ: **Gộp** thành **một** bản tin duy nhất, tiếng Việt, đọc **10–15 phút** (~2.000–3.500 từ), **toàn cảnh đa ngành** (VN + quốc tế).
+Nhiệm vụ: **Gộp** thành **một** bản tin duy nhất, tiếng Việt, đọc **10–15 phút** (~2.500–4.000 từ), **toàn cảnh đa ngành** (VN + quốc tế).
 - Khung toàn cảnh = xương sống (chủ đề trội trên toàn bộ {total_articles} bài).
 - Partials = chi tiết từng phần — **gộp KHÔNG được làm mất** chủ đề lớn trong khung; **cấm** chỉ giữ 2–3 sector (hạ tầng, CK, AI) nếu partials/outline còn nhiều lĩnh vực khác.
 - Gom `sector_notes` trùng tên lĩnh vực; **không** nhồi mọi thứ vào một mục "Khác".
+- Khi gộp: **viết lại** (không chép nguyên) mỗi `sectors[].summary` thành đoạn phân tích **đầy đủ, chuyên nghiệp** từ toàn bộ partials của mã đó.
 {_digest_four_sector_rules_block(for_merge=True)}
 CHỈ dùng dữ liệu được cung cấp — không bổ sung từ bên ngoài.
 

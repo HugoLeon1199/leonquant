@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Leon Quant: profile seed sources, then Scrapy (today-mode) per tier → ``news_output.json``.
+"""Leon Quant: profile seed sources, then Scrapy (today-mode) per tier → ``news_output_today.json``.
 
 Engine: vendored ``leon_web_intel/`` or ``LEON_WEB_INTEL_ROOT``. Does **not** run Gemini/GPT/build web.
 
@@ -59,7 +59,7 @@ def run(cmd: list[str], *, cwd: Path, timeout: int | None = None) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Profiler + tiered Scrapy → news_output.json")
+    parser = argparse.ArgumentParser(description="Profiler + tiered Scrapy → news_output_today.json")
     parser.add_argument("--date", default="today")
     parser.add_argument("--timezone", default="Asia/Ho_Chi_Minh")
     parser.add_argument(
@@ -207,8 +207,7 @@ def main() -> int:
             args.timezone,
             "--output-today",
             str(args.output_today.resolve()),
-            "--output-all",
-            str(args.output_all.resolve()),
+            "--today-only",
         ],
         cwd=QUANT_ROOT,
         timeout=None,

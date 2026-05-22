@@ -16,7 +16,7 @@ from urllib.request import Request, urlopen
 
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_DIGEST_FILE = PROJECT_DIR / "gemini_digest_summary.json"
-DEFAULT_ENRICHED_FILE = PROJECT_DIR / "enriched_news.json"
+DEFAULT_ENRICHED_FILE = PROJECT_DIR / "news_for_ai_clean.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "content.json"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -1162,6 +1162,55 @@ def _url_hostname(url: str) -> str:
         return ""
 
 
+_SOURCE_DISPLAY_BY_HOST: dict[str, str] = {
+    "dantri.com.vn": "Dân trí",
+    "vnexpress.net": "VnExpress",
+    "tuoitre.vn": "Tuổi Trẻ",
+    "thanhnien.vn": "Thanh Niên",
+    "vietnamnet.vn": "VietnamNet",
+    "baochinhphu.vn": "Báo Chính phủ",
+    "cafef.vn": "CafeF",
+    "vneconomy.vn": "VnEconomy",
+    "genk.vn": "GenK",
+    "plo.vn": "PLO",
+    "laodong.vn": "Lao động",
+    "tienphong.vn": "Tiền Phong",
+    "aljazeera.com": "Al Jazeera",
+    "asia.nikkei.com": "Nikkei Asia",
+    "scmp.com": "SCMP",
+    "theguardian.com": "The Guardian",
+    "cnbc.com": "CNBC",
+    "techcrunch.com": "TechCrunch",
+    "theverge.com": "The Verge",
+    "wired.com": "Wired",
+    "reuters.com": "Reuters",
+    "bloomberg.com": "Bloomberg",
+    "bbc.com": "BBC",
+    "bbc.co.uk": "BBC",
+}
+
+
+def _source_brand_name(host: str, raw_source: str = "") -> str:
+    host_key = (host or "").lower().strip()
+    raw = (raw_source or "").strip()
+    if raw and raw.lower() not in (host_key, f"www.{host_key}") and "." not in raw:
+        return raw
+    if raw and raw.lower() not in (host_key, f"www.{host_key}") and raw != host_key:
+        mapped = _SOURCE_DISPLAY_BY_HOST.get(host_key, "")
+        if mapped:
+            return mapped
+        return raw
+    return _SOURCE_DISPLAY_BY_HOST.get(host_key, "")
+
+
+def _link_display_label(host: str, raw_source: str = "") -> str:
+    host = (host or "").strip()
+    brand = _source_brand_name(host, raw_source)
+    if brand and brand.lower() != host.lower():
+        return f"{brand} · {host}" if host else brand
+    return host or raw_source.strip() or "Nguồn"
+
+
 DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
     ("finance", "Kinh tế & Tài chính"),
     ("tech", "Công nghệ & AI"),
@@ -1170,6 +1219,7 @@ DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
 )
 DIGEST_SECTOR_LABEL_BY_CODE = dict(DIGEST_FOUR_SECTORS)
 DIGEST_MAX_ITEMS_PER_SECTOR = 20
+DIGEST_SECTOR_SUMMARY_MAX_CHARS = 2800
 _URL_MATCH_MIN_SCORE = 0.36
 
 
@@ -1395,12 +1445,15 @@ def _links_from_urls(
             continue
         add_link(u, sector=sector_name, group=sector_name)
         art = by_url.get(u)
+        host = _url_hostname(u)
+        src = (str(art.get("source", "")) if art else "") or ""
         out.append(
             {
                 "url": u,
-                "title": (str(art.get("title", "")) if art else "") or _url_hostname(u) or u,
-                "host": _url_hostname(u),
-                "source": (str(art.get("source", "")) if art else "") or "",
+                "title": (str(art.get("title", "")) if art else "") or host or u,
+                "host": host,
+                "source": src,
+                "label": _link_display_label(host, src),
             }
         )
     return out
@@ -1536,7 +1589,8 @@ def _normalize_digest_sectors_four(
         if summ and not bucket["summary"]:
             bucket["summary"] = summ
         elif summ and summ not in bucket["summary"]:
-            bucket["summary"] = f"{bucket['summary']} {summ}".strip()[:600]
+            combined = f"{bucket['summary']} {summ}".strip()
+            bucket["summary"] = combined[:DIGEST_SECTOR_SUMMARY_MAX_CHARS]
         bucket["items"].extend(
             _sector_items_from_raw(
                 sector,
@@ -1611,12 +1665,14 @@ def build_digest_web_extras(
         art = by_url.get(u)
         t = (title or (str(art.get("title", "")) if art else "") or "").strip()
         src = (source or (str(art.get("source", "")) if art else "") or "").strip()
+        host = _url_hostname(u)
         link_index.append(
             {
                 "url": u,
-                "title": t or _url_hostname(u) or u,
-                "host": _url_hostname(u),
+                "title": t or host or u,
+                "host": host,
                 "source": src,
+                "label": _link_display_label(host, src),
                 "sector": sector,
                 "group": group or sector or "Khác",
             }

@@ -41,6 +41,40 @@ function getHostName(u) {
   }
 }
 
+const SOURCE_DISPLAY_BY_HOST = {
+  "dantri.com.vn": "Dân trí",
+  "vnexpress.net": "VnExpress",
+  "tuoitre.vn": "Tuổi Trẻ",
+  "thanhnien.vn": "Thanh Niên",
+  "vietnamnet.vn": "VietnamNet",
+  "baochinhphu.vn": "Báo Chính phủ",
+  "cafef.vn": "CafeF",
+  "vneconomy.vn": "VnEconomy",
+  "genk.vn": "GenK",
+  "plo.vn": "PLO",
+  "laodong.vn": "Lao động",
+  "tienphong.vn": "Tiền Phong",
+  "aljazeera.com": "Al Jazeera",
+  "reuters.com": "Reuters",
+  "bloomberg.com": "Bloomberg",
+  "cnbc.com": "CNBC",
+  "techcrunch.com": "TechCrunch",
+  "theverge.com": "The Verge",
+};
+
+function formatSourceLinkLabel(link, url) {
+  const lk = link || {};
+  const preset = String(lk.label || "").trim();
+  if (preset) return preset;
+  const u = String(url || lk.url || "").trim();
+  const host = String(lk.host || "").trim() || getHostName(u);
+  let source = String(lk.source || "").trim();
+  if (source && host && source.toLowerCase() === host.toLowerCase()) source = "";
+  const brand = source || SOURCE_DISPLAY_BY_HOST[host.toLowerCase()] || "";
+  if (brand && host && brand.toLowerCase() !== host.toLowerCase()) return `${brand} · ${host}`;
+  return host || brand || u || "Nguồn";
+}
+
 function proseToBullets(text) {
   const raw = String(text || "").trim();
   if (!raw) return [];
@@ -163,9 +197,10 @@ function ensureDigestSectors(data) {
     const bucket = buckets[code] || buckets.trends;
     bucket.name = String(s.name || "").trim() || bucket.name;
     if (String(s.summary || "").trim()) {
+      const next = String(s.summary).trim();
       bucket.summary = bucket.summary
-        ? `${bucket.summary} ${String(s.summary).trim()}`.slice(0, 600)
-        : String(s.summary).trim();
+        ? `${bucket.summary} ${next}`.trim().slice(0, 2800)
+        : next;
     }
     bucket.items.push(...normalizeSectorItems(s));
   }
@@ -274,7 +309,6 @@ function buildSectorBlockHtml(s, index) {
   h += `<h3>${escapeHtml(name)}</h3></div></header><div class="sector-body">`;
   if (intro) h += `<p class="sector-intro">${escapeHtml(intro)}</p>`;
   if (items.length) {
-    h += `<p class="sector-order-hint">Theo thứ tự quan trọng (tổng hợp AI — mục trên cùng nóng nhất).</p>`;
     h += `<ol class="sector-topic-list">`;
     items.forEach((it, ti) => {
       const lk = (it.links || [])[0];
@@ -284,7 +318,8 @@ function buildSectorBlockHtml(s, index) {
       h += `<div class="sector-topic-main">`;
       h += `<p class="sector-topic-headline">${escapeHtml(it.headline)}</p>`;
       if (u) {
-        h += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">Bấm vào đây xem tin liên quan</a>`;
+        const srcLabel = escapeHtml(formatSourceLinkLabel(lk, u));
+        h += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
       }
       h += `</div></li>`;
     });
