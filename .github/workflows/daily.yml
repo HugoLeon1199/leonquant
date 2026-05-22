@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: "0 22 * * *"
   workflow_dispatch:
+  # Chạm file này trên main → chạy full crawl + Gemini trên GitHub Actions (không cần máy local).
+  push:
+    branches: [main]
+    paths:
+      - .ci-run-digest
 
 permissions:
   contents: write
