@@ -2,6 +2,8 @@ import argparse
 import copy
 import json
 import re
+import unicodedata
+from difflib import SequenceMatcher
 from datetime import datetime, timezone
 from html import unescape
 from html.parser import HTMLParser
@@ -1168,7 +1170,7 @@ DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
 )
 DIGEST_SECTOR_LABEL_BY_CODE = dict(DIGEST_FOUR_SECTORS)
 DIGEST_MAX_ITEMS_PER_SECTOR = 20
-_URL_MATCH_MIN_SCORE = 0.14
+_URL_MATCH_MIN_SCORE = 0.36
 
 
 def _infer_digest_sector_code(name: str) -> str:
@@ -1247,81 +1249,133 @@ def _resolve_digest_sector_code(sector: dict[str, Any]) -> str:
     return _infer_digest_sector_code(str(sector.get("name") or ""))
 
 
+def _normalize_vn_text(text: str) -> str:
+    s = unicodedata.normalize("NFD", str(text or ""))
+    return "".join(c for c in s if unicodedata.category(c) != "Mn").lower()
+
+
 def _headline_tokens(text: str) -> set[str]:
-    raw = re.findall(r"[\wÀ-ỹ]{3,}", (text or "").lower(), flags=re.UNICODE)
+    norm = _normalize_vn_text(text)
+    raw = re.findall(r"[\w]{3,}", norm, flags=re.UNICODE)
     stop = {
-        "của",
-        "và",
+        "cua",
+        "va",
         "cho",
-        "các",
+        "cac",
         "trong",
-        "với",
-        "từ",
+        "voi",
+        "tu",
         "theo",
-        "một",
-        "được",
-        "năm",
-        "ngày",
+        "mot",
+        "duoc",
+        "nam",
+        "ngay",
         "tin",
-        "bài",
+        "bai",
         "the",
         "and",
         "for",
+        "voi",
+        "cung",
+        "nhung",
+        "muc",
+        "theo",
     }
     return {t for t in raw if t not in stop}
 
 
+def _entity_hints(headline: str) -> set[str]:
+    hints: set[str] = set()
+    for m in re.finditer(r"\b[A-Z][a-zA-Z]{2,}\b|\b[A-Z]{2,}\b", headline):
+        hints.add(m.group().lower())
+    for m in re.finditer(
+        r"(?i)\b(spacex|meta|nvidia|google|amd|iran|israel|ukraine|philippines|"
+        r"zalando|bitcoin|pecc2|pc1|team pcp|etax|ipo|vn-index|vnindex)\b",
+        headline,
+    ):
+        hints.add(re.sub(r"\s+", "", m.group().lower()))
+    for m in re.finditer(r"\b\d[\d.,]{0,8}\b", headline):
+        hints.add(m.group())
+    return {h for h in hints if len(h) >= 2}
+
+
 def _score_headline_to_article(headline: str, art: dict[str, Any]) -> float:
-    ht = _headline_tokens(headline)
-    if not ht:
+    title = str(art.get("title") or "").strip()
+    if not title:
         return 0.0
+    text = str(art.get("text") or "")[:1000]
+    ht = _headline_tokens(headline)
+    title_norm = _normalize_vn_text(title)
+    blob_norm = title_norm + " " + _normalize_vn_text(text)
+    at = _headline_tokens(blob_norm)
+    token_sc = (len(ht & at) / max(len(ht), 1)) if ht and at else 0.0
+    seq_sc = SequenceMatcher(None, _normalize_vn_text(headline), title_norm).ratio()
+    hints = _entity_hints(headline)
+    hint_sc = 0.0
+    if hints:
+        blob_l = blob_norm.lower()
+        matched = sum(1 for h in hints if h in blob_l or h in title_norm)
+        hint_sc = matched / len(hints)
+        if matched == 0:
+            return 0.0
+        strong_latin = [h for h in hints if h.isascii() and len(h) >= 4]
+        if strong_latin and not any(h in title_norm for h in strong_latin):
+            return 0.0
+    must_vn = {t for t in _headline_tokens(headline) if len(t) >= 5 and not t.isascii()}
+    if must_vn:
+        title_t = _headline_tokens(title)
+        if len(must_vn & title_t) < min(2, len(must_vn)):
+            return 0.0
+    combined = min(1.0, 0.35 * token_sc + 0.4 * seq_sc + 0.25 * hint_sc)
+    if seq_sc < 0.24 and token_sc < 0.42:
+        return 0.0
+    return combined
+
+
+def _infer_article_sector_code(article: dict[str, Any]) -> str:
     blob = " ".join(
         [
-            str(art.get("title") or ""),
-            str(art.get("text") or "")[:600],
+            str(article.get("title") or ""),
+            str(article.get("text") or "")[:1200],
+            str(article.get("source") or ""),
+            str(article.get("category") or ""),
         ]
     )
-    at = _headline_tokens(blob)
-    if not at:
-        return 0.0
-    inter = len(ht & at)
-    return inter / max(len(ht), 1)
+    return _infer_digest_sector_code(blob)
 
 
 def _resolve_url_for_headline(
     headline: str,
     *,
-    preferred_urls: list[str],
     by_url: dict[str, dict[str, Any]],
     used_urls: set[str] | None = None,
+    sector_code: str = "",
+    boost_urls: list[str] | None = None,
 ) -> str:
-    """Chọn URL khớp headline nhất; không gán link nếu không đủ tin cậy."""
+    """Quét toàn bộ bài crawl, chọn URL khớp headline nhất; không gán nếu không chắc."""
     best_u = ""
     best_sc = 0.0
-    seen: set[str] = set()
-    for u in preferred_urls:
-        u = str(u or "").strip()
-        if not u or u in seen:
-            continue
-        seen.add(u)
-        if used_urls and u in used_urls:
-            continue
-        art = by_url.get(u)
-        if not art:
-            continue
-        sc = _score_headline_to_article(headline, art)
-        if sc > best_sc:
-            best_sc, best_u = sc, u
-    if best_u and best_sc >= _URL_MATCH_MIN_SCORE:
-        return best_u
+    boost = {str(u).strip() for u in (boost_urls or []) if str(u).strip()}
     for u, art in by_url.items():
         u = str(u or "").strip()
-        if not u or u in seen or (used_urls and u in used_urls):
+        if not u or (used_urls and u in used_urls):
             continue
         sc = _score_headline_to_article(headline, art)
+        if not sc:
+            continue
+        if u in boost:
+            sc = min(1.0, sc * 1.1)
+        if sector_code:
+            if _infer_article_sector_code(art) == sector_code:
+                sc = min(1.0, sc * 1.06)
+            else:
+                sc *= 0.5
         if sc > best_sc:
             best_sc, best_u = sc, u
-    if best_u and best_sc >= _URL_MATCH_MIN_SCORE:
+    min_sc = _URL_MATCH_MIN_SCORE
+    if best_u in boost and best_sc >= 0.28:
+        min_sc = 0.28
+    if best_u and best_sc >= min_sc:
         return best_u
     return ""
 
@@ -1355,10 +1409,14 @@ def _links_from_urls(
 def _sector_items_from_raw(
     sector: dict[str, Any],
     *,
+    sector_code: str,
+    all_articles: list[dict[str, Any]],
     by_url: dict[str, dict[str, Any]],
     sector_name: str,
     add_link,
 ) -> list[dict[str, Any]]:
+    pool = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
+
     subs = sector.get("sub_topics")
     used_urls: set[str] | None = set()
     if isinstance(subs, list) and subs:
@@ -1370,13 +1428,12 @@ def _sector_items_from_raw(
             if not headline:
                 continue
             stated = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
-            pool = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
-            candidates = stated + [u for u in pool if u not in stated]
             matched = _resolve_url_for_headline(
                 headline,
-                preferred_urls=candidates,
                 by_url=by_url,
                 used_urls=used_urls,
+                sector_code=sector_code,
+                boost_urls=stated + pool,
             )
             links = (
                 _links_from_urls(
@@ -1394,15 +1451,15 @@ def _sector_items_from_raw(
         return items[:DIGEST_MAX_ITEMS_PER_SECTOR]
 
     points = [str(p).strip() for p in (sector.get("key_points") or []) if str(p).strip()]
-    pool = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
     items = []
     used: set[str] = set()
     for pt in points:
         matched = _resolve_url_for_headline(
             pt,
-            preferred_urls=pool,
             by_url=by_url,
             used_urls=used,
+            sector_code=sector_code,
+            boost_urls=pool,
         )
         links = (
             _links_from_urls(
@@ -1425,7 +1482,9 @@ def _normalize_digest_sectors_four(
     *,
     by_url: dict[str, dict[str, Any]],
     add_link,
+    all_articles: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
+    articles = all_articles if isinstance(all_articles, list) else []
     buckets: dict[str, dict[str, Any]] = {
         code: {"code": code, "name": label, "summary": "", "items": []}
         for code, label in DIGEST_FOUR_SECTORS
@@ -1448,7 +1507,12 @@ def _normalize_digest_sectors_four(
             bucket["summary"] = f"{bucket['summary']} {summ}".strip()[:600]
         bucket["items"].extend(
             _sector_items_from_raw(
-                sector, by_url=by_url, sector_name=label, add_link=add_link
+                sector,
+                sector_code=code,
+                all_articles=articles,
+                by_url=by_url,
+                sector_name=label,
+                add_link=add_link,
             )
         )
 
@@ -1526,7 +1590,7 @@ def build_digest_web_extras(
         )
 
     sectors_out = _normalize_digest_sectors_four(
-        summary, by_url=by_url, add_link=add_link
+        summary, by_url=by_url, add_link=add_link, all_articles=all_articles
     )
 
     for row in summary.get("notable_articles") or []:
