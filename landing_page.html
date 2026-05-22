@@ -459,11 +459,19 @@
       color: var(--faint);
     }
     .sector-intro {
-      margin: 0 0 14px;
+      margin: 0 0 8px;
       padding: 0 20px;
       font-size: .88rem;
       line-height: 1.55;
       color: var(--muted);
+    }
+    .sector-order-hint {
+      margin: 0 0 12px;
+      padding: 0 20px;
+      font-size: .72rem;
+      font-weight: 650;
+      letter-spacing: .04em;
+      color: var(--faint);
     }
     .sector-topic-list {
       margin: 0;
@@ -1094,6 +1102,10 @@
           seen.add(key);
           items.push(it);
         }
+        items.sort(
+          (a, b) =>
+            (Number(a.importanceRank) || 999) - (Number(b.importanceRank) || 999),
+        );
         return {
           code,
           name: b.name || name,
@@ -1201,8 +1213,8 @@
       h += `<h3>${escapeHtml(name)}</h3></div></header>`;
       h += `<div class="sector-body">`;
       if (intro) h += `<p class="sector-intro">${escapeHtml(intro)}</p>`;
-
       if (items.length) {
+        h += `<p class="sector-order-hint">Theo thứ tự quan trọng (tổng hợp AI — mục trên cùng nóng nhất).</p>`;
         h += `<ol class="sector-topic-list">`;
         items.forEach((it, ti) => {
           const lk = (it.links || [])[0];

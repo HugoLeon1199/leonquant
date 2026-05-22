@@ -1406,6 +1406,25 @@ def _links_from_urls(
     return out
 
 
+def _sub_topic_importance_key(row: dict[str, Any], fallback_index: int) -> tuple[int, int]:
+    for field in ("importance_rank", "importance", "rank", "priority"):
+        raw = row.get(field)
+        if raw is None or raw == "":
+            continue
+        try:
+            return (0, int(raw))
+        except (TypeError, ValueError):
+            continue
+    return (1, fallback_index)
+
+
+def _sort_sub_topics_by_importance(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Giữ thứ tự Gemini; nếu có importance_rank thì sắp xếp 1 = quan trọng nhất."""
+    indexed = [(i, r) for i, r in enumerate(rows) if isinstance(r, dict)]
+    indexed.sort(key=lambda pair: _sub_topic_importance_key(pair[1], pair[0]))
+    return [r for _, r in indexed]
+
+
 def _sector_items_from_raw(
     sector: dict[str, Any],
     *,
@@ -1421,7 +1440,7 @@ def _sector_items_from_raw(
     used_urls: set[str] | None = set()
     if isinstance(subs, list) and subs:
         items: list[dict[str, Any]] = []
-        for row in subs:
+        for row in _sort_sub_topics_by_importance(subs):
             if not isinstance(row, dict):
                 continue
             headline = str(row.get("headline") or row.get("title") or "").strip()
@@ -1447,9 +1466,16 @@ def _sector_items_from_raw(
             )
             if matched and used_urls is not None:
                 used_urls.add(matched)
-            items.append({"headline": headline, "links": links})
+            items.append(
+                {
+                    "headline": headline,
+                    "links": links,
+                    "importanceRank": _sub_topic_importance_key(row, len(items))[1],
+                }
+            )
         return items[:DIGEST_MAX_ITEMS_PER_SECTOR]
 
+    # key_points từ Gemini: thứ tự mảng = quan trọng giảm dần (không đảo)
     points = [str(p).strip() for p in (sector.get("key_points") or []) if str(p).strip()]
     items = []
     used: set[str] = set()
@@ -1473,7 +1499,13 @@ def _sector_items_from_raw(
         )
         if matched:
             used.add(matched)
-        items.append({"headline": pt, "links": links})
+        items.append(
+            {
+                "headline": pt,
+                "links": links,
+                "importanceRank": len(items) + 1,
+            }
+        )
     return items[:DIGEST_MAX_ITEMS_PER_SECTOR]
 
 
@@ -1529,6 +1561,7 @@ def _normalize_digest_sectors_four(
                     continue
                 seen_u.add(u)
             deduped.append(it)
+        deduped.sort(key=lambda it: int(it.get("importanceRank") or 999))
         deduped = deduped[:DIGEST_MAX_ITEMS_PER_SECTOR]
         points_legacy = [
             str(p).strip()

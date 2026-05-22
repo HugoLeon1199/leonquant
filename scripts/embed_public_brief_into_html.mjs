@@ -179,6 +179,9 @@ function ensureDigestSectors(data) {
       seen.add(key);
       items.push(it);
     }
+    items.sort(
+      (a, b) => (Number(a.importanceRank) || 999) - (Number(b.importanceRank) || 999),
+    );
     return {
       code,
       name: b.name || name,
@@ -271,6 +274,7 @@ function buildSectorBlockHtml(s, index) {
   h += `<h3>${escapeHtml(name)}</h3></div></header><div class="sector-body">`;
   if (intro) h += `<p class="sector-intro">${escapeHtml(intro)}</p>`;
   if (items.length) {
+    h += `<p class="sector-order-hint">Theo thứ tự quan trọng (tổng hợp AI — mục trên cùng nóng nhất).</p>`;
     h += `<ol class="sector-topic-list">`;
     items.forEach((it, ti) => {
       const lk = (it.links || [])[0];

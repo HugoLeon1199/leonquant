@@ -87,6 +87,11 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         f"- Mỗi sector: **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` — ưu tiên tin nóng, nhiều nguồn, tác động lớn.",
         "- **Cấm** chép tiêu đề 500 bài; **cấm** một dòng một bài kiểu danh mục.",
         "- Gom tin trùng chủ đề thành **một** dòng tổng hợp.",
+        "## Thứ tự quan trọng (bắt buộc — AI tổng hợp)",
+        "- Trong mỗi sector, `sub_topics` (hoặc `key_points` khi gộp) phải **sắp xếp theo mức độ quan trọng giảm dần**.",
+        "- **Mục đầu tiên = tin nóng / được nhắc nhiều / tác động lớn nhất** trong 48h; mục cuối = ít nổi bật hơn.",
+        "- Khi gộp batch: **sắp xếp lại** toàn bộ `sub_topics` của sector — không để tin quan trọng rơi xuống cuối.",
+        "- Dùng `importance_rank`: **1** = quan trọng nhất, tăng dần; hoặc giữ thứ tự mảng đúng như trên.",
     ]
     if for_merge:
         lines.extend(
@@ -118,8 +123,14 @@ def _digest_sector_json_schema_fragment() -> str:
       "summary": "Tối đa 2 câu mở đầu (tùy chọn)",
       "sub_topics": [
         {{
-          "headline": "Một dòng: sự kiện/tin cụ thể báo chí đưa",
+          "importance_rank": 1,
+          "headline": "Tin quan trọng nhất — một dòng tổng hợp",
           "source_urls": ["một url đại diện duy nhất"]
+        }},
+        {{
+          "importance_rank": 2,
+          "headline": "Tin ít nổi bật hơn",
+          "source_urls": ["url"]
         }}
       ]
     }}"""
@@ -756,7 +767,7 @@ Trả về DUY NHẤT JSON:
       "code": "finance|tech|news|trends",
       "name": "Tên tiếng Việt",
       "summary": "Tối đa 2 câu",
-      "sub_topics": [{{"headline": "...", "source_urls": ["một url"]}}]
+      "sub_topics": [{{"importance_rank": 1, "headline": "...", "source_urls": ["một url"]}}]
     }}
   ],
   "vietnam_notes": "Tin VN trong phần này",
