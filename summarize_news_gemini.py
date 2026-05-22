@@ -84,9 +84,10 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         '- `trends`: xu hướng, đời sống, quan điểm, góc nhìn, văn hóa, thể thao, y tế, môi trường, pháp luật/xã hội không thuần chính trị.',
         "- **Không** tạo sector ngoài 4 mã; **không** gộp hết vào finance/tech.",
         "- Trong mỗi sector: **tổng hợp** (không liệt kê từng bài) — chỉ các **mục đáng chú ý nhất** trong 48h.",
-        "- Mỗi `sub_topics[]`: **1 câu tổng hợp** + `source_urls` (**đúng 1 URL** — phải là bài có **tiêu đề/nội dung trùng** headline, không lấy URL ngẫu nhiên từ sector).",
+        "- Mỗi `sub_topics[]`: **1 câu tổng hợp** + `source_urls` (**BẮT BUỘC đúng 1 URL** — lấy từ danh sách bài crawl; **CẤM** `[]` hoặc thiếu field).",
+        "- **Mỗi dòng tóm tắt phải có link:** `source_urls[0]` là bài nguồn khớp headline (tiêu đề/nội dung), không gán URL ngẫu nhiên.",
         "## Chọn lọc (bắt buộc)",
-        f"- Mỗi sector: **{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` (tối thiểu **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}**; **cấm** chỉ ghi đúng 5 mục cho đủ quota).",
+        f"- Mỗi sector: khoảng **{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}** `sub_topics` (cho phép **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}**; mục tiêu ~{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}, không cứng 12 nếu tin ít).",
         "- **Cấm** chép tiêu đề 500 bài; **cấm** một dòng một bài kiểu danh mục.",
         "- Gom tin trùng chủ đề thành **một** dòng tổng hợp.",
         "## Thứ tự quan trọng (bắt buộc — AI tổng hợp)",
@@ -99,7 +100,8 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         lines.extend(
             [
                 f"- **`sectors`:** đúng **4** phần tử, mã `code`: finance, tech, news, trends (thứ tự cố định).",
-                f"- Mỗi sector: **{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` (tối thiểu **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}**; cấm dừng ở 5 mục).",
+                f"- Mỗi sector: mục tiêu **~{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}** `sub_topics` (min **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}**, max **{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}**).",
+                "- **Mọi** `sub_topics[]` phải có `source_urls`: `[\"https://...\"]` — không được bỏ trống.",
                 _digest_sector_summary_rules_block(),
                 f"- **`notable_articles`: đúng {DIGEST_NOTABLE_FINAL_COUNT}** tin nóng nhất (đa dạng 4 mã).",
                 "- `executive_overview` + **4× `summary` sector** + `sub_topics` ≈ **2.500–4.000 từ** tổng.",
@@ -194,6 +196,14 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
             warnings.append(
                 f"sectors[{i}] ({label}) có {n_items} sub_topics (nên ≤{DIGEST_MAX_SUB_TOPICS_PER_SECTOR})."
             )
+        for j, row in enumerate(subs):
+            if not isinstance(row, dict):
+                continue
+            urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+            if not urls:
+                warnings.append(
+                    f"sectors[{i}] ({label}) sub_topics[{j}] thiếu source_urls (bắt buộc 1 link)."
+                )
         summ = str(sec.get("summary") or "").strip()
         if len(summ) < DIGEST_SECTOR_SUMMARY_MIN_CHARS:
             warnings.append(

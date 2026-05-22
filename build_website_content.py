@@ -1394,6 +1394,34 @@ def _infer_article_sector_code(article: dict[str, Any]) -> str:
     return _infer_digest_sector_code(blob)
 
 
+def _is_http_url(url: str) -> bool:
+    u = (url or "").strip().lower()
+    return u.startswith("http://") or u.startswith("https://")
+
+
+def _pick_sub_topic_url(
+    headline: str,
+    stated: list[str],
+    *,
+    by_url: dict[str, dict[str, Any]],
+    used_urls: set[str] | None,
+    sector_code: str,
+    boost_urls: list[str],
+) -> str:
+    """Ưu tiên URL Gemini; không bỏ link chỉ vì lệch sector trong matcher."""
+    for u in stated:
+        if not _is_http_url(u) or (used_urls is not None and u in used_urls):
+            continue
+        return u.strip()
+    return _resolve_url_for_headline(
+        headline,
+        by_url=by_url,
+        used_urls=used_urls,
+        sector_code=sector_code,
+        boost_urls=boost_urls,
+    )
+
+
 def _resolve_url_for_headline(
     headline: str,
     *,
@@ -1500,21 +1528,14 @@ def _sector_items_from_raw(
             if not headline:
                 continue
             stated = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
-            matched = ""
-            for u in stated:
-                if not u or u not in by_url or (used_urls is not None and u in used_urls):
-                    continue
-                if _score_headline_to_article(headline, by_url[u]) >= 0.22:
-                    matched = u
-                    break
-            if not matched:
-                matched = _resolve_url_for_headline(
-                    headline,
-                    by_url=by_url,
-                    used_urls=used_urls,
-                    sector_code=sector_code,
-                    boost_urls=stated + pool,
-                )
+            matched = _pick_sub_topic_url(
+                headline,
+                stated,
+                by_url=by_url,
+                used_urls=used_urls,
+                sector_code=sector_code,
+                boost_urls=stated + pool,
+            )
             links = (
                 _links_from_urls(
                     [matched],
