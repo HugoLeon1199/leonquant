@@ -1167,6 +1167,8 @@ DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
     ("trends", "Xu hướng & Đời sống"),
 )
 DIGEST_SECTOR_LABEL_BY_CODE = dict(DIGEST_FOUR_SECTORS)
+DIGEST_MAX_ITEMS_PER_SECTOR = 20
+_URL_MATCH_MIN_SCORE = 0.14
 
 
 def _infer_digest_sector_code(name: str) -> str:
@@ -1245,16 +1247,83 @@ def _resolve_digest_sector_code(sector: dict[str, Any]) -> str:
     return _infer_digest_sector_code(str(sector.get("name") or ""))
 
 
-def _infer_article_sector_code(article: dict[str, Any]) -> str:
+def _headline_tokens(text: str) -> set[str]:
+    raw = re.findall(r"[\wÀ-ỹ]{3,}", (text or "").lower(), flags=re.UNICODE)
+    stop = {
+        "của",
+        "và",
+        "cho",
+        "các",
+        "trong",
+        "với",
+        "từ",
+        "theo",
+        "một",
+        "được",
+        "năm",
+        "ngày",
+        "tin",
+        "bài",
+        "the",
+        "and",
+        "for",
+    }
+    return {t for t in raw if t not in stop}
+
+
+def _score_headline_to_article(headline: str, art: dict[str, Any]) -> float:
+    ht = _headline_tokens(headline)
+    if not ht:
+        return 0.0
     blob = " ".join(
         [
-            str(article.get("title") or ""),
-            str(article.get("text") or "")[:1200],
-            str(article.get("source") or ""),
-            str(article.get("category") or ""),
+            str(art.get("title") or ""),
+            str(art.get("text") or "")[:600],
         ]
     )
-    return _infer_digest_sector_code(blob)
+    at = _headline_tokens(blob)
+    if not at:
+        return 0.0
+    inter = len(ht & at)
+    return inter / max(len(ht), 1)
+
+
+def _resolve_url_for_headline(
+    headline: str,
+    *,
+    preferred_urls: list[str],
+    by_url: dict[str, dict[str, Any]],
+    used_urls: set[str] | None = None,
+) -> str:
+    """Chọn URL khớp headline nhất; không gán link nếu không đủ tin cậy."""
+    best_u = ""
+    best_sc = 0.0
+    seen: set[str] = set()
+    for u in preferred_urls:
+        u = str(u or "").strip()
+        if not u or u in seen:
+            continue
+        seen.add(u)
+        if used_urls and u in used_urls:
+            continue
+        art = by_url.get(u)
+        if not art:
+            continue
+        sc = _score_headline_to_article(headline, art)
+        if sc > best_sc:
+            best_sc, best_u = sc, u
+    if best_u and best_sc >= _URL_MATCH_MIN_SCORE:
+        return best_u
+    for u, art in by_url.items():
+        u = str(u or "").strip()
+        if not u or u in seen or (used_urls and u in used_urls):
+            continue
+        sc = _score_headline_to_article(headline, art)
+        if sc > best_sc:
+            best_sc, best_u = sc, u
+    if best_u and best_sc >= _URL_MATCH_MIN_SCORE:
+        return best_u
+    return ""
 
 
 def _links_from_urls(
@@ -1291,6 +1360,7 @@ def _sector_items_from_raw(
     add_link,
 ) -> list[dict[str, Any]]:
     subs = sector.get("sub_topics")
+    used_urls: set[str] | None = set()
     if isinstance(subs, list) and subs:
         items: list[dict[str, Any]] = []
         for row in subs:
@@ -1299,82 +1369,55 @@ def _sector_items_from_raw(
             headline = str(row.get("headline") or row.get("title") or "").strip()
             if not headline:
                 continue
-            urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
-            items.append(
-                {
-                    "headline": headline,
-                    "links": _links_from_urls(
-                        urls, by_url=by_url, sector_name=sector_name, add_link=add_link
-                    ),
-                }
+            stated = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+            pool = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
+            candidates = stated + [u for u in pool if u not in stated]
+            matched = _resolve_url_for_headline(
+                headline,
+                preferred_urls=candidates,
+                by_url=by_url,
+                used_urls=used_urls,
             )
-        return items
+            links = (
+                _links_from_urls(
+                    [matched],
+                    by_url=by_url,
+                    sector_name=sector_name,
+                    add_link=add_link,
+                )
+                if matched
+                else []
+            )
+            if matched and used_urls is not None:
+                used_urls.add(matched)
+            items.append({"headline": headline, "links": links})
+        return items[:DIGEST_MAX_ITEMS_PER_SECTOR]
 
     points = [str(p).strip() for p in (sector.get("key_points") or []) if str(p).strip()]
     pool = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
     items = []
-    url_i = 0
+    used: set[str] = set()
     for pt in points:
-        chunk: list[str] = []
-        if url_i < len(pool):
-            chunk.append(pool[url_i])
-            url_i += 1
-        items.append(
-            {
-                "headline": pt,
-                "links": _links_from_urls(
-                    chunk, by_url=by_url, sector_name=sector_name, add_link=add_link
-                ),
-            }
+        matched = _resolve_url_for_headline(
+            pt,
+            preferred_urls=pool,
+            by_url=by_url,
+            used_urls=used,
         )
-    return items
-
-
-def _supplement_buckets_from_articles(
-    buckets: dict[str, dict[str, Any]],
-    all_articles: list[dict[str, Any]],
-    *,
-    by_url: dict[str, dict[str, Any]],
-    add_link,
-) -> None:
-    """Bổ sung mục từ từng bài crawl để danh sách đại diện đầy đủ (1 dòng + 1 link/bài)."""
-    seen_urls: set[str] = set()
-    for bucket in buckets.values():
-        for it in bucket.get("items") or []:
-            for lk in it.get("links") or []:
-                u = str(lk.get("url") or "").strip()
-                if u:
-                    seen_urls.add(u)
-
-    for art in all_articles:
-        if not isinstance(art, dict):
-            continue
-        u = str(art.get("url") or "").strip()
-        title = str(art.get("title") or "").strip()
-        if not u or u in seen_urls or len(title) < 10:
-            continue
-        code = _infer_article_sector_code(art)
-        label = DIGEST_SECTOR_LABEL_BY_CODE.get(code) or "Lĩnh vực"
-        bucket = buckets.get(code) or buckets["trends"]
-        text = str(art.get("text") or "").strip()
-        headline = title[:240]
-        if len(text) > 40 and title.lower() not in text[:80].lower():
-            snippet = text.replace("\n", " ")[:180].strip()
-            if snippet:
-                headline = f"{title[:120]} — {snippet}"
-                headline = headline[:280]
-        bucket["items"].append(
-            {
-                "headline": headline,
-                "links": _links_from_urls(
-                    [u],
-                    by_url=by_url,
-                    sector_name=label,
-                    add_link=add_link,
-                ),
-            }
+        links = (
+            _links_from_urls(
+                [matched],
+                by_url=by_url,
+                sector_name=sector_name,
+                add_link=add_link,
+            )
+            if matched
+            else []
         )
-        seen_urls.add(u)
+        if matched:
+            used.add(matched)
+        items.append({"headline": pt, "links": links})
+    return items[:DIGEST_MAX_ITEMS_PER_SECTOR]
 
 
 def _normalize_digest_sectors_four(
@@ -1382,7 +1425,6 @@ def _normalize_digest_sectors_four(
     *,
     by_url: dict[str, dict[str, Any]],
     add_link,
-    all_articles: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     buckets: dict[str, dict[str, Any]] = {
         code: {"code": code, "name": label, "summary": "", "items": []}
@@ -1410,11 +1452,6 @@ def _normalize_digest_sectors_four(
             )
         )
 
-    if all_articles:
-        _supplement_buckets_from_articles(
-            buckets, all_articles, by_url=by_url, add_link=add_link
-        )
-
     out: list[dict[str, Any]] = []
     for code, label in DIGEST_FOUR_SECTORS:
         b = buckets[code]
@@ -1428,6 +1465,7 @@ def _normalize_digest_sectors_four(
                     continue
                 seen_u.add(u)
             deduped.append(it)
+        deduped = deduped[:DIGEST_MAX_ITEMS_PER_SECTOR]
         points_legacy = [
             str(p).strip()
             for p in (b.get("keyPoints") or [])
@@ -1488,7 +1526,7 @@ def build_digest_web_extras(
         )
 
     sectors_out = _normalize_digest_sectors_four(
-        summary, by_url=by_url, add_link=add_link, all_articles=all_articles
+        summary, by_url=by_url, add_link=add_link
     )
 
     for row in summary.get("notable_articles") or []:

@@ -102,6 +102,8 @@ function sectorSlug(name) {
   );
 }
 
+const DIGEST_MAX_SECTOR_ITEMS = 20;
+
 const DIGEST_FOUR_SECTORS = [
   { code: "finance", name: "Kinh tế & Tài chính" },
   { code: "tech", name: "Công nghệ & AI" },
@@ -177,7 +179,12 @@ function ensureDigestSectors(data) {
       seen.add(key);
       items.push(it);
     }
-    return { code, name: b.name || name, summary: b.summary, items };
+    return {
+      code,
+      name: b.name || name,
+      summary: b.summary,
+      items: items.slice(0, DIGEST_MAX_SECTOR_ITEMS),
+    };
   });
 }
 
