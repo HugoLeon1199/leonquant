@@ -687,12 +687,17 @@
       background: rgba(8, 145, 178, .14);
       color: var(--cyan-dim);
     }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      align-items: center;
+    }
     .nav-hub--active {
       color: #fff;
       background: linear-gradient(135deg, var(--cyan), #22d3ee);
       border-color: transparent;
-      cursor: default;
-      pointer-events: none;
     }
     body.digest-mode .logo {
       font-size: clamp(1.55rem, 4vw, 2.35rem);
@@ -900,7 +905,10 @@
     <div class="container">
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
-        <div class="nav-links" id="navLinks"></div>
+        <div class="nav-links" id="navLinks" data-nav-tabs="1">
+          <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin tức tổng hợp 24h</a>
+          <a class="nav-hub" href="/?view=live" data-view="live">Tin tức cập nhật từng phút</a>
+        </div>
       </nav>
       <h1>LEON Quant Labs</h1>
       <p class="hero-sub" id="heroSubtitle"></p>
@@ -1466,10 +1474,14 @@
       all: "Toàn cầu",
     };
 
+    const LIVE_VIEW_ALIASES = new Set(["pulse", "live", "minute"]);
+
     function currentView() {
       const q = new URLSearchParams(window.location.search);
-      if (q.get("view") === "pulse") return "pulse";
-      if (window.location.hash === "#pulse") return "pulse";
+      const v = (q.get("view") || "").toLowerCase();
+      if (LIVE_VIEW_ALIASES.has(v)) return "pulse";
+      const h = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+      if (LIVE_VIEW_ALIASES.has(h)) return "pulse";
       return "digest";
     }
 
@@ -1481,13 +1493,11 @@
       return "/";
     }
 
-    function pulseNavHref() {
+    function liveNavHref() {
       const base = digestNavHref();
       const sep = base.includes("?") ? "&" : "?";
-      if (base.endsWith(".html")) {
-        return base + sep + "view=pulse";
-      }
-      return (base === "/" ? "/?view=pulse" : base + "?view=pulse");
+      if (base.endsWith(".html")) return base + sep + "view=live";
+      return base === "/" ? "/?view=live" : base + "?view=live";
     }
 
     function updateSiteNav(view) {
@@ -1497,8 +1507,8 @@
       const dClass = v === "digest" ? "nav-hub nav-hub--active" : "nav-hub";
       const pClass = v === "pulse" ? "nav-hub nav-hub--active" : "nav-hub";
       nav.innerHTML = `
-        <a class="${dClass}" href="${escapeHtml(digestNavHref())}">Tin tức 48h</a>
-        <a class="${pClass}" href="${escapeHtml(pulseNavHref())}">World Pulse</a>`;
+        <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest">Tin tức tổng hợp 24h</a>
+        <a class="${pClass}" href="${escapeHtml(liveNavHref())}" data-view="live">Tin tức cập nhật từng phút</a>`;
     }
 
     function applyViewMode(view) {
@@ -1508,6 +1518,49 @@
       const pulseSec = document.getElementById("pulse");
       if (pulseSec) pulseSec.hidden = v !== "pulse";
       updateSiteNav(v);
+    }
+
+    let cachedDigestPayload = null;
+    let cachedPulsePayload = null;
+
+    function syncHistoryForView(view, replace) {
+      const url = view === "pulse" ? liveNavHref() : digestNavHref();
+      const state = { view };
+      if (replace) history.replaceState(state, "", url);
+      else history.pushState(state, "", url);
+    }
+
+    async function switchView(view, opts) {
+      const options = opts || {};
+      const v = LIVE_VIEW_ALIASES.has(String(view || "").toLowerCase()) || view === "pulse" ? "pulse" : "digest";
+      applyViewMode(v);
+      if (!options.skipHistory) syncHistoryForView(v, Boolean(options.replace));
+      if (v === "pulse") {
+        if (cachedPulsePayload && !options.forceReload) {
+          renderPulsePage(cachedPulsePayload);
+          return;
+        }
+        await loadPulseContent();
+        return;
+      }
+      if (cachedDigestPayload && !options.forceReload) {
+        renderPage(cachedDigestPayload);
+        return;
+      }
+      await loadChatContent();
+    }
+
+    function bindNavTabs() {
+      const nav = document.getElementById("navLinks");
+      if (!nav || nav.dataset.navBound === "1") return;
+      nav.dataset.navBound = "1";
+      nav.addEventListener("click", (e) => {
+        const a = e.target.closest("a[data-view]");
+        if (!a) return;
+        e.preventDefault();
+        const dv = a.getAttribute("data-view");
+        switchView(dv === "live" ? "pulse" : "digest");
+      });
     }
 
     function pulseSourceLabel(url) {
@@ -1520,12 +1573,12 @@
     function buildPulseHtml(data) {
       const events = Array.isArray(data?.events) ? data.events : [];
       if (!events.length) {
-        return `<div class="pulse-panel"><p class="hint">Chưa có sự kiện World Pulse. Chạy <code>python leon.py --mode all</code> để tạo <code>web/news_data.json</code>.</p></div>`;
+        return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật theo phút. Chạy <code>python leon.py --mode all</code> để tạo <code>web/news_data.json</code>.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<p class="eyebrow">GDELT · World Pulse</p>`;
-      h += `<h2>Radar sự kiện toàn cầu (đa lĩnh vực)</h2>`;
-      h += `<p class="digest-report-lead">Chính trị, kinh tế, xung đột, công nghệ, y tế, khí hậu, crypto — tách khỏi bản tin crawl 48h.</p>`;
+      h += `<p class="eyebrow">Cập nhật liên tục</p>`;
+      h += `<h2>Tin tức toàn cầu — radar theo phút</h2>`;
+      h += `<p class="digest-report-lead">Chính trị, kinh tế, xung đột, công nghệ, y tế, khí hậu, crypto — tách khỏi bản tin tổng hợp 24h.</p>`;
       h += `</header><div class="pulse-panel">`;
       h += `<p class="pulse-stats">`;
       h += `<span><strong>${events.length}</strong> sự kiện</span>`;
@@ -1570,17 +1623,17 @@
       const heroDesc = document.getElementById("heroDescription");
       if (heroSub) {
         heroSub.style.display = "";
-        heroSub.textContent = "World Pulse — radar GDELT";
+        heroSub.textContent = "Tin tức cập nhật từng phút";
       }
       if (heroDesc) {
         heroDesc.style.display = "";
         heroDesc.textContent =
-          "Sự kiện toàn cầu 48 giờ từ GDELT BigQuery (đa lĩnh vực). Tab riêng với tin crawl + Gemini.";
+          "Radar sự kiện toàn cầu (GDELT), cập nhật liên tục — tab riêng với bản tin tổng hợp 24h.";
       }
       const sync = document.getElementById("pulseSyncNote");
       if (sync) {
         const st = data?.generated_at ? formatDateVi(data.generated_at) : "";
-        sync.textContent = st ? `World Pulse cập nhật lúc ${st}.` : "World Pulse — chưa có thời điểm cập nhật.";
+        sync.textContent = st ? `Cập nhật lúc ${st}.` : "Tin cập nhật từng phút — chưa có thời điểm đồng bộ.";
       }
       const el = document.getElementById("sectionPulse");
       if (el) el.innerHTML = buildPulseHtml(data || {});
@@ -1599,13 +1652,15 @@
 
     async function loadPulseContent() {
       const sync = document.getElementById("pulseSyncNote");
-      if (sync) sync.textContent = "Đang tải World Pulse…";
+      if (sync) sync.textContent = "Đang tải tin cập nhật…";
       const data = await fetchPulseFeed();
       if (!data) {
         if (sync) sync.textContent = "Không tải được web/news_data.json.";
-        renderPulsePage({ events: [], lookback_hours: 48 });
+        cachedPulsePayload = { events: [], lookback_hours: 48 };
+        renderPulsePage(cachedPulsePayload);
         return;
       }
+      cachedPulsePayload = data;
       renderPulsePage(data);
     }
 
@@ -1647,6 +1702,7 @@
     function renderPage(data) {
       applyViewMode("digest");
       const payload = normalizeContentPayload(data && typeof data === "object" ? data : {});
+      cachedDigestPayload = payload;
       const sync = document.getElementById("syncNote");
       if (sync) {
         const st = payload.generatedAt ? formatDateVi(payload.generatedAt) : "";
@@ -1730,19 +1786,17 @@
 
     function startBriefApp() {
       const boot = () => {
-        applyViewMode(currentView());
-        if (currentView() === "pulse") {
-          void loadPulseContent();
-        } else {
-          void loadChatContent();
-        }
+        bindNavTabs();
+        void switchView(currentView(), { replace: true, skipHistory: true });
       };
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", boot);
       } else {
         boot();
       }
-      window.addEventListener("popstate", boot);
+      window.addEventListener("popstate", () => {
+        void switchView(currentView(), { skipHistory: true });
+      });
     }
     startBriefApp();
   </script>

@@ -461,8 +461,11 @@ function main() {
   html = html.replace(/<p id="syncNote" class="sync-note"><\/p>/, syncHtml);
   html = html.replace('<section id="brief" class="alt">', '<section id="brief" class="alt" data-embedded-brief="1">');
   html = html.replace(
-    /<div class="nav-links" id="navLinks">\s*<\/div>/i,
-    '<div class="nav-links" id="navLinks"><a class="nav-hub nav-hub--active" href="#brief">Tin tức tổng hợp 24h</a></div>',
+    /<div class="nav-links" id="navLinks"[^>]*>[\s\S]*?<\/div>/i,
+    '<div class="nav-links" id="navLinks" data-nav-tabs="1">' +
+      '<a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin tức tổng hợp 24h</a>' +
+      '<a class="nav-hub" href="/?view=live" data-view="live">Tin tức cập nhật từng phút</a>' +
+      "</div>",
   );
 
   fs.writeFileSync(pagePath, html, "utf8");
