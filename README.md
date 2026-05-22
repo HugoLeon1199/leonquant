@@ -62,7 +62,7 @@ python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh 
 - **`daily.yml`:** crawl → export → clean → Gemini digest → `content.json` → commit → push `main`.
   - **Lịch:** mỗi ngày **05:00 giờ Việt Nam** (ICT, UTC+7) — cron `0 22 * * *` UTC.
   - Chạy tay: Actions → *Daily news digest* → *Run workflow*, hoặc push thay đổi `.ci-run-digest` lên `main`.
-- **`pages.yml`:** deploy site sau mỗi push `main` (HTML + `content.json` nhúng brief).
+- **`pages.yml`:** deploy site sau push `main` và **sau khi Daily digest commit xong** (bot push không tự kích hoạt workflow khác).
 - **Secret bắt buộc:** repo → Settings → Secrets → `GEMINI_API_KEY` (Google AI Studio).
 
 Prompt mẫu: `prompts/gemini_digest_multisector_prompt_samples.md`

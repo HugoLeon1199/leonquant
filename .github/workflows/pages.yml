@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Commit từ Daily digest (GITHUB_TOKEN) không kích hoạt push → Pages; chạy lại sau digest xong.
+  workflow_run:
+    workflows: ["Daily news digest"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
@@ -18,6 +23,9 @@ concurrency:
 
 jobs:
   deploy:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
