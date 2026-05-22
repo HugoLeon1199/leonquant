@@ -60,7 +60,8 @@ DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
 )
 DIGEST_SECTOR_CODES = frozenset(code for code, _ in DIGEST_FOUR_SECTORS)
 DIGEST_MIN_SECTORS_FINAL = 4
-DIGEST_MIN_SUB_TOPICS_PER_SECTOR = 5
+DIGEST_MIN_SUB_TOPICS_PER_SECTOR = 8
+DIGEST_TARGET_SUB_TOPICS_PER_SECTOR = 12
 DIGEST_MAX_SUB_TOPICS_PER_SECTOR = 20
 DIGEST_NOTABLE_FINAL_COUNT = 9
 DIGEST_MIN_NOTABLE_FINAL = 9
@@ -85,7 +86,7 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         "- Trong mỗi sector: **tổng hợp** (không liệt kê từng bài) — chỉ các **mục đáng chú ý nhất** trong 48h.",
         "- Mỗi `sub_topics[]`: **1 câu tổng hợp** + `source_urls` (**đúng 1 URL** — phải là bài có **tiêu đề/nội dung trùng** headline, không lấy URL ngẫu nhiên từ sector).",
         "## Chọn lọc (bắt buộc)",
-        f"- Mỗi sector: **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` — ưu tiên tin nóng, nhiều nguồn, tác động lớn.",
+        f"- Mỗi sector: **{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` (tối thiểu **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}**; **cấm** chỉ ghi đúng 5 mục cho đủ quota).",
         "- **Cấm** chép tiêu đề 500 bài; **cấm** một dòng một bài kiểu danh mục.",
         "- Gom tin trùng chủ đề thành **một** dòng tổng hợp.",
         "## Thứ tự quan trọng (bắt buộc — AI tổng hợp)",
@@ -98,7 +99,7 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         lines.extend(
             [
                 f"- **`sectors`:** đúng **4** phần tử, mã `code`: finance, tech, news, trends (thứ tự cố định).",
-                f"- Mỗi sector: **tối đa {DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` (ngày nhiều tin vẫn không vượt 20).",
+                f"- Mỗi sector: **{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` (tối thiểu **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}**; cấm dừng ở 5 mục).",
                 _digest_sector_summary_rules_block(),
                 f"- **`notable_articles`: đúng {DIGEST_NOTABLE_FINAL_COUNT}** tin nóng nhất (đa dạng 4 mã).",
                 "- `executive_overview` + **4× `summary` sector** + `sub_topics` ≈ **2.500–4.000 từ** tổng.",
@@ -183,7 +184,11 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
         if n_items < DIGEST_MIN_SUB_TOPICS_PER_SECTOR:
             warnings.append(
                 f"sectors[{i}] ({label}) chỉ có {n_items} mục chi tiết "
-                f"(mong đợi ≥{DIGEST_MIN_SUB_TOPICS_PER_SECTOR} sub_topics)."
+                f"(mong đợi ≥{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}, mục tiêu ~{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR})."
+            )
+        elif n_items == 5:
+            warnings.append(
+                f"sectors[{i}] ({label}) có đúng 5 mục — thường là output tối thiểu, nên gộp thêm tin nóng."
             )
         elif n_items > DIGEST_MAX_SUB_TOPICS_PER_SECTOR:
             warnings.append(
@@ -772,7 +777,7 @@ Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính 
 ## Quy tắc
 - CHỈ dùng JSON bài viết bên dưới + khung toàn cảnh (nếu có). KHÔNG mở URL, KHÔNG tìm web, KHÔNG bịa.
 - Toàn bộ pipeline có {total_articles} bài; bạn thấy phần này — ghi nhận đủ sự kiện **trong phần được giao**, đối chiếu khung để biết phần này thuộc chủ đề lớn nào.
-- **JSON hợp lệ:** `sector_notes` đúng 4 mã; mỗi mã **5–12** `sub_topics` (tổng hợp, không liệt kê hết bài); mỗi mục 1 `headline` + **1** URL **khớp** headline; `notable_articles` tối đa **5**/chunk.
+- **JSON hợp lệ:** `sector_notes` đúng 4 mã; mỗi mã **8–12** `sub_topics` (không chỉ 5); mỗi mục 1 `headline` + **1** URL **khớp** headline; `notable_articles` tối đa **5**/chunk.
 {_digest_four_sector_rules_block()}
 {_digest_sector_summary_rules_block()}
 - Trong chunk: mỗi `sector_notes[].summary` viết **3–4 câu** nháp phân tích (merge sẽ mở rộng thành bản đầy đủ).

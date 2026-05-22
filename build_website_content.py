@@ -1500,13 +1500,21 @@ def _sector_items_from_raw(
             if not headline:
                 continue
             stated = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
-            matched = _resolve_url_for_headline(
-                headline,
-                by_url=by_url,
-                used_urls=used_urls,
-                sector_code=sector_code,
-                boost_urls=stated + pool,
-            )
+            matched = ""
+            for u in stated:
+                if not u or u not in by_url or (used_urls is not None and u in used_urls):
+                    continue
+                if _score_headline_to_article(headline, by_url[u]) >= 0.22:
+                    matched = u
+                    break
+            if not matched:
+                matched = _resolve_url_for_headline(
+                    headline,
+                    by_url=by_url,
+                    used_urls=used_urls,
+                    sector_code=sector_code,
+                    boost_urls=stated + pool,
+                )
             links = (
                 _links_from_urls(
                     [matched],
