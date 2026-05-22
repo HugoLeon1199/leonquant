@@ -723,7 +723,97 @@
     .digest-report-extra { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
     body.digest-mode #sectionDigestHighlights { display: none !important; }
     body.digest-mode #reference { display: none !important; }
+    body.digest-mode #pulse { display: none !important; }
+    body.pulse-mode #brief { display: none !important; }
+    body.pulse-mode #reference { display: none !important; }
+    body.pulse-mode .hero h1,
+    body.pulse-mode .hero-sub,
+    body.pulse-mode .hero-desc { display: none; }
+    body.pulse-mode .hero { padding: 22px 0 28px; }
+    body.pulse-mode .logo {
+      font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+      font-weight: 800;
+    }
     .digest-notable-all { margin-top: 0.75rem; }
+
+    .pulse-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow-sm);
+      padding: 18px 20px 22px;
+    }
+    .pulse-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin: 0 0 16px;
+      font-size: .82rem;
+      color: var(--faint);
+    }
+    .pulse-stats strong { color: var(--text-soft); }
+    .pulse-event-list { list-style: none; margin: 0; padding: 0; }
+    .pulse-event {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      background: var(--bg0);
+    }
+    .pulse-event:last-child { margin-bottom: 0; }
+    .pulse-event-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .pulse-event-rank {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 8px;
+      background: rgba(8, 145, 178, .12);
+      color: var(--cyan-dim);
+      font-size: .72rem;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+    }
+    .pulse-event-title {
+      margin: 0;
+      font-size: .95rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .pulse-event-meta {
+      font-size: .75rem;
+      font-weight: 650;
+      color: var(--faint);
+      margin: 4px 0 0;
+    }
+    .pulse-event-hint {
+      margin: 0 0 10px;
+      font-size: .86rem;
+      line-height: 1.55;
+      color: var(--text-soft);
+    }
+    .pulse-event-links { display: flex; flex-wrap: wrap; gap: 8px 12px; }
+    .pulse-event-links a {
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .pulse-domain-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(8, 145, 178, .1);
+      color: var(--cyan-dim);
+      font-size: .7rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
 
     @media (max-width: 640px) {
       .container { width: 94%; }
@@ -823,6 +913,13 @@
       <div class="container">
         <p id="syncNote" class="sync-note"></p>
         <div id="sectionThesis" class="brief-block"></div>
+      </div>
+    </section>
+
+    <section id="pulse" class="alt" hidden>
+      <div class="container">
+        <p id="pulseSyncNote" class="sync-note"></p>
+        <div id="sectionPulse" class="brief-block"></div>
       </div>
     </section>
 
@@ -1357,19 +1454,159 @@
       };
     }
 
-    function updateSiteNav() {
+    const PULSE_DOMAIN_LABELS = {
+      finance: "Kinh tế & Tài chính",
+      politics: "Thời sự & Chính trị",
+      conflict: "Xung đột & An ninh",
+      tech: "Công nghệ & AI",
+      science: "Khoa học",
+      health: "Y tế",
+      climate: "Khí hậu & Môi trường",
+      crypto: "Tiền số",
+      all: "Toàn cầu",
+    };
+
+    function currentView() {
+      const q = new URLSearchParams(window.location.search);
+      if (q.get("view") === "pulse") return "pulse";
+      if (window.location.hash === "#pulse") return "pulse";
+      return "digest";
+    }
+
+    function digestNavHref() {
+      const path = (window.location.pathname || "/").replace(/\/+$/, "") || "/";
+      if (path === "/" || path === "" || /\/index\.html$/i.test(path) || /\/landing_page\.html$/i.test(path)) {
+        return path.endsWith(".html") ? path : "/";
+      }
+      return "/";
+    }
+
+    function pulseNavHref() {
+      const base = digestNavHref();
+      const sep = base.includes("?") ? "&" : "?";
+      if (base.endsWith(".html")) {
+        return base + sep + "view=pulse";
+      }
+      return (base === "/" ? "/?view=pulse" : base + "?view=pulse");
+    }
+
+    function updateSiteNav(view) {
       const nav = document.getElementById("navLinks");
       if (!nav) return;
-      document.body.classList.add("digest-mode");
-      const path = (window.location.pathname || "/").replace(/\/+$/, "") || "/";
-      const isHome =
-        path === "/" ||
-        path === "" ||
-        /\/index\.html$/i.test(path) ||
-        /\/landing_page\.html$/i.test(path);
-      const hubClass = isHome ? "nav-hub nav-hub--active" : "nav-hub";
-      const hubHref = isHome ? "#brief" : "/";
-      nav.innerHTML = `<a class="${hubClass}" href="${hubHref}">Tin tức tổng hợp 24h</a>`;
+      const v = view || currentView();
+      const dClass = v === "digest" ? "nav-hub nav-hub--active" : "nav-hub";
+      const pClass = v === "pulse" ? "nav-hub nav-hub--active" : "nav-hub";
+      nav.innerHTML = `
+        <a class="${dClass}" href="${escapeHtml(digestNavHref())}">Tin tức 48h</a>
+        <a class="${pClass}" href="${escapeHtml(pulseNavHref())}">World Pulse</a>`;
+    }
+
+    function applyViewMode(view) {
+      const v = view || currentView();
+      document.body.classList.toggle("digest-mode", v === "digest");
+      document.body.classList.toggle("pulse-mode", v === "pulse");
+      const pulseSec = document.getElementById("pulse");
+      if (pulseSec) pulseSec.hidden = v !== "pulse";
+      updateSiteNav(v);
+    }
+
+    function pulseSourceLabel(url) {
+      const host = getHostName(url);
+      const brand = SOURCE_DISPLAY_BY_HOST[host.toLowerCase()] || "";
+      if (brand && host) return `${brand} · ${host}`;
+      return host || url || "Nguồn";
+    }
+
+    function buildPulseHtml(data) {
+      const events = Array.isArray(data?.events) ? data.events : [];
+      if (!events.length) {
+        return `<div class="pulse-panel"><p class="hint">Chưa có sự kiện World Pulse. Chạy <code>python leon.py --mode all</code> để tạo <code>web/news_data.json</code>.</p></div>`;
+      }
+      let h = `<article class="digest-report"><header class="digest-report-head">`;
+      h += `<p class="eyebrow">GDELT · World Pulse</p>`;
+      h += `<h2>Radar sự kiện toàn cầu (đa lĩnh vực)</h2>`;
+      h += `<p class="digest-report-lead">Chính trị, kinh tế, xung đột, công nghệ, y tế, khí hậu, crypto — tách khỏi bản tin crawl 48h.</p>`;
+      h += `</header><div class="pulse-panel">`;
+      h += `<p class="pulse-stats">`;
+      h += `<span><strong>${events.length}</strong> sự kiện</span>`;
+      h += `<span>Cửa sổ <strong>${data.lookback_hours || 48}h</strong></span>`;
+      if (data.total_raw_rows) h += `<span><strong>${data.total_raw_rows}</strong> dòng thô BQ</span>`;
+      if (data.mode) h += `<span>Mode <strong>${escapeHtml(data.mode)}</strong></span>`;
+      h += `</p><ol class="pulse-event-list">`;
+      events.forEach((ev, idx) => {
+        const domain = String(ev.domain || "all");
+        const dLabel = ev.domain_label || PULSE_DOMAIN_LABELS[domain] || domain;
+        const urls = Array.isArray(ev.urls) ? ev.urls.filter(Boolean) : [];
+        h += `<li class="pulse-event">`;
+        h += `<div class="pulse-event-head">`;
+        h += `<span class="pulse-event-rank">${String(idx + 1).padStart(2, "0")}</span>`;
+        h += `<div><h3 class="pulse-event-title">${escapeHtml(ev.title || "Sự kiện")}</h3>`;
+        h += `<p class="pulse-event-meta">`;
+        h += `<span class="pulse-domain-tag">${escapeHtml(dLabel)}</span>`;
+        if (ev.region) h += ` · ${escapeHtml(ev.region)}`;
+        if (ev.importance_score != null) h += ` · score ${escapeHtml(ev.importance_score)}`;
+        if (ev.source_count) h += ` · ${escapeHtml(ev.source_count)} nguồn`;
+        if (ev.published_at) h += ` · ${escapeHtml(formatDateVi(ev.published_at))}`;
+        h += `</p></div></div>`;
+        if (ev.summary_hint) {
+          h += `<p class="pulse-event-hint">${escapeHtml(ev.summary_hint)}</p>`;
+        }
+        if (urls.length) {
+          h += `<div class="pulse-event-links">`;
+          urls.slice(0, 5).forEach((u) => {
+            h += `<a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pulseSourceLabel(u))}</a>`;
+          });
+          h += `</div>`;
+        }
+        h += `</li>`;
+      });
+      h += `</ol></div></article>`;
+      return h;
+    }
+
+    function renderPulsePage(data) {
+      applyViewMode("pulse");
+      const heroSub = document.getElementById("heroSubtitle");
+      const heroDesc = document.getElementById("heroDescription");
+      if (heroSub) {
+        heroSub.style.display = "";
+        heroSub.textContent = "World Pulse — radar GDELT";
+      }
+      if (heroDesc) {
+        heroDesc.style.display = "";
+        heroDesc.textContent =
+          "Sự kiện toàn cầu 48 giờ từ GDELT BigQuery (đa lĩnh vực). Tab riêng với tin crawl + Gemini.";
+      }
+      const sync = document.getElementById("pulseSyncNote");
+      if (sync) {
+        const st = data?.generated_at ? formatDateVi(data.generated_at) : "";
+        sync.textContent = st ? `World Pulse cập nhật lúc ${st}.` : "World Pulse — chưa có thời điểm cập nhật.";
+      }
+      const el = document.getElementById("sectionPulse");
+      if (el) el.innerHTML = buildPulseHtml(data || {});
+    }
+
+    async function fetchPulseFeed() {
+      try {
+        const r = await fetch(`${assetUrl("web/news_data.json")}?ts=${Date.now()}`, { cache: "no-store" });
+        if (!r.ok) throw new Error("news_data.json not found");
+        return await readJsonResponse(r);
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    }
+
+    async function loadPulseContent() {
+      const sync = document.getElementById("pulseSyncNote");
+      if (sync) sync.textContent = "Đang tải World Pulse…";
+      const data = await fetchPulseFeed();
+      if (!data) {
+        if (sync) sync.textContent = "Không tải được web/news_data.json.";
+        renderPulsePage({ events: [], lookback_hours: 48 });
+        return;
+      }
+      renderPulsePage(data);
     }
 
     function buildBriefParts(data) {
@@ -1408,6 +1645,7 @@
     }
 
     function renderPage(data) {
+      applyViewMode("digest");
       const payload = normalizeContentPayload(data && typeof data === "object" ? data : {});
       const sync = document.getElementById("syncNote");
       if (sync) {
@@ -1492,13 +1730,19 @@
 
     function startBriefApp() {
       const boot = () => {
-        void loadChatContent();
+        applyViewMode(currentView());
+        if (currentView() === "pulse") {
+          void loadPulseContent();
+        } else {
+          void loadChatContent();
+        }
       };
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", boot);
       } else {
         boot();
       }
+      window.addEventListener("popstate", boot);
     }
     startBriefApp();
   </script>
