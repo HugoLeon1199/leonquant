@@ -1245,15 +1245,28 @@ def _resolve_digest_sector_code(sector: dict[str, Any]) -> str:
     return _infer_digest_sector_code(str(sector.get("name") or ""))
 
 
+def _infer_article_sector_code(article: dict[str, Any]) -> str:
+    blob = " ".join(
+        [
+            str(article.get("title") or ""),
+            str(article.get("text") or "")[:1200],
+            str(article.get("source") or ""),
+            str(article.get("category") or ""),
+        ]
+    )
+    return _infer_digest_sector_code(blob)
+
+
 def _links_from_urls(
     urls: list[str],
     *,
     by_url: dict[str, dict[str, Any]],
     sector_name: str,
     add_link,
+    max_links: int = 1,
 ) -> list[dict[str, str]]:
     out: list[dict[str, str]] = []
-    for u in urls[:3]:
+    for u in urls[: max(1, max_links)]:
         u = str(u or "").strip()
         if not u:
             continue
@@ -1303,10 +1316,9 @@ def _sector_items_from_raw(
     url_i = 0
     for pt in points:
         chunk: list[str] = []
-        for _ in range(3):
-            if url_i < len(pool):
-                chunk.append(pool[url_i])
-                url_i += 1
+        if url_i < len(pool):
+            chunk.append(pool[url_i])
+            url_i += 1
         items.append(
             {
                 "headline": pt,
@@ -1318,11 +1330,59 @@ def _sector_items_from_raw(
     return items
 
 
+def _supplement_buckets_from_articles(
+    buckets: dict[str, dict[str, Any]],
+    all_articles: list[dict[str, Any]],
+    *,
+    by_url: dict[str, dict[str, Any]],
+    add_link,
+) -> None:
+    """Bổ sung mục từ từng bài crawl để danh sách đại diện đầy đủ (1 dòng + 1 link/bài)."""
+    seen_urls: set[str] = set()
+    for bucket in buckets.values():
+        for it in bucket.get("items") or []:
+            for lk in it.get("links") or []:
+                u = str(lk.get("url") or "").strip()
+                if u:
+                    seen_urls.add(u)
+
+    for art in all_articles:
+        if not isinstance(art, dict):
+            continue
+        u = str(art.get("url") or "").strip()
+        title = str(art.get("title") or "").strip()
+        if not u or u in seen_urls or len(title) < 10:
+            continue
+        code = _infer_article_sector_code(art)
+        label = DIGEST_SECTOR_LABEL_BY_CODE.get(code) or "Lĩnh vực"
+        bucket = buckets.get(code) or buckets["trends"]
+        text = str(art.get("text") or "").strip()
+        headline = title[:240]
+        if len(text) > 40 and title.lower() not in text[:80].lower():
+            snippet = text.replace("\n", " ")[:180].strip()
+            if snippet:
+                headline = f"{title[:120]} — {snippet}"
+                headline = headline[:280]
+        bucket["items"].append(
+            {
+                "headline": headline,
+                "links": _links_from_urls(
+                    [u],
+                    by_url=by_url,
+                    sector_name=label,
+                    add_link=add_link,
+                ),
+            }
+        )
+        seen_urls.add(u)
+
+
 def _normalize_digest_sectors_four(
     summary: dict[str, Any],
     *,
     by_url: dict[str, dict[str, Any]],
     add_link,
+    all_articles: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     buckets: dict[str, dict[str, Any]] = {
         code: {"code": code, "name": label, "summary": "", "items": []}
@@ -1350,16 +1410,23 @@ def _normalize_digest_sectors_four(
             )
         )
 
+    if all_articles:
+        _supplement_buckets_from_articles(
+            buckets, all_articles, by_url=by_url, add_link=add_link
+        )
+
     out: list[dict[str, Any]] = []
     for code, label in DIGEST_FOUR_SECTORS:
         b = buckets[code]
-        seen_h: set[str] = set()
+        seen_u: set[str] = set()
         deduped: list[dict[str, Any]] = []
         for it in b["items"]:
-            key = str(it.get("headline") or "").lower()[:120]
-            if not key or key in seen_h:
-                continue
-            seen_h.add(key)
+            links = it.get("links") if isinstance(it.get("links"), list) else []
+            u = str((links[0] or {}).get("url") or "").strip() if links else ""
+            if u:
+                if u in seen_u:
+                    continue
+                seen_u.add(u)
             deduped.append(it)
         points_legacy = [
             str(p).strip()
@@ -1421,7 +1488,7 @@ def build_digest_web_extras(
         )
 
     sectors_out = _normalize_digest_sectors_four(
-        summary, by_url=by_url, add_link=add_link
+        summary, by_url=by_url, add_link=add_link, all_articles=all_articles
     )
 
     for row in summary.get("notable_articles") or []:

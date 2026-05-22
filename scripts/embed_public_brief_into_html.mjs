@@ -136,7 +136,7 @@ function normalizeSectorItems(s) {
     .filter(Boolean)
     .map((headline, i) => ({
       headline,
-      links: links.slice(i * 3, i * 3 + 3),
+      links: links.slice(i, i + 1),
     }));
 }
 
@@ -266,27 +266,16 @@ function buildSectorBlockHtml(s, index) {
   if (items.length) {
     h += `<ol class="sector-topic-list">`;
     items.forEach((it, ti) => {
-      const links = (it.links || []).slice(0, 3);
-      h += `<li class="sector-topic-row"><div class="sector-topic-teaser-row">`;
+      const lk = (it.links || [])[0];
+      const u = lk ? String(lk.url || "").trim() : "";
+      h += `<li class="sector-topic-row">`;
       h += `<span class="sector-topic-num">${String(ti + 1).padStart(2, "0")}</span>`;
+      h += `<div class="sector-topic-main">`;
       h += `<p class="sector-topic-headline">${escapeHtml(it.headline)}</p>`;
-      if (links.length) {
-        h += `<button type="button" class="sector-sources-btn" aria-expanded="false" aria-label="Xem nguồn tin">+</button>`;
+      if (u) {
+        h += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">Bấm vào đây xem tin liên quan</a>`;
       }
-      h += `</div>`;
-      if (links.length) {
-        h += `<div class="sector-sources-panel" hidden><p class="sector-sources-label">Nguồn tham khảo</p><ul class="sector-source-links">`;
-        for (const lk of links) {
-          const u = String(lk.url || "").trim();
-          const t = escapeHtml(String(lk.title || "").trim() || getHostName(u) || u);
-          const host = escapeHtml(String(lk.host || "").trim() || getHostName(u) || "");
-          h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${t}</a>`;
-          if (host) h += `<span class="link-meta">${host}</span>`;
-          h += `</li>`;
-        }
-        h += `</ul></div>`;
-      }
-      h += `</li>`;
+      h += `</div></li>`;
     });
     h += `</ol>`;
   } else {

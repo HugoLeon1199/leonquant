@@ -475,7 +475,7 @@
       padding: 0;
     }
     .sector-topic-row:last-child { margin-bottom: 0; }
-    .sector-topic-teaser-row {
+    .sector-topic-row {
       display: flex;
       align-items: flex-start;
       gap: 10px;
@@ -486,79 +486,25 @@
       font-size: .72rem;
       font-weight: 800;
       color: var(--faint);
-      line-height: 1.5;
+      line-height: 1.45;
     }
+    .sector-topic-main { flex: 1; min-width: 0; }
     .sector-topic-headline {
-      flex: 1;
-      margin: 0;
+      margin: 0 0 6px;
       color: var(--text-soft);
       font-size: .9rem;
       line-height: 1.55;
     }
-    .sector-sources-btn {
-      flex-shrink: 0;
-      width: 1.75rem;
-      height: 1.75rem;
-      margin-top: 2px;
-      padding: 0;
-      border-radius: 8px;
-      border: 1px solid rgba(8, 145, 178, .28);
-      background: rgba(8, 145, 178, .08);
+    .sector-topic-source {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--cyan-link);
+      text-decoration: none !important;
+    }
+    .sector-topic-source:hover {
+      text-decoration: underline !important;
       color: var(--cyan-dim);
-      font-size: 1rem;
-      font-weight: 800;
-      line-height: 1;
-      cursor: pointer;
-      transition: background .15s, border-color .15s, color .15s;
-    }
-    .sector-sources-btn:hover,
-    .sector-sources-btn[aria-expanded="true"] {
-      background: rgba(8, 145, 178, .16);
-      border-color: rgba(8, 145, 178, .4);
-      color: var(--cyan-link);
-    }
-    .sector-topic-row .sector-sources-panel {
-      margin: 8px 0 0 2.5rem;
-    }
-    .sector-sources-panel {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: var(--bg1);
-      border: 1px solid var(--border);
-    }
-    .sector-sources-panel[hidden] { display: none !important; }
-    .sector-sources-label {
-      margin: 0 0 8px;
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--faint);
-    }
-    .sector-source-links {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    .sector-source-links li {
-      margin: 0 0 8px;
-      padding: 0;
-      font-size: .84rem;
-      line-height: 1.45;
-    }
-    .sector-source-links li:last-child { margin-bottom: 0; }
-    .sector-source-links a {
-      font-weight: 650;
-      color: var(--cyan-link);
-      word-break: break-word;
-    }
-    .sector-source-links .link-meta {
-      display: block;
-      margin-top: 2px;
-      font-size: .72rem;
-      color: var(--faint);
-      font-weight: 600;
     }
 
     .overview-part { scroll-margin-top: 88px; margin-bottom: 20px; }
@@ -1101,7 +1047,7 @@
         .filter(Boolean)
         .map((headline, i) => ({
           headline,
-          links: links.slice(i * 3, i * 3 + 3),
+          links: links.slice(i, i + 1),
         }));
     }
 
@@ -1252,34 +1198,16 @@
       if (items.length) {
         h += `<ol class="sector-topic-list">`;
         items.forEach((it, ti) => {
-          const links = (it.links || []).slice(0, 3);
+          const lk = (it.links || [])[0];
+          const u = lk ? String(lk.url || "").trim() : "";
           h += `<li class="sector-topic-row">`;
-          h += `<div class="sector-topic-teaser-row">`;
           h += `<span class="sector-topic-num">${String(ti + 1).padStart(2, "0")}</span>`;
+          h += `<div class="sector-topic-main">`;
           h += `<p class="sector-topic-headline">${escapeHtml(it.headline)}</p>`;
-          if (links.length) {
-            h += `<button type="button" class="sector-sources-btn" aria-expanded="false" aria-label="Xem nguồn tin">+</button>`;
+          if (u) {
+            h += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">Bấm vào đây xem tin liên quan</a>`;
           }
-          h += `</div>`;
-          if (links.length) {
-            h += `<div class="sector-sources-panel" hidden>`;
-            h += `<p class="sector-sources-label">Nguồn tham khảo</p>`;
-            h += `<ul class="sector-source-links">`;
-            for (const lk of links) {
-              const u = String(lk.url || "").trim();
-              const t = escapeHtml(
-                String(lk.title || "").trim() || getHostName(u) || u,
-              );
-              const host = escapeHtml(
-                String(lk.host || "").trim() || getHostName(u) || "",
-              );
-              h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${t}</a>`;
-              if (host) h += `<span class="link-meta">${host}</span>`;
-              h += `</li>`;
-            }
-            h += `</ul></div>`;
-          }
-          h += `</li>`;
+          h += `</div></li>`;
         });
         h += `</ol>`;
       } else {
@@ -1287,26 +1215,6 @@
       }
       h += `</div></article>`;
       return h;
-    }
-
-    function initDigestUiInteractions(root) {
-      const scope = root || document;
-      scope.querySelectorAll(".sector-sources-btn").forEach((btn) => {
-        if (btn.dataset.bound === "1") return;
-        btn.dataset.bound = "1";
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const panel = btn
-            .closest(".sector-topic-row")
-            ?.querySelector(".sector-sources-panel");
-          if (!panel) return;
-          const open = btn.getAttribute("aria-expanded") === "true";
-          btn.setAttribute("aria-expanded", open ? "false" : "true");
-          btn.textContent = open ? "+" : "−";
-          panel.hidden = open;
-        });
-      });
     }
 
     function buildDigestBriefParts(data) {
@@ -1436,10 +1344,7 @@
         return;
       }
       const thesisEl = document.getElementById("sectionThesis");
-      if (thesisEl) {
-        thesisEl.innerHTML = parts.thesis || "";
-        initDigestUiInteractions(thesisEl);
-      }
+      if (thesisEl) thesisEl.innerHTML = parts.thesis || "";
       const artIdx = document.getElementById("sectionArticleIndex");
       if (artIdx) {
         artIdx.innerHTML = parts.articleIndex || "";
@@ -1540,10 +1445,6 @@
 
     function startBriefApp() {
       const boot = () => {
-        const thesisEl = document.getElementById("sectionThesis");
-        if (thesisEl?.querySelector(".sector-sources-btn")) {
-          initDigestUiInteractions(thesisEl);
-        }
         void loadChatContent();
       };
       if (document.readyState === "loading") {
