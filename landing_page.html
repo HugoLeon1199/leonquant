@@ -1573,7 +1573,7 @@
     function buildPulseHtml(data) {
       const events = Array.isArray(data?.events) ? data.events : [];
       if (!events.length) {
-        return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật theo phút. Chạy <code>python leon.py --mode all</code> để tạo <code>web/news_data.json</code>.</p></div>`;
+        return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py --source doc --mode all</code> (hoặc BigQuery nếu có GCP) rồi push <code>web/news_data.json</code>.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
       h += `<p class="eyebrow">Cập nhật liên tục</p>`;
