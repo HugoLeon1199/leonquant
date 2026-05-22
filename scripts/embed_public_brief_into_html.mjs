@@ -161,12 +161,12 @@ function buildArticleImageLookup(data) {
 function buildNotableCardsHtml(notable, imageByUrl) {
   const items = (Array.isArray(notable) ? notable : [])
     .filter((a) => a && String(a.url || "").trim())
-    .slice(0, 10);
+    .slice(0, 9);
   if (!items.length) {
     return `<p class="hint">Chưa có tin nổi bật trong bản digest hôm nay.</p>`;
   }
-  let h = `<div class="notable-grid">`;
-  for (const a of items) {
+  let h = `<div class="notable-list">`;
+  items.forEach((a, idx) => {
     const u = String(a.url || "").trim();
     const title = escapeHtml(a.title || u);
     const meta = escapeHtml(
@@ -174,19 +174,18 @@ function buildNotableCardsHtml(notable, imageByUrl) {
     );
     const why = escapeHtml(String(a.whyNotable || "").trim());
     const img = String(a.imageUrl || a.image_url || imageByUrl.get(u) || "").trim();
-    h += `<a class="notable-card" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
-    h += `<div class="notable-card-media">`;
+    const rank = String(idx + 1).padStart(2, "0");
+    h += `<a class="notable-item" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
+    h += `<span class="notable-item-rank">${rank}</span>`;
     if (img) {
-      h += `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.notable-card-media').innerHTML='<div class=\\'notable-card-fallback\\'>Tin tức</div>'">`;
-    } else {
-      h += `<div class="notable-card-fallback">Tin tức</div>`;
+      h += `<span class="notable-item-thumb"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></span>`;
     }
-    h += `</div><div class="notable-card-body">`;
-    if (meta) h += `<p class="notable-card-meta">${meta}</p>`;
-    h += `<p class="notable-card-title">${title}</p>`;
-    if (why) h += `<p class="notable-card-why">${why}</p>`;
-    h += `</div></a>`;
-  }
+    h += `<span class="notable-item-body">`;
+    if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
+    h += `<span class="notable-item-title">${title}</span>`;
+    if (why) h += `<span class="notable-item-why">${why}</span>`;
+    h += `</span></a>`;
+  });
   h += `</div>`;
   return h;
 }
@@ -219,7 +218,7 @@ function buildDigestThesisHtml(data) {
   const intl = String(data.digestInternationalHighlights || "").trim();
   const gaps = String(data.digestGapsAndLimits || "").trim();
   const notable = Array.isArray(data.digestNotableArticles)
-    ? data.digestNotableArticles.slice(0, 10)
+    ? data.digestNotableArticles.slice(0, 9)
     : [];
   const imageByUrl = buildArticleImageLookup(data);
   const execBullets = getDigestBullets(data, "digestExecutiveBullets", mt.thesis || "");

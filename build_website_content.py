@@ -2242,7 +2242,7 @@ def build_payload(
                         "imageUrl": img,
                     }
                 )
-            payload["digestNotableArticles"] = notable_out[:10]
+            payload["digestNotableArticles"] = notable_out[:9]
         extras = build_digest_web_extras(raw_summary, all_articles)
         payload.update(extras)
         n_sectors = len(extras.get("digestSectors") or [])

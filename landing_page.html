@@ -517,69 +517,82 @@
     }
     .article-link-rows li { font-size: .82rem; }
 
-    .notable-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 14px;
-      margin: 0 0 20px;
-    }
-    .notable-card {
+    .notable-list {
       display: flex;
       flex-direction: column;
-      border-radius: 14px;
-      overflow: hidden;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+    .notable-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--surface);
       box-shadow: var(--shadow-sm);
       text-decoration: none !important;
       color: inherit;
-      transition: border-color .2s, transform .2s, box-shadow .2s;
+      transition: border-color .18s, box-shadow .18s, background .18s;
     }
-    .notable-card:hover {
-      border-color: rgba(8, 145, 178, .35);
+    .notable-item:hover {
+      border-color: rgba(8, 145, 178, .32);
       box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
+      background: #fafcfd;
     }
-    .notable-card-media {
-      aspect-ratio: 16 / 9;
-      background: var(--bg2);
+    .notable-item-rank {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--cyan-dim);
+      background: rgba(8, 145, 178, .08);
+      border: 1px solid rgba(8, 145, 178, .15);
+    }
+    .notable-item-thumb {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
       overflow: hidden;
+      background: var(--bg2);
+      border: 1px solid var(--border);
     }
-    .notable-card-media img {
+    .notable-item-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    .notable-card-fallback {
-      height: 100%;
-      display: grid;
-      place-items: center;
+    .notable-item-body { flex: 1; min-width: 0; }
+    .notable-item-meta {
+      margin: 0 0 4px;
       font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      color: var(--faint);
-      text-transform: uppercase;
-    }
-    .notable-card-body { padding: 14px 16px 16px; }
-    .notable-card-meta {
-      font-size: .72rem;
       font-weight: 700;
+      letter-spacing: .04em;
       color: var(--cyan-dim);
-      margin: 0 0 6px;
     }
-    .notable-card-title {
-      margin: 0 0 8px;
-      font-size: .95rem;
+    .notable-item-title {
+      margin: 0 0 5px;
+      font-size: .9rem;
       font-weight: 750;
-      line-height: 1.4;
+      line-height: 1.38;
       color: var(--text);
     }
-    .notable-card-why {
+    .notable-item-why {
       margin: 0;
-      font-size: .82rem;
-      line-height: 1.5;
+      font-size: .8rem;
+      line-height: 1.45;
       color: var(--muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .article-archive-wrap { margin-top: 8px; }
     .article-archive-wrap summary {
@@ -729,15 +742,12 @@
         padding-top: 0.85rem;
       }
 
-      .notable-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        margin-bottom: 14px;
-      }
-      .notable-card-media { aspect-ratio: 2 / 1; max-height: 160px; }
-      .notable-card-body { padding: 12px 14px 14px; }
-      .notable-card-title { font-size: .9rem; margin-bottom: 6px; }
-      .notable-card-why { font-size: .8rem; line-height: 1.45; }
+      .notable-list { gap: 8px; margin-bottom: 14px; }
+      .notable-item { padding: 10px 12px; gap: 10px; }
+      .notable-item-rank { width: 1.75rem; height: 1.75rem; font-size: .68rem; }
+      .notable-item-thumb { width: 44px; height: 44px; }
+      .notable-item-title { font-size: .86rem; }
+      .notable-item-why { font-size: .78rem; -webkit-line-clamp: 3; }
 
       .link-rows li {
         padding: 7px 9px;
@@ -1033,12 +1043,12 @@
     function buildNotableCardsHtml(notable, imageByUrl) {
       const items = (Array.isArray(notable) ? notable : [])
         .filter((a) => a && String(a.url || "").trim())
-        .slice(0, 10);
+        .slice(0, 9);
       if (!items.length) {
         return `<p class="hint">Chưa có tin nổi bật trong bản digest hôm nay.</p>`;
       }
-      let h = `<div class="notable-grid">`;
-      for (const a of items) {
+      let h = `<div class="notable-list">`;
+      items.forEach((a, idx) => {
         const u = String(a.url || "").trim();
         const title = escapeHtml(a.title || u);
         const meta = escapeHtml(
@@ -1048,19 +1058,18 @@
         const img = String(
           a.imageUrl || a.image_url || imageByUrl.get(u) || "",
         ).trim();
-        h += `<a class="notable-card" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
-        h += `<div class="notable-card-media">`;
+        const rank = String(idx + 1).padStart(2, "0");
+        h += `<a class="notable-item" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
+        h += `<span class="notable-item-rank">${rank}</span>`;
         if (img) {
-          h += `<img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.notable-card-media').innerHTML='<div class=\\'notable-card-fallback\\'>Tin tức</div>'">`;
-        } else {
-          h += `<div class="notable-card-fallback">Tin tức</div>`;
+          h += `<span class="notable-item-thumb"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></span>`;
         }
-        h += `</div><div class="notable-card-body">`;
-        if (meta) h += `<p class="notable-card-meta">${meta}</p>`;
-        h += `<p class="notable-card-title">${title}</p>`;
-        if (why) h += `<p class="notable-card-why">${why}</p>`;
-        h += `</div></a>`;
-      }
+        h += `<span class="notable-item-body">`;
+        if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
+        h += `<span class="notable-item-title">${title}</span>`;
+        if (why) h += `<span class="notable-item-why">${why}</span>`;
+        h += `</span></a>`;
+      });
       h += `</div>`;
       return h;
     }
@@ -1098,7 +1107,7 @@
       const intl = String(data.digestInternationalHighlights || "").trim();
       const gaps = String(data.digestGapsAndLimits || "").trim();
       const notable = Array.isArray(data.digestNotableArticles)
-        ? data.digestNotableArticles.slice(0, 10)
+        ? data.digestNotableArticles.slice(0, 9)
         : [];
       const imageByUrl = buildArticleImageLookup(data);
       const execBullets = getDigestBullets(data, "digestExecutiveBullets", mt.thesis || "");
