@@ -7,6 +7,7 @@ Timing: each step waits for Gemini to finish, then sleeps 60s before the next st
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 import time
@@ -44,6 +45,17 @@ def expected_total() -> int | None:
 
 
 def main() -> int:
+    if not (ROOT / "news_for_ai_clean.json").is_file():
+        print("ERROR: missing news_for_ai_clean.json — run export + clean first.", file=sys.stderr)
+        return 2
+    if SUMMARY.is_file() and not os.environ.get("DIGEST_LOOP_FORCE"):
+        print(
+            "gemini_digest_summary.json already exists; skip digest loop.\n"
+            "  CI: workflow removes it before this step.\n"
+            "  Local fresh run: delete the file or set DIGEST_LOOP_FORCE=1",
+            file=sys.stderr,
+        )
+        return 0
     step = 0
     while not SUMMARY.is_file():
         step += 1

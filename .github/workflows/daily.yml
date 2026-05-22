@@ -52,11 +52,15 @@ jobs:
         run: |
           python scripts/export_news_full_for_ai.py --date today --recent-calendar-days 2
           python scripts/clean_news_for_ai.py
+          python -c "import json; d=json.load(open('news_for_ai_clean.json',encoding='utf-8')); n=len(d.get('articles') or []); assert n>0, f'no articles in news_for_ai_clean.json (count={n})'; print(f'OK: {n} articles for digest')"
+
+      - name: Reset digest artifacts (force fresh Gemini run)
+        run: |
+          rm -f gemini_digest_summary.json gemini_digest_partials.json gemini_digest_outline.json
 
       - name: Gemini batch digest (free-tier loop)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: gemini-2.5-flash-lite
         run: python scripts/run_digest_loop.py
 
       - name: Build public website content
