@@ -39,7 +39,7 @@ python summarize_news_gemini.py --input news_for_ai_clean.json --mode digest --b
 | `gemini_digest_summary.json` | Bản tin đa ngành 48h |
 | `content.json` | Dữ liệu trang công khai |
 
-Mỗi chuyên mục digest: mục tiêu **~12** tin (`DIGEST_TARGET_SUB_TOPICS_PER_SECTOR`), tối đa **20**; mỗi mục **bắt buộc 1 link** (`source_urls` từ Gemini).
+Mỗi chuyên mục digest: mục tiêu **~12** tin (`DIGEST_TARGET_SUB_TOPICS_PER_SECTOR`), tối đa **20**; mỗi mục **bắt buộc 1 link** (`source_urls` từ Gemini). Tổng quan + tóm tắt: **chỉ từ bài crawl**, ưu tiên **tin nóng đa chủ đề** (không bịa, không chỉ 1–2 headline).
 | `data/web_intel_leonquant.duckdb` | Cache crawl (Actions) |
 
 Sinh local, không commit: `news_output_today.json`, `news_for_ai.json`, `gemini_digest_outline.json`, `gemini_digest_partials.json`.

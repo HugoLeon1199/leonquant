@@ -70,6 +70,22 @@ DIGEST_MERGE_MAX_OUTPUT_TOKENS = 32_768
 DIGEST_SECTOR_SUMMARY_MIN_CHARS = 280
 
 
+def _digest_accuracy_and_freshness_block() -> str:
+    return "\n".join(
+        [
+            "## Độ chính xác & tin nóng (BẮT BUỘC)",
+            "- **Chỉ** dùng sự kiện/số liệu/tên riêng có trong bài crawl được cung cấp. **Cấm** bịa, **cấm** suy diễn quá mức, **cấm** thêm tin ngoài JSON.",
+            "- Mỗi `headline` / câu trong `summary` / `executive_overview` phải **khớp** nội dung ít nhất một bài nguồn; `source_urls[0]` là bài đó.",
+            "- Nếu thiếu số liệu hoặc mâu thuẫn giữa nguồn: ghi ngắn trong `gaps_and_limits`, **không** đoán.",
+            "- **Ưu tiên tin nóng 48h:** sự kiện mới, đổi chính sách, biến động thị trường, địa chính trị, công nghệ — không viết chung chung kiểu PR.",
+            "- **Đủ độ phủ nóng:** mỗi sector chọn ~12 chủ đề **khác nhau** (VN + quốc tế khi có trong dữ liệu); **cấm** 80% bản tin chỉ xoay 1–2 câu chuyện (vd chỉ SpaceX + Nvidia) khi danh mục còn nhiều lĩnh vực.",
+            "- Chủ đề được **nhiều nguồn** nhắc → ưu tiên đưa vào `executive_overview` / `sub_topics` đầu sector.",
+            "- `executive_overview`: **3–5 đoạn**, nêu **ít nhất 6–8 luồng tin then chốt** (đa ngành), có VN và quốc tế; không lặp nguyên văn `sub_topics`.",
+            "- `vietnam_highlights` / `international_highlights`: mỗi khối **2–4 câu** cụ thể (sự kiện + hàm ý), không slogan.",
+        ]
+    )
+
+
 def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
     sector_lines = "\n".join(
         f'   - `"{code}"` — {label}' for code, label in DIGEST_FOUR_SECTORS
@@ -95,6 +111,7 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         "- **Mục đầu tiên = tin nóng / được nhắc nhiều / tác động lớn nhất** trong 48h; mục cuối = ít nổi bật hơn.",
         "- Khi gộp batch: **sắp xếp lại** toàn bộ `sub_topics` của sector — không để tin quan trọng rơi xuống cuối.",
         "- Dùng `importance_rank`: **1** = quan trọng nhất, tăng dần; hoặc giữ thứ tự mảng đúng như trên.",
+        _digest_accuracy_and_freshness_block(),
     ]
     if for_merge:
         lines.extend(
@@ -122,8 +139,9 @@ def _digest_sector_summary_rules_block() -> str:
         [
             "## Đoạn tổng hợp sector (`summary`) — BẮT BUỘC, văn phong chuyên gia",
             "- Mỗi sector phải có `summary` **đầy đủ**: **4–6 câu** hoặc khoảng **150–250 từ** tiếng Việt (không phải 1–2 câu chung chung).",
-            "- Viết như **ghi chú phân tích** của chuyên gia kinh tế / biên tập cấp cao: khách quan, mạch lạc, không khẩu hiệu, không “theo nguồn tin”, không copy tiêu đề báo.",
-            "- Cấu trúc gợi ý: (1) **bức tranh 48h** của ngành; (2) **2–3 diễn biến then chốt** (VN + quốc tế khi phù hợp); (3) **kênh ảnh hưởng / hàm ý** (thị trường, chính sách, chuỗi cung ứng, an ninh…); (4) **một câu** điểm cần theo dõi tiếp.",
+            "- Viết như **ghi chú phân tích** của chuyên gia kinh tế / biên tập cấp cao: khách quan, mạch lạc, **số liệu/tên/sự kiện chỉ khi có trong bài crawl**.",
+            "- Cấu trúc gợi ý: (1) **bức tranh 48h** của ngành; (2) **2–3 diễn biến nóng then chốt** (cụ thể, có thể đối chiếu nguồn); (3) **hàm ý**; (4) điểm theo dõi — **không** copy nguyên tiêu đề báo.",
+            "- `sub_topics` phải **phủ đủ** các luồng nóng trong sector (chính sách VN, thị trường, doanh nghiệp, quốc tế… tùy ngành), không chỉ 1–2 headline lặp lại trong `summary`.",
             "- `finance`: thị trường, chính sách tiền tệ–tài khóa, tài sản, doanh nghiệh. `tech`: AI, sản phẩm, bán dẫn, đầu tư công nghệ. `news`: địa chính trị, ngoại giao, chính sách công. `trends`: xã hội, tiêu dùng, văn hóa, y tế, môi trường, pháp lý.",
             "- **Không** liệt kê lại từng dòng `sub_topics`; `sub_topics` chỉ là điểm nhấn có link — `summary` là bài tổng hợp đọc độc lập.",
         ]
@@ -708,7 +726,8 @@ Bạn là tổng biên tập tin. Nhiệm vụ: đọc **TOÀN BỘ** danh mục
 
 ## Quy tắc
 - CHỈ dùng danh mục bên dưới. KHÔNG mở URL, KHÔNG tìm web.
-- Phát hiện chủ đề lặp lại trên nhiều nguồn, tin VN vs quốc tế, sự kiện nổi bật nhất.
+- Phát hiện chủ đề lặp lại trên nhiều nguồn, tin VN vs quốc tế, **sự kiện nóng nhất 48h** (ưu tiên đa nguồn).
+- Khung phải liệt kê **đủ** nhóm chủ đề nóng — không thiên 1–2 sự kiện nếu danh mục đa dạng.
 - Đây là bước **khung xương**; các bước sau sẽ đọc nội dung chi tiết từng phần — khung phải phản ánh **đủ** {total_articles} bài.
 - JSON gọn: **tối đa {DIGEST_MAX_OUTLINE_THEMES}** `dominant_themes` (phủ **đủ** các nhóm lĩnh vực có trong danh mục), **tối đa 3** mục `timeline_sketch`, **không** liệt kê từng bài trong output (chỉ ước lượng số lượng).
 {_digest_four_sector_rules_block()}
@@ -846,6 +865,7 @@ Nhiệm vụ: **Gộp** thành **một** bản tin duy nhất, tiếng Việt, �
 - Partials = chi tiết từng phần — **gộp KHÔNG được làm mất** chủ đề lớn trong khung; **cấm** chỉ giữ 2–3 sector (hạ tầng, CK, AI) nếu partials/outline còn nhiều lĩnh vực khác.
 - Gom `sector_notes` trùng tên lĩnh vực; **không** nhồi mọi thứ vào một mục "Khác".
 - Khi gộp: **viết lại** (không chép nguyên) mỗi `sectors[].summary` thành đoạn phân tích **đầy đủ, chuyên nghiệp** từ toàn bộ partials của mã đó.
+- **Tổng quan phải chính xác & đủ nóng:** `executive_overview` bám outline + partials; phủ nhiều chủ đề, không bỏ sót mảng tin VN chỉ vì quốc tế ồn ào hơn.
 {_digest_four_sector_rules_block(for_merge=True)}
 CHỈ dùng dữ liệu được cung cấp — không bổ sung từ bên ngoài.
 
@@ -853,7 +873,7 @@ Trả về DUY NHẤT JSON:
 {{
   "title": "Bản tin tổng hợp 48 giờ",
   "reading_time_minutes": "10-15",
-  "executive_overview": "3-5 đoạn bức tranh chung (đủ lĩnh vực, không chỉ kinh tế)",
+  "executive_overview": "3-5 đoạn: 6-8 luồng tin nóng 48h, chính xác theo bài crawl, VN+quốc tế, đa ngành",
   "sectors": [
 {_digest_sector_json_schema_fragment()}
   ],
