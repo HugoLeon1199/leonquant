@@ -172,7 +172,6 @@ function buildNotableCardsHtml(notable, imageByUrl) {
     const meta = escapeHtml(
       [a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
     );
-    const why = escapeHtml(String(a.whyNotable || "").trim());
     const img = String(a.imageUrl || a.image_url || imageByUrl.get(u) || "").trim();
     const rank = String(idx + 1).padStart(2, "0");
     h += `<a class="notable-item" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
@@ -181,30 +180,55 @@ function buildNotableCardsHtml(notable, imageByUrl) {
       h += `<span class="notable-item-thumb"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></span>`;
     }
     h += `<span class="notable-item-body">`;
-    if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
     h += `<span class="notable-item-title">${title}</span>`;
-    if (why) h += `<span class="notable-item-why">${why}</span>`;
+    if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
     h += `</span></a>`;
   });
   h += `</div>`;
   return h;
 }
 
+function sectorTeaserText(s) {
+  const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
+  const firstPt = pts.map((p) => String(p || "").trim()).find(Boolean);
+  if (firstPt) return firstPt;
+  const summ = String(s.summary || "").trim();
+  if (!summ) return "";
+  return summ.length > 280 ? `${summ.slice(0, 277).trim()}…` : summ;
+}
+
 function buildSectorBlockHtml(s, index) {
   const name = String(s.name || "").trim() || "Lĩnh vực";
   const id = sectorSlug(name);
-  const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
-  const hasSummary = Boolean(String(s.summary || "").trim());
+  const teaser = sectorTeaserText(s);
+  const links = (Array.isArray(s.links) ? s.links : [])
+    .filter((lk) => lk && String(lk.url || "").trim())
+    .slice(0, 3);
   let h = `<article class="sector-block" id="${id}">`;
   h += `<header class="sector-head"><span class="sector-num">${String(index + 1).padStart(2, "0")}</span>`;
   h += `<h3>${escapeHtml(name)}</h3></header><div class="sector-body">`;
-  if (hasSummary) h += `<p class="sector-summary">${escapeHtml(s.summary)}</p>`;
-  if (pts.length) {
-    h += `<ul class="sector-points">`;
-    for (const p of pts) h += `<li>${escapeHtml(p)}</li>`;
-    h += `</ul>`;
+  if (teaser || links.length) {
+    h += `<div class="sector-teaser-row">`;
+    if (teaser) h += `<p class="sector-summary">${escapeHtml(teaser)}</p>`;
+    if (links.length) {
+      h += `<button type="button" class="sector-sources-btn" aria-expanded="false" aria-label="Xem nguồn tin liên quan">+</button>`;
+    }
+    h += `</div>`;
   }
-  if (!hasSummary && !pts.length) {
+  if (links.length) {
+    h += `<div class="sector-sources-panel" hidden>`;
+    h += `<p class="sector-sources-label">Nguồn tham khảo</p><ul class="sector-source-links">`;
+    for (const lk of links) {
+      const u = String(lk.url || "").trim();
+      const t = escapeHtml(String(lk.title || "").trim() || getHostName(u) || u);
+      const host = escapeHtml(String(lk.host || "").trim() || getHostName(u) || "");
+      h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${t}</a>`;
+      if (host) h += `<span class="link-meta">${host}</span>`;
+      h += `</li>`;
+    }
+    h += `</ul></div>`;
+  }
+  if (!teaser && !links.length) {
     h += `<p class="hint">Chưa có nội dung chi tiết cho lĩnh vực này.</p>`;
   }
   h += `</div></article>`;

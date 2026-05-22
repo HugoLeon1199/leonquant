@@ -448,20 +448,80 @@
       text-transform: uppercase;
       color: var(--gold);
     }
+    .sector-teaser-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
     .sector-block .sector-summary {
+      flex: 1;
       margin: 0;
       color: var(--text-soft);
       font-size: .92rem;
       line-height: 1.65;
     }
-    .sector-points {
-      margin: 0;
-      padding-left: 1.15rem;
-      color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.55;
+    .sector-sources-btn {
+      flex-shrink: 0;
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-top: 2px;
+      padding: 0;
+      border-radius: 8px;
+      border: 1px solid rgba(8, 145, 178, .28);
+      background: rgba(8, 145, 178, .08);
+      color: var(--cyan-dim);
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
     }
-    .sector-points li { margin-bottom: 8px; }
+    .sector-sources-btn:hover,
+    .sector-sources-btn[aria-expanded="true"] {
+      background: rgba(8, 145, 178, .16);
+      border-color: rgba(8, 145, 178, .4);
+      color: var(--cyan-link);
+    }
+    .sector-sources-panel {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--bg1);
+      border: 1px solid var(--border);
+    }
+    .sector-sources-panel[hidden] { display: none !important; }
+    .sector-sources-label {
+      margin: 0 0 8px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .sector-source-links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .sector-source-links li {
+      margin: 0 0 8px;
+      padding: 0;
+      font-size: .84rem;
+      line-height: 1.45;
+    }
+    .sector-source-links li:last-child { margin-bottom: 0; }
+    .sector-source-links a {
+      font-weight: 650;
+      color: var(--cyan-link);
+      word-break: break-word;
+    }
+    .sector-source-links .link-meta {
+      display: block;
+      margin-top: 2px;
+      font-size: .72rem;
+      color: var(--faint);
+      font-weight: 600;
+    }
 
     .overview-part { scroll-margin-top: 88px; margin-bottom: 20px; }
     .overview-part:last-child { margin-bottom: 0; }
@@ -569,30 +629,28 @@
       object-fit: cover;
       display: block;
     }
-    .notable-item-body { flex: 1; min-width: 0; }
+    .notable-item-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .notable-item-title {
+      display: block;
+      margin: 0;
+      font-size: .92rem;
+      font-weight: 750;
+      line-height: 1.4;
+      color: var(--text);
+    }
     .notable-item-meta {
-      margin: 0 0 4px;
+      display: block;
+      margin: 0;
       font-size: .7rem;
       font-weight: 700;
       letter-spacing: .04em;
       color: var(--cyan-dim);
-    }
-    .notable-item-title {
-      margin: 0 0 5px;
-      font-size: .9rem;
-      font-weight: 750;
-      line-height: 1.38;
-      color: var(--text);
-    }
-    .notable-item-why {
-      margin: 0;
-      font-size: .8rem;
-      line-height: 1.45;
-      color: var(--muted);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
     .article-archive-wrap { margin-top: 8px; }
     .article-archive-wrap summary {
@@ -747,7 +805,6 @@
       .notable-item-rank { width: 1.75rem; height: 1.75rem; font-size: .68rem; }
       .notable-item-thumb { width: 44px; height: 44px; }
       .notable-item-title { font-size: .86rem; }
-      .notable-item-why { font-size: .78rem; -webkit-line-clamp: 3; }
 
       .link-rows li {
         padding: 7px 9px;
@@ -1054,7 +1111,6 @@
         const meta = escapeHtml(
           [a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
         );
-        const why = escapeHtml(String(a.whyNotable || "").trim());
         const img = String(
           a.imageUrl || a.image_url || imageByUrl.get(u) || "",
         ).trim();
@@ -1065,39 +1121,89 @@
           h += `<span class="notable-item-thumb"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></span>`;
         }
         h += `<span class="notable-item-body">`;
-        if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
         h += `<span class="notable-item-title">${title}</span>`;
-        if (why) h += `<span class="notable-item-why">${why}</span>`;
+        if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
         h += `</span></a>`;
       });
       h += `</div>`;
       return h;
     }
 
+    function sectorTeaserText(s) {
+      const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
+      const firstPt = pts.map((p) => String(p || "").trim()).find(Boolean);
+      if (firstPt) return firstPt;
+      const summ = String(s.summary || "").trim();
+      if (!summ) return "";
+      return summ.length > 280 ? `${summ.slice(0, 277).trim()}…` : summ;
+    }
+
     function buildSectorBlockHtml(s, index) {
       const name = String(s.name || "").trim() || "Lĩnh vực";
       const id = sectorSlug(name);
-      const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
-      const hasSummary = Boolean(String(s.summary || "").trim());
+      const teaser = sectorTeaserText(s);
+      const links = (Array.isArray(s.links) ? s.links : [])
+        .filter((lk) => lk && String(lk.url || "").trim())
+        .slice(0, 3);
 
       let h = `<article class="sector-block" id="${id}">`;
       h += `<header class="sector-head"><span class="sector-num">${String(index + 1).padStart(2, "0")}</span>`;
       h += `<h3>${escapeHtml(name)}</h3></header>`;
       h += `<div class="sector-body">`;
 
-      if (hasSummary) {
-        h += `<p class="sector-summary">${escapeHtml(s.summary)}</p>`;
+      if (teaser || links.length) {
+        h += `<div class="sector-teaser-row">`;
+        if (teaser) {
+          h += `<p class="sector-summary">${escapeHtml(teaser)}</p>`;
+        }
+        if (links.length) {
+          h += `<button type="button" class="sector-sources-btn" aria-expanded="false" aria-label="Xem nguồn tin liên quan">+</button>`;
+        }
+        h += `</div>`;
       }
-      if (pts.length) {
-        h += `<ul class="sector-points">`;
-        for (const p of pts) h += `<li>${escapeHtml(p)}</li>`;
-        h += `</ul>`;
+      if (links.length) {
+        h += `<div class="sector-sources-panel" hidden>`;
+        h += `<p class="sector-sources-label">Nguồn tham khảo</p>`;
+        h += `<ul class="sector-source-links">`;
+        for (const lk of links) {
+          const u = String(lk.url || "").trim();
+          const t = escapeHtml(
+            String(lk.title || "").trim() || getHostName(u) || u,
+          );
+          const host = escapeHtml(
+            String(lk.host || "").trim() || getHostName(u) || "",
+          );
+          h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${t}</a>`;
+          if (host) h += `<span class="link-meta">${host}</span>`;
+          h += `</li>`;
+        }
+        h += `</ul></div>`;
       }
-      if (!hasSummary && !pts.length) {
+      if (!teaser && !links.length) {
         h += `<p class="hint">Chưa có nội dung chi tiết cho lĩnh vực này.</p>`;
       }
       h += `</div></article>`;
       return h;
+    }
+
+    function initDigestUiInteractions(root) {
+      const scope = root || document;
+      scope.querySelectorAll(".sector-sources-btn").forEach((btn) => {
+        if (btn.dataset.bound === "1") return;
+        btn.dataset.bound = "1";
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const panel = btn
+            .closest(".sector-block")
+            ?.querySelector(".sector-sources-panel");
+          if (!panel) return;
+          const open = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", open ? "false" : "true");
+          btn.textContent = open ? "+" : "−";
+          panel.hidden = open;
+        });
+      });
     }
 
     function buildDigestBriefParts(data) {
@@ -1227,7 +1333,10 @@
         return;
       }
       const thesisEl = document.getElementById("sectionThesis");
-      if (thesisEl) thesisEl.innerHTML = parts.thesis || "";
+      if (thesisEl) {
+        thesisEl.innerHTML = parts.thesis || "";
+        initDigestUiInteractions(thesisEl);
+      }
       const artIdx = document.getElementById("sectionArticleIndex");
       if (artIdx) {
         artIdx.innerHTML = parts.articleIndex || "";
@@ -1327,10 +1436,17 @@
     }
 
     function startBriefApp() {
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => void loadChatContent());
-      } else {
+      const boot = () => {
+        const thesisEl = document.getElementById("sectionThesis");
+        if (thesisEl?.querySelector(".sector-sources-btn")) {
+          initDigestUiInteractions(thesisEl);
+        }
         void loadChatContent();
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", boot);
+      } else {
+        boot();
       }
     }
     startBriefApp();
