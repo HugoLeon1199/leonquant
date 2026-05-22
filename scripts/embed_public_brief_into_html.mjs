@@ -102,20 +102,83 @@ function sectorSlug(name) {
   );
 }
 
-function ensureDigestSectors(data) {
-  if (Array.isArray(data.digestSectors) && data.digestSectors.length) {
-    return data.digestSectors.filter((s) => s && typeof s === "object");
+const DIGEST_FOUR_SECTORS = [
+  { code: "finance", name: "Kinh tế & Tài chính" },
+  { code: "tech", name: "Công nghệ & AI" },
+  { code: "news", name: "Thời sự & Chính trị" },
+  { code: "trends", name: "Xu hướng & Đời sống" },
+];
+
+function inferDigestSectorCode(name) {
+  const n = String(name || "").toLowerCase();
+  if (/công nghệ|cong nghe|\bai\b|khoa học|bán dẫn|viễn thông|tech|chip/.test(n)) return "tech";
+  if (/chính trị|thời sự|ngoại giao|địa chính|quốc tế|iran|israel|ukraine/.test(n)) return "news";
+  if (/xu hướng|đời sống|quan điểm|góc nhìn|xã hội|pháp luật|y tế|môi trường|thể thao|văn hóa/.test(n)) return "trends";
+  if (/kinh tế|tài chính|chứng khoán|bất động|tiền ảo|crypto|ngân hàng|thị trường/.test(n)) return "finance";
+  return "trends";
+}
+
+function normalizeSectorItems(s) {
+  if (Array.isArray(s.items) && s.items.length) {
+    return s.items
+      .filter((it) => it && String(it.headline || "").trim())
+      .map((it) => ({
+        headline: String(it.headline || "").trim(),
+        links: (Array.isArray(it.links) ? it.links : []).filter(
+          (lk) => lk && String(lk.url || "").trim(),
+        ),
+      }));
   }
-  const drivers = Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : [];
-  return drivers.map((d) => ({
-    name: d.title || "Lĩnh vực",
-    summary: d.analysis || "",
-    keyPoints: String(d.marketImpact || "")
-      .split("\n")
-      .map((x) => x.replace(/^•\s*/, "").trim())
-      .filter(Boolean),
-    links: [],
-  }));
+  const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
+  const links = Array.isArray(s.links) ? s.links : [];
+  return pts
+    .map((p) => String(p || "").trim())
+    .filter(Boolean)
+    .map((headline, i) => ({
+      headline,
+      links: links.slice(i * 3, i * 3 + 3),
+    }));
+}
+
+function ensureDigestSectors(data) {
+  const raw =
+    Array.isArray(data.digestSectors) && data.digestSectors.length
+      ? data.digestSectors.filter((s) => s && typeof s === "object")
+      : (Array.isArray(data.globalMacroDrivers) ? data.globalMacroDrivers : []).map((d) => ({
+          name: d.title || "Lĩnh vực",
+          summary: d.analysis || "",
+          keyPoints: String(d.marketImpact || "")
+            .split("\n")
+            .map((x) => x.replace(/^•\s*/, "").trim())
+            .filter(Boolean),
+          links: [],
+        }));
+  const buckets = Object.fromEntries(
+    DIGEST_FOUR_SECTORS.map(({ code, name }) => [code, { code, name, summary: "", items: [] }]),
+  );
+  for (const s of raw) {
+    const code = String(s.code || "").trim().toLowerCase() || inferDigestSectorCode(s.name);
+    const bucket = buckets[code] || buckets.trends;
+    bucket.name = String(s.name || "").trim() || bucket.name;
+    if (String(s.summary || "").trim()) {
+      bucket.summary = bucket.summary
+        ? `${bucket.summary} ${String(s.summary).trim()}`.slice(0, 600)
+        : String(s.summary).trim();
+    }
+    bucket.items.push(...normalizeSectorItems(s));
+  }
+  const seen = new Set();
+  return DIGEST_FOUR_SECTORS.map(({ code, name }) => {
+    const b = buckets[code];
+    const items = [];
+    for (const it of b.items) {
+      const key = it.headline.toLowerCase().slice(0, 120);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      items.push(it);
+    }
+    return { code, name: b.name || name, summary: b.summary, items };
+  });
 }
 
 function buildProseBulletsHtml(items) {
@@ -188,48 +251,46 @@ function buildNotableCardsHtml(notable, imageByUrl) {
   return h;
 }
 
-function sectorTeaserText(s) {
-  const pts = Array.isArray(s.keyPoints) ? s.keyPoints : [];
-  const firstPt = pts.map((p) => String(p || "").trim()).find(Boolean);
-  if (firstPt) return firstPt;
-  const summ = String(s.summary || "").trim();
-  if (!summ) return "";
-  return summ.length > 280 ? `${summ.slice(0, 277).trim()}…` : summ;
-}
-
 function buildSectorBlockHtml(s, index) {
+  const code = String(s.code || "").trim();
   const name = String(s.name || "").trim() || "Lĩnh vực";
-  const id = sectorSlug(name);
-  const teaser = sectorTeaserText(s);
-  const links = (Array.isArray(s.links) ? s.links : [])
-    .filter((lk) => lk && String(lk.url || "").trim())
-    .slice(0, 3);
+  const id = sectorSlug(code || name);
+  const items = normalizeSectorItems(s);
+  const intro = String(s.summary || "").trim();
   let h = `<article class="sector-block" id="${id}">`;
   h += `<header class="sector-head"><span class="sector-num">${String(index + 1).padStart(2, "0")}</span>`;
-  h += `<h3>${escapeHtml(name)}</h3></header><div class="sector-body">`;
-  if (teaser || links.length) {
-    h += `<div class="sector-teaser-row">`;
-    if (teaser) h += `<p class="sector-summary">${escapeHtml(teaser)}</p>`;
-    if (links.length) {
-      h += `<button type="button" class="sector-sources-btn" aria-expanded="false" aria-label="Xem nguồn tin liên quan">+</button>`;
-    }
-    h += `</div>`;
-  }
-  if (links.length) {
-    h += `<div class="sector-sources-panel" hidden>`;
-    h += `<p class="sector-sources-label">Nguồn tham khảo</p><ul class="sector-source-links">`;
-    for (const lk of links) {
-      const u = String(lk.url || "").trim();
-      const t = escapeHtml(String(lk.title || "").trim() || getHostName(u) || u);
-      const host = escapeHtml(String(lk.host || "").trim() || getHostName(u) || "");
-      h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${t}</a>`;
-      if (host) h += `<span class="link-meta">${host}</span>`;
+  h += `<div class="sector-head-main">`;
+  if (code) h += `<span class="sector-code">${escapeHtml(code)}</span>`;
+  h += `<h3>${escapeHtml(name)}</h3></div></header><div class="sector-body">`;
+  if (intro) h += `<p class="sector-intro">${escapeHtml(intro)}</p>`;
+  if (items.length) {
+    h += `<ol class="sector-topic-list">`;
+    items.forEach((it, ti) => {
+      const links = (it.links || []).slice(0, 3);
+      h += `<li class="sector-topic-row"><div class="sector-topic-teaser-row">`;
+      h += `<span class="sector-topic-num">${String(ti + 1).padStart(2, "0")}</span>`;
+      h += `<p class="sector-topic-headline">${escapeHtml(it.headline)}</p>`;
+      if (links.length) {
+        h += `<button type="button" class="sector-sources-btn" aria-expanded="false" aria-label="Xem nguồn tin">+</button>`;
+      }
+      h += `</div>`;
+      if (links.length) {
+        h += `<div class="sector-sources-panel" hidden><p class="sector-sources-label">Nguồn tham khảo</p><ul class="sector-source-links">`;
+        for (const lk of links) {
+          const u = String(lk.url || "").trim();
+          const t = escapeHtml(String(lk.title || "").trim() || getHostName(u) || u);
+          const host = escapeHtml(String(lk.host || "").trim() || getHostName(u) || "");
+          h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${t}</a>`;
+          if (host) h += `<span class="link-meta">${host}</span>`;
+          h += `</li>`;
+        }
+        h += `</ul></div>`;
+      }
       h += `</li>`;
-    }
-    h += `</ul></div>`;
-  }
-  if (!teaser && !links.length) {
-    h += `<p class="hint">Chưa có nội dung chi tiết cho lĩnh vực này.</p>`;
+    });
+    h += `</ol>`;
+  } else {
+    h += `<p class="hint">Chưa có tin chi tiết trong nhóm này.</p>`;
   }
   h += `</div></article>`;
   return h;

@@ -1160,6 +1160,225 @@ def _url_hostname(url: str) -> str:
         return ""
 
 
+DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
+    ("finance", "Kinh tế & Tài chính"),
+    ("tech", "Công nghệ & AI"),
+    ("news", "Thời sự & Chính trị"),
+    ("trends", "Xu hướng & Đời sống"),
+)
+DIGEST_SECTOR_LABEL_BY_CODE = dict(DIGEST_FOUR_SECTORS)
+
+
+def _infer_digest_sector_code(name: str) -> str:
+    n = (name or "").lower()
+    if any(
+        k in n
+        for k in (
+            "công nghệ",
+            "cong nghe",
+            "ai",
+            "khoa học",
+            "bán dẫn",
+            "viễn thông",
+            "tech",
+            "chip",
+            "semiconductor",
+        )
+    ):
+        return "tech"
+    if any(
+        k in n
+        for k in (
+            "chính trị",
+            "thời sự",
+            "ngoại giao",
+            "địa chính",
+            "quốc tế",
+            "news",
+            "iran",
+            "israel",
+            "ukraine",
+        )
+    ):
+        return "news"
+    if any(
+        k in n
+        for k in (
+            "xu hướng",
+            "đời sống",
+            "quan điểm",
+            "góc nhìn",
+            "xã hội",
+            "pháp luật",
+            "y tế",
+            "sức khỏe",
+            "môi trường",
+            "thể thao",
+            "văn hóa",
+            "giáo dục",
+            "trends",
+        )
+    ):
+        return "trends"
+    if any(
+        k in n
+        for k in (
+            "kinh tế",
+            "tài chính",
+            "chứng khoán",
+            "bất động",
+            "tiền ảo",
+            "crypto",
+            "finance",
+            "ngân hàng",
+            "thị trường",
+        )
+    ):
+        return "finance"
+    return "trends"
+
+
+def _resolve_digest_sector_code(sector: dict[str, Any]) -> str:
+    code = str(sector.get("code") or "").strip().lower()
+    if code in DIGEST_SECTOR_LABEL_BY_CODE:
+        return code
+    return _infer_digest_sector_code(str(sector.get("name") or ""))
+
+
+def _links_from_urls(
+    urls: list[str],
+    *,
+    by_url: dict[str, dict[str, Any]],
+    sector_name: str,
+    add_link,
+) -> list[dict[str, str]]:
+    out: list[dict[str, str]] = []
+    for u in urls[:3]:
+        u = str(u or "").strip()
+        if not u:
+            continue
+        add_link(u, sector=sector_name, group=sector_name)
+        art = by_url.get(u)
+        out.append(
+            {
+                "url": u,
+                "title": (str(art.get("title", "")) if art else "") or _url_hostname(u) or u,
+                "host": _url_hostname(u),
+                "source": (str(art.get("source", "")) if art else "") or "",
+            }
+        )
+    return out
+
+
+def _sector_items_from_raw(
+    sector: dict[str, Any],
+    *,
+    by_url: dict[str, dict[str, Any]],
+    sector_name: str,
+    add_link,
+) -> list[dict[str, Any]]:
+    subs = sector.get("sub_topics")
+    if isinstance(subs, list) and subs:
+        items: list[dict[str, Any]] = []
+        for row in subs:
+            if not isinstance(row, dict):
+                continue
+            headline = str(row.get("headline") or row.get("title") or "").strip()
+            if not headline:
+                continue
+            urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+            items.append(
+                {
+                    "headline": headline,
+                    "links": _links_from_urls(
+                        urls, by_url=by_url, sector_name=sector_name, add_link=add_link
+                    ),
+                }
+            )
+        return items
+
+    points = [str(p).strip() for p in (sector.get("key_points") or []) if str(p).strip()]
+    pool = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
+    items = []
+    url_i = 0
+    for pt in points:
+        chunk: list[str] = []
+        for _ in range(3):
+            if url_i < len(pool):
+                chunk.append(pool[url_i])
+                url_i += 1
+        items.append(
+            {
+                "headline": pt,
+                "links": _links_from_urls(
+                    chunk, by_url=by_url, sector_name=sector_name, add_link=add_link
+                ),
+            }
+        )
+    return items
+
+
+def _normalize_digest_sectors_four(
+    summary: dict[str, Any],
+    *,
+    by_url: dict[str, dict[str, Any]],
+    add_link,
+) -> list[dict[str, Any]]:
+    buckets: dict[str, dict[str, Any]] = {
+        code: {"code": code, "name": label, "summary": "", "items": []}
+        for code, label in DIGEST_FOUR_SECTORS
+    }
+
+    for sector in summary.get("sectors") or []:
+        if not isinstance(sector, dict):
+            continue
+        code = _resolve_digest_sector_code(sector)
+        label = (
+            str(sector.get("name") or "").strip()
+            or DIGEST_SECTOR_LABEL_BY_CODE[code]
+        )
+        summ = str(sector.get("summary") or "").strip()
+        bucket = buckets[code]
+        bucket["name"] = label
+        if summ and not bucket["summary"]:
+            bucket["summary"] = summ
+        elif summ and summ not in bucket["summary"]:
+            bucket["summary"] = f"{bucket['summary']} {summ}".strip()[:600]
+        bucket["items"].extend(
+            _sector_items_from_raw(
+                sector, by_url=by_url, sector_name=label, add_link=add_link
+            )
+        )
+
+    out: list[dict[str, Any]] = []
+    for code, label in DIGEST_FOUR_SECTORS:
+        b = buckets[code]
+        seen_h: set[str] = set()
+        deduped: list[dict[str, Any]] = []
+        for it in b["items"]:
+            key = str(it.get("headline") or "").lower()[:120]
+            if not key or key in seen_h:
+                continue
+            seen_h.add(key)
+            deduped.append(it)
+        points_legacy = [
+            str(p).strip()
+            for p in (b.get("keyPoints") or [])
+            if str(p).strip()
+        ]
+        out.append(
+            {
+                "code": code,
+                "name": b["name"] or label,
+                "summary": str(b.get("summary") or "").strip(),
+                "items": deduped,
+                "keyPoints": [it["headline"] for it in deduped] or points_legacy,
+                "links": [],
+            }
+        )
+    return out
+
+
 def build_digest_web_extras(
     summary: dict[str, Any],
     all_articles: list[dict[str, Any]],
@@ -1201,33 +1420,9 @@ def build_digest_web_extras(
             }
         )
 
-    for sector in summary.get("sectors") or []:
-        if not isinstance(sector, dict):
-            continue
-        name = str(sector.get("name", "") or "").strip() or "Lĩnh vực"
-        summ = str(sector.get("summary", "") or "").strip()
-        points = [str(p).strip() for p in (sector.get("key_points") or []) if str(p).strip()]
-        urls = [str(u).strip() for u in (sector.get("source_urls") or []) if str(u).strip()]
-        links: list[dict[str, str]] = []
-        for u in urls:
-            add_link(u, sector=name, group=name)
-            art = by_url.get(u)
-            links.append(
-                {
-                    "url": u,
-                    "title": (str(art.get("title", "")) if art else "") or _url_hostname(u) or u,
-                    "host": _url_hostname(u),
-                    "source": (str(art.get("source", "")) if art else "") or "",
-                }
-            )
-        sectors_out.append(
-            {
-                "name": name,
-                "summary": summ,
-                "keyPoints": points,
-                "links": links,
-            }
-        )
+    sectors_out = _normalize_digest_sectors_four(
+        summary, by_url=by_url, add_link=add_link
+    )
 
     for row in summary.get("notable_articles") or []:
         if not isinstance(row, dict):

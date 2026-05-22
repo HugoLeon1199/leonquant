@@ -20,8 +20,8 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
     if not str(c.get("generatedAt") or "").strip():
         err.append("content.json: missing generatedAt")
     sectors = c.get("digestSectors")
-    if not isinstance(sectors, list) or len(sectors) < 1:
-        err.append("content.json: digestSectors must be a non-empty list")
+    if not isinstance(sectors, list) or len(sectors) < 4:
+        err.append("content.json: digestSectors must have 4 sectors (finance, tech, news, trends)")
     else:
         for i, s in enumerate(sectors[:12]):
             if not isinstance(s, dict):

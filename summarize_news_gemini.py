@@ -52,53 +52,75 @@ MODEL_FREE_TPM_HINT: dict[str, int] = {
 BATCH_DIGEST_CHUNK_CHARS_DEFAULT = 0
 
 # Gợi ý tên lĩnh vực (không bắt buộc đủ 6/10 mục — số mục = theo tin crawl).
-DIGEST_SECTOR_TAXONOMY: tuple[str, ...] = (
-    "Kinh tế & tài chính",
-    "Chính trị & địa chính trị",
-    "Xã hội & pháp luật",
-    "Công nghệ & khoa học",
-    "Y tế & sức khỏe",
-    "Môi trường & năng lượng",
-    "Thể thao & giải trí",
-    "Văn hóa & giáo dục",
-    "Lao động & doanh nghiệp",
-    "An ninh & quốc phòng",
+DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
+    ("finance", "Kinh tế & Tài chính"),
+    ("tech", "Công nghệ & AI"),
+    ("news", "Thời sự & Chính trị"),
+    ("trends", "Xu hướng & Đời sống"),
 )
-DIGEST_MIN_SECTORS_FINAL = 2
+DIGEST_SECTOR_CODES = frozenset(code for code, _ in DIGEST_FOUR_SECTORS)
+DIGEST_MIN_SECTORS_FINAL = 4
+DIGEST_MIN_SUB_TOPICS_PER_SECTOR = 5
+DIGEST_MAX_SUB_TOPICS_PER_SECTOR = 14
 DIGEST_NOTABLE_FINAL_COUNT = 9
 DIGEST_MIN_NOTABLE_FINAL = 9
 DIGEST_MAX_OUTLINE_THEMES = 18
 DIGEST_MERGE_MAX_OUTPUT_TOKENS = 32_768
 
 
-def _digest_multisector_rules_block(*, for_merge: bool = False) -> str:
-    names = " | ".join(DIGEST_SECTOR_TAXONOMY)
+def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
+    sector_lines = "\n".join(
+        f'   - `"{code}"` — {label}' for code, label in DIGEST_FOUR_SECTORS
+    )
     lines = [
-        "## Phân nhóm theo tin crawl (bắt buộc)",
-        "- **Không** cố định 6 hay 10 chuyên mục — số mục `sectors` = **chủ đề thực sự có trong dữ liệu**.",
-        "- Chỉ tạo sector khi có **đủ tin** để tóm tắt; không thêm mục trống / không ép đủ bộ nhãn.",
-        f"- Có thể đặt tên theo gợi ý: {names} — hoặc tên sát nội dung tin.",
-        "- Mỗi chủ đề **có tin** → một mục riêng; **không** gộp hết vào 2–3 mục chung.",
-        "- Tin VN và quốc tế đều phân bổ đúng chủ đề.",
+        "## Phân loại 4 chuyên mục (BẮT BUỘC)",
+        "- Mỗi bài / mỗi ý tin phải thuộc **ĐÚNG MỘT** trong 4 mã:",
+        sector_lines,
+        '- `finance`: kinh tế, tài chính, chứng khoán, bất động sản, tiền ảo.',
+        '- `tech`: công nghệ, AI, khoa học, bán dẫn, viễn thông.',
+        '- `news`: thời sự, chính trị, ngoại giao, sự kiện quốc tế, địa chính trị.',
+        '- `trends`: xu hướng, đời sống, quan điểm, góc nhìn, văn hóa, thể thao, y tế, môi trường, pháp luật/xã hội không thuần chính trị.',
+        "- **Không** tạo sector ngoài 4 mã; **không** gộp hết vào finance/tech.",
+        "- Trong mỗi sector: liệt kê **nhiều mục nhỏ** (`sub_topics`) — mỗi mục = **một dòng** tóm tắt sự kiện báo chí đưa tin (1 câu cụ thể, có tên/số khi có trong dữ liệu).",
+        "- Mỗi `sub_topics[]` có `headline` + `source_urls` (**1–3 URL** từ dữ liệu, gắn đúng tin đó).",
     ]
     if for_merge:
         lines.extend(
             [
-                f"- **`sectors`:** gộp mọi `sector_notes` có nội dung — **không** giới hạn số lượng; tối thiểu {DIGEST_MIN_SECTORS_FINAL} nếu dữ liệu quá ít.",
-                f"- Mỗi sector: **3–8** `key_points`, **1+** `source_urls` khi có.",
-                f"- **`notable_articles`: đúng {DIGEST_NOTABLE_FINAL_COUNT} tin** nóng nhất (đa dạng lĩnh vực).",
-                "- Mọi `dominant_themes` trong khung toàn cảnh phải xuất hiện trong `sectors` hoặc highlights.",
-                "- `executive_overview` + `sectors` ≈ **2.000–3.500 từ** tổng (đọc ~10–15 phút).",
+                f"- **`sectors`:** đúng **4** phần tử, mã `code` lần lượt: finance, tech, news, trends (thứ tự cố định).",
+                f"- Mỗi sector: **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` (không chỉ 3–5 ý chung chung).",
+                "- `summary` sector: tối đa 2 câu mở đầu; **chi tiết nằm ở `sub_topics`**, không thay bằng bullet chung.",
+                f"- **`notable_articles`: đúng {DIGEST_NOTABLE_FINAL_COUNT}** tin nóng nhất (đa dạng 4 mã).",
+                "- `executive_overview` + toàn bộ `sub_topics` ≈ **2.000–3.500 từ** (đọc ~10–15 phút).",
             ]
         )
     else:
         lines.extend(
             [
-                f"- Outline: **tối đa {DIGEST_MAX_OUTLINE_THEMES}** `dominant_themes` (theo danh mục title, không ép 6 nhóm).",
-                "- Mỗi chunk: `sector_notes` cho **mọi chủ đề có tin trong phần này** (không giới hạn cứng số nhóm/chunk).",
+                f"- Outline: gắn `dominant_themes` với một trong 4 mã; tối đa {DIGEST_MAX_OUTLINE_THEMES} theme.",
+                "- Mỗi chunk: `sector_notes` **đúng 4 mã** (có thể ít `sub_topics` nếu phần này ít tin mã đó).",
             ]
         )
     return "\n".join(lines)
+
+
+def _digest_sector_json_schema_fragment() -> str:
+    blocks = []
+    for code, label in DIGEST_FOUR_SECTORS:
+        blocks.append(
+            f"""    {{
+      "code": "{code}",
+      "name": "{label}",
+      "summary": "Tối đa 2 câu mở đầu (tùy chọn)",
+      "sub_topics": [
+        {{
+          "headline": "Một dòng: sự kiện/tin cụ thể báo chí đưa",
+          "source_urls": ["url từ dữ liệu", "..."]
+        }}
+      ]
+    }}"""
+        )
+    return ",\n".join(blocks)
 
 
 def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
@@ -118,12 +140,25 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
         warnings.append(
             f"notable_articles có {len(notable)} mục (nên giữ đúng {DIGEST_NOTABLE_FINAL_COUNT})."
         )
+    codes_seen: set[str] = set()
     for i, sec in enumerate(sectors):
         if not isinstance(sec, dict):
             continue
+        code = str(sec.get("code") or "").strip().lower()
+        if code:
+            codes_seen.add(code)
+        subs = sec.get("sub_topics") if isinstance(sec.get("sub_topics"), list) else []
         kps = sec.get("key_points") if isinstance(sec.get("key_points"), list) else []
-        if len(kps) < 3:
-            warnings.append(f"sectors[{i}] ({sec.get('name', '?')}) chỉ có {len(kps)} key_points.")
+        n_items = len(subs) if subs else len(kps)
+        label = code or sec.get("name", "?")
+        if n_items < DIGEST_MIN_SUB_TOPICS_PER_SECTOR:
+            warnings.append(
+                f"sectors[{i}] ({label}) chỉ có {n_items} mục chi tiết "
+                f"(mong đợi ≥{DIGEST_MIN_SUB_TOPICS_PER_SECTOR} sub_topics)."
+            )
+    missing = DIGEST_SECTOR_CODES - codes_seen
+    if missing and len(sectors) < DIGEST_MIN_SECTORS_FINAL:
+        warnings.append(f"thiếu mã sector: {', '.join(sorted(missing))}")
     return warnings
 
 
@@ -557,8 +592,7 @@ Bạn là biên tập viên tổng hợp tin cho LEON Quant Labs.
 
 ## Mục tiêu đầu ra
 - Viết bằng **tiếng Việt**, mạch lạc, đủ chi tiết để người đọc **5–10 phút** nắm **toàn cảnh** tin tức (khoảng 1.500–2.500 từ ở phần narrative chính).
-- **Phân nhóm động:** số mục `sectors` theo chủ đề có trong tin (không cố 6 mục); không thu hẹp còn hạ tầng/chứng khoán/AI.
-{_digest_multisector_rules_block()}
+{_digest_four_sector_rules_block()}
 - Ưu tiên sự kiện lặp lại, tin nhiều nguồn, hoặc hàm ý rộng; gom chủ đề trùng.
 - Mỗi ý quan trọng nên kèm URL từ dữ liệu khi có thể.
 
@@ -568,12 +602,7 @@ Trả về DUY NHẤT JSON hợp lệ theo schema:
   "reading_time_minutes": "5-10",
   "executive_overview": "2-4 đoạn: bức tranh chung hai ngày qua",
   "sectors": [
-    {{
-      "name": "Tên lĩnh vực (vd. Kinh tế & tài chính)",
-      "summary": "Tóm tắt chi tiết 1-3 đoạn ngắn cho lĩnh vực này",
-      "key_points": ["Điểm 1", "Điểm 2"],
-      "source_urls": ["url1", "url2"]
-    }}
+{_digest_sector_json_schema_fragment()}
   ],
   "vietnam_highlights": "Tin Việt Nam nổi bật (nếu có trong dữ liệu)",
   "international_highlights": "Tin quốc tế nổi bật (nếu có)",
@@ -628,7 +657,7 @@ Bạn là tổng biên tập tin. Nhiệm vụ: đọc **TOÀN BỘ** danh mục
 - Phát hiện chủ đề lặp lại trên nhiều nguồn, tin VN vs quốc tế, sự kiện nổi bật nhất.
 - Đây là bước **khung xương**; các bước sau sẽ đọc nội dung chi tiết từng phần — khung phải phản ánh **đủ** {total_articles} bài.
 - JSON gọn: **tối đa {DIGEST_MAX_OUTLINE_THEMES}** `dominant_themes` (phủ **đủ** các nhóm lĩnh vực có trong danh mục), **tối đa 3** mục `timeline_sketch`, **không** liệt kê từng bài trong output (chỉ ước lượng số lượng).
-{_digest_multisector_rules_block()}
+{_digest_four_sector_rules_block()}
 
 Cửa sổ: {window_desc}
 
@@ -642,7 +671,7 @@ Trả về DUY NHẤT JSON:
       "why_dominant": "Vì sao nổi bật (nhiều bài/nguồn)",
       "approx_article_count": "ước lượng số bài liên quan trong danh mục",
       "regions": ["vietnam", "international"],
-      "sectors": ["kinh tế", "chính trị", "xã hội", "công nghệ", "thể thao", "..."]
+      "sectors": ["finance", "tech", "news", "trends"]
     }}
   ],
   "vietnam_vs_global": "So sánh trọng tâm VN và thế giới",
@@ -704,8 +733,8 @@ Bạn là biên tập viên tổng hợp tin. Đây là **phần {batch_index}/{
 ## Quy tắc
 - CHỈ dùng JSON bài viết bên dưới + khung toàn cảnh (nếu có). KHÔNG mở URL, KHÔNG tìm web, KHÔNG bịa.
 - Toàn bộ pipeline có {total_articles} bài; bạn thấy phần này — ghi nhận đủ sự kiện **trong phần được giao**, đối chiếu khung để biết phần này thuộc chủ đề lớn nào.
-- **JSON hợp lệ:** mỗi `summary` tối đa 150 từ; `sector_notes` = mọi chủ đề có tin trong phần (không giới hạn số nhóm); mỗi sector **3–8** `key_points`; `notable_articles` tối đa **5**/chunk; không lặp URL.
-{_digest_multisector_rules_block()}
+- **JSON hợp lệ:** `sector_notes` đúng 4 mã; mỗi mã **3–10** `sub_topics` (mỗi mục 1 `headline` + 1–3 `source_urls`); `notable_articles` tối đa **5**/chunk; không lặp URL.
+{_digest_four_sector_rules_block()}
 {outline_block}
 ## Cửa sổ: {window_desc}
 
@@ -716,10 +745,10 @@ Trả về DUY NHẤT JSON:
   "articles_in_batch": {len(chunk)},
   "sector_notes": [
     {{
-      "name": "Lĩnh vực (kinh tế, chính trị, xã hội, công nghệ, thể thao, ...)",
-      "summary": "Tóm tắt chi tiết từ phần bài này",
-      "key_points": ["..."],
-      "source_urls": ["..."]
+      "code": "finance|tech|news|trends",
+      "name": "Tên tiếng Việt",
+      "summary": "Tối đa 2 câu",
+      "sub_topics": [{{"headline": "...", "source_urls": ["..."]}}]
     }}
   ],
   "vietnam_notes": "Tin VN trong phần này",
@@ -760,7 +789,7 @@ Nhiệm vụ: **Gộp** thành **một** bản tin duy nhất, tiếng Việt, �
 - Khung toàn cảnh = xương sống (chủ đề trội trên toàn bộ {total_articles} bài).
 - Partials = chi tiết từng phần — **gộp KHÔNG được làm mất** chủ đề lớn trong khung; **cấm** chỉ giữ 2–3 sector (hạ tầng, CK, AI) nếu partials/outline còn nhiều lĩnh vực khác.
 - Gom `sector_notes` trùng tên lĩnh vực; **không** nhồi mọi thứ vào một mục "Khác".
-{_digest_multisector_rules_block(for_merge=True)}
+{_digest_four_sector_rules_block(for_merge=True)}
 CHỈ dùng dữ liệu được cung cấp — không bổ sung từ bên ngoài.
 
 Trả về DUY NHẤT JSON:
@@ -769,12 +798,7 @@ Trả về DUY NHẤT JSON:
   "reading_time_minutes": "10-15",
   "executive_overview": "3-5 đoạn bức tranh chung (đủ lĩnh vực, không chỉ kinh tế)",
   "sectors": [
-    {{
-      "name": "Tên lĩnh vực (theo taxonomy)",
-      "summary": "1-3 đoạn cho lĩnh vực này",
-      "key_points": ["ít nhất 4 ý, mỗi ý 1 câu cụ thể"],
-      "source_urls": ["url1", "url2", "..."]
-    }}
+{_digest_sector_json_schema_fragment()}
   ],
   "vietnam_highlights": "...",
   "international_highlights": "...",
