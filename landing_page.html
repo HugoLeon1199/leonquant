@@ -820,13 +820,26 @@
       padding: 0;
     }
     .pulse-live-ticker-list li {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(88px, 28%) 1fr auto;
       align-items: baseline;
-      gap: 10px;
+      gap: 8px 10px;
       padding: 7px 14px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.04);
       font-size: 0.8rem;
       line-height: 1.35;
+    }
+    .pulse-ticker-sector {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--cyan-dim);
+      line-height: 1.25;
+    }
+    .pulse-ticker-mentions {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
     }
     .pulse-live-ticker-list a {
       font-weight: 700;
@@ -1734,17 +1747,34 @@
       });
     }
 
-    function buildPulseTickerHtml(urls) {
-      const list = Array.isArray(urls) ? urls.filter(Boolean) : [];
+    function collectPulseFeedItems(data, events) {
+      const raw = Array.isArray(data?.live_feed_items) ? data.live_feed_items : [];
+      if (raw.length) {
+        return raw.filter((x) => x && String(x.url || "").startsWith("http"));
+      }
+      const urls = collectPulseFeedUrls(data, events);
+      return urls.map((u) => ({ url: u, sector: "", mentions: 0 }));
+    }
+
+    function buildPulseTickerHtml(items) {
+      const list = Array.isArray(items) ? items : [];
       if (!list.length) return "";
       const rows = list
-        .map((u) => {
+        .map((item) => {
+          const u = String(item.url || "").trim();
           const label = pulseSourceLabel(u);
-          return `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a><span class="pulse-live-ticker-url">${escapeHtml(u)}</span></li>`;
+          const sector = String(item.sector || "").trim();
+          const m = item.mentions != null ? Math.max(0, Math.round(Number(item.mentions))) : 0;
+          const mentionTxt = m > 0 ? `${m} báo` : "";
+          return `<li>${
+            sector ? `<span class="pulse-ticker-sector">${escapeHtml(sector)}</span>` : "<span></span>"
+          }<a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>${
+            mentionTxt ? `<span class="pulse-ticker-mentions">${escapeHtml(mentionTxt)}</span>` : "<span></span>"
+          }</li>`;
         })
         .join("");
       return `<div class="pulse-live-ticker-wrap">
-        <p class="pulse-live-ticker-head"><span class="nav-live-dot"></span> Nguồn tin đang cập nhật (${list.length})</p>
+        <p class="pulse-live-ticker-head"><span class="nav-live-dot"></span> Toàn bộ bài trong phiên quét (${list.length})</p>
         <div class="pulse-live-ticker-viewport">
           <div class="pulse-live-ticker-scroll">
             <ul class="pulse-live-ticker-list">${rows}</ul>
@@ -1773,12 +1803,12 @@
 
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
-      const feedUrls = collectPulseFeedUrls(data, events);
+      const feedItems = collectPulseFeedItems(data, events);
       if (!events.length) {
         return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py</code> (GCP BigQuery) rồi push <code>market_pulse.json</code>.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<h2>Tin nóng thế giới hiện tại — Cập nhật từng giờ</h2>`;
+      h += `<h2>Tin nóng nhất thế giới hiện tại</h2>`;
       h += `</header><div class="pulse-panel">`;
       h += `<ol class="pulse-event-list">`;
       events.forEach((ev) => {
@@ -1794,7 +1824,7 @@
           h += `<p class="pulse-event-hint">${escapeHtml(ev.hint)}</p>`;
         }
         h += `<p class="pulse-event-meta">`;
-        h += `<strong>${escapeHtml(coverage)}</strong> bài báo (GDELT)`;
+        h += `<strong>${escapeHtml(coverage)}</strong> báo đề cập`;
         if (sentiment) {
           h += ` · <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
         }
@@ -1805,7 +1835,7 @@
         h += `</li>`;
       });
       h += `</ol></div>`;
-      h += buildPulseTickerHtml(feedUrls);
+      h += buildPulseTickerHtml(feedItems);
       h += `</article>`;
       return h;
     }

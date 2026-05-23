@@ -481,7 +481,7 @@ class MacroCluster:
         best_rank = min(self.ranks) if self.ranks else 149
         score = impact_score(best_rank, tone_avg)
         entity_tags = _merge_entity_tags(self.actors, self.related_entities)
-        # GDELT NumArticles = global media volume for that event row (not our scrape count).
+        # NumArticles from GDELT row (global media volume for that article).
         if self.article_mentions:
             coverage = max(self.article_mentions)
         else:
@@ -618,36 +618,45 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 
-def build_feed_urls(cleaned: pd.DataFrame, events: list[dict[str, Any]]) -> list[str]:
-    """All source URLs from this pipeline run (BQ rows + clustered sources)."""
-    seen: set[str] = set()
-    out: list[str] = []
-    if not cleaned.empty and "Link_Bai_Bao" in cleaned.columns:
-        for raw in cleaned["Link_Bai_Bao"]:
-            url = str(raw or "").strip()
-            if url.startswith("http") and url not in seen:
-                seen.add(url)
-                out.append(url)
-    for ev in events:
-        for url in ev.get("sources") or []:
-            u = str(url or "").strip()
-            if u.startswith("http") and u not in seen:
-                seen.add(u)
-                out.append(u)
-    return out
+def build_live_feed_items(cleaned: pd.DataFrame) -> list[dict[str, Any]]:
+    """Every article URL returned by BigQuery this run (not one link per cluster)."""
+    if cleaned.empty or "Link_Bai_Bao" not in cleaned.columns:
+        return []
+    items: list[dict[str, Any]] = []
+    for _, row in cleaned.iterrows():
+        url = str(row.get("Link_Bai_Bao") or "").strip()
+        if not url.startswith("http"):
+            continue
+        try:
+            mentions = int(row.get("So_Bao_De_Cap") or 0)
+        except (TypeError, ValueError):
+            mentions = 0
+        items.append(
+            {
+                "url": url,
+                "sector": str(row.get("Nhom_Nganh") or "").strip(),
+                "mentions": mentions,
+                "tone": round(float(row.get("Diem_Cam_Xuc") or 0), 2),
+            }
+        )
+    items.sort(key=lambda x: (x.get("mentions") or 0), reverse=True)
+    return items
 
 
 def build_payload(
     events: list[dict[str, Any]],
     *,
     query_meta: dict[str, Any],
-    live_feed_urls: list[str] | None = None,
+    live_feed_items: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    items = live_feed_items or []
     return {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "total_clusters": len(events),
+        "total_feed_articles": len(items),
         "query_meta": query_meta,
-        "live_feed_urls": live_feed_urls or [],
+        "live_feed_items": items,
+        "live_feed_urls": [str(x.get("url") or "") for x in items if x.get("url")],
         "events": events,
     }
 
@@ -755,8 +764,9 @@ def main(argv: list[str] | None = None) -> int:
             FETCH_TITLE_TIMEOUT,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini)
-    feed_urls = build_feed_urls(cleaned, events)
-    payload = build_payload(events, query_meta=meta, live_feed_urls=feed_urls)
+    feed_items = build_live_feed_items(cleaned)
+    payload = build_payload(events, query_meta=meta, live_feed_items=feed_items)
+    LOG.info("Exported %s headline clusters, %s feed articles (all BQ URLs)", len(events), len(feed_items))
     try:
         atomic_export_json(payload, output)
         # Mirror for GitHub Pages static path
