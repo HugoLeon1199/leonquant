@@ -60,8 +60,8 @@ WITH
     SELECT Actor1Name, Actor2Name, EventRootCode, AvgTone, NumArticles, SOURCEURL
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
-    AND NumArticles >= 15
-    AND (AvgTone <= -3.0 OR AvgTone >= 3.0)
+    AND NumArticles >= 40
+    AND (AvgTone <= -4.0 OR AvgTone >= 4.0)
   ),
   FilteredGKG AS (
     SELECT DocumentIdentifier, REGEXP_REPLACE(V2Organizations, r',?\\d+', '') AS Cong_Ty_Clean,

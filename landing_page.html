@@ -761,9 +761,9 @@
     .digest-notable-all { margin-top: 0.75rem; }
 
     .pulse-live-ticker-wrap {
-      margin-top: 22px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
+      margin-top: 20px;
+      padding: 16px 0 4px;
+      border-top: 2px solid rgba(8, 145, 178, 0.2);
     }
     .pulse-live-ticker-head {
       display: flex;
@@ -777,15 +777,35 @@
       color: var(--muted);
     }
     .pulse-live-ticker-viewport {
-      height: 11.5rem;
+      height: 14rem;
       overflow: hidden;
       border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(8, 145, 178, 0.04);
-      mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+      border: 1px solid rgba(8, 145, 178, 0.35);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .pulse-live-ticker-viewport::before,
+    .pulse-live-ticker-viewport::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 18px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .pulse-live-ticker-viewport::before {
+      top: 0;
+      background: linear-gradient(180deg, var(--surface), transparent);
+    }
+    .pulse-live-ticker-viewport::after {
+      bottom: 0;
+      background: linear-gradient(0deg, var(--surface), transparent);
     }
     .pulse-live-ticker-scroll {
-      animation: pulse-ticker-scroll 48s linear infinite;
+      animation: pulse-ticker-scroll 36s linear infinite;
+      will-change: transform;
     }
     .pulse-live-ticker-scroll:hover {
       animation-play-state: paused;
@@ -1734,9 +1754,26 @@
       </div>`;
     }
 
+    function collectPulseFeedUrls(data, events) {
+      const fromJson = Array.isArray(data?.live_feed_urls) ? data.live_feed_urls.filter(Boolean) : [];
+      if (fromJson.length) return fromJson;
+      const seen = new Set();
+      const out = [];
+      for (const ev of events) {
+        for (const u of ev.urls || []) {
+          const url = String(u || "").trim();
+          if (url.startsWith("http") && !seen.has(url)) {
+            seen.add(url);
+            out.push(url);
+          }
+        }
+      }
+      return out;
+    }
+
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
-      const feedUrls = Array.isArray(data?.live_feed_urls) ? data.live_feed_urls : [];
+      const feedUrls = collectPulseFeedUrls(data, events);
       if (!events.length) {
         return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py</code> (GCP BigQuery) rồi push <code>market_pulse.json</code>.</p></div>`;
       }
@@ -1767,9 +1804,9 @@
         }
         h += `</li>`;
       });
-      h += `</ol>`;
+      h += `</ol></div>`;
       h += buildPulseTickerHtml(feedUrls);
-      h += `</div></article>`;
+      h += `</article>`;
       return h;
     }
 
