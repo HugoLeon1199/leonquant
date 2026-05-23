@@ -83,7 +83,8 @@ WITH
     AND V2Organizations IS NOT NULL
   )
 SELECT e.Actor1Name AS Doi_Tuong_Chinh, g.Nhom_Nganh, e.AvgTone AS Diem_Cam_Xuc,
-       g.Cong_Ty_Clean AS Cac_To_Chuc_Lien_Quan, e.SOURCEURL AS Link_Bai_Bao
+       g.Cong_Ty_Clean AS Cac_To_Chuc_Lien_Quan, e.SOURCEURL AS Link_Bai_Bao,
+       e.NumArticles AS So_Bao_De_Cap
 FROM FilteredEvents AS e
 INNER JOIN FilteredGKG AS g ON e.SOURCEURL = g.DocumentIdentifier
 WHERE g.Nhom_Nganh != 'Khác'
@@ -468,6 +469,7 @@ class MacroCluster:
     related_entities: list[str] = field(default_factory=list)
     tones: list[float] = field(default_factory=list)
     ranks: list[int] = field(default_factory=list)
+    article_mentions: list[int] = field(default_factory=list)
 
     def cluster_text(self) -> str:
         ents = " ".join(self.related_entities)
@@ -479,12 +481,21 @@ class MacroCluster:
         best_rank = min(self.ranks) if self.ranks else 149
         score = impact_score(best_rank, tone_avg)
         entity_tags = _merge_entity_tags(self.actors, self.related_entities)
+        coverage = max(self.article_mentions) if self.article_mentions else max(len(self.sources), 1)
+        if tone_avg >= 2.0:
+            sentiment_label = "Tích cực"
+        elif tone_avg <= -2.0:
+            sentiment_label = "Tiêu cực"
+        else:
+            sentiment_label = "Trung tính"
         return {
             "title": "",
             "summary": "",
             "sector": self.sector,
             "impact_score": score,
             "sentiment_tone": round(tone_avg, 2),
+            "sentiment_label": sentiment_label,
+            "article_mentions": int(coverage),
             "entities": entity_tags,
             "sources": self.sources[:10],
         }
@@ -509,6 +520,7 @@ def _merge_cluster_dicts(a: MacroCluster, b: MacroCluster) -> MacroCluster:
             a.actors.append(actor)
     a.tones.extend(b.tones)
     a.ranks.extend(b.ranks)
+    a.article_mentions.extend(b.article_mentions)
     return a
 
 
@@ -575,6 +587,12 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
         cl.related_entities = cl.related_entities[:3]
         cl.tones.append(tone)
         cl.ranks.append(rank)
+        try:
+            mentions = int(row.get("So_Bao_De_Cap") or 0)
+        except (TypeError, ValueError):
+            mentions = 0
+        if mentions > 0:
+            cl.article_mentions.append(mentions)
 
     clusters = list(buckets.values())
     LOG.info("Actor+sector buckets: %s", len(clusters))

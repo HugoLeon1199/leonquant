@@ -761,34 +761,28 @@
     .pulse-event {
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
       background: var(--bg0);
     }
     .pulse-event:last-child { margin-bottom: 0; }
-    .pulse-event-head {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .pulse-event-rank {
-      flex-shrink: 0;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 8px;
+    .pulse-event-sector {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 3px 10px;
+      border-radius: 6px;
       background: rgba(8, 145, 178, .12);
       color: var(--cyan-dim);
       font-size: .72rem;
       font-weight: 800;
-      display: grid;
-      place-items: center;
+      letter-spacing: .02em;
+      text-transform: none;
     }
     .pulse-event-title {
-      margin: 0;
-      font-size: .95rem;
+      margin: 0 0 10px;
+      font-size: 1.02rem;
       font-weight: 700;
-      line-height: 1.4;
+      line-height: 1.45;
       color: var(--text);
     }
     .pulse-event-meta {
@@ -814,6 +808,9 @@
       font-size: .78rem;
       font-weight: 700;
     }
+    .pulse-sentiment--pos { color: #0d9488; }
+    .pulse-sentiment--neg { color: #dc2626; }
+    .pulse-sentiment--neu { color: var(--muted); }
     .pulse-domain-tag {
       display: inline-block;
       padding: 2px 8px;
@@ -1569,6 +1566,27 @@
       });
     }
 
+    function pulseSentimentLabel(ev) {
+      if (ev.sentiment_label) return String(ev.sentiment_label);
+      const t = Number(ev.tone);
+      if (Number.isNaN(t)) return "";
+      if (t >= 2) return "Tích cực";
+      if (t <= -2) return "Tiêu cực";
+      return "Trung tính";
+    }
+
+    function pulseSentimentClass(label) {
+      if (label === "Tích cực") return "pulse-sentiment--pos";
+      if (label === "Tiêu cực") return "pulse-sentiment--neg";
+      return "pulse-sentiment--neu";
+    }
+
+    function pulseCoverageCount(ev) {
+      const n = ev.article_mentions ?? ev.articleMentions;
+      if (n != null && !Number.isNaN(Number(n))) return Math.max(1, Math.round(Number(n)));
+      return Math.max(1, (ev.urls || []).length);
+    }
+
     function pulseSourceLabel(url) {
       const host = getHostName(url);
       const brand = SOURCE_DISPLAY_BY_HOST[host.toLowerCase()] || "";
@@ -1596,6 +1614,8 @@
             sector,
             impact: ev.impact_score,
             tone: ev.sentiment_tone,
+            sentiment_label: ev.sentiment_label || "",
+            article_mentions: ev.article_mentions,
             entities,
             hint: String(ev.summary || ev.summary_hint || "").trim(),
             urls: Array.isArray(ev.sources) ? ev.sources.filter(Boolean) : [],
@@ -1619,30 +1639,28 @@
       if (!events.length) {
         return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py</code> (GCP BigQuery) rồi push <code>market_pulse.json</code>.</p></div>`;
       }
-      const total = data.total_clusters || events.length;
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<p class="eyebrow">Cập nhật từng phút</p>`;
       h += `<h2>Tin nóng thế giới hiện tại</h2>`;
-      h += `<p class="digest-report-lead">Tin các quốc gia trên thế giới đang nói về điều gì — cập nhật liên tục, tách khỏi bản tin tổng hợp 24h.</p>`;
       h += `</header><div class="pulse-panel">`;
-      h += `<p class="pulse-stats">`;
-      h += `<span><strong>${total}</strong> cụm sự kiện</span>`;
-      h += `<span>Cửa sổ <strong>24h</strong></span>`;
-      h += `</p><ol class="pulse-event-list">`;
-      events.forEach((ev, idx) => {
+      h += `<ol class="pulse-event-list">`;
+      events.forEach((ev) => {
+        const sentiment = pulseSentimentLabel(ev);
+        const sClass = pulseSentimentClass(sentiment);
+        const coverage = pulseCoverageCount(ev);
         h += `<li class="pulse-event">`;
-        h += `<div class="pulse-event-head">`;
-        h += `<span class="pulse-event-rank">${String(idx + 1).padStart(2, "0")}</span>`;
-        h += `<div><h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
-        h += `<p class="pulse-event-meta">`;
-        if (ev.sector) h += `<span class="pulse-domain-tag">${escapeHtml(ev.sector)}</span>`;
-        if (ev.impact != null) h += ` · impact <strong>${escapeHtml(ev.impact)}</strong>/100`;
-        if (ev.tone != null) h += ` · tone ${escapeHtml(ev.tone)}`;
-        if (ev.urls.length) h += ` · ${ev.urls.length} nguồn`;
-        h += `</p></div></div>`;
+        if (ev.sector) {
+          h += `<p class="pulse-event-sector">${escapeHtml(ev.sector)}</p>`;
+        }
+        h += `<h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
         if (ev.hint) {
           h += `<p class="pulse-event-hint">${escapeHtml(ev.hint)}</p>`;
         }
+        h += `<p class="pulse-event-meta">`;
+        h += `<strong>${escapeHtml(coverage)}</strong> báo đề cập`;
+        if (sentiment) {
+          h += ` · <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
+        }
+        h += `</p>`;
         if (ev.entities && ev.entities.length) {
           h += `<p class="pulse-event-tags">${escapeHtml(ev.entities.join(" · "))}</p>`;
         }
@@ -1664,20 +1682,15 @@
       const heroSub = document.getElementById("heroSubtitle");
       const heroDesc = document.getElementById("heroDescription");
       if (heroSub) {
-        heroSub.style.display = "";
-        heroSub.textContent = "Tin nóng thế giới — cập nhật từng phút";
+        heroSub.style.display = "none";
+        heroSub.textContent = "";
       }
       if (heroDesc) {
-        heroDesc.style.display = "";
-        heroDesc.textContent =
-          "Tin các quốc gia đang nói về điều gì — cập nhật liên tục, tách khỏi bản tin tổng hợp 24h.";
+        heroDesc.style.display = "none";
+        heroDesc.textContent = "";
       }
       const sync = document.getElementById("pulseSyncNote");
-      if (sync) {
-        const ts = data?.generated_at_utc || data?.generated_at;
-        const st = ts ? formatDateVi(ts) : "";
-        sync.textContent = st ? `Cập nhật lúc ${st}.` : "Tin cập nhật từng phút — chưa có thời điểm đồng bộ.";
-      }
+      if (sync) sync.textContent = "";
       const el = document.getElementById("sectionPulse");
       if (el) el.innerHTML = buildPulseHtml(data || {});
     }
