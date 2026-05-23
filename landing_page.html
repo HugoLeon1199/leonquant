@@ -699,6 +699,25 @@
       background: linear-gradient(135deg, var(--cyan), #22d3ee);
       border-color: transparent;
     }
+    .nav-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 2px;
+    }
+    .nav-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55);
+      animation: nav-live-pulse 1.4s ease-out infinite;
+    }
+    @keyframes nav-live-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); }
+      70% { box-shadow: 0 0 0 7px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
     body.digest-mode .logo {
       font-size: clamp(1.55rem, 4vw, 2.35rem);
       gap: 16px;
@@ -741,11 +760,66 @@
     }
     .digest-notable-all { margin-top: 0.75rem; }
 
-    .pulse-footnote {
-      margin: 0.35rem 0 0;
-      font-size: 0.82rem;
+    .pulse-live-ticker-wrap {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .pulse-live-ticker-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .pulse-live-ticker-viewport {
+      height: 11.5rem;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(8, 145, 178, 0.04);
+      mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .pulse-live-ticker-scroll {
+      animation: pulse-ticker-scroll 48s linear infinite;
+    }
+    .pulse-live-ticker-scroll:hover {
+      animation-play-state: paused;
+    }
+    @keyframes pulse-ticker-scroll {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    .pulse-live-ticker-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .pulse-live-ticker-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 7px 14px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+    .pulse-live-ticker-list a {
+      font-weight: 700;
+      color: var(--cyan-dim);
+      white-space: nowrap;
+    }
+    .pulse-live-ticker-url {
       color: var(--faint);
-      max-width: 42rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+      min-width: 0;
     }
     .pulse-panel {
       background: var(--surface);
@@ -916,7 +990,7 @@
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links" id="navLinks" data-nav-tabs="1">
           <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin tức tổng hợp 24h</a>
-          <a class="nav-hub" href="/?view=live" data-view="live">Tin tức cập nhật từng phút</a>
+          <a class="nav-hub" href="/?view=live" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>
         </div>
       </nav>
       <h1>LEON Quant Labs</h1>
@@ -1517,7 +1591,7 @@
       const pClass = v === "pulse" ? "nav-hub nav-hub--active" : "nav-hub";
       nav.innerHTML = `
         <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest">Tin tức tổng hợp 24h</a>
-        <a class="${pClass}" href="${escapeHtml(liveNavHref())}" data-view="live">Tin tức cập nhật từng phút</a>`;
+        <a class="${pClass}" href="${escapeHtml(liveNavHref())}" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>`;
     }
 
     function applyViewMode(view) {
@@ -1640,14 +1714,34 @@
       });
     }
 
+    function buildPulseTickerHtml(urls) {
+      const list = Array.isArray(urls) ? urls.filter(Boolean) : [];
+      if (!list.length) return "";
+      const rows = list
+        .map((u) => {
+          const label = pulseSourceLabel(u);
+          return `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a><span class="pulse-live-ticker-url">${escapeHtml(u)}</span></li>`;
+        })
+        .join("");
+      return `<div class="pulse-live-ticker-wrap">
+        <p class="pulse-live-ticker-head"><span class="nav-live-dot"></span> Nguồn tin đang cập nhật (${list.length})</p>
+        <div class="pulse-live-ticker-viewport">
+          <div class="pulse-live-ticker-scroll">
+            <ul class="pulse-live-ticker-list">${rows}</ul>
+            <ul class="pulse-live-ticker-list" aria-hidden="true">${rows}</ul>
+          </div>
+        </div>
+      </div>`;
+    }
+
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
+      const feedUrls = Array.isArray(data?.live_feed_urls) ? data.live_feed_urls : [];
       if (!events.length) {
         return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py</code> (GCP BigQuery) rồi push <code>market_pulse.json</code>.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<h2>Tin nóng thế giới hiện tại</h2>`;
-      h += `<p class="digest-report-lead pulse-footnote">Số bài báo theo chỉ số GDELT (24h, tin nóng toàn cầu) — không phải quét hết mọi bài trên internet.</p>`;
+      h += `<h2>Tin nóng thế giới hiện tại — Cập nhật từng giờ</h2>`;
       h += `</header><div class="pulse-panel">`;
       h += `<ol class="pulse-event-list">`;
       events.forEach((ev) => {
@@ -1664,11 +1758,6 @@
         }
         h += `<p class="pulse-event-meta">`;
         h += `<strong>${escapeHtml(coverage)}</strong> bài báo (GDELT)`;
-        if (ev.urls && ev.urls.length === 1) {
-          h += ` · 1 liên kết nguồn`;
-        } else if (ev.urls && ev.urls.length > 1) {
-          h += ` · ${ev.urls.length} liên kết`;
-        }
         if (sentiment) {
           h += ` · <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
         }
@@ -1676,16 +1765,11 @@
         if (ev.entities && ev.entities.length) {
           h += `<p class="pulse-event-tags">${escapeHtml(ev.entities.join(" · "))}</p>`;
         }
-        if (ev.urls.length) {
-          h += `<div class="pulse-event-links">`;
-          ev.urls.slice(0, 5).forEach((u) => {
-            h += `<a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pulseSourceLabel(u))}</a>`;
-          });
-          h += `</div>`;
-        }
         h += `</li>`;
       });
-      h += `</ol></div></article>`;
+      h += `</ol>`;
+      h += buildPulseTickerHtml(feedUrls);
+      h += `</div></article>`;
       return h;
     }
 

@@ -464,7 +464,7 @@ function main() {
     /<div class="nav-links" id="navLinks"[^>]*>[\s\S]*?<\/div>/i,
     '<div class="nav-links" id="navLinks" data-nav-tabs="1">' +
       '<a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin tức tổng hợp 24h</a>' +
-      '<a class="nav-hub" href="/?view=live" data-view="live">Tin tức cập nhật từng phút</a>' +
+      '<a class="nav-hub" href="/?view=live" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>' +
       "</div>",
   );
 

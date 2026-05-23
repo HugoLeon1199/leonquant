@@ -39,7 +39,7 @@ DEFAULT_OUTPUT = PROJECT_DIR / "market_pulse.json"
 DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
 TARGET_CLUSTER_MIN = 15
-TARGET_CLUSTER_MAX = 30
+TARGET_CLUSTER_MAX = 35
 TFIDF_MERGE_THRESHOLD = 0.55
 FETCH_TITLE_TIMEOUT = 5
 TITLE_UNAVAILABLE = "(Title unavailable)"
@@ -61,7 +61,7 @@ WITH
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
     AND NumArticles >= 15
-    AND (AvgTone <= -4.0 OR AvgTone >= 4.0)
+    AND (AvgTone <= -3.0 OR AvgTone >= 3.0)
   ),
   FilteredGKG AS (
     SELECT DocumentIdentifier, REGEXP_REPLACE(V2Organizations, r',?\\d+', '') AS Cong_Ty_Clean,
@@ -618,11 +618,36 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 
-def build_payload(events: list[dict[str, Any]], *, query_meta: dict[str, Any]) -> dict[str, Any]:
+def build_feed_urls(cleaned: pd.DataFrame, events: list[dict[str, Any]]) -> list[str]:
+    """All source URLs from this pipeline run (BQ rows + clustered sources)."""
+    seen: set[str] = set()
+    out: list[str] = []
+    if not cleaned.empty and "Link_Bai_Bao" in cleaned.columns:
+        for raw in cleaned["Link_Bai_Bao"]:
+            url = str(raw or "").strip()
+            if url.startswith("http") and url not in seen:
+                seen.add(url)
+                out.append(url)
+    for ev in events:
+        for url in ev.get("sources") or []:
+            u = str(url or "").strip()
+            if u.startswith("http") and u not in seen:
+                seen.add(u)
+                out.append(u)
+    return out
+
+
+def build_payload(
+    events: list[dict[str, Any]],
+    *,
+    query_meta: dict[str, Any],
+    live_feed_urls: list[str] | None = None,
+) -> dict[str, Any]:
     return {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "total_clusters": len(events),
         "query_meta": query_meta,
+        "live_feed_urls": live_feed_urls or [],
         "events": events,
     }
 
@@ -730,7 +755,8 @@ def main(argv: list[str] | None = None) -> int:
             FETCH_TITLE_TIMEOUT,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini)
-    payload = build_payload(events, query_meta=meta)
+    feed_urls = build_feed_urls(cleaned, events)
+    payload = build_payload(events, query_meta=meta, live_feed_urls=feed_urls)
     try:
         atomic_export_json(payload, output)
         # Mirror for GitHub Pages static path
