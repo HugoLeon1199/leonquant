@@ -1570,43 +1570,68 @@
       return host || url || "Nguồn";
     }
 
+    function normalizePulseEvents(data) {
+      const raw = Array.isArray(data?.events) ? data.events : [];
+      return raw.map((ev) => {
+        if (ev.sector != null || ev.primary_actor != null) {
+          const actor = String(ev.primary_actor || "Không rõ").trim();
+          const sector = String(ev.sector || "").trim();
+          return {
+            title: actor + (sector ? ` · ${sector}` : ""),
+            sector,
+            impact: ev.impact_score,
+            tone: ev.sentiment_tone,
+            entities: Array.isArray(ev.related_entities) ? ev.related_entities : [],
+            urls: Array.isArray(ev.sources) ? ev.sources.filter(Boolean) : [],
+          };
+        }
+        const domain = String(ev.domain || "all");
+        return {
+          title: String(ev.title || "Sự kiện"),
+          sector: ev.domain_label || PULSE_DOMAIN_LABELS[domain] || domain,
+          impact: ev.importance_score,
+          tone: ev.tone,
+          entities: (ev.organizations || []).slice(0, 3),
+          urls: (Array.isArray(ev.urls) ? ev.urls : []).filter(Boolean),
+          hint: ev.summary_hint || "",
+        };
+      });
+    }
+
     function buildPulseHtml(data) {
-      const events = Array.isArray(data?.events) ? data.events : [];
+      const events = normalizePulseEvents(data);
       if (!events.length) {
-        return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py --source doc --mode all</code> (hoặc BigQuery nếu có GCP) rồi push <code>web/news_data.json</code>.</p></div>`;
+        return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py</code> (GCP BigQuery) rồi push <code>market_pulse.json</code>.</p></div>`;
       }
+      const total = data.total_clusters || events.length;
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<p class="eyebrow">Cập nhật liên tục</p>`;
-      h += `<h2>Tin tức toàn cầu — radar theo phút</h2>`;
-      h += `<p class="digest-report-lead">Chính trị, kinh tế, xung đột, công nghệ, y tế, khí hậu, crypto — tách khỏi bản tin tổng hợp 24h.</p>`;
+      h += `<p class="eyebrow">Macro radar · GDELT</p>`;
+      h += `<h2>Tin tức toàn cầu — cập nhật từng phút</h2>`;
+      h += `<p class="digest-report-lead">Sự kiện vĩ mô đa ngành (24h), lọc và gom cụm từ BigQuery — tách khỏi bản tin tổng hợp 24h.</p>`;
       h += `</header><div class="pulse-panel">`;
       h += `<p class="pulse-stats">`;
-      h += `<span><strong>${events.length}</strong> sự kiện</span>`;
-      h += `<span>Cửa sổ <strong>${data.lookback_hours || 48}h</strong></span>`;
-      if (data.total_raw_rows) h += `<span><strong>${data.total_raw_rows}</strong> dòng thô BQ</span>`;
-      if (data.mode) h += `<span>Mode <strong>${escapeHtml(data.mode)}</strong></span>`;
+      h += `<span><strong>${total}</strong> cụm sự kiện</span>`;
+      h += `<span>Cửa sổ <strong>24h</strong></span>`;
       h += `</p><ol class="pulse-event-list">`;
       events.forEach((ev, idx) => {
-        const domain = String(ev.domain || "all");
-        const dLabel = ev.domain_label || PULSE_DOMAIN_LABELS[domain] || domain;
-        const urls = Array.isArray(ev.urls) ? ev.urls.filter(Boolean) : [];
         h += `<li class="pulse-event">`;
         h += `<div class="pulse-event-head">`;
         h += `<span class="pulse-event-rank">${String(idx + 1).padStart(2, "0")}</span>`;
-        h += `<div><h3 class="pulse-event-title">${escapeHtml(ev.title || "Sự kiện")}</h3>`;
+        h += `<div><h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
         h += `<p class="pulse-event-meta">`;
-        h += `<span class="pulse-domain-tag">${escapeHtml(dLabel)}</span>`;
-        if (ev.region) h += ` · ${escapeHtml(ev.region)}`;
-        if (ev.importance_score != null) h += ` · score ${escapeHtml(ev.importance_score)}`;
-        if (ev.source_count) h += ` · ${escapeHtml(ev.source_count)} nguồn`;
-        if (ev.published_at) h += ` · ${escapeHtml(formatDateVi(ev.published_at))}`;
+        if (ev.sector) h += `<span class="pulse-domain-tag">${escapeHtml(ev.sector)}</span>`;
+        if (ev.impact != null) h += ` · impact <strong>${escapeHtml(ev.impact)}</strong>/100`;
+        if (ev.tone != null) h += ` · tone ${escapeHtml(ev.tone)}`;
+        if (ev.urls.length) h += ` · ${ev.urls.length} nguồn`;
         h += `</p></div></div>`;
-        if (ev.summary_hint) {
-          h += `<p class="pulse-event-hint">${escapeHtml(ev.summary_hint)}</p>`;
+        if (ev.entities && ev.entities.length) {
+          h += `<p class="pulse-event-hint">${escapeHtml(ev.entities.join(" · "))}</p>`;
+        } else if (ev.hint) {
+          h += `<p class="pulse-event-hint">${escapeHtml(ev.hint)}</p>`;
         }
-        if (urls.length) {
+        if (ev.urls.length) {
           h += `<div class="pulse-event-links">`;
-          urls.slice(0, 5).forEach((u) => {
+          ev.urls.slice(0, 5).forEach((u) => {
             h += `<a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pulseSourceLabel(u))}</a>`;
           });
           h += `</div>`;
@@ -1632,7 +1657,8 @@
       }
       const sync = document.getElementById("pulseSyncNote");
       if (sync) {
-        const st = data?.generated_at ? formatDateVi(data.generated_at) : "";
+        const ts = data?.generated_at_utc || data?.generated_at;
+        const st = ts ? formatDateVi(ts) : "";
         sync.textContent = st ? `Cập nhật lúc ${st}.` : "Tin cập nhật từng phút — chưa có thời điểm đồng bộ.";
       }
       const el = document.getElementById("sectionPulse");
@@ -1640,14 +1666,17 @@
     }
 
     async function fetchPulseFeed() {
-      try {
-        const r = await fetch(`${assetUrl("web/news_data.json")}?ts=${Date.now()}`, { cache: "no-store" });
-        if (!r.ok) throw new Error("news_data.json not found");
-        return await readJsonResponse(r);
-      } catch (e) {
-        console.error(e);
-        return null;
+      const paths = ["market_pulse.json", "web/market_pulse.json", "web/news_data.json"];
+      for (const p of paths) {
+        try {
+          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
+          if (!r.ok) continue;
+          return await readJsonResponse(r);
+        } catch (e) {
+          console.warn("pulse fetch", p, e);
+        }
       }
+      return null;
     }
 
     async function loadPulseContent() {
@@ -1655,7 +1684,7 @@
       if (sync) sync.textContent = "Đang tải tin cập nhật…";
       const data = await fetchPulseFeed();
       if (!data) {
-        if (sync) sync.textContent = "Không tải được web/news_data.json.";
+        if (sync) sync.textContent = "Không tải được market_pulse.json.";
         cachedPulsePayload = { events: [], lookback_hours: 48 };
         renderPulsePage(cachedPulsePayload);
         return;

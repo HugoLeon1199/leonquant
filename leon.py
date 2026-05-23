@@ -1,81 +1,97 @@
 #!/usr/bin/env python3
 """
-Leon World Pulse — GDELT BigQuery radar (multi-domain).
+Leon Web Intel — GDELT macro pulse (BigQuery pushdown + lightweight Python post-process).
 
+Architecture: BigQuery filters/joins/classifies ~millions of rows; Python only scores,
+clusters, and exports ~150 rows → 15–30 macro events.
+
+Output: market_pulse.json (atomic write via .tmp + replace).
 Separate from the 48h crawl + Gemini digest (content.json).
-Exports: web/news_data.json
 """
 
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import logging
 import os
 import re
 import sys
-from datetime import datetime, timedelta, timezone
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlencode, urlparse
-from urllib.request import urlopen
 
 import pandas as pd
-import yaml
 from google.cloud import bigquery
 from google.cloud.exceptions import GoogleCloudError
 from google.oauth2 import service_account
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 PROJECT_DIR = Path(__file__).resolve().parent
-DEFAULT_CONFIG_PATH = PROJECT_DIR / "config" / "gdelt_pipeline.yaml"
+DEFAULT_OUTPUT = PROJECT_DIR / "market_pulse.json"
+DEFAULT_MAX_BYTES_BILLED = 500_000_000
+DEFAULT_JOB_TIMEOUT_MS = 60_000
+TARGET_CLUSTER_MIN = 15
+TARGET_CLUSTER_MAX = 30
+TFIDF_MERGE_THRESHOLD = 0.55
 
-LOG = logging.getLogger("leon.gdelt")
+LOG = logging.getLogger("leon.web_intel")
 
-DOC_API_BASE = "https://api.gdeltproject.org/api/v2/doc/doc"
-DOC_MODE_QUERIES: dict[str, str] = {
-    "all": (
-        "(economy OR finance OR politics OR government OR election OR war OR conflict "
-        "OR technology OR artificial intelligence OR health OR climate OR crypto OR bitcoin)"
-    ),
-    "finance": "(economy OR markets OR stocks OR inflation OR central bank OR trade OR banking)",
-    "politics": "(politics OR government OR election OR diplomacy OR parliament OR president)",
-    "conflict": "(war OR military OR armed conflict OR terrorism OR missile OR ceasefire)",
-    "tech": "(technology OR artificial intelligence OR cyber OR semiconductor OR software)",
-    "science": "(science OR research OR space OR NASA OR physics OR biology)",
-    "health": "(health OR pandemic OR vaccine OR hospital OR disease OR medical)",
-    "climate": "(climate OR environment OR carbon OR emissions OR flood OR wildfire)",
-    "crypto": "(crypto OR bitcoin OR blockchain OR ethereum OR digital assets)",
-}
-
-DOMAIN_LABELS = {
-    "finance": "Kinh tế & Tài chính",
-    "politics": "Thời sự & Chính trị",
-    "conflict": "Xung đột & An ninh",
-    "tech": "Công nghệ & AI",
-    "science": "Khoa học",
-    "health": "Y tế",
-    "climate": "Khí hậu & Môi trường",
-    "crypto": "Tiền số",
-    "all": "Toàn cầu",
-}
-
-
-def load_config(path: Path | None = None) -> dict[str, Any]:
-    cfg_path = path or Path(os.environ.get("GDELT_CONFIG_PATH", DEFAULT_CONFIG_PATH))
-    if not cfg_path.is_file():
-        raise FileNotFoundError(f"Config not found: {cfg_path}")
-    cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
-    cfg["_config_path"] = str(cfg_path)
-    cfg["output_path"] = os.environ.get("GDELT_OUTPUT_PATH", cfg.get("output_path", "web/news_data.json"))
-    if os.environ.get("GDELT_MAX_BYTES_BILLED"):
-        cfg["maximum_bytes_billed"] = int(os.environ["GDELT_MAX_BYTES_BILLED"])
-    return cfg
+# CRITICAL: query pushdown — do not widen SELECT or remove filters (OOM / billing risk).
+GDELT_MACRO_QUERY = """
+WITH
+  FilteredEvents AS (
+    SELECT Actor1Name, Actor2Name, EventRootCode, AvgTone, NumArticles, SOURCEURL
+    FROM `gdelt-bq.gdeltv2.events_partitioned`
+    WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
+    AND NumArticles >= 50
+    AND (AvgTone <= -4.0 OR AvgTone >= 4.0)
+  ),
+  FilteredGKG AS (
+    SELECT DocumentIdentifier, REGEXP_REPLACE(V2Organizations, r',?\\d+', '') AS Cong_Ty_Clean,
+      CASE
+        WHEN REGEXP_CONTAINS(V2Themes, r'ECON|TRADE|FINANCE|CURRENCY|BANK') THEN 'Tài chính - Kinh tế'
+        WHEN REGEXP_CONTAINS(V2Themes, r'CRYPTO|BITCOIN|BLOCKCHAIN|DIGITAL_CURRENCY') THEN 'Crypto - Tài sản số'
+        WHEN REGEXP_CONTAINS(V2Themes, r'TECH|CYBER|ARTIFICIAL_INTELLIGENCE|INNOVATION') THEN 'Công nghệ - AI'
+        WHEN REGEXP_CONTAINS(V2Themes, r'LAW|LEGISLATION|JUSTICE|REGULATION|COURT|ANTITRUST') THEN 'Pháp lý - Quy định'
+        WHEN REGEXP_CONTAINS(V2Themes, r'SCIENCE|SPACE|RESEARCH|DISCOVERY') THEN 'Khoa học - Vũ trụ'
+        WHEN REGEXP_CONTAINS(V2Themes, r'ENV_|ENERGY|CLIMATE|MINERALS') THEN 'Năng lượng - Môi trường'
+        WHEN REGEXP_CONTAINS(V2Themes, r'INFRASTRUCTURE|CONSTRUCTION|REAL_ESTATE|TRANSPORT') THEN 'Hạ tầng - Bất động sản'
+        WHEN REGEXP_CONTAINS(V2Themes, r'HEALTH|MEDICAL|DISEASE|PANDEMIC') THEN 'Y tế - Sức khỏe'
+        WHEN REGEXP_CONTAINS(V2Themes, r'AGRICULTURE|FOOD_SECURITY|FARMING') THEN 'Nông nghiệp - Lương thực'
+        WHEN REGEXP_CONTAINS(V2Themes, r'MILITARY|GOV|POLITICAL|TERROR|ELECTION|CRISIS') THEN 'Chính trị - Xung đột'
+        ELSE 'Khác'
+      END AS Nhom_Nganh
+    FROM `gdelt-bq.gdeltv2.gkg_partitioned`
+    WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
+    AND V2Organizations IS NOT NULL
+  )
+SELECT e.Actor1Name AS Doi_Tuong_Chinh, g.Nhom_Nganh, e.AvgTone AS Diem_Cam_Xuc,
+       g.Cong_Ty_Clean AS Cac_To_Chuc_Lien_Quan, e.SOURCEURL AS Link_Bai_Bao
+FROM FilteredEvents AS e
+INNER JOIN FilteredGKG AS g ON e.SOURCEURL = g.DocumentIdentifier
+WHERE g.Nhom_Nganh != 'Khác'
+ORDER BY e.NumArticles DESC
+LIMIT 150
+""".strip()
 
 
-def get_bigquery_client(cfg: dict[str, Any]) -> bigquery.Client:
+# ---------------------------------------------------------------------------
+# BigQuery
+# ---------------------------------------------------------------------------
+
+
+def build_query() -> str:
+    """Return the optimized GDELT macro SQL (pushdown only — do not alter filters)."""
+    return GDELT_MACRO_QUERY
+
+
+def get_bigquery_client() -> bigquery.Client:
+    """Authenticate via GOOGLE_APPLICATION_CREDENTIALS or local credentials.json (dev)."""
     creds_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
-    project = os.environ.get("GOOGLE_CLOUD_PROJECT") or os.environ.get("GCP_PROJECT") or cfg.get("project_id")
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT") or os.environ.get("GCP_PROJECT")
 
     if creds_path and Path(creds_path).is_file():
         credentials = service_account.Credentials.from_service_account_file(creds_path)
@@ -83,700 +99,344 @@ def get_bigquery_client(cfg: dict[str, Any]) -> bigquery.Client:
 
     local = PROJECT_DIR / "credentials.json"
     if local.is_file():
-        LOG.warning("Using local credentials.json (dev only). Prefer GOOGLE_APPLICATION_CREDENTIALS.")
+        LOG.warning("Using credentials.json in repo root (dev only).")
         credentials = service_account.Credentials.from_service_account_file(str(local))
         return bigquery.Client(project=project or credentials.project_id, credentials=credentials)
 
     return bigquery.Client(project=project)
 
 
-def _mode_cfg(cfg: dict[str, Any], mode: str) -> dict[str, Any]:
-    modes = cfg.get("modes") or {}
-    if mode not in modes:
-        raise ValueError(f"Unknown mode '{mode}'. Choose from: {', '.join(sorted(modes))}")
-    return modes[mode]
-
-
-def build_query(
-    cfg: dict[str, Any],
-    *,
-    mode: str,
-    lookback_hours: int,
-    limit: int,
-) -> tuple[str, list[bigquery.ScalarQueryParameter | bigquery.QueryParameter]]:
-    m = _mode_cfg(cfg, mode)
-    theme_regex = str(m.get("theme_regex") or ".*")
-    prefixes = m.get("event_root_prefixes") or []
-    prefix_conditions = " OR ".join(
-        f"CAST(e.EventRootCode AS STRING) LIKE '{p}%'" for p in prefixes[:25]
-    ) or "TRUE"
-    theme_clause = (
-        f"(g.V2Themes IS NOT NULL AND REGEXP_CONTAINS(g.V2Themes, @theme_regex)) "
-        f"OR ({prefix_conditions})"
-    )
-
-    sql = f"""
-SELECT
-  e.SQLDATE,
-  e.SQLTIME,
-  e.Actor1Name,
-  e.Actor2Name,
-  e.EventRootCode,
-  e.EventCode,
-  e.GoldsteinScale,
-  e.AvgTone,
-  e.NumArticles,
-  e.NumMentions,
-  e.SOURCEURL,
-  g.V2Themes,
-  g.V2Organizations,
-  g.V2Persons,
-  g.V2Locations,
-  g.V2Tone
-FROM `gdelt-bq.gdeltv2.events_partitioned` AS e
-LEFT JOIN `gdelt-bq.gdeltv2.gkg_partitioned` AS g
-  ON e.SOURCEURL = g.DocumentIdentifier
- AND g._PARTITIONTIME >= @since_ts
-WHERE e._PARTITIONTIME >= @since_ts
-  AND e.SOURCEURL IS NOT NULL
-  AND LENGTH(e.SOURCEURL) > 10
-  AND e.NumMentions >= 1
-  AND ({theme_clause})
-ORDER BY e.NumMentions DESC, e.NumArticles DESC
-LIMIT @row_limit
-"""
-    params: list[bigquery.ScalarQueryParameter] = [
-        bigquery.ScalarQueryParameter("theme_regex", "STRING", theme_regex),
-        bigquery.ScalarQueryParameter("row_limit", "INT64", int(limit)),
-    ]
-    return sql.strip(), params
-
-
-def run_query(
+def run_bigquery(
     client: bigquery.Client,
-    sql: str,
-    params: list[bigquery.QueryParameter],
     *,
-    cfg: dict[str, Any],
-    lookback_hours: int,
+    job_timeout_ms: int = DEFAULT_JOB_TIMEOUT_MS,
+    maximum_bytes_billed: int = DEFAULT_MAX_BYTES_BILLED,
     dry_run: bool = False,
 ) -> tuple[pd.DataFrame | None, dict[str, Any]]:
-    since = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
-    resolved: list[bigquery.ScalarQueryParameter] = [
-        bigquery.ScalarQueryParameter("since_ts", "TIMESTAMP", since),
-        *params,
-    ]
-
+    """Execute macro query; returns small dataframe (~150 rows) or None on dry-run."""
+    sql = build_query()
     job_config = bigquery.QueryJobConfig(
-        query_parameters=resolved,
-        maximum_bytes_billed=int(cfg.get("maximum_bytes_billed", 500_000_000)),
-        job_timeout_ms=int(cfg.get("job_timeout_ms", 120_000)),
+        job_timeout_ms=job_timeout_ms,
+        maximum_bytes_billed=maximum_bytes_billed,
         dry_run=dry_run,
         use_query_cache=not dry_run,
     )
+    meta: dict[str, Any] = {"dry_run": dry_run, "job_timeout_ms": job_timeout_ms}
 
-    meta: dict[str, Any] = {"lookback_hours": lookback_hours, "since_utc": since.isoformat(), "dry_run": dry_run}
     try:
         job = client.query(sql, job_config=job_config)
         if dry_run:
             meta["total_bytes_processed"] = job.total_bytes_processed
             meta["total_gb"] = round((job.total_bytes_processed or 0) / 1e9, 4)
-            LOG.info("Dry-run: ~%s GB (%s bytes)", meta["total_gb"], meta["total_bytes_processed"])
+            LOG.info("Dry-run estimate: ~%s GB", meta["total_gb"])
             return None, meta
-        df = job.result(timeout=job_config.job_timeout_ms / 1000).to_dataframe()
+
+        df = job.result(timeout=job_timeout_ms / 1000).to_dataframe()
         meta["bytes_processed"] = job.total_bytes_processed
         meta["row_count"] = len(df)
+        bp = meta.get("bytes_processed") or 0
+        LOG.info("BigQuery returned %s rows (~%.3f GB processed)", len(df), bp / 1e9)
         return df, meta
     except GoogleCloudError as exc:
-        LOG.error("BigQuery failed: %s", exc)
+        LOG.error("BigQuery job failed: %s", exc)
+        raise
+    except Exception as exc:
+        LOG.error("BigQuery request error (timeout/network): %s", exc)
         raise
 
 
-def _parse_semicolon_field(raw: Any, limit: int = 12) -> list[str]:
+# ---------------------------------------------------------------------------
+# Cleaning (small dataframe only)
+# ---------------------------------------------------------------------------
+
+
+def parse_entity_list(raw: Any, *, limit: int = 3) -> list[str]:
+    """Split semicolon-separated org string; return top N unique entities."""
     if raw is None or (isinstance(raw, float) and pd.isna(raw)):
         return []
     text = str(raw).strip()
     if not text:
         return []
-    parts = [p.split(",")[0].strip() for p in text.split(";") if p.strip()]
+    parts = [re.sub(r"\s+", " ", p.strip()) for p in text.split(";") if p.strip()]
     out: list[str] = []
     for p in parts:
-        if p and p not in out:
-            out.append(p)
+        key = p.upper()
+        if key not in {x.upper() for x in out}:
+            out.append(p[:120])
         if len(out) >= limit:
             break
     return out
 
 
-def _sql_datetime(row: pd.Series) -> datetime | None:
-    try:
-        d = int(row.get("SQLDATE") or 0)
-        t = int(row.get("SQLTIME") or 0)
-        if d < 19700101:
-            return None
-        ds = str(d)
-        ts = str(t).zfill(6)
-        return datetime(
-            int(ds[0:4]),
-            int(ds[4:6]),
-            int(ds[6:8]),
-            int(ts[0:2]),
-            int(ts[2:4]),
-            int(ts[4:6]),
-            tzinfo=timezone.utc,
-        )
-    except (TypeError, ValueError):
-        return None
-
-
-def _infer_domain(themes: list[str], mode: str) -> str:
-    blob = " ".join(themes).upper()
-    rules = [
-        ("crypto", ("CRYPTO", "BITCOIN", "BLOCKCHAIN", "ETHEREUM")),
-        ("conflict", ("WAR_", "MILITARY", "ARMEDCONFLICT", "TERROR", "MISSILE")),
-        ("finance", ("ECON_", "FIN_", "TAX_", "STOCK", "MARKET", "TRADE", "BANK")),
-        ("tech", ("TECH_", "ARTIFICIALINTELLIGENCE", "CYBER", "SEMICONDUCTOR")),
-        ("health", ("HEALTH", "MED_", "PANDEMIC", "VACCINE", "DISEASE")),
-        ("climate", ("ENV_", "CLIMATE", "CARBON", "EMISSION", "FLOOD")),
-        ("science", ("SCI_", "RESEARCH", "SPACE", "NASA")),
-        ("politics", ("POLITIC", "GOV_", "ELECTION", "DEMOCRACY", "DIPLOMACY")),
-    ]
-    for code, keys in rules:
-        if any(k in blob for k in keys):
-            return code
-    return mode if mode != "all" else "politics"
-
-
-def _infer_region(locations: list[str], actors: list[str]) -> str:
-    blob = " ".join(locations + actors).upper()
-    if any(x in blob for x in ("VIETNAM", "VN", "HANOI", "HO CHI MINH")):
-        return "vietnam"
-    if any(x in blob for x in ("UNITED STATES", "US", "WASHINGTON", "NEW YORK")):
-        return "us"
-    if any(x in blob for x in ("CHINA", "BEIJING", "SHANGHAI")):
-        return "china"
-    if any(x in blob for x in ("EUROPE", "EU", "BRUSSELS", "GERMANY", "FRANCE", "UK")):
-        return "europe"
-    if any(x in blob for x in ("MIDDLE EAST", "IRAN", "ISRAEL", "GAZA", "SAUDI")):
-        return "middle_east"
-    return "global"
-
-
-def _title_from_row(row: pd.Series, themes: list[str], actors: list[str]) -> str:
-    a1 = str(row.get("Actor1Name") or "").strip()
-    a2 = str(row.get("Actor2Name") or "").strip()
-    if a1 and a2:
-        return f"{a1} — {a2}"
-    if a1:
-        return a1
-    if themes:
-        return themes[0].replace("_", " ").title()[:120]
-    url = str(row.get("SOURCEURL") or "")
-    if url:
-        try:
-            return urlparse(url).netloc.replace("www.", "")
-        except Exception:
-            pass
-    return "Sự kiện GDELT"
-
-
 def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+    """Dedupe URLs, normalize actors, parse entity lists — no heavy regex on raw GDELT."""
     if df.empty:
         return df
+
     out = df.copy()
-    out["SOURCEURL"] = out["SOURCEURL"].astype(str).str.strip()
-    out = out[out["SOURCEURL"].str.startswith("http", na=False)]
-    out = out.drop_duplicates(subset=["SOURCEURL"], keep="first")
-    for col in ("NumArticles", "NumMentions", "GoldsteinScale", "AvgTone"):
-        if col in out.columns:
-            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0)
+    out.columns = [str(c) for c in out.columns]
+    out["Link_Bai_Bao"] = out["Link_Bai_Bao"].astype(str).str.strip()
+    out = out[out["Link_Bai_Bao"].str.startswith("http", na=False)]
+    out = out.drop_duplicates(subset=["Link_Bai_Bao"], keep="first")
+
+    out["Doi_Tuong_Chinh"] = out["Doi_Tuong_Chinh"].fillna("").astype(str).str.strip()
+    out["Nhom_Nganh"] = out["Nhom_Nganh"].fillna("").astype(str).str.strip()
+    out["Diem_Cam_Xuc"] = pd.to_numeric(out["Diem_Cam_Xuc"], errors="coerce").fillna(0.0)
+    out["entities_clean"] = out["Cac_To_Chuc_Lien_Quan"].map(lambda x: parse_entity_list(x, limit=3))
+    out["rank"] = range(len(out))
     return out.reset_index(drop=True)
 
 
-def score_events(
-    df: pd.DataFrame,
-    *,
-    cfg: dict[str, Any],
-    mode: str,
-    lookback_hours: int,
-) -> pd.DataFrame:
-    if df.empty:
-        return df
-    sw = cfg.get("scoring") or {}
-    m = _mode_cfg(cfg, mode)
-    theme_boost = float(m.get("theme_weight") or 1.0)
-    now = datetime.now(timezone.utc)
-
-    rows: list[dict[str, Any]] = []
-    for _, row in df.iterrows():
-        themes = _parse_semicolon_field(row.get("V2Themes"))
-        orgs = _parse_semicolon_field(row.get("V2Organizations"))
-        persons = _parse_semicolon_field(row.get("V2Persons"))
-        locations = _parse_semicolon_field(row.get("V2Locations"))
-        actors = [x for x in (str(row.get("Actor1Name") or ""), str(row.get("Actor2Name") or "")) if x.strip()]
-        published = _sql_datetime(row)
-        recency = 0.0
-        if published:
-            age_h = max(0.0, (now - published).total_seconds() / 3600.0)
-            recency = max(0.0, 1.0 - min(age_h / max(lookback_hours, 1), 1.0))
-
-        na = float(row.get("NumArticles") or 0)
-        nm = float(row.get("NumMentions") or 0)
-        tone = abs(float(row.get("AvgTone") or 0))
-        gold = abs(float(row.get("GoldsteinScale") or 0))
-        theme_hits = len(themes)
-
-        score = (
-            (na**0.5) * float(sw.get("articles_weight", 2.0))
-            + (nm**0.5) * float(sw.get("mentions_weight", 2.5))
-            + recency * float(sw.get("recency_weight", 3.0))
-            + min(tone, 25) / 25.0 * float(sw.get("tone_weight", 1.0))
-            + min(gold, 10) / 10.0 * float(sw.get("goldstein_weight", 1.5))
-            + min(theme_hits, 8) / 8.0 * float(sw.get("theme_mode_weight", 1.0)) * theme_boost
-        )
-        domain = _infer_domain(themes, mode)
-        rows.append(
-            {
-                **row.to_dict(),
-                "themes_list": themes,
-                "orgs_list": orgs,
-                "persons_list": persons,
-                "locations_list": locations,
-                "actors_list": actors,
-                "published_at": published.isoformat() if published else None,
-                "domain_code": domain,
-                "region_code": _infer_region(locations, actors + orgs),
-                "title_guess": _title_from_row(row, themes, actors),
-                "final_importance_score": round(score, 4),
-            }
-        )
-    scored = pd.DataFrame(rows)
-    return scored.sort_values("final_importance_score", ascending=False).reset_index(drop=True)
+# ---------------------------------------------------------------------------
+# Scoring
+# ---------------------------------------------------------------------------
 
 
-def _cluster_key(row: dict[str, Any], bucket_hours: int) -> str:
-    title = re.sub(r"\s+", " ", str(row.get("title_guess") or "").lower())[:80]
-    domain = str(row.get("domain_code") or "")
-    themes = ",".join(sorted((row.get("themes_list") or [])[:3]))
-    actors = ",".join(sorted((row.get("actors_list") or [])[:2]))
-    published = row.get("published_at") or ""
-    bucket = ""
-    if published:
-        try:
-            dt = datetime.fromisoformat(published.replace("Z", "+00:00"))
-            bucket = str(int(dt.timestamp() // (bucket_hours * 3600)))
-        except ValueError:
-            bucket = published[:10]
-    raw = f"{domain}|{themes}|{actors}|{title}|{bucket}"
-    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
+def impact_score(rank: int, tone: float, *, max_rank: int = 150) -> int:
+    """0–100: higher BQ rank (lower index) + more extreme sentiment."""
+    rank_part = ((max_rank - min(rank, max_rank - 1)) / max_rank) * 50.0
+    tone_part = (min(abs(float(tone)), 25.0) / 25.0) * 50.0
+    return int(round(min(100.0, max(0.0, rank_part + tone_part))))
 
 
-def cluster_events(df: pd.DataFrame, *, cfg: dict[str, Any]) -> list[dict[str, Any]]:
+# ---------------------------------------------------------------------------
+# Clustering (lightweight — ~150 rows max)
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class MacroCluster:
+    sector: str
+    primary_actor: str
+    rows: list[dict[str, Any]] = field(default_factory=list)
+    sources: list[str] = field(default_factory=list)
+    related_entities: list[str] = field(default_factory=list)
+    tones: list[float] = field(default_factory=list)
+    ranks: list[int] = field(default_factory=list)
+
+    def cluster_text(self) -> str:
+        ents = " ".join(self.related_entities)
+        return f"{self.primary_actor} {self.sector} {ents}".strip()
+
+    def to_event(self) -> dict[str, Any]:
+        tone_avg = sum(self.tones) / len(self.tones) if self.tones else 0.0
+        best_rank = min(self.ranks) if self.ranks else 149
+        score = impact_score(best_rank, tone_avg)
+        return {
+            "sector": self.sector,
+            "primary_actor": self.primary_actor or "Không rõ",
+            "impact_score": score,
+            "sentiment_tone": round(tone_avg, 2),
+            "related_entities": self.related_entities[:3],
+            "sources": self.sources[:10],
+        }
+
+
+def _actor_sector_key(actor: str, sector: str) -> tuple[str, str]:
+    return (actor.strip().upper() or "UNKNOWN", sector.strip())
+
+
+def _merge_cluster_dicts(a: MacroCluster, b: MacroCluster) -> MacroCluster:
+    for row in b.rows:
+        a.rows.append(row)
+    for url in b.sources:
+        if url not in a.sources:
+            a.sources.append(url)
+    for ent in b.related_entities:
+        if ent.upper() not in {x.upper() for x in a.related_entities}:
+            a.related_entities.append(ent)
+    a.related_entities = a.related_entities[:3]
+    a.tones.extend(b.tones)
+    a.ranks.extend(b.ranks)
+    return a
+
+
+def _merge_by_tfidf(clusters: list[MacroCluster], threshold: float = TFIDF_MERGE_THRESHOLD) -> list[MacroCluster]:
+    """Merge similar clusters until count <= TARGET_CLUSTER_MAX."""
+    if len(clusters) <= TARGET_CLUSTER_MAX:
+        return clusters
+
+    texts = [c.cluster_text() or c.sector for c in clusters]
+    vec = TfidfVectorizer(min_df=1, ngram_range=(1, 2))
+    matrix = vec.fit_transform(texts)
+    sim = cosine_similarity(matrix)
+
+    merged = True
+    while merged and len(clusters) > TARGET_CLUSTER_MAX:
+        merged = False
+        best_i, best_j, best_sim = -1, -1, threshold
+        n = len(clusters)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if sim[i, j] > best_sim:
+                    best_sim = sim[i, j]
+                    best_i, best_j = i, j
+        if best_i >= 0:
+            clusters[best_i] = _merge_cluster_dicts(clusters[best_i], clusters[best_j])
+            del clusters[best_j]
+            merged = True
+            texts = [c.cluster_text() or c.sector for c in clusters]
+            matrix = vec.fit_transform(texts)
+            sim = cosine_similarity(matrix)
+    return clusters
+
+
+def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
+    """
+    Group ~150 articles into 15–30 macro events.
+    Primary key: Doi_Tuong_Chinh + Nhom_Nganh; optional TF-IDF merge if too many groups.
+    """
     if df.empty:
         return []
-    bucket_h = int((cfg.get("clustering") or {}).get("time_bucket_hours") or 6)
-    clusters: dict[str, dict[str, Any]] = {}
 
+    buckets: dict[tuple[str, str], MacroCluster] = {}
     for _, row in df.iterrows():
-        r = row.to_dict()
-        key = _cluster_key(r, bucket_h)
-        url = str(r.get("SOURCEURL") or "").strip()
-        if key not in clusters:
-            clusters[key] = {
-                "cluster_key": key,
-                "title": r.get("title_guess") or "Sự kiện",
-                "domain": r.get("domain_code") or "all",
-                "region": r.get("region_code") or "global",
-                "importance_score": float(r.get("final_importance_score") or 0),
-                "tone": float(r.get("AvgTone") or 0),
-                "actors": list(r.get("actors_list") or []),
-                "organizations": list(r.get("orgs_list") or []),
-                "locations": list(r.get("locations_list") or []),
-                "themes": list(r.get("themes_list") or []),
-                "summary_hint": _summary_hint(r),
-                "urls": [],
-                "published_at": r.get("published_at"),
-                "_rows": 1,
-            }
-        c = clusters[key]
-        if url and url not in c["urls"]:
-            c["urls"].append(url)
-        c["importance_score"] = max(c["importance_score"], float(r.get("final_importance_score") or 0))
-        c["_rows"] += 1
-        if r.get("published_at") and (not c.get("published_at") or r["published_at"] > c["published_at"]):
-            c["published_at"] = r["published_at"]
+        actor = str(row["Doi_Tuong_Chinh"]).strip() or "Không rõ"
+        sector = str(row["Nhom_Nganh"]).strip()
+        key = _actor_sector_key(actor, sector)
+        url = str(row["Link_Bai_Bao"]).strip()
+        ents = list(row.get("entities_clean") or [])
+        tone = float(row["Diem_Cam_Xuc"])
+        rank = int(row.get("rank", 0))
 
-    events: list[dict[str, Any]] = []
-    for key, c in sorted(clusters.values(), key=lambda x: x["importance_score"], reverse=True):
-        eid = f"evt_{key}"
-        events.append(
-            {
-                "id": eid,
-                "title": c["title"],
-                "domain": c["domain"],
-                "domain_label": DOMAIN_LABELS.get(c["domain"], c["domain"]),
-                "region": c["region"],
-                "importance_score": round(c["importance_score"], 4),
-                "tone": round(c["tone"], 2),
-                "actors": c["actors"][:8],
-                "organizations": c["organizations"][:8],
-                "locations": c["locations"][:8],
-                "themes": c["themes"][:12],
-                "summary_hint": c["summary_hint"],
-                "urls": c["urls"][:10],
-                "source_count": len(c["urls"]),
-                "published_at": c.get("published_at"),
-                "cluster_size": c["_rows"],
-            }
-        )
+        if key not in buckets:
+            buckets[key] = MacroCluster(sector=sector, primary_actor=actor)
+        cl = buckets[key]
+        cl.rows.append(row.to_dict())
+        if url and url not in cl.sources:
+            cl.sources.append(url)
+        for e in ents:
+            if e.upper() not in {x.upper() for x in cl.related_entities}:
+                cl.related_entities.append(e)
+        cl.related_entities = cl.related_entities[:3]
+        cl.tones.append(tone)
+        cl.ranks.append(rank)
+
+    clusters = list(buckets.values())
+    LOG.info("Actor+sector buckets: %s", len(clusters))
+
+    if len(clusters) > TARGET_CLUSTER_MAX:
+        clusters = _merge_by_tfidf(clusters)
+        LOG.info("After TF-IDF merge: %s clusters", len(clusters))
+
+    events = [c.to_event() for c in clusters]
+    events.sort(key=lambda e: e["impact_score"], reverse=True)
+
+    if len(events) > TARGET_CLUSTER_MAX:
+        events = events[:TARGET_CLUSTER_MAX]
     return events
 
 
-def _summary_hint(row: dict[str, Any]) -> str:
-    parts: list[str] = []
-    if row.get("actors_list"):
-        parts.append("Tác nhân: " + ", ".join(row["actors_list"][:3]))
-    if row.get("themes_list"):
-        parts.append("Chủ đề: " + ", ".join(t.replace("_", " ") for t in row["themes_list"][:4]))
-    tone = row.get("AvgTone")
-    if tone is not None:
-        parts.append(f"Sắc thái trung bình: {float(tone):.1f}")
-    gs = row.get("GoldsteinScale")
-    if gs is not None and float(gs) != 0:
-        parts.append(f"Goldstein: {float(gs):.1f}")
-    return ". ".join(parts)[:400] if parts else "Sự kiện từ GDELT (xem nguồn)."
+# ---------------------------------------------------------------------------
+# Export
+# ---------------------------------------------------------------------------
 
 
-def export_json(
-    payload: dict[str, Any],
-    output_path: Path,
-) -> Path:
-    output_path = output_path.resolve()
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = output_path.with_suffix(".tmp.json")
-    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    tmp.replace(output_path)
-    LOG.info("Wrote %s (%s events)", output_path, len(payload.get("events") or []))
-    return output_path
-
-
-def _parse_doc_seendate(raw: str | None) -> datetime | None:
-    if not raw:
-        return None
-    text = str(raw).strip()
-    try:
-        if "T" in text and text.endswith("Z"):
-            return datetime.strptime(text, "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
-        return datetime.strptime(text[:8], "%Y%m%d").replace(tzinfo=timezone.utc)
-    except ValueError:
-        return None
-
-
-def _infer_domain_from_text(blob: str, mode: str) -> str:
-    return _infer_domain([blob.upper().replace(" ", "_")], mode)
-
-
-def fetch_doc_articles(
-    *,
-    query: str,
-    lookback_hours: int,
-    maxrecords: int,
-) -> list[dict[str, Any]]:
-    timespan = f"{max(1, min(lookback_hours, 168))}h"
-    params = {
-        "query": query,
-        "mode": "ArtList",
-        "maxrecords": str(min(max(maxrecords, 1), 250)),
-        "timespan": timespan,
-        "format": "json",
-        "sort": "DateDesc",
-    }
-    url = f"{DOC_API_BASE}?{urlencode(params)}"
-    LOG.info("GDELT DOC API: %s records, timespan=%s", params["maxrecords"], timespan)
-    with urlopen(url, timeout=120) as resp:
-        data = json.loads(resp.read().decode("utf-8"))
-    return list(data.get("articles") or [])
-
-
-def articles_to_dataframe(articles: list[dict[str, Any]], *, mode: str) -> pd.DataFrame:
-    rows: list[dict[str, Any]] = []
-    for art in articles:
-        url = str(art.get("url") or "").strip()
-        if not url.startswith("http"):
-            continue
-        title = str(art.get("title") or "").strip() or url
-        published = _parse_doc_seendate(art.get("seendate"))
-        country = str(art.get("sourcecountry") or "").strip()
-        domain = str(art.get("domain") or "").strip()
-        blob = f"{title} {domain} {country}"
-        rows.append(
-            {
-                "SOURCEURL": url,
-                "title_guess": title[:200],
-                "NumArticles": 1,
-                "NumMentions": 1,
-                "AvgTone": 0.0,
-                "GoldsteinScale": 0.0,
-                "V2Themes": "",
-                "V2Organizations": "",
-                "V2Persons": "",
-                "V2Locations": country,
-                "Actor1Name": "",
-                "Actor2Name": "",
-                "published_at": published.isoformat() if published else None,
-                "domain_code": _infer_domain_from_text(blob, mode),
-                "region_code": _infer_region([country], [country]),
-                "themes_list": [],
-                "orgs_list": [],
-                "persons_list": [],
-                "locations_list": [country] if country else [],
-                "actors_list": [],
-            }
-        )
-    if not rows:
-        return pd.DataFrame()
-    return pd.DataFrame(rows).drop_duplicates(subset=["SOURCEURL"], keep="first").reset_index(drop=True)
-
-
-def score_doc_articles(df: pd.DataFrame, *, cfg: dict[str, Any], mode: str, lookback_hours: int) -> pd.DataFrame:
-    if df.empty:
-        return df
-    sw = cfg.get("scoring") or {}
-    m = _mode_cfg(cfg, mode)
-    theme_boost = float(m.get("theme_weight") or 1.0)
-    now = datetime.now(timezone.utc)
-    scores: list[float] = []
-    for _, row in df.iterrows():
-        published = None
-        if row.get("published_at"):
-            try:
-                published = datetime.fromisoformat(str(row["published_at"]).replace("Z", "+00:00"))
-            except ValueError:
-                published = None
-        recency = 0.0
-        if published:
-            age_h = max(0.0, (now - published).total_seconds() / 3600.0)
-            recency = max(0.0, 1.0 - min(age_h / max(lookback_hours, 1), 1.0))
-        domain_code = str(row.get("domain_code") or "")
-        domain_match = 1.15 if mode != "all" and domain_code == mode else 1.0
-        score = (
-            recency * float(sw.get("recency_weight", 3.0)) * 2.0
-            + float(sw.get("articles_weight", 2.0))
-            + float(sw.get("mentions_weight", 2.5)) * 0.5
-        ) * theme_boost * domain_match
-        scores.append(round(score, 4))
-    out = df.copy()
-    out["final_importance_score"] = scores
-    return out.sort_values("final_importance_score", ascending=False).reset_index(drop=True)
-
-
-def cluster_doc_events(df: pd.DataFrame, *, cfg: dict[str, Any], limit: int) -> list[dict[str, Any]]:
-    if df.empty:
-        return []
-    bucket_h = int((cfg.get("clustering") or {}).get("time_bucket_hours") or 6)
-    clusters: dict[str, dict[str, Any]] = {}
-    for _, row in df.iterrows():
-        r = row.to_dict()
-        key = _cluster_key(r, bucket_h)
-        url = str(r.get("SOURCEURL") or "").strip()
-        if key not in clusters:
-            clusters[key] = {
-                "cluster_key": key,
-                "title": r.get("title_guess") or "Sự kiện",
-                "domain": r.get("domain_code") or "all",
-                "region": r.get("region_code") or "global",
-                "importance_score": float(r.get("final_importance_score") or 0),
-                "tone": 0.0,
-                "actors": [],
-                "organizations": [],
-                "locations": list(r.get("locations_list") or [])[:8],
-                "themes": [],
-                "summary_hint": "",
-                "urls": [],
-                "published_at": r.get("published_at"),
-                "_rows": 1,
-            }
-        c = clusters[key]
-        if url and url not in c["urls"]:
-            c["urls"].append(url)
-        c["importance_score"] = max(c["importance_score"], float(r.get("final_importance_score") or 0))
-        loc = list(r.get("locations_list") or [])
-        for x in loc:
-            if x and x not in c["locations"]:
-                c["locations"].append(x)
-        if r.get("published_at") and (not c.get("published_at") or r["published_at"] > c["published_at"]):
-            c["published_at"] = r["published_at"]
-        if not c["summary_hint"] and c["locations"]:
-            c["summary_hint"] = "Nguồn: " + ", ".join(c["locations"][:3])
-
-    events: list[dict[str, Any]] = []
-    for c in sorted(clusters.values(), key=lambda x: x["importance_score"], reverse=True)[:limit]:
-        key = c["cluster_key"]
-        events.append(
-            {
-                "id": f"evt_{key}",
-                "title": c["title"],
-                "domain": c["domain"],
-                "domain_label": DOMAIN_LABELS.get(c["domain"], c["domain"]),
-                "region": c["region"],
-                "importance_score": round(c["importance_score"], 4),
-                "tone": 0.0,
-                "actors": c["actors"][:8],
-                "organizations": c["organizations"][:8],
-                "locations": c["locations"][:8],
-                "themes": c["themes"][:12],
-                "summary_hint": c["summary_hint"] or "Tin từ GDELT DOC (xem nguồn).",
-                "urls": c["urls"][:10],
-                "source_count": len(c["urls"]),
-                "published_at": c.get("published_at"),
-                "cluster_size": c["_rows"],
-            }
-        )
-    return events
-
-
-def run_doc_pipeline(
-    cfg: dict[str, Any],
-    *,
-    mode: str,
-    lookback_hours: int,
-    limit: int,
-    output: Path,
-) -> int:
-    query = DOC_MODE_QUERIES.get(mode)
-    if not query:
-        LOG.error("No DOC query for mode %s", mode)
-        return 2
-    try:
-        articles = fetch_doc_articles(query=query, lookback_hours=lookback_hours, maxrecords=min(limit * 3, 250))
-    except Exception as exc:
-        LOG.error("GDELT DOC API failed: %s", exc)
-        return 1
-    if not articles:
-        LOG.warning("DOC API returned 0 articles; keeping existing %s if present", output)
-        return 0
-    df = articles_to_dataframe(articles, mode=mode)
-    scored = score_doc_articles(df, cfg=cfg, mode=mode, lookback_hours=lookback_hours)
-    events = cluster_doc_events(scored, cfg=cfg, limit=limit)
-    payload = build_payload(
-        events,
-        lookback_hours=lookback_hours,
-        total_raw_rows=len(articles),
-        mode=mode,
-        query_meta={"source": "gdelt-doc-api", "query": query[:200]},
-        pipeline="leon-gdelt-doc-api",
-    )
-    export_json(payload, output)
-    return 0
-
-
-def build_payload(
-    events: list[dict[str, Any]],
-    *,
-    lookback_hours: int,
-    total_raw_rows: int,
-    mode: str,
-    query_meta: dict[str, Any],
-    pipeline: str = "leon-gdelt-bigquery",
-) -> dict[str, Any]:
+def build_payload(events: list[dict[str, Any]], *, query_meta: dict[str, Any]) -> dict[str, Any]:
     return {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "pipeline": pipeline,
-        "mode": mode,
-        "lookback_hours": lookback_hours,
-        "total_raw_rows": total_raw_rows,
-        "total_events": len(events),
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "total_clusters": len(events),
         "query_meta": query_meta,
         "events": events,
     }
 
 
+def atomic_export_json(payload: dict[str, Any], output_path: Path) -> Path:
+    """Write .tmp.json then os.replace — safe for concurrent web reads."""
+    output_path = output_path.resolve()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = output_path.with_suffix(".tmp.json")
+    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(output_path)
+    LOG.info("Wrote %s (%s clusters)", output_path, payload.get("total_clusters", 0))
+    return output_path
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+
+def load_dotenv() -> None:
+    """Load PROJECT_DIR/.env into os.environ (only unset keys)."""
+    env_path = PROJECT_DIR / ".env"
+    if not env_path.is_file():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, val = line.partition("=")
+        key = key.strip()
+        val = val.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = val
+    creds = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
+    if creds and not Path(creds).is_absolute():
+        resolved = (PROJECT_DIR / creds).resolve()
+        if resolved.is_file():
+            os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(resolved)
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Leon GDELT World Pulse (BigQuery or DOC API)")
+    p = argparse.ArgumentParser(description="Leon Web Intel — GDELT macro pulse (BigQuery pushdown)")
     p.add_argument(
-        "--source",
-        choices=("bigquery", "doc"),
-        default="bigquery",
-        help="bigquery=GCP BQ; doc=free GDELT DOC API (no credentials)",
+        "--output",
+        type=Path,
+        default=Path(os.environ.get("LEON_PULSE_OUTPUT", DEFAULT_OUTPUT)),
+        help="Output JSON path (default: market_pulse.json)",
     )
-    p.add_argument("--config", type=Path, default=None, help="Path to gdelt_pipeline.yaml")
-    p.add_argument(
-        "--mode",
-        default="all",
-        help="Domain mode: all, finance, politics, conflict, tech, science, health, climate, crypto",
-    )
-    p.add_argument("--lookback-hours", type=int, default=None)
-    p.add_argument("--limit", type=int, default=None)
-    p.add_argument("--dry-run", action="store_true", help="Estimate bytes only; no export")
+    p.add_argument("--dry-run", action="store_true", help="Estimate bytes billed only")
+    p.add_argument("--job-timeout-ms", type=int, default=DEFAULT_JOB_TIMEOUT_MS)
+    p.add_argument("--max-bytes-billed", type=int, default=DEFAULT_MAX_BYTES_BILLED)
     p.add_argument("-v", "--verbose", action="store_true")
     return p.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
+    load_dotenv()
     args = parse_args(argv)
     logging.basicConfig(
         level=logging.DEBUG if args.verbose else logging.INFO,
-        format="%(asctime)s %(levelname)s %(message)s",
+        format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
     )
 
-    try:
-        cfg = load_config(args.config)
-    except FileNotFoundError as exc:
-        LOG.error("%s", exc)
-        return 2
-
-    lookback = args.lookback_hours or int(cfg.get("default_lookback_hours", 48))
-    limit = args.limit or int(cfg.get("default_limit", 300))
-    output = PROJECT_DIR / cfg["output_path"]
-
-    LOG.info(
-        "source=%s mode=%s lookback=%sh limit=%s output=%s",
-        args.source,
-        args.mode,
-        lookback,
-        limit,
-        output,
-    )
-
-    if args.source == "doc":
-        return run_doc_pipeline(cfg, mode=args.mode, lookback_hours=lookback, limit=limit, output=output)
+    output: Path = args.output
+    LOG.info("Leon Web Intel → %s (dry_run=%s)", output, args.dry_run)
 
     try:
-        client = get_bigquery_client(cfg)
+        client = get_bigquery_client()
     except Exception as exc:
-        LOG.error("BigQuery client failed: %s", exc)
+        LOG.error("BigQuery client setup failed: %s", exc)
         return 1
 
-    sql, params = build_query(cfg, mode=args.mode, lookback_hours=lookback, limit=limit)
-
     try:
-        df, qmeta = run_query(
-            client, sql, params, cfg=cfg, lookback_hours=lookback, dry_run=args.dry_run
+        df, meta = run_bigquery(
+            client,
+            job_timeout_ms=args.job_timeout_ms,
+            maximum_bytes_billed=args.max_bytes_billed,
+            dry_run=args.dry_run,
         )
-    except GoogleCloudError:
+    except (GoogleCloudError, Exception):
+        LOG.error("Keeping existing %s if present", output)
         return 1
 
     if args.dry_run:
         return 0
 
     if df is None or df.empty:
-        LOG.warning("No rows from BigQuery; keeping existing %s if present", output)
+        LOG.warning("No rows returned; not overwriting %s", output)
         return 0
 
-    raw_n = len(df)
     cleaned = clean_dataframe(df)
-    scored = score_events(cleaned, cfg=cfg, mode=args.mode, lookback_hours=lookback)
-    events = cluster_events(scored, cfg=cfg)
-    payload = build_payload(
-        events,
-        lookback_hours=lookback,
-        total_raw_rows=raw_n,
-        mode=args.mode,
-        query_meta=qmeta,
-    )
-
+    events = cluster_events(cleaned)
+    payload = build_payload(events, query_meta=meta)
     try:
-        export_json(payload, output)
+        atomic_export_json(payload, output)
+        # Mirror for GitHub Pages static path
+        web_mirror = PROJECT_DIR / "web" / "market_pulse.json"
+        if output.resolve() != web_mirror.resolve():
+            atomic_export_json(payload, web_mirror)
     except OSError as exc:
         LOG.error("Export failed: %s", exc)
         return 1

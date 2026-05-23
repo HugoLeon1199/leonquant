@@ -60,6 +60,8 @@ jobs:
           cp landing_page.html _site/landing_page/index.html
           cp content.json _site/
           mkdir -p _site/web
+          cp market_pulse.json _site/market_pulse.json 2>/dev/null || true
+          cp web/market_pulse.json _site/web/market_pulse.json 2>/dev/null || true
           cp web/news_data.json _site/web/news_data.json 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
