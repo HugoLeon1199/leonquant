@@ -1573,15 +1573,24 @@
     function normalizePulseEvents(data) {
       const raw = Array.isArray(data?.events) ? data.events : [];
       return raw.map((ev) => {
-        if (ev.sector != null || ev.primary_actor != null) {
-          const actor = String(ev.primary_actor || "Không rõ").trim();
+        if (ev.sector != null || ev.title != null || ev.primary_actor != null) {
           const sector = String(ev.sector || "").trim();
+          const headline = String(ev.title || "").trim();
+          const entities = Array.isArray(ev.entities)
+            ? ev.entities
+            : Array.isArray(ev.related_entities)
+              ? ev.related_entities
+              : [];
+          const actor = String(ev.primary_actor || "").trim();
+          if (actor && !entities.some((e) => String(e).toUpperCase() === actor.toUpperCase())) {
+            entities.unshift(actor);
+          }
           return {
-            title: actor + (sector ? ` · ${sector}` : ""),
+            title: headline || "(Title unavailable)",
             sector,
             impact: ev.impact_score,
             tone: ev.sentiment_tone,
-            entities: Array.isArray(ev.related_entities) ? ev.related_entities : [],
+            entities,
             urls: Array.isArray(ev.sources) ? ev.sources.filter(Boolean) : [],
           };
         }

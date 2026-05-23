@@ -12,6 +12,7 @@ Separate from the 48h crawl + Gemini digest (content.json).
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import logging
 import os
@@ -23,6 +24,8 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 from google.cloud import bigquery
 from google.cloud.exceptions import GoogleCloudError
 from google.oauth2 import service_account
@@ -36,8 +39,13 @@ DEFAULT_JOB_TIMEOUT_MS = 60_000
 TARGET_CLUSTER_MIN = 15
 TARGET_CLUSTER_MAX = 30
 TFIDF_MERGE_THRESHOLD = 0.55
+FETCH_TITLE_TIMEOUT = 5
+TITLE_UNAVAILABLE = "(Title unavailable)"
+HTTP_USER_AGENT = "LeonWebIntel/1.0 (+https://leonquant.com)"
+SKIP_ACTOR_VALUES = frozenset({"", "NONE", "NULL", "UNKNOWN", "KHÔNG RÕ", "KHONG RO", "N/A"})
 
 LOG = logging.getLogger("leon.web_intel")
+_title_cache: dict[str, str] = {}
 
 # CRITICAL: query pushdown — do not widen SELECT or remove filters (OOM / billing risk).
 GDELT_MACRO_QUERY = """
@@ -188,6 +196,79 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# Article titles (lightweight scrape — top URL per cluster)
+# ---------------------------------------------------------------------------
+
+
+def fetch_title(url: str, *, timeout: int = FETCH_TITLE_TIMEOUT) -> str:
+    """Fetch HTML <title> for a source URL; cached per run."""
+    url = str(url or "").strip()
+    if not url.startswith("http"):
+        return TITLE_UNAVAILABLE
+    if url in _title_cache:
+        return _title_cache[url]
+
+    title = TITLE_UNAVAILABLE
+    try:
+        resp = requests.get(
+            url,
+            timeout=timeout,
+            headers={"User-Agent": HTTP_USER_AGENT, "Accept": "text/html,application/xhtml+xml"},
+            allow_redirects=True,
+        )
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.content, "html.parser")
+        tag = soup.find("title")
+        raw = tag.get_text(strip=True) if tag else ""
+        cleaned = html.unescape(re.sub(r"\s+", " ", raw)).strip()
+        if cleaned:
+            title = cleaned[:300]
+    except Exception as exc:
+        LOG.debug("fetch_title failed %s: %s", url[:96], exc)
+
+    _title_cache[url] = title
+    return title
+
+
+def _normalize_actor_name(raw: Any) -> str:
+    name = re.sub(r"\s+", " ", str(raw or "").strip())
+    if not name or name.upper() in SKIP_ACTOR_VALUES:
+        return ""
+    return name[:120]
+
+
+def _merge_entity_tags(actors: list[str], organizations: list[str], *, limit: int = 8) -> list[str]:
+    """Actors (GDELT) + orgs (GKG) as display tags — not used as headline."""
+    out: list[str] = []
+    seen: set[str] = set()
+    for item in [*actors, *organizations]:
+        text = re.sub(r"\s+", " ", str(item or "").strip())
+        if not text:
+            continue
+        key = text.upper()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(text[:120])
+        if len(out) >= limit:
+            break
+    return out
+
+
+def enrich_events_with_titles(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Set headline from scraped article title (top source URL per event)."""
+    for i, ev in enumerate(events, start=1):
+        sources = ev.get("sources") or []
+        top_url = sources[0] if sources else ""
+        if top_url:
+            LOG.info("Fetching title %s/%s: %s", i, len(events), top_url[:80])
+            ev["title"] = fetch_title(top_url)
+        else:
+            ev["title"] = TITLE_UNAVAILABLE
+    return events
+
+
+# ---------------------------------------------------------------------------
 # Scoring
 # ---------------------------------------------------------------------------
 
@@ -210,24 +291,27 @@ class MacroCluster:
     primary_actor: str
     rows: list[dict[str, Any]] = field(default_factory=list)
     sources: list[str] = field(default_factory=list)
+    actors: list[str] = field(default_factory=list)
     related_entities: list[str] = field(default_factory=list)
     tones: list[float] = field(default_factory=list)
     ranks: list[int] = field(default_factory=list)
 
     def cluster_text(self) -> str:
         ents = " ".join(self.related_entities)
-        return f"{self.primary_actor} {self.sector} {ents}".strip()
+        actors = " ".join(self.actors)
+        return f"{actors} {self.sector} {ents}".strip()
 
     def to_event(self) -> dict[str, Any]:
         tone_avg = sum(self.tones) / len(self.tones) if self.tones else 0.0
         best_rank = min(self.ranks) if self.ranks else 149
         score = impact_score(best_rank, tone_avg)
+        entity_tags = _merge_entity_tags(self.actors, self.related_entities)
         return {
+            "title": "",
             "sector": self.sector,
-            "primary_actor": self.primary_actor or "Không rõ",
             "impact_score": score,
             "sentiment_tone": round(tone_avg, 2),
-            "related_entities": self.related_entities[:3],
+            "entities": entity_tags,
             "sources": self.sources[:10],
         }
 
@@ -246,6 +330,9 @@ def _merge_cluster_dicts(a: MacroCluster, b: MacroCluster) -> MacroCluster:
         if ent.upper() not in {x.upper() for x in a.related_entities}:
             a.related_entities.append(ent)
     a.related_entities = a.related_entities[:3]
+    for actor in b.actors:
+        if actor.upper() not in {x.upper() for x in a.actors}:
+            a.actors.append(actor)
     a.tones.extend(b.tones)
     a.ranks.extend(b.ranks)
     return a
@@ -291,20 +378,23 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
 
     buckets: dict[tuple[str, str], MacroCluster] = {}
     for _, row in df.iterrows():
-        actor = str(row["Doi_Tuong_Chinh"]).strip() or "Không rõ"
+        actor = _normalize_actor_name(row["Doi_Tuong_Chinh"]) or "UNKNOWN"
         sector = str(row["Nhom_Nganh"]).strip()
         key = _actor_sector_key(actor, sector)
         url = str(row["Link_Bai_Bao"]).strip()
         ents = list(row.get("entities_clean") or [])
         tone = float(row["Diem_Cam_Xuc"])
         rank = int(row.get("rank", 0))
+        actor_display = _normalize_actor_name(row["Doi_Tuong_Chinh"])
 
         if key not in buckets:
-            buckets[key] = MacroCluster(sector=sector, primary_actor=actor)
+            buckets[key] = MacroCluster(sector=sector, primary_actor=actor_display or actor)
         cl = buckets[key]
         cl.rows.append(row.to_dict())
         if url and url not in cl.sources:
             cl.sources.append(url)
+        if actor_display and actor_display.upper() not in {x.upper() for x in cl.actors}:
+            cl.actors.append(actor_display)
         for e in ents:
             if e.upper() not in {x.upper() for x in cl.related_entities}:
                 cl.related_entities.append(e)
@@ -430,6 +520,9 @@ def main(argv: list[str] | None = None) -> int:
 
     cleaned = clean_dataframe(df)
     events = cluster_events(cleaned)
+    if events:
+        LOG.info("Scraping article titles for %s events (timeout=%ss each)", len(events), FETCH_TITLE_TIMEOUT)
+        events = enrich_events_with_titles(events)
     payload = build_payload(events, query_meta=meta)
     try:
         atomic_export_json(payload, output)
