@@ -760,10 +760,86 @@
     }
     .digest-notable-all { margin-top: 0.75rem; }
 
-    .pulse-live-ticker-wrap {
-      margin-top: 20px;
-      padding: 16px 0 4px;
-      border-top: 2px solid rgba(8, 145, 178, 0.2);
+    .pulse-page-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .pulse-title-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #ef4444;
+      text-transform: uppercase;
+    }
+    .pulse-event-links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin: 0 0 10px;
+    }
+    .pulse-event-links-row a {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .pulse-event-ticker {
+      margin-top: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(8, 145, 178, 0.04);
+      overflow: hidden;
+    }
+    .pulse-event-ticker-viewport {
+      height: 6.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .pulse-event-ticker-viewport::before,
+    .pulse-event-ticker-viewport::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 14px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .pulse-event-ticker-viewport::before {
+      top: 0;
+      background: linear-gradient(180deg, rgba(8, 145, 178, 0.06), transparent);
+    }
+    .pulse-event-ticker-viewport::after {
+      bottom: 0;
+      background: linear-gradient(0deg, rgba(8, 145, 178, 0.06), transparent);
+    }
+    .pulse-event-ticker-scroll {
+      animation: pulse-event-ticker-scroll 22s linear infinite;
+      will-change: transform;
+    }
+    .pulse-event-ticker-scroll:hover {
+      animation-play-state: paused;
+    }
+    @keyframes pulse-event-ticker-scroll {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    .pulse-event-ticker-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .pulse-event-ticker-list li {
+      padding: 6px 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      font-size: 0.78rem;
+    }
+    .pulse-event-ticker-list a {
+      font-weight: 650;
+      color: var(--cyan-dim);
     }
     .pulse-live-ticker-head {
       display: flex;
@@ -1756,29 +1832,41 @@
       return urls.map((u) => ({ url: u, sector: "", mentions: 0 }));
     }
 
-    function buildPulseTickerHtml(items) {
-      const list = Array.isArray(items) ? items : [];
+    function eventScrollUrls(ev, data) {
+      const own = (ev.urls || []).map((u) => String(u || "").trim()).filter((u) => u.startsWith("http"));
+      const sector = String(ev.sector || "").trim();
+      const feed = Array.isArray(data?.live_feed_items) ? data.live_feed_items : [];
+      const fromSector = feed
+        .filter((x) => String(x.sector || "").trim() === sector)
+        .map((x) => String(x.url || "").trim())
+        .filter((u) => u.startsWith("http"));
+      const seen = new Set();
+      const out = [];
+      for (const u of [...own, ...fromSector]) {
+        if (!seen.has(u)) {
+          seen.add(u);
+          out.push(u);
+        }
+      }
+      return out.slice(0, 20);
+    }
+
+    function buildEventUrlTicker(urls) {
+      let list = (Array.isArray(urls) ? urls : []).map((u) => String(u || "").trim()).filter((u) => u.startsWith("http"));
       if (!list.length) return "";
+      const base = list.slice();
+      while (list.length < 8) list = list.concat(base);
       const rows = list
-        .map((item) => {
-          const u = String(item.url || "").trim();
+        .map((u) => {
           const label = pulseSourceLabel(u);
-          const sector = String(item.sector || "").trim();
-          const m = item.mentions != null ? Math.max(0, Math.round(Number(item.mentions))) : 0;
-          const mentionTxt = m > 0 ? `${m} báo` : "";
-          return `<li>${
-            sector ? `<span class="pulse-ticker-sector">${escapeHtml(sector)}</span>` : "<span></span>"
-          }<a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>${
-            mentionTxt ? `<span class="pulse-ticker-mentions">${escapeHtml(mentionTxt)}</span>` : "<span></span>"
-          }</li>`;
+          return `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a></li>`;
         })
         .join("");
-      return `<div class="pulse-live-ticker-wrap">
-        <p class="pulse-live-ticker-head"><span class="nav-live-dot"></span> Toàn bộ bài trong phiên quét (${list.length})</p>
-        <div class="pulse-live-ticker-viewport">
-          <div class="pulse-live-ticker-scroll">
-            <ul class="pulse-live-ticker-list">${rows}</ul>
-            <ul class="pulse-live-ticker-list" aria-hidden="true">${rows}</ul>
+      return `<div class="pulse-event-ticker">
+        <div class="pulse-event-ticker-viewport">
+          <div class="pulse-event-ticker-scroll">
+            <ul class="pulse-event-ticker-list">${rows}</ul>
+            <ul class="pulse-event-ticker-list" aria-hidden="true">${rows}</ul>
           </div>
         </div>
       </div>`;
@@ -1803,18 +1891,19 @@
 
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
-      const feedItems = collectPulseFeedItems(data, events);
       if (!events.length) {
         return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py</code> (GCP BigQuery) rồi push <code>market_pulse.json</code>.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<h2>Tin nóng nhất thế giới hiện tại</h2>`;
+      h += `<h2>Tin nóng nhất thế giới hiện tại <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
       h += `</header><div class="pulse-panel">`;
       h += `<ol class="pulse-event-list">`;
       events.forEach((ev) => {
         const sentiment = pulseSentimentLabel(ev);
         const sClass = pulseSentimentClass(sentiment);
         const coverage = pulseCoverageCount(ev);
+        const urls = (ev.urls || []).map((u) => String(u || "").trim()).filter((u) => u.startsWith("http"));
+        const scrollUrls = eventScrollUrls(ev, data);
         h += `<li class="pulse-event">`;
         if (ev.sector) {
           h += `<p class="pulse-event-sector">${escapeHtml(ev.sector)}</p>`;
@@ -1823,20 +1912,23 @@
         if (ev.hint) {
           h += `<p class="pulse-event-hint">${escapeHtml(ev.hint)}</p>`;
         }
+        if (urls.length) {
+          h += `<div class="pulse-event-links-row">`;
+          urls.slice(0, 2).forEach((u) => {
+            h += `<a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pulseSourceLabel(u))}</a>`;
+          });
+          h += `</div>`;
+        }
+        h += buildEventUrlTicker(scrollUrls.length ? scrollUrls : urls);
         h += `<p class="pulse-event-meta">`;
         h += `<strong>${escapeHtml(coverage)}</strong> báo đề cập`;
         if (sentiment) {
           h += ` · <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
         }
         h += `</p>`;
-        if (ev.entities && ev.entities.length) {
-          h += `<p class="pulse-event-tags">${escapeHtml(ev.entities.join(" · "))}</p>`;
-        }
         h += `</li>`;
       });
-      h += `</ol></div>`;
-      h += buildPulseTickerHtml(feedItems);
-      h += `</article>`;
+      h += `</ol></div></article>`;
       return h;
     }
 

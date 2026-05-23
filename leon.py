@@ -492,16 +492,18 @@ class MacroCluster:
             sentiment_label = "Tiêu cực"
         else:
             sentiment_label = "Trung tính"
+        primary = self.primary_actor or (self.actors[0] if self.actors else "")
         return {
             "title": "",
             "summary": "",
             "sector": self.sector,
+            "primary_actor": primary,
             "impact_score": score,
             "sentiment_tone": round(tone_avg, 2),
             "sentiment_label": sentiment_label,
             "article_mentions": int(coverage),
             "entities": entity_tags,
-            "sources": self.sources[:10],
+            "sources": self.sources[:25],
         }
 
 
@@ -610,6 +612,46 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
 
     if len(events) > TARGET_CLUSTER_MAX:
         events = events[:TARGET_CLUSTER_MAX]
+    return expand_event_sources(events, df)
+
+
+def expand_event_sources(events: list[dict[str, Any]], cleaned: pd.DataFrame) -> list[dict[str, Any]]:
+    """Attach related article URLs per story (own link, actor match, then sector pool), up to 20."""
+    if cleaned.empty or not events:
+        return events
+
+    for ev in events:
+        sector = str(ev.get("sector") or "").strip()
+        base = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
+        actor_keys = {
+            _normalize_actor_name(ev.get("primary_actor")).upper(),
+            *(_normalize_actor_name(a).upper() for a in (ev.get("entities") or [])),
+        }
+        actor_keys.discard("")
+
+        actor_matched: list[str] = []
+        for _, row in cleaned.iterrows():
+            if str(row.get("Nhom_Nganh") or "").strip() != sector:
+                continue
+            url = str(row.get("Link_Bai_Bao") or "").strip()
+            if not url.startswith("http"):
+                continue
+            row_actor = _normalize_actor_name(row.get("Doi_Tuong_Chinh")).upper()
+            if row_actor and any(row_actor in ak or ak in row_actor for ak in actor_keys if ak):
+                if url not in actor_matched:
+                    actor_matched.append(url)
+
+        merged: list[str] = []
+        seen: set[str] = set()
+        for u in base + actor_matched:
+            if u in seen:
+                continue
+            seen.add(u)
+            merged.append(u)
+            if len(merged) >= 20:
+                break
+        ev["sources"] = merged[:20]
+
     return events
 
 
