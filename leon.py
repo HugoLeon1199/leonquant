@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Leon Web Intel — GDELT macro pulse (BigQuery pushdown + lightweight Python post-process).
+Leon Web Intel — GDELT event-centric live pulse (BigQuery pushdown + Gemini summaries).
 
-Architecture: BigQuery filters/joins/classifies ~millions of rows; Python only scores,
-clusters, and exports ~150 rows → 15–30 macro events.
+Architecture: events_partitioned (hot events) + eventmentions_partitioned (real URLs per
+GlobalEventID) + gkg_partitioned (sector/entities). Python exports 10–20 event cards only.
 
 Output: market_pulse.json (atomic write via .tmp + replace).
 Separate from the 48h crawl + Gemini digest (content.json).
@@ -19,7 +19,6 @@ import os
 import re
 import sys
 import time
-from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -31,17 +30,16 @@ from bs4 import BeautifulSoup
 from google.cloud import bigquery
 from google.cloud.exceptions import GoogleCloudError
 from google.oauth2 import service_account
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from urllib.parse import urlparse
 
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_OUTPUT = PROJECT_DIR / "market_pulse.json"
 DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
-TARGET_CLUSTER_MIN = 15
-TARGET_CLUSTER_MAX = 35
-MAX_URLS_PER_EVENT = 10
-TFIDF_MERGE_THRESHOLD = 0.55
+TARGET_HOT_EVENTS = 20
+MAX_MENTIONS_PER_EVENT = 15
+DISPLAY_SOURCES_MAX = 5
+PULSE_SCHEMA_VERSION = "event-centric-v1"
 FETCH_TITLE_TIMEOUT = 5
 TITLE_UNAVAILABLE = "(Title unavailable)"
 HTTP_USER_AGENT = "LeonWebIntel/1.0 (+https://leonquant.com)"
@@ -55,7 +53,23 @@ _content_cache: dict[str, str | None] = {}
 _gemini_configured = False
 
 # CRITICAL: query pushdown — do not widen SELECT or remove filters (OOM / billing risk).
-# Up to MAX_URLS_PER_EVENT distinct SOURCEURLs per GLOBALEVENTID (same GDELT event).
+# Sources come ONLY from eventmentions_partitioned (no sector-based URL guessing).
+_GKG_SECTOR_CASE = """
+      CASE
+        WHEN REGEXP_CONTAINS(V2Themes, r'ECON|TRADE|FINANCE|CURRENCY|BANK') THEN 'Tài chính - Kinh tế'
+        WHEN REGEXP_CONTAINS(V2Themes, r'CRYPTO|BITCOIN|BLOCKCHAIN|DIGITAL_CURRENCY') THEN 'Crypto - Tài sản số'
+        WHEN REGEXP_CONTAINS(V2Themes, r'TECH|CYBER|ARTIFICIAL_INTELLIGENCE|INNOVATION') THEN 'Công nghệ - AI'
+        WHEN REGEXP_CONTAINS(V2Themes, r'LAW|LEGISLATION|JUSTICE|REGULATION|COURT|ANTITRUST') THEN 'Pháp lý - Quy định'
+        WHEN REGEXP_CONTAINS(V2Themes, r'SCIENCE|SPACE|RESEARCH|DISCOVERY') THEN 'Khoa học - Vũ trụ'
+        WHEN REGEXP_CONTAINS(V2Themes, r'ENV_|ENERGY|CLIMATE|MINERALS') THEN 'Năng lượng - Môi trường'
+        WHEN REGEXP_CONTAINS(V2Themes, r'INFRASTRUCTURE|CONSTRUCTION|REAL_ESTATE|TRANSPORT') THEN 'Hạ tầng - Bất động sản'
+        WHEN REGEXP_CONTAINS(V2Themes, r'HEALTH|MEDICAL|DISEASE|PANDEMIC') THEN 'Y tế - Sức khỏe'
+        WHEN REGEXP_CONTAINS(V2Themes, r'AGRICULTURE|FOOD_SECURITY|FARMING') THEN 'Nông nghiệp - Lương thực'
+        WHEN REGEXP_CONTAINS(V2Themes, r'MILITARY|GOV|POLITICAL|TERROR|ELECTION|CRISIS') THEN 'Chính trị - Xung đột'
+        ELSE 'Khác'
+      END
+"""
+
 GDELT_MACRO_QUERY = f"""
 WITH
   FilteredEvents AS (
@@ -72,133 +86,88 @@ WITH
       AND SOURCEURL IS NOT NULL
       AND SOURCEURL != ''
   ),
-  RankedEvents AS (
-    SELECT GLOBALEVENTID, MAX(NumArticles) AS max_num_articles
+  TopEvents AS (
+    SELECT GLOBALEVENTID, MAX(NumArticles) AS num_articles
     FROM FilteredEvents
     GROUP BY GLOBALEVENTID
-    ORDER BY max_num_articles DESC
-    LIMIT 150
+    ORDER BY num_articles DESC
+    LIMIT {TARGET_HOT_EVENTS}
   ),
-  EventUrlDedup AS (
-    SELECT
-      GLOBALEVENTID,
-      SOURCEURL,
-      ANY_VALUE(Actor1Name) AS Actor1Name,
-      ANY_VALUE(AvgTone) AS AvgTone,
-      MAX(NumArticles) AS NumArticles
-    FROM FilteredEvents
-    GROUP BY GLOBALEVENTID, SOURCEURL
-  ),
-  EventUrlsRanked AS (
+  EventReps AS (
     SELECT
       f.GLOBALEVENTID,
-      f.SOURCEURL,
       f.Actor1Name,
       f.AvgTone,
       f.NumArticles,
+      f.SOURCEURL
+    FROM FilteredEvents AS f
+    INNER JOIN TopEvents AS t ON f.GLOBALEVENTID = t.GLOBALEVENTID
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY f.GLOBALEVENTID
+      ORDER BY f.NumArticles DESC, f.SOURCEURL
+    ) = 1
+  ),
+  MentionDedup AS (
+    SELECT
+      m.GLOBALEVENTID,
+      m.MentionIdentifier,
+      ANY_VALUE(m.MentionSourceName) AS MentionSourceName,
+      MAX(m.MentionTimeDate) AS latest_mention
+    FROM `gdelt-bq.gdeltv2.eventmentions_partitioned` AS m
+    INNER JOIN TopEvents AS t ON m.GLOBALEVENTID = t.GLOBALEVENTID
+    WHERE m._PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
+      AND m.MentionIdentifier IS NOT NULL
+      AND STARTS_WITH(m.MentionIdentifier, 'http')
+    GROUP BY m.GLOBALEVENTID, m.MentionIdentifier
+  ),
+  MentionsRanked AS (
+    SELECT
+      GLOBALEVENTID,
+      MentionIdentifier,
+      MentionSourceName,
       ROW_NUMBER() OVER (
-        PARTITION BY f.GLOBALEVENTID
-        ORDER BY f.NumArticles DESC, f.SOURCEURL
-      ) AS url_rank
-    FROM EventUrlDedup AS f
-    INNER JOIN RankedEvents AS r ON f.GLOBALEVENTID = r.GLOBALEVENTID
+        PARTITION BY GLOBALEVENTID
+        ORDER BY latest_mention DESC, MentionIdentifier
+      ) AS mention_rank
+    FROM MentionDedup
   ),
-  TopEventUrls AS (
-    SELECT * FROM EventUrlsRanked WHERE url_rank <= {MAX_URLS_PER_EVENT}
-  ),
-  EventReps AS (
-    SELECT GLOBALEVENTID, Actor1Name, AvgTone, NumArticles, SOURCEURL
-    FROM TopEventUrls
-    WHERE url_rank = 1
+  MentionAgg AS (
+    SELECT
+      GLOBALEVENTID,
+      ARRAY_AGG(
+        STRUCT(MentionIdentifier AS url, MentionSourceName AS name)
+        ORDER BY mention_rank
+        LIMIT {MAX_MENTIONS_PER_EVENT}
+      ) AS mention_sources
+    FROM MentionsRanked
+    WHERE mention_rank <= {MAX_MENTIONS_PER_EVENT}
+    GROUP BY GLOBALEVENTID
   ),
   FilteredGKG AS (
     SELECT
       DocumentIdentifier,
       V2Themes,
       REGEXP_REPLACE(V2Organizations, r',?\\d+', '') AS Cong_Ty_Clean,
-      CASE
-        WHEN REGEXP_CONTAINS(V2Themes, r'ECON|TRADE|FINANCE|CURRENCY|BANK') THEN 'Tài chính - Kinh tế'
-        WHEN REGEXP_CONTAINS(V2Themes, r'CRYPTO|BITCOIN|BLOCKCHAIN|DIGITAL_CURRENCY') THEN 'Crypto - Tài sản số'
-        WHEN REGEXP_CONTAINS(V2Themes, r'TECH|CYBER|ARTIFICIAL_INTELLIGENCE|INNOVATION') THEN 'Công nghệ - AI'
-        WHEN REGEXP_CONTAINS(V2Themes, r'LAW|LEGISLATION|JUSTICE|REGULATION|COURT|ANTITRUST') THEN 'Pháp lý - Quy định'
-        WHEN REGEXP_CONTAINS(V2Themes, r'SCIENCE|SPACE|RESEARCH|DISCOVERY') THEN 'Khoa học - Vũ trụ'
-        WHEN REGEXP_CONTAINS(V2Themes, r'ENV_|ENERGY|CLIMATE|MINERALS') THEN 'Năng lượng - Môi trường'
-        WHEN REGEXP_CONTAINS(V2Themes, r'INFRASTRUCTURE|CONSTRUCTION|REAL_ESTATE|TRANSPORT') THEN 'Hạ tầng - Bất động sản'
-        WHEN REGEXP_CONTAINS(V2Themes, r'HEALTH|MEDICAL|DISEASE|PANDEMIC') THEN 'Y tế - Sức khỏe'
-        WHEN REGEXP_CONTAINS(V2Themes, r'AGRICULTURE|FOOD_SECURITY|FARMING') THEN 'Nông nghiệp - Lương thực'
-        WHEN REGEXP_CONTAINS(V2Themes, r'MILITARY|GOV|POLITICAL|TERROR|ELECTION|CRISIS') THEN 'Chính trị - Xung đột'
-        ELSE 'Khác'
-      END AS Nhom_Nganh
+      {_GKG_SECTOR_CASE.strip()} AS Nhom_Nganh
     FROM `gdelt-bq.gdeltv2.gkg_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
       AND V2Organizations IS NOT NULL
-  ),
-  RepMeta AS (
-    SELECT
-      rep.GLOBALEVENTID,
-      rep.Actor1Name,
-      rep.AvgTone,
-      rep.NumArticles,
-      rep.SOURCEURL,
-      g.Nhom_Nganh,
-      g.Cong_Ty_Clean,
-      NULLIF(TRIM(SPLIT(g.V2Themes, ';')[SAFE_OFFSET(0)]), '') AS theme_hint,
-      NULLIF(TRIM(SPLIT(g.Cong_Ty_Clean, ',')[SAFE_OFFSET(0)]), '') AS org_hint
-    FROM EventReps AS rep
-    INNER JOIN FilteredGKG AS g ON rep.SOURCEURL = g.DocumentIdentifier
-    WHERE g.Nhom_Nganh != 'Khác'
-  ),
-  RelatedGkgUrls AS (
-    SELECT
-      m.GLOBALEVENTID,
-      g.DocumentIdentifier AS SOURCEURL,
-      ROW_NUMBER() OVER (PARTITION BY m.GLOBALEVENTID ORDER BY g.DocumentIdentifier) AS rel_rank
-    FROM RepMeta AS m
-    INNER JOIN FilteredGKG AS g
-      ON g.Nhom_Nganh = m.Nhom_Nganh
-      AND g.DocumentIdentifier != m.SOURCEURL
-      AND g.Nhom_Nganh != 'Khác'
-      AND (
-        (m.theme_hint IS NOT NULL AND STRPOS(g.V2Themes, m.theme_hint) > 0)
-        OR (m.org_hint IS NOT NULL AND STRPOS(UPPER(g.Cong_Ty_Clean), UPPER(m.org_hint)) > 0)
-      )
-  ),
-  CombinedUrls AS (
-    SELECT GLOBALEVENTID, SOURCEURL, url_rank AS sort_key FROM TopEventUrls
-    UNION ALL
-    SELECT GLOBALEVENTID, SOURCEURL, 50 + rel_rank AS sort_key
-    FROM RelatedGkgUrls
-    WHERE rel_rank < {MAX_URLS_PER_EVENT}
-  ),
-  UrlsDedup AS (
-    SELECT
-      GLOBALEVENTID,
-      SOURCEURL,
-      ROW_NUMBER() OVER (PARTITION BY GLOBALEVENTID ORDER BY MIN(sort_key)) AS final_rank
-    FROM CombinedUrls
-    GROUP BY GLOBALEVENTID, SOURCEURL
-  ),
-  EventUrlsAgg AS (
-    SELECT
-      GLOBALEVENTID,
-      ARRAY_AGG(SOURCEURL ORDER BY final_rank LIMIT {MAX_URLS_PER_EVENT}) AS Danh_Sach_Lien_Ket
-    FROM UrlsDedup
-    WHERE final_rank <= {MAX_URLS_PER_EVENT}
-    GROUP BY GLOBALEVENTID
   )
 SELECT
-  m.GLOBALEVENTID AS Ma_Su_Kien,
-  m.Actor1Name AS Doi_Tuong_Chinh,
-  m.Nhom_Nganh,
-  m.AvgTone AS Diem_Cam_Xuc,
-  m.Cong_Ty_Clean AS Cac_To_Chuc_Lien_Quan,
-  m.SOURCEURL AS Link_Bai_Bao,
-  m.NumArticles AS So_Bao_De_Cap,
-  agg.Danh_Sach_Lien_Ket
-FROM RepMeta AS m
-INNER JOIN EventUrlsAgg AS agg ON m.GLOBALEVENTID = agg.GLOBALEVENTID
-ORDER BY m.NumArticles DESC
-LIMIT 150
+  r.GLOBALEVENTID AS GlobalEventID,
+  r.Actor1Name AS Doi_Tuong_Chinh,
+  g.Nhom_Nganh,
+  g.V2Themes,
+  r.AvgTone AS Diem_Cam_Xuc,
+  g.Cong_Ty_Clean AS Cac_To_Chuc_Lien_Quan,
+  r.SOURCEURL AS Link_Bai_Bao,
+  r.NumArticles AS So_Bao_De_Cap,
+  COALESCE(m.mention_sources, ARRAY<STRUCT<url STRING, name STRING>>[]) AS Mention_Sources
+FROM EventReps AS r
+INNER JOIN FilteredGKG AS g ON r.SOURCEURL = g.DocumentIdentifier
+LEFT JOIN MentionAgg AS m ON r.GLOBALEVENTID = m.GLOBALEVENTID
+WHERE g.Nhom_Nganh != 'Khác'
+ORDER BY r.NumArticles DESC
 """.strip()
 
 
@@ -292,37 +261,114 @@ def parse_entity_list(raw: Any, *, limit: int = 3) -> list[str]:
     return out
 
 
-def _parse_url_list(val: Any) -> list[str]:
-    """Parse BigQuery ARRAY_AGG column into up to MAX_URLS_PER_EVENT http URLs."""
+SECTOR_THEME_RULES: list[tuple[str, str]] = [
+    (r"ECON|TRADE|FINANCE|CURRENCY|BANK", "Tài chính - Kinh tế"),
+    (r"CRYPTO|BITCOIN|BLOCKCHAIN|DIGITAL_CURRENCY", "Crypto - Tài sản số"),
+    (r"TECH|CYBER|ARTIFICIAL_INTELLIGENCE|INNOVATION", "Công nghệ - AI"),
+    (r"LAW|LEGISLATION|JUSTICE|REGULATION|COURT|ANTITRUST", "Pháp lý - Quy định"),
+    (r"SCIENCE|SPACE|RESEARCH|DISCOVERY", "Khoa học - Vũ trụ"),
+    (r"ENV_|ENERGY|CLIMATE|MINERALS", "Năng lượng - Môi trường"),
+    (r"INFRASTRUCTURE|CONSTRUCTION|REAL_ESTATE|TRANSPORT", "Hạ tầng - Bất động sản"),
+    (r"HEALTH|MEDICAL|DISEASE|PANDEMIC", "Y tế - Sức khỏe"),
+    (r"AGRICULTURE|FOOD_SECURITY|FARMING", "Nông nghiệp - Lương thực"),
+    (r"MILITARY|GOV|POLITICAL|TERROR|ELECTION|CRISIS", "Chính trị - Xung đột"),
+]
+
+
+def _iter_raw_sequence(val: Any) -> list[Any]:
     if val is None or (isinstance(val, float) and pd.isna(val)):
         return []
     if hasattr(val, "tolist") and not isinstance(val, (str, bytes)):
-        raw = val.tolist()
-    elif isinstance(val, (list, tuple)):
-        raw = list(val)
-    else:
-        s = str(val).strip()
-        if not s:
-            return []
-        if s.startswith("["):
-            try:
-                raw = json.loads(s)
-            except json.JSONDecodeError:
-                raw = [s]
+        return list(val.tolist())
+    if isinstance(val, (list, tuple)):
+        return list(val)
+    s = str(val).strip()
+    if not s:
+        return []
+    if s.startswith("["):
+        try:
+            parsed = json.loads(s)
+            return parsed if isinstance(parsed, list) else [parsed]
+        except json.JSONDecodeError:
+            return [s]
+    return [s]
+
+
+def _source_label_from_url(url: str, mention_name: str = "") -> str:
+    name = re.sub(r"\s+", " ", str(mention_name or "").strip())
+    if name and name.lower() not in ("none", "null", "unknown"):
+        return name[:80]
+    host = urlparse(url).netloc.lower().replace("www.", "")
+    if not host:
+        return "Nguồn"
+    base = host.split(".")[0]
+    return base[:1].upper() + base[1:] if base else host
+
+
+def _source_record(url: str, mention_name: str = "") -> dict[str, str]:
+    u = str(url or "").strip()
+    host = urlparse(u).netloc.lower().replace("www.", "")
+    return {
+        "url": u,
+        "name": _source_label_from_url(u, mention_name),
+        "domain": host,
+    }
+
+
+def _parse_mention_sources(val: Any) -> list[dict[str, str]]:
+    """Parse EventMentions ARRAY<STRUCT<url,name>> from BigQuery."""
+    out: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for item in _iter_raw_sequence(val):
+        if isinstance(item, dict):
+            url = str(item.get("url") or item.get("MentionIdentifier") or "").strip()
+            name = str(item.get("name") or item.get("MentionSourceName") or "").strip()
         else:
-            raw = [s]
-    out: list[str] = []
-    for item in raw:
-        u = str(item).strip()
-        if u.startswith("http") and u not in out:
-            out.append(u)
-        if len(out) >= MAX_URLS_PER_EVENT:
+            url = str(item).strip()
+            name = ""
+        if not url.startswith("http") or url in seen:
+            continue
+        seen.add(url)
+        out.append(_source_record(url, name))
+        if len(out) >= MAX_MENTIONS_PER_EVENT:
             break
     return out
 
 
+def _sectors_display(primary: str, v2themes: str) -> str:
+    """Primary GKG sector + optional secondary from themes (e.g. Chính trị / Năng lượng)."""
+    primary = str(primary or "").strip()
+    themes = str(v2themes or "")
+    matched: list[str] = []
+    if primary and primary != "Khác":
+        matched.append(primary)
+    for pattern, label in SECTOR_THEME_RULES:
+        if label in matched or label == "Khác":
+            continue
+        if re.search(pattern, themes, flags=re.IGNORECASE):
+            matched.append(label)
+        if len(matched) >= 2:
+            break
+    if not matched:
+        return primary or "Khác"
+    return " / ".join(matched[:2])
+
+
+def sentiment_label_vi(tone: float) -> str:
+    t = float(tone)
+    if t >= 4.0:
+        return "Tích cực mạnh"
+    if t >= 2.0:
+        return "Tích cực"
+    if t <= -4.0:
+        return "Tiêu cực mạnh"
+    if t <= -2.0:
+        return "Tiêu cực"
+    return "Trung tính"
+
+
 def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """Dedupe events, normalize actors, parse entity lists — no heavy regex on raw GDELT."""
+    """One row per GlobalEventID; mention sources parsed from EventMentions only."""
     if df.empty:
         return df
 
@@ -331,20 +377,23 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     out["Link_Bai_Bao"] = out["Link_Bai_Bao"].astype(str).str.strip()
     out = out[out["Link_Bai_Bao"].str.startswith("http", na=False)]
 
-    if "Danh_Sach_Lien_Ket" in out.columns:
-        out["event_urls"] = out["Danh_Sach_Lien_Ket"].map(_parse_url_list)
-    else:
-        out["event_urls"] = out["Link_Bai_Bao"].map(lambda u: [u] if u else [])
+    col_mentions = "Mention_Sources" if "Mention_Sources" in out.columns else "Danh_Sach_Lien_Ket"
+    out["mention_sources"] = out[col_mentions].map(_parse_mention_sources)
 
-    if "Ma_Su_Kien" in out.columns:
-        out = out.drop_duplicates(subset=["Ma_Su_Kien"], keep="first")
-    else:
-        out = out.drop_duplicates(subset=["Link_Bai_Bao"], keep="first")
+    id_col = "GlobalEventID" if "GlobalEventID" in out.columns else "Ma_Su_Kien"
+    if id_col in out.columns:
+        out = out.drop_duplicates(subset=[id_col], keep="first")
 
     out["Doi_Tuong_Chinh"] = out["Doi_Tuong_Chinh"].fillna("").astype(str).str.strip()
     out["Nhom_Nganh"] = out["Nhom_Nganh"].fillna("").astype(str).str.strip()
+    if "V2Themes" not in out.columns:
+        out["V2Themes"] = ""
     out["Diem_Cam_Xuc"] = pd.to_numeric(out["Diem_Cam_Xuc"], errors="coerce").fillna(0.0)
-    out["entities_clean"] = out["Cac_To_Chuc_Lien_Quan"].map(lambda x: parse_entity_list(x, limit=3))
+    out["entities_clean"] = out["Cac_To_Chuc_Lien_Quan"].map(lambda x: parse_entity_list(x, limit=6))
+    out["sector_display"] = out.apply(
+        lambda r: _sectors_display(str(r["Nhom_Nganh"]), str(r.get("V2Themes") or "")),
+        axis=1,
+    )
     out["rank"] = range(len(out))
     return out.reset_index(drop=True)
 
@@ -470,6 +519,8 @@ def _parse_gemini_enrichment(text: str) -> dict[str, Any]:
             result["title_vi"] = line.split(":", 1)[1].strip()
         elif upper.startswith("SUMMARY:"):
             result["summary_vi"] = line.split(":", 1)[1].strip()
+        elif upper.startswith("IMPORTANCE:"):
+            result["importance_reason"] = line.split(":", 1)[1].strip()
         elif upper.startswith("ENTITIES:"):
             raw = line.split(":", 1)[1].strip()
             if raw.lower() in ("none", "không", "khong", "n/a", "-", "không có", "khong co"):
@@ -479,42 +530,50 @@ def _parse_gemini_enrichment(text: str) -> dict[str, Any]:
     return result
 
 
-def enrich_event_with_gemini(sector: str, primary_actor: str, raw_content: str | None) -> dict[str, Any] | None:
-    """Gemini: Vietnamese headline + multi-sector summary + entities (only if cited)."""
+def enrich_event_with_gemini(
+    sector: str,
+    primary_actor: str,
+    raw_content: str | None,
+    *,
+    num_articles: int,
+    source_count: int,
+    source_names: list[str],
+) -> dict[str, Any] | None:
+    """Gemini: Vietnamese title/summary/importance after EventMentions sources are fixed."""
     if not raw_content or not _configure_gemini():
         return None
 
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
+    outlets = ", ".join(source_names[:8]) if source_names else "N/A"
     prompt = f"""
-You are an expert macro analyst covering finance, geopolitics, technology, health, energy, law, and conflict — writing in professional Vietnamese.
+You are an expert macro analyst — writing in professional Vietnamese.
 
-GDELT context (for reference only; do not invent facts beyond the article):
-- Sector tag from data pipeline: {sector}
-- Primary actor tag: {primary_actor}
+GDELT event context (reference only; do not invent beyond excerpt):
+- Sector: {sector}
+- Actor tag: {primary_actor}
+- GDELT coverage (NumArticles): {num_articles}
+- Distinct mention sources in pipeline: {source_count}
+- Sample outlets: {outlets}
 
-Raw article excerpt:
+Raw article excerpt (representative mention):
 {raw_content}
 
 Rules:
-- Use ONLY facts present in the excerpt. Do not fabricate numbers, countries, or tickers.
-- Do NOT invent stock tickers or company names unless they appear in the excerpt.
-- Multi-sector lens: explain why this matters across regions/industries when relevant.
+- Use ONLY facts in the excerpt. No fabricated numbers, countries, or tickers.
+- IMPORTANCE must explain why this event ranks high in global news volume (use coverage/source hints above).
 
-Your tasks:
-1. TITLE: One sharp professional headline in Vietnamese (max 18 words).
-2. SUMMARY: 1–2 sentences in Vietnamese covering:
-   - What happened
-   - Who is affected (countries, institutions, markets)
-   - Why it is notable now
-   - Which sector/industry it relates to (may echo or refine: {sector})
-   - If the excerpt hints at market or asset impact (stocks, oil, FX, crypto, bonds), mention lightly in one short clause; otherwise omit.
-3. ENTITIES: Up to 3 organizations, institutions, or tickers EXPLICITLY mentioned in the excerpt. If none, write: ENTITIES: none
+Tasks:
+1. TITLE: One sharp headline in Vietnamese (max 18 words).
+2. SUMMARY: 1–2 sentences — what happened, who is affected, market/geopolitical relevance.
+3. IMPORTANCE: One short sentence in Vietnamese — why this is among the hottest global events now.
+4. ENTITIES: Up to 5 actors/orgs/countries EXPLICIT in excerpt, comma-separated; or ENTITIES: none
 
-Respond STRICTLY in this format (plain text, no markdown):
-TITLE: [Vietnamese headline]
-SUMMARY: [1-2 Vietnamese sentences]
-ENTITIES: [Name1, Name2, Name3] OR none
+Format (plain text, no markdown):
+TITLE: ...
+SUMMARY: ...
+IMPORTANCE: ...
+ENTITIES: ... OR none
 """.strip()
 
     try:
@@ -545,46 +604,59 @@ def _merge_entity_lists(*lists: list[str], limit: int = 8) -> list[str]:
 
 
 def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
-    """Scrape source URL; optionally Gemini Vietnamese title/summary."""
+    """Scrape top EventMention URL; Gemini fills title_vi / summary_vi / importance_reason."""
     for i, ev in enumerate(events, start=1):
-        sources = ev.get("sources") or []
-        top_url = sources[0] if sources else ""
+        sources: list[dict[str, str]] = list(ev.get("sources") or [])
+        top_url = sources[0].get("url", "") if sources else ""
         sector = str(ev.get("sector") or "")
         actor = _primary_actor_label(ev)
         existing_entities = list(ev.get("entities") or [])
+        source_names = [str(s.get("name") or "") for s in sources if s.get("name")]
 
         if not top_url:
-            ev["title"] = TITLE_UNAVAILABLE
-            ev["summary"] = "Chưa có nguồn tin để tóm tắt."
+            ev["title_vi"] = TITLE_UNAVAILABLE
+            ev["summary_vi"] = "Chưa có nguồn EventMentions để tóm tắt."
+            ev["importance_reason"] = ""
+            ev["title"] = ev["title_vi"]
+            ev["summary"] = ev["summary_vi"]
             continue
 
-        LOG.info("Enriching event %s/%s: %s", i, len(events), top_url[:80])
+        LOG.info("Enriching event %s/%s [%s]: %s", i, len(events), ev.get("global_event_id", ""), top_url[:80])
         raw_content = extract_web_content(top_url)
         ai_data = None
         if use_gemini:
-            ai_data = enrich_event_with_gemini(sector, actor, raw_content)
+            ai_data = enrich_event_with_gemini(
+                sector,
+                actor,
+                raw_content,
+                num_articles=int(ev.get("num_articles") or 0),
+                source_count=int(ev.get("source_count") or len(sources)),
+                source_names=source_names,
+            )
             if i < len(events):
                 time.sleep(GEMINI_CALL_INTERVAL_SEC)
 
         if ai_data:
-            ev["title"] = ai_data.get("title_vi") or TITLE_UNAVAILABLE
-            ev["summary"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
-            ev["entities"] = _merge_entity_lists(
-                ai_data.get("entities") or [],
-                existing_entities,
-            )
+            ev["title_vi"] = ai_data.get("title_vi") or TITLE_UNAVAILABLE
+            ev["summary_vi"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
+            ev["importance_reason"] = ai_data.get("importance_reason") or ""
+            ev["entities"] = _merge_entity_lists(ai_data.get("entities") or [], existing_entities)
         else:
             scraped_title = TITLE_UNAVAILABLE
             if raw_content and raw_content.startswith("Title:"):
                 scraped_title = raw_content.split("\n", 1)[0].replace("Title:", "").strip() or TITLE_UNAVAILABLE
             if scraped_title == TITLE_UNAVAILABLE:
                 scraped_title = fetch_title(top_url)
-            ev["title"] = scraped_title
-            ev["summary"] = (
-                f"Tin nóng nhóm {sector}: {actor}. "
-                "Nhấp link nguồn để đọc bài gốc."
+            ev["title_vi"] = scraped_title
+            ev["summary_vi"] = f"Sự kiện GDELT ({sector}). Nhấp nguồn để đọc bài gốc."
+            ev["importance_reason"] = (
+                f"GDELT ghi nhận ~{ev.get('num_articles', 0)} lượt đề cập "
+                f"và {ev.get('source_count', 0)} nguồn mention trong 24h."
             )
             ev["entities"] = existing_entities
+
+        ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
+        ev["summary"] = ev.get("summary_vi") or ""
 
     return events
 
@@ -602,181 +674,60 @@ def impact_score(rank: int, tone: float, *, max_rank: int = 150) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Clustering (lightweight — ~150 rows max)
+# Event-centric export (one card per GlobalEventID)
 # ---------------------------------------------------------------------------
 
 
-@dataclass
-class MacroCluster:
-    sector: str
-    primary_actor: str
-    rows: list[dict[str, Any]] = field(default_factory=list)
-    sources: list[str] = field(default_factory=list)
-    actors: list[str] = field(default_factory=list)
-    related_entities: list[str] = field(default_factory=list)
-    tones: list[float] = field(default_factory=list)
-    ranks: list[int] = field(default_factory=list)
-    article_mentions: list[int] = field(default_factory=list)
-
-    def cluster_text(self) -> str:
-        ents = " ".join(self.related_entities)
-        actors = " ".join(self.actors)
-        return f"{actors} {self.sector} {ents}".strip()
-
-    def to_event(self) -> dict[str, Any]:
-        tone_avg = sum(self.tones) / len(self.tones) if self.tones else 0.0
-        best_rank = min(self.ranks) if self.ranks else 149
-        score = impact_score(best_rank, tone_avg)
-        entity_tags = _merge_entity_tags(self.actors, self.related_entities)
-        # NumArticles from GDELT row (global media volume for that article).
-        if self.article_mentions:
-            coverage = max(self.article_mentions)
-        else:
-            coverage = max(len(self.sources), 1)
-        if tone_avg >= 2.0:
-            sentiment_label = "Tích cực"
-        elif tone_avg <= -2.0:
-            sentiment_label = "Tiêu cực"
-        else:
-            sentiment_label = "Trung tính"
-        primary = self.primary_actor or (self.actors[0] if self.actors else "")
-        return {
-            "title": "",
-            "summary": "",
-            "sector": self.sector,
-            "primary_actor": primary,
-            "impact_score": score,
-            "sentiment_tone": round(tone_avg, 2),
-            "sentiment_label": sentiment_label,
-            "article_mentions": int(coverage),
-            "entities": entity_tags,
-            "sources": self.sources[:MAX_URLS_PER_EVENT],
-        }
-
-
-def _actor_sector_key(actor: str, sector: str) -> tuple[str, str]:
-    return (actor.strip().upper() or "UNKNOWN", sector.strip())
-
-
-def _merge_cluster_dicts(a: MacroCluster, b: MacroCluster) -> MacroCluster:
-    for row in b.rows:
-        a.rows.append(row)
-    for url in b.sources:
-        if url not in a.sources:
-            a.sources.append(url)
-    for ent in b.related_entities:
-        if ent.upper() not in {x.upper() for x in a.related_entities}:
-            a.related_entities.append(ent)
-    a.related_entities = a.related_entities[:3]
-    for actor in b.actors:
-        if actor.upper() not in {x.upper() for x in a.actors}:
-            a.actors.append(actor)
-    a.tones.extend(b.tones)
-    a.ranks.extend(b.ranks)
-    a.article_mentions.extend(b.article_mentions)
-    return a
-
-
-def _merge_by_tfidf(clusters: list[MacroCluster], threshold: float = TFIDF_MERGE_THRESHOLD) -> list[MacroCluster]:
-    """Merge similar clusters until count <= TARGET_CLUSTER_MAX."""
-    if len(clusters) <= TARGET_CLUSTER_MAX:
-        return clusters
-
-    texts = [c.cluster_text() or c.sector for c in clusters]
-    vec = TfidfVectorizer(min_df=1, ngram_range=(1, 2))
-    matrix = vec.fit_transform(texts)
-    sim = cosine_similarity(matrix)
-
-    merged = True
-    while merged and len(clusters) > TARGET_CLUSTER_MAX:
-        merged = False
-        best_i, best_j, best_sim = -1, -1, threshold
-        n = len(clusters)
-        for i in range(n):
-            for j in range(i + 1, n):
-                if sim[i, j] > best_sim:
-                    best_sim = sim[i, j]
-                    best_i, best_j = i, j
-        if best_i >= 0:
-            clusters[best_i] = _merge_cluster_dicts(clusters[best_i], clusters[best_j])
-            del clusters[best_j]
-            merged = True
-            texts = [c.cluster_text() or c.sector for c in clusters]
-            matrix = vec.fit_transform(texts)
-            sim = cosine_similarity(matrix)
-    return clusters
-
-
-def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
-    """
-    Group ~150 articles into 15–30 macro events.
-    Primary key: Doi_Tuong_Chinh + Nhom_Nganh; optional TF-IDF merge if too many groups.
-    """
+def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
+    """Map BigQuery rows → event cards; sources only from EventMentions (+ rep URL fallback)."""
     if df.empty:
         return []
 
-    buckets: dict[tuple[str, ...], MacroCluster] = {}
+    events: list[dict[str, Any]] = []
     for _, row in df.iterrows():
-        actor = _normalize_actor_name(row["Doi_Tuong_Chinh"]) or "UNKNOWN"
-        sector = str(row["Nhom_Nganh"]).strip()
-        event_id = str(row.get("Ma_Su_Kien") or "").strip()
-        key: tuple[str, ...] = ("ev", event_id) if event_id else _actor_sector_key(actor, sector)
-        primary_url = str(row["Link_Bai_Bao"]).strip()
-        row_urls = list(row.get("event_urls") or [])
-        if primary_url and primary_url not in row_urls:
-            row_urls = [primary_url] + row_urls
-        ents = list(row.get("entities_clean") or [])
-        tone = float(row["Diem_Cam_Xuc"])
+        sources = list(row.get("mention_sources") or [])
+        rep_url = str(row.get("Link_Bai_Bao") or "").strip()
+        seen_urls = {s["url"] for s in sources}
+        if rep_url.startswith("http") and rep_url not in seen_urls:
+            sources.insert(0, _source_record(rep_url, ""))
+        if not sources and rep_url.startswith("http"):
+            sources = [_source_record(rep_url, "")]
+
+        tone = float(row.get("Diem_Cam_Xuc") or 0)
         rank = int(row.get("rank", 0))
-        actor_display = _normalize_actor_name(row["Doi_Tuong_Chinh"])
-
-        if key not in buckets:
-            buckets[key] = MacroCluster(sector=sector, primary_actor=actor_display or actor)
-        cl = buckets[key]
-        cl.rows.append(row.to_dict())
-        for url in row_urls:
-            u = str(url).strip()
-            if u.startswith("http") and u not in cl.sources:
-                cl.sources.append(u)
-            if len(cl.sources) >= MAX_URLS_PER_EVENT:
-                break
-        if actor_display and actor_display.upper() not in {x.upper() for x in cl.actors}:
-            cl.actors.append(actor_display)
-        for e in ents:
-            if e.upper() not in {x.upper() for x in cl.related_entities}:
-                cl.related_entities.append(e)
-        cl.related_entities = cl.related_entities[:3]
-        cl.tones.append(tone)
-        cl.ranks.append(rank)
+        actor = _normalize_actor_name(row.get("Doi_Tuong_Chinh"))
+        orgs = list(row.get("entities_clean") or [])
         try:
-            mentions = int(row.get("So_Bao_De_Cap") or 0)
+            num_articles = int(row.get("So_Bao_De_Cap") or 0)
         except (TypeError, ValueError):
-            mentions = 0
-        if mentions > 0:
-            cl.article_mentions.append(mentions)
+            num_articles = 0
 
-    clusters = list(buckets.values())
-    LOG.info("Actor+sector buckets: %s", len(clusters))
+        event_id = str(row.get("GlobalEventID") or row.get("Ma_Su_Kien") or "").strip()
+        sector = str(row.get("sector_display") or row.get("Nhom_Nganh") or "").strip()
+        entities = _merge_entity_tags([actor] if actor else [], orgs, limit=8)
 
-    if len(clusters) > TARGET_CLUSTER_MAX:
-        clusters = _merge_by_tfidf(clusters)
-        LOG.info("After TF-IDF merge: %s clusters", len(clusters))
+        events.append(
+            {
+                "global_event_id": event_id,
+                "sector": sector,
+                "title_vi": "",
+                "summary_vi": "",
+                "importance_reason": "",
+                "num_articles": max(num_articles, 1),
+                "source_count": len({s["url"] for s in sources}),
+                "sentiment_tone": round(tone, 2),
+                "sentiment_label": sentiment_label_vi(tone),
+                "entities": entities,
+                "sources": sources[:MAX_MENTIONS_PER_EVENT],
+                "impact_score": impact_score(rank, tone, max_rank=max(TARGET_HOT_EVENTS, 1)),
+                "primary_actor": actor,
+                "article_mentions": max(num_articles, 1),
+            }
+        )
 
-    events = [c.to_event() for c in clusters]
-    events.sort(key=lambda e: e["impact_score"], reverse=True)
-
-    if len(events) > TARGET_CLUSTER_MAX:
-        events = events[:TARGET_CLUSTER_MAX]
-    return expand_event_sources(events, df)
-
-
-def expand_event_sources(events: list[dict[str, Any]], cleaned: pd.DataFrame) -> list[dict[str, Any]]:
-    """Cap sources at MAX_URLS_PER_EVENT (URLs already aggregated in BigQuery per GLOBALEVENTID)."""
-    del cleaned
-    for ev in events:
-        base = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
-        ev["sources"] = base[:MAX_URLS_PER_EVENT]
-    return events
+    events.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
+    LOG.info("GDELT hot events (GlobalEventID): %s", len(events))
+    return events[:TARGET_HOT_EVENTS]
 
 
 # ---------------------------------------------------------------------------
@@ -784,29 +735,30 @@ def expand_event_sources(events: list[dict[str, Any]], cleaned: pd.DataFrame) ->
 # ---------------------------------------------------------------------------
 
 
-def build_live_feed_items(cleaned: pd.DataFrame) -> list[dict[str, Any]]:
-    """Every article URL from BigQuery (up to MAX_URLS_PER_EVENT per GDELT event)."""
-    if cleaned.empty:
-        return []
+def build_live_feed_items(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Flatten EventMention sources across hot events (debug / optional feed)."""
     items: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for _, row in cleaned.iterrows():
-        urls = list(row.get("event_urls") or [])
-        primary = str(row.get("Link_Bai_Bao") or "").strip()
-        if primary and primary not in urls:
-            urls = [primary] + urls
-        try:
-            mentions = int(row.get("So_Bao_De_Cap") or 0)
-        except (TypeError, ValueError):
-            mentions = 0
-        sector = str(row.get("Nhom_Nganh") or "").strip()
-        tone = round(float(row.get("Diem_Cam_Xuc") or 0), 2)
-        for url in urls:
-            u = str(url).strip()
-            if not u.startswith("http") or u in seen:
+    for ev in events:
+        sector = str(ev.get("sector") or "")
+        mentions = int(ev.get("num_articles") or 0)
+        tone = float(ev.get("sentiment_tone") or 0)
+        event_id = str(ev.get("global_event_id") or "")
+        for src in ev.get("sources") or []:
+            url = str(src.get("url") or "").strip()
+            if not url.startswith("http") or url in seen:
                 continue
-            seen.add(u)
-            items.append({"url": u, "sector": sector, "mentions": mentions, "tone": tone})
+            seen.add(url)
+            items.append(
+                {
+                    "url": url,
+                    "name": str(src.get("name") or ""),
+                    "sector": sector,
+                    "mentions": mentions,
+                    "tone": round(tone, 2),
+                    "global_event_id": event_id,
+                }
+            )
     items.sort(key=lambda x: (x.get("mentions") or 0), reverse=True)
     return items
 
@@ -819,7 +771,9 @@ def build_payload(
 ) -> dict[str, Any]:
     items = live_feed_items or []
     return {
+        "schema_version": PULSE_SCHEMA_VERSION,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "total_events": len(events),
         "total_clusters": len(events),
         "total_feed_articles": len(items),
         "query_meta": query_meta,
@@ -922,19 +876,23 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     cleaned = clean_dataframe(df)
-    events = cluster_events(cleaned)
+    events = build_events_from_bq(cleaned)
     if events:
         use_gemini = not args.no_gemini
         LOG.info(
-            "Web enrichment for %s events (gemini=%s, timeout=%ss)",
+            "Gemini enrichment for %s events (gemini=%s, timeout=%ss)",
             len(events),
             use_gemini,
             FETCH_TITLE_TIMEOUT,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini)
-    feed_items = build_live_feed_items(cleaned)
+    feed_items = build_live_feed_items(events)
     payload = build_payload(events, query_meta=meta, live_feed_items=feed_items)
-    LOG.info("Exported %s headline clusters, %s feed articles (all BQ URLs)", len(events), len(feed_items))
+    LOG.info(
+        "Exported %s hot events, %s EventMention URLs",
+        len(events),
+        len(feed_items),
+    )
     try:
         atomic_export_json(payload, output)
         # Mirror for GitHub Pages static path

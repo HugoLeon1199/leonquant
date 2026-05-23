@@ -992,6 +992,49 @@
       line-height: 1.55;
       color: var(--text-soft);
     }
+    .pulse-event-importance {
+      margin: 0 0 10px;
+      font-size: .8rem;
+      line-height: 1.5;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .pulse-event-coverage {
+      margin: 0 0 10px;
+      font-size: .8rem;
+      font-weight: 650;
+      color: var(--faint);
+      line-height: 1.45;
+    }
+    .pulse-event-coverage strong { color: var(--text-soft); font-weight: 800; }
+    .pulse-event-entities {
+      margin: 0 0 12px;
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .pulse-event-entities strong { color: var(--text-soft); font-weight: 700; }
+    .pulse-event-sources-head {
+      margin: 0 0 6px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .pulse-event-sources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .pulse-event-sources a {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--cyan-dim);
+    }
     .pulse-event-links { display: flex; flex-wrap: wrap; gap: 8px 12px; }
     .pulse-event-links a {
       font-size: .78rem;
@@ -1765,15 +1808,10 @@
     }
 
     function pulseSentimentClass(label) {
-      if (label === "Tích cực") return "pulse-sentiment--pos";
-      if (label === "Tiêu cực") return "pulse-sentiment--neg";
+      const l = String(label || "");
+      if (l.includes("Tích cực")) return "pulse-sentiment--pos";
+      if (l.includes("Tiêu cực")) return "pulse-sentiment--neg";
       return "pulse-sentiment--neu";
-    }
-
-    function pulseCoverageCount(ev) {
-      const n = ev.article_mentions ?? ev.articleMentions;
-      if (n != null && !Number.isNaN(Number(n))) return Math.max(1, Math.round(Number(n)));
-      return Math.max(1, (ev.urls || []).length);
     }
 
     function pulseSourceLabel(url) {
@@ -1783,111 +1821,51 @@
       return host || url || "Nguồn";
     }
 
+    function normalizePulseSources(raw) {
+      if (!Array.isArray(raw)) return [];
+      const out = [];
+      for (const item of raw) {
+        if (!item) continue;
+        if (typeof item === "string") {
+          const u = String(item).trim();
+          if (u.startsWith("http")) out.push({ url: u, name: pulseSourceLabel(u) });
+          continue;
+        }
+        const u = String(item.url || "").trim();
+        if (!u.startsWith("http")) continue;
+        const name = String(item.name || "").trim() || pulseSourceLabel(u);
+        out.push({ url: u, name });
+      }
+      return out;
+    }
+
     function normalizePulseEvents(data) {
       const raw = Array.isArray(data?.events) ? data.events : [];
       return raw.map((ev) => {
-        if (ev.sector != null || ev.title != null || ev.primary_actor != null) {
-          const sector = String(ev.sector || "").trim();
-          const headline = String(ev.title || "").trim();
-          const entities = Array.isArray(ev.entities)
-            ? ev.entities
-            : Array.isArray(ev.related_entities)
-              ? ev.related_entities
-              : [];
-          const actor = String(ev.primary_actor || "").trim();
-          if (actor && !entities.some((e) => String(e).toUpperCase() === actor.toUpperCase())) {
-            entities.unshift(actor);
-          }
-          return {
-            title: headline || "(Title unavailable)",
-            sector,
-            impact: ev.impact_score,
-            tone: ev.sentiment_tone,
-            sentiment_label: ev.sentiment_label || "",
-            article_mentions: ev.article_mentions,
-            entities,
-            hint: String(ev.summary || ev.summary_hint || "").trim(),
-            urls: Array.isArray(ev.sources) ? ev.sources.filter(Boolean) : [],
-          };
-        }
-        const domain = String(ev.domain || "all");
+        const sector = String(ev.sector || "").trim();
+        const title = String(ev.title_vi || ev.title || "").trim() || "(Chưa có tiêu đề)";
+        const summary = String(ev.summary_vi || ev.summary || ev.summary_hint || "").trim();
+        const importance = String(ev.importance_reason || "").trim();
+        const numArticles = ev.num_articles ?? ev.article_mentions ?? ev.articleMentions;
+        const sources = normalizePulseSources(ev.sources);
+        const sourceCount =
+          ev.source_count != null && !Number.isNaN(Number(ev.source_count))
+            ? Math.max(0, Math.round(Number(ev.source_count)))
+            : sources.length;
+        const entities = Array.isArray(ev.entities) ? ev.entities.filter(Boolean) : [];
         return {
-          title: String(ev.title || "Sự kiện"),
-          sector: ev.domain_label || PULSE_DOMAIN_LABELS[domain] || domain,
-          impact: ev.importance_score,
-          tone: ev.tone,
-          entities: (ev.organizations || []).slice(0, 3),
-          urls: (Array.isArray(ev.urls) ? ev.urls : []).filter(Boolean),
-          hint: ev.summary_hint || "",
+          sector,
+          title,
+          summary,
+          importance,
+          num_articles: numArticles != null ? Math.max(1, Math.round(Number(numArticles))) : 1,
+          source_count: sourceCount,
+          tone: ev.sentiment_tone ?? ev.tone,
+          sentiment_label: ev.sentiment_label || pulseSentimentLabel(ev),
+          entities,
+          sources,
         };
       });
-    }
-
-    function collectPulseFeedItems(data, events) {
-      const raw = Array.isArray(data?.live_feed_items) ? data.live_feed_items : [];
-      if (raw.length) {
-        return raw.filter((x) => x && String(x.url || "").startsWith("http"));
-      }
-      const urls = collectPulseFeedUrls(data, events);
-      return urls.map((u) => ({ url: u, sector: "", mentions: 0 }));
-    }
-
-    function eventScrollUrls(ev, data) {
-      const own = (ev.urls || []).map((u) => String(u || "").trim()).filter((u) => u.startsWith("http"));
-      if (own.length >= 2) return own.slice(0, 10);
-      const sector = String(ev.sector || "").trim();
-      const feed = Array.isArray(data?.live_feed_items) ? data.live_feed_items : [];
-      const fromSector = feed
-        .filter((x) => String(x.sector || "").trim() === sector)
-        .map((x) => String(x.url || "").trim())
-        .filter((u) => u.startsWith("http"));
-      const seen = new Set();
-      const out = [];
-      for (const u of [...own, ...fromSector]) {
-        if (!seen.has(u)) {
-          seen.add(u);
-          out.push(u);
-        }
-      }
-      return out.slice(0, 10);
-    }
-
-    function buildEventUrlTicker(urls) {
-      let list = (Array.isArray(urls) ? urls : []).map((u) => String(u || "").trim()).filter((u) => u.startsWith("http"));
-      if (!list.length) return "";
-      const base = list.slice();
-      while (list.length < 8) list = list.concat(base);
-      const rows = list
-        .map((u) => {
-          const label = pulseSourceLabel(u);
-          return `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a></li>`;
-        })
-        .join("");
-      return `<div class="pulse-event-ticker">
-        <div class="pulse-event-ticker-viewport">
-          <div class="pulse-event-ticker-scroll">
-            <ul class="pulse-event-ticker-list">${rows}</ul>
-            <ul class="pulse-event-ticker-list" aria-hidden="true">${rows}</ul>
-          </div>
-        </div>
-      </div>`;
-    }
-
-    function collectPulseFeedUrls(data, events) {
-      const fromJson = Array.isArray(data?.live_feed_urls) ? data.live_feed_urls.filter(Boolean) : [];
-      if (fromJson.length) return fromJson;
-      const seen = new Set();
-      const out = [];
-      for (const ev of events) {
-        for (const u of ev.urls || []) {
-          const url = String(u || "").trim();
-          if (url.startsWith("http") && !seen.has(url)) {
-            seen.add(url);
-            out.push(url);
-          }
-        }
-      }
-      return out;
     }
 
     function buildPulseHtml(data) {
@@ -1897,36 +1875,39 @@
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
       h += `<h2>Tin nóng nhất thế giới hiện tại <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
-      h += `</header><div class="pulse-panel">`;
-      h += `<ol class="pulse-event-list">`;
+      h += `<p class="hint" style="margin:6px 0 0;font-size:.82rem;">${events.length} sự kiện GDELT nóng nhất 24h (theo độ phủ báo chí)</p>`;
+      h += `</header><div class="pulse-panel"><ol class="pulse-event-list">`;
       events.forEach((ev) => {
-        const sentiment = pulseSentimentLabel(ev);
+        const sentiment = ev.sentiment_label || pulseSentimentLabel(ev);
         const sClass = pulseSentimentClass(sentiment);
-        const coverage = pulseCoverageCount(ev);
-        const urls = (ev.urls || []).map((u) => String(u || "").trim()).filter((u) => u.startsWith("http"));
-        const scrollUrls = eventScrollUrls(ev, data);
         h += `<li class="pulse-event">`;
         if (ev.sector) {
           h += `<p class="pulse-event-sector">${escapeHtml(ev.sector)}</p>`;
         }
         h += `<h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
-        if (ev.hint) {
-          h += `<p class="pulse-event-hint">${escapeHtml(ev.hint)}</p>`;
+        if (ev.summary) {
+          h += `<p class="pulse-event-hint">${escapeHtml(ev.summary)}</p>`;
         }
-        if (urls.length) {
-          h += `<div class="pulse-event-links-row">`;
-          urls.slice(0, 2).forEach((u) => {
-            h += `<a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pulseSourceLabel(u))}</a>`;
-          });
-          h += `</div>`;
+        if (ev.importance) {
+          h += `<p class="pulse-event-importance">${escapeHtml(ev.importance)}</p>`;
         }
-        h += buildEventUrlTicker(scrollUrls.length ? scrollUrls : urls);
-        h += `<p class="pulse-event-meta">`;
-        h += `<strong>${escapeHtml(coverage)}</strong> báo đề cập`;
+        h += `<p class="pulse-event-coverage">Độ phủ: <strong>${escapeHtml(ev.num_articles)}</strong> bài báo`;
+        h += ` · <strong>${escapeHtml(ev.source_count)}</strong> nguồn khác nhau`;
         if (sentiment) {
-          h += ` · <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
+          h += ` · Tone: <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
         }
         h += `</p>`;
+        if (ev.entities && ev.entities.length) {
+          h += `<p class="pulse-event-entities"><strong>Tổ chức/liên quan:</strong> ${escapeHtml(ev.entities.join(" · "))}</p>`;
+        }
+        const showSources = (ev.sources || []).slice(0, 5);
+        if (showSources.length) {
+          h += `<p class="pulse-event-sources-head">Nguồn</p><ul class="pulse-event-sources">`;
+          showSources.forEach((src) => {
+            h += `<li><a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(src.name)}</a></li>`;
+          });
+          h += `</ul>`;
+        }
         h += `</li>`;
       });
       h += `</ol></div></article>`;
