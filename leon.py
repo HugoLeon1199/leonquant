@@ -40,6 +40,7 @@ DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
 TARGET_CLUSTER_MIN = 15
 TARGET_CLUSTER_MAX = 35
+MAX_URLS_PER_EVENT = 10
 TFIDF_MERGE_THRESHOLD = 0.55
 FETCH_TITLE_TIMEOUT = 5
 TITLE_UNAVAILABLE = "(Title unavailable)"
@@ -54,17 +55,67 @@ _content_cache: dict[str, str | None] = {}
 _gemini_configured = False
 
 # CRITICAL: query pushdown — do not widen SELECT or remove filters (OOM / billing risk).
-GDELT_MACRO_QUERY = """
+# Up to MAX_URLS_PER_EVENT distinct SOURCEURLs per GLOBALEVENTID (same GDELT event).
+GDELT_MACRO_QUERY = f"""
 WITH
   FilteredEvents AS (
-    SELECT Actor1Name, Actor2Name, EventRootCode, AvgTone, NumArticles, SOURCEURL
+    SELECT
+      GLOBALEVENTID,
+      Actor1Name,
+      AvgTone,
+      NumArticles,
+      SOURCEURL
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
-    AND NumArticles >= 40
-    AND (AvgTone <= -4.0 OR AvgTone >= 4.0)
+      AND NumArticles >= 40
+      AND (AvgTone <= -4.0 OR AvgTone >= 4.0)
+      AND SOURCEURL IS NOT NULL
+      AND SOURCEURL != ''
+  ),
+  RankedEvents AS (
+    SELECT GLOBALEVENTID, MAX(NumArticles) AS max_num_articles
+    FROM FilteredEvents
+    GROUP BY GLOBALEVENTID
+    ORDER BY max_num_articles DESC
+    LIMIT 150
+  ),
+  EventUrlDedup AS (
+    SELECT
+      GLOBALEVENTID,
+      SOURCEURL,
+      ANY_VALUE(Actor1Name) AS Actor1Name,
+      ANY_VALUE(AvgTone) AS AvgTone,
+      MAX(NumArticles) AS NumArticles
+    FROM FilteredEvents
+    GROUP BY GLOBALEVENTID, SOURCEURL
+  ),
+  EventUrlsRanked AS (
+    SELECT
+      f.GLOBALEVENTID,
+      f.SOURCEURL,
+      f.Actor1Name,
+      f.AvgTone,
+      f.NumArticles,
+      ROW_NUMBER() OVER (
+        PARTITION BY f.GLOBALEVENTID
+        ORDER BY f.NumArticles DESC, f.SOURCEURL
+      ) AS url_rank
+    FROM EventUrlDedup AS f
+    INNER JOIN RankedEvents AS r ON f.GLOBALEVENTID = r.GLOBALEVENTID
+  ),
+  TopEventUrls AS (
+    SELECT * FROM EventUrlsRanked WHERE url_rank <= {MAX_URLS_PER_EVENT}
+  ),
+  EventReps AS (
+    SELECT GLOBALEVENTID, Actor1Name, AvgTone, NumArticles, SOURCEURL
+    FROM TopEventUrls
+    WHERE url_rank = 1
   ),
   FilteredGKG AS (
-    SELECT DocumentIdentifier, REGEXP_REPLACE(V2Organizations, r',?\\d+', '') AS Cong_Ty_Clean,
+    SELECT
+      DocumentIdentifier,
+      V2Themes,
+      REGEXP_REPLACE(V2Organizations, r',?\\d+', '') AS Cong_Ty_Clean,
       CASE
         WHEN REGEXP_CONTAINS(V2Themes, r'ECON|TRADE|FINANCE|CURRENCY|BANK') THEN 'Tài chính - Kinh tế'
         WHEN REGEXP_CONTAINS(V2Themes, r'CRYPTO|BITCOIN|BLOCKCHAIN|DIGITAL_CURRENCY') THEN 'Crypto - Tài sản số'
@@ -80,15 +131,73 @@ WITH
       END AS Nhom_Nganh
     FROM `gdelt-bq.gdeltv2.gkg_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
-    AND V2Organizations IS NOT NULL
+      AND V2Organizations IS NOT NULL
+  ),
+  RepMeta AS (
+    SELECT
+      rep.GLOBALEVENTID,
+      rep.Actor1Name,
+      rep.AvgTone,
+      rep.NumArticles,
+      rep.SOURCEURL,
+      g.Nhom_Nganh,
+      g.Cong_Ty_Clean,
+      NULLIF(TRIM(SPLIT(g.V2Themes, ';')[SAFE_OFFSET(0)]), '') AS theme_hint,
+      NULLIF(TRIM(SPLIT(g.Cong_Ty_Clean, ',')[SAFE_OFFSET(0)]), '') AS org_hint
+    FROM EventReps AS rep
+    INNER JOIN FilteredGKG AS g ON rep.SOURCEURL = g.DocumentIdentifier
+    WHERE g.Nhom_Nganh != 'Khác'
+  ),
+  RelatedGkgUrls AS (
+    SELECT
+      m.GLOBALEVENTID,
+      g.DocumentIdentifier AS SOURCEURL,
+      ROW_NUMBER() OVER (PARTITION BY m.GLOBALEVENTID ORDER BY g.DocumentIdentifier) AS rel_rank
+    FROM RepMeta AS m
+    INNER JOIN FilteredGKG AS g
+      ON g.Nhom_Nganh = m.Nhom_Nganh
+      AND g.DocumentIdentifier != m.SOURCEURL
+      AND g.Nhom_Nganh != 'Khác'
+      AND (
+        (m.theme_hint IS NOT NULL AND STRPOS(g.V2Themes, m.theme_hint) > 0)
+        OR (m.org_hint IS NOT NULL AND STRPOS(UPPER(g.Cong_Ty_Clean), UPPER(m.org_hint)) > 0)
+      )
+  ),
+  CombinedUrls AS (
+    SELECT GLOBALEVENTID, SOURCEURL, url_rank AS sort_key FROM TopEventUrls
+    UNION ALL
+    SELECT GLOBALEVENTID, SOURCEURL, 50 + rel_rank AS sort_key
+    FROM RelatedGkgUrls
+    WHERE rel_rank < {MAX_URLS_PER_EVENT}
+  ),
+  UrlsDedup AS (
+    SELECT
+      GLOBALEVENTID,
+      SOURCEURL,
+      ROW_NUMBER() OVER (PARTITION BY GLOBALEVENTID ORDER BY MIN(sort_key)) AS final_rank
+    FROM CombinedUrls
+    GROUP BY GLOBALEVENTID, SOURCEURL
+  ),
+  EventUrlsAgg AS (
+    SELECT
+      GLOBALEVENTID,
+      ARRAY_AGG(SOURCEURL ORDER BY final_rank LIMIT {MAX_URLS_PER_EVENT}) AS Danh_Sach_Lien_Ket
+    FROM UrlsDedup
+    WHERE final_rank <= {MAX_URLS_PER_EVENT}
+    GROUP BY GLOBALEVENTID
   )
-SELECT e.Actor1Name AS Doi_Tuong_Chinh, g.Nhom_Nganh, e.AvgTone AS Diem_Cam_Xuc,
-       g.Cong_Ty_Clean AS Cac_To_Chuc_Lien_Quan, e.SOURCEURL AS Link_Bai_Bao,
-       e.NumArticles AS So_Bao_De_Cap
-FROM FilteredEvents AS e
-INNER JOIN FilteredGKG AS g ON e.SOURCEURL = g.DocumentIdentifier
-WHERE g.Nhom_Nganh != 'Khác'
-ORDER BY e.NumArticles DESC
+SELECT
+  m.GLOBALEVENTID AS Ma_Su_Kien,
+  m.Actor1Name AS Doi_Tuong_Chinh,
+  m.Nhom_Nganh,
+  m.AvgTone AS Diem_Cam_Xuc,
+  m.Cong_Ty_Clean AS Cac_To_Chuc_Lien_Quan,
+  m.SOURCEURL AS Link_Bai_Bao,
+  m.NumArticles AS So_Bao_De_Cap,
+  agg.Danh_Sach_Lien_Ket
+FROM RepMeta AS m
+INNER JOIN EventUrlsAgg AS agg ON m.GLOBALEVENTID = agg.GLOBALEVENTID
+ORDER BY m.NumArticles DESC
 LIMIT 150
 """.strip()
 
@@ -183,8 +292,37 @@ def parse_entity_list(raw: Any, *, limit: int = 3) -> list[str]:
     return out
 
 
+def _parse_url_list(val: Any) -> list[str]:
+    """Parse BigQuery ARRAY_AGG column into up to MAX_URLS_PER_EVENT http URLs."""
+    if val is None or (isinstance(val, float) and pd.isna(val)):
+        return []
+    if hasattr(val, "tolist") and not isinstance(val, (str, bytes)):
+        raw = val.tolist()
+    elif isinstance(val, (list, tuple)):
+        raw = list(val)
+    else:
+        s = str(val).strip()
+        if not s:
+            return []
+        if s.startswith("["):
+            try:
+                raw = json.loads(s)
+            except json.JSONDecodeError:
+                raw = [s]
+        else:
+            raw = [s]
+    out: list[str] = []
+    for item in raw:
+        u = str(item).strip()
+        if u.startswith("http") and u not in out:
+            out.append(u)
+        if len(out) >= MAX_URLS_PER_EVENT:
+            break
+    return out
+
+
 def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """Dedupe URLs, normalize actors, parse entity lists — no heavy regex on raw GDELT."""
+    """Dedupe events, normalize actors, parse entity lists — no heavy regex on raw GDELT."""
     if df.empty:
         return df
 
@@ -192,7 +330,16 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     out.columns = [str(c) for c in out.columns]
     out["Link_Bai_Bao"] = out["Link_Bai_Bao"].astype(str).str.strip()
     out = out[out["Link_Bai_Bao"].str.startswith("http", na=False)]
-    out = out.drop_duplicates(subset=["Link_Bai_Bao"], keep="first")
+
+    if "Danh_Sach_Lien_Ket" in out.columns:
+        out["event_urls"] = out["Danh_Sach_Lien_Ket"].map(_parse_url_list)
+    else:
+        out["event_urls"] = out["Link_Bai_Bao"].map(lambda u: [u] if u else [])
+
+    if "Ma_Su_Kien" in out.columns:
+        out = out.drop_duplicates(subset=["Ma_Su_Kien"], keep="first")
+    else:
+        out = out.drop_duplicates(subset=["Link_Bai_Bao"], keep="first")
 
     out["Doi_Tuong_Chinh"] = out["Doi_Tuong_Chinh"].fillna("").astype(str).str.strip()
     out["Nhom_Nganh"] = out["Nhom_Nganh"].fillna("").astype(str).str.strip()
@@ -503,7 +650,7 @@ class MacroCluster:
             "sentiment_label": sentiment_label,
             "article_mentions": int(coverage),
             "entities": entity_tags,
-            "sources": self.sources[:25],
+            "sources": self.sources[:MAX_URLS_PER_EVENT],
         }
 
 
@@ -568,12 +715,16 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
     if df.empty:
         return []
 
-    buckets: dict[tuple[str, str], MacroCluster] = {}
+    buckets: dict[tuple[str, ...], MacroCluster] = {}
     for _, row in df.iterrows():
         actor = _normalize_actor_name(row["Doi_Tuong_Chinh"]) or "UNKNOWN"
         sector = str(row["Nhom_Nganh"]).strip()
-        key = _actor_sector_key(actor, sector)
-        url = str(row["Link_Bai_Bao"]).strip()
+        event_id = str(row.get("Ma_Su_Kien") or "").strip()
+        key: tuple[str, ...] = ("ev", event_id) if event_id else _actor_sector_key(actor, sector)
+        primary_url = str(row["Link_Bai_Bao"]).strip()
+        row_urls = list(row.get("event_urls") or [])
+        if primary_url and primary_url not in row_urls:
+            row_urls = [primary_url] + row_urls
         ents = list(row.get("entities_clean") or [])
         tone = float(row["Diem_Cam_Xuc"])
         rank = int(row.get("rank", 0))
@@ -583,8 +734,12 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
             buckets[key] = MacroCluster(sector=sector, primary_actor=actor_display or actor)
         cl = buckets[key]
         cl.rows.append(row.to_dict())
-        if url and url not in cl.sources:
-            cl.sources.append(url)
+        for url in row_urls:
+            u = str(url).strip()
+            if u.startswith("http") and u not in cl.sources:
+                cl.sources.append(u)
+            if len(cl.sources) >= MAX_URLS_PER_EVENT:
+                break
         if actor_display and actor_display.upper() not in {x.upper() for x in cl.actors}:
             cl.actors.append(actor_display)
         for e in ents:
@@ -616,42 +771,11 @@ def cluster_events(df: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 def expand_event_sources(events: list[dict[str, Any]], cleaned: pd.DataFrame) -> list[dict[str, Any]]:
-    """Attach related article URLs per story (own link, actor match, then sector pool), up to 20."""
-    if cleaned.empty or not events:
-        return events
-
+    """Cap sources at MAX_URLS_PER_EVENT (URLs already aggregated in BigQuery per GLOBALEVENTID)."""
+    del cleaned
     for ev in events:
-        sector = str(ev.get("sector") or "").strip()
         base = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
-        actor_keys = {
-            _normalize_actor_name(ev.get("primary_actor")).upper(),
-            *(_normalize_actor_name(a).upper() for a in (ev.get("entities") or [])),
-        }
-        actor_keys.discard("")
-
-        actor_matched: list[str] = []
-        for _, row in cleaned.iterrows():
-            if str(row.get("Nhom_Nganh") or "").strip() != sector:
-                continue
-            url = str(row.get("Link_Bai_Bao") or "").strip()
-            if not url.startswith("http"):
-                continue
-            row_actor = _normalize_actor_name(row.get("Doi_Tuong_Chinh")).upper()
-            if row_actor and any(row_actor in ak or ak in row_actor for ak in actor_keys if ak):
-                if url not in actor_matched:
-                    actor_matched.append(url)
-
-        merged: list[str] = []
-        seen: set[str] = set()
-        for u in base + actor_matched:
-            if u in seen:
-                continue
-            seen.add(u)
-            merged.append(u)
-            if len(merged) >= 20:
-                break
-        ev["sources"] = merged[:20]
-
+        ev["sources"] = base[:MAX_URLS_PER_EVENT]
     return events
 
 
@@ -661,26 +785,28 @@ def expand_event_sources(events: list[dict[str, Any]], cleaned: pd.DataFrame) ->
 
 
 def build_live_feed_items(cleaned: pd.DataFrame) -> list[dict[str, Any]]:
-    """Every article URL returned by BigQuery this run (not one link per cluster)."""
-    if cleaned.empty or "Link_Bai_Bao" not in cleaned.columns:
+    """Every article URL from BigQuery (up to MAX_URLS_PER_EVENT per GDELT event)."""
+    if cleaned.empty:
         return []
     items: list[dict[str, Any]] = []
+    seen: set[str] = set()
     for _, row in cleaned.iterrows():
-        url = str(row.get("Link_Bai_Bao") or "").strip()
-        if not url.startswith("http"):
-            continue
+        urls = list(row.get("event_urls") or [])
+        primary = str(row.get("Link_Bai_Bao") or "").strip()
+        if primary and primary not in urls:
+            urls = [primary] + urls
         try:
             mentions = int(row.get("So_Bao_De_Cap") or 0)
         except (TypeError, ValueError):
             mentions = 0
-        items.append(
-            {
-                "url": url,
-                "sector": str(row.get("Nhom_Nganh") or "").strip(),
-                "mentions": mentions,
-                "tone": round(float(row.get("Diem_Cam_Xuc") or 0), 2),
-            }
-        )
+        sector = str(row.get("Nhom_Nganh") or "").strip()
+        tone = round(float(row.get("Diem_Cam_Xuc") or 0), 2)
+        for url in urls:
+            u = str(url).strip()
+            if not u.startswith("http") or u in seen:
+                continue
+            seen.add(u)
+            items.append({"url": u, "sector": sector, "mentions": mentions, "tone": tone})
     items.sort(key=lambda x: (x.get("mentions") or 0), reverse=True)
     return items
 

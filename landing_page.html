@@ -1834,6 +1834,7 @@
 
     function eventScrollUrls(ev, data) {
       const own = (ev.urls || []).map((u) => String(u || "").trim()).filter((u) => u.startsWith("http"));
+      if (own.length >= 2) return own.slice(0, 10);
       const sector = String(ev.sector || "").trim();
       const feed = Array.isArray(data?.live_feed_items) ? data.live_feed_items : [];
       const fromSector = feed
@@ -1848,7 +1849,7 @@
           out.push(u);
         }
       }
-      return out.slice(0, 20);
+      return out.slice(0, 10);
     }
 
     function buildEventUrlTicker(urls) {
