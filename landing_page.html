@@ -741,6 +741,12 @@
     }
     .digest-notable-all { margin-top: 0.75rem; }
 
+    .pulse-footnote {
+      margin: 0.35rem 0 0;
+      font-size: 0.82rem;
+      color: var(--faint);
+      max-width: 42rem;
+    }
     .pulse-panel {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -1641,6 +1647,7 @@
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
       h += `<h2>Tin nóng thế giới hiện tại</h2>`;
+      h += `<p class="digest-report-lead pulse-footnote">Số bài báo theo chỉ số GDELT (24h, tin nóng toàn cầu) — không phải quét hết mọi bài trên internet.</p>`;
       h += `</header><div class="pulse-panel">`;
       h += `<ol class="pulse-event-list">`;
       events.forEach((ev) => {
@@ -1656,7 +1663,12 @@
           h += `<p class="pulse-event-hint">${escapeHtml(ev.hint)}</p>`;
         }
         h += `<p class="pulse-event-meta">`;
-        h += `<strong>${escapeHtml(coverage)}</strong> báo đề cập`;
+        h += `<strong>${escapeHtml(coverage)}</strong> bài báo (GDELT)`;
+        if (ev.urls && ev.urls.length === 1) {
+          h += ` · 1 liên kết nguồn`;
+        } else if (ev.urls && ev.urls.length > 1) {
+          h += ` · ${ev.urls.length} liên kết`;
+        }
         if (sentiment) {
           h += ` · <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
         }

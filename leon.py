@@ -60,7 +60,7 @@ WITH
     SELECT Actor1Name, Actor2Name, EventRootCode, AvgTone, NumArticles, SOURCEURL
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
-    AND NumArticles >= 50
+    AND NumArticles >= 15
     AND (AvgTone <= -4.0 OR AvgTone >= 4.0)
   ),
   FilteredGKG AS (
@@ -481,7 +481,11 @@ class MacroCluster:
         best_rank = min(self.ranks) if self.ranks else 149
         score = impact_score(best_rank, tone_avg)
         entity_tags = _merge_entity_tags(self.actors, self.related_entities)
-        coverage = max(self.article_mentions) if self.article_mentions else max(len(self.sources), 1)
+        # GDELT NumArticles = global media volume for that event row (not our scrape count).
+        if self.article_mentions:
+            coverage = max(self.article_mentions)
+        else:
+            coverage = max(len(self.sources), 1)
         if tone_avg >= 2.0:
             sentiment_label = "Tích cực"
         elif tone_avg <= -2.0:
