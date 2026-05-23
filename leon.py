@@ -315,10 +315,27 @@ def _source_record(url: str, mention_name: str = "") -> dict[str, str]:
     }
 
 
+def _story_fingerprint(url: str) -> str:
+    """
+    Same wire story syndicated to many local domains shares one numeric/slug id in the path.
+    GDELT EventMentions stores each host as a separate MentionIdentifier — we collapse those for display.
+    """
+    u = str(url or "").strip()
+    path = urlparse(u).path
+    m = re.search(r"/(\d{7,})(?:[./?]|$)", path)
+    if m:
+        return f"story:{m.group(1)}"
+    m2 = re.search(r"/content/(\d{4}-\d{2}-\d{2}-[^/?#]+)", path, flags=re.IGNORECASE)
+    if m2:
+        return f"slug:{m2.group(1).lower()}"
+    return f"url:{u}"
+
+
 def _parse_mention_sources(val: Any) -> list[dict[str, str]]:
-    """Parse EventMentions ARRAY<STRUCT<url,name>> from BigQuery."""
+    """Parse EventMentions ARRAY<STRUCT<url,name>>; dedupe full URL + syndicated same-story copies."""
     out: list[dict[str, str]] = []
-    seen: set[str] = set()
+    seen_urls: set[str] = set()
+    seen_stories: set[str] = set()
     for item in _iter_raw_sequence(val):
         if isinstance(item, dict):
             url = str(item.get("url") or item.get("MentionIdentifier") or "").strip()
@@ -326,9 +343,13 @@ def _parse_mention_sources(val: Any) -> list[dict[str, str]]:
         else:
             url = str(item).strip()
             name = ""
-        if not url.startswith("http") or url in seen:
+        if not url.startswith("http") or url in seen_urls:
             continue
-        seen.add(url)
+        story_key = _story_fingerprint(url)
+        if story_key in seen_stories:
+            continue
+        seen_urls.add(url)
+        seen_stories.add(story_key)
         out.append(_source_record(url, name))
         if len(out) >= MAX_MENTIONS_PER_EVENT:
             break
@@ -706,6 +727,7 @@ def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
         sector = str(row.get("sector_display") or row.get("Nhom_Nganh") or "").strip()
         entities = _merge_entity_tags([actor] if actor else [], orgs, limit=8)
 
+        distinct_sources = sources[:MAX_MENTIONS_PER_EVENT]
         events.append(
             {
                 "global_event_id": event_id,
@@ -714,11 +736,11 @@ def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
                 "summary_vi": "",
                 "importance_reason": "",
                 "num_articles": max(num_articles, 1),
-                "source_count": len({s["url"] for s in sources}),
+                "source_count": len(distinct_sources),
                 "sentiment_tone": round(tone, 2),
                 "sentiment_label": sentiment_label_vi(tone),
                 "entities": entities,
-                "sources": sources[:MAX_MENTIONS_PER_EVENT],
+                "sources": distinct_sources,
                 "impact_score": impact_score(rank, tone, max_rank=max(TARGET_HOT_EVENTS, 1)),
                 "primary_actor": actor,
                 "article_mentions": max(num_articles, 1),

@@ -1898,10 +1898,12 @@
         const importance = String(ev.importance_reason || "").trim();
         const numArticles = ev.num_articles ?? ev.article_mentions ?? ev.articleMentions;
         const sources = normalizePulseSources(ev.sources);
-        const sourceCount =
+        const deduped = dedupePulseSources(sources);
+        const sourceCount = deduped.length || (
           ev.source_count != null && !Number.isNaN(Number(ev.source_count))
             ? Math.max(0, Math.round(Number(ev.source_count)))
-            : sources.length;
+            : sources.length
+        );
         const entities = Array.isArray(ev.entities) ? ev.entities.filter(Boolean) : [];
         return {
           sector,
@@ -1909,17 +1911,45 @@
           summary,
           importance,
           num_articles: numArticles != null ? Math.max(1, Math.round(Number(numArticles))) : 1,
-          source_count: sourceCount,
+          source_count: deduped.length || sourceCount,
           tone: ev.sentiment_tone ?? ev.tone,
           sentiment_label: ev.sentiment_label || pulseSentimentLabel(ev),
           entities,
-          sources,
+          sources: deduped.length ? deduped : sources,
         };
       });
     }
 
+    function pulseStoryFingerprint(url) {
+      const u = String(url || "");
+      const path = (() => {
+        try { return new URL(u).pathname; } catch (e) { return ""; }
+      })();
+      const id = path.match(/\/(\d{7,})(?:[./?]|$)/);
+      if (id) return "story:" + id[1];
+      const slug = path.match(/\/content\/(\d{4}-\d{2}-\d{2}-[^/?#]+)/i);
+      if (slug) return "slug:" + slug[1].toLowerCase();
+      return "url:" + u;
+    }
+
+    function dedupePulseSources(sources) {
+      const seen = new Set();
+      const out = [];
+      for (const s of sources || []) {
+        const url = String(s.url || "").trim();
+        if (!url.startsWith("http")) continue;
+        const key = pulseStoryFingerprint(url);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push(s);
+      }
+      return out;
+    }
+
     function buildPulseSourcesTicker(sources) {
-      let list = (Array.isArray(sources) ? sources : []).filter((s) => s && String(s.url || "").startsWith("http"));
+      let list = dedupePulseSources(
+        (Array.isArray(sources) ? sources : []).filter((s) => s && String(s.url || "").startsWith("http"))
+      );
       if (!list.length) return "";
       const base = list.slice();
       while (list.length < 6) list = list.concat(base);
