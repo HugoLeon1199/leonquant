@@ -45,7 +45,7 @@ FETCH_TITLE_TIMEOUT = 5
 TITLE_UNAVAILABLE = "(Title unavailable)"
 HTTP_USER_AGENT = "LeonWebIntel/1.0 (+https://leonquant.com)"
 SKIP_ACTOR_VALUES = frozenset({"", "NONE", "NULL", "UNKNOWN", "KHÔNG RÕ", "KHONG RO", "N/A"})
-DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite"
+DEFAULT_GEMINI_MODEL = "gemini-3.1-flash-lite"
 GEMINI_CALL_INTERVAL_SEC = 2.0
 
 LOG = logging.getLogger("leon.web_intel")
@@ -323,35 +323,50 @@ def _parse_gemini_enrichment(text: str) -> dict[str, Any]:
         elif upper.startswith("SUMMARY:"):
             result["summary_vi"] = line.split(":", 1)[1].strip()
         elif upper.startswith("ENTITIES:"):
-            raw = line.split(":", 1)[1]
-            result["entities"] = [e.strip() for e in raw.split(",") if e.strip()]
+            raw = line.split(":", 1)[1].strip()
+            if raw.lower() in ("none", "không", "khong", "n/a", "-", "không có", "khong co"):
+                result["entities"] = []
+            else:
+                result["entities"] = [e.strip() for e in raw.split(",") if e.strip()]
     return result
 
 
 def enrich_event_with_gemini(sector: str, primary_actor: str, raw_content: str | None) -> dict[str, Any] | None:
-    """Gemini: Vietnamese headline + one-line summary + entity tags."""
+    """Gemini: Vietnamese headline + multi-sector summary + entities (only if cited)."""
     if not raw_content or not _configure_gemini():
         return None
 
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-You are an expert financial and geopolitical analyst fluent in Vietnamese.
-Analyze this raw global news content and convert it into a structured summary.
+You are an expert macro analyst covering finance, geopolitics, technology, health, energy, law, and conflict — writing in professional Vietnamese.
 
-Context: Sector is {sector}, Primary Actor is {primary_actor}.
-Raw Content:
+GDELT context (for reference only; do not invent facts beyond the article):
+- Sector tag from data pipeline: {sector}
+- Primary actor tag: {primary_actor}
+
+Raw article excerpt:
 {raw_content}
 
-Your task:
-1. Write a sharp, professional headline in Vietnamese (Tiêu đề báo chí). Do not exceed 15 words.
-2. Write a 1-sentence concise summary in Vietnamese explaining what countries/actors are focused on and why it matters.
-3. Extract top 3 related stock tickers or global organizations if mentioned.
+Rules:
+- Use ONLY facts present in the excerpt. Do not fabricate numbers, countries, or tickers.
+- Do NOT invent stock tickers or company names unless they appear in the excerpt.
+- Multi-sector lens: explain why this matters across regions/industries when relevant.
 
-Respond STRICTLY in the following format (No extra text, no markdown block):
-TITLE: [Vietnamese Title]
-SUMMARY: [Vietnamese Summary]
-ENTITIES: [Entity1, Entity2, Entity3]
+Your tasks:
+1. TITLE: One sharp professional headline in Vietnamese (max 18 words).
+2. SUMMARY: 1–2 sentences in Vietnamese covering:
+   - What happened
+   - Who is affected (countries, institutions, markets)
+   - Why it is notable now
+   - Which sector/industry it relates to (may echo or refine: {sector})
+   - If the excerpt hints at market or asset impact (stocks, oil, FX, crypto, bonds), mention lightly in one short clause; otherwise omit.
+3. ENTITIES: Up to 3 organizations, institutions, or tickers EXPLICITLY mentioned in the excerpt. If none, write: ENTITIES: none
+
+Respond STRICTLY in this format (plain text, no markdown):
+TITLE: [Vietnamese headline]
+SUMMARY: [1-2 Vietnamese sentences]
+ENTITIES: [Name1, Name2, Name3] OR none
 """.strip()
 
     try:
