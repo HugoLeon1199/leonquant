@@ -18,11 +18,13 @@ import logging
 import os
 import re
 import sys
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import google.generativeai as genai
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -43,9 +45,13 @@ FETCH_TITLE_TIMEOUT = 5
 TITLE_UNAVAILABLE = "(Title unavailable)"
 HTTP_USER_AGENT = "LeonWebIntel/1.0 (+https://leonquant.com)"
 SKIP_ACTOR_VALUES = frozenset({"", "NONE", "NULL", "UNKNOWN", "KHÔNG RÕ", "KHONG RO", "N/A"})
+DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite"
+GEMINI_CALL_INTERVAL_SEC = 2.0
 
 LOG = logging.getLogger("leon.web_intel")
 _title_cache: dict[str, str] = {}
+_content_cache: dict[str, str | None] = {}
+_gemini_configured = False
 
 # CRITICAL: query pushdown — do not widen SELECT or remove filters (OOM / billing risk).
 GDELT_MACRO_QUERY = """
@@ -196,8 +202,50 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
-# Article titles (lightweight scrape — top URL per cluster)
+# Scrape + Gemini (Vietnamese headlines — top URL per cluster)
 # ---------------------------------------------------------------------------
+
+
+def _configure_gemini() -> bool:
+    global _gemini_configured
+    if _gemini_configured:
+        return True
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        LOG.warning("GEMINI_API_KEY missing — skipping Vietnamese AI enrichment")
+        return False
+    genai.configure(api_key=api_key)
+    _gemini_configured = True
+    return True
+
+
+def extract_web_content(url: str, *, timeout: int = FETCH_TITLE_TIMEOUT) -> str | None:
+    """Scrape title + opening paragraphs for Gemini context."""
+    url = str(url or "").strip()
+    if not url.startswith("http"):
+        return None
+    if url in _content_cache:
+        return _content_cache[url]
+
+    snippet: str | None = None
+    try:
+        resp = requests.get(
+            url,
+            timeout=timeout,
+            headers={"User-Agent": HTTP_USER_AGENT, "Accept": "text/html,application/xhtml+xml"},
+            allow_redirects=True,
+        )
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, "html.parser")
+            title = soup.title.get_text(strip=True) if soup.title else ""
+            paragraphs = [p.get_text(" ", strip=True) for p in soup.find_all("p")[:3]]
+            content_text = " ".join(paragraphs)
+            snippet = f"Title: {title}\nContent Snippet: {content_text[:1000]}"
+    except Exception as exc:
+        LOG.debug("extract_web_content failed %s: %s", url[:96], exc)
+
+    _content_cache[url] = snippet
+    return snippet
 
 
 def fetch_title(url: str, *, timeout: int = FETCH_TITLE_TIMEOUT) -> str:
@@ -255,16 +303,126 @@ def _merge_entity_tags(actors: list[str], organizations: list[str], *, limit: in
     return out
 
 
-def enrich_events_with_titles(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Set headline from scraped article title (top source URL per event)."""
+def _primary_actor_label(event: dict[str, Any]) -> str:
+    for item in event.get("entities") or []:
+        text = str(item or "").strip()
+        if text and text.upper() not in SKIP_ACTOR_VALUES:
+            return text
+    return str(event.get("sector") or "Sự kiện")
+
+
+def _parse_gemini_enrichment(text: str) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for line in (text or "").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        upper = line.upper()
+        if upper.startswith("TITLE:"):
+            result["title_vi"] = line.split(":", 1)[1].strip()
+        elif upper.startswith("SUMMARY:"):
+            result["summary_vi"] = line.split(":", 1)[1].strip()
+        elif upper.startswith("ENTITIES:"):
+            raw = line.split(":", 1)[1]
+            result["entities"] = [e.strip() for e in raw.split(",") if e.strip()]
+    return result
+
+
+def enrich_event_with_gemini(sector: str, primary_actor: str, raw_content: str | None) -> dict[str, Any] | None:
+    """Gemini: Vietnamese headline + one-line summary + entity tags."""
+    if not raw_content or not _configure_gemini():
+        return None
+
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+You are an expert financial and geopolitical analyst fluent in Vietnamese.
+Analyze this raw global news content and convert it into a structured summary.
+
+Context: Sector is {sector}, Primary Actor is {primary_actor}.
+Raw Content:
+{raw_content}
+
+Your task:
+1. Write a sharp, professional headline in Vietnamese (Tiêu đề báo chí). Do not exceed 15 words.
+2. Write a 1-sentence concise summary in Vietnamese explaining what countries/actors are focused on and why it matters.
+3. Extract top 3 related stock tickers or global organizations if mentioned.
+
+Respond STRICTLY in the following format (No extra text, no markdown block):
+TITLE: [Vietnamese Title]
+SUMMARY: [Vietnamese Summary]
+ENTITIES: [Entity1, Entity2, Entity3]
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        parsed = _parse_gemini_enrichment(response.text or "")
+        return parsed if parsed.get("title_vi") else None
+    except Exception as exc:
+        LOG.warning("Gemini enrichment failed: %s", exc)
+        return None
+
+
+def _merge_entity_lists(*lists: list[str], limit: int = 8) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    for lst in lists:
+        for item in lst or []:
+            text = re.sub(r"\s+", " ", str(item or "").strip())
+            if not text:
+                continue
+            key = text.upper()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(text[:120])
+            if len(out) >= limit:
+                return out
+    return out
+
+
+def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
+    """Scrape source URL; optionally Gemini Vietnamese title/summary."""
     for i, ev in enumerate(events, start=1):
         sources = ev.get("sources") or []
         top_url = sources[0] if sources else ""
-        if top_url:
-            LOG.info("Fetching title %s/%s: %s", i, len(events), top_url[:80])
-            ev["title"] = fetch_title(top_url)
-        else:
+        sector = str(ev.get("sector") or "")
+        actor = _primary_actor_label(ev)
+        existing_entities = list(ev.get("entities") or [])
+
+        if not top_url:
             ev["title"] = TITLE_UNAVAILABLE
+            ev["summary"] = "Chưa có nguồn tin để tóm tắt."
+            continue
+
+        LOG.info("Enriching event %s/%s: %s", i, len(events), top_url[:80])
+        raw_content = extract_web_content(top_url)
+        ai_data = None
+        if use_gemini:
+            ai_data = enrich_event_with_gemini(sector, actor, raw_content)
+            if i < len(events):
+                time.sleep(GEMINI_CALL_INTERVAL_SEC)
+
+        if ai_data:
+            ev["title"] = ai_data.get("title_vi") or TITLE_UNAVAILABLE
+            ev["summary"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
+            ev["entities"] = _merge_entity_lists(
+                ai_data.get("entities") or [],
+                existing_entities,
+            )
+        else:
+            scraped_title = TITLE_UNAVAILABLE
+            if raw_content and raw_content.startswith("Title:"):
+                scraped_title = raw_content.split("\n", 1)[0].replace("Title:", "").strip() or TITLE_UNAVAILABLE
+            if scraped_title == TITLE_UNAVAILABLE:
+                scraped_title = fetch_title(top_url)
+            ev["title"] = scraped_title
+            ev["summary"] = (
+                f"Tin nóng nhóm {sector}: {actor}. "
+                "Nhấp link nguồn để đọc bài gốc."
+            )
+            ev["entities"] = existing_entities
+
     return events
 
 
@@ -308,6 +466,7 @@ class MacroCluster:
         entity_tags = _merge_entity_tags(self.actors, self.related_entities)
         return {
             "title": "",
+            "summary": "",
             "sector": self.sector,
             "impact_score": score,
             "sentiment_tone": round(tone_avg, 2),
@@ -480,6 +639,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--job-timeout-ms", type=int, default=DEFAULT_JOB_TIMEOUT_MS)
     p.add_argument("--max-bytes-billed", type=int, default=DEFAULT_MAX_BYTES_BILLED)
     p.add_argument("-v", "--verbose", action="store_true")
+    p.add_argument(
+        "--no-gemini",
+        action="store_true",
+        help="Skip Gemini; use scraped HTML title only",
+    )
     return p.parse_args(argv)
 
 
@@ -521,8 +685,14 @@ def main(argv: list[str] | None = None) -> int:
     cleaned = clean_dataframe(df)
     events = cluster_events(cleaned)
     if events:
-        LOG.info("Scraping article titles for %s events (timeout=%ss each)", len(events), FETCH_TITLE_TIMEOUT)
-        events = enrich_events_with_titles(events)
+        use_gemini = not args.no_gemini
+        LOG.info(
+            "Web enrichment for %s events (gemini=%s, timeout=%ss)",
+            len(events),
+            use_gemini,
+            FETCH_TITLE_TIMEOUT,
+        )
+        events = enrich_events_for_web(events, use_gemini=use_gemini)
     payload = build_payload(events, query_meta=meta)
     try:
         atomic_export_json(payload, output)

@@ -797,6 +797,12 @@
       color: var(--faint);
       margin: 4px 0 0;
     }
+    .pulse-event-tags {
+      margin: 0 0 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
     .pulse-event-hint {
       margin: 0 0 10px;
       font-size: .86rem;
@@ -1591,6 +1597,7 @@
             impact: ev.impact_score,
             tone: ev.sentiment_tone,
             entities,
+            hint: String(ev.summary || ev.summary_hint || "").trim(),
             urls: Array.isArray(ev.sources) ? ev.sources.filter(Boolean) : [],
           };
         }
@@ -1614,9 +1621,9 @@
       }
       const total = data.total_clusters || events.length;
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<p class="eyebrow">Macro radar · GDELT</p>`;
-      h += `<h2>Tin tức toàn cầu — cập nhật từng phút</h2>`;
-      h += `<p class="digest-report-lead">Sự kiện vĩ mô đa ngành (24h), lọc và gom cụm từ BigQuery — tách khỏi bản tin tổng hợp 24h.</p>`;
+      h += `<p class="eyebrow">Cập nhật từng phút</p>`;
+      h += `<h2>Tin nóng thế giới hiện tại</h2>`;
+      h += `<p class="digest-report-lead">Tin các quốc gia trên thế giới đang nói về điều gì — cập nhật liên tục, tách khỏi bản tin tổng hợp 24h.</p>`;
       h += `</header><div class="pulse-panel">`;
       h += `<p class="pulse-stats">`;
       h += `<span><strong>${total}</strong> cụm sự kiện</span>`;
@@ -1633,10 +1640,11 @@
         if (ev.tone != null) h += ` · tone ${escapeHtml(ev.tone)}`;
         if (ev.urls.length) h += ` · ${ev.urls.length} nguồn`;
         h += `</p></div></div>`;
-        if (ev.entities && ev.entities.length) {
-          h += `<p class="pulse-event-hint">${escapeHtml(ev.entities.join(" · "))}</p>`;
-        } else if (ev.hint) {
+        if (ev.hint) {
           h += `<p class="pulse-event-hint">${escapeHtml(ev.hint)}</p>`;
+        }
+        if (ev.entities && ev.entities.length) {
+          h += `<p class="pulse-event-tags">${escapeHtml(ev.entities.join(" · "))}</p>`;
         }
         if (ev.urls.length) {
           h += `<div class="pulse-event-links">`;
@@ -1657,12 +1665,12 @@
       const heroDesc = document.getElementById("heroDescription");
       if (heroSub) {
         heroSub.style.display = "";
-        heroSub.textContent = "Tin tức cập nhật từng phút";
+        heroSub.textContent = "Tin nóng thế giới — cập nhật từng phút";
       }
       if (heroDesc) {
         heroDesc.style.display = "";
         heroDesc.textContent =
-          "Radar sự kiện toàn cầu (GDELT), cập nhật liên tục — tab riêng với bản tin tổng hợp 24h.";
+          "Tin các quốc gia đang nói về điều gì — cập nhật liên tục, tách khỏi bản tin tổng hợp 24h.";
       }
       const sync = document.getElementById("pulseSyncNote");
       if (sync) {
