@@ -55,10 +55,13 @@ jobs:
       # the next crawl must fetch fresh articles instead of skipping duplicates in old data.
       - name: Prune stale cache before crawl
         run: |
+          mkdir -p data
           if [ -f data/web_intel_leonquant.duckdb ]; then
             python scripts/prune_intel_db.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2
+            python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 0
+          else
+            echo "No cached DuckDB — crawl will create a fresh database."
           fi
-          python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 0
 
       - name: Crawl news (Leon Web Intel)
         run: |
@@ -86,7 +89,9 @@ jobs:
 
       - name: Prune DuckDB to 48h window only
         run: |
-          python scripts/prune_intel_db.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2
+          if [ -f data/web_intel_leonquant.duckdb ]; then
+            python scripts/prune_intel_db.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2
+          fi
 
       - name: Export and clean articles for AI
         run: |

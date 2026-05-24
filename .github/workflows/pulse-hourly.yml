@@ -2,17 +2,21 @@ name: LIVE pulse hourly
 
 on:
   schedule:
-    # Mỗi giờ đúng phút :00 (UTC). GitHub Actions dùng UTC.
+    # Mỗi giờ đúng phút :00 UTC (= :07 giờ VN, UTC+7). GitHub có thể trễ 5–15 phút.
     - cron: "0 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: live-pulse-hourly
+  cancel-in-progress: false
+
 jobs:
   pulse:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -20,11 +24,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-gdelt.txt
 
       - name: Install GDELT pulse dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements-gdelt.txt
+        run: pip install -r requirements-gdelt.txt
 
       - name: Write GCP service account
         env:
@@ -53,4 +57,5 @@ jobs:
             exit 0
           fi
           git commit -m "Update LIVE pulse (hourly GDELT)."
+          git pull --rebase origin main
           git push
