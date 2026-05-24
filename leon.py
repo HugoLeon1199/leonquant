@@ -40,7 +40,7 @@ TOP_EVENTS_POOL = 300
 BQ_OUTPUT_LIMIT = 50
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
-PULSE_SCHEMA_VERSION = "event-centric-v5"
+PULSE_SCHEMA_VERSION = "event-centric-v6"
 GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
 VALID_SECTORS = (
@@ -52,8 +52,6 @@ VALID_SECTORS = (
     "Tài chính - Ngân hàng",
     "Doanh nghiệp - Công nghiệp - Tiêu dùng",
     "Công nghệ - AI - Bán dẫn",
-    "Chính trị - Địa chính trị",
-    "Pháp lý - Quy định - Tội phạm",
     "Năng lượng - Khí hậu - Tài nguyên",
     "Y tế - Dược phẩm - Sức khỏe cộng đồng",
     "Khoa học - Vũ trụ - Nghiên cứu",
@@ -868,7 +866,179 @@ def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
 
     events.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
     LOG.info("GDELT hot events (GlobalEventID): %s", len(events))
-    return expand_event_sources(events[:TARGET_HOT_EVENTS], df)
+    return expand_event_sources(events, df)
+
+
+# ---------------------------------------------------------------------------
+# Gemini story dedupe (same real-world incident, multiple GlobalEventIDs)
+# ---------------------------------------------------------------------------
+
+
+def _event_dedupe_brief(ev: dict[str, Any]) -> str:
+    eid = str(ev.get("global_event_id") or "")
+    sector = str(ev.get("sector") or "")
+    title = str(ev.get("title_vi") or ev.get("title") or "").strip()[:120]
+    summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:160]
+    num = int(ev.get("num_articles") or 0)
+    return f"id={eid} | {num} bài | {sector} | {title} | {summary}"
+
+
+def _parse_gemini_clusters(text: str) -> list[dict[str, Any]]:
+    raw = (text or "").strip()
+    if not raw:
+        return []
+    fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, flags=re.DOTALL)
+    if fence:
+        raw = fence.group(1).strip()
+    start, end = raw.find("{"), raw.rfind("}")
+    if start >= 0 and end > start:
+        raw = raw[start : end + 1]
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        return []
+    clusters = data.get("clusters") if isinstance(data, dict) else None
+    return clusters if isinstance(clusters, list) else []
+
+
+def gemini_cluster_duplicate_events(events: list[dict[str, Any]]) -> list[list[str]]:
+    """Return clusters of global_event_id strings that describe the same news story."""
+    if not _configure_gemini() or len(events) < 2:
+        return [[str(e.get("global_event_id") or "")] for e in events]
+
+    by_id = {str(e.get("global_event_id") or ""): e for e in events if e.get("global_event_id")}
+    lines = "\n".join(f"{i + 1}. {_event_dedupe_brief(ev)}" for i, ev in enumerate(events))
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập bản tin quốc tế. Dưới đây là các sự kiện từ GDELT (mỗi dòng một GlobalEventID).
+
+Nhiệm vụ: gom các dòng mô tả CÙNG MỘT vụ việc/câu chuyện tin thực tế trong 24h qua.
+- Gom khi cùng sự kiện (vd. nhiều mã GDELT cho vụ nổ súng Nhà Trắng, Sudbury Credit Union food bank).
+- KHÔNG gom chỉ vì cùng sector, cùng quốc gia, hoặc cùng nhân vật nhưng khác vụ.
+- Mỗi id chỉ thuộc đúng một cluster.
+
+Trả về JSON (không markdown):
+{{
+  "clusters": [
+    {{
+      "keep_id": "GlobalEventID đại diện (ưu tiên sự kiện có nhiều bài hơn trong cluster)",
+      "member_ids": ["id1", "id2"],
+      "reason": "một câu tiếng Việt"
+    }}
+  ]
+}}
+
+Danh sách sự kiện:
+{lines}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        clusters_raw = _parse_gemini_clusters(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini dedupe failed: %s", exc)
+        return [[eid] for eid in by_id]
+
+    assigned: set[str] = set()
+    out: list[list[str]] = []
+    for cluster in clusters_raw:
+        if not isinstance(cluster, dict):
+            continue
+        members = [str(x).strip() for x in (cluster.get("member_ids") or []) if str(x).strip()]
+        keep_id = str(cluster.get("keep_id") or "").strip()
+        if keep_id and keep_id not in members:
+            members.insert(0, keep_id)
+        members = [m for m in members if m in by_id and m not in assigned]
+        if not members:
+            continue
+        if keep_id in by_id and keep_id in members:
+            members = [keep_id] + [m for m in members if m != keep_id]
+        assigned.update(members)
+        out.append(members)
+
+    for eid in by_id:
+        if eid not in assigned:
+            out.append([eid])
+    return out
+
+
+def _merge_url_list(*lists: list[str], limit: int = MAX_MENTIONS_PER_EVENT) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for lst in lists:
+        for url in lst or []:
+            u = str(url).strip()
+            if not u.startswith("http") or u in seen:
+                continue
+            seen.add(u)
+            out.append(u)
+            if len(out) >= limit:
+                return out
+    return out
+
+
+def _pick_representative_event(members: list[dict[str, Any]]) -> dict[str, Any]:
+    def score(ev: dict[str, Any]) -> tuple[int, int, int]:
+        title_ok = 1 if _usable_title(ev.get("title_vi") or ev.get("title")) else 0
+        return (int(ev.get("num_articles") or 0), int(ev.get("source_count") or 0), title_ok)
+
+    return max(members, key=score)
+
+
+def merge_event_cluster(members: list[dict[str, Any]]) -> dict[str, Any]:
+    """Mechanical merge after Gemini groups same-story GlobalEventIDs."""
+    if not members:
+        return {}
+    if len(members) == 1:
+        return dict(members[0])
+
+    rep = _pick_representative_event(members)
+    merged = dict(rep)
+    merged_ids = [str(m.get("global_event_id") or "") for m in members if m.get("global_event_id")]
+    merged["global_event_id"] = str(rep.get("global_event_id") or "")
+    merged["merged_event_ids"] = merged_ids
+    merged["num_articles"] = max(int(m.get("num_articles") or 0) for m in members)
+    merged["article_mentions"] = merged["num_articles"]
+    merged["sources"] = _merge_url_list(*[list(m.get("sources") or []) for m in members])
+    merged["source_count"] = max(int(m.get("source_count") or 0) for m in members)
+    merged["entities"] = _merge_entity_lists(*[list(m.get("entities") or []) for m in members], limit=8)
+    tones = [float(m.get("sentiment_tone") or 0) for m in members]
+    merged["sentiment_tone"] = round(rep.get("sentiment_tone") or (sum(tones) / len(tones)), 2)
+    merged["sentiment_label"] = sentiment_label_vi(float(merged["sentiment_tone"]))
+    merged["impact_score"] = max(int(m.get("impact_score") or 0) for m in members)
+    return merged
+
+
+def dedupe_events_with_gemini(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
+    """Collapse duplicate GDELT stories via one Gemini clustering pass."""
+    if len(events) < 2 or not use_gemini:
+        return events
+
+    LOG.info("Gemini dedupe clustering for %s events", len(events))
+    by_id = {str(e.get("global_event_id") or ""): e for e in events if e.get("global_event_id")}
+    clusters = gemini_cluster_duplicate_events(events)
+    time.sleep(GEMINI_CALL_INTERVAL_SEC)
+
+    merged: list[dict[str, Any]] = []
+    for member_ids in clusters:
+        group = [by_id[i] for i in member_ids if i in by_id]
+        if not group:
+            continue
+        if len(group) > 1:
+            LOG.info(
+                "Dedupe merge %s events -> keep %s (%s)",
+                len(group),
+                _pick_representative_event(group).get("global_event_id"),
+                member_ids,
+            )
+        card = merge_event_cluster(group)
+        if card:
+            merged.append(card)
+
+    merged.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
+    LOG.info("After Gemini dedupe: %s events (from %s)", len(merged), len(events))
+    return merged[:TARGET_HOT_EVENTS]
 
 
 # ---------------------------------------------------------------------------
@@ -914,6 +1084,7 @@ def build_payload(
         ev.pop("gkg_organizations", None)
         ev.pop("gkg_persons", None)
         ev.pop("gkg_locations", None)
+        ev.pop("merged_event_ids", None)
     items = live_feed_items or []
     return {
         "schema_version": PULSE_SCHEMA_VERSION,
@@ -1032,6 +1203,9 @@ def main(argv: list[str] | None = None) -> int:
             FETCH_TITLE_TIMEOUT,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini)
+        events = dedupe_events_with_gemini(events, use_gemini=use_gemini)
+    else:
+        events = events[:TARGET_HOT_EVENTS]
     feed_items = build_live_feed_items(events)
     payload = build_payload(events, query_meta=meta, live_feed_items=feed_items)
     LOG.info(
