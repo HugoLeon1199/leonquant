@@ -63,6 +63,11 @@ VALID_SECTORS = (
 FETCH_TITLE_TIMEOUT = 5
 TITLE_UNAVAILABLE = "(Title unavailable)"
 HTTP_USER_AGENT = "LeonWebIntel/1.0 (+https://leonquant.com)"
+# GDELT MentionURL sometimes includes HTML attrs glued to the slug (%20target=, class=, …).
+_MENTION_URL_JUNK_RE = re.compile(
+    r"(?:%20|\s)(?:target|class|rel|onclick|data-[a-z-]+)=",
+    re.IGNORECASE,
+)
 SKIP_ACTOR_VALUES = frozenset({"", "NONE", "NULL", "UNKNOWN", "KHÔNG RÕ", "KHONG RO", "N/A"})
 DEFAULT_GEMINI_MODEL = "gemini-3.1-flash-lite"
 GEMINI_CALL_INTERVAL_SEC = 2.0
@@ -349,28 +354,63 @@ def _source_record(url: str, mention_name: str = "") -> dict[str, str]:
     }
 
 
+def _normalize_mention_url(url: str) -> str:
+    """Strip GDELT junk (HTML attributes appended to article URLs)."""
+    u = str(url or "").strip()
+    if not u.startswith("http"):
+        return u
+    match = _MENTION_URL_JUNK_RE.search(u)
+    if match and match.start() > 0:
+        u = u[: match.start()]
+    return u.rstrip(" %)")
+
+
+def _mention_url_dedupe_key(url: str) -> str:
+    clean = _normalize_mention_url(url)
+    parsed = urlparse(clean)
+    host = (parsed.netloc or "").lower().replace("www.", "")
+    path = (parsed.path or "/").rstrip("/") or "/"
+    return f"{host}|{path}"
+
+
+def _iter_mention_url_strings(urls_val: Any) -> list[str]:
+    out: list[str] = []
+    for item in _iter_raw_sequence(urls_val):
+        url = str(item).strip() if not isinstance(item, dict) else str(item.get("url") or "").strip()
+        if url.startswith("http"):
+            out.append(url)
+    return out
+
+
+def _dedupe_mention_urls(urls: Any, *, limit: int | None = MAX_MENTIONS_PER_EVENT) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    seq = urls if isinstance(urls, list) else _iter_mention_url_strings(urls)
+    for raw in seq:
+        clean = _normalize_mention_url(str(raw).strip())
+        if not clean.startswith("http"):
+            continue
+        key = _mention_url_dedupe_key(clean)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(clean)
+        if limit is not None and len(out) >= limit:
+            break
+    return out
+
+
 def _parse_source_urls(
     urls_val: Any,
     _names_val: Any = None,
     *,
     rep_url: str = "",
 ) -> list[str]:
-    """Pass-through SourceURLs from GDELT EventMentions (exact URL dedupe only)."""
+    """SourceURLs from GDELT EventMentions; normalize junk suffixes, dedupe by path."""
     del _names_val
-    out: list[str] = []
-    seen_urls: set[str] = set()
-
-    for item in _iter_raw_sequence(urls_val):
-        url = str(item).strip() if not isinstance(item, dict) else str(item.get("url") or "").strip()
-        if not url.startswith("http") or url in seen_urls:
-            continue
-        seen_urls.add(url)
-        out.append(url)
-        if len(out) >= MAX_MENTIONS_PER_EVENT:
-            break
-
+    out = _dedupe_mention_urls(urls_val)
     if not out:
-        rep = str(rep_url or "").strip()
+        rep = _normalize_mention_url(str(rep_url or "").strip())
         if rep.startswith("http"):
             return [rep]
     return out
@@ -412,6 +452,9 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                 rep_url=str(r.get("Link_Bai_Bao") or ""),
             ),
             axis=1,
+        )
+        out["mention_source_count"] = out["SourceURLs"].apply(
+            lambda v: len(_dedupe_mention_urls(v, limit=None))
         )
     else:
         out["mention_sources"] = out["Link_Bai_Bao"].map(
@@ -827,6 +870,10 @@ def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
             bq_source_count = int(row.get("source_count") or 0)
         except (TypeError, ValueError):
             bq_source_count = 0
+        try:
+            norm_source_count = int(row.get("mention_source_count") or 0)
+        except (TypeError, ValueError):
+            norm_source_count = 0
 
         event_id = str(row.get("GlobalEventID") or "").strip()
         sector = str(row.get("Nhom_Nganh") or "Khác").strip()
@@ -837,7 +884,9 @@ def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
             locations,
             limit=6,
         )
-        source_count = bq_source_count if bq_source_count > 0 else max(len(sources), 1)
+        source_count = norm_source_count if norm_source_count > 0 else (
+            bq_source_count if bq_source_count > 0 else max(len(sources), 1)
+        )
 
         events.append(
             {
@@ -964,18 +1013,10 @@ Danh sách sự kiện:
 
 
 def _merge_url_list(*lists: list[str], limit: int = MAX_MENTIONS_PER_EVENT) -> list[str]:
-    seen: set[str] = set()
-    out: list[str] = []
-    for lst in lists:
-        for url in lst or []:
-            u = str(url).strip()
-            if not u.startswith("http") or u in seen:
-                continue
-            seen.add(u)
-            out.append(u)
-            if len(out) >= limit:
-                return out
-    return out
+    return _dedupe_mention_urls(
+        [url for lst in lists for url in (lst or [])],
+        limit=limit,
+    )
 
 
 def _pick_representative_event(members: list[dict[str, Any]]) -> dict[str, Any]:

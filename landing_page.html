@@ -1919,14 +1919,36 @@
       });
     }
 
+    function normalizePulseUrl(url) {
+      const u = String(url || "").trim();
+      if (!u.startsWith("http")) return u;
+      const m = u.match(/(?:%20|\s)(?:target|class|rel|onclick|data-[a-z-]+)=/i);
+      if (m && m.index > 0) return u.slice(0, m.index).replace(/[\s%)]+$/g, "");
+      return u;
+    }
+
+    function pulseUrlDedupeKey(url) {
+      const clean = normalizePulseUrl(url);
+      try {
+        const p = new URL(clean);
+        const host = p.hostname.replace(/^www\./i, "").toLowerCase();
+        const path = p.pathname.replace(/\/$/, "") || "/";
+        return `${host}|${path}`;
+      } catch {
+        return clean;
+      }
+    }
+
     function dedupePulseSources(sources) {
       const seen = new Set();
       const out = [];
       for (const s of sources || []) {
-        const url = String(s.url || "").trim();
-        if (!url.startsWith("http") || seen.has(url)) continue;
-        seen.add(url);
-        out.push(s);
+        const url = normalizePulseUrl(String(s.url || "").trim());
+        if (!url.startsWith("http")) continue;
+        const key = pulseUrlDedupeKey(url);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push({ url, name: String(s.name || "").trim() || pulseSourceLabel(url) });
       }
       return out;
     }

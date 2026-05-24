@@ -38,9 +38,27 @@ python summarize_news_gemini.py --input news_for_ai_clean.json --mode digest --b
 | `news_for_ai_clean.json` | Input digest (đã lọc) |
 | `gemini_digest_summary.json` | Bản tin đa ngành 48h |
 | `content.json` | Dữ liệu trang công khai |
-
-Mỗi chuyên mục digest: mục tiêu **~12** tin (`DIGEST_TARGET_SUB_TOPICS_PER_SECTOR`), tối đa **20**; mỗi mục **bắt buộc 1 link** (`source_urls` từ Gemini). Tổng quan + tóm tắt: **chỉ từ bài crawl**, ưu tiên **tin nóng đa chủ đề** (không bịa, không chỉ 1–2 headline).
+| `market_pulse.json`, `web/market_pulse.json` | LIVE tab — GDELT hot events |
 | `data/web_intel_leonquant.duckdb` | Cache crawl (Actions) |
+
+Digest: ~12 tin/sector (max 20), mỗi mục 1 link; tổng quan từ bài crawl (không bịa).
+
+## World Pulse — GDELT BigQuery (tab LIVE, tách khỏi digest 48h)
+
+Radar sự kiện toàn cầu từ [GDELT](https://www.gdeltproject.org/) qua BigQuery — **đa lĩnh vực** (chính trị, xung đột, kinh tế, tech, y tế, khí hậu, crypto…), không chỉ tài chính.
+
+```powershell
+pip install -r requirements-gdelt.txt
+$env:GOOGLE_APPLICATION_CREDENTIALS="C:\path\sa.json"
+$env:GOOGLE_CLOUD_PROJECT="your-gcp-project"
+$env:GEMINI_API_KEY="..."
+python leon.py --dry-run
+python leon.py
+```
+
+Output: **`market_pulse.json`** + mirror **`web/market_pulse.json`** (không ghi đè `content.json`).
+
+Chi tiết: `.ai/CURSOR_WORKLOG.md`
 
 Sinh local, không commit: `news_output_today.json`, `news_for_ai.json`, `gemini_digest_outline.json`, `gemini_digest_partials.json`.
 
@@ -50,6 +68,8 @@ Sinh local, không commit: `news_output_today.json`, `news_for_ai.json`, `gemini
 |------|---------|
 | `GEMINI_API_KEY` | Bắt buộc cho digest (secret) |
 | `GEMINI_MODEL` | Mặc định trong code: `gemini-3.1-flash-lite` |
+| `GOOGLE_APPLICATION_CREDENTIALS` | Service account JSON (GDELT / `leon.py`) |
+| `GOOGLE_CLOUD_PROJECT` | GCP project id |
 
 ## Leon Web Intel
 
