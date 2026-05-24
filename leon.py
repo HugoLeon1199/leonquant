@@ -40,8 +40,9 @@ TOP_EVENTS_POOL = 300
 BQ_OUTPUT_LIMIT = 50
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
-PULSE_SCHEMA_VERSION = "event-centric-v4"
+PULSE_SCHEMA_VERSION = "event-centric-v5"
 GEMINI_MAX_URL_ATTEMPTS = 5
+GEMINI_MIN_EXCERPT_CHARS = 60
 VALID_SECTORS = (
     "An ninh - Xung đột - Tội phạm",
     "Xã hội - Bất ổn - Biểu tình",
@@ -589,49 +590,58 @@ def _parse_gemini_enrichment_legacy(text: str) -> dict[str, Any]:
     return result
 
 
+def _excerpt_body(raw_content: str) -> str:
+    text = str(raw_content or "")
+    if "Content Snippet:" in text:
+        return text.split("Content Snippet:", 1)[1].strip()
+    return ""
+
+
+def _has_usable_excerpt(raw_content: str | None) -> bool:
+    """Require scraped article text — never call Gemini on GDELT metadata alone."""
+    if not raw_content or not str(raw_content).strip().startswith("Title:"):
+        return False
+    if not _usable_title(_title_from_scrape(raw_content)):
+        return False
+    body = _excerpt_body(raw_content)
+    if len(body) >= GEMINI_MIN_EXCERPT_CHARS:
+        return True
+    title = _title_from_scrape(raw_content)
+    return len(title) >= 24
+
+
 def enrich_event_with_gemini(
     *,
     sector: str,
-    actor1: str,
-    actor2: str,
     num_articles: int,
-    tone: float,
-    organizations: str,
-    persons: str,
-    locations: str,
-    raw_content: str | None,
     source_count: int,
+    raw_content: str,
 ) -> dict[str, Any] | None:
-    """Vietnamese editorial copy — no AI/GDELT/crawler wording in public fields."""
-    if not _configure_gemini():
+    """Vietnamese copy from scraped excerpt only — no GDELT metadata in the prompt."""
+    if not _configure_gemini() or not _has_usable_excerpt(raw_content):
         return None
 
-    excerpt = (raw_content or "").strip()
-    if not excerpt:
-        excerpt = "(Không trích được bài báo — chỉ dùng metadata sự kiện bên dưới, không bịa thêm.)"
-
+    excerpt = str(raw_content).strip()
     sectors_list = "\n".join(f"{i + 1}. {s}" for i, s in enumerate(VALID_SECTORS) if s != "Khác")
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
 Bạn là biên tập viên phân tích quốc tế của LeonQuant.
 
-Dựa trên thông tin sự kiện bên dưới, hãy viết nội dung tiếng Việt ngắn gọn, trung lập, chuyên nghiệp.
+CHỈ được dùng thông tin trong khối "Đoạn bài tham khảo" bên dưới.
+Không dùng kiến thức ngoài, không suy diễn từ tên tổ chức/địa điểm không có trong đoạn bài.
+Không nhắc AI, GDELT, crawler, pipeline.
+Không khuyến nghị đầu tư. Không bịa ticker.
 
-Không nhắc đến AI, GDELT, thuật toán, crawler, pipeline dữ liệu hoặc quá trình tự động hóa.
-Không viết như bản dịch máy.
-Không thêm khuyến nghị đầu tư.
-Không bịa ticker hoặc tổ chức nếu không có trong dữ liệu.
-Không cố kéo mọi tin về tài chính/trading.
-
-Mỗi summary trả lời ngầm: (1) chuyện gì xảy ra, (2) ai liên quan, (3) vì sao đáng chú ý.
+Ngành gợi ý (SQL, chỉ đổi sector nếu đoạn bài rõ ràng thuộc ngành khác): {sector}
+Độ phủ: ~{num_articles} bài, {source_count} nguồn URL — dùng cho importance_reason, không bịa chi tiết sự kiện.
 
 Trả về đúng một JSON object (không markdown):
 {{
   "title_vi": "Tiêu đề tiếng Việt tối đa 18 từ",
-  "summary_vi": "Tóm tắt 1-2 câu",
-  "importance_reason": "Một câu ngắn vì sao sự kiện đáng chú ý",
-  "entities": ["3-6 thực thể liên quan"],
+  "summary_vi": "Tóm tắt 1-2 câu chỉ từ đoạn bài",
+  "importance_reason": "Một câu: vì sao đáng chú ý (có thể nhắc độ phủ)",
+  "entities": ["3-6 thực thể có trong đoạn bài"],
   "sector": "một trong danh sách ngành hợp lệ",
   "sector_confidence": 0
 }}
@@ -639,17 +649,7 @@ Trả về đúng một JSON object (không markdown):
 Danh sách ngành hợp lệ:
 {sectors_list}
 
-Dữ liệu sự kiện:
-- Ngành (SQL): {sector}
-- Nhân vật chính: {actor1}
-- Nhân vật phụ: {actor2}
-- Số bài báo đề cập (ước lượng): {num_articles}
-- Số nguồn tin khác nhau: {source_count}
-- Tone: {tone}
-- Tổ chức: {organizations}
-- Nhân vật: {persons}
-- Địa điểm: {locations}
-- Đoạn bài tham khảo:
+Đoạn bài tham khảo:
 {excerpt}
 """.strip()
 
@@ -696,19 +696,13 @@ def _title_from_scrape(raw_content: str | None) -> str:
 def _gemini_kwargs(ev: dict[str, Any], urls: list[str]) -> dict[str, Any]:
     return {
         "sector": str(ev.get("sector") or "Khác"),
-        "actor1": str(ev.get("primary_actor") or "").strip() or _primary_actor_label(ev),
-        "actor2": str(ev.get("secondary_actor") or "").strip(),
         "num_articles": int(ev.get("num_articles") or 0),
-        "tone": float(ev.get("sentiment_tone") or 0),
-        "organizations": str(ev.get("gkg_organizations") or "")[:500],
-        "persons": str(ev.get("gkg_persons") or "")[:300],
-        "locations": str(ev.get("gkg_locations") or "")[:300],
         "source_count": int(ev.get("source_count") or len(urls)),
     }
 
 
 def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
-    """Try up to GEMINI_MAX_URL_ATTEMPTS EventMention URLs for scrape + Gemini."""
+    """Try up to GEMINI_MAX_URL_ATTEMPTS URLs; Gemini only when scrape returns article excerpt."""
     for i, ev in enumerate(events, start=1):
         urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
         sector = str(ev.get("sector") or "Khác")
@@ -737,16 +731,14 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
                     url[:80],
                 )
                 raw_content = extract_web_content(url)
-                if raw_content:
+                if raw_content and _has_usable_excerpt(raw_content):
                     ai_data = enrich_event_with_gemini(**gemini_args, raw_content=raw_content)
                     if _usable_title((ai_data or {}).get("title_vi")):
                         break
                     ai_data = None
                 if j < len(attempt_urls) - 1:
                     time.sleep(GEMINI_CALL_INTERVAL_SEC)
-            if not _usable_title((ai_data or {}).get("title_vi")):
-                ai_data = enrich_event_with_gemini(**gemini_args, raw_content=None)
-            if i < len(events):
+            if i < len(events) and ai_data:
                 time.sleep(GEMINI_CALL_INTERVAL_SEC)
         else:
             scraped_title = TITLE_UNAVAILABLE
@@ -765,7 +757,7 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
             gem_sector = str(ai_data.get("sector") or "").strip()
             if gem_sector in VALID_SECTORS:
                 ev["sector"] = gem_sector
-            ev["entities"] = _merge_entity_lists(ai_data.get("entities") or [], existing_entities, limit=6)
+            ev["entities"] = _merge_entity_lists(ai_data.get("entities") or [], limit=6)
         elif not use_gemini:
             ev["title_vi"] = scraped_title
             ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
@@ -784,15 +776,12 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
                 if _usable_title(scraped_title):
                     break
             ev["title_vi"] = scraped_title
-            ev["summary_vi"] = (
-                ai_data.get("summary_vi") if ai_data else f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
-            )
+            ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
             ev["importance_reason"] = (
-                (ai_data or {}).get("importance_reason")
-                or f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
+                f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
                 f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
             )
-            ev["entities"] = _merge_entity_lists((ai_data or {}).get("entities") or [], existing_entities, limit=6)
+            ev["entities"] = existing_entities
 
         ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
         ev["summary"] = ev.get("summary_vi") or ""
