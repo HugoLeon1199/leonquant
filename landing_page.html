@@ -1211,7 +1211,6 @@
 
     <section id="pulse" class="alt" hidden>
       <div class="container">
-        <p id="pulseSyncNote" class="sync-note"></p>
         <div id="sectionPulse" class="brief-block"></div>
       </div>
     </section>
@@ -1979,24 +1978,6 @@
       </div>`;
     }
 
-    function formatPulseSyncNote(iso) {
-      if (!iso) return "Cập nhật theo chu kỳ 1 giờ.";
-      try {
-        const d = new Date(iso);
-        const s = d.toLocaleString("vi-VN", {
-          timeZone: "Asia/Ho_Chi_Minh",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        return `Cập nhật lúc ${s} (VN) · chu kỳ 1 giờ`;
-      } catch {
-        return "Cập nhật theo chu kỳ 1 giờ.";
-      }
-    }
-
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
       if (!events.length) {
@@ -2047,8 +2028,6 @@
         heroDesc.style.display = "none";
         heroDesc.textContent = "";
       }
-      const sync = document.getElementById("pulseSyncNote");
-      if (sync) sync.textContent = formatPulseSyncNote(data?.generated_at_utc);
       const el = document.getElementById("sectionPulse");
       if (el) el.innerHTML = buildPulseHtml(data || {});
     }
@@ -2068,12 +2047,9 @@
     }
 
     async function loadPulseContent() {
-      const sync = document.getElementById("pulseSyncNote");
-      if (sync) sync.textContent = "Đang tải tin cập nhật…";
       const data = await fetchPulseFeed();
       if (!data) {
-        if (sync) sync.textContent = "Không tải được market_pulse.json.";
-        cachedPulsePayload = { events: [], lookback_hours: 48 };
+        cachedPulsePayload = { events: [] };
         renderPulsePage(cachedPulsePayload);
         return;
       }

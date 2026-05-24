@@ -2,6 +2,7 @@ name: LIVE pulse hourly
 
 on:
   schedule:
+    # Mỗi giờ đúng phút :00 (UTC). GitHub Actions dùng UTC.
     - cron: "0 * * * *"
   workflow_dispatch:
 
