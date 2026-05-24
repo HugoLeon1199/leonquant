@@ -835,6 +835,58 @@ class WebIntelDB:
                     out.append(row)
         return out
 
+    def prune_stale_intel_data(
+        self,
+        *,
+        target_date_str: str | None,
+        timezone_name: str,
+        recent_calendar_days: int = 2,
+    ) -> dict[str, int]:
+        """Keep only articles in the recent export window; trim old crawl noise and VACUUM."""
+        n = max(1, int(recent_calendar_days))
+        start_utc, _end_utc = target_recent_calendar_days_range(target_date_str, timezone_name, n)
+        keep_rows = self.fetch_today_articles(
+            target_date_str=target_date_str,
+            timezone_name=timezone_name,
+            recent_calendar_days=n,
+        )
+        keep_ids = [str(r["id"]) for r in keep_rows if r.get("id")]
+
+        with self._lock:
+            before_articles = int(self.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
+            if keep_ids:
+                placeholders = ",".join("?" * len(keep_ids))
+                self.conn.execute(
+                    f"DELETE FROM articles WHERE id NOT IN ({placeholders})",
+                    keep_ids,
+                )
+            else:
+                self.conn.execute("DELETE FROM articles")
+            after_articles = int(self.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
+
+            before_errors = int(self.conn.execute("SELECT COUNT(*) FROM crawl_errors").fetchone()[0])
+            self.conn.execute("DELETE FROM crawl_errors WHERE created_at < ?", [start_utc])
+            after_errors = int(self.conn.execute("SELECT COUNT(*) FROM crawl_errors").fetchone()[0])
+
+            before_discovered = int(self.conn.execute("SELECT COUNT(*) FROM discovered_urls").fetchone()[0])
+            self.conn.execute("DELETE FROM discovered_urls WHERE discovered_at < ?", [start_utc])
+            after_discovered = int(self.conn.execute("SELECT COUNT(*) FROM discovered_urls").fetchone()[0])
+
+        try:
+            with self._lock:
+                self.conn.execute("VACUUM")
+        except duckdb.Error:
+            pass
+
+        return {
+            "articles_before": before_articles,
+            "articles_after": after_articles,
+            "articles_removed": before_articles - after_articles,
+            "crawl_errors_removed": before_errors - after_errors,
+            "discovered_urls_removed": before_discovered - after_discovered,
+            "keep_articles": len(keep_ids),
+        }
+
     def fetch_all_articles(self) -> list[dict[str, Any]]:
         """All rows in articles (any publication day)."""
         with self._lock:

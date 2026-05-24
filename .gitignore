@@ -33,6 +33,12 @@ market_snapshot.json
 gemini_digest_outline.json
 prompts/last_gemini_prompt.txt
 
+# Leon Web Intel DuckDB — CI cache only (pruned to 48h window each run)
+data/web_intel_leonquant.duckdb
+data/web_intel_leonquant.duckdb.wal
+data/*.duckdb
+data/*.duckdb.wal
+
 # Leon Web Intel (vendored crawler) — runtime artifacts
 leon_web_intel/data/db/*.duckdb
 leon_web_intel/data/cache/

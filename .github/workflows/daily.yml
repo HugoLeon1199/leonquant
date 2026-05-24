@@ -1,11 +1,11 @@
 name: Tin Việt Nam 48h digest
 
-# 05:00 giờ Việt Nam (UTC+7) = 22:00 UTC ngày hôm trước — đúng phút :00
+# Lịch: 05:00 giờ Việt Nam (UTC+7) mỗi ngày.
+# GitHub Actions chỉ nhận UTC → 05:00 VN = 22:00 UTC ngày hôm trước.
 on:
   schedule:
     - cron: "0 22 * * *"
   workflow_dispatch:
-  # Chạm file này trên main → chạy full crawl + Gemini trên GitHub Actions (không cần máy local).
   push:
     branches: [main]
     paths:
@@ -34,16 +34,18 @@ jobs:
           pip install -r leon_web_intel/requirements.txt
           python -m playwright install --with-deps chromium
 
-      - name: Cache Intel DuckDB (skip re-profile when config unchanged)
+      - name: Cache Intel DuckDB (profiles + recent articles; not committed to git)
         uses: actions/cache@v4
         id: cache-intel-db
         with:
           path: data/web_intel_leonquant.duckdb
-          key: intel-db-${{ hashFiles('config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
+          key: intel-db-v3-${{ hashFiles('config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
+          restore-keys: |
+            intel-db-v3-
 
       - name: Verify pipeline scripts compile
         run: |
-          python -m py_compile macro_relevance.py build_website_content.py validate_content.py summarize_news_gemini.py scripts/run_intel_full_daily.py scripts/export_intel_to_news_output.py scripts/export_news_full_for_ai.py scripts/clean_news_for_ai.py scripts/run_daily_brief.py scripts/run_digest_loop.py scripts/test_gemini_digest_preflight.py leon_web_intel/run_profile.py leon_web_intel/run_scrapy.py
+          python -m py_compile macro_relevance.py build_website_content.py validate_content.py summarize_news_gemini.py scripts/run_intel_full_daily.py scripts/export_intel_to_news_output.py scripts/export_news_full_for_ai.py scripts/clean_news_for_ai.py scripts/run_daily_brief.py scripts/run_digest_loop.py scripts/test_gemini_digest_preflight.py scripts/verify_crawl_window.py scripts/prune_intel_db.py leon_web_intel/run_profile.py leon_web_intel/run_scrapy.py
 
       - name: Crawl news (Leon Web Intel)
         run: |
@@ -52,6 +54,25 @@ jobs:
             EXTRA="--skip-profile"
           fi
           python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --no-crawl-skip $EXTRA
+
+      - name: Verify crawl refreshed 48h window
+        id: verify_crawl
+        run: |
+          python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 5
+
+      - name: Retry crawl without profile skip
+        if: failure() && steps.verify_crawl.outcome == 'failure'
+        run: |
+          python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --no-crawl-skip
+
+      - name: Verify crawl after retry
+        if: failure() && steps.verify_crawl.outcome == 'failure'
+        run: |
+          python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 5
+
+      - name: Prune DuckDB to 48h window only
+        run: |
+          python scripts/prune_intel_db.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2
 
       - name: Export and clean articles for AI
         run: |
@@ -88,7 +109,6 @@ jobs:
           git add \
             news_for_ai_clean.json \
             gemini_digest_summary.json \
-            content.json \
-            data/web_intel_leonquant.duckdb
+            content.json
           git commit -m "Update daily news digest (crawl + Gemini + web)" || echo "No content changes to commit"
           git push
