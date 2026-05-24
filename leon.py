@@ -40,7 +40,7 @@ TOP_EVENTS_POOL = 300
 BQ_OUTPUT_LIMIT = 50
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
-PULSE_SCHEMA_VERSION = "event-centric-v6"
+PULSE_SCHEMA_VERSION = "event-centric-v6.1"
 GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
 VALID_SECTORS = (
@@ -775,6 +775,7 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
                 if raw_content and _has_usable_excerpt(raw_content):
                     ai_data = enrich_event_with_gemini(**gemini_args, raw_content=raw_content)
                     if _usable_title((ai_data or {}).get("title_vi")):
+                        ev["enrichment_url"] = url
                         break
                     ai_data = None
                 if j < len(attempt_urls) - 1:
@@ -827,6 +828,142 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
         ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
         ev["summary"] = ev.get("summary_vi") or ""
 
+    return events
+
+
+# ---------------------------------------------------------------------------
+# Gemini source alignment (GDELT sometimes attaches unrelated MentionURLs)
+# ---------------------------------------------------------------------------
+
+
+def _event_source_filter_block(ev: dict[str, Any]) -> str:
+    eid = str(ev.get("global_event_id") or "")
+    title = str(ev.get("title_vi") or ev.get("title") or "").strip()
+    summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:200]
+    urls = _dedupe_mention_urls(ev.get("sources") or [], limit=MAX_MENTIONS_PER_EVENT)
+    url_lines = "\n".join(f"    {i + 1}. {u[:140]}" for i, u in enumerate(urls))
+    anchor = str(ev.get("enrichment_url") or urls[0] if urls else "")
+    return f"EventID={eid}\nTitle: {title}\nSummary: {summary}\nAnchor URL (title source): {anchor[:140]}\nCandidate URLs:\n{url_lines}"
+
+
+def _parse_gemini_source_filters(text: str) -> dict[str, list[str]]:
+    raw = (text or "").strip()
+    if not raw:
+        return {}
+    fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, flags=re.DOTALL)
+    if fence:
+        raw = fence.group(1).strip()
+    start, end = raw.find("{"), raw.rfind("}")
+    if start >= 0 and end > start:
+        raw = raw[start : end + 1]
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        return {}
+    rows = data.get("events") if isinstance(data, dict) else None
+    if not isinstance(rows, list):
+        return {}
+    out: dict[str, list[str]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        eid = str(row.get("global_event_id") or "").strip()
+        keep = row.get("keep_urls") or row.get("keep") or []
+        if not eid or not isinstance(keep, list):
+            continue
+        urls = [str(u).strip() for u in keep if str(u).strip().startswith("http")]
+        if urls:
+            out[eid] = urls
+    return out
+
+
+def _apply_filtered_sources(ev: dict[str, Any], keep_urls: list[str]) -> None:
+    current = _dedupe_mention_urls(ev.get("sources") or [], limit=None)
+    if not current:
+        return
+    keep_keys = {_mention_url_dedupe_key(u) for u in keep_urls if str(u).startswith("http")}
+    filtered = [u for u in current if _mention_url_dedupe_key(u) in keep_keys]
+    if not filtered:
+        filtered = _dedupe_mention_urls(keep_urls, limit=MAX_MENTIONS_PER_EVENT)
+    if not filtered:
+        anchor = str(ev.get("enrichment_url") or "").strip()
+        if anchor.startswith("http"):
+            filtered = [_normalize_mention_url(anchor)]
+        else:
+            filtered = current[:1]
+    ev["sources"] = filtered[:MAX_MENTIONS_PER_EVENT]
+    ev["source_count"] = max(len(_dedupe_mention_urls(filtered, limit=None)), 1)
+
+
+def gemini_filter_misaligned_sources(events: list[dict[str, Any]]) -> dict[str, list[str]]:
+    """Return {global_event_id: keep_urls} for events with multiple candidate sources."""
+    eligible = [
+        ev
+        for ev in events
+        if len(_dedupe_mention_urls(ev.get("sources") or [], limit=None)) > 1
+        and _usable_title(ev.get("title_vi") or ev.get("title"))
+    ]
+    if not eligible or not _configure_gemini():
+        return {}
+
+    blocks = "\n\n".join(_event_source_filter_block(ev) for ev in eligible)
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập fact-check. GDELT đôi khi gắn nhầm MentionURL không cùng câu chuyện vào một GlobalEventID.
+
+Với từng event: giữ lại URL thật sự cùng câu chuyện với Title/Summary tiếng Việt (và Anchor URL nếu có).
+- Loại URL syndication lẫn từ event khác (vd. Sudbury food bank dính vào Navarra; Yahoo AI stocks dính vào Navarra).
+- Giữ syndication hợp lệ nếu cùng một vụ (vd. nhiều báo đưa tin Nhà Trắng).
+- keep_urls phải là chuỗi URL copy y nguyên từ danh sách Candidate URLs.
+- Mỗi event giữ ít nhất 1 URL.
+
+Trả về JSON (không markdown):
+{{
+  "events": [
+    {{
+      "global_event_id": "...",
+      "keep_urls": ["https://..."],
+      "reason": "một câu tiếng Việt"
+    }}
+  ]
+}}
+
+Events:
+{blocks}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        return _parse_gemini_source_filters(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini source filter failed: %s", exc)
+        return {}
+
+
+def filter_event_sources_with_gemini(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
+    if not use_gemini or len(events) < 1:
+        return events
+
+    filters = gemini_filter_misaligned_sources(events)
+    if filters:
+        time.sleep(GEMINI_CALL_INTERVAL_SEC)
+    if not filters:
+        return events
+
+    by_id = {str(ev.get("global_event_id") or ""): ev for ev in events if ev.get("global_event_id")}
+    for eid, keep_urls in filters.items():
+        ev = by_id.get(eid)
+        if not ev:
+            continue
+        before = len(_dedupe_mention_urls(ev.get("sources") or [], limit=None))
+        _apply_filtered_sources(ev, keep_urls)
+        after = len(_dedupe_mention_urls(ev.get("sources") or [], limit=None))
+        if after < before:
+            LOG.info("Source filter %s: %s -> %s URLs", eid, before, after)
+
+    for ev in events:
+        ev.pop("enrichment_url", None)
     return events
 
 
@@ -1244,6 +1381,7 @@ def main(argv: list[str] | None = None) -> int:
             FETCH_TITLE_TIMEOUT,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini)
+        events = filter_event_sources_with_gemini(events, use_gemini=use_gemini)
         events = dedupe_events_with_gemini(events, use_gemini=use_gemini)
     else:
         events = events[:TARGET_HOT_EVENTS]
