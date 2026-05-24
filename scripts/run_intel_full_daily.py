@@ -104,6 +104,12 @@ def main() -> int:
         action="store_true",
         help="Chạy thêm baseline/coverage/zero-article reports (debug, chậm hơn)",
     )
+    parser.add_argument(
+        "--require-today-articles",
+        type=int,
+        default=0,
+        help="Exit 5 if news_output_today.json has fewer than N articles after export.",
+    )
     args = parser.parse_args()
 
     crawl_date = resolve_crawl_calendar_date(args.date, args.timezone)
@@ -225,6 +231,20 @@ def main() -> int:
             )
             if post_rc != 0:
                 print(f"WARN: {post} exited {post_rc}", file=sys.stderr)
+
+    if args.require_today_articles > 0 and export_rc == 0 and args.output_today.is_file():
+        import json
+
+        try:
+            payload = json.loads(args.output_today.read_text(encoding="utf-8"))
+            n = len(payload.get("articles") or [])
+        except (OSError, json.JSONDecodeError, TypeError):
+            n = 0
+        print(f"Today export articles: {n} (required >= {args.require_today_articles})")
+        if n < args.require_today_articles:
+            print("ERROR: today export below required article count.", file=sys.stderr)
+            return 5
+
     return export_rc
 
 
