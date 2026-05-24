@@ -1191,7 +1191,7 @@
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links" id="navLinks" data-nav-tabs="1">
-          <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin tức tổng hợp 24h</a>
+          <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin Việt Nam 48h</a>
           <a class="nav-hub" href="/?view=live" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>
         </div>
       </nav>
@@ -1675,7 +1675,7 @@
 
       const reportTitle =
         String(data.digestReportTitle || "").trim() ||
-        "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
+        "Tin Việt Nam 48h";
 
       let thesisHtml = `<article id="digest-report" class="digest-report">`;
       thesisHtml += `<header class="digest-report-head">`;
@@ -1791,7 +1791,7 @@
       const dClass = v === "digest" ? "nav-hub nav-hub--active" : "nav-hub";
       const pClass = v === "pulse" ? "nav-hub nav-hub--active" : "nav-hub";
       nav.innerHTML = `
-        <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest">Tin tức tổng hợp 24h</a>
+        <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest">Tin Việt Nam 48h</a>
         <a class="${pClass}" href="${escapeHtml(liveNavHref())}" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>`;
     }
 
