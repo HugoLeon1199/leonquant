@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -24,6 +25,12 @@ def main() -> int:
     parser.add_argument("--timezone", default="Asia/Ho_Chi_Minh")
     parser.add_argument("--recent-calendar-days", type=int, default=2)
     parser.add_argument("--min-articles", type=int, default=1)
+    parser.add_argument(
+        "--check-export",
+        type=Path,
+        default=None,
+        help="Optional news_output_today.json from crawl; print count and fail if both DB and export are low",
+    )
     args = parser.parse_args()
 
     intel = resolve_intel_root()
@@ -47,14 +54,29 @@ def main() -> int:
             args.date, args.timezone, max(1, args.recent_calendar_days)
         )
         max_ext = db.conn.execute("SELECT MAX(extracted_at) FROM articles").fetchone()[0]
+        total_in_db = int(db.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
     finally:
         db.close()
 
     n = len(rows)
+    export_n: int | None = None
+    if args.check_export is not None:
+        export_path = args.check_export.resolve()
+        if export_path.is_file():
+            try:
+                payload = json.loads(export_path.read_text(encoding="utf-8"))
+                export_n = len(payload.get("articles") or [])
+            except (OSError, json.JSONDecodeError, TypeError):
+                export_n = 0
+            print(f"Export {export_path.name}: {export_n} article(s)")
+        else:
+            print(f"Export file missing: {export_path}")
+
     print(
         f"Window [{start.date()} .. {end.date()}) {args.timezone}: "
         f"{n} article(s) (min required: {args.min_articles})"
     )
+    print(f"Total rows in articles table: {total_in_db}")
     print(f"Latest extracted_at in DB: {max_ext}")
     if n < args.min_articles:
         print(

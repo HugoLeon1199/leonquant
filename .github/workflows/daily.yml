@@ -43,53 +43,42 @@ jobs:
         id: cache-intel-db
         with:
           path: data/web_intel_leonquant.duckdb
-          key: intel-db-v3-${{ hashFiles('config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
+          key: intel-db-v4-${{ hashFiles('config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
           restore-keys: |
-            intel-db-v3-
+            intel-db-v4-
 
       - name: Verify pipeline scripts compile
         run: |
           python -m py_compile macro_relevance.py build_website_content.py validate_content.py summarize_news_gemini.py scripts/run_intel_full_daily.py scripts/export_intel_to_news_output.py scripts/export_news_full_for_ai.py scripts/clean_news_for_ai.py scripts/run_daily_brief.py scripts/run_digest_loop.py scripts/test_gemini_digest_preflight.py scripts/verify_crawl_window.py scripts/prune_intel_db.py leon_web_intel/run_profile.py leon_web_intel/run_scrapy.py
 
-      # Only prune when cache already has articles in the 48h window (trim stale rows outside window).
-      # If the window is empty, skip pre-prune so crawl is not forced to re-fetch from zero on a cold cache.
-      - name: Prune stale cache before crawl
-        run: |
-          mkdir -p data
-          if [ -f data/web_intel_leonquant.duckdb ]; then
-            if python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 1; then
-              python scripts/prune_intel_db.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2
-            else
-              echo "48h window empty — skip pre-crawl prune; crawl will populate DuckDB."
-            fi
-          else
-            echo "No cached DuckDB — crawl will create a fresh database."
-          fi
+      # Do not prune before crawl: shrinking a warm cache to a few in-window rows then crawling with
+      # --skip-profile often leaves <min-articles after verify (run #31).
 
       - name: Crawl news (Leon Web Intel)
         id: crawl
+        env:
+          WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
         run: |
-          EXTRA=""
-          if [ "${{ steps.cache-intel-db.outputs.cache-hit }}" = "true" ]; then
-            EXTRA="--skip-profile"
-          fi
-          python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --no-crawl-skip $EXTRA
+          mkdir -p data
+          python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --no-crawl-skip
 
       - name: Verify crawl refreshed 48h window
         id: verify_crawl
         run: |
-          python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 5
+          python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 5 --check-export news_output_today.json
 
       - name: Retry crawl with fresh DuckDB
         if: failure() && (steps.crawl.outcome == 'failure' || steps.verify_crawl.outcome == 'failure')
+        env:
+          WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
         run: |
           rm -f data/web_intel_leonquant.duckdb
-          python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --no-crawl-skip --force-refresh-profile
+          python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --no-crawl-skip
 
       - name: Verify crawl after retry
         if: failure() && (steps.crawl.outcome == 'failure' || steps.verify_crawl.outcome == 'failure')
         run: |
-          python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 5
+          python scripts/verify_crawl_window.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 2 --min-articles 5 --check-export news_output_today.json
 
       - name: Prune DuckDB to 48h window only
         run: |

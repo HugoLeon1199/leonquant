@@ -214,6 +214,8 @@ def main() -> int:
             "--output-today",
             str(args.output_today.resolve()),
             "--today-only",
+            "--recent-calendar-days",
+            "2",
         ],
         cwd=QUANT_ROOT,
         timeout=None,
