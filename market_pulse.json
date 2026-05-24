@@ -1,455 +1,57 @@
 {
-  "schema_version": "event-centric-v6.1",
-  "generated_at_utc": "2026-05-24T06:28:47.574089+00:00",
+  "schema_version": "event-centric-v7",
+  "generated_at_utc": "2026-05-24T06:44:21.187871+00:00",
   "total_events": 4,
-  "total_clusters": 4,
-  "total_feed_articles": 42,
-  "query_meta": {
-    "dry_run": false,
-    "job_timeout_ms": 60000,
-    "bytes_processed": 85576660,
-    "row_count": 12
-  },
-  "live_feed_items": [
-    {
-      "url": "https://www.hppr.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Hppr",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://radio.wpsu.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Radio",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.wvtf.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Wvtf",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.ksmu.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Ksmu",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.wfdd.org/national/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Wfdd",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://kansaspublicradio.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Kansaspublicradio",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.kwit.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Kwit",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.canoncitydailyrecord.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-      "name": "Canoncitydailyrecord",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.bostonherald.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-      "name": "Bostonherald",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.wclk.com/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Wclk",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.kmxt.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Kmxt",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.dailynews.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-      "name": "Dailynews",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.kbia.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Kbia",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.kuow.org:443/stories/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Kuow",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.wboi.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Wboi",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.klcc.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Klcc",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.kalw.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Kalw",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.wvik.org/npr-top-stories/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-      "name": "Wvik",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.citizensvoice.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-      "name": "Citizensvoice",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.dailypress.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-      "name": "Dailypress",
-      "sector": "An ninh - Xung đột - Tội phạm",
-      "mentions": 82,
-      "tone": -5.5,
-      "global_event_id": "1305633811"
-    },
-    {
-      "url": "https://www.wiartonecho.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Wiartonecho",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.highrivertimes.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Highrivertimes",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.fairviewpost.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Fairviewpost",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.vermilionstandard.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Vermilionstandard",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.lakeshoreadvance.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Lakeshoreadvance",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.whitecourtstar.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Whitecourtstar",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.melfortjournal.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Melfortjournal",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.nugget.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Nugget",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.hannaherald.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Hannaherald",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.thepost.on.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Thepost",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.coldlakesun.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Coldlakesun",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.seaforthhuronexpositor.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Seaforthhuronexpositor",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.prrecordgazette.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Prrecordgazette",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.theobserver.ca/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Theobserver",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.saultstar.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Saultstar",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.airdrieecho.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Airdrieecho",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.countyweeklynews.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Countyweeklynews",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.dailyheraldtribune.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Dailyheraldtribune",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.napaneeguide.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Napaneeguide",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.thechronicle-online.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-      "name": "Thechronicle-online",
-      "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633575"
-    },
-    {
-      "url": "https://www.diariodenavarra.es/noticias/navarra/2026/05/24/empresa-familiar-navarra-mira-futuro-perder-raices-821303-15.html",
-      "name": "Diariodenavarra",
-      "sector": "Doanh nghiệp - Công nghiệp - Tiêu dùng",
-      "mentions": 60,
-      "tone": 6.52,
-      "global_event_id": "1305633578"
-    },
-    {
-      "url": "https://www.birgun.net/haber/birgun-muhabiri-ismail-ari-gazetecilik-sucundan-63-gundur-tutuklu-701327",
-      "name": "Birgun",
-      "sector": "Pháp lý - Quy định - Tội phạm",
-      "mentions": 40,
-      "tone": -5.87,
-      "global_event_id": "1305650344"
-    }
-  ],
-  "live_feed_urls": [
-    "https://www.hppr.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://radio.wpsu.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.wvtf.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.ksmu.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.wfdd.org/national/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://kansaspublicradio.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.kwit.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.canoncitydailyrecord.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-    "https://www.bostonherald.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-    "https://www.wclk.com/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.kmxt.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.dailynews.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-    "https://www.kbia.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.kuow.org:443/stories/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.wboi.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.klcc.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.kalw.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.wvik.org/npr-top-stories/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-    "https://www.citizensvoice.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-    "https://www.dailypress.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-    "https://www.wiartonecho.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.highrivertimes.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.fairviewpost.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.vermilionstandard.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.lakeshoreadvance.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.whitecourtstar.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.melfortjournal.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.nugget.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.hannaherald.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.thepost.on.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.coldlakesun.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.seaforthhuronexpositor.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.prrecordgazette.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.theobserver.ca/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.saultstar.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.airdrieecho.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.countyweeklynews.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.dailyheraldtribune.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.napaneeguide.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.thechronicle-online.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-    "https://www.diariodenavarra.es/noticias/navarra/2026/05/24/empresa-familiar-navarra-mira-futuro-perder-raices-821303-15.html",
-    "https://www.birgun.net/haber/birgun-muhabiri-ismail-ari-gazetecilik-sucundan-63-gundur-tutuklu-701327"
-  ],
   "events": [
     {
       "global_event_id": "1305633811",
       "sector": "An ninh - Xung đột - Tội phạm",
       "title": "Cảnh sát Mật vụ Mỹ bắn hạ nghi phạm nổ súng tại chốt kiểm soát Nhà Trắng",
-      "summary": "Một nghi phạm đã thiệt mạng sau khi nổ súng vào các sĩ quan tại chốt kiểm soát của Nhà Trắng, khiến một người qua đường bị thương.",
-      "title_vi": "Cảnh sát Mật vụ Mỹ bắn hạ nghi phạm nổ súng tại chốt kiểm soát Nhà Trắng",
-      "summary_vi": "Một nghi phạm đã thiệt mạng sau khi nổ súng vào các sĩ quan tại chốt kiểm soát của Nhà Trắng, khiến một người qua đường bị thương.",
-      "importance_reason": "Sự kiện thu hút sự chú ý lớn từ dư luận với độ phủ sóng rộng khắp qua 82 bài báo từ 20 nguồn khác nhau.",
+      "summary": "Một nghi phạm đã thiệt mạng sau khi nổ súng vào các sĩ quan tại chốt kiểm soát an ninh Nhà Trắng; một người qua đường cũng bị thương trong vụ việc.",
+      "importance_reason": "Sự kiện thu hút sự chú ý đặc biệt với độ phủ hơn 80 bài viết từ 20 nguồn tin khác nhau do tính chất đe dọa an ninh tại khu vực bảo vệ cấp cao.",
       "num_articles": 82,
       "source_count": 19,
       "sentiment_tone": -5.5,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Secret Service",
+        "Cảnh sát Mật vụ Mỹ",
         "Nhà Trắng",
         "Washington",
-        "Cơ quan Mật vụ Hoa Kỳ",
-        "Boston Herald",
+        "Cơ quan Mật vụ",
         "Donald Trump",
         "Nasire Best",
+        "Osama bin Laden",
         "Cơ quan Mật vụ Mỹ"
       ],
       "sources": [
-        "https://www.hppr.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-        "https://radio.wpsu.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
+        "https://www.wkms.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
+        "https://www.wnmufm.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://www.wvtf.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
+        "https://www.hppr.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://www.ksmu.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-        "https://www.wfdd.org/national/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://kansaspublicradio.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
+        "https://radio.wpsu.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
+        "https://www.wfdd.org/national/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://www.kwit.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-        "https://www.canoncitydailyrecord.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
         "https://www.bostonherald.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
         "https://www.wclk.com/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-        "https://www.kmxt.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
+        "https://www.canoncitydailyrecord.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
         "https://www.dailynews.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
+        "https://www.kalw.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://www.kbia.org/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://www.kuow.org:443/stories/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-        "https://www.wboi.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-        "https://www.klcc.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
-        "https://www.kalw.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://www.wvik.org/npr-top-stories/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
+        "https://www.klcc.org/npr-news/2026-05-23/secret-service-fatally-shoots-suspect-outside-white-house-checkpoint-bystander-wounded",
         "https://www.citizensvoice.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/",
-        "https://www.dailypress.com/2026/05/23/suspect-dead-after-opening-fire-near-white-house-security-checkpoint-secret-service-says/"
-      ],
-      "impact_score": 61,
-      "primary_actor": "LAW ENFORCEMENT AUTHORITIES",
-      "secondary_actor": "PRESIDENT",
-      "article_mentions": 82
+        "https://www.cp24.com/news/world/2026/05/24/suspect-dead-after-approaching-white-house-checkpoint-with-weapon-secret-service-says/"
+      ]
     },
     {
       "global_event_id": "1305633575",
       "sector": "Xã hội - Giáo dục - Lao động - Đời sống",
       "title": "Sudbury Credit Union quyên góp 7.500 USD hỗ trợ các ngân hàng thực phẩm tại Sudbury",
-      "summary": "Sudbury Credit Union đã trao tặng 7.500 USD cho Sudbury Food Bank nhân dịp kỷ niệm 75 năm thành lập nhằm đáp ứng nhu cầu gia tăng tại địa phương.",
-      "title_vi": "Sudbury Credit Union quyên góp 7.500 USD hỗ trợ các ngân hàng thực phẩm tại Sudbury",
-      "summary_vi": "Sudbury Credit Union đã trao tặng 7.500 USD cho Sudbury Food Bank nhân dịp kỷ niệm 75 năm thành lập nhằm đáp ứng nhu cầu gia tăng tại địa phương.",
-      "importance_reason": "Sự kiện phản ánh nỗ lực hỗ trợ an sinh xã hội từ khu vực tài chính trong bối cảnh nhu cầu cứu trợ gia tăng, được tổng hợp từ dữ liệu với độ phủ khoảng 60 bài báo.",
+      "summary": "Sudbury Credit Union đã trao tặng 7.500 USD cho Sudbury Food Bank nhằm giúp tổ chức này đáp ứng nhu cầu thực phẩm đang gia tăng tại địa phương nhân dịp kỷ niệm 75 năm thành lập.",
+      "importance_reason": "Sự kiện thu hút sự chú ý trong bối cảnh nhu cầu dịch vụ ngân hàng thực phẩm đang tăng cao tại khu vực với độ phủ thông tin rộng.",
       "num_articles": 60,
       "source_count": 20,
       "sentiment_tone": 6.52,
@@ -460,40 +62,34 @@
         "Natalie Labbée"
       ],
       "sources": [
-        "https://www.wiartonecho.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.highrivertimes.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.wiartonecho.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.fairviewpost.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.vermilionstandard.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.lakeshoreadvance.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.whitecourtstar.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.melfortjournal.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.nugget.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.hannaherald.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.lakeshoreadvance.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.melfortjournal.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.whitecourtstar.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.thepost.on.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.coldlakesun.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.hannaherald.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.seaforthhuronexpositor.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.prrecordgazette.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.theobserver.ca/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.coldlakesun.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.saultstar.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.airdrieecho.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.countyweeklynews.ca:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
-        "https://www.dailyheraldtribune.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.prrecordgazette.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.theobserver.ca/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.fortsaskatchewanrecord.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.napaneeguide.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
+        "https://www.dailyheraldtribune.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks",
         "https://www.thechronicle-online.com:443/life/sudbury-credit-union-supports-the-work-of-sudburys-food-banks"
-      ],
-      "impact_score": 61,
-      "primary_actor": "",
-      "secondary_actor": "CREDIT UNION",
-      "article_mentions": 60
+      ]
     },
     {
       "global_event_id": "1305633578",
       "sector": "Doanh nghiệp - Công nghiệp - Tiêu dùng",
-      "title": "Doanh nghiệp gia đình tại Navarra hướng tới tương lai mà không quên cội nguồn",
-      "summary": "Các doanh nghiệp gia đình tại khu vực Navarra đang tìm cách phát triển trong tương lai trong khi vẫn duy trì những giá trị truyền thống của mình.",
-      "title_vi": "Doanh nghiệp gia đình tại Navarra hướng tới tương lai mà không quên cội nguồn",
-      "summary_vi": "Các doanh nghiệp gia đình tại khu vực Navarra đang tìm cách phát triển trong tương lai trong khi vẫn duy trì những giá trị truyền thống của mình.",
-      "importance_reason": "Sự kiện phản ánh xu hướng phát triển bền vững của loại hình doanh nghiệp gia đình với độ phủ thông tin trên nhiều nguồn báo chí khu vực.",
+      "title": "Doanh nghiệp gia đình tại Navarra hướng tới tương lai",
+      "summary": "Các doanh nghiệp gia đình tại khu vực Navarra đang tập trung vào việc phát triển trong tương lai trong khi vẫn duy trì những giá trị truyền thống.",
+      "importance_reason": "Sự kiện phản ánh xu hướng chiến lược của các doanh nghiệp gia đình được ghi nhận qua nhiều nguồn tin trong khu vực.",
       "num_articles": 60,
       "source_count": 1,
       "sentiment_tone": 6.52,
@@ -504,20 +100,14 @@
       ],
       "sources": [
         "https://www.diariodenavarra.es/noticias/navarra/2026/05/24/empresa-familiar-navarra-mira-futuro-perder-raices-821303-15.html"
-      ],
-      "impact_score": 62,
-      "primary_actor": "",
-      "secondary_actor": "CREDIT UNION",
-      "article_mentions": 60
+      ]
     },
     {
-      "global_event_id": "1305650344",
+      "global_event_id": "1305650345",
       "sector": "Pháp lý - Quy định - Tội phạm",
-      "title": "Phóng viên tờ BirGün İsmail Arı bị giam giữ 63 ngày với cáo buộc lan truyền thông tin sai lệch",
-      "summary": "Phóng viên İsmail Arı đang bị giam giữ tại nhà tù Sincan vì cáo buộc lan truyền thông tin gây hiểu lầm sau khi điều tra các vụ tham nhũng.",
-      "title_vi": "Phóng viên tờ BirGün İsmail Arı bị giam giữ 63 ngày với cáo buộc lan truyền thông tin sai lệch",
-      "summary_vi": "Phóng viên İsmail Arı đang bị giam giữ tại nhà tù Sincan vì cáo buộc lan truyền thông tin gây hiểu lầm sau khi điều tra các vụ tham nhũng.",
-      "importance_reason": "Sự kiện thu hút sự chú ý vì liên quan đến tự do báo chí với độ phủ khoảng 40 bài viết.",
+      "title": "Phóng viên tờ BirGün İsmail Arı bị giam giữ 63 ngày vì cáo buộc lan truyền thông tin sai lệch",
+      "summary": "Phóng viên İsmail Arı của tờ BirGün đã bị giam giữ 63 ngày tại nhà tù Sincan với cáo buộc công khai lan truyền thông tin gây hiểu lầm cho công chúng.",
+      "importance_reason": "Sự việc thu hút sự chú ý khi liên quan đến quyền tự do báo chí với độ phủ khoảng 40 bài viết trên các phương tiện truyền thông.",
       "num_articles": 40,
       "source_count": 1,
       "sentiment_tone": -5.87,
@@ -531,11 +121,7 @@
       ],
       "sources": [
         "https://www.birgun.net/haber/birgun-muhabiri-ismail-ari-gazetecilik-sucundan-63-gundur-tutuklu-701327"
-      ],
-      "impact_score": 52,
-      "primary_actor": "JOURNALIST",
-      "secondary_actor": "",
-      "article_mentions": 40
+      ]
     }
   ]
 }

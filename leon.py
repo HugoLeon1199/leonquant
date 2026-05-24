@@ -40,7 +40,7 @@ TOP_EVENTS_POOL = 300
 BQ_OUTPUT_LIMIT = 50
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
-PULSE_SCHEMA_VERSION = "event-centric-v6.1"
+PULSE_SCHEMA_VERSION = "event-centric-v7"
 GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
 VALID_SECTORS = (
@@ -1224,56 +1224,30 @@ def dedupe_events_with_gemini(events: list[dict[str, Any]], *, use_gemini: bool 
 # ---------------------------------------------------------------------------
 
 
-def build_live_feed_items(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Flatten EventMention sources across hot events (debug / optional feed)."""
-    items: list[dict[str, Any]] = []
-    seen: set[str] = set()
-    for ev in events:
-        sector = str(ev.get("sector") or "")
-        mentions = int(ev.get("num_articles") or 0)
-        tone = float(ev.get("sentiment_tone") or 0)
-        event_id = str(ev.get("global_event_id") or "")
-        for src in ev.get("sources") or []:
-            url = str(src).strip() if isinstance(src, str) else str(src.get("url") or "").strip()
-            if not url.startswith("http") or url in seen:
-                continue
-            seen.add(url)
-            items.append(
-                {
-                    "url": url,
-                    "name": _source_label_from_url(url),
-                    "sector": sector,
-                    "mentions": mentions,
-                    "tone": round(tone, 2),
-                    "global_event_id": event_id,
-                }
-            )
-    items.sort(key=lambda x: (x.get("mentions") or 0), reverse=True)
-    return items
+def _public_event(ev: dict[str, Any]) -> dict[str, Any]:
+    """Slim card for web export (no GDELT debug fields or duplicate feed arrays)."""
+    return {
+        "global_event_id": str(ev.get("global_event_id") or ""),
+        "sector": str(ev.get("sector") or "Khác"),
+        "title": str(ev.get("title_vi") or ev.get("title") or "").strip(),
+        "summary": str(ev.get("summary_vi") or ev.get("summary") or "").strip(),
+        "importance_reason": str(ev.get("importance_reason") or "").strip(),
+        "num_articles": int(ev.get("num_articles") or 0),
+        "source_count": int(ev.get("source_count") or 0),
+        "sentiment_tone": ev.get("sentiment_tone"),
+        "sentiment_label": str(ev.get("sentiment_label") or ""),
+        "entities": list(ev.get("entities") or []),
+        "sources": list(ev.get("sources") or []),
+    }
 
 
-def build_payload(
-    events: list[dict[str, Any]],
-    *,
-    query_meta: dict[str, Any],
-    live_feed_items: list[dict[str, Any]] | None = None,
-) -> dict[str, Any]:
-    for ev in events:
-        ev.pop("gkg_organizations", None)
-        ev.pop("gkg_persons", None)
-        ev.pop("gkg_locations", None)
-        ev.pop("merged_event_ids", None)
-    items = live_feed_items or []
+def build_payload(events: list[dict[str, Any]]) -> dict[str, Any]:
+    public = [_public_event(ev) for ev in events]
     return {
         "schema_version": PULSE_SCHEMA_VERSION,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "total_events": len(events),
-        "total_clusters": len(events),
-        "total_feed_articles": len(items),
-        "query_meta": query_meta,
-        "live_feed_items": items,
-        "live_feed_urls": [str(x.get("url") or "") for x in items if x.get("url")],
-        "events": events,
+        "total_events": len(public),
+        "events": public,
     }
 
 
@@ -1284,7 +1258,7 @@ def atomic_export_json(payload: dict[str, Any], output_path: Path) -> Path:
     tmp = output_path.with_suffix(".tmp.json")
     tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     tmp.replace(output_path)
-    LOG.info("Wrote %s (%s clusters)", output_path, payload.get("total_clusters", 0))
+    LOG.info("Wrote %s (%s events)", output_path, payload.get("total_events", 0))
     return output_path
 
 
@@ -1385,13 +1359,9 @@ def main(argv: list[str] | None = None) -> int:
         events = dedupe_events_with_gemini(events, use_gemini=use_gemini)
     else:
         events = events[:TARGET_HOT_EVENTS]
-    feed_items = build_live_feed_items(events)
-    payload = build_payload(events, query_meta=meta, live_feed_items=feed_items)
-    LOG.info(
-        "Exported %s hot events, %s EventMention URLs",
-        len(events),
-        len(feed_items),
-    )
+    payload = build_payload(events)
+    url_count = sum(len(ev.get("sources") or []) for ev in payload.get("events") or [])
+    LOG.info("Exported %s hot events, %s source URLs", len(events), url_count)
     try:
         atomic_export_json(payload, output)
         # Mirror for GitHub Pages static path

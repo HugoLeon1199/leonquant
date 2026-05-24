@@ -56,9 +56,9 @@ python leon.py --dry-run
 python leon.py
 ```
 
-Output: **`market_pulse.json`** + mirror **`web/market_pulse.json`** (không ghi đè `content.json`).
+Output: **`market_pulse.json`** + **`web/market_pulse.json`**. Production: workflow **LIVE pulse hourly** (`cron: 0 * * * *`) — commit JSON → GitHub Pages deploy.
 
-Chi tiết: `.ai/CURSOR_WORKLOG.md`
+Secrets Actions: `GEMINI_API_KEY`, `GCP_SA_JSON`, `GOOGLE_CLOUD_PROJECT`.
 
 Sinh local, không commit: `news_output_today.json`, `news_for_ai.json`, `gemini_digest_outline.json`, `gemini_digest_partials.json`.
 

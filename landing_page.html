@@ -1979,10 +1979,28 @@
       </div>`;
     }
 
+    function formatPulseSyncNote(iso) {
+      if (!iso) return "Cập nhật theo chu kỳ 1 giờ.";
+      try {
+        const d = new Date(iso);
+        const s = d.toLocaleString("vi-VN", {
+          timeZone: "Asia/Ho_Chi_Minh",
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        return `Cập nhật lúc ${s} (VN) · chu kỳ 1 giờ`;
+      } catch {
+        return "Cập nhật theo chu kỳ 1 giờ.";
+      }
+    }
+
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
       if (!events.length) {
-        return `<div class="pulse-panel"><p class="hint">Chưa có tin cập nhật. Chạy <code>python leon.py</code> (GCP BigQuery) rồi push <code>market_pulse.json</code>.</p></div>`;
+        return `<div class="pulse-panel"><p class="hint">Chưa có tin LIVE. Hệ thống cập nhật mỗi giờ.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
       h += `<h2>Tin nóng nhất thế giới hiện tại <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
@@ -2030,13 +2048,13 @@
         heroDesc.textContent = "";
       }
       const sync = document.getElementById("pulseSyncNote");
-      if (sync) sync.textContent = "";
+      if (sync) sync.textContent = formatPulseSyncNote(data?.generated_at_utc);
       const el = document.getElementById("sectionPulse");
       if (el) el.innerHTML = buildPulseHtml(data || {});
     }
 
     async function fetchPulseFeed() {
-      const paths = ["market_pulse.json", "web/market_pulse.json", "web/news_data.json"];
+      const paths = ["market_pulse.json", "web/market_pulse.json"];
       for (const p of paths) {
         try {
           const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
