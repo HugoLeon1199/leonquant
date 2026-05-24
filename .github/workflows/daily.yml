@@ -55,7 +55,7 @@ jobs:
 
       - name: Export and clean articles for AI
         run: |
-          python scripts/export_news_full_for_ai.py --date today --recent-calendar-days 2
+          python scripts/export_news_full_for_ai.py --date today --timezone Asia/Ho_Chi_Minh --recent-calendar-days 7
           python scripts/clean_news_for_ai.py
           python -c "import json; d=json.load(open('news_for_ai_clean.json',encoding='utf-8')); n=len(d.get('articles') or []); assert n>0, f'no articles in news_for_ai_clean.json (count={n})'; print(f'OK: {n} articles for digest')"
 

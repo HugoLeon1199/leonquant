@@ -1978,6 +1978,22 @@
       </div>`;
     }
 
+    function formatPulseUpdatedAt(iso) {
+      if (!iso) return "";
+      try {
+        return new Date(iso).toLocaleString("vi-VN", {
+          timeZone: "Asia/Ho_Chi_Minh",
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      } catch {
+        return "";
+      }
+    }
+
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
       if (!events.length) {
@@ -1985,6 +2001,8 @@
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
       h += `<h2>Tin nóng nhất thế giới hiện tại <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
+      const updated = formatPulseUpdatedAt(data?.generated_at_utc);
+      if (updated) h += `<p class="sync-note">${escapeHtml(updated)}</p>`;
       h += `</header><div class="pulse-panel"><ol class="pulse-event-list">`;
       events.forEach((ev) => {
         const sentiment = ev.sentiment_label || pulseSentimentLabel(ev);
