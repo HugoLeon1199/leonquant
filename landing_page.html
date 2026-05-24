@@ -1899,11 +1899,10 @@
         const numArticles = ev.num_articles ?? ev.article_mentions ?? ev.articleMentions;
         const sources = normalizePulseSources(ev.sources);
         const deduped = dedupePulseSources(sources);
-        const sourceCount = deduped.length || (
+        const bqSourceCount =
           ev.source_count != null && !Number.isNaN(Number(ev.source_count))
             ? Math.max(0, Math.round(Number(ev.source_count)))
-            : sources.length
-        );
+            : deduped.length;
         const entities = Array.isArray(ev.entities) ? ev.entities.filter(Boolean) : [];
         return {
           sector,
@@ -1911,7 +1910,7 @@
           summary,
           importance,
           num_articles: numArticles != null ? Math.max(1, Math.round(Number(numArticles))) : 1,
-          source_count: deduped.length || sourceCount,
+          source_count: bqSourceCount || deduped.length,
           tone: ev.sentiment_tone ?? ev.tone,
           sentiment_label: ev.sentiment_label || pulseSentimentLabel(ev),
           entities,
@@ -1920,27 +1919,13 @@
       });
     }
 
-    function pulseStoryFingerprint(url) {
-      const u = String(url || "");
-      const path = (() => {
-        try { return new URL(u).pathname; } catch (e) { return ""; }
-      })();
-      const id = path.match(/\/(\d{7,})(?:[./?]|$)/);
-      if (id) return "story:" + id[1];
-      const slug = path.match(/\/content\/(\d{4}-\d{2}-\d{2}-[^/?#]+)/i);
-      if (slug) return "slug:" + slug[1].toLowerCase();
-      return "url:" + u;
-    }
-
     function dedupePulseSources(sources) {
       const seen = new Set();
       const out = [];
       for (const s of sources || []) {
         const url = String(s.url || "").trim();
-        if (!url.startsWith("http")) continue;
-        const key = pulseStoryFingerprint(url);
-        if (seen.has(key)) continue;
-        seen.add(key);
+        if (!url.startsWith("http") || seen.has(url)) continue;
+        seen.add(url);
         out.push(s);
       }
       return out;
