@@ -42,6 +42,10 @@ TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
 PULSE_SCHEMA_VERSION = "event-centric-v3"
 VALID_SECTORS = (
+    "An ninh - Xung đột - Tội phạm",
+    "Xã hội - Bất ổn - Biểu tình",
+    "Pháp lý - Cấm vận",
+    "Ngoại giao - Hợp tác quốc tế",
     "Kinh tế vĩ mô",
     "Tài chính - Ngân hàng",
     "Doanh nghiệp - Công nghiệp - Tiêu dùng",
@@ -70,6 +74,7 @@ _gemini_configured = False
 
 # CRITICAL: query pushdown — TopEvents first, then mentions, then GKG (sector only).
 # URLs come ONLY from eventmentions_partitioned (never from sector/theme matching).
+# Final Nhom_Nganh: EventRootCode (CAMEO) first, then GKG theme regex fallback.
 _GKG_SECTOR_CASE = """
       CASE
         WHEN REGEXP_CONTAINS(V2Themes, r'HEALTH|MEDICAL|DISEASE|PANDEMIC|EPIDEMIC|OUTBREAK|VACCINE|PHARMA|WHO|PUBLIC_HEALTH|HEALTHCARE|EBOLA|COVID|FLU|CANCER|BIOTECH')
@@ -204,7 +209,13 @@ SELECT
   COALESCE(e.SourceURLs, ARRAY<STRING>[]) AS SourceURLs,
   COALESCE(e.MentionSources, ARRAY<STRING>[]) AS MentionSources,
   e.source_count,
-  COALESCE(g.Nhom_Nganh, 'Khác') AS Nhom_Nganh,
+  CASE
+    WHEN e.EventRootCode IN ('18', '19', '20') THEN 'An ninh - Xung đột - Tội phạm'
+    WHEN e.EventRootCode IN ('14') THEN 'Xã hội - Bất ổn - Biểu tình'
+    WHEN e.EventRootCode IN ('13') THEN 'Pháp lý - Cấm vận'
+    WHEN e.EventRootCode IN ('04', '05', '06') THEN 'Ngoại giao - Hợp tác quốc tế'
+    ELSE COALESCE(g.Nhom_Nganh, 'Khác')
+  END AS Nhom_Nganh,
   REGEXP_REPLACE(COALESCE(g.V2Organizations, ''), r',?\\d+', '') AS Cac_To_Chuc_Lien_Quan,
   g.V2Themes,
   g.V2Persons,
