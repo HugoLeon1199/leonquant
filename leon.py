@@ -40,12 +40,13 @@ TOP_EVENTS_POOL = 300
 BQ_OUTPUT_LIMIT = 50
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
-PULSE_SCHEMA_VERSION = "event-centric-v3"
+PULSE_SCHEMA_VERSION = "event-centric-v4"
+GEMINI_MAX_URL_ATTEMPTS = 5
 VALID_SECTORS = (
     "An ninh - Xung đột - Tội phạm",
     "Xã hội - Bất ổn - Biểu tình",
-    "Pháp lý - Cấm vận",
-    "Ngoại giao - Hợp tác quốc tế",
+    "Pháp lý - Quy định - Tội phạm",
+    "Chính trị - Địa chính trị",
     "Kinh tế vĩ mô",
     "Tài chính - Ngân hàng",
     "Doanh nghiệp - Công nghiệp - Tiêu dùng",
@@ -74,36 +75,7 @@ _gemini_configured = False
 
 # CRITICAL: query pushdown — TopEvents first, then mentions, then GKG (sector only).
 # URLs come ONLY from eventmentions_partitioned (never from sector/theme matching).
-# Final Nhom_Nganh: EventRootCode (CAMEO) first, then GKG theme regex fallback.
-_GKG_SECTOR_CASE = """
-      CASE
-        WHEN REGEXP_CONTAINS(V2Themes, r'HEALTH|MEDICAL|DISEASE|PANDEMIC|EPIDEMIC|OUTBREAK|VACCINE|PHARMA|WHO|PUBLIC_HEALTH|HEALTHCARE|EBOLA|COVID|FLU|CANCER|BIOTECH')
-          THEN 'Y tế - Dược phẩm - Sức khỏe cộng đồng'
-        WHEN REGEXP_CONTAINS(V2Themes, r'LAW|LEGAL|LEGISLATION|REGULATION|COURT|JUSTICE|JUDGE|LAWSUIT|TRIAL|POLICE|CRIME|CRIMINAL|INVESTIGATION|ARREST|CORRUPTION|FRAUD|ANTITRUST|COMPLIANCE|PROSECUTOR|SENTENCE|PRISON|HUMAN_RIGHTS|IMMIGRATION')
-          THEN 'Pháp lý - Quy định - Tội phạm'
-        WHEN REGEXP_CONTAINS(V2Themes, r'ENERGY|OIL|GAS|LNG|COAL|ELECTRICITY|POWER|GRID|NUCLEAR|SOLAR|WIND|RENEWABLE|CLIMATE|ENV_|ENVIRONMENT|CARBON|EMISSION|MINING|MINERALS|GOLD|COPPER|LITHIUM|WATER|DROUGHT|FLOOD|WILDFIRE|EARTHQUAKE|DISASTER|OPEC')
-          THEN 'Năng lượng - Khí hậu - Tài nguyên'
-        WHEN REGEXP_CONTAINS(V2Themes, r'POLITICAL|POLITICS|GOVERNMENT|PRESIDENT|PRIME_MINISTER|PARLIAMENT|ELECTION|VOTE|DIPLOMACY|FOREIGN_POLICY|GEOPOLITICS|MILITARY|WAR|CONFLICT|CRISIS|TERROR|SANCTIONS|BORDER|NATO|UNITED_NATIONS|MIDDLE_EAST|RUSSIA|UKRAINE|CHINA|ISRAEL|IRAN')
-          THEN 'Chính trị - Địa chính trị'
-        WHEN REGEXP_CONTAINS(V2Themes, r'TECH|TECHNOLOGY|ARTIFICIAL_INTELLIGENCE|AI|MACHINE_LEARNING|ROBOTICS|SOFTWARE|HARDWARE|SEMICONDUCTOR|CHIP|GPU|DATA_CENTER|CLOUD|CYBER|CYBERSECURITY|HACKING|DATA_BREACH|INTERNET|DIGITAL|PLATFORM|TELECOM|5G|INNOVATION')
-          THEN 'Công nghệ - AI - Bán dẫn'
-        WHEN REGEXP_CONTAINS(V2Themes, r'ECON|ECONOMY|GDP|GROWTH|RECESSION|INFLATION|DEFLATION|CPI|PPI|INTEREST_RATE|RATE_HIKE|RATE_CUT|CENTRAL_BANK|FED|ECB|BOJ|MONETARY_POLICY|FISCAL_POLICY|BUDGET|DEFICIT|TRADE_BALANCE|UNEMPLOYMENT')
-          THEN 'Kinh tế vĩ mô'
-        WHEN REGEXP_CONTAINS(V2Themes, r'FINANCE|FINANCIAL|BANK|BANKING|CREDIT|LOAN|BOND|TREASURY|YIELD|CURRENCY|FOREX|USD|DOLLAR|EURO|STOCK|EQUITY|MARKET|WALL_STREET|INVESTOR|FUND|ETF|INSURANCE|LIQUIDITY|DEFAULT|BANKRUPTCY|FINANCIAL_RISK|CREDIT_RISK')
-          THEN 'Tài chính - Ngân hàng'
-        WHEN REGEXP_CONTAINS(V2Themes, r'BUSINESS|COMPANY|CORPORATE|INDUSTRY|INDUSTRIAL|MANUFACTURING|FACTORY|PRODUCTION|RETAIL|CONSUMER|SALES|REVENUE|PROFIT|EARNINGS|IPO|MERGER|ACQUISITION|STARTUP|LAYOFFS|AUTO|EV|AIRLINE|TOURISM|HOTEL|RESTAURANT')
-          THEN 'Doanh nghiệp - Công nghiệp - Tiêu dùng'
-        WHEN REGEXP_CONTAINS(V2Themes, r'SCIENCE|RESEARCH|STUDY|DISCOVERY|SPACE|NASA|ESA|SATELLITE|ROCKET|ASTRONOMY|PHYSICS|CHEMISTRY|BIOLOGY|GENETICS|ARCHAEOLOGY|UNIVERSITY|LABORATORY|EXPERIMENT|QUANTUM|CLIMATE_SCIENCE')
-          THEN 'Khoa học - Vũ trụ - Nghiên cứu'
-        WHEN REGEXP_CONTAINS(V2Themes, r'INFRASTRUCTURE|CONSTRUCTION|REAL_ESTATE|HOUSING|PROPERTY|URBAN|CITY|TRANSPORT|ROAD|RAIL|AIRPORT|PORT|BRIDGE|METRO|SMART_CITY|PUBLIC_WORKS|WATER_SUPPLY|BUILDING|LAND|MORTGAGE')
-          THEN 'Hạ tầng - Bất động sản - Đô thị'
-        WHEN REGEXP_CONTAINS(V2Themes, r'LOGISTICS|SUPPLY_CHAIN|SHIPPING|CONTAINER|FREIGHT|CARGO|TRANSPORTATION|CUSTOMS|DELIVERY|WAREHOUSE|MARITIME|CANAL|RED_SEA|STRAIT|ROUTE|DISTRIBUTION|INVENTORY')
-          THEN 'Logistics - Chuỗi cung ứng - Thương mại'
-        WHEN REGEXP_CONTAINS(V2Themes, r'SOCIETY|SOCIAL|EDUCATION|SCHOOL|STUDENT|LABOR|WORKER|EMPLOYMENT|STRIKE|UNION|WAGE|MIGRATION|DEMOGRAPHICS|POPULATION|CULTURE|MEDIA|ENTERTAINMENT|SPORTS|LIFESTYLE|POVERTY|INEQUALITY')
-          THEN 'Xã hội - Giáo dục - Lao động - Đời sống'
-        ELSE 'Khác'
-      END
-"""
+# Final Nhom_Nganh: MEGA CLASSIFIER — CAMEO EventRootCode + GKG V2Themes in one CASE.
 
 GDELT_MACRO_QUERY = f"""
 WITH
@@ -190,8 +162,7 @@ WITH
       V2Themes,
       V2Organizations,
       V2Persons,
-      V2Locations,
-      {_GKG_SECTOR_CASE.strip()} AS Nhom_Nganh
+      V2Locations
     FROM `gdelt-bq.gdeltv2.gkg_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
       AND DocumentIdentifier IS NOT NULL
@@ -212,9 +183,31 @@ SELECT
   CASE
     WHEN e.EventRootCode IN ('18', '19', '20') THEN 'An ninh - Xung đột - Tội phạm'
     WHEN e.EventRootCode IN ('14') THEN 'Xã hội - Bất ổn - Biểu tình'
-    WHEN e.EventRootCode IN ('13') THEN 'Pháp lý - Cấm vận'
-    WHEN e.EventRootCode IN ('04', '05', '06') THEN 'Ngoại giao - Hợp tác quốc tế'
-    ELSE COALESCE(g.Nhom_Nganh, 'Khác')
+    WHEN e.EventRootCode IN ('09', '17') OR REGEXP_CONTAINS(g.V2Themes, r'LAW|LEGAL|LEGISLATION|REGULATION|COURT|JUSTICE|JUDGE|LAWSUIT|TRIAL|POLICE|CRIME|CRIMINAL|INVESTIGATION|ARREST|CORRUPTION|FRAUD|ANTITRUST|COMPLIANCE|PROSECUTOR|SENTENCE|PRISON|HUMAN_RIGHTS|IMMIGRATION')
+      THEN 'Pháp lý - Quy định - Tội phạm'
+    WHEN e.EventRootCode IN ('04', '05', '13', '15', '16') OR REGEXP_CONTAINS(g.V2Themes, r'POLITICAL|POLITICS|GOVERNMENT|PRESIDENT|PRIME_MINISTER|PARLIAMENT|ELECTION|VOTE|DIPLOMACY|FOREIGN_POLICY|GEOPOLITICS|MILITARY|WAR|CONFLICT|CRISIS|TERROR|SANCTIONS|BORDER|NATO|UNITED_NATIONS|MIDDLE_EAST|RUSSIA|UKRAINE|CHINA|ISRAEL|IRAN')
+      THEN 'Chính trị - Địa chính trị'
+    WHEN e.EventRootCode IN ('06', '07') OR REGEXP_CONTAINS(g.V2Themes, r'ECON|ECONOMY|GDP|GROWTH|RECESSION|INFLATION|DEFLATION|CPI|PPI|INTEREST_RATE|RATE_HIKE|RATE_CUT|CENTRAL_BANK|FED|ECB|BOJ|MONETARY_POLICY|FISCAL_POLICY|BUDGET|DEFICIT|TRADE_BALANCE|UNEMPLOYMENT')
+      THEN 'Kinh tế vĩ mô'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'FINANCE|FINANCIAL|BANK|BANKING|CREDIT|LOAN|BOND|TREASURY|YIELD|CURRENCY|FOREX|USD|DOLLAR|EURO|STOCK|EQUITY|MARKET|WALL_STREET|INVESTOR|FUND|ETF|INSURANCE|LIQUIDITY|DEFAULT|BANKRUPTCY|FINANCIAL_RISK|CREDIT_RISK')
+      THEN 'Tài chính - Ngân hàng'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'TECH|TECHNOLOGY|ARTIFICIAL_INTELLIGENCE|AI|MACHINE_LEARNING|ROBOTICS|SOFTWARE|HARDWARE|SEMICONDUCTOR|CHIP|GPU|DATA_CENTER|CLOUD|CYBER|CYBERSECURITY|HACKING|DATA_BREACH|INTERNET|DIGITAL|PLATFORM|TELECOM|5G|INNOVATION')
+      THEN 'Công nghệ - AI - Bán dẫn'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'ENERGY|OIL|GAS|LNG|COAL|ELECTRICITY|POWER|GRID|NUCLEAR|SOLAR|WIND|RENEWABLE|CLIMATE|ENV_|ENVIRONMENT|CARBON|EMISSION|MINING|MINERALS|GOLD|COPPER|LITHIUM|WATER|DROUGHT|FLOOD|WILDFIRE|EARTHQUAKE|DISASTER|OPEC')
+      THEN 'Năng lượng - Khí hậu - Tài nguyên'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'BUSINESS|COMPANY|CORPORATE|INDUSTRY|INDUSTRIAL|MANUFACTURING|FACTORY|PRODUCTION|RETAIL|CONSUMER|SALES|REVENUE|PROFIT|EARNINGS|IPO|MERGER|ACQUISITION|STARTUP|LAYOFFS|AUTO|EV|AIRLINE|TOURISM|HOTEL|RESTAURANT')
+      THEN 'Doanh nghiệp - Công nghiệp - Tiêu dùng'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'LOGISTICS|SUPPLY_CHAIN|SHIPPING|CONTAINER|FREIGHT|CARGO|TRANSPORTATION|CUSTOMS|DELIVERY|WAREHOUSE|MARITIME|CANAL|RED_SEA|STRAIT|ROUTE|DISTRIBUTION|INVENTORY')
+      THEN 'Logistics - Chuỗi cung ứng - Thương mại'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'INFRASTRUCTURE|CONSTRUCTION|REAL_ESTATE|HOUSING|PROPERTY|URBAN|CITY|TRANSPORT|ROAD|RAIL|AIRPORT|PORT|BRIDGE|METRO|SMART_CITY|PUBLIC_WORKS|WATER_SUPPLY|BUILDING|LAND|MORTGAGE')
+      THEN 'Hạ tầng - Bất động sản - Đô thị'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'HEALTH|MEDICAL|DISEASE|PANDEMIC|EPIDEMIC|OUTBREAK|VACCINE|PHARMA|WHO|PUBLIC_HEALTH|HEALTHCARE|EBOLA|COVID|FLU|CANCER|BIOTECH')
+      THEN 'Y tế - Dược phẩm - Sức khỏe cộng đồng'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'SCIENCE|RESEARCH|STUDY|DISCOVERY|SPACE|NASA|ESA|SATELLITE|ROCKET|ASTRONOMY|PHYSICS|CHEMISTRY|BIOLOGY|GENETICS|ARCHAEOLOGY|UNIVERSITY|LABORATORY|EXPERIMENT|QUANTUM|CLIMATE_SCIENCE')
+      THEN 'Khoa học - Vũ trụ - Nghiên cứu'
+    WHEN REGEXP_CONTAINS(g.V2Themes, r'SOCIETY|SOCIAL|EDUCATION|SCHOOL|STUDENT|LABOR|WORKER|EMPLOYMENT|STRIKE|UNION|WAGE|MIGRATION|DEMOGRAPHICS|POPULATION|CULTURE|MEDIA|ENTERTAINMENT|SPORTS|LIFESTYLE|POVERTY|INEQUALITY')
+      THEN 'Xã hội - Giáo dục - Lao động - Đời sống'
+    ELSE 'Khác'
   END AS Nhom_Nganh,
   REGEXP_REPLACE(COALESCE(g.V2Organizations, ''), r',?\\d+', '') AS Cac_To_Chuc_Lien_Quan,
   g.V2Themes,
@@ -610,8 +603,12 @@ def enrich_event_with_gemini(
     source_count: int,
 ) -> dict[str, Any] | None:
     """Vietnamese editorial copy — no AI/GDELT/crawler wording in public fields."""
-    if not raw_content or not _configure_gemini():
+    if not _configure_gemini():
         return None
+
+    excerpt = (raw_content or "").strip()
+    if not excerpt:
+        excerpt = "(Không trích được bài báo — chỉ dùng metadata sự kiện bên dưới, không bịa thêm.)"
 
     sectors_list = "\n".join(f"{i + 1}. {s}" for i, s in enumerate(VALID_SECTORS) if s != "Khác")
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
@@ -653,7 +650,7 @@ Dữ liệu sự kiện:
 - Nhân vật: {persons}
 - Địa điểm: {locations}
 - Đoạn bài tham khảo:
-{raw_content}
+{excerpt}
 """.strip()
 
     try:
@@ -683,17 +680,43 @@ def _merge_entity_lists(*lists: list[str], limit: int = 8) -> list[str]:
     return out
 
 
+def _usable_title(title: Any) -> bool:
+    t = str(title or "").strip()
+    return bool(t) and t != TITLE_UNAVAILABLE
+
+
+def _title_from_scrape(raw_content: str | None) -> str:
+    if raw_content and raw_content.startswith("Title:"):
+        scraped = raw_content.split("\n", 1)[0].replace("Title:", "").strip()
+        if scraped:
+            return scraped[:300]
+    return TITLE_UNAVAILABLE
+
+
+def _gemini_kwargs(ev: dict[str, Any], urls: list[str]) -> dict[str, Any]:
+    return {
+        "sector": str(ev.get("sector") or "Khác"),
+        "actor1": str(ev.get("primary_actor") or "").strip() or _primary_actor_label(ev),
+        "actor2": str(ev.get("secondary_actor") or "").strip(),
+        "num_articles": int(ev.get("num_articles") or 0),
+        "tone": float(ev.get("sentiment_tone") or 0),
+        "organizations": str(ev.get("gkg_organizations") or "")[:500],
+        "persons": str(ev.get("gkg_persons") or "")[:300],
+        "locations": str(ev.get("gkg_locations") or "")[:300],
+        "source_count": int(ev.get("source_count") or len(urls)),
+    }
+
+
 def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
-    """Scrape top EventMention URL; Gemini fills Vietnamese public copy."""
+    """Try up to GEMINI_MAX_URL_ATTEMPTS EventMention URLs for scrape + Gemini."""
     for i, ev in enumerate(events, start=1):
         urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
-        top_url = urls[0] if urls else ""
         sector = str(ev.get("sector") or "Khác")
-        actor1 = str(ev.get("primary_actor") or "").strip()
-        actor2 = str(ev.get("secondary_actor") or "").strip()
         existing_entities = list(ev.get("entities") or [])
+        attempt_urls = urls[:GEMINI_MAX_URL_ATTEMPTS]
+        gemini_args = _gemini_kwargs(ev, urls)
 
-        if not top_url:
+        if not attempt_urls:
             ev["title_vi"] = TITLE_UNAVAILABLE
             ev["summary_vi"] = "Chưa có nguồn tin để tóm tắt."
             ev["importance_reason"] = ""
@@ -701,26 +724,41 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
             ev["summary"] = ev["summary_vi"]
             continue
 
-        LOG.info("Enriching event %s/%s [%s]: %s", i, len(events), ev.get("global_event_id", ""), top_url[:80])
-        raw_content = extract_web_content(top_url)
-        ai_data = None
+        ai_data: dict[str, Any] | None = None
         if use_gemini:
-            ai_data = enrich_event_with_gemini(
-                sector=sector,
-                actor1=actor1 or _primary_actor_label(ev),
-                actor2=actor2,
-                num_articles=int(ev.get("num_articles") or 0),
-                tone=float(ev.get("sentiment_tone") or 0),
-                organizations=str(ev.get("gkg_organizations") or "")[:500],
-                persons=str(ev.get("gkg_persons") or "")[:300],
-                locations=str(ev.get("gkg_locations") or "")[:300],
-                raw_content=raw_content,
-                source_count=int(ev.get("source_count") or len(urls)),
-            )
+            for j, url in enumerate(attempt_urls):
+                LOG.info(
+                    "Enriching event %s/%s [%s] url %s/%s: %s",
+                    i,
+                    len(events),
+                    ev.get("global_event_id", ""),
+                    j + 1,
+                    len(attempt_urls),
+                    url[:80],
+                )
+                raw_content = extract_web_content(url)
+                if raw_content:
+                    ai_data = enrich_event_with_gemini(**gemini_args, raw_content=raw_content)
+                    if _usable_title((ai_data or {}).get("title_vi")):
+                        break
+                    ai_data = None
+                if j < len(attempt_urls) - 1:
+                    time.sleep(GEMINI_CALL_INTERVAL_SEC)
+            if not _usable_title((ai_data or {}).get("title_vi")):
+                ai_data = enrich_event_with_gemini(**gemini_args, raw_content=None)
             if i < len(events):
                 time.sleep(GEMINI_CALL_INTERVAL_SEC)
+        else:
+            scraped_title = TITLE_UNAVAILABLE
+            for url in attempt_urls:
+                raw_content = extract_web_content(url)
+                scraped_title = _title_from_scrape(raw_content)
+                if not _usable_title(scraped_title):
+                    scraped_title = fetch_title(url)
+                if _usable_title(scraped_title):
+                    break
 
-        if ai_data:
+        if ai_data and _usable_title(ai_data.get("title_vi")):
             ev["title_vi"] = ai_data.get("title_vi") or TITLE_UNAVAILABLE
             ev["summary_vi"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
             ev["importance_reason"] = ai_data.get("importance_reason") or ""
@@ -728,12 +766,7 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
             if gem_sector in VALID_SECTORS:
                 ev["sector"] = gem_sector
             ev["entities"] = _merge_entity_lists(ai_data.get("entities") or [], existing_entities, limit=6)
-        else:
-            scraped_title = TITLE_UNAVAILABLE
-            if raw_content and raw_content.startswith("Title:"):
-                scraped_title = raw_content.split("\n", 1)[0].replace("Title:", "").strip() or TITLE_UNAVAILABLE
-            if scraped_title == TITLE_UNAVAILABLE:
-                scraped_title = fetch_title(top_url)
+        elif not use_gemini:
             ev["title_vi"] = scraped_title
             ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
             ev["importance_reason"] = (
@@ -741,6 +774,25 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
                 f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
             )
             ev["entities"] = existing_entities
+        else:
+            scraped_title = TITLE_UNAVAILABLE
+            for url in attempt_urls:
+                raw_content = extract_web_content(url)
+                scraped_title = _title_from_scrape(raw_content)
+                if not _usable_title(scraped_title):
+                    scraped_title = fetch_title(url)
+                if _usable_title(scraped_title):
+                    break
+            ev["title_vi"] = scraped_title
+            ev["summary_vi"] = (
+                ai_data.get("summary_vi") if ai_data else f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
+            )
+            ev["importance_reason"] = (
+                (ai_data or {}).get("importance_reason")
+                or f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
+                f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
+            )
+            ev["entities"] = _merge_entity_lists((ai_data or {}).get("entities") or [], existing_entities, limit=6)
 
         ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
         ev["summary"] = ev.get("summary_vi") or ""
