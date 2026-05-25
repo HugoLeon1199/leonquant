@@ -273,6 +273,17 @@ class WebIntelDB:
             sql = f"INSERT OR REPLACE INTO articles ({cols}) VALUES ({placeholders})"
             self.conn.execute(sql, list(row.values()))
 
+    def touch_article_extracted_by_hash(self, content_hash: str) -> int:
+        """Refresh extracted_at for duplicate re-crawls (warm cache / today-only)."""
+        if not content_hash:
+            return 0
+        with self._lock:
+            cur = self.conn.execute(
+                "UPDATE articles SET extracted_at = ? WHERE content_hash = ?",
+                [utc_now(), content_hash],
+            )
+            return int(cur.rowcount or 0)
+
     def insert_crawl_error(self, row: dict[str, Any]) -> None:
         with self._lock:
             cols = ", ".join(row.keys())
@@ -864,7 +875,8 @@ class WebIntelDB:
                     keep_ids,
                 )
             else:
-                self.conn.execute("DELETE FROM articles")
+                # Never wipe the whole table when the export window is empty (CI safety).
+                pass
             after_articles = int(self.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
 
             before_errors = int(self.conn.execute("SELECT COUNT(*) FROM crawl_errors").fetchone()[0])

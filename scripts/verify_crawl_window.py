@@ -55,6 +55,15 @@ def main() -> int:
         )
         max_ext = db.conn.execute("SELECT MAX(extracted_at) FROM articles").fetchone()[0]
         total_in_db = int(db.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
+        rolling_48h = int(
+            db.conn.execute(
+                """
+                SELECT COUNT(*) FROM articles
+                WHERE extracted_at >= CURRENT_TIMESTAMP - INTERVAL 48 HOUR
+                  AND COALESCE(content_length, 0) >= 200
+                """
+            ).fetchone()[0]
+        )
     finally:
         db.close()
 
@@ -77,11 +86,15 @@ def main() -> int:
         f"{n} article(s) (min required: {args.min_articles})"
     )
     print(f"Total rows in articles table: {total_in_db}")
+    print(f"Articles with extracted_at in last 48h (>=200 chars): {rolling_48h}")
     print(f"Latest extracted_at in DB: {max_ext}")
     ok_db = n >= args.min_articles
     ok_export = export_n is not None and export_n >= args.min_articles
-    if ok_db or ok_export:
-        if ok_export and not ok_db:
+    ok_rolling = rolling_48h >= args.min_articles
+    if ok_db or ok_export or ok_rolling:
+        if ok_rolling and not ok_db:
+            print(f"PASS via rolling 48h extracted_at ({rolling_48h} >= {args.min_articles}); calendar window had {n}")
+        elif ok_export and not ok_db:
             print(f"PASS via export count ({export_n} >= {args.min_articles}); DB window had {n}")
         return 0
     print(

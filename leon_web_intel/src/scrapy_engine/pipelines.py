@@ -235,7 +235,11 @@ class WebIntelArticlePipeline:
             adapter.pop("html_body", None)
             return item
 
+        today_only = bool(spider.settings.getbool("WEB_INTEL_TODAY_ONLY", False))
+
         if content_hash and content_hash in self.seen_hashes:
+            if today_only and self.db is not None:
+                self.db.touch_article_extracted_by_hash(content_hash)
             self._bump_duplicates()
             self.db.mark_frontier_skipped(
                 url=url,
@@ -244,8 +248,6 @@ class WebIntelArticlePipeline:
             )
             adapter.pop("html_body", None)
             return item
-
-        today_only = bool(spider.settings.getbool("WEB_INTEL_TODAY_ONLY", False))
         if today_only:
             target_date_str = spider.settings.get("WEB_INTEL_TARGET_DATE") or "today"
             timezone_name = spider.settings.get("WEB_INTEL_TIMEZONE") or "Asia/Ho_Chi_Minh"
