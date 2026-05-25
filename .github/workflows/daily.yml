@@ -10,6 +10,8 @@ on:
     branches: [main]
     paths:
       - .ci-run-digest
+      - .github/workflows/daily.yml
+      - data/web_intel_leonquant.duckdb.gz
 
 permissions:
   contents: write
@@ -39,12 +41,29 @@ jobs:
 
       - name: Restore DuckDB (articles + profiles)
         uses: actions/cache@v4
+        id: cache-intel-db
         with:
           path: data/web_intel_leonquant.duckdb
-          key: intel-digest-db-v1-${{ hashFiles('config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml') }}
+          key: intel-digest-db-v1-${{ hashFiles('data/web_intel_leonquant.duckdb.gz', 'config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml') }}
           restore-keys: |
             intel-digest-db-v1-
             intel-profiles-v7-
+
+      - name: Prepare DuckDB from repo seed
+        run: |
+          mkdir -p data
+          if [ ! -f data/web_intel_leonquant.duckdb ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
+            gunzip -c data/web_intel_leonquant.duckdb.gz > data/web_intel_leonquant.duckdb
+            echo "Decompressed seed DB ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
+          fi
+          python -c "
+          import duckdb
+          c=duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
+          n=c.execute('SELECT COUNT(*) FROM articles').fetchone()[0]
+          c.close()
+          print(f'articles in DB: {n}')
+          assert n>=5, 'need at least 5 articles in DuckDB'
+          "
 
       - name: Pin calendar date
         run: |
@@ -56,11 +75,6 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DIGEST_LOOP_FORCE: "1"
         run: |
-          mkdir -p data
-          if [ ! -f data/web_intel_leonquant.duckdb ]; then
-            echo "ERROR: no DuckDB at data/web_intel_leonquant.duckdb — crawl locally once or upload cache." >&2
-            exit 2
-          fi
           python scripts/run_digest_from_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
