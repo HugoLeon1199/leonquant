@@ -1,7 +1,7 @@
 name: Tin Việt Nam 48h digest
 
-# Lịch: 05:00 giờ Việt Nam (UTC+7) mỗi ngày.
-# GitHub Actions chỉ nhận UTC → 05:00 VN = 22:00 UTC ngày hôm trước.
+# Digest only: DuckDB → export → Gemini → content.json (no crawl).
+# Lịch: 05:00 VN = 22:00 UTC ngày trước.
 on:
   schedule:
     - cron: "0 22 * * *"
@@ -21,7 +21,7 @@ concurrency:
 jobs:
   build-digest:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 180
 
     steps:
       - name: Check out repository
@@ -32,104 +32,44 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Leon Web Intel (Scrapy) dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r leon_web_intel/requirements.txt
-          python -m playwright install --with-deps chromium
 
-      # Cache only source_profiles (+ crawl_skip). Articles are cleared each run.
-      - name: Cache Intel source profiles (DuckDB)
+      - name: Restore DuckDB (articles + profiles)
         uses: actions/cache@v4
-        id: cache-intel-db
         with:
           path: data/web_intel_leonquant.duckdb
-          key: intel-profiles-v7-${{ hashFiles('config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
+          key: intel-digest-db-v1-${{ hashFiles('config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml') }}
           restore-keys: |
+            intel-digest-db-v1-
             intel-profiles-v7-
 
-      - name: Verify pipeline scripts compile
-        run: |
-          python -m py_compile macro_relevance.py build_website_content.py validate_content.py summarize_news_gemini.py scripts/run_intel_full_daily.py scripts/export_intel_to_news_output.py scripts/export_news_full_for_ai.py scripts/clean_news_for_ai.py scripts/run_daily_brief.py scripts/run_digest_loop.py scripts/test_gemini_digest_preflight.py scripts/verify_crawl_window.py scripts/prune_intel_db.py scripts/pin_crawl_calendar_date.py scripts/clear_intel_articles.py leon_web_intel/run_profile.py leon_web_intel/run_scrapy.py
-
-      - name: Pin crawl calendar date
+      - name: Pin calendar date
         run: |
           echo "CRAWL_CALENDAR_DATE=$(python scripts/pin_crawl_calendar_date.py --date today --timezone Asia/Ho_Chi_Minh)" >> "$GITHUB_ENV"
-          echo "Pinned crawl/verify date: $CRAWL_CALENDAR_DATE"
+          echo "Pinned date: $CRAWL_CALENDAR_DATE"
 
-      - name: Crawl news (keep profiles, fresh articles)
-        id: crawl
-        env:
-          WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
-        run: |
-          mkdir -p data
-          if [ -f data/web_intel_leonquant.duckdb ]; then
-            python scripts/clear_intel_articles.py
-            echo "Kept source_profiles; cleared articles. Profile step only updates new/stale sources."
-          else
-            echo "First run: profile all sources, then crawl."
-          fi
-          python scripts/run_intel_full_daily.py \
-            --date "$CRAWL_CALENDAR_DATE" \
-            --timezone Asia/Ho_Chi_Minh \
-            --no-crawl-skip
-
-      - name: Verify crawl refreshed 48h window
-        id: verify_crawl
-        run: |
-          python scripts/verify_crawl_window.py \
-            --date "$CRAWL_CALENDAR_DATE" \
-            --timezone Asia/Ho_Chi_Minh \
-            --recent-calendar-days 2 \
-            --min-articles 5 \
-            --check-export news_output_today.json
-
-      - name: Prune DuckDB to 48h window only
-        if: success()
-        run: |
-          python scripts/prune_intel_db.py \
-            --date "$CRAWL_CALENDAR_DATE" \
-            --timezone Asia/Ho_Chi_Minh \
-            --recent-calendar-days 2
-
-      - name: Export and clean articles for AI
-        run: |
-          python scripts/export_news_full_for_ai.py \
-            --date "$CRAWL_CALENDAR_DATE" \
-            --timezone Asia/Ho_Chi_Minh \
-            --recent-calendar-days 2
-          python scripts/clean_news_for_ai.py
-          python -c "import json; d=json.load(open('news_for_ai_clean.json',encoding='utf-8')); n=len(d.get('articles') or []); assert n>0, f'no articles in 48h window (count={n})'; print(f'OK: {n} articles for digest')"
-
-      - name: Reset digest artifacts (force fresh Gemini run)
-        run: |
-          rm -f gemini_digest_summary.json gemini_digest_partials.json gemini_digest_outline.json
-
-      - name: Gemini batch digest (free-tier loop)
+      - name: Digest from DuckDB (export → Gemini → web)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python scripts/run_digest_loop.py
-
-      - name: Build public website content
+          DIGEST_LOOP_FORCE: "1"
         run: |
-          python build_website_content.py \
-            --digest-input gemini_digest_summary.json \
-            --enriched-input news_for_ai_clean.json \
-            --skip-images
-
-      - name: Validate JSON artifacts
-        run: |
-          python -m json.tool gemini_digest_summary.json > /dev/null
-          python -m json.tool content.json > /dev/null
-          python validate_content.py --content-input content.json
+          mkdir -p data
+          if [ ! -f data/web_intel_leonquant.duckdb ]; then
+            echo "ERROR: no DuckDB at data/web_intel_leonquant.duckdb — crawl locally once or upload cache." >&2
+            exit 2
+          fi
+          python scripts/run_digest_from_db.py \
+            --date "$CRAWL_CALENDAR_DATE" \
+            --timezone Asia/Ho_Chi_Minh \
+            --recent-calendar-days 2
 
       - name: Commit updated digest
         run: |
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
-          git add \
-            news_for_ai_clean.json \
-            gemini_digest_summary.json \
-            content.json
-          git commit -m "Update daily news digest (crawl + Gemini + web)" || echo "No content changes to commit"
+          git add news_for_ai_clean.json gemini_digest_summary.json content.json
+          git commit -m "Update daily news digest (DB → Gemini → web)" || echo "No content changes to commit"
           git push
