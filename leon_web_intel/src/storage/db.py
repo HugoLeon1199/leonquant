@@ -902,6 +902,39 @@ class WebIntelDB:
             "keep_articles": len(keep_ids),
         }
 
+    def clear_crawl_article_data(self) -> dict[str, int]:
+        """Drop crawl output tables; keep source_profiles (and source_crawl_skip)."""
+        tables = (
+            "articles",
+            "discovered_urls",
+            "crawl_errors",
+            "crawl_runs",
+            "crawl_frontier",
+            "source_health",
+            "api_records",
+            "gdelt_doc_hits",
+        )
+        counts: dict[str, int] = {}
+        with self._lock:
+            for table in tables:
+                try:
+                    before = int(self.conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0])
+                except duckdb.Error:
+                    before = 0
+                try:
+                    self.conn.execute(f"DELETE FROM {table}")
+                except duckdb.Error:
+                    pass
+                counts[table] = before
+            profiles = int(self.conn.execute("SELECT COUNT(*) FROM source_profiles").fetchone()[0])
+        try:
+            with self._lock:
+                self.conn.execute("VACUUM")
+        except duckdb.Error:
+            pass
+        counts["source_profiles_kept"] = profiles
+        return counts
+
     def fetch_all_articles(self) -> list[dict[str, Any]]:
         """All rows in articles (any publication day)."""
         with self._lock:
