@@ -76,6 +76,11 @@ def main() -> int:
     parser.add_argument("--close-spider-timeout", type=int, default=3600)
     parser.add_argument("--skip-profile", action="store_true")
     parser.add_argument(
+        "--fresh-db",
+        action="store_true",
+        help="Delete --db before run (CI: empty articles DB each digest; profiler still fills source_profiles).",
+    )
+    parser.add_argument(
         "--force-refresh-profile",
         action="store_true",
         help="Pass --force-refresh to run_profile.py (re-profile every source; ignores 7-day cache).",
@@ -133,6 +138,9 @@ def main() -> int:
     py = sys.executable
     db = args.db.resolve()
     db.parent.mkdir(parents=True, exist_ok=True)
+    if args.fresh_db and db.is_file():
+        db.unlink()
+        print(f"Fresh DB: removed {db}")
 
     tier_files = sorted(args.tiers_dir.glob("*.txt"))
     if not tier_files:
