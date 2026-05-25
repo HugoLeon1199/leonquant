@@ -1,7 +1,7 @@
 name: Tin Việt Nam 48h digest
 
-# Digest only: DuckDB → export → Gemini → content.json (no crawl).
-# Lịch: 05:00 VN = 22:00 UTC ngày trước.
+# 05:00 Asia/Ho_Chi_Minh mỗi ngày = 22:00 UTC ngày trước.
+# Profile đã phân loại (cache/seed) → Scrapy 48h → export → Gemini → content.json
 on:
   schedule:
     - cron: "0 22 * * *"
@@ -23,7 +23,7 @@ concurrency:
 jobs:
   build-digest:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 360
 
     steps:
       - name: Check out repository
@@ -39,43 +39,90 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r leon_web_intel/requirements.txt
 
-      - name: Restore DuckDB (articles + profiles)
+      - name: Restore DuckDB (profiles + articles)
         uses: actions/cache@v4
         id: cache-intel-db
         with:
           path: data/web_intel_leonquant.duckdb
-          key: intel-digest-db-v1-${{ hashFiles('data/web_intel_leonquant.duckdb.gz', 'config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml') }}
+          key: intel-digest-db-v2-${{ hashFiles('data/web_intel_leonquant.duckdb.gz', 'config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
           restore-keys: |
+            intel-digest-db-v2-
             intel-digest-db-v1-
             intel-profiles-v7-
 
-      - name: Prepare DuckDB from repo seed
+      - name: Prepare DuckDB
         run: |
           mkdir -p data
           if [ ! -f data/web_intel_leonquant.duckdb ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
             gunzip -c data/web_intel_leonquant.duckdb.gz > data/web_intel_leonquant.duckdb
             echo "Decompressed seed DB ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
           fi
+          if [ ! -f data/web_intel_leonquant.duckdb ]; then
+            echo "ERROR: no DuckDB — add data/web_intel_leonquant.duckdb.gz to the repo or restore Actions cache." >&2
+            exit 2
+          fi
           python -c "
           import duckdb
-          c=duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
-          n=c.execute('SELECT COUNT(*) FROM articles').fetchone()[0]
+          c = duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
+          profiles = int(c.execute('SELECT COUNT(*) FROM source_profiles').fetchone()[0])
+          articles = int(c.execute('SELECT COUNT(*) FROM articles').fetchone()[0])
           c.close()
-          print(f'articles in DB: {n}')
-          assert n>=5, 'need at least 5 articles in DuckDB'
+          print(f'source_profiles={profiles} articles={articles}')
+          assert profiles >= 50, 'need classified source_profiles (seed DB or prior profile run)'
           "
+
+      - name: Profile missing sources only (first-time / empty DB)
+        id: profile_if_needed
+        run: |
+          NEED=$(python -c "
+          import duckdb
+          c = duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
+          n = int(c.execute('SELECT COUNT(*) FROM source_profiles').fetchone()[0])
+          c.close()
+          print('yes' if n < 50 else 'no')
+          ")
+          echo "profile_needed=$NEED" >> "$GITHUB_OUTPUT"
+          if [ "$NEED" = "yes" ]; then
+            python -m playwright install --with-deps chromium
+            cd leon_web_intel
+            python run_profile.py \
+              --input ../config/sources_seed.txt \
+              --profile-only \
+              --db ../data/web_intel_leonquant.duckdb
+          else
+            echo "Skip profile: source_profiles already in DuckDB."
+          fi
 
       - name: Pin calendar date
         run: |
           echo "CRAWL_CALENDAR_DATE=$(python scripts/pin_crawl_calendar_date.py --date today --timezone Asia/Ho_Chi_Minh)" >> "$GITHUB_ENV"
-          echo "Pinned date: $CRAWL_CALENDAR_DATE"
+          echo "Pinned crawl/export date: $CRAWL_CALENDAR_DATE"
 
-      - name: Digest from DuckDB (export → Gemini → web)
+      - name: Crawl 48h news (classified profiles, no wipe)
+        env:
+          WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
+        run: |
+          python scripts/run_intel_full_daily.py \
+            --date "$CRAWL_CALENDAR_DATE" \
+            --timezone Asia/Ho_Chi_Minh \
+            --skip-profile \
+            --no-crawl-skip \
+            --require-today-articles 5
+
+      - name: Gemini digest and build web content
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DIGEST_LOOP_FORCE: "1"
         run: |
           python scripts/run_digest_from_db.py \
+            --date "$CRAWL_CALENDAR_DATE" \
+            --timezone Asia/Ho_Chi_Minh \
+            --recent-calendar-days 2 \
+            --min-clean-articles 5
+
+      - name: Prune DuckDB to 48h window (keep cache small)
+        run: |
+          python scripts/prune_intel_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
             --recent-calendar-days 2
@@ -85,5 +132,5 @@ jobs:
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
           git add news_for_ai_clean.json gemini_digest_summary.json content.json
-          git commit -m "Update daily news digest (DB → Gemini → web)" || echo "No content changes to commit"
+          git commit -m "Update daily news digest (crawl + Gemini + web)" || echo "No content changes to commit"
           git push
