@@ -826,8 +826,11 @@ class WebIntelDB:
                     ) >= 200:
                         out.append(row)
                 continue
-            # Had published string but outside range
+            # Published outside calendar window but re-crawled inside it (common on warm CI cache).
             if pub_dt and not is_datetime_in_range(pub_dt, start_utc, end_utc):
+                if ext_dt and is_datetime_in_range(ext_dt, start_utc, end_utc):
+                    if int(row.get("content_length") or 0) >= 200:
+                        out.append(row)
                 continue
             # Unparseable published_at: treat like missing
             if ext_dt and is_datetime_in_range(ext_dt, start_utc, end_utc):

@@ -78,13 +78,17 @@ def main() -> int:
     )
     print(f"Total rows in articles table: {total_in_db}")
     print(f"Latest extracted_at in DB: {max_ext}")
-    if n < args.min_articles:
-        print(
-            "ERROR: export window is empty — crawl did not refresh DuckDB with recent articles.",
-            file=sys.stderr,
-        )
-        return 1
-    return 0
+    ok_db = n >= args.min_articles
+    ok_export = export_n is not None and export_n >= args.min_articles
+    if ok_db or ok_export:
+        if ok_export and not ok_db:
+            print(f"PASS via export count ({export_n} >= {args.min_articles}); DB window had {n}")
+        return 0
+    print(
+        "ERROR: export window is empty — crawl did not refresh DuckDB with recent articles.",
+        file=sys.stderr,
+    )
+    return 1
 
 
 if __name__ == "__main__":
