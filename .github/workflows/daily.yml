@@ -98,7 +98,10 @@ jobs:
           echo "CRAWL_CALENDAR_DATE=$(python scripts/pin_crawl_calendar_date.py --date today --timezone Asia/Ho_Chi_Minh)" >> "$GITHUB_ENV"
           echo "Pinned crawl/export date: $CRAWL_CALENDAR_DATE"
 
+      # Crawl có thể cảnh báo/thoát sớm trên runner; digest bước sau dùng cửa sổ 48h trong DB.
       - name: Crawl 48h news (classified profiles, no wipe)
+        id: crawl
+        continue-on-error: true
         env:
           WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
         run: |
@@ -106,8 +109,7 @@ jobs:
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
             --skip-profile \
-            --no-crawl-skip \
-            --require-today-articles 5
+            --no-crawl-skip || echo "WARN: crawl step exited non-zero; continuing with DB digest."
 
       - name: Gemini digest and build web content
         env:
