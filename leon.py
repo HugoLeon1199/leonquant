@@ -48,57 +48,11 @@ PULSE_SCHEMA_VERSION = "event-centric-v7"
 INVEST_PULSE_SCHEMA_VERSION = "invest-event-v1"
 GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
-INVEST_DIRECT_SECTORS = frozenset(
-    {
-        "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-        "Tài chính - Ngân hàng & Tín dụng",
-        "Chứng khoán - Thị trường Vốn",
-        "Crypto - Tiền mã hóa & Tài sản số",
-        "Hàng hóa - Năng lượng & Khoáng sản",
-        "Thương mại - Chuỗi cung ứng Toàn cầu",
-        "Bất động sản - Hạ tầng",
-        "Công nghệ - AI & Bán dẫn",
-        "Doanh nghiệp - Công nghiệp & Tiêu dùng",
-    }
-)
-INVEST_INDIRECT_SECTORS = frozenset(
-    {
-        "Khủng hoảng - Xung đột & An ninh",
-        "Chính trị - Ngoại giao",
-        "Pháp lý - Quy định & Trừng phạt",
-    }
-)
-INVEST_MAX_ENRICH_EVENTS = 50
-INVEST_MAX_INDIRECT_ON_FEED = 5
-INVEST_PRIORITY_SECTORS = frozenset(
-    {
-        "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-        "Crypto - Tiền mã hóa & Tài sản số",
-        "Hàng hóa - Năng lượng & Khoáng sản",
-        "Chứng khoán - Thị trường Vốn",
-        "Tài chính - Ngân hàng & Tín dụng",
-    }
-)
-_INVEST_MACRO_THEME_RE = re.compile(
-    r"\bfed\b|fomc|lãi suất|interest rate|inflation|\bcpi\b|\bppi\b|central bank|"
-    r"treasury|bond yield|rate cut|rate hike|monetary|gdp|recession|stagflation|"
-    r"bitcoin|\bbtc\b|ethereum|\beth\b|\bgold\b|\bvàng\b|silver|opec|\boil\b|crypto",
-    re.IGNORECASE,
-)
-_INVEST_TITLE_NOISE_RE = re.compile(
-    r"memorial|veteran|donaldson|\bdup\b|sex.offen|shooting|white house|nhà trắng|"
-    r"nổ súng|ám sát|assassination|dezi freeman|bikie|hunting.*license|monk.*bail|"
-    r"fifo worker|migrants|frontex|crete|bondi|thi thể|nghĩa trang|cemetery|"
-    r"pope|giáo hoàng|slavery|nô lệ|sinh nhật|birthday party|world cup 2026|"
-    r"hoxha|lituan|academic.*sued|police.*environment|tiệc kỷ niệm",
-    re.IGNORECASE,
-)
-_INVEST_TITLE_MARKET_RE = re.compile(
-    r"iran|opec|\boil\b|\bgas\b|sanction|tariff|\bfed\b|fomc|lãi suất|inflation|\bcpi\b|"
-    r"earnings|stock|equity|crypto|bitcoin|\bbtc\b|ethereum|\beth\b|\bgold\b|\bvàng\b|"
-    r"silver|semiconductor|supply chain|delta|schiphol|constructor|starbucks|\bbank\b|"
-    r"\bloan\b|mortgage|treasury|\bbonds?\b|ngân hàng|thuế nhiên liệu|revenue|"
-    r"singapore.*headquarter|trụ sở|rate cut|rate hike|central bank",
+INVEST_MAX_ENRICH_EVENTS = 60
+INVEST_CURATION_POOL = 55
+_INVEST_FALLBACK_NOISE_RE = re.compile(
+    r"donaldson|\bdup\b|memorial|veteran|dezi freeman|shooting|white house|nhà trắng|"
+    r"nổ súng|bondi|monk.*bail|sex.offen|birthday party",
     re.IGNORECASE,
 )
 INVEST_VALID_SECTORS = (
@@ -1143,95 +1097,116 @@ def impact_score(rank: int, tone: float, *, max_rank: int = 150) -> int:
 # ---------------------------------------------------------------------------
 
 
-def invest_event_passes_quality(
-    ev: dict[str, Any], *, require_content: bool = True
-) -> bool:
-    """Post-SQL guard: drop local crime/politics noise without clear market linkage."""
-    sector = str(ev.get("primary_sector") or ev.get("sector") or "").strip()
-    score = int(ev.get("market_relevance_score") or 0)
-    if score < 2:
-        return False
-
-    title = str(ev.get("title_vi") or ev.get("title") or "")
-    summary = str(ev.get("summary_vi") or ev.get("summary") or "")
-    blob = f"{title} {summary}"
-    if require_content and _INVEST_TITLE_NOISE_RE.search(blob):
-        if not _INVEST_TITLE_MARKET_RE.search(blob):
-            return False
-
-    if sector in INVEST_INDIRECT_SECTORS:
-        if score < 8 or not list(ev.get("affected_assets") or []):
-            return False
-        if require_content and not _INVEST_TITLE_MARKET_RE.search(blob):
-            return False
-    if sector == "Vĩ mô - Chính sách Tiền tệ & Lãi suất" and require_content:
-        if not _INVEST_MACRO_THEME_RE.search(blob) and not _INVEST_TITLE_MARKET_RE.search(blob):
-            return False
-    if sector in INVEST_DIRECT_SECTORS and score < 3:
-        return False
-    return True
+def _invest_curation_brief(ev: dict[str, Any]) -> str:
+    eid = str(ev.get("global_event_id") or "")
+    sector = str(ev.get("primary_sector") or ev.get("sector") or "")
+    num = int(ev.get("num_articles") or 0)
+    title = str(ev.get("title_vi") or ev.get("title") or "").strip()[:140]
+    summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:180]
+    assets = ",".join(list(ev.get("affected_assets") or [])[:6])
+    return f"id={eid} | {num} bài | {sector} | assets={assets} | {title} | {summary}"
 
 
-def _invest_story_priority(ev: dict[str, Any]) -> tuple[int, int, int]:
-    sector = str(ev.get("primary_sector") or ev.get("sector") or "").strip()
-    score = int(ev.get("market_relevance_score") or 0)
-    feed_pri = int(ev.get("feed_priority") or 0)
-    blob = f"{ev.get('title_vi') or ev.get('title') or ''} {ev.get('summary_vi') or ev.get('summary') or ''}"
-    bonus = 0
-    if sector in INVEST_PRIORITY_SECTORS:
-        bonus += 12
-    if _INVEST_MACRO_THEME_RE.search(blob):
-        bonus += 15
-    if sector in INVEST_INDIRECT_SECTORS:
-        bonus -= 25
-    return (feed_pri + bonus, score, int(ev.get("num_articles") or 0))
+def _parse_gemini_curation_ids(text: str) -> list[str]:
+    raw = (text or "").strip()
+    if not raw:
+        return []
+    fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, flags=re.DOTALL)
+    if fence:
+        raw = fence.group(1).strip()
+    start, end = raw.find("{"), raw.rfind("}")
+    if start >= 0 and end > start:
+        raw = raw[start : end + 1]
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        return []
+    ids = data.get("selected_ids") if isinstance(data, dict) else None
+    if not isinstance(ids, list):
+        return []
+    return [str(x).strip() for x in ids if str(x).strip()]
 
 
-def finalize_invest_lineup(events: list[dict[str, Any]], *, target: int = TARGET_HOT_EVENTS) -> list[dict[str, Any]]:
-    """Prefer Fed/crypto/gold/equity/banking; cap geopolitics/legal conflict cards."""
-    ranked = sorted(events, key=_invest_story_priority, reverse=True)
+def gemini_curate_invest_feed(
+    events: list[dict[str, Any]], *, target: int = TARGET_HOT_EVENTS, use_gemini: bool = True
+) -> list[dict[str, Any]]:
+    """Let Gemini pick economically relevant stories from hot GDELT pool (SQL only classifies sector)."""
+    if not events:
+        return []
+
+    ranked = sorted(events, key=lambda e: (int(e.get("num_articles") or 0),), reverse=True)
+    if not use_gemini or not _configure_gemini():
+        return ranked[:target]
+
+    pool = [e for e in ranked[:INVEST_CURATION_POOL] if _usable_title(e.get("title_vi") or e.get("title"))]
+    if not pool:
+        return ranked[:target]
+
+    sectors_list = "\n".join(f"- {s}" for s in INVEST_VALID_SECTORS if s != "Khác")
+    lines = "\n".join(f"{i + 1}. {_invest_curation_brief(ev)}" for i, ev in enumerate(pool))
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
+
+Dưới đây là các sự kiện nóng 24h từ GDELT. Mỗi dòng đã có ngành (GKG/SQL) — dùng ngành đó, chỉ sửa sector nếu title/summary rõ thuộc ngành khác trong danh sách.
+
+Nhiệm vụ: chọn đúng {target} sự kiện (nếu đủ ứng viên) đưa lên chuyên mục vì có tác động kinh tế/đầu tư rõ hoặc hợp lý
+(vĩ mô, Fed/lãi suất/lạm phát, ngân hàng, chứng khoán, crypto, vàng/dầu/khí, chuỗi cung ứng, thuế/thương mại,
+địa chính trị ảnh hưởng thị trường, doanh nghiệp lớn, công nghệ bán dẫn/AI nếu liên quan đầu tư).
+
+Loại bỏ: scandal cá nhân, tội phạm địa phương, lễ tang, shooting không liên quan thị trường, tin giải trí.
+
+Ưu tiên đa dạng ngành khi có tin (Fed/vĩ mô, crypto, hàng hóa, CK, ngân hàng) — không chỉ chính trị/xung đột
+chỉ vì nhiều bài báo.
+
+Không nhắc AI, GDELT, crawler, pipeline, hệ thống.
+
+Trả về JSON (không markdown):
+{{
+  "selected_ids": ["GlobalEventID", ...],
+  "notes": "một câu tiếng Việt về tiêu chí chọn"
+}}
+
+Danh sách ngành hợp lệ:
+{sectors_list}
+
+Sự kiện ứng viên:
+{lines}
+""".strip()
+
+    selected_ids: list[str] = []
+    try:
+        response = model.generate_content(prompt)
+        selected_ids = _parse_gemini_curation_ids(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini invest curation failed: %s", exc)
+
+    by_id = {str(e.get("global_event_id") or ""): e for e in pool if e.get("global_event_id")}
     picked: list[dict[str, Any]] = []
     seen: set[str] = set()
-
-    def add(ev: dict[str, Any]) -> None:
-        eid = str(ev.get("global_event_id") or "")
-        if eid and eid in seen:
-            return
-        if eid:
+    for eid in selected_ids:
+        if eid in by_id and eid not in seen:
+            picked.append(by_id[eid])
             seen.add(eid)
-        picked.append(ev)
-
-    for ev in ranked:
         if len(picked) >= target:
             break
-        blob = f"{ev.get('title_vi') or ev.get('title') or ''} {ev.get('summary_vi') or ev.get('summary') or ''}"
-        sector = str(ev.get("primary_sector") or ev.get("sector") or "")
-        if sector in INVEST_PRIORITY_SECTORS and _INVEST_MACRO_THEME_RE.search(blob):
-            add(ev)
 
-    for ev in ranked:
-        if len(picked) >= target:
-            break
-        sector = str(ev.get("primary_sector") or ev.get("sector") or "")
-        if sector in INVEST_DIRECT_SECTORS:
-            add(ev)
-
-    indirect_n = 0
-    for ev in ranked:
-        if len(picked) >= target:
-            break
-        sector = str(ev.get("primary_sector") or ev.get("sector") or "")
-        if sector in INVEST_INDIRECT_SECTORS:
-            if indirect_n >= INVEST_MAX_INDIRECT_ON_FEED:
+    if len(picked) < min(target, len(pool)):
+        LOG.info("Invest curation returned %s ids; filling remainder (skip obvious non-market noise)", len(picked))
+        for ev in pool:
+            eid = str(ev.get("global_event_id") or "")
+            if eid in seen:
                 continue
-            indirect_n += 1
-            add(ev)
+            blob = f"{ev.get('title_vi') or ev.get('title') or ''} {ev.get('summary_vi') or ev.get('summary') or ''}"
+            if _INVEST_FALLBACK_NOISE_RE.search(blob):
+                continue
+            picked.append(ev)
+            seen.add(eid)
+            if len(picked) >= target:
+                break
 
-    for ev in ranked:
-        if len(picked) >= target:
-            break
-        add(ev)
-
+    LOG.info("Gemini invest curation: kept %s / %s candidates", len(picked), len(pool))
     return picked[:target]
 
 
@@ -1313,25 +1288,10 @@ def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[di
             card["risk_flags"] = list(row.get("risk_flags") or [])
             card["affected_assets"] = list(row.get("affected_assets") or [])
             card["investment_relevance"] = str(row.get("investment_relevance") or "").strip() or "medium"
-            try:
-                card["market_relevance_score"] = int(row.get("market_relevance_score") or 0)
-            except (TypeError, ValueError):
-                card["market_relevance_score"] = 0
-            try:
-                card["feed_priority"] = int(row.get("feed_priority") or 0)
-            except (TypeError, ValueError):
-                card["feed_priority"] = 0
         events.append(card)
 
     if channel == "invest":
-        events = [e for e in events if invest_event_passes_quality(e, require_content=False)]
-        events.sort(
-            key=lambda e: (
-                int(e.get("market_relevance_score") or 0),
-                int(e.get("num_articles") or 0),
-            ),
-            reverse=True,
-        )
+        events.sort(key=lambda e: (int(e.get("num_articles") or 0),), reverse=True)
         events = events[:INVEST_MAX_ENRICH_EVENTS]
     else:
         events.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
@@ -1443,18 +1403,6 @@ def _merge_url_list(*lists: list[str], limit: int = MAX_MENTIONS_PER_EVENT) -> l
 def _pick_representative_event(
     members: list[dict[str, Any]], *, channel: str = "world"
 ) -> dict[str, Any]:
-    if channel == "invest":
-
-        def invest_key(ev: dict[str, Any]) -> tuple[int, int, int]:
-            title_ok = 1 if _usable_title(ev.get("title_vi") or ev.get("title")) else 0
-            return (
-                int(ev.get("market_relevance_score") or 0),
-                int(ev.get("num_articles") or 0),
-                title_ok,
-            )
-
-        return max(members, key=invest_key)
-
     def score(ev: dict[str, Any]) -> tuple[int, int, int]:
         title_ok = 1 if _usable_title(ev.get("title_vi") or ev.get("title")) else 0
         return (int(ev.get("num_articles") or 0), int(ev.get("source_count") or 0), title_ok)
@@ -1513,23 +1461,13 @@ def dedupe_events_with_gemini(
                 member_ids,
             )
         card = merge_event_cluster(group, channel=channel)
-        if card and (channel != "invest" or invest_event_passes_quality(card)):
+        if card:
             merged.append(card)
 
-    if channel == "invest":
-        merged.sort(
-            key=lambda e: (
-                int(e.get("market_relevance_score") or 0),
-                int(e.get("num_articles") or 0),
-            ),
-            reverse=True,
-        )
-    else:
-        merged.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
+    merged.sort(key=lambda e: (int(e.get("num_articles") or 0),), reverse=True)
     LOG.info("After Gemini dedupe: %s events (from %s)", len(merged), len(events))
     if channel == "invest":
-        merged = finalize_invest_lineup(merged, target=TARGET_HOT_EVENTS)
-        LOG.info("After invest lineup (Fed/crypto/gold priority): %s events", len(merged))
+        merged = gemini_curate_invest_feed(merged, target=TARGET_HOT_EVENTS, use_gemini=use_gemini)
     return merged[:TARGET_HOT_EVENTS]
 
 
@@ -1594,7 +1532,6 @@ def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, An
             "risk_flags": list(ev.get("risk_flags") or []),
             "affected_assets": list(ev.get("affected_assets") or []),
             "investment_relevance": str(ev.get("investment_relevance") or ""),
-            "market_relevance_score": int(ev.get("market_relevance_score") or 0),
         }
     )
     return base
@@ -1730,8 +1667,6 @@ def main(argv: list[str] | None = None) -> int:
             FETCH_TITLE_TIMEOUT,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini, channel=channel)
-        if channel == "invest":
-            events = [e for e in events if invest_event_passes_quality(e)]
         events = filter_event_sources_with_gemini(events, use_gemini=use_gemini)
         events = dedupe_events_with_gemini(events, use_gemini=use_gemini, channel=channel)
     else:
