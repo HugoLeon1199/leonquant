@@ -98,6 +98,14 @@ jobs:
           echo "CRAWL_CALENDAR_DATE=$(python scripts/pin_crawl_calendar_date.py --date today --timezone Asia/Ho_Chi_Minh)" >> "$GITHUB_ENV"
           echo "Pinned crawl/export date: $CRAWL_CALENDAR_DATE"
 
+      - name: Ensure DuckDB has enough articles in 48h window
+        run: |
+          python scripts/ensure_db_48h_articles.py \
+            --date "$CRAWL_CALENDAR_DATE" \
+            --timezone Asia/Ho_Chi_Minh \
+            --recent-calendar-days 2 \
+            --min 5
+
       # Crawl có thể cảnh báo/thoát sớm trên runner; digest bước sau dùng cửa sổ 48h trong DB.
       - name: Crawl 48h news (classified profiles, no wipe)
         id: crawl
@@ -120,7 +128,7 @@ jobs:
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
             --recent-calendar-days 2 \
-            --min-clean-articles 5
+            --min-clean-articles 1
 
       - name: Prune DuckDB to 48h window (keep cache small)
         run: |
