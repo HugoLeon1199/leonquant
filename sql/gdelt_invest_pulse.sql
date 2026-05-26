@@ -349,7 +349,46 @@ WITH
     FROM Signals
   ),
 
-  FinalClassified AS (
+  Scored AS (
+    SELECT
+      *,
+      (
+        REGEXP_CONTAINS(
+          theme_u,
+          r'INFLATION|\bCPI\b|\bPPI\b|\bFED\b|FOMC|ECB|BOJ|PBOC|OPEC|\bOIL\b|CRUDE|BRENT|WTI|SANCTION|TARIFF|RATE[_ ]?HIKE|RATE[_ ]?CUT|CENTRAL[_ ]?BANK|MONETARY[_ ]?POLICY|STOCK[_ ]?MARKET|EARNINGS|BITCOIN|SEMICONDUCTOR|SUPPLY[_ ]?CHAIN|TRADE[_ ]?WAR'
+        )
+        OR REGEXP_CONTAINS(org_u, r'\b(FED|FOMC|ECB|OPEC|IMF|SEC)\b')
+      ) AS has_strong_market_theme,
+      (
+        REGEXP_CONTAINS(
+          theme_u,
+          r'\bOIL\b|CRUDE|BRENT|WTI|OPEC|NATURAL[_ ]?GAS|NATURALGAS|\bLNG\b|ENERGY|COMMODIT|GOLD|SILVER|PRECIOUS|\bUSD\b|DOLLAR|FOREIGN[_ ]?EXCHANGE|\bFX\b|CURRENCY|TREASUR|INFLATION|\bCPI\b|\bPPI\b|INTEREST[_ ]?RATE|POLICY[_ ]?RATE|RATE[_ ]?HIKE|RATE[_ ]?CUT|CENTRAL[_ ]?BANK|MONETARY|BANK|BANKING|CREDIT|LIQUIDIT|BOND|YIELD|STOCK|EQUITY|CRYPTO|BITCOIN|SEMICONDUCTOR|CHIP|\bGPU\b|SUPPLY[_ ]?CHAIN|SUPPLYCHAIN|TARIFF|SANCTION|TRADE[_ ]?WAR|TRADE[_ ]?DISPUTE|EXPORT[_ ]?BAN'
+        )
+        OR REGEXP_CONTAINS(
+          org_u,
+          r'\b(FED|FOMC|ECB|BOJ|PBOC|OPEC|IMF|WORLD BANK|SEC|CFTC)\b'
+        )
+      ) AS has_market_asset_theme
+    FROM Classified
+  ),
+
+  ScoredNoise AS (
+    SELECT
+      *,
+      (
+        (
+          REGEXP_CONTAINS(
+            theme_u,
+            r'SHOOTING|GUN[_ ]?FIRE|MASS[_ ]?SHOOT|MURDER|HOMICIDE|STABBING|CRIME[_ ]?SCENE|SEX[_ ]?OFFEN|RAPE|TRIAL|COURT[_ ]?CASE|INDICTMENT|MEMORIAL|VETERAN|FUNERAL|OBITUARY|SCANDAL|CELEBRITY|LOCAL[_ ]?ELECTION|MAYORAL|WHITE[_ ]?HOUSE[_ ]?BALLROOM'
+          )
+          OR REGEXP_CONTAINS(person_u, r'TRIAL|INDICTMENT|ARREST|CONVICT|DONALDSON')
+        )
+        AND NOT has_strong_market_theme
+      ) AS is_social_crime_noise
+    FROM Scored
+  ),
+
+  FinalEnriched AS (
     SELECT
       *,
       CASE
@@ -363,11 +402,49 @@ WITH
           THEN 'Chính trị - Ngoại giao'
         ELSE NULL
       END AS secondary_sector,
+      (
+        IF(is_macro, 3, 0)
+        + IF(is_credit_banking, 3, 0)
+        + IF(is_equity_market, 3, 0)
+        + IF(is_crypto, 3, 0)
+        + IF(is_commodity_energy, 3, 0)
+        + IF(is_trade_supply, 2, 0)
+        + IF(is_tech_ai_chip, 2, 0)
+        + IF(is_real_estate_infra, 1, 0)
+        + IF(is_real_economy, 1, 0)
+        + IF(
+            (is_legal_regulatory OR is_politics_diplomacy OR is_conflict_security)
+            AND has_market_asset_theme,
+            1,
+            0
+          )
+        - IF(is_social_crime_noise, 3, 0)
+      ) AS market_relevance_score,
       ARRAY(
         SELECT flag
         FROM UNNEST([
-          IF(is_conflict_security, 'conflict_security_risk', NULL),
-          IF(is_legal_regulatory, 'legal_regulatory_risk', NULL),
+          IF(
+            is_conflict_security
+            AND has_market_asset_theme
+            AND REGEXP_CONTAINS(
+              theme_u,
+              r'WAR|CONFLICT|MILITARY|MISSILE|DRONE|ATTACK|TERROR|SANCTION|EMBARGO|\bOIL\b|CRUDE|BRENT|WTI|OPEC|NATURAL[_ ]?GAS|\bLNG\b|ENERGY|RED[_ ]?SEA|HORMUZ|STRAIT|SUPPLY[_ ]?CHAIN'
+            ),
+            'conflict_security_risk',
+            NULL
+          ),
+          IF(
+            is_legal_regulatory
+            AND (
+              REGEXP_CONTAINS(
+                theme_u,
+                r'SANCTION|ANTITRUST|REGULATION|REGULATORY|SEC|COMPLIANCE|EXPORT[_ ]?BAN|TRADE[_ ]?WAR|TARIFF'
+              )
+              OR REGEXP_CONTAINS(org_u, r'\b(SEC|CFTC|DOJ|FTC|EUROPEAN COMMISSION)\b')
+            ),
+            'legal_regulatory_risk',
+            NULL
+          ),
           IF(is_credit_banking, 'credit_liquidity_risk', NULL),
           IF(
             is_macro
@@ -396,34 +473,46 @@ WITH
       ) AS risk_flags,
       CASE
         WHEN (
-          is_conflict_security
-          OR is_credit_banking
-          OR is_legal_regulatory
-          OR (
+          (
             is_macro
             AND REGEXP_CONTAINS(theme_u, r'RATE[_ ]?HIKE|INFLATION|STAGFLATION|RECESSION|HARD[_ ]?LANDING')
           )
-          OR Diem_Cam_Xuc <= -6
+          OR is_credit_banking
+          OR (
+            is_conflict_security
+            AND has_market_asset_theme
+            AND REGEXP_CONTAINS(theme_u, r'SANCTION|EMBARGO|\bOIL\b|CRUDE|BRENT|WTI|OPEC|NATURAL[_ ]?GAS|SUPPLY[_ ]?CHAIN|TRADE[_ ]?WAR')
+          )
+          OR (
+            is_trade_supply
+            AND REGEXP_CONTAINS(theme_u, r'TARIFF|SANCTION|TRADE[_ ]?WAR|SUPPLY[_ ]?CHAIN')
+          )
         )
         AND (
           REGEXP_CONTAINS(theme_u, r'RATE[_ ]?CUT|DISINFLATION|SOFT[_ ]?LANDING|EARNINGS|MARKET[_ ]?RALLY|GROWTH')
-          OR Diem_Cam_Xuc >= 6
+          OR (Diem_Cam_Xuc >= 6 AND has_market_asset_theme)
         )
           THEN 'mixed'
         WHEN (
-          is_conflict_security
-          OR is_credit_banking
-          OR is_legal_regulatory
-          OR (
+          (
             is_macro
             AND REGEXP_CONTAINS(theme_u, r'RATE[_ ]?HIKE|INFLATION|STAGFLATION|RECESSION|HARD[_ ]?LANDING')
           )
-          OR Diem_Cam_Xuc <= -6
+          OR is_credit_banking
+          OR (
+            is_conflict_security
+            AND has_market_asset_theme
+            AND REGEXP_CONTAINS(theme_u, r'SANCTION|EMBARGO|\bOIL\b|CRUDE|BRENT|WTI|OPEC|NATURAL[_ ]?GAS|SUPPLY[_ ]?CHAIN|TRADE[_ ]?WAR')
+          )
+          OR (
+            is_trade_supply
+            AND REGEXP_CONTAINS(theme_u, r'TARIFF|SANCTION|TRADE[_ ]?WAR|SUPPLY[_ ]?CHAIN')
+          )
         )
           THEN 'risk_off'
         WHEN (
           REGEXP_CONTAINS(theme_u, r'RATE[_ ]?CUT|DISINFLATION|SOFT[_ ]?LANDING|EARNINGS|MARKET[_ ]?RALLY|GROWTH')
-          OR Diem_Cam_Xuc >= 6
+          OR (Diem_Cam_Xuc >= 6 AND has_market_asset_theme)
         )
           THEN 'risk_on'
         ELSE 'neutral'
@@ -432,41 +521,48 @@ WITH
         SELECT asset
         FROM UNNEST(ARRAY_CONCAT(
           IF(is_equity_market OR is_real_economy OR is_tech_ai_chip, ['stocks'], []),
-          IF(is_credit_banking OR is_macro, ['bonds'], []),
+          IF(is_macro OR is_credit_banking, ['bonds'], []),
           IF(
-            is_macro
-            OR REGEXP_CONTAINS(theme_u, r'DOLLAR|\bUSD\b|FOREIGN[_ ]?EXCHANGE|\bFX\b|CURRENCY'),
+            REGEXP_CONTAINS(theme_u, r'DOLLAR|\bUSD\b|FOREIGN[_ ]?EXCHANGE|\bFX\b|CURRENCY[_ ]?RESERVE|ECON_WORLDCURRENCIES'),
             ['USD'],
             []
           ),
           IF(
-            is_commodity_energy AND REGEXP_CONTAINS(theme_u, r'GOLD|SILVER|PRECIOUS'),
+            REGEXP_CONTAINS(theme_u, r'GOLD|SILVER|PRECIOUS'),
             ['gold'],
             []
           ),
           IF(
-            is_commodity_energy AND REGEXP_CONTAINS(theme_u, r'\bOIL\b|CRUDE|BRENT|WTI|PETROLEUM|OPEC'),
+            REGEXP_CONTAINS(theme_u, r'\bOIL\b|CRUDE|BRENT|WTI|PETROLEUM|OPEC'),
             ['oil'],
             []
           ),
           IF(
-            is_commodity_energy AND REGEXP_CONTAINS(theme_u, r'NATURAL[_ ]?GAS|NATURALGAS|\bLNG\b'),
+            REGEXP_CONTAINS(theme_u, r'NATURAL[_ ]?GAS|NATURALGAS|\bLNG\b'),
             ['gas'],
             []
           ),
           IF(is_crypto, ['crypto'], []),
-          IF(is_real_estate_infra, ['real_estate'], []),
-          IF(is_credit_banking, ['banks'], [])
+          IF(is_credit_banking, ['banks'], []),
+          IF(is_real_estate_infra, ['real_estate'], [])
         )) AS asset
-      ) AS affected_assets,
+      ) AS affected_assets
+    FROM ScoredNoise
+  ),
+
+  FinalClassified AS (
+    SELECT
+      *,
       CASE
-        WHEN So_Bao_De_Cap >= 80 OR ABS(Diem_Cam_Xuc) >= 8 OR is_conflict_security OR is_credit_banking
+        WHEN market_relevance_score >= 6
+          OR (market_relevance_score >= 4 AND (is_macro OR is_credit_banking OR is_equity_market))
+          OR (So_Bao_De_Cap >= 80 AND market_relevance_score >= 5)
           THEN 'high'
-        WHEN So_Bao_De_Cap >= 40 OR ABS(Diem_Cam_Xuc) >= 4
+        WHEN market_relevance_score >= 3 OR So_Bao_De_Cap >= 40
           THEN 'medium'
         ELSE 'low'
       END AS investment_relevance
-    FROM Classified
+    FROM FinalEnriched
   )
 
 SELECT
@@ -489,13 +585,39 @@ SELECT
   macro_signal,
   affected_assets,
   investment_relevance,
+  market_relevance_score,
   REGEXP_REPLACE(COALESCE(V2Organizations, ''), r',?\d+', '') AS Cac_To_Chuc_Lien_Quan,
   V2Themes,
   V2Persons,
   V2Locations
 FROM FinalClassified
-WHERE primary_sector != 'Khác'
+WHERE market_relevance_score >= 2
+  AND NOT is_social_crime_noise
+  AND (
+    primary_sector IN (
+      'Vĩ mô - Chính sách Tiền tệ & Lãi suất',
+      'Tài chính - Ngân hàng & Tín dụng',
+      'Chứng khoán - Thị trường Vốn',
+      'Crypto - Tiền mã hóa & Tài sản số',
+      'Hàng hóa - Năng lượng & Khoáng sản',
+      'Thương mại - Chuỗi cung ứng Toàn cầu',
+      'Bất động sản - Hạ tầng',
+      'Công nghệ - AI & Bán dẫn',
+      'Doanh nghiệp - Công nghiệp & Tiêu dùng'
+    )
+    OR (
+      primary_sector IN (
+        'Khủng hoảng - Xung đột & An ninh',
+        'Chính trị - Ngoại giao',
+        'Pháp lý - Quy định & Trừng phạt'
+      )
+      AND has_market_asset_theme
+      AND has_strong_market_theme
+      AND market_relevance_score >= 4
+    )
+  )
 ORDER BY
+  market_relevance_score DESC,
   So_Bao_De_Cap DESC,
   ABS(Diem_Cam_Xuc) DESC,
   source_count DESC

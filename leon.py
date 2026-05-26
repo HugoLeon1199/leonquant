@@ -48,6 +48,42 @@ PULSE_SCHEMA_VERSION = "event-centric-v7"
 INVEST_PULSE_SCHEMA_VERSION = "invest-event-v1"
 GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
+INVEST_DIRECT_SECTORS = frozenset(
+    {
+        "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+        "Tài chính - Ngân hàng & Tín dụng",
+        "Chứng khoán - Thị trường Vốn",
+        "Crypto - Tiền mã hóa & Tài sản số",
+        "Hàng hóa - Năng lượng & Khoáng sản",
+        "Thương mại - Chuỗi cung ứng Toàn cầu",
+        "Bất động sản - Hạ tầng",
+        "Công nghệ - AI & Bán dẫn",
+        "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+    }
+)
+INVEST_INDIRECT_SECTORS = frozenset(
+    {
+        "Khủng hoảng - Xung đột & An ninh",
+        "Chính trị - Ngoại giao",
+        "Pháp lý - Quy định & Trừng phạt",
+    }
+)
+INVEST_MAX_ENRICH_EVENTS = 50
+_INVEST_TITLE_NOISE_RE = re.compile(
+    r"memorial|veteran|donaldson|\bdup\b|sex.offen|shooting|white house|nhà trắng|"
+    r"nổ súng|ám sát|assassination|dezi freeman|bikie|hunting.*license|monk.*bail|"
+    r"fifo worker|migrants|frontex|crete|bondi|thi thể|nghĩa trang|cemetery|"
+    r"pope|giáo hoàng|slavery|nô lệ|sinh nhật|birthday party|world cup 2026|"
+    r"hoxha|lituan|academic.*sued|police.*environment|tiệc kỷ niệm",
+    re.IGNORECASE,
+)
+_INVEST_TITLE_MARKET_RE = re.compile(
+    r"iran|opec|\boil\b|\bgas\b|sanction|tariff|\bfed\b|lãi suất|inflation|\bcpi\b|"
+    r"earnings|stock|equity|crypto|semiconductor|supply chain|delta|schiphol|"
+    r"constructor|starbucks|\bbank\b|\bloan\b|mortgage|treasury|\bbonds?\b|"
+    r"ngân hàng|thuế nhiên liệu|revenue|sudan|mercenary|singapore.*headquarter|trụ sở",
+    re.IGNORECASE,
+)
 INVEST_VALID_SECTORS = (
     "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
     "Tài chính - Ngân hàng & Tín dụng",
@@ -733,20 +769,28 @@ def enrich_event_with_gemini(
     model = genai.GenerativeModel(model_name)
     if channel == "invest":
         prompt = f"""
-Bạn là biên tập chuyên mục kinh tế đầu tư của LeonQuant.
+Bạn là biên tập viên chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
 
 CHỈ dùng thông tin trong "Đoạn bài tham khảo". Không dùng kiến thức ngoài.
-Không nhắc AI, GDELT, crawler, pipeline, thuật toán.
-Không khuyến nghị mua/bán/múc. Không bịa ticker.
+Tuyệt đối không nhắc: AI, GDELT, crawler, pipeline, thuật toán, hệ thống, dữ liệu hệ thống,
+"theo danh mục theo dõi", "trong hệ thống", số bài trong hệ thống, hay meta về quy trình xử lý tin.
+Không khuyến nghị mua/bán/múc. Không bịa ticker, giá, hoặc tác động tài sản không có trong bài.
 
-Ngành chính (SQL): {sector}
-Độ phủ: ~{num_articles} bài, {source_count} nguồn — chỉ dùng cho importance_reason.
+Ngành gợi ý (chỉ đổi sector nếu đoạn bài rõ thuộc ngành khác trong danh sách): {sector}
+Độ phủ báo chí (~{num_articles} bài, {source_count} nguồn) chỉ được nhắc ngắn gọn trong importance_reason
+theo kiểu "được nhiều báo đưa" — không gắn với thị trường vốn hay công cụ nội bộ.
+
+Quy tắc nội dung:
+- Viết như biên tập đầu tư vĩ mô: sự kiện là gì, ai liên quan, vì sao nhà đầu tư có thể quan tâm.
+- Nếu bài không nêu rõ tác động kinh tế/thị trường: summary trung lập, không ép về chứng khoán/lãi suất/dầu.
+- Không suy diễn risk-on/risk-off hay tác động tài sản nếu bài không đề cập.
+- importance_reason: tối đa một câu; chỉ nêu ý nghĩa thị trường khi bài hoặc ngữ cảnh rõ ràng hỗ trợ.
 
 Trả về JSON (không markdown):
 {{
   "title_vi": "Tiêu đề tối đa 18 từ, rõ sự kiện",
-  "summary_vi": "1-2 câu: chuyện gì, ai liên quan, vì sao đáng chú ý",
-  "importance_reason": "Một câu bổ sung về ý nghĩa thị trường (có thể nhắc độ phủ)",
+  "summary_vi": "1-2 câu khách quan từ đoạn bài",
+  "importance_reason": "Một câu: ý nghĩa với nhà đầu tư (hoặc trung lập nếu không rõ tác động thị trường)",
   "entities": ["3-6 thực thể trong đoạn bài"],
   "sector": "một trong danh sách ngành hợp lệ"
 }}
@@ -1082,6 +1126,32 @@ def impact_score(rank: int, tone: float, *, max_rank: int = 150) -> int:
 # ---------------------------------------------------------------------------
 
 
+def invest_event_passes_quality(
+    ev: dict[str, Any], *, require_content: bool = True
+) -> bool:
+    """Post-SQL guard: drop local crime/politics noise without clear market linkage."""
+    sector = str(ev.get("primary_sector") or ev.get("sector") or "").strip()
+    score = int(ev.get("market_relevance_score") or 0)
+    if score < 2:
+        return False
+
+    title = str(ev.get("title_vi") or ev.get("title") or "")
+    summary = str(ev.get("summary_vi") or ev.get("summary") or "")
+    blob = f"{title} {summary}"
+    if require_content and _INVEST_TITLE_NOISE_RE.search(blob):
+        if not _INVEST_TITLE_MARKET_RE.search(blob):
+            return False
+
+    if sector in INVEST_INDIRECT_SECTORS:
+        if score < 8 or not list(ev.get("affected_assets") or []):
+            return False
+        if require_content and not _INVEST_TITLE_MARKET_RE.search(blob):
+            return False
+    if sector in INVEST_DIRECT_SECTORS and score < 3:
+        return False
+    return True
+
+
 def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[dict[str, Any]]:
     """One card per GlobalEventID; sources from SourceURLs (EventMentions) only."""
     if df.empty:
@@ -1160,9 +1230,24 @@ def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[di
             card["risk_flags"] = list(row.get("risk_flags") or [])
             card["affected_assets"] = list(row.get("affected_assets") or [])
             card["investment_relevance"] = str(row.get("investment_relevance") or "").strip() or "medium"
+            try:
+                card["market_relevance_score"] = int(row.get("market_relevance_score") or 0)
+            except (TypeError, ValueError):
+                card["market_relevance_score"] = 0
         events.append(card)
 
-    events.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
+    if channel == "invest":
+        events = [e for e in events if invest_event_passes_quality(e, require_content=False)]
+        events.sort(
+            key=lambda e: (
+                int(e.get("market_relevance_score") or 0),
+                int(e.get("num_articles") or 0),
+            ),
+            reverse=True,
+        )
+        events = events[:INVEST_MAX_ENRICH_EVENTS]
+    else:
+        events.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
     LOG.info("GDELT hot events (GlobalEventID): %s", len(events))
     return expand_event_sources(events, df)
 
@@ -1268,7 +1353,21 @@ def _merge_url_list(*lists: list[str], limit: int = MAX_MENTIONS_PER_EVENT) -> l
     )
 
 
-def _pick_representative_event(members: list[dict[str, Any]]) -> dict[str, Any]:
+def _pick_representative_event(
+    members: list[dict[str, Any]], *, channel: str = "world"
+) -> dict[str, Any]:
+    if channel == "invest":
+
+        def invest_key(ev: dict[str, Any]) -> tuple[int, int, int]:
+            title_ok = 1 if _usable_title(ev.get("title_vi") or ev.get("title")) else 0
+            return (
+                int(ev.get("market_relevance_score") or 0),
+                int(ev.get("num_articles") or 0),
+                title_ok,
+            )
+
+        return max(members, key=invest_key)
+
     def score(ev: dict[str, Any]) -> tuple[int, int, int]:
         title_ok = 1 if _usable_title(ev.get("title_vi") or ev.get("title")) else 0
         return (int(ev.get("num_articles") or 0), int(ev.get("source_count") or 0), title_ok)
@@ -1276,14 +1375,16 @@ def _pick_representative_event(members: list[dict[str, Any]]) -> dict[str, Any]:
     return max(members, key=score)
 
 
-def merge_event_cluster(members: list[dict[str, Any]]) -> dict[str, Any]:
+def merge_event_cluster(
+    members: list[dict[str, Any]], *, channel: str = "world"
+) -> dict[str, Any]:
     """Mechanical merge after Gemini groups same-story GlobalEventIDs."""
     if not members:
         return {}
     if len(members) == 1:
         return dict(members[0])
 
-    rep = _pick_representative_event(members)
+    rep = _pick_representative_event(members, channel=channel)
     merged = dict(rep)
     merged_ids = [str(m.get("global_event_id") or "") for m in members if m.get("global_event_id")]
     merged["global_event_id"] = str(rep.get("global_event_id") or "")
@@ -1300,10 +1401,12 @@ def merge_event_cluster(members: list[dict[str, Any]]) -> dict[str, Any]:
     return merged
 
 
-def dedupe_events_with_gemini(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
+def dedupe_events_with_gemini(
+    events: list[dict[str, Any]], *, use_gemini: bool = True, channel: str = "world"
+) -> list[dict[str, Any]]:
     """Collapse duplicate GDELT stories via one Gemini clustering pass."""
     if len(events) < 2 or not use_gemini:
-        return events
+        return events[:TARGET_HOT_EVENTS] if channel == "invest" else events
 
     LOG.info("Gemini dedupe clustering for %s events", len(events))
     by_id = {str(e.get("global_event_id") or ""): e for e in events if e.get("global_event_id")}
@@ -1319,14 +1422,23 @@ def dedupe_events_with_gemini(events: list[dict[str, Any]], *, use_gemini: bool 
             LOG.info(
                 "Dedupe merge %s events -> keep %s (%s)",
                 len(group),
-                _pick_representative_event(group).get("global_event_id"),
+                _pick_representative_event(group, channel=channel).get("global_event_id"),
                 member_ids,
             )
-        card = merge_event_cluster(group)
-        if card:
+        card = merge_event_cluster(group, channel=channel)
+        if card and (channel != "invest" or invest_event_passes_quality(card)):
             merged.append(card)
 
-    merged.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
+    if channel == "invest":
+        merged.sort(
+            key=lambda e: (
+                int(e.get("market_relevance_score") or 0),
+                int(e.get("num_articles") or 0),
+            ),
+            reverse=True,
+        )
+    else:
+        merged.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
     LOG.info("After Gemini dedupe: %s events (from %s)", len(merged), len(events))
     return merged[:TARGET_HOT_EVENTS]
 
@@ -1392,6 +1504,7 @@ def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, An
             "risk_flags": list(ev.get("risk_flags") or []),
             "affected_assets": list(ev.get("affected_assets") or []),
             "investment_relevance": str(ev.get("investment_relevance") or ""),
+            "market_relevance_score": int(ev.get("market_relevance_score") or 0),
         }
     )
     return base
@@ -1527,8 +1640,10 @@ def main(argv: list[str] | None = None) -> int:
             FETCH_TITLE_TIMEOUT,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini, channel=channel)
+        if channel == "invest":
+            events = [e for e in events if invest_event_passes_quality(e)]
         events = filter_event_sources_with_gemini(events, use_gemini=use_gemini)
-        events = dedupe_events_with_gemini(events, use_gemini=use_gemini)
+        events = dedupe_events_with_gemini(events, use_gemini=use_gemini, channel=channel)
     else:
         events = events[:TARGET_HOT_EVENTS]
     payload = build_payload(events, channel=channel)
