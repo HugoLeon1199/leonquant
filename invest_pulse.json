@@ -1,15 +1,15 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-26T10:26:08.110515+00:00",
+  "generated_at_utc": "2026-05-26T10:54:10.770220+00:00",
   "total_events": 20,
   "events": [
     {
       "global_event_id": "1305927226",
-      "sector": "Khủng hoảng - Xung đột & An ninh",
-      "title": "Quân đội Mỹ thực hiện tấn công quân sự nhắm vào các vị trí tại miền Nam Iran",
-      "summary": "Quân đội Mỹ tuyên bố đã tấn công các bãi phóng tên lửa và tàu chiến của Iran tại miền Nam nước này nhằm mục đích tự vệ. Phía Iran cho biết đã bắn hạ một máy bay không người lái trong bối cảnh các hoạt động quân sự diễn ra dù hai bên đang trong thời gian đình chiến.",
-      "importance_reason": "Sự kiện leo thang căng thẳng quân sự giữa Mỹ và Iran nhận được sự chú ý lớn từ truyền thông quốc tế.",
+      "sector": "Chính trị - Ngoại giao",
+      "title": "Quân đội Mỹ thực hiện các cuộc tấn công vào miền Nam Iran",
+      "summary": "Quân đội Mỹ đã triển khai các cuộc tấn công vào miền Nam Iran nhằm vào vị trí phóng tên lửa và các tàu đặt mìn với lý do tự vệ. Sự kiện diễn ra trong bối cảnh lệnh ngừng bắn giữa hai quốc gia vẫn đang có hiệu lực.",
+      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh căng thẳng địa chính trị có thể ảnh hưởng đến tâm lý ổn định chung của khu vực.",
       "num_articles": 104,
       "source_count": 1,
       "sentiment_tone": -4.58,
@@ -17,15 +17,23 @@
       "entities": [
         "Quân đội Mỹ",
         "Iran",
-        "CENTCOM"
+        "CENTCOM",
+        "Središnje američko zapovjedništvo",
+        "Marco Rubio",
+        "Mỹ",
+        "eo biển Hormuz"
       ],
       "sources": [
         {
-          "url": "https://www.index.hr/vijesti/clanak/americka-vojska-opet-napala-iran-stigao-odgovor-irana/2795910.aspx?index_ref=homepage_comment_box_d&commentId=11226098",
+          "url": "https://www.index.hr/vijesti/clanak/americka-vojska-opet-napala-iran-stigao-odgovor-irana/2795910.aspx?index_ref=homepage_comment_box_d&commentId=11225979",
           "name": "Index"
+        },
+        {
+          "url": "https://www.eldestapeweb.com/informacion-general/rubio-dice-que-negociar-el-acuerdo-con-iran-podria-llevar-dias-mientras-eeuu-lanza-nuevos-a",
+          "name": "Eldestapeweb"
         }
       ],
-      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "primary_sector": "Chính trị - Ngoại giao",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
@@ -42,66 +50,22 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1305886844",
-      "sector": "Chính trị - Ngoại giao",
-      "title": "Bộ Tư pháp Mỹ điều tra vụ nổ súng gần Nhà Trắng là âm mưu ám sát Donald Trump",
-      "summary": "Bộ Tư pháp Mỹ xác nhận vụ nổ súng ngày 23/5 gần Nhà Trắng là nỗ lực ám sát Tổng thống Donald Trump, khiến nghi phạm tử vong và một người bị thương.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin này phản ánh rủi ro an ninh chính trị quan trọng tại Mỹ.",
-      "num_articles": 80,
-      "source_count": 1,
-      "sentiment_tone": -10.89,
-      "sentiment_label": "Tiêu cực mạnh",
-      "entities": [
-        "Bộ Tư pháp Mỹ",
-        "Donald Trump",
-        "Nhà Trắng",
-        "Nasire Best",
-        "Dịch vụ Mật vụ Mỹ"
-      ],
-      "sources": [
-        {
-          "url": "https://guerrero.quadratin.com.mx/investigan-ataque-en-washington-como-intento-de-asesinar-a-trump-van-4/",
-          "name": "Guerrero"
-        }
-      ],
-      "primary_sector": "Chính trị - Ngoại giao",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "credit_liquidity_risk",
-        "rate_policy_risk",
-        "commodity_energy_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "USD",
-        "banks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
       "global_event_id": "1305911488",
       "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "Thuế thu nhập cá nhân tại Washington giảm 58,6% trong năm 2024",
-      "summary": "Số thu từ thuế thu nhập cá nhân tại bang Washington ghi nhận mức giảm 58,6% trong năm 2024 so với năm trước đó.",
-      "importance_reason": "Sự sụt giảm nguồn thu ngân sách đáng kể được nhiều báo đưa tin, gây chú ý về tình hình tài chính công tại bang này.",
+      "title": "Tiểu bang Colorado ghi nhận mức tăng 2,6% thu thuế phí bảo hiểm năm 2024",
+      "summary": "Tiểu bang Colorado công bố doanh thu từ thuế phí bảo hiểm trong năm 2024 tăng 2,6% so với năm trước.",
+      "importance_reason": "Sự gia tăng nguồn thu từ thuế phí bảo hiểm phản ánh biến động trong lĩnh vực tài chính bảo hiểm.",
       "num_articles": 60,
       "source_count": 1,
       "sentiment_tone": -12.96,
       "sentiment_label": "Tiêu cực mạnh",
       "entities": [
-        "Bang Washington",
-        "Cơ quan thuế Washington"
+        "Colorado",
+        "Thuế phí bảo hiểm"
       ],
       "sources": [
         {
-          "url": "https://businessdailynetwork.com/stories/677288533-washington-individual-income-tax-collections-drop-58-6-in-2024-compared-to-previous-year",
+          "url": "https://businessdailynetwork.com/stories/677287806-colorado-sees-2-6-increase-in-insurance-premium-tax-collections-in-2024-over-previous-yea",
           "name": "Businessdailynetwork"
         }
       ],
@@ -121,11 +85,207 @@
       "investment_relevance": "high"
     },
     {
+      "global_event_id": "1305911588",
+      "sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
+      "title": "Chính phủ Bồ Đào Nha xem xét đình chỉ hệ thống EES sau tình trạng ùn tắc tại sân bay",
+      "summary": "Chính phủ Bồ Đào Nha cân nhắc đình chỉ hệ thống xuất nhập cảnh (EES) mới của EU do tình trạng hành khách phải chờ đợi hơn sáu giờ tại các sân bay. EES yêu cầu công dân ngoài EU cung cấp dữ liệu cá nhân, quét vân tay và chụp ảnh khi nhập cảnh.",
+      "importance_reason": "Việc đình chỉ hệ thống kiểm soát biên giới có thể ảnh hưởng đến hiệu quả vận hành và lưu thông tại các khu vực du lịch trọng điểm.",
+      "num_articles": 40,
+      "source_count": 1,
+      "sentiment_tone": -4.02,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "Chính phủ Bồ Đào Nha",
+        "EU",
+        "EES",
+        "Oxford Mail",
+        "Liên minh châu Âu (EU)",
+        "Hệ thống nhập xuất cảnh (EES)",
+        "Liên minh Châu Âu"
+      ],
+      "sources": [
+        {
+          "url": "https://www.oxfordmail.co.uk/news/26138239.portuguese-government-suspend-ees-amid-6-hour-queues/",
+          "name": "Oxfordmail"
+        },
+        {
+          "url": "https://www.newsandstar.co.uk/news/26137602.portuguese-government-suspend-ees-amid-6-hour-queues/",
+          "name": "Newsandstar"
+        }
+      ],
+      "primary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1305905798",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "UAE bị cáo buộc huấn luyện lính đánh thuê Colombia tham chiến tại Sudan",
+      "summary": "Human Rights Watch cáo buộc UAE huấn luyện lính đánh thuê Colombia để hỗ trợ lực lượng Rapid Support tại Sudan. Phía UAE đã bác bỏ các cáo buộc liên quan đến việc hỗ trợ quân sự trong cuộc xung đột này.",
+      "importance_reason": "Sự kiện được nhiều báo đưa, phản ánh diễn biến căng thẳng tại khu vực có tầm ảnh hưởng địa chính trị phức tạp.",
+      "num_articles": 40,
+      "source_count": 1,
+      "sentiment_tone": -7.16,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "UAE",
+        "Human Rights Watch",
+        "Sudan",
+        "Rapid Support Forces",
+        "Colombia"
+      ],
+      "sources": [
+        {
+          "url": "https://krmg.com/2026/05/25/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
+          "name": "Krmg"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1305904925",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "UAE bị cáo buộc huấn luyện lính đánh thuê Colombia tham gia xung đột tại Sudan",
+      "summary": "Human Rights Watch cáo buộc UAE huấn luyện lính đánh thuê Colombia để hỗ trợ lực lượng bán quân sự tại Sudan. Phía UAE đã bác bỏ các cáo buộc này liên quan đến việc hỗ trợ tài chính và quân sự trong cuộc chiến.",
+      "importance_reason": "Tin tức được nhiều báo đưa, phản ánh căng thẳng địa chính trị có thể ảnh hưởng đến môi trường đầu tư khu vực.",
+      "num_articles": 40,
+      "source_count": 1,
+      "sentiment_tone": -7.16,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "UAE",
+        "Human Rights Watch",
+        "Colombia",
+        "Sudan",
+        "Rapid Support Forces"
+      ],
+      "sources": [
+        {
+          "url": "https://krmg.com/2026/05/25/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
+          "name": "Krmg"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1305904924",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "UAE bị cáo buộc huấn luyện lính đánh thuê Colombia tham gia cuộc chiến tại Sudan",
+      "summary": "Human Rights Watch công bố báo cáo cáo buộc UAE huấn luyện lính đánh thuê Colombia để hỗ trợ Lực lượng Hỗ trợ Nhanh trong cuộc xung đột tại Sudan. Phía UAE đã bác bỏ các cáo buộc này sau khi thông tin được nhiều báo đưa tin.",
+      "importance_reason": "Sự việc phản ánh những căng thẳng địa chính trị liên quan đến quốc gia vùng Vịnh, vốn là yếu tố được nhiều báo đưa.",
+      "num_articles": 40,
+      "source_count": 1,
+      "sentiment_tone": -7.16,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "UAE",
+        "Sudan",
+        "Human Rights Watch",
+        "Lực lượng Hỗ trợ Nhanh",
+        "Colombia"
+      ],
+      "sources": [
+        {
+          "url": "https://krmg.com/2026/05/25/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
+          "name": "Krmg"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1305905181",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "UAE bị cáo buộc huấn luyện lính đánh thuê Colombia tham gia cuộc chiến tại Sudan",
+      "summary": "Tổ chức Human Rights Watch cáo buộc UAE huấn luyện lính đánh thuê Colombia để hỗ trợ Lực lượng Hỗ trợ Nhanh trong cuộc xung đột tại Sudan. UAE đã lên tiếng bác bỏ các cáo buộc này.",
+      "importance_reason": "Thông tin về các cáo buộc liên quan đến xung đột quốc tế được nhiều báo đưa tin.",
+      "num_articles": 40,
+      "source_count": 1,
+      "sentiment_tone": -7.16,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "UAE",
+        "Colombia",
+        "Sudan",
+        "Human Rights Watch",
+        "Lực lượng Hỗ trợ Nhanh"
+      ],
+      "sources": [
+        {
+          "url": "https://krmg.com/2026/05/25/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
+          "name": "Krmg"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
       "global_event_id": "1305893833",
       "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
-      "title": "Chính phủ phê duyệt ngân sách 137 triệu RON hỗ trợ ngành chăn nuôi năm 2026",
-      "summary": "Bộ Nông nghiệp thông báo chương trình hỗ trợ tài chính năm 2026 với tổng ngân sách 137,2 triệu RON nhằm tài trợ các dịch vụ đăng ký gia phả và đánh giá di truyền cho các cơ sở chăn nuôi. Nhà nước sẽ thanh toán trực tiếp chi phí dịch vụ cho các đơn vị cung cấp để hỗ trợ các doanh nghiệp và cá nhân sản xuất nông nghiệp.",
-      "importance_reason": "Chương trình giúp giảm chi phí đầu vào cho các doanh nghiệp chăn nuôi nhỏ và vừa, đồng thời được nhiều báo đưa tin.",
+      "title": "Chính phủ phê duyệt chương trình hỗ trợ tài chính cho ngành chăn nuôi năm 2026",
+      "summary": "Bộ Nông nghiệp thông báo phê duyệt gói ngân sách 137,2 triệu RON để hỗ trợ dịch vụ chuyên môn về di truyền và đăng ký giống cho các doanh nghiệp, hộ chăn nuôi. Khoản ngân sách này bao gồm 39 triệu RON cho gia súc lớn và 98 triệu RON cho cừu, dê.",
+      "importance_reason": "Việc Nhà nước trực tiếp chi trả phí dịch vụ chuyên môn giúp giảm chi phí đầu vào và hỗ trợ tăng trưởng cho các cơ sở sản xuất trong ngành nông nghiệp.",
       "num_articles": 50,
       "source_count": 1,
       "sentiment_tone": 3.72,
@@ -133,8 +293,7 @@
       "entities": [
         "Bộ Nông nghiệp",
         "Chính phủ",
-        "Ngành chăn nuôi",
-        "Doanh nghiệp vừa và nhỏ"
+        "Ngành chăn nuôi"
       ],
       "sources": [
         {
@@ -156,274 +315,28 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1305905798",
-      "sector": "Khủng hoảng - Xung đột & An ninh",
-      "title": "UAE bị cáo buộc huấn luyện lính đánh thuê Colombia tham chiến tại Sudan",
-      "summary": "Human Rights Watch cáo buộc UAE huấn luyện lính đánh thuê Colombia để hỗ trợ lực lượng Rapid Support tại Sudan. UAE đã chính thức bác bỏ các cáo buộc liên quan đến việc hỗ trợ tài chính và quân sự này.",
-      "importance_reason": "Sự kiện được nhiều báo đưa, phản ánh những rủi ro địa chính trị tiềm tàng liên quan đến các quốc gia vùng Vịnh.",
-      "num_articles": 40,
-      "source_count": 15,
-      "sentiment_tone": -7.16,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "UAE",
-        "Colombia",
-        "Sudan",
-        "Human Rights Watch",
-        "Rapid Support Forces",
-        "Lực lượng Rapid Support",
-        "Lực lượng Hỗ trợ Nhanh"
-      ],
-      "sources": [
-        {
-          "url": "https://krmg.com/2026/05/25/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Krmg"
-        },
-        {
-          "url": "https://www.kob.com/ap-top-news/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Kob"
-        },
-        {
-          "url": "https://www.ksat.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Ksat"
-        },
-        {
-          "url": "https://www.clickondetroit.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Clickondetroit"
-        },
-        {
-          "url": "https://www.wsls.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Wsls"
-        },
-        {
-          "url": "https://isp.netscape.com:443/news/world/story/0001/20260526/5c02e3b580f01b840251c206673123a7",
-          "name": "Isp"
-        },
-        {
-          "url": "https://www.clickorlando.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Clickorlando"
-        },
-        {
-          "url": "https://mymotherlode.com/news/world/10863258/uae-accused-of-training-colombian-mercenaries-for-sudans-war.html",
-          "name": "Mymotherlode"
-        },
-        {
-          "url": "https://www.yahoo.com/news/world/articles/uae-accused-training-colombian-mercenaries-020320713.html",
-          "name": "Yahoo"
-        },
-        {
-          "url": "https://www.wgauradio.com/news/world/uae-accused-training/WNAJ5OCYGU5U3HSBDQHQI55H7A/",
-          "name": "Wgauradio"
-        },
-        {
-          "url": "https://www.winnipegfreepress.com/world/2026/05/25/uae-accused-of-training-colombian-mercenaries-for-sudans-war",
-          "name": "Winnipegfreepress"
-        },
-        {
-          "url": "https://www.ynetnews.com/article/r1bivimlgl",
-          "name": "Ynetnews"
-        },
-        {
-          "url": "https://www.somdnews.com/ap/world/uae-accused-of-training-colombian-mercenaries-for-sudans-war/article_e7477312-df3e-53fa-ad7e-02d9ec794e44.html",
-          "name": "Somdnews"
-        },
-        {
-          "url": "https://www.wboc.com/news/international/uae-accused-of-training-colombian-mercenaries-for-sudans-war/article_67b88853-636e-58ea-be85-3b3d31a5fc72.html",
-          "name": "Wboc"
-        },
-        {
-          "url": "https://www.therecord.com/news/world/africa/uae-accused-of-training-colombian-mercenaries-for-sudans-war/article_931e7d14-a990-5f48-a783-de4ef2410393.html",
-          "name": "Therecord"
-        },
-        {
-          "url": "https://abcnews.com/International/wireStory/uae-accused-training-colombian-mercenaries-sudans-war-133301838",
-          "name": "Abcnews"
-        }
-      ],
-      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1305911174",
-      "sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "title": "Chính phủ Bồ Đào Nha xem xét hoãn hệ thống EES sau tình trạng ùn tắc tại sân bay",
-      "summary": "Bồ Đào Nha có thể tạm ngưng áp dụng hệ thống xuất nhập cảnh mới (EES) của EU do tình trạng hành khách phải chờ đợi hơn sáu giờ tại sân bay. EES yêu cầu công dân ngoài EU cung cấp dữ liệu cá nhân, bao gồm dấu vân tay và ảnh chụp khi nhập cảnh.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh thách thức trong việc triển khai quy định biên giới mới đối với hoạt động du lịch và lưu thông quốc tế.",
-      "num_articles": 40,
-      "source_count": 20,
-      "sentiment_tone": -4.02,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Chính phủ Bồ Đào Nha",
-        "Liên minh châu Âu (EU)",
-        "Hệ thống xuất nhập cảnh (EES)",
-        "EU",
-        "Hệ thống nhập cảnh EES"
-      ],
-      "sources": [
-        {
-          "url": "https://www.northwaleschronicle.co.uk/news/26137834.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Northwaleschronicle"
-        },
-        {
-          "url": "https://www.salisburyjournal.co.uk/news/26138033.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Salisburyjournal"
-        },
-        {
-          "url": "https://www.warringtonguardian.co.uk/news/26137788.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Warringtonguardian"
-        },
-        {
-          "url": "https://www.ledburyreporter.co.uk/news/26137636.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Ledburyreporter"
-        },
-        {
-          "url": "https://www.nwemail.co.uk/news/26137602.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Nwemail"
-        },
-        {
-          "url": "https://www.halsteadgazette.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Halsteadgazette"
-        },
-        {
-          "url": "https://www.cotswoldjournal.co.uk/news/26137636.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Cotswoldjournal"
-        },
-        {
-          "url": "https://www.ealingtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Ealingtimes"
-        },
-        {
-          "url": "https://www.wandsworthguardian.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Wandsworthguardian"
-        },
-        {
-          "url": "https://www.wharfedaleobserver.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Wharfedaleobserver"
-        },
-        {
-          "url": "https://www.richmondandtwickenhamtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Richmondandtwickenhamtimes"
-        },
-        {
-          "url": "https://www.burytimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Burytimes"
-        },
-        {
-          "url": "https://www.glasgowtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Glasgowtimes"
-        },
-        {
-          "url": "https://www.cravenherald.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Cravenherald"
-        },
-        {
-          "url": "https://www.braintreeandwithamtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Braintreeandwithamtimes"
-        },
-        {
-          "url": "https://www.chelmsfordweeklynews.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Chelmsfordweeklynews"
-        },
-        {
-          "url": "https://www.timesandstar.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Timesandstar"
-        },
-        {
-          "url": "https://www.clydebankpost.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Clydebankpost"
-        },
-        {
-          "url": "https://www.hillingdontimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Hillingdontimes"
-        },
-        {
-          "url": "https://www.thewestmorlandgazette.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Thewestmorlandgazette"
-        }
-      ],
-      "primary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
       "global_event_id": "1305926260",
-      "sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "title": "Constructor Group chuyển trụ sở toàn cầu sang Singapore, tạo hơn 200 vị trí việc làm mới",
-      "summary": "Constructor Group quyết định dời trụ sở từ Thụy Sĩ sang Singapore nhằm mở rộng quy mô hoạt động, tập trung vào lĩnh vực nghiên cứu, giáo dục và công nghệ chuyên sâu. Dự án dự kiến tạo ra hơn 200 việc làm chất lượng cao trong vòng 2-3 năm tới tại quốc gia này.",
-      "importance_reason": "Việc tập đoàn quốc tế mở rộng sự hiện diện góp phần củng cố hệ sinh thái đổi mới sáng tạo và năng lực nghiên cứu tại Singapore, vốn được nhiều báo đưa tin.",
+      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "title": "Constructor Group chuyển trụ sở toàn cầu sang Singapore, tạo hơn 200 việc làm kỹ năng cao",
+      "summary": "Constructor Group quyết định dời trụ sở chính từ Thụy Sĩ sang Singapore để mở rộng hoạt động trong lĩnh vực nghiên cứu, giáo dục và công nghệ chuyên sâu. Tập đoàn cam kết tạo ra hơn 200 việc làm chuyên gia tại Singapore trong vòng 2-3 năm tới.",
+      "importance_reason": "Việc tập đoàn quốc tế mở rộng quy mô hoạt động tại trung tâm tài chính Singapore được nhiều báo đưa, phản ánh xu hướng dịch chuyển đầu tư vào các trung tâm đổi mới sáng tạo khu vực.",
       "num_articles": 30,
-      "source_count": 5,
+      "source_count": 1,
       "sentiment_tone": 6.03,
       "sentiment_label": "Tích cực",
       "entities": [
         "Constructor Group",
         "Singapore",
         "Thụy Sĩ",
-        "Chính phủ Singapore"
+        "chính phủ Singapore"
       ],
       "sources": [
         {
-          "url": "https://www.manilatimes.net/2026/05/26/tmt-newswire/pr-newswire/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarte",
-          "name": "Manilatimes"
-        },
-        {
-          "url": "https://portal.sina.com.hk/finance/finance-prnewswire/prnasia/2026/05/26/1776653/constructor-group-selects-singapore-for-new-global-ai-and-q",
-          "name": "Portal"
-        },
-        {
           "url": "https://www.finanznachrichten.de/nachrichten-2026-05/68589490-constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters",
           "name": "Finanznachrichten"
-        },
-        {
-          "url": "https://www.prnewswire.com/news-releases/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-sk",
-          "name": "Prnewswire"
-        },
-        {
-          "url": "https://www.manilatimes.net/2026/05/26/tmt-newswire/pr-newswire/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles/2351351",
-          "name": "Manilatimes"
-        },
-        {
-          "url": "https://portal.sina.com.hk/finance/finance-prnewswire/prnasia/2026/05/26/1776653/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles/",
-          "name": "Portal"
-        },
-        {
-          "url": "https://www.prnewswire.com/news-releases/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles-302781298.html",
-          "name": "Prnewswire"
-        },
-        {
-          "url": "https://www.finanznachrichten.de/nachrichten-2026-05/68589490-constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles-008.htm",
-          "name": "Finanznachrichten"
-        },
-        {
-          "url": "https://www.prnewswire.com/news-releases/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles-302781297.html",
-          "name": "Prnewswire"
         }
       ],
-      "primary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
+      "primary_sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
       "secondary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
       "macro_signal": "risk_on",
       "risk_flags": [
@@ -437,21 +350,21 @@
       "investment_relevance": "medium"
     },
     {
-      "global_event_id": "1305920089",
-      "sector": "Pháp lý - Quy định & Trừng phạt",
-      "title": "Delta Airlines cảnh báo về các lệnh trừng phạt của Mỹ liên quan đến việc thu hẹp sân bay Schiphol",
-      "summary": "Delta Airlines đưa ra cảnh báo về nguy cơ Mỹ áp đặt các biện pháp trừng phạt do kế hoạch thu hẹp quy mô hoạt động tại sân bay Schiphol.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh những rủi ro pháp lý và chính sách có thể ảnh hưởng đến hoạt động quốc tế của các hãng hàng không.",
+      "global_event_id": "1305920746",
+      "sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
+      "title": "Hãng hàng không Delta cảnh báo nguy cơ trừng phạt từ Mỹ liên quan đến sân bay Schiphol",
+      "summary": "Hãng hàng không Delta đưa ra cảnh báo về khả năng Mỹ áp đặt lệnh trừng phạt trong bối cảnh cắt giảm hoạt động tại sân bay Schiphol.",
+      "importance_reason": "Thông tin về các lệnh trừng phạt tiềm tàng và cắt giảm hạ tầng giao thông quan trọng có thể ảnh hưởng đến hoạt động thương mại toàn cầu.",
       "num_articles": 30,
       "source_count": 1,
       "sentiment_tone": -4.95,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Delta Airlines",
+        "Delta",
+        "Mỹ",
         "Sân bay Schiphol",
-        "Chính phủ Mỹ",
-        "Delta Air Lines",
-        "Mỹ"
+        "Schiphol",
+        "DDS"
       ],
       "sources": [
         {
@@ -459,7 +372,7 @@
           "name": "Dagelijksestandaard"
         }
       ],
-      "primary_sector": "Pháp lý - Quy định & Trừng phạt",
+      "primary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
@@ -480,16 +393,16 @@
     {
       "global_event_id": "1305899588",
       "sector": "Công nghệ - AI & Bán dẫn",
-      "title": "Nhà đồng sáng lập Anthropic và Giáo hoàng Leo XIV cảnh báo về tác động của công nghệ tới việc làm",
-      "summary": "Nhà đồng sáng lập Anthropic, Christoph Olah, cảnh báo công nghệ mới có thể thay thế lao động con người trên quy mô lớn, trong khi Giáo hoàng Leo XIV nhấn mạnh các thách thức đạo đức và xã hội tại Vatican.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, thu hút sự quan tâm về những tác động dài hạn của công nghệ đối với thị trường lao động toàn cầu.",
+      "title": "Đồng sáng lập Anthropic và Giáo hoàng Leo XIV quan ngại về tác động của công nghệ tới việc làm",
+      "summary": "Đồng sáng lập Anthropic, Christoph Olah, cảnh báo nguy cơ công nghệ thay thế lao động quy mô lớn trong một sự kiện do Giáo hoàng Leo XIV chủ trì tại Vatican. Giáo hoàng cũng ban hành thông điệp về những thách thức đạo đức và xã hội đối với sự phát triển của công nghệ.",
+      "importance_reason": "Thông tin được nhiều báo đưa, phản ánh góc nhìn về các rủi ro xã hội liên quan đến sự chuyển dịch cấu trúc thị trường lao động trong tương lai.",
       "num_articles": 30,
-      "source_count": 6,
+      "source_count": 1,
       "sentiment_tone": -7.82,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Anthropic",
         "Christoph Olah",
+        "Anthropic",
         "Giáo hoàng Leo XIV",
         "Vatican"
       ],
@@ -497,26 +410,6 @@
         {
           "url": "https://indianexpress.com/article/technology/artificial-intelligence/anthropic-christoph-olah-ai-job-loss-pope-leo-xiv-10708351/",
           "name": "Indianexpress"
-        },
-        {
-          "url": "http://pressorg24.com/news?id=831180",
-          "name": "Pressorg24"
-        },
-        {
-          "url": "https://www.theregister.com/ai-ml/2026/05/26/pope-leo-warns-ai-boom-can-give-big-tech-and-the-people-who-run-it-too-much-power/5245883",
-          "name": "Theregister"
-        },
-        {
-          "url": "https://tekno.kompas.com/read/2026/05/26/08020057/paus-leo-xiv-khawatir-ai-bisa-bikin-manusia-kehilangan-pekerjaan",
-          "name": "Tekno"
-        },
-        {
-          "url": "https://unn.ua/news/papa-lev-poprosyv-vybachennia-za-rol-katolytskoi-tserkvy-v-rabstvi",
-          "name": "Unn"
-        },
-        {
-          "url": "https://unn.ua/ru/news/papa-lev-poprosil-proshcheniya-za-rol-katolicheskoi-tserkvi-v-rabstve",
-          "name": "Unn"
         }
       ],
       "primary_sector": "Công nghệ - AI & Bán dẫn",
@@ -538,20 +431,61 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1305926642",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "EU đặt điều kiện cải cách nghiêm ngặt đối với các khoản hỗ trợ tài chính cho Ukraine",
-      "summary": "Liên minh châu Âu yêu cầu Ukraine thực hiện các cải cách bắt buộc để đáp ứng tiêu chuẩn trước khi giải ngân các khoản hỗ trợ tài chính. Ngoài ra, việc chuyển tiền cho chính quyền Tổng thống Zelensky đang gặp trở ngại bởi các lý do chính trị chưa được tiết lộ.",
-      "importance_reason": "Việc giải ngân tài chính cho Ukraine bị trì hoãn bởi các rào cản chính trị và yêu cầu cải cách có thể ảnh hưởng đến dòng vốn hỗ trợ quốc tế.",
+      "global_event_id": "1305910203",
+      "sector": "Pháp lý - Quy định & Trừng phạt",
+      "title": "Đối tượng bị cáo buộc chỉ đạo vụ tấn công bằng hỏa lực tại tiệm ăn ở Sydney",
+      "summary": "Sayed Mohammed Moosawi bị cáo buộc chỉ đạo bốn người khác đốt phá một tiệm ăn tại Bondi vào tháng 10 năm 2024. Phiên tòa xét xử bị cáo này đã bị hoãn sang năm sau.",
+      "importance_reason": "Sự kiện phản ánh một vụ án hình sự cụ thể và được nhiều báo đưa tin.",
       "num_articles": 30,
-      "source_count": 4,
+      "source_count": 1,
+      "sentiment_tone": -9.87,
+      "sentiment_label": "Tiêu cực mạnh",
+      "entities": [
+        "Sayed Mohammed Moosawi",
+        "Lewis' Continental Kitchen",
+        "Bondi",
+        "Sydney"
+      ],
+      "sources": [
+        {
+          "url": "https://www.sconeadvocate.com.au/story/9254058/foul-mouthed-bikie-denies-heading-anti-semitic-attack/",
+          "name": "Sconeadvocate"
+        },
+        {
+          "url": "https://www.manningrivertimes.com.au/story/9254058/foul-mouthed-bikie-denies-heading-anti-semitic-attack/",
+          "name": "Manningrivertimes"
+        }
+      ],
+      "primary_sector": "Pháp lý - Quy định & Trừng phạt",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk"
+      ],
+      "affected_assets": [
+        "stocks"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1305926642",
+      "sector": "Chính trị - Ngoại giao",
+      "title": "Phản ứng của Petr Macinka về các phát ngôn của Tổng thống Petr Pavel",
+      "summary": "Ông Petr Macinka chỉ trích Tổng thống Petr Pavel về thái độ đối với các sự kiện lịch sử và vụ việc phá hoại di tích tại Brno.",
+      "importance_reason": "Thông tin này mang tính chất chính trị nội bộ, không có tác động trực tiếp đến các hoạt động kinh tế hoặc thị trường tài chính.",
+      "num_articles": 30,
+      "source_count": 1,
       "sentiment_tone": -6.85,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Liên minh châu Âu",
-        "Ukraine",
-        "Volodymyr Zelensky",
-        "Brusel"
+        "Petr Macinka",
+        "Petr Pavel",
+        "Edvard Beneš",
+        "Brno",
+        "InfernoChaos",
+        "Pohořelice"
       ],
       "sources": [
         {
@@ -559,19 +493,11 @@
           "name": "Prvnizpravy"
         },
         {
-          "url": "https://www.moravskoslezskenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Moravskoslezskenovinky"
-        },
-        {
-          "url": "https://www.plzenskenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Plzenskenovinky"
-        },
-        {
           "url": "https://www.olomouckenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
           "name": "Olomouckenovinky"
         }
       ],
-      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
+      "primary_sector": "Chính trị - Ngoại giao",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
@@ -589,11 +515,11 @@
     {
       "global_event_id": "1305936537",
       "sector": "Chính trị - Ngoại giao",
-      "title": "Albania và Lituania thúc đẩy hợp tác nghị viện nhằm đẩy nhanh tiến trình gia nhập Liên minh châu Âu",
-      "summary": "Bộ trưởng Ngoại giao Albania Ferit Hoxha đã hội đàm với Chủ tịch Ủy ban Đối ngoại Lituania Remigijus Motuzas để thảo luận về lộ trình gia nhập EU và tăng cường hợp tác nghị viện. Hai bên nhấn mạnh tầm quan trọng của ngoại giao trong việc củng cố sự đoàn kết tại NATO và các mục tiêu chung của châu Âu.",
-      "importance_reason": "Việc tăng cường hợp tác nghị viện quốc tế được nhiều báo đưa tin như một bước đi nhằm thúc đẩy tiến trình hội nhập kinh tế và chính trị khu vực.",
+      "title": "Albania thúc đẩy hợp tác nghị viện với Lituania nhằm mục tiêu gia nhập Liên minh châu Âu",
+      "summary": "Bộ trưởng Ngoại giao Albania, Ferit Hoxha, đã gặp Chủ tịch Ủy ban Đối ngoại Lituania, Remigijus Motuzas, để thảo luận về việc tăng cường quan hệ nghị viện và tiến trình gia nhập EU của Albania.",
+      "importance_reason": "Thông tin về nỗ lực hội nhập quốc tế của quốc gia được nhiều báo đưa, mang tính trung lập về mặt kinh tế.",
       "num_articles": 30,
-      "source_count": 3,
+      "source_count": 1,
       "sentiment_tone": 5.51,
       "sentiment_label": "Tích cực",
       "entities": [
@@ -602,20 +528,22 @@
         "Albania",
         "Lituania",
         "Liên minh châu Âu",
-        "NATO"
+        "NATO",
+        "Lithuania",
+        "EU"
       ],
       "sources": [
         {
-          "url": "https://www.vizionplus.tv/lituani-ministri-hoxha-takim-me-kryetarin-e-komisionit-per-punet-e-jashtme-rritja-e-bashkepunimit-parlamentar-afron-shqiperine-me-be-ne/",
-          "name": "Vizionplus"
-        },
-        {
-          "url": "https://24-ore.com/lituani-ministri-hoxha-takim-me-kryetarin-e-komisionit-per-punet-e-jashtme-bashkepunimi-parlamentar-instrument-per-avancimin-e-objektivit-per-anetaresim-ne-be/",
+          "url": "https://24-ore.com/lituani-ministri-hoxha-takim-me-kryetarin-e-komisionit-per-punet-e-jashtme-bashkepunimi-parlamentar-instrument-per-avanci",
           "name": "24-ore"
         },
         {
-          "url": "https://rtsh.al/lituani-ministri-hoxha-takim-me-kryetarin-e-komisionit-per-punet-e-jashtme-bashkepunimi-parlamentar-instrument-per-avancimin-e-objektivit-per-anetaresim-ne-be/",
-          "name": "Rtsh"
+          "url": "https://24-ore.com/hoxha-ne-lituani-takim-me-kryetarin-e-komisionit-te-jashtem-bashkepunimi-parlamentar-instrument-per-anetaresim-ne-be/",
+          "name": "24-ore"
+        },
+        {
+          "url": "https://www.botasot.info/shqiperia/2487194/hoxha-ne-lituani-takim-me-kryetarin-e-komisionit-per-punet-e-jashtme-bashkepunimi-parlamentar-ins",
+          "name": "Botasot"
         }
       ],
       "primary_sector": "Chính trị - Ngoại giao",
@@ -623,122 +551,6 @@
       "macro_signal": "risk_off",
       "risk_flags": [
         "conflict_security_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1305948755",
-      "sector": "Chính trị - Ngoại giao",
-      "title": "Cựu lãnh đạo đảng DUP Jeffrey Donaldson hầu tòa vì các cáo buộc tấn công tình dục",
-      "summary": "Cựu lãnh đạo đảng DUP, Sir Jeffrey Donaldson, đã có mặt tại Tòa án Newry để bắt đầu phiên tòa xét xử liên quan đến nhiều cáo buộc tấn công tình dục trong quá khứ. Quy trình hiện tại đang tập trung vào việc lựa chọn bồi thẩm đoàn.",
-      "importance_reason": "Sự kiện thu hút sự chú ý lớn từ truyền thông với gần 120 bài báo phản ánh.",
-      "num_articles": 120,
-      "source_count": 20,
-      "sentiment_tone": -10.46,
-      "sentiment_label": "Tiêu cực mạnh",
-      "entities": [
-        "Sir Jeffrey Donaldson",
-        "DUP",
-        "Newry Crown Court",
-        "Jeffrey Donaldson",
-        "Đảng DUP",
-        "Tòa án Newry",
-        "Tòa án Crown Newry"
-      ],
-      "sources": [
-        {
-          "url": "https://www.messengernewspapers.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Messengernewspapers"
-        },
-        {
-          "url": "https://www.salisburyjournal.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Salisburyjournal"
-        },
-        {
-          "url": "https://www.gazetteandherald.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Gazetteandherald"
-        },
-        {
-          "url": "https://www.thisiswiltshire.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Thisiswiltshire"
-        },
-        {
-          "url": "https://www.northwaleschronicle.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Northwaleschronicle"
-        },
-        {
-          "url": "https://www.chesterstandard.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Chesterstandard"
-        },
-        {
-          "url": "https://www.breakingnews.ie/ireland/former-dup-leader-donaldson-arrives-at-court-for-sexual-offences-trial-1905150.html",
-          "name": "Breakingnews"
-        },
-        {
-          "url": "https://www.falmouthpacket.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Falmouthpacket"
-        },
-        {
-          "url": "https://www.northwichguardian.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Northwichguardian"
-        },
-        {
-          "url": "https://www.darlingtonandstocktontimes.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Darlingtonandstocktontimes"
-        },
-        {
-          "url": "https://www.yourlocalguardian.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Yourlocalguardian"
-        },
-        {
-          "url": "https://www.gazetteseries.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Gazetteseries"
-        },
-        {
-          "url": "https://www.bicesteradvertiser.net/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Bicesteradvertiser"
-        },
-        {
-          "url": "https://www.thewestonmercury.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Thewestonmercury"
-        },
-        {
-          "url": "https://www.lancashiretelegraph.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Lancashiretelegraph"
-        },
-        {
-          "url": "https://www.london-now.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "London-now"
-        },
-        {
-          "url": "https://www.southwalesargus.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Southwalesargus"
-        },
-        {
-          "url": "https://www.eveningnews24.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Eveningnews24"
-        },
-        {
-          "url": "https://www.warringtonguardian.co.uk/news/national/26138078.former-dup-leader-donaldson-arrives-court-sexual-offences-trial/",
-          "name": "Warringtonguardian"
-        },
-        {
-          "url": "https://www.hani.co.kr/arti/politics/politics_general/1260462.html",
-          "name": "Hani"
-        }
-      ],
-      "primary_sector": "Chính trị - Ngoại giao",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
       ],
@@ -752,20 +564,21 @@
       "global_event_id": "1305885501",
       "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
       "title": "Ngày Tưởng niệm nhấn mạnh chi phí dài hạn của chiến tranh đối với các cựu chiến binh",
-      "summary": "Ngày Tưởng niệm gợi nhắc về những tổn thất và chi phí kinh tế, xã hội kéo dài đối với lực lượng cựu chiến binh.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh các gánh nặng phúc lợi xã hội tiềm tàng từ chi phí chiến tranh.",
+      "summary": "Ngày Tưởng niệm được nhắc đến như một dịp để phản ánh về những gánh nặng tài chính và xã hội kéo dài đối với các cựu chiến binh.",
+      "importance_reason": "Thông tin mang tính xã hội, hiện không có tác động trực tiếp đến các biến số kinh tế vĩ mô.",
       "num_articles": 80,
       "source_count": 1,
       "sentiment_tone": -10.89,
       "sentiment_label": "Tiêu cực mạnh",
       "entities": [
         "Ngày Tưởng niệm",
-        "Cựu chiến binh"
+        "Cựu chiến binh",
+        "Memorial Day"
       ],
       "sources": [
         {
-          "url": "https://wcbm.com/local-story/fact-check-team-memorial-day-highlights-the-lasting-cost-of-war-for-veterans/",
-          "name": "Wcbm"
+          "url": "https://abc7amarillo.com/newsletter-daily/fact-check-team-memorial-day-highlights-the-lasting-cost-of-war-for-veterans-service-members-ameri",
+          "name": "Abc7amarillo"
         }
       ],
       "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
@@ -783,274 +596,64 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1305886164",
-      "sector": "Chính trị - Ngoại giao",
-      "title": "Tiếp tục điều tra vụ nổ súng gần chốt kiểm soát an ninh Nhà Trắng",
-      "summary": "Các cơ quan chức năng đang duy trì quá trình điều tra vụ nổ súng xảy ra gần chốt kiểm soát an ninh tại Nhà Trắng vào thứ Bảy.",
-      "importance_reason": "Sự việc được nhiều báo đưa tin nhưng chưa có tác động cụ thể đến các chỉ số thị trường tài chính.",
-      "num_articles": 80,
-      "source_count": 20,
-      "sentiment_tone": -4.24,
-      "sentiment_label": "Tiêu cực",
+      "global_event_id": "1305951815",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Báo cáo về tình trạng tội phạm làm suy yếu nền tảng xã hội",
+      "summary": "Báo cáo đề cập đến vấn đề tội phạm gây ảnh hưởng tiêu cực đến nền tảng xã hội. Đây là thông tin từ trang tin tức và phân tích De Dagelijkse Standaard.",
+      "importance_reason": "Thông tin mang tính chất phản ánh quan điểm về các vấn đề xã hội, chưa có tác động trực tiếp đến kinh tế.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -9.77,
+      "sentiment_label": "Tiêu cực mạnh",
       "entities": [
-        "Nhà Trắng"
+        "De Dagelijkse Standaard"
       ],
       "sources": [
         {
-          "url": "https://ktxs.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-washin",
-          "name": "Ktxs"
-        },
-        {
-          "url": "https://fox56.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-washi",
-          "name": "Fox56"
-        },
-        {
-          "url": "https://wtov9.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-washi",
-          "name": "Wtov9"
-        },
-        {
-          "url": "https://foxreno.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-was",
-          "name": "Foxreno"
-        },
-        {
-          "url": "https://fox42kptm.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-w",
-          "name": "Fox42kptm"
-        },
-        {
-          "url": "https://midmichigannow.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-secur",
-          "name": "Midmichigannow"
-        },
-        {
-          "url": "https://abcnews4.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-wa",
-          "name": "Abcnews4"
-        },
-        {
-          "url": "https://foxsanantonio.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-securi",
-          "name": "Foxsanantonio"
-        },
-        {
-          "url": "https://news4sanantonio.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-secu",
-          "name": "News4sanantonio"
-        },
-        {
-          "url": "https://wgxa.tv/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-washing",
-          "name": "Wgxa"
-        },
-        {
-          "url": "https://katu.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-washin",
-          "name": "Katu"
-        },
-        {
-          "url": "https://katv.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-washin",
-          "name": "Katv"
-        },
-        {
-          "url": "https://krcgtv.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-wash",
-          "name": "Krcgtv"
-        },
-        {
-          "url": "https://krcrtv.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-wash",
-          "name": "Krcrtv"
-        },
-        {
-          "url": "https://newschannel9.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-securit",
-          "name": "Newschannel9"
-        },
-        {
-          "url": "https://myfox28columbus.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-secu",
-          "name": "Myfox28columbus"
-        },
-        {
-          "url": "https://nebraska.tv/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-was",
-          "name": "Nebraska"
-        },
-        {
-          "url": "https://fox17.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-washi",
-          "name": "Fox17"
-        },
-        {
-          "url": "https://cnycentral.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-",
-          "name": "Cnycentral"
-        },
-        {
-          "url": "https://kimatv.com/news/nation-world/investigation-continues-shooting-white-house-access-checkpoint-secret-service-nasire-best-security-wash",
-          "name": "Kimatv"
+          "url": "https://www.dagelijksestandaard.nl/nieuws/rapport-ondermijning-tast-fundamenten-samenleving-aan?comment=978630",
+          "name": "Dagelijksestandaard"
         }
       ],
-      "primary_sector": "Chính trị - Ngoại giao",
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
         "conflict_security_risk",
         "legal_regulatory_risk",
-        "real_estate_infra_risk"
+        "real_estate_infra_risk",
+        "crypto_risk"
       ],
       "affected_assets": [
         "stocks",
+        "bonds",
+        "crypto",
         "real_estate"
       ],
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1305886851",
-      "sector": "Chính trị - Ngoại giao",
-      "title": "Ông Donald Trump vận động cho địa điểm tổ chức sự kiện gây tranh cãi sau vụ nổ súng",
-      "summary": "Ông Donald Trump đang thực hiện các hoạt động quảng bá cho một phòng khiêu vũ gây nhiều tranh cãi ngay sau khi xảy ra vụ nổ súng chết người tại đây.",
-      "importance_reason": "Sự kiện thu hút sự chú ý lớn từ dư luận và được nhiều báo đưa tin.",
-      "num_articles": 78,
-      "source_count": 7,
-      "sentiment_tone": -4.48,
-      "sentiment_label": "Tiêu cực",
+      "global_event_id": "1305900339",
+      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "title": "Lãnh đạo Starbucks tại Hàn Quốc tiếp tục xin lỗi vì chiến dịch quảng cáo gây tranh cãi",
+      "summary": "Chung Yong-jin, tỷ phú bán lẻ tại Hàn Quốc, đã đưa ra lời xin lỗi lần thứ hai sau khi chiến dịch tiếp thị của Starbucks bị dư luận phản đối vì bị cho là chế nhạo các nạn nhân trong cuộc đàn áp quân sự năm 1980.",
+      "importance_reason": "Sự việc được nhiều báo đưa, phản ánh rủi ro về uy tín và tác động tiềm tàng đến hoạt động kinh doanh của doanh nghiệp bán lẻ.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -9.53,
+      "sentiment_label": "Tiêu cực mạnh",
       "entities": [
-        "Donald Trump"
+        "Starbucks",
+        "Chung Yong-jin",
+        "Hàn Quốc",
+        "CBS News"
       ],
       "sources": [
         {
-          "url": "http://www.fnp.de/politik/nach-toedlichen-schuessen-trump-wirbt-sofort-wieder-fuer-sein-lieblingsprojekt-ballsaal-zr-94321783.html",
-          "name": "Fnp"
-        },
-        {
-          "url": "https://www.merkur.de/politik/nach-toedlichen-schuessen-trump-wirbt-sofort-wieder-fuer-sein-lieblingsprojekt-ballsaal-zr-94321783.html",
-          "name": "Merkur"
-        },
-        {
-          "url": "http://www.hna.de/politik/nach-toedlichen-schuessen-trump-wirbt-sofort-wieder-fuer-sein-lieblingsprojekt-ballsaal-zr-94321783.html",
-          "name": "Hna"
-        },
-        {
-          "url": "https://www.az-online.de/politik/nach-toedlichen-schuessen-trump-wirbt-sofort-wieder-fuer-sein-lieblingsprojekt-ballsaal-zr-94321783.html",
-          "name": "Az-online"
-        },
-        {
-          "url": "https://www.kreiszeitung.de/politik/nach-toedlichen-schuessen-trump-wirbt-sofort-wieder-fuer-sein-lieblingsprojekt-ballsaal-zr-94321783.html",
-          "name": "Kreiszeitung"
-        },
-        {
-          "url": "http://www.come-on.de/politik/nach-toedlichen-schuessen-trump-wirbt-sofort-wieder-fuer-sein-lieblingsprojekt-ballsaal-zr-94321783.html",
-          "name": "Come-on"
-        },
-        {
-          "url": "https://www.aljazeera.com/news/2026/5/25/trump-renews-petition-for-white-house-ballroom-pointing-to-nearby-shooting",
-          "name": "Aljazeera"
+          "url": "https://www.cbsnews.com/news/south-korea-starbucks-apology-ad-campaign-massacre-memory/",
+          "name": "Cbsnews"
         }
       ],
-      "primary_sector": "Chính trị - Ngoại giao",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1305914043",
-      "sector": "Pháp lý - Quy định & Trừng phạt",
-      "title": "Hai người bị bắt giữ sau cuộc điều tra vụ án mạng liên quan đến Dezi Freeman",
-      "summary": "Cảnh sát đã bắt giữ hai cá nhân trong quá trình điều tra vụ sát hại hai sĩ quan và các hoạt động của Dezi Freeman.",
-      "importance_reason": "Sự việc là một vụ án hình sự cụ thể và hiện chưa có tác động trực tiếp đến các biến số kinh tế hay thị trường vốn.",
-      "num_articles": 70,
-      "source_count": 20,
-      "sentiment_tone": -7.42,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Dezi Freeman",
-        "Cảnh sát",
-        "Namoi Valley Independent",
-        "Cảnh sát địa phương",
-        "Vadim de Waart-Hottart",
-        "Neal Thompson",
-        "Cảnh sát Úc",
-        "Porepunkah"
-      ],
-      "sources": [
-        {
-          "url": "https://www.nvi.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Nvi"
-        },
-        {
-          "url": "https://www.edenmagnet.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Edenmagnet"
-        },
-        {
-          "url": "https://www.batemansbaypost.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Batemansbaypost"
-        },
-        {
-          "url": "https://www.naroomanewsonline.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Naroomanewsonline"
-        },
-        {
-          "url": "https://www.greatlakesadvocate.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Greatlakesadvocate"
-        },
-        {
-          "url": "https://www.portstephensexaminer.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Portstephensexaminer"
-        },
-        {
-          "url": "https://www.queanbeyanage.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Queanbeyanage"
-        },
-        {
-          "url": "https://www.dungogchronicle.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Dungogchronicle"
-        },
-        {
-          "url": "https://www.juneesoutherncross.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Juneesoutherncross"
-        },
-        {
-          "url": "https://www.camdencourier.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Camdencourier"
-        },
-        {
-          "url": "https://www.oberonreview.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Oberonreview"
-        },
-        {
-          "url": "https://www.yasstribune.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Yasstribune"
-        },
-        {
-          "url": "https://www.redlandcitybulletin.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Redlandcitybulletin"
-        },
-        {
-          "url": "https://www.hardenexpress.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Hardenexpress"
-        },
-        {
-          "url": "https://www.muswellbrookchronicle.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Muswellbrookchronicle"
-        },
-        {
-          "url": "https://www.canberratimes.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Canberratimes"
-        },
-        {
-          "url": "https://www.bluemountainsgazette.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Bluemountainsgazette"
-        },
-        {
-          "url": "https://www.moreechampion.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Moreechampion"
-        },
-        {
-          "url": "https://www.northweststar.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Northweststar"
-        },
-        {
-          "url": "https://www.katherinetimes.com.au/story/9254102/dezi-freeman-two-arrested-following-investigation-into-murders/",
-          "name": "Katherinetimes"
-        }
-      ],
-      "primary_sector": "Pháp lý - Quy định & Trừng phạt",
+      "primary_sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
@@ -1063,378 +666,108 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1305918483",
-      "sector": "Pháp lý - Quy định & Trừng phạt",
-      "title": "Tòa án cho phép mở rộng vụ kiện phân biệt đối xử đối với giảng viên Đại học Sydney",
-      "summary": "Một thẩm phán đã chấp thuận cho các nguyên đơn mở rộng cáo buộc phân biệt đối xử trong vụ kiện chống lại hai giảng viên Đại học Sydney liên quan đến các bài đăng về xung đột tại Gaza.",
-      "importance_reason": "Vụ việc thu hút sự quan tâm của truyền thông, phản ánh các rủi ro pháp lý và quản trị liên quan đến phát ngôn xã hội của các nhân sự tại cơ sở đào tạo lớn.",
-      "num_articles": 60,
-      "source_count": 20,
-      "sentiment_tone": -4.43,
+      "global_event_id": "1305890246",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Cotuco: World Cup 2026 tại Los Angeles không giúp tăng lượng khách du lịch đến Tijuana",
+      "summary": "Ủy ban Du lịch và Hội nghị Tijuana (Cotuco) ghi nhận chưa có dấu hiệu tăng công suất phòng khách sạn trong thời gian diễn ra World Cup 2026. Trong khi đó, Bộ Du lịch bang đang cập nhật Danh mục Xuất sắc để gia tăng danh sách đăng ký.",
+      "importance_reason": "Thông tin về sự thiếu hụt tác động du lịch tại khu vực biên giới được nhiều báo đưa, phản ánh kỳ vọng kinh tế địa phương trong sự kiện thể thao.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -4.86,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Đại học Sydney",
-        "John Keane",
-        "Nick Riemer",
-        "Gaza",
-        "X"
+        "Cotuco",
+        "Tijuana",
+        "Los Angeles",
+        "World Cup 2026",
+        "Bộ Du lịch bang",
+        "Sở Du lịch bang"
       ],
       "sources": [
         {
-          "url": "https://www.westernadvocate.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Westernadvocate"
-        },
-        {
-          "url": "https://www.edenmagnet.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Edenmagnet"
-        },
-        {
-          "url": "https://www.braidwoodtimes.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Braidwoodtimes"
-        },
-        {
-          "url": "https://www.southcoastregister.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Southcoastregister"
-        },
-        {
-          "url": "https://www.queanbeyanage.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Queanbeyanage"
-        },
-        {
-          "url": "https://www.juneesoutherncross.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Juneesoutherncross"
-        },
-        {
-          "url": "https://www.bunburymail.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Bunburymail"
-        },
-        {
-          "url": "https://www.camdencourier.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Camdencourier"
-        },
-        {
-          "url": "https://www.yasstribune.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Yasstribune"
-        },
-        {
-          "url": "https://www.oberonreview.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Oberonreview"
-        },
-        {
-          "url": "https://www.redlandcitybulletin.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Redlandcitybulletin"
-        },
-        {
-          "url": "https://www.muswellbrookchronicle.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Muswellbrookchronicle"
-        },
-        {
-          "url": "https://www.hardenexpress.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Hardenexpress"
-        },
-        {
-          "url": "https://www.bluemountainsgazette.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Bluemountainsgazette"
-        },
-        {
-          "url": "https://www.northweststar.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Northweststar"
-        },
-        {
-          "url": "https://www.inverelltimes.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Inverelltimes"
-        },
-        {
-          "url": "https://www.katherinetimes.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Katherinetimes"
-        },
-        {
-          "url": "https://www.moreechampion.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Moreechampion"
-        },
-        {
-          "url": "https://www.macleayargus.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Macleayargus"
-        },
-        {
-          "url": "https://www.ulladullatimes.com.au/story/9254188/blow-for-academics-sued-over-alleged-anti-semitic-posts/",
-          "name": "Ulladullatimes"
+          "url": "https://oem.com.mx:443/elsoldetijuana/local/mundial-2026-en-los-angeles-no-atraera-mas-turismo-a-tijuana-cotuco-30198808",
+          "name": "Oem"
         }
       ],
-      "primary_sector": "Pháp lý - Quy định & Trừng phạt",
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1305917535",
-      "sector": "Chính trị - Ngoại giao",
-      "title": "Lực lượng Frontex giải cứu 36 người di cư tại khu vực phía nam đảo Crete",
-      "summary": "Một chiến dịch cứu hộ đã được thực hiện thành công đối với 36 người di cư trên một chiếc thuyền nhỏ ở khu vực cách Kaloi Limenes 35 hải lý về phía nam.",
-      "importance_reason": "Đây là sự kiện an ninh và nhân đạo trong khu vực, được nhiều báo đưa tin.",
-      "num_articles": 50,
-      "source_count": 8,
-      "sentiment_tone": 7.46,
-      "sentiment_label": "Tích cực",
-      "entities": [
-        "Frontex",
-        "Crete",
-        "Kaloi Limenes"
-      ],
-      "sources": [
-        {
-          "url": "https://www.inewsgr.com/362/entopistike-lemvos-me-36-metanastes-notia-tis-kritis.htm",
-          "name": "Inewsgr"
-        },
-        {
-          "url": "https://www.enikos.gr/society/entopistike-lemvos-me-36-metanastes-notia-tis-kritis-metaferontai-stin-agia-galini/2587750/",
-          "name": "Enikos"
-        },
-        {
-          "url": "https://www.voria.gr/article/epiheirisi-diasosis-36-metanaston-notia-tis-kritis",
-          "name": "Voria"
-        },
-        {
-          "url": "https://www.naftemporiki.gr/society/2115234/kriti-diasosi-36-metanaston-notia-ton-kalon-limenon/",
-          "name": "Naftemporiki"
-        },
-        {
-          "url": "https://www.topontiki.gr/2026/05/26/kriti-entopistike-lemvos-me-36-metanastes-notia-ton-kalon-limenon/",
-          "name": "Topontiki"
-        },
-        {
-          "url": "https://www.newsbeast.gr/greece/arthro/13123741/lemvos-me-36-metanastes-entopistike-notia-tis-kritis",
-          "name": "Newsbeast"
-        },
-        {
-          "url": "https://www.protothema.gr/greece/article/1824619/edopistike-lemvos-me-36-metanastes-notia-tis-kritis-metaferodai-stin-agia-galini/",
-          "name": "Protothema"
-        },
-        {
-          "url": "https://www.ekriti.gr/kriti/irakleio-nea-epiheirisi-gia-metanastes-sta-notia",
-          "name": "Ekriti"
-        }
-      ],
-      "primary_sector": "Chính trị - Ngoại giao",
-      "secondary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "macro_signal": "risk_on",
-      "risk_flags": [
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "medium"
-    },
-    {
-      "global_event_id": "1305915718",
-      "sector": "Pháp lý - Quy định & Trừng phạt",
-      "title": "Thiếu niên đầu tiên bị xét xử theo luật tội phạm bạo lực mới tại bang Victoria",
-      "summary": "Một thiếu niên 16 tuổi đã thừa nhận hành vi cướp xe có vũ trang ngay sau khi luật \"xử lý người lớn đối với tội phạm bạo lực\" tại bang Victoria có hiệu lực.",
-      "importance_reason": "Sự kiện thu hút sự chú ý của dư luận vì đây là trường hợp đầu tiên áp dụng khung hình phạt mới đối với trẻ vị thành viên.",
-      "num_articles": 50,
-      "source_count": 13,
-      "sentiment_tone": -6.09,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Bang Victoria",
-        "Tòa án Hạt Victoria",
-        "Cơ quan lập pháp bang Victoria"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cessnockadvertiser.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Cessnockadvertiser"
-        },
-        {
-          "url": "https://www.theleader.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Theleader"
-        },
-        {
-          "url": "https://www.gloucesteradvocate.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Gloucesteradvocate"
-        },
-        {
-          "url": "https://www.southernhighlandnews.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Southernhighlandnews"
-        },
-        {
-          "url": "https://www.sconeadvocate.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Sconeadvocate"
-        },
-        {
-          "url": "https://www.bunburymail.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Bunburymail"
-        },
-        {
-          "url": "https://www.armidaleexpress.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Armidaleexpress"
-        },
-        {
-          "url": "https://www.manningrivertimes.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Manningrivertimes"
-        },
-        {
-          "url": "https://www.areanews.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Areanews"
-        },
-        {
-          "url": "https://www.begadistrictnews.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Begadistrictnews"
-        },
-        {
-          "url": "https://www.illawarramercury.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Illawarramercury"
-        },
-        {
-          "url": "https://www.newcastleherald.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Newcastleherald"
-        },
-        {
-          "url": "https://www.northerndailyleader.com.au/story/9254140/confusion-in-court-as-teen-carjacker-faces-adult-time/",
-          "name": "Northerndailyleader"
-        }
-      ],
-      "primary_sector": "Pháp lý - Quy định & Trừng phạt",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1305933850",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "Cảnh sát bang NSW thay đổi phương thức hoạt động sau vụ tấn công tại Bondi",
-      "summary": "Phó ủy viên cảnh sát bang New South Wales, Peter McKenna, cho biết lực lượng chức năng đang đối mặt với môi trường đe dọa an ninh ngày càng gia tăng sau vụ thảm sát tại Bondi. Những thay đổi này nhằm bảo vệ cộng đồng trước các nguy cơ khủng bố thực tế và hữu hình.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh những điều chỉnh trong công tác an ninh tại Úc do diễn biến xã hội phức tạp.",
-      "num_articles": 48,
-      "source_count": 20,
-      "sentiment_tone": -4.91,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Peter McKenna",
-        "NSW Police",
-        "Bondi",
-        "Úc",
-        "Bondi Beach",
-        "cộng đồng Do Thái"
-      ],
-      "sources": [
-        {
-          "url": "https://www.manningrivertimes.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Manningrivertimes"
-        },
-        {
-          "url": "https://www.nynganobserver.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Nynganobserver"
-        },
-        {
-          "url": "https://www.areanews.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Areanews"
-        },
-        {
-          "url": "https://www.mandurahmail.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Mandurahmail"
-        },
-        {
-          "url": "https://www.wellingtontimes.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Wellingtontimes"
-        },
-        {
-          "url": "https://www.therural.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Therural"
-        },
-        {
-          "url": "https://www.gleninnesexaminer.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Gleninnesexaminer"
-        },
-        {
-          "url": "https://www.begadistrictnews.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Begadistrictnews"
-        },
-        {
-          "url": "https://www.dailyliberal.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Dailyliberal"
-        },
-        {
-          "url": "https://www.armidaleexpress.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Armidaleexpress"
-        },
-        {
-          "url": "https://www.irrigator.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Irrigator"
-        },
-        {
-          "url": "https://www.nvi.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Nvi"
-        },
-        {
-          "url": "https://www.crookwellgazette.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Crookwellgazette"
-        },
-        {
-          "url": "https://www.northerndailyleader.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Northerndailyleader"
-        },
-        {
-          "url": "https://www.batemansbaypost.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Batemansbaypost"
-        },
-        {
-          "url": "https://www.newcastleherald.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Newcastleherald"
-        },
-        {
-          "url": "https://www.westernadvocate.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Westernadvocate"
-        },
-        {
-          "url": "https://www.thecourier.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Thecourier"
-        },
-        {
-          "url": "https://www.edenmagnet.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Edenmagnet"
-        },
-        {
-          "url": "https://www.naroomanewsonline.com.au/story/9253833/different-environment-for-police-since-bondi-attack/",
-          "name": "Naroomanewsonline"
-        }
-      ],
-      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "credit_liquidity_risk",
-        "real_estate_infra_risk"
+        "conflict_security_risk"
       ],
       "affected_assets": [
         "stocks",
         "bonds",
-        "banks",
-        "real_estate"
+        "USD"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1305899573",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Bộ Phụ nữ Brazil trao chứng nhận bình đẳng giới và chủng tộc cho 80 doanh nghiệp",
+      "summary": "Bộ Phụ nữ Brazil đã trao chứng nhận Pró-Equidade cho 80 doanh nghiệp nhằm khuyến khích các thực hành quản trị nhân sự và cấu trúc tổ chức bình đẳng, bao gồm cả đơn vị Empresa Brasil de Comunicação.",
+      "importance_reason": "Việc thúc đẩy các tiêu chuẩn quản trị doanh nghiệp bao trùm được nhiều báo đưa tin, đóng vai trò tham chiếu cho các tiêu chuẩn ESG trong môi trường làm việc.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": 6.74,
+      "sentiment_label": "Tích cực",
+      "entities": [
+        "Bộ Phụ nữ Brazil",
+        "Empresa Brasil de Comunicação",
+        "Selo Pró-Equidade de Gênero e Raça",
+        "Brasília"
+      ],
+      "sources": [
+        {
+          "url": "https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2026-05/selo-reconhece-iniciativas-empresariais-em-favor-da-igualdade",
+          "name": "Agenciabrasil"
+        }
+      ],
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "mixed",
+      "risk_flags": [
+        "conflict_security_risk",
+        "credit_liquidity_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "banks"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1305947063",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Met Éireann phát cảnh báo nhiệt độ cao tại 8 hạt ở Ireland",
+      "summary": "Cơ quan khí tượng Met Éireann đưa ra cảnh báo về tình trạng nhiệt độ cao tại 8 hạt. Kỷ lục nhiệt độ tháng 5 vừa bị phá vỡ với mức 28,6 độ C và dự báo có thể tiếp tục tăng.",
+      "importance_reason": "Sự kiện thời tiết cực đoan được nhiều báo đưa tin, gây ảnh hưởng đến các hoạt động kinh tế địa phương.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -4.94,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "Met Éireann",
+        "Ireland"
+      ],
+      "sources": [
+        {
+          "url": "https://www.roscommonherald.ie/met-%C3%A9ireann-issues-high-temperature-warning-for-8-counties_arid-99324.html",
+          "name": "Roscommonherald"
+        }
+      ],
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk"
+      ],
+      "affected_assets": [
+        "stocks"
       ],
       "investment_relevance": "high"
     }

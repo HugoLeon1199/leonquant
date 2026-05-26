@@ -48,13 +48,9 @@ PULSE_SCHEMA_VERSION = "event-centric-v7"
 INVEST_PULSE_SCHEMA_VERSION = "invest-event-v1"
 GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
-INVEST_MAX_ENRICH_EVENTS = 60
-INVEST_CURATION_POOL = 55
-_INVEST_FALLBACK_NOISE_RE = re.compile(
-    r"donaldson|\bdup\b|memorial|veteran|dezi freeman|shooting|white house|nhà trắng|"
-    r"nổ súng|bondi|monk.*bail|sex.offen|birthday party",
-    re.IGNORECASE,
-)
+# Invest: SQL = hot coverage + sector only; Gemini = accurate summary + economic curation.
+INVEST_MAX_ENRICH_EVENTS = 80
+INVEST_CURATION_POOL = 75
 INVEST_VALID_SECTORS = (
     "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
     "Tài chính - Ngân hàng & Tín dụng",
@@ -751,17 +747,18 @@ Ngành gợi ý (chỉ đổi sector nếu đoạn bài rõ thuộc ngành khác
 Độ phủ báo chí (~{num_articles} bài, {source_count} nguồn) chỉ được nhắc ngắn gọn trong importance_reason
 theo kiểu "được nhiều báo đưa" — không gắn với thị trường vốn hay công cụ nội bộ.
 
-Quy tắc nội dung:
-- Viết như biên tập đầu tư vĩ mô: sự kiện là gì, ai liên quan, vì sao nhà đầu tư có thể quan tâm.
-- Nếu bài không nêu rõ tác động kinh tế/thị trường: summary trung lập, không ép về chứng khoán/lãi suất/dầu.
-- Không suy diễn risk-on/risk-off hay tác động tài sản nếu bài không đề cập.
-- importance_reason: tối đa một câu; chỉ nêu ý nghĩa thị trường khi bài hoặc ngữ cảnh rõ ràng hỗ trợ.
+Quy tắc tóm tắt (quan trọng):
+- Tóm tắt trung thực đoạn bài: sự kiện là gì, ai liên quan — không thêm chi tiết không có trong bài.
+- Nếu bài nói chính sách/lãi suất/lạm phát/chứng khoán/crypto/vàng/dầu/ngân hàng thì summary phải phản ánh đúng, không lệch sang scandal chính trị.
+- Nếu bài không nêu tác động kinh tế: summary trung lập, không ép về thị trường.
+- Không suy diễn risk-on/risk-off hay giá/ticker nếu bài không đề cập.
+- importance_reason: một câu — ý nghĩa với nhà đầu tư khi bài hỗ trợ; nếu không rõ thì nói trung lập.
 
 Trả về JSON (không markdown):
 {{
   "title_vi": "Tiêu đề tối đa 18 từ, rõ sự kiện",
-  "summary_vi": "1-2 câu khách quan từ đoạn bài",
-  "importance_reason": "Một câu: ý nghĩa với nhà đầu tư (hoặc trung lập nếu không rõ tác động thị trường)",
+  "summary_vi": "1-2 câu khách quan, bám sát đoạn bài",
+  "importance_reason": "Một câu: ý nghĩa kinh tế/đầu tư (hoặc trung lập nếu bài không nói thị trường)",
   "entities": ["3-6 thực thể trong đoạn bài"],
   "sector": "một trong danh sách ngành hợp lệ"
 }}
@@ -1127,10 +1124,73 @@ def _parse_gemini_curation_ids(text: str) -> list[str]:
     return [str(x).strip() for x in ids if str(x).strip()]
 
 
+def _gemini_curate_invest_ids(
+    pool: list[dict[str, Any]],
+    *,
+    target: int,
+    exclude_ids: set[str] | None = None,
+    pass_label: str = "",
+) -> list[str]:
+    """Ask Gemini which GlobalEventIDs belong on the invest feed."""
+    exclude_ids = exclude_ids or set()
+    candidates = [
+        ev
+        for ev in pool
+        if _usable_title(ev.get("title_vi") or ev.get("title"))
+        and str(ev.get("global_event_id") or "") not in exclude_ids
+    ]
+    if not candidates or not _configure_gemini():
+        return []
+
+    sectors_list = "\n".join(f"- {s}" for s in INVEST_VALID_SECTORS if s != "Khác")
+    lines = "\n".join(f"{i + 1}. {_invest_curation_brief(ev)}" for i, ev in enumerate(candidates))
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
+
+Bối cảnh: danh sách dưới đây là tin ĐANG NÓNG (nhiều báo nhắc trong 24h). SQL/GKG chỉ gán ngành gợi ý.
+Title và summary đã được biên tập từ bài gốc — hãy đọc nội dung đó, không đoán từ độ nóng.
+
+Nhiệm vụ{pass_label}: chọn tối đa {target} GlobalEventID đưa lên chuyên mục.
+
+GIỮ tin nếu ít nhất một điều đúng:
+(a) Có tác động kinh tế/đầu tư/thị trường rõ (vĩ mô, chính sách, lãi suất, lạm phát, ngân hàng, CK, crypto,
+    vàng/dầu/khí, thuế, thương mại, chuỗi cung ứng, doanh nghiệp lớn, bán dẫn/AI có góc đầu tư), HOẶC
+(b) Mô tả đúng bối cảnh/tình hình kinh tế vĩ mô (kể cả khi bài phân tích, không chỉ tin tức sốc).
+
+BỎ tin chỉ là: scandal cá nhân, tội phạm địa phương, lễ tang, giải trí, shooting/vụ án
+không liên quan thị trường — dù đang viral.
+
+Ưu tiên đa dạng chủ đề kinh tế khi có ứng viên; không chọn toàn chính trị chỉ vì nhiều bài.
+
+Không nhắc AI, GDELT, crawler, pipeline, hệ thống.
+
+Trả về JSON (không markdown):
+{{
+  "selected_ids": ["GlobalEventID", ...],
+  "notes": "một câu tiếng Việt về tiêu chí"
+}}
+
+Danh sách ngành hợp lệ:
+{sectors_list}
+
+Ứng viên:
+{lines}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        return _parse_gemini_curation_ids(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini invest curation failed%s: %s", pass_label, exc)
+        return []
+
+
 def gemini_curate_invest_feed(
     events: list[dict[str, Any]], *, target: int = TARGET_HOT_EVENTS, use_gemini: bool = True
 ) -> list[dict[str, Any]]:
-    """Let Gemini pick economically relevant stories from hot GDELT pool (SQL only classifies sector)."""
+    """Gemini selects economically relevant stories from a large hot pool (SQL only assigns sector)."""
     if not events:
         return []
 
@@ -1138,51 +1198,14 @@ def gemini_curate_invest_feed(
     if not use_gemini or not _configure_gemini():
         return ranked[:target]
 
-    pool = [e for e in ranked[:INVEST_CURATION_POOL] if _usable_title(e.get("title_vi") or e.get("title"))]
-    if not pool:
+    pool = ranked[:INVEST_CURATION_POOL]
+    by_id = {str(e.get("global_event_id") or ""): e for e in pool if e.get("global_event_id")}
+    if not by_id:
         return ranked[:target]
 
-    sectors_list = "\n".join(f"- {s}" for s in INVEST_VALID_SECTORS if s != "Khác")
-    lines = "\n".join(f"{i + 1}. {_invest_curation_brief(ev)}" for i, ev in enumerate(pool))
-    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
-    model = genai.GenerativeModel(model_name)
-    prompt = f"""
-Bạn là biên tập chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
+    selected_ids = _gemini_curate_invest_ids(pool, target=target, pass_label=" (lượt 1)")
+    time.sleep(GEMINI_CALL_INTERVAL_SEC)
 
-Dưới đây là các sự kiện nóng 24h từ GDELT. Mỗi dòng đã có ngành (GKG/SQL) — dùng ngành đó, chỉ sửa sector nếu title/summary rõ thuộc ngành khác trong danh sách.
-
-Nhiệm vụ: chọn đúng {target} sự kiện (nếu đủ ứng viên) đưa lên chuyên mục vì có tác động kinh tế/đầu tư rõ hoặc hợp lý
-(vĩ mô, Fed/lãi suất/lạm phát, ngân hàng, chứng khoán, crypto, vàng/dầu/khí, chuỗi cung ứng, thuế/thương mại,
-địa chính trị ảnh hưởng thị trường, doanh nghiệp lớn, công nghệ bán dẫn/AI nếu liên quan đầu tư).
-
-Loại bỏ: scandal cá nhân, tội phạm địa phương, lễ tang, shooting không liên quan thị trường, tin giải trí.
-
-Ưu tiên đa dạng ngành khi có tin (Fed/vĩ mô, crypto, hàng hóa, CK, ngân hàng) — không chỉ chính trị/xung đột
-chỉ vì nhiều bài báo.
-
-Không nhắc AI, GDELT, crawler, pipeline, hệ thống.
-
-Trả về JSON (không markdown):
-{{
-  "selected_ids": ["GlobalEventID", ...],
-  "notes": "một câu tiếng Việt về tiêu chí chọn"
-}}
-
-Danh sách ngành hợp lệ:
-{sectors_list}
-
-Sự kiện ứng viên:
-{lines}
-""".strip()
-
-    selected_ids: list[str] = []
-    try:
-        response = model.generate_content(prompt)
-        selected_ids = _parse_gemini_curation_ids(response.text or "")
-    except Exception as exc:
-        LOG.warning("Gemini invest curation failed: %s", exc)
-
-    by_id = {str(e.get("global_event_id") or ""): e for e in pool if e.get("global_event_id")}
     picked: list[dict[str, Any]] = []
     seen: set[str] = set()
     for eid in selected_ids:
@@ -1192,21 +1215,23 @@ Sự kiện ứng viên:
         if len(picked) >= target:
             break
 
-    if len(picked) < min(target, len(pool)):
-        LOG.info("Invest curation returned %s ids; filling remainder (skip obvious non-market noise)", len(picked))
-        for ev in pool:
-            eid = str(ev.get("global_event_id") or "")
-            if eid in seen:
-                continue
-            blob = f"{ev.get('title_vi') or ev.get('title') or ''} {ev.get('summary_vi') or ev.get('summary') or ''}"
-            if _INVEST_FALLBACK_NOISE_RE.search(blob):
-                continue
-            picked.append(ev)
-            seen.add(eid)
+    if len(picked) < target and len(seen) < len(by_id):
+        need = target - len(picked)
+        LOG.info("Invest curation lượt 1: %s ids — lượt 2 chọn thêm %s", len(picked), need)
+        more_ids = _gemini_curate_invest_ids(
+            pool,
+            target=need,
+            exclude_ids=seen,
+            pass_label=" (lượt 2 — bổ sung)",
+        )
+        for eid in more_ids:
+            if eid in by_id and eid not in seen:
+                picked.append(by_id[eid])
+                seen.add(eid)
             if len(picked) >= target:
                 break
 
-    LOG.info("Gemini invest curation: kept %s / %s candidates", len(picked), len(pool))
+    LOG.info("Gemini invest curation: kept %s / %s hot candidates", len(picked), len(pool))
     return picked[:target]
 
 

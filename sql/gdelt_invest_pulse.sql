@@ -1,5 +1,5 @@
--- LeonQuant: Chuyên mục kinh tế đầu tư — 24h event clusters (investment sectors only).
--- URLs per GlobalEventID from eventmentions only; GKG for sector/entity classification.
+-- LeonQuant: Chuyên mục kinh tế đầu tư — 24h hot events + GKG sector tags only.
+-- URLs per GlobalEventID from eventmentions; economic relevance filtered in leon.py via Gemini (not SQL).
 
 WITH
   RankedTopEvents AS (
