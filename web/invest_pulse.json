@@ -1,81 +1,173 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-26T08:30:55.876534+00:00",
-  "total_events": 13,
+  "generated_at_utc": "2026-05-26T08:58:01.161343+00:00",
+  "total_events": 14,
   "events": [
     {
-      "global_event_id": "1305899573",
-      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Chứng nhận ghi nhận các sáng kiến doanh nghiệp thúc đẩy bình đẳng",
-      "summary": "Chương trình chứng nhận được triển khai nhằm ghi nhận và tôn vinh những nỗ lực của các doanh nghiệp trong việc thúc đẩy sự bình đẳng.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh xu hướng các doanh nghiệp chú trọng vào các tiêu chuẩn xã hội và quản trị.",
-      "num_articles": 30,
-      "source_count": 2,
-      "sentiment_tone": 6.74,
-      "sentiment_label": "Tích cực",
+      "global_event_id": "1305928073",
+      "sector": "Crypto - Tiền mã hóa & Tài sản số",
+      "title": "Monica Cash mở rộng tính năng rút trực tiếp Bitcoin sang tiền Naira tại Nigeria",
+      "summary": "Nền tảng Monica Cash vừa mở rộng dịch vụ cho phép người dùng chuyển đổi trực tiếp từ Bitcoin sang nội tệ Naira tại ngân hàng, trong bối cảnh mức độ chấp nhận tiền mã hóa tại Nigeria gia tăng.",
+      "importance_reason": "Sự kiện phản ánh xu hướng tích hợp tài sản số vào hệ thống thanh toán truyền thống tại thị trường Nigeria.",
+      "num_articles": 8,
+      "source_count": 1,
+      "sentiment_tone": -2.33,
+      "sentiment_label": "Trung tính",
       "entities": [
-        "Doanh nghiệp",
-        "Sáng kiến bình đẳng",
-        "Chương trình chứng nhận"
+        "Monica Cash",
+        "Bitcoin",
+        "Naira",
+        "Nigeria"
       ],
       "sources": [
         {
-          "url": "https://www.acessa.com/noticias/2026/05/326993-selo-reconhece-iniciativas-empresariais-em-favor-da-igualdade.html",
-          "name": "Acessa"
-        },
+          "url": "https://thesun.ng/monica-cash-expands-direct-bitcoin-to-naira-bank-withdrawals-as-crypto-adoption-rises-in-nigeria/",
+          "name": "Thesun"
+        }
+      ],
+      "primary_sector": "Crypto - Tiền mã hóa & Tài sản số",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "USD",
+        "crypto",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 20
+    },
+    {
+      "global_event_id": "1305940735",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "(Title unavailable)",
+      "summary": "Sự kiện thuộc nhóm Vĩ mô - Chính sách Tiền tệ & Lãi suất. Nhấp nguồn để đọc bài gốc.",
+      "importance_reason": "Độ phủ khoảng 10 bài báo và 1 nguồn tin trong 24 giờ qua.",
+      "num_articles": 10,
+      "source_count": 1,
+      "sentiment_tone": -1.45,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "STUDENT",
+        "Sunlands Online Education Group",
+        "Exchange Commission",
+        "Terms Of Service",
+        "Securities Exchange",
+        "Sunlands Technology Group"
+      ],
+      "sources": [
         {
-          "url": "https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2026-05/selo-reconhece-iniciativas-empresariais-em-favor-da-igualdade",
-          "name": "Agenciabrasil"
+          "url": "https://www.manilatimes.net/2026/05/26/tmt-newswire/globenewswire/sunlands-technology-group-announces-unaudited-first-quarter-2026-financial-results/2351433",
+          "name": "Manilatimes"
+        }
+      ],
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "USD",
+        "crypto",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 19
+    },
+    {
+      "global_event_id": "1305924745",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Giá vàng tại Ấn Độ duy trì ổn định bất chấp sự sụt giảm của thị trường kim loại quý quốc tế",
+      "summary": "Giá vàng 24K tại thị trường Ấn Độ giữ vững quanh mức 16.000 Rupee mỗi gram vào ngày 26/5/2026, trong khi giá bạc ghi nhận sự điều chỉnh giảm. Xu hướng này diễn ra trong bối cảnh lợi suất toàn cầu giảm và đồng USD biến động.",
+      "importance_reason": "Sự phân hóa giữa giá vàng nội địa Ấn Độ và thị trường quốc tế là thông tin được nhiều báo đưa, phản ánh tác động từ các yếu tố địa chính trị đến tâm lý nhà đầu tư.",
+      "num_articles": 10,
+      "source_count": 1,
+      "sentiment_tone": 3.35,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Vàng",
+        "Bạc",
+        "Ấn Độ",
+        "Đồng USD"
+      ],
+      "sources": [
+        {
+          "url": "https://www.newsx.com/business/gold-silver-prices-today-may-26-gold-holds-near-16000-per-gram-in-india-silver-slips-check-latest-rates-in-mumbai-delhi-chennai-kolkata-bengaluru-and-more-225619/",
+          "name": "Newsx"
+        }
+      ],
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "commodity_energy_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "USD",
+        "gold",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 18
+    },
+    {
+      "global_event_id": "1305895347",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "(Title unavailable)",
+      "summary": "Sự kiện thuộc nhóm Vĩ mô - Chính sách Tiền tệ & Lãi suất. Nhấp nguồn để đọc bài gốc.",
+      "importance_reason": "Độ phủ khoảng 10 bài báo và 1 nguồn tin trong 24 giờ qua.",
+      "num_articles": 10,
+      "source_count": 1,
+      "sentiment_tone": -5.09,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "RETIRED",
+        "A Ministry To Economy",
+        "Roger Frigerio,175",
+        "1#Uruguay#UY#UY##-33#-56#UY#4517",
+        "4#Entre Rios, Salta, Argentina#AR#AR17#4781#-23.3#-64.3#-988650#127",
+        "1#Suede#SW#SW##62#15#SW#2039"
+      ],
+      "sources": [
+        {
+          "url": "https://www.aimdigital.com.ar/politica/la-balanza-injusta-cuando-el-ajuste-tiene-siempre-el-mismo-dueo.htm",
+          "name": "Aimdigital"
         }
       ],
       "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "mixed",
       "risk_flags": [
-        "credit_liquidity_risk",
-        "commodity_energy_risk",
-        "supply_chain_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 17
-    },
-    {
-      "global_event_id": "1305920538",
-      "sector": "Pháp lý - Quy định & Trừng phạt",
-      "title": "Delta Airlines cảnh báo về các lệnh trừng phạt của Hoa Kỳ đối với việc giảm quy mô Schiphol",
-      "summary": "Delta Airlines bày tỏ lo ngại về nguy cơ vướng vào các lệnh trừng phạt của Hoa Kỳ liên quan đến kế hoạch cắt giảm quy mô khai thác tại sân bay Schiphol.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh rủi ro pháp lý và chính sách quốc tế có thể tác động đến hoạt động vận tải hàng không xuyên biên giới.",
-      "num_articles": 30,
-      "source_count": 1,
-      "sentiment_tone": -4.95,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Delta Airlines",
-        "Hoa Kỳ",
-        "Schiphol",
-        "De Dagelijkse Standaard",
-        "Delta Air Lines",
-        "Sân bay Schiphol",
-        "Mỹ"
-      ],
-      "sources": [
-        {
-          "url": "https://www.dagelijksestandaard.nl/economie/links-groene-krimpsocialisten-slopen-vestigingsklimaat-delta-waarschuwt-voor-trump-sancties-tegen-nederland",
-          "name": "Dagelijksestandaard"
-        }
-      ],
-      "primary_sector": "Pháp lý - Quy định & Trừng phạt",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
         "legal_regulatory_risk",
+        "credit_liquidity_risk",
         "rate_policy_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
@@ -83,656 +175,482 @@
       "affected_assets": [
         "stocks",
         "bonds",
-        "USD",
+        "banks",
         "real_estate"
       ],
       "investment_relevance": "high",
-      "market_relevance_score": 11
+      "market_relevance_score": 16
     },
     {
-      "global_event_id": "1305911488",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "Thuế phí bảo hiểm tại California tăng 8,8% trong năm 2024",
-      "summary": "Số thu ngân sách từ thuế phí bảo hiểm tại bang California ghi nhận mức tăng trưởng 8,8% trong năm 2024.",
-      "importance_reason": "Sự gia tăng nguồn thu từ thuế phí bảo hiểm được nhiều báo đưa tin, phản ánh biến động trong lĩnh vực tài chính bảo hiểm tại địa phương.",
-      "num_articles": 60,
+      "global_event_id": "1305903695",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Xung đột cục bộ Mỹ - Iran trong bối cảnh đàm phán Doha gặp nhiều trở ngại",
+      "summary": "Các cuộc xung đột cục bộ giữa Mỹ và Iran đang diễn ra trong bối cảnh đàm phán tại Doha gặp nhiều khó khăn, kết hợp với các phản ứng trái chiều từ nội bộ Mỹ.",
+      "importance_reason": "Sự bất ổn địa chính trị leo thang giữa các bên liên quan có thể gây tâm lý thận trọng đối với các nhà đầu tư quốc tế.",
+      "num_articles": 10,
       "source_count": 1,
-      "sentiment_tone": -12.96,
-      "sentiment_label": "Tiêu cực mạnh",
+      "sentiment_tone": -2.36,
+      "sentiment_label": "Trung tính",
       "entities": [
-        "California",
-        "Ngành bảo hiểm"
+        "Mỹ",
+        "Iran",
+        "Doha"
       ],
       "sources": [
         {
-          "url": "https://businessdailynetwork.com/stories/677287791-california-insurance-premiums-tax-collections-increase-8-8-in-2024",
-          "name": "Businessdailynetwork"
+          "url": "https://www.fnnews.com/news/202605261047441114",
+          "name": "Fnnews"
         }
       ],
-      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "credit_liquidity_risk",
-        "supply_chain_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 10
-    },
-    {
-      "global_event_id": "1305905181",
-      "sector": "Khủng hoảng - Xung đột & An ninh",
-      "title": "UAE bị cáo buộc huấn luyện lính đánh thuê Colombia tham chiến tại Sudan",
-      "summary": "Tổ chức Theo dõi Nhân quyền cáo buộc Các Tiểu vương quốc Ả Rập Thống nhất (UAE) huấn luyện lính đánh thuê Colombia để tham chiến cùng lực lượng bán quân sự tại Sudan.",
-      "importance_reason": "Thông tin về sự can thiệp quốc tế trong xung đột vũ trang được dư luận quốc tế quan tâm.",
-      "num_articles": 40,
-      "source_count": 14,
-      "sentiment_tone": -7.16,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "UAE",
-        "Colombia",
-        "Sudan",
-        "Human Rights Watch",
-        "Rapid Support Forces",
-        "Lính đánh thuê"
-      ],
-      "sources": [
-        {
-          "url": "https://www.kob.com/ap-top-news/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Kob"
-        },
-        {
-          "url": "https://www.ksat.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Ksat"
-        },
-        {
-          "url": "https://www.clickondetroit.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Clickondetroit"
-        },
-        {
-          "url": "https://www.wsls.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Wsls"
-        },
-        {
-          "url": "https://isp.netscape.com:443/news/world/story/0001/20260526/5c02e3b580f01b840251c206673123a7",
-          "name": "Isp"
-        },
-        {
-          "url": "https://abcnews.com/International/wireStory/uae-accused-training-colombian-mercenaries-sudans-war-133301838",
-          "name": "Abcnews"
-        },
-        {
-          "url": "https://www.clickorlando.com/news/world/2026/05/26/uae-accused-of-training-colombian-mercenaries-for-sudans-war/",
-          "name": "Clickorlando"
-        },
-        {
-          "url": "https://mymotherlode.com/news/world/10863258/uae-accused-of-training-colombian-mercenaries-for-sudans-war.html",
-          "name": "Mymotherlode"
-        },
-        {
-          "url": "https://www.wgauradio.com/news/world/uae-accused-training/WNAJ5OCYGU5U3HSBDQHQI55H7A/",
-          "name": "Wgauradio"
-        },
-        {
-          "url": "https://www.winnipegfreepress.com/world/2026/05/25/uae-accused-of-training-colombian-mercenaries-for-sudans-war",
-          "name": "Winnipegfreepress"
-        },
-        {
-          "url": "https://www.yahoo.com/news/world/articles/uae-accused-training-colombian-mercenaries-020320713.html",
-          "name": "Yahoo"
-        },
-        {
-          "url": "https://www.ynetnews.com/article/r1bivimlgl",
-          "name": "Ynetnews"
-        },
-        {
-          "url": "https://www.somdnews.com/ap/world/uae-accused-of-training-colombian-mercenaries-for-sudans-war/article_e7477312-df3e-53fa-ad7e-02d9ec794e44.html",
-          "name": "Somdnews"
-        },
-        {
-          "url": "https://www.wboc.com/news/international/uae-accused-of-training-colombian-mercenaries-for-sudans-war/article_67b88853-636e-58ea-be85-3b3d31a5fc72.html",
-          "name": "Wboc"
-        },
-        {
-          "url": "https://www.therecord.com/news/world/africa/uae-accused-of-training-colombian-mercenaries-for-sudans-war/article_931e7d14-a990-5f48-a783-de4ef2410393.html",
-          "name": "Therecord"
-        }
-      ],
-      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
         "conflict_security_risk",
         "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "commodity_energy_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 10
-    },
-    {
-      "global_event_id": "1305926421",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "(Title unavailable)",
-      "summary": "Sự kiện thuộc nhóm Tài chính - Ngân hàng & Tín dụng. Nhấp nguồn để đọc bài gốc.",
-      "importance_reason": "Độ phủ khoảng 30 bài báo và 3 nguồn tin trong 24 giờ qua.",
-      "num_articles": 30,
-      "source_count": 3,
-      "sentiment_tone": -6.85,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "BRNO",
-        "Peter Paul Sc",
-        "Congress Benes",
-        "Paul A Edward Benes,2367",
-        "Peter Macinka,192",
-        "Peter Macinka,362"
-      ],
-      "sources": [
-        {
-          "url": "https://www.olomouckenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Olomouckenovinky"
-        },
-        {
-          "url": "https://www.plzenskenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Plzenskenovinky"
-        },
-        {
-          "url": "https://www.moravskoslezskenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Moravskoslezskenovinky"
-        }
-      ],
-      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "credit_liquidity_risk",
-        "supply_chain_risk"
       ],
       "affected_assets": [
         "stocks",
         "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 10
-    },
-    {
-      "global_event_id": "1305926642",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "(Title unavailable)",
-      "summary": "Sự kiện thuộc nhóm Tài chính - Ngân hàng & Tín dụng. Nhấp nguồn để đọc bài gốc.",
-      "importance_reason": "Độ phủ khoảng 30 bài báo và 3 nguồn tin trong 24 giờ qua.",
-      "num_articles": 30,
-      "source_count": 3,
-      "sentiment_tone": -6.85,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "BRNO",
-        "Peter Paul Sc",
-        "Congress Benes",
-        "Peter Macinka,198",
-        "Peter Macinka,368",
-        "Edward Benes,265"
-      ],
-      "sources": [
-        {
-          "url": "https://www.plzenskenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Plzenskenovinky"
-        },
-        {
-          "url": "https://www.moravskoslezskenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Moravskoslezskenovinky"
-        },
-        {
-          "url": "https://www.olomouckenovinky.cz/zpravy/politika/pavel-odsoudil-hakove-krize-macinka-mu-pripomnel-benese/",
-          "name": "Olomouckenovinky"
-        }
-      ],
-      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "credit_liquidity_risk",
-        "supply_chain_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 10
-    },
-    {
-      "global_event_id": "1305911175",
-      "sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "title": "Chính phủ Bồ Đào Nha xem xét hoãn hệ thống EES sau tình trạng ùn tắc tại sân bay",
-      "summary": "Chính phủ Bồ Đào Nha có kế hoạch đình chỉ hệ thống xuất nhập cảnh EES của EU do tình trạng hành khách phải chờ đợi hơn sáu giờ tại các sân bay. EES yêu cầu công dân ngoài khối EU cung cấp dữ liệu sinh trắc học khi di chuyển trong khu vực.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin này phản ánh những thách thức trong việc vận hành thủ tục kiểm soát biên giới mới đối với lưu lượng du lịch quốc tế.",
-      "num_articles": 40,
-      "source_count": 20,
-      "sentiment_tone": -4.02,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Chính phủ Bồ Đào Nha",
-        "EU",
-        "EES",
-        "Bồ Đào Nha",
-        "Hệ thống EES",
-        "Hệ thống xuất nhập cảnh EES"
-      ],
-      "sources": [
-        {
-          "url": "https://www.ealingtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Ealingtimes"
-        },
-        {
-          "url": "https://www.wandsworthguardian.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Wandsworthguardian"
-        },
-        {
-          "url": "https://www.richmondandtwickenhamtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Richmondandtwickenhamtimes"
-        },
-        {
-          "url": "https://www.wharfedaleobserver.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Wharfedaleobserver"
-        },
-        {
-          "url": "https://www.burytimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Burytimes"
-        },
-        {
-          "url": "https://www.glasgowtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Glasgowtimes"
-        },
-        {
-          "url": "https://www.braintreeandwithamtimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Braintreeandwithamtimes"
-        },
-        {
-          "url": "https://www.cravenherald.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Cravenherald"
-        },
-        {
-          "url": "https://www.chelmsfordweeklynews.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Chelmsfordweeklynews"
-        },
-        {
-          "url": "https://www.clydebankpost.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Clydebankpost"
-        },
-        {
-          "url": "https://www.timesandstar.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Timesandstar"
-        },
-        {
-          "url": "https://www.hillingdontimes.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Hillingdontimes"
-        },
-        {
-          "url": "https://www.thewestmorlandgazette.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Thewestmorlandgazette"
-        },
-        {
-          "url": "https://www.wirralglobe.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Wirralglobe"
-        },
-        {
-          "url": "https://www.falmouthpacket.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Falmouthpacket"
-        },
-        {
-          "url": "https://www.messengernewspapers.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Messengernewspapers"
-        },
-        {
-          "url": "https://www.wimbledonguardian.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Wimbledonguardian"
-        },
-        {
-          "url": "https://www.witneygazette.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Witneygazette"
-        },
-        {
-          "url": "https://www.bicesteradvertiser.net/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Bicesteradvertiser"
-        },
-        {
-          "url": "https://www.dumbartonreporter.co.uk/news/national/uk-today/26137177.portuguese-government-suspend-ees-amid-6-hour-queues/",
-          "name": "Dumbartonreporter"
-        }
-      ],
-      "primary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "neutral",
-      "risk_flags": [
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
+        "gold",
+        "banks",
         "real_estate"
       ],
       "investment_relevance": "high",
-      "market_relevance_score": 9
+      "market_relevance_score": 21
     },
     {
-      "global_event_id": "1305926260",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Constructor Group chuyển trụ sở toàn cầu sang Singapore, tạo hơn 200 việc làm chất lượng cao",
-      "summary": "Constructor Group quyết định chuyển trụ sở từ Thụy Sĩ sang Singapore nhằm mở rộng quy mô hoạt động trong lĩnh vực nghiên cứu, giáo dục, công nghệ chuyên sâu và dịch vụ vốn. Kế hoạch này dự kiến tạo ra hơn 200 việc làm mới trong 2-3 năm tới.",
-      "importance_reason": "Việc một tập đoàn công nghệ chọn Singapore làm trụ sở toàn cầu củng cố vị thế của quốc gia này trong hệ sinh thái công nghệ khu vực và được nhiều báo đưa tin.",
-      "num_articles": 30,
-      "source_count": 5,
-      "sentiment_tone": 6.03,
-      "sentiment_label": "Tích cực",
-      "entities": [
-        "Constructor Group",
-        "Singapore",
-        "Chính phủ Singapore",
-        "Thụy Sĩ"
-      ],
-      "sources": [
-        {
-          "url": "https://www.manilatimes.net/2026/05/26/tmt-newswire/pr-newswire/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles/2351351",
-          "name": "Manilatimes"
-        },
-        {
-          "url": "https://portal.sina.com.hk/finance/finance-prnewswire/prnasia/2026/05/26/1776653/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles/",
-          "name": "Portal"
-        },
-        {
-          "url": "https://www.prnewswire.com/news-releases/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles-302781297.html",
-          "name": "Prnewswire"
-        },
-        {
-          "url": "https://www.finanznachrichten.de/nachrichten-2026-05/68589490-constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles-008.htm",
-          "name": "Finanznachrichten"
-        },
-        {
-          "url": "https://www.prnewswire.com/news-releases/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-skilled-roles-302781298.html",
-          "name": "Prnewswire"
-        },
-        {
-          "url": "https://www.finanznachrichten.de/nachrichten-2026-05/68589490-constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters",
-          "name": "Finanznachrichten"
-        },
-        {
-          "url": "https://www.prnewswire.com/news-releases/constructor-group-selects-singapore-for-new-global-ai-and-quantum-headquarters-creating-200-high-sk",
-          "name": "Prnewswire"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "macro_signal": "neutral",
-      "risk_flags": [
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 9
-    },
-    {
-      "global_event_id": "1305927226",
-      "sector": "Khủng hoảng - Xung đột & An ninh",
-      "title": "Quân đội Mỹ thực hiện các cuộc tấn công vào miền Nam Iran",
-      "summary": "Quân đội Mỹ thông báo đã tấn công các vị trí tên lửa và tàu chiến của Iran tại miền Nam nước này với lý do tự vệ. Sự kiện diễn ra trong bối cảnh lệnh ngừng bắn giữa hai quốc gia vẫn đang có hiệu lực.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin này phản ánh tình trạng căng thẳng địa chính trị tiếp diễn, gây khó khăn cho việc duy trì ổn định khu vực.",
-      "num_articles": 104,
+      "global_event_id": "1305904516",
+      "sector": "Crypto - Tiền mã hóa & Tài sản số",
+      "title": "Cơ quan chức năng Buryatia triệt phá đường dây nhập khẩu thiết bị đào tiền ảo trái phép",
+      "summary": "Cục Hải quan và Cơ quan An ninh Liên bang Nga (FSB) đã tịch thu hơn 1.000 thiết bị trị giá 18,5 triệu rúp tại Buryatia do nhập khẩu trái phép.",
+      "importance_reason": "Vụ việc phản ánh các hoạt động kiểm soát biên giới đối với thiết bị công nghệ có nguồn gốc không rõ ràng.",
+      "num_articles": 10,
       "source_count": 1,
-      "sentiment_tone": -4.58,
+      "sentiment_tone": -6.75,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Quân đội Mỹ",
-        "Iran",
-        "Središnje američko zapovjedništvo",
-        "CENTCOM"
+        "Buryatia",
+        "Cục Hải quan Nga",
+        "FSB",
+        "Nga"
       ],
       "sources": [
         {
-          "url": "https://www.index.hr/vijesti/clanak/americka-vojska-opet-napala-iran-stigao-odgovor-irana/2795910.aspx?index_ref=homepage_comment_box_d&commentId=11226099",
-          "name": "Index"
+          "url": "https://www.infpol.ru:443/279005-v-buryatii-nakryli-nelegalnyy-kanal-vvoza-oborudovaniya-dlya-mayninga/",
+          "name": "Infpol"
         }
       ],
-      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "primary_sector": "Crypto - Tiền mã hóa & Tài sản số",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "crypto",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 20
+    },
+    {
+      "global_event_id": "1305892442",
+      "sector": "Hàng hóa - Năng lượng & Khoáng sản",
+      "title": "Tác động kinh tế nếu eo biển Hormuz bị đóng cửa",
+      "summary": "Thông tin phân tích về những hệ quả tiềm tàng nếu tuyến đường hàng hải chiến lược tại eo biển Hormuz bị phong tỏa.",
+      "importance_reason": "Được nhiều báo đưa; nhà đầu tư cần theo dõi vì eo biển Hormuz là điểm nghẽn quan trọng đối với dòng chảy năng lượng và thương mại toàn cầu.",
+      "num_articles": 20,
+      "source_count": 1,
+      "sentiment_tone": -4.54,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "Donald Trump",
+        "Iran",
+        "Benjamin Netanyahu",
+        "Robert Kagan",
+        "The Atlantic",
+        "Hoa Kỳ",
+        "Eo biển Hormuz",
+        "Periódico elCaribe"
+      ],
+      "sources": [
+        {
+          "url": "https://www.index.hr/vijesti/clanak/the-atlantic-trumpov-krajnji-cilj-u-ratu-s-iranom-je-predaja/2795990.aspx?index_tid=1033601&index_ref=naslovnica_vijesti_najnovije_d",
+          "name": "Index"
+        },
+        {
+          "url": "https://www.elcaribe.com.do/panorama/internacionales/que-pasaria-si-el-estrecho-de-ormuz-permanece-cerrado/",
+          "name": "Elcaribe"
+        },
+        {
+          "url": "https://www.dostor.org/5572175",
+          "name": "Dostor"
+        }
+      ],
+      "primary_sector": "Hàng hóa - Năng lượng & Khoáng sản",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
         "legal_regulatory_risk",
         "credit_liquidity_risk",
         "commodity_energy_risk",
-        "supply_chain_risk"
-      ],
-      "affected_assets": [
-        "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 8
-    },
-    {
-      "global_event_id": "1305890348",
-      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Công đoàn giáo viên CNTE tại Mexico chuẩn bị cho cuộc đình công vô thời hạn",
-      "summary": "Công đoàn giáo viên CNTE yêu cầu tăng lương và giải quyết các vấn đề liên quan đến giáo viên hợp đồng và người lao động chưa thể nghỉ hưu.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, phản ánh áp lực về chi phí ngân sách đối với chính quyền địa phương.",
-      "num_articles": 30,
-      "source_count": 1,
-      "sentiment_tone": -4.86,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "CNTE",
-        "Mexico",
-        "Juan Miguel Hernández",
-        "Secretaría de Turismo"
-      ],
-      "sources": [
-        {
-          "url": "https://oem.com.mx:443/elsoldetijuana/local/cnte-ira-a-planton-indefinido-lo-que-afecta-es-la-estabilidad-del-maestro-30197869",
-          "name": "Oem"
-        }
-      ],
-      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "neutral",
-      "risk_flags": [
-        "conflict_security_risk"
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
       ],
       "affected_assets": [
         "stocks",
         "bonds",
-        "USD"
+        "crypto",
+        "banks",
+        "real_estate"
       ],
       "investment_relevance": "high",
-      "market_relevance_score": 8
+      "market_relevance_score": 19
     },
     {
-      "global_event_id": "1305885734",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "Một trong những ngân hàng lớn nhất tại Úc dự kiến triển khai công cụ hỗ trợ vay mua nhà",
-      "summary": "Một ngân hàng lớn tại Úc đang có kế hoạch cho phép khách hàng đăng ký vay mua nhà thông qua công cụ mới.",
-      "importance_reason": "Sự kiện được nhiều báo đưa tin, cho thấy nỗ lực cải tiến quy trình dịch vụ tín dụng của ngành ngân hàng.",
-      "num_articles": 30,
-      "source_count": 2,
-      "sentiment_tone": 3.55,
+      "global_event_id": "1305935578",
+      "sector": "Crypto - Tiền mã hóa & Tài sản số",
+      "title": "Đồng Giám đốc điều hành Binance khẳng định châu Phi dẫn đầu về đổi mới tiền mã hóa toàn cầu",
+      "summary": "Ông Richard Teng cho rằng châu Phi đang đi đầu trong việc ứng dụng thực tế các giải pháp tiền mã hóa thay vì chỉ bắt kịp xu hướng thế giới. Các cộng đồng tại khu vực này đang sử dụng stablecoin, NFT và hợp đồng thông minh cho các nhu cầu tài chính và quản trị hàng ngày.",
+      "importance_reason": "Thông tin về sự phát triển thực tế của tiền mã hóa tại châu Phi được nhiều báo đưa, phản ánh xu hướng ứng dụng tài chính số tại thị trường mới nổi.",
+      "num_articles": 10,
+      "source_count": 1,
+      "sentiment_tone": 0.22,
       "sentiment_label": "Trung tính",
       "entities": [
-        "Úc",
-        "Ngân hàng"
+        "Binance",
+        "Richard Teng",
+        "Châu Phi",
+        "Stablecoin",
+        "NFT",
+        "Blockchain"
       ],
       "sources": [
         {
-          "url": "https://www.dailymail.com/news/article-15848011/Bank-customers-loans-using-AI.html",
-          "name": "Dailymail"
-        },
+          "url": "https://www.newsghana.com.gh/binance-co-ceo-says-africa-is-leading-global-crypto-innovation/",
+          "name": "Newsghana"
+        }
+      ],
+      "primary_sector": "Crypto - Tiền mã hóa & Tài sản số",
+      "secondary_sector": "Chính trị - Ngoại giao",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "credit_liquidity_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "crypto",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 19
+    },
+    {
+      "global_event_id": "1305932693",
+      "sector": "Tài chính - Ngân hàng & Tín dụng",
+      "title": "Ủy ban Đổi mới Sinh học Quốc gia Hàn Quốc thành lập ba hội đồng chuyên trách mới",
+      "summary": "Ủy ban Đổi mới Sinh học Quốc gia Hàn Quốc đã chính thức ra mắt ba hội đồng gồm khối tư nhân, viện nghiên cứu công và hội đồng dữ liệu để thúc đẩy tốc độ đổi mới ngành sinh học.",
+      "importance_reason": "Việc đẩy mạnh cải cách hạ tầng nghiên cứu và dữ liệu trong ngành sinh học là cơ sở để gia tăng năng lực cạnh tranh dài hạn của các doanh nghiệp trong lĩnh vực này.",
+      "num_articles": 10,
+      "source_count": 1,
+      "sentiment_tone": 0.57,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Ủy ban Đổi mới Sinh học Quốc gia",
+        "Kim Min-seok",
+        "Hàn Quốc",
+        "Cơ quan nghiên cứu công",
+        "Hội đồng tư nhân",
+        "Hội đồng viện nghiên cứu công",
+        "Hội đồng dữ liệu"
+      ],
+      "sources": [
         {
-          "url": "https://www.smartcompany.com.au/artificial-intelligence/commbank-debut-ai-agent-companion-business-loans/",
-          "name": "Smartcompany"
+          "url": "https://inews24.com/view/1971425",
+          "name": "Inews24"
         }
       ],
       "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
-        "credit_liquidity_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high",
-      "market_relevance_score": 8
-    },
-    {
-      "global_event_id": "1305893833",
-      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
-      "title": "Ra mắt chương trình đào tạo kỹ năng mới",
-      "summary": "Một chương trình đào tạo kỹ năng mới vừa được chính thức triển khai.",
-      "importance_reason": "Thông tin về các chương trình đào tạo thường mang tính chất phổ cập kỹ năng cho nguồn nhân lực.",
-      "num_articles": 50,
-      "source_count": 1,
-      "sentiment_tone": 3.72,
-      "sentiment_label": "Trung tính",
-      "entities": [],
-      "sources": [
-        {
-          "url": "https://www.laarena.com.ar/la-pampa/lanzaron-un-programa-de-formacion-20265260160",
-          "name": "Laarena"
-        }
-      ],
-      "primary_sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "neutral",
-      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
         "real_estate_infra_risk"
       ],
       "affected_assets": [
         "stocks",
+        "bonds",
+        "gold",
+        "banks",
         "real_estate"
       ],
       "investment_relevance": "high",
-      "market_relevance_score": 7
+      "market_relevance_score": 18
     },
     {
-      "global_event_id": "1305900616",
-      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
-      "title": "Chủ tịch Shinsegae Group xin lỗi vì chiến dịch quảng cáo gây tranh cãi của Starbucks Hàn Quốc",
-      "summary": "Ông Chung Yong-jin, Chủ tịch Shinsegae Group, đã hai lần xin lỗi công khai sau khi chiến dịch quảng cáo của Starbucks Hàn Quốc bị cáo buộc chế giễu các nạn nhân trong cuộc đàn áp năm 1980.",
-      "importance_reason": "Sự việc thu hút sự chú ý rộng rãi của truyền thông và có thể tác động đến uy tín thương hiệu của Shinsegae Group.",
-      "num_articles": 30,
-      "source_count": 18,
-      "sentiment_tone": -9.53,
-      "sentiment_label": "Tiêu cực mạnh",
+      "global_event_id": "1305886732",
+      "sector": "Tài chính - Ngân hàng & Tín dụng",
+      "title": "Hạn chế quyền truy cập nội dung từ trang 104.5 WOKV đối với người dùng ngoài Hoa Kỳ",
+      "summary": "Trang tin 104.5 WOKV hiện không cho phép người dùng bên ngoài Hoa Kỳ truy cập vào nội dung của trang web.",
+      "importance_reason": "Đây là thông tin về rào cản kỹ thuật trong việc tiếp cận nguồn tin quốc tế.",
+      "num_articles": 34,
+      "source_count": 6,
+      "sentiment_tone": -3.9,
+      "sentiment_label": "Trung tính",
       "entities": [
-        "Chung Yong-jin",
-        "Shinsegae Group",
-        "Starbucks Hàn Quốc",
-        "Starbucks Korea",
-        "Hàn Quốc"
+        "104.5 WOKV",
+        "Hoa Kỳ"
       ],
       "sources": [
         {
-          "url": "https://www.manilatimes.net/2026/05/26/business/foreign-business/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/2351374",
-          "name": "Manilatimes"
+          "url": "https://www.wokv.com/news/business/qa-anna-gomez-is/SYI3BXX7T44TTGDSC3RVAFZEGA/",
+          "name": "Wokv"
         },
         {
-          "url": "https://abcnews.com/Business/wireStory/south-korean-starbucks-boss-apologizes-ad-campaign-evoked-133301788",
-          "name": "Abcnews"
+          "url": "https://www.kxl.com/qa-anna-gomez-is-the-sole-democrat-on-the-fcc-she-has-a-warning-for-big-media-companies/",
+          "name": "Kxl"
         },
         {
-          "url": "https://www.asahi.com/ajw/articles/16592694",
-          "name": "Asahi"
-        },
-        {
-          "url": "https://www.ksat.com/news/world/2026/05/26/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/",
-          "name": "Ksat"
-        },
-        {
-          "url": "https://www.wboc.com/news/international/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/article_2b62afec-4aba-5481-bf11-62aa572236fc.html",
-          "name": "Wboc"
-        },
-        {
-          "url": "https://www.clickondetroit.com/news/world/2026/05/26/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/",
-          "name": "Clickondetroit"
-        },
-        {
-          "url": "https://www.cp24.com/news/world/2026/05/26/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/",
-          "name": "Cp24"
-        },
-        {
-          "url": "https://www.wsls.com/news/world/2026/05/26/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/",
-          "name": "Wsls"
-        },
-        {
-          "url": "https://www.wral.com/news/ap/34aa1-south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/",
-          "name": "Wral"
-        },
-        {
-          "url": "https://isp.netscape.com:443/pf/story/0001/20260526/34aa15b186bae6e6dc997f9ac8f71e21",
-          "name": "Isp"
-        },
-        {
-          "url": "https://www.thegazette.com/news/world/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/article_4be93f08-cc1d-5a9f-ac70-4764a7c39ec5.html",
-          "name": "Thegazette"
-        },
-        {
-          "url": "https://www.wsbradio.com/news/world/south-korean/M7UHZGZNXI4MPMIKCAYJ7WHCSY/",
+          "url": "https://www.wsbradio.com/news/business/qa-anna-gomez-is/SYI3BXX7T44TTGDSC3RVAFZEGA/",
           "name": "Wsbradio"
         },
         {
-          "url": "https://www.wgauradio.com/news/world/south-korean/M7UHZGZNXI4MPMIKCAYJ7WHCSY/",
+          "url": "https://abcnews.com/Business/wireStory/qa-anna-gomez-sole-democrat-fcc-warning-big-133303669",
+          "name": "Abcnews"
+        },
+        {
+          "url": "https://www.wgauradio.com/news/business/qa-anna-gomez-is/SYI3BXX7T44TTGDSC3RVAFZEGA/",
           "name": "Wgauradio"
         },
         {
-          "url": "https://www.stcatharinesstandard.ca/business/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/article_619ec368-885b-55aa-9d1f-bc5340815eb0.html",
-          "name": "Stcatharinesstandard"
-        },
+          "url": "https://www.kob.com/ap-top-news/qa-anna-gomez-is-the-sole-democrat-on-the-fcc-she-has-a-warning-for-big-media-companies/",
+          "name": "Kob"
+        }
+      ],
+      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 16
+    },
+    {
+      "global_event_id": "1305888836",
+      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "title": "Triết lý kinh doanh của nhà đồng sáng lập HP David Packard về sự phát triển doanh nghiệp",
+      "summary": "Nhà đồng sáng lập HP, David Packard, đưa ra nhận định rằng nhiều doanh nghiệp thất bại do quá tải thay vì thiếu hụt nguồn lực.",
+      "importance_reason": "Thông điệp phản ánh quan điểm quản trị kinh doanh được nhiều đơn vị truyền thông nhắc đến.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -0.83,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "David Packard",
+        "HP",
+        "The Times of India"
+      ],
+      "sources": [
         {
-          "url": "https://lancasteronline.com/news/world/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/article_01ac7b13-ddf7-5f1e-aa53-f23435210ef2.html",
-          "name": "Lancasteronline"
-        },
-        {
-          "url": "https://www.the-messenger.com/news/world/article_68e1ff7b-504f-55c0-bf35-d5fa23698478.html",
-          "name": "The-messenger"
-        },
-        {
-          "url": "https://www.yahoo.com/news/world/articles/south-korean-starbucks-boss-apologizes-013801489.html",
-          "name": "Yahoo"
-        },
-        {
-          "url": "https://www.clickorlando.com/news/world/2026/05/26/south-korean-starbucks-boss-apologizes-for-ad-campaign-that-evoked-massacre/",
-          "name": "Clickorlando"
+          "url": "https://timesofindia.indiatimes.com/technology/tech-news/quote-of-the-day-by-hp-co-founder-david-packard-he-said-that-more-businesses-die-fr",
+          "name": "Timesofindia"
         }
       ],
       "primary_sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "neutral",
+      "macro_signal": "mixed",
       "risk_flags": [
-        "legal_regulatory_risk"
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
       ],
       "affected_assets": [
-        "stocks"
+        "stocks",
+        "bonds",
+        "USD",
+        "gold",
+        "crypto",
+        "banks",
+        "real_estate"
       ],
-      "investment_relevance": "medium",
-      "market_relevance_score": 3
+      "investment_relevance": "high",
+      "market_relevance_score": 24
+    },
+    {
+      "global_event_id": "1305909394",
+      "sector": "Bất động sản - Hạ tầng",
+      "title": "Kevin O'Leary phát hiện chiến dịch tấn công mạng nhắm vào hạ tầng trung tâm dữ liệu tại Utah",
+      "summary": "Nhà đầu tư Kevin O'Leary cho biết một cuộc điều tra kéo dài nhiều tháng đã phát hiện chiến dịch trực tuyến quy mô lớn nhắm vào các dự án hạ tầng năng lượng và trung tâm dữ liệu tại Bắc Mỹ. Hiện tượng bất thường này được ghi nhận thông qua sự gia tăng đột biến các hoạt động trên mạng xã hội X và Instagram.",
+      "importance_reason": "Sự kiện được nhiều báo đưa tin, thu hút sự chú ý về các rủi ro an ninh đối với hạ tầng dữ liệu và năng lượng.",
+      "num_articles": 8,
+      "source_count": 1,
+      "sentiment_tone": -0.18,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Kevin O'Leary",
+        "Utah",
+        "Bắc Mỹ",
+        "X",
+        "Instagram"
+      ],
+      "sources": [
+        {
+          "url": "https://www.benzinga.com/markets/tech/26/05/52768652/kevin-oleary-bot-campaign-utah-ai-data-center-trump",
+          "name": "Benzinga"
+        }
+      ],
+      "primary_sector": "Bất động sản - Hạ tầng",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "USD",
+        "crypto",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 24
+    },
+    {
+      "global_event_id": "1305891073",
+      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "title": "Take-Two Interactive xác nhận lộ trình phát hành GTA VI vào cuối năm nay",
+      "summary": "CEO Strauss Zelnick khẳng định quá trình phát triển GTA VI vẫn đang đúng tiến độ để phát hành vào cuối năm, bất chấp những đồn đoán trước đó về việc trì hoãn. Thông tin được đưa ra trong buổi làm việc với các nhà đầu tư của công ty.",
+      "importance_reason": "Việc xác nhận thời điểm ra mắt là thông tin quan trọng giúp nhà đầu tư đánh giá triển vọng doanh thu của Take-Two.",
+      "num_articles": 10,
+      "source_count": 1,
+      "sentiment_tone": 0.31,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Take-Two Interactive",
+        "Strauss Zelnick",
+        "GTA VI",
+        "Rockstar"
+      ],
+      "sources": [
+        {
+          "url": "https://es.ign.com/grand-theft-auto-vi/229820/no-es-por-fastidiarte-el-martes-pero-en-una-realidad-paralela-hoy-estariamos-jugando-a-gta-vi",
+          "name": "Es"
+        }
+      ],
+      "primary_sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "credit_liquidity_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "gold",
+        "crypto",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 21
+    },
+    {
+      "global_event_id": "1305926431",
+      "sector": "Bất động sản - Hạ tầng",
+      "title": "Bộ trưởng Bộ Xây dựng Cộng hòa Dominica nhấn mạnh việc hoàn thiện tiêu chuẩn xây dựng quốc gia",
+      "summary": "Bộ trưởng Bộ Nhà ở và Công trình (Mivhed), Víctor-Ito-Bisonó, kêu gọi tuân thủ nghiêm ngặt các quy định để khắc phục lỗi cấu trúc trong các tòa nhà. Ông cho biết bộ đang thúc đẩy quy trình áp dụng mã xây dựng mới và chuẩn bị ban hành mã địa chấn cập nhật.",
+      "importance_reason": "Việc cập nhật tiêu chuẩn xây dựng quốc gia có thể ảnh hưởng đến chi phí và quy trình pháp lý trong lĩnh vực hạ tầng, được nhiều báo đưa.",
+      "num_articles": 10,
+      "source_count": 1,
+      "sentiment_tone": 1.18,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Víctor-Ito-Bisonó",
+        "Bộ Nhà ở và Công trình (Mivhed)",
+        "Cộng hòa Dominica",
+        "Víctor -Ito- Bisonó",
+        "Bộ Nhà ở và Xây dựng (Mivhed)"
+      ],
+      "sources": [
+        {
+          "url": "https://www.diariolibre.com/economia/negocios/2026/05/26/ministro-bisono-reitera-atencion-a-estructuras-y-plantea-iniciativas/3545697",
+          "name": "Diariolibre"
+        }
+      ],
+      "primary_sector": "Bất động sản - Hạ tầng",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "gold",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high",
+      "market_relevance_score": 19
     }
   ]
 }

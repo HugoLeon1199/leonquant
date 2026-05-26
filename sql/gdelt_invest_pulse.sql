@@ -26,11 +26,59 @@ WITH
     ) = 1
   ),
 
-  TopEvents AS (
+  TopEventsViral AS (
     SELECT *
     FROM RankedTopEvents
     ORDER BY NumArticles DESC, ABS(AvgTone) DESC
-    LIMIT 500
+    LIMIT 400
+  ),
+
+  -- Second pool: lower virality bar but GKG must show Fed/CPI/crypto/gold/oil (feeds miss viral politics).
+  MarketAnchorCandidates AS (
+    SELECT
+      GLOBALEVENTID,
+      Actor1Name,
+      Actor2Name,
+      EventRootCode,
+      EventCode,
+      GoldsteinScale,
+      AvgTone,
+      NumArticles,
+      SOURCEURL,
+      DATEADDED
+    FROM `gdelt-bq.gdeltv2.events_partitioned`
+    WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
+      AND NumArticles >= 8
+      AND SOURCEURL IS NOT NULL
+      AND STARTS_WITH(SOURCEURL, 'http')
+      AND GLOBALEVENTID NOT IN (SELECT GLOBALEVENTID FROM TopEventsViral)
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY GLOBALEVENTID
+      ORDER BY NumArticles DESC, ABS(AvgTone) DESC
+    ) = 1
+  ),
+
+  MarketAnchorGKG AS (
+    SELECT DISTINCT c.GLOBALEVENTID
+    FROM MarketAnchorCandidates AS c
+    INNER JOIN `gdelt-bq.gdeltv2.gkg_partitioned` AS g
+      ON g.DocumentIdentifier = c.SOURCEURL
+     AND g._PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
+    WHERE REGEXP_CONTAINS(
+      UPPER(COALESCE(g.V2Themes, '')),
+      r'FED|FOMC|FEDERAL RESERVE|BITCOIN|\bBTC\b|ETHEREUM|\bETH\b|\bGOLD\b|SILVER|PRECIOUS|INFLATION|\bCPI\b|\bPPI\b|'
+      r'INTEREST RATE|RATE HIKE|RATE CUT|CENTRAL BANK|MONETARY POLICY|TREASURY|YIELD|OPEC|\bOIL\b|CRUDE|BRENT|'
+      r'STOCK MARKET|NYSE|NASDAQ|CRYPTO|BLOCKCHAIN'
+    )
+  ),
+
+  TopEvents AS (
+    SELECT * FROM TopEventsViral
+    UNION DISTINCT
+    SELECT c.*
+    FROM MarketAnchorCandidates AS c
+    INNER JOIN MarketAnchorGKG AS m
+      ON c.GLOBALEVENTID = m.GLOBALEVENTID
   ),
 
   FilteredMentions AS (
@@ -403,7 +451,7 @@ WITH
         ELSE NULL
       END AS secondary_sector,
       (
-        IF(is_macro, 3, 0)
+        IF(is_macro AND has_strong_market_theme, 3, IF(is_macro, 1, 0))
         + IF(is_credit_banking, 3, 0)
         + IF(is_equity_market, 3, 0)
         + IF(is_crypto, 3, 0)
@@ -413,13 +461,53 @@ WITH
         + IF(is_real_estate_infra, 1, 0)
         + IF(is_real_economy, 1, 0)
         + IF(
+            REGEXP_CONTAINS(
+              theme_u,
+              r'\bFED\b|FOMC|BITCOIN|\bBTC\b|ETHEREUM|\bETH\b|\bGOLD\b|SILVER|PRECIOUS|INFLATION|\bCPI\b|RATE[_ ]?CUT|RATE[_ ]?HIKE'
+            ),
+            2,
+            0
+          )
+        + IF(
             (is_legal_regulatory OR is_politics_diplomacy OR is_conflict_security)
             AND has_market_asset_theme,
             1,
             0
           )
         - IF(is_social_crime_noise, 3, 0)
+        - IF(
+            primary_sector IN (
+              'Khủng hoảng - Xung đột & An ninh',
+              'Chính trị - Ngoại giao',
+              'Pháp lý - Quy định & Trừng phạt'
+            ),
+            2,
+            0
+          )
       ) AS market_relevance_score,
+      (
+        IF(is_crypto, 12, 0)
+        + IF(is_macro AND has_strong_market_theme, 12, 0)
+        + IF(
+            is_commodity_energy
+            AND REGEXP_CONTAINS(theme_u, r'\bGOLD\b|SILVER|BITCOIN|\bBTC\b|PRECIOUS|\bOIL\b|OPEC'),
+            10,
+            0
+          )
+        + IF(is_equity_market, 8, 0)
+        + IF(is_credit_banking, 8, 0)
+        + IF(is_trade_supply AND has_strong_market_theme, 4, 0)
+        + IF(is_tech_ai_chip AND has_strong_market_theme, 4, 0)
+        - IF(
+            primary_sector IN (
+              'Khủng hoảng - Xung đột & An ninh',
+              'Chính trị - Ngoại giao'
+            ),
+            8,
+            0
+          )
+        - IF(primary_sector = 'Pháp lý - Quy định & Trừng phạt', 4, 0)
+      ) AS feed_priority,
       ARRAY(
         SELECT flag
         FROM UNNEST([
@@ -613,10 +701,16 @@ WHERE market_relevance_score >= 2
       )
       AND has_market_asset_theme
       AND has_strong_market_theme
-      AND market_relevance_score >= 4
+      AND market_relevance_score >= 6
+      AND feed_priority >= 0
     )
   )
+  AND (
+    primary_sector != 'Vĩ mô - Chính sách Tiền tệ & Lãi suất'
+    OR has_strong_market_theme
+  )
 ORDER BY
+  feed_priority DESC,
   market_relevance_score DESC,
   So_Bao_De_Cap DESC,
   ABS(Diem_Cam_Xuc) DESC,
