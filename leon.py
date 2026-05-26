@@ -1681,6 +1681,14 @@ def main(argv: list[str] | None = None) -> int:
     payload = build_payload(events, channel=channel)
     url_count = sum(len(ev.get("sources") or []) for ev in payload.get("events") or [])
     LOG.info("Exported %s hot events, %s source URLs", len(events), url_count)
+    if not events and output.is_file():
+        try:
+            prior = json.loads(output.read_text(encoding="utf-8"))
+            if prior.get("events"):
+                LOG.warning("Empty result; not overwriting %s (keeps %s prior events)", output, len(prior["events"]))
+                return 0
+        except (OSError, json.JSONDecodeError):
+            pass
     try:
         atomic_export_json(payload, output)
         # Mirror for GitHub Pages static path
