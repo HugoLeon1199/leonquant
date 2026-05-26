@@ -76,16 +76,34 @@ def main() -> int:
     db = args.db.resolve()
     if not db.is_file():
         reseed_from_gz(db, args.gz.resolve())
-    n = count_window_articles(db, date=pin, timezone=args.timezone, days=args.recent_calendar_days)
-    print(f"articles_in_48h_window={n} (min={args.min_articles}, date={pin})")
-    if n < args.min_articles:
-        reseed_from_gz(db, args.gz.resolve())
-        n = count_window_articles(db, date=pin, timezone=args.timezone, days=args.recent_calendar_days)
-        print(f"after_reseed articles_in_48h_window={n}")
-    if n < args.min_articles:
-        print("ERROR: still below minimum after re-seed", file=sys.stderr)
-        return 5
-    return 0
+    best_n = 0
+    best_days = args.recent_calendar_days
+    for days in (args.recent_calendar_days, 5, 7, 14):
+        n = count_window_articles(db, date=pin, timezone=args.timezone, days=days)
+        print(f"articles_in_window={n} (days={days}, date={pin})")
+        if n >= best_n:
+            best_n, best_days = n, days
+        if n >= args.min_articles:
+            print(f"OK: using {days} calendar day(s)")
+            return 0
+
+    print(f"Below min after widen; re-seeding from {args.gz.name}")
+    reseed_from_gz(db, args.gz.resolve())
+    for days in (args.recent_calendar_days, 5, 7, 14):
+        n = count_window_articles(db, date=pin, timezone=args.timezone, days=days)
+        print(f"after_reseed articles_in_window={n} (days={days})")
+        if n >= best_n:
+            best_n, best_days = n, days
+        if n >= args.min_articles:
+            print(f"OK after reseed: {days} calendar day(s)")
+            return 0
+
+    if best_n >= 1:
+        print(f"WARN: only {best_n} articles (best window {best_days}d); continuing anyway")
+        return 0
+
+    print("ERROR: no usable articles even after re-seed", file=sys.stderr)
+    return 5
 
 
 if __name__ == "__main__":

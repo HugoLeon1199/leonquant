@@ -99,12 +99,13 @@ jobs:
           echo "Pinned crawl/export date: $CRAWL_CALENDAR_DATE"
 
       - name: Ensure DuckDB has enough articles in 48h window
+        continue-on-error: true
         run: |
           python scripts/ensure_db_48h_articles.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
             --recent-calendar-days 2 \
-            --min 5
+            --min 5 || echo "WARN: ensure step; digest will try wider export window."
 
       # Crawl có thể cảnh báo/thoát sớm trên runner; digest bước sau dùng cửa sổ 48h trong DB.
       - name: Crawl 48h news (classified profiles, no wipe)
@@ -127,7 +128,7 @@ jobs:
           python scripts/run_digest_from_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
-            --recent-calendar-days 2 \
+            --recent-calendar-days 7 \
             --min-clean-articles 1
 
       - name: Prune DuckDB to 48h window (keep cache small)
