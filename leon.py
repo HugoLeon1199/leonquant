@@ -46,8 +46,10 @@ TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
 PULSE_SCHEMA_VERSION = "event-centric-v7"
 INVEST_PULSE_SCHEMA_VERSION = "invest-event-v1"
-GEMINI_MAX_URL_ATTEMPTS = 5
+GEMINI_MAX_URL_ATTEMPTS = 3
 GEMINI_MIN_EXCERPT_CHARS = 60
+GEMINI_BATCH_ENRICH_SIZE = 35
+GEMINI_BATCH_EXCERPT_CHARS = 1000
 # Invest: SQL = hot coverage + sector only; Gemini = accurate summary + economic curation.
 INVEST_MAX_ENRICH_EVENTS = 80
 INVEST_CURATION_POOL = 75
@@ -718,6 +720,180 @@ def _has_usable_excerpt(raw_content: str | None) -> bool:
     return len(title) >= 24
 
 
+def _chunked(items: list[Any], size: int) -> list[list[Any]]:
+    if size < 1:
+        return [items]
+    return [items[i : i + size] for i in range(0, len(items), size)]
+
+
+def _scrape_first_excerpt(ev: dict[str, Any]) -> tuple[str | None, str | None]:
+    urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
+    for url in urls[:GEMINI_MAX_URL_ATTEMPTS]:
+        raw_content = extract_web_content(url)
+        if raw_content and _has_usable_excerpt(raw_content):
+            return url, raw_content
+    return None, None
+
+
+def _batch_enrich_event_block(ev: dict[str, Any], excerpt: str) -> str:
+    eid = str(ev.get("global_event_id") or "")
+    sector = str(ev.get("primary_sector") or ev.get("sector") or "Khác")
+    num = int(ev.get("num_articles") or 0)
+    src = int(ev.get("source_count") or 0)
+    body = str(excerpt).strip()[:GEMINI_BATCH_EXCERPT_CHARS]
+    return (
+        f"### global_event_id={eid}\n"
+        f"sector_goi_y={sector} | ~{num} bài | {src} nguồn URL\n"
+        f"{body}\n"
+    )
+
+
+def _parse_gemini_batch_enrich(text: str) -> dict[str, dict[str, Any]]:
+    data = _parse_gemini_json(text)
+    rows = data.get("events") if isinstance(data, dict) else None
+    if not isinstance(rows, list):
+        return {}
+    out: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        eid = str(row.get("global_event_id") or "").strip()
+        if eid:
+            out[eid] = row
+    return out
+
+
+def _apply_gemini_enrichment(
+    ev: dict[str, Any],
+    ai_data: dict[str, Any],
+    *,
+    channel: str,
+    existing_entities: list[str],
+) -> None:
+    sector = str(ev.get("primary_sector") or ev.get("sector") or "Khác")
+    if not _usable_title(ai_data.get("title_vi")):
+        return
+    ev["title_vi"] = ai_data.get("title_vi") or TITLE_UNAVAILABLE
+    ev["summary_vi"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
+    ev["importance_reason"] = ai_data.get("importance_reason") or ""
+    gem_sector = str(ai_data.get("sector") or "").strip()
+    allowed = valid_sectors_for(channel)
+    if gem_sector in allowed:
+        ev["sector"] = gem_sector
+        if channel == "invest":
+            ev["primary_sector"] = gem_sector
+    ev["entities"] = _merge_entity_lists(ai_data.get("entities") or [], existing_entities, limit=6)
+    ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
+    ev["summary"] = ev.get("summary_vi") or ""
+
+
+def _set_scrape_fallback_enrichment(
+    ev: dict[str, Any], *, channel: str, existing_entities: list[str]
+) -> None:
+    sector = str(ev.get("primary_sector") or ev.get("sector") or "Khác")
+    attempt_urls = [
+        str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")
+    ][:GEMINI_MAX_URL_ATTEMPTS]
+    scraped_title = TITLE_UNAVAILABLE
+    for url in attempt_urls:
+        raw_content = extract_web_content(url)
+        scraped_title = _title_from_scrape(raw_content)
+        if not _usable_title(scraped_title):
+            scraped_title = fetch_title(url)
+        if _usable_title(scraped_title):
+            break
+    ev["title_vi"] = scraped_title
+    ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
+    ev["importance_reason"] = (
+        f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
+        f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
+    )
+    ev["entities"] = existing_entities
+    ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
+    ev["summary"] = ev.get("summary_vi") or ""
+
+
+def gemini_batch_enrich_events(
+    batch: list[tuple[dict[str, Any], str]],
+    *,
+    channel: str = "world",
+) -> dict[str, dict[str, Any]]:
+    """One API call: Vietnamese summaries for many events (each has its own excerpt)."""
+    if not batch or not _configure_gemini():
+        return {}
+
+    sectors = valid_sectors_for(channel)
+    sectors_list = "\n".join(f"{i + 1}. {s}" for i, s in enumerate(sectors) if s != "Khác")
+    blocks = "\n".join(_batch_enrich_event_block(ev, excerpt) for ev, excerpt in batch)
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+
+    if channel == "invest":
+        role_rules = """
+Bạn là biên tập viên chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
+Với MỖI khối ### global_event_id=... bên dưới: CHỈ dùng đoạn bài trong khối đó. Không trộn giữa các sự kiện.
+Không nhắc AI, GDELT, crawler, pipeline, hệ thống. Không khuyến nghị mua/bán. Không bịa ticker/giá.
+Tóm tắt trung thực; nếu bài nói kinh tế/CK/crypto/vàng thì summary phải đúng hướng đó.
+"""
+        json_shape = """
+{{
+  "events": [
+    {{
+      "global_event_id": "...",
+      "title_vi": "tối đa 18 từ",
+      "summary_vi": "1-2 câu",
+      "importance_reason": "một câu",
+      "entities": ["3-6 thực thể"],
+      "sector": "một trong danh sách ngành"
+    }}
+  ]
+}}
+"""
+    else:
+        role_rules = """
+Bạn là biên tập viên phân tích quốc tế của LeonQuant.
+Với MỖI khối ### global_event_id=... : CHỈ dùng đoạn bài trong khối đó. Không trộn sự kiện.
+Không nhắc AI, GDELT, crawler. Không khuyến nghị đầu tư. Không bịa ticker.
+"""
+        json_shape = """
+{{
+  "events": [
+    {{
+      "global_event_id": "...",
+      "title_vi": "tối đa 18 từ",
+      "summary_vi": "1-2 câu",
+      "importance_reason": "một câu",
+      "entities": ["3-6 thực thể"],
+      "sector": "một trong danh sách ngành",
+      "sector_confidence": 0
+    }}
+  ]
+}}
+"""
+
+    prompt = f"""
+{role_rules.strip()}
+
+Trả về JSON (không markdown), một phần tử trong "events" cho mỗi global_event_id có đoạn bài:
+{json_shape.strip()}
+
+Danh sách ngành hợp lệ:
+{sectors_list}
+
+Các sự kiện:
+{blocks}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        parsed = _parse_gemini_batch_enrich(response.text or "")
+        LOG.info("Gemini batch enrich [%s]: %s/%s events", channel, len(parsed), len(batch))
+        return parsed
+    except Exception as exc:
+        LOG.warning("Gemini batch enrich failed [%s]: %s", channel, exc)
+        return {}
+
+
 def enrich_event_with_gemini(
     *,
     sector: str,
@@ -851,15 +1027,26 @@ def _gemini_kwargs(ev: dict[str, Any], urls: list[str], *, channel: str = "world
 def enrich_events_for_web(
     events: list[dict[str, Any]], *, use_gemini: bool = True, channel: str = "world"
 ) -> list[dict[str, Any]]:
-    """Try up to GEMINI_MAX_URL_ATTEMPTS URLs; Gemini only when scrape returns article excerpt."""
-    for i, ev in enumerate(events, start=1):
-        urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
-        sector = str(ev.get("primary_sector") or ev.get("sector") or "Khác")
-        existing_entities = list(ev.get("entities") or [])
-        attempt_urls = urls[:GEMINI_MAX_URL_ATTEMPTS]
-        gemini_args = _gemini_kwargs(ev, urls, channel=channel)
+    """Scrape excerpts first, then batch Gemini (few API calls instead of per-URL)."""
+    if not use_gemini or not _configure_gemini():
+        for i, ev in enumerate(events, start=1):
+            existing_entities = list(ev.get("entities") or [])
+            urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
+            if not urls:
+                ev["title_vi"] = TITLE_UNAVAILABLE
+                ev["summary_vi"] = "Chưa có nguồn tin để tóm tắt."
+                ev["importance_reason"] = ""
+                ev["title"] = ev["title_vi"]
+                ev["summary"] = ev["summary_vi"]
+                continue
+            _set_scrape_fallback_enrichment(ev, channel=channel, existing_entities=existing_entities)
+        return events
 
-        if not attempt_urls:
+    scrape_ready: list[tuple[dict[str, Any], str]] = []
+    for i, ev in enumerate(events, start=1):
+        existing_entities = list(ev.get("entities") or [])
+        urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
+        if not urls:
             ev["title_vi"] = TITLE_UNAVAILABLE
             ev["summary_vi"] = "Chưa có nguồn tin để tóm tắt."
             ev["importance_reason"] = ""
@@ -867,77 +1054,40 @@ def enrich_events_for_web(
             ev["summary"] = ev["summary_vi"]
             continue
 
-        ai_data: dict[str, Any] | None = None
-        if use_gemini:
-            for j, url in enumerate(attempt_urls):
-                LOG.info(
-                    "Enriching event %s/%s [%s] url %s/%s: %s",
-                    i,
-                    len(events),
-                    ev.get("global_event_id", ""),
-                    j + 1,
-                    len(attempt_urls),
-                    url[:80],
+        LOG.info(
+            "Scraping excerpt %s/%s [%s]",
+            i,
+            len(events),
+            ev.get("global_event_id", ""),
+        )
+        url, raw_content = _scrape_first_excerpt(ev)
+        if url and raw_content:
+            ev["enrichment_url"] = url
+            scrape_ready.append((ev, raw_content))
+        else:
+            _set_scrape_fallback_enrichment(ev, channel=channel, existing_entities=existing_entities)
+
+    chunks = _chunked(scrape_ready, GEMINI_BATCH_ENRICH_SIZE)
+    LOG.info(
+        "Gemini batch enrich [%s]: %s events in %s API call(s)",
+        channel,
+        len(scrape_ready),
+        len(chunks),
+    )
+    for batch_idx, batch in enumerate(chunks, start=1):
+        if batch_idx > 1:
+            time.sleep(GEMINI_CALL_INTERVAL_SEC)
+        by_id = gemini_batch_enrich_events(batch, channel=channel)
+        for ev, _raw in batch:
+            eid = str(ev.get("global_event_id") or "")
+            ai_data = by_id.get(eid) or {}
+            existing_entities = list(ev.get("entities") or [])
+            if ai_data:
+                _apply_gemini_enrichment(
+                    ev, ai_data, channel=channel, existing_entities=existing_entities
                 )
-                raw_content = extract_web_content(url)
-                if raw_content and _has_usable_excerpt(raw_content):
-                    ai_data = enrich_event_with_gemini(**gemini_args, raw_content=raw_content)
-                    if _usable_title((ai_data or {}).get("title_vi")):
-                        ev["enrichment_url"] = url
-                        break
-                    ai_data = None
-                if j < len(attempt_urls) - 1:
-                    time.sleep(GEMINI_CALL_INTERVAL_SEC)
-            if i < len(events) and ai_data:
-                time.sleep(GEMINI_CALL_INTERVAL_SEC)
-        else:
-            scraped_title = TITLE_UNAVAILABLE
-            for url in attempt_urls:
-                raw_content = extract_web_content(url)
-                scraped_title = _title_from_scrape(raw_content)
-                if not _usable_title(scraped_title):
-                    scraped_title = fetch_title(url)
-                if _usable_title(scraped_title):
-                    break
-
-        if ai_data and _usable_title(ai_data.get("title_vi")):
-            ev["title_vi"] = ai_data.get("title_vi") or TITLE_UNAVAILABLE
-            ev["summary_vi"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
-            ev["importance_reason"] = ai_data.get("importance_reason") or ""
-            gem_sector = str(ai_data.get("sector") or "").strip()
-            allowed = valid_sectors_for(channel)
-            if gem_sector in allowed:
-                ev["sector"] = gem_sector
-                if channel == "invest":
-                    ev["primary_sector"] = gem_sector
-            ev["entities"] = _merge_entity_lists(ai_data.get("entities") or [], limit=6)
-        elif not use_gemini:
-            ev["title_vi"] = scraped_title
-            ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
-            ev["importance_reason"] = (
-                f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
-                f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
-            )
-            ev["entities"] = existing_entities
-        else:
-            scraped_title = TITLE_UNAVAILABLE
-            for url in attempt_urls:
-                raw_content = extract_web_content(url)
-                scraped_title = _title_from_scrape(raw_content)
-                if not _usable_title(scraped_title):
-                    scraped_title = fetch_title(url)
-                if _usable_title(scraped_title):
-                    break
-            ev["title_vi"] = scraped_title
-            ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
-            ev["importance_reason"] = (
-                f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
-                f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
-            )
-            ev["entities"] = existing_entities
-
-        ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
-        ev["summary"] = ev.get("summary_vi") or ""
+            if not _usable_title(ev.get("title_vi")):
+                _set_scrape_fallback_enrichment(ev, channel=channel, existing_entities=existing_entities)
 
     return events
 
@@ -1182,6 +1332,66 @@ Danh sách ngành hợp lệ:
     except Exception as exc:
         LOG.warning("Gemini invest curation failed: %s", exc)
         return []
+
+
+def _parse_invest_dedupe_curate(text: str) -> tuple[list[dict[str, Any]], list[str]]:
+    data = _parse_gemini_json(text)
+    clusters_raw = data.get("clusters") if isinstance(data, dict) else None
+    ids_raw = data.get("selected_ids") if isinstance(data, dict) else None
+    clusters: list[dict[str, Any]] = []
+    if isinstance(clusters_raw, list):
+        clusters = [c for c in clusters_raw if isinstance(c, dict)]
+    selected: list[str] = []
+    if isinstance(ids_raw, list):
+        selected = [str(x).strip() for x in ids_raw if str(x).strip()]
+    return clusters, selected
+
+
+def gemini_invest_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
+    """One API call: cluster duplicate stories + pick economically relevant IDs for the feed."""
+    if len(events) < 1 or not _configure_gemini():
+        return [], []
+
+    sectors_list = "\n".join(f"- {s}" for s in INVEST_VALID_SECTORS if s != "Khác")
+    lines = "\n".join(f"{i + 1}. {_invest_curation_brief(ev)}" for i, ev in enumerate(events))
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
+
+Danh sách dưới đây là tin nóng 24h (đã có title/summary tiếng Việt). Làm HAI việc trong một lần:
+
+1) GOM TRÙNG: các global_event_id mô tả CÙNG MỘT vụ/câu chuyện → một cluster (keep_id = id đại diện, ưu tiên nhiều bài hơn).
+   KHÔNG gom chỉ vì cùng ngành/quốc gia.
+
+2) CHỌN LÊN CHUYÊN MỤC: từ các cluster sau khi gom, chọn TẤT CẢ và CHỈ keep_id thật sự đủ tiêu chí
+   (tác động kinh tế/đầu tư HOẶC mô tả đúng bối cảnh vĩ mô). Không cần đủ số lượng — trung thực.
+   Tối đa {INVEST_FEED_MAX} id nếu quá nhiều tin đạt chuẩn. Bỏ scandal/tội phạm/giải trí dù viral.
+
+Không nhắc AI, GDELT, crawler, pipeline.
+
+Trả về JSON (không markdown):
+{{
+  "clusters": [
+    {{"keep_id": "GlobalEventID", "member_ids": ["id1", "id2"], "reason": "một câu tiếng Việt"}}
+  ],
+  "selected_ids": ["GlobalEventID", ...],
+  "notes": "một câu tiếng Việt"
+}}
+
+Danh sách ngành hợp lệ:
+{sectors_list}
+
+Sự kiện:
+{lines}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        return _parse_invest_dedupe_curate(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini invest dedupe+curate failed: %s", exc)
+        return [], []
 
 
 def gemini_curate_invest_feed(
@@ -1441,41 +1651,97 @@ def merge_event_cluster(
     return merged
 
 
+def _merge_clusters_from_gemini(
+    events: list[dict[str, Any]],
+    clusters_raw: list[dict[str, Any]],
+    *,
+    channel: str,
+) -> list[dict[str, Any]]:
+    by_id = {str(e.get("global_event_id") or ""): e for e in events if e.get("global_event_id")}
+    assigned: set[str] = set()
+    merged: list[dict[str, Any]] = []
+
+    for row in clusters_raw:
+        keep_id = str(row.get("keep_id") or "").strip()
+        member_ids = row.get("member_ids") or []
+        if not isinstance(member_ids, list):
+            member_ids = []
+        ids = [str(x).strip() for x in member_ids if str(x).strip()]
+        if keep_id and keep_id not in ids:
+            ids.insert(0, keep_id)
+        if not ids and keep_id:
+            ids = [keep_id]
+        ids = [i for i in ids if i in by_id and i not in assigned]
+        if not ids:
+            continue
+        for i in ids:
+            assigned.add(i)
+        group = [by_id[i] for i in ids]
+        if len(group) > 1:
+            LOG.info(
+                "Dedupe merge %s events -> keep %s (%s)",
+                len(group),
+                _pick_representative_event(group, channel=channel).get("global_event_id"),
+                ids,
+            )
+        card = merge_event_cluster(group, channel=channel)
+        if card:
+            merged.append(card)
+
+    for eid, ev in by_id.items():
+        if eid not in assigned:
+            merged.append(ev)
+
+    merged.sort(key=lambda e: (int(e.get("num_articles") or 0),), reverse=True)
+    return merged
+
+
 def dedupe_events_with_gemini(
     events: list[dict[str, Any]], *, use_gemini: bool = True, channel: str = "world"
 ) -> list[dict[str, Any]]:
-    """Collapse duplicate GDELT stories via one Gemini clustering pass."""
-    if len(events) < 2 or not use_gemini:
+    """Collapse duplicate GDELT stories; invest also curates feed in one batched Gemini call."""
+    if not use_gemini:
+        return events
+
+    if channel == "invest":
+        if len(events) < 1:
+            return events
+        LOG.info("Gemini invest dedupe+curate (1 API call) for %s events", len(events))
+        clusters_raw, selected_ids = gemini_invest_dedupe_and_curate(events)
+        if not clusters_raw:
+            clusters_raw = [{"keep_id": str(e.get("global_event_id") or ""), "member_ids": [str(e.get("global_event_id") or "")]} for e in events if e.get("global_event_id")]
+        merged = _merge_clusters_from_gemini(events, clusters_raw, channel=channel)
+        LOG.info("After invest dedupe: %s cards (from %s)", len(merged), len(events))
+        if not selected_ids:
+            LOG.warning("Invest dedupe+curate returned no selected_ids; keeping all deduped cards")
+            return merged
+        by_id = {str(e.get("global_event_id") or ""): e for e in merged if e.get("global_event_id")}
+        picked: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        for eid in selected_ids:
+            if eid in by_id and eid not in seen:
+                picked.append(by_id[eid])
+                seen.add(eid)
+            if len(picked) >= INVEST_FEED_MAX:
+                break
+        LOG.info("Invest feed: %s stories selected (max %s)", len(picked), INVEST_FEED_MAX)
+        return picked
+
+    if len(events) < 2:
         return events
 
     LOG.info("Gemini dedupe clustering for %s events", len(events))
     by_id = {str(e.get("global_event_id") or ""): e for e in events if e.get("global_event_id")}
     clusters = gemini_cluster_duplicate_events(events)
     time.sleep(GEMINI_CALL_INTERVAL_SEC)
-
-    merged: list[dict[str, Any]] = []
-    for member_ids in clusters:
-        group = [by_id[i] for i in member_ids if i in by_id]
-        if not group:
-            continue
-        if len(group) > 1:
-            LOG.info(
-                "Dedupe merge %s events -> keep %s (%s)",
-                len(group),
-                _pick_representative_event(group, channel=channel).get("global_event_id"),
-                member_ids,
-            )
-        card = merge_event_cluster(group, channel=channel)
-        if card:
-            merged.append(card)
-
-    merged.sort(key=lambda e: (int(e.get("num_articles") or 0),), reverse=True)
+    clusters_raw = [
+        {"keep_id": ids[0], "member_ids": ids}
+        for ids in clusters
+        if ids
+    ]
+    merged = _merge_clusters_from_gemini(events, clusters_raw, channel=channel)
     LOG.info("After Gemini dedupe: %s events (from %s)", len(merged), len(events))
-    if channel == "invest":
-        merged = gemini_curate_invest_feed(merged, use_gemini=use_gemini)
-    elif channel == "world":
-        merged = merged[:TARGET_HOT_EVENTS]
-    return merged
+    return merged[:TARGET_HOT_EVENTS]
 
 
 # ---------------------------------------------------------------------------
@@ -1667,11 +1933,15 @@ def main(argv: list[str] | None = None) -> int:
     LOG.info("Events after EventMentions-only sources: %s", len(events))
     if events:
         use_gemini = not args.no_gemini
+        batch_calls = max(1, (len(events) + GEMINI_BATCH_ENRICH_SIZE - 1) // GEMINI_BATCH_ENRICH_SIZE) if use_gemini else 0
+        extra = 2 if channel == "invest" and use_gemini else (2 if use_gemini else 0)
         LOG.info(
-            "Gemini enrichment for %s events (gemini=%s, timeout=%ss)",
+            "Pipeline %s: %s events, gemini=%s (~%s batch-enrich + %s post calls)",
+            channel,
             len(events),
             use_gemini,
-            FETCH_TITLE_TIMEOUT,
+            batch_calls if use_gemini else 0,
+            extra if use_gemini else 0,
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini, channel=channel)
         events = filter_event_sources_with_gemini(events, use_gemini=use_gemini)
