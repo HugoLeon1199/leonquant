@@ -1247,7 +1247,7 @@
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links" id="navLinks" data-nav-tabs="1">
-          <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin Việt Nam 48h</a>
+          <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a>
           <a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Chuyên mục kinh tế đầu tư</a>
           <a class="nav-hub" href="/?view=live" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>
         </div>
@@ -1738,7 +1738,7 @@
 
       const reportTitle =
         String(data.digestReportTitle || "").trim() ||
-        "Tin Việt Nam 48h";
+        "Tin 48h";
 
       let thesisHtml = `<article id="digest-report" class="digest-report">`;
       thesisHtml += `<header class="digest-report-head">`;
@@ -1873,7 +1873,7 @@
         v === "invest" ? "nav-hub nav-hub--invest nav-hub--active" : "nav-hub nav-hub--invest";
       const pClass = v === "pulse" ? "nav-hub nav-hub--active" : "nav-hub";
       nav.innerHTML = `
-        <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest">Tin Việt Nam 48h</a>
+        <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest">Tin 48h</a>
         <a class="${iClass}" href="${escapeHtml(investNavHref())}" data-view="invest">Chuyên mục kinh tế đầu tư</a>
         <a class="${pClass}" href="${escapeHtml(liveNavHref())}" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>`;
     }
@@ -1916,11 +1916,7 @@
         return;
       }
       if (v === "invest") {
-        if (cachedDigestPayload && !options.forceReload) {
-          renderInvestPage(cachedDigestPayload);
-          return;
-        }
-        await loadInvestContent();
+        renderInvestPage();
         return;
       }
       if (cachedDigestPayload && !options.forceReload) {
@@ -2173,163 +2169,18 @@
       renderPulsePage(data);
     }
 
-    const FINANCE_SECTOR_RE =
-      /kinh tế|tài chính|chứng khoán|ngân hàng|đầu tư|bất động|crypto|bitcoin|fed\b|lãi suất|thị trường|vn-index|hose|hnx|upcom|etf|trái phiếu|vàng|dầu|năng lượng|mlps?|ipo|merger|earnings|stock|market|finance|invest/i;
-
-    function isFinanceSectorLabel(label) {
-      return FINANCE_SECTOR_RE.test(String(label || ""));
-    }
-
-    function getFinanceDigestSector(data) {
-      const sectors = ensureDigestSectors(data);
-      return sectors.find((s) => String(s.code || "").toLowerCase() === "finance") || null;
-    }
-
-    function filterFinanceArticleRows(rows) {
-      return (Array.isArray(rows) ? rows : []).filter((a) => {
-        if (!a || typeof a !== "object") return false;
-        const group = String(a.group || a.sector || "").trim();
-        if (group && isFinanceSectorLabel(group)) return true;
-        const title = String(a.title || "").trim();
-        const url = String(a.url || "").trim();
-        return isFinanceSectorLabel(`${title} ${url}`);
-      });
-    }
-
-    function filterFinancePulseEvents(events) {
-      return (Array.isArray(events) ? events : []).filter((ev) => {
-        const sector = String(ev?.sector || "").trim();
-        const title = String(ev?.title || ev?.title_vi || "").trim();
-        const summary = String(ev?.summary || ev?.summary_vi || "").trim();
-        return (
-          isFinanceSectorLabel(sector) ||
-          isFinanceSectorLabel(`${title} ${summary}`)
-        );
-      });
-    }
-
-    function buildInvestLiveStripHtml(pulseData) {
-      const events = filterFinancePulseEvents(normalizePulseEvents(pulseData || {}));
-      if (!events.length) return "";
-      let h = `<div class="invest-live-strip">`;
-      h += `<h3>Tín hiệu LIVE · kinh tế &amp; đầu tư</h3>`;
-      h += `<ol class="pulse-event-list">`;
-      events.slice(0, 6).forEach((ev) => {
-        h += `<li class="pulse-event">`;
-        if (ev.sector) {
-          h += `<p class="pulse-event-sector">${escapeHtml(ev.sector)}</p>`;
-        }
-        h += `<h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
-        if (ev.summary) {
-          h += `<p class="pulse-event-hint">${escapeHtml(ev.summary)}</p>`;
-        }
-        h += buildPulseSourcesTicker(ev.sources);
-        h += `</li>`;
-      });
-      h += `</ol></div>`;
-      return h;
-    }
-
-    function buildInvestHtml(data, pulseData) {
-      const finance = getFinanceDigestSector(data);
-      const generated = data?.generatedAt ? formatDateVi(data.generatedAt) : "";
-      const notable = (Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [])
-        .filter((a) => a && isFinanceSectorLabel(a.sector || a.group || ""))
-        .slice(0, 9);
-      const financeArticles = filterFinanceArticleRows(data.articleLinkIndex).slice(0, 120);
-      const imageByUrl = buildArticleImageLookup(data);
-
-      let h = `<article id="invest-report" class="digest-report">`;
-      h += `<header class="digest-report-head">`;
-      h += `<h2>Chuyên mục kinh tế đầu tư</h2>`;
-      if (generated) {
-        h += `<p class="sync-note">Tổng hợp từ brief 48h · cập nhật lúc ${escapeHtml(generated)}</p>`;
-      }
-      h += `<p class="invest-channel-lead">Tập trung thị trường tài chính, chính sách tiền tệ, chứng khoán, bất động sản và các chủ đề đầu tư trong cửa sổ tin gần nhất.</p>`;
-      h += `</header>`;
-
-      h += buildInvestLiveStripHtml(pulseData);
-
-      h += `<div class="digest-main-panel">`;
-      if (finance) {
-        h += buildSectorBlockHtml(finance, 0);
-      } else {
-        h += `<p class="hint">Chưa có nhóm Kinh tế &amp; Tài chính trong bản digest hiện tại.</p>`;
-      }
-
-      if (notable.length) {
-        h += `<section class="overview-part" style="margin-top:1.25rem">`;
-        h += `<h3 class="sectors-section-title">Tin nổi bật</h3>`;
-        h += buildNotableCardsHtml(notable, imageByUrl);
-        h += `</section>`;
-      }
-
-      if (financeArticles.length) {
-        h += `<details class="article-archive-wrap digest-notable-all" open>`;
-        h += `<summary>Bấm vào xem chi tiết · ${financeArticles.length} bài kinh tế &amp; đầu tư</summary>`;
-        h += `<div class="article-archive-scroll">`;
-        h += buildLinkRowsHtml(
-          financeArticles.map((a) => ({
-            url: a.url,
-            title: a.title,
-            host: a.host || getHostName(a.url),
-            source: a.source,
-            label: a.label,
-          })),
-        );
-        h += `</div></details>`;
-      }
-      h += `</div></article>`;
-      return h;
-    }
-
-    function renderInvestPage(data) {
+    function renderInvestPage() {
       applyViewMode("invest");
       const sync = document.getElementById("syncNote");
       if (sync) sync.textContent = "";
       const el = document.getElementById("sectionInvest");
       if (!el) return;
-      const pulse = cachedPulsePayload || null;
-      if (!data || !isPayloadUsable(data)) {
-        el.innerHTML =
-          '<div class="error-card">Chưa có dữ liệu kinh tế đầu tư. Thử tải lại trang hoặc chờ pipeline digest cập nhật.</div>';
-        return;
-      }
-      el.innerHTML = buildInvestHtml(data, pulse);
-    }
-
-    async function loadInvestContent() {
-      const sync = document.getElementById("syncNote");
-      if (sync) sync.textContent = "Đang tải chuyên mục kinh tế đầu tư…";
-      try {
-        if (!cachedPulsePayload) {
-          cachedPulsePayload = (await fetchPulseFeed()) || { events: [] };
-        }
-        const config = await loadFeedConfig();
-        const preferLocal = Boolean(config.preferLocal);
-        let data;
-        if (preferLocal) data = await fetchLocalFeed();
-        else if (config.remoteFeedUrl) {
-          try {
-            const r = await fetch(config.remoteFeedUrl, { cache: "no-store" });
-            if (!r.ok) throw new Error("bad remote");
-            data = await readJsonResponse(r);
-          } catch {
-            data = await fetchLocalFeed();
-          }
-        } else data = await fetchLocalFeed();
-        if (!data) {
-          if (sync) sync.textContent = "Không tải được content.json.";
-          renderInvestPage(null);
-          return;
-        }
-        cachedDigestPayload = normalizeContentPayload(data);
-        if (sync) sync.textContent = "";
-        renderInvestPage(cachedDigestPayload);
-      } catch (err) {
-        console.error(err);
-        if (sync) sync.textContent = "Lỗi khi tải chuyên mục.";
-      }
+      el.innerHTML = `<article id="invest-report" class="digest-report">
+        <header class="digest-report-head">
+          <h2>Chuyên mục kinh tế đầu tư</h2>
+          <p class="invest-channel-lead">Nội dung đang được chuẩn bị.</p>
+        </header>
+      </article>`;
     }
 
     function buildBriefParts(data) {
