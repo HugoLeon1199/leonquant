@@ -2154,7 +2154,7 @@
     function buildPulseHtml(data) {
       const events = normalizePulseEvents(data);
       if (!events.length) {
-        return `<div class="pulse-panel"><p class="hint">Chưa có tin LIVE. Hệ thống cập nhật mỗi giờ.</p></div>`;
+        return `<div class="pulse-panel"><p class="hint">Chưa có tin LIVE. Hệ thống cập nhật mỗi 6 giờ.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
       h += `<h2>Tin nóng nhất thế giới hiện tại <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
@@ -2331,7 +2331,7 @@
       h += `<p class="invest-channel-lead">Cụm sự kiện quan trọng theo ngành kinh tế, tài chính và đầu tư — trung lập, không phải khuyến nghị giao dịch.</p>`;
       h += `</header><div class="pulse-panel">`;
       if (!events.length) {
-        h += `<p class="hint">Chưa có sự kiện trong 24 giờ qua. Hệ thống cập nhật mỗi giờ.</p>`;
+        h += `<p class="hint">Chưa có sự kiện trong 24 giờ qua. Hệ thống cập nhật mỗi 6 giờ.</p>`;
       } else {
         h += `<ol class="pulse-event-list">`;
         events.forEach((ev) => {

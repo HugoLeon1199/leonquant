@@ -1,22 +1,22 @@
-name: LIVE pulse hourly
+name: LIVE pulse 6h
 
 on:
   schedule:
-    # Mỗi giờ đúng phút :00 UTC (= :07 giờ VN, UTC+7). GitHub có thể trễ 5–15 phút.
-    - cron: "0 * * * *"
+    # Mỗi 6 giờ đúng phút :00 UTC (00:00, 06:00, 12:00, 18:00 UTC ≈ 07:00, 13:00, 19:00, 01:00 VN).
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: live-pulse-hourly
+  group: live-pulse-6h
   cancel-in-progress: false
 
 jobs:
   pulse:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - uses: actions/checkout@v4

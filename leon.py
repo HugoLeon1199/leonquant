@@ -51,6 +51,7 @@ GEMINI_MIN_EXCERPT_CHARS = 60
 # Invest: SQL = hot coverage + sector only; Gemini = accurate summary + economic curation.
 INVEST_MAX_ENRICH_EVENTS = 80
 INVEST_CURATION_POOL = 75
+INVEST_FEED_MAX = 20  # trần cứng; không ép đủ số tin — chỉ giữ tin đủ tiêu chí kinh tế
 INVEST_VALID_SECTORS = (
     "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
     "Tài chính - Ngân hàng & Tín dụng",
@@ -1127,17 +1128,11 @@ def _parse_gemini_curation_ids(text: str) -> list[str]:
 def _gemini_curate_invest_ids(
     pool: list[dict[str, Any]],
     *,
-    target: int,
-    exclude_ids: set[str] | None = None,
-    pass_label: str = "",
+    max_events: int = INVEST_FEED_MAX,
 ) -> list[str]:
-    """Ask Gemini which GlobalEventIDs belong on the invest feed."""
-    exclude_ids = exclude_ids or set()
+    """Ask Gemini which GlobalEventIDs belong on the invest feed (quality over count)."""
     candidates = [
-        ev
-        for ev in pool
-        if _usable_title(ev.get("title_vi") or ev.get("title"))
-        and str(ev.get("global_event_id") or "") not in exclude_ids
+        ev for ev in pool if _usable_title(ev.get("title_vi") or ev.get("title"))
     ]
     if not candidates or not _configure_gemini():
         return []
@@ -1152,7 +1147,9 @@ Bạn là biên tập chuyên mục kinh tế đầu tư vĩ mô của LeonQuant
 Bối cảnh: danh sách dưới đây là tin ĐANG NÓNG (nhiều báo nhắc trong 24h). SQL/GKG chỉ gán ngành gợi ý.
 Title và summary đã được biên tập từ bài gốc — hãy đọc nội dung đó, không đoán từ độ nóng.
 
-Nhiệm vụ{pass_label}: chọn tối đa {target} GlobalEventID đưa lên chuyên mục.
+Nhiệm vụ: chọn TẤT CẢ và CHỈ những GlobalEventID thật sự đủ tiêu chí đưa lên chuyên mục.
+Không cần đủ số lượng cố định — có thể 3 tin, có thể 12; trung thực quan trọng hơn đủ 20.
+Nếu quá nhiều tin đạt chuẩn, giữ tối đa {max_events} tin có tác động kinh tế/đầu tư rõ nhất.
 
 GIỮ tin nếu ít nhất một điều đúng:
 (a) Có tác động kinh tế/đầu tư/thị trường rõ (vĩ mô, chính sách, lãi suất, lạm phát, ngân hàng, CK, crypto,
@@ -1183,28 +1180,27 @@ Danh sách ngành hợp lệ:
         response = model.generate_content(prompt)
         return _parse_gemini_curation_ids(response.text or "")
     except Exception as exc:
-        LOG.warning("Gemini invest curation failed%s: %s", pass_label, exc)
+        LOG.warning("Gemini invest curation failed: %s", exc)
         return []
 
 
 def gemini_curate_invest_feed(
-    events: list[dict[str, Any]], *, target: int = TARGET_HOT_EVENTS, use_gemini: bool = True
+    events: list[dict[str, Any]], *, use_gemini: bool = True, max_events: int = INVEST_FEED_MAX
 ) -> list[dict[str, Any]]:
-    """Gemini selects economically relevant stories from a large hot pool (SQL only assigns sector)."""
+    """Gemini keeps only economically relevant stories; count may be below max_events."""
     if not events:
         return []
 
     ranked = sorted(events, key=lambda e: (int(e.get("num_articles") or 0),), reverse=True)
     if not use_gemini or not _configure_gemini():
-        return ranked[:target]
+        return ranked[:max_events]
 
     pool = ranked[:INVEST_CURATION_POOL]
     by_id = {str(e.get("global_event_id") or ""): e for e in pool if e.get("global_event_id")}
     if not by_id:
-        return ranked[:target]
+        return ranked[:max_events]
 
-    selected_ids = _gemini_curate_invest_ids(pool, target=target, pass_label=" (lượt 1)")
-    time.sleep(GEMINI_CALL_INTERVAL_SEC)
+    selected_ids = _gemini_curate_invest_ids(pool, max_events=max_events)
 
     picked: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -1212,27 +1208,11 @@ def gemini_curate_invest_feed(
         if eid in by_id and eid not in seen:
             picked.append(by_id[eid])
             seen.add(eid)
-        if len(picked) >= target:
+        if len(picked) >= max_events:
             break
 
-    if len(picked) < target and len(seen) < len(by_id):
-        need = target - len(picked)
-        LOG.info("Invest curation lượt 1: %s ids — lượt 2 chọn thêm %s", len(picked), need)
-        more_ids = _gemini_curate_invest_ids(
-            pool,
-            target=need,
-            exclude_ids=seen,
-            pass_label=" (lượt 2 — bổ sung)",
-        )
-        for eid in more_ids:
-            if eid in by_id and eid not in seen:
-                picked.append(by_id[eid])
-                seen.add(eid)
-            if len(picked) >= target:
-                break
-
-    LOG.info("Gemini invest curation: kept %s / %s hot candidates", len(picked), len(pool))
-    return picked[:target]
+    LOG.info("Gemini invest curation: kept %s / %s hot candidates (max %s)", len(picked), len(pool), max_events)
+    return picked
 
 
 def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[dict[str, Any]]:
@@ -1466,7 +1446,7 @@ def dedupe_events_with_gemini(
 ) -> list[dict[str, Any]]:
     """Collapse duplicate GDELT stories via one Gemini clustering pass."""
     if len(events) < 2 or not use_gemini:
-        return events[:TARGET_HOT_EVENTS] if channel == "invest" else events
+        return events
 
     LOG.info("Gemini dedupe clustering for %s events", len(events))
     by_id = {str(e.get("global_event_id") or ""): e for e in events if e.get("global_event_id")}
@@ -1492,8 +1472,10 @@ def dedupe_events_with_gemini(
     merged.sort(key=lambda e: (int(e.get("num_articles") or 0),), reverse=True)
     LOG.info("After Gemini dedupe: %s events (from %s)", len(merged), len(events))
     if channel == "invest":
-        merged = gemini_curate_invest_feed(merged, target=TARGET_HOT_EVENTS, use_gemini=use_gemini)
-    return merged[:TARGET_HOT_EVENTS]
+        merged = gemini_curate_invest_feed(merged, use_gemini=use_gemini)
+    elif channel == "world":
+        merged = merged[:TARGET_HOT_EVENTS]
+    return merged
 
 
 # ---------------------------------------------------------------------------
