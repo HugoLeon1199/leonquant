@@ -34,15 +34,35 @@ from urllib.parse import urlparse
 
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_OUTPUT = PROJECT_DIR / "market_pulse.json"
+DEFAULT_INVEST_OUTPUT = PROJECT_DIR / "invest_pulse.json"
+INVEST_SQL_PATH = PROJECT_DIR / "sql" / "gdelt_invest_pulse.sql"
 DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
 TOP_EVENTS_POOL = 300
+INVEST_TOP_EVENTS_POOL = 500
 BQ_OUTPUT_LIMIT = 50
+INVEST_BQ_OUTPUT_LIMIT = 100
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
 PULSE_SCHEMA_VERSION = "event-centric-v7"
+INVEST_PULSE_SCHEMA_VERSION = "invest-event-v1"
 GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
+INVEST_VALID_SECTORS = (
+    "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+    "Tài chính - Ngân hàng & Tín dụng",
+    "Chứng khoán - Thị trường Vốn",
+    "Crypto - Tiền mã hóa & Tài sản số",
+    "Hàng hóa - Năng lượng & Khoáng sản",
+    "Thương mại - Chuỗi cung ứng Toàn cầu",
+    "Bất động sản - Hạ tầng",
+    "Công nghệ - AI & Bán dẫn",
+    "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+    "Pháp lý - Quy định & Trừng phạt",
+    "Khủng hoảng - Xung đột & An ninh",
+    "Chính trị - Ngoại giao",
+    "Khác",
+)
 VALID_SECTORS = (
     "An ninh - Xung đột - Tội phạm",
     "Xã hội - Bất ổn - Biểu tình",
@@ -229,9 +249,21 @@ LIMIT {BQ_OUTPUT_LIMIT}
 # ---------------------------------------------------------------------------
 
 
-def build_query() -> str:
-    """Return the optimized GDELT macro SQL (pushdown only — do not alter filters)."""
+def load_invest_query() -> str:
+    if not INVEST_SQL_PATH.is_file():
+        raise FileNotFoundError(f"Missing invest SQL: {INVEST_SQL_PATH}")
+    return INVEST_SQL_PATH.read_text(encoding="utf-8").strip()
+
+
+def build_query(*, channel: str = "world") -> str:
+    """Return GDELT SQL for world LIVE or investment channel."""
+    if channel == "invest":
+        return load_invest_query()
     return GDELT_MACRO_QUERY
+
+
+def valid_sectors_for(channel: str) -> tuple[str, ...]:
+    return INVEST_VALID_SECTORS if channel == "invest" else VALID_SECTORS
 
 
 def get_bigquery_client() -> bigquery.Client:
@@ -255,12 +287,13 @@ def get_bigquery_client() -> bigquery.Client:
 def run_bigquery(
     client: bigquery.Client,
     *,
+    channel: str = "world",
     job_timeout_ms: int = DEFAULT_JOB_TIMEOUT_MS,
     maximum_bytes_billed: int = DEFAULT_MAX_BYTES_BILLED,
     dry_run: bool = False,
 ) -> tuple[pd.DataFrame | None, dict[str, Any]]:
     """Execute macro query; returns small dataframe (~150 rows) or None on dry-run."""
-    sql = build_query()
+    sql = build_query(channel=channel)
     job_config = bigquery.QueryJobConfig(
         job_timeout_ms=job_timeout_ms,
         maximum_bytes_billed=maximum_bytes_billed,
@@ -311,6 +344,15 @@ def parse_entity_list(raw: Any, *, limit: int = 3) -> list[str]:
             out.append(p[:120])
         if len(out) >= limit:
             break
+    return out
+
+
+def _parse_bq_array_field(val: Any) -> list[str]:
+    out: list[str] = []
+    for item in _iter_raw_sequence(val):
+        text = str(item or "").strip()
+        if text:
+            out.append(text)
     return out
 
 
@@ -467,7 +509,28 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
     out["Doi_Tuong_Chinh"] = out["Doi_Tuong_Chinh"].fillna("").astype(str).str.strip()
     out["Actor2Name"] = out.get("Actor2Name", pd.Series([""] * len(out))).fillna("").astype(str).str.strip()
-    out["Nhom_Nganh"] = out["Nhom_Nganh"].fillna("Khác").astype(str).str.strip()
+    if "primary_sector" in out.columns:
+        ps = out["primary_sector"].fillna("").astype(str).str.strip()
+        if "Nhom_Nganh" in out.columns:
+            nh = out["Nhom_Nganh"].fillna("").astype(str).str.strip()
+            out["Nhom_Nganh"] = nh.where(nh != "", ps).replace("", "Khác")
+        else:
+            out["Nhom_Nganh"] = ps.replace("", "Khác")
+    else:
+        out["Nhom_Nganh"] = out["Nhom_Nganh"].fillna("Khác").astype(str).str.strip()
+    for col in ("secondary_sector", "macro_signal", "investment_relevance"):
+        if col not in out.columns:
+            out[col] = ""
+        else:
+            out[col] = out[col].fillna("").astype(str).str.strip()
+    if "risk_flags" not in out.columns:
+        out["risk_flags"] = [[] for _ in range(len(out))]
+    else:
+        out["risk_flags"] = out["risk_flags"].map(_parse_bq_array_field)
+    if "affected_assets" not in out.columns:
+        out["affected_assets"] = [[] for _ in range(len(out))]
+    else:
+        out["affected_assets"] = out["affected_assets"].map(_parse_bq_array_field)
     for col in ("V2Themes", "V2Persons", "V2Locations"):
         if col not in out.columns:
             out[col] = ""
@@ -657,16 +720,45 @@ def enrich_event_with_gemini(
     num_articles: int,
     source_count: int,
     raw_content: str,
+    channel: str = "world",
 ) -> dict[str, Any] | None:
     """Vietnamese copy from scraped excerpt only — no GDELT metadata in the prompt."""
     if not _configure_gemini() or not _has_usable_excerpt(raw_content):
         return None
 
     excerpt = str(raw_content).strip()
-    sectors_list = "\n".join(f"{i + 1}. {s}" for i, s in enumerate(VALID_SECTORS) if s != "Khác")
+    sectors = valid_sectors_for(channel)
+    sectors_list = "\n".join(f"{i + 1}. {s}" for i, s in enumerate(sectors) if s != "Khác")
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
-    prompt = f"""
+    if channel == "invest":
+        prompt = f"""
+Bạn là biên tập chuyên mục kinh tế đầu tư của LeonQuant.
+
+CHỈ dùng thông tin trong "Đoạn bài tham khảo". Không dùng kiến thức ngoài.
+Không nhắc AI, GDELT, crawler, pipeline, thuật toán.
+Không khuyến nghị mua/bán/múc. Không bịa ticker.
+
+Ngành chính (SQL): {sector}
+Độ phủ: ~{num_articles} bài, {source_count} nguồn — chỉ dùng cho importance_reason.
+
+Trả về JSON (không markdown):
+{{
+  "title_vi": "Tiêu đề tối đa 18 từ, rõ sự kiện",
+  "summary_vi": "1-2 câu: chuyện gì, ai liên quan, vì sao đáng chú ý",
+  "importance_reason": "Một câu bổ sung về ý nghĩa thị trường (có thể nhắc độ phủ)",
+  "entities": ["3-6 thực thể trong đoạn bài"],
+  "sector": "một trong danh sách ngành hợp lệ"
+}}
+
+Danh sách ngành:
+{sectors_list}
+
+Đoạn bài tham khảo:
+{excerpt}
+""".strip()
+    else:
+        prompt = f"""
 Bạn là biên tập viên phân tích quốc tế của LeonQuant.
 
 CHỈ được dùng thông tin trong khối "Đoạn bài tham khảo" bên dưới.
@@ -734,22 +826,25 @@ def _title_from_scrape(raw_content: str | None) -> str:
     return TITLE_UNAVAILABLE
 
 
-def _gemini_kwargs(ev: dict[str, Any], urls: list[str]) -> dict[str, Any]:
+def _gemini_kwargs(ev: dict[str, Any], urls: list[str], *, channel: str = "world") -> dict[str, Any]:
     return {
-        "sector": str(ev.get("sector") or "Khác"),
+        "sector": str(ev.get("primary_sector") or ev.get("sector") or "Khác"),
         "num_articles": int(ev.get("num_articles") or 0),
         "source_count": int(ev.get("source_count") or len(urls)),
+        "channel": channel,
     }
 
 
-def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = True) -> list[dict[str, Any]]:
+def enrich_events_for_web(
+    events: list[dict[str, Any]], *, use_gemini: bool = True, channel: str = "world"
+) -> list[dict[str, Any]]:
     """Try up to GEMINI_MAX_URL_ATTEMPTS URLs; Gemini only when scrape returns article excerpt."""
     for i, ev in enumerate(events, start=1):
         urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
-        sector = str(ev.get("sector") or "Khác")
+        sector = str(ev.get("primary_sector") or ev.get("sector") or "Khác")
         existing_entities = list(ev.get("entities") or [])
         attempt_urls = urls[:GEMINI_MAX_URL_ATTEMPTS]
-        gemini_args = _gemini_kwargs(ev, urls)
+        gemini_args = _gemini_kwargs(ev, urls, channel=channel)
 
         if not attempt_urls:
             ev["title_vi"] = TITLE_UNAVAILABLE
@@ -797,8 +892,11 @@ def enrich_events_for_web(events: list[dict[str, Any]], *, use_gemini: bool = Tr
             ev["summary_vi"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
             ev["importance_reason"] = ai_data.get("importance_reason") or ""
             gem_sector = str(ai_data.get("sector") or "").strip()
-            if gem_sector in VALID_SECTORS:
+            allowed = valid_sectors_for(channel)
+            if gem_sector in allowed:
                 ev["sector"] = gem_sector
+                if channel == "invest":
+                    ev["primary_sector"] = gem_sector
             ev["entities"] = _merge_entity_lists(ai_data.get("entities") or [], limit=6)
         elif not use_gemini:
             ev["title_vi"] = scraped_title
@@ -984,7 +1082,7 @@ def impact_score(rank: int, tone: float, *, max_rank: int = 150) -> int:
 # ---------------------------------------------------------------------------
 
 
-def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
+def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[dict[str, Any]]:
     """One card per GlobalEventID; sources from SourceURLs (EventMentions) only."""
     if df.empty:
         return []
@@ -1025,30 +1123,44 @@ def build_events_from_bq(df: pd.DataFrame) -> list[dict[str, Any]]:
             bq_source_count if bq_source_count > 0 else max(len(sources), 1)
         )
 
-        events.append(
-            {
-                "global_event_id": event_id,
-                "sector": sector,
-                "title": "",
-                "summary": "",
-                "title_vi": "",
-                "summary_vi": "",
-                "importance_reason": "",
-                "num_articles": max(num_articles, 1),
-                "source_count": source_count,
-                "sentiment_tone": round(tone, 2),
-                "sentiment_label": sentiment_label_vi(tone),
-                "entities": entities,
-                "sources": sources[:MAX_MENTIONS_PER_EVENT],
-                "impact_score": impact_score(rank, tone, max_rank=max(BQ_OUTPUT_LIMIT, 1)),
-                "primary_actor": actor,
-                "secondary_actor": actor2,
-                "article_mentions": max(num_articles, 1),
-                "gkg_organizations": str(row.get("Cac_To_Chuc_Lien_Quan") or ""),
-                "gkg_persons": str(row.get("V2Persons") or ""),
-                "gkg_locations": str(row.get("V2Locations") or ""),
-            }
-        )
+        card: dict[str, Any] = {
+            "global_event_id": event_id,
+            "sector": sector,
+            "primary_sector": str(row.get("primary_sector") or sector).strip() or sector,
+            "title": "",
+            "summary": "",
+            "title_vi": "",
+            "summary_vi": "",
+            "importance_reason": "",
+            "num_articles": max(num_articles, 1),
+            "source_count": source_count,
+            "sentiment_tone": round(tone, 2),
+            "sentiment_label": sentiment_label_vi(tone),
+            "entities": entities,
+            "sources": sources[:MAX_MENTIONS_PER_EVENT],
+            "impact_score": impact_score(
+                rank,
+                tone,
+                max_rank=max(
+                    INVEST_BQ_OUTPUT_LIMIT if channel == "invest" else BQ_OUTPUT_LIMIT,
+                    1,
+                ),
+            ),
+            "primary_actor": actor,
+            "secondary_actor": actor2,
+            "article_mentions": max(num_articles, 1),
+            "gkg_organizations": str(row.get("Cac_To_Chuc_Lien_Quan") or ""),
+            "gkg_persons": str(row.get("V2Persons") or ""),
+            "gkg_locations": str(row.get("V2Locations") or ""),
+        }
+        if channel == "invest":
+            sec = str(row.get("secondary_sector") or "").strip()
+            card["secondary_sector"] = sec if sec else None
+            card["macro_signal"] = str(row.get("macro_signal") or "neutral").strip() or "neutral"
+            card["risk_flags"] = list(row.get("risk_flags") or [])
+            card["affected_assets"] = list(row.get("affected_assets") or [])
+            card["investment_relevance"] = str(row.get("investment_relevance") or "").strip() or "medium"
+        events.append(card)
 
     events.sort(key=lambda e: (e.get("num_articles") or 0), reverse=True)
     LOG.info("GDELT hot events (GlobalEventID): %s", len(events))
@@ -1224,11 +1336,41 @@ def dedupe_events_with_gemini(events: list[dict[str, Any]], *, use_gemini: bool 
 # ---------------------------------------------------------------------------
 
 
-def _public_event(ev: dict[str, Any]) -> dict[str, Any]:
+def _sources_for_export(raw: Any) -> list[dict[str, str]]:
+    out: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for item in raw or []:
+        if isinstance(item, dict):
+            url = _normalize_mention_url(str(item.get("url") or "").strip())
+            if not url.startswith("http"):
+                continue
+            key = _mention_url_dedupe_key(url)
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(
+                {
+                    "url": url,
+                    "name": str(item.get("name") or "").strip() or _source_label_from_url(url),
+                }
+            )
+            continue
+        url = _normalize_mention_url(str(item or "").strip())
+        if not url.startswith("http"):
+            continue
+        key = _mention_url_dedupe_key(url)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({"url": url, "name": _source_label_from_url(url)})
+    return out
+
+
+def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, Any]:
     """Slim card for web export (no GDELT debug fields or duplicate feed arrays)."""
-    return {
+    base = {
         "global_event_id": str(ev.get("global_event_id") or ""),
-        "sector": str(ev.get("sector") or "Khác"),
+        "sector": str(ev.get("primary_sector") or ev.get("sector") or "Khác"),
         "title": str(ev.get("title_vi") or ev.get("title") or "").strip(),
         "summary": str(ev.get("summary_vi") or ev.get("summary") or "").strip(),
         "importance_reason": str(ev.get("importance_reason") or "").strip(),
@@ -1237,14 +1379,30 @@ def _public_event(ev: dict[str, Any]) -> dict[str, Any]:
         "sentiment_tone": ev.get("sentiment_tone"),
         "sentiment_label": str(ev.get("sentiment_label") or ""),
         "entities": list(ev.get("entities") or []),
-        "sources": list(ev.get("sources") or []),
+        "sources": _sources_for_export(ev.get("sources") or []),
     }
+    if channel != "invest":
+        base["sources"] = [s["url"] for s in base["sources"]]
+        return base
+    base.update(
+        {
+            "primary_sector": str(ev.get("primary_sector") or ev.get("sector") or "Khác"),
+            "secondary_sector": str(ev.get("secondary_sector") or "").strip() or None,
+            "macro_signal": str(ev.get("macro_signal") or "neutral"),
+            "risk_flags": list(ev.get("risk_flags") or []),
+            "affected_assets": list(ev.get("affected_assets") or []),
+            "investment_relevance": str(ev.get("investment_relevance") or ""),
+        }
+    )
+    return base
 
 
-def build_payload(events: list[dict[str, Any]]) -> dict[str, Any]:
-    public = [_public_event(ev) for ev in events]
+def build_payload(events: list[dict[str, Any]], *, channel: str = "world") -> dict[str, Any]:
+    public = [_public_event(ev, channel=channel) for ev in events]
+    schema = INVEST_PULSE_SCHEMA_VERSION if channel == "invest" else PULSE_SCHEMA_VERSION
     return {
-        "schema_version": PULSE_SCHEMA_VERSION,
+        "schema_version": schema,
+        "channel": channel,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "total_events": len(public),
         "events": public,
@@ -1291,10 +1449,16 @@ def load_dotenv() -> None:
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Leon Web Intel — GDELT macro pulse (BigQuery pushdown)")
     p.add_argument(
+        "--channel",
+        choices=("world", "invest"),
+        default=os.environ.get("LEON_PULSE_CHANNEL", "world"),
+        help="world = LIVE đa lĩnh vực; invest = chuyên mục kinh tế đầu tư",
+    )
+    p.add_argument(
         "--output",
         type=Path,
-        default=Path(os.environ.get("LEON_PULSE_OUTPUT", DEFAULT_OUTPUT)),
-        help="Output JSON path (default: market_pulse.json)",
+        default=None,
+        help="Output JSON path (default: market_pulse.json or invest_pulse.json)",
     )
     p.add_argument("--dry-run", action="store_true", help="Estimate bytes billed only")
     p.add_argument("--job-timeout-ms", type=int, default=DEFAULT_JOB_TIMEOUT_MS)
@@ -1316,8 +1480,15 @@ def main(argv: list[str] | None = None) -> int:
         format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
     )
 
-    output: Path = args.output
-    LOG.info("Leon Web Intel → %s (dry_run=%s)", output, args.dry_run)
+    channel = str(args.channel or "world").strip().lower()
+    if channel not in ("world", "invest"):
+        channel = "world"
+    default_out = DEFAULT_INVEST_OUTPUT if channel == "invest" else DEFAULT_OUTPUT
+    env_out = os.environ.get(
+        "LEON_INVEST_PULSE_OUTPUT" if channel == "invest" else "LEON_PULSE_OUTPUT", ""
+    ).strip()
+    output: Path = args.output or Path(env_out or default_out)
+    LOG.info("Leon Web Intel [%s] → %s (dry_run=%s)", channel, output, args.dry_run)
 
     try:
         client = get_bigquery_client()
@@ -1328,6 +1499,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         df, meta = run_bigquery(
             client,
+            channel=channel,
             job_timeout_ms=args.job_timeout_ms,
             maximum_bytes_billed=args.max_bytes_billed,
             dry_run=args.dry_run,
@@ -1344,7 +1516,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     cleaned = clean_dataframe(df)
-    events = build_events_from_bq(cleaned)
+    events = build_events_from_bq(cleaned, channel=channel)
     LOG.info("Events after EventMentions-only sources: %s", len(events))
     if events:
         use_gemini = not args.no_gemini
@@ -1354,20 +1526,23 @@ def main(argv: list[str] | None = None) -> int:
             use_gemini,
             FETCH_TITLE_TIMEOUT,
         )
-        events = enrich_events_for_web(events, use_gemini=use_gemini)
+        events = enrich_events_for_web(events, use_gemini=use_gemini, channel=channel)
         events = filter_event_sources_with_gemini(events, use_gemini=use_gemini)
         events = dedupe_events_with_gemini(events, use_gemini=use_gemini)
     else:
         events = events[:TARGET_HOT_EVENTS]
-    payload = build_payload(events)
+    payload = build_payload(events, channel=channel)
     url_count = sum(len(ev.get("sources") or []) for ev in payload.get("events") or [])
     LOG.info("Exported %s hot events, %s source URLs", len(events), url_count)
     try:
         atomic_export_json(payload, output)
         # Mirror for GitHub Pages static path
-        web_mirror = PROJECT_DIR / "web" / "market_pulse.json"
+        web_name = "invest_pulse.json" if channel == "invest" else "market_pulse.json"
+        web_mirror = PROJECT_DIR / "web" / web_name
         if output.resolve() != web_mirror.resolve():
             atomic_export_json(payload, web_mirror)
+        if channel == "invest" and output.resolve() != (PROJECT_DIR / "invest_pulse.json").resolve():
+            atomic_export_json(payload, PROJECT_DIR / "invest_pulse.json")
     except OSError as exc:
         LOG.error("Export failed: %s", exc)
         return 1

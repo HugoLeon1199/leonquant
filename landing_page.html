@@ -784,6 +784,64 @@
       font-size: .92rem;
       line-height: 1.55;
     }
+    .invest-event {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .invest-event:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .invest-event-sector {
+      margin: 0 0 4px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #b45309;
+    }
+    .invest-event-secondary {
+      margin: 0 0 10px;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .invest-event-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.05rem, 2.4vw, 1.28rem);
+      line-height: 1.32;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .invest-event-summary {
+      margin: 0 0 8px;
+      font-size: .94rem;
+      line-height: 1.55;
+      color: var(--text-soft);
+    }
+    .invest-event-importance {
+      margin: 0 0 12px;
+      font-size: .88rem;
+      line-height: 1.5;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .invest-event-meta {
+      margin: 0 0 6px;
+      font-size: .84rem;
+      line-height: 1.45;
+      color: var(--text-soft);
+    }
+    .invest-event-meta strong { color: var(--text-soft); font-weight: 800; }
+    .invest-sources-inline {
+      margin: 10px 0 0;
+      font-size: .84rem;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .invest-sources-inline a {
+      color: var(--cyan-dim);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .invest-sources-inline a:hover { text-decoration: underline; }
     .invest-live-strip {
       margin-bottom: 1.25rem;
       padding: 12px 14px;
@@ -1247,7 +1305,7 @@
       <nav class="nav">
         <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
         <div class="nav-links" id="navLinks" data-nav-tabs="1">
-          <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a>
+          <a class="nav-hub nav-hub--active" href="/" data-view="digest">Tổng hợp tin tức 48H qua</a>
           <a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Chuyên mục kinh tế đầu tư</a>
           <a class="nav-hub" href="/?view=live" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>
         </div>
@@ -1738,7 +1796,7 @@
 
       const reportTitle =
         String(data.digestReportTitle || "").trim() ||
-        "Tin 48h";
+        "Tổng hợp tin tức 48H qua";
 
       let thesisHtml = `<article id="digest-report" class="digest-report">`;
       thesisHtml += `<header class="digest-report-head">`;
@@ -1892,6 +1950,7 @@
 
     let cachedDigestPayload = null;
     let cachedPulsePayload = null;
+    let cachedInvestPayload = null;
 
     function syncHistoryForView(view, replace) {
       const v = resolveViewKey(view);
@@ -1916,7 +1975,11 @@
         return;
       }
       if (v === "invest") {
-        renderInvestPage();
+        if (cachedInvestPayload && !options.forceReload) {
+          renderInvestPage(cachedInvestPayload);
+          return;
+        }
+        await loadInvestContent();
         return;
       }
       if (cachedDigestPayload && !options.forceReload) {
@@ -2169,18 +2232,177 @@
       renderPulsePage(data);
     }
 
-    function renderInvestPage() {
+    const INVEST_MACRO_VI = {
+      risk_off: "Risk-off",
+      risk_on: "Risk-on",
+      mixed: "Hỗn hợp",
+      neutral: "Trung tính",
+    };
+    const INVEST_ASSET_VI = {
+      stocks: "Cổ phiếu",
+      bonds: "Trái phiếu",
+      usd: "USD",
+      gold: "Vàng",
+      oil: "Dầu",
+      gas: "Khí",
+      crypto: "Crypto",
+      real_estate: "Bất động sản",
+      banks: "Ngân hàng",
+    };
+    const INVEST_RISK_VI = {
+      conflict_security_risk: "Xung đột địa chính trị",
+      legal_regulatory_risk: "Pháp lý & quy định",
+      credit_liquidity_risk: "Tín dụng & thanh khoản",
+      rate_policy_risk: "Chính sách lãi suất",
+      inflation_risk: "Lạm phát",
+      commodity_energy_risk: "Hàng hóa & năng lượng",
+      supply_chain_risk: "Chuỗi cung ứng",
+      real_estate_infra_risk: "Bất động sản & hạ tầng",
+      crypto_risk: "Crypto",
+      cyber_risk: "An ninh mạng",
+    };
+
+    function formatInvestMacro(signal) {
+      const key = String(signal || "neutral").toLowerCase().replace(/\s+/g, "_");
+      return INVEST_MACRO_VI[key] || signal || "Trung tính";
+    }
+
+    function formatInvestAssets(assets) {
+      const list = (Array.isArray(assets) ? assets : [])
+        .map((a) => INVEST_ASSET_VI[String(a || "").toLowerCase()] || String(a || "").trim())
+        .filter(Boolean);
+      return list.length ? list.join(" · ") : "—";
+    }
+
+    function formatInvestRisks(flags) {
+      const list = (Array.isArray(flags) ? flags : [])
+        .map((f) => INVEST_RISK_VI[String(f || "").toLowerCase()] || String(f || "").trim())
+        .filter(Boolean);
+      return list.length ? list.join(" · ") : "—";
+    }
+
+    function normalizeInvestEvents(data) {
+      const raw = Array.isArray(data?.events) ? data.events : [];
+      return raw.map((ev) => {
+        const primary = String(ev.primary_sector || ev.sector || "").trim();
+        const secondary = String(ev.secondary_sector || "").trim();
+        const title = String(ev.title_vi || ev.title || "").trim() || "(Chưa có tiêu đề)";
+        const summary = String(ev.summary_vi || ev.summary || "").trim();
+        const importance = String(ev.importance_reason || "").trim();
+        const sources = normalizePulseSources(ev.sources);
+        const numArticles = ev.num_articles ?? ev.article_mentions ?? 1;
+        const sourceCount = ev.source_count != null ? Math.max(1, Math.round(Number(ev.source_count))) : Math.max(1, sources.length);
+        return {
+          global_event_id: String(ev.global_event_id || ""),
+          primary_sector: primary,
+          secondary_sector: secondary,
+          title,
+          summary,
+          importance,
+          num_articles: Math.max(1, Math.round(Number(numArticles) || 1)),
+          source_count: sourceCount,
+          sentiment_label: ev.sentiment_label || pulseSentimentLabel(ev),
+          macro_signal: ev.macro_signal || "neutral",
+          affected_assets: Array.isArray(ev.affected_assets) ? ev.affected_assets : [],
+          risk_flags: Array.isArray(ev.risk_flags) ? ev.risk_flags : [],
+          entities: Array.isArray(ev.entities) ? ev.entities.filter(Boolean) : [],
+          sources,
+        };
+      });
+    }
+
+    function buildInvestSourcesInline(sources) {
+      const list = dedupePulseSources(sources || []);
+      if (!list.length) return "";
+      const links = list
+        .slice(0, 12)
+        .map((s) => `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.name)}</a>`)
+        .join(" · ");
+      return `<p class="invest-sources-inline"><strong>Nguồn tham khảo:</strong> ${links}</p>`;
+    }
+
+    function buildInvestPulseHtml(data) {
+      const events = normalizeInvestEvents(data);
+      let h = `<article id="invest-report" class="digest-report">`;
+      h += `<header class="digest-report-head">`;
+      h += `<h2>Chuyên mục kinh tế đầu tư <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
+      const updated = formatPulseUpdatedAt(data?.generated_at_utc);
+      if (updated) h += `<p class="sync-note">Cập nhật lúc ${escapeHtml(updated)} · cụm sự kiện 24 giờ qua</p>`;
+      h += `<p class="invest-channel-lead">Cụm sự kiện quan trọng theo ngành kinh tế, tài chính và đầu tư — trung lập, không phải khuyến nghị giao dịch.</p>`;
+      h += `</header><div class="pulse-panel">`;
+      if (!events.length) {
+        h += `<p class="hint">Chưa có sự kiện trong 24 giờ qua. Hệ thống cập nhật mỗi giờ.</p>`;
+      } else {
+        h += `<ol class="pulse-event-list">`;
+        events.forEach((ev) => {
+          h += `<li class="pulse-event invest-event">`;
+          if (ev.primary_sector) {
+            h += `<p class="invest-event-sector">${escapeHtml(ev.primary_sector)}</p>`;
+          }
+          if (ev.secondary_sector) {
+            h += `<p class="invest-event-secondary">Phụ: ${escapeHtml(ev.secondary_sector)}</p>`;
+          }
+          h += `<h3 class="invest-event-title">${escapeHtml(ev.title)}</h3>`;
+          if (ev.summary) {
+            h += `<p class="invest-event-summary">${escapeHtml(ev.summary)}</p>`;
+          }
+          if (ev.importance) {
+            h += `<p class="invest-event-importance">${escapeHtml(ev.importance)}</p>`;
+          }
+          const srcLabel = ev.source_count === 1 ? "1 nguồn tham khảo" : `${ev.source_count} nguồn tham khảo`;
+          h += `<p class="invest-event-meta"><strong>Mức độ chú ý:</strong> ${escapeHtml(ev.num_articles)} bài viết · ${escapeHtml(srcLabel)} · Sắc thái: ${escapeHtml(ev.sentiment_label)}</p>`;
+          h += `<p class="invest-event-meta"><strong>Tín hiệu vĩ mô:</strong> ${escapeHtml(formatInvestMacro(ev.macro_signal))}</p>`;
+          h += `<p class="invest-event-meta"><strong>Tài sản liên quan:</strong> ${escapeHtml(formatInvestAssets(ev.affected_assets))}</p>`;
+          h += `<p class="invest-event-meta"><strong>Rủi ro chính:</strong> ${escapeHtml(formatInvestRisks(ev.risk_flags))}</p>`;
+          if (ev.entities.length) {
+            h += `<p class="invest-event-meta"><strong>Thực thể liên quan:</strong> ${escapeHtml(ev.entities.join(" · "))}</p>`;
+          }
+          h += buildInvestSourcesInline(ev.sources);
+          h += buildPulseSourcesTicker(ev.sources);
+          h += `</li>`;
+        });
+        h += `</ol>`;
+      }
+      h += `</div></article>`;
+      return h;
+    }
+
+    function renderInvestPage(data) {
       applyViewMode("invest");
       const sync = document.getElementById("syncNote");
       if (sync) sync.textContent = "";
       const el = document.getElementById("sectionInvest");
       if (!el) return;
-      el.innerHTML = `<article id="invest-report" class="digest-report">
-        <header class="digest-report-head">
-          <h2>Chuyên mục kinh tế đầu tư</h2>
-          <p class="invest-channel-lead">Nội dung đang được chuẩn bị.</p>
-        </header>
-      </article>`;
+      el.innerHTML = buildInvestPulseHtml(data || { events: [] });
+    }
+
+    async function fetchInvestPulseFeed() {
+      const paths = ["invest_pulse.json", "web/invest_pulse.json"];
+      for (const p of paths) {
+        try {
+          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
+          if (!r.ok) continue;
+          return await readJsonResponse(r);
+        } catch (e) {
+          console.warn("invest pulse fetch", p, e);
+        }
+      }
+      return null;
+    }
+
+    async function loadInvestContent() {
+      const sync = document.getElementById("syncNote");
+      if (sync) sync.textContent = "Đang tải chuyên mục kinh tế đầu tư…";
+      const data = await fetchInvestPulseFeed();
+      if (!data) {
+        cachedInvestPayload = { events: [] };
+        if (sync) sync.textContent = "";
+        renderInvestPage(cachedInvestPayload);
+        return;
+      }
+      cachedInvestPayload = data;
+      if (sync) sync.textContent = "";
+      renderInvestPage(cachedInvestPayload);
     }
 
     function buildBriefParts(data) {

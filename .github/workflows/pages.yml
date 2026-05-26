@@ -62,6 +62,8 @@ jobs:
           mkdir -p _site/web
           cp market_pulse.json _site/market_pulse.json 2>/dev/null || true
           cp web/market_pulse.json _site/web/market_pulse.json 2>/dev/null || true
+          cp invest_pulse.json _site/invest_pulse.json 2>/dev/null || true
+          cp web/invest_pulse.json _site/web/invest_pulse.json 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
           # Custom domain (Settings → Pages → Custom domain phải khớp DNS)

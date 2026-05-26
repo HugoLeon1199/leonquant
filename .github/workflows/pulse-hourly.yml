@@ -40,22 +40,29 @@ jobs:
           fi
           printf '%s' "$GCP_SA_JSON" > credentials.json
 
-      - name: Run leon.py (GDELT + Gemini)
+      - name: Run leon.py — Tin thế giới LIVE
         env:
           GOOGLE_APPLICATION_CREDENTIALS: credentials.json
           GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python leon.py
+        run: python leon.py --channel world
 
-      - name: Commit market_pulse.json
+      - name: Run leon.py — Chuyên mục kinh tế đầu tư
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
+          GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python leon.py --channel invest
+
+      - name: Commit pulse JSON
         run: |
           git config user.name "pulse-bot"
           git config user.email "pulse-bot@users.noreply.github.com"
-          git add market_pulse.json web/market_pulse.json
+          git add market_pulse.json web/market_pulse.json invest_pulse.json web/invest_pulse.json
           if git diff --staged --quiet; then
             echo "No pulse changes"
             exit 0
           fi
-          git commit -m "Update LIVE pulse (hourly GDELT)."
+          git commit -m "Update LIVE pulse feeds (world + invest GDELT)."
           git pull --rebase origin main
           git push
