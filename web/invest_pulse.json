@@ -1,55 +1,489 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-28T00:04:51.407212+00:00",
-  "total_events": 1,
+  "generated_at_utc": "2026-05-28T05:15:48.060271+00:00",
+  "total_events": 6,
   "events": [
     {
-      "global_event_id": "1306243114",
-      "sector": "Công nghệ - AI & Bán dẫn",
-      "title": "Australia đánh giá việc tuân thủ lệnh cấm mạng xã hội cho trẻ dưới 16 tuổi",
-      "summary": "Cơ quan quản lý an toàn trực tuyến Australia cho biết cần thêm thời gian để đánh giá việc các nền tảng mạng xã hội tuân thủ lệnh cấm người dùng dưới 16 tuổi.",
-      "importance_reason": "Các quy định mới ảnh hưởng trực tiếp đến hoạt động vận hành và tuân thủ của các tập đoàn công nghệ lớn.",
-      "num_articles": 40,
-      "source_count": 4,
-      "sentiment_tone": -4.21,
+      "global_event_id": "1306252920",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Labor introduces legislation for its controversial CGT reforms",
+      "summary": "Sự kiện thuộc nhóm Vĩ mô - Chính sách Tiền tệ & Lãi suất. Nhấp nguồn để đọc bài gốc.",
+      "importance_reason": "Độ phủ khoảng 50 bài báo và 7 nguồn tin trong 24 giờ qua.",
+      "num_articles": 50,
+      "source_count": 7,
+      "sentiment_tone": -4.05,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Facebook",
-        "Instagram",
-        "TikTok",
-        "X",
-        "YouTube",
-        "Chính phủ Australia"
+        "CHAMBER",
+        "Australian Chamber",
+        "Australian Associated",
+        "Jim Chalmers,177",
+        "Richard Holden,2934",
+        "Roger Cook,1296"
       ],
       "sources": [
         {
-          "url": "https://www.irrigator.com.au/story/9255312/jury-out-on-child-ban-compliance-by-social-media-giants/",
-          "name": "Irrigator"
+          "url": "https://www.smartcompany.com.au/federal-budget-2026/labor-introduces-legislation-controversial-cgt-reforms/",
+          "name": "Smartcompany"
         },
         {
-          "url": "https://www.westernadvocate.com.au/story/9255312/jury-out-on-child-ban-compliance-by-social-media-giants/",
-          "name": "Westernadvocate"
+          "url": "https://neoskosmos.com/en/2026/05/28/news/australia/labor-set-to-push-through-tax-reforms-despite-backlash/",
+          "name": "Neoskosmos"
         },
         {
-          "url": "https://www.easternriverinachronicle.com.au/story/9255312/jury-out-on-child-ban-compliance-by-social-media-giants/",
-          "name": "Easternriverinachronicle"
+          "url": "https://www.standard.net.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
+          "name": "Standard"
         },
         {
-          "url": "https://www.manningrivertimes.com.au/story/9255312/jury-out-on-child-ban-compliance-by-social-media-giants/",
-          "name": "Manningrivertimes"
+          "url": "https://www.tenterfieldstar.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
+          "name": "Tenterfieldstar"
+        },
+        {
+          "url": "https://www.mandurahmail.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
+          "name": "Mandurahmail"
+        },
+        {
+          "url": "https://www.examiner.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
+          "name": "Examiner"
+        },
+        {
+          "url": "https://www.armidaleexpress.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
+          "name": "Armidaleexpress"
         }
       ],
-      "primary_sector": "Công nghệ - AI & Bán dẫn",
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
         "conflict_security_risk",
         "legal_regulatory_risk",
+        "rate_policy_risk",
+        "commodity_energy_risk",
         "real_estate_infra_risk"
       ],
       "affected_assets": [
         "stocks",
+        "bonds",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306246320",
+      "sector": "Tài chính - Ngân hàng & Tín dụng",
+      "title": "Commercial Bank triển khai rút tiền liên kết PayPal cho khách hàng",
+      "summary": "Ngân hàng Commercial Bank bổ sung dịch vụ rút tiền từ tài khoản PayPal, mở rộng khả năng tiếp cận tài chính.",
+      "importance_reason": "Tăng cường tiện ích kỹ thuật số và hỗ trợ thanh toán xuyên biên giới cho người dùng.",
+      "num_articles": 50,
+      "source_count": 1,
+      "sentiment_tone": 3.74,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Commercial Bank",
+        "PayPal",
+        "Sri Lanka",
+        "PILGRIM",
+        "Muslim Affairs",
+        "Bandaranaike International Airport In Katunayake",
+        "SCHOLAR",
+        "Ifham Nizam,6806"
+      ],
+      "sources": [
+        {
+          "url": "https://island.lk/commercial-bank-now-brings-paypal-linked-withdrawals-for-customers/",
+          "name": "Island"
+        }
+      ],
+      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306245114",
+      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "title": "Green Chilies quay trở lại thúc đẩy ngành quảng cáo Sri Lanka",
+      "summary": "Chương trình Green Chilies tái khởi động sau bảy năm nhằm khôi phục và tạo động lực cho lĩnh vực quảng cáo.",
+      "importance_reason": "Sự kiện có ý nghĩa thúc đẩy sáng tạo trong ngành truyền thông và tiếp thị.",
+      "num_articles": 50,
+      "source_count": 1,
+      "sentiment_tone": 3.74,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Green Chilies",
+        "Sri Lanka",
+        "Ngành quảng cáo",
+        "FARMER",
+        "ISLAMIC",
+        "Bandaranaike International Airport In Katunayake",
+        "PILGRIM",
+        "Muslim Affairs"
+      ],
+      "sources": [
+        {
+          "url": "https://island.lk/green-chilies-returns-after-seven-years-to-reignite-sri-lankas-advertising-industry-spirit/",
+          "name": "Island"
+        }
+      ],
+      "primary_sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306273937",
+      "sector": "Chứng khoán - Thị trường Vốn",
+      "title": "Cựu lãnh đạo Rex bị kiện vì tuyên bố lợi nhuận sai lệch",
+      "summary": "Các cựu giám đốc Rex đối mặt với cáo buộc gây hiểu lầm cho nhà đầu tư về lợi nhuận dự kiến.",
+      "importance_reason": "Liên quan đến nghĩa vụ công bố thông tin và tính trung thực của doanh nghiệp niêm yết.",
+      "num_articles": 40,
+      "source_count": 20,
+      "sentiment_tone": -3.71,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Rex",
+        "Cơ quan quản lý thị trường",
+        "Cựu giám đốc",
+        "ENGINEER",
+        "Supreme Court",
+        "Australian Associated",
+        "Cơ quan quản lý",
+        "Giám đốc"
+      ],
+      "sources": [
+        {
+          "url": "https://www.portnews.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Portnews"
+        },
+        {
+          "url": "https://www.merimbulanewsweekly.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Merimbulanewsweekly"
+        },
+        {
+          "url": "https://www.gloucesteradvocate.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Gloucesteradvocate"
+        },
+        {
+          "url": "https://www.crookwellgazette.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Crookwellgazette"
+        },
+        {
+          "url": "https://www.bluemountainsgazette.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Bluemountainsgazette"
+        },
+        {
+          "url": "https://www.cessnockadvertiser.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Cessnockadvertiser"
+        },
+        {
+          "url": "https://www.goulburnpost.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Goulburnpost"
+        },
+        {
+          "url": "https://www.macleayargus.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Macleayargus"
+        },
+        {
+          "url": "https://www.newcastleherald.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Newcastleherald"
+        },
+        {
+          "url": "https://www.moreechampion.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Moreechampion"
+        },
+        {
+          "url": "https://www.westernadvocate.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Westernadvocate"
+        },
+        {
+          "url": "https://www.perthnow.com.au/news/crime/rex-profit-promise-untenable-for-responsible-company-c-22350168",
+          "name": "Perthnow"
+        },
+        {
+          "url": "https://www.dailyliberal.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Dailyliberal"
+        },
+        {
+          "url": "https://www.mudgeeguardian.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Mudgeeguardian"
+        },
+        {
+          "url": "https://www.armidaleexpress.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Armidaleexpress"
+        },
+        {
+          "url": "https://www.narrominenewsonline.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Narrominenewsonline"
+        },
+        {
+          "url": "https://www.begadistrictnews.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Begadistrictnews"
+        },
+        {
+          "url": "https://www.areanews.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Areanews"
+        },
+        {
+          "url": "https://www.camdencourier.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Camdencourier"
+        },
+        {
+          "url": "https://www.illawarramercury.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
+          "name": "Illawarramercury"
+        }
+      ],
+      "primary_sector": "Chứng khoán - Thị trường Vốn",
+      "secondary_sector": "Pháp lý - Quy định & Trừng phạt",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "supply_chain_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "banks"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306249295",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "Mỹ thực hiện các cuộc tấn công quân sự mới nhắm vào Iran",
+      "summary": "Mỹ triển khai đợt tấn công phòng vệ vào cơ sở quân sự Iran nhằm bảo vệ lực lượng và tuyến đường thương mại. Căng thẳng duy trì dù thỏa thuận ngừng bắn giữa hai quốc gia vẫn có hiệu lực.",
+      "importance_reason": "Ảnh hưởng trực tiếp đến an ninh năng lượng và sự ổn định của tuyến vận tải thương mại toàn cầu.",
+      "num_articles": 30,
+      "source_count": 20,
+      "sentiment_tone": -8.26,
+      "sentiment_label": "Tiêu cực mạnh",
+      "entities": [
+        "Mỹ",
+        "Iran",
+        "Donald Trump",
+        "Quân đội Mỹ",
+        "UNITED STATES",
+        "1#Iran#IR#IR##32#53#IR#90",
+        "PRESIDENT",
+        "Eo biển Hormuz"
+      ],
+      "sources": [
+        {
+          "url": "https://wtam.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Wtam"
+        },
+        {
+          "url": "https://ktok.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Ktok"
+        },
+        {
+          "url": "https://wjno.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Wjno"
+        },
+        {
+          "url": "https://newsradio910wltp.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Newsradio910wltp"
+        },
+        {
+          "url": "https://wdov.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Wdov"
+        },
+        {
+          "url": "https://newstalk1400online.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Newstalk1400online"
+        },
+        {
+          "url": "https://590kqnt.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "590kqnt"
+        },
+        {
+          "url": "https://600wmtradio.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "600wmtradio"
+        },
+        {
+          "url": "https://khow.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Khow"
+        },
+        {
+          "url": "https://whoradio.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Whoradio"
+        },
+        {
+          "url": "https://960weli.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "960weli"
+        },
+        {
+          "url": "https://1019bigwaax.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "1019bigwaax"
+        },
+        {
+          "url": "https://wrko.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Wrko"
+        },
+        {
+          "url": "https://wspd.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Wspd"
+        },
+        {
+          "url": "https://kfyr.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Kfyr"
+        },
+        {
+          "url": "https://newstalk1130.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Newstalk1130"
+        },
+        {
+          "url": "https://newsradio710.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Newsradio710"
+        },
+        {
+          "url": "https://wgy.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Wgy"
+        },
+        {
+          "url": "https://knrs.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "Knrs"
+        },
+        {
+          "url": "https://943wsc.iheart.com/content/2026-05-28-us-carries-out-new-iran-strikes/",
+          "name": "943wsc"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306243114",
+      "sector": "Chứng khoán - Thị trường Vốn",
+      "title": "Tiền phạt 1,3 triệu USD cho cựu lãnh đạo Star bị đánh giá bất công",
+      "summary": "Mức phạt đối với cựu CEO Matthias Bekier về việc không báo cáo sai phạm đang bị xem xét lại tính hợp lý.",
+      "importance_reason": "Liên quan đến quản trị doanh nghiệp và tính minh bạch trong xử lý sai phạm lãnh đạo.",
+      "num_articles": 40,
+      "source_count": 17,
+      "sentiment_tone": -4.21,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "Star",
+        "Matthias Bekier",
+        "Tòa án Liên bang",
+        "AUSTRALIA",
+        "Facebook",
+        "Instagram"
+      ],
+      "sources": [
+        {
+          "url": "https://www.gloucesteradvocate.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Gloucesteradvocate"
+        },
+        {
+          "url": "https://www.merimbulanewsweekly.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Merimbulanewsweekly"
+        },
+        {
+          "url": "https://www.portnews.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Portnews"
+        },
+        {
+          "url": "https://www.goulburnpost.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Goulburnpost"
+        },
+        {
+          "url": "https://www.armidaleexpress.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Armidaleexpress"
+        },
+        {
+          "url": "https://www.narrominenewsonline.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Narrominenewsonline"
+        },
+        {
+          "url": "https://www.perthnow.com.au/news/crime/proposed-13m-fine-for-ex-star-boss-branded-unfair-c-22350342",
+          "name": "Perthnow"
+        },
+        {
+          "url": "https://www.westernadvocate.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Westernadvocate"
+        },
+        {
+          "url": "https://www.theleader.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Theleader"
+        },
+        {
+          "url": "https://www.manningrivertimes.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Manningrivertimes"
+        },
+        {
+          "url": "https://www.mudgeeguardian.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Mudgeeguardian"
+        },
+        {
+          "url": "https://www.newcastleherald.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Newcastleherald"
+        },
+        {
+          "url": "https://www.moreechampion.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Moreechampion"
+        },
+        {
+          "url": "https://www.cessnockadvertiser.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Cessnockadvertiser"
+        },
+        {
+          "url": "https://www.bluemountainsgazette.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Bluemountainsgazette"
+        },
+        {
+          "url": "https://www.crookwellgazette.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Crookwellgazette"
+        },
+        {
+          "url": "https://www.macleayargus.com.au/story/9255734/proposed-13m-fine-for-ex-star-boss-branded-unfair/",
+          "name": "Macleayargus"
+        }
+      ],
+      "primary_sector": "Chứng khoán - Thị trường Vốn",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "gold",
         "real_estate"
       ],
       "investment_relevance": "high"
