@@ -1,285 +1,31 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-28T14:47:37.028812+00:00",
-  "total_events": 8,
+  "generated_at_utc": "2026-05-29T04:01:34.536389+00:00",
+  "total_events": 6,
   "events": [
     {
-      "global_event_id": "1306299600",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Volvo nhận miễn trừ lệnh cấm công nghệ Trung Quốc từ Hoa Kỳ",
-      "summary": "Hãng xe Volvo đã đạt được thỏa thuận miễn trừ đối với lệnh cấm sử dụng công nghệ Trung Quốc trong xe hơi tại Mỹ.",
-      "importance_reason": "Động thái quan trọng trong bối cảnh các hạn chế thương mại công nghệ giữa Mỹ và Trung Quốc.",
-      "num_articles": 90,
-      "source_count": 1,
-      "sentiment_tone": -7.49,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Volvo",
-        "Hoa Kỳ",
-        "Trung Quốc",
-        "POLICE",
-        "SERBIA",
-        "Society Houston"
-      ],
-      "sources": [
-        {
-          "url": "https://www.b92.net/automobili/aktuelno/236766/volvo-dobio-izuzece-od-americke-zabrane-kineske-tehnologije-u-automobilima/vest",
-          "name": "B92"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306300101",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Mercedes ra mắt kế hoạch phát triển xe tự lái tại Đức từ năm 2027",
-      "summary": "Mercedes dự kiến triển khai các mẫu xe có khả năng tự lái trong điều kiện giao thông phức tạp tại Đức từ năm 2027.",
-      "importance_reason": "Bước tiến quan trọng trong công nghệ tự động hóa của ngành công nghiệp ô tô Đức.",
-      "num_articles": 90,
-      "source_count": 1,
-      "sentiment_tone": -7.49,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Mercedes",
-        "Đức",
-        "Xe tự lái",
-        "RUSSIA",
-        "MINIST",
-        "Society Houston"
-      ],
-      "sources": [
-        {
-          "url": "https://www.b92.net/automobili/aktuelno/236666/mercedes-najavio-od-2027-vise-autonomnih-vozila-na-ulicama-nemacke/vest",
-          "name": "B92"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306265241",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Cảnh sát Liên bang Brazil triệt phá mạng lưới tài chính của băng đảng PCC",
-      "summary": "Cảnh sát Liên bang thực hiện chiến dịch tại nhiều bang nhằm vào các quỹ tài chính phi pháp của băng nhóm PCC.",
-      "importance_reason": "Nỗ lực cắt đứt dòng tiền hoạt động của các tổ chức tội phạm xuyên quốc gia.",
-      "num_articles": 60,
-      "source_count": 1,
-      "sentiment_tone": -4.59,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Cảnh sát Liên bang Brazil",
-        "PCC",
-        "Tài chính phi pháp",
-        "JUDGE",
-        "Ready Service Community",
-        "Smith Cardoso,4475",
-        "Brazil",
-        "Smith Cardoso,4504"
-      ],
-      "sources": [
-        {
-          "url": "https://correiodoestado.com.br/cidades/operacao-da-pf-em-ms-e-mais-4-estados-mira-fundos-do-pcc/467244/",
-          "name": "Correiodoestado"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306337723",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "John Swinney bị chỉ trích trong vụ bê bối tài chính của SNP",
-      "summary": "John Swinney bị cáo buộc cố gắng ngăn cản việc điều tra hành vi tham ô của Peter Murrell tại đảng SNP.",
-      "importance_reason": "Vụ bê bối tài chính ảnh hưởng nghiêm trọng đến uy tín chính trị của Đảng Quốc gia Scotland.",
-      "num_articles": 60,
-      "source_count": 19,
-      "sentiment_tone": -5.18,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "John Swinney",
-        "Peter Murrell",
-        "SNP",
-        "Nicola Sturgeon",
-        "CRIMINAL",
-        "Scottish Parliament Scottish Labour"
-      ],
-      "sources": [
-        {
-          "url": "https://www.eveningnews24.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Eveningnews24"
-        },
-        {
-          "url": "https://www.tivysideadvertiser.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Tivysideadvertiser"
-        },
-        {
-          "url": "https://www.northwaleschronicle.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Northwaleschronicle"
-        },
-        {
-          "url": "https://www.leighjournal.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Leighjournal"
-        },
-        {
-          "url": "https://www.halesowennews.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Halesowennews"
-        },
-        {
-          "url": "https://www.andoveradvertiser.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Andoveradvertiser"
-        },
-        {
-          "url": "https://www.eveshamjournal.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Eveshamjournal"
-        },
-        {
-          "url": "https://www.kidderminstershuttle.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Kidderminstershuttle"
-        },
-        {
-          "url": "https://www.bridportnews.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Bridportnews"
-        },
-        {
-          "url": "https://www.bicesteradvertiser.net/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Bicesteradvertiser"
-        },
-        {
-          "url": "https://www.echo-news.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Echo-news"
-        },
-        {
-          "url": "https://www.thenorthernecho.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Thenorthernecho"
-        },
-        {
-          "url": "https://www.london-now.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "London-now"
-        },
-        {
-          "url": "https://www.hamhigh.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Hamhigh"
-        },
-        {
-          "url": "https://www.timesandstar.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Timesandstar"
-        },
-        {
-          "url": "https://www.westerntelegraph.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Westerntelegraph"
-        },
-        {
-          "url": "https://www.darlingtonandstocktontimes.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Darlingtonandstocktontimes"
-        },
-        {
-          "url": "https://www.falmouthpacket.co.uk/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Falmouthpacket"
-        },
-        {
-          "url": "https://www.impartialreporter.com/news/national/26146570.john-swinney-accused-trying-shut-scrutiny-snp-peter-murrell/",
-          "name": "Impartialreporter"
-        }
-      ],
-      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "credit_liquidity_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306252920",
+      "global_event_id": "1306425127",
       "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Chính phủ Úc giới thiệu dự luật cải cách thuế thặng dư vốn",
-      "summary": "Công Đảng Úc đề xuất các thay đổi đối với luật thuế thặng dư vốn (CGT), gây ra nhiều ý kiến trái chiều.",
-      "importance_reason": "Cải cách thuế tác động trực tiếp đến nhà đầu tư và thị trường vốn tại Úc.",
+      "title": "Cựu quan chức CIA bị bắt giữ vì sở hữu khối lượng lớn vàng và tiền mặt bất hợp pháp",
+      "summary": "FBI đã bắt giữ David J. Rush, một cựu quan chức cấp cao của CIA, sau khi phát hiện hơn 300 thỏi vàng trị giá 40 triệu USD cùng 2 triệu USD tiền mặt tại nhà riêng.",
+      "importance_reason": "Vụ việc liên quan đến tài sản bất minh quy mô lớn của một quan chức cấp cao trong cơ quan an ninh quốc gia.",
       "num_articles": 50,
-      "source_count": 7,
-      "sentiment_tone": -4.05,
+      "source_count": 1,
+      "sentiment_tone": -4.35,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Công Đảng",
-        "Úc",
-        "CGT",
-        "CHAMBER",
-        "Australian Associated",
-        "Australian Chamber"
+        "David J. Rush",
+        "FBI",
+        "CIA",
+        "Virginia",
+        "DEFENSE ATTORNEY",
+        "Clemson University"
       ],
       "sources": [
         {
-          "url": "https://www.smartcompany.com.au/federal-budget-2026/labor-introduces-legislation-controversial-cgt-reforms/",
-          "name": "Smartcompany"
-        },
-        {
-          "url": "https://neoskosmos.com/en/2026/05/28/news/australia/labor-set-to-push-through-tax-reforms-despite-backlash/",
-          "name": "Neoskosmos"
-        },
-        {
-          "url": "https://www.armidaleexpress.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
-          "name": "Armidaleexpress"
-        },
-        {
-          "url": "https://www.examiner.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
-          "name": "Examiner"
-        },
-        {
-          "url": "https://www.tenterfieldstar.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
-          "name": "Tenterfieldstar"
-        },
-        {
-          "url": "https://www.standard.net.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
-          "name": "Standard"
-        },
-        {
-          "url": "https://www.mandurahmail.com.au/story/9255301/labor-set-to-push-through-tax-reforms-despite-backlash/",
-          "name": "Mandurahmail"
+          "url": "https://radio.wpsu.org/2026-05-28/former-senior-cia-officer-took-home-gold-bars-and-millions-in-cash-fbi-says",
+          "name": "Radio"
         }
       ],
       "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
@@ -288,48 +34,9 @@
       "risk_flags": [
         "conflict_security_risk",
         "legal_regulatory_risk",
+        "credit_liquidity_risk",
         "rate_policy_risk",
         "commodity_energy_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306261703",
-      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Các cựu thẩm phán kêu gọi điều tra thỏa thuận thuế của Donald Trump",
-      "summary": "Một nhóm cựu thẩm phán liên bang yêu cầu điều tra thỏa thuận 1,8 tỷ USD giữa chính quyền Trump và IRS.",
-      "importance_reason": "Tính minh bạch trong các thỏa thuận tài chính giữa chính phủ và cá nhân được đặt ra nghi vấn.",
-      "num_articles": 45,
-      "source_count": 1,
-      "sentiment_tone": -5.8,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Donald Trump",
-        "IRS",
-        "Hoa Kỳ",
-        "SUPREME COURT",
-        "FLORIDA",
-        "Sheriff Office Credit Instagram"
-      ],
-      "sources": [
-        {
-          "url": "https://www.accountingtoday.com/articles/ex-federal-judges-urge-fraud-probe-of-trump-irs-settlement",
-          "name": "Accountingtoday"
-        }
-      ],
-      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "rate_policy_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
       ],
@@ -337,160 +44,206 @@
         "stocks",
         "bonds",
         "USD",
+        "gold",
+        "banks",
         "real_estate"
       ],
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1306273937",
+      "global_event_id": "1306425528",
       "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Cựu giám đốc hãng hàng không Rex bị kiện vì cáo buộc gây hiểu lầm thị trường",
-      "summary": "Cơ quan quản lý doanh nghiệp Australia đang kiện các cựu giám đốc của hãng hàng không Rex về việc đưa ra các tuyên bố sai lệch về triển vọng lợi nhuận năm 2023.",
-      "importance_reason": "Tác động đến quản trị doanh nghiệp và niềm tin của nhà đầu tư vào các công ty niêm yết.",
-      "num_articles": 40,
-      "source_count": 20,
-      "sentiment_tone": -3.71,
-      "sentiment_label": "Trung tính",
+      "title": "Thủ tướng Canada kêu gọi thiết lập quan hệ đối tác mới với Mỹ",
+      "summary": "Ông Mark Carney đề xuất Mỹ và Canada tăng cường hợp tác trong các ngành nhôm, ô tô và khoáng sản thiết yếu trước bối cảnh kinh tế toàn cầu biến động.",
+      "importance_reason": "Định hình lại chiến lược hợp tác thương mại song phương trong bối cảnh tái cấu trúc chuỗi cung ứng.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -4.37,
+      "sentiment_label": "Tiêu cực",
       "entities": [
-        "Rex Airlines",
-        "Cơ quan quản lý doanh nghiệp",
-        "Australia",
-        "Thị trường chứng khoán",
-        "ENGINEER",
-        "Australian Stock Exchange",
-        "REGULATOR",
-        "Investments Commission"
+        "Mark Carney",
+        "Canada",
+        "Mỹ",
+        "WASHINGTON",
+        "New York Times",
+        "Lyndon Taylor Associates Dr"
       ],
       "sources": [
         {
-          "url": "https://www.muswellbrookchronicle.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Muswellbrookchronicle"
-        },
-        {
-          "url": "https://www.inverelltimes.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Inverelltimes"
-        },
-        {
-          "url": "https://www.katherinetimes.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Katherinetimes"
-        },
-        {
-          "url": "https://www.nynganobserver.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Nynganobserver"
-        },
-        {
-          "url": "https://www.tenterfieldstar.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Tenterfieldstar"
-        },
-        {
-          "url": "https://www.gleninnesexaminer.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Gleninnesexaminer"
-        },
-        {
-          "url": "https://www.mandurahmail.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Mandurahmail"
-        },
-        {
-          "url": "https://www.nvi.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Nvi"
-        },
-        {
-          "url": "https://www.lithgowmercury.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Lithgowmercury"
-        },
-        {
-          "url": "https://www.northweststar.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Northweststar"
-        },
-        {
-          "url": "https://www.portnews.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Portnews"
-        },
-        {
-          "url": "https://www.merimbulanewsweekly.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Merimbulanewsweekly"
-        },
-        {
-          "url": "https://www.gloucesteradvocate.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Gloucesteradvocate"
-        },
-        {
-          "url": "https://www.macleayargus.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Macleayargus"
-        },
-        {
-          "url": "https://www.cessnockadvertiser.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Cessnockadvertiser"
-        },
-        {
-          "url": "https://www.armidaleexpress.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Armidaleexpress"
-        },
-        {
-          "url": "https://www.goulburnpost.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Goulburnpost"
-        },
-        {
-          "url": "https://www.westernadvocate.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Westernadvocate"
-        },
-        {
-          "url": "https://www.dailyliberal.com.au/story/9255697/rex-profit-promise-untenable-for-responsible-company/",
-          "name": "Dailyliberal"
-        },
-        {
-          "url": "https://www.perthnow.com.au/news/crime/rex-profit-promise-untenable-for-responsible-company-c-22350168",
-          "name": "Perthnow"
+          "url": "https://kvia.com/news/us-world/cnn-world/2026/05/28/carney-seeks-new-us-canada-partnership-as-world-undergoes-rupture/",
+          "name": "Kvia"
         }
       ],
       "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "secondary_sector": "Pháp lý - Quy định & Trừng phạt",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
+        "conflict_security_risk",
         "legal_regulatory_risk",
         "credit_liquidity_risk",
-        "supply_chain_risk"
+        "rate_policy_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk",
+        "crypto_risk"
       ],
       "affected_assets": [
         "stocks",
         "bonds",
-        "banks"
+        "USD",
+        "crypto",
+        "banks",
+        "real_estate"
       ],
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1306347013",
-      "sector": "Khủng hoảng - Xung đột & An ninh",
-      "title": "Tám binh sĩ Mỹ bị thương trong vụ tai nạn giao thông tại Ba Lan",
-      "summary": "Một vụ va chạm giao thông nghiêm trọng ở tây bắc Ba Lan đã khiến 8 binh sĩ Mỹ bị thương.",
-      "importance_reason": "Sự cố ảnh hưởng đến hoạt động phối hợp quân sự của Mỹ tại khu vực Đông Âu.",
+      "global_event_id": "1306424360",
+      "sector": "Hàng hóa - Năng lượng & Khoáng sản",
+      "title": "Trung Quốc cam kết điều tra toàn diện thảm họa mỏ than khiến 82 người thiệt mạng",
+      "summary": "Chính phủ Trung Quốc mở cuộc điều tra vụ nổ khí tại mỏ than Liushenyu ở tỉnh Sơn Tây. Vụ tai nạn nghiêm trọng này đã phát hiện nhiều sai phạm về an toàn khai thác.",
+      "importance_reason": "Sự cố an toàn lao động gây thiệt hại nhân mạng lớn ảnh hưởng đến hoạt động khai thác tài nguyên.",
       "num_articles": 30,
-      "source_count": 3,
-      "sentiment_tone": -12.12,
+      "source_count": 1,
+      "sentiment_tone": -9.32,
       "sentiment_label": "Tiêu cực mạnh",
       "entities": [
-        "Mỹ",
-        "Ba Lan",
-        "Quân đội",
-        "HOSPITAL",
-        "1#Poland#PL#PL##52#20#PL#9",
-        "1#Polish#PL#PL##52#20#PL#527"
+        "Trung Quốc",
+        "Mỏ than Liushenyu",
+        "Tỉnh Sơn Tây",
+        "Bộ Năng lượng Trung Quốc",
+        "CHINA",
+        "1#China#CH#CH##35#105#CH#14"
       ],
       "sources": [
         {
-          "url": "https://klaipeda.diena.lt/naujienos/pasaulis/konfliktai-nelaimes/lenkijoje-eismo-ivykio-metu-suzeisti-astuoni-jav-kariai-1758539",
-          "name": "Klaipeda"
+          "url": "http://www.myanmarnews.net/news/279078230/china-finds-hidden-tunnels-missing-tracking-devices-in-mine-tragedy",
+          "name": "Myanmarnews"
+        }
+      ],
+      "primary_sector": "Hàng hóa - Năng lượng & Khoáng sản",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "commodity_energy_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306445811",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "Truyền thông đưa tin một tòa nhà tại Romania bị trúng drone Nga",
+      "summary": "Một thiết bị bay không người lái được cho là của Nga đã tấn công một tòa nhà tại Romania, gần biên giới với Ukraine.",
+      "importance_reason": "Nguy cơ leo thang xung đột ra ngoài lãnh thổ Ukraine đe dọa an ninh khu vực Đông Âu.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -5.99,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "Romania",
+        "Nga",
+        "Ukraine",
+        "ODESSA",
+        "RUSSIAN",
+        "Federation Russian",
+        "Thành phố Galati",
+        "AUTHORITIES"
+      ],
+      "sources": [
+        {
+          "url": "https://www.ansa.it/sito/notizie/mondo/europa/2026/05/29/media-in-romania-edificio-colpito-da-un-drone-russo_bb2a1bdf-c66e-45d0-9798-405e613",
+          "name": "Ansa"
         },
         {
-          "url": "https://m.kauno.diena.lt/naujienos/pasaulis/konfliktai-nelaimes/lenkijoje-eismo-ivykio-metu-suzeisti-astuoni-jav-kariai-1758539",
-          "name": "M"
-        },
-        {
-          "url": "https://diena.lt/naujienos/pasaulis/konfliktai-nelaimes/lenkijoje-eismo-ivykio-metu-suzeisti-astuoni-jav-kariai-1758539",
-          "name": "Diena"
+          "url": "https://www.aftonbladet.se/nyheter/a/Rr77qd/aftonbladet-direkt?pinnedEntry=1468231",
+          "name": "Aftonbladet"
         }
       ],
       "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": null,
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk"
+      ],
+      "affected_assets": [],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306424344",
+      "sector": "Bất động sản - Hạ tầng",
+      "title": "Tòa án Tối cao Canada từ chối xem xét kháng cáo về quyền sở hữu đất đai",
+      "summary": "Tòa án Tối cao đã bác bỏ đơn kháng cáo liên quan đến tranh chấp quyền sở hữu đất đai của người bản địa tại New Brunswick.",
+      "importance_reason": "Phán quyết pháp lý có tác động đến quyền quản lý tài sản và khai thác đất đai tại Canada.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": 3.77,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Tòa án Tối cao Canada",
+        "New Brunswick",
+        "Niki Sharma",
+        "CANADA",
+        "Supreme Court",
+        "Mike Farnworth,2362",
+        "COMPANIES",
+        "Rob Botterell,2101"
+      ],
+      "sources": [
+        {
+          "url": "https://ladysmithchronicle.com/2026/05/28/b-c-watches-as-canadas-supreme-court-declines-new-brunswick-aboriginal-title-appeal/",
+          "name": "Ladysmithchronicle"
+        }
+      ],
+      "primary_sector": "Bất động sản - Hạ tầng",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk"
+      ],
+      "affected_assets": [
+        "stocks"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306426625",
+      "sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
+      "title": "Liên Hợp Quốc đưa Israel và Nga vào danh sách đen về bạo lực tình dục trong xung đột",
+      "summary": "Báo cáo của Liên Hợp Quốc đã ghi nhận các hành vi bạo lực tình dục đối với người bị giam giữ trong cuộc chiến tại Ukraine và tại các vùng lãnh thổ Palestine.",
+      "importance_reason": "Quyết định này gây chú ý trong cộng đồng quốc tế và có thể dẫn đến các hệ lụy về chính trị và ngoại giao.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": -12.99,
+      "sentiment_label": "Tiêu cực mạnh",
+      "entities": [
+        "Liên Hợp Quốc",
+        "Israel",
+        "Nga",
+        "Ukraine",
+        "Palestine",
+        "PRISONER",
+        "HAMAS",
+        "United Nations"
+      ],
+      "sources": [
+        {
+          "url": "https://www.sss.fi/2026/05/yk-lisasi-israelin-ja-venajan-konfliktien-seksuaalisen-vakivallan-mustalle-listalle/",
+          "name": "Sss"
+        },
+        {
+          "url": "https://www.wboc.com/news/national/israeli-and-russian-forces-added-to-un-blacklist-for-sexual-violence-in-conflict-zones/article_4c57f372-a",
+          "name": "Wboc"
+        }
+      ],
+      "primary_sector": "Doanh nghiệp - Công nghiệp & Tiêu dùng",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
