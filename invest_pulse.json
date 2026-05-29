@@ -1,33 +1,200 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-29T12:24:35.696501+00:00",
+  "generated_at_utc": "2026-05-29T16:48:22.771677+00:00",
   "total_events": 4,
   "events": [
     {
-      "global_event_id": "1306425380",
-      "sector": "Tài chính - Ngân hàng & Tín dụng",
-      "title": "Bộ Tư pháp Mỹ cam kết truy tố người biểu tình tại trung tâm giam giữ Newark",
-      "summary": "Quyền Bộ trưởng Tư pháp Todd Blanche tuyên bố sẽ trừng trị những người biểu tình quá khích tại Newark.",
-      "importance_reason": "Sự leo thang xung đột giữa người biểu tình và cơ quan liên bang.",
-      "num_articles": 80,
-      "source_count": 1,
-      "sentiment_tone": -16.14,
-      "sentiment_label": "Tiêu cực mạnh",
+      "global_event_id": "1306516606",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "Nga phủ nhận cáo buộc máy bay không người lái tấn công Rumani",
+      "summary": "Tổng thống Nga Putin bác bỏ cáo buộc máy bay không người lái của Nga tấn công một tòa nhà tại Rumani, đồng thời yêu cầu cung cấp bằng chứng cụ thể.",
+      "importance_reason": "Sự cố đe dọa làm leo thang căng thẳng địa chính trị giữa Nga và các quốc gia thành viên NATO.",
+      "num_articles": 90,
+      "source_count": 2,
+      "sentiment_tone": -4.05,
+      "sentiment_label": "Tiêu cực",
       "entities": [
-        "Todd Blanche",
-        "Newark",
-        "ICE",
-        "Delaney Hall",
-        "DEMONSTRATOR",
-        "Congress On Memorial Day",
-        "PROTESTER",
-        "Delaney Hall,115"
+        "Vladimir Putin",
+        "Nga",
+        "Rumani",
+        "NATO",
+        "EU",
+        "ROMANIA",
+        "ARMED FORCES",
+        "Foreign Ministry"
       ],
       "sources": [
         {
-          "url": "https://newsradio967.iheart.com/content/2026-05-28-blanche-promises-to-prosecute-as-delaney-hall-protests-continue/",
-          "name": "Newsradio967"
+          "url": "https://www.tagesanzeiger.ch/russische-drohne-trifft-rumaenien-wie-reagiert-die-nato-428806482939",
+          "name": "Tagesanzeiger"
+        },
+        {
+          "url": "https://www.oz-online.de/artikel/1658775/Russische-Drohne-trifft-Wohnhaus-in-Rumaenien-Nato-reagiert",
+          "name": "Oz-online"
+        },
+        {
+          "url": "https://news.yam.md/ro/story/31392651",
+          "name": "News"
+        },
+        {
+          "url": "https://news.yam.md/ro/story/31392652",
+          "name": "News"
+        },
+        {
+          "url": "https://www.segabg.com/hot/category-foreign-country/rumuniya-izgoni-ruski-konsul-zaradi-incidenta-dron",
+          "name": "Segabg"
+        },
+        {
+          "url": "https://www.respublika.lt/lt/naujienos/pasaulis/kitos_pasaulio_naujienos/rumunija-patvirtino-i-daugiabuti-isirezes-dronas-buvo-rusiskas/",
+          "name": "Respublika"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306485432",
+      "sector": "Bất động sản - Hạ tầng",
+      "title": "Căng thẳng leo thang tại địa điểm xây dựng sân vận động Olympic 2032",
+      "summary": "Cảnh sát đã giải tán người biểu tình tại Công viên Victoria, Brisbane để chuẩn bị khởi công dự án sân vận động trị giá 3,6 tỷ USD.",
+      "importance_reason": "Dự án hạ tầng lớn bị gián đoạn do mâu thuẫn về bảo tồn di sản và quyền sở hữu đất đai.",
+      "num_articles": 60,
+      "source_count": 1,
+      "sentiment_tone": -3.85,
+      "sentiment_label": "Trung tính",
+      "entities": [
+        "Olympic 2032",
+        "Brisbane",
+        "Công viên Victoria",
+        "Chính quyền Úc",
+        "POLICE",
+        "EMBASSY",
+        "Victoria Park",
+        "Thế vận hội 2032"
+      ],
+      "sources": [
+        {
+          "url": "https://www.bluemountainsgazette.com/story/9256545/tensions-flare-protesters-evicted-from-2032-games-site/",
+          "name": "Bluemountainsgazette"
+        },
+        {
+          "url": "https://www.irrigator.com.au/story/9256545/tensions-flare-protesters-evicted-from-2032-games-site/",
+          "name": "Irrigator"
+        }
+      ],
+      "primary_sector": "Bất động sản - Hạ tầng",
+      "secondary_sector": null,
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk"
+      ],
+      "affected_assets": [],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306456195",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "Iran bắn tên lửa tại eo biển Hormuz, Mỹ bác bỏ thông tin hạ gục máy bay không người lái",
+      "summary": "Căng thẳng leo thang khi Iran tuyên bố bắn tên lửa và nổ súng cảnh báo tại eo biển Hormuz sau thông tin về việc tiêu diệt máy bay MQ-9 của Mỹ, dù phía Mỹ đã lên tiếng phủ nhận.",
+      "importance_reason": "Sự kiện ảnh hưởng trực tiếp đến an ninh năng lượng và vận tải tại khu vực điểm nóng chiến lược.",
+      "num_articles": 50,
+      "source_count": 6,
+      "sentiment_tone": -4.5,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "Iran",
+        "Mỹ",
+        "CENTCOM",
+        "MQ-9 Reaper",
+        "Eo biển Hormuz",
+        "NEWS AGENCY",
+        "ARMY",
+        "A German Agency"
+      ],
+      "sources": [
+        {
+          "url": "https://www.lykavitos.gr/news/planet/stena-tou-ormouz-to-iran-ektokseyse-pyraylous-diapseysi-ipa-gia-katarripsi-drone",
+          "name": "Lykavitos"
+        },
+        {
+          "url": "https://athina984.gr/2026/05/29/o-stratos-ton-ipa-diapseydei-oti-to-iran-katerripse-amerikaniko-drone/",
+          "name": "Athina984"
+        },
+        {
+          "url": "https://www.inewsgr.com/182/ipa-o-stratos-diapsevdei-oti-to-iran-katerripse-amerikaniko-drone.htm",
+          "name": "Inewsgr"
+        },
+        {
+          "url": "https://www.newsbeast.gr/world/arthro/13132454/o-stratos-ton-ipa-diapsevdei-oti-to-iran-katerripse-amerikaniko-drone",
+          "name": "Newsbeast"
+        },
+        {
+          "url": "https://www.inewsgr.com/97/o-stratos-ton-ipa-diapsevdei-oti-to-iran-katerripse-amerikaniko-drone.htm",
+          "name": "Inewsgr"
+        },
+        {
+          "url": "https://www.tanea.gr/2026/05/29/world/o-stratos-ton-ipa-diapseydei-oti-to-iran-katerripse-amerikaniko-drone/",
+          "name": "Tanea"
+        },
+        {
+          "url": "https://www.inewsgr.com/27/o-stratos-ton-ipa-diapsevdei-oti-to-iran-katerripse-amerikaniko-drone.htm",
+          "name": "Inewsgr"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "credit_liquidity_risk",
+        "commodity_energy_risk",
+        "supply_chain_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "banks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306425127",
+      "sector": "Tài chính - Ngân hàng & Tín dụng",
+      "title": "Cựu quan chức cấp cao CIA bị bắt giữ với hơn 40 triệu USD vàng và tiền mặt",
+      "summary": "Cựu điều hành cấp cao của CIA bị FBI bắt giữ tại Virginia, thu giữ hơn 300 thỏi vàng 1kg và 2 triệu USD tiền mặt cùng nhiều tài sản xa xỉ.",
+      "importance_reason": "Vụ việc liên quan đến bê bối tham nhũng và an ninh nội bộ của cơ quan tình báo Mỹ.",
+      "num_articles": 50,
+      "source_count": 1,
+      "sentiment_tone": -4.35,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "FBI",
+        "CIA",
+        "David J. Rush",
+        "Virginia",
+        "DEFENSE ATTORNEY",
+        "Rolex"
+      ],
+      "sources": [
+        {
+          "url": "https://radio.wpsu.org/2026-05-28/former-senior-cia-officer-took-home-gold-bars-and-millions-in-cash-fbi-says",
+          "name": "Radio"
         }
       ],
       "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
@@ -37,152 +204,8 @@
         "conflict_security_risk",
         "legal_regulatory_risk",
         "credit_liquidity_risk",
-        "supply_chain_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306494415",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Lãnh đạo WHO kêu gọi ngăn chặn đợt bùng phát dịch Ebola tại Congo",
-      "summary": "Tổng giám đốc WHO đã đến Congo để thúc đẩy các nỗ lực kiểm soát dịch bệnh Ebola mới xuất hiện.",
-      "importance_reason": "Khủng hoảng y tế toàn cầu cần sự hỗ trợ quốc tế kịp thời.",
-      "num_articles": 45,
-      "source_count": 1,
-      "sentiment_tone": -5.78,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "WHO",
-        "Tedros Adhanom Ghebreyesus",
-        "Congo",
-        "RESIDENTS",
-        "World Health Organization",
-        "European Union",
-        "Kinshasa",
-        "COMMUNITY"
-      ],
-      "sources": [
-        {
-          "url": "https://www.smdailyjournal.com/news/world/who-chief-land-in-congo-says-ebola-outbreak-can-be-stopped/article_3ae53ec3-863f-5362-aede-3103075",
-          "name": "Smdailyjournal"
-        },
-        {
-          "url": "https://www.wamc.org/2026-05-29/who-chief-lands-in-congo-to-address-rare-ebola-outbreak-amid-distrust-and-insecurity",
-          "name": "Wamc"
-        },
-        {
-          "url": "https://www.breakingnews.ie/world/health-chief-lands-in-dr-congo-amid-ebola-outbreak-fears-1906639.html",
-          "name": "Breakingnews"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306426503",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Israel và Nga bị thêm vào 'danh sách xấu hổ' của Liên Hợp Quốc",
-      "summary": "Liên Hợp Quốc đã đưa Israel và Nga vào danh sách các bên liên quan đến bạo lực tình dục có hệ thống trong xung đột vũ trang.",
-      "importance_reason": "Sự chỉ trích từ cộng đồng quốc tế đối với các hành vi vi phạm nhân quyền trong chiến tranh.",
-      "num_articles": 30,
-      "source_count": 1,
-      "sentiment_tone": -12.99,
-      "sentiment_label": "Tiêu cực mạnh",
-      "entities": [
-        "Liên Hợp Quốc",
-        "Israel",
-        "Nga",
-        "Jewish Community Relations Council Of New York",
-        "Office To Combat Antisemitism",
-        "Jewish Telegraphic Agency",
-        "LHQ",
-        "PRISONER"
-      ],
-      "sources": [
-        {
-          "url": "https://www.news24.com/world/israel-russia-added-to-un-list-of-shame-for-systematic-sexual-violence-in-conflict-20260529-0525",
-          "name": "News24"
-        },
-        {
-          "url": "https://www.esaimaa.fi/uutissuomalainen/9490104",
-          "name": "Esaimaa"
-        },
-        {
-          "url": "https://www.leadertelegram.com/news/world/israeli-and-russian-forces-added-to-un-blacklist-for-sexual-violence-in-conflict-zones/article_5c7",
-          "name": "Leadertelegram"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "commodity_energy_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306469778",
-      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "EU và NATO phản ứng mạnh sau vụ drone Nga rơi tại Romania",
-      "summary": "Chủ tịch Ủy ban Châu Âu Von der Leyen tuyên bố Nga đã vượt qua lằn ranh đỏ khi một máy bay không người lái của Nga rơi tại Romania, thúc đẩy EU soạn thảo các lệnh trừng phạt mới.",
-      "importance_reason": "Sự cố tăng nguy cơ leo thang xung đột giữa Nga và các quốc gia thành viên NATO.",
-      "num_articles": 34,
-      "source_count": 1,
-      "sentiment_tone": -5.95,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Nga",
-        "Romania",
-        "NATO",
-        "EU",
-        "Von der Leyen",
-        "RUSSIA",
-        "Bộ Quốc phòng Romania",
-        "Galati"
-      ],
-      "sources": [
-        {
-          "url": "https://portalb.mk/sulmi-me-drone-ne-rumani-von-der-leyen-rusia-ka-kaluar-nje-vije-tjeter-po-pergatisim-sanksione-te-reja/",
-          "name": "Portalb"
-        },
-        {
-          "url": "https://www.respublika.lt/lt/naujienos/pasaulis/kitos_pasaulio_naujienos/rumunija-patvirtino-i-daugiabuti-isirezes-dronas-buvo-rusiskas/",
-          "name": "Respublika"
-        }
-      ],
-      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "credit_liquidity_risk",
         "rate_policy_risk",
+        "commodity_energy_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
       ],
@@ -190,6 +213,7 @@
         "stocks",
         "bonds",
         "USD",
+        "gold",
         "banks",
         "real_estate"
       ],
