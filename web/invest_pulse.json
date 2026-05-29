@@ -1,83 +1,106 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-29T08:09:46.125713+00:00",
-  "total_events": 7,
+  "generated_at_utc": "2026-05-29T12:24:35.696501+00:00",
+  "total_events": 4,
   "events": [
     {
-      "global_event_id": "1306469778",
-      "sector": "Khủng hoảng - Xung đột & An ninh",
-      "title": "Drone Nga tấn công tòa nhà tại Romania, NATO và EU phản ứng mạnh mẽ",
-      "summary": "Một drone Nga đã rơi xuống tòa nhà ở Galati, Romania, khiến NATO và EU lên án hành động vi phạm biên giới.",
-      "importance_reason": "Sự kiện gây lo ngại về an ninh khu vực và rủi ro leo thang xung đột tại biên giới NATO.",
-      "num_articles": 34,
+      "global_event_id": "1306425380",
+      "sector": "Tài chính - Ngân hàng & Tín dụng",
+      "title": "Bộ Tư pháp Mỹ cam kết truy tố người biểu tình tại trung tâm giam giữ Newark",
+      "summary": "Quyền Bộ trưởng Tư pháp Todd Blanche tuyên bố sẽ trừng trị những người biểu tình quá khích tại Newark.",
+      "importance_reason": "Sự leo thang xung đột giữa người biểu tình và cơ quan liên bang.",
+      "num_articles": 80,
       "source_count": 1,
-      "sentiment_tone": -5.95,
-      "sentiment_label": "Tiêu cực",
+      "sentiment_tone": -16.14,
+      "sentiment_label": "Tiêu cực mạnh",
       "entities": [
-        "NATO",
-        "EU",
-        "Nga",
-        "Romania",
-        "Ursula von der Leyen",
-        "RUSSIA",
-        "Bộ Quốc phòng Romania",
-        "AMBASSADOR"
+        "Todd Blanche",
+        "Newark",
+        "ICE",
+        "Delaney Hall",
+        "DEMONSTRATOR",
+        "Congress On Memorial Day",
+        "PROTESTER",
+        "Delaney Hall,115"
       ],
       "sources": [
         {
-          "url": "https://www.blikk.hu/aktualis/kulfold/orosz-dron-romania-nato-ursula-von-der-leyen/xnw3hnj",
-          "name": "Blikk"
-        },
-        {
-          "url": "https://www.ukrinform.ua/rubric-world/4128370-vlucanna-u-bagatopoverhivku-minoboroni-rumunii-pidverdilo-so-dron-buv-rosijskim.html",
-          "name": "Ukrinform"
-        },
-        {
-          "url": "https://www.italiaoggi.it/economia-e-politica/attualita/drone-russo-colpisce-edificio-in-romania-due-feriti-y0ytyilq",
-          "name": "Italiaoggi"
-        },
-        {
-          "url": "https://www.interris.it/esteri/romania-drone-colpisce-un-palazzo-a-galati/",
-          "name": "Interris"
-        },
-        {
-          "url": "https://news.yam.md/ro/story/31290764",
-          "name": "News"
-        },
-        {
-          "url": "https://click.ro/actualitate/national/mae-reactioneaza-dur-dupa-ce-o-drona-s-a-prabusit-2533019.html",
-          "name": "Click"
-        },
-        {
-          "url": "https://www.aftonbladet.se/nyheter/a/Rr77qd/aftonbladet-direkt?pinnedEntry=1468231",
-          "name": "Aftonbladet"
+          "url": "https://newsradio967.iheart.com/content/2026-05-28-blanche-promises-to-prosecute-as-delaney-hall-protests-continue/",
+          "name": "Newsradio967"
         }
       ],
-      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "primary_sector": "Tài chính - Ngân hàng & Tín dụng",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
         "conflict_security_risk",
         "legal_regulatory_risk",
-        "rate_policy_risk",
+        "credit_liquidity_risk",
+        "supply_chain_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "banks"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306494415",
+      "sector": "Chứng khoán - Thị trường Vốn",
+      "title": "Lãnh đạo WHO kêu gọi ngăn chặn đợt bùng phát dịch Ebola tại Congo",
+      "summary": "Tổng giám đốc WHO đã đến Congo để thúc đẩy các nỗ lực kiểm soát dịch bệnh Ebola mới xuất hiện.",
+      "importance_reason": "Khủng hoảng y tế toàn cầu cần sự hỗ trợ quốc tế kịp thời.",
+      "num_articles": 45,
+      "source_count": 1,
+      "sentiment_tone": -5.78,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "WHO",
+        "Tedros Adhanom Ghebreyesus",
+        "Congo",
+        "RESIDENTS",
+        "World Health Organization",
+        "European Union",
+        "Kinshasa",
+        "COMMUNITY"
+      ],
+      "sources": [
+        {
+          "url": "https://www.smdailyjournal.com/news/world/who-chief-land-in-congo-says-ebola-outbreak-can-be-stopped/article_3ae53ec3-863f-5362-aede-3103075",
+          "name": "Smdailyjournal"
+        },
+        {
+          "url": "https://www.wamc.org/2026-05-29/who-chief-lands-in-congo-to-address-rare-ebola-outbreak-amid-distrust-and-insecurity",
+          "name": "Wamc"
+        },
+        {
+          "url": "https://www.breakingnews.ie/world/health-chief-lands-in-dr-congo-amid-ebola-outbreak-fears-1906639.html",
+          "name": "Breakingnews"
+        }
+      ],
+      "primary_sector": "Chứng khoán - Thị trường Vốn",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
       ],
       "affected_assets": [
         "stocks",
-        "bonds",
-        "USD",
         "real_estate"
       ],
       "investment_relevance": "high"
     },
     {
       "global_event_id": "1306426503",
-      "sector": "Chính trị - Ngoại giao",
-      "title": "Israel và Nga bị đưa vào danh sách đen của LHQ về bạo lực tình dục",
-      "summary": "Liên Hợp Quốc liệt kê lực lượng Israel và Nga vào danh sách đen liên quan đến bạo lực tình dục trong xung đột.",
-      "importance_reason": "Động thái ngoại giao nghiêm trọng ảnh hưởng đến uy tín quốc tế của các quốc gia liên quan.",
+      "sector": "Chứng khoán - Thị trường Vốn",
+      "title": "Israel và Nga bị thêm vào 'danh sách xấu hổ' của Liên Hợp Quốc",
+      "summary": "Liên Hợp Quốc đã đưa Israel và Nga vào danh sách các bên liên quan đến bạo lực tình dục có hệ thống trong xung đột vũ trang.",
+      "importance_reason": "Sự chỉ trích từ cộng đồng quốc tế đối với các hành vi vi phạm nhân quyền trong chiến tranh.",
       "num_articles": 30,
       "source_count": 1,
       "sentiment_tone": -12.99,
@@ -86,39 +109,27 @@
         "Liên Hợp Quốc",
         "Israel",
         "Nga",
-        "Antonio Guterres",
         "Jewish Community Relations Council Of New York",
         "Office To Combat Antisemitism",
-        "PRISONER",
-        "Security Council"
+        "Jewish Telegraphic Agency",
+        "LHQ",
+        "PRISONER"
       ],
       "sources": [
         {
-          "url": "https://www.hameensanomat.fi/uutissuomalainen/9490104",
-          "name": "Hameensanomat"
+          "url": "https://www.news24.com/world/israel-russia-added-to-un-list-of-shame-for-systematic-sexual-violence-in-conflict-20260529-0525",
+          "name": "News24"
         },
         {
           "url": "https://www.esaimaa.fi/uutissuomalainen/9490104",
           "name": "Esaimaa"
         },
         {
-          "url": "https://www.scmp.com/news/world/middle-east/article/3355285/israel-russia-hit-back-after-being-added-un-blacklist-sexual-violence-conflicts",
-          "name": "Scmp"
-        },
-        {
-          "url": "https://www.click2houston.com/news/world/2026/05/28/israeli-and-russian-forces-added-to-un-blacklist-for-sexual-violence-in-conflict-zones/",
-          "name": "Click2houston"
-        },
-        {
-          "url": "https://www.wboc.com/news/national/israeli-and-russian-forces-added-to-un-blacklist-for-sexual-violence-in-conflict-zones/article_4c57f372-a",
-          "name": "Wboc"
-        },
-        {
-          "url": "https://www.valledaostaglocal.it/2026/05/29/leggi-notizia/argomenti/ultimora/articolo/onu-israele-e-russia-aggiunte-nella-lista-nera-per-la-",
-          "name": "Valledaostaglocal"
+          "url": "https://www.leadertelegram.com/news/world/israeli-and-russian-forces-added-to-un-blacklist-for-sexual-violence-in-conflict-zones/article_5c7",
+          "name": "Leadertelegram"
         }
       ],
-      "primary_sector": "Chính trị - Ngoại giao",
+      "primary_sector": "Chứng khoán - Thị trường Vốn",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
@@ -135,154 +146,33 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1306459063",
-      "sector": "Khủng hoảng - Xung đột & An ninh",
-      "title": "Donald Trump tìm kiếm giải pháp kết thúc bế tắc trong đàm phán hòa bình Mỹ-Iran",
-      "summary": "Cựu Tổng thống Donald Trump đang nỗ lực tìm lối thoát cho cuộc xung đột Mỹ-Iran khi các bên tiến gần đến một thỏa thuận tạm thời.",
-      "importance_reason": "Xung đột địa chính trị tại vùng Vịnh gây tác động trực tiếp đến an ninh năng lượng và thị trường tài chính toàn cầu.",
-      "num_articles": 30,
+      "global_event_id": "1306469778",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "EU và NATO phản ứng mạnh sau vụ drone Nga rơi tại Romania",
+      "summary": "Chủ tịch Ủy ban Châu Âu Von der Leyen tuyên bố Nga đã vượt qua lằn ranh đỏ khi một máy bay không người lái của Nga rơi tại Romania, thúc đẩy EU soạn thảo các lệnh trừng phạt mới.",
+      "importance_reason": "Sự cố tăng nguy cơ leo thang xung đột giữa Nga và các quốc gia thành viên NATO.",
+      "num_articles": 34,
       "source_count": 1,
-      "sentiment_tone": -3.57,
-      "sentiment_label": "Trung tính",
+      "sentiment_tone": -5.95,
+      "sentiment_label": "Tiêu cực",
       "entities": [
-        "Donald Trump",
-        "Mỹ",
-        "Iran",
-        "Các đối tác vùng Vịnh",
-        "Us State Department",
-        "International Crisis Group",
-        "THE US",
-        "International Crisis Group Iran"
+        "Nga",
+        "Romania",
+        "NATO",
+        "EU",
+        "Von der Leyen",
+        "RUSSIA",
+        "Bộ Quốc phòng Romania",
+        "Galati"
       ],
       "sources": [
         {
-          "url": "https://www.smh.com.au/world/middle-east/deal-or-no-deal-trump-searches-for-iran-off-ramp-to-end-hurting-stalemate-20260528-p601n4.html",
-          "name": "Smh"
+          "url": "https://portalb.mk/sulmi-me-drone-ne-rumani-von-der-leyen-rusia-ka-kaluar-nje-vije-tjeter-po-pergatisim-sanksione-te-reja/",
+          "name": "Portalb"
         },
         {
-          "url": "https://www.theage.com.au/world/middle-east/deal-or-no-deal-trump-searches-for-iran-off-ramp-to-end-hurting-stalemate-20260528-p601n4.html",
-          "name": "Theage"
-        }
-      ],
-      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "credit_liquidity_risk",
-        "commodity_energy_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306460326",
-      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Đồng Euro giảm, USD tăng trong tỷ giá của Ngân hàng Trung ương Moldova",
-      "summary": "Đồng nội tệ Moldova biến động trái chiều khi Euro giảm giá và Đô la Mỹ tăng nhẹ cuối tuần.",
-      "importance_reason": "Chỉ dấu về xu hướng tiền tệ khu vực ảnh hưởng tới thương mại quốc tế.",
-      "num_articles": 30,
-      "source_count": 1,
-      "sentiment_tone": -5.52,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Ngân hàng Trung ương Moldova",
-        "Euro",
-        "Đô la Mỹ",
-        "MOSCOW",
-        "El Nino,8",
-        "4#Moscow, Moskva, Russia#RS#RS48#25106#55.7522#37.6156#-2960561#451",
-        "USD"
-      ],
-      "sources": [
-        {
-          "url": "https://news.yam.md/ro/story/31293162",
-          "name": "News"
-        }
-      ],
-      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk"
-      ],
-      "affected_assets": [
-        "stocks"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306424314",
-      "sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "title": "Ấn Độ và Canada khởi động diễn đàn thương mại và đầu tư",
-      "summary": "Ấn Độ và Canada ra mắt diễn đàn kinh tế nhằm tăng cường hợp tác và quan hệ thương mại song phương.",
-      "importance_reason": "Bước tiến quan trọng trong thúc đẩy đầu tư và chuỗi cung ứng giữa hai nền kinh tế.",
-      "num_articles": 30,
-      "source_count": 1,
-      "sentiment_tone": 3.77,
-      "sentiment_label": "Trung tính",
-      "entities": [
-        "Ấn Độ",
-        "Canada",
-        "Diễn đàn thương mại",
-        "NEW BRUNSWICK",
-        "COMPANIES",
-        "Supreme Court"
-      ],
-      "sources": [
-        {
-          "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/india-canada-launch-trade-and-investment-forum-to-strengthen-economic-partne",
-          "name": "Economictimes"
-        }
-      ],
-      "primary_sector": "Thương mại - Chuỗi cung ứng Toàn cầu",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "mixed",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "credit_liquidity_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "banks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306425127",
-      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Cựu quan chức CIA bị bắt vì tàng trữ vàng và tiền mặt trái phép",
-      "summary": "FBI thu giữ hơn 40 triệu USD vàng thỏi và 2 triệu USD tiền mặt tại nhà riêng của một cựu quan chức.",
-      "importance_reason": "Vụ việc chấn động liên quan đến tham nhũng và an ninh quốc gia cấp cao.",
-      "num_articles": 50,
-      "source_count": 1,
-      "sentiment_tone": -4.35,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "CIA",
-        "FBI",
-        "David J. Rush",
-        "Matthew T. Johnson",
-        "DEFENSE ATTORNEY",
-        "Clemson University"
-      ],
-      "sources": [
-        {
-          "url": "https://www.wncw.org/2026-05-28/former-senior-cia-officer-took-home-gold-bars-and-millions-in-cash-fbi-says",
-          "name": "Wncw"
+          "url": "https://www.respublika.lt/lt/naujienos/pasaulis/kitos_pasaulio_naujienos/rumunija-patvirtino-i-daugiabuti-isirezes-dronas-buvo-rusiskas/",
+          "name": "Respublika"
         }
       ],
       "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
@@ -293,7 +183,6 @@
         "legal_regulatory_risk",
         "credit_liquidity_risk",
         "rate_policy_risk",
-        "commodity_energy_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
       ],
@@ -301,54 +190,6 @@
         "stocks",
         "bonds",
         "USD",
-        "gold",
-        "banks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306425528",
-      "sector": "Chính trị - Ngoại giao",
-      "title": "Mark Carney kêu gọi quan hệ đối tác mới giữa Mỹ và Canada",
-      "summary": "Thủ tướng Canada Mark Carney đề xuất mối quan hệ hợp tác mới với Mỹ để củng cố kinh tế.",
-      "importance_reason": "Dấu hiệu thay đổi trong chính sách thương mại và quan hệ đối ngoại giữa hai đối tác lớn.",
-      "num_articles": 30,
-      "source_count": 1,
-      "sentiment_tone": -4.37,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Mark Carney",
-        "Mỹ",
-        "Canada",
-        "WASHINGTON",
-        "New York Times",
-        "Cnn"
-      ],
-      "sources": [
-        {
-          "url": "https://krdo.com/news/2026/05/28/carney-seeks-new-us-canada-partnership-as-world-undergoes-rupture/",
-          "name": "Krdo"
-        }
-      ],
-      "primary_sector": "Chính trị - Ngoại giao",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "mixed",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "credit_liquidity_risk",
-        "rate_policy_risk",
-        "commodity_energy_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk",
-        "crypto_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "USD",
-        "crypto",
         "banks",
         "real_estate"
       ],
