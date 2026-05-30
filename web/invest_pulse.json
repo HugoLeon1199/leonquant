@@ -1,28 +1,28 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-30T09:24:33.747456+00:00",
-  "total_events": 2,
+  "generated_at_utc": "2026-05-30T11:28:24.466668+00:00",
+  "total_events": 4,
   "events": [
     {
-      "global_event_id": "1306605431",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Mỹ và Trung Quốc trục xuất nhà báo trong các động thái đáp trả lẫn nhau",
-      "summary": "Chính quyền Mỹ thu hồi thị thực của nhân viên hãng tin Xinhua sau khi Bắc Kinh trục xuất phóng viên New York Times.",
-      "importance_reason": "Căng thẳng ngoại giao gia tăng ảnh hưởng đến môi trường truyền thông và quan hệ quốc tế giữa hai nền kinh tế lớn.",
+      "global_event_id": "1306605718",
+      "sector": "Chính trị - Ngoại giao",
+      "title": "Mỹ và Trung Quốc trục xuất nhà báo trong các động thái trả đũa lẫn nhau",
+      "summary": "Chính quyền Mỹ thu hồi visa của phóng viên Trung Quốc để đáp trả việc Bắc Kinh trục xuất nhà báo từ New York Times.",
+      "importance_reason": "Căng thẳng ngoại giao gia tăng giữa hai cường quốc có thể ảnh hưởng đến môi trường truyền thông và quan hệ quốc tế.",
       "num_articles": 32,
       "source_count": 13,
       "sentiment_tone": -4.18,
       "sentiment_label": "Tiêu cực",
       "entities": [
         "Chính quyền Trump",
-        "Xinhua",
+        "Tân Hoa Xã",
         "New York Times",
-        "Vivian Wang",
-        "GOVERNMENT",
+        "Trung Quốc",
         "MEDIA",
+        "GOVERNMENT",
         "Bộ Ngoại giao Mỹ",
-        "Trung Quốc"
+        "Xinhua"
       ],
       "sources": [
         {
@@ -30,24 +30,24 @@
           "name": "Asiaone"
         },
         {
-          "url": "https://www.wdio.com/ap-top-news/us-and-china-trade-journalist-expulsions-in-tit-for-tat-moves/",
-          "name": "Wdio"
-        },
-        {
           "url": "https://www.wokv.com/news/politics/us-china-trade/IBC777C5EY7QNHDQNXPOWDNUKE/",
           "name": "Wokv"
+        },
+        {
+          "url": "https://www.wdio.com/ap-top-news/us-and-china-trade-journalist-expulsions-in-tit-for-tat-moves/",
+          "name": "Wdio"
         },
         {
           "url": "https://www.asiaone.com/world/us-and-china-trade-journalist-expulsions-tit-tat-moves",
           "name": "Asiaone"
         },
         {
-          "url": "https://www.wdbo.com/news/politics/us-china-trade/IBC777C5EY7QNHDQNXPOWDNUKE/",
-          "name": "Wdbo"
-        },
-        {
           "url": "https://www.wgauradio.com/news/politics/us-china-trade/IBC777C5EY7QNHDQNXPOWDNUKE/",
           "name": "Wgauradio"
+        },
+        {
+          "url": "https://www.wdbo.com/news/politics/us-china-trade/IBC777C5EY7QNHDQNXPOWDNUKE/",
+          "name": "Wdbo"
         },
         {
           "url": "https://www.wsbradio.com/news/politics/us-china-trade/IBC777C5EY7QNHDQNXPOWDNUKE/",
@@ -78,7 +78,7 @@
           "name": "Sitkasentinel"
         }
       ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
+      "primary_sector": "Chính trị - Ngoại giao",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
@@ -94,36 +94,191 @@
       "investment_relevance": "high"
     },
     {
+      "global_event_id": "1306634191",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "Nhà hoạt động gửi bằng chứng ngược đãi tại Gaza lên Tòa án Hình sự Quốc tế",
+      "summary": "Các nhà hoạt động Úc bị Israel giam giữ khi hỗ trợ Gaza đã đệ trình bằng chứng về việc bị ngược đãi lên Tòa án Hình sự Quốc tế.",
+      "importance_reason": "Sự kiện phản ánh căng thẳng địa chính trị leo thang liên quan đến các vấn đề nhân đạo và pháp lý quốc tế.",
+      "num_articles": 30,
+      "source_count": 20,
+      "sentiment_tone": -8.63,
+      "sentiment_label": "Tiêu cực mạnh",
+      "entities": [
+        "Tòa án Hình sự Quốc tế",
+        "Israel",
+        "Gaza",
+        "Australia",
+        "AUSTRALIAN",
+        "International Criminal Court",
+        "THE HAGUE"
+      ],
+      "sources": [
+        {
+          "url": "https://www.katherinetimes.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Katherinetimes"
+        },
+        {
+          "url": "https://www.standard.net.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Standard"
+        },
+        {
+          "url": "https://www.mandurahmail.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Mandurahmail"
+        },
+        {
+          "url": "https://www.maitlandmercury.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Maitlandmercury"
+        },
+        {
+          "url": "https://www.singletonargus.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Singletonargus"
+        },
+        {
+          "url": "https://www.tenterfieldstar.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Tenterfieldstar"
+        },
+        {
+          "url": "https://www.dailyliberal.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Dailyliberal"
+        },
+        {
+          "url": "https://www.inverelltimes.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Inverelltimes"
+        },
+        {
+          "url": "https://www.camdencourier.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Camdencourier"
+        },
+        {
+          "url": "https://www.thecourier.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Thecourier"
+        },
+        {
+          "url": "https://www.armidaleexpress.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Armidaleexpress"
+        },
+        {
+          "url": "https://www.nvi.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Nvi"
+        },
+        {
+          "url": "https://www.cootamundraherald.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Cootamundraherald"
+        },
+        {
+          "url": "https://www.nynganobserver.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Nynganobserver"
+        },
+        {
+          "url": "https://www.areanews.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Areanews"
+        },
+        {
+          "url": "https://www.northweststar.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Northweststar"
+        },
+        {
+          "url": "https://www.braidwoodtimes.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Braidwoodtimes"
+        },
+        {
+          "url": "https://www.examiner.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Examiner"
+        },
+        {
+          "url": "https://www.easternriverinachronicle.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Easternriverinachronicle"
+        },
+        {
+          "url": "https://www.goulburnpost.com.au/story/9259492/flotilla-activists-take-evidence-to-international-court/",
+          "name": "Goulburnpost"
+        }
+      ],
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "supply_chain_risk"
+      ],
+      "affected_assets": [
+        "stocks"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306607332",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Phòng Thương mại Ceylon ủng hộ cải cách IMF để thúc đẩy kinh tế",
+      "summary": "Phòng Thương mại Ceylon hoan nghênh đánh giá của IMF và kêu gọi duy trì cải cách trước áp lực bên ngoài.",
+      "importance_reason": "Định hướng chính sách kinh tế và cải cách của Sri Lanka có ảnh hưởng đến ổn định vĩ mô.",
+      "num_articles": 30,
+      "source_count": 1,
+      "sentiment_tone": 6.5,
+      "sentiment_label": "Tích cực",
+      "entities": [
+        "IMF",
+        "Phòng Thương mại Ceylon",
+        "Sri Lanka",
+        "CEYLON",
+        "Ceylon Chamber",
+        "International Monetary Fund"
+      ],
+      "sources": [
+        {
+          "url": "https://island.lk/ceylon-chamber-welcomes-imf-review-approval-urges-continued-reform-momentum-amid-external-pressures/",
+          "name": "Island"
+        }
+      ],
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "mixed",
+      "risk_flags": [
+        "conflict_security_risk",
+        "credit_liquidity_risk",
+        "rate_policy_risk",
+        "supply_chain_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "bonds",
+        "banks"
+      ],
+      "investment_relevance": "high"
+    },
+    {
       "global_event_id": "1306613030",
-      "sector": "Công nghệ - AI & Bán dẫn",
-      "title": "Tác động của đại lý AI đến tương lai các nền tảng SaaS vốn hóa nghìn tỷ đô",
-      "summary": "Sự trỗi dậy của các đại lý AI đang tạo ra thách thức lớn đối với mô hình SaaS truyền thống, buộc các doanh nghiệp phải tái cấu trúc mô hình để tồn tại. Những cái tên như ServiceNow và Palantir Technologies được kỳ vọng sẽ chuyển mình mạnh mẽ trong kỷ nguyên trí tuệ nhân tạo.",
-      "importance_reason": "Phân tích xu hướng chuyển dịch công nghệ ảnh hưởng trực tiếp đến định giá thị trường của các tập đoàn công nghệ lớn.",
+      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
+      "title": "Thay đổi quy định ngân hàng có thể hạn chế cắt giảm bảng cân đối của Fed",
+      "summary": "Các chuyên gia cho rằng quy định mới về dự trữ tiền mặt có thể khiến Fed gặp khó trong việc thu hẹp bảng cân đối kế toán.",
+      "importance_reason": "Ảnh hưởng trực tiếp đến thanh khoản và chính sách tiền tệ của Cục Dự trữ Liên bang Mỹ.",
       "num_articles": 30,
       "source_count": 1,
       "sentiment_tone": -5.22,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "ServiceNow",
-        "Palantir Technologies",
-        "SaaS",
-        "AI Agents",
-        "The Motley Fool",
-        "TRADER"
+        "Cục Dự trữ Liên bang Mỹ (Fed)",
+        "Kevin Warsh",
+        "TRADER",
+        "Al Center",
+        "Reuters",
+        "Federal Reserve"
       ],
       "sources": [
         {
-          "url": "https://www.fool.com/investing/2026/05/30/forget-saas-why-ai-agents-could-make-servicenow-an/?source=iedfolrf0000001",
-          "name": "Fool"
+          "url": "https://finance.yahoo.com/economy/policy/articles/rule-changes-may-only-yield-100627870.html",
+          "name": "Finance"
         }
       ],
-      "primary_sector": "Công nghệ - AI & Bán dẫn",
+      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
       "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
       "macro_signal": "risk_off",
       "risk_flags": [
         "conflict_security_risk",
         "legal_regulatory_risk",
         "credit_liquidity_risk",
+        "rate_policy_risk",
         "supply_chain_risk",
         "real_estate_infra_risk"
       ],
