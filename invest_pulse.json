@@ -1,226 +1,37 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-31T08:19:20.613613+00:00",
-  "total_events": 5,
+  "generated_at_utc": "2026-05-31T11:03:37.165395+00:00",
+  "total_events": 4,
   "events": [
     {
-      "global_event_id": "1306711320",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Tòa án xem xét tính hợp pháp quỹ 1,8 tỷ USD của ông Trump",
-      "summary": "Một thẩm phán liên bang sẽ đánh giá lại quỹ 'chống vũ khí hóa' trị giá 1,8 tỷ USD do chính quyền ông Trump thành lập sau khi bị các cựu thẩm phán nghi ngờ tính minh bạch.",
-      "importance_reason": "Liên quan đến tính pháp lý của ngân sách chính phủ và các tranh chấp hành pháp.",
-      "num_articles": 70,
-      "source_count": 20,
-      "sentiment_tone": -5.01,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Donald Trump",
-        "Kathleen Williams",
-        "IRS",
-        "JUDGE",
-        "Justice Department",
-        "University Of Southern California",
-        "MEDIA",
-        "FEDERAL JUDGE"
-      ],
-      "sources": [
-        {
-          "url": "https://www.kjzz.org/npr-top-stories/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kjzz"
-        },
-        {
-          "url": "https://www.aspenpublicradio.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Aspenpublicradio"
-        },
-        {
-          "url": "https://www.wvik.org/npr-top-stories/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wvik"
-        },
-        {
-          "url": "https://www.wuky.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wuky"
-        },
-        {
-          "url": "https://wysu.org/npr-national-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wysu"
-        },
-        {
-          "url": "https://www.northcountrypublicradio.org/news/npr/nx-s1-5839989/judge-agrees-to-review-trump-s-1-8-billion-anti-weaponization-fund",
-          "name": "Northcountrypublicradio"
-        },
-        {
-          "url": "https://www.nhpr.org/national/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Nhpr"
-        },
-        {
-          "url": "https://www.kedm.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kedm"
-        },
-        {
-          "url": "https://www.kpcw.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kpcw"
-        },
-        {
-          "url": "https://www.wboi.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wboi"
-        },
-        {
-          "url": "https://www.wnmufm.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wnmufm"
-        },
-        {
-          "url": "https://www.waer.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Waer"
-        },
-        {
-          "url": "https://www.wmuk.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wmuk"
-        },
-        {
-          "url": "https://www.wxpr.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wxpr"
-        },
-        {
-          "url": "https://www.kvnf.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kvnf"
-        },
-        {
-          "url": "https://www.wamc.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wamc"
-        },
-        {
-          "url": "https://www.ypradio.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Ypradio"
-        },
-        {
-          "url": "https://news.wjct.org/national-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "News"
-        },
-        {
-          "url": "https://www.wypr.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wypr"
-        },
-        {
-          "url": "https://www.wlrn.org/national-politics/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wlrn"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "commodity_energy_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306724507",
+      "global_event_id": "1306724513",
       "sector": "Bất động sản - Hạ tầng",
-      "title": "Bão lớn gây hư hại hạ tầng bờ biển Tây Úc",
-      "summary": "Một cơn bão với sức gió 125 km/h, hiện tượng hiếm gặp mỗi 5 năm, đã đổ bộ vào bờ biển phía tây nước Úc, gây ảnh hưởng nặng nề đến khu vực.",
-      "importance_reason": "Thiên tai tác động trực tiếp đến hạ tầng và kinh tế địa phương.",
+      "title": "Bão lớn gây hư hại nghiêm trọng tại vùng duyên hải Tây Úc",
+      "summary": "Một hệ thống áp thấp sâu gây bão với sức gió 125 km/h đã tấn công vùng duyên hải Tây Úc, phá vỡ hạ tầng khu vực.",
+      "importance_reason": "Thiên tai gây thiệt hại trực tiếp đến hạ tầng và kinh tế khu vực ven biển.",
       "num_articles": 70,
-      "source_count": 20,
+      "source_count": 1,
       "sentiment_tone": -3.9,
       "sentiment_label": "Trung tính",
       "entities": [
-        "Tây Úc",
         "Perth",
+        "Tây Úc",
+        "Hệ thống áp thấp",
+        "Cơ quan khí tượng",
         "POLICE",
-        "Bureau Of Meteorology",
-        "Emergency Service",
         "Australian Associated",
+        "Cơ quan thời tiết",
         "Police On"
       ],
       "sources": [
-        {
-          "url": "https://www.wellingtontimes.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Wellingtontimes"
-        },
-        {
-          "url": "https://www.merimbulanewsweekly.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Merimbulanewsweekly"
-        },
         {
           "url": "https://www.queanbeyanage.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
           "name": "Queanbeyanage"
         },
         {
-          "url": "https://www.cessnockadvertiser.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Cessnockadvertiser"
-        },
-        {
-          "url": "https://www.batemansbaypost.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Batemansbaypost"
-        },
-        {
-          "url": "https://www.narrominenewsonline.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Narrominenewsonline"
-        },
-        {
-          "url": "https://www.juneesoutherncross.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Juneesoutherncross"
-        },
-        {
-          "url": "https://www.oberonreview.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Oberonreview"
-        },
-        {
-          "url": "https://www.bunburymail.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Bunburymail"
-        },
-        {
-          "url": "https://www.blayneychronicle.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Blayneychronicle"
-        },
-        {
-          "url": "https://www.southcoastregister.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Southcoastregister"
-        },
-        {
-          "url": "https://www.gloucesteradvocate.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Gloucesteradvocate"
-        },
-        {
-          "url": "https://www.southernhighlandnews.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Southernhighlandnews"
-        },
-        {
-          "url": "https://www.hardenexpress.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Hardenexpress"
-        },
-        {
-          "url": "https://www.edenmagnet.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Edenmagnet"
-        },
-        {
-          "url": "https://www.sconeadvocate.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Sconeadvocate"
-        },
-        {
-          "url": "https://www.greatlakesadvocate.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Greatlakesadvocate"
-        },
-        {
-          "url": "https://www.moreechampion.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Moreechampion"
-        },
-        {
-          "url": "https://www.yasstribune.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Yasstribune"
-        },
-        {
-          "url": "https://www.dailyadvertiser.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
-          "name": "Dailyadvertiser"
+          "url": "https://www.merimbulanewsweekly.com.au/story/9263254/thousands-without-power-during-destructive-storms/",
+          "name": "Merimbulanewsweekly"
         }
       ],
       "primary_sector": "Bất động sản - Hạ tầng",
@@ -239,43 +50,27 @@
     {
       "global_event_id": "1306711456",
       "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Ứng viên phe đối lập Venezuela kêu gọi tổ chức bầu cử",
-      "summary": "Edmundo González kêu gọi bầu cử tổng thống mới tại Venezuela sau khoảng thời gian chính quyền tạm quyền của Delcy Rodríguez điều hành đất nước.",
-      "importance_reason": "Biến động chính trị ảnh hưởng đến ổn định kinh tế quốc gia.",
+      "title": "Đối thủ đối lập tại Venezuela kêu gọi tổ chức bầu cử tổng thống",
+      "summary": "Edmundo González yêu cầu tổ chức bầu cử tại Venezuela sau thời gian quản lý của chính quyền Delcy Rodríguez.",
+      "importance_reason": "Bất ổn chính trị ảnh hưởng đến ổn định kinh tế và vị thế quốc tế của Venezuela.",
       "num_articles": 36,
-      "source_count": 5,
+      "source_count": 1,
       "sentiment_tone": -3.68,
       "sentiment_label": "Trung tính",
       "entities": [
         "Edmundo González",
         "Delcy Rodríguez",
         "Nicolás Maduro",
+        "Venezuela",
         "THE OPPOSITION",
         "CONSTITUENT",
-        "United States",
-        "Venezuela",
-        "PRESIDENT"
+        "PRESIDENT",
+        "United States"
       ],
       "sources": [
         {
           "url": "https://ktbb.com/post/?p=1511416",
           "name": "Ktbb"
-        },
-        {
-          "url": "https://www.clickondetroit.com/news/2026/05/30/venezuelas-opposition-candidate-edmundo-gonzalez-calls-for-presidential-elections/",
-          "name": "Clickondetroit"
-        },
-        {
-          "url": "https://krmg.com/2026/05/30/venezuelas-opposition-candidate-edmundo-gonzalez-calls-for-presidential-elections/",
-          "name": "Krmg"
-        },
-        {
-          "url": "http://www.sitkasentinel.com/stories/venezuelas-opposition-candidate-edmundo-gonzlez-calls-for-presidential-elections,145267",
-          "name": "Sitkasentinel"
-        },
-        {
-          "url": "https://www.wsls.com/news/2026/05/30/venezuelas-opposition-candidate-edmundo-gonzalez-calls-for-presidential-elections/",
-          "name": "Wsls"
         }
       ],
       "primary_sector": "Chứng khoán - Thị trường Vốn",
@@ -297,51 +92,39 @@
     {
       "global_event_id": "1306713574",
       "sector": "Bất động sản - Hạ tầng",
-      "title": "Anh xem xét cấm mạng xã hội cho trẻ em",
-      "summary": "Chính phủ Anh đang cân nhắc lệnh cấm trẻ em dưới 16 tuổi sử dụng mạng xã hội, lấy cảm hứng từ các quy định nghiêm ngặt tại Úc.",
-      "importance_reason": "Ảnh hưởng tiềm tàng đến ngành công nghệ và dữ liệu người dùng.",
+      "title": "Anh xem xét cấm mạng xã hội cho trẻ em theo mô hình Úc",
+      "summary": "Chính phủ Anh đang thảo luận về lệnh cấm mạng xã hội đối với người dưới 16 tuổi sau khi nhận được sự ủng hộ rộng rãi từ các bậc phụ huynh.",
+      "importance_reason": "Quy định mới về Internet có thể ảnh hưởng đến doanh thu quảng cáo của các tập đoàn công nghệ lớn.",
       "num_articles": 30,
-      "source_count": 7,
+      "source_count": 1,
       "sentiment_tone": -6.09,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Anh",
+        "Chính phủ Anh",
         "Mạng xã hội",
         "MEDIA",
-        "Keir Starmer,1427",
-        "Liz Kendall,849",
-        "Nicola Killean,1924",
-        "Công nghệ",
+        "Nicola Killean,1353",
+        "Liz Kendall,591",
+        "Keir Starmer,1169",
+        "Úc",
         "AUSTRALIAN"
       ],
       "sources": [
-        {
-          "url": "https://www.aol.co.uk/articles/parents-overwhelmingly-back-social-media-222419945.html",
-          "name": "Aol"
-        },
         {
           "url": "https://www.independent.co.uk/news/uk/politics/social-media-ban-children-liz-kendall-b2986577.html",
           "name": "Independent"
         },
         {
-          "url": "https://www.newburytoday.co.uk/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
-          "name": "Newburytoday"
+          "url": "https://www.aol.co.uk/articles/parents-overwhelmingly-back-social-media-222419945.html",
+          "name": "Aol"
+        },
+        {
+          "url": "https://timesofindia.indiatimes.com/etimes/trending/uk-social-media-ban-for-under-16s-what-happens-to-kids-if-britain-goes-drastic/articlesh",
+          "name": "Timesofindia"
         },
         {
           "url": "https://www.fenlandcitizen.co.uk/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
           "name": "Fenlandcitizen"
-        },
-        {
-          "url": "https://www.lbc.co.uk/article/b5ea337b42fe4fa5b19e360b98f261df-5HjdZw4_2/",
-          "name": "Lbc"
-        },
-        {
-          "url": "https://www.stratford-herald.com/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
-          "name": "Stratford-herald"
-        },
-        {
-          "url": "https://www.kentonline.co.uk/news/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
-          "name": "Kentonline"
         }
       ],
       "primary_sector": "Bất động sản - Hạ tầng",
@@ -358,115 +141,39 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1306722837",
+      "global_event_id": "1306735984",
       "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Sinh viên YISU nhận việc tại Microsoft với mức lương cao",
-      "summary": "Thủ hiến bang Telangana ca ngợi sự thành công của Đại học Kỹ năng Young India khi 11 sinh viên được Microsoft tuyển dụng.",
-      "importance_reason": "Minh chứng cho thành công của chính sách đào tạo kỹ năng chuyên nghiệp.",
+      "title": "Giáo hoàng Leo XIV kêu gọi hòa bình cho các vùng chiến sự",
+      "summary": "Giáo hoàng Leo XIV kêu gọi chấm dứt xung đột và bạo lực tại các khu vực đang chịu ảnh hưởng của chiến tranh.",
+      "importance_reason": "Tầm ảnh hưởng của Giáo hoàng trong việc tác động đến nhận thức chính trị toàn cầu về hòa bình.",
       "num_articles": 30,
-      "source_count": 20,
-      "sentiment_tone": 4.34,
-      "sentiment_label": "Tích cực",
+      "source_count": 1,
+      "sentiment_tone": -4.71,
+      "sentiment_label": "Tiêu cực",
       "entities": [
-        "Revanth Reddy",
-        "Microsoft",
-        "YISU",
-        "Telangana",
-        "CONGRESS",
-        "ADIVASI",
-        "CHIEF MINISTER",
-        "Political Affairs Committee"
+        "Giáo hoàng Leo XIV",
+        "Vatican",
+        "CATHOLIC",
+        "Group Balkanweb",
+        "Head Church Catholic Roman",
+        "Pope Leo,12"
       ],
       "sources": [
         {
-          "url": "http://www.parisguardian.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-edu",
-          "name": "Parisguardian"
-        },
-        {
-          "url": "http://www.arabherald.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educat",
-          "name": "Arabherald"
-        },
-        {
-          "url": "http://www.russiaherald.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educ",
-          "name": "Russiaherald"
-        },
-        {
-          "url": "http://www.cincinnatisun.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-edu",
-          "name": "Cincinnatisun"
-        },
-        {
-          "url": "http://www.jamaicantimes.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-edu",
-          "name": "Jamaicantimes"
-        },
-        {
-          "url": "http://www.thailandnews.net/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educ",
-          "name": "Thailandnews"
-        },
-        {
-          "url": "http://www.oklahomacitysun.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-e",
-          "name": "Oklahomacitysun"
-        },
-        {
-          "url": "http://www.africaleader.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educ",
-          "name": "Africaleader"
-        },
-        {
-          "url": "http://www.srilankasource.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-ed",
-          "name": "Srilankasource"
-        },
-        {
-          "url": "http://www.cambodiantimes.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-ed",
-          "name": "Cambodiantimes"
-        },
-        {
-          "url": "http://www.caribbeanherald.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-e",
-          "name": "Caribbeanherald"
-        },
-        {
-          "url": "http://www.neworleanssun.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-edu",
-          "name": "Neworleanssun"
-        },
-        {
-          "url": "http://www.northkoreatimes.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-e",
-          "name": "Northkoreatimes"
-        },
-        {
-          "url": "http://www.laosnews.net/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educatio",
-          "name": "Laosnews"
-        },
-        {
-          "url": "http://www.newyorktelegraph.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-",
-          "name": "Newyorktelegraph"
-        },
-        {
-          "url": "http://www.kenyastar.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educati",
-          "name": "Kenyastar"
-        },
-        {
-          "url": "http://www.irishsun.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educatio",
-          "name": "Irishsun"
-        },
-        {
-          "url": "http://www.austinglobe.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-educa",
-          "name": "Austinglobe"
-        },
-        {
-          "url": "http://www.trinidadtimes.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-edu",
-          "name": "Trinidadtimes"
-        },
-        {
-          "url": "http://www.middleeaststar.com/news/279092589/telangana-cm-revanth-reddy-hails-yisu-students-microsoft-placements-highlights-skill-focused-ed",
-          "name": "Middleeaststar"
+          "url": "https://www.balkanweb.com/papa-leo-thirrje-per-paqe-ne-zonat-e-shkaterruara-nga-lufta-te-degjojme-britmen-e-te-pafajshmeve/",
+          "name": "Balkanweb"
         }
       ],
       "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Chính trị - Ngoại giao",
-      "macro_signal": "neutral",
-      "risk_flags": [],
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk"
+      ],
       "affected_assets": [
         "stocks"
       ],
-      "investment_relevance": "medium"
+      "investment_relevance": "high"
     }
   ]
 }
