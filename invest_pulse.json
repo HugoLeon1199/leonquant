@@ -1,109 +1,91 @@
 {
   "schema_version": "invest-event-v1",
   "channel": "invest",
-  "generated_at_utc": "2026-05-31T23:09:27.582440+00:00",
-  "total_events": 5,
+  "generated_at_utc": "2026-06-01T04:28:55.326299+00:00",
+  "total_events": 3,
   "events": [
     {
-      "global_event_id": "1306711327",
+      "global_event_id": "1306810261",
       "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Thẩm phán liên bang xem xét tính hợp pháp quỹ 1,8 tỷ USD của chính quyền Trump",
-      "summary": "Một thẩm phán Florida yêu cầu phản hồi về quỹ 'chống vũ khí hóa' 1,8 tỷ USD sau khi bị các cựu thẩm phán thách thức.",
-      "importance_reason": "Vấn đề pháp lý liên quan đến việc sử dụng ngân sách công và tính minh bạch trong quản trị chính phủ.",
-      "num_articles": 70,
-      "source_count": 20,
-      "sentiment_tone": -5.01,
+      "title": "Tranh cãi pháp lý xung quanh dự án đầu tư tại Zvërnec, Albania",
+      "summary": "Các vấn đề pháp lý phức tạp về quyền sở hữu đất đai đang gây ra phản ứng dữ dội đối với các dự án đầu tư tại Zvërnec. Dự án từng liên quan đến tên tuổi của gia đình Trump.",
+      "importance_reason": "Sự phản đối từ cộng đồng đối với các dự án đầu tư bất động sản gây khó khăn cho môi trường kinh doanh.",
+      "num_articles": 40,
+      "source_count": 4,
+      "sentiment_tone": -4.95,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Donald Trump",
-        "Kathleen Williams",
-        "IRS",
-        "Bộ Tư pháp Mỹ",
-        "FEDERAL JUDGE",
-        "ADMINISTRATION",
-        "MEDIA",
-        "University Of Southern California"
+        "Zvërnec",
+        "Ivanka Trump",
+        "Sazan",
+        "Albania",
+        "LAWYER",
+        "National Guard Berisha",
+        "Moody",
+        "Group Lam"
       ],
       "sources": [
         {
-          "url": "https://www.ijpr.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Ijpr"
+          "url": "https://publik.al/kakofonia-rreth-zvernecit/",
+          "name": "Publik"
         },
         {
-          "url": "https://www.wunc.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wunc"
+          "url": "https://prapaskena.com/2026/05/31/kakofonia-rreth-zvernecit/",
+          "name": "Prapaskena"
         },
         {
-          "url": "https://www.kjzz.org/npr-top-stories/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kjzz"
+          "url": "https://zyrtare.net/2026/06/kakofonia-rreth-zvernecit/",
+          "name": "Zyrtare"
         },
         {
-          "url": "https://www.wuky.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wuky"
+          "url": "https://javanews.al/kakofonia-rreth-zvernecit/",
+          "name": "Javanews"
+        }
+      ],
+      "primary_sector": "Chứng khoán - Thị trường Vốn",
+      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "macro_signal": "risk_off",
+      "risk_flags": [
+        "conflict_security_risk",
+        "legal_regulatory_risk",
+        "real_estate_infra_risk"
+      ],
+      "affected_assets": [
+        "stocks",
+        "real_estate"
+      ],
+      "investment_relevance": "high"
+    },
+    {
+      "global_event_id": "1306820957",
+      "sector": "Chứng khoán - Thị trường Vốn",
+      "title": "Tổng liên đoàn lao động Bolivia tiếp tục các cuộc phong tỏa",
+      "summary": "Liên đoàn lao động trung ương Bolivia thông báo duy trì các hoạt động phong tỏa. Đây là một phần của các cuộc biểu tình gây gián đoạn chuỗi cung ứng.",
+      "importance_reason": "Sự gián đoạn giao thông và logistics ảnh hưởng lớn đến tình hình sản xuất và thương mại tại Bolivia.",
+      "num_articles": 30,
+      "source_count": 3,
+      "sentiment_tone": -5.71,
+      "sentiment_label": "Tiêu cực",
+      "entities": [
+        "Bolivia",
+        "Central Obrera",
+        "CHIEF OF STATE",
+        "A Institution",
+        "Center Working To Bolivia",
+        "Federation To Together Neighborhood"
+      ],
+      "sources": [
+        {
+          "url": "https://www.prensa-latina.cu/2026/05/31/central-obrera-de-bolivia-mantendra-bloqueos-3/",
+          "name": "Prensa-latina"
         },
         {
-          "url": "https://www.aspenpublicradio.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Aspenpublicradio"
+          "url": "https://www.prensa-latina.cu/2026/05/31/central-obrera-de-bolivia-mantendra-bloqueos-2/",
+          "name": "Prensa-latina"
         },
         {
-          "url": "https://www.wvik.org/npr-top-stories/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wvik"
-        },
-        {
-          "url": "https://www.kedm.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kedm"
-        },
-        {
-          "url": "https://www.wnmufm.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wnmufm"
-        },
-        {
-          "url": "https://wysu.org/npr-national-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wysu"
-        },
-        {
-          "url": "https://www.kpcw.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kpcw"
-        },
-        {
-          "url": "https://www.wboi.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wboi"
-        },
-        {
-          "url": "https://www.nhpr.org/national/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Nhpr"
-        },
-        {
-          "url": "https://www.northcountrypublicradio.org/news/npr/nx-s1-5839989/judge-agrees-to-review-trump-s-1-8-billion-anti-weaponization-fund",
-          "name": "Northcountrypublicradio"
-        },
-        {
-          "url": "https://www.kvnf.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Kvnf"
-        },
-        {
-          "url": "https://www.wamc.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wamc"
-        },
-        {
-          "url": "https://www.wmuk.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wmuk"
-        },
-        {
-          "url": "https://www.wxpr.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Wxpr"
-        },
-        {
-          "url": "https://www.waer.org/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Waer"
-        },
-        {
-          "url": "https://www.ypradio.org/npr-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "Ypradio"
-        },
-        {
-          "url": "https://news.wjct.org/national-news/2026-05-30/judge-agrees-to-review-trumps-1-8-billion-anti-weaponization-fund",
-          "name": "News"
+          "url": "https://www.prensa-latina.cu/2026/05/31/central-obrera-de-bolivia-mantendra-bloqueos/",
+          "name": "Prensa-latina"
         }
       ],
       "primary_sector": "Chứng khoán - Thị trường Vốn",
@@ -113,7 +95,6 @@
         "conflict_security_risk",
         "legal_regulatory_risk",
         "commodity_energy_risk",
-        "supply_chain_risk",
         "real_estate_infra_risk"
       ],
       "affected_assets": [
@@ -123,193 +104,46 @@
       "investment_relevance": "high"
     },
     {
-      "global_event_id": "1306713158",
-      "sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "title": "Australia điều chỉnh kế hoạch mua tàu ngầm hạt nhân từ Mỹ",
-      "summary": "Australia chuyển hướng mua tàu ngầm đã qua sử dụng thay vì tàu mới trong dự án AUKUS để tiết kiệm ngân sách.",
-      "importance_reason": "Thay đổi trong chiến lược quốc phòng và chi tiêu ngân sách công của Australia và Mỹ.",
+      "global_event_id": "1306826886",
+      "sector": "Khủng hoảng - Xung đột & An ninh",
+      "title": "Tổng thống Zelensky kêu gọi Nga đàm phán trong khung thời gian cụ thể",
+      "summary": "Trong bối cảnh xung đột Ukraine, Tổng thống Zelensky đưa ra lời kêu gọi Nga tiến hành đàm phán và ấn định thời điểm cụ thể cho quá trình này.",
+      "importance_reason": "Động thái ngoại giao mới nhất có thể thay đổi cục diện địa chính trị và tâm lý thị trường toàn cầu.",
       "num_articles": 30,
-      "source_count": 1,
-      "sentiment_tone": -6.09,
+      "source_count": 3,
+      "sentiment_tone": -4.77,
       "sentiment_label": "Tiêu cực",
       "entities": [
-        "Richard Marles",
-        "Pete Hegseth",
-        "AUKUS",
-        "Australia",
-        "Mỹ",
-        "AUSTRALIAN"
-      ],
-      "sources": [
-        {
-          "url": "https://yourdemocracy.net/drupal/node/59975",
-          "name": "Yourdemocracy"
-        }
-      ],
-      "primary_sector": "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "rate_policy_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "bonds",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306713574",
-      "sector": "Bất động sản - Hạ tầng",
-      "title": "Anh xem xét lệnh cấm trẻ em dưới 16 tuổi sử dụng mạng xã hội",
-      "summary": "Chính phủ Anh cân nhắc ban hành lệnh cấm trẻ em dùng mạng xã hội dựa trên mô hình từ Australia.",
-      "importance_reason": "Chính sách quản lý công nghệ mới có thể tác động đến hoạt động của các tập đoàn Big Tech.",
-      "num_articles": 30,
-      "source_count": 7,
-      "sentiment_tone": -6.09,
-      "sentiment_label": "Tiêu cực",
-      "entities": [
-        "Chính phủ Anh",
-        "Mạng xã hội",
-        "Công nghệ",
-        "MEDIA",
-        "Liz Kendall,591",
-        "Keir Starmer,1169",
-        "Reuters",
-        "Academy Of Medical Royal Colleges"
-      ],
-      "sources": [
-        {
-          "url": "https://www.aol.co.uk/articles/parents-overwhelmingly-back-social-media-222419945.html",
-          "name": "Aol"
-        },
-        {
-          "url": "https://www.independent.co.uk/news/uk/politics/social-media-ban-children-liz-kendall-b2986577.html",
-          "name": "Independent"
-        },
-        {
-          "url": "https://www.newburytoday.co.uk/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
-          "name": "Newburytoday"
-        },
-        {
-          "url": "https://www.fenlandcitizen.co.uk/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
-          "name": "Fenlandcitizen"
-        },
-        {
-          "url": "https://www.stratford-herald.com/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
-          "name": "Stratford-herald"
-        },
-        {
-          "url": "https://www.lbc.co.uk/article/b5ea337b42fe4fa5b19e360b98f261df-5HjdZw4_2/",
-          "name": "Lbc"
-        },
-        {
-          "url": "https://www.kentonline.co.uk/news/national/nine-in-10-parents-back-social-media-ban-for-children-says-technology-secretary-167342/",
-          "name": "Kentonline"
-        }
-      ],
-      "primary_sector": "Bất động sản - Hạ tầng",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306764673",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Ukraine tăng cường tấn công bằng UAV vào tuyến đường tiếp vận Nga - Crimea",
-      "summary": "Các đơn vị Ukraine sử dụng drone tấn công nhằm phá hủy tuyến đường cung ứng quan trọng nối liền Nga và bán đảo Crimea.",
-      "importance_reason": "Chiến lược cắt đứt chuỗi hậu cần trong xung đột Nga-Ukraine.",
-      "num_articles": 40,
-      "source_count": 1,
-      "sentiment_tone": -3.71,
-      "sentiment_label": "Trung tính",
-      "entities": [
-        "Ukraine",
+        "Zelensky",
         "Nga",
-        "Crimea",
-        "CEPA",
-        "NORWAY",
-        "POLICE",
-        "Tv Moment In Television",
-        "Health Norway"
+        "Ukraine",
+        "ROMANIA",
+        "RUSSIAN",
+        "Russia Oil Industry",
+        "RUSSIA",
+        "Nuclear Power Plant Zaporizhia"
       ],
       "sources": [
         {
-          "url": "https://www.dagbladet.no/nyheter/motorveien-til-helvete/84693204",
-          "name": "Dagbladet"
-        }
-      ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
-      "macro_signal": "risk_off",
-      "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
-      ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
-      "investment_relevance": "high"
-    },
-    {
-      "global_event_id": "1306764322",
-      "sector": "Chứng khoán - Thị trường Vốn",
-      "title": "Israel giành quyền kiểm soát pháo đài chiến lược tại miền Nam Lebanon",
-      "summary": "Lực lượng Israel đã chiếm giữ pháo đài Beaufort, tiến sâu vào lãnh thổ Lebanon lần đầu tiên sau 26 năm.",
-      "importance_reason": "Leo thang xung đột quân sự tại khu vực Trung Đông ảnh hưởng trực tiếp đến an ninh năng lượng.",
-      "num_articles": 40,
-      "source_count": 1,
-      "sentiment_tone": -3.71,
-      "sentiment_label": "Trung tính",
-      "entities": [
-        "Israel",
-        "Lebanon",
-        "Beaufort",
-        "Nabatiyeh",
-        "PRISON",
-        "Tv Moment In Television",
-        "Hezbollah",
-        "Lâu đài Beaufort"
-      ],
-      "sources": [
-        {
-          "url": "https://www.dagbladet.no/nyheter/det-vil-ta-tid-men-vi-vil-ta-mer/84695972",
-          "name": "Dagbladet"
+          "url": "http://www.tz.de/politik/kiew-will-angriffe-auf-russland-ausbauen-ukraine-krieg-zr-94325494.html",
+          "name": "Tz"
         },
         {
-          "url": "https://www.shorouknews.com/news/view.aspx?cdate=31052026&id=7a575697-aeb7-448d-bee6-57c7cbd6447f",
-          "name": "Shorouknews"
+          "url": "http://www.wa.de/politik/kiew-will-angriffe-auf-russland-ausbauen-ukraine-krieg-zr-94325494.html",
+          "name": "Wa"
+        },
+        {
+          "url": "http://www.kreiszeitung.de/politik/kiew-will-angriffe-auf-russland-ausbauen-ukraine-krieg-zr-94325494.html",
+          "name": "Kreiszeitung"
         }
       ],
-      "primary_sector": "Chứng khoán - Thị trường Vốn",
-      "secondary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "primary_sector": "Khủng hoảng - Xung đột & An ninh",
+      "secondary_sector": "Chính trị - Ngoại giao",
       "macro_signal": "risk_off",
       "risk_flags": [
-        "conflict_security_risk",
-        "legal_regulatory_risk",
-        "supply_chain_risk",
-        "real_estate_infra_risk"
+        "conflict_security_risk"
       ],
-      "affected_assets": [
-        "stocks",
-        "real_estate"
-      ],
+      "affected_assets": [],
       "investment_relevance": "high"
     }
   ]
