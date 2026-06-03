@@ -79,9 +79,25 @@ playwright install
 python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh --skip-profile
 ```
 
+## DuckDB — git nhỏ, cache CI
+
+| Lưu trữ | Nội dung |
+|---------|----------|
+| **Git** | Chỉ `data/web_intel_leonquant.duckdb.gz` (gzip). Nên **profiles-only** (~ vài MB), không nhét hàng nghìn bài cũ. |
+| **Actions cache** | `data/web_intel_leonquant.duckdb` (articles 48h sau mỗi lần crawl + prune). **Không commit** file `.duckdb` thô. |
+
+Tạo seed nhỏ cho git (xóa articles cũ, giữ `source_profiles`):
+
+```powershell
+python scripts/pack_db_seed.py --mode profiles-only
+git add data/web_intel_leonquant.duckdb.gz
+```
+
+Gate trước Gemini (tránh lỗi “0 bài” im lặng): `prepare_digest_db.py` ghi `data/digest_export_window.json` — export, digest và prune **dùng chung file này** (cùng cửa sổ 2→7 ngày hoặc rolling 48h).
+
 ## GitHub Actions
 
-- **`daily.yml`:** crawl → export → clean → Gemini digest → `content.json` → commit → push `main`.
+- **`daily.yml`:** crawl (bắt buộc ≥5 bài) → `prepare_digest_db.py` (gate) → Gemini → prune (cùng cửa sổ) → commit `content.json`.
   - **Lịch:** mỗi ngày **05:00 giờ Việt Nam** (ICT, UTC+7) — cron `0 22 * * *` UTC.
   - Chạy tay: Actions → *Daily news digest* → *Run workflow*, hoặc push thay đổi `.ci-run-digest` lên `main`.
 - **`pages.yml`:** deploy site sau push `main` và **sau khi Daily digest commit xong** (bot push không tự kích hoạt workflow khác).

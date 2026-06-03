@@ -74,6 +74,18 @@ def main() -> int:
         help="Apply listing/dedup filters (same as clean_news_for_ai.py)",
     )
     parser.add_argument("--min-text-chars", type=int, default=250)
+    parser.add_argument(
+        "--window-state",
+        type=Path,
+        default=None,
+        help="JSON from prepare_digest_db.py (overrides --recent-calendar-days / enables rolling export)",
+    )
+    parser.add_argument(
+        "--rolling-hours",
+        type=int,
+        default=0,
+        help="Export by extracted_at rolling window (overrides calendar when > 0)",
+    )
     args = parser.parse_args()
 
     intel = resolve_intel_root()
@@ -91,14 +103,45 @@ def main() -> int:
 
     export_date = resolve_export_calendar_date(args.date, args.timezone)
     recent_days = max(1, int(args.recent_calendar_days))
+    rolling_hours = max(0, int(args.rolling_hours))
+    export_mode = "calendar"
+
+    if args.window_state is not None:
+        sys.path.insert(0, str(SCRIPTS))
+        from digest_window import load_window_state  # noqa: E402
+
+        state = load_window_state(args.window_state)
+        if state:
+            export_date = str(state.get("end_date") or export_date)
+            args.timezone = str(state.get("timezone") or args.timezone)
+            export_mode = str(state.get("mode") or "calendar")
+            if export_mode == "rolling":
+                rolling_hours = int(state.get("rolling_hours") or 48)
+            else:
+                recent_days = max(1, int(state.get("recent_calendar_days") or recent_days))
+            print(
+                f"Using window state: mode={export_mode} calendar_days={recent_days} "
+                f"rolling_hours={rolling_hours or 'n/a'} expected={state.get('article_count')}"
+            )
 
     db = WebIntelDB(db_path)
     try:
-        rows = db.fetch_today_articles(
-            target_date_str=export_date,
-            timezone_name=args.timezone,
-            recent_calendar_days=recent_days,
-        )
+        if rolling_hours > 0:
+            df = db.conn.execute(
+                f"""
+                SELECT * FROM articles
+                WHERE extracted_at >= CURRENT_TIMESTAMP - INTERVAL {rolling_hours} HOUR
+                  AND COALESCE(content_length, 0) >= 200
+                ORDER BY extracted_at DESC
+                """
+            ).fetchdf()
+            rows = df.to_dict("records")
+        else:
+            rows = db.fetch_today_articles(
+                target_date_str=export_date,
+                timezone_name=args.timezone,
+                recent_calendar_days=recent_days,
+            )
     finally:
         db.close()
 
@@ -120,6 +163,8 @@ def main() -> int:
             "end_date": export_date,
             "timezone": args.timezone,
             "recent_calendar_days": recent_days,
+            "mode": export_mode,
+            "rolling_hours": rolling_hours if rolling_hours > 0 else None,
         },
         "schema": ["title", "url", "text"],
         "articles": articles,
@@ -135,7 +180,12 @@ def main() -> int:
     avg_len = sum(len(a.get("text") or "") for a in articles) // len(articles) if articles else 0
     print(f"Wrote {len(articles)} articles -> {out}")
     print(f"  with text: {with_text} | avg text length: {avg_len} chars")
-    print(f"  window: last {recent_days} day(s) ending {export_date} ({args.timezone})")
+    print(f"  window: mode={export_mode}", end="")
+    if rolling_hours > 0:
+        print(f" rolling {rolling_hours}h", end="")
+    else:
+        print(f" last {recent_days} day(s) ending {export_date} ({args.timezone})", end="")
+    print()
     if clean_stats:
         print(
             f"  cleaned: -{clean_stats['drop_listing_title_url']} listing(url), "

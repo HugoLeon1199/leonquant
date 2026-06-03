@@ -4,13 +4,16 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
 from pathlib import Path
 
 QUANT_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = QUANT_ROOT / "scripts"
 PY = sys.executable
+DEFAULT_WINDOW_STATE = QUANT_ROOT / "data" / "digest_export_window.json"
 
 
 def run(cmd: list[str], *, env: dict[str, str] | None = None) -> int:
@@ -24,7 +27,18 @@ def main() -> int:
     parser.add_argument("--db", type=Path, default=QUANT_ROOT / "data" / "web_intel_leonquant.duckdb")
     parser.add_argument("--date", default="today")
     parser.add_argument("--timezone", default="Asia/Ho_Chi_Minh")
-    parser.add_argument("--recent-calendar-days", type=int, default=2)
+    parser.add_argument(
+        "--recent-calendar-days",
+        type=int,
+        default=0,
+        help="Fallback when no window state file (0 = use state file or 2)",
+    )
+    parser.add_argument(
+        "--window-state",
+        type=Path,
+        default=DEFAULT_WINDOW_STATE,
+        help="Written by prepare_digest_db.py; keeps export aligned with gate",
+    )
     parser.add_argument("--skip-gemini", action="store_true")
     parser.add_argument("--skip-web", action="store_true")
     parser.add_argument("--min-clean-articles", type=int, default=1)
@@ -35,48 +49,60 @@ def main() -> int:
         print(f"ERROR: DuckDB not found: {db}", file=sys.stderr)
         return 2
 
+    window_state = args.window_state.resolve()
+    if not window_state.is_file():
+        print(
+            f"ERROR: missing {window_state.name} — run scripts/prepare_digest_db.py after crawl first.",
+            file=sys.stderr,
+        )
+        return 2
+
     pin = subprocess.check_output(
-        [PY, str(QUANT_ROOT / "scripts" / "pin_crawl_calendar_date.py"), "--date", args.date, "--timezone", args.timezone],
+        [PY, str(SCRIPTS / "pin_crawl_calendar_date.py"), "--date", args.date, "--timezone", args.timezone],
         cwd=str(QUANT_ROOT),
         text=True,
     ).strip()
     print(f"Calendar date: {pin} ({args.timezone})")
 
-    rc = run(
-        [
-            PY,
-            str(QUANT_ROOT / "scripts" / "export_news_full_for_ai.py"),
-            "--db",
-            str(db),
-            "--date",
-            pin,
-            "--timezone",
-            args.timezone,
-            "--recent-calendar-days",
-            str(args.recent_calendar_days),
-            "--clean",
-        ]
-    )
+    export_cmd = [
+        PY,
+        str(SCRIPTS / "export_news_full_for_ai.py"),
+        "--db",
+        str(db),
+        "--date",
+        pin,
+        "--timezone",
+        args.timezone,
+        "--window-state",
+        str(window_state),
+        "--clean",
+    ]
+    if args.recent_calendar_days > 0:
+        export_cmd.extend(["--recent-calendar-days", str(args.recent_calendar_days)])
+
+    rc = run(export_cmd)
     if rc != 0:
         return rc
 
-    rc = run([PY, str(QUANT_ROOT / "scripts" / "clean_news_for_ai.py")])
+    rc = run([PY, str(SCRIPTS / "clean_news_for_ai.py")])
     if rc != 0:
         return rc
-
-    import json
 
     clean_path = QUANT_ROOT / "news_for_ai_clean.json"
     data = json.loads(clean_path.read_text(encoding="utf-8"))
     n = len(data.get("articles") or [])
     print(f"Articles for Gemini: {n}")
     if n < args.min_clean_articles:
-        print(f"ERROR: need >= {args.min_clean_articles} articles in {clean_path.name}", file=sys.stderr)
+        print(
+            f"ERROR: need >= {args.min_clean_articles} articles in {clean_path.name} "
+            f"(export window state: {window_state})",
+            file=sys.stderr,
+        )
         return 5
 
     if not args.skip_gemini:
         if not os.environ.get("GEMINI_API_KEY"):
-            print("ERROR: set GEMINI_API_KEY for Gemini digest", file=os.stderr)
+            print("ERROR: set GEMINI_API_KEY for Gemini digest", file=sys.stderr)
             return 2
         for stale in ("gemini_digest_summary.json", "gemini_digest_partials.json", "gemini_digest_outline.json"):
             p = QUANT_ROOT / stale
@@ -84,7 +110,7 @@ def main() -> int:
                 p.unlink()
         env = os.environ.copy()
         env["DIGEST_LOOP_FORCE"] = "1"
-        rc = run([PY, str(QUANT_ROOT / "scripts" / "run_digest_loop.py")], env=env)
+        rc = run([PY, str(SCRIPTS / "run_digest_loop.py")], env=env)
         if rc != 0:
             return rc
 
