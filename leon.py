@@ -290,7 +290,7 @@ WITH
       e.AvgTone,
       e.NumArticles,
       e.SOURCEURL,
-      ARRAY_AGG(m.MentionURL ORDER BY m.MentionTimeDate DESC LIMIT {MAX_MENTIONS_PER_EVENT}) AS SourceURLs,
+      ARRAY_AGG(m.MentionURL IGNORE NULLS ORDER BY m.MentionTimeDate DESC LIMIT {MAX_MENTIONS_PER_EVENT}) AS SourceURLs,
       ARRAY_AGG(DISTINCT m.MentionSourceName IGNORE NULLS LIMIT 10) AS MentionSources,
       COUNT(DISTINCT m.MentionURL) AS source_count
     FROM TopEvents AS e
