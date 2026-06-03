@@ -107,3 +107,31 @@ python leon.py --channel invest           # 105 BQ rows → 105 candidates → 5
 | Live bytes processed | ~540,016,640 (~0.539 GB) |
 
 **Outputs:** `invest_pulse.json`, `invest_world_pulse.json`, `web/invest_pulse.json`, `web/invest_world_pulse.json`.
+
+## 2026-06-03 — Invest tone pools (single-scan SQL)
+
+**Scope:** invest only. **Not modified:** world LIVE SQL/prompts, Vietnam 48h, `landing_page.html`.
+
+| Change | Detail |
+|--------|--------|
+| SQL | Gộp 2 CTE scan → `CandidateBaseEvents` (1× `events_partitioned` 24h): `core_extreme` (40+ & \|tone\|≥4), `high_coverage_neutral` (70+), `market_entity_neutral` (30+ + Actor/URL watchlist); pool cap 70/60/60; `TopEvents LIMIT 160`; final `LIMIT 160`; `market_relevance_score >= 2` giữ nguyên |
+| Tone | `ABS(AvgTone)>=4` chỉ cho pool A + ranking; không còn hard gate toàn cục |
+| `leon.py` | `sentiment_label_from_tone()` cho invest; `_invest_sort_key` +tone rank; Gemini judge/topics/enrich: strategic tech + generic actor context; `feed_label` public wording |
+| Watchlist | Tesla/Bitcoin/Nvidia… chỉ boost SQL pool C, không auto-keep — Gemini/Python quyết định cuối |
+
+**Verify (2026-06-03):**
+
+```bash
+python -m py_compile leon.py
+python leon.py --channel invest --dry-run   # ~0.5568 GB (+~3% vs 0.5395)
+python leon.py --channel invest           # 132 BQ → 132 candidates → judge 11 → 4 topics / 5 items
+```
+
+| Metric | Result |
+|--------|--------|
+| Dry-run bytes | ~556,800,000 bytes (~0.5568 GB) |
+| BQ rows in | 132 (was 105) |
+| Python candidates | 132 |
+| After semantic judge | 11 (pool 60) |
+| Export | 4 topics, 5 items |
+| Live bytes | ~0.557 GB |

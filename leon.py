@@ -40,9 +40,9 @@ INVEST_SQL_PATH = PROJECT_DIR / "sql" / "gdelt_invest_pulse.sql"
 DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
 TOP_EVENTS_POOL = 300
-INVEST_TOP_EVENTS_POOL = 120
+INVEST_TOP_EVENTS_POOL = 160
 BQ_OUTPUT_LIMIT = 50
-INVEST_BQ_OUTPUT_LIMIT = 120
+INVEST_BQ_OUTPUT_LIMIT = 160
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
 PULSE_SCHEMA_VERSION = "event-centric-v7"
@@ -61,8 +61,10 @@ WORLD_DEEP_EXCERPT_PARAGRAPHS = 8
 WORLD_DEEP_CHARS_PER_URL = 2000
 WORLD_DEEP_MERGED_CHARS = 5200
 # Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
-INVEST_MAX_ENRICH_EVENTS = 120
-INVEST_CURATION_POOL = 120
+INVEST_MAX_ENRICH_EVENTS = 160
+INVEST_CURATION_POOL = 160
+INVEST_MARKET_ENTITY_MIN_ARTICLES = 30
+INVEST_PUBLIC_FEED_LABEL = "Theo đề mục · các diễn biến kinh tế - thị trường đáng chú ý"
 INVEST_SEMANTIC_JUDGE_MAX = 60
 INVEST_FEED_MAX = 18
 INVEST_WORLD_TOPICS_MAX = 8
@@ -179,7 +181,7 @@ INVEST_GDELT_REGEX: dict[str, str] = {
 }
 _INVEST_GDELT_COMPILED: dict[str, re.Pattern[str]] | None = None
 _INVEST_PUBLIC_FORBIDDEN_RE = re.compile(
-    r"\b(GDELT|keyword|keywords|crawler|pipeline|semantic|judge|Gemini|AI)\b",
+    r"\b(GDELT|keyword|keywords|từ khóa|crawler|pipeline|semantic|judge|Gemini|AI)\b",
     re.IGNORECASE,
 )
 _INVEST_GEO_MARKET_THEME_RE = re.compile(
@@ -615,6 +617,24 @@ def sentiment_label_vi(tone: float) -> str:
     if t < 8.0:
         return "Tích cực"
     return "Tích cực mạnh"
+
+
+def sentiment_label_from_tone(tone: float) -> str:
+    """Invest public labels — finer steps; tone is mood only, not investment verdict."""
+    t = float(tone or 0)
+    if t <= -8:
+        return "Tiêu cực rất mạnh"
+    if t <= -4:
+        return "Tiêu cực"
+    if t < -1:
+        return "Hơi tiêu cực"
+    if t <= 1:
+        return "Trung tính"
+    if t < 4:
+        return "Hơi tích cực"
+    if t < 8:
+        return "Tích cực"
+    return "Tích cực rất mạnh"
 
 
 def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
@@ -1129,7 +1149,8 @@ Quy tắc tóm tắt (quan trọng):
 - Tóm tắt trung thực đoạn bài: sự kiện là gì, ai liên quan — không thêm chi tiết không có trong bài.
 - Nếu bài nói chính sách/lãi suất/lạm phát/chứng khoán/crypto/vàng/dầu/ngân hàng thì summary phải phản ánh đúng, không lệch sang scandal chính trị.
 - Nếu bài không nêu tác động kinh tế: summary trung lập, không ép về thị trường.
-- Không suy diễn risk-on/risk-off hay giá/ticker nếu bài không đề cập.
+- Không suy diễn risk-on/risk-off/khủng hoảng/bùng nổ hay giá/ticker nếu bài không đề cập (tone trung tính vẫn OK).
+- Công nghệ chiến lược (AI agent, quantum, chip, cyber) giữ đúng góc đầu tư/ngành nếu bài nêu.
 - importance_reason: một câu — ý nghĩa với nhà đầu tư khi bài hỗ trợ; nếu không rõ thì nói trung lập.
 
 Trả về JSON (không markdown):
@@ -1585,14 +1606,16 @@ def _invest_asset_tier(flags: dict[str, bool]) -> int:
     return 0
 
 
-def _invest_sort_key(ev: dict[str, Any]) -> tuple[int, int, int, int]:
+def _invest_sort_key(ev: dict[str, Any]) -> tuple[int, int, int, int, float]:
     blob = _invest_text_blob(ev)
     flags = _invest_signal_flags(blob)
+    tone_rank = abs(float(ev.get("sentiment_tone") or 0))
     return (
         _invest_asset_tier(flags),
         int(ev.get("market_relevance_score") or 0),
         int(ev.get("num_articles") or 0),
         int(ev.get("source_count") or 0),
+        tone_rank,
     )
 
 
@@ -1730,24 +1753,25 @@ def gemini_invest_world_topics(
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn biên tập mục tin thế giới quan trọng (kinh tế–đầu tư) — viết NGẮN GỌN, không dài dòng.
+Bạn biên tập mục kinh tế–đầu tư toàn cầu — viết NGẮN GỌN, không dài dòng.
 
-Từ danh sách sự kiện kinh tế–thị trường 24h, làm:
-1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC — BẮT BUỘC ưu tiên thị trường tài chính:
-   Crypto (tag CRYPTO), Chứng khoán (EQUITY), Vĩ mô & Lãi suất (MACRO), Ngân hàng (BANKS),
-   Hàng hóa–Năng lượng (COMMODITY), Thương mại–Trừng phạt (TRADE), Công nghệ–Chip (TECH).
-   Nếu đầu vào có tag CRYPTO/EQUITY thì PHẢI có đề mục tương ứng (không bỏ sót).
+Từ danh sách sự kiện 24h (tone trung tính vẫn có thể quan trọng: Bitcoin thủng mốc, AI/chip mới, Fed/PBOC, EV…), làm:
+1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC — ưu tiên thị trường & công nghệ chiến lược:
+   Crypto (CRYPTO), Chứng khoán (EQUITY), Vĩ mô (MACRO), Ngân hàng (BANKS), Hàng hóa (COMMODITY),
+   Thương mại (TRADE), Công nghệ–Chip–AI–Quantum–Cyber (TECH).
+   Không chỉ vì tên nổi; cần context đầu tư/ngành/tài sản. Nếu có tag CRYPTO/EQUITY/TECH thì ưu tiên đề mục tương ứng.
 2) Mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin. Không gom hết vào Địa chính trị / Pháp lý.
 3) Mỗi tin: title ngắn (≤18 từ), summary ĐÚNG 2 câu (≤55 từ), không bịa, không khuyến nghị mua/bán.
+   Không phóng đại (khủng hoảng/bùng nổ/risk-off) chỉ vì tone nhẹ.
 4) global_event_id phải khớp danh sách đầu vào.
 
-BỎ (dù nhiều bài): tag GEO_ONLY; tòa án/tội phạm đời sống; scandal; nhập cư/website chính phủ không tác động thị trường.
-CHỈ giữ xung đột/chính trị khi bài nêu rõ dầu, thuế, chứng khoán, crypto, ngân hàng, lạm phát.
+BỎ: GEO_ONLY; gossip; crime/sports/entertainment thường; scandal không có market context.
+CHỈ giữ địa chính trị/xung đột khi có tác động dầu, thuế, CK, crypto, ngân hàng, chuỗi cung.
 
 Không nhắc hệ thống thu thập hay công cụ nội bộ.
 
-0) Viết trước trường brief: ĐÚNG 2–3 câu (≤90 từ) tóm tắt toàn cảnh thị trường/thế giới từ các tin sẽ chọn;
-   nêu chủ đề nổi bật (dầu, thuế, CK, crypto, vĩ mô…), không khuyến nghị mua/bán.
+0) Viết trước trường brief: ĐÚNG 2–3 câu (≤90 từ) tóm tắt toàn cảnh từ các tin sẽ chọn;
+   nêu chủ đề nổi bật (dầu, thuế, CK, crypto, AI/chip, vĩ mô…), không khuyến nghị mua/bán.
 
 Trả về JSON:
 {{
@@ -2328,7 +2352,9 @@ def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[di
             "num_articles": max(num_articles, 1),
             "source_count": source_count,
             "sentiment_tone": round(tone, 2),
-            "sentiment_label": sentiment_label_vi(tone),
+            "sentiment_label": (
+                sentiment_label_from_tone(tone) if channel == "invest" else sentiment_label_vi(tone)
+            ),
             "entities": entities,
             "sources": sources[:MAX_MENTIONS_PER_EVENT],
             "impact_score": impact_score(
@@ -2503,7 +2529,8 @@ def merge_event_cluster(
     merged["entities"] = _merge_entity_lists(*[list(m.get("entities") or []) for m in members], limit=8)
     tones = [float(m.get("sentiment_tone") or 0) for m in members]
     merged["sentiment_tone"] = round(rep.get("sentiment_tone") or (sum(tones) / len(tones)), 2)
-    merged["sentiment_label"] = sentiment_label_vi(float(merged["sentiment_tone"]))
+    label_fn = sentiment_label_from_tone if channel == "invest" else sentiment_label_vi
+    merged["sentiment_label"] = label_fn(float(merged["sentiment_tone"]))
     merged["impact_score"] = max(int(m.get("impact_score") or 0) for m in members)
     return merged
 
@@ -2704,7 +2731,7 @@ def prepare_invest_world_feed(
             for ids in cluster_lists
             if ids and ids[0]
         ]
-        merged = _merge_clusters_from_gemini(pool, clusters_raw, channel="world")
+        merged = _merge_clusters_from_gemini(pool, clusters_raw, channel="invest")
         LOG.info("invest_world after dedupe: %s cards (from %s)", len(merged), len(pool))
     else:
         merged = list(pool)
@@ -2728,16 +2755,21 @@ def gemini_invest_semantic_judge(events: list[dict[str, Any]]) -> list[dict[str,
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn là biên tập chuyên mục kinh tế–đầu tư toàn cầu. Chọn tối đa {INVEST_FEED_MAX} global_event_id từ danh sách (đã qua lọc thô).
+Bạn là biên tập chuyên mục kinh tế–đầu tư toàn cầu. Chọn tối đa {INVEST_FEED_MAX} global_event_id từ danh sách ứng viên.
 
-GIỮ khi có góc thị trường trực tiếp hoặc gián tiếp, gồm:
-vĩ mô, lãi suất, ngân hàng, chứng khoán, crypto/Bitcoin/ETF, dầu/khí, thuế quan, chip/bán dẫn,
-AI agent, quantum, blockchain security, EV/Tesla, Trung Quốc vĩ mô, vàng/kim loại.
+Ưu tiên high coverage + market/technology/policy context — KHÔNG chỉ vì có tên nổi (Tesla/Bitcoin/Elon).
+Một CEO ngân hàng, startup AI, lab quantum, bộ trưởng export control, quỹ bán tháo… vẫn GIỮ nếu có tác động ngành/tài sản.
 
-BỎ: tòa án/tội phạm đời sống, scandal cá nhân, biểu tình cục bộ, nhập cư/website không tác động thị trường.
-Xung đột/chính trị chỉ giữ nếu bài nêu rõ tác động dầu, thuế, CK, crypto, ngân hàng, lạm phát.
+GIỮ (trực tiếp/gián tiếp): Fed/rates/USD/Treasury/yield; crypto/Bitcoin/ETF thủng mốc (tone trung tính OK);
+S&P/Nasdaq; chip/GPU/Nvidia/TSMC/data center/cloud; AI agent/platform; quantum → encryption/blockchain/cyber;
+EV/battery/robotaxi; China/PBOC/yuan/property/stimulus/tariff; oil/gas/gold/copper/lithium; bank/credit/liquidity;
+trade/sanctions/export controls; cyber breach lớn có hệ quả thị trường.
 
-Không nhắc GDELT, keyword, AI, crawler, pipeline trong lý do.
+BỎ: gossip cá nhân; crime/shooting địa phương; sports/entertainment thường; PR công ty nhỏ không tác động ngành;
+scandal không có market/policy/industry context; tòa án đời sống.
+Xung đột/chính trị chỉ giữ khi bài nêu rõ dầu, thuế, CK, crypto, ngân hàng, lạm phát, chuỗi cung.
+
+Không nhắc hệ thống thu thập hay công cụ nội bộ. Không kết luận khủng hoảng/risk-off chỉ vì tone âm nhẹ.
 
 Trả về JSON: {{ "selected_ids": ["id1", "id2", ...] }}
 
@@ -2838,6 +2870,7 @@ def export_invest_desk_payload(
     payload = {
         "schema_version": INVEST_WORLD_SCHEMA,
         "channel": "invest",
+        "feed_label": INVEST_PUBLIC_FEED_LABEL,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "total_events": sum(len(t.get("items") or []) for t in topics),
         "brief": result.get("brief") or "",

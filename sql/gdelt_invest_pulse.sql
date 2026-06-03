@@ -1,9 +1,9 @@
--- LeonQuant invest channel only — 24h, event-centric, English GKG signals.
--- Core pool: NumArticles>=40 AND |AvgTone|>=4. Supplement: NumArticles>=70 (neutral tone OK).
--- TopEvents cap 120; GKG join only after TopEvents (no keyword scan on GKG).
+-- LeonQuant invest channel only — 24h, single-scan event pools (tone is ranking, not global gate).
+-- Pool A core_extreme | B high_coverage_neutral | C market_entity_neutral (Actor/URL hint).
+-- TopEvents cap 160; GKG join only after TopEvents (no keyword scan on GKG).
 
 WITH
-  CoreRankedTopEvents AS (
+  CandidateBaseEvents AS (
     SELECT
       GLOBALEVENTID,
       Actor1Name,
@@ -14,62 +14,106 @@ WITH
       AvgTone,
       NumArticles,
       SOURCEURL,
-      DATEADDED
+      DATEADDED,
+
+      UPPER(CONCAT(
+        COALESCE(Actor1Name, ''), ' ',
+        COALESCE(Actor2Name, ''), ' ',
+        COALESCE(SOURCEURL, '')
+      )) AS event_hint_u,
+
+      CASE
+        WHEN NumArticles >= 40 AND ABS(AvgTone) >= 4
+          THEN 'core_extreme'
+
+        WHEN NumArticles >= 30
+          AND REGEXP_CONTAINS(
+            UPPER(CONCAT(
+              COALESCE(Actor1Name, ''), ' ',
+              COALESCE(Actor2Name, ''), ' ',
+              COALESCE(SOURCEURL, '')
+            )),
+            r'BITCOIN|BTC|ETHEREUM|ETH|CRYPTO|BLOCKCHAIN|COINBASE|BINANCE|TETHER|TESLA|NVIDIA|OPENAI|GOOGLE|ALPHABET|MICROSOFT|APPLE|META|AMAZON|TSMC|ASML|AMD|INTEL|BROADCOM|ARM|QUALCOMM|NASDAQ|NYSE|S&P|SP500|DOW|OIL|BRENT|WTI|CRUDE|GOLD|SILVER|COPPER|LITHIUM|FED|FOMC|ECB|BOJ|PBOC|TREASURY|YIELD|DOLLAR|USD|YUAN|CNY|TARIFF|SANCTION|EXPORT|CHIP|SEMICONDUCTOR|AI|ARTIFICIAL[_-]?INTELLIGENCE|DATA[_-]?CENTER|QUANTUM|CYBER|CLOUD|EV|BATTERY|ROBOTAXI|FSD|PROPERTY|REAL[_-]?ESTATE'
+          )
+          THEN 'market_entity_neutral'
+
+        WHEN NumArticles >= 70
+          THEN 'high_coverage_neutral'
+
+        ELSE 'other'
+      END AS pool_kind,
+
+      CASE
+        WHEN NumArticles >= 40 AND ABS(AvgTone) >= 4 THEN 1
+
+        WHEN NumArticles >= 30
+          AND REGEXP_CONTAINS(
+            UPPER(CONCAT(
+              COALESCE(Actor1Name, ''), ' ',
+              COALESCE(Actor2Name, ''), ' ',
+              COALESCE(SOURCEURL, '')
+            )),
+            r'BITCOIN|BTC|ETHEREUM|ETH|CRYPTO|BLOCKCHAIN|COINBASE|BINANCE|TETHER|TESLA|NVIDIA|OPENAI|GOOGLE|ALPHABET|MICROSOFT|APPLE|META|AMAZON|TSMC|ASML|AMD|INTEL|BROADCOM|ARM|QUALCOMM|NASDAQ|NYSE|S&P|SP500|DOW|OIL|BRENT|WTI|CRUDE|GOLD|SILVER|COPPER|LITHIUM|FED|FOMC|ECB|BOJ|PBOC|TREASURY|YIELD|DOLLAR|USD|YUAN|CNY|TARIFF|SANCTION|EXPORT|CHIP|SEMICONDUCTOR|AI|ARTIFICIAL[_-]?INTELLIGENCE|DATA[_-]?CENTER|QUANTUM|CYBER|CLOUD|EV|BATTERY|ROBOTAXI|FSD|PROPERTY|REAL[_-]?ESTATE'
+          )
+          THEN 2
+
+        WHEN NumArticles >= 70 THEN 3
+        ELSE 9
+      END AS pool_priority
+
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
-      AND NumArticles >= 40
-      AND ABS(AvgTone) >= 4
       AND SOURCEURL IS NOT NULL
       AND STARTS_WITH(SOURCEURL, 'http')
+      AND (
+        (NumArticles >= 40 AND ABS(AvgTone) >= 4)
+        OR NumArticles >= 70
+        OR (
+          NumArticles >= 30
+          AND REGEXP_CONTAINS(
+            UPPER(CONCAT(
+              COALESCE(Actor1Name, ''), ' ',
+              COALESCE(Actor2Name, ''), ' ',
+              COALESCE(SOURCEURL, '')
+            )),
+            r'BITCOIN|BTC|ETHEREUM|ETH|CRYPTO|BLOCKCHAIN|COINBASE|BINANCE|TETHER|TESLA|NVIDIA|OPENAI|GOOGLE|ALPHABET|MICROSOFT|APPLE|META|AMAZON|TSMC|ASML|AMD|INTEL|BROADCOM|ARM|QUALCOMM|NASDAQ|NYSE|S&P|SP500|DOW|OIL|BRENT|WTI|CRUDE|GOLD|SILVER|COPPER|LITHIUM|FED|FOMC|ECB|BOJ|PBOC|TREASURY|YIELD|DOLLAR|USD|YUAN|CNY|TARIFF|SANCTION|EXPORT|CHIP|SEMICONDUCTOR|AI|ARTIFICIAL[_-]?INTELLIGENCE|DATA[_-]?CENTER|QUANTUM|CYBER|CLOUD|EV|BATTERY|ROBOTAXI|FSD|PROPERTY|REAL[_-]?ESTATE'
+          )
+        )
+      )
+  ),
+
+  CandidateRankedTopEvents AS (
+    SELECT *
+    FROM CandidateBaseEvents
+    WHERE pool_kind != 'other'
     QUALIFY ROW_NUMBER() OVER (
       PARTITION BY GLOBALEVENTID
+      ORDER BY pool_priority, NumArticles DESC, ABS(AvgTone) DESC
+    ) = 1
+  ),
+
+  PoolCappedEvents AS (
+    SELECT *
+    FROM CandidateRankedTopEvents
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY pool_kind
       ORDER BY NumArticles DESC, ABS(AvgTone) DESC
-    ) = 1
-  ),
-
-  SupplementRankedTopEvents AS (
-    SELECT
-      GLOBALEVENTID,
-      Actor1Name,
-      Actor2Name,
-      EventRootCode,
-      EventCode,
-      GoldsteinScale,
-      AvgTone,
-      NumArticles,
-      SOURCEURL,
-      DATEADDED
-    FROM `gdelt-bq.gdeltv2.events_partitioned`
-    WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
-      AND NumArticles >= 70
-      AND SOURCEURL IS NOT NULL
-      AND STARTS_WITH(SOURCEURL, 'http')
-    QUALIFY ROW_NUMBER() OVER (
-      PARTITION BY GLOBALEVENTID
-      ORDER BY NumArticles DESC, ABS(AvgTone) DESC
-    ) = 1
-  ),
-
-  CombinedTopEvents AS (
-    SELECT *, 1 AS pool_priority, 'core' AS pool_kind FROM CoreRankedTopEvents
-    UNION ALL
-    SELECT *, 2 AS pool_priority, 'supplement' AS pool_kind FROM SupplementRankedTopEvents
-  ),
-
-  DedupTopEvents AS (
-    SELECT * EXCEPT(pool_priority)
-    FROM CombinedTopEvents
-    QUALIFY ROW_NUMBER() OVER (
-      PARTITION BY GLOBALEVENTID
-      ORDER BY pool_priority
-    ) = 1
+    ) <= CASE
+      WHEN pool_kind = 'core_extreme' THEN 70
+      WHEN pool_kind = 'market_entity_neutral' THEN 60
+      WHEN pool_kind = 'high_coverage_neutral' THEN 60
+      ELSE 0
+    END
   ),
 
   TopEvents AS (
-    SELECT *
-    FROM DedupTopEvents
-    ORDER BY NumArticles DESC, ABS(AvgTone) DESC
-    LIMIT 120
+    SELECT * EXCEPT(pool_priority, event_hint_u)
+    FROM PoolCappedEvents
+    ORDER BY
+      pool_priority,
+      NumArticles DESC,
+      ABS(AvgTone) DESC
+    LIMIT 160
   ),
 
   FilteredMentions AS (
@@ -567,4 +611,4 @@ ORDER BY
   So_Bao_De_Cap DESC,
   ABS(Diem_Cam_Xuc) DESC,
   source_count DESC
-LIMIT 120
+LIMIT 160
