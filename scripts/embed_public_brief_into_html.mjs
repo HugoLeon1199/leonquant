@@ -20,6 +20,14 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+function normalizeExternalUrl(url) {
+  let u = String(url || "").trim();
+  if (!u) return "";
+  if (/^https?:\/\//i.test(u)) return u;
+  if (u.startsWith("//")) return "https:" + u;
+  return "https://" + u.replace(/^\/+/, "");
+}
+
 function formatDateVi(value) {
   if (!value) return "";
   const date = new Date(value);
@@ -238,7 +246,7 @@ function buildLinkRowsHtml(links) {
   if (!links.length) return `<p class="hint">Chưa có liên kết nguồn.</p>`;
   let h = `<ul class="link-rows">`;
   for (const L of links) {
-    const u = String(L.url || "").trim();
+    const u = normalizeExternalUrl(L.url);
     if (!u) continue;
     const title = escapeHtml(L.title || L.host || u);
     const meta = [L.source, L.host].filter(Boolean).join(" · ");
@@ -275,7 +283,7 @@ function buildNotableCardsHtml(notable, imageByUrl) {
   }
   let h = `<div class="notable-list">`;
   items.forEach((a, idx) => {
-    const u = String(a.url || "").trim();
+    const u = normalizeExternalUrl(a.url);
     const title = escapeHtml(a.title || u);
     const meta = escapeHtml(
       [a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
@@ -312,7 +320,7 @@ function buildSectorBlockHtml(s, index) {
     h += `<ol class="sector-topic-list">`;
     items.forEach((it, ti) => {
       const lk = (it.links || [])[0];
-      const u = lk ? String(lk.url || "").trim() : "";
+      const u = lk ? normalizeExternalUrl(lk.url) : "";
       h += `<li class="sector-topic-row">`;
       h += `<span class="sector-topic-num">${String(ti + 1).padStart(2, "0")}</span>`;
       h += `<div class="sector-topic-main">`;

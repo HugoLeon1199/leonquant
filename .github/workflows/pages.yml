@@ -78,6 +78,11 @@ jobs:
           node scripts/embed_public_brief_into_html.mjs _site/index.html _site/content.json
           node scripts/embed_public_brief_into_html.mjs _site/landing_page.html _site/content.json
           node scripts/embed_public_brief_into_html.mjs _site/landing_page/index.html _site/content.json
+          if [ -f _site/market_pulse.json ]; then
+            node scripts/embed_public_pulse_into_html.mjs _site/index.html _site/market_pulse.json
+            node scripts/embed_public_pulse_into_html.mjs _site/landing_page.html _site/market_pulse.json
+            node scripts/embed_public_pulse_into_html.mjs _site/landing_page/index.html _site/market_pulse.json
+          fi
 
       - name: Verify embedded brief (fail nếu HTML thiếu brief)
         run: |
@@ -86,6 +91,10 @@ jobs:
           grep -Fq 'class="digest-mode"' _site/index.html
           grep -Fq 'Tin tức được tổng hợp lúc' _site/index.html
           grep -Fq 'Bấm vào xem chi tiết' _site/index.html
+          if [ -f _site/market_pulse.json ]; then
+            grep -Fq 'data-embedded-pulse="1"' _site/index.html
+            grep -Fq 'Tin nóng nhất thế giới hiện tại' _site/index.html
+          fi
           # Digest mode: sector cards + multisector flag in content.json
           python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); s=d.get('digestSectors') or []; assert len(s)>=4"
 

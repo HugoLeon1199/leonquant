@@ -1300,6 +1300,24 @@
   </style>
 </head>
 <body>
+  <!-- Áp tab từ ?view= ngay khi parse HTML (trước script chính) — tránh kẹt digest-mode khi embed GitHub Pages -->
+  <script data-cfasync="false">
+    (function () {
+      var LIVE = { pulse: 1, live: 1, minute: 1 };
+      var INVEST = { invest: 1, kinhte: 1, economics: 1, dautu: 1 };
+      var v = (new URLSearchParams(location.search).get("view") || "").toLowerCase();
+      var h = (location.hash || "").replace(/^#/, "").toLowerCase();
+      var mode = INVEST[v] || INVEST[h] ? "invest" : LIVE[v] || LIVE[h] ? "pulse" : "digest";
+      var body = document.body;
+      if (!body) return;
+      body.classList.remove("digest-mode", "pulse-mode", "invest-mode");
+      body.classList.add(mode === "digest" ? "digest-mode" : mode + "-mode");
+      var pulse = document.getElementById("pulse");
+      var invest = document.getElementById("invest");
+      if (pulse) pulse.hidden = mode !== "pulse";
+      if (invest) invest.hidden = mode !== "invest";
+    })();
+  </script>
   <header class="hero">
     <div class="container">
       <nav class="nav">
@@ -1409,6 +1427,15 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+    }
+
+    /** Luôn dùng URL tuyệt đối https — tránh href chỉ là hostname (trình duyệt hiểu là path trên leonquant.com). */
+    function normalizeExternalUrl(url) {
+      let u = String(url || "").trim();
+      if (!u) return "";
+      if (/^https?:\/\//i.test(u)) return u;
+      if (u.startsWith("//")) return "https:" + u;
+      return "https://" + u.replace(/^\/+/, "");
     }
 
     function formatDateVi(value) {
@@ -1657,7 +1684,7 @@
       if (!links.length) return `<p class="hint">Chưa có liên kết nguồn.</p>`;
       let h = `<ul class="link-rows">`;
       for (const L of links) {
-        const u = String(L.url || "").trim();
+        const u = normalizeExternalUrl(L.url);
         if (!u) continue;
         const title = escapeHtml(L.title || L.host || u);
         const meta = [L.source, L.host].filter(Boolean).join(" · ");
@@ -1714,7 +1741,7 @@
       }
       let h = `<div class="notable-list">`;
       items.forEach((a, idx) => {
-        const u = String(a.url || "").trim();
+        const u = normalizeExternalUrl(a.url);
         const title = escapeHtml(a.title || u);
         const meta = escapeHtml(
           [a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
@@ -1755,7 +1782,7 @@
         h += `<ol class="sector-topic-list">`;
         items.forEach((it, ti) => {
           const lk = (it.links || [])[0];
-          const u = lk ? String(lk.url || "").trim() : "";
+          const u = lk ? normalizeExternalUrl(lk.url) : "";
           h += `<li class="sector-topic-row">`;
           h += `<span class="sector-topic-num">${String(ti + 1).padStart(2, "0")}</span>`;
           h += `<div class="sector-topic-main">`;
@@ -1967,6 +1994,11 @@
       applyViewMode(v);
       if (!options.skipHistory) syncHistoryForView(v, Boolean(options.replace));
       if (v === "pulse") {
+        if (hasEmbeddedPulse() && !options.forceReload) {
+          applyViewMode("pulse");
+          cachedPulsePayload = { __embedded: true };
+          return;
+        }
         if (cachedPulsePayload && !options.forceReload) {
           renderPulsePage(cachedPulsePayload);
           return;
@@ -2076,7 +2108,7 @@
     }
 
     function normalizePulseUrl(url) {
-      const u = String(url || "").trim();
+      const u = normalizeExternalUrl(url);
       if (!u.startsWith("http")) return u;
       const m = u.match(/(?:%20|\s)(?:target|class|rel|onclick|data-[a-z-]+)=/i);
       if (m && m.index > 0) return u.slice(0, m.index).replace(/[\s%)]+$/g, "");
@@ -2221,7 +2253,21 @@
       return null;
     }
 
+    function hasEmbeddedPulse() {
+      const sec = document.getElementById("pulse");
+      const el = document.getElementById("sectionPulse");
+      return (
+        sec?.getAttribute("data-embedded-pulse") === "1" &&
+        Boolean(el?.innerHTML?.trim())
+      );
+    }
+
     async function loadPulseContent() {
+      if (hasEmbeddedPulse()) {
+        applyViewMode("pulse");
+        cachedPulsePayload = { __embedded: true };
+        return;
+      }
       const data = await fetchPulseFeed();
       if (!data) {
         cachedPulsePayload = { events: [] };
