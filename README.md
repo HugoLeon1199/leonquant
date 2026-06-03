@@ -39,7 +39,8 @@ python summarize_news_gemini.py --input news_for_ai_clean.json --mode digest --b
 | `gemini_digest_summary.json` | Bản tin đa ngành 48h |
 | `content.json` | Dữ liệu trang công khai |
 | `market_pulse.json`, `web/market_pulse.json` | LIVE tab — GDELT hot events |
-| `invest_pulse.json`, `web/invest_pulse.json` | Tab đầu tư — khối **Thế giới** (GDELT 24h) |
+| `invest_pulse.json` | (Tuỳ chọn / legacy) pipeline GDELT invest — tab đầu tư **không** dùng file này nữa |
+| `market_pulse.json` | Tab đầu tư khối **Thế giới** = cùng feed tab LIVE |
 | `invest_vn_brief.json`, `web/invest_vn_brief.json` | Tab đầu tư — khối **Việt Nam** (Gemini từ `content.json`, sau daily digest) |
 | `data/web_intel_leonquant.duckdb` | Cache crawl (Actions) |
 
@@ -58,7 +59,7 @@ python leon.py --dry-run
 python leon.py
 ```
 
-Output: **`market_pulse.json`** + **`web/market_pulse.json`**. Tin thế giới LIVE: Gemini gom trùng + lọc tin có tác động vĩ mô/khu vực (một API call; không ép đủ 20 tin). Production: workflow **LIVE pulse 6h** (`cron: 0 */6 * * *`) — commit JSON → GitHub Pages deploy.
+Output: **`market_pulse.json`** + **`web/market_pulse.json`**. Tin thế giới LIVE: Gemini gom trùng + lọc tin có tác động vĩ mô/khu vực (một API call; không ép đủ 20 tin). Tab **Chuyên mục kinh tế đầu tư** (khối trên) dùng **cùng file** này. Production: workflow **LIVE pulse 6h** (`cron: 0 */6 * * *`) — commit JSON → GitHub Pages deploy. (`leon.py --channel invest` vẫn có thể chạy tay; tab web không dùng `invest_pulse.json`.)
 
 Secrets Actions: `GEMINI_API_KEY`, `GCP_SA_JSON`, `GOOGLE_CLOUD_PROJECT`.
 

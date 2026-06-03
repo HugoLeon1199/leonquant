@@ -1484,7 +1484,7 @@
           <article id="invest-desk" class="digest-report">
             <header class="digest-report-head invest-desk-page-head">
               <h2>Chuyên mục kinh tế đầu tư</h2>
-              <p class="invest-channel-lead">Hai lớp: thế giới (GDELT 24h) và Việt Nam trong nước (phân tích 48h) — trung lập, không phải khuyến nghị giao dịch.</p>
+              <p class="invest-channel-lead">Thế giới: cùng nguồn tab <a href="/?view=live">Tin tức thế giới LIVE</a>. Việt Nam: phân tích sâu từ tin 48h — trung lập, không phải khuyến nghị giao dịch.</p>
             </header>
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"></div>
@@ -2321,16 +2321,8 @@
       }
     }
 
-    function buildPulseHtml(data) {
-      const events = normalizePulseEvents(data);
-      if (!events.length) {
-        return `<div class="pulse-panel"><p class="hint">Chưa có tin LIVE. Hệ thống cập nhật mỗi 6 giờ.</p></div>`;
-      }
-      let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2>`;
-      const updated = formatPulseUpdatedAt(data?.generated_at_utc);
-      if (updated) h += `<p class="sync-note">${escapeHtml(updated)}</p>`;
-      h += `</header><div class="pulse-panel"><ol class="pulse-event-list">`;
+    function buildPulseEventListHtml(events) {
+      let h = `<ol class="pulse-event-list">`;
       events.forEach((ev) => {
         const sentiment = ev.sentiment_label || pulseSentimentLabel(ev);
         const sClass = pulseSentimentClass(sentiment);
@@ -2357,7 +2349,22 @@
         h += buildPulseSourcesTicker(ev.sources);
         h += `</li>`;
       });
-      h += `</ol></div></article>`;
+      h += `</ol>`;
+      return h;
+    }
+
+    function buildPulseHtml(data) {
+      const events = normalizePulseEvents(data);
+      if (!events.length) {
+        return `<div class="pulse-panel"><p class="hint">Chưa có tin LIVE. Hệ thống cập nhật mỗi 6 giờ.</p></div>`;
+      }
+      let h = `<article class="digest-report"><header class="digest-report-head">`;
+      h += `<h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2>`;
+      const updated = formatPulseUpdatedAt(data?.generated_at_utc);
+      if (updated) h += `<p class="sync-note">${escapeHtml(updated)}</p>`;
+      h += `</header><div class="pulse-panel">`;
+      h += buildPulseEventListHtml(events);
+      h += `</div></article>`;
       return h;
     }
 
@@ -2416,137 +2423,21 @@
       renderPulsePage(cachedPulsePayload);
     }
 
-    const INVEST_MACRO_VI = {
-      risk_off: "Risk-off",
-      risk_on: "Risk-on",
-      mixed: "Hỗn hợp",
-      neutral: "Trung tính",
-    };
-    const INVEST_ASSET_VI = {
-      stocks: "Cổ phiếu",
-      bonds: "Trái phiếu",
-      usd: "USD",
-      gold: "Vàng",
-      oil: "Dầu",
-      gas: "Khí",
-      crypto: "Crypto",
-      real_estate: "Bất động sản",
-      banks: "Ngân hàng",
-    };
-    const INVEST_RISK_VI = {
-      conflict_security_risk: "Xung đột địa chính trị",
-      legal_regulatory_risk: "Pháp lý & quy định",
-      credit_liquidity_risk: "Tín dụng & thanh khoản",
-      rate_policy_risk: "Chính sách lãi suất",
-      inflation_risk: "Lạm phát",
-      commodity_energy_risk: "Hàng hóa & năng lượng",
-      supply_chain_risk: "Chuỗi cung ứng",
-      real_estate_infra_risk: "Bất động sản & hạ tầng",
-      crypto_risk: "Crypto",
-      cyber_risk: "An ninh mạng",
-    };
-
-    function formatInvestMacro(signal) {
-      const key = String(signal || "neutral").toLowerCase().replace(/\s+/g, "_");
-      return INVEST_MACRO_VI[key] || signal || "Trung tính";
-    }
-
-    function formatInvestAssets(assets) {
-      const list = (Array.isArray(assets) ? assets : [])
-        .map((a) => INVEST_ASSET_VI[String(a || "").toLowerCase()] || String(a || "").trim())
-        .filter(Boolean);
-      return list.length ? list.join(" · ") : "—";
-    }
-
-    function formatInvestRisks(flags) {
-      const list = (Array.isArray(flags) ? flags : [])
-        .map((f) => INVEST_RISK_VI[String(f || "").toLowerCase()] || String(f || "").trim())
-        .filter(Boolean);
-      return list.length ? list.join(" · ") : "—";
-    }
-
-    function normalizeInvestEvents(data) {
-      const raw = Array.isArray(data?.events) ? data.events : [];
-      return raw.map((ev) => {
-        const primary = String(ev.primary_sector || ev.sector || "").trim();
-        const secondary = String(ev.secondary_sector || "").trim();
-        const title = String(ev.title_vi || ev.title || "").trim() || "(Chưa có tiêu đề)";
-        const summary = String(ev.summary_vi || ev.summary || "").trim();
-        const importance = String(ev.importance_reason || "").trim();
-        const sources = normalizePulseSources(ev.sources);
-        const numArticles = ev.num_articles ?? ev.article_mentions ?? 1;
-        const sourceCount = ev.source_count != null ? Math.max(1, Math.round(Number(ev.source_count))) : Math.max(1, sources.length);
-        return {
-          global_event_id: String(ev.global_event_id || ""),
-          primary_sector: primary,
-          secondary_sector: secondary,
-          title,
-          summary,
-          importance,
-          num_articles: Math.max(1, Math.round(Number(numArticles) || 1)),
-          source_count: sourceCount,
-          sentiment_label: ev.sentiment_label || pulseSentimentLabel(ev),
-          macro_signal: ev.macro_signal || "neutral",
-          affected_assets: Array.isArray(ev.affected_assets) ? ev.affected_assets : [],
-          risk_flags: Array.isArray(ev.risk_flags) ? ev.risk_flags : [],
-          entities: Array.isArray(ev.entities) ? ev.entities.filter(Boolean) : [],
-          sources,
-        };
-      });
-    }
-
-    function buildInvestSourcesInline(sources) {
-      const list = dedupePulseSources(sources || []);
-      if (!list.length) return "";
-      const links = list
-        .slice(0, 12)
-        .map((s) => `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.name)}</a>`)
-        .join(" · ");
-      return `<p class="invest-sources-inline"><strong>Nguồn tham khảo:</strong> ${links}</p>`;
-    }
-
     function buildInvestWorldHtml(data) {
-      const events = normalizeInvestEvents(data);
+      const events = normalizePulseEvents(data);
       const updated = formatPulseUpdatedAt(data?.generated_at_utc);
       let h = `<section class="invest-desk-section invest-desk-section--world">`;
       h += `<header class="invest-desk-head">`;
-      h += `<h3 class="invest-desk-title">Thế giới<span class="invest-desk-badge-gdelt">GDELT · 24h</span></h3>`;
+      h += `<h3 class="invest-desk-title">Tin tức thế giới <span class="pulse-title-live">🔴 LIVE</span></h3>`;
+      h += `<p class="invest-desk-sub">Cùng nguồn <a href="${escapeHtml(liveNavHref())}">NÓNG TOÀN CẦU</a> · tóm tắt đầy đủ từ GDELT</p>`;
       if (updated) {
         h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)} · làm mới mỗi 6 giờ</p>`;
       }
       h += `</header><div class="pulse-panel">`;
       if (!events.length) {
-        h += `<p class="hint">Chưa có sự kiện thế giới trong 24 giờ qua.</p>`;
+        h += `<p class="hint">Chưa có tin thế giới. Mở tab <a href="${escapeHtml(liveNavHref())}">Tin tức thế giới LIVE</a> hoặc thử lại sau.</p>`;
       } else {
-        h += `<ol class="pulse-event-list">`;
-        events.forEach((ev) => {
-          h += `<li class="pulse-event invest-event">`;
-          if (ev.primary_sector) {
-            h += `<p class="invest-event-sector">${escapeHtml(ev.primary_sector)}</p>`;
-          }
-          if (ev.secondary_sector) {
-            h += `<p class="invest-event-secondary">Phụ: ${escapeHtml(ev.secondary_sector)}</p>`;
-          }
-          h += `<h3 class="invest-event-title">${escapeHtml(ev.title)}</h3>`;
-          if (ev.summary) {
-            h += `<p class="invest-event-summary">${escapeHtml(ev.summary)}</p>`;
-          }
-          if (ev.importance) {
-            h += `<p class="invest-event-importance">${escapeHtml(ev.importance)}</p>`;
-          }
-          const srcLabel = ev.source_count === 1 ? "1 nguồn tham khảo" : `${ev.source_count} nguồn tham khảo`;
-          h += `<p class="invest-event-meta"><strong>Mức độ chú ý:</strong> ${escapeHtml(ev.num_articles)} bài viết · ${escapeHtml(srcLabel)} · Sắc thái: ${escapeHtml(ev.sentiment_label)}</p>`;
-          h += `<p class="invest-event-meta"><strong>Tín hiệu vĩ mô:</strong> ${escapeHtml(formatInvestMacro(ev.macro_signal))}</p>`;
-          h += `<p class="invest-event-meta"><strong>Tài sản liên quan:</strong> ${escapeHtml(formatInvestAssets(ev.affected_assets))}</p>`;
-          h += `<p class="invest-event-meta"><strong>Rủi ro chính:</strong> ${escapeHtml(formatInvestRisks(ev.risk_flags))}</p>`;
-          if (ev.entities.length) {
-            h += `<p class="invest-event-meta"><strong>Thực thể liên quan:</strong> ${escapeHtml(ev.entities.join(" · "))}</p>`;
-          }
-          h += buildInvestSourcesInline(ev.sources);
-          h += buildPulseSourcesTicker(ev.sources);
-          h += `</li>`;
-        });
-        h += `</ol>`;
+        h += buildPulseEventListHtml(events);
       }
       h += `</div></section>`;
       return h;
@@ -2654,18 +2545,9 @@
       }
     }
 
-    async function fetchInvestPulseFeed() {
-      const paths = ["invest_pulse.json", "web/invest_pulse.json"];
-      for (const p of paths) {
-        try {
-          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
-          if (!r.ok) continue;
-          return await readJsonResponse(r);
-        } catch (e) {
-          console.warn("invest pulse fetch", p, e);
-        }
-      }
-      return null;
+    /** Khối thế giới tab đầu tư = cùng feed market_pulse (tab Tin tức thế giới LIVE). */
+    async function fetchInvestWorldFeed() {
+      return fetchPulseFeed();
     }
 
     async function fetchInvestVnBrief() {
@@ -2685,7 +2567,7 @@
     async function loadInvestContent() {
       const sync = document.getElementById("syncNote");
       if (sync) sync.textContent = "Đang tải chuyên mục kinh tế đầu tư…";
-      const [worldData, vnData] = await Promise.all([fetchInvestPulseFeed(), fetchInvestVnBrief()]);
+      const [worldData, vnData] = await Promise.all([fetchInvestWorldFeed(), fetchInvestVnBrief()]);
       cachedInvestPayload = {
         world: worldData || { events: [] },
         vn: vnData || {},
