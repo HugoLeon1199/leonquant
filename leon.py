@@ -69,6 +69,7 @@ INVEST_ITEMS_PER_TOPIC = 4
 # SQL invest BQ: >= 2. Post-enrich (world pool, title Việt): >= 1 + GKG themes trong blob.
 INVEST_MARKET_RELEVANCE_MIN = 1
 INVEST_SQL_MARKET_RELEVANCE_MIN = 2
+INVEST_BQ_SUPPLEMENT_MAX = 35  # event chỉ có trong SQL invest (crypto/CK/vĩ mô), enrich thêm
 INVEST_WORLD_SCHEMA = "invest-world-topics-v1"
 
 # Lọc sơ bộ trước Gemini (title/summary phải có dấu hiệu kinh tế–thị trường)
@@ -1529,6 +1530,81 @@ def invest_market_relevance_score(flags: dict[str, bool], theme_blob: str) -> in
     return score
 
 
+def _invest_is_non_market_geo(flags: dict[str, bool], theme_blob: str) -> bool:
+    """Xung đột/chính trị/pháp lý thuần — không có tín hiệu thị trường."""
+    geo = (
+        flags.get("is_conflict_security")
+        or flags.get("is_politics_diplomacy")
+        or flags.get("is_legal_regulatory")
+    )
+    if not geo:
+        return False
+    econ_core = (
+        flags.get("is_macro")
+        or flags.get("is_credit_banking")
+        or flags.get("is_equity_market")
+        or flags.get("is_crypto")
+        or flags.get("is_commodity_energy")
+        or flags.get("is_trade_supply")
+        or flags.get("is_tech_ai_chip")
+        or flags.get("is_real_estate_infra")
+        or flags.get("is_real_economy")
+    )
+    if econ_core:
+        return False
+    return not bool(_INVEST_GEO_MARKET_THEME_RE.search(theme_blob.upper()))
+
+
+def _invest_asset_tier(flags: dict[str, bool]) -> int:
+    """3 = crypto/CK/vĩ mô–tín dụng; 2 = hàng hóa/thương mại/chip; 0 = geo thuần."""
+    if flags.get("is_crypto") or flags.get("is_equity_market"):
+        return 3
+    if flags.get("is_macro") or flags.get("is_credit_banking"):
+        return 3
+    if flags.get("is_commodity_energy") or flags.get("is_trade_supply") or flags.get("is_tech_ai_chip"):
+        return 2
+    if flags.get("is_real_estate_infra") or flags.get("is_real_economy"):
+        return 1
+    return 0
+
+
+def _invest_sort_key(ev: dict[str, Any]) -> tuple[int, int, int, int]:
+    blob = _invest_text_blob(ev)
+    flags = _invest_signal_flags(blob)
+    return (
+        _invest_asset_tier(flags),
+        int(ev.get("market_relevance_score") or 0),
+        int(ev.get("num_articles") or 0),
+        int(ev.get("source_count") or 0),
+    )
+
+
+def _invest_topic_tags(ev: dict[str, Any]) -> str:
+    blob = _invest_text_blob(ev)
+    flags = _invest_signal_flags(blob)
+    tags: list[str] = []
+    if flags.get("is_crypto"):
+        tags.append("CRYPTO")
+    if flags.get("is_equity_market"):
+        tags.append("EQUITY")
+    if flags.get("is_macro"):
+        tags.append("MACRO")
+    if flags.get("is_credit_banking"):
+        tags.append("BANKS")
+    if flags.get("is_commodity_energy"):
+        tags.append("COMMODITY")
+    if flags.get("is_trade_supply"):
+        tags.append("TRADE")
+    if flags.get("is_tech_ai_chip"):
+        tags.append("TECH")
+    if _invest_is_non_market_geo(flags, blob):
+        tags.append("GEO_ONLY")
+    themes = str(ev.get("gkg_themes") or "")[:120]
+    if themes:
+        return f"[{','.join(tags) or 'MARKET'}] themes={themes}"
+    return f"[{','.join(tags) or 'MARKET'}]"
+
+
 def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """English regex on GKG themes + text; min score INVEST_MARKET_RELEVANCE_MIN (1)."""
     if not events:
@@ -1538,17 +1614,13 @@ def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[
         blob = _invest_text_blob(ev)
         flags = _invest_signal_flags(blob)
         score = invest_market_relevance_score(flags, blob)
-        if score >= INVEST_MARKET_RELEVANCE_MIN:
-            ev["market_relevance_score"] = score
-            scored.append((score, ev))
-    scored.sort(
-        key=lambda t: (
-            t[0],
-            int(t[1].get("num_articles") or 0),
-            int(t[1].get("source_count") or 0),
-        ),
-        reverse=True,
-    )
+        if score < INVEST_MARKET_RELEVANCE_MIN:
+            continue
+        if _invest_is_non_market_geo(flags, blob) and _invest_asset_tier(flags) == 0:
+            continue
+        ev["market_relevance_score"] = score
+        scored.append((_invest_sort_key(ev), ev))
+    scored.sort(key=lambda t: t[0], reverse=True)
     kept = [ev for _, ev in scored[:INVEST_CURATION_POOL]]
     LOG.info(
         "invest_world market_relevance filter: %s / %s candidates (min=%s)",
@@ -1590,18 +1662,25 @@ def gemini_invest_world_topics(events: list[dict[str, Any]]) -> list[dict[str, A
         eid = str(ev.get("global_event_id") or "")
         title = str(ev.get("title_vi") or ev.get("title") or "")[:200]
         summary = str(ev.get("summary_vi") or ev.get("summary") or "")[:400]
-        lines.append(f"{i + 1}. id={eid} | {ev.get('num_articles')} bài | {title} | {summary}")
+        tags = _invest_topic_tags(ev)
+        lines.append(f"{i + 1}. id={eid} | {tags} | {ev.get('num_articles')} bài | {title} | {summary}")
 
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
 Bạn biên tập mục tin thế giới quan trọng (kinh tế–đầu tư) — viết NGẮN GỌN, không dài dòng.
 
-Từ danh sách sự kiện (đã lọc GDELT + từ khóa), làm:
-1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC — cố gắng ĐA DẠNG (Vĩ mô/lãi suất, Chứng khoán, Crypto, Dầu–khí, Vàng–kim loại, Thương mại–trừng phạt, Công nghệ/chip…).
-2) Mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin QUAN TRỌNG NHẤT (ưu tiên nhiều bài báo, tác động thị trường rõ). Không gom hết vào một đề mục.
+Từ danh sách sự kiện (đã lọc GDELT + GKG), làm:
+1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC — BẮT BUỘC ưu tiên thị trường tài chính:
+   Crypto (tag CRYPTO), Chứng khoán (EQUITY), Vĩ mô & Lãi suất (MACRO), Ngân hàng (BANKS),
+   Hàng hóa–Năng lượng (COMMODITY), Thương mại–Trừng phạt (TRADE), Công nghệ–Chip (TECH).
+   Nếu đầu vào có tag CRYPTO/EQUITY thì PHẢI có đề mục tương ứng (không bỏ sót).
+2) Mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin. Không gom hết vào Địa chính trị / Pháp lý.
 3) Mỗi tin: title ngắn (≤18 từ), summary ĐÚNG 2 câu (≤55 từ), không bịa, không khuyến nghị mua/bán.
 4) global_event_id phải khớp danh sách đầu vào.
+
+BỎ (dù nhiều bài): tag GEO_ONLY; tòa án/tội phạm đời sống; scandal; nhập cư/website chính phủ không tác động thị trường.
+CHỈ giữ xung đột/chính trị khi bài nêu rõ dầu, thuế, chứng khoán, crypto, ngân hàng, lạm phát.
 
 Không nhắc AI, GDELT, pipeline.
 
@@ -1670,11 +1749,49 @@ Sự kiện:
 
 
 def _fallback_invest_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Một đề mục khi Gemini lỗi."""
+    """Gom theo tag thị trường khi Gemini lỗi."""
+    buckets: dict[str, list[dict[str, Any]]] = {
+        "Crypto": [],
+        "Chứng khoán": [],
+        "Vĩ mô & Lãi suất": [],
+        "Ngân hàng & Tín dụng": [],
+        "Hàng hóa & Năng lượng": [],
+        "Thương mại & Trừng phạt": [],
+        "Công nghệ & Chip": [],
+    }
+    order = list(buckets.keys())
+    for ev in sorted(events, key=_invest_sort_key, reverse=True):
+        blob = _invest_text_blob(ev)
+        flags = _invest_signal_flags(blob)
+        if _invest_is_non_market_geo(flags, blob):
+            continue
+        item = _topic_item_from_event(ev)
+        if not item.get("title"):
+            continue
+        if flags.get("is_crypto") and len(buckets["Crypto"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Crypto"].append(item)
+        elif flags.get("is_equity_market") and len(buckets["Chứng khoán"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Chứng khoán"].append(item)
+        elif flags.get("is_macro") and len(buckets["Vĩ mô & Lãi suất"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Vĩ mô & Lãi suất"].append(item)
+        elif flags.get("is_credit_banking") and len(buckets["Ngân hàng & Tín dụng"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Ngân hàng & Tín dụng"].append(item)
+        elif flags.get("is_commodity_energy") and len(buckets["Hàng hóa & Năng lượng"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Hàng hóa & Năng lượng"].append(item)
+        elif flags.get("is_trade_supply") and len(buckets["Thương mại & Trừng phạt"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Thương mại & Trừng phạt"].append(item)
+        elif flags.get("is_tech_ai_chip") and len(buckets["Công nghệ & Chip"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Công nghệ & Chip"].append(item)
+    out: list[dict[str, Any]] = []
+    for name in order:
+        if buckets[name]:
+            out.append({"name": name, "items": buckets[name]})
+        if len(out) >= INVEST_WORLD_TOPICS_MAX:
+            break
+    if out:
+        return out
     items = [_topic_item_from_event(ev) for ev in events[:INVEST_FEED_MAX] if ev]
-    if not items:
-        return []
-    return [{"name": "Tin quan trọng", "items": items[:INVEST_ITEMS_PER_TOPIC]}]
+    return [{"name": "Tin quan trọng", "items": items[:INVEST_ITEMS_PER_TOPIC]}] if items else []
 
 
 def _parse_gemini_curation_ids(text: str) -> list[str]:
@@ -2517,16 +2634,67 @@ def prepare_invest_world_feed(
         LOG.info("invest_world after dedupe: %s cards (from %s)", len(merged), len(pool))
     else:
         merged = list(pool)
-    merged.sort(
-        key=lambda e: (
-            int(e.get("market_relevance_score") or 0),
-            int(e.get("num_articles") or 0),
-            int(e.get("source_count") or 0),
-        ),
-        reverse=True,
-    )
+    merged.sort(key=_invest_sort_key, reverse=True)
     out = merged[:INVEST_FEED_MAX]
     LOG.info("invest_world feed pool: %s stories (max %s)", len(out), INVEST_FEED_MAX)
+    return out
+
+
+def merge_invest_sql_into_enriched_pool(
+    world_enriched: list[dict[str, Any]],
+    invest_df: pd.DataFrame,
+    *,
+    use_gemini: bool = True,
+) -> list[dict[str, Any]]:
+    """Thêm event từ SQL invest (crypto/CK/vĩ mô) chưa có trong pool world đã enrich."""
+    if invest_df is None or invest_df.empty:
+        return world_enriched
+    cleaned = clean_dataframe(invest_df)
+    bq_events = build_events_from_bq(cleaned, channel="invest")
+    candidates: list[dict[str, Any]] = []
+    for ev in bq_events:
+        blob = _invest_text_blob(ev)
+        flags = _invest_signal_flags(blob)
+        score = invest_market_relevance_score(flags, blob)
+        if score < INVEST_MARKET_RELEVANCE_MIN:
+            continue
+        if _invest_is_non_market_geo(flags, blob) and _invest_asset_tier(flags) == 0:
+            continue
+        ev["market_relevance_score"] = score
+        candidates.append(ev)
+    candidates.sort(key=_invest_sort_key, reverse=True)
+
+    by_id = {
+        str(e.get("global_event_id") or ""): e
+        for e in world_enriched
+        if e.get("global_event_id")
+    }
+    new_events: list[dict[str, Any]] = []
+    for ev in candidates:
+        eid = str(ev.get("global_event_id") or "")
+        if not eid or eid in by_id:
+            continue
+        new_events.append(ev)
+        if len(new_events) >= INVEST_BQ_SUPPLEMENT_MAX:
+            break
+
+    if new_events and use_gemini:
+        LOG.info("invest_world: enrich %s invest-SQL-only events", len(new_events))
+        new_events = enrich_events_for_web(new_events, use_gemini=True, channel="world")
+        new_events = filter_event_sources_with_gemini(new_events, use_gemini=use_gemini)
+
+    for ev in new_events:
+        eid = str(ev.get("global_event_id") or "")
+        if eid:
+            by_id[eid] = ev
+
+    out = list(by_id.values())
+    LOG.info(
+        "invest_world pool: %s enriched + %s from invest SQL (candidates %s)",
+        len(world_enriched),
+        len(new_events),
+        len(candidates),
+    )
     return out
 
 
@@ -2723,7 +2891,22 @@ def main(argv: list[str] | None = None) -> int:
             atomic_export_json(
                 pool_payload, PROJECT_DIR / "web" / "market_pulse_enriched_pool.json"
             )
-            export_invest_world_pulse(events, use_gemini=True)
+            invest_pool = events
+            try:
+                invest_df, _ = run_bigquery(
+                    client,
+                    channel="invest",
+                    job_timeout_ms=args.job_timeout_ms,
+                    maximum_bytes_billed=args.max_bytes_billed,
+                    dry_run=False,
+                )
+                if invest_df is not None and not invest_df.empty:
+                    invest_pool = merge_invest_sql_into_enriched_pool(
+                        events, invest_df, use_gemini=use_gemini
+                    )
+            except Exception as exc:
+                LOG.warning("invest SQL supplement skipped: %s", exc)
+            export_invest_world_pulse(invest_pool, use_gemini=True)
         events = dedupe_events_with_gemini(events, use_gemini=use_gemini, channel=channel)
     else:
         events = events[:TARGET_HOT_EVENTS]
