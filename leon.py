@@ -63,7 +63,29 @@ WORLD_DEEP_MERGED_CHARS = 5200
 # Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
 INVEST_MAX_ENRICH_EVENTS = 80
 INVEST_CURATION_POOL = 75
-INVEST_FEED_MAX = 20  # trần cứng; không ép đủ số tin — chỉ giữ tin đủ tiêu chí kinh tế
+INVEST_FEED_MAX = 12  # tab đầu tư thế giới: chỉ tin quan trọng nhất
+INVEST_WORLD_TOPICS_MAX = 6
+INVEST_ITEMS_PER_TOPIC = 3
+INVEST_WORLD_SCHEMA = "invest-world-topics-v1"
+
+# Lọc sơ bộ trước Gemini (title/summary phải có dấu hiệu kinh tế–thị trường)
+INVEST_ECONOMY_KEYWORDS = (
+    "fed", "fomc", "ecb", "boj", "pboc", "rate hike", "rate cut", "interest rate",
+    "inflation", "cpi", "ppi", "gdp", "recession", "stimulus", "quantitative",
+    "stock", "equity", "bond", "yield", "treasury", "wall street", "nasdaq", "s&p",
+    "ipo", "earnings", "profit warning", "market cap", "short seller",
+    "oil", "opec", "brent", "wti", "natural gas", "lng", "barrel", "hormuz",
+    "gold", "silver", "copper", "commodity", "metal price",
+    "bitcoin", "btc", "ethereum", "crypto", "stablecoin", "defi",
+    "tariff", "sanction", "trade war", "supply chain", "export ban",
+    "dollar", "usd", "euro", "yen", "forex", "currency", "devaluation",
+    "bank", "banking", "credit", "liquidity", "default", "sovereign debt",
+    "lãi suất", "lạm phát", "vĩ mô", "chính sách tiền tệ", "ngân hàng trung ương",
+    "chứng khoán", "cổ phiếu", "trái phiếu", "thị trường vốn", "niêm yết",
+    "vàng", "giá dầu", "dầu thô", "khí đốt", "năng lượng", "hàng hóa",
+    "bitcoin", "tiền số", "crypto", "thương mại", "thuế quan", "trừng phạt",
+    "tỷ giá", "nhập khẩu", "xuất khẩu", "fdi", "đầu tư nước ngoài",
+)
 INVEST_VALID_SECTORS = (
     "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
     "Tài chính - Ngân hàng & Tín dụng",
@@ -1337,6 +1359,155 @@ def _invest_curation_brief(ev: dict[str, Any]) -> str:
     return f"id={eid} | {num} bài | {sector} | assets={assets} | {title} | {summary}"
 
 
+def _invest_text_blob(ev: dict[str, Any]) -> str:
+    parts = [
+        ev.get("title_vi"),
+        ev.get("title"),
+        ev.get("summary_vi"),
+        ev.get("summary"),
+        ev.get("importance_reason"),
+        ev.get("sector"),
+        ev.get("primary_sector"),
+        " ".join(ev.get("entities") or []),
+    ]
+    return " ".join(str(p) for p in parts if p).lower()
+
+
+def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Giữ ứng viên có ít nhất một từ khóa kinh tế–thị trường (lọc GDELT sơ bộ)."""
+    if not events:
+        return []
+    kept: list[dict[str, Any]] = []
+    for ev in events:
+        blob = _invest_text_blob(ev)
+        if any(kw in blob for kw in INVEST_ECONOMY_KEYWORDS):
+            kept.append(ev)
+    LOG.info(
+        "invest_world keyword filter: %s / %s candidates",
+        len(kept),
+        len(events),
+    )
+    return kept
+
+
+def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
+    sources = ev.get("sources") or []
+    urls: list[str] = []
+    for s in sources[:4]:
+        if isinstance(s, str) and s.startswith("http"):
+            urls.append(s)
+        elif isinstance(s, dict) and str(s.get("url") or "").startswith("http"):
+            urls.append(str(s["url"]))
+    title = str(ev.get("title_vi") or ev.get("title") or "").strip()
+    summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()
+    if len(summary) > 320:
+        summary = summary[:317].rstrip() + "…"
+    return {
+        "global_event_id": str(ev.get("global_event_id") or ""),
+        "title": title,
+        "summary": summary,
+        "num_articles": int(ev.get("num_articles") or 0),
+        "source_urls": urls,
+    }
+
+
+def gemini_invest_world_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Gom tin đã lọc thành đề mục, tóm tắt ngắn (2 câu) — không bài văn dài."""
+    if not events or not _configure_gemini():
+        return _fallback_invest_topics(events)
+
+    lines = []
+    for i, ev in enumerate(events):
+        eid = str(ev.get("global_event_id") or "")
+        title = str(ev.get("title_vi") or ev.get("title") or "")[:200]
+        summary = str(ev.get("summary_vi") or ev.get("summary") or "")[:400]
+        lines.append(f"{i + 1}. id={eid} | {ev.get('num_articles')} bài | {title} | {summary}")
+
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn biên tập mục tin thế giới quan trọng (kinh tế–đầu tư) — viết NGẮN GỌN, không dài dòng.
+
+Từ danh sách sự kiện (đã lọc GDELT + từ khóa), làm:
+1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC (vd: Vĩ mô & lãi suất, Chứng khoán, Dầu–khí, Vàng–kim loại, Crypto, Thương mại–trừng phạt).
+2) Mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin QUAN TRỌNG NHẤT (ưu tiên nhiều bài báo, tác động thị trường rõ).
+3) Mỗi tin: title ngắn (≤18 từ), summary ĐÚNG 2 câu (≤55 từ), không bịa, không khuyến nghị mua/bán.
+4) global_event_id phải khớp danh sách đầu vào.
+
+Không nhắc AI, GDELT, pipeline.
+
+Trả về JSON:
+{{
+  "topics": [
+    {{
+      "name": "Tên đề mục",
+      "items": [
+        {{
+          "global_event_id": "...",
+          "title": "...",
+          "summary": "hai câu ngắn"
+        }}
+      ]
+    }}
+  ]
+}}
+
+Sự kiện:
+{chr(10).join(lines)}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        data = _parse_gemini_json(response.text or "")
+        topics = data.get("topics") if isinstance(data, dict) else None
+        if not isinstance(topics, list):
+            return _fallback_invest_topics(events)
+        by_id = {str(ev.get("global_event_id") or ""): ev for ev in events if ev.get("global_event_id")}
+        out: list[dict[str, Any]] = []
+        for tp in topics[:INVEST_WORLD_TOPICS_MAX]:
+            if not isinstance(tp, dict):
+                continue
+            name = str(tp.get("name") or "").strip()
+            if not name:
+                continue
+            items_out: list[dict[str, Any]] = []
+            for it in (tp.get("items") or [])[:INVEST_ITEMS_PER_TOPIC]:
+                if not isinstance(it, dict):
+                    continue
+                eid = str(it.get("global_event_id") or "").strip()
+                base = by_id.get(eid)
+                merged = _topic_item_from_event(base) if base else {}
+                title = str(it.get("title") or merged.get("title") or "").strip()
+                summary = str(it.get("summary") or merged.get("summary") or "").strip()
+                if not title:
+                    continue
+                if len(summary) > 360:
+                    summary = summary[:357].rstrip() + "…"
+                items_out.append(
+                    {
+                        "global_event_id": eid,
+                        "title": title,
+                        "summary": summary,
+                        "num_articles": merged.get("num_articles", 0),
+                        "source_urls": merged.get("source_urls") or [],
+                    }
+                )
+            if items_out:
+                out.append({"name": name, "items": items_out})
+        return out if out else _fallback_invest_topics(events)
+    except Exception as exc:
+        LOG.warning("gemini_invest_world_topics failed: %s", exc)
+        return _fallback_invest_topics(events)
+
+
+def _fallback_invest_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Một đề mục khi Gemini lỗi."""
+    items = [_topic_item_from_event(ev) for ev in events[:INVEST_FEED_MAX] if ev]
+    if not items:
+        return []
+    return [{"name": "Tin quan trọng", "items": items[:INVEST_ITEMS_PER_TOPIC]}]
+
+
 def _parse_gemini_curation_ids(text: str) -> list[str]:
     raw = (text or "").strip()
     if not raw:
@@ -1674,13 +1845,15 @@ Danh sách dưới đây là ứng viên nóng 24h (đã có title/summary tiế
 2) CHỌN LÊN MỤC ĐẦU TƯ: chỉ keep_id có góc kinh tế–thị trường rõ. Không cần đủ số lượng — trung thực.
    Tối đa {INVEST_FEED_MAX} id nếu quá nhiều tin đạt chuẩn.
 
-CHỈ GIỮ khi summary/title cho thấy ít nhất một trong:
-- Vĩ mô / chính sách tiền tệ–tài khóa / lãi suất / lạm phát / ngân hàng trung ương
-- Chứng khoán, trái phiếu, thị trường vốn, IPO, doanh nghiệp lớn có tác động thị trường
-- Vàng, bạc, kim loại quý, dầu, khí, hàng hóa, năng lượng (giá, cung–cầu, OPEC, sanctions năng lượng)
-- Crypto / Bitcoin / stablecoin / quy định tài sản số
-- Thương mại, thuế, trừng phạt kinh tế, chuỗi cung ứng, FDI, tỷ giá, USD
-- Xung đột/địa chính trị CHỈ khi bài nêu rõ hệ quả giá dầu, thị trường, lạm phát, an ninh năng lượng, tài chính
+Ứng viên đã qua lọc từ khóa GDELT (fed, lãi suất, chứng khoán, vàng, dầu, bitcoin, thương mại, v.v.).
+
+CHỈ GIỮ keep_id khi title/summary có từ khóa hoặc nội dung rõ về:
+- Vĩ mô / Fed / ECB / lãi suất / lạm phát / QE / ngân hàng trung ương
+- Chứng khoán / trái phiếu / IPO / earnings / thị trường vốn
+- Vàng / bạc / đồng / dầu / OPEC / khí / năng lượng / Hormuz
+- Bitcoin / crypto / stablecoin / ETF crypto
+- Thuế quan / trừng phạt / thương mại / chuỗi cung ứng / FDI / USD–tỷ giá
+- Xung đột CHỈ khi bài nêu giá dầu, thị trường, lạm phát, tài chính
 
 BỎ dù viral:
 - Tội phạm đời sống, scandal cá nhân, biểu tình cục bộ không hệ quả kinh tế rõ
@@ -2156,23 +2329,42 @@ def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, An
 def export_invest_world_pulse(
     events_enriched: list[dict[str, Any]], *, use_gemini: bool = True
 ) -> None:
-    """Tab đầu tư (khối thế giới): cùng nguồn enrich GDELT, curate Gemini chỉ kinh tế/CK/vàng/crypto/vĩ mô."""
+    """Tab đầu tư (khối thế giới): lọc từ khóa + curate kinh tế → gom đề mục, tóm tắt ngắn."""
     if not events_enriched:
         LOG.warning("invest_world: no enriched candidates")
         return
-    LOG.info(
-        "invest_world: curate %s enriched candidates (economics-only, not LIVE feed)",
-        len(events_enriched),
-    )
+    keyword_pool = filter_invest_keyword_candidates(events_enriched)
+    if not keyword_pool:
+        LOG.warning("invest_world: no candidates after keyword filter")
+        payload = {
+            "schema_version": INVEST_WORLD_SCHEMA,
+            "channel": "invest_world",
+            "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+            "total_events": 0,
+            "topics": [],
+            "events": [],
+        }
+        for path in (INVEST_WORLD_OUTPUT, PROJECT_DIR / "web" / "invest_world_pulse.json"):
+            atomic_export_json(payload, path)
+        return
+    LOG.info("invest_world: curate %s keyword-matched candidates", len(keyword_pool))
     invest_events = dedupe_events_with_gemini(
-        events_enriched, use_gemini=use_gemini, channel="invest"
+        keyword_pool, use_gemini=use_gemini, channel="invest"
     )
+    topics: list[dict[str, Any]] = []
     if invest_events and use_gemini:
         time.sleep(GEMINI_CALL_INTERVAL_SEC)
-        invest_events = gemini_world_deepen_events(invest_events)
-    payload = build_payload(invest_events, channel="world")
-    payload["channel"] = "invest_world"
-    payload["source"] = "gdelt_enriched_invest_curate"
+        topics = gemini_invest_world_topics(invest_events)
+    elif invest_events:
+        topics = _fallback_invest_topics(invest_events)
+    payload = {
+        "schema_version": INVEST_WORLD_SCHEMA,
+        "channel": "invest_world",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "total_events": sum(len(t.get("items") or []) for t in topics),
+        "topics": topics,
+        "events": [_topic_item_from_event(ev) for ev in invest_events[:INVEST_FEED_MAX]],
+    }
     for path in (INVEST_WORLD_OUTPUT, PROJECT_DIR / "web" / "invest_world_pulse.json"):
         atomic_export_json(payload, path)
 

@@ -978,6 +978,57 @@
       color: var(--faint);
       font-size: .78rem;
     }
+    .invest-world-topic {
+      margin-bottom: 1.15rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .invest-world-topic:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .invest-world-topic-name {
+      margin: 0 0 8px;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--cyan-dim);
+    }
+    .invest-world-item {
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(8, 145, 178, 0.12);
+    }
+    .invest-world-item:last-child { margin-bottom: 0; }
+    .invest-world-item-title {
+      margin: 0 0 6px;
+      font-size: .94rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .invest-world-item-summary {
+      margin: 0 0 6px;
+      font-size: .86rem;
+      line-height: 1.48;
+      color: var(--text-soft);
+    }
+    .invest-world-item-meta {
+      margin: 0;
+      font-size: .75rem;
+      color: var(--faint);
+    }
+    .invest-world-item-links {
+      margin: 6px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .invest-world-item-links li { font-size: .78rem; margin-bottom: 3px; }
+    .invest-world-item-links a {
+      color: var(--cyan-dim);
+      text-decoration: none;
+      font-weight: 650;
+    }
+    .invest-world-item-links a:hover { text-decoration: underline; }
     body.pulse-mode .logo {
       font-size: clamp(1.05rem, 3.2vw, 1.35rem);
       font-weight: 800;
@@ -1484,7 +1535,7 @@
           <article id="invest-desk" class="digest-report">
             <header class="digest-report-head invest-desk-page-head">
               <h2>Chuyên mục kinh tế đầu tư</h2>
-              <p class="invest-channel-lead">Thế giới: GDELT + Gemini <strong>chỉ lọc kinh tế, CK, vàng, crypto, vĩ mô</strong> (khác tab <a href="/?view=live">Tin nóng toàn cầu</a>). Việt Nam: phân tích sâu từ tin 48h — trung lập, không phải khuyến nghị giao dịch.</p>
+              <p class="invest-channel-lead">Thế giới: tin quan trọng theo đề mục (GDELT + từ khóa kinh tế). Việt Nam: phân tích 48h — trung lập, không khuyến nghị giao dịch.</p>
             </header>
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"></div>
@@ -2424,22 +2475,61 @@
     }
 
     function buildInvestWorldHtml(data) {
-      const events = normalizePulseEvents(data);
+      const topics = Array.isArray(data?.topics) ? data.topics : [];
       const updated = formatPulseUpdatedAt(data?.generated_at_utc);
       let h = `<section class="invest-desk-section invest-desk-section--world">`;
       h += `<header class="invest-desk-head">`;
-      h += `<h3 class="invest-desk-title">Kinh tế &amp; thị trường thế giới</h3>`;
-      h += `<p class="invest-desk-sub">GDELT 24h · lọc riêng: vĩ mô, CK, vàng, dầu, crypto, chính sách — không trùng danh sách tab LIVE</p>`;
-      if (updated) {
-        h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)} · làm mới mỗi 6 giờ</p>`;
-      }
-      h += `</header><div class="pulse-panel">`;
-      if (!events.length) {
-        h += `<p class="hint">Chưa có tin kinh tế–thị trường thế giới trong lượt lọc này. Thử lại sau hoặc xem tab <a href="${escapeHtml(liveNavHref())}">Tin nóng toàn cầu</a> (đa lĩnh vực).</p>`;
+      h += `<h3 class="invest-desk-title">Tin thế giới quan trọng</h3>`;
+      h += `<p class="invest-desk-sub">Theo đề mục · GDELT + từ khóa kinh tế–thị trường</p>`;
+      if (updated) h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)}</p>`;
+      h += `</header>`;
+      if (!topics.length) {
+        const events = normalizePulseEvents(data);
+        if (events.length) {
+          h += `<div class="invest-world-topic"><h4 class="invest-world-topic-name">Tin quan trọng</h4>`;
+          events.slice(0, 8).forEach((ev) => {
+            h += `<div class="invest-world-item">`;
+            h += `<p class="invest-world-item-title">${escapeHtml(ev.title)}</p>`;
+            if (ev.summary) h += `<p class="invest-world-item-summary">${escapeHtml(ev.summary)}</p>`;
+            h += `</div>`;
+          });
+          h += `</div>`;
+        } else {
+          h += `<p class="hint">Chưa có tin trong lượt lọc này.</p>`;
+        }
       } else {
-        h += buildPulseEventListHtml(events);
+        topics.forEach((tp) => {
+          const items = Array.isArray(tp.items) ? tp.items : [];
+          if (!items.length) return;
+          h += `<div class="invest-world-topic">`;
+          h += `<h4 class="invest-world-topic-name">${escapeHtml(tp.name || "Đề mục")}</h4>`;
+          items.forEach((it) => {
+            h += `<div class="invest-world-item">`;
+            h += `<p class="invest-world-item-title">${escapeHtml(it.title)}</p>`;
+            if (it.summary) {
+              h += `<p class="invest-world-item-summary">${escapeHtml(it.summary)}</p>`;
+            }
+            const n = Number(it.num_articles) || 0;
+            if (n > 0) {
+              h += `<p class="invest-world-item-meta">${escapeHtml(n)} bài báo nhắc tới</p>`;
+            }
+            const urls = (Array.isArray(it.source_urls) ? it.source_urls : []).filter((u) =>
+              String(u).startsWith("http"),
+            );
+            if (urls.length) {
+              h += `<ul class="invest-world-item-links">`;
+              urls.slice(0, 3).forEach((u) => {
+                const label = escapeHtml(pulseSourceLabel(normalizeExternalUrl(u)));
+                h += `<li><a href="${escapeHtml(normalizeExternalUrl(u))}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
+              });
+              h += `</ul>`;
+            }
+            h += `</div>`;
+          });
+          h += `</div>`;
+        });
       }
-      h += `</div></section>`;
+      h += `</section>`;
       return h;
     }
 
