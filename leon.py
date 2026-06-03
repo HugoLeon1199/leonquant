@@ -63,9 +63,12 @@ WORLD_DEEP_MERGED_CHARS = 5200
 # Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
 INVEST_MAX_ENRICH_EVENTS = 80
 INVEST_CURATION_POOL = 75
-INVEST_FEED_MAX = 12  # tab đầu tư thế giới: chỉ tin quan trọng nhất
-INVEST_WORLD_TOPICS_MAX = 6
-INVEST_ITEMS_PER_TOPIC = 3
+INVEST_FEED_MAX = 18  # tab đầu tư thế giới: tin quan trọng sau lọc + gom đề mục
+INVEST_WORLD_TOPICS_MAX = 8
+INVEST_ITEMS_PER_TOPIC = 4
+# SQL invest BQ: >= 2. Post-enrich (world pool, title Việt): >= 1 + GKG themes trong blob.
+INVEST_MARKET_RELEVANCE_MIN = 1
+INVEST_SQL_MARKET_RELEVANCE_MIN = 2
 INVEST_WORLD_SCHEMA = "invest-world-topics-v1"
 
 # Lọc sơ bộ trước Gemini (title/summary phải có dấu hiệu kinh tế–thị trường)
@@ -105,10 +108,12 @@ INVEST_GDELT_REGEX: dict[str, str] = {
     ),
     "is_crypto": (
         r"CRYPTOCURRENCY|\bCRYPTO\b|BITCOIN|\bBTC\b|ETHEREUM|\bETH\b|"
+        r"\bSOLANA\b|\bSOL\b|\bXRP\b|RIPPLE|DOGECOIN|\bDOGE\b|"
         r"BLOCKCHAIN|DIGITAL[_ ]?ASSET|DIGITAL[_ ]?CURRENCY|VIRTUAL[_ ]?CURRENCY|"
         r"STABLECOIN|STABLECOINS|DEFI|DECENTRALIZED[_ ]?FINANCE|WEB3|"
         r"ALTCOIN|TOKEN|NFT|SMART[_ ]?CONTRACT|SPOT[_ ]?ETF|CRYPTO[_ ]?EXCHANGE|"
-        r"\b(BINANCE|COINBASE|TETHER|RIPPLE|KRAKEN|GRAYSCALE|BITWISE)\b"
+        r"MARKET[_ ]?CAP|CRYPTO[_ ]?MARKET|"
+        r"\b(BINANCE|COINBASE|TETHER|KRAKEN|GRAYSCALE|BITWISE|MICROSTRATEGY)\b"
     ),
     "is_commodity_energy": (
         r"COMMODIT|ENERGY|\bOIL\b|_OIL|OIL_|CRUDE|CRUDE[_ ]?OIL|"
@@ -1458,6 +1463,7 @@ def _invest_gdelt_compiled() -> dict[str, re.Pattern[str]]:
 
 def _invest_text_blob(ev: dict[str, Any]) -> str:
     parts = [
+        ev.get("gkg_themes"),
         ev.get("gkg_organizations"),
         ev.get("gkg_persons"),
         ev.get("gkg_locations"),
@@ -1519,24 +1525,36 @@ def invest_market_relevance_score(flags: dict[str, bool], theme_blob: str) -> in
     if geo and _INVEST_GEO_MARKET_THEME_RE.search(theme_u):
         score += 1
     if geo and not econ_core:
-        score -= 3
+        score -= 2
     return score
 
 
 def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """English regex groups + market_relevance_score >= 2 (aligned with invest SQL)."""
+    """English regex on GKG themes + text; min score INVEST_MARKET_RELEVANCE_MIN (1)."""
     if not events:
         return []
-    kept: list[dict[str, Any]] = []
+    scored: list[tuple[int, dict[str, Any]]] = []
     for ev in events:
         blob = _invest_text_blob(ev)
         flags = _invest_signal_flags(blob)
-        if invest_market_relevance_score(flags, blob) >= 2:
-            kept.append(ev)
+        score = invest_market_relevance_score(flags, blob)
+        if score >= INVEST_MARKET_RELEVANCE_MIN:
+            ev["market_relevance_score"] = score
+            scored.append((score, ev))
+    scored.sort(
+        key=lambda t: (
+            t[0],
+            int(t[1].get("num_articles") or 0),
+            int(t[1].get("source_count") or 0),
+        ),
+        reverse=True,
+    )
+    kept = [ev for _, ev in scored[:INVEST_CURATION_POOL]]
     LOG.info(
-        "invest_world market_relevance filter: %s / %s candidates",
+        "invest_world market_relevance filter: %s / %s candidates (min=%s)",
         len(kept),
         len(events),
+        INVEST_MARKET_RELEVANCE_MIN,
     )
     return kept
 
@@ -1580,8 +1598,8 @@ def gemini_invest_world_topics(events: list[dict[str, Any]]) -> list[dict[str, A
 Bạn biên tập mục tin thế giới quan trọng (kinh tế–đầu tư) — viết NGẮN GỌN, không dài dòng.
 
 Từ danh sách sự kiện (đã lọc GDELT + từ khóa), làm:
-1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC (vd: Vĩ mô & lãi suất, Chứng khoán, Dầu–khí, Vàng–kim loại, Crypto, Thương mại–trừng phạt).
-2) Mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin QUAN TRỌNG NHẤT (ưu tiên nhiều bài báo, tác động thị trường rõ).
+1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC — cố gắng ĐA DẠNG (Vĩ mô/lãi suất, Chứng khoán, Crypto, Dầu–khí, Vàng–kim loại, Thương mại–trừng phạt, Công nghệ/chip…).
+2) Mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin QUAN TRỌNG NHẤT (ưu tiên nhiều bài báo, tác động thị trường rõ). Không gom hết vào một đề mục.
 3) Mỗi tin: title ngắn (≤18 từ), summary ĐÚNG 2 câu (≤55 từ), không bịa, không khuyến nghị mua/bán.
 4) global_event_id phải khớp danh sách đầu vào.
 
@@ -2135,6 +2153,7 @@ def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[di
             "primary_actor": actor,
             "secondary_actor": actor2,
             "article_mentions": max(num_articles, 1),
+            "gkg_themes": str(row.get("V2Themes") or ""),
             "gkg_organizations": str(row.get("Cac_To_Chuc_Lien_Quan") or ""),
             "gkg_persons": str(row.get("V2Persons") or ""),
             "gkg_locations": str(row.get("V2Locations") or ""),

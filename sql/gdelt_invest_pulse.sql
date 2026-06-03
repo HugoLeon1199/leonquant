@@ -245,11 +245,11 @@ WITH
       (
         REGEXP_CONTAINS(
           theme_u,
-          r'CRYPTOCURRENCY|\bCRYPTO\b|BITCOIN|\bBTC\b|ETHEREUM|\bETH\b|BLOCKCHAIN|DIGITAL[_ ]?ASSET|DIGITAL[_ ]?CURRENCY|VIRTUAL[_ ]?CURRENCY|STABLECOIN|STABLECOINS|DEFI|DECENTRALIZED[_ ]?FINANCE|WEB3|ALTCOIN|TOKEN|NFT|SMART[_ ]?CONTRACT|SPOT[_ ]?ETF|CRYPTO[_ ]?EXCHANGE'
+          r'CRYPTOCURRENCY|\bCRYPTO\b|BITCOIN|\bBTC\b|ETHEREUM|\bETH\b|\bSOLANA\b|\bSOL\b|\bXRP\b|DOGECOIN|\bDOGE\b|BLOCKCHAIN|DIGITAL[_ ]?ASSET|DIGITAL[_ ]?CURRENCY|VIRTUAL[_ ]?CURRENCY|STABLECOIN|STABLECOINS|DEFI|DECENTRALIZED[_ ]?FINANCE|WEB3|ALTCOIN|TOKEN|NFT|SMART[_ ]?CONTRACT|SPOT[_ ]?ETF|CRYPTO[_ ]?EXCHANGE|MARKET[_ ]?CAP|CRYPTO[_ ]?MARKET'
         )
         OR REGEXP_CONTAINS(
           org_u,
-          r'\b(BINANCE|COINBASE|TETHER|RIPPLE|KRAKEN|GRAYSCALE|BITWISE)\b'
+          r'\b(BINANCE|COINBASE|TETHER|RIPPLE|KRAKEN|GRAYSCALE|BITWISE|MICROSTRATEGY)\b'
         )
       ) AS is_crypto,
       (
@@ -449,7 +449,7 @@ WITH
               is_commodity_energy OR is_trade_supply OR is_tech_ai_chip OR
               is_real_estate_infra OR is_real_economy
             ),
-            3,
+            2,
             0
           )
       ) AS market_relevance_score,
@@ -522,7 +522,7 @@ SELECT
   V2Persons,
   V2Locations
 FROM FinalClassified
-WHERE market_relevance_score >= 2
+WHERE market_relevance_score >= 1
 ORDER BY
   market_relevance_score DESC,
   So_Bao_De_Cap DESC,
