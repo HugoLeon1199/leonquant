@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gate before Gemini digest: resolve export window, re-seed if needed, write shared state file."""
+"""Gate before Gemini digest: resolve export window after crawl; write shared state file."""
 
 from __future__ import annotations
 
@@ -19,7 +19,9 @@ from digest_window import (  # noqa: E402
     DEFAULT_GZ,
     DEFAULT_WINDOW_STATE,
     MIN_ARTICLES_DEFAULT,
+    MIN_SOURCE_PROFILES,
     db_diagnostics,
+    open_db,
     resolve_export_window,
     write_window_state,
 )
@@ -35,7 +37,15 @@ def reseed_from_gz(db_path: Path, gz_path: Path) -> None:
     with gzip.open(gz_path, "rb") as fin, open(db_path, "wb") as fout:
         shutil.copyfileobj(fin, fout)
     mb = db_path.stat().st_size / 1024 / 1024
-    print(f"Re-seeded {db_path.name} from {gz_path.name} ({mb:.1f} MB)")
+    print(f"Bootstrapped {db_path.name} from {gz_path.name} ({mb:.1f} MB)")
+
+
+def count_profiles(db_path: Path) -> int:
+    db = open_db(db_path)
+    try:
+        return int(db.conn.execute("SELECT COUNT(*) FROM source_profiles").fetchone()[0])
+    finally:
+        db.close()
 
 
 def pin_date(date: str, timezone: str) -> str:
@@ -78,36 +88,44 @@ def main() -> int:
     parser.add_argument("--timezone", default="Asia/Ho_Chi_Minh")
     parser.add_argument("--min-articles", type=int, default=MIN_ARTICLES_DEFAULT)
     parser.add_argument("--window-state", type=Path, default=DEFAULT_WINDOW_STATE)
-    parser.add_argument(
-        "--no-reseed",
-        action="store_true",
-        help="Do not re-seed from .gz when window is empty (local debug)",
-    )
     args = parser.parse_args()
 
     db = args.db.resolve()
     gz = args.gz.resolve()
-    if not db.is_file() and gz.is_file():
-        reseed_from_gz(db, gz)
+
     if not db.is_file():
-        print(f"ERROR: DuckDB missing: {db}", file=sys.stderr)
-        return 2
+        if gz.is_file():
+            reseed_from_gz(db, gz)
+        else:
+            print(f"ERROR: DuckDB missing and no {gz.name} to bootstrap.", file=sys.stderr)
+            return 2
+
+    profiles = count_profiles(db)
+    if profiles < MIN_SOURCE_PROFILES:
+        if gz.is_file():
+            print(f"Only {profiles} source_profiles — bootstrap from {gz.name}")
+            reseed_from_gz(db, gz)
+            profiles = count_profiles(db)
+        if profiles < MIN_SOURCE_PROFILES:
+            print(
+                f"ERROR: need >= {MIN_SOURCE_PROFILES} source_profiles in DuckDB.\n"
+                "  Chạy profile tay (một lần / khi đổi link): "
+                "cd leon_web_intel && python run_profile.py --input ../config/sources_seed.txt "
+                "--profile-only --db ../data/web_intel_leonquant.duckdb\n"
+                "  Rồi: python scripts/pack_db_seed.py --mode profiles-only",
+                file=sys.stderr,
+            )
+            return 2
 
     pin = pin_date(args.date, args.timezone)
     print(f"Pinned calendar date: {pin} ({args.timezone})")
 
-    state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="check")
-    if not state and not args.no_reseed and gz.is_file():
-        print("Export window empty — re-seeding from git .gz (prefer profiles-only seed)")
-        reseed_from_gz(db, gz)
-        state = try_resolve(
-            db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="after-reseed"
-        )
-
+    state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-crawl")
     if not state:
         print(
-            "ERROR: not enough articles for digest after window ladder + optional re-seed.\n"
-            "  Fix: run crawl, or rebuild seed: python scripts/pack_db_seed.py --mode profiles-only",
+            "ERROR: crawl did not produce enough articles for digest (48h window).\n"
+            "  CI đã xóa bài cũ và cào lại — xem log bước Crawl 48h (Scrapy).\n"
+            "  Không re-seed bài cũ từ .gz (tránh tin lỗi thời).",
             file=sys.stderr,
         )
         return 5

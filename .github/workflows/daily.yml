@@ -1,8 +1,7 @@
 name: Tin Việt Nam 48h digest
 
-# 05:00 Asia/Ho_Chi_Minh mỗi ngày = 22:00 UTC ngày trước.
-# Git: chỉ data/web_intel_leonquant.duckdb.gz (gzip, nên profiles-only ~nhỏ).
-# Articles: GitHub Actions cache data/web_intel_leonquant.duckdb — không commit DB thô.
+# 05:00 VN = 22:00 UTC. CI: cào web → Gemini digest. Không profile tự động (chỉ tay khi đổi link).
+# Git: data/web_intel_leonquant.duckdb.gz (profiles-only). Articles: Actions cache only.
 on:
   schedule:
     - cron: "0 22 * * *"
@@ -13,6 +12,8 @@ on:
       - .ci-run-digest
       - .github/workflows/daily.yml
       - data/web_intel_leonquant.duckdb.gz
+      - config/sources_seed.txt
+      - config/tiers/*.txt
 
 permissions:
   contents: write
@@ -40,7 +41,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r leon_web_intel/requirements.txt
 
-      - name: Restore DuckDB (profiles + articles)
+      - name: Restore DuckDB cache (source_profiles + bài lần trước)
         uses: actions/cache@v4
         id: cache-intel-db
         with:
@@ -50,53 +51,35 @@ jobs:
             intel-digest-db-v3-
             intel-digest-db-v2-
 
-      - name: Prepare DuckDB from git seed
+      - name: Bootstrap DuckDB (profiles từ .gz nếu chưa có cache)
         run: |
           mkdir -p data
           if [ ! -f data/web_intel_leonquant.duckdb ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
             gunzip -c data/web_intel_leonquant.duckdb.gz > data/web_intel_leonquant.duckdb
-            echo "Decompressed seed DB ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
+            echo "Decompressed seed ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
           fi
           if [ ! -f data/web_intel_leonquant.duckdb ]; then
-            echo "ERROR: no DuckDB — add data/web_intel_leonquant.duckdb.gz or restore Actions cache." >&2
+            echo "ERROR: no DuckDB — cần .duckdb.gz (profiles) hoặc cache Actions." >&2
             exit 2
           fi
           python -c "
           import duckdb
           c = duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
-          profiles = int(c.execute('SELECT COUNT(*) FROM source_profiles').fetchone()[0])
-          articles = int(c.execute('SELECT COUNT(*) FROM articles').fetchone()[0])
+          p = int(c.execute('SELECT COUNT(*) FROM source_profiles').fetchone()[0])
           c.close()
-          print(f'source_profiles={profiles} articles={articles}')
-          assert profiles >= 50, 'need classified source_profiles in .duckdb.gz seed'
+          print(f'source_profiles={p}')
+          assert p >= 10, 'Thiếu source_profiles — chạy profile tay + pack_db_seed.py rồi commit .gz'
           "
-
-      - name: Profile missing sources only (first-time / empty DB)
-        run: |
-          NEED=$(python -c "
-          import duckdb
-          c = duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
-          n = int(c.execute('SELECT COUNT(*) FROM source_profiles').fetchone()[0])
-          c.close()
-          print('yes' if n < 50 else 'no')
-          ")
-          if [ "$NEED" = "yes" ]; then
-            python -m playwright install --with-deps chromium
-            cd leon_web_intel
-            python run_profile.py \
-              --input ../config/sources_seed.txt \
-              --profile-only \
-              --db ../data/web_intel_leonquant.duckdb
-          else
-            echo "Skip profile: source_profiles already in DuckDB."
-          fi
 
       - name: Pin calendar date
         run: |
           echo "CRAWL_CALENDAR_DATE=$(python scripts/pin_crawl_calendar_date.py --date today --timezone Asia/Ho_Chi_Minh)" >> "$GITHUB_ENV"
-          echo "Pinned crawl/export date: $CRAWL_CALENDAR_DATE"
+          echo "Pinned: $CRAWL_CALENDAR_DATE"
 
-      - name: Crawl 48h news
+      - name: Clear old articles (luôn bắt đầu từ cào web mới)
+        run: python scripts/clear_intel_articles.py
+
+      - name: Crawl 48h news (Scrapy — không profile)
         env:
           WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
         run: |
@@ -107,7 +90,7 @@ jobs:
             --no-crawl-skip \
             --require-today-articles 5
 
-      - name: Prepare digest export window (gate — must pass before Gemini)
+      - name: Prepare digest export window (sau crawl)
         run: |
           python scripts/prepare_digest_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
@@ -124,7 +107,7 @@ jobs:
             --timezone Asia/Ho_Chi_Minh \
             --min-clean-articles 10
 
-      - name: Prune DuckDB (match export window — keeps cache small, never empty wipe)
+      - name: Prune DuckDB (giữ cache nhỏ, cùng cửa sổ export)
         run: |
           python scripts/prune_intel_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
