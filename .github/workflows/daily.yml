@@ -105,7 +105,7 @@ jobs:
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
             --recent-calendar-days 2 \
-            --min 5 || echo "WARN: ensure step; digest will try wider export window."
+            --min 5 || echo "WARN: pre-crawl ensure; will re-check after crawl."
 
       # Crawl có thể cảnh báo/thoát sớm trên runner; digest bước sau dùng cửa sổ 48h trong DB.
       - name: Crawl 48h news (classified profiles, no wipe)
@@ -120,6 +120,14 @@ jobs:
             --skip-profile \
             --no-crawl-skip || echo "WARN: crawl step exited non-zero; continuing with DB digest."
 
+      - name: Verify articles for digest export (re-seed if cache too stale)
+        run: |
+          python scripts/ensure_db_48h_articles.py \
+            --date "$CRAWL_CALENDAR_DATE" \
+            --timezone Asia/Ho_Chi_Minh \
+            --recent-calendar-days 2 \
+            --min 5
+
       - name: Gemini digest and build web content
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -128,7 +136,7 @@ jobs:
           python scripts/run_digest_from_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
-            --recent-calendar-days 7 \
+            --recent-calendar-days 14 \
             --min-clean-articles 1
 
       - name: Prune DuckDB to 48h window (keep cache small)
@@ -136,7 +144,7 @@ jobs:
           python scripts/prune_intel_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
-            --recent-calendar-days 2
+            --recent-calendar-days 7
 
       - name: Commit updated digest
         run: |

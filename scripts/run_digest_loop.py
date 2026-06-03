@@ -77,7 +77,6 @@ def main() -> int:
                     DIGEST_MODEL,
                     "--max-input-tokens-per-request",
                     str(FREE_TIER_MAX_INPUT_TOKENS),
-                    "--use-existing-outline",
                     "--resume-partials",
                     "--max-api-calls",
                     "1",
