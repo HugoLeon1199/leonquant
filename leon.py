@@ -47,9 +47,14 @@ MAX_MENTIONS_PER_EVENT = 20
 PULSE_SCHEMA_VERSION = "event-centric-v7"
 INVEST_PULSE_SCHEMA_VERSION = "invest-event-v1"
 GEMINI_MAX_URL_ATTEMPTS = 3
+WORLD_GEMINI_MAX_URL_ATTEMPTS = 5
 GEMINI_MIN_EXCERPT_CHARS = 60
 GEMINI_BATCH_ENRICH_SIZE = 35
+WORLD_GEMINI_BATCH_ENRICH_SIZE = 18
 GEMINI_BATCH_EXCERPT_CHARS = 1000
+WORLD_GEMINI_BATCH_EXCERPT_CHARS = 3600
+WORLD_EXCERPT_PARAGRAPHS = 6
+WORLD_EXCERPT_CHARS_PER_URL = 1400
 # Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
 INVEST_MAX_ENRICH_EVENTS = 80
 INVEST_CURATION_POOL = 75
@@ -569,7 +574,13 @@ def _configure_gemini() -> bool:
     return True
 
 
-def extract_web_content(url: str, *, timeout: int = FETCH_TITLE_TIMEOUT) -> str | None:
+def extract_web_content(
+    url: str,
+    *,
+    timeout: int = FETCH_TITLE_TIMEOUT,
+    max_paragraphs: int = 3,
+    max_snippet_chars: int = 1000,
+) -> str | None:
     """Scrape title + opening paragraphs for Gemini context."""
     url = str(url or "").strip()
     if not url.startswith("http"):
@@ -588,9 +599,11 @@ def extract_web_content(url: str, *, timeout: int = FETCH_TITLE_TIMEOUT) -> str 
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, "html.parser")
             title = soup.title.get_text(strip=True) if soup.title else ""
-            paragraphs = [p.get_text(" ", strip=True) for p in soup.find_all("p")[:3]]
+            n_para = max(1, int(max_paragraphs))
+            paragraphs = [p.get_text(" ", strip=True) for p in soup.find_all("p")[:n_para]]
             content_text = " ".join(paragraphs)
-            snippet = f"Title: {title}\nContent Snippet: {content_text[:1000]}"
+            cap = max(200, int(max_snippet_chars))
+            snippet = f"Title: {title}\nContent Snippet: {content_text[:cap]}"
     except Exception as exc:
         LOG.debug("extract_web_content failed %s: %s", url[:96], exc)
 
@@ -726,21 +739,78 @@ def _chunked(items: list[Any], size: int) -> list[list[Any]]:
     return [items[i : i + size] for i in range(0, len(items), size)]
 
 
-def _scrape_first_excerpt(ev: dict[str, Any]) -> tuple[str | None, str | None]:
+def _batch_enrich_chunk_size(channel: str) -> int:
+    return WORLD_GEMINI_BATCH_ENRICH_SIZE if channel == "world" else GEMINI_BATCH_ENRICH_SIZE
+
+
+def _batch_enrich_excerpt_cap(channel: str) -> int:
+    return WORLD_GEMINI_BATCH_EXCERPT_CHARS if channel == "world" else GEMINI_BATCH_EXCERPT_CHARS
+
+
+def _scrape_first_excerpt(ev: dict[str, Any], *, channel: str = "world") -> tuple[str | None, str | None]:
     urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
-    for url in urls[:GEMINI_MAX_URL_ATTEMPTS]:
-        raw_content = extract_web_content(url)
+    max_urls = WORLD_GEMINI_MAX_URL_ATTEMPTS if channel == "world" else GEMINI_MAX_URL_ATTEMPTS
+    if channel == "world":
+        max_para, per_url = WORLD_EXCERPT_PARAGRAPHS, WORLD_EXCERPT_CHARS_PER_URL
+    else:
+        max_para, per_url = 3, 1000
+    for url in urls[:max_urls]:
+        raw_content = extract_web_content(
+            url, max_paragraphs=max_para, max_snippet_chars=per_url
+        )
         if raw_content and _has_usable_excerpt(raw_content):
             return url, raw_content
     return None, None
 
 
-def _batch_enrich_event_block(ev: dict[str, Any], excerpt: str) -> str:
+def _scrape_event_excerpt(ev: dict[str, Any], *, channel: str = "world") -> tuple[str | None, str | None]:
+    """World: merge several source snippets; invest: first usable URL only."""
+    if channel != "world":
+        return _scrape_first_excerpt(ev, channel=channel)
+
+    urls = [str(u).strip() for u in (ev.get("sources") or []) if str(u).strip().startswith("http")]
+    if not urls:
+        return None, None
+
+    parts: list[str] = []
+    anchor: str | None = None
+    title_ref = ""
+    for url in urls[:WORLD_GEMINI_MAX_URL_ATTEMPTS]:
+        raw = extract_web_content(
+            url,
+            max_paragraphs=WORLD_EXCERPT_PARAGRAPHS,
+            max_snippet_chars=WORLD_EXCERPT_CHARS_PER_URL,
+        )
+        if not raw or not _has_usable_excerpt(raw):
+            continue
+        if not anchor:
+            anchor = url
+            title_ref = _title_from_scrape(raw)
+        body = _excerpt_body(raw).strip()
+        if not body:
+            continue
+        parts.append(f"[Nguồn {len(parts) + 1}] {body[:WORLD_EXCERPT_CHARS_PER_URL]}")
+        if sum(len(p) for p in parts) >= WORLD_GEMINI_BATCH_EXCERPT_CHARS:
+            break
+
+    if not parts:
+        return _scrape_first_excerpt(ev, channel=channel)
+
+    merged_body = "\n\n".join(parts)[:WORLD_GEMINI_BATCH_EXCERPT_CHARS]
+    if len(merged_body) < GEMINI_MIN_EXCERPT_CHARS:
+        return _scrape_first_excerpt(ev, channel=channel)
+
+    title_line = title_ref if _usable_title(title_ref) else "Tin nóng đa nguồn"
+    raw_merged = f"Title: {title_line}\nContent Snippet: {merged_body}"
+    return anchor, raw_merged
+
+
+def _batch_enrich_event_block(ev: dict[str, Any], excerpt: str, *, channel: str = "world") -> str:
     eid = str(ev.get("global_event_id") or "")
     sector = str(ev.get("primary_sector") or ev.get("sector") or "Khác")
     num = int(ev.get("num_articles") or 0)
     src = int(ev.get("source_count") or 0)
-    body = str(excerpt).strip()[:GEMINI_BATCH_EXCERPT_CHARS]
+    body = str(excerpt).strip()[:_batch_enrich_excerpt_cap(channel)]
     return (
         f"### global_event_id={eid}\n"
         f"sector_goi_y={sector} | ~{num} bài | {src} nguồn URL\n"
@@ -824,7 +894,7 @@ def gemini_batch_enrich_events(
 
     sectors = valid_sectors_for(channel)
     sectors_list = "\n".join(f"{i + 1}. {s}" for i, s in enumerate(sectors) if s != "Khác")
-    blocks = "\n".join(_batch_enrich_event_block(ev, excerpt) for ev, excerpt in batch)
+    blocks = "\n".join(_batch_enrich_event_block(ev, excerpt, channel=channel) for ev, excerpt in batch)
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
 
@@ -852,18 +922,19 @@ Tóm tắt trung thực; nếu bài nói kinh tế/CK/crypto/vàng thì summary 
     else:
         role_rules = """
 Bạn là biên tập viên phân tích quốc tế của LeonQuant.
-Với MỖI khối ### global_event_id=... : CHỈ dùng đoạn bài trong khối đó. Không trộn sự kiện.
-Không nhắc AI, GDELT, crawler. Không khuyến nghị đầu tư. Không bịa ticker.
+Với MỖI khối ### global_event_id=... : CHỈ dùng đoạn bài trong khối đó (có thể nhiều [Nguồn 1], [Nguồn 2]...).
+Không trộn sự kiện. Tóm tắt ĐỦ Ý: ai làm gì, ở đâu, hệ quả vĩ mô/khu vực nếu bài nêu — không viết cụt.
+Không nhắc AI, GDELT, crawler. Không khuyến nghị đầu tư. Không bịa ticker/số liệu không có trong đoạn bài.
 """
         json_shape = """
 {{
   "events": [
     {{
       "global_event_id": "...",
-      "title_vi": "tối đa 18 từ",
-      "summary_vi": "1-2 câu",
-      "importance_reason": "một câu",
-      "entities": ["3-6 thực thể"],
+      "title_vi": "tối đa 22 từ, nêu rõ sự kiện",
+      "summary_vi": "3-5 câu (khoảng 80-140 từ): diễn biến chính + bối cảnh + hệ quả nếu có",
+      "importance_reason": "2 câu: vì sao quan trọng với thế giới / vĩ mô / khu vực",
+      "entities": ["4-8 thực thể"],
       "sector": "một trong danh sách ngành",
       "sector_confidence": 0
     }}
@@ -960,10 +1031,10 @@ Ngành gợi ý (SQL, chỉ đổi sector nếu đoạn bài rõ ràng thuộc n
 
 Trả về đúng một JSON object (không markdown):
 {{
-  "title_vi": "Tiêu đề tiếng Việt tối đa 18 từ",
-  "summary_vi": "Tóm tắt 1-2 câu chỉ từ đoạn bài",
-  "importance_reason": "Một câu: vì sao đáng chú ý (có thể nhắc độ phủ)",
-  "entities": ["3-6 thực thể có trong đoạn bài"],
+  "title_vi": "Tiêu đề tiếng Việt tối đa 22 từ",
+  "summary_vi": "3-5 câu (80-140 từ): diễn biến, bối cảnh, hệ quả vĩ mô/khu vực nếu có — chỉ từ đoạn bài",
+  "importance_reason": "2 câu: vì sao quan trọng với thế giới / vĩ mô / khu vực (có thể nhắc độ phủ)",
+  "entities": ["4-8 thực thể có trong đoạn bài"],
   "sector": "một trong danh sách ngành hợp lệ",
   "sector_confidence": 0
 }}
@@ -1060,14 +1131,14 @@ def enrich_events_for_web(
             len(events),
             ev.get("global_event_id", ""),
         )
-        url, raw_content = _scrape_first_excerpt(ev)
+        url, raw_content = _scrape_event_excerpt(ev, channel=channel)
         if url and raw_content:
             ev["enrichment_url"] = url
             scrape_ready.append((ev, raw_content))
         else:
             _set_scrape_fallback_enrichment(ev, channel=channel, existing_entities=existing_entities)
 
-    chunks = _chunked(scrape_ready, GEMINI_BATCH_ENRICH_SIZE)
+    chunks = _chunked(scrape_ready, _batch_enrich_chunk_size(channel))
     LOG.info(
         "Gemini batch enrich [%s]: %s events in %s API call(s)",
         channel,
@@ -1576,11 +1647,11 @@ def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[di
 # ---------------------------------------------------------------------------
 
 
-def _event_dedupe_brief(ev: dict[str, Any]) -> str:
+def _event_dedupe_brief(ev: dict[str, Any], *, summary_cap: int = 320) -> str:
     eid = str(ev.get("global_event_id") or "")
     sector = str(ev.get("sector") or "")
     title = str(ev.get("title_vi") or ev.get("title") or "").strip()[:120]
-    summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:160]
+    summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:summary_cap]
     num = int(ev.get("num_articles") or 0)
     return f"id={eid} | {num} bài | {sector} | {title} | {summary}"
 
@@ -2009,7 +2080,8 @@ def main(argv: list[str] | None = None) -> int:
     LOG.info("Events after EventMentions-only sources: %s", len(events))
     if events:
         use_gemini = not args.no_gemini
-        batch_calls = max(1, (len(events) + GEMINI_BATCH_ENRICH_SIZE - 1) // GEMINI_BATCH_ENRICH_SIZE) if use_gemini else 0
+        chunk_sz = _batch_enrich_chunk_size(channel)
+        batch_calls = max(1, (len(events) + chunk_sz - 1) // chunk_sz) if use_gemini else 0
         extra = 2 if channel == "invest" and use_gemini else (2 if use_gemini else 0)
         LOG.info(
             "Pipeline %s: %s events, gemini=%s (~%s batch-enrich + %s post calls)",
