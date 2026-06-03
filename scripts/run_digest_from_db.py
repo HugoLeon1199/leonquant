@@ -61,6 +61,11 @@ def main() -> int:
     )
     parser.add_argument("--skip-gemini", action="store_true")
     parser.add_argument("--skip-web", action="store_true")
+    parser.add_argument(
+        "--skip-invest-vn",
+        action="store_true",
+        help="Skip invest_vn_brief.json (tab đầu tư khối VN)",
+    )
     parser.add_argument("--min-clean-articles", type=int, default=1)
     args = parser.parse_args()
 
@@ -165,8 +170,23 @@ def main() -> int:
         )
         if rc != 0:
             return rc
+        if not args.skip_invest_vn:
+            rc = run(
+                [
+                    PY,
+                    str(SCRIPTS / "build_invest_vn_brief.py"),
+                    "--content",
+                    str(QUANT_ROOT / "content.json"),
+                ]
+            )
+            if rc != 0:
+                return rc
 
-    print("\nDone: news_for_ai_clean.json" + ("" if args.skip_web else " + content.json"))
+    print(
+        "\nDone: news_for_ai_clean.json"
+        + ("" if args.skip_web else " + content.json")
+        + ("" if args.skip_web or args.skip_invest_vn else " + invest_vn_brief.json")
+    )
     return 0
 
 

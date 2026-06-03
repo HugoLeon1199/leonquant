@@ -102,6 +102,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DIGEST_LOOP_FORCE: "1"
         run: |
+          pip install -q google-generativeai
           python scripts/run_digest_from_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
@@ -117,6 +118,6 @@ jobs:
         run: |
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
-          git add news_for_ai_clean.json gemini_digest_summary.json content.json
-          git commit -m "Update daily news digest (crawl + Gemini + web)" || echo "No content changes to commit"
+          git add news_for_ai_clean.json gemini_digest_summary.json content.json invest_vn_brief.json web/invest_vn_brief.json
+          git commit -m "Update daily news digest (crawl + Gemini + web + invest VN brief)" || echo "No content changes to commit"
           git push

@@ -64,6 +64,8 @@ jobs:
           cp web/market_pulse.json _site/web/market_pulse.json 2>/dev/null || true
           cp invest_pulse.json _site/invest_pulse.json 2>/dev/null || true
           cp web/invest_pulse.json _site/web/invest_pulse.json 2>/dev/null || true
+          cp invest_vn_brief.json _site/invest_vn_brief.json 2>/dev/null || true
+          cp web/invest_vn_brief.json _site/web/invest_vn_brief.json 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
           # Custom domain (Settings → Pages → Custom domain phải khớp DNS)
@@ -82,6 +84,11 @@ jobs:
             node scripts/embed_public_pulse_into_html.mjs _site/index.html _site/market_pulse.json
             node scripts/embed_public_pulse_into_html.mjs _site/landing_page.html _site/market_pulse.json
             node scripts/embed_public_pulse_into_html.mjs _site/landing_page/index.html _site/market_pulse.json
+          fi
+          if [ -f _site/invest_vn_brief.json ]; then
+            node scripts/embed_public_invest_vn_into_html.mjs _site/index.html _site/invest_vn_brief.json
+            node scripts/embed_public_invest_vn_into_html.mjs _site/landing_page.html _site/invest_vn_brief.json
+            node scripts/embed_public_invest_vn_into_html.mjs _site/landing_page/index.html _site/invest_vn_brief.json
           fi
 
       - name: Verify embedded brief (fail nếu HTML thiếu brief)

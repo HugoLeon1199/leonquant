@@ -39,6 +39,8 @@ python summarize_news_gemini.py --input news_for_ai_clean.json --mode digest --b
 | `gemini_digest_summary.json` | Bản tin đa ngành 48h |
 | `content.json` | Dữ liệu trang công khai |
 | `market_pulse.json`, `web/market_pulse.json` | LIVE tab — GDELT hot events |
+| `invest_pulse.json`, `web/invest_pulse.json` | Tab đầu tư — khối **Thế giới** (GDELT 24h) |
+| `invest_vn_brief.json`, `web/invest_vn_brief.json` | Tab đầu tư — khối **Việt Nam** (Gemini từ `content.json`, sau daily digest) |
 | `data/web_intel_leonquant.duckdb` | Cache crawl (Actions) |
 
 Digest: ~12 tin/sector (max 20), mỗi mục 1 link; tổng quan từ bài crawl (không bịa).

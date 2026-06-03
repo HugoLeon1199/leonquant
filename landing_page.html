@@ -857,6 +857,127 @@
       text-transform: uppercase;
       color: #b45309;
     }
+    .invest-desk-page-head { margin-bottom: 1.25rem; }
+    .invest-desk-block { margin-bottom: 2rem; }
+    .invest-desk-block:last-child { margin-bottom: 0; }
+    .invest-desk-section--world {
+      padding: 14px 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(8, 145, 178, 0.22);
+      background: rgba(8, 145, 178, 0.03);
+    }
+    .invest-desk-section--vn {
+      padding: 14px 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(22, 163, 74, 0.22);
+      background: rgba(22, 163, 74, 0.03);
+    }
+    .invest-desk-head { margin-bottom: 1rem; }
+    .invest-desk-title {
+      margin: 0 0 4px;
+      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+      font-weight: 800;
+      color: var(--text);
+    }
+    .invest-desk-sub {
+      margin: 0;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .invest-desk-badge-gdelt {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--cyan-dim);
+    }
+    .invest-vn-lead {
+      margin: 0 0 1.1rem;
+      font-size: .95rem;
+      line-height: 1.58;
+      color: var(--text-soft);
+    }
+    .invest-vn-theme-list {
+      list-style: none;
+      margin: 0 0 1.5rem;
+      padding: 0;
+    }
+    .invest-vn-theme {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 1.35rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .invest-vn-theme:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .invest-vn-theme-rank {
+      flex: 0 0 auto;
+      margin: 0;
+      font-size: .8rem;
+      font-weight: 800;
+      color: #16a34a;
+    }
+    .invest-vn-theme-title {
+      margin: 0 0 8px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .invest-vn-why, .invest-vn-lens, .invest-vn-watch-body {
+      margin: 0 0 8px;
+      font-size: .9rem;
+      line-height: 1.52;
+      color: var(--text-soft);
+    }
+    .invest-vn-watch-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .invest-vn-watch {
+      margin-bottom: 1rem;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(22, 163, 74, 0.15);
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .invest-vn-watch-title {
+      margin: 0 0 6px;
+      font-size: .98rem;
+      font-weight: 800;
+    }
+    .invest-vn-status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: rgba(22, 163, 74, 0.12);
+      color: #15803d;
+    }
+    .invest-vn-link-rows {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .invest-vn-link-rows li {
+      margin-bottom: 4px;
+      font-size: .82rem;
+    }
+    .invest-vn-link-rows a {
+      color: var(--cyan-dim);
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .invest-vn-link-rows a:hover { text-decoration: underline; }
+    .invest-vn-link-rows .link-meta {
+      margin-left: 6px;
+      color: var(--faint);
+      font-size: .78rem;
+    }
     body.pulse-mode .logo {
       font-size: clamp(1.05rem, 3.2vw, 1.35rem);
       font-weight: 800;
@@ -1359,7 +1480,16 @@
 
     <section id="invest" class="alt" hidden>
       <div class="container">
-        <div id="sectionInvest" class="brief-block"></div>
+        <div id="sectionInvest" class="brief-block">
+          <article id="invest-desk" class="digest-report">
+            <header class="digest-report-head invest-desk-page-head">
+              <h2>Chuyên mục kinh tế đầu tư</h2>
+              <p class="invest-channel-lead">Hai lớp: thế giới (GDELT 24h) và Việt Nam trong nước (phân tích 48h) — trung lập, không phải khuyến nghị giao dịch.</p>
+            </header>
+            <div id="sectionInvestWorld" class="invest-desk-block"></div>
+            <div id="sectionInvestVn" class="invest-desk-block"></div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -2016,7 +2146,7 @@
       }
       if (v === "invest") {
         if (cachedInvestPayload && !options.forceReload) {
-          renderInvestPage(cachedInvestPayload);
+          renderInvestPage(cachedInvestPayload.world, cachedInvestPayload.vn);
           return;
         }
         await loadInvestContent();
@@ -2375,17 +2505,18 @@
       return `<p class="invest-sources-inline"><strong>Nguồn tham khảo:</strong> ${links}</p>`;
     }
 
-    function buildInvestPulseHtml(data) {
+    function buildInvestWorldHtml(data) {
       const events = normalizeInvestEvents(data);
-      let h = `<article id="invest-report" class="digest-report">`;
-      h += `<header class="digest-report-head">`;
-      h += `<h2>Chuyên mục kinh tế đầu tư <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
       const updated = formatPulseUpdatedAt(data?.generated_at_utc);
-      if (updated) h += `<p class="sync-note">Cập nhật lúc ${escapeHtml(updated)} · cụm sự kiện 24 giờ qua</p>`;
-      h += `<p class="invest-channel-lead">Cụm sự kiện quan trọng theo ngành kinh tế, tài chính và đầu tư — trung lập, không phải khuyến nghị giao dịch.</p>`;
+      let h = `<section class="invest-desk-section invest-desk-section--world">`;
+      h += `<header class="invest-desk-head">`;
+      h += `<h3 class="invest-desk-title">Thế giới<span class="invest-desk-badge-gdelt">GDELT · 24h</span></h3>`;
+      if (updated) {
+        h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)} · làm mới mỗi 6 giờ</p>`;
+      }
       h += `</header><div class="pulse-panel">`;
       if (!events.length) {
-        h += `<p class="hint">Chưa có sự kiện trong 24 giờ qua. Hệ thống cập nhật mỗi 6 giờ.</p>`;
+        h += `<p class="hint">Chưa có sự kiện thế giới trong 24 giờ qua.</p>`;
       } else {
         h += `<ol class="pulse-event-list">`;
         events.forEach((ev) => {
@@ -2417,17 +2548,110 @@
         });
         h += `</ol>`;
       }
-      h += `</div></article>`;
+      h += `</div></section>`;
       return h;
     }
 
-    function renderInvestPage(data) {
+    function buildInvestVnLinksHtml(links) {
+      const list = (Array.isArray(links) ? links : [])
+        .map((lk) => ({
+          url: normalizeExternalUrl(lk?.url),
+          title: String(lk?.title || "").trim(),
+          source: String(lk?.source || "").trim(),
+        }))
+        .filter((lk) => lk.url);
+      if (!list.length) return "";
+      let h = `<ul class="invest-vn-link-rows">`;
+      list.forEach((lk) => {
+        h += `<li><a href="${escapeHtml(lk.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(lk.title || lk.url)}</a>`;
+        if (lk.source) h += `<span class="link-meta">${escapeHtml(lk.source)}</span>`;
+        h += `</li>`;
+      });
+      h += `</ul>`;
+      return h;
+    }
+
+    function buildInvestVnHtml(data) {
+      const themes = Array.isArray(data?.themes_48h) ? data.themes_48h : [];
+      const watch = Array.isArray(data?.now_watch) ? data.now_watch : [];
+      const digestAt = data?.source_digest_at ? formatPulseUpdatedAt(data.source_digest_at) : "";
+      let h = `<section class="invest-desk-section invest-desk-section--vn">`;
+      h += `<header class="invest-desk-head">`;
+      h += `<h3 class="invest-desk-title">Việt Nam trong nước</h3>`;
+      h += `<p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p>`;
+      if (digestAt) h += `<p class="sync-note">Dữ liệu digest: ${escapeHtml(digestAt)}</p>`;
+      h += `</header>`;
+      if (data?.lead) {
+        h += `<p class="invest-vn-lead">${escapeHtml(data.lead)}</p>`;
+      }
+      if (themes.length) {
+        h += `<h4 class="sectors-section-title">Nói com nhất 48 giờ qua</h4>`;
+        h += `<ol class="invest-vn-theme-list">`;
+        themes.forEach((th) => {
+          h += `<li class="invest-vn-theme">`;
+          h += `<p class="invest-vn-theme-rank">${String(th.rank || "").padStart(2, "0")}</p>`;
+          h += `<div class="invest-vn-theme-body">`;
+          h += `<h5 class="invest-vn-theme-title">${escapeHtml(th.title)}</h5>`;
+          if (th.why_hot) h += `<p class="invest-vn-why">${escapeHtml(th.why_hot)}</p>`;
+          if (Array.isArray(th.developments) && th.developments.length) {
+            h += `<ul class="sector-points prose-bullets">`;
+            th.developments.forEach((d) => {
+              h += `<li>${escapeHtml(d)}</li>`;
+            });
+            h += `</ul>`;
+          }
+          if (th.investor_lens) {
+            h += `<p class="invest-vn-lens"><strong>Góc đầu tư:</strong> ${escapeHtml(th.investor_lens)}</p>`;
+          }
+          h += buildInvestVnLinksHtml(th.links);
+          h += `</div></li>`;
+        });
+        h += `</ol>`;
+      }
+      if (watch.length) {
+        h += `<h4 class="sectors-section-title">Đang theo dõi / hiện tại</h4>`;
+        h += `<ul class="invest-vn-watch-list">`;
+        watch.forEach((nw) => {
+          h += `<li class="invest-vn-watch">`;
+          h += `<h5 class="invest-vn-watch-title">${escapeHtml(nw.title)}</h5>`;
+          if (nw.status) {
+            h += `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`;
+          }
+          if (nw.what_to_watch) {
+            h += `<p class="invest-vn-watch-body">${escapeHtml(nw.what_to_watch)}</p>`;
+          }
+          h += buildInvestVnLinksHtml(nw.links);
+          h += `</li>`;
+        });
+        h += `</ul>`;
+      }
+      if (!themes.length && !watch.length) {
+        h += `<p class="hint">Chưa có phân tích VN. Chờ bản digest ngày hoặc thử tải lại.</p>`;
+      }
+      if (data?.gaps) {
+        h += `<p class="hint invest-vn-gaps">${escapeHtml(data.gaps)}</p>`;
+      }
+      h += `</section>`;
+      return h;
+    }
+
+    function hasEmbeddedInvestVn() {
+      const el = document.getElementById("sectionInvestVn");
+      return (
+        el?.querySelector("[data-embedded-invest-vn]") != null && Boolean(el.innerHTML.trim())
+      );
+    }
+
+    function renderInvestPage(worldData, vnData) {
       applyViewMode("invest");
       const sync = document.getElementById("syncNote");
       if (sync) sync.textContent = "";
-      const el = document.getElementById("sectionInvest");
-      if (!el) return;
-      el.innerHTML = buildInvestPulseHtml(data || { events: [] });
+      const worldEl = document.getElementById("sectionInvestWorld");
+      const vnEl = document.getElementById("sectionInvestVn");
+      if (worldEl) worldEl.innerHTML = buildInvestWorldHtml(worldData || { events: [] });
+      if (vnEl && !hasEmbeddedInvestVn()) {
+        vnEl.innerHTML = buildInvestVnHtml(vnData || {});
+      }
     }
 
     async function fetchInvestPulseFeed() {
@@ -2444,19 +2668,31 @@
       return null;
     }
 
+    async function fetchInvestVnBrief() {
+      const paths = ["invest_vn_brief.json", "web/invest_vn_brief.json"];
+      for (const p of paths) {
+        try {
+          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
+          if (!r.ok) continue;
+          return await readJsonResponse(r);
+        } catch (e) {
+          console.warn("invest vn fetch", p, e);
+        }
+      }
+      return null;
+    }
+
     async function loadInvestContent() {
       const sync = document.getElementById("syncNote");
       if (sync) sync.textContent = "Đang tải chuyên mục kinh tế đầu tư…";
-      const data = await fetchInvestPulseFeed();
-      if (!data) {
-        cachedInvestPayload = { events: [] };
-        if (sync) sync.textContent = "";
-        renderInvestPage(cachedInvestPayload);
-        return;
-      }
-      cachedInvestPayload = data;
+      const [worldData, vnData] = await Promise.all([fetchInvestPulseFeed(), fetchInvestVnBrief()]);
+      cachedInvestPayload = {
+        world: worldData || { events: [] },
+        vn: vnData || {},
+        __embeddedVn: hasEmbeddedInvestVn(),
+      };
       if (sync) sync.textContent = "";
-      renderInvestPage(cachedInvestPayload);
+      renderInvestPage(cachedInvestPayload.world, cachedInvestPayload.vn);
     }
 
     function buildBriefParts(data) {
