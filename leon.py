@@ -1534,7 +1534,7 @@ Mỗi sự kiện cần làm rõ:
 - Chuyện gì đã xảy ra.
 - Xảy ra ở đâu, khi nào, nếu nguồn có nêu.
 - Diễn biến, phản ứng hoặc hệ quả đáng chú ý.
-- Vì sao sự kiện này đáng chú ý. Nếu có tác động vĩ mô, khu vực, thị trường, hàng hóa, chuỗi cung ứng hoặc chính sách thì nêu rõ; nếu nguồn không nêu tác động đó thì không suy diễn.
+- Vì sao sự kiện này đáng chú ý toàn cầu hoặc khu vực (vĩ mô, an ninh, kinh tế, logistics, truyền thông đại chúng… tùy bản chất sự kiện). Nếu nguồn không nêu tác động cụ thể thì không bịa, nhưng có thể nêu quy mô/phạm vi nếu nguồn hoặc bản chất sự kiện (vd. World Cup) cho thấy.
 
 Quy tắc bắt buộc:
 - Chỉ dùng thông tin có trong khối sự kiện đó.
@@ -1546,7 +1546,7 @@ Quy tắc bắt buộc:
 - Văn phong trung lập, chuyên nghiệp, giống biên tập viên quốc tế.
 - Không viết như bản dịch máy.
 - Không giật tít quá đà.
-- Không cố kéo mọi sự kiện về tài chính/thị trường nếu bản chất sự kiện không liên quan.
+- Không cố kéo mọi sự kiện về tài chính/thị trường nếu bản chất không liên quan; sự kiện thể thao/toàn cầu có thể nhấn quy mô, an ninh, host, truyền thông — không bắt buộc nói giá dầu.
 
 Trả về JSON hợp lệ, không markdown:
 {{
@@ -1599,26 +1599,30 @@ def gemini_world_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[d
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn là biên tập mục "Tin nóng thế giới" của LeonQuant — chỉ tin có tác động thật lên thế giới, vĩ mô hoặc một khu vực.
+Bạn là biên tập mục "Tin nóng thế giới" của LeonQuant — chọn tin có tác động thật lên thế giới hoặc ít nhất một khu vực lớn, BẤT KỂ lĩnh vực (kinh tế, chính trị, thể thao, văn hóa, truyền thông, y tế, v.v.).
 
 Danh sách dưới đây là sự kiện nóng 24h (nhiều báo đưa; đã có title/summary tiếng Việt). Làm HAI việc trong một lần:
 
 1) GOM TRÙNG: các global_event_id mô tả CÙNG MỘT vụ/câu chuyện → một cluster (keep_id = id đại diện, ưu tiên nhiều bài hơn).
    KHÔNG gom chỉ vì cùng sector, cùng quốc gia, hoặc cùng nhân vật nhưng khác vụ.
 
-2) CHỌN LÊN MỤC: từ các cluster sau khi gom, chọn TẤT CẢ và CHỈ keep_id thật sự đủ tiêu chí.
+2) CHỌN LÊN MỤC: phân loại từng cluster — chọn TẤT CẢ và CHỈ keep_id đủ tiêu chí.
    Không cần đủ số lượng — trung thực quan trọng hơn viral. Tối đa {TARGET_HOT_EVENTS} id nếu quá nhiều tin đạt chuẩn.
+   KHÔNG loại trừ cứng theo ngành: thể thao/giải trí vẫn GIỮ nếu sự kiện thật sự có tầm toàn cầu hoặc khu vực.
 
-GIỮ khi ít nhất một điều đúng:
-- Tác động vĩ mô / thị trường toàn cầu hoặc khu vực lớn (Fed, ECB, lạm phát, lãi suất, thương mại, trừng phạt, dầu/khí, vàng, FX, chứng khoán hệ thống).
-- Xung đột / địa chính trị / an ninh làm thay đổi rủi ro kinh tế, chuỗi cung ứng, năng lượng (chiến tranh, phong tỏa, leo thang Trung Đông, Đài Loan, v.v.).
-- Chính sách, quy định, sự cố quy mô quốc gia/khu vực có hệ quả kinh tế rõ (antitrust Big Tech, OPEC, WTO, khủng hoảng nợ quốc gia).
-- Dịch bệnh / thiên tai / sự cố hạ tầng phạm vi rộng ảnh hưởng thương mại hoặc thị trường.
+GIỮ khi ít nhất một điều đúng (đọc title/summary, đừng đoán từ sector):
+- Vĩ mô / thị trường / chính sách / năng lượng / thương mại / chuỗi cung ứng / an ninh có hệ quả rộng.
+- Xung đột, địa chính trị, ngoại giao, trừng phạt, sự cố hạ tầng hoặc thiên tai phạm vi lớn.
+- Sự kiện toàn cầu thu hút chú ý phạm vi hành tinh hoặc đa quốc gia: vd. World Cup, Olympic, hội nghị thượng đỉnh, khủng hoảng y tế toàn cầu — vì quy mô đối tượng theo dõi, logistics, an ninh, kinh tế địa phương/host hoặc bối cảnh địa chính trị đi kèm (chỉ khi summary nêu hoặc hiển nhiên từ bản chất sự kiện).
+- Tranh luận truyền thông / báo chí có tầm quốc gia hoặc liên quan tự do thông tin ở quy mô lớn (vd. sa thải biểu tượng truyền hình quốc gia).
 
 BỎ dù có rất nhiều bài báo:
-- Scandal, tội phạm cá nhân, bắt giữ/vụ án hình sự đời sống (vd. tấn công tình dục, giết người địa phương) không lan sang kinh tế.
-- Giải trí, thể thao, đời sống đám đông, tin đổ vỡ không ảnh hưởng vĩ mô/khu vực.
-- Tai nạn / phạm pháp cục bộ một người, một thành phố, không đổi bức tranh kinh tế.
+- Tội phạm đời sống, scandal cá nhân, bắt giữ vụ án hình sự cục bộ không lan ra hậu quả toàn cầu/khu vực
+  (vd. một vụ hiếp dâm/tấn công tình dục, giết người một thành phố, tin đổ vỡ đời tư).
+- Tai nạn / phạm pháp / drama giải trí chỉ ảnh hưởng một người hoặc một cộng đồng nhỏ, không đổi bức tranh thế giới hay khu vực.
+- Tin thể thao/giải trí chỉ mang tính tabloid, chuyện cá nhân nhỏ (chấn thương nhẹ, hẹn hò, tin đồn) — không phải sự kiện mang tầm World Cup / giải vô địch thế giới.
+
+Ưu tiên đa dạng chủ đề khi nhiều tin đạt chuẩn; không chỉ chọn chiến tranh/dầu nếu còn sự kiện toàn cầu khác đủ tầm.
 
 Không nhắc AI, GDELT, crawler, pipeline.
 
