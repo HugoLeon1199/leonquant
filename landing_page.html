@@ -2189,7 +2189,7 @@
         return `<div class="pulse-panel"><p class="hint">Chưa có tin LIVE. Hệ thống cập nhật mỗi 6 giờ.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
-      h += `<h2>Tin nóng nhất thế giới hiện tại <span class="pulse-title-live"><span class="nav-live-dot"></span>LIVE</span></h2>`;
+      h += `<h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2>`;
       const updated = formatPulseUpdatedAt(data?.generated_at_utc);
       if (updated) h += `<p class="sync-note">${escapeHtml(updated)}</p>`;
       h += `</header><div class="pulse-panel"><ol class="pulse-event-list">`;

@@ -93,7 +93,7 @@ jobs:
           grep -Fq 'Bấm vào xem chi tiết' _site/index.html
           if [ -f _site/market_pulse.json ]; then
             grep -Fq 'data-embedded-pulse="1"' _site/index.html
-            grep -Fq 'Tin nóng nhất thế giới hiện tại' _site/index.html
+            grep -Fq 'NÓNG TOÀN CẦU' _site/index.html
           fi
           # Digest mode: sector cards + multisector flag in content.json
           python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); s=d.get('digestSectors') or []; assert len(s)>=4"

@@ -55,7 +55,7 @@ function buildPulseHtml(data) {
   }
   const updated = formatDateVi(data.generated_at_utc);
   let h = `<article class="digest-report" id="pulse-crawler-report">`;
-  h += `<header class="digest-report-head"><h2>Tin nóng nhất thế giới hiện tại (LIVE)</h2>`;
+  h += `<header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2>`;
   if (updated) h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)} (giờ Việt Nam).</p>`;
   h += `</header><div class="pulse-panel"><ol class="pulse-event-list">`;
   for (const ev of events) {
