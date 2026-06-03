@@ -50,7 +50,7 @@ GEMINI_MAX_URL_ATTEMPTS = 3
 GEMINI_MIN_EXCERPT_CHARS = 60
 GEMINI_BATCH_ENRICH_SIZE = 35
 GEMINI_BATCH_EXCERPT_CHARS = 1000
-# Invest: SQL = hot coverage + sector only; Gemini = accurate summary + economic curation.
+# Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
 INVEST_MAX_ENRICH_EVENTS = 80
 INVEST_CURATION_POOL = 75
 INVEST_FEED_MAX = 20  # trần cứng; không ép đủ số tin — chỉ giữ tin đủ tiêu chí kinh tế
@@ -1347,6 +1347,63 @@ def _parse_invest_dedupe_curate(text: str) -> tuple[list[dict[str, Any]], list[s
     return clusters, selected
 
 
+def gemini_world_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
+    """One API call: cluster duplicates + keep only global/macro/regional-impact stories for world LIVE."""
+    if len(events) < 1 or not _configure_gemini():
+        return [], []
+
+    sectors_list = "\n".join(f"- {s}" for s in VALID_SECTORS if s != "Khác")
+    lines = "\n".join(f"{i + 1}. {_event_dedupe_brief(ev)}" for i, ev in enumerate(events))
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập mục "Tin nóng thế giới" của LeonQuant — chỉ tin có tác động thật lên thế giới, vĩ mô hoặc một khu vực.
+
+Danh sách dưới đây là sự kiện nóng 24h (nhiều báo đưa; đã có title/summary tiếng Việt). Làm HAI việc trong một lần:
+
+1) GOM TRÙNG: các global_event_id mô tả CÙNG MỘT vụ/câu chuyện → một cluster (keep_id = id đại diện, ưu tiên nhiều bài hơn).
+   KHÔNG gom chỉ vì cùng sector, cùng quốc gia, hoặc cùng nhân vật nhưng khác vụ.
+
+2) CHỌN LÊN MỤC: từ các cluster sau khi gom, chọn TẤT CẢ và CHỈ keep_id thật sự đủ tiêu chí.
+   Không cần đủ số lượng — trung thực quan trọng hơn viral. Tối đa {TARGET_HOT_EVENTS} id nếu quá nhiều tin đạt chuẩn.
+
+GIỮ khi ít nhất một điều đúng:
+- Tác động vĩ mô / thị trường toàn cầu hoặc khu vực lớn (Fed, ECB, lạm phát, lãi suất, thương mại, trừng phạt, dầu/khí, vàng, FX, chứng khoán hệ thống).
+- Xung đột / địa chính trị / an ninh làm thay đổi rủi ro kinh tế, chuỗi cung ứng, năng lượng (chiến tranh, phong tỏa, leo thang Trung Đông, Đài Loan, v.v.).
+- Chính sách, quy định, sự cố quy mô quốc gia/khu vực có hệ quả kinh tế rõ (antitrust Big Tech, OPEC, WTO, khủng hoảng nợ quốc gia).
+- Dịch bệnh / thiên tai / sự cố hạ tầng phạm vi rộng ảnh hưởng thương mại hoặc thị trường.
+
+BỎ dù có rất nhiều bài báo:
+- Scandal, tội phạm cá nhân, bắt giữ/vụ án hình sự đời sống (vd. tấn công tình dục, giết người địa phương) không lan sang kinh tế.
+- Giải trí, thể thao, đời sống đám đông, tin đổ vỡ không ảnh hưởng vĩ mô/khu vực.
+- Tai nạn / phạm pháp cục bộ một người, một thành phố, không đổi bức tranh kinh tế.
+
+Không nhắc AI, GDELT, crawler, pipeline.
+
+Trả về JSON (không markdown):
+{{
+  "clusters": [
+    {{"keep_id": "GlobalEventID", "member_ids": ["id1", "id2"], "reason": "một câu tiếng Việt"}}
+  ],
+  "selected_ids": ["GlobalEventID", ...],
+  "notes": "một câu tiếng Việt"
+}}
+
+Danh sách ngành gợi ý (tham khảo, không bắt buộc khớp):
+{sectors_list}
+
+Sự kiện:
+{lines}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        return _parse_invest_dedupe_curate(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini world dedupe+curate failed: %s", exc)
+        return [], []
+
+
 def gemini_invest_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
     """One API call: cluster duplicate stories + pick economically relevant IDs for the feed."""
     if len(events) < 1 or not _configure_gemini():
@@ -1727,21 +1784,40 @@ def dedupe_events_with_gemini(
         LOG.info("Invest feed: %s stories selected (max %s)", len(picked), INVEST_FEED_MAX)
         return picked
 
-    if len(events) < 2:
+    if len(events) < 1:
         return events
 
-    LOG.info("Gemini dedupe clustering for %s events", len(events))
-    by_id = {str(e.get("global_event_id") or ""): e for e in events if e.get("global_event_id")}
-    clusters = gemini_cluster_duplicate_events(events)
-    time.sleep(GEMINI_CALL_INTERVAL_SEC)
-    clusters_raw = [
-        {"keep_id": ids[0], "member_ids": ids}
-        for ids in clusters
-        if ids
-    ]
+    LOG.info("Gemini world dedupe+macro curate (1 API call) for %s events", len(events))
+    clusters_raw, selected_ids = gemini_world_dedupe_and_curate(events)
+    if not clusters_raw:
+        LOG.warning("World dedupe+curate failed; fallback to dedupe-only clustering")
+        if len(events) < 2:
+            return events[:TARGET_HOT_EVENTS]
+        clusters = gemini_cluster_duplicate_events(events)
+        clusters_raw = [
+            {"keep_id": ids[0], "member_ids": ids}
+            for ids in clusters
+            if ids
+        ]
+        merged = _merge_clusters_from_gemini(events, clusters_raw, channel=channel)
+        return merged[:TARGET_HOT_EVENTS]
+
     merged = _merge_clusters_from_gemini(events, clusters_raw, channel=channel)
-    LOG.info("After Gemini dedupe: %s events (from %s)", len(merged), len(events))
-    return merged[:TARGET_HOT_EVENTS]
+    LOG.info("After world dedupe: %s cards (from %s)", len(merged), len(events))
+    if not selected_ids:
+        LOG.info("World macro curate: no stories met bar (0 selected)")
+        return []
+    by_id = {str(e.get("global_event_id") or ""): e for e in merged if e.get("global_event_id")}
+    picked: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for eid in selected_ids:
+        if eid in by_id and eid not in seen:
+            picked.append(by_id[eid])
+            seen.add(eid)
+        if len(picked) >= TARGET_HOT_EVENTS:
+            break
+    LOG.info("World feed: %s stories selected (max %s)", len(picked), TARGET_HOT_EVENTS)
+    return picked
 
 
 # ---------------------------------------------------------------------------

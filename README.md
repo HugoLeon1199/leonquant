@@ -56,7 +56,7 @@ python leon.py --dry-run
 python leon.py
 ```
 
-Output: **`market_pulse.json`** + **`web/market_pulse.json`**. Production: workflow **LIVE pulse 6h** (`cron: 0 */6 * * *`) — commit JSON → GitHub Pages deploy.
+Output: **`market_pulse.json`** + **`web/market_pulse.json`**. Tin thế giới LIVE: Gemini gom trùng + lọc tin có tác động vĩ mô/khu vực (một API call; không ép đủ 20 tin). Production: workflow **LIVE pulse 6h** (`cron: 0 */6 * * *`) — commit JSON → GitHub Pages deploy.
 
 Secrets Actions: `GEMINI_API_KEY`, `GCP_SA_JSON`, `GOOGLE_CLOUD_PROJECT`.
 
