@@ -55,6 +55,10 @@ GEMINI_BATCH_EXCERPT_CHARS = 1000
 WORLD_GEMINI_BATCH_EXCERPT_CHARS = 3600
 WORLD_EXCERPT_PARAGRAPHS = 6
 WORLD_EXCERPT_CHARS_PER_URL = 1400
+WORLD_DEEP_READ_URLS = 5
+WORLD_DEEP_EXCERPT_PARAGRAPHS = 8
+WORLD_DEEP_CHARS_PER_URL = 2000
+WORLD_DEEP_MERGED_CHARS = 5200
 # Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
 INVEST_MAX_ENRICH_EVENTS = 80
 INVEST_CURATION_POOL = 75
@@ -585,8 +589,9 @@ def extract_web_content(
     url = str(url or "").strip()
     if not url.startswith("http"):
         return None
-    if url in _content_cache:
-        return _content_cache[url]
+    cache_key = f"{url}|p={max_paragraphs}|c={max_snippet_chars}"
+    if cache_key in _content_cache:
+        return _content_cache[cache_key]
 
     snippet: str | None = None
     try:
@@ -607,7 +612,7 @@ def extract_web_content(
     except Exception as exc:
         LOG.debug("extract_web_content failed %s: %s", url[:96], exc)
 
-    _content_cache[url] = snippet
+    _content_cache[cache_key] = snippet
     return snippet
 
 
@@ -1277,6 +1282,11 @@ def filter_event_sources_with_gemini(events: list[dict[str, Any]], *, use_gemini
     if not use_gemini or len(events) < 1:
         return events
 
+    for ev in events:
+        ev["sources_for_deepread"] = _dedupe_mention_urls(
+            ev.get("sources") or [], limit=MAX_MENTIONS_PER_EVENT
+        )
+
     filters = gemini_filter_misaligned_sources(events)
     if filters:
         time.sleep(GEMINI_CALL_INTERVAL_SEC)
@@ -1416,6 +1426,153 @@ def _parse_invest_dedupe_curate(text: str) -> tuple[list[dict[str, Any]], list[s
     if isinstance(ids_raw, list):
         selected = [str(x).strip() for x in ids_raw if str(x).strip()]
     return clusters, selected
+
+
+def _urls_for_deepread(ev: dict[str, Any]) -> list[str]:
+    """Prefer full mention list saved before source filter; anchor URL first."""
+    pool = _dedupe_mention_urls(
+        ev.get("sources_for_deepread") or ev.get("sources") or [], limit=MAX_MENTIONS_PER_EVENT
+    )
+    anchor = str(ev.get("enrichment_url") or "").strip()
+    if anchor.startswith("http"):
+        key = _mention_url_dedupe_key(anchor)
+        rest = [u for u in pool if _mention_url_dedupe_key(u) != key]
+        return [anchor, *rest]
+    return pool
+
+
+def _scrape_deep_merged(ev: dict[str, Any]) -> str:
+    """Scrape 3-5 articles for post-curation deep synthesis."""
+    urls = _urls_for_deepread(ev)[:WORLD_DEEP_READ_URLS]
+    if not urls:
+        return ""
+
+    parts: list[str] = []
+    for url in urls:
+        raw = extract_web_content(
+            url,
+            max_paragraphs=WORLD_DEEP_EXCERPT_PARAGRAPHS,
+            max_snippet_chars=WORLD_DEEP_CHARS_PER_URL,
+        )
+        if not raw:
+            continue
+        title = _title_from_scrape(raw)
+        body = _excerpt_body(raw).strip()
+        if not body and not _usable_title(title):
+            continue
+        header = f"[Nguồn {len(parts) + 1}] {title if _usable_title(title) else url[:80]}\n"
+        parts.append(header + (body[:WORLD_DEEP_CHARS_PER_URL] if body else ""))
+        if sum(len(p) for p in parts) >= WORLD_DEEP_MERGED_CHARS:
+            break
+
+    return "\n\n".join(parts)[:WORLD_DEEP_MERGED_CHARS]
+
+
+def _deepen_event_block(ev: dict[str, Any], merged: str) -> str:
+    eid = str(ev.get("global_event_id") or "")
+    sector = str(ev.get("sector") or "Khác")
+    title = str(ev.get("title_vi") or ev.get("title") or "").strip()
+    summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:500]
+    num = int(ev.get("num_articles") or 0)
+    return (
+        f"### global_event_id={eid}\n"
+        f"sector={sector} | ~{num} bài\n"
+        f"Tóm tắt sơ bộ (có thể bổ sung/chỉnh từ nguồn dưới):\n"
+        f"Title: {title}\nSummary: {summary}\n\n"
+        f"Đoạn bài từ {WORLD_DEEP_READ_URLS} nguồn:\n{merged}\n"
+    )
+
+
+def _parse_gemini_deepen_batch(text: str) -> dict[str, dict[str, Any]]:
+    data = _parse_gemini_json(text)
+    rows = data.get("events") if isinstance(data, dict) else None
+    if not isinstance(rows, list):
+        return {}
+    out: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        if isinstance(row, dict):
+            eid = str(row.get("global_event_id") or "").strip()
+            if eid:
+                out[eid] = row
+    return out
+
+
+def gemini_world_deepen_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """After macro curation: read more URLs and rewrite detailed Vietnamese copy (1 API call)."""
+    if not events or not _configure_gemini():
+        return events
+
+    prepared: list[tuple[dict[str, Any], str]] = []
+    for ev in events:
+        merged = _scrape_deep_merged(ev)
+        if len(merged) >= GEMINI_MIN_EXCERPT_CHARS:
+            prepared.append((ev, merged))
+        else:
+            LOG.warning(
+                "World deepen skip %s: insufficient scrape (%s chars)",
+                ev.get("global_event_id"),
+                len(merged),
+            )
+
+    if not prepared:
+        return events
+
+    blocks = "\n".join(_deepen_event_block(ev, merged) for ev, merged in prepared)
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập mục "Tin nóng thế giới" của LeonQuant.
+
+Đây là các sự kiện ĐÃ LỌC (đủ tầm vĩ mô/khu vực). Mỗi khối ### có tóm tắt sơ bộ + đoạn bài từ nhiều nguồn [Nguồn 1]...[Nguồn N].
+
+Nhiệm vụ: với MỖI global_event_id, viết lại sao độc giả đọc là NẮM RÕ câu chuyện:
+- Ai (nhân vật, quốc gia, tổ chức cụ thể)
+- Làm gì / chuyện gì xảy ra
+- Ở đâu, khi nào (nếu có trong nguồn)
+- Diễn biến, phản ứng, hệ quả (đặc biệt vĩ mô/khu vực nếu nguồn nêu)
+
+CHỈ dùng thông tin trong khối đó. Không trộn sự kiện. Không bịa số liệu/tên không có trong nguồn.
+Không nhắc AI, GDELT, crawler. Không khuyến nghị đầu tư.
+
+Trả về JSON (không markdown):
+{{
+  "events": [
+    {{
+      "global_event_id": "...",
+      "title_vi": "tối đa 24 từ, rõ sự kiện",
+      "summary_vi": "4-7 câu (120-220 từ), mạch lạc, đủ 5W1H trong phạm vi nguồn",
+      "importance_reason": "2-3 câu: vì sao quan trọng với thế giới / vĩ mô / khu vực",
+      "entities": ["5-10 thực thể"]
+    }}
+  ]
+}}
+
+Sự kiện:
+{blocks}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        parsed = _parse_gemini_deepen_batch(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini world deepen failed: %s", exc)
+        return events
+
+    for ev, _merged in prepared:
+        eid = str(ev.get("global_event_id") or "")
+        ai = parsed.get(eid) or {}
+        if not _usable_title(ai.get("title_vi")):
+            continue
+        ev["title_vi"] = ai.get("title_vi")
+        ev["summary_vi"] = ai.get("summary_vi") or ev.get("summary_vi")
+        ev["importance_reason"] = ai.get("importance_reason") or ev.get("importance_reason")
+        if ai.get("entities"):
+            ev["entities"] = _merge_entity_lists(ai.get("entities") or [], ev.get("entities") or [], limit=10)
+        ev["title"] = ev.get("title_vi") or ""
+        ev["summary"] = ev.get("summary_vi") or ""
+
+    LOG.info("Gemini world deepen: updated %s/%s curated stories", len(parsed), len(prepared))
+    return events
 
 
 def gemini_world_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
@@ -1888,6 +2045,9 @@ def dedupe_events_with_gemini(
         if len(picked) >= TARGET_HOT_EVENTS:
             break
     LOG.info("World feed: %s stories selected (max %s)", len(picked), TARGET_HOT_EVENTS)
+    if picked:
+        time.sleep(GEMINI_CALL_INTERVAL_SEC)
+        picked = gemini_world_deepen_events(picked)
     return picked
 
 
@@ -2082,7 +2242,12 @@ def main(argv: list[str] | None = None) -> int:
         use_gemini = not args.no_gemini
         chunk_sz = _batch_enrich_chunk_size(channel)
         batch_calls = max(1, (len(events) + chunk_sz - 1) // chunk_sz) if use_gemini else 0
-        extra = 2 if channel == "invest" and use_gemini else (2 if use_gemini else 0)
+        if channel == "invest" and use_gemini:
+            extra = 2
+        elif channel == "world" and use_gemini:
+            extra = 3  # source filter + dedupe/curate + deepen curated
+        else:
+            extra = 0
         LOG.info(
             "Pipeline %s: %s events, gemini=%s (~%s batch-enrich + %s post calls)",
             channel,
