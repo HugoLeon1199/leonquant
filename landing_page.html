@@ -1484,7 +1484,7 @@
           <article id="invest-desk" class="digest-report">
             <header class="digest-report-head invest-desk-page-head">
               <h2>Chuyên mục kinh tế đầu tư</h2>
-              <p class="invest-channel-lead">Thế giới: cùng nguồn tab <a href="/?view=live">Tin tức thế giới LIVE</a>. Việt Nam: phân tích sâu từ tin 48h — trung lập, không phải khuyến nghị giao dịch.</p>
+              <p class="invest-channel-lead">Thế giới: GDELT + Gemini <strong>chỉ lọc kinh tế, CK, vàng, crypto, vĩ mô</strong> (khác tab <a href="/?view=live">Tin nóng toàn cầu</a>). Việt Nam: phân tích sâu từ tin 48h — trung lập, không phải khuyến nghị giao dịch.</p>
             </header>
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"></div>
@@ -2428,14 +2428,14 @@
       const updated = formatPulseUpdatedAt(data?.generated_at_utc);
       let h = `<section class="invest-desk-section invest-desk-section--world">`;
       h += `<header class="invest-desk-head">`;
-      h += `<h3 class="invest-desk-title">Tin tức thế giới <span class="pulse-title-live">🔴 LIVE</span></h3>`;
-      h += `<p class="invest-desk-sub">Cùng nguồn <a href="${escapeHtml(liveNavHref())}">NÓNG TOÀN CẦU</a> · tóm tắt đầy đủ từ GDELT</p>`;
+      h += `<h3 class="invest-desk-title">Kinh tế &amp; thị trường thế giới</h3>`;
+      h += `<p class="invest-desk-sub">GDELT 24h · lọc riêng: vĩ mô, CK, vàng, dầu, crypto, chính sách — không trùng danh sách tab LIVE</p>`;
       if (updated) {
         h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)} · làm mới mỗi 6 giờ</p>`;
       }
       h += `</header><div class="pulse-panel">`;
       if (!events.length) {
-        h += `<p class="hint">Chưa có tin thế giới. Mở tab <a href="${escapeHtml(liveNavHref())}">Tin tức thế giới LIVE</a> hoặc thử lại sau.</p>`;
+        h += `<p class="hint">Chưa có tin kinh tế–thị trường thế giới trong lượt lọc này. Thử lại sau hoặc xem tab <a href="${escapeHtml(liveNavHref())}">Tin nóng toàn cầu</a> (đa lĩnh vực).</p>`;
       } else {
         h += buildPulseEventListHtml(events);
       }
@@ -2545,9 +2545,19 @@
       }
     }
 
-    /** Khối thế giới tab đầu tư = cùng feed market_pulse (tab Tin tức thế giới LIVE). */
+    /** Khối thế giới tab đầu tư — invest_world_pulse (GDELT enrich + lọc kinh tế, không phải market_pulse). */
     async function fetchInvestWorldFeed() {
-      return fetchPulseFeed();
+      const paths = ["invest_world_pulse.json", "web/invest_world_pulse.json"];
+      for (const p of paths) {
+        try {
+          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
+          if (!r.ok) continue;
+          return await readJsonResponse(r);
+        } catch (e) {
+          console.warn("invest world fetch", p, e);
+        }
+      }
+      return null;
     }
 
     async function fetchInvestVnBrief() {

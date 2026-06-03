@@ -66,6 +66,8 @@ jobs:
           cp web/invest_pulse.json _site/web/invest_pulse.json 2>/dev/null || true
           cp invest_vn_brief.json _site/invest_vn_brief.json 2>/dev/null || true
           cp web/invest_vn_brief.json _site/web/invest_vn_brief.json 2>/dev/null || true
+          cp invest_world_pulse.json _site/invest_world_pulse.json 2>/dev/null || true
+          cp web/invest_world_pulse.json _site/web/invest_world_pulse.json 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
           # Custom domain (Settings → Pages → Custom domain phải khớp DNS)

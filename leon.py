@@ -35,6 +35,7 @@ from urllib.parse import urlparse
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_OUTPUT = PROJECT_DIR / "market_pulse.json"
 DEFAULT_INVEST_OUTPUT = PROJECT_DIR / "invest_pulse.json"
+INVEST_WORLD_OUTPUT = PROJECT_DIR / "invest_world_pulse.json"
 INVEST_SQL_PATH = PROJECT_DIR / "sql" / "gdelt_invest_pulse.sql"
 DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
@@ -1663,16 +1664,28 @@ def gemini_invest_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn là biên tập chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
+Bạn là biên tập mục "Kinh tế & thị trường thế giới" (tab đầu tư) của LeonQuant — KHÁC mục "Tin nóng toàn cầu" (đa lĩnh vực).
 
-Danh sách dưới đây là tin nóng 24h (đã có title/summary tiếng Việt). Làm HAI việc trong một lần:
+Danh sách dưới đây là ứng viên nóng 24h (đã có title/summary tiếng Việt). Làm HAI việc trong một lần:
 
 1) GOM TRÙNG: các global_event_id mô tả CÙNG MỘT vụ/câu chuyện → một cluster (keep_id = id đại diện, ưu tiên nhiều bài hơn).
    KHÔNG gom chỉ vì cùng ngành/quốc gia.
 
-2) CHỌN LÊN CHUYÊN MỤC: từ các cluster sau khi gom, chọn TẤT CẢ và CHỈ keep_id thật sự đủ tiêu chí
-   (tác động kinh tế/đầu tư HOẶC mô tả đúng bối cảnh vĩ mô). Không cần đủ số lượng — trung thực.
-   Tối đa {INVEST_FEED_MAX} id nếu quá nhiều tin đạt chuẩn. Bỏ scandal/tội phạm/giải trí dù viral.
+2) CHỌN LÊN MỤC ĐẦU TƯ: chỉ keep_id có góc kinh tế–thị trường rõ. Không cần đủ số lượng — trung thực.
+   Tối đa {INVEST_FEED_MAX} id nếu quá nhiều tin đạt chuẩn.
+
+CHỈ GIỮ khi summary/title cho thấy ít nhất một trong:
+- Vĩ mô / chính sách tiền tệ–tài khóa / lãi suất / lạm phát / ngân hàng trung ương
+- Chứng khoán, trái phiếu, thị trường vốn, IPO, doanh nghiệp lớn có tác động thị trường
+- Vàng, bạc, kim loại quý, dầu, khí, hàng hóa, năng lượng (giá, cung–cầu, OPEC, sanctions năng lượng)
+- Crypto / Bitcoin / stablecoin / quy định tài sản số
+- Thương mại, thuế, trừng phạt kinh tế, chuỗi cung ứng, FDI, tỷ giá, USD
+- Xung đột/địa chính trị CHỈ khi bài nêu rõ hệ quả giá dầu, thị trường, lạm phát, an ninh năng lượng, tài chính
+
+BỎ dù viral:
+- Tội phạm đời sống, scandal cá nhân, biểu tình cục bộ không hệ quả kinh tế rõ
+- Thể thao/giải trí/tabloid (World Cup chỉ giữ nếu bài nói rõ tác động kinh tế host/sponsor/thị trường)
+- Tin pháp lý/tòa án không liên thị trường hoặc vĩ mô
 
 Không nhắc AI, GDELT, crawler, pipeline.
 
@@ -2140,6 +2153,30 @@ def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, An
     return base
 
 
+def export_invest_world_pulse(
+    events_enriched: list[dict[str, Any]], *, use_gemini: bool = True
+) -> None:
+    """Tab đầu tư (khối thế giới): cùng nguồn enrich GDELT, curate Gemini chỉ kinh tế/CK/vàng/crypto/vĩ mô."""
+    if not events_enriched:
+        LOG.warning("invest_world: no enriched candidates")
+        return
+    LOG.info(
+        "invest_world: curate %s enriched candidates (economics-only, not LIVE feed)",
+        len(events_enriched),
+    )
+    invest_events = dedupe_events_with_gemini(
+        events_enriched, use_gemini=use_gemini, channel="invest"
+    )
+    if invest_events and use_gemini:
+        time.sleep(GEMINI_CALL_INTERVAL_SEC)
+        invest_events = gemini_world_deepen_events(invest_events)
+    payload = build_payload(invest_events, channel="world")
+    payload["channel"] = "invest_world"
+    payload["source"] = "gdelt_enriched_invest_curate"
+    for path in (INVEST_WORLD_OUTPUT, PROJECT_DIR / "web" / "invest_world_pulse.json"):
+        atomic_export_json(payload, path)
+
+
 def build_payload(events: list[dict[str, Any]], *, channel: str = "world") -> dict[str, Any]:
     public = [_public_event(ev, channel=channel) for ev in events]
     schema = INVEST_PULSE_SCHEMA_VERSION if channel == "invest" else PULSE_SCHEMA_VERSION
@@ -2268,7 +2305,7 @@ def main(argv: list[str] | None = None) -> int:
         if channel == "invest" and use_gemini:
             extra = 2
         elif channel == "world" and use_gemini:
-            extra = 3  # source filter + dedupe/curate + deepen curated
+            extra = 5  # source filter + invest_world curate/deepen + world curate/deepen
         else:
             extra = 0
         LOG.info(
@@ -2281,6 +2318,18 @@ def main(argv: list[str] | None = None) -> int:
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini, channel=channel)
         events = filter_event_sources_with_gemini(events, use_gemini=use_gemini)
+        if channel == "world" and use_gemini:
+            pool_payload = {
+                "schema_version": PULSE_SCHEMA_VERSION,
+                "channel": "enriched_pool",
+                "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+                "total_events": len(events),
+                "events": events,
+            }
+            atomic_export_json(
+                pool_payload, PROJECT_DIR / "web" / "market_pulse_enriched_pool.json"
+            )
+            export_invest_world_pulse(events, use_gemini=True)
         events = dedupe_events_with_gemini(events, use_gemini=use_gemini, channel=channel)
     else:
         events = events[:TARGET_HOT_EVENTS]

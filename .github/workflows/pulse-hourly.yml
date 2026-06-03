@@ -51,11 +51,11 @@ jobs:
         run: |
           git config user.name "pulse-bot"
           git config user.email "pulse-bot@users.noreply.github.com"
-          git add market_pulse.json web/market_pulse.json
+          git add market_pulse.json web/market_pulse.json invest_world_pulse.json web/invest_world_pulse.json
           if git diff --staged --quiet; then
             echo "No pulse changes"
             exit 0
           fi
-          git commit -m "Update world LIVE pulse (market_pulse.json)."
+          git commit -m "Update world LIVE pulse and invest-world economics feed."
           git pull --rebase origin main
           git push
