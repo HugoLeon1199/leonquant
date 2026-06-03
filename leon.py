@@ -936,7 +936,7 @@ Không nhắc AI, GDELT, crawler. Không khuyến nghị đầu tư. Không bị
   "events": [
     {{
       "global_event_id": "...",
-      "title_vi": "tối đa 22 từ, nêu rõ sự kiện",
+      "title_vi": "khoảng 28-35 từ: rõ sự kiện, nhịp đọc gợi chú ý nhưng không giật tít, không bịa",
       "summary_vi": "3-5 câu (khoảng 80-140 từ): diễn biến chính + bối cảnh + hệ quả nếu có",
       "importance_reason": "2 câu: vì sao quan trọng với thế giới / vĩ mô / khu vực",
       "entities": ["4-8 thực thể"],
@@ -1036,7 +1036,7 @@ Ngành gợi ý (SQL, chỉ đổi sector nếu đoạn bài rõ ràng thuộc n
 
 Trả về đúng một JSON object (không markdown):
 {{
-  "title_vi": "Tiêu đề tiếng Việt tối đa 22 từ",
+  "title_vi": "Tiêu đề tiếng Việt khoảng 28-35 từ: rõ sự kiện, ấn tượng vừa phải, không giật tít, bám sự thật",
   "summary_vi": "3-5 câu (80-140 từ): diễn biến, bối cảnh, hệ quả vĩ mô/khu vực nếu có — chỉ từ đoạn bài",
   "importance_reason": "2 câu: vì sao quan trọng với thế giới / vĩ mô / khu vực (có thể nhắc độ phủ)",
   "entities": ["4-8 thực thể có trong đoạn bài"],
@@ -1545,7 +1545,7 @@ Quy tắc bắt buộc:
 - Không khuyến nghị đầu tư, không viết mua/bán/múc/short/long.
 - Văn phong trung lập, chuyên nghiệp, giống biên tập viên quốc tế.
 - Không viết như bản dịch máy.
-- Không giật tít quá đà.
+- Tiêu đề có thể dài hơn (~28-35 từ) để dễ đọc và nhớ, nhưng không câu view, không giật tít, không bịa so với nguồn.
 - Không cố kéo mọi sự kiện về tài chính/thị trường nếu bản chất không liên quan; sự kiện thể thao/toàn cầu có thể nhấn quy mô, an ninh, host, truyền thông — không bắt buộc nói giá dầu.
 
 Trả về JSON hợp lệ, không markdown:
@@ -1553,7 +1553,7 @@ Trả về JSON hợp lệ, không markdown:
   "events": [
     {{
       "global_event_id": "...",
-      "title_vi": "tiêu đề tối đa 24 từ, rõ sự kiện chính",
+      "title_vi": "khoảng 28-35 từ: rõ sự kiện chính, nhịp đọc ấn tượng vừa phải, không giật tít",
       "summary_vi": "5-20 câu, khoảng 100-500 từ, mạch lạc, đủ bối cảnh chính, không lan man",
       "importance_reason": "3-5 câu giải thích vì sao đáng chú ý; nếu có tác động vĩ mô/khu vực/thị trường thì nêu rõ, nếu không có thì không suy diễn",
       "entities": ["5-10 thực thể liên quan thật sự có trong nguồn"]
@@ -1611,10 +1611,13 @@ Danh sách dưới đây là sự kiện nóng 24h (nhiều báo đưa; đã có
    KHÔNG loại trừ cứng theo ngành: thể thao/giải trí vẫn GIỮ nếu sự kiện thật sự có tầm toàn cầu hoặc khu vực.
 
 GIỮ khi ít nhất một điều đúng (đọc title/summary, đừng đoán từ sector):
-- Vĩ mô / thị trường / chính sách / năng lượng / thương mại / chuỗi cung ứng / an ninh có hệ quả rộng.
+- Tác động toàn cầu/khu vực dù **tiêu cực, trung tính hay tích cực** — ngừng bắn, thỏa thuận, giảm căng thẳng, mở cửa thương mại, cắt lãi suất, phục hồi kinh tế, đột phá khoa học/y tế, hòa giải ngoại giao… đều hợp lệ nếu đủ tầm.
+- Vĩ mô / thị trường / chính sách / năng lượng / thương mại / chuỗi cung ứng / an ninh có hệ quả rộng (kể cả tin **tích cực** cho thị trường hoặc ổn định).
 - Xung đột, địa chính trị, ngoại giao, trừng phạt, sự cố hạ tầng hoặc thiên tai phạm vi lớn.
-- Sự kiện toàn cầu thu hút chú ý phạm vi hành tinh hoặc đa quốc gia: vd. World Cup, Olympic, hội nghị thượng đỉnh, khủng hoảng y tế toàn cầu — vì quy mô đối tượng theo dõi, logistics, an ninh, kinh tế địa phương/host hoặc bối cảnh địa chính trị đi kèm (chỉ khi summary nêu hoặc hiển nhiên từ bản chất sự kiện).
-- Tranh luận truyền thông / báo chí có tầm quốc gia hoặc liên quan tự do thông tin ở quy mô lớn (vd. sa thải biểu tượng truyền hình quốc gia).
+- Sự kiện toàn cầu thu hút chú ý phạm vi hành tinh hoặc đa quốc gia: vd. World Cup, Olympic, hội nghị thượng đỉnh — vì quy mô theo dõi, logistics, an ninh, kinh tế host (khi summary/bản chất sự kiện cho thấy).
+- Tranh luận truyền thông / báo chí có tầm quốc gia hoặc liên quan tự do thông tin ở quy mô lớn.
+
+KHÔNG thiên lệch chỉ tin xấu: nếu có cluster **tích cực/trung tính** đủ tầm thế giới, **bắt buộc cân nhắc giữ** — không bỏ nhẹ vì đang nhiều tin chiến tranh.
 
 BỎ dù có rất nhiều bài báo:
 - Tội phạm đời sống, scandal cá nhân, bắt giữ vụ án hình sự cục bộ không lan ra hậu quả toàn cầu/khu vực
@@ -1622,7 +1625,7 @@ BỎ dù có rất nhiều bài báo:
 - Tai nạn / phạm pháp / drama giải trí chỉ ảnh hưởng một người hoặc một cộng đồng nhỏ, không đổi bức tranh thế giới hay khu vực.
 - Tin thể thao/giải trí chỉ mang tính tabloid, chuyện cá nhân nhỏ (chấn thương nhẹ, hẹn hò, tin đồn) — không phải sự kiện mang tầm World Cup / giải vô địch thế giới.
 
-Ưu tiên đa dạng chủ đề khi nhiều tin đạt chuẩn; không chỉ chọn chiến tranh/dầu nếu còn sự kiện toàn cầu khác đủ tầm.
+Ưu tiên đa dạng chủ đề VÀ tone (có ít nhất một tin tích cực/trung tính đạt chuẩn thì nên giữ, trừ khi thật sự không có trong danh sách).
 
 Không nhắc AI, GDELT, crawler, pipeline.
 
@@ -1828,7 +1831,9 @@ def _event_dedupe_brief(ev: dict[str, Any], *, summary_cap: int = 320) -> str:
     title = str(ev.get("title_vi") or ev.get("title") or "").strip()[:120]
     summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:summary_cap]
     num = int(ev.get("num_articles") or 0)
-    return f"id={eid} | {num} bài | {sector} | {title} | {summary}"
+    tone = str(ev.get("sentiment_label") or "").strip()
+    tone_bit = f" | tone={tone}" if tone else ""
+    return f"id={eid} | {num} bài{tone_bit} | {sector} | {title} | {summary}"
 
 
 def _parse_gemini_clusters(text: str) -> list[dict[str, Any]]:

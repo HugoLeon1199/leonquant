@@ -59,3 +59,7 @@ Output: `market_pulse.json`, mirrored to `web/market_pulse.json`.
 ## 2026-06-03 — World curate: any sector if true global/regional impact
 
 - **`gemini_world_dedupe_and_curate` prompt:** No hard ban on sports/entertainment; keep World Cup–scale events; still drop local crime/scandal (e.g. sexual assault arrest). Gemini classifies from title/summary.
+
+## 2026-06-03 — World curate: include positive global-impact stories
+
+- Curate prompt: positive/neutral developments (deals, ceasefire, recovery) equal weight; do not bias toward conflict-only feed; brief includes `sentiment_label` for Gemini.
