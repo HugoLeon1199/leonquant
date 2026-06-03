@@ -1595,6 +1595,32 @@
       return new URL(name, siteBaseUrl()).href;
     }
 
+    /** Khi custom domain (Cloudflare) lỗi 503, lấy JSON từ bản GitHub Pages đã deploy. */
+    const GITHUB_PAGES_FEED_MIRROR = "https://hugoleon1199.github.io/leonquant/";
+
+    async function fetchJsonFeed(paths) {
+      const bases = [siteBaseUrl()];
+      const host = window.location.hostname.replace(/^www\./, "").toLowerCase();
+      if (host === "leonquant.com") {
+        bases.push(GITHUB_PAGES_FEED_MIRROR);
+      }
+      for (const base of bases) {
+        for (const p of paths) {
+          try {
+            const url = new URL(String(p).replace(/^\//, ""), base).href;
+            const r = await fetch(`${url}${url.includes("?") ? "&" : "?"}ts=${Date.now()}`, {
+              cache: "no-store",
+            });
+            if (!r.ok) continue;
+            return await readJsonResponse(r);
+          } catch (e) {
+            console.warn("feed fetch", base, p, e);
+          }
+        }
+      }
+      return null;
+    }
+
     /** JSON từ mạng đôi khi có BOM (UTF-8) — JSON.parse sẽ lỗi nếu không bỏ. */
     async function readJsonResponse(response) {
       const text = await response.text();
@@ -2436,17 +2462,7 @@
     }
 
     async function fetchPulseFeed() {
-      const paths = ["market_pulse.json", "web/market_pulse.json"];
-      for (const p of paths) {
-        try {
-          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
-          if (!r.ok) continue;
-          return await readJsonResponse(r);
-        } catch (e) {
-          console.warn("pulse fetch", p, e);
-        }
-      }
-      return null;
+      return fetchJsonFeed(["market_pulse.json", "web/market_pulse.json"]);
     }
 
     function hasEmbeddedPulse() {
@@ -2637,31 +2653,11 @@
 
     /** Khối thế giới tab đầu tư — invest_world_pulse (GDELT enrich + lọc kinh tế, không phải market_pulse). */
     async function fetchInvestWorldFeed() {
-      const paths = ["invest_world_pulse.json", "web/invest_world_pulse.json"];
-      for (const p of paths) {
-        try {
-          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
-          if (!r.ok) continue;
-          return await readJsonResponse(r);
-        } catch (e) {
-          console.warn("invest world fetch", p, e);
-        }
-      }
-      return null;
+      return fetchJsonFeed(["invest_world_pulse.json", "web/invest_world_pulse.json"]);
     }
 
     async function fetchInvestVnBrief() {
-      const paths = ["invest_vn_brief.json", "web/invest_vn_brief.json"];
-      for (const p of paths) {
-        try {
-          const r = await fetch(`${assetUrl(p)}?ts=${Date.now()}`, { cache: "no-store" });
-          if (!r.ok) continue;
-          return await readJsonResponse(r);
-        } catch (e) {
-          console.warn("invest vn fetch", p, e);
-        }
-      }
-      return null;
+      return fetchJsonFeed(["invest_vn_brief.json", "web/invest_vn_brief.json"]);
     }
 
     async function loadInvestContent() {
