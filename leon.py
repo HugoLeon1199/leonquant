@@ -2011,12 +2011,10 @@ Danh sách dưới đây là ứng viên nóng 24h (đã có title/summary tiế
 1) GOM TRÙNG: các global_event_id mô tả CÙNG MỘT vụ/câu chuyện → một cluster (keep_id = id đại diện, ưu tiên nhiều bài hơn).
    KHÔNG gom chỉ vì cùng ngành/quốc gia.
 
-2) CHỌN LÊN MỤC ĐẦU TƯ: chỉ keep_id có góc kinh tế–thị trường rõ. Không cần đủ số lượng — trung thực.
-   Tối đa {INVEST_FEED_MAX} id nếu quá nhiều tin đạt chuẩn.
+2) CHỌN LÊN MỤC ĐẦU TƯ: ứng viên ĐÃ qua lọc GKG/regex tiếng Anh (vĩ mô, CK, crypto, hàng hóa…).
+   Chọn tối đa {INVEST_FEED_MAX} id — ưu tiên ĐA DẠNG đề mục (vĩ mô, crypto, dầu, thuế quan, chip…), không chỉ 1–2 tin.
 
-Ứng viên đã qua lọc từ khóa GDELT (fed, lãi suất, chứng khoán, vàng, dầu, bitcoin, thương mại, v.v.).
-
-CHỈ GIỮ keep_id khi title/summary có từ khóa hoặc nội dung rõ về:
+CHỈ GIỮ keep_id khi title/summary (hoặc ngữ cảnh GKG) có góc kinh tế–thị trường, ví dụ:
 - Vĩ mô / Fed / ECB / lãi suất / lạm phát / QE / ngân hàng trung ương
 - Chứng khoán / trái phiếu / IPO / earnings / thị trường vốn
 - Vàng / bạc / đồng / dầu / OPEC / khí / năng lượng / Hormuz
@@ -2500,6 +2498,38 @@ def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, An
     return base
 
 
+def prepare_invest_world_feed(
+    events: list[dict[str, Any]], *, use_gemini: bool = True
+) -> list[dict[str, Any]]:
+    """Gom trùng GDELT; xếp theo market_relevance_score — không pre-curate 2 tin (để bước topics làm)."""
+    pool = events[:INVEST_CURATION_POOL]
+    if not pool:
+        return []
+    if use_gemini and len(pool) >= 2 and _configure_gemini():
+        LOG.info("invest_world: dedupe-only Gemini for %s candidates", len(pool))
+        cluster_lists = gemini_cluster_duplicate_events(pool)
+        clusters_raw = [
+            {"keep_id": ids[0], "member_ids": ids}
+            for ids in cluster_lists
+            if ids and ids[0]
+        ]
+        merged = _merge_clusters_from_gemini(pool, clusters_raw, channel="world")
+        LOG.info("invest_world after dedupe: %s cards (from %s)", len(merged), len(pool))
+    else:
+        merged = list(pool)
+    merged.sort(
+        key=lambda e: (
+            int(e.get("market_relevance_score") or 0),
+            int(e.get("num_articles") or 0),
+            int(e.get("source_count") or 0),
+        ),
+        reverse=True,
+    )
+    out = merged[:INVEST_FEED_MAX]
+    LOG.info("invest_world feed pool: %s stories (max %s)", len(out), INVEST_FEED_MAX)
+    return out
+
+
 def export_invest_world_pulse(
     events_enriched: list[dict[str, Any]], *, use_gemini: bool = True
 ) -> None:
@@ -2521,10 +2551,8 @@ def export_invest_world_pulse(
         for path in (INVEST_WORLD_OUTPUT, PROJECT_DIR / "web" / "invest_world_pulse.json"):
             atomic_export_json(payload, path)
         return
-    LOG.info("invest_world: curate %s keyword-matched candidates", len(keyword_pool))
-    invest_events = dedupe_events_with_gemini(
-        keyword_pool, use_gemini=use_gemini, channel="invest"
-    )
+    LOG.info("invest_world: %s keyword-matched candidates", len(keyword_pool))
+    invest_events = prepare_invest_world_feed(keyword_pool, use_gemini=use_gemini)
     topics: list[dict[str, Any]] = []
     if invest_events and use_gemini:
         time.sleep(GEMINI_CALL_INTERVAL_SEC)
