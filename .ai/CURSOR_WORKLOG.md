@@ -48,3 +48,10 @@ python leon.py
 ```
 
 Output: `market_pulse.json`, mirrored to `web/market_pulse.json`.
+
+## 2026-06-03 — World LIVE deepen prompt (`gemini_world_deepen_events`)
+
+- **File:** `leon.py` (~L1523), function `gemini_world_deepen_events()` only.
+- **Change:** Replaced Gemini deepen prompt — professional tone, no system/AI/GDELT leakage, no invented macro/market impact when sources omit it.
+- **Unchanged:** Scrape/deep-read logic, batch parsing, summary length targets (5–20 câu / 100–500 từ in prompt; no code clamp).
+- **Verify:** `python leon.py --channel world` → `market_pulse.json`; grep forbidden phrases (hệ thống, GDELT, thuật toán, AI tổng hợp).

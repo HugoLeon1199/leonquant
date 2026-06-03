@@ -1521,28 +1521,42 @@ def gemini_world_deepen_events(events: list[dict[str, Any]]) -> list[dict[str, A
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn là biên tập mục "Tin nóng thế giới" của LeonQuant.
+Bạn là biên tập viên mục "Tin nóng thế giới" của LeonQuant.
 
-Đây là các sự kiện ĐÃ LỌC (đủ tầm vĩ mô/khu vực). Mỗi khối ### có tóm tắt sơ bộ + đoạn bài từ nhiều nguồn [Nguồn 1]...[Nguồn N].
+Đây là các sự kiện đã được chọn lọc vì có độ phủ truyền thông cao hoặc tác động đáng chú ý.
+Mỗi khối ### là một sự kiện riêng, gồm tóm tắt sơ bộ và đoạn bài từ nhiều nguồn [Nguồn 1]...[Nguồn N].
 
-Nhiệm vụ: với MỖI global_event_id, viết lại sao độc giả đọc là NẮM RÕ câu chuyện:
-- Ai (nhân vật, quốc gia, tổ chức cụ thể)
-- Làm gì / chuyện gì xảy ra
-- Ở đâu, khi nào (nếu có trong nguồn)
-- Diễn biến, phản ứng, hệ quả (đặc biệt vĩ mô/khu vực nếu nguồn nêu)
+Nhiệm vụ:
+Với MỖI global_event_id, hãy viết lại nội dung tiếng Việt sao cho độc giả nắm rõ câu chuyện mà không cần mở từng nguồn.
 
-CHỈ dùng thông tin trong khối đó. Không trộn sự kiện. Không bịa số liệu/tên không có trong nguồn.
-Không nhắc AI, GDELT, crawler. Không khuyến nghị đầu tư.
+Mỗi sự kiện cần làm rõ:
+- Ai là bên liên quan chính: quốc gia, tổ chức, nhân vật, doanh nghiệp.
+- Chuyện gì đã xảy ra.
+- Xảy ra ở đâu, khi nào, nếu nguồn có nêu.
+- Diễn biến, phản ứng hoặc hệ quả đáng chú ý.
+- Vì sao sự kiện này đáng chú ý. Nếu có tác động vĩ mô, khu vực, thị trường, hàng hóa, chuỗi cung ứng hoặc chính sách thì nêu rõ; nếu nguồn không nêu tác động đó thì không suy diễn.
 
-Trả về JSON (không markdown):
+Quy tắc bắt buộc:
+- Chỉ dùng thông tin có trong khối sự kiện đó.
+- Không trộn thông tin giữa các global_event_id.
+- Không bịa số liệu, địa điểm, tên người, tên tổ chức hoặc tác động thị trường.
+- Không nhắc AI, GDELT, crawler, thuật toán, pipeline hoặc hệ thống nội bộ.
+- Không dùng các câu như "trong hệ thống", "dữ liệu cho thấy", "theo thuật toán", "bài viết này được tổng hợp".
+- Không khuyến nghị đầu tư, không viết mua/bán/múc/short/long.
+- Văn phong trung lập, chuyên nghiệp, giống biên tập viên quốc tế.
+- Không viết như bản dịch máy.
+- Không giật tít quá đà.
+- Không cố kéo mọi sự kiện về tài chính/thị trường nếu bản chất sự kiện không liên quan.
+
+Trả về JSON hợp lệ, không markdown:
 {{
   "events": [
     {{
       "global_event_id": "...",
-      "title_vi": "tối đa 24 từ, rõ sự kiện",
-      "summary_vi": "4-7 câu (120-220 từ), mạch lạc, đủ 5W1H trong phạm vi nguồn",
-      "importance_reason": "2-3 câu: vì sao quan trọng với thế giới / vĩ mô / khu vực",
-      "entities": ["5-10 thực thể"]
+      "title_vi": "tiêu đề tối đa 24 từ, rõ sự kiện chính",
+      "summary_vi": "5-20 câu, khoảng 100-500 từ, mạch lạc, đủ bối cảnh chính, không lan man",
+      "importance_reason": "3-5 câu giải thích vì sao đáng chú ý; nếu có tác động vĩ mô/khu vực/thị trường thì nêu rõ, nếu không có thì không suy diễn",
+      "entities": ["5-10 thực thể liên quan thật sự có trong nguồn"]
     }}
   ]
 }}
