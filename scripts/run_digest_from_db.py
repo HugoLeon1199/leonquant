@@ -14,6 +14,26 @@ QUANT_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = QUANT_ROOT / "scripts"
 PY = sys.executable
 DEFAULT_WINDOW_STATE = QUANT_ROOT / "data" / "digest_export_window.json"
+ENV_FILE = QUANT_ROOT / ".env"
+
+
+def _load_env_file() -> None:
+    if not ENV_FILE.is_file():
+        return
+    for line in ENV_FILE.read_text(encoding="utf-8-sig").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key, value = stripped.split("=", 1)
+        k = key.strip()
+        if k and not os.environ.get(k):
+            os.environ[k] = value.strip().strip('"').strip("'")
+
+
+def _gemini_key_ok() -> bool:
+    _load_env_file()
+    key = os.environ.get("GEMINI_API_KEY", "").strip()
+    return bool(key) and key != "your-gemini-api-key"
 
 
 def run(cmd: list[str], *, env: dict[str, str] | None = None) -> int:
@@ -101,8 +121,11 @@ def main() -> int:
         return 5
 
     if not args.skip_gemini:
-        if not os.environ.get("GEMINI_API_KEY"):
-            print("ERROR: set GEMINI_API_KEY for Gemini digest", file=sys.stderr)
+        if not _gemini_key_ok():
+            print(
+                f"ERROR: set GEMINI_API_KEY (env or {ENV_FILE.name}) for Gemini digest",
+                file=sys.stderr,
+            )
             return 2
         for stale in ("gemini_digest_summary.json", "gemini_digest_partials.json", "gemini_digest_outline.json"):
             p = QUANT_ROOT / stale
