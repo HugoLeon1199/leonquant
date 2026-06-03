@@ -1,8 +1,9 @@
--- LeonQuant: Chuyên mục kinh tế đầu tư — 24h hot events + GKG themes (English regex only).
--- URLs per GlobalEventID from eventmentions; final filter: market_relevance_score >= 2 (not primary_sector).
+-- LeonQuant invest channel only — 24h, event-centric, English GKG signals.
+-- Core pool: NumArticles>=40 AND |AvgTone|>=4. Supplement: NumArticles>=70 (neutral tone OK).
+-- TopEvents cap 120; GKG join only after TopEvents (no keyword scan on GKG).
 
 WITH
-  RankedTopEvents AS (
+  CoreRankedTopEvents AS (
     SELECT
       GLOBALEVENTID,
       Actor1Name,
@@ -16,8 +17,8 @@ WITH
       DATEADDED
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
-      AND NumArticles >= 30
-      AND ABS(AvgTone) >= 3.5
+      AND NumArticles >= 40
+      AND ABS(AvgTone) >= 4
       AND SOURCEURL IS NOT NULL
       AND STARTS_WITH(SOURCEURL, 'http')
     QUALIFY ROW_NUMBER() OVER (
@@ -26,11 +27,49 @@ WITH
     ) = 1
   ),
 
+  SupplementRankedTopEvents AS (
+    SELECT
+      GLOBALEVENTID,
+      Actor1Name,
+      Actor2Name,
+      EventRootCode,
+      EventCode,
+      GoldsteinScale,
+      AvgTone,
+      NumArticles,
+      SOURCEURL,
+      DATEADDED
+    FROM `gdelt-bq.gdeltv2.events_partitioned`
+    WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
+      AND NumArticles >= 70
+      AND SOURCEURL IS NOT NULL
+      AND STARTS_WITH(SOURCEURL, 'http')
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY GLOBALEVENTID
+      ORDER BY NumArticles DESC, ABS(AvgTone) DESC
+    ) = 1
+  ),
+
+  CombinedTopEvents AS (
+    SELECT *, 1 AS pool_priority, 'core' AS pool_kind FROM CoreRankedTopEvents
+    UNION ALL
+    SELECT *, 2 AS pool_priority, 'supplement' AS pool_kind FROM SupplementRankedTopEvents
+  ),
+
+  DedupTopEvents AS (
+    SELECT * EXCEPT(pool_priority)
+    FROM CombinedTopEvents
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY GLOBALEVENTID
+      ORDER BY pool_priority
+    ) = 1
+  ),
+
   TopEvents AS (
     SELECT *
-    FROM RankedTopEvents
+    FROM DedupTopEvents
     ORDER BY NumArticles DESC, ABS(AvgTone) DESC
-    LIMIT 500
+    LIMIT 120
   ),
 
   FilteredMentions AS (
@@ -522,10 +561,10 @@ SELECT
   V2Persons,
   V2Locations
 FROM FinalClassified
-WHERE market_relevance_score >= 1
+WHERE market_relevance_score >= 2
 ORDER BY
   market_relevance_score DESC,
   So_Bao_De_Cap DESC,
   ABS(Diem_Cam_Xuc) DESC,
   source_count DESC
-LIMIT 100
+LIMIT 120

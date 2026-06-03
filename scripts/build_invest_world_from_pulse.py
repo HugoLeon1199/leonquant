@@ -55,8 +55,9 @@ def main() -> int:
         print("Invalid input: need events array", file=sys.stderr)
         return 2
 
-    print(f"Curate invest_world from {src} ({len(events)} candidates)")
-    leon.export_invest_world_pulse(events, use_gemini=not args.no_gemini)
+    print(f"Curate invest from {src} ({len(events)} candidates)")
+    result = leon.run_invest_pipeline_from_events(events, use_gemini=not args.no_gemini)
+    leon.export_invest_desk_payload(result)
     return 0
 
 

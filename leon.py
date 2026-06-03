@@ -40,9 +40,9 @@ INVEST_SQL_PATH = PROJECT_DIR / "sql" / "gdelt_invest_pulse.sql"
 DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
 TOP_EVENTS_POOL = 300
-INVEST_TOP_EVENTS_POOL = 500
+INVEST_TOP_EVENTS_POOL = 120
 BQ_OUTPUT_LIMIT = 50
-INVEST_BQ_OUTPUT_LIMIT = 100
+INVEST_BQ_OUTPUT_LIMIT = 120
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
 PULSE_SCHEMA_VERSION = "event-centric-v7"
@@ -61,16 +61,20 @@ WORLD_DEEP_EXCERPT_PARAGRAPHS = 8
 WORLD_DEEP_CHARS_PER_URL = 2000
 WORLD_DEEP_MERGED_CHARS = 5200
 # Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
-INVEST_MAX_ENRICH_EVENTS = 80
-INVEST_CURATION_POOL = 75
-INVEST_FEED_MAX = 18  # tab đầu tư thế giới: tin quan trọng sau lọc + gom đề mục
+INVEST_MAX_ENRICH_EVENTS = 120
+INVEST_CURATION_POOL = 120
+INVEST_SEMANTIC_JUDGE_MAX = 60
+INVEST_FEED_MAX = 18
 INVEST_WORLD_TOPICS_MAX = 8
 INVEST_ITEMS_PER_TOPIC = 4
-# SQL invest BQ: >= 2. Post-enrich (world pool, title Việt): >= 1 + GKG themes trong blob.
+# Python keyword/GKG: candidate pool only (not final gate).
 INVEST_MARKET_RELEVANCE_MIN = 1
 INVEST_SQL_MARKET_RELEVANCE_MIN = 2
-INVEST_BQ_SUPPLEMENT_MAX = 35  # event chỉ có trong SQL invest (crypto/CK/vĩ mô), enrich thêm
-INVEST_WORLD_SCHEMA = "invest-world-topics-v1"
+INVEST_CORE_MIN_ARTICLES = 40
+INVEST_CORE_MIN_ABS_TONE = 4.0
+INVEST_SUPPLEMENT_MIN_ARTICLES = 70
+INVEST_MAX_BYTES_BILLED = 600_000_000  # invest SQL dry-run ~0.54 GB
+INVEST_WORLD_SCHEMA = "invest-world-topics-v2"
 
 # Lọc sơ bộ trước Gemini (title/summary phải có dấu hiệu kinh tế–thị trường)
 # English/theme regex for GDELT invest filter (BigQuery + post-enrich). No Vietnamese here.
@@ -174,6 +178,10 @@ INVEST_GDELT_REGEX: dict[str, str] = {
     ),
 }
 _INVEST_GDELT_COMPILED: dict[str, re.Pattern[str]] | None = None
+_INVEST_PUBLIC_FORBIDDEN_RE = re.compile(
+    r"\b(GDELT|keyword|keywords|crawler|pipeline|semantic|judge|Gemini|AI)\b",
+    re.IGNORECASE,
+)
 _INVEST_GEO_MARKET_THEME_RE = re.compile(
     r"\bOIL\b|CRUDE|BRENT|WTI|NATURAL[_ ]?GAS|\bLNG\b|ENERGY|SANCTION|TARIFF|"
     r"SUPPLY[_ ]?CHAIN|BANK|CREDIT|LIQUIDITY|TREASUR|YIELD|\bUSD\b|DOLLAR|"
@@ -1448,6 +1456,15 @@ def _invest_curation_brief(ev: dict[str, Any]) -> str:
     sector = str(ev.get("primary_sector") or ev.get("sector") or "")
     num = int(ev.get("num_articles") or 0)
     title = str(ev.get("title_vi") or ev.get("title") or "").strip()[:140]
+    if not title:
+        title = " | ".join(
+            x
+            for x in (
+                str(ev.get("primary_actor") or "").strip()[:80],
+                str(ev.get("gkg_themes") or "").strip()[:80],
+            )
+            if x
+        )[:140]
     summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:180]
     assets = ",".join(list(ev.get("affected_assets") or [])[:6])
     return f"id={eid} | {num} bài | {sector} | assets={assets} | {title} | {summary}"
@@ -1652,10 +1669,55 @@ def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def gemini_invest_world_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Gom tin đã lọc thành đề mục, tóm tắt ngắn (2 câu) — không bài văn dài."""
+def _sanitize_invest_public_text(text: str) -> str:
+    s = _INVEST_PUBLIC_FORBIDDEN_RE.sub("", str(text or ""))
+    return " ".join(s.split())
+
+
+def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for tp in topics:
+        if not isinstance(tp, dict):
+            continue
+        name = _sanitize_invest_public_text(str(tp.get("name") or ""))
+        if not name:
+            continue
+        items_out: list[dict[str, Any]] = []
+        for it in tp.get("items") or []:
+            if not isinstance(it, dict):
+                continue
+            title = _sanitize_invest_public_text(str(it.get("title") or ""))
+            summary = _sanitize_invest_public_text(str(it.get("summary") or ""))
+            if not title:
+                continue
+            items_out.append({**it, "title": title, "summary": summary})
+        if items_out:
+            out.append({"name": name, "items": items_out})
+    return out
+
+
+def _clamp_invest_brief(text: str, *, max_len: int = 420) -> str:
+    s = " ".join(str(text or "").split())
+    if len(s) <= max_len:
+        return s
+    return s[: max_len - 1].rstrip() + "…"
+
+
+def _invest_world_brief_from_topics(topics: list[dict[str, Any]]) -> str:
+    """Tóm tắt dự phòng khi Gemini không trả brief."""
+    names = [str(tp.get("name") or "").strip() for tp in topics if tp.get("name")]
+    if not names:
+        return ""
+    return _clamp_invest_brief(f"Trọng tâm 24h: {', '.join(names[:5])}.")
+
+
+def gemini_invest_world_topics(
+    events: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], str]:
+    """Gom đề mục + brief 2–3 câu toàn cảnh (một lần gọi Gemini)."""
     if not events or not _configure_gemini():
-        return _fallback_invest_topics(events)
+        topics = _fallback_invest_topics(events)
+        return topics, _invest_world_brief_from_topics(topics)
 
     lines = []
     for i, ev in enumerate(events):
@@ -1670,7 +1732,7 @@ def gemini_invest_world_topics(events: list[dict[str, Any]]) -> list[dict[str, A
     prompt = f"""
 Bạn biên tập mục tin thế giới quan trọng (kinh tế–đầu tư) — viết NGẮN GỌN, không dài dòng.
 
-Từ danh sách sự kiện (đã lọc GDELT + GKG), làm:
+Từ danh sách sự kiện kinh tế–thị trường 24h, làm:
 1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC — BẮT BUỘC ưu tiên thị trường tài chính:
    Crypto (tag CRYPTO), Chứng khoán (EQUITY), Vĩ mô & Lãi suất (MACRO), Ngân hàng (BANKS),
    Hàng hóa–Năng lượng (COMMODITY), Thương mại–Trừng phạt (TRADE), Công nghệ–Chip (TECH).
@@ -1682,10 +1744,14 @@ Từ danh sách sự kiện (đã lọc GDELT + GKG), làm:
 BỎ (dù nhiều bài): tag GEO_ONLY; tòa án/tội phạm đời sống; scandal; nhập cư/website chính phủ không tác động thị trường.
 CHỈ giữ xung đột/chính trị khi bài nêu rõ dầu, thuế, chứng khoán, crypto, ngân hàng, lạm phát.
 
-Không nhắc AI, GDELT, pipeline.
+Không nhắc hệ thống thu thập hay công cụ nội bộ.
+
+0) Viết trước trường brief: ĐÚNG 2–3 câu (≤90 từ) tóm tắt toàn cảnh thị trường/thế giới từ các tin sẽ chọn;
+   nêu chủ đề nổi bật (dầu, thuế, CK, crypto, vĩ mô…), không khuyến nghị mua/bán.
 
 Trả về JSON:
 {{
+  "brief": "hai đến ba câu tóm tắt",
   "topics": [
     {{
       "name": "Tên đề mục",
@@ -1708,8 +1774,10 @@ Sự kiện:
         response = model.generate_content(prompt)
         data = _parse_gemini_json(response.text or "")
         topics = data.get("topics") if isinstance(data, dict) else None
+        brief = _clamp_invest_brief(str(data.get("brief") or "")) if isinstance(data, dict) else ""
         if not isinstance(topics, list):
-            return _fallback_invest_topics(events)
+            topics = _fallback_invest_topics(events)
+            return topics, _invest_world_brief_from_topics(topics)
         by_id = {str(ev.get("global_event_id") or ""): ev for ev in events if ev.get("global_event_id")}
         out: list[dict[str, Any]] = []
         for tp in topics[:INVEST_WORLD_TOPICS_MAX]:
@@ -1742,10 +1810,16 @@ Sự kiện:
                 )
             if items_out:
                 out.append({"name": name, "items": items_out})
-        return out if out else _fallback_invest_topics(events)
+        if not out:
+            topics = _fallback_invest_topics(events)
+            return topics, _invest_world_brief_from_topics(topics)
+        if not brief:
+            brief = _invest_world_brief_from_topics(out)
+        return out, brief
     except Exception as exc:
         LOG.warning("gemini_invest_world_topics failed: %s", exc)
-        return _fallback_invest_topics(events)
+        topics = _fallback_invest_topics(events)
+        return topics, _invest_world_brief_from_topics(topics)
 
 
 def _fallback_invest_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -2640,103 +2714,156 @@ def prepare_invest_world_feed(
     return out
 
 
-def merge_invest_sql_into_enriched_pool(
-    world_enriched: list[dict[str, Any]],
-    invest_df: pd.DataFrame,
+def gemini_invest_semantic_judge(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Post-BQ gate (max 60): giữ tin đầu tư trực tiếp/gián tiếp; bỏ crime/scandal thuần."""
+    if not events or not _configure_gemini():
+        return sorted(events, key=_invest_sort_key, reverse=True)[:INVEST_FEED_MAX]
+
+    pool = sorted(events, key=_invest_sort_key, reverse=True)[:INVEST_SEMANTIC_JUDGE_MAX]
+    by_id = {str(ev.get("global_event_id") or ""): ev for ev in pool if ev.get("global_event_id")}
+    lines = []
+    for i, ev in enumerate(pool):
+        lines.append(f"{i + 1}. {_invest_curation_brief(ev)} | {_invest_topic_tags(ev)}")
+
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập chuyên mục kinh tế–đầu tư toàn cầu. Chọn tối đa {INVEST_FEED_MAX} global_event_id từ danh sách (đã qua lọc thô).
+
+GIỮ khi có góc thị trường trực tiếp hoặc gián tiếp, gồm:
+vĩ mô, lãi suất, ngân hàng, chứng khoán, crypto/Bitcoin/ETF, dầu/khí, thuế quan, chip/bán dẫn,
+AI agent, quantum, blockchain security, EV/Tesla, Trung Quốc vĩ mô, vàng/kim loại.
+
+BỎ: tòa án/tội phạm đời sống, scandal cá nhân, biểu tình cục bộ, nhập cư/website không tác động thị trường.
+Xung đột/chính trị chỉ giữ nếu bài nêu rõ tác động dầu, thuế, CK, crypto, ngân hàng, lạm phát.
+
+Không nhắc GDELT, keyword, AI, crawler, pipeline trong lý do.
+
+Trả về JSON: {{ "selected_ids": ["id1", "id2", ...] }}
+
+Danh sách:
+{chr(10).join(lines)}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        data = _parse_gemini_json(response.text or "")
+        ids = data.get("selected_ids") if isinstance(data, dict) else []
+        if not isinstance(ids, list):
+            ids = []
+        picked: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        for eid in ids:
+            eid = str(eid).strip()
+            if eid in by_id and eid not in seen:
+                picked.append(by_id[eid])
+                seen.add(eid)
+            if len(picked) >= INVEST_FEED_MAX:
+                break
+        if picked:
+            LOG.info("invest semantic judge: kept %s / %s", len(picked), len(pool))
+            return picked
+    except Exception as exc:
+        LOG.warning("invest semantic judge failed: %s", exc)
+    return pool[:INVEST_FEED_MAX]
+
+
+def run_invest_pipeline_from_events(
+    events: list[dict[str, Any]],
     *,
-    use_gemini: bool = True,
-) -> list[dict[str, Any]]:
-    """Thêm event từ SQL invest (crypto/CK/vĩ mô) chưa có trong pool world đã enrich."""
-    if invest_df is None or invest_df.empty:
-        return world_enriched
-    cleaned = clean_dataframe(invest_df)
-    bq_events = build_events_from_bq(cleaned, channel="invest")
-    candidates: list[dict[str, Any]] = []
-    for ev in bq_events:
-        blob = _invest_text_blob(ev)
-        flags = _invest_signal_flags(blob)
-        score = invest_market_relevance_score(flags, blob)
-        if score < INVEST_MARKET_RELEVANCE_MIN:
-            continue
-        if _invest_is_non_market_geo(flags, blob) and _invest_asset_tier(flags) == 0:
-            continue
-        ev["market_relevance_score"] = score
-        candidates.append(ev)
-    candidates.sort(key=_invest_sort_key, reverse=True)
-
-    by_id = {
-        str(e.get("global_event_id") or ""): e
-        for e in world_enriched
-        if e.get("global_event_id")
+    use_gemini: bool,
+    bq_rows: int | None = None,
+) -> dict[str, Any]:
+    """Invest post-BQ: keyword pool → semantic judge → topics (không world dedupe)."""
+    stats: dict[str, Any] = {
+        "bq_rows": bq_rows if bq_rows is not None else len(events),
+        "bq_events": len(events),
+        "candidates": 0,
+        "judged": 0,
+        "topics": 0,
+        "items": 0,
     }
-    new_events: list[dict[str, Any]] = []
-    for ev in candidates:
-        eid = str(ev.get("global_event_id") or "")
-        if not eid or eid in by_id:
-            continue
-        new_events.append(ev)
-        if len(new_events) >= INVEST_BQ_SUPPLEMENT_MAX:
-            break
 
-    if new_events and use_gemini:
-        LOG.info("invest_world: enrich %s invest-SQL-only events", len(new_events))
-        new_events = enrich_events_for_web(new_events, use_gemini=True, channel="world")
-        new_events = filter_event_sources_with_gemini(new_events, use_gemini=use_gemini)
+    candidates = filter_invest_keyword_candidates(events)
+    stats["candidates"] = len(candidates)
+    if not candidates:
+        return {**stats, "topics": [], "brief": "", "feed_events": []}
 
-    for ev in new_events:
-        eid = str(ev.get("global_event_id") or "")
-        if eid:
-            by_id[eid] = ev
+    ranked = sorted(candidates, key=_invest_sort_key, reverse=True)
+    if use_gemini:
+        judge_pool = ranked[:INVEST_SEMANTIC_JUDGE_MAX]
+        judged = gemini_invest_semantic_judge(judge_pool)
+        judged = enrich_events_for_web(judged, use_gemini=True, channel="invest")
+        judged = filter_event_sources_with_gemini(judged, use_gemini=use_gemini)
+    else:
+        judged = ranked[:INVEST_FEED_MAX]
+    stats["judged"] = len(judged)
 
-    out = list(by_id.values())
-    LOG.info(
-        "invest_world pool: %s enriched + %s from invest SQL (candidates %s)",
-        len(world_enriched),
-        len(new_events),
-        len(candidates),
-    )
-    return out
-
-
-def export_invest_world_pulse(
-    events_enriched: list[dict[str, Any]], *, use_gemini: bool = True
-) -> None:
-    """Tab đầu tư (khối thế giới): lọc từ khóa + curate kinh tế → gom đề mục, tóm tắt ngắn."""
-    if not events_enriched:
-        LOG.warning("invest_world: no enriched candidates")
-        return
-    keyword_pool = filter_invest_keyword_candidates(events_enriched)
-    if not keyword_pool:
-        LOG.warning("invest_world: no candidates after keyword filter")
-        payload = {
-            "schema_version": INVEST_WORLD_SCHEMA,
-            "channel": "invest_world",
-            "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-            "total_events": 0,
-            "topics": [],
-            "events": [],
-        }
-        for path in (INVEST_WORLD_OUTPUT, PROJECT_DIR / "web" / "invest_world_pulse.json"):
-            atomic_export_json(payload, path)
-        return
-    LOG.info("invest_world: %s keyword-matched candidates", len(keyword_pool))
-    invest_events = prepare_invest_world_feed(keyword_pool, use_gemini=use_gemini)
+    feed = prepare_invest_world_feed(judged, use_gemini=use_gemini and len(judged) >= 2)
     topics: list[dict[str, Any]] = []
-    if invest_events and use_gemini:
+    brief = ""
+    if feed and use_gemini:
         time.sleep(GEMINI_CALL_INTERVAL_SEC)
-        topics = gemini_invest_world_topics(invest_events)
-    elif invest_events:
-        topics = _fallback_invest_topics(invest_events)
+        topics, brief = gemini_invest_world_topics(feed)
+    elif feed:
+        topics = _fallback_invest_topics(feed)
+        brief = _invest_world_brief_from_topics(topics)
+
+    brief = _sanitize_invest_public_text(brief)
+    topics = _sanitize_invest_topics_public(topics)
+    stats["topics"] = len(topics)
+    stats["items"] = sum(len(t.get("items") or []) for t in topics)
+    return {**stats, "topics": topics, "brief": brief, "feed_events": feed}
+
+
+def run_invest_channel_pipeline(
+    cleaned: pd.DataFrame,
+    *,
+    use_gemini: bool,
+) -> dict[str, Any]:
+    """Invest-only: BigQuery → run_invest_pipeline_from_events."""
+    events = build_events_from_bq(cleaned, channel="invest")
+    LOG.info("invest: %s events from BigQuery", len(events))
+    return run_invest_pipeline_from_events(events, use_gemini=use_gemini, bq_rows=len(cleaned))
+
+
+def export_invest_desk_payload(
+    result: dict[str, Any],
+    *,
+    output: Path | None = None,
+) -> None:
+    """Ghi invest_pulse.json (+ mirror web / invest_world cho tab đầu tư)."""
+    topics = result.get("topics") or []
+    feed_events = result.get("feed_events") or []
     payload = {
         "schema_version": INVEST_WORLD_SCHEMA,
-        "channel": "invest_world",
+        "channel": "invest",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "total_events": sum(len(t.get("items") or []) for t in topics),
+        "brief": result.get("brief") or "",
         "topics": topics,
-        "events": [_topic_item_from_event(ev) for ev in invest_events[:INVEST_FEED_MAX]],
+        "events": [_topic_item_from_event(ev) for ev in feed_events[:INVEST_FEED_MAX]],
+        "stats": {
+            k: result.get(k)
+            for k in ("bq_rows", "bq_events", "candidates", "judged", "topics", "items")
+        },
     }
-    for path in (INVEST_WORLD_OUTPUT, PROJECT_DIR / "web" / "invest_world_pulse.json"):
+    paths: list[Path] = []
+    if output:
+        paths.append(output)
+    paths.extend([DEFAULT_INVEST_OUTPUT, INVEST_WORLD_OUTPUT, PROJECT_DIR / "web" / "invest_world_pulse.json", PROJECT_DIR / "web" / "invest_pulse.json"])
+    seen: set[str] = set()
+    for path in paths:
+        key = str(path.resolve())
+        if key in seen:
+            continue
+        seen.add(key)
         atomic_export_json(payload, path)
+    LOG.info(
+        "invest export: %s topics, %s items",
+        len(topics),
+        payload["total_events"],
+    )
 
 
 def build_payload(events: list[dict[str, Any]], *, channel: str = "world") -> dict[str, Any]:
@@ -2830,6 +2957,9 @@ def main(argv: list[str] | None = None) -> int:
         "LEON_INVEST_PULSE_OUTPUT" if channel == "invest" else "LEON_PULSE_OUTPUT", ""
     ).strip()
     output: Path = args.output or Path(env_out or default_out)
+    max_bytes_billed = (
+        INVEST_MAX_BYTES_BILLED if channel == "invest" else args.max_bytes_billed
+    )
     LOG.info("Leon Web Intel [%s] → %s (dry_run=%s)", channel, output, args.dry_run)
 
     try:
@@ -2843,7 +2973,7 @@ def main(argv: list[str] | None = None) -> int:
             client,
             channel=channel,
             job_timeout_ms=args.job_timeout_ms,
-            maximum_bytes_billed=args.max_bytes_billed,
+            maximum_bytes_billed=max_bytes_billed,
             dry_run=args.dry_run,
         )
     except (GoogleCloudError, Exception):
@@ -2853,23 +2983,40 @@ def main(argv: list[str] | None = None) -> int:
     if args.dry_run:
         return 0
 
+    cleaned = clean_dataframe(df)
+    use_gemini = not args.no_gemini
+
+    if channel == "invest":
+        if df is None or df.empty:
+            LOG.warning("invest: no BQ rows; not overwriting outputs")
+            return 0
+        result = run_invest_channel_pipeline(cleaned, use_gemini=use_gemini)
+        LOG.info(
+            "invest pipeline: bq_rows=%s bq_events=%s candidates=%s judged=%s topics=%s items=%s",
+            result.get("bq_rows"),
+            result.get("bq_events"),
+            result.get("candidates"),
+            result.get("judged"),
+            result.get("topics"),
+            result.get("items"),
+        )
+        try:
+            export_invest_desk_payload(result, output=output)
+        except OSError as exc:
+            LOG.error("invest export failed: %s", exc)
+            return 1
+        return 0
+
     if df is None or df.empty:
         LOG.warning("No rows returned; not overwriting %s", output)
         return 0
 
-    cleaned = clean_dataframe(df)
     events = build_events_from_bq(cleaned, channel=channel)
     LOG.info("Events after EventMentions-only sources: %s", len(events))
     if events:
-        use_gemini = not args.no_gemini
         chunk_sz = _batch_enrich_chunk_size(channel)
         batch_calls = max(1, (len(events) + chunk_sz - 1) // chunk_sz) if use_gemini else 0
-        if channel == "invest" and use_gemini:
-            extra = 2
-        elif channel == "world" and use_gemini:
-            extra = 5  # source filter + invest_world curate/deepen + world curate/deepen
-        else:
-            extra = 0
+        extra = 3 if use_gemini else 0  # source filter + world curate/deepen
         LOG.info(
             "Pipeline %s: %s events, gemini=%s (~%s batch-enrich + %s post calls)",
             channel,
@@ -2880,7 +3027,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         events = enrich_events_for_web(events, use_gemini=use_gemini, channel=channel)
         events = filter_event_sources_with_gemini(events, use_gemini=use_gemini)
-        if channel == "world" and use_gemini:
+        if use_gemini:
             pool_payload = {
                 "schema_version": PULSE_SCHEMA_VERSION,
                 "channel": "enriched_pool",
@@ -2891,22 +3038,6 @@ def main(argv: list[str] | None = None) -> int:
             atomic_export_json(
                 pool_payload, PROJECT_DIR / "web" / "market_pulse_enriched_pool.json"
             )
-            invest_pool = events
-            try:
-                invest_df, _ = run_bigquery(
-                    client,
-                    channel="invest",
-                    job_timeout_ms=args.job_timeout_ms,
-                    maximum_bytes_billed=args.max_bytes_billed,
-                    dry_run=False,
-                )
-                if invest_df is not None and not invest_df.empty:
-                    invest_pool = merge_invest_sql_into_enriched_pool(
-                        events, invest_df, use_gemini=use_gemini
-                    )
-            except Exception as exc:
-                LOG.warning("invest SQL supplement skipped: %s", exc)
-            export_invest_world_pulse(invest_pool, use_gemini=True)
         events = dedupe_events_with_gemini(events, use_gemini=use_gemini, channel=channel)
     else:
         events = events[:TARGET_HOT_EVENTS]
@@ -2923,13 +3054,9 @@ def main(argv: list[str] | None = None) -> int:
             pass
     try:
         atomic_export_json(payload, output)
-        # Mirror for GitHub Pages static path
-        web_name = "invest_pulse.json" if channel == "invest" else "market_pulse.json"
-        web_mirror = PROJECT_DIR / "web" / web_name
+        web_mirror = PROJECT_DIR / "web" / "market_pulse.json"
         if output.resolve() != web_mirror.resolve():
             atomic_export_json(payload, web_mirror)
-        if channel == "invest" and output.resolve() != (PROJECT_DIR / "invest_pulse.json").resolve():
-            atomic_export_json(payload, PROJECT_DIR / "invest_pulse.json")
     except OSError as exc:
         LOG.error("Export failed: %s", exc)
         return 1

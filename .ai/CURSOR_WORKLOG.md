@@ -79,3 +79,31 @@ python -c "from leon import filter_invest_keyword_candidates, invest_market_rele
 python leon.py --channel invest --dry-run
 python scripts/build_invest_world_from_pulse.py --no-gemini
 ```
+
+## 2026-06-03 — Invest channel only (isolated from world LIVE)
+
+**Scope:** `--channel invest`, `INVEST_*`, `filter_invest_keyword_candidates`, `invest_market_relevance_score`, `gemini_invest_semantic_judge`, `gemini_invest_world_topics`, `sql/gdelt_invest_pulse.sql`, `invest_pulse.json` / `invest_world_pulse.json`. **Not modified:** world `GDELT_MACRO_QUERY`, world dedupe prompts, Vietnam 48h, `landing_page.html`, invest hooks removed from `main()` world branch.
+
+| Area | Detail |
+|------|--------|
+| SQL | Core `NumArticles>=40` + `|AvgTone|>=4`; supplement `NumArticles>=70` (neutral tone OK); dedupe; `LIMIT 120` TopEvents → mentions by `GLOBALEVENTID` → GKG on `SOURCEURL` only; `market_relevance_score >= 2`; 24h only |
+| `leon.py` | `run_invest_channel_pipeline` / `run_invest_pipeline_from_events`; semantic judge max 60 **before** enrich; `export_invest_desk_payload` → `invest_pulse.json` + `web/invest_world_pulse.json`; `INVEST_MAX_BYTES_BILLED=600M`; public `_sanitize_invest_public_text` strips GDELT/keyword/AI/crawler/pipeline |
+| World | No second invest BQ merge / `export_invest_world_pulse` on `--channel world` |
+
+**Verify (2026-06-03):**
+
+```bash
+python -m py_compile leon.py
+python leon.py --channel invest --dry-run   # ~0.5395 GB estimated
+python leon.py --channel invest           # 105 BQ rows → 105 candidates → 5 topics / 10 items
+```
+
+| Metric | Result |
+|--------|--------|
+| Dry-run bytes | ~539,500,000 bytes (~0.5395 GB) |
+| BQ rows in | 105 |
+| Keyword candidates | 105 (min score 1; SQL already `>= 2`) |
+| Export items | 10 across 5 topics (EQUITY, COMMODITY, BANKS, TRADE, TECH) |
+| Live bytes processed | ~540,016,640 (~0.539 GB) |
+
+**Outputs:** `invest_pulse.json`, `invest_world_pulse.json`, `web/invest_pulse.json`, `web/invest_world_pulse.json`.

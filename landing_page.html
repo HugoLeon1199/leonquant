@@ -2496,9 +2496,13 @@
       let h = `<section class="invest-desk-section invest-desk-section--world">`;
       h += `<header class="invest-desk-head">`;
       h += `<h3 class="invest-desk-title">Tin thế giới quan trọng</h3>`;
-      h += `<p class="invest-desk-sub">Theo đề mục · GDELT + từ khóa kinh tế–thị trường</p>`;
+      h += `<p class="invest-desk-sub">Tóm tắt nhanh + chi tiết theo đề mục · GDELT kinh tế–thị trường</p>`;
       if (updated) h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)}</p>`;
       h += `</header>`;
+      const brief = String(data?.brief || "").trim();
+      if (brief) {
+        h += `<p class="invest-vn-lead invest-world-brief">${escapeHtml(brief)}</p>`;
+      }
       if (!topics.length) {
         const events = normalizePulseEvents(data);
         if (events.length) {
