@@ -69,22 +69,110 @@ INVEST_ITEMS_PER_TOPIC = 3
 INVEST_WORLD_SCHEMA = "invest-world-topics-v1"
 
 # Lọc sơ bộ trước Gemini (title/summary phải có dấu hiệu kinh tế–thị trường)
-INVEST_ECONOMY_KEYWORDS = (
-    "fed", "fomc", "ecb", "boj", "pboc", "rate hike", "rate cut", "interest rate",
-    "inflation", "cpi", "ppi", "gdp", "recession", "stimulus", "quantitative",
-    "stock", "equity", "bond", "yield", "treasury", "wall street", "nasdaq", "s&p",
-    "ipo", "earnings", "profit warning", "market cap", "short seller",
-    "oil", "opec", "brent", "wti", "natural gas", "lng", "barrel", "hormuz",
-    "gold", "silver", "copper", "commodity", "metal price",
-    "bitcoin", "btc", "ethereum", "crypto", "stablecoin", "defi",
-    "tariff", "sanction", "trade war", "supply chain", "export ban",
-    "dollar", "usd", "euro", "yen", "forex", "currency", "devaluation",
-    "bank", "banking", "credit", "liquidity", "default", "sovereign debt",
-    "lãi suất", "lạm phát", "vĩ mô", "chính sách tiền tệ", "ngân hàng trung ương",
-    "chứng khoán", "cổ phiếu", "trái phiếu", "thị trường vốn", "niêm yết",
-    "vàng", "giá dầu", "dầu thô", "khí đốt", "năng lượng", "hàng hóa",
-    "bitcoin", "tiền số", "crypto", "thương mại", "thuế quan", "trừng phạt",
-    "tỷ giá", "nhập khẩu", "xuất khẩu", "fdi", "đầu tư nước ngoài",
+# English/theme regex for GDELT invest filter (BigQuery + post-enrich). No Vietnamese here.
+# Reserved for future Vietnamese editorial validation; not used in GDELT BigQuery filter.
+INVEST_GDELT_REGEX: dict[str, str] = {
+    "is_macro": (
+        r"MACROECONOM|GDP|GROWTH|RECESSION|DEPRESSION|"
+        r"SOFT[_ ]?LANDING|HARD[_ ]?LANDING|"
+        r"INFLATION|DISINFLATION|DEFLATION|STAGFLATION|"
+        r"\bCPI\b|\bPPI\b|INTEREST[_ ]?RATE|POLICY[_ ]?RATE|"
+        r"RATE[_ ]?HIKE|RATE[_ ]?CUT|CENTRAL[_ ]?BANK|CENTRALBANK|"
+        r"MONETARY[_ ]?POLICY|QUANTITATIVE[_ ]?EASING|\bQE\b|\bQT\b|"
+        r"FISCAL[_ ]?POLICY|BUDGET|DEFICIT|DEBT[_ ]?CEILING|"
+        r"UNEMPLOYMENT|PAYROLL|\bNFP\b|JOBLESS[_ ]?CLAIMS|WAGE[_ ]?GROWTH|"
+        r"\bPMI\b|\bISM\b|RETAIL[_ ]?SALES|CONSUMER[_ ]?CONFIDENCE|"
+        r"YIELD[_ ]?CURVE|FOREIGN[_ ]?EXCHANGE|\bFX\b|\bUSD\b|DOLLAR|"
+        r"ECON_WORLDCURRENCIES|\b(FED|FOMC|FEDERAL RESERVE|ECB|BOJ|PBOC|BOE|IMF|WORLD BANK)\b"
+    ),
+    "is_credit_banking": (
+        r"FINANCE|FINANCIAL|BANKING|\bBANK\b|BANK[_ ]?RUN|DEPOSIT|WITHDRAWAL|"
+        r"CREDIT|LOAN|DEBT|SOVEREIGN[_ ]?DEBT|CORPORATE[_ ]?DEBT|"
+        r"\bBOND\b|TREASUR(Y|IES)|YIELD|HIGH[_ ]?YIELD|JUNK[_ ]?BOND|"
+        r"DEFAULT|INSOLVENCY|BANKRUPTCY|CHAPTER[_ ]?11|LIQUIDITY|BAILOUT|"
+        r"LEVERAGE|COLLATERAL|CREDIT[_ ]?RATING|RATING[_ ]?DOWNGRADE|"
+        r"\bCDS\b|CREDIT[_ ]?RISK|CAPITAL[_ ]?REQUIREMENT|"
+        r"\b(JPMORGAN|JP MORGAN|GOLDMAN SACHS|MORGAN STANLEY|CITIGROUP|CITI|HSBC|UBS|FITCH|MOODY)\b"
+    ),
+    "is_equity_market": (
+        r"STOCK[_ ]?MARKET|STOCK[_ ]?EXCHANGE|EQUITY|EQUITIES|"
+        r"\bSHARE\b|SHARES|WALL[_ ]?STREET|\bNYSE\b|\bNASDAQ\b|"
+        r"DOW[_ ]?JONES|S[_& ]?P|SP500|S&P500|RUSSELL|NIKKEI|FTSE|DAX|"
+        r"\bVIX\b|VOLATILITY|MARKET[_ ]?RALLY|SELL[_ ]?OFF|CORRECTION|"
+        r"EARNINGS|GUIDANCE|PROFIT[_ ]?WARNING|DIVIDEND|SHARE[_ ]?BUYBACK|"
+        r"IPO|SPAC|MERGER|ACQUISITION|TAKEOVER|ETF|HEDGE[_ ]?FUND|"
+        r"\b(MSCI|BLACKROCK|VANGUARD|STATE STREET|BERKSHIRE)\b"
+    ),
+    "is_crypto": (
+        r"CRYPTOCURRENCY|\bCRYPTO\b|BITCOIN|\bBTC\b|ETHEREUM|\bETH\b|"
+        r"BLOCKCHAIN|DIGITAL[_ ]?ASSET|DIGITAL[_ ]?CURRENCY|VIRTUAL[_ ]?CURRENCY|"
+        r"STABLECOIN|STABLECOINS|DEFI|DECENTRALIZED[_ ]?FINANCE|WEB3|"
+        r"ALTCOIN|TOKEN|NFT|SMART[_ ]?CONTRACT|SPOT[_ ]?ETF|CRYPTO[_ ]?EXCHANGE|"
+        r"\b(BINANCE|COINBASE|TETHER|RIPPLE|KRAKEN|GRAYSCALE|BITWISE)\b"
+    ),
+    "is_commodity_energy": (
+        r"COMMODIT|ENERGY|\bOIL\b|_OIL|OIL_|CRUDE|CRUDE[_ ]?OIL|"
+        r"BRENT|WTI|PETROLEUM|REFINERY|PIPELINE|FUEL|DIESEL|GASOLINE|"
+        r"NATURAL[_ ]?GAS|NATURALGAS|\bLNG\b|COAL|ELECTRICITY|POWER[_ ]?GRID|"
+        r"NUCLEAR[_ ]?ENERGY|OPEC|GOLD|SILVER|COPPER|LITHIUM|URANIUM|"
+        r"IRON[_ ]?ORE|STEEL|RARE[_ ]?EARTH|RARE[_ ]?EARTHS|MINING|MINERAL|"
+        r"WHEAT|CORN|SOYBEAN|SOYBEANS|COFFEE|COCOA|SUGAR|"
+        r"\b(ARAMCO|EXXON|CHEVRON|SHELL|BP|TOTALENERGIES|GAZPROM|ROSNEFT|TRANSNEFT|BHP|RIO TINTO|VALE|GLENCORE)\b"
+    ),
+    "is_trade_supply": (
+        r"TRADE[_ ]?DISPUTE|TRADE[_ ]?WAR|TARIFF|TARIFFS|SANCTION|SANCTIONS|"
+        r"EMBARGO|EXPORT[_ ]?CONTROL|EXPORT[_ ]?CONTROLS|EXPORT[_ ]?BAN|"
+        r"IMPORT[_ ]?RESTRICTION|TRADE[_ ]?RESTRICTION|SUPPLY[_ ]?CHAIN|SUPPLYCHAIN|"
+        r"LOGISTICS|SHIPPING|CONTAINER|FREIGHT|CARGO|CUSTOMS|PORT|PORTS|"
+        r"MARITIME|CANAL|SUEZ|PANAMA[_ ]?CANAL|RED[_ ]?SEA|"
+        r"HORMUZ|STRAIT[_ ]?OF[_ ]?HORMUZ|BAB[_ ]?EL[_ ]?MANDEB|BLACK[_ ]?SEA|"
+        r"RAIL|TRUCKING|AIR[_ ]?FREIGHT|WAREHOUSE|INVENTORY"
+    ),
+    "is_real_estate_infra": (
+        r"REAL[_ ]?ESTATE|REALESTATE|PROPERTY|HOUSING|MORTGAGE|"
+        r"COMMERCIAL[_ ]?REAL[_ ]?ESTATE|COMMERCIAL[_ ]?PROPERTY|"
+        r"OFFICE[_ ]?PROPERTY|\bREIT\b|RENT|RENTAL|HOME[_ ]?BUILD|HOMEBUILD|"
+        r"CONSTRUCTION|INFRASTRUCTURE|URBAN|BUILDING|BRIDGE|ROAD|RAIL|AIRPORT|METRO|"
+        r"\b(EVERGRANDE|COUNTRY GARDEN|VANKE|BLACKSTONE|BROOKFIELD|PROLOGIS|CBRE|JLL|ZILLOW)\b"
+    ),
+    "is_tech_ai_chip": (
+        r"TECHNOLOGY|ARTIFICIAL[_ ]?INTELLIGENCE|\bAI\b|GENERATIVE[_ ]?AI|"
+        r"\bLLM\b|MACHINE[_ ]?LEARNING|ROBOTICS|AUTONOMOUS|SOFTWARE|HARDWARE|"
+        r"SEMICONDUCTOR|SEMICONDUCTORS|\bCHIP\b|CHIPS|ADVANCED[_ ]?CHIPS|"
+        r"\bGPU\b|DATA[_ ]?CENTER|DATACENTER|CLOUD|CYBERSECURITY|CYBER[_ ]?ATTACK|"
+        r"RANSOMWARE|MALWARE|DATA[_ ]?BREACH|DIGITAL|PLATFORM|TELECOM|5G|QUANTUM|"
+        r"\b(NVIDIA|TSMC|ASML|AMD|INTEL|OPENAI|MICROSOFT|GOOGLE|ALPHABET|META|AMAZON|APPLE|BROADCOM|ARM|QUALCOMM)\b"
+    ),
+    "is_real_economy": (
+        r"BUSINESS|COMPANY|CORPORATE|INDUSTRY|INDUSTRIAL|MANUFACTURING|FACTORY|"
+        r"FACTORY[_ ]?ORDERS|DURABLE[_ ]?GOODS|PRODUCTION|CAPEX|INVENTORY|WHOLESALE|"
+        r"RETAIL|RETAIL[_ ]?SALES|CONSUMER|SALES|REVENUE|PROFIT|MARGIN|"
+        r"EARNINGS[_ ]?GUIDANCE|LAYOFF|LAYOFFS|JOB[_ ]?CUTS|AUTO|EV|AIRLINE|TOURISM|HOTEL|RESTAURANT"
+    ),
+    "is_legal_regulatory": (
+        r"\bLAW\b|LEGAL|LEGISLATION|REGULATION|REGULATORY|ANTITRUST|LAWSUIT|LITIGATION|"
+        r"COURT|JUDGE|TRIAL|SUBPOENA|INDICTMENT|PROSECUT|INVESTIGATION|SEIZURE|"
+        r"SETTLEMENT|FINE|PENALTY|COMPLIANCE|FRAUD|CORRUPTION|MONEY[_ ]?LAUNDERING|"
+        r"EXPORT[_ ]?BAN|\b(SEC|CFTC|DOJ|FCA|ESMA|FINRA|FTC|SUPREME COURT|EUROPEAN COMMISSION)\b"
+    ),
+    "is_conflict_security": (
+        r"WAR|CONFLICT|MILITARY|MISSILE|DRONE|ATTACK|TERROR|TERRORISM|CRISIS|"
+        r"COUP|UNREST|PROTEST|RIOT|BORDER|INVASION|ESCALATION|CEASEFIRE|NATO|DEFENSE|SECURITY"
+    ),
+    "is_politics_diplomacy": (
+        r"POLITICAL|POLITICS|GOVERNMENT|GENERAL[_ ]?GOVERNMENT|PRESIDENT|"
+        r"PRIME[_ ]?MINISTER|MINISTER|PARLIAMENT|CONGRESS|SENATE|CABINET|LEADER|"
+        r"ELECTION|VOTE|REFERENDUM|DIPLOMACY|FOREIGN[_ ]?POLICY|GEOPOLITICS|"
+        r"TREATY|SUMMIT|G7|G20|BRICS|UNITED[_ ]?NATIONS|"
+        r"\b(NATO|BRICS|G7|G20|UNITED NATIONS|UN|EUROPEAN UNION)\b"
+    ),
+}
+_INVEST_GDELT_COMPILED: dict[str, re.Pattern[str]] | None = None
+_INVEST_GEO_MARKET_THEME_RE = re.compile(
+    r"\bOIL\b|CRUDE|BRENT|WTI|NATURAL[_ ]?GAS|\bLNG\b|ENERGY|SANCTION|TARIFF|"
+    r"SUPPLY[_ ]?CHAIN|BANK|CREDIT|LIQUIDITY|TREASUR|YIELD|\bUSD\b|DOLLAR|"
+    r"INFLATION|INTEREST[_ ]?RATE|SEMICONDUCTOR|\bCHIP\b|TRADE",
+    re.IGNORECASE,
 )
 INVEST_VALID_SECTORS = (
     "Vĩ mô - Chính sách Tiền tệ & Lãi suất",
@@ -1359,8 +1447,20 @@ def _invest_curation_brief(ev: dict[str, Any]) -> str:
     return f"id={eid} | {num} bài | {sector} | assets={assets} | {title} | {summary}"
 
 
+def _invest_gdelt_compiled() -> dict[str, re.Pattern[str]]:
+    global _INVEST_GDELT_COMPILED
+    if _INVEST_GDELT_COMPILED is None:
+        _INVEST_GDELT_COMPILED = {
+            name: re.compile(pat, re.IGNORECASE) for name, pat in INVEST_GDELT_REGEX.items()
+        }
+    return _INVEST_GDELT_COMPILED
+
+
 def _invest_text_blob(ev: dict[str, Any]) -> str:
     parts = [
+        ev.get("gkg_organizations"),
+        ev.get("gkg_persons"),
+        ev.get("gkg_locations"),
         ev.get("title_vi"),
         ev.get("title"),
         ev.get("summary_vi"),
@@ -1370,20 +1470,71 @@ def _invest_text_blob(ev: dict[str, Any]) -> str:
         ev.get("primary_sector"),
         " ".join(ev.get("entities") or []),
     ]
-    return " ".join(str(p) for p in parts if p).lower()
+    return " ".join(str(p) for p in parts if p)
+
+
+def _invest_signal_flags(blob: str) -> dict[str, bool]:
+    compiled = _invest_gdelt_compiled()
+    return {name: bool(pat.search(blob)) for name, pat in compiled.items()}
+
+
+def invest_market_relevance_score(flags: dict[str, bool], theme_blob: str) -> int:
+    """Mirror BigQuery market_relevance_score (English GDELT themes only)."""
+    theme_u = theme_blob.upper()
+    score = 0
+    if flags.get("is_macro"):
+        score += 3
+    if flags.get("is_credit_banking"):
+        score += 3
+    if flags.get("is_equity_market"):
+        score += 3
+    if flags.get("is_crypto"):
+        score += 3
+    if flags.get("is_commodity_energy"):
+        score += 3
+    if flags.get("is_trade_supply"):
+        score += 2
+    if flags.get("is_tech_ai_chip"):
+        score += 2
+    if flags.get("is_real_estate_infra"):
+        score += 1
+    if flags.get("is_real_economy"):
+        score += 1
+    geo = (
+        flags.get("is_conflict_security")
+        or flags.get("is_politics_diplomacy")
+        or flags.get("is_legal_regulatory")
+    )
+    econ_core = (
+        flags.get("is_macro")
+        or flags.get("is_credit_banking")
+        or flags.get("is_equity_market")
+        or flags.get("is_crypto")
+        or flags.get("is_commodity_energy")
+        or flags.get("is_trade_supply")
+        or flags.get("is_tech_ai_chip")
+        or flags.get("is_real_estate_infra")
+        or flags.get("is_real_economy")
+    )
+    if geo and _INVEST_GEO_MARKET_THEME_RE.search(theme_u):
+        score += 1
+    if geo and not econ_core:
+        score -= 3
+    return score
 
 
 def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Giữ ứng viên có ít nhất một từ khóa kinh tế–thị trường (lọc GDELT sơ bộ)."""
+    """English regex groups + market_relevance_score >= 2 (aligned with invest SQL)."""
     if not events:
         return []
     kept: list[dict[str, Any]] = []
     for ev in events:
         blob = _invest_text_blob(ev)
-        if any(kw in blob for kw in INVEST_ECONOMY_KEYWORDS):
+        flags = _invest_signal_flags(blob)
+        if invest_market_relevance_score(flags, blob) >= 2:
             kept.append(ev)
     LOG.info(
-        "invest_world keyword filter: %s / %s candidates",
+        "invest_world market_relevance filter: %s / %s candidates",
         len(kept),
         len(events),
     )
@@ -1995,6 +2146,10 @@ def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[di
             card["risk_flags"] = list(row.get("risk_flags") or [])
             card["affected_assets"] = list(row.get("affected_assets") or [])
             card["investment_relevance"] = str(row.get("investment_relevance") or "").strip() or "medium"
+            try:
+                card["market_relevance_score"] = int(row.get("market_relevance_score") or 0)
+            except (TypeError, ValueError):
+                card["market_relevance_score"] = 0
         events.append(card)
 
     if channel == "invest":

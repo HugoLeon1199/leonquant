@@ -63,3 +63,19 @@ Output: `market_pulse.json`, mirrored to `web/market_pulse.json`.
 ## 2026-06-03 — World curate: include positive global-impact stories
 
 - Curate prompt: positive/neutral developments (deals, ceasefire, recovery) equal weight; do not bias toward conflict-only feed; brief includes `sentiment_label` for Gemini.
+
+## 2026-05-24 — Invest GDELT filter: English regex + `market_relevance_score`
+
+| Area | Detail |
+|------|--------|
+| `leon.py` | Replaced flat `INVEST_ECONOMY_KEYWORDS` (incl. Vietnamese) with `INVEST_GDELT_REGEX` dict; `filter_invest_keyword_candidates()` uses `invest_market_relevance_score() >= 2` |
+| `sql/gdelt_invest_pulse.sql` | Aligned signal regex (word boundaries for FED/OIL/BOND/AI); added `market_relevance_score`; `WHERE market_relevance_score >= 2` (not `primary_sector != 'Khác'`); `affected_assets` only from commodity flags + theme |
+| Note | Vietnamese reserved for editorial layer only — not in GDELT/BQ filter |
+
+**Verify:**
+
+```bash
+python -c "from leon import filter_invest_keyword_candidates, invest_market_relevance_score, _invest_signal_flags, _invest_text_blob; ev={'title':'Fed raises rates','gkg_organizations':''}; b=_invest_text_blob(ev); f=_invest_signal_flags(b); print(invest_market_relevance_score(f,b))"
+python leon.py --channel invest --dry-run
+python scripts/build_invest_world_from_pulse.py --no-gemini
+```
