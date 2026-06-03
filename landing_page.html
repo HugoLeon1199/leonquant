@@ -878,6 +878,15 @@
       letter-spacing: 0.08em;
       color: #ef4444;
       text-transform: uppercase;
+      animation: pulse-live-badge-blink 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-live-badge-blink {
+      0%, 100% { opacity: 1; filter: none; }
+      50% { opacity: 0.45; filter: brightness(1.15); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pulse-title-live { animation: none; }
+      .pulse-sources-ticker-scroll { animation: none; }
     }
     .pulse-event-links-row {
       display: flex;
@@ -1994,12 +2003,11 @@
       applyViewMode(v);
       if (!options.skipHistory) syncHistoryForView(v, Boolean(options.replace));
       if (v === "pulse") {
-        if (hasEmbeddedPulse() && !options.forceReload) {
-          applyViewMode("pulse");
-          cachedPulsePayload = { __embedded: true };
-          return;
-        }
         if (cachedPulsePayload && !options.forceReload) {
+          if (cachedPulsePayload.__embedded) {
+            applyViewMode("pulse");
+            return;
+          }
           renderPulsePage(cachedPulsePayload);
           return;
         }
@@ -2263,19 +2271,19 @@
     }
 
     async function loadPulseContent() {
+      const data = await fetchPulseFeed();
+      if (data) {
+        cachedPulsePayload = data;
+        renderPulsePage(data);
+        return;
+      }
       if (hasEmbeddedPulse()) {
         applyViewMode("pulse");
         cachedPulsePayload = { __embedded: true };
         return;
       }
-      const data = await fetchPulseFeed();
-      if (!data) {
-        cachedPulsePayload = { events: [] };
-        renderPulsePage(cachedPulsePayload);
-        return;
-      }
-      cachedPulsePayload = data;
-      renderPulsePage(data);
+      cachedPulsePayload = { events: [] };
+      renderPulsePage(cachedPulsePayload);
     }
 
     const INVEST_MACRO_VI = {

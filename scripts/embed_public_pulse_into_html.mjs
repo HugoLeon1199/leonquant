@@ -48,6 +48,49 @@ function pulseSourceLabel(url) {
   }
 }
 
+function normalizePulseSources(raw) {
+  if (!Array.isArray(raw)) return [];
+  const out = [];
+  for (const item of raw) {
+    if (!item) continue;
+    if (typeof item === "string") {
+      const u = normalizeExternalUrl(item);
+      if (u) out.push({ url: u, name: pulseSourceLabel(u) });
+      continue;
+    }
+    const u = normalizeExternalUrl(item.url);
+    if (u) {
+      const name = String(item.name || "").trim() || pulseSourceLabel(u);
+      out.push({ url: u, name });
+    }
+  }
+  return out;
+}
+
+function buildPulseSourcesTicker(sources) {
+  let list = normalizePulseSources(sources);
+  if (!list.length) return "";
+  const base = list.slice();
+  while (list.length < 6) list = list.concat(base);
+  const rows = list
+    .map((src) => {
+      const label = escapeHtml(src.name || pulseSourceLabel(src.url));
+      return `<li><a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
+    })
+    .join("");
+  return `<div class="pulse-event-sources-block">
+        <p class="pulse-event-sources-head">Nguồn</p>
+        <div class="pulse-sources-ticker">
+          <div class="pulse-sources-ticker-viewport">
+            <div class="pulse-sources-ticker-scroll">
+              <ul class="pulse-sources-ticker-list">${rows}</ul>
+              <ul class="pulse-sources-ticker-list" aria-hidden="true">${rows}</ul>
+            </div>
+          </div>
+        </div>
+      </div>`;
+}
+
 function buildPulseHtml(data) {
   const events = Array.isArray(data.events) ? data.events : [];
   if (!events.length) {
@@ -72,18 +115,7 @@ function buildPulseHtml(data) {
     h += `<p class="pulse-event-coverage">Độ phủ: <strong>${escapeHtml(na)}</strong> bài · <strong>${escapeHtml(sc)}</strong> nguồn`;
     if (tone) h += ` · ${escapeHtml(tone)}`;
     h += `</p>`;
-    const sources = (Array.isArray(ev.sources) ? ev.sources : [])
-      .map((u) => normalizeExternalUrl(u))
-      .filter(Boolean)
-      .slice(0, 8);
-    if (sources.length) {
-      h += `<ul class="link-rows pulse-embed-sources">`;
-      for (const u of sources) {
-        const label = escapeHtml(pulseSourceLabel(u));
-        h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
-      }
-      h += `</ul>`;
-    }
+    h += buildPulseSourcesTicker(ev.sources);
     h += `</li>`;
   }
   h += `</ol></div></article>`;
