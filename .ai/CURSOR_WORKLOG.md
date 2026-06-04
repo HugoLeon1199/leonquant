@@ -159,3 +159,15 @@ python leon.py --channel invest
 ```
 
 Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`, `topics`, `items` (+ stats in JSON export).
+
+## 2026-06-04 — Invest Gemini topics: editorial labels + full item fields
+
+**Scope:** `gemini_invest_world_topics`, merge/sanitize, `_gemini_curate_invest_ids`, `gemini_invest_dedupe_and_curate`, minimal `landing_page.html` render (invest tab only).
+
+| Change | Detail |
+|--------|--------|
+| Topics prompt | Vietnamese editorial topic names; required `investment_angle`, `affected_assets`, `sentiment_label`; anti-filler brief |
+| Merge | `_merge_invest_topic_item()` preserves all public fields; skip items without `investment_angle` |
+| Topic names | `_normalize_invest_topic_display_name()` maps MACRO/TRADE/… → Vietnamese labels |
+| Public label | `feed_label` from JSON; UI sub-line no longer hardcodes GDELT |
+| Frontend | `buildInvestWorldHtml` shows angle, assets, sentiment, source_count |

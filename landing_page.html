@@ -1535,7 +1535,7 @@
           <article id="invest-desk" class="digest-report">
             <header class="digest-report-head invest-desk-page-head">
               <h2>Chuyên mục kinh tế đầu tư</h2>
-              <p class="invest-channel-lead">Thế giới: tin quan trọng theo đề mục (GDELT + từ khóa kinh tế). Việt Nam: phân tích 48h — trung lập, không khuyến nghị giao dịch.</p>
+              <p class="invest-channel-lead">Thế giới: tin quan trọng theo đề mục kinh tế–thị trường. Việt Nam: phân tích 48h — trung lập, không khuyến nghị giao dịch.</p>
             </header>
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"></div>
@@ -2496,7 +2496,9 @@
       let h = `<section class="invest-desk-section invest-desk-section--world">`;
       h += `<header class="invest-desk-head">`;
       h += `<h3 class="invest-desk-title">Tin thế giới quan trọng</h3>`;
-      h += `<p class="invest-desk-sub">Tóm tắt nhanh + chi tiết theo đề mục · GDELT kinh tế–thị trường</p>`;
+      const feedLabel = String(data?.feed_label || "").trim()
+        || "Theo đề mục · các diễn biến kinh tế - thị trường đáng chú ý";
+      h += `<p class="invest-desk-sub">Tóm tắt nhanh + chi tiết theo đề mục · ${escapeHtml(feedLabel)}</p>`;
       if (updated) h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)}</p>`;
       h += `</header>`;
       const brief = String(data?.brief || "").trim();
@@ -2529,9 +2531,27 @@
             if (it.summary) {
               h += `<p class="invest-world-item-summary">${escapeHtml(it.summary)}</p>`;
             }
+            const angle = String(it.investment_angle || "").trim();
+            if (angle) {
+              h += `<p class="invest-vn-lens"><strong>Góc theo dõi:</strong> ${escapeHtml(angle)}</p>`;
+            }
+            const assets = (Array.isArray(it.affected_assets) ? it.affected_assets : [])
+              .map((a) => String(a || "").trim())
+              .filter(Boolean);
+            if (assets.length) {
+              h += `<p class="invest-world-item-meta"><strong>Tài sản liên quan:</strong> ${escapeHtml(assets.join(" · "))}</p>`;
+            }
+            const sentiment = String(it.sentiment_label || "").trim();
+            if (sentiment) {
+              h += `<p class="invest-world-item-meta"><strong>Sắc thái:</strong> ${escapeHtml(sentiment)}</p>`;
+            }
             const n = Number(it.num_articles) || 0;
-            if (n > 0) {
-              h += `<p class="invest-world-item-meta">${escapeHtml(n)} bài báo nhắc tới</p>`;
+            const sc = Number(it.source_count) || 0;
+            if (n > 0 || sc > 0) {
+              const bits = [];
+              if (n > 0) bits.push(`${n} bài báo`);
+              if (sc > 0) bits.push(`${sc} nguồn tham khảo`);
+              h += `<p class="invest-world-item-meta"><strong>Mức độ chú ý:</strong> ${escapeHtml(bits.join(" · "))}</p>`;
             }
             const urls = (Array.isArray(it.source_urls) ? it.source_urls : []).filter((u) =>
               String(u).startsWith("http"),

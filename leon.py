@@ -1794,12 +1794,96 @@ def _sanitize_invest_public_text(text: str) -> str:
     return " ".join(s.split())
 
 
+def _sanitize_invest_topic_name(text: str) -> str:
+    """Topic titles may contain 'AI' — do not strip that word."""
+    s = re.sub(
+        r"\b(GDELT|keyword|keywords|từ khóa|crawler|pipeline|semantic|judge|Gemini)\b",
+        "",
+        str(text or ""),
+        flags=re.IGNORECASE,
+    )
+    return " ".join(s.split())
+
+
+def _normalize_invest_topic_display_name(name: str) -> str:
+    """Map raw codes (MACRO/TRADE) to Vietnamese editorial labels."""
+    raw = str(name or "").strip()
+    if not raw:
+        return ""
+    key = raw.upper().split("|")[0].strip()
+    editorial = {
+        "MACRO": "Lãi suất & USD",
+        "TRADE": "Thương mại & Chuỗi cung ứng",
+        "TECH": "Công nghệ & AI",
+        "EQUITY": "Chứng khoán & Chỉ số",
+        "CRYPTO": "Crypto & Tài sản số",
+        "BANKS": "Ngân hàng & Tín dụng",
+        "COMMODITY": "Hàng hóa & Năng lượng",
+        "CHINA": "Trung Quốc & Châu Á",
+        "ASIA": "Trung Quốc & Châu Á",
+    }
+    if key in editorial:
+        return editorial[key]
+    if re.fullmatch(r"[A-Z][A-Z0-9_|&\s-]{0,24}", raw) and "|" in raw:
+        return editorial.get(key, raw)
+    low = raw.lower()
+    if "&" in raw and len(raw) < 32:
+        if "công nghệ" in low or "cong nghe" in low or low.startswith("tech"):
+            return "Công nghệ & AI"
+        if "thương mại" in low or low.startswith("trade"):
+            return "Thương mại & Chuỗi cung ứng"
+        if "crypto" in low:
+            return "Crypto & Tài sản số"
+        if "chứng khoán" in low or "equity" in low:
+            return "Chứng khoán & Chỉ số"
+        if "lãi suất" in low or "macro" in low:
+            return "Lãi suất & USD"
+    return raw
+
+
+def _merge_invest_topic_item(
+    it: dict[str, Any],
+    merged: dict[str, Any],
+    *,
+    require_angle: bool,
+) -> dict[str, Any] | None:
+    title = str(it.get("title") or merged.get("title") or "").strip()
+    summary = str(it.get("summary") or merged.get("summary") or "").strip()
+    if not title:
+        return None
+    angle = str(it.get("investment_angle") or merged.get("investment_angle") or "").strip()
+    if require_angle and not angle:
+        return None
+    raw_assets = it.get("affected_assets") or merged.get("affected_assets") or []
+    assets: list[str] = []
+    if isinstance(raw_assets, list):
+        assets = [str(a).strip() for a in raw_assets if str(a).strip()][:8]
+    elif raw_assets:
+        assets = [str(raw_assets).strip()]
+    sentiment = str(it.get("sentiment_label") or merged.get("sentiment_label") or "").strip()
+    if len(summary) > 360:
+        summary = summary[:357].rstrip() + "…"
+    if len(angle) > 220:
+        angle = angle[:217].rstrip() + "…"
+    return {
+        "global_event_id": str(it.get("global_event_id") or merged.get("global_event_id") or ""),
+        "title": title,
+        "summary": summary,
+        "investment_angle": angle,
+        "affected_assets": assets,
+        "sentiment_label": sentiment,
+        "num_articles": int(merged.get("num_articles") or it.get("num_articles") or 0),
+        "source_count": int(merged.get("source_count") or it.get("source_count") or 0),
+        "source_urls": list(merged.get("source_urls") or it.get("source_urls") or []),
+    }
+
+
 def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     for tp in topics:
         if not isinstance(tp, dict):
             continue
-        name = _sanitize_invest_public_text(str(tp.get("name") or ""))
+        name = _sanitize_invest_topic_name(_normalize_invest_topic_display_name(str(tp.get("name") or "")))
         if not name:
             continue
         items_out: list[dict[str, Any]] = []
@@ -1808,9 +1892,25 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
                 continue
             title = _sanitize_invest_public_text(str(it.get("title") or ""))
             summary = _sanitize_invest_public_text(str(it.get("summary") or ""))
-            if not title:
+            angle = _sanitize_invest_public_text(str(it.get("investment_angle") or ""))
+            sentiment = _sanitize_invest_public_text(str(it.get("sentiment_label") or ""))
+            if not title or not angle:
                 continue
-            items_out.append({**it, "title": title, "summary": summary})
+            assets = [
+                _sanitize_invest_public_text(str(a))
+                for a in (it.get("affected_assets") or [])
+                if str(a).strip()
+            ]
+            items_out.append(
+                {
+                    **it,
+                    "title": title,
+                    "summary": summary,
+                    "investment_angle": angle,
+                    "sentiment_label": sentiment,
+                    "affected_assets": assets,
+                }
+            )
         if items_out:
             out.append({"name": name, "items": items_out})
     return out
@@ -1850,36 +1950,86 @@ def gemini_invest_world_topics(
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn biên tập mục "Tin thế giới quan trọng" (kinh tế–đầu tư) — đã qua lọc semantic judge.
+Bạn là biên tập viên trưởng mục "Kinh tế - Đầu tư thế giới" của LeonQuant.
 
-Từ danh sách (tối đa {INVEST_WORLD_TOPICS_MAX} đề mục, mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin):
-- Title cụ thể (≤18 từ), summary 2–4 câu (≤80 từ), bám nội dung đầu vào.
-- Mỗi item phải có góc đầu tư rõ; không filler.
+Nhiệm vụ:
+Từ danh sách events đã qua vòng lọc đầu tư, hãy chọn và nhóm các tin xứng đáng nhất cho mục "Tin thế giới quan trọng".
 
-TUYỆT ĐỐI KHÔNG:
-- brief/summary chung chung kiểu "các diễn biến kinh tế đang chịu áp lực", "thị trường biến động"
-- "Sự kiện thuộc nhóm…", "Nhấp nguồn…", crime/local/PR generic không có investment angle
-- Điền đủ số lượng bằng tin chất lượng thấp — ít item hơn được
+Mục tiêu không phải là liệt kê nhiều tin.
+Mục tiêu là chọn ít nhưng sắc, mỗi tin phải giúp người đọc hiểu:
+- Chuyện gì xảy ra.
+- Vì sao nó đáng chú ý với kinh tế/thị trường.
+- Tài sản, ngành hoặc kỳ vọng nào cần theo dõi.
 
-brief: 2–3 câu (≤90 từ), chỉ nêu chủ đề cụ thể từ các tin đã chọn (Fed, BTC, chip, dầu, thuế…).
-global_event_id phải khớp đầu vào. Không khuyến nghị mua/bán. Không nhắc GDELT/crawler/pipeline.
+Ưu tiên các nhóm:
+1. Crypto & Tài sản số: Bitcoin, Ethereum, ETF, stablecoin, blockchain, crypto exchange.
+2. Chứng khoán & Chỉ số: Nasdaq, S&P, Dow, earnings, futures, selloff, rally, IPO.
+3. Lãi suất & USD: Fed, ECB, PBOC, rates, Treasury yields, USD, yuan.
+4. Hàng hóa & Năng lượng: oil, gas, gold, copper, lithium, uranium, OPEC, Hormuz.
+5. Công nghệ & AI: AI agents, chips, GPU, data centers, cloud, quantum, cybersecurity.
+6. Trung Quốc & Châu Á: PBOC, yuan, property, stimulus, exports, EV, chip restrictions.
+7. Ngân hàng & Tín dụng: credit risk, liquidity, default, bankruptcy, major banks.
+8. Thương mại & Chuỗi cung ứng: export controls, tariffs, sanctions, shipping routes.
 
-Trả về JSON:
+Loại hoặc không đưa lên top:
+- crime/court/local police/murder/trial nếu không có market impact.
+- school/exam/local education.
+- local accident/factory fire nếu không có supply-chain/commodity impact rõ.
+- PR doanh nghiệp nhỏ.
+- tin chỉ có nội dung "company launches service" nhưng không có tác động ngành lớn.
+- generic macro item không nói rõ sự kiện.
+- tin không trả lời được "tài sản/ngành nào bị ảnh hưởng?"
+
+Yêu cầu viết mỗi item:
+- Topic name phải là tiếng Việt editorial, ví dụ:
+  "Crypto & Tài sản số"
+  "Chứng khoán & Chỉ số"
+  "Lãi suất & USD"
+  "Hàng hóa & Năng lượng"
+  "Công nghệ & AI"
+  "Trung Quốc & Châu Á"
+  "Ngân hàng & Tín dụng"
+  "Thương mại & Chuỗi cung ứng"
+- Không dùng topic name thô như MACRO, TRADE, TECH, EQUITY.
+- Title: cụ thể, có actor + event + điểm đáng chú ý. Không quá 24 từ.
+- Summary: 2-4 câu. Phải nói rõ chuyện gì xảy ra và vì sao quan trọng.
+- Investment angle: 1 câu sắc, nói rõ tài sản/ngành/kỳ vọng thị trường nào cần theo dõi.
+- Affected assets: 2-5 tài sản/ngành liên quan.
+- Sentiment label: trung tính, hơi tiêu cực, tiêu cực, hơi tích cực, tích cực, mixed.
+- Không khuyến nghị mua/bán.
+- Không bịa tác động nếu nguồn không nêu và logic không rõ.
+- Không viết chung chung kiểu "các diễn biến kinh tế đang chịu áp lực".
+- Không viết "sự kiện thuộc nhóm... nhấp nguồn để đọc".
+- Không nhắc AI, GDELT, keyword, crawler, pipeline, semantic judge.
+
+Format output JSON hợp lệ, không markdown:
+
 {{
-  "brief": "...",
+  "brief": "2-3 câu tổng quan sắc về những lực chính đang chi phối thị trường: ví dụ rates/USD, crypto, energy, AI/chip, China, trade. Không chung chung.",
   "topics": [
     {{
-      "name": "CRYPTO|EQUITY|MACRO|...",
+      "name": "Crypto & Tài sản số",
       "items": [
         {{
           "global_event_id": "...",
           "title": "...",
-          "summary": "2-4 câu"
+          "summary": "...",
+          "investment_angle": "...",
+          "affected_assets": ["Bitcoin", "Ethereum", "Crypto stocks", "Nasdaq"],
+          "sentiment_label": "Hơi tiêu cực"
         }}
       ]
     }}
   ]
 }}
+
+Quy tắc chọn:
+- Tối đa {INVEST_WORLD_TOPICS_MAX} topics.
+- Mỗi topic tối đa {INVEST_ITEMS_PER_TOPIC} items.
+- Nếu không đủ tin tốt, trả ít item nhưng chất lượng cao.
+- Không dùng filler.
+- Không bắt buộc phải có đủ mọi topic.
+- Nếu một topic chỉ có PR/rác/generic, bỏ topic đó.
 
 Sự kiện:
 {chr(10).join(lines)}
@@ -1898,7 +2048,7 @@ Sự kiện:
         for tp in topics[:INVEST_WORLD_TOPICS_MAX]:
             if not isinstance(tp, dict):
                 continue
-            name = str(tp.get("name") or "").strip()
+            name = _normalize_invest_topic_display_name(str(tp.get("name") or ""))
             if not name:
                 continue
             items_out: list[dict[str, Any]] = []
@@ -1908,21 +2058,13 @@ Sự kiện:
                 eid = str(it.get("global_event_id") or "").strip()
                 base = by_id.get(eid)
                 merged = _topic_item_from_event(base) if base else {}
-                title = str(it.get("title") or merged.get("title") or "").strip()
-                summary = str(it.get("summary") or merged.get("summary") or "").strip()
-                if not title:
-                    continue
-                if len(summary) > 360:
-                    summary = summary[:357].rstrip() + "…"
-                items_out.append(
-                    {
-                        "global_event_id": eid,
-                        "title": title,
-                        "summary": summary,
-                        "num_articles": merged.get("num_articles", 0),
-                        "source_urls": merged.get("source_urls") or [],
-                    }
+                row = _merge_invest_topic_item(
+                    {**it, "global_event_id": eid},
+                    merged,
+                    require_angle=True,
                 )
+                if row:
+                    items_out.append(row)
             if items_out:
                 out.append({"name": name, "items": items_out})
         if not out:
@@ -1940,35 +2082,35 @@ Sự kiện:
 def _fallback_invest_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Gom theo tag thị trường khi Gemini lỗi."""
     buckets: dict[str, list[dict[str, Any]]] = {
-        "Crypto": [],
-        "Chứng khoán": [],
-        "Vĩ mô & Lãi suất": [],
+        "Crypto & Tài sản số": [],
+        "Chứng khoán & Chỉ số": [],
+        "Lãi suất & USD": [],
         "Ngân hàng & Tín dụng": [],
         "Hàng hóa & Năng lượng": [],
-        "Thương mại & Trừng phạt": [],
-        "Công nghệ & Chip": [],
+        "Thương mại & Chuỗi cung ứng": [],
+        "Công nghệ & AI": [],
     }
     order = list(buckets.keys())
     for ev in sorted(events, key=_invest_sort_key, reverse=True):
         blob = _invest_text_blob(ev)
         flags = _invest_signal_flags(blob)
         item = _topic_item_from_event(ev)
-        if not item.get("title"):
+        if not item.get("title") or not item.get("investment_angle"):
             continue
-        if flags.get("is_crypto") and len(buckets["Crypto"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Crypto"].append(item)
-        elif flags.get("is_equity_market") and len(buckets["Chứng khoán"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Chứng khoán"].append(item)
-        elif flags.get("is_macro") and len(buckets["Vĩ mô & Lãi suất"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Vĩ mô & Lãi suất"].append(item)
+        if flags.get("is_crypto") and len(buckets["Crypto & Tài sản số"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Crypto & Tài sản số"].append(item)
+        elif flags.get("is_equity_market") and len(buckets["Chứng khoán & Chỉ số"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Chứng khoán & Chỉ số"].append(item)
+        elif flags.get("is_macro") and len(buckets["Lãi suất & USD"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Lãi suất & USD"].append(item)
         elif flags.get("is_credit_banking") and len(buckets["Ngân hàng & Tín dụng"]) < INVEST_ITEMS_PER_TOPIC:
             buckets["Ngân hàng & Tín dụng"].append(item)
         elif flags.get("is_commodity_energy") and len(buckets["Hàng hóa & Năng lượng"]) < INVEST_ITEMS_PER_TOPIC:
             buckets["Hàng hóa & Năng lượng"].append(item)
-        elif flags.get("is_trade_supply") and len(buckets["Thương mại & Trừng phạt"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Thương mại & Trừng phạt"].append(item)
-        elif flags.get("is_tech_ai_chip") and len(buckets["Công nghệ & Chip"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Công nghệ & Chip"].append(item)
+        elif flags.get("is_trade_supply") and len(buckets["Thương mại & Chuỗi cung ứng"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Thương mại & Chuỗi cung ứng"].append(item)
+        elif flags.get("is_tech_ai_chip") and len(buckets["Công nghệ & AI"]) < INVEST_ITEMS_PER_TOPIC:
+            buckets["Công nghệ & AI"].append(item)
     out: list[dict[str, Any]] = []
     for name in order:
         if buckets[name]:
@@ -2030,7 +2172,13 @@ Nếu quá nhiều tin đạt chuẩn, giữ tối đa {max_events} tin có tác
 GIỮ tin nếu ít nhất một điều đúng:
 (a) Có tác động kinh tế/đầu tư/thị trường rõ (vĩ mô, chính sách, lãi suất, lạm phát, ngân hàng, CK, crypto,
     vàng/dầu/khí, thuế, thương mại, chuỗi cung ứng, doanh nghiệp lớn, bán dẫn/AI có góc đầu tư), HOẶC
-(b) Mô tả đúng bối cảnh/tình hình kinh tế vĩ mô (kể cả khi bài phân tích, không chỉ tin tức sốc).
+(b) Mô tả đúng bối cảnh/tình hình kinh tế vĩ mô VÀ có liên hệ rõ tới lãi suất, lạm phát, USD, ngân sách,
+    nợ công, tăng trưởng, thị trường vốn hoặc chính sách tài khóa/tiền tệ.
+
+Không giữ event chỉ vì mô tả bối cảnh kinh tế chung.
+Chỉ giữ nếu event có investment_angle cụ thể: tài sản, ngành, chính sách, chuỗi cung ứng, công nghệ chiến lược
+hoặc kỳ vọng thị trường nào bị ảnh hưởng.
+Nếu không thể viết một câu investment_angle rõ ràng, bỏ event đó.
 
 BỎ tin chỉ là: scandal cá nhân, tội phạm địa phương, lễ tang, giải trí, shooting/vụ án
 không liên quan thị trường — dù đang viral.
@@ -2330,6 +2478,11 @@ BỎ dù viral:
 - Tội phạm đời sống, scandal cá nhân, biểu tình cục bộ không hệ quả kinh tế rõ
 - Thể thao/giải trí/tabloid (World Cup chỉ giữ nếu bài nói rõ tác động kinh tế host/sponsor/thị trường)
 - Tin pháp lý/tòa án không liên thị trường hoặc vĩ mô
+
+Không giữ event chỉ vì mô tả bối cảnh kinh tế chung.
+Chỉ giữ nếu event có investment_angle cụ thể: tài sản, ngành, chính sách, chuỗi cung ứng, công nghệ chiến lược
+hoặc kỳ vọng thị trường nào bị ảnh hưởng.
+Nếu không thể viết một câu investment_angle rõ ràng, bỏ event đó.
 
 Không nhắc AI, GDELT, crawler, pipeline.
 
