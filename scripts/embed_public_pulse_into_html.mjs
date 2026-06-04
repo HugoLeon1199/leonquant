@@ -122,15 +122,28 @@ function buildPulseHtml(data) {
   return h;
 }
 
-function replaceEmptyDiv(html, id, className, inner) {
-  const pattern = `<div\\s+id="${id}"\\s+class="${className}"\\s*>\\s*</div>`;
-  if (!new RegExp(pattern, "i").test(html)) {
-    console.error(`Placeholder not found for #${id}`);
+function replaceBriefBlock(html, id, className, inner, nextId = "") {
+  const emptyPattern = `<div\\s+id="${id}"\\s+class="${className}"\\s*>\\s*</div>`;
+  if (new RegExp(emptyPattern, "i").test(html)) {
+    return html.replace(
+      new RegExp(emptyPattern, "gi"),
+      `<div id="${id}" class="${className}">${inner}</div>`,
+    );
+  }
+  const boundary = nextId
+    ? `(?=\\s*<div\\s+id="${nextId}")`
+    : `(?=\\s*<div\\s+id="section)`;
+  const filled = new RegExp(
+    `<div\\s+id="${id}"\\s+class="${className}"[^>]*>[\\s\\S]*?${boundary}`,
+    "i",
+  );
+  if (!filled.test(html)) {
+    console.error(`Block not found for #${id}`);
     process.exit(1);
   }
   return html.replace(
-    new RegExp(pattern, "gi"),
-    `<div id="${id}" class="${className}">${inner}</div>`,
+    filled,
+    `<div id="${id}" class="${className}">${inner}</div>\n        `,
   );
 }
 
@@ -144,7 +157,7 @@ function main() {
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
   const inner = buildPulseHtml(data);
   let html = fs.readFileSync(pagePath, "utf8");
-  html = replaceEmptyDiv(html, "sectionPulse", "brief-block", inner);
+  html = replaceBriefBlock(html, "sectionPulse", "brief-block", inner, "sectionInvest");
   html = html.replace(
     /<section id="pulse"([^>]*)>/i,
     '<section id="pulse"$1 data-embedded-pulse="1">',
