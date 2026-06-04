@@ -1,6 +1,7 @@
 import argparse
 import copy
 import json
+import sys
 import re
 import unicodedata
 from difflib import SequenceMatcher
@@ -1401,6 +1402,28 @@ def _is_http_url(url: str) -> bool:
     return u.startswith("http://") or u.startswith("https://")
 
 
+def _is_plausible_article_url(url: str) -> bool:
+    """Bỏ URL placeholder Gemini (slug ngắn, không có id bài)."""
+    u = str(url or "").strip()
+    if not _is_http_url(u):
+        return False
+    try:
+        p = urlparse(u)
+    except ValueError:
+        return False
+    path = (p.path or "").strip("/")
+    if not path:
+        return False
+    host = (p.hostname or "").lower()
+    if re.search(r"\d{6,}|liveblog|\.htm|/20\d{2}/", path):
+        return True
+    if host.endswith("baochinhphu.vn") or host.endswith("dantri.com.vn"):
+        return len(path) >= 12
+    if host in {"cnbc.com", "coindesk.com", "wired.com", "tuoitre.vn"}:
+        return len(path) >= 28 or path.count("/") >= 2
+    return len(path) >= 16
+
+
 def _pick_sub_topic_url(
     headline: str,
     stated: list[str],
@@ -1412,9 +1435,10 @@ def _pick_sub_topic_url(
 ) -> str:
     """Ưu tiên URL Gemini; không bỏ link chỉ vì lệch sector trong matcher."""
     for u in stated:
-        if not _is_http_url(u) or (used_urls is not None and u in used_urls):
+        s = str(u or "").strip()
+        if not _is_plausible_article_url(s) or (used_urls is not None and s in used_urls):
             continue
-        return u.strip()
+        return s
     return _resolve_url_for_headline(
         headline,
         by_url=by_url,
@@ -1422,6 +1446,123 @@ def _pick_sub_topic_url(
         sector_code=sector_code,
         boost_urls=boost_urls,
     )
+
+
+def _headline_match_key(text: str) -> str:
+    return re.sub(r"\s+", " ", str(text or "")).strip().lower()[:140]
+
+
+def _digest_boost_urls(summary: dict[str, Any]) -> list[str]:
+    urls: list[str] = []
+    seen: set[str] = set()
+    for sec in summary.get("sectors") or []:
+        if not isinstance(sec, dict):
+            continue
+        for row in sec.get("sub_topics") or []:
+            if not isinstance(row, dict):
+                continue
+            for u in row.get("source_urls") or []:
+                s = str(u or "").strip()
+                if _is_http_url(s) and s not in seen:
+                    seen.add(s)
+                    urls.append(s)
+    return urls
+
+
+def _resolve_notable_url_from_digest(
+    title: str,
+    summary: dict[str, Any],
+) -> str:
+    """Lấy URL thật từ sub_topics khi notable chỉ có link placeholder."""
+    key = _headline_match_key(title)
+    if not key:
+        return ""
+    best_u = ""
+    best_sc = 0.0
+    for sec in summary.get("sectors") or []:
+        if not isinstance(sec, dict):
+            continue
+        for row in sec.get("sub_topics") or []:
+            if not isinstance(row, dict):
+                continue
+            hl = _headline_match_key(str(row.get("headline") or ""))
+            if not hl:
+                continue
+            sc = 1.0 if hl == key else SequenceMatcher(None, hl, key).ratio()
+            if sc < 0.72:
+                continue
+            for u in row.get("source_urls") or []:
+                s = str(u or "").strip()
+                if _is_plausible_article_url(s) and sc >= best_sc:
+                    best_sc, best_u = sc, s
+    return best_u
+
+
+def _enrich_notable_articles_for_public(
+    notable: list[dict[str, Any]],
+    *,
+    raw_summary: dict[str, Any],
+    all_articles: list[dict[str, Any]],
+    fetch_images: bool,
+    metadata_timeout: int,
+) -> list[dict[str, str]]:
+    """Resolve URL crawl + og:image cho Tin đáng chú ý (tối đa ~12 mục)."""
+    by_url: dict[str, dict[str, Any]] = {}
+    for art in all_articles:
+        u = str(art.get("url") or "").strip()
+        if u and u not in by_url:
+            by_url[u] = art
+    boost = _digest_boost_urls(raw_summary)
+    image_cache: dict[str, str] = {}
+    out: list[dict[str, str]] = []
+    for a in notable:
+        if not isinstance(a, dict):
+            continue
+        title = str(a.get("title") or "").strip()
+        u = str(a.get("url") or "").strip()
+        art = by_url.get(u) if u and _is_plausible_article_url(u) else None
+        from_digest = _resolve_notable_url_from_digest(title, raw_summary)
+        if from_digest:
+            u = from_digest
+            art = by_url.get(u) or art
+        elif not art:
+            resolved = _resolve_url_for_headline(
+                title,
+                by_url=by_url,
+                boost_urls=boost,
+            )
+            if resolved:
+                u = resolved
+                art = by_url.get(u)
+        img = str(art.get("image_url") or "").strip() if art else ""
+        if not img and fetch_images and u and _is_http_url(u):
+            if u not in image_cache:
+                meta = fetch_metadata(u, metadata_timeout)
+                image_cache[u] = str(meta.get("image_url") or "").strip()
+                if image_cache[u]:
+                    print(f"Notable image: {_url_hostname(u)}", file=sys.stderr)
+            img = image_cache.get(u) or ""
+        if not img and art:
+            blob = str(art.get("summary") or art.get("content_for_ai") or "")
+            img = extract_image_from_plaintext(blob)
+        host = _url_hostname(u)
+        src = str(a.get("source") or "").strip() or (
+            str(art.get("source") or "").strip() if art else ""
+        ) or host
+        row_out: dict[str, str] = {
+            "title": title,
+            "source": src,
+            "url": u,
+            "host": host,
+            "whyNotable": str(a.get("why_notable", "") or ""),
+            "imageUrl": img,
+        }
+        tier = str(a.get("priority_tier") or "").strip()
+        if tier:
+            row_out["priorityTier"] = tier
+        if u:
+            out.append(row_out)
+    return out[:DIGEST_MAX_NOTABLE_ARTICLES]
 
 
 def _resolve_url_for_headline(
@@ -1751,6 +1892,7 @@ def build_digest_web_extras(
             "source": str(a.get("source") or "").strip(),
             "publishedAt": str(a.get("published_at") or "").strip(),
             "host": _url_hostname(str(a.get("url") or "")),
+            "image_url": str(a.get("image_url") or "").strip(),
         }
         for a in all_articles
         if str(a.get("url") or "").strip()
@@ -2654,6 +2796,9 @@ def build_payload(
     final_payload: dict[str, Any],
     enriched_payload: dict[str, Any],
     all_articles: list[dict[str, Any]],
+    *,
+    fetch_notable_images: bool = True,
+    metadata_timeout: int = 10,
 ) -> dict[str, Any]:
     raw_summary = final_payload.get("summary", {})
     if not isinstance(raw_summary, dict):
@@ -2739,30 +2884,19 @@ def build_payload(
             payload["digestVietnamBullets"] = vn_bullets
         notable = digest_pub.get("notable_articles")
         if isinstance(notable, list) and notable:
-            by_url = {
-                str(art.get("url") or "").strip(): art
-                for art in all_articles
-                if str(art.get("url") or "").strip()
-            }
-            notable_out: list[dict[str, str]] = []
-            for a in notable:
-                if not isinstance(a, dict):
-                    continue
-                u = str(a.get("url") or "").strip()
-                art = by_url.get(u) if u else None
-                img = str(art.get("image_url") or "").strip() if art else ""
-                row_out: dict[str, str] = {
-                    "title": str(a.get("title", "") or ""),
-                    "source": str(a.get("source", "") or ""),
-                    "url": u,
-                    "whyNotable": str(a.get("why_notable", "") or ""),
-                    "imageUrl": img,
-                }
-                tier = str(a.get("priority_tier") or "").strip()
-                if tier:
-                    row_out["priorityTier"] = tier
-                notable_out.append(row_out)
-            payload["digestNotableArticles"] = notable_out[:DIGEST_MAX_NOTABLE_ARTICLES]
+            notable_out = _enrich_notable_articles_for_public(
+                notable,
+                raw_summary=raw_summary,
+                all_articles=all_articles,
+                fetch_images=fetch_notable_images,
+                metadata_timeout=metadata_timeout,
+            )
+            payload["digestNotableArticles"] = notable_out
+            n_img = sum(1 for n in notable_out if str(n.get("imageUrl") or "").strip())
+            print(
+                f"Digest notable: {len(notable_out)} item(s), {n_img} with thumbnail.",
+                file=sys.stderr,
+            )
         extras = build_digest_web_extras(raw_summary, all_articles)
         payload.update(extras)
         n_sectors = len(extras.get("digestSectors") or [])
@@ -2797,6 +2931,11 @@ def main() -> int:
         help="Seconds per URL when fetching og:image/description",
     )
     parser.add_argument("--skip-images", action="store_true", help="Do not fetch og metadata (faster)")
+    parser.add_argument(
+        "--skip-notable-images",
+        action="store_true",
+        help="Do not fetch og:image for Tin đáng chú ý (default: always fetch ~12 URLs)",
+    )
     args = parser.parse_args()
 
     final_path = Path(args.digest_input)
@@ -2811,7 +2950,13 @@ def main() -> int:
         not args.skip_images,
         args.metadata_timeout,
     )
-    payload = build_payload(final_payload, enriched_payload, all_cards)
+    payload = build_payload(
+        final_payload,
+        enriched_payload,
+        all_cards,
+        fetch_notable_images=not args.skip_notable_images,
+        metadata_timeout=args.metadata_timeout,
+    )
     Path(args.output).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"Done: {len(all_cards)} article cards -> {args.output}")
@@ -2824,6 +2969,7 @@ def rebuild_content_from_digest(
     output_path: Path,
     *,
     fetch_images: bool = True,
+    fetch_notable_images: bool = True,
     metadata_timeout: int = 6,
 ) -> int:
     """``gemini_digest_summary.json`` + ``news_for_ai_clean.json`` → ``content.json``."""
@@ -2838,7 +2984,13 @@ def rebuild_content_from_digest(
         fetch_images,
         metadata_timeout,
     )
-    payload = build_payload(final_payload, enriched_payload, all_cards)
+    payload = build_payload(
+        final_payload,
+        enriched_payload,
+        all_cards,
+        fetch_notable_images=fetch_notable_images,
+        metadata_timeout=metadata_timeout,
+    )
     output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return len(all_cards)
 

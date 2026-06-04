@@ -288,15 +288,22 @@ function buildNotableCardsHtml(notable, imageByUrl) {
       [a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
     );
     const img = String(a.imageUrl || a.image_url || imageByUrl.get(u) || "").trim();
+    const why = escapeHtml(String(a.whyNotable || "").trim());
+    const hostShort = escapeHtml(
+      (a.host || getHostName(u) || "WEB").replace(/^www\./i, "").slice(0, 8),
+    );
     const rank = String(idx + 1).padStart(2, "0");
     h += `<a class="notable-item" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
     h += `<span class="notable-item-rank">${rank}</span>`;
     if (img) {
       h += `<span class="notable-item-thumb"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></span>`;
+    } else {
+      h += `<span class="notable-item-thumb notable-item-thumb--ph" aria-hidden="true">${hostShort}</span>`;
     }
     h += `<span class="notable-item-body">`;
     h += `<span class="notable-item-title">${title}</span>`;
     if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
+    if (why) h += `<span class="notable-item-why">${why}</span>`;
     h += `</span></a>`;
   });
   h += `</div>`;

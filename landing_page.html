@@ -601,11 +601,11 @@
     }
     .notable-item-thumb {
       flex-shrink: 0;
-      width: 52px;
-      height: 52px;
-      border-radius: 8px;
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
       overflow: hidden;
-      background: var(--bg2);
+      background: linear-gradient(145deg, var(--bg2) 0%, #e8eef2 100%);
       border: 1px solid var(--border);
     }
     .notable-item-thumb img {
@@ -613,6 +613,23 @@
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+    .notable-item-thumb--ph {
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.1;
+      padding: 4px;
+    }
+    .notable-item-why {
+      display: block;
+      margin-top: 4px;
+      font-size: .78rem;
+      line-height: 1.4;
+      color: var(--muted);
     }
     .notable-item-body {
       flex: 1;
@@ -1966,15 +1983,22 @@
         const img = String(
           a.imageUrl || a.image_url || imageByUrl.get(u) || "",
         ).trim();
+        const why = escapeHtml(String(a.whyNotable || "").trim());
+        const hostShort = escapeHtml(
+          (a.host || getHostName(u) || "WEB").replace(/^www\./i, "").slice(0, 8),
+        );
         const rank = String(idx + 1).padStart(2, "0");
         h += `<a class="notable-item" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
         h += `<span class="notable-item-rank">${rank}</span>`;
         if (img) {
           h += `<span class="notable-item-thumb"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></span>`;
+        } else {
+          h += `<span class="notable-item-thumb notable-item-thumb--ph" aria-hidden="true">${hostShort}</span>`;
         }
         h += `<span class="notable-item-body">`;
         h += `<span class="notable-item-title">${title}</span>`;
         if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
+        if (why) h += `<span class="notable-item-why">${why}</span>`;
         h += `</span></a>`;
       });
       h += `</div>`;
