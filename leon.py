@@ -1730,6 +1730,61 @@ def _invest_sort_key(ev: dict[str, Any]) -> tuple[int, int, int, int, float]:
     )
 
 
+def _log_invest_candidate_theme_mix(
+    pool: list[dict[str, Any]],
+    *,
+    label: str,
+    max_samples: int = 5,
+) -> None:
+    """Log counts + sample titles for crypto / equity (stock) / tech-AI in a candidate pool."""
+    n_crypto = n_equity = n_tech = 0
+    samples_crypto: list[str] = []
+    samples_equity: list[str] = []
+    samples_tech: list[str] = []
+
+    def _sample_line(ev: dict[str, Any]) -> str:
+        eid = str(ev.get("global_event_id") or "")
+        title = str(ev.get("title_vi") or ev.get("title") or "").strip()[:90]
+        sc = int(ev.get("source_count") or 0)
+        na = int(ev.get("num_articles") or 0)
+        return f"{eid} ({na}b/{sc}src) {title}"
+
+    for ev in pool:
+        flags = _invest_signal_flags(_invest_text_blob(ev))
+        line = _sample_line(ev)
+        if flags.get("is_crypto"):
+            n_crypto += 1
+            if len(samples_crypto) < max_samples:
+                samples_crypto.append(line)
+        if flags.get("is_equity_market"):
+            n_equity += 1
+            if len(samples_equity) < max_samples:
+                samples_equity.append(line)
+        if flags.get("is_tech_ai_chip"):
+            n_tech += 1
+            if len(samples_tech) < max_samples:
+                samples_tech.append(line)
+
+    LOG.info(
+        "invest %s theme flags: crypto=%s equity(stock)=%s tech_ai=%s / pool=%s",
+        label,
+        n_crypto,
+        n_equity,
+        n_tech,
+        len(pool),
+    )
+    for tag, samples in (
+        ("crypto",
+         samples_crypto),
+        ("equity",
+         samples_equity),
+        ("tech_ai",
+         samples_tech),
+    ):
+        if samples:
+            LOG.info("invest %s %s sample: %s", label, tag, " | ".join(samples))
+
+
 def _invest_topic_tags(ev: dict[str, Any]) -> str:
     blob = _invest_text_blob(ev)
     flags = _invest_signal_flags(blob)
@@ -1788,6 +1843,7 @@ def prepare_invest_candidates(events: list[dict[str, Any]]) -> list[dict[str, An
         dropped_technical,
         INVEST_CURATION_POOL,
     )
+    _log_invest_candidate_theme_mix(kept, label="candidates")
     return kept
 
 
@@ -3387,6 +3443,7 @@ def run_invest_pipeline_from_events(
     ranked = sorted(candidates, key=_invest_sort_key, reverse=True)
     judge_input = ranked[:INVEST_SEMANTIC_JUDGE_MAX]
     stats["judge_input"] = len(judge_input)
+    _log_invest_candidate_theme_mix(judge_input, label="judge_input")
     if use_gemini:
         judged = gemini_invest_semantic_judge(judge_input)
         judged = enrich_events_for_web(judged, use_gemini=True, channel="invest")
@@ -3394,8 +3451,11 @@ def run_invest_pipeline_from_events(
     else:
         judged = judge_input[:INVEST_FEED_MAX]
     stats["judged"] = len(judged)
+    _log_invest_candidate_theme_mix(judged, label="judged")
 
     feed = prepare_invest_world_feed(judged, use_gemini=use_gemini and len(judged) >= 2)
+    if feed:
+        _log_invest_candidate_theme_mix(feed, label="world_feed")
     topics: list[dict[str, Any]] = []
     brief = ""
     if feed and use_gemini:
