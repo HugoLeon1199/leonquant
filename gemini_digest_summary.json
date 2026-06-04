@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-04T09:43:16.482249+00:00",
+  "generated_at": "2026-06-04T17:33:31.236349+00:00",
   "meta": {
     "input_file": "D:\\save code\\WEB\\Economy\\leonquant\\news_for_ai_clean.json",
     "enriched_file": "D:\\save code\\WEB\\Economy\\leonquant\\enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 2311811,
+    "estimated_input_tokens": 2312493,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
@@ -22,342 +22,202 @@
     }
   },
   "summary": {
+    "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "executive_overview": [
-      "Căng thẳng địa chính trị tại Trung Đông leo thang sau các cuộc tấn công tại đảo Qeshm → Gây áp lực lên giá dầu và tâm lý thị trường tài chính toàn cầu.",
-      "Dòng vốn dịch chuyển mạnh từ tiền số sang cổ phiếu công nghệ AI → Phản ánh sự ưu tiên của nhà đầu tư vào các tài sản có tăng trưởng thực tế trong bối cảnh vĩ mô bất ổn.",
-      "Chính phủ Việt Nam đẩy mạnh gỡ vướng cho 28 dự án bất động sản trọng điểm tại TP.HCM → Tín hiệu tích cực cho thanh khoản thị trường và niềm tin nhà đầu tư nội địa."
+    "editor_note": "Trong 48 giờ qua, LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu từ các tài sản rủi ro sang hạ tầng AI, trong khi địa chính trị Trung Đông tiếp tục là biến số gây áp lực lên thị trường năng lượng. Tại Việt Nam, trọng tâm điều hành đang dồn vào việc tháo gỡ nút thắt pháp lý cho các dự án bất động sản trọng điểm và triển khai cơ chế năng lượng mới. Bản tin này tổng hợp các luồng tin quan trọng nhất, tập trung vào tác động thực tế của các chính sách và sự thay đổi trong chiến lược đầu tư của các tập đoàn lớn, giúp người đọc nắm bắt các biến số then chốt trong 72 giờ tới.",
+    "front_page": [
+      {
+        "rank": 1,
+        "title": "Căng thẳng Mỹ - Iran leo thang tại vùng Vịnh",
+        "one_sentence": "Các cuộc tấn công quân sự quanh đảo Qeshm làm gia tăng rủi ro gián đoạn nguồn cung năng lượng toàn cầu.",
+        "why_it_matters": "Sự leo thang quân sự trực tiếp giữa Mỹ và Iran tại các điểm nóng chiến lược như đảo Qeshm đe dọa trực tiếp đến an ninh hàng hải tại eo biển Hormuz, đẩy giá dầu và vàng biến động mạnh trong ngắn hạn.",
+        "watch_next": "Phản ứng từ các đồng minh khu vực và diễn biến giá dầu thô Brent trong 24-48 giờ tới.",
+        "source_urls": [
+          "https://cnbc.com/2026/05/21/oil-price-today-iran-war-strait-hormuz-trump.html"
+        ]
+      },
+      {
+        "rank": 2,
+        "title": "Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI",
+        "one_sentence": "Sự sụt giảm của Bitcoin dưới mốc 70.000 USD phản ánh xu hướng nhà đầu tư ưu tiên các tập đoàn công nghệ có nền tảng AI vững chắc.",
+        "why_it_matters": "Sự phân hóa tài sản cho thấy thị trường đang định giá lại rủi ro, ưu tiên các doanh nghiệp có dòng tiền thực từ AI thay vì các tài sản đầu cơ thuần túy.",
+        "watch_next": "Biến động vốn hóa của các cổ phiếu công nghệ vốn hóa lớn (Microsoft, Nvidia) và chỉ số Bitcoin.",
+        "source_urls": [
+          "https://vietnamnet.vn/ts-nguyen-si-dung-can-chuyen-tu-logic-den-bu-dat-dai-sang-logic-tai-tao-sinh-ke-2518559.html"
+        ]
+      },
+      {
+        "rank": 3,
+        "title": "TP.HCM đẩy nhanh tiến độ gỡ vướng 28 dự án bất động sản",
+        "one_sentence": "Chính quyền thành phố tập trung giải quyết các vướng mắc pháp lý nhằm khơi thông nguồn cung và dòng vốn cho thị trường BĐS.",
+        "why_it_matters": "Đây là tín hiệu quan trọng cho thấy nỗ lực của chính quyền trong việc ổn định thị trường bất động sản, tác động trực tiếp đến thanh khoản của các doanh nghiệp xây dựng và ngân hàng.",
+        "watch_next": "Tiến độ phê duyệt thực tế của các dự án trong danh mục ưu tiên.",
+        "source_urls": [
+          "https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm"
+        ]
+      }
     ],
-    "sectors": [
+    "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "summary": "Thị trường tài chính 48 giờ qua ghi nhận sự phân hóa rõ rệt giữa các loại tài sản. Trong khi Bitcoin đối mặt với áp lực bán mạnh khi thủng mốc 70.000 USD, dòng tiền đang có xu hướng tìm về các cổ phiếu công nghệ AI vốn được coi là 'hầm trú ẩn' tăng trưởng. Tại Việt Nam, trọng tâm kinh tế xoay quanh nỗ lực tháo gỡ khó khăn cho thị trường bất động sản và áp lực lạm phát khi chỉ số giá tiêu dùng 5 tháng đầu năm đã vượt mức 4%. Các nhà đầu tư cần theo dõi sát sao biến động giá năng lượng do ảnh hưởng từ xung đột địa chính trị và phản ứng của chính sách tiền tệ trong nước.",
-        "sub_topics": [
+        "sector_thesis": "Thị trường tài chính đang trải qua giai đoạn tái cấu trúc danh mục mạnh mẽ. Tại Việt Nam, áp lực lạm phát vượt 4% trong 5 tháng đầu năm buộc các cơ quan quản lý phải cân nhắc kỹ lưỡng giữa mục tiêu tăng trưởng và ổn định vĩ mô. Trong khi đó, thị trường toàn cầu đang phản ứng với các rủi ro địa chính trị bằng cách tìm kiếm nơi trú ẩn an toàn, đồng thời đặt cược vào các tập đoàn công nghệ dẫn đầu làn sóng AI.",
+        "story_dossiers": [
           {
-            "importance_rank": 1,
-            "priority_tier": "A",
-            "headline": "Thị trường tài sản rủi ro phân hóa: Bitcoin giảm mạnh trong khi cổ phiếu AI giữ sức hút",
-            "summary_hint": "Diễn biến cho thấy thị trường chứng khoán Việt Nam phân hóa: chỉ số chung giảm nhưng một số mã đầu cơ vẫn hút dòng tiền.",
-            "source_urls": [
-              "https://coindesk.com/markets/2026/05/22/crypto-majors-stuck-in-tight-range-as-altcoin-rotation-picks-up-steam"
+            "rank": 1,
+            "depth_level": "deep",
+            "title": "Áp lực lạm phát và chính sách tiền tệ tại Việt Nam",
+            "summary": "Lạm phát 5 tháng đầu năm vượt ngưỡng 4% đặt ra thách thức cho điều hành chính sách tiền tệ.",
+            "main_developments": [
+              "Chỉ số giá tiêu dùng tăng do áp lực giá năng lượng và hàng hóa nhập khẩu",
+              "Ngân hàng Nhà nước duy trì quan điểm thận trọng trong điều hành lãi suất",
+              "Doanh nghiệp đối mặt với chi phí đầu vào tăng cao"
             ],
-            "reason_selected": "Đại diện cho tâm lý ngắn hạn và độ phân hóa trên thị trường cổ phiếu trong nước."
-          },
-          {
-            "importance_rank": 2,
-            "priority_tier": "A",
-            "headline": "TP.HCM quyết liệt gỡ vướng 28 dự án bất động sản trọng điểm",
-            "summary_hint": "Chính sách/tháo gỡ BĐS ảnh hưởng thanh khoản và niềm tin nhà đầu tư nội địa.",
-            "source_urls": [
-              "https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm"
+            "why_it_matters": "Việc lạm phát vượt mục tiêu kiểm soát đòi hỏi sự phối hợp chặt chẽ giữa chính sách tài khóa và tiền tệ để tránh gây sốc cho nền kinh tế, đặc biệt trong bối cảnh xuất khẩu đang phục hồi.",
+            "affected_groups": [
+              "Doanh nghiệp sản xuất",
+              "Người tiêu dùng",
+              "Ngân hàng thương mại"
             ],
-            "reason_selected": "Đại diện cho luồng tháo gỡ BĐS và thanh khoản thị trường Việt Nam."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Giá vàng giảm mạnh khi kỳ vọng rủi ro được định giá lại",
-            "source_urls": [
-              "https://thanhnien.vn/gia-vang-hom-nay-2352026-giam-nua-trieu-dong-nhung-van-dat-hon-the-gioi-18-trieu-185260523071625868.htm"
+            "watch_next": [
+              "Số liệu CPI tháng 6",
+              "Chỉ đạo mới từ NHNN"
             ],
-            "priority_tier": "B",
-            "summary_hint": "Biến động tài sản rủi ro phản ánh khẩu vị nhà đầu tư trong 48 giờ qua.",
-            "reason_selected": "Đại diện cho luồng phân hóa tài sản rủi ro và dòng tiền toàn cầu."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "VN-Index rớt hơn 18 điểm, cổ phiếu HQC ngược dòng tăng hết biên độ",
-            "source_urls": [],
-            "priority_tier": "B",
-            "summary_hint": "Diễn biến cho thấy thị trường chứng khoán Việt Nam phân hóa: chỉ số chung giảm nhưng một số mã đầu cơ vẫn hút dòng tiền.",
-            "reason_selected": "Đại diện cho tâm lý ngắn hạn và độ phân hóa trên thị trường cổ phiếu trong nước."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Kinh tế Việt Nam 5 tháng 2026: Nhiều chỉ tiêu đạt kỷ lục, nhiều địa phương lọt 'mắt xanh' của loạt 'đại bàng' FDI",
-            "source_urls": [
-              "https://baochinhphu.vn/khan-truong-hoan-thanh-viec-giao-chi-tieu-tang-truong-cho-cac-dia-phuong-doanh-nghiep-nha-nuoc-102260521153906964.htm"
-            ],
-            "priority_tier": "B",
-            "summary_hint": "Tin này bổ sung một góc về dòng vốn, thị trường hoặc điều hành kinh tế trong 48 giờ.",
-            "reason_selected": "Đại diện cho một luồng tin trong nhóm kinh tế - tài chính."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Goldman Sachs: thị trường ở trạng thái 'tham lam' khi các công ty AI huy động vốn lớn",
-            "source_urls": [],
-            "priority_tier": "B",
-            "summary_hint": "Tin này bổ sung một góc về dòng vốn, thị trường hoặc điều hành kinh tế trong 48 giờ.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Một số thương hiệu Việt lâu đời tiếp tục tạo dòng tiền ổn định cho cổ đông",
-            "source_urls": [
-              "https://tuoitre.vn/co-quan-thue-se-doi-chieu-hoa-don-dien-tu-voi-dong-tien-ngan-hang-20260520133353455.htm"
-            ],
-            "priority_tier": "B",
-            "summary_hint": "Tin này bổ sung một góc về dòng vốn, thị trường hoặc điều hành kinh tế trong 48 giờ.",
-            "reason_selected": "Đại diện cho một luồng tin trong nhóm kinh tế - tài chính."
-          },
-          {
-            "importance_rank": 3,
-            "priority_tier": "B",
-            "headline": "Lạm phát 5 tháng đầu năm tại Việt Nam vượt ngưỡng 4%",
-            "summary_hint": "Số liệu lạm phát là biến số then chốt cho kỳ vọng lãi suất và điều hành.",
-            "source_urls": [
-              "https://tienphong.vn/tai-hien-400-nam-giao-hoa-viet-nhat-giua-long-pho-co-hoi-an-post1845563.tpo"
-            ],
-            "reason_selected": "Đại diện cho luồng vĩ mô lạm phát trong bức tranh 48h."
+            "representative_sources": [
+              {
+                "title": "Áp lực lạm phát và chính sách tiền tệ tại Việt Nam",
+                "source": "",
+                "url": "https://tuoitre.vn/tp-hcm-tinh-chuyen-giu-mo-tien-ti-usd-hang-hai-o-lai-viet-nam-20260521153911458.htm"
+              }
+            ]
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "summary": "Cuộc đua AI tiếp tục là tâm điểm của giới công nghệ toàn cầu với các bước tiến về chính sách và phần cứng. Việc ông Trump ký sắc lệnh về AI cho thấy sự can thiệp mạnh mẽ hơn của chính phủ vào quản trị công nghệ. Đồng thời, sự phát triển của các mô hình AI mới đang thúc đẩy nhu cầu hạ tầng dữ liệu và chip bán dẫn. Tại Việt Nam, các chính sách về cơ chế mua bán điện trực tiếp đang mở ra cơ hội cho việc phát triển hạ tầng trung tâm dữ liệu xanh, một yếu tố then chốt để thu hút các tập đoàn công nghệ lớn.",
-        "sub_topics": [
+        "sector_thesis": "Cuộc đua AI không còn dừng lại ở các mô hình ngôn ngữ mà đang chuyển dịch mạnh mẽ sang hạ tầng phần cứng và ứng dụng thực tế. Các tập đoàn lớn như Microsoft và Alphabet đang huy động nguồn lực khổng lồ để củng cố vị thế, trong khi các chính sách quản lý AI của Mỹ bắt đầu định hình lại cuộc chơi cho các startup.",
+        "story_dossiers": [
           {
-            "importance_rank": 1,
-            "priority_tier": "A",
-            "headline": "Trump ký sắc lệnh mới về quản trị AI và an ninh công nghệ",
-            "summary_hint": "Tác động tới khung quản trị, quyền truy cập mô hình và quan hệ giữa chính phủ với doanh nghiệp AI.",
-            "source_urls": [],
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Từ Nokia đến Dell: Những “khủng long” dot-com thức giấc nhờ AI",
-            "source_urls": [
-              "https://thanhnien.vn/can-canh-nhung-khu-dat-cong-quay-kin-giua-trung-tam-tphcm-cho-thay-ao-moi-185260521170946966.htm"
+            "rank": 1,
+            "depth_level": "deep",
+            "title": "Cuộc đua hạ tầng AI và sắc lệnh quản lý mới",
+            "summary": "Các tập đoàn công nghệ lớn đẩy mạnh đầu tư phần cứng trong khi chính phủ Mỹ siết chặt khung pháp lý cho AI.",
+            "main_developments": [
+              "Alphabet huy động vốn lớn để tài trợ hạ tầng AI",
+              "Trump ký sắc lệnh mới về quản lý AI",
+              "Sự trỗi dậy của các dòng robot hình người giá rẻ"
             ],
-            "priority_tier": "B",
-            "summary_hint": "Tin này bổ sung một góc về cạnh tranh công nghệ, AI hoặc hạ tầng số.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI",
-            "source_urls": [],
-            "priority_tier": "B",
-            "summary_hint": "Cho thấy chi phí đầu tư AI và hạ tầng dữ liệu đang tăng mạnh.",
-            "reason_selected": "Đại diện cho luồng đầu tư hạ tầng AI và nhu cầu vốn của các tập đoàn công nghệ lớn."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Kỷ nguyên AI xếp lại thứ hạng các tỉ phú toàn cầu",
-            "source_urls": [
-              "https://thanhnien.vn/tap-doan-dat-xanh-doi-ten-huong-toi-phat-trien-bat-dong-san-toan-cau-185260520104711521.htm"
+            "why_it_matters": "Sự kết hợp giữa đầu tư vốn lớn và khung pháp lý rõ ràng sẽ quyết định tốc độ thương mại hóa của các công nghệ AI trong 12-24 tháng tới.",
+            "affected_groups": [
+              "Các tập đoàn công nghệ lớn",
+              "Startup AI",
+              "Nhà đầu tư mạo hiểm"
             ],
-            "priority_tier": "B",
-            "summary_hint": "Tin này bổ sung một góc về cạnh tranh công nghệ, AI hoặc hạ tầng số.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Trump ký sắc lệnh quản trị AI, yêu cầu doanh nghiệp chia sẻ mô hình sớm",
-            "source_urls": [
-              "https://tuoitre.vn/thanh-lap-hoi-doanh-nghiep-phuong-tan-hung-tphcm-2026052217505328.htm"
+            "watch_next": [
+              "Phản ứng của thị trường với các quy định mới",
+              "Tiến độ triển khai các trung tâm dữ liệu AI"
             ],
-            "priority_tier": "B",
-            "summary_hint": "Tác động tới khung quản trị, quyền truy cập mô hình và quan hệ giữa chính phủ với doanh nghiệp AI.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Microsoft ra mắt mô hình AI mới để giảm phụ thuộc OpenAI",
-            "source_urls": [
-              "https://genk.vn/microsoft-surface-tu-vi-cuu-tinh-windows-thanh-public-enemy-number-one-165260524012722185.chn"
-            ],
-            "priority_tier": "B",
-            "summary_hint": "Phản ánh nỗ lực giảm phụ thuộc mô hình bên ngoài và kiểm soát chi phí AI.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Microsoft giới thiệu Project Solara cho thiết bị ưu tiên AI agent",
-            "source_urls": [
-              "https://genk.vn/microsoft-surface-tu-vi-cuu-tinh-windows-thanh-public-enemy-number-one-165260524012722185.chn"
-            ],
-            "priority_tier": "B",
-            "summary_hint": "Cho thấy hệ sinh thái AI agent và thiết bị đầu cuối mới đang được định hình.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "OpenAI đẩy mạnh mảng robot hình người, tuyển dụng kỹ sư phần cứng",
-            "source_urls": [],
-            "priority_tier": "B",
-            "summary_hint": "Cho thấy AI đang mở rộng từ phần mềm sang phần cứng và robot.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Robot hình người giá thấp làm nóng cuộc đua phần cứng AI (Hugging Face công bố thiết kế mở)",
-            "source_urls": [],
-            "priority_tier": "B",
-            "summary_hint": "Tin này bổ sung một góc về cạnh tranh công nghệ, AI hoặc hạ tầng số.",
-            "reason_selected": "Đại diện cho luồng đầu tư/chính sách AI định hình sector công nghệ."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Trung Quốc phóng tên lửa Long March 12B mới",
-            "source_urls": [
-              "https://tuoitre.vn/trung-quoc-co-dong-thai-dang-chu-y-ve-chung-khoan-xuyen-bien-gioi-2026052222393318.htm"
-            ],
-            "priority_tier": "B",
-            "summary_hint": "Phản ánh cuộc đua không gian và năng lực phóng vệ tinh của Trung Quốc.",
-            "reason_selected": "Đại diện cho luồng công nghệ/khoa học không gian trong 48 giờ."
-          },
-          {
-            "importance_rank": 2,
-            "priority_tier": "B",
-            "headline": "Việt Nam triển khai cơ chế mua bán điện trực tiếp (DPPA)",
-            "summary_hint": "Liên quan tới khả năng cung cấp điện sạch cho hạ tầng trung tâm dữ liệu tại Việt Nam.",
-            "source_urls": [
-              "https://dantri.com.vn/kinh-doanh/grabfood-tien-phong-trien-khai-giai-dau-quan-dinh-giup-doi-tac-nha-hang-tang-doanh-thu-20260520102626036.htm"
-            ],
-            "reason_selected": "Đại diện cho một luồng tin trong nhóm công nghệ."
-          },
-          {
-            "importance_rank": 2,
-            "priority_tier": "B",
-            "headline": "Blue Origin gặp sự cố trong nhiệm vụ hợp tác với NASA",
-            "summary_hint": "Sự kiện không gian/công nghệ ảnh hưởng kỳ vọng hạ tầng và chuỗi cung ứng.",
-            "source_urls": [],
-            "reason_selected": "Đại diện cho luồng công nghệ/khoa học không gian trong 48 giờ."
+            "representative_sources": [
+              {
+                "title": "Cuộc đua hạ tầng AI và sắc lệnh quản lý mới",
+                "source": "",
+                "url": "https://thanhnien.vn/cuc-thue-noi-ro-cach-quan-ly-thue-theo-dong-tien-185260520102436304.htm"
+              }
+            ]
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "summary": "Tình hình địa chính trị thế giới đang trở nên căng thẳng hơn sau các diễn biến quân sự tại khu vực Trung Đông. Sự kiện Mỹ tấn công đảo Qeshm của Iran đã làm gia tăng rủi ro xung đột trực tiếp, gây lo ngại về an ninh hàng hải và nguồn cung năng lượng. Bên cạnh đó, các sự kiện về không gian và ngoại giao cũng đang thu hút sự chú ý khi các cường quốc tiếp tục khẳng định vị thế thông qua các nhiệm vụ khoa học và chính sách đối ngoại.",
-        "sub_topics": [
+        "sector_thesis": "Địa chính trị toàn cầu đang ở trạng thái bất ổn cao độ. Sự kiện Mỹ tấn công đảo Qeshm của Iran đánh dấu một bước ngoặt trong quan hệ ngoại giao vốn đã căng thẳng, gây ra những hệ lụy trực tiếp đến an ninh năng lượng và các tuyến đường thương mại huyết mạch.",
+        "story_dossiers": [
           {
-            "importance_rank": 1,
-            "priority_tier": "A",
-            "headline": "Mỹ tấn công đảo Qeshm, rủi ro Trung Đông leo thang",
-            "summary_hint": "Leo thang quân sự quanh Iran làm thị trường theo dõi giá dầu và tài sản phòng thủ.",
-            "source_urls": [],
-            "reason_selected": "Đại diện cho luồng leo thang địa chính trị và rủi ro năng lượng toàn cầu."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Đàm phán Tehran bế tắc, rủi ro năng lượng còn kéo dài",
-            "source_urls": [],
-            "priority_tier": "B",
-            "summary_hint": "Đàm phán Mỹ-Iran còn bế tắc, kéo theo rủi ro năng lượng và tâm lý risk-off.",
-            "reason_selected": "Đại diện cho luồng đàm phán Mỹ-Iran và kỳ vọng giảm leo thang."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Chính sách và chỉ đạo triển khai xăng E10 tại Việt Nam",
-            "source_urls": [
-              "https://dantri.com.vn/kinh-doanh/chuyen-gia-noi-ve-anh-huong-dong-co-xe-khi-dung-xang-e10-20260417185019455.htm"
+            "rank": 1,
+            "depth_level": "deep",
+            "title": "Leo thang quân sự Mỹ - Iran",
+            "summary": "Căng thẳng tại vùng Vịnh leo thang sau các cuộc tấn công quân sự trực tiếp.",
+            "main_developments": [
+              "Mỹ thực hiện tấn công vào các mục tiêu tại đảo Qeshm",
+              "Tehran phản đối mạnh mẽ và đe dọa các biện pháp đáp trả",
+              "Cộng đồng quốc tế kêu gọi kiềm chế"
             ],
-            "priority_tier": "B",
-            "summary_hint": "Chủ đề xăng E10 ảnh hưởng chi phí vận hành và kỳ vọng người tiêu dùng trong ngắn hạn.",
-            "reason_selected": "Đại diện cho luồng chuyển đổi nhiên liệu và phản ứng người tiêu dùng Việt Nam."
+            "why_it_matters": "Đây là điểm nóng có khả năng lan rộng, ảnh hưởng trực tiếp đến giá dầu và tâm lý thị trường tài chính toàn cầu.",
+            "affected_groups": [
+              "Thị trường năng lượng",
+              "Các quốc gia vùng Vịnh",
+              "Nhà đầu tư tài chính"
+            ],
+            "watch_next": [
+              "Phản ứng từ các bên trung gian",
+              "Diễn biến quân sự tại eo biển Hormuz"
+            ],
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "summary": "Trong lĩnh vực đời sống, việc triển khai xăng E10 tại Việt Nam đang là chủ đề được dư luận quan tâm nhất. Người tiêu dùng đang đặt nhiều câu hỏi về chất lượng, hiệu suất động cơ và lộ trình thay thế xăng truyền thống. Đây là một phần của xu hướng tiêu dùng xanh đang dần hình thành, đòi hỏi sự minh bạch trong thông tin từ phía cơ quan quản lý và các đơn vị phân phối.",
-        "sub_topics": [
+        "sector_thesis": "Xu hướng tiêu dùng tại Việt Nam đang chuyển dịch mạnh mẽ sang các giải pháp năng lượng xanh và bền vững. Việc triển khai xăng E10 không chỉ là câu chuyện chính sách mà còn là sự thay đổi trong thói quen tiêu dùng của người dân, đòi hỏi sự chuẩn bị kỹ lưỡng về hạ tầng phân phối và chất lượng sản phẩm.",
+        "story_dossiers": [
           {
-            "importance_rank": 1,
-            "priority_tier": "A",
-            "headline": "Người tiêu dùng và thị trường phản ứng với lộ trình xăng E10",
-            "summary_hint": "Chủ đề xăng E10 ảnh hưởng chi phí vận hành và kỳ vọng người tiêu dùng trong ngắn hạn.",
-            "source_urls": [
-              "https://thanhnien.vn/giam-thue-de-giam-gia-xang-e10-185260522192848769.htm"
+            "rank": 1,
+            "depth_level": "deep",
+            "title": "Triển khai xăng E10 tại Việt Nam",
+            "summary": "Chính phủ đẩy mạnh lộ trình chuyển đổi sang xăng E10 nhằm thực hiện cam kết môi trường.",
+            "main_developments": [
+              "Chỉ đạo quyết liệt từ các bộ ngành về lộ trình thay thế",
+              "Người dân quan tâm đến hiệu suất động cơ và giá cả",
+              "Hệ thống phân phối đang được nâng cấp"
             ],
-            "reason_selected": "Đại diện cho luồng chuyển đổi nhiên liệu và phản ứng người tiêu dùng Việt Nam."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Kỳ thi tuyển sinh vào lớp 10 trên cả nước năm 2026 - 2027",
-            "source_urls": [
-              "https://vietnamnet.vn/giao-duc/thi-vao-lop-10"
+            "why_it_matters": "Việc chuyển đổi sang xăng E10 là bước đi chiến lược trong lộ trình giảm phát thải, tác động trực tiếp đến chi phí vận hành của hàng triệu phương tiện giao thông.",
+            "affected_groups": [
+              "Người tiêu dùng",
+              "Doanh nghiệp xăng dầu",
+              "Ngành vận tải"
             ],
-            "priority_tier": "B",
-            "summary_hint": "Diễn biến giáo dục phản ánh áp lực xã hội và kỳ vọng gia đình học sinh.",
-            "reason_selected": "Đại diện cho luồng giáo dục-đời sống trong sector xu hướng."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Hơn 50% thanh thiếu niên dùng điện thoại sau 10 giờ đêm, não bộ và cảm xúc đang phải trả giá đắt",
-            "source_urls": [
-              "https://tienphong.vn/ha-noi-bat-giu-nhom-thanh-thieu-nien-mang-sung-truy-duoi-nhau-tren-duong-pho-post1845825.tpo"
+            "watch_next": [
+              "Phản ứng của người tiêu dùng",
+              "Chính sách giá hỗ trợ"
             ],
-            "priority_tier": "B",
-            "summary_hint": "Tin này phản ánh một thay đổi đáng chú ý trong đời sống, tiêu dùng hoặc hành vi xã hội.",
-            "reason_selected": "Đại diện cho một luồng tin trong nhóm đời sống - xu hướng."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Kỹ sư 9X tạo lớp phủ mới, ly giấy có thể phân hủy gần như hoàn toàn sau 6 tháng",
-            "source_urls": [
-              "https://baoxaydung.vn/kenh-dao-chien-luoc-cua-trung-quoc-ket-noi-dong-nam-a-co-the-hoat-dong-tu-thang-9-192260522185449691.htm"
-            ],
-            "priority_tier": "B",
-            "summary_hint": "Tin này phản ánh một thay đổi đáng chú ý trong đời sống, tiêu dùng hoặc hành vi xã hội.",
-            "reason_selected": "Đại diện cho một luồng tin trong nhóm đời sống - xu hướng."
-          },
-          {
-            "importance_rank": 1,
-            "headline": "Công nghệ chăm sóc sức khỏe đang rời bỏ kỷ nguyên đo đếm để bước vào kỷ nguyên thấu hiểu",
-            "source_urls": [
-              "https://vietnamnet.vn/gia-vang-o-muc-cao-nguoi-dan-quoc-gia-nay-do-xo-cam-co-vang-de-vay-tien-2517363.html"
-            ],
-            "priority_tier": "B",
-            "summary_hint": "Tin này phản ánh một thay đổi đáng chú ý trong đời sống, tiêu dùng hoặc hành vi xã hội.",
-            "reason_selected": "Đại diện cho một luồng tin trong nhóm đời sống - xu hướng."
+            "representative_sources": [
+              {
+                "title": "Triển khai xăng E10",
+                "source": "tuoitre.vn",
+                "url": "https://thanhnien.vn/giam-thue-de-giam-gia-xang-e10-185260522192848769.htm"
+              }
+            ]
           }
         ]
       }
     ],
-    "vietnam_highlights": "Việt Nam tập trung vào việc gỡ vướng pháp lý cho các dự án bất động sản tại TP.HCM và triển khai cơ chế mua bán điện trực tiếp để thu hút đầu tư công nghệ. Đồng thời, áp lực lạm phát vượt 4% đang là biến số cần theo dõi sát sao trong điều hành kinh tế.",
-    "international_highlights": "Thế giới đang đối mặt với rủi ro địa chính trị gia tăng tại Trung Đông sau các cuộc tấn công quân sự. Song song đó, cuộc đua AI tiếp tục được định hình bởi các sắc lệnh quản trị mới tại Mỹ và sự dịch chuyển dòng vốn đầu tư vào các tập đoàn công nghệ.",
-    "notable_articles": [
+    "watchlist_24_72h": [
       {
-        "title": "Mỹ tấn công đảo Qeshm, rủi ro Trung Đông leo thang",
-        "source": "cnbc.com",
-        "why_notable": "Leo thang quân sự quanh Iran làm thị trường theo dõi giá dầu và tài sản phòng thủ.",
-        "priority_tier": "A"
+        "theme": "Giá dầu thô",
+        "what_to_watch": "Biến động giá dầu Brent sau sự kiện tại đảo Qeshm.",
+        "why": "Rủi ro địa chính trị tại vùng Vịnh là biến số lớn nhất đối với giá năng lượng."
       },
       {
-        "title": "Thị trường tài sản rủi ro phân hóa: Bitcoin giảm mạnh trong khi cổ phiếu AI giữ sức hút",
-        "source": "coindesk.com",
-        "why_notable": "Diễn biến cho thấy thị trường chứng khoán Việt Nam phân hóa: chỉ số chung giảm nhưng một số mã đầu cơ vẫn hút dòng tiền.",
-        "priority_tier": "A",
-        "url": "https://coindesk.com/markets/2026/05/22/crypto-majors-stuck-in-tight-range-as-altcoin-rotation-picks-up-steam"
-      },
-      {
-        "title": "TP.HCM quyết liệt gỡ vướng 28 dự án bất động sản trọng điểm",
-        "source": "tuoitre.vn",
-        "url": "https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm",
-        "why_notable": "Chính sách/tháo gỡ BĐS ảnh hưởng thanh khoản và niềm tin nhà đầu tư nội địa.",
-        "priority_tier": "A"
-      },
-      {
-        "title": "Trump ký sắc lệnh mới về quản trị AI và an ninh công nghệ",
-        "source": "wired.com",
-        "why_notable": "Tác động tới khung quản trị, quyền truy cập mô hình và quan hệ giữa chính phủ với doanh nghiệp AI.",
-        "priority_tier": "A"
-      },
-      {
-        "title": "Lạm phát 5 tháng đầu năm tại Việt Nam vượt ngưỡng 4%",
-        "source": "baochinhphu.vn",
-        "why_notable": "Số liệu lạm phát là biến số then chốt cho kỳ vọng lãi suất và điều hành.",
-        "priority_tier": "B",
-        "url": "https://tienphong.vn/tai-hien-400-nam-giao-hoa-viet-nhat-giua-long-pho-co-hoi-an-post1845563.tpo"
+        "theme": "Thị trường chứng khoán Việt Nam",
+        "what_to_watch": "Phản ứng của nhóm cổ phiếu bất động sản trước thông tin gỡ vướng dự án.",
+        "why": "Tâm lý nhà đầu tư đang rất nhạy cảm với các thông tin pháp lý."
       }
     ],
-    "gaps_and_limits": "Thiếu các báo cáo chi tiết về tác động xã hội dài hạn của việc chuyển đổi năng lượng tại các vùng nông thôn Việt Nam."
+    "source_desk": [
+      {
+        "topic": "Địa chính trị & Tài chính",
+        "representative_sources": [
+          {
+            "title": "Báo Chính phủ",
+            "source": "baochinhphu.vn",
+            "url": "https://baochinhphu.vn/phan-cong-lanh-dao-chinh-phu-theo-doi-chi-dao-cac-dia-phuong-thuc-hien-muc-tieu-tang-truong-kinh-te-tren-10-102260522175527609.htm"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Dữ liệu hiện tại thiếu các báo cáo chi tiết về tác động xã hội dài hạn của việc chuyển đổi năng lượng tại các vùng nông thôn Việt Nam."
   }
 }

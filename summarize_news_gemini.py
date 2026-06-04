@@ -2003,7 +2003,9 @@ def _sanitize_representative_sources(
             continue
         title = str(row.get("title") or "").strip()
         src = str(row.get("source") or "").strip()
-        u = _resolve_digest_url(str(row.get("url") or ""), title or headline, index, sector_code)
+        u = _resolve_digest_url(
+            str(row.get("url") or ""), title or headline, index, sector_code=sector_code
+        )
         if not u or u in seen:
             continue
         seen.add(u)
@@ -2011,7 +2013,7 @@ def _sanitize_representative_sources(
         if len(out) >= DIGEST_MAX_REPRESENTATIVE_SOURCES:
             break
     if not out and headline and index and index.active:
-        u = _resolve_digest_url("", headline, index, sector_code)
+        u = _resolve_digest_url("", headline, index, sector_code=sector_code)
         if u:
             out.append({"title": headline, "source": "", "url": u})
     return out
