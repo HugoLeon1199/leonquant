@@ -158,6 +158,10 @@ function main() {
   const inner = buildPulseHtml(data);
   let html = fs.readFileSync(pagePath, "utf8");
   html = replaceBriefBlock(html, "sectionPulse", "brief-block", inner, "sectionInvest");
+  html = html.replace(/<div id="sectionPulse"([^>]*)>/i, (m, attrs) => {
+    if (/data-embedded-pulse/i.test(attrs)) return m;
+    return `<div id="sectionPulse"${attrs} data-embedded-pulse="1">`;
+  });
   html = html.replace(
     /<section id="pulse"([^>]*)>/i,
     '<section id="pulse"$1 data-embedded-pulse="1">',

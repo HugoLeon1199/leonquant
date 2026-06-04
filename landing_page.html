@@ -2004,7 +2004,8 @@
         
         
         
-        <div id="sectionPulse" class="brief-block"><article class="digest-report" id="pulse-crawler-report"><header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2><p class="sync-note">Cập nhật 21:29 04/06/2026 (giờ Việt Nam).</p></header><div class="pulse-panel"><ol class="pulse-event-list"><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Israel và Lebanon gia hạn thỏa thuận ngừng bắn, thiết lập khu vực an ninh nhằm đẩy lùi lực lượng Hezbollah khỏi biên giới</h3><p class="pulse-event-hint">Israel và Lebanon đã đạt được thỏa thuận gia hạn lệnh ngừng bắn sau vòng đàm phán thứ tư dưới sự trung gian của Mỹ tại Washington. Điểm then chốt của thỏa thuận là thiết lập các khu vực an ninh thí điểm bên trong lãnh thổ Lebanon, nơi lực lượng Hezbollah bị cấm hoạt động. Thỏa thuận yêu cầu quân đội Lebanon phải kiểm soát hoàn toàn các khu vực này và buộc các tay súng Hezbollah phải rút khỏi phía nam sông Litani. Các bên tham gia đối thoại đã nhấn mạnh rằng tương lai của mối quan hệ Israel - Lebanon phải do chính phủ hai nước quyết định, đồng thời lên án sự can thiệp của các chủ thể nước ngoài gây bất ổn trong khu vực. Một vòng đàm phán tiếp theo dự kiến diễn ra vào tuần ngày 22 tháng 6 nhằm hướng tới một thỏa thuận hòa bình toàn diện.</p><p class="pulse-event-importance">Sự kiện này đánh dấu bước tiến quan trọng trong nỗ lực hạ nhiệt căng thẳng quân sự tại Trung Đông. Việc thiết lập khu vực an ninh và tách biệt Hezbollah khỏi biên giới có ý nghĩa chiến lược trong việc giảm thiểu nguy cơ xung đột vũ trang trực tiếp giữa các bên, mở đường cho sự ổn định an ninh dài hạn tại khu vực biên giới Lebanon - Israel.</p><p class="pulse-event-coverage">Độ phủ: <strong>90</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
+        
+        <div id="sectionPulse" class="brief-block" data-embedded-pulse="1"><article class="digest-report" id="pulse-crawler-report"><header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2><p class="sync-note">Cập nhật 21:29 04/06/2026 (giờ Việt Nam).</p></header><div class="pulse-panel"><ol class="pulse-event-list"><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Israel và Lebanon gia hạn thỏa thuận ngừng bắn, thiết lập khu vực an ninh nhằm đẩy lùi lực lượng Hezbollah khỏi biên giới</h3><p class="pulse-event-hint">Israel và Lebanon đã đạt được thỏa thuận gia hạn lệnh ngừng bắn sau vòng đàm phán thứ tư dưới sự trung gian của Mỹ tại Washington. Điểm then chốt của thỏa thuận là thiết lập các khu vực an ninh thí điểm bên trong lãnh thổ Lebanon, nơi lực lượng Hezbollah bị cấm hoạt động. Thỏa thuận yêu cầu quân đội Lebanon phải kiểm soát hoàn toàn các khu vực này và buộc các tay súng Hezbollah phải rút khỏi phía nam sông Litani. Các bên tham gia đối thoại đã nhấn mạnh rằng tương lai của mối quan hệ Israel - Lebanon phải do chính phủ hai nước quyết định, đồng thời lên án sự can thiệp của các chủ thể nước ngoài gây bất ổn trong khu vực. Một vòng đàm phán tiếp theo dự kiến diễn ra vào tuần ngày 22 tháng 6 nhằm hướng tới một thỏa thuận hòa bình toàn diện.</p><p class="pulse-event-importance">Sự kiện này đánh dấu bước tiến quan trọng trong nỗ lực hạ nhiệt căng thẳng quân sự tại Trung Đông. Việc thiết lập khu vực an ninh và tách biệt Hezbollah khỏi biên giới có ý nghĩa chiến lược trong việc giảm thiểu nguy cơ xung đột vũ trang trực tiếp giữa các bên, mở đường cho sự ổn định an ninh dài hạn tại khu vực biên giới Lebanon - Israel.</p><p class="pulse-event-coverage">Độ phủ: <strong>90</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
         <div class="pulse-sources-ticker">
           <div class="pulse-sources-ticker-viewport">
@@ -2085,6 +2086,7 @@
           </div>
         </div>
       </div></li></ol></div></article></div>
+        
         
         
         
@@ -3391,10 +3393,9 @@
     }
 
     function hasEmbeddedPulse() {
-      const sec = document.getElementById("pulse");
       const el = document.getElementById("sectionPulse");
       return (
-        sec?.getAttribute("data-embedded-pulse") === "1" &&
+        el?.getAttribute("data-embedded-pulse") === "1" &&
         Boolean(el?.innerHTML?.trim())
       );
     }

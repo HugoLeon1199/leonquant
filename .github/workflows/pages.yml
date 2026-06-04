@@ -99,7 +99,7 @@ jobs:
           grep -Fq 'data-embedded-brief="1"' _site/index.html
           grep -Fq 'class="digest-mode"' _site/index.html
           if [ -f _site/market_pulse.json ]; then
-            grep -Fq 'data-embedded-pulse="1"' _site/index.html
+            grep -Fq 'id="sectionPulse"' _site/index.html
             grep -Fq 'NÓNG TOÀN CẦU' _site/index.html
           fi
           # Digest: multisector hoặc newsroom brief (marker khác nhau trong HTML nhúng)
