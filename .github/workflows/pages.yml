@@ -93,6 +93,9 @@ jobs:
             node scripts/embed_public_invest_vn_into_html.mjs _site/landing_page.html _site/invest_vn_brief.json
             node scripts/embed_public_invest_vn_into_html.mjs _site/landing_page/index.html _site/invest_vn_brief.json
           fi
+          for f in _site/index.html _site/landing_page.html _site/landing_page/index.html; do
+            python3 scripts/fix_brief_pulse_invest_layout.py "$f"
+          done
 
       - name: Verify embedded brief (fail nếu HTML thiếu brief)
         run: |
@@ -101,6 +104,17 @@ jobs:
           if [ -f _site/market_pulse.json ]; then
             grep -Fq 'id="sectionPulse"' _site/index.html
             grep -Fq 'NÓNG TOÀN CẦU' _site/index.html
+          fi
+          grep -Fq 'id="invest"' _site/index.html
+          if grep -Fq '<section id="pulse"' _site/index.html && grep -Fq 'id="sectionInvest"' _site/index.html; then
+            python3 -c "
+          import re, sys
+          from pathlib import Path
+          h = Path('_site/index.html').read_text(encoding='utf-8')
+          if re.search(r'<section id=\"pulse\"[^>]*>[\\s\\S]*?<div id=\"sectionInvest\"', h, re.I):
+            print('sectionInvest must not be inside #pulse', file=sys.stderr)
+            sys.exit(1)
+          "
           fi
           # Digest: multisector hoặc newsroom brief (marker khác nhau trong HTML nhúng)
           python3 -c "

@@ -122,28 +122,29 @@ function buildPulseHtml(data) {
   return h;
 }
 
-function replaceBriefBlock(html, id, className, inner, nextId = "") {
-  const emptyPattern = `<div\\s+id="${id}"\\s+class="${className}"\\s*>\\s*</div>`;
-  if (new RegExp(emptyPattern, "i").test(html)) {
+function replacePulseBlock(html, inner) {
+  const emptyPattern =
+    /(<section id="pulse"[^>]*>\s*<div class="container">\s*)<div id="sectionPulse" class="brief-block"\s*>\s*<\/div>/i;
+  if (emptyPattern.test(html)) {
     return html.replace(
-      new RegExp(emptyPattern, "gi"),
-      `<div id="${id}" class="${className}">${inner}</div>`,
+      emptyPattern,
+      `$1<div id="sectionPulse" class="brief-block">${inner}</div>`,
     );
   }
-  const boundary = nextId
-    ? `(?=\\s*<div\\s+id="${nextId}")`
-    : `(?=\\s*<div\\s+id="section)`;
+  // Only replace #sectionPulse inside #pulse — do not match across #invest (old nextId=sectionInvest boundary swallowed <section id="invest">).
   const filled = new RegExp(
-    `<div\\s+id="${id}"\\s+class="${className}"[^>]*>[\\s\\S]*?${boundary}`,
+    '(<section id="pulse"[^>]*>\\s*<div class="container">\\s*)' +
+      '<div id="sectionPulse" class="brief-block"[^>]*>[\\s\\S]*?' +
+      '(?=</div>\\s*</div>\\s*</section>)',
     "i",
   );
   if (!filled.test(html)) {
-    console.error(`Block not found for #${id}`);
+    console.error("Block not found for #sectionPulse inside #pulse");
     process.exit(1);
   }
   return html.replace(
     filled,
-    `<div id="${id}" class="${className}">${inner}</div>\n        `,
+    `$1<div id="sectionPulse" class="brief-block">${inner}</div>\n        `,
   );
 }
 
@@ -157,7 +158,7 @@ function main() {
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
   const inner = buildPulseHtml(data);
   let html = fs.readFileSync(pagePath, "utf8");
-  html = replaceBriefBlock(html, "sectionPulse", "brief-block", inner, "sectionInvest");
+  html = replacePulseBlock(html, inner);
   html = html.replace(/<div id="sectionPulse"([^>]*)>/i, (m, attrs) => {
     if (/data-embedded-pulse/i.test(attrs)) return m;
     return `<div id="sectionPulse"${attrs} data-embedded-pulse="1">`;

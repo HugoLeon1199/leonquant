@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGE = ROOT / "landing_page.html"
+DEFAULT_PAGE = ROOT / "landing_page.html"
 
 
 def _ensure_digest_css(html: str) -> str:
@@ -113,7 +113,10 @@ def _split_all_from_brief(html: str) -> str:
 
 
 def main() -> None:
-    html = PAGE.read_text(encoding="utf-8")
+    import sys
+
+    page = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else DEFAULT_PAGE
+    html = page.read_text(encoding="utf-8")
 
     if re.search(r'<section id="invest"', html, re.I):
         html = re.sub(
@@ -147,7 +150,7 @@ def main() -> None:
         count=1,
         flags=re.I,
     )
-    PAGE.write_text(html, encoding="utf-8")
+    page.write_text(html, encoding="utf-8")
 
 
 if __name__ == "__main__":
