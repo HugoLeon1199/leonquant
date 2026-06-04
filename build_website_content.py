@@ -2705,15 +2705,14 @@ def build_payload(
             payload["digestInternationalHighlights"] = digest_pub["international_highlights"]
         if digest_pub.get("gaps_and_limits"):
             payload["digestGapsAndLimits"] = digest_pub["gaps_and_limits"]
+        overview = str((brief.get("mainThesis") or {}).get("thesis") or "").strip()
         exec_bullets = digest_pub.get("executive_overview_bullets")
         if isinstance(exec_bullets, list) and exec_bullets:
             payload["digestExecutiveBullets"] = _dedupe_preserve_order(
                 [str(x).strip() for x in exec_bullets],
             )
-        else:
-            overview = str((brief.get("mainThesis") or {}).get("thesis") or "").strip()
-            if overview:
-                payload["digestExecutiveBullets"] = _prose_to_bullet_lines(overview)
+        elif overview:
+            payload["digestExecutiveBullets"] = _prose_to_bullet_lines(overview)
         intl_bullets = _prose_to_bullet_lines(str(digest_pub.get("international_highlights") or ""))
         if intl_bullets:
             payload["digestInternationalBullets"] = intl_bullets

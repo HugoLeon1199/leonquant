@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-04T04:56:25.940771+00:00",
+  "generated_at": "2026-06-04T09:00:57.185624+00:00",
   "meta": {
-    "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
-    "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
+    "input_file": "D:\\save code\\WEB\\Economy\\leonquant\\news_for_ai_clean.json",
+    "enriched_file": "D:\\save code\\WEB\\Economy\\leonquant\\enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 2284149,
+    "estimated_input_tokens": 2278534,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
@@ -22,461 +22,161 @@
     }
   },
   "summary": {
-    "title": "Bản tin tổng hợp 48 giờ",
-    "reading_time_minutes": "10-15",
-    "executive_overview": "Trong 48 giờ qua, bức tranh tin tức toàn cầu bị chi phối bởi các biến động địa chính trị tại Trung Đông, đặc biệt là căng thẳng Mỹ-Iran và các nỗ lực đàm phán hòa bình nhằm ổn định giá dầu. Lĩnh vực công nghệ chứng kiến làn sóng IPO kỷ lục từ SpaceX và sự bùng nổ của hạ tầng AI, với các tập đoàn lớn như Nvidia và Google tiếp tục dẫn dắt xu hướng. Tại Việt Nam, trọng tâm điều hành chuyển dịch sang thúc đẩy tăng trưởng GDP, cải cách hành chính và chuyển đổi số ngành ngân hàng.\n\nCác chính sách thuế mới, bao gồm quản lý dòng tiền qua ngân hàng và điều chỉnh ngưỡng thuế thu nhập cá nhân, đang là tâm điểm chú ý của cộng đồng doanh nghiệp. Đồng thời, các dự án hạ tầng trọng điểm tại TP.HCM và các địa phương đang được tháo gỡ vướng mắc pháp lý để đẩy nhanh tiến độ. Trên bình diện quốc tế, các tranh cãi về đạo đức AI, an ninh mạng và sự cạnh tranh trong ngành bán dẫn giữa Mỹ và Trung Quốc vẫn là những thách thức lớn đối với chuỗi cung ứng toàn cầu.",
+    "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
+    "reading_time_minutes": "8",
+    "executive_overview": [
+      "Căng thẳng địa chính trị Mỹ - Iran leo thang với các cuộc tấn công quân sự, gây áp lực lên giá năng lượng và an ninh hàng hải.",
+      "Làn sóng dịch chuyển vốn từ tiền số sang cổ phiếu công nghệ AI tiếp tục mạnh mẽ, Bitcoin thủng mốc 66.000 USD.",
+      "Việt Nam đẩy mạnh giải ngân đầu tư công và gỡ vướng pháp lý cho các dự án bất động sản trọng điểm tại TP.HCM.",
+      "Triển khai xăng E10 trên toàn quốc nhận được sự quan tâm lớn, Chính phủ tăng cường hỗ trợ thông tin cho người tiêu dùng.",
+      "Các tập đoàn công nghệ lớn (Microsoft, Nvidia) tập trung vào hạ tầng AI và robot hình người, thay đổi cuộc chơi phần cứng.",
+      "Lạm phát 5 tháng đầu năm tại Việt Nam vượt 4%, đặt ra thách thức cho việc ổn định kinh tế vĩ mô."
+    ],
     "sectors": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "summary": "Thị trường tài chính 48 giờ qua ghi nhận sự phân hóa mạnh mẽ dưới áp lực từ biến động địa chính trị và chính sách tiền tệ. Tại Việt Nam, Ngân hàng Nhà nước đẩy mạnh kỷ luật thị trường và yêu cầu giảm lãi suất để hỗ trợ doanh nghiệp, trong khi các dự án bất động sản và hạ tầng trọng điểm được tháo gỡ vướng mắc pháp lý. Quốc tế chứng kiến áp lực lên các tài sản rủi ro như Bitcoin do lợi suất trái phiếu Mỹ tăng cao, cùng với đó là sự chú ý đổ dồn vào các thương vụ IPO công nghệ lớn như SpaceX. Nhà đầu tư đang thận trọng trước các rủi ro vĩ mô và sự thay đổi trong cấu trúc quản trị tài chính toàn cầu.",
+        "summary": "Thị trường tài chính 48 giờ qua ghi nhận sự phân hóa mạnh mẽ. Trong khi cổ phiếu công nghệ AI lập đỉnh mới nhờ dòng vốn dịch chuyển, thị trường tiền số đối mặt với áp lực bán tháo lớn, Bitcoin rơi xuống dưới 66.000 USD. Tại Việt Nam, các doanh nghiệp bất động sản đang nỗ lực tái cấu trúc và gỡ vướng dự án, trong khi cơ quan quản lý siết chặt minh bạch hóa giao dịch vàng và thuế.",
         "sub_topics": [
           {
             "importance_rank": 1,
-            "headline": "Ngân hàng Nhà nước siết kỷ luật thị trường tiền tệ, yêu cầu giảm lãi suất để hỗ trợ tăng trưởng kinh tế",
+            "priority_tier": "A",
+            "headline": "Bitcoin lao dốc dưới 66.000 USD, thị trường tiền số bị thanh lý 1,6 tỷ USD vị thế mua",
+            "summary_hint": "Áp lực bán tháo từ các ví lớn và ETF khiến tâm lý nhà đầu tư tiền số trở nên tiêu cực.",
             "source_urls": [
-              "https://baochinhphu.vn/nhnn-siet-ky-luat-thi-truong-tien-te-yeu-cau-giam-lai-suat-102260523102302059.htm"
-            ]
+              "https://www.coindesk.com/es/markets/2026/06/03/bitcoin-plunges-below-usd66-000-even-as-global-stocks-hit-fresh-records"
+            ],
+            "reason_selected": "Sự kiện tài chính quan trọng nhất ảnh hưởng đến tâm lý thị trường toàn cầu."
           },
           {
             "importance_rank": 2,
-            "headline": "SpaceX nộp hồ sơ IPO, tiết lộ danh mục đầu tư Bitcoin và tham vọng huy động 75 tỷ USD",
+            "priority_tier": "A",
+            "headline": "TP.HCM quyết tâm gỡ vướng 28 siêu dự án bất động sản trong năm 2026",
+            "summary_hint": "Động thái khơi thông nguồn lực đất đai và thúc đẩy tăng trưởng kinh tế địa phương.",
             "source_urls": [
-              "https://decrypt.co/368596/morning-minute-spacex-files-for-ipo-shares-surprising-btc-portfolio"
-            ]
+              "https://tuoitre.vn/tp-hcm-quyet-tam-dut-diem-28-sieu-du-an-bat-dong-san-kho-nhat-trong-nam-2026-20260602085339228.htm"
+            ],
+            "reason_selected": "Tác động trực tiếp đến thị trường bất động sản Việt Nam."
           },
           {
             "importance_rank": 3,
-            "headline": "Tháo gỡ vướng mắc cho các dự án bất động sản và hạ tầng trọng điểm tại TP.HCM và Cần Thơ",
+            "priority_tier": "B",
+            "headline": "Lạm phát 5 tháng đầu năm của Việt Nam vượt 4%, nhập siêu gần 14 tỷ USD",
+            "summary_hint": "Số liệu vĩ mô quan trọng cho thấy áp lực lên ổn định kinh tế trong nước.",
             "source_urls": [
-              "https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm"
-            ]
-          },
-          {
-            "importance_rank": 4,
-            "headline": "Giá vàng biến động mạnh theo diễn biến đàm phán Mỹ-Iran, gây áp lực lên tâm lý nhà đầu tư",
-            "source_urls": [
-              "https://vietnamnet.vn/gia-vang-hom-nay-24-5-2026-giam-tuan-thu-hai-lien-tiep-sjc-mat-2-trieu-luong-2518664.html"
-            ]
-          },
-          {
-            "importance_rank": 5,
-            "headline": "Cơ quan thuế đẩy mạnh đối chiếu hóa đơn điện tử với dòng tiền ngân hàng để chống thất thu",
-            "source_urls": [
-              "https://tuoitre.vn/co-quan-thue-se-doi-chieu-hoa-don-dien-tu-voi-dong-tien-ngan-hang-20260520133353455.htm"
-            ]
-          },
-          {
-            "importance_rank": 6,
-            "headline": "Bitcoin ETF tại Mỹ ghi nhận áp lực bán tháo lớn với hơn 2 tỷ USD rút ròng trong hai tuần",
-            "source_urls": [
-              "https://www.coindesk.com/markets/2026/05/23/bitcoin-tanks-to-usd74-300-as-spot-etfs-bleed-usd2-26-billion-in-two-weeks"
-            ]
-          },
-          {
-            "importance_rank": 7,
-            "headline": "Đề xuất nâng ngưỡng thu nhập vãng lai tính thuế thu nhập cá nhân lên 5 triệu đồng",
-            "source_urls": [
-              "https://thanhnien.vn/nang-nguong-thu-nhap-vang-lai-tinh-thu-len-5-trieu-dong-da-du-chua-185260522205445733.htm"
-            ]
-          },
-          {
-            "importance_rank": 8,
-            "headline": "Moody's nâng triển vọng tín nhiệm quốc gia của Việt Nam lên mức tích cực",
-            "source_urls": [
-              "https://tradingeconomics.com/vietnam/rating"
-            ]
-          },
-          {
-            "importance_rank": 9,
-            "headline": "Các doanh nghiệp giao thông đối mặt với khó khăn về nhân lực và vốn trong các dự án cao tốc",
-            "source_urls": [
-              "https://baoxaydung.vn/doanh-nghiep-giao-thong-ban-cach-hoa-giai-kho-khan-ve-nhan-luc-192260521151245347.htm"
-            ]
-          },
-          {
-            "importance_rank": 10,
-            "headline": "Sàn thương mại điện tử tăng phí khiến cộng đồng chủ shop bức xúc",
-            "source_urls": [
-              "https://thanhnien.vn/chiu-het-siet-chu-shop-to-san-thuong-mai-tang-phi-vo-toi-va-18526052218554337.htm"
-            ]
-          },
-          {
-            "importance_rank": 11,
-            "headline": "VietinBank báo lãi quý 1 tăng trưởng mạnh 63%, nợ xấu được kiểm soát tốt",
-            "source_urls": [
-              "https://tuoitre.vn/vietinbank-bao-lai-quy-1-tang-63-no-xau-giam-con-102-20260522194305956.htm"
-            ]
-          },
-          {
-            "importance_rank": 12,
-            "headline": "Trung Quốc phát động chiến dịch 2 năm quản lý chứng khoán xuyên biên giới",
-            "source_urls": [
-              "https://tuoitre.vn/trung-quoc-co-dong-thai-dang-chu-y-ve-chung-khoan-xuyen-bien-gioi-2026052222393318.htm"
-            ]
+              "https://tienphong.vn/lam-phat-5-thang-vuot-4-viet-nam-nhap-sieu-gan-14-ty-usd-post1848511.tpo"
+            ],
+            "reason_selected": "Chỉ số vĩ mô cốt lõi cần theo dõi."
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "summary": "Lĩnh vực công nghệ đang chứng kiến sự chuyển dịch mạnh mẽ sang AI tác nhân (agent) và hạ tầng dữ liệu. Google và Microsoft đang cạnh tranh gay gắt trong việc tích hợp AI vào công cụ tìm kiếm và lập trình, trong khi các nhà sản xuất chip Trung Quốc như CXMT đang gia tăng nguồn cung, đe dọa vị thế của các ông lớn truyền thống. Tại Việt Nam, các ngân hàng và doanh nghiệp đang đẩy mạnh chuyển đổi số, đồng thời đối mặt với các thách thức về an ninh mạng và bảo mật dữ liệu cá nhân trong kỷ nguyên AI.",
+        "summary": "Cuộc đua AI bước vào giai đoạn thâm dụng vốn cực lớn với sự tập trung vào hạ tầng vật lý và robot hình người. Microsoft dẫn đầu với các AI agent doanh nghiệp, trong khi các mạng lưới phi tập trung (DePIN) như Titan Network đang chứng minh hiệu quả trong việc giảm chi phí tính toán cho các tập đoàn lớn.",
         "sub_topics": [
           {
             "importance_rank": 1,
-            "headline": "Nvidia đạt kết quả kinh doanh kỷ lục, khẳng định vị thế dẫn đầu trong làn sóng hạ tầng AI toàn cầu",
+            "priority_tier": "A",
+            "headline": "Microsoft ra mắt AI agent 'Scout' và chip lượng tử mới",
+            "summary_hint": "Bước tiến lớn trong việc thương mại hóa AI cho doanh nghiệp và điện toán lượng tử.",
             "source_urls": [
-              "https://www.theguardian.com/technology/2026/may/20/nvidia-revenue-ai-boom"
-            ]
+              "https://decrypt.co/369781/microsoft-scout-openclaw-enterprise-ai-agent"
+            ],
+            "reason_selected": "Đột phá công nghệ có ảnh hưởng sâu rộng đến hạ tầng AI."
           },
           {
             "importance_rank": 2,
-            "headline": "Google ra mắt AI chạy ngầm trong Search và các công cụ AI tác nhân mới",
+            "priority_tier": "B",
+            "headline": "OpenAI đẩy mạnh mảng robot hình người, tuyển dụng kỹ sư phần cứng",
+            "summary_hint": "Sự chuyển dịch chiến lược từ phần mềm sang phần cứng AI vật lý.",
             "source_urls": [
-              "https://genk.vn/google-ra-mat-ai-chay-ngam-trong-search-tu-cap-nhat-tin-tuc-thay-nguoi-dung-165262005175147707.chn"
-            ]
-          },
-          {
-            "importance_rank": 3,
-            "headline": "Microsoft Fara1.5 vượt qua các đối thủ trong tác vụ duyệt web, thúc đẩy AI mã nguồn mở",
-            "source_urls": [
-              "https://decrypt.co/368807/microsoft-fara15-open-source-ai-beats-openai-gemini"
-            ]
-          },
-          {
-            "importance_rank": 4,
-            "headline": "Trung Quốc gia tăng nguồn cung chip nhớ DRAM và NAND, gây áp lực lên thị trường bán dẫn",
-            "source_urls": [
-              "https://genk.vn/trung-quoc-xa-lu-chip-nho-dram-va-nand-con-sot-gia-ram-co-the-sap-ha-nhiet-165262305153232759.chn"
-            ]
-          },
-          {
-            "importance_rank": 5,
-            "headline": "Cảnh báo thủ đoạn lừa đảo chiếm đoạt quyền sử dụng SIM để tấn công tài khoản ngân hàng",
-            "source_urls": [
-              "https://genk.vn/phat-hien-thu-doan-moi-cuc-nguy-hiem-khien-tat-ca-otp-dang-nhap-tai-khoan-ngan-hang-vi-dien-tu-cua-nguoi-dung-chuyen-thang-cho-lua-dao-165260524080952884.chn"
-            ]
-          },
-          {
-            "importance_rank": 6,
-            "headline": "Anthropic phát hiện 10.000 lỗ hổng bảo mật bằng AI, đặt ra thách thức lớn về tốc độ vá lỗi",
-            "source_urls": [
-              "https://thenextweb.com/news/anthropic-glasswing-claude-mythos-10000-vulnerabilities"
-            ]
-          },
-          {
-            "importance_rank": 7,
-            "headline": "FPT ra mắt nền tảng Flezi Foundry, đưa AI Agent vào quy trình phát triển phần mềm doanh nghiệp",
-            "source_urls": [
-              "https://genk.vn/fpt-ra-mat-nen-tang-de-ai-code-ho-va-xu-ly-van-hanh-cntt-cho-doanh-nghiep-165262305154427046.chn"
-            ]
-          },
-          {
-            "importance_rank": 8,
-            "headline": "Meta sa thải quy mô lớn để tái cấu trúc nhân sự, ưu tiên nguồn lực cho các dự án AI",
-            "source_urls": [
-              "https://tuoitre.vn/8-000-nhan-vien-meta-toan-cau-nhan-email-sa-thai-luc-4h-sang-danh-cho-cho-ai-20260521161930336.htm"
-            ]
-          },
-          {
-            "importance_rank": 9,
-            "headline": "Đột phá vật lý quang học với phát hiện sóng 'narwhal' giúp bẫy ánh sáng vượt giới hạn",
-            "source_urls": [
-              "https://www.sciencedaily.com/releases/2026/05/260520093803.htm"
-            ]
-          },
-          {
-            "importance_rank": 10,
-            "headline": "Các tập đoàn công nghệ lớn đối mặt với áp lực chi phí vận hành AI vượt xa chi phí nhân sự",
-            "source_urls": [
-              "https://genk.vn/soc-thue-ky-su-van-re-hon-duy-tri-tro-ly-ai-bai-hoc-khien-microsoft-quay-xe-uber-chay-tui-sau-4-thang-vi-nuoi-may-dat-hon-tuyen-nguoi-165260523151356252.chn"
-            ]
-          },
-          {
-            "importance_rank": 11,
-            "headline": "Việt Nam bãi bỏ thủ tục thu thập ADN và giọng nói khi làm căn cước công dân",
-            "source_urls": [
-              "https://genk.vn/tu-15-5-chinh-thuc-bai-bo-thu-tuc-thu-thap-adn-va-giong-noi-khi-lam-can-cuoc-16526052401095895.chn"
-            ]
-          },
-          {
-            "importance_rank": 12,
-            "headline": "Nền tảng Thiện nguyện của Việt Nam được vinh danh quốc tế về giải pháp công nghệ cộng đồng",
-            "source_urls": [
-              "https://vietnamnet.vn/nen-tang-thien-nguyen-giai-phap-cong-nghe-vi-cong-dong-duoc-vinh-danh-quoc-te-2518764.html"
-            ]
+              "https://genk.vn/sau-dan-van-phong-den-luot-lao-dong-tay-nghe-cao-doi-mat-lan-song-ai-moi-tu-openai-165260602135026078.chn"
+            ],
+            "reason_selected": "Xu hướng mới trong phát triển AI."
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "summary": "Tình hình địa chính trị toàn cầu tiếp tục căng thẳng với các diễn biến tại Trung Đông và xung đột tại Ukraine. Các nỗ lực ngoại giao giữa Mỹ và Iran nhằm mở lại eo biển Hormuz đang là tâm điểm chú ý. Tại Việt Nam, công tác quản lý hành chính, phòng chống tham nhũng và các hoạt động ngoại giao cấp cao được đẩy mạnh. Các vấn đề an ninh mạng và chính sách đối ngoại của Mỹ dưới thời chính quyền Trump cũng tạo ra những làn sóng tranh luận lớn trên trường quốc tế.",
+        "summary": "Căng thẳng địa chính trị tại Trung Đông tiếp tục leo thang với các cuộc tấn công quân sự giữa Mỹ và Iran, gây gián đoạn chuỗi cung ứng năng lượng. Tại Việt Nam, Chính phủ tập trung vào việc hoàn thiện thể chế, quản lý đô thị và các hoạt động ngoại giao kinh tế.",
         "sub_topics": [
           {
             "importance_rank": 1,
-            "headline": "Mỹ và Iran đạt thỏa thuận ngừng bắn 60 ngày, mở cửa eo biển Hormuz",
+            "priority_tier": "A",
+            "headline": "Mỹ tấn công đảo Qeshm của Iran, căng thẳng địa chính trị leo thang",
+            "summary_hint": "Diễn biến quân sự trực tiếp gây bất ổn cho an ninh năng lượng toàn cầu.",
             "source_urls": [
-              "https://tienphong.vn/ro-tin-my-iran-gia-han-lenh-ngung-ban-60-ngay-mo-cua-eo-bien-hormuz-post1845869.tpo"
-            ]
+              "https://www.aljazeera.com/news/liveblog/2026/6/3/iran-war-live-us-strikes-irans-qeshm-says-tehran-attacks-kuwait-bahrain?traffic_source=rss"
+            ],
+            "reason_selected": "Sự kiện địa chính trị nóng nhất ảnh hưởng toàn cầu."
           },
           {
             "importance_rank": 2,
-            "headline": "Tổng Bí thư, Chủ tịch nước Tô Lâm thăm Thái Lan, thúc đẩy quan hệ đối tác chiến lược",
+            "priority_tier": "B",
+            "headline": "Hà Nội: Ngừng cấp điện, nước đối với công trình vi phạm",
+            "summary_hint": "Chính sách mới nhằm tăng cường quản lý trật tự xây dựng và an toàn xã hội.",
             "source_urls": [
-              "https://tienphong.vn/chuyen-tham-thai-lan-cua-tong-bi-thu-to-lam-mang-y-nghia-dac-biet-post1845814.tpo"
-            ]
-          },
-          {
-            "importance_rank": 3,
-            "headline": "Căng thẳng leo thang tại Ukraine sau cuộc tấn công quy mô lớn vào thủ đô Kiev",
-            "source_urls": [
-              "https://tienphong.vn/thu-do-kiev-cua-ukraine-rung-chuyen-vi-cuoc-tan-cong-quy-mo-lon-post1845830.tpo"
-            ]
-          },
-          {
-            "importance_rank": 4,
-            "headline": "Quốc hội Mỹ điều tra các nền tảng dự đoán thị trường về nguy cơ giao dịch nội gián",
-            "source_urls": [
-              "https://www.coindesk.com/policy/2026/05/22/congress-probes-polymarket-and-kalshi-over-fears-government-employees-are-trading-on-secret-info"
-            ]
-          },
-          {
-            "importance_rank": 5,
-            "headline": "Tulsi Gabbard từ chức Giám đốc Tình báo Quốc gia Mỹ",
-            "source_urls": [
-              "https://time.com/article/2026/05/22/tulsi-gabbard-to-resign-as-trump-s-director-of-national-intelligence/"
-            ]
-          },
-          {
-            "importance_rank": 6,
-            "headline": "Chính phủ Việt Nam đẩy mạnh xử lý các vụ án kinh tế lớn và quản lý tài sản công",
-            "source_urls": [
-              "https://tienphong.vn/nhung-tai-san-thu-nhap-cua-nguoi-co-chuc-vu-phai-cong-khai-post1845237.tpo"
-            ]
-          },
-          {
-            "importance_rank": 7,
-            "headline": "Biểu tình chống chính phủ quy mô lớn tại Serbia gây bất ổn chính trị khu vực",
-            "source_urls": [
-              "https://www.aljazeera.com/news/2026/5/23/tens-of-thousands-rally-in-serbia-for-antigovernment-demonstrations"
-            ]
-          },
-          {
-            "importance_rank": 8,
-            "headline": "Tranh cãi về chính sách đối ngoại của Mỹ và ảnh hưởng đến quan hệ với các đồng minh",
-            "source_urls": [
-              "https://www.theatlantic.com/ideas/2026/05/trump-america-dictators-china-xi/687219/?utm_source=feed"
-            ]
-          },
-          {
-            "importance_rank": 9,
-            "headline": "Hơn 1.900 cán bộ, chiến sĩ tham gia Hội thao quân sự, võ thuật và thể thao CAND năm 2026",
-            "source_urls": [
-              "https://baoxaydung.vn/hon-1900-can-bo-chien-si-tham-gia-hoi-thao-quan-su-vo-thuat-va-the-thao-cand-nam-2026-192260524070823937.htm"
-            ]
-          },
-          {
-            "importance_rank": 10,
-            "headline": "Bắt giữ trùm lừa đảo quốc tế và bàn giao cho cơ quan chức năng Trung Quốc",
-            "source_urls": [
-              "https://tienphong.vn/ban-giao-trum-lua-dao-quoc-te-cho-trung-quoc-post1845844.tpo"
-            ]
-          },
-          {
-            "importance_rank": 11,
-            "headline": "Căng thẳng thương mại Mỹ-Trung vẫn tiếp diễn tại các diễn đàn quốc tế như APEC",
-            "source_urls": [
-              "https://www.cnbc.com/2026/05/23/three-signs-from-apec-that-the-us-china-remain-far-apart-on-trade.html"
-            ]
-          },
-          {
-            "importance_rank": 12,
-            "headline": "Chính phủ Việt Nam chỉ đạo quyết liệt về phòng chống dịch bệnh Ebola",
-            "source_urls": [
-              "https://tienphong.vn/bo-y-te-hoa-toc-yeu-cau-cac-bệnh-vien-tang-cuong-phong-chong-dich-ebola-post1845845.tpo"
-            ]
+              "https://baoxaydung.vn/ha-noi-ngung-cap-dien-nuoc-doi-voi-cong-trinh-vi-pham-192260602164335091.htm"
+            ],
+            "reason_selected": "Chính sách quản lý đô thị quan trọng tại Việt Nam."
           }
         ]
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "summary": "Xu hướng tiêu dùng và đời sống đang chuyển dịch mạnh mẽ sang các sản phẩm bền vững và công nghệ cá nhân hóa. Tại Việt Nam, kỳ thi tuyển sinh lớp 10 và các thành tích giáo dục quốc tế là tâm điểm xã hội. Trong khi đó, thế giới đang đối mặt với các thách thức về sức khỏe cộng đồng, biến đổi khí hậu và các tranh cãi về đạo đức trong việc sử dụng AI trong nghệ thuật và văn học.",
+        "summary": "Người tiêu dùng Việt Nam đang thích nghi với việc sử dụng xăng E10 thông qua các kênh hỗ trợ từ Chính phủ. Đồng thời, các xu hướng sống xanh, tiết kiệm năng lượng trong mùa nắng nóng và sự quan tâm đến các hoạt động văn hóa, giáo dục trẻ đang trở thành tâm điểm.",
         "sub_topics": [
           {
             "importance_rank": 1,
-            "headline": "Kỳ thi tuyển sinh lớp 10 năm học 2026-2027 diễn ra với sự cạnh tranh gay gắt trên cả nước",
+            "priority_tier": "A",
+            "headline": "Triển khai xăng E10: Chính phủ lập chatbot hỗ trợ người tiêu dùng",
+            "summary_hint": "Nỗ lực đảm bảo sự minh bạch và hỗ trợ người dân trong quá trình chuyển đổi năng lượng.",
             "source_urls": [
-              "https://vietnamnet.vn/giao-duc/thi-vao-lop-10"
-            ]
+              "https://genk.vn/xang-e10-vua-ban-dai-tra-bo-cong-thuong-lap-chatbot-giai-dap-cho-nguoi-dan-165260603081653199.chn"
+            ],
+            "reason_selected": "Chính sách năng lượng ảnh hưởng trực tiếp đến đời sống hàng triệu người."
           },
           {
             "importance_rank": 2,
-            "headline": "Việt Nam giành 8 huy chương tại Olympic Vật lý châu Á 2026, khẳng định chất lượng giáo dục mũi nhọn",
+            "priority_tier": "B",
+            "headline": "Kỳ thi tuyển sinh vào lớp 10 trên cả nước năm 2026",
+            "summary_hint": "Sự kiện giáo dục quan trọng với hàng trăm nghìn thí sinh tham gia.",
             "source_urls": [
-              "https://baoxaydung.vn/viet-nam-gianh-8-huy-chuong-olympic-vat-ly-chau-a-2026-192260524084817412.htm"
-            ]
-          },
-          {
-            "importance_rank": 3,
-            "headline": "Cảnh báo y tế về tác dụng phụ của thuốc giảm cân Wegovy liên quan đến nguy cơ mù lòa",
-            "source_urls": [
-              "https://www.sciencedaily.com/releases/2026/05/260522023134.htm"
-            ]
-          },
-          {
-            "importance_rank": 4,
-            "headline": "Tranh cãi về đạo đức AI trong văn học và báo chí sau các vụ bê bối sử dụng AI tạo nội dung",
-            "source_urls": [
-              "https://www.theatlantic.com/technology/2026/05/ai-writing-scandal-future-of-truth-book/687290/?utm_source=feed"
-            ]
-          },
-          {
-            "importance_rank": 5,
-            "headline": "Giá vé máy bay cao điểm hè tăng vọt, thúc đẩy xu hướng du lịch linh hoạt tại Việt Nam",
-            "source_urls": [
-              "https://tuoitre.vn/ve-may-bay-ngon-ca-chuc-trieu-dong-tour-he-linh-hoat-chieu-khach-20260523225706824.htm"
-            ]
-          },
-          {
-            "importance_rank": 6,
-            "headline": "Phát hiện hài cốt cổ đại tại Lào giúp giải mã bí ẩn về 'Cánh đồng chum'",
-            "source_urls": [
-              "https://genk.vn/hai-cot-cua-it-nhat-37-nguoi-moi-duoc-phat-hien-gan-day-co-the-giup-giai-ma-bi-an-canh-dong-chum-o-lao-165260522163001587.chn"
-            ]
-          },
-          {
-            "importance_rank": 7,
-            "headline": "Xu hướng sử dụng công nghệ AI để cá nhân hóa trải nghiệm giải trí và giáo dục",
-            "source_urls": [
-              "https://genk.vn/samsung-cho-nguoi-viet-xem-world-cup-voi-ai-tach-tieng-binh-luan-ho-reo-cua-khan-gia-tang-chieu-sau-hinh-anh-them-tv-micro-rgb-165260523213209957.chn"
-            ]
-          },
-          {
-            "importance_rank": 8,
-            "headline": "Cảnh báo rủi ro bảo mật và quyền riêng tư từ công nghệ WiFi hiện hữu có khả năng nhận diện người",
-            "source_urls": [
-              "https://www.sciencedaily.com/releases/2026/05/260522023127.htm"
-            ]
-          },
-          {
-            "importance_rank": 9,
-            "headline": "Dự án an sinh xã hội gieo chữ tại vùng biên giới nhận được sự quan tâm lớn từ cộng đồng",
-            "source_urls": [
-              "https://baochinhphu.vn/amaccao-cung-luc-luong-cong-an-vuot-nui-hiem-gieo-chu-noi-mot-tieng-ga-gay-3-nuoc-cung-nghe-102260523181028758.htm"
-            ]
-          },
-          {
-            "importance_rank": 10,
-            "headline": "Xu hướng sống xanh và bảo vệ sức khỏe thông qua thực phẩm tự nhiên và thiết bị thông minh",
-            "source_urls": [
-              "https://www.theguardian.com/food/2026/may/23/move-over-matcha-lattes-horchata-is-cold-creamy-and-coming-to-a-menu-near-you"
-            ]
-          },
-          {
-            "importance_rank": 11,
-            "headline": "Các vụ bê bối về an toàn sản phẩm tiêu dùng tại Anh liên quan đến chất amiăng",
-            "source_urls": [
-              "https://www.theguardian.com/business/2026/may/23/toys-on-sale-in-britain-asbestos-found-tests"
-            ]
-          },
-          {
-            "importance_rank": 12,
-            "headline": "Sự kiện thể thao Tiền Phong Golf Championship thu hút sự quan tâm của cộng đồng",
-            "source_urls": [
-              "https://tienphong.vn/toan-canh-le-khai-mac-tien-phong-golf-championship-non-song-mot-dai-2026-post1845875.tpo"
-            ]
+              "https://vietnamnet.vn/giao-duc/thi-vao-lop-10"
+            ],
+            "reason_selected": "Sự kiện xã hội có quy mô lớn."
           }
         ]
       }
     ],
-    "vietnam_highlights": "Việt Nam tập trung vào việc tháo gỡ vướng mắc pháp lý cho các dự án bất động sản và hạ tầng trọng điểm, đồng thời đẩy mạnh chuyển đổi số ngành ngân hàng. Kỳ thi tuyển sinh lớp 10 và các thành tích giáo dục quốc tế là điểm sáng trong đời sống xã hội.",
-    "international_highlights": "Thế giới đối mặt với căng thẳng địa chính trị tại Trung Đông và Ukraine, cùng với các tranh cãi về đạo đức AI và an ninh mạng. Các thương vụ IPO công nghệ lớn như SpaceX và sự bùng nổ của hạ tầng AI đang định hình lại thị trường vốn toàn cầu.",
-    "timeline": [
-      {
-        "date": "2026-05-20",
-        "headlines": [
-          "VN-Index kéo ngược 50 điểm",
-          "Giá vàng giảm mạnh",
-          "SpaceX chuẩn bị IPO",
-          "Google ra mắt AI Search"
-        ]
-      },
-      {
-        "date": "2026-05-21",
-        "headlines": [
-          "Điều chỉnh giá xăng dầu",
-          "Chính phủ cắt giảm thủ tục hành chính",
-          "Iran-Mỹ đàm phán",
-          "Nvidia báo cáo doanh thu"
-        ]
-      },
-      {
-        "date": "2026-05-22",
-        "headlines": [
-          "Thủ tướng phân công nhiệm vụ mới",
-          "SpaceX phóng Starship V3",
-          "Cổ phiếu công nghệ biến động"
-        ]
-      }
-    ],
+    "vietnam_highlights": "Việt Nam tập trung vào việc ổn định vĩ mô trước áp lực lạm phát, đẩy mạnh giải ngân đầu tư công và gỡ vướng pháp lý cho bất động sản. Việc triển khai xăng E10 và quản lý đô thị tại các thành phố lớn đang được thực hiện quyết liệt.",
+    "international_highlights": "Thế giới đối mặt với rủi ro địa chính trị tại Trung Đông và sự biến động mạnh của thị trường tài chính. Cuộc đua AI giữa các tập đoàn công nghệ lớn đang định hình lại hạ tầng điện toán toàn cầu.",
     "notable_articles": [
       {
-        "title": "SpaceX files for IPO, shares surprising BTC portfolio",
+        "title": "Bitcoin lao dốc dưới 66.000 USD",
+        "source": "CoinDesk",
+        "url": "https://www.coindesk.com/es/markets/2026/06/03/bitcoin-plunges-below-usd66-000-even-as-global-stocks-hit-fresh-records",
+        "why_notable": "Phản ánh sự phân hóa dòng vốn giữa tài sản số và cổ phiếu AI.",
+        "priority_tier": "A"
+      },
+      {
+        "title": "Mỹ tấn công đảo Qeshm của Iran",
+        "source": "Al Jazeera",
+        "url": "https://www.aljazeera.com/news/liveblog/2026/6/3/iran-war-live-us-strikes-irans-qeshm-says-tehran-attacks-kuwait-bahrain?traffic_source=rss",
+        "why_notable": "Diễn biến quân sự nóng nhất ảnh hưởng đến an ninh năng lượng.",
+        "priority_tier": "A"
+      },
+      {
+        "title": "Microsoft ra mắt AI agent Scout",
         "source": "Decrypt",
-        "url": "https://decrypt.co/368596/morning-minute-spacex-files-for-ipo-shares-surprising-btc-portfolio",
-        "why_notable": "Sự kiện IPO của SpaceX được kỳ vọng là lớn nhất lịch sử, tiết lộ danh mục đầu tư Bitcoin đáng kể."
-      },
-      {
-        "title": "Microsoft's Free AI Just Beat OpenAI and Google at Browsing the Web",
-        "source": "Decrypt",
-        "url": "https://decrypt.co/368807/microsoft-fara15-open-source-ai-beats-openai-gemini",
-        "why_notable": "Đột phá về hiệu suất của mô hình AI mã nguồn mở so với các đối thủ lớn."
-      },
-      {
-        "title": "Rộ tin Mỹ - Iran gia hạn lệnh ngừng bắn 60 ngày, mở cửa eo biển Hormuz",
-        "source": "Tiền Phong",
-        "url": "https://tienphong.vn/ro-tin-my-iran-gia-han-lenh-ngung-ban-60-ngay-mo-cua-eo-bien-hormuz-post1845869.tpo",
-        "why_notable": "Diễn biến quan trọng trong nỗ lực hòa bình tại Trung Đông."
-      },
-      {
-        "title": "Việt Nam giành 8 huy chương Olympic Vật lý châu Á 2026",
-        "source": "Báo Xây dựng",
-        "url": "https://baoxaydung.vn/viet-nam-gianh-8-huy-chuong-olympic-vat-ly-chau-a-2026-192260524084817412.htm",
-        "why_notable": "Thành tích giáo dục ấn tượng của học sinh Việt Nam tại đấu trường quốc tế."
-      },
-      {
-        "title": "Two Men Federally Charged Over AI Deepfake Porn Under the Take It Down Act",
-        "source": "Decrypt",
-        "url": "https://decrypt.co/368797/two-men-federally-charged-ai-deepfake-porn-take-down-act",
-        "why_notable": "Động thái pháp lý quan trọng đầu tiên áp dụng luật mới về deepfake."
-      },
-      {
-        "title": "Chặn 4.400 tỉ chuyển khoản lừa đảo nhờ ngân hàng cảnh báo",
-        "source": "Thanh Niên",
-        "url": "https://thanhnien.vn/chan-4400-ti-chuyen-khoan-lua-dao-nho-ngan-hang-canh-bao-185260523072608036.htm",
-        "why_notable": "Số liệu ấn tượng về hiệu quả của hệ thống cảnh báo gian lận trong ngành ngân hàng Việt Nam."
-      },
-      {
-        "title": "Putin Can No Longer Hide His Catastrophe",
-        "source": "The Atlantic",
-        "url": "https://www.theatlantic.com/ideas/2026/05/putin-lost-control-russia/687269/?utm_source=feed",
-        "why_notable": "Phân tích sâu sắc về sự suy yếu của Nga trong cuộc chiến Ukraine."
-      },
-      {
-        "title": "Tô Hải Lâm: 4 năm liền đạt Huy chương Vàng AIMO, thắng hơn 70 giải một năm",
-        "source": "Tiền Phong",
-        "url": "https://tienphong.vn/to-hai-lam-4-nam-lien-dat-huy-chuong-vang-aimo-thang-hon-70-giai-mot-nam-post1845781.tpo",
-        "why_notable": "Gương mặt học sinh Việt Nam tiêu biểu trong các kỳ thi toán học quốc tế."
-      },
-      {
-        "title": "Cần Thơ rà soát, gỡ vướng 21 dự án bất động sản theo cơ chế đặc thù",
-        "source": "Báo Xây dựng",
-        "url": "https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm",
-        "why_notable": "Động thái quan trọng của chính quyền địa phương nhằm tháo gỡ khó khăn cho thị trường bất động sản."
+        "url": "https://decrypt.co/369781/microsoft-scout-openclaw-enterprise-ai-agent",
+        "why_notable": "Bước tiến lớn trong thương mại hóa AI cho doanh nghiệp.",
+        "priority_tier": "A"
       }
     ],
-    "gaps_and_limits": "Dữ liệu về các chỉ số kinh tế vĩ mô cụ thể của các nước đang phát triển ngoài Việt Nam còn hạn chế. Thiếu thông tin chi tiết về các diễn biến xã hội sâu rộng tại các khu vực xung đột ngoài Trung Đông."
+    "gaps_and_limits": "Thiếu dữ liệu chi tiết về tác động dài hạn của việc chuyển đổi năng lượng tại các vùng nông thôn Việt Nam."
   }
 }
