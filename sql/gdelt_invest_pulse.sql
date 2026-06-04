@@ -1,6 +1,6 @@
 -- LeonQuant invest channel only — 24h, single-scan event pools (tone is ranking, not global gate).
 -- Pool A core_extreme | B high_coverage_neutral | C market_entity_neutral (Actor/URL hint).
--- TopEvents cap 160; GKG join only after TopEvents (no keyword scan on GKG).
+-- TopEvents cap 180; GKG join only after TopEvents (no keyword scan on GKG). Recall-first; Gemini judges precision.
 
 WITH
   CandidateBaseEvents AS (
@@ -99,9 +99,9 @@ WITH
       PARTITION BY pool_kind
       ORDER BY NumArticles DESC, ABS(AvgTone) DESC
     ) <= CASE
-      WHEN pool_kind = 'core_extreme' THEN 70
-      WHEN pool_kind = 'market_entity_neutral' THEN 60
-      WHEN pool_kind = 'high_coverage_neutral' THEN 60
+      WHEN pool_kind = 'core_extreme' THEN 75
+      WHEN pool_kind = 'market_entity_neutral' THEN 65
+      WHEN pool_kind = 'high_coverage_neutral' THEN 65
       ELSE 0
     END
   ),
@@ -113,7 +113,7 @@ WITH
       pool_priority,
       NumArticles DESC,
       ABS(AvgTone) DESC
-    LIMIT 160
+    LIMIT 180
   ),
 
   FilteredMentions AS (
@@ -611,4 +611,4 @@ ORDER BY
   So_Bao_De_Cap DESC,
   ABS(Diem_Cam_Xuc) DESC,
   source_count DESC
-LIMIT 160
+LIMIT 200

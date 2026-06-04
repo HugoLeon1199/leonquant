@@ -40,9 +40,9 @@ INVEST_SQL_PATH = PROJECT_DIR / "sql" / "gdelt_invest_pulse.sql"
 DEFAULT_MAX_BYTES_BILLED = 500_000_000
 DEFAULT_JOB_TIMEOUT_MS = 60_000
 TOP_EVENTS_POOL = 300
-INVEST_TOP_EVENTS_POOL = 160
+INVEST_TOP_EVENTS_POOL = 180
 BQ_OUTPUT_LIMIT = 50
-INVEST_BQ_OUTPUT_LIMIT = 160
+INVEST_BQ_OUTPUT_LIMIT = 200
 TARGET_HOT_EVENTS = 20
 MAX_MENTIONS_PER_EVENT = 20
 PULSE_SCHEMA_VERSION = "event-centric-v7"
@@ -61,16 +61,16 @@ WORLD_DEEP_EXCERPT_PARAGRAPHS = 8
 WORLD_DEEP_CHARS_PER_URL = 2000
 WORLD_DEEP_MERGED_CHARS = 5200
 # Invest/world: SQL = hot coverage + sector; Gemini = summary + dedupe; world/invest macro curate in 1 post-call.
-INVEST_MAX_ENRICH_EVENTS = 160
-INVEST_CURATION_POOL = 160
+INVEST_MAX_ENRICH_EVENTS = 220
+INVEST_CURATION_POOL = 220
 INVEST_MARKET_ENTITY_MIN_ARTICLES = 30
 INVEST_PUBLIC_FEED_LABEL = "Theo đề mục · các diễn biến kinh tế - thị trường đáng chú ý"
-INVEST_SEMANTIC_JUDGE_MAX = 60
-INVEST_FEED_MAX = 18
+INVEST_SEMANTIC_JUDGE_MAX = 100
+INVEST_FEED_MAX = 28
 INVEST_WORLD_TOPICS_MAX = 8
-INVEST_ITEMS_PER_TOPIC = 4
-# Python keyword/GKG: candidate pool only (not final gate).
-INVEST_MARKET_RELEVANCE_MIN = 1
+INVEST_ITEMS_PER_TOPIC = 2
+# Python: recall-oriented cap/sort only — precision is Gemini judge + topics.
+INVEST_MARKET_RELEVANCE_MIN = 0
 INVEST_SQL_MARKET_RELEVANCE_MIN = 2
 INVEST_CORE_MIN_ARTICLES = 40
 INVEST_CORE_MIN_ABS_TONE = 4.0
@@ -179,7 +179,30 @@ INVEST_GDELT_REGEX: dict[str, str] = {
         r"\b(NATO|BRICS|G7|G20|UNITED NATIONS|UN|EUROPEAN UNION)\b"
     ),
 }
+# Soft editorial hints for Gemini (never auto-drop in Python except invalid/social URLs).
+INVEST_NOISE_HINT_REGEX: dict[str, str] = {
+    "crime": (
+        r"MURDER|HOMICIDE|SHOOTING|STABBING|ROBBERY|ASSAULT|KIDNAP|"
+        r"RAPE|GANG|GUNMAN|MASS[_ ]?SHOOTING|CRIME|CRIMINAL|POLICE[_ ]?CHASE"
+    ),
+    "local_accident": (
+        r"TRAFFIC[_ ]?ACCIDENT|CAR[_ ]?CRASH|BUS[_ ]?CRASH|FIRE[_ ]?ACCIDENT|"
+        r"FACTORY[_ ]?FIRE|BUILDING[_ ]?COLLAPSE|FLOOD[_ ]?DEATH|LOCAL[_ ]?ACCIDENT"
+    ),
+    "school_exam": r"SCHOOL[_ ]?EXAM|UNIVERSITY[_ ]?EXAM|STUDENT[_ ]?TEST|GRADUATION[_ ]?EXAM",
+    "pr_product": (
+        r"PRODUCT[_ ]?LAUNCH|PRESS[_ ]?RELEASE|BRAND[_ ]?CAMPAIGN|"
+        r"SPONSORSHIP[_ ]?DEAL|INFLUENCER|CELEBRITY"
+    ),
+    "sports": r"SPORTS|FOOTBALL|SOCCER|BASKETBALL|CRICKET|WORLD[_ ]?CUP|OLYMPIC|TOURNAMENT",
+    "entertainment": r"ENTERTAINMENT|MOVIE|FILM|CONCERT|AWARD[_ ]?SHOW|TABLOID|GOSSIP",
+}
 _INVEST_GDELT_COMPILED: dict[str, re.Pattern[str]] | None = None
+_INVEST_NOISE_HINT_COMPILED: dict[str, re.Pattern[str]] | None = None
+_INVEST_SOCIAL_URL_RE = re.compile(
+    r"(youtube\.com|youtu\.be|facebook\.com|fb\.com|twitter\.com|x\.com|tiktok\.com|instagram\.com)",
+    re.IGNORECASE,
+)
 _INVEST_PUBLIC_FORBIDDEN_RE = re.compile(
     r"\b(GDELT|keyword|keywords|từ khóa|crawler|pipeline|semantic|judge|Gemini|AI)\b",
     re.IGNORECASE,
@@ -994,7 +1017,9 @@ def _apply_gemini_enrichment(
     if not _usable_title(ai_data.get("title_vi")):
         return
     ev["title_vi"] = ai_data.get("title_vi") or TITLE_UNAVAILABLE
-    ev["summary_vi"] = ai_data.get("summary_vi") or "Nhấp nguồn để xem chi tiết."
+    ev["summary_vi"] = ai_data.get("summary_vi") or (
+        "" if channel == "invest" else "Nhấp nguồn để xem chi tiết."
+    )
     ev["importance_reason"] = ai_data.get("importance_reason") or ""
     gem_sector = str(ai_data.get("sector") or "").strip()
     allowed = valid_sectors_for(channel)
@@ -1023,11 +1048,15 @@ def _set_scrape_fallback_enrichment(
         if _usable_title(scraped_title):
             break
     ev["title_vi"] = scraped_title
-    ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
-    ev["importance_reason"] = (
-        f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
-        f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
-    )
+    if channel == "invest":
+        ev["summary_vi"] = ""
+        ev["importance_reason"] = ""
+    else:
+        ev["summary_vi"] = f"Sự kiện thuộc nhóm {sector}. Nhấp nguồn để đọc bài gốc."
+        ev["importance_reason"] = (
+            f"Độ phủ khoảng {ev.get('num_articles', 0)} bài báo "
+            f"và {ev.get('source_count', 0)} nguồn tin trong 24 giờ qua."
+        )
     ev["entities"] = existing_entities
     ev["title"] = ev.get("title_vi") or TITLE_UNAVAILABLE
     ev["summary"] = ev.get("summary_vi") or ""
@@ -1053,7 +1082,8 @@ def gemini_batch_enrich_events(
 Bạn là biên tập viên chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
 Với MỖI khối ### global_event_id=... bên dưới: CHỈ dùng đoạn bài trong khối đó. Không trộn giữa các sự kiện.
 Không nhắc AI, GDELT, crawler, pipeline, hệ thống. Không khuyến nghị mua/bán. Không bịa ticker/giá.
-Tóm tắt trung thực; nếu bài nói kinh tế/CK/crypto/vàng thì summary phải đúng hướng đó.
+Tóm tắt trung thực, cụ thể (ai làm gì, hệ quả thị trường nếu có trong bài).
+CẤM summary chung chung: "Sự kiện thuộc nhóm…", "Nhấp nguồn…", "các diễn biến kinh tế đang chịu áp lực".
 """
         json_shape = """
 {{
@@ -1476,6 +1506,8 @@ def _invest_curation_brief(ev: dict[str, Any]) -> str:
     eid = str(ev.get("global_event_id") or "")
     sector = str(ev.get("primary_sector") or ev.get("sector") or "")
     num = int(ev.get("num_articles") or 0)
+    sc = int(ev.get("source_count") or 0)
+    mrs = int(ev.get("market_relevance_score") or 0)
     title = str(ev.get("title_vi") or ev.get("title") or "").strip()[:140]
     if not title:
         title = " | ".join(
@@ -1488,7 +1520,12 @@ def _invest_curation_brief(ev: dict[str, Any]) -> str:
         )[:140]
     summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()[:180]
     assets = ",".join(list(ev.get("affected_assets") or [])[:6])
-    return f"id={eid} | {num} bài | {sector} | assets={assets} | {title} | {summary}"
+    noise = ev.get("noise_hints") or invest_noise_hints(_invest_text_blob(ev))
+    noise_bit = f" | noise_hint={','.join(noise)}" if noise else ""
+    return (
+        f"id={eid} | {num} bài | {sc} nguồn | mrs={mrs} | {sector} | assets={assets}{noise_bit} | "
+        f"{title} | {summary}"
+    )
 
 
 def _invest_gdelt_compiled() -> dict[str, re.Pattern[str]]:
@@ -1498,6 +1535,45 @@ def _invest_gdelt_compiled() -> dict[str, re.Pattern[str]]:
             name: re.compile(pat, re.IGNORECASE) for name, pat in INVEST_GDELT_REGEX.items()
         }
     return _INVEST_GDELT_COMPILED
+
+
+def _invest_noise_hint_compiled() -> dict[str, re.Pattern[str]]:
+    global _INVEST_NOISE_HINT_COMPILED
+    if _INVEST_NOISE_HINT_COMPILED is None:
+        _INVEST_NOISE_HINT_COMPILED = {
+            name: re.compile(pat, re.IGNORECASE) for name, pat in INVEST_NOISE_HINT_REGEX.items()
+        }
+    return _INVEST_NOISE_HINT_COMPILED
+
+
+def invest_noise_hints(blob: str) -> list[str]:
+    """Soft labels only — passed to Gemini; not used to drop events in Python."""
+    u = (blob or "").upper()
+    if not u.strip():
+        return []
+    return [name for name, pat in _invest_noise_hint_compiled().items() if pat.search(u)]
+
+
+def _invest_source_url(ev: dict[str, Any]) -> str:
+    for s in ev.get("sources") or []:
+        if isinstance(s, str) and s.strip().startswith("http"):
+            return s.strip()
+        if isinstance(s, dict) and str(s.get("url") or "").startswith("http"):
+            return str(s["url"]).strip()
+    return ""
+
+
+def _invest_has_technical_valid_sources(ev: dict[str, Any]) -> bool:
+    """Drop only invalid/non-news URLs (social hosts). SQL already filters mentions."""
+    for s in ev.get("sources") or []:
+        url = s if isinstance(s, str) else str((s or {}).get("url") or "")
+        url = url.strip()
+        if not url.startswith("http"):
+            continue
+        if _INVEST_SOCIAL_URL_RE.search(url):
+            continue
+        return True
+    return False
 
 
 def _invest_text_blob(ev: dict[str, Any]) -> str:
@@ -1645,30 +1721,44 @@ def _invest_topic_tags(ev: dict[str, Any]) -> str:
     return f"[{','.join(tags) or 'MARKET'}]"
 
 
-def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """English regex on GKG themes + text; min score INVEST_MARKET_RELEVANCE_MIN (1)."""
+def prepare_invest_candidates(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Recall-oriented: dedupe, technical URL cleanup, noise_hint, sort, cap — no editorial drop."""
     if not events:
         return []
-    scored: list[tuple[int, dict[str, Any]]] = []
+    seen: set[str] = set()
+    pool: list[dict[str, Any]] = []
+    dropped_technical = 0
     for ev in events:
+        eid = str(ev.get("global_event_id") or "").strip()
+        if not eid or eid in seen:
+            continue
+        if not _invest_has_technical_valid_sources(ev):
+            dropped_technical += 1
+            continue
+        seen.add(eid)
         blob = _invest_text_blob(ev)
         flags = _invest_signal_flags(blob)
-        score = invest_market_relevance_score(flags, blob)
-        if score < INVEST_MARKET_RELEVANCE_MIN:
-            continue
-        if _invest_is_non_market_geo(flags, blob) and _invest_asset_tier(flags) == 0:
-            continue
-        ev["market_relevance_score"] = score
-        scored.append((_invest_sort_key(ev), ev))
-    scored.sort(key=lambda t: t[0], reverse=True)
-    kept = [ev for _, ev in scored[:INVEST_CURATION_POOL]]
+        if not ev.get("market_relevance_score"):
+            ev["market_relevance_score"] = invest_market_relevance_score(flags, blob)
+        hints = invest_noise_hints(blob)
+        ev["noise_hint"] = bool(hints)
+        ev["noise_hints"] = hints
+        pool.append(ev)
+    pool.sort(key=_invest_sort_key, reverse=True)
+    kept = pool[:INVEST_CURATION_POOL]
     LOG.info(
-        "invest_world market_relevance filter: %s / %s candidates (min=%s)",
+        "invest candidates: %s / %s (technical_drop=%s, cap=%s)",
         len(kept),
         len(events),
-        INVEST_MARKET_RELEVANCE_MIN,
+        dropped_technical,
+        INVEST_CURATION_POOL,
     )
     return kept
+
+
+def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Backward-compatible alias for prepare_invest_candidates."""
+    return prepare_invest_candidates(events)
 
 
 def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
@@ -1683,11 +1773,18 @@ def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
     summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()
     if len(summary) > 320:
         summary = summary[:317].rstrip() + "…"
+    angle = str(ev.get("investment_angle") or ev.get("importance_reason") or "").strip()
+    if len(angle) > 220:
+        angle = angle[:217].rstrip() + "…"
     return {
         "global_event_id": str(ev.get("global_event_id") or ""),
         "title": title,
         "summary": summary,
+        "investment_angle": angle,
+        "affected_assets": list(ev.get("affected_assets") or []),
+        "sentiment_label": str(ev.get("sentiment_label") or ""),
         "num_articles": int(ev.get("num_articles") or 0),
+        "source_count": int(ev.get("source_count") or 0),
         "source_urls": urls,
     }
 
@@ -1753,37 +1850,31 @@ def gemini_invest_world_topics(
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn biên tập mục kinh tế–đầu tư toàn cầu — viết NGẮN GỌN, không dài dòng.
+Bạn biên tập mục "Tin thế giới quan trọng" (kinh tế–đầu tư) — đã qua lọc semantic judge.
 
-Từ danh sách sự kiện 24h (tone trung tính vẫn có thể quan trọng: Bitcoin thủng mốc, AI/chip mới, Fed/PBOC, EV…), làm:
-1) Chọn tối đa {INVEST_WORLD_TOPICS_MAX} ĐỀ MỤC — ưu tiên thị trường & công nghệ chiến lược:
-   Crypto (CRYPTO), Chứng khoán (EQUITY), Vĩ mô (MACRO), Ngân hàng (BANKS), Hàng hóa (COMMODITY),
-   Thương mại (TRADE), Công nghệ–Chip–AI–Quantum–Cyber (TECH).
-   Không chỉ vì tên nổi; cần context đầu tư/ngành/tài sản. Nếu có tag CRYPTO/EQUITY/TECH thì ưu tiên đề mục tương ứng.
-2) Mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin. Không gom hết vào Địa chính trị / Pháp lý.
-3) Mỗi tin: title ngắn (≤18 từ), summary ĐÚNG 2 câu (≤55 từ), không bịa, không khuyến nghị mua/bán.
-   Không phóng đại (khủng hoảng/bùng nổ/risk-off) chỉ vì tone nhẹ.
-4) global_event_id phải khớp danh sách đầu vào.
+Từ danh sách (tối đa {INVEST_WORLD_TOPICS_MAX} đề mục, mỗi đề mục tối đa {INVEST_ITEMS_PER_TOPIC} tin):
+- Title cụ thể (≤18 từ), summary 2–4 câu (≤80 từ), bám nội dung đầu vào.
+- Mỗi item phải có góc đầu tư rõ; không filler.
 
-BỎ: GEO_ONLY; gossip; crime/sports/entertainment thường; scandal không có market context.
-CHỈ giữ địa chính trị/xung đột khi có tác động dầu, thuế, CK, crypto, ngân hàng, chuỗi cung.
+TUYỆT ĐỐI KHÔNG:
+- brief/summary chung chung kiểu "các diễn biến kinh tế đang chịu áp lực", "thị trường biến động"
+- "Sự kiện thuộc nhóm…", "Nhấp nguồn…", crime/local/PR generic không có investment angle
+- Điền đủ số lượng bằng tin chất lượng thấp — ít item hơn được
 
-Không nhắc hệ thống thu thập hay công cụ nội bộ.
-
-0) Viết trước trường brief: ĐÚNG 2–3 câu (≤90 từ) tóm tắt toàn cảnh từ các tin sẽ chọn;
-   nêu chủ đề nổi bật (dầu, thuế, CK, crypto, AI/chip, vĩ mô…), không khuyến nghị mua/bán.
+brief: 2–3 câu (≤90 từ), chỉ nêu chủ đề cụ thể từ các tin đã chọn (Fed, BTC, chip, dầu, thuế…).
+global_event_id phải khớp đầu vào. Không khuyến nghị mua/bán. Không nhắc GDELT/crawler/pipeline.
 
 Trả về JSON:
 {{
-  "brief": "hai đến ba câu tóm tắt",
+  "brief": "...",
   "topics": [
     {{
-      "name": "Tên đề mục",
+      "name": "CRYPTO|EQUITY|MACRO|...",
       "items": [
         {{
           "global_event_id": "...",
           "title": "...",
-          "summary": "hai câu ngắn"
+          "summary": "2-4 câu"
         }}
       ]
     }}
@@ -1861,8 +1952,6 @@ def _fallback_invest_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]
     for ev in sorted(events, key=_invest_sort_key, reverse=True):
         blob = _invest_text_blob(ev)
         flags = _invest_signal_flags(blob)
-        if _invest_is_non_market_geo(flags, blob):
-            continue
         item = _topic_item_from_event(ev)
         if not item.get("title"):
             continue
@@ -2741,8 +2830,21 @@ def prepare_invest_world_feed(
     return out
 
 
+def _parse_invest_semantic_judgments(text: str) -> list[dict[str, Any]]:
+    data = _parse_gemini_json(text)
+    if not isinstance(data, dict):
+        return []
+    rows = data.get("judgments")
+    if isinstance(rows, list):
+        return [r for r in rows if isinstance(r, dict)]
+    ids = data.get("selected_ids")
+    if isinstance(ids, list):
+        return [{"global_event_id": str(i).strip(), "keep": True} for i in ids if str(i).strip()]
+    return []
+
+
 def gemini_invest_semantic_judge(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Post-BQ gate (max 60): giữ tin đầu tư trực tiếp/gián tiếp; bỏ crime/scandal thuần."""
+    """Final precision gate (max {INVEST_SEMANTIC_JUDGE_MAX} in → up to {INVEST_FEED_MAX} kept)."""
     if not events or not _configure_gemini():
         return sorted(events, key=_invest_sort_key, reverse=True)[:INVEST_FEED_MAX]
 
@@ -2755,45 +2857,59 @@ def gemini_invest_semantic_judge(events: list[dict[str, Any]]) -> list[dict[str,
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
-Bạn là biên tập chuyên mục kinh tế–đầu tư toàn cầu. Chọn tối đa {INVEST_FEED_MAX} global_event_id từ danh sách ứng viên.
+Bạn là biên tập viên đầu tư toàn cầu — rất nghiêm, chịu trách nhiệm lọc rác cuối cùng.
 
-Ưu tiên high coverage + market/technology/policy context — KHÔNG chỉ vì có tên nổi (Tesla/Bitcoin/Elon).
-Một CEO ngân hàng, startup AI, lab quantum, bộ trưởng export control, quỹ bán tháo… vẫn GIỮ nếu có tác động ngành/tài sản.
+Bối cảnh: SQL/Python đã cố tình gửi candidate RỘNG (recall-first) để tránh bỏ sót tin kinh tế–đầu tư.
+Nhiệm vụ của bạn là loại filler/rác, KHÔNG được giữ event chỉ vì NumArticles cao, tone mạnh, hoặc có chữ business/company.
+Chỉ keep=true khi có investment_angle cụ thể (tác động tài sản, ngành, chính sách, chuỗi cung ứng, công nghệ chiến lược, kỳ vọng thị trường).
 
-GIỮ (trực tiếp/gián tiếp): Fed/rates/USD/Treasury/yield; crypto/Bitcoin/ETF thủng mốc (tone trung tính OK);
-S&P/Nasdaq; chip/GPU/Nvidia/TSMC/data center/cloud; AI agent/platform; quantum → encryption/blockchain/cyber;
-EV/battery/robotaxi; China/PBOC/yuan/property/stimulus/tariff; oil/gas/gold/copper/lithium; bank/credit/liquidity;
-trade/sanctions/export controls; cyber breach lớn có hệ quả thị trường.
+noise_hint=true (crime/local/PR/sports…) KHÔNG tự động bỏ — nhưng phải có góc đầu tư rõ (ngân hàng, supply chain, commodity, regulation, công ty lớn…).
+BỎ: gossip; scandal đời sống; crime/accident địa phương không hệ quả kinh tế; thể thao/giải trí thường; PR sản phẩm nhỏ; tòa án đời sống.
+Giữ tối đa {INVEST_FEED_MAX} event; có thể ít hơn nhiều nếu không đủ chất lượng.
 
-BỎ: gossip cá nhân; crime/shooting địa phương; sports/entertainment thường; PR công ty nhỏ không tác động ngành;
-scandal không có market/policy/industry context; tòa án đời sống.
-Xung đột/chính trị chỉ giữ khi bài nêu rõ dầu, thuế, CK, crypto, ngân hàng, lạm phát, chuỗi cung.
+Không nhắc GDELT/crawler/pipeline/AI hệ thống. Không khuyến nghị mua/bán.
 
-Không nhắc hệ thống thu thập hay công cụ nội bộ. Không kết luận khủng hoảng/risk-off chỉ vì tone âm nhẹ.
+Trả về JSON (không markdown):
+{{
+  "judgments": [
+    {{
+      "global_event_id": "...",
+      "keep": true,
+      "investment_angle": "một câu tiếng Việt — tác động đầu tư cụ thể",
+      "reject_reason": ""
+    }}
+  ],
+  "notes": "một câu về tiêu chí"
+}}
 
-Trả về JSON: {{ "selected_ids": ["id1", "id2", ...] }}
-
-Danh sách:
+Danh sách candidate (noise_hint nếu có):
 {chr(10).join(lines)}
 """.strip()
 
     try:
         response = model.generate_content(prompt)
-        data = _parse_gemini_json(response.text or "")
-        ids = data.get("selected_ids") if isinstance(data, dict) else []
-        if not isinstance(ids, list):
-            ids = []
+        rows = _parse_invest_semantic_judgments(response.text or "")
         picked: list[dict[str, Any]] = []
         seen: set[str] = set()
-        for eid in ids:
-            eid = str(eid).strip()
-            if eid in by_id and eid not in seen:
-                picked.append(by_id[eid])
-                seen.add(eid)
+        for row in rows:
+            eid = str(row.get("global_event_id") or "").strip()
+            if not eid or eid not in by_id or eid in seen:
+                continue
+            keep = row.get("keep")
+            if keep is False or str(keep).lower() == "false":
+                continue
+            if keep is not True and str(keep).lower() not in ("true", "1", "yes"):
+                continue
+            ev = dict(by_id[eid])
+            angle = str(row.get("investment_angle") or "").strip()
+            if angle:
+                ev["investment_angle"] = angle
+            picked.append(ev)
+            seen.add(eid)
             if len(picked) >= INVEST_FEED_MAX:
                 break
         if picked:
-            LOG.info("invest semantic judge: kept %s / %s", len(picked), len(pool))
+            LOG.info("invest semantic judge: kept %s / %s input", len(picked), len(pool))
             return picked
     except Exception as exc:
         LOG.warning("invest semantic judge failed: %s", exc)
@@ -2811,24 +2927,26 @@ def run_invest_pipeline_from_events(
         "bq_rows": bq_rows if bq_rows is not None else len(events),
         "bq_events": len(events),
         "candidates": 0,
+        "judge_input": 0,
         "judged": 0,
         "topics": 0,
         "items": 0,
     }
 
-    candidates = filter_invest_keyword_candidates(events)
+    candidates = prepare_invest_candidates(events)
     stats["candidates"] = len(candidates)
     if not candidates:
         return {**stats, "topics": [], "brief": "", "feed_events": []}
 
     ranked = sorted(candidates, key=_invest_sort_key, reverse=True)
+    judge_input = ranked[:INVEST_SEMANTIC_JUDGE_MAX]
+    stats["judge_input"] = len(judge_input)
     if use_gemini:
-        judge_pool = ranked[:INVEST_SEMANTIC_JUDGE_MAX]
-        judged = gemini_invest_semantic_judge(judge_pool)
+        judged = gemini_invest_semantic_judge(judge_input)
         judged = enrich_events_for_web(judged, use_gemini=True, channel="invest")
         judged = filter_event_sources_with_gemini(judged, use_gemini=use_gemini)
     else:
-        judged = ranked[:INVEST_FEED_MAX]
+        judged = judge_input[:INVEST_FEED_MAX]
     stats["judged"] = len(judged)
 
     feed = prepare_invest_world_feed(judged, use_gemini=use_gemini and len(judged) >= 2)
@@ -2852,11 +2970,15 @@ def run_invest_channel_pipeline(
     cleaned: pd.DataFrame,
     *,
     use_gemini: bool,
+    bq_bytes_billed: int | None = None,
 ) -> dict[str, Any]:
     """Invest-only: BigQuery → run_invest_pipeline_from_events."""
     events = build_events_from_bq(cleaned, channel="invest")
     LOG.info("invest: %s events from BigQuery", len(events))
-    return run_invest_pipeline_from_events(events, use_gemini=use_gemini, bq_rows=len(cleaned))
+    out = run_invest_pipeline_from_events(events, use_gemini=use_gemini, bq_rows=len(cleaned))
+    if bq_bytes_billed is not None:
+        out["bq_bytes_billed"] = int(bq_bytes_billed)
+    return out
 
 
 def export_invest_desk_payload(
@@ -2878,7 +3000,16 @@ def export_invest_desk_payload(
         "events": [_topic_item_from_event(ev) for ev in feed_events[:INVEST_FEED_MAX]],
         "stats": {
             k: result.get(k)
-            for k in ("bq_rows", "bq_events", "candidates", "judged", "topics", "items")
+            for k in (
+                "bq_rows",
+                "bq_events",
+                "bq_bytes_billed",
+                "candidates",
+                "judge_input",
+                "judged",
+                "topics",
+                "items",
+            )
         },
     }
     paths: list[Path] = []
@@ -3014,6 +3145,18 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.dry_run:
+        if channel == "invest" and meta:
+            billed = int(
+                meta.get("bytes_processed")
+                or meta.get("total_bytes_processed")
+                or meta.get("bytes_billed")
+                or 0
+            )
+            LOG.info(
+                "invest dry-run: bytes_billed=%s (~%.3f GB)",
+                billed,
+                billed / 1e9 if billed else 0.0,
+            )
         return 0
 
     cleaned = clean_dataframe(df)
@@ -3023,12 +3166,25 @@ def main(argv: list[str] | None = None) -> int:
         if df is None or df.empty:
             LOG.warning("invest: no BQ rows; not overwriting outputs")
             return 0
-        result = run_invest_channel_pipeline(cleaned, use_gemini=use_gemini)
+        billed = (
+            int(
+                meta.get("bytes_processed")
+                or meta.get("total_bytes_processed")
+                or meta.get("bytes_billed")
+                or 0
+            )
+            if meta
+            else 0
+        )
+        result = run_invest_channel_pipeline(cleaned, use_gemini=use_gemini, bq_bytes_billed=billed)
         LOG.info(
-            "invest pipeline: bq_rows=%s bq_events=%s candidates=%s judged=%s topics=%s items=%s",
+            "invest pipeline: bq_bytes=%s bq_rows=%s bq_events=%s candidates=%s "
+            "judge_input=%s judged=%s topics=%s items=%s",
+            result.get("bq_bytes_billed"),
             result.get("bq_rows"),
             result.get("bq_events"),
             result.get("candidates"),
+            result.get("judge_input"),
             result.get("judged"),
             result.get("topics"),
             result.get("items"),

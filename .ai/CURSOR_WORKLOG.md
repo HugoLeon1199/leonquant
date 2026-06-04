@@ -135,3 +135,27 @@ python leon.py --channel invest           # 132 BQ → 132 candidates → judge 
 | After semantic judge | 11 (pool 60) |
 | Export | 4 topics, 5 items |
 | Live bytes | ~0.557 GB |
+
+## 2026-06-04 — Invest recall-first: soft noise_hint, Gemini precision gate
+
+**Scope:** invest only (`leon.py`, `sql/gdelt_invest_pulse.sql`). **Not modified:** world/live, Vietnam 48h, UI, world/live prompts.
+
+| Principle | Implementation |
+|-----------|----------------|
+| SQL recall-oriented | 24h pools unchanged; `TopEvents LIMIT 180`, pool caps 75/65/65, final `LIMIT 200`, `market_relevance_score >= 2` only |
+| Python = cheap layer | `prepare_invest_candidates()`: dedupe, drop social/invalid URLs only, `noise_hint` soft flags, sort, cap 220 — no editorial score/geo reject |
+| Gemini = editor | `gemini_invest_semantic_judge`: up to 100 in → `judgments[].keep` + `investment_angle`; max 28 kept; strict anti-filler prompt |
+| Topics export | `gemini_invest_world_topics`: no generic brief/summary; max 8×2 items; `_topic_item_from_event` adds `investment_angle`, `affected_assets`, `sentiment_label`, `source_count` |
+| Anti-filler enrich | Invest scrape/batch fallback: no "Sự kiện thuộc nhóm…" / "Nhấp nguồn…" templates |
+
+**Targets:** BQ in ~120–220 · judge input ≤100 · judged ~10–28 · export ~8–16 items if quality allows.
+
+**Verify:**
+
+```bash
+python -m py_compile leon.py
+python leon.py --channel invest --dry-run
+python leon.py --channel invest
+```
+
+Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`, `topics`, `items` (+ stats in JSON export).
