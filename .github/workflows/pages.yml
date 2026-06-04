@@ -105,17 +105,7 @@ jobs:
             grep -Fq 'id="sectionPulse"' _site/index.html
             grep -Fq 'NÓNG TOÀN CẦU' _site/index.html
           fi
-          grep -Fq 'id="invest"' _site/index.html
-          if grep -Fq '<section id="pulse"' _site/index.html && grep -Fq 'id="sectionInvest"' _site/index.html; then
-            python3 -c "
-          import re, sys
-          from pathlib import Path
-          h = Path('_site/index.html').read_text(encoding='utf-8')
-          if re.search(r'<section id=\"pulse\"[^>]*>[\\s\\S]*?<div id=\"sectionInvest\"', h, re.I):
-            print('sectionInvest must not be inside #pulse', file=sys.stderr)
-            sys.exit(1)
-          "
-          fi
+          python3 scripts/verify_deployed_html_layout.py _site/index.html
           # Digest: multisector hoặc newsroom brief (marker khác nhau trong HTML nhúng)
           python3 -c "
           import json
