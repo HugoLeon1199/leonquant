@@ -97,25 +97,26 @@ jobs:
       - name: Verify embedded brief (fail nếu HTML thiếu brief)
         run: |
           grep -Fq 'data-embedded-brief="1"' _site/index.html
-          grep -Fq 'data-embedded-articles="1"' _site/index.html
           grep -Fq 'class="digest-mode"' _site/index.html
-          grep -Fq 'Tin tức được tổng hợp lúc' _site/index.html
-          grep -Fq 'Bấm vào xem chi tiết' _site/index.html
           if [ -f _site/market_pulse.json ]; then
             grep -Fq 'data-embedded-pulse="1"' _site/index.html
             grep -Fq 'NÓNG TOÀN CẦU' _site/index.html
           fi
-          # Digest: multisector hoặc newsroom brief
+          # Digest: multisector hoặc newsroom brief (marker khác nhau trong HTML nhúng)
           python3 -c "
           import json
-          d=json.load(open('content.json'))
-          m=d.get('briefMode')
-          assert m in ('multisector-digest','newsroom-brief'), m
-          if m=='newsroom-brief':
-            assert len(d.get('frontPage') or [])>=1
-            assert len(d.get('sectorDeepBriefs') or [])>=4
+          from pathlib import Path
+          d = json.load(open('content.json', encoding='utf-8'))
+          html = Path('_site/index.html').read_text(encoding='utf-8')
+          m = d.get('briefMode')
+          assert m in ('multisector-digest', 'newsroom-brief'), m
+          if m == 'newsroom-brief':
+            assert '48H BRIEF' in html or 'issue-header' in html, 'newsroom layout missing in embedded HTML'
+            assert len(d.get('frontPage') or []) >= 1
+            assert len(d.get('sectorDeepBriefs') or []) >= 4
           else:
-            assert len(d.get('digestSectors') or [])>=4
+            assert 'Bấm vào xem chi tiết' in html, 'multisector archive missing'
+            assert len(d.get('digestSectors') or []) >= 4
           "
 
       - uses: actions/configure-pages@v5
