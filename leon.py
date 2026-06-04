@@ -64,7 +64,18 @@ WORLD_DEEP_MERGED_CHARS = 5200
 INVEST_MAX_ENRICH_EVENTS = 220
 INVEST_CURATION_POOL = 220
 INVEST_MARKET_ENTITY_MIN_ARTICLES = 30
-INVEST_PUBLIC_FEED_LABEL = "Theo đề mục · các diễn biến kinh tế - thị trường đáng chú ý"
+INVEST_PUBLIC_FEED_LABEL = "các diễn biến kinh tế - thị trường đáng chú ý"
+INVEST_EDITORIAL_TOPICS: tuple[str, ...] = (
+    "Crypto & Tài sản số",
+    "Chứng khoán & Chỉ số",
+    "Lãi suất & USD",
+    "Hàng hóa & Năng lượng",
+    "Công nghệ & AI",
+    "Trung Quốc & Châu Á",
+    "Ngân hàng & Tín dụng",
+    "Thương mại & Chuỗi cung ứng",
+    "Địa chính trị & Rủi ro thị trường",
+)
 INVEST_SEMANTIC_JUDGE_MAX = 100
 INVEST_FEED_MAX = 28
 INVEST_WORLD_TOPICS_MAX = 8
@@ -1761,14 +1772,47 @@ def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[
     return prepare_invest_candidates(events)
 
 
+def _invest_unique_domain_count(urls: list[str]) -> int:
+    seen: set[str] = set()
+    for u in urls:
+        if not str(u).startswith("http"):
+            continue
+        host = urlparse(str(u)).netloc.lower().replace("www.", "")
+        if host:
+            seen.add(host)
+    return len(seen)
+
+
+def _invest_dedupe_urls_by_domain(urls: list[str], *, max_urls: int = 4) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for u in urls:
+        if not str(u).startswith("http"):
+            continue
+        host = urlparse(str(u)).netloc.lower().replace("www.", "")
+        if not host or host in seen:
+            continue
+        seen.add(host)
+        out.append(str(u).strip())
+        if len(out) >= max_urls:
+            break
+    return out
+
+
+def _invest_display_source_count(source_count: int, urls: list[str]) -> int:
+    domain_n = _invest_unique_domain_count(urls)
+    return max(int(source_count or 0), domain_n)
+
+
 def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
     sources = ev.get("sources") or []
     urls: list[str] = []
-    for s in sources[:4]:
+    for s in sources:
         if isinstance(s, str) and s.startswith("http"):
             urls.append(s)
         elif isinstance(s, dict) and str(s.get("url") or "").startswith("http"):
             urls.append(str(s["url"]))
+    urls = _invest_dedupe_urls_by_domain(urls, max_urls=6)
     title = str(ev.get("title_vi") or ev.get("title") or "").strip()
     summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()
     if len(summary) > 320:
@@ -1784,8 +1828,8 @@ def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
         "affected_assets": list(ev.get("affected_assets") or []),
         "sentiment_label": str(ev.get("sentiment_label") or ""),
         "num_articles": int(ev.get("num_articles") or 0),
-        "source_count": int(ev.get("source_count") or 0),
-        "source_urls": urls,
+        "source_count": _invest_display_source_count(int(ev.get("source_count") or 0), urls),
+        "source_urls": urls[:4],
     }
 
 
@@ -1805,13 +1849,53 @@ def _sanitize_invest_topic_name(text: str) -> str:
     return " ".join(s.split())
 
 
+def _invest_guess_editorial_topic(ev: dict[str, Any]) -> str:
+    """Heuristic topic from event text — fixes Iran→China mis-tags."""
+    blob = _invest_text_blob(ev).upper()
+    flags = _invest_signal_flags(blob)
+    if flags.get("is_crypto"):
+        return "Crypto & Tài sản số"
+    if flags.get("is_equity_market"):
+        return "Chứng khoán & Chỉ số"
+    if flags.get("is_credit_banking"):
+        return "Ngân hàng & Tín dụng"
+    if re.search(
+        r"IRAN|TEHRAN|ISRAEL|HORMUZ|MIDDLE EAST|CONGRESS|GULF|"
+        r"MILITARY|WAR|CONFLICT|SANCTION|ESCALATION|CEASEFIRE|NATO",
+        blob,
+    ):
+        if re.search(r"\bOIL\b|BRENT|WTI|LNG|HORMUZ|OPEC|CRUDE|NATURAL GAS", blob):
+            return "Hàng hóa & Năng lượng"
+        return "Địa chính trị & Rủi ro thị trường"
+    if re.search(r"CHINA|PBOC|YUAN|CNY|BEIJING|HONG KONG|SHANGHAI|JAPAN|KOREA", blob) and not re.search(
+        r"IRAN|TEHRAN|ISRAEL|MIDDLE EAST", blob
+    ):
+        return "Trung Quốc & Châu Á"
+    if flags.get("is_trade_supply") or re.search(r"TARIFF|EXPORT CONTROL|MERCOSUR|TRADE WAR", blob):
+        return "Thương mại & Chuỗi cung ứng"
+    if flags.get("is_commodity_energy") or re.search(
+        r"NUCLEAR|BUSHEHR|OIL|GAS|LNG|GOLD|COPPER|LITHIUM|OPEC|ENERGY", blob
+    ):
+        return "Hàng hóa & Năng lượng"
+    if flags.get("is_tech_ai_chip"):
+        return "Công nghệ & AI"
+    if flags.get("is_macro"):
+        return "Lãi suất & USD"
+    if flags.get("is_conflict_security") or flags.get("is_politics_diplomacy"):
+        return "Địa chính trị & Rủi ro thị trường"
+    return "Địa chính trị & Rủi ro thị trường"
+
+
 def _normalize_invest_topic_display_name(name: str) -> str:
-    """Map raw codes (MACRO/TRADE) to Vietnamese editorial labels."""
+    """Map to allowed Vietnamese editorial topic names only."""
     raw = str(name or "").strip()
     if not raw:
         return ""
+    for allowed in INVEST_EDITORIAL_TOPICS:
+        if raw.casefold() == allowed.casefold():
+            return allowed
     key = raw.upper().split("|")[0].strip()
-    editorial = {
+    code_map = {
         "MACRO": "Lãi suất & USD",
         "TRADE": "Thương mại & Chuỗi cung ứng",
         "TECH": "Công nghệ & AI",
@@ -1821,24 +1905,43 @@ def _normalize_invest_topic_display_name(name: str) -> str:
         "COMMODITY": "Hàng hóa & Năng lượng",
         "CHINA": "Trung Quốc & Châu Á",
         "ASIA": "Trung Quốc & Châu Á",
+        "GEOPO": "Địa chính trị & Rủi ro thị trường",
+        "GEOPOLITICS": "Địa chính trị & Rủi ro thị trường",
     }
-    if key in editorial:
-        return editorial[key]
-    if re.fullmatch(r"[A-Z][A-Z0-9_|&\s-]{0,24}", raw) and "|" in raw:
-        return editorial.get(key, raw)
+    if key in code_map:
+        return code_map[key]
     low = raw.lower()
-    if "&" in raw and len(raw) < 32:
-        if "công nghệ" in low or "cong nghe" in low or low.startswith("tech"):
-            return "Công nghệ & AI"
-        if "thương mại" in low or low.startswith("trade"):
-            return "Thương mại & Chuỗi cung ứng"
-        if "crypto" in low:
-            return "Crypto & Tài sản số"
-        if "chứng khoán" in low or "equity" in low:
-            return "Chứng khoán & Chỉ số"
-        if "lãi suất" in low or "macro" in low:
-            return "Lãi suất & USD"
-    return raw
+    if "địa chính trị" in low or "rủi ro thị trường" in low:
+        return "Địa chính trị & Rủi ro thị trường"
+    if "trung quốc" in low or "châu á" in low:
+        return "Trung Quốc & Châu Á"
+    if "thương mại" in low or "chuỗi cung" in low:
+        return "Thương mại & Chuỗi cung ứng"
+    if "hàng hóa" in low or "năng lượng" in low:
+        return "Hàng hóa & Năng lượng"
+    if "công nghệ" in low:
+        return "Công nghệ & AI"
+    if "crypto" in low:
+        return "Crypto & Tài sản số"
+    if "chứng khoán" in low:
+        return "Chứng khoán & Chỉ số"
+    if "lãi suất" in low or "usd" in low:
+        return "Lãi suất & USD"
+    if "ngân hàng" in low:
+        return "Ngân hàng & Tín dụng"
+    return ""
+
+
+def _coerce_invest_editorial_topic(name: str, *, hint_ev: dict[str, Any] | None = None) -> str:
+    normalized = _normalize_invest_topic_display_name(name)
+    guessed = _invest_guess_editorial_topic(hint_ev) if hint_ev else ""
+    if normalized and normalized in INVEST_EDITORIAL_TOPICS:
+        if guessed and normalized == "Trung Quốc & Châu Á" and guessed != normalized:
+            return guessed
+        return normalized
+    if guessed:
+        return guessed
+    return normalized if normalized in INVEST_EDITORIAL_TOPICS else ""
 
 
 def _merge_invest_topic_item(
@@ -1861,6 +1964,14 @@ def _merge_invest_topic_item(
     elif raw_assets:
         assets = [str(raw_assets).strip()]
     sentiment = str(it.get("sentiment_label") or merged.get("sentiment_label") or "").strip()
+    confidence = str(it.get("confidence") or merged.get("confidence") or "").strip().lower()
+    if confidence not in ("high", "medium", "low"):
+        sc_raw = int(merged.get("source_count") or it.get("source_count") or 0)
+        confidence = "low" if sc_raw <= 2 else "medium" if sc_raw <= 5 else "high"
+    urls = _invest_dedupe_urls_by_domain(
+        list(merged.get("source_urls") or it.get("source_urls") or []),
+        max_urls=4,
+    )
     if len(summary) > 360:
         summary = summary[:357].rstrip() + "…"
     if len(angle) > 220:
@@ -1872,9 +1983,13 @@ def _merge_invest_topic_item(
         "investment_angle": angle,
         "affected_assets": assets,
         "sentiment_label": sentiment,
+        "confidence": confidence,
         "num_articles": int(merged.get("num_articles") or it.get("num_articles") or 0),
-        "source_count": int(merged.get("source_count") or it.get("source_count") or 0),
-        "source_urls": list(merged.get("source_urls") or it.get("source_urls") or []),
+        "source_count": _invest_display_source_count(
+            int(merged.get("source_count") or it.get("source_count") or 0),
+            urls,
+        ),
+        "source_urls": urls,
     }
 
 
@@ -1883,8 +1998,8 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
     for tp in topics:
         if not isinstance(tp, dict):
             continue
-        name = _sanitize_invest_topic_name(_normalize_invest_topic_display_name(str(tp.get("name") or "")))
-        if not name:
+        name = _sanitize_invest_topic_name(str(tp.get("name") or ""))
+        if name not in INVEST_EDITORIAL_TOPICS:
             continue
         items_out: list[dict[str, Any]] = []
         for it in tp.get("items") or []:
@@ -1901,6 +2016,10 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
                 for a in (it.get("affected_assets") or [])
                 if str(a).strip()
             ]
+            conf = str(it.get("confidence") or "").strip().lower()
+            if conf not in ("high", "medium", "low"):
+                sc = int(it.get("source_count") or 0)
+                conf = "low" if sc <= 2 else "medium" if sc <= 5 else "high"
             items_out.append(
                 {
                     **it,
@@ -1909,6 +2028,7 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
                     "investment_angle": angle,
                     "sentiment_label": sentiment,
                     "affected_assets": assets,
+                    "confidence": conf,
                 }
             )
         if items_out:
@@ -1945,8 +2065,12 @@ def gemini_invest_world_topics(
         title = str(ev.get("title_vi") or ev.get("title") or "")[:200]
         summary = str(ev.get("summary_vi") or ev.get("summary") or "")[:400]
         tags = _invest_topic_tags(ev)
-        lines.append(f"{i + 1}. id={eid} | {tags} | {ev.get('num_articles')} bài | {title} | {summary}")
+        sc = int(ev.get("source_count") or 0)
+        lines.append(
+            f"{i + 1}. id={eid} | {sc} nguồn | {ev.get('num_articles')} bài | {tags} | {title} | {summary}"
+        )
 
+    topics_allowed = "\n".join(f"- {t}" for t in INVEST_EDITORIAL_TOPICS)
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
     prompt = f"""
@@ -1961,15 +2085,15 @@ Mục tiêu là chọn ít nhưng sắc, mỗi tin phải giúp người đọc 
 - Vì sao nó đáng chú ý với kinh tế/thị trường.
 - Tài sản, ngành hoặc kỳ vọng nào cần theo dõi.
 
-Ưu tiên các nhóm:
-1. Crypto & Tài sản số: Bitcoin, Ethereum, ETF, stablecoin, blockchain, crypto exchange.
-2. Chứng khoán & Chỉ số: Nasdaq, S&P, Dow, earnings, futures, selloff, rally, IPO.
-3. Lãi suất & USD: Fed, ECB, PBOC, rates, Treasury yields, USD, yuan.
-4. Hàng hóa & Năng lượng: oil, gas, gold, copper, lithium, uranium, OPEC, Hormuz.
-5. Công nghệ & AI: AI agents, chips, GPU, data centers, cloud, quantum, cybersecurity.
-6. Trung Quốc & Châu Á: PBOC, yuan, property, stimulus, exports, EV, chip restrictions.
-7. Ngân hàng & Tín dụng: credit risk, liquidity, default, bankruptcy, major banks.
-8. Thương mại & Chuỗi cung ứng: export controls, tariffs, sanctions, shipping routes.
+CHỈ được dùng đúng một trong các topic name sau (copy nguyên văn, không viết MACRO/TRADE/TECH/EQUITY):
+{topics_allowed}
+
+Quy tắc gán topic:
+- Tin Mỹ/Iran/Trung Đông/quân sự/trừng phạt có tác động thị trường → "Địa chính trị & Rủi ro thị trường" (hoặc "Hàng hóa & Năng lượng" nếu nêu rõ dầu/khí/Hormuz/OPEC).
+- KHÔNG đưa tin Iran/Mỹ/Trung Đông vào "Trung Quốc & Châu Á".
+- "Trung Quốc & Châu Á" CHỈ khi event về China/PBOC/yuan/Hong Kong/Japan/Korea/Asia macro/trade/EV/chip/property.
+- "Hàng hóa & Năng lượng" CHỈ khi có oil/gas/LNG/gold/copper/lithium/nuclear power/energy supply rõ trong nguồn.
+- "Thương mại & Chuỗi cung ứng" cho tariff/sanction/export control/import/shipping/supply chain.
 
 Loại hoặc không đưa lên top:
 - crime/court/local police/murder/trial nếu không có market impact.
@@ -1981,42 +2105,37 @@ Loại hoặc không đưa lên top:
 - tin không trả lời được "tài sản/ngành nào bị ảnh hưởng?"
 
 Yêu cầu viết mỗi item:
-- Topic name phải là tiếng Việt editorial, ví dụ:
-  "Crypto & Tài sản số"
-  "Chứng khoán & Chỉ số"
-  "Lãi suất & USD"
-  "Hàng hóa & Năng lượng"
-  "Công nghệ & AI"
-  "Trung Quốc & Châu Á"
-  "Ngân hàng & Tín dụng"
-  "Thương mại & Chuỗi cung ứng"
-- Không dùng topic name thô như MACRO, TRADE, TECH, EQUITY.
-- Title: cụ thể, có actor + event + điểm đáng chú ý. Không quá 24 từ.
-- Summary: 2-4 câu. Phải nói rõ chuyện gì xảy ra và vì sao quan trọng.
-- Investment angle: 1 câu sắc, nói rõ tài sản/ngành/kỳ vọng thị trường nào cần theo dõi.
-- Affected assets: 2-5 tài sản/ngành liên quan.
-- Sentiment label: trung tính, hơi tiêu cực, tiêu cực, hơi tích cực, tích cực, mixed.
-- Không khuyến nghị mua/bán.
-- Không bịa tác động nếu nguồn không nêu và logic không rõ.
-- Không viết chung chung kiểu "các diễn biến kinh tế đang chịu áp lực".
-- Không viết "sự kiện thuộc nhóm... nhấp nguồn để đọc".
-- Không nhắc AI, GDELT, keyword, crawler, pipeline, semantic judge.
+- Title: cụ thể, actor + event + điểm đáng chú ý. Không quá 24 từ.
+- Summary: 2-4 câu — chuyện gì xảy ra và vì sao quan trọng với kinh tế/thị trường.
+- investment_angle: ĐÚNG 1 câu cụ thể; nếu không viết được câu rõ → bỏ item.
+- affected_assets: 2-5 mục; mỗi mục phải được hỗ trợ bởi (1) nguồn/event block nhắc trực tiếp, hoặc (2) hệ quả cấp một rõ và phổ biến trên thị trường.
+  Không gán quá cụ thể nếu nguồn không nêu:
+  - Không gán ETF nông nghiệp nếu chỉ nói tariff/nông sản chung.
+  - Không gán Brent/WTI nếu chỉ nói sản lượng điện hạt nhân mà không nhắc dầu/Hormuz/sanctions/xuất khẩu năng lượng.
+  - Không gán vàng/trái phiếu nếu chỉ chính trị chung không risk-off rõ.
+  - Không gán Nasdaq nếu không liên quan công nghệ/CK/tài sản rủi ro.
+  Nếu không chắc, dùng nhóm rộng: "Hàng hóa nông nghiệp", "Doanh nghiệp xuất khẩu", "Rủi ro địa chính trị", "Năng lượng khu vực", "Tài sản trú ẩn", "Cổ phiếu công nghệ".
+- sentiment_label: trung tính | hơi tiêu cực | tiêu cực | hơi tích cực | tích cực | mixed.
+- confidence: high | medium | low (low nếu source_count thấp hoặc nguồn local/syndication).
+- Nếu source_count thấp: không dùng câu quá mạnh ("trực tiếp đe dọa", "định hình lại dòng vốn"); dùng "có thể làm tăng chú ý", "là biến số cần theo dõi", "nếu leo thang có thể ảnh hưởng...".
+- Không khuyến nghị mua/bán. Không filler. Không nhắc GDELT/keyword/crawler/pipeline/semantic judge.
 
 Format output JSON hợp lệ, không markdown:
 
 {{
-  "brief": "2-3 câu tổng quan sắc về những lực chính đang chi phối thị trường: ví dụ rates/USD, crypto, energy, AI/chip, China, trade. Không chung chung.",
+  "brief": "2-3 câu tổng quan sắc (rates/USD, crypto, energy, AI/chip, trade, địa chính trị) — không chung chung.",
   "topics": [
     {{
-      "name": "Crypto & Tài sản số",
+      "name": "Thương mại & Chuỗi cung ứng",
       "items": [
         {{
           "global_event_id": "...",
           "title": "...",
           "summary": "...",
           "investment_angle": "...",
-          "affected_assets": ["Bitcoin", "Ethereum", "Crypto stocks", "Nasdaq"],
-          "sentiment_label": "Hơi tiêu cực"
+          "affected_assets": ["Hàng hóa nông nghiệp", "BRL/USD"],
+          "sentiment_label": "Hơi tiêu cực",
+          "confidence": "medium"
         }}
       ]
     }}
@@ -2048,9 +2167,6 @@ Sự kiện:
         for tp in topics[:INVEST_WORLD_TOPICS_MAX]:
             if not isinstance(tp, dict):
                 continue
-            name = _normalize_invest_topic_display_name(str(tp.get("name") or ""))
-            if not name:
-                continue
             items_out: list[dict[str, Any]] = []
             for it in (tp.get("items") or [])[:INVEST_ITEMS_PER_TOPIC]:
                 if not isinstance(it, dict):
@@ -2065,8 +2181,13 @@ Sự kiện:
                 )
                 if row:
                     items_out.append(row)
-            if items_out:
-                out.append({"name": name, "items": items_out})
+            if not items_out:
+                continue
+            hint = by_id.get(str(items_out[0].get("global_event_id") or ""))
+            name = _coerce_invest_editorial_topic(str(tp.get("name") or ""), hint_ev=hint)
+            if not name:
+                continue
+            out.append({"name": name, "items": items_out})
         if not out:
             topics = _fallback_invest_topics(events)
             return topics, _invest_world_brief_from_topics(topics)
@@ -2081,36 +2202,15 @@ Sự kiện:
 
 def _fallback_invest_topics(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Gom theo tag thị trường khi Gemini lỗi."""
-    buckets: dict[str, list[dict[str, Any]]] = {
-        "Crypto & Tài sản số": [],
-        "Chứng khoán & Chỉ số": [],
-        "Lãi suất & USD": [],
-        "Ngân hàng & Tín dụng": [],
-        "Hàng hóa & Năng lượng": [],
-        "Thương mại & Chuỗi cung ứng": [],
-        "Công nghệ & AI": [],
-    }
-    order = list(buckets.keys())
+    buckets: dict[str, list[dict[str, Any]]] = {name: [] for name in INVEST_EDITORIAL_TOPICS}
+    order = list(INVEST_EDITORIAL_TOPICS)
     for ev in sorted(events, key=_invest_sort_key, reverse=True):
-        blob = _invest_text_blob(ev)
-        flags = _invest_signal_flags(blob)
         item = _topic_item_from_event(ev)
         if not item.get("title") or not item.get("investment_angle"):
             continue
-        if flags.get("is_crypto") and len(buckets["Crypto & Tài sản số"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Crypto & Tài sản số"].append(item)
-        elif flags.get("is_equity_market") and len(buckets["Chứng khoán & Chỉ số"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Chứng khoán & Chỉ số"].append(item)
-        elif flags.get("is_macro") and len(buckets["Lãi suất & USD"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Lãi suất & USD"].append(item)
-        elif flags.get("is_credit_banking") and len(buckets["Ngân hàng & Tín dụng"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Ngân hàng & Tín dụng"].append(item)
-        elif flags.get("is_commodity_energy") and len(buckets["Hàng hóa & Năng lượng"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Hàng hóa & Năng lượng"].append(item)
-        elif flags.get("is_trade_supply") and len(buckets["Thương mại & Chuỗi cung ứng"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Thương mại & Chuỗi cung ứng"].append(item)
-        elif flags.get("is_tech_ai_chip") and len(buckets["Công nghệ & AI"]) < INVEST_ITEMS_PER_TOPIC:
-            buckets["Công nghệ & AI"].append(item)
+        name = _invest_guess_editorial_topic(ev)
+        if name and len(buckets[name]) < INVEST_ITEMS_PER_TOPIC:
+            buckets[name].append(item)
     out: list[dict[str, Any]] = []
     for name in order:
         if buckets[name]:

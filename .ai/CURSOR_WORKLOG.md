@@ -171,3 +171,16 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Topic names | `_normalize_invest_topic_display_name()` maps MACRO/TRADE/… → Vietnamese labels |
 | Public label | `feed_label` from JSON; UI sub-line no longer hardcodes GDELT |
 | Frontend | `buildInvestWorldHtml` shows angle, assets, sentiment, source_count |
+
+## 2026-06-04 — Invest editorial tighten (subtitle, topics, assets, source_count)
+
+**Scope:** invest content/editorial only (`leon.py`, minimal `landing_page.html` feed fallback).
+
+| Fix | Detail |
+|-----|--------|
+| Subtitle | Cách A: `INVEST_PUBLIC_FEED_LABEL` = `các diễn biến kinh tế - thị trường đáng chú ý`; UI prefix unchanged |
+| Topics | `INVEST_EDITORIAL_TOPICS` whitelist; prompt + `_coerce_invest_editorial_topic` / `_invest_guess_editorial_topic` (Iran → địa chính trị, not China) |
+| Assets | Prompt grounding rules; no over-specific ETF/Brent/Nasdaq without source support |
+| Confidence | `confidence` high/medium/low on items; cautious wording when low `source_count` |
+| source_count | `display_source_count = max(source_count, unique_domains(source_urls))`; URL dedupe by domain |
+| Fallback | `_fallback_invest_topics` uses editorial guess across all allowed topics |
