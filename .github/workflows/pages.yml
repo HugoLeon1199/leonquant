@@ -109,6 +109,27 @@ jobs:
 
       - uses: actions/configure-pages@v5
 
+      # Tránh NET::ERR_CERT_COMMON_NAME_INVALID: bắt buộc đăng ký cname trên repo Pages
+      # (chỉ file _site/CNAME không đủ — GitHub phải cấp Let's Encrypt cho leonquant.com).
+      - name: Đăng ký custom domain + bật HTTPS (Pages API)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
+          curl -fsSL -X PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "${api}" \
+            -d '{"cname":"leonquant.com","https_enforced":true,"build_type":"workflow"}'
+          echo "Pages config sau khi PUT:"
+          curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "${api}" | python3 -c "import json,sys; p=json.load(sys.stdin); c=p.get('https_certificate') or {}; print('cname=',p.get('cname')); print('https_enforced=',p.get('https_enforced')); print('cert_state=',c.get('state')); print('cert_domains=',c.get('domains'))"
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

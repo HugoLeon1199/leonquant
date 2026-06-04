@@ -237,6 +237,14 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Local rebuild:** `powershell scripts/rebuild_public_site.ps1` — commit `landing_page.html`, `content.json`, `gemini_digest_summary.json`, push → Pages workflow.
 
+## 2026-06-04 — HTTPS leonquant.com (`NET::ERR_CERT_COMMON_NAME_INVALID`)
+
+**Root cause:** TLS trên `leonquant.com` trả cert `CN=*.github.io` (SAN không có `leonquant.com`) — custom domain chưa đăng ký trên GitHub Pages dù DNS apex/www trỏ đúng IP GitHub.
+
+**Fix (repo):** `pages.yml` — bước `PUT /repos/.../pages` với `cname=leonquant.com`, `https_enforced=true`, `build_type=workflow`; log `https_certificate.state`. README mục *Custom domain* (DNS + Settings + Cloudflare).
+
+**Sau push:** chạy workflow *Deploy GitHub Pages*; đợi `cert_state=approved` rồi thử lại https://leonquant.com.
+
 ## 2026-06-04 — Digest polish v4 — URL whitelist + recompute hint after rewrite/dedupe
 
 **Scope:** `summarize_news_gemini.py` only (48h digest normalize).

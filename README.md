@@ -117,6 +117,17 @@ Gate: `prepare_digest_db.py` (sau crawl, **không** re-seed bài cũ) → `data/
 - **`pulse-hourly.yml`:** chỉ **LIVE** `market_pulse.json` mỗi **12h** (`leon.py --channel world`); không cập nhật invest desk.
 - **`pages.yml`:** deploy sau khi workflow *Tin Việt Nam 48h digest* hoàn tất (cả digest + invest-world).
   - Chạy tay digest: Actions → *Tin Việt Nam 48h digest* → *Run workflow*, hoặc `.ci-run-digest` / `.ci-run-invest-daily` trên `main`.
+  - Workflow tự gọi Pages API: `cname=leonquant.com`, `https_enforced=true` (tránh trình duyệt báo `NET::ERR_CERT_COMMON_NAME_INVALID` khi server chỉ có cert `*.github.io`).
 - **Secret bắt buộc:** repo → Settings → Secrets → `GEMINI_API_KEY` (Google AI Studio).
+
+### Custom domain `leonquant.com` (HTTPS)
+
+DNS (đã đúng hướng GitHub Pages): apex **A** → `185.199.108.153` … `185.199.111.153`; **www** CNAME → `hugoleon1199.github.io`.
+
+Nếu Chrome vẫn báo *Your connection isn't private*:
+
+1. Repo → **Settings → Pages** → Custom domain: `leonquant.com` → đợi DNS check xanh → bật **Enforce HTTPS** (có thể mất vài phút–24h để cert Let's Encrypt `approved`).
+2. Actions → **Deploy GitHub Pages** → *Run workflow* (sau khi sửa `pages.yml` có bước Pages API).
+3. Cloudflare (nếu có): record **DNS only** (grey cloud) hoặc SSL **Full (strict)** — tránh **Flexible** với GitHub Pages.
 
 Prompt mẫu: `prompts/gemini_digest_multisector_prompt_samples.md`
