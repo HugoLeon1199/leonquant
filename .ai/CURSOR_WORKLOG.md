@@ -237,6 +237,22 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Local rebuild:** `powershell scripts/rebuild_public_site.ps1` — commit `landing_page.html`, `content.json`, `gemini_digest_summary.json`, push → Pages workflow.
 
+## 2026-05-24 — Newsroom UI/copy polish (source match + Việt hóa)
+
+**Scope:** `landing_page.html`, `scripts/newsroom_*`, `summarize_news_gemini.py` sanitize path, `build_website_content.py`, `embed_public_brief_into_html.mjs`, `pages.yml` — không đổi crawler/SQL/GDELT/invest-live.
+
+| Area | Change |
+|------|--------|
+| Source match | `scripts/newsroom_source_match.py` — topic guards (crypto/AI, TP.HCM vs Cần Thơ); không fallback URL theo headline; ẩn link nếu không khớp |
+| Copy | `scripts/newsroom_copy.py` — `soften_newsroom_text`, `soften_editor_note`; headline crypto ví dụ user |
+| Publish sanitize | `scripts/sanitize_newsroom_content_json.py` — CI + local re-filter `content.json` links/titles trước embed |
+| UI | Labels Việt: Bản tin 48h, Điểm nóng, Hồ sơ chính, Theo dõi tiếp, Nguồn đại diện, Bài quét; nav Tin 48h / Kinh tế đầu tư / Thế giới LIVE; bỏ tagline EN |
+| Source UX | `story-source-line` gọn; Source Desk `<details>` collapsed; anchor = tiêu đề bài/domain |
+| Test | `scripts/test_newsroom_digest.py` — match reject + soften editor |
+| Verify | `python scripts/sanitize_newsroom_content_json.py content.json` → `node scripts/embed_public_brief_into_html.mjs landing_page.html content.json` |
+
+**Known:** Front page #02/#03 có thể không có link nếu crawl không có bài khớp chặt (đúng yêu cầu — không gắn sai).
+
 ## 2026-06-05 — Tin 48h newsroom brief (schema + renderer)
 
 **Scope:** `summarize_news_gemini.py`, `build_website_content.py`, `landing_page.html`, `validate_content.py`, `scripts/embed_public_brief_into_html.mjs`, `scripts/test_newsroom_digest.py`, `pages.yml`.

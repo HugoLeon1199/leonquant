@@ -80,6 +80,7 @@ jobs:
 
       - name: Nhúng brief + tin vào HTML (hiển thị ngay cả khi fetch/JS lỗi)
         run: |
+          python3 scripts/sanitize_newsroom_content_json.py _site/content.json
           node scripts/embed_public_brief_into_html.mjs _site/index.html _site/content.json
           node scripts/embed_public_brief_into_html.mjs _site/landing_page.html _site/content.json
           node scripts/embed_public_brief_into_html.mjs _site/landing_page/index.html _site/content.json
@@ -115,7 +116,8 @@ jobs:
           m = d.get('briefMode')
           assert m in ('multisector-digest', 'newsroom-brief'), m
           if m == 'newsroom-brief':
-            assert '48H BRIEF' in html or 'issue-header' in html, 'newsroom layout missing in embedded HTML'
+            assert 'Bản tin 48' in html or 'issue-header' in html, 'newsroom layout missing in embedded HTML'
+            assert 'Front Page' not in html, 'newsroom labels should be Vietnamese'
             assert len(d.get('frontPage') or []) >= 1
             assert len(d.get('sectorDeepBriefs') or []) >= 4
           else:

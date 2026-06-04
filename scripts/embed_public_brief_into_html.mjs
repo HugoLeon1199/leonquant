@@ -83,6 +83,14 @@ function formatSourceLinkLabel(link, url) {
   let source = String(lk.source || "").trim();
   if (source && host && source.toLowerCase() === host.toLowerCase()) source = "";
   const brand = source || SOURCE_DISPLAY_BY_HOST[host.toLowerCase()] || "";
+  const articleTitle = String(lk.title || "").trim();
+  if (articleTitle.length >= 10) {
+    const short =
+      articleTitle.length > 80 ? `${articleTitle.slice(0, 77)}…` : articleTitle;
+    if (brand) return `${short} — ${brand}`;
+    if (host) return `${short} — ${host}`;
+    return short;
+  }
   if (brand && host && brand.toLowerCase() !== host.toLowerCase()) return `${brand} · ${host}`;
   return host || brand || u || "Nguồn";
 }
@@ -349,15 +357,18 @@ function buildSectorBlockHtml(s, index) {
 
 function buildDossierSourcesHtml(links) {
   const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && String(lk.url || "").trim());
-  if (!rows.length) return `<p class="hint">Chưa có nguồn đại diện.</p>`;
-  let h = `<div class="dossier-source-links">`;
+  if (!rows.length) return "";
+  const parts = [];
   for (const lk of rows) {
     const u = normalizeExternalUrl(lk.url);
     if (!u) continue;
     const srcLabel = escapeHtml(formatSourceLinkLabel(lk, u));
-    h += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
+    parts.push(
+      `<a class="story-source-link" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`,
+    );
   }
-  return h + `</div>`;
+  if (!parts.length) return "";
+  return `<p class="story-source-line"><span class="story-source-label">Nguồn:</span> ${parts.join('<span class="story-source-sep" aria-hidden="true"> · </span>')}</p>`;
 }
 
 function buildNewsroomThesisHtml(data) {
@@ -514,8 +525,8 @@ function main() {
     /<div class="nav-links" id="navLinks"[^>]*>[\s\S]*?<\/div>/i,
     '<div class="nav-links" id="navLinks" data-nav-tabs="1">' +
       '<a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a>' +
-      '<a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Chuyên mục kinh tế đầu tư</a>' +
-      '<a class="nav-hub" href="/?view=live" data-view="live">Tin thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>' +
+      '<a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Kinh tế đầu tư</a>' +
+      '<a class="nav-hub" href="/?view=live" data-view="live">Thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>' +
       "</div>",
   );
 

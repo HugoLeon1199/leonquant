@@ -2038,8 +2038,28 @@ def build_newsroom_web_extras(
         if not title:
             continue
         urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+        try:
+            from scripts.newsroom_source_match import filter_urls_for_story
+            from summarize_news_gemini import DigestUrlIndex
+
+            url_index = DigestUrlIndex(all_articles)
+            urls = filter_urls_for_story(
+                urls,
+                title,
+                url_index,
+                context=str(row.get("one_sentence") or ""),
+            )
+        except Exception:
+            pass
         links = _newsroom_sources_to_links(
-            [{"url": u, "title": title, "source": ""} for u in urls],
+            [
+                {
+                    "url": u,
+                    "title": str((by_url.get(u) or {}).get("title") or ""),
+                    "source": str((by_url.get(u) or {}).get("source") or ""),
+                }
+                for u in urls
+            ],
             by_url=by_url,
             group="Front page",
             add_link=add_link,
@@ -2071,6 +2091,25 @@ def build_newsroom_web_extras(
             src_rows = [
                 s for s in (d.get("representative_sources") or []) if isinstance(s, dict)
             ]
+            urls = [str(s.get("url") or "").strip() for s in src_rows if str(s.get("url") or "").strip()]
+            try:
+                from scripts.newsroom_source_match import filter_urls_for_story
+                from summarize_news_gemini import DigestUrlIndex
+
+                url_index = DigestUrlIndex(all_articles)
+                urls = filter_urls_for_story(
+                    urls, title, url_index, context=str(d.get("summary") or "")
+                )
+                src_rows = [
+                    {
+                        "url": u,
+                        "title": str((by_url.get(u) or {}).get("title") or ""),
+                        "source": str((by_url.get(u) or {}).get("source") or ""),
+                    }
+                    for u in urls
+                ]
+            except Exception:
+                pass
             links = _newsroom_sources_to_links(
                 src_rows, by_url=by_url, group=name, add_link=add_link
             )

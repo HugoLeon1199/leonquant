@@ -1994,29 +1994,17 @@ def _sanitize_representative_sources(
     headline: str,
     index: DigestUrlIndex | None,
     sector_code: str,
+    context: str = "",
 ) -> list[dict[str, str]]:
-    out: list[dict[str, str]] = []
-    seen: set[str] = set()
-    rows = sources if isinstance(sources, list) else []
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        title = str(row.get("title") or "").strip()
-        src = str(row.get("source") or "").strip()
-        u = _resolve_digest_url(
-            str(row.get("url") or ""), title or headline, index, sector_code=sector_code
-        )
-        if not u or u in seen:
-            continue
-        seen.add(u)
-        out.append({"title": title or u, "source": src, "url": u})
-        if len(out) >= DIGEST_MAX_REPRESENTATIVE_SOURCES:
-            break
-    if not out and headline and index and index.active:
-        u = _resolve_digest_url("", headline, index, sector_code=sector_code)
-        if u:
-            out.append({"title": headline, "source": "", "url": u})
-    return out
+    from scripts.newsroom_source_match import sanitize_representative_sources as _nr_sanitize
+
+    return _nr_sanitize(
+        sources,
+        headline=headline,
+        index=index,
+        sector_code=sector_code,
+        context=context,
+    )
 
 
 def _sanitize_story_dossier(
@@ -2025,14 +2013,22 @@ def _sanitize_story_dossier(
     index: DigestUrlIndex | None,
     sector_code: str,
 ) -> dict[str, Any]:
+    from scripts.newsroom_copy import soften_newsroom_text
+
     out = dict(row)
     title = str(out.get("title") or out.get("headline") or "").strip()
     if title:
-        out["title"] = _vietnamese_public_headline(_editorialize_digest_headline(title))
-    out["summary"] = str(out.get("summary") or "").strip()
+        out["title"] = soften_newsroom_text(
+            _vietnamese_public_headline(_editorialize_digest_headline(title))
+        )
+
+    out["summary"] = soften_newsroom_text(str(out.get("summary") or "").strip())
     out["depth_level"] = _coerce_depth_level(out.get("depth_level"))
-    out["main_developments"] = _coerce_str_list(out.get("main_developments"), max_items=6)
-    out["why_it_matters"] = str(out.get("why_it_matters") or "").strip()
+    out["main_developments"] = [
+        soften_newsroom_text(x)
+        for x in _coerce_str_list(out.get("main_developments"), max_items=6)
+    ]
+    out["why_it_matters"] = soften_newsroom_text(str(out.get("why_it_matters") or "").strip())
     out["affected_groups"] = _coerce_str_list(out.get("affected_groups"), max_items=8)
     out["watch_next"] = _coerce_str_list(out.get("watch_next"), max_items=6)
     out["representative_sources"] = _sanitize_representative_sources(
@@ -2040,6 +2036,7 @@ def _sanitize_story_dossier(
         headline=title,
         index=index,
         sector_code=sector_code,
+        context=str(out.get("summary") or ""),
     )
     try:
         out["rank"] = int(out.get("rank") or 0) or 999
@@ -2060,16 +2057,19 @@ def _sanitize_front_page_item(
     out["one_sentence"] = str(out.get("one_sentence") or "").strip()
     out["why_it_matters"] = str(out.get("why_it_matters") or "").strip()
     out["watch_next"] = str(out.get("watch_next") or "").strip()
-    urls: list[str] = []
-    for raw in out.get("source_urls") or []:
-        u = _resolve_digest_url(str(raw), title, index, sector_code="")
-        if u and u not in urls:
-            urls.append(u)
-    if not urls and title and index and index.active:
-        u = _resolve_digest_url("", title, index, sector_code="")
-        if u:
-            urls.append(u)
-    out["source_urls"] = urls[:3]
+    from scripts.newsroom_copy import soften_newsroom_text
+    from scripts.newsroom_source_match import sanitize_front_page_sources
+
+    for key in ("title", "one_sentence", "why_it_matters", "watch_next"):
+        if out.get(key):
+            out[key] = soften_newsroom_text(str(out[key]))
+    ctx = str(out.get("one_sentence") or "")
+    out["source_urls"] = sanitize_front_page_sources(
+        [str(u) for u in (out.get("source_urls") or []) if str(u).strip()],
+        headline=title,
+        index=index,
+        context=ctx,
+    )
     try:
         out["rank"] = int(out.get("rank") or 0) or 999
     except (TypeError, ValueError):
@@ -2088,7 +2088,9 @@ def normalize_newsroom_brief(
     )
     if not str(out.get("reading_time_minutes") or "").strip():
         out["reading_time_minutes"] = "auto"
-    out["editor_note"] = str(out.get("editor_note") or "").strip()
+    from scripts.newsroom_copy import soften_editor_note, soften_newsroom_text
+
+    out["editor_note"] = soften_editor_note(str(out.get("editor_note") or "").strip())
 
     fp_raw = out.get("front_page") if isinstance(out.get("front_page"), list) else []
     front: list[dict[str, Any]] = []
@@ -2115,7 +2117,7 @@ def normalize_newsroom_brief(
         bucket["name"] = str(sec.get("name") or "").strip() or bucket["name"]
         thesis = str(sec.get("sector_thesis") or sec.get("summary") or "").strip()
         if thesis:
-            bucket["sector_thesis"] = thesis[:DIGEST_SECTOR_SUMMARY_MAX_CHARS]
+            bucket["sector_thesis"] = soften_newsroom_text(thesis)[:DIGEST_SECTOR_SUMMARY_MAX_CHARS]
         dossiers: list[dict[str, Any]] = []
         for d in sec.get("story_dossiers") or []:
             if not isinstance(d, dict):

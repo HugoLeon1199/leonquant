@@ -49,6 +49,13 @@ function newsroomSectorIconSvg(code, name) {
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m12 6 2 5h5l-4 3 1 5-4-3-4 3 1-5-4-3h5z"/></svg>`;
 }
 
+function newsroomDepthBadgeLabel(depth) {
+  const d = String(depth || "deep").toLowerCase();
+  if (d === "brief") return "ngắn";
+  if (d === "major") return "nổi bật";
+  return "chi tiết";
+}
+
 function newsroomDepthBadgeClass(depth) {
   const d = String(depth || "deep").toLowerCase();
   if (d === "brief") return "depth-badge depth-badge--brief";
@@ -159,7 +166,7 @@ function buildNewsroomIssueHeader(data) {
   const scanned = newsroomArticlesScannedCount(data);
   let pills = "";
   if (stories > 0) pills += buildNewsroomStatPill("Tin chính", String(stories));
-  if (scanned > 0) pills += buildNewsroomStatPill("Đã quét", scanned.toLocaleString("vi-VN"));
+  if (scanned > 0) pills += buildNewsroomStatPill("Bài quét", scanned.toLocaleString("vi-VN"));
   if (updated) pills += buildNewsroomStatPill("Cập nhật", updated);
   if (readMin > 0) pills += buildNewsroomStatPill("Đọc khoảng", `${readMin} phút`);
   const deskLink =
@@ -170,7 +177,7 @@ function buildNewsroomIssueHeader(data) {
     ? `<p class="issue-provenance">Nội dung ${escapeHtml(provenance)}.${deskLink}</p>`
     : "";
   return `<header class="issue-header" id="digest-issue-header">
-    <span class="issue-badge">48H BRIEF</span>
+    <span class="issue-badge">Bản tin 48h</span>
     <h2 class="issue-title">Bản tin 48 giờ</h2>
     <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
     ${provHtml}
@@ -184,7 +191,7 @@ function buildNewsroomTocHtml(data, sectorSlug) {
     items.push({ id: "digest-editor-note", label: "Lời biên tập" });
   }
   if ((data.frontPage || []).length) {
-    items.push({ id: "digest-front-page", label: "Front Page" });
+    items.push({ id: "digest-front-page", label: "Điểm nóng" });
   }
   for (const sec of Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : []) {
     const name = String(sec.name || "").trim();
@@ -192,10 +199,10 @@ function buildNewsroomTocHtml(data, sectorSlug) {
     items.push({ id: sectorSlug(name), label: newsroomSectorShortLabel(name) });
   }
   if ((data.watchlist2472h || []).length) {
-    items.push({ id: "digest-watchlist", label: "Watchlist" });
+    items.push({ id: "digest-watchlist", label: "Theo dõi tiếp" });
   }
   if ((data.sourceDesk || []).length) {
-    items.push({ id: "digest-source-desk", label: "Source Desk" });
+    items.push({ id: "digest-source-desk", label: "Nguồn đại diện" });
   }
   if (!items.length) return "";
   let html = `<nav class="newsroom-toc-wrap newsroom-toc-wrap--sticky" aria-label="Mục lục bản tin"><div class="newsroom-toc">`;
@@ -212,7 +219,7 @@ function buildFrontPageCardHtml(fp, variant, buildDossierSourcesHtml) {
   let html = "";
   if (variant === "lead") {
     html += `<article class="front-page-lead">`;
-    if (rankLabel) html += `<p class="fp-lead-kicker">Lead · ${escapeHtml(rankLabel)}</p>`;
+    if (rankLabel) html += `<p class="fp-lead-kicker">Điểm nóng · ${escapeHtml(rankLabel)}</p>`;
     html += `<h3>${escapeHtml(fp.title || "")}</h3>`;
     if (fp.oneSentence) html += `<p>${escapeHtml(fp.oneSentence)}</p>`;
     if (fp.whyItMatters) {
@@ -221,9 +228,7 @@ function buildFrontPageCardHtml(fp, variant, buildDossierSourcesHtml) {
     if (fp.watchNext) {
       html += `<div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><p>${escapeHtml(fp.watchNext)}</p></div>`;
     }
-    if (fp.links && fp.links.length) {
-      html += `<div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p>${buildDossierSourcesHtml(fp.links)}</div>`;
-    }
+    if (fp.links && fp.links.length) html += buildDossierSourcesHtml(fp.links);
     html += `</article>`;
     return html;
   }
@@ -253,7 +258,7 @@ function buildNewsroomFrontPageHtml(front, buildDossierSourcesHtml) {
   });
   const compact = rest.filter((x) => !secondary.includes(x));
   let html = `<section class="overview-part" id="digest-front-page">`;
-  html += `<h3 class="pub-section-title">Front Page</h3>`;
+  html += `<h3 class="pub-section-title">Điểm nóng</h3>`;
   if (lead) html += buildFrontPageCardHtml(lead, "lead", buildDossierSourcesHtml);
   if (secondary.length) {
     html += `<div class="front-page-secondary-grid">`;
@@ -276,11 +281,12 @@ function buildDossierCardHtml(d, buildDossierSourcesHtml) {
   const rank = String(d.rank || "").trim();
   let html = `<div class="dossier-card">`;
   html += `<div class="dossier-head">`;
-  html += `<span class="${newsroomDepthBadgeClass(depth)}">${escapeHtml(depth)}</span>`;
+  html += `<span class="${newsroomDepthBadgeClass(depth)}">${escapeHtml(newsroomDepthBadgeLabel(depth))}</span>`;
   if (rank) html += `<span class="dossier-rank">#${escapeHtml(rank)}</span>`;
   html += `</div>`;
   html += `<h4>${escapeHtml(d.title || "")}</h4>`;
   if (d.summary) html += `<p class="dossier-summary">${escapeHtml(d.summary)}</p>`;
+  if (d.links && d.links.length) html += buildDossierSourcesHtml(d.links);
   const devs = Array.isArray(d.mainDevelopments) ? d.mainDevelopments : [];
   if (devs.length) {
     html += `<div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p>`;
@@ -302,10 +308,6 @@ function buildDossierCardHtml(d, buildDossierSourcesHtml) {
     html += `<div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><div class="chip-row">`;
     for (const line of wn) html += `<span class="chip">${escapeHtml(line)}</span>`;
     html += `</div></div>`;
-  }
-  const links = Array.isArray(d.links) ? d.links : [];
-  if (links.length) {
-    html += `<div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p>${buildDossierSourcesHtml(links)}</div>`;
   }
   html += `</div>`;
   return html;
@@ -342,7 +344,7 @@ export function buildNewsroomThesisHtml(data, deps) {
 
   if (sectors.length) {
     html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;
-    html += `<h3 class="pub-section-title">Sector deep brief</h3>`;
+    html += `<h3 class="pub-section-title">Hồ sơ chính</h3>`;
     for (const sec of sectors) {
       const name = String(sec.name || "").trim() || "Lĩnh vực";
       const code = String(sec.code || "").trim();
@@ -353,7 +355,7 @@ export function buildNewsroomThesisHtml(data, deps) {
       html += `<span class="sector-pub-icon" aria-hidden="true">${newsroomSectorIconSvg(code, name)}</span>`;
       html += `<div><h3>${escapeHtml(name)}</h3>`;
       if (dossiers.length) {
-        html += `<span class="sector-story-count">${dossiers.length} story</span>`;
+        html += `<span class="sector-story-count">${dossiers.length} hồ sơ</span>`;
       }
       html += `</div></header>`;
       if (sec.sectorThesis) {
@@ -367,7 +369,7 @@ export function buildNewsroomThesisHtml(data, deps) {
 
   if (watch.length) {
     html += `<section class="overview-part watchlist-panel" id="digest-watchlist">`;
-    html += `<h3 class="pub-section-title">Theo dõi 24–72h</h3>`;
+    html += `<h3 class="pub-section-title">Theo dõi tiếp</h3>`;
     html += `<div class="watchlist-grid">`;
     for (const w of watch) {
       html += `<div class="watch-card">`;
@@ -382,10 +384,11 @@ export function buildNewsroomThesisHtml(data, deps) {
   }
 
   if (desk.length) {
-    html += `<details class="source-desk" id="digest-source-desk">`;
+    html += `<details class="source-desk source-desk--collapsed" id="digest-source-desk">`;
     html += `<summary>Nguồn đại diện theo chủ đề</summary>`;
     html += `<div class="source-desk-body">`;
     for (const g of desk) {
+      if (!g.links || !g.links.length) continue;
       html += `<div class="source-desk-group">`;
       html += `<h4>${escapeHtml(g.topic || "")}</h4>`;
       html += buildDossierSourcesHtml(g.links);

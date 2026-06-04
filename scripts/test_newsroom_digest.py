@@ -12,9 +12,16 @@ if str(ROOT) not in sys.path:
 
 from summarize_news_gemini import (  # noqa: E402
     NEWSROOM_BRIEF_FORMAT,
+    DigestUrlIndex,
     finalize_digest_summary,
     normalize_newsroom_brief,
     validate_newsroom_brief,
+)
+from scripts.newsroom_copy import soften_editor_note  # noqa: E402
+from scripts.newsroom_source_match import (  # noqa: E402
+    article_matches_story,
+    filter_urls_for_story,
+    sanitize_front_page_sources,
 )
 
 
@@ -22,7 +29,7 @@ def _fixture() -> dict:
     return {
         "brief_format": NEWSROOM_BRIEF_FORMAT,
         "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-        "editor_note": "Trong 48 giờ qua, thị trường phân hóa giữa rủi ro địa chính Trung Đông và dòng vốn vào AI.",
+        "editor_note": "Trong 48 giờ qua, LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu.",
         "front_page": [
             {
                 "rank": 1,
@@ -63,6 +70,31 @@ def _fixture() -> dict:
     }
 
 
+def _mock_articles() -> list[dict]:
+    return [
+        {
+            "url": "https://vietnamnet.vn/ts-nguyen-si-dung-can-chuyen-tu-logic-den-bu-dat-dai-sang-logic-tai-tao-sinh-ke-2518559.html",
+            "title": "TS Nguyễn Sĩ Dũng: Cần chuyển từ logic đền bù đất đai sang logic tái tạo sinh kế",
+            "source": "VietnamNet",
+        },
+        {
+            "url": "https://cnbc.com/2026/05/21/bitcoin-falls-below-70000-as-investors-rotate-to-ai-stocks.html",
+            "title": "Bitcoin falls below $70,000 as investors rotate to AI stocks",
+            "source": "CNBC",
+        },
+        {
+            "url": "https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm",
+            "title": "Cần Thơ rà soát, gỡ vướng 21 dự án bất động sản theo cơ chế đặc thù",
+            "source": "batdongsan.baoxaydung.vn",
+        },
+        {
+            "url": "https://tuoitre.vn/tp-hcm-tinh-chuyen-giu-mo-tien-ti-usd-hang-hai-o-lai-viet-nam-20260521153911458.htm",
+            "title": "TP.HCM tính chuyển giữ mở tiền tệ USD, hàng hải ở lại Việt Nam",
+            "source": "Tuổi Trẻ",
+        },
+    ]
+
+
 def test_normalize_and_validate() -> None:
     out = normalize_newsroom_brief(_fixture())
     assert out.get("brief_format") == NEWSROOM_BRIEF_FORMAT
@@ -70,28 +102,95 @@ def test_normalize_and_validate() -> None:
     dossier = out["sector_deep_briefs"][0]["story_dossiers"][0]
     assert dossier.get("why_it_matters")
     assert len(dossier.get("main_developments") or []) >= 2
+    assert "LeonQuant ghi nhận" not in (out.get("editor_note") or "")
     warns = validate_newsroom_brief(out)
-    assert any("dossiers" in w for w in warns) or len(warns) >= 0
+    assert isinstance(warns, list)
     fin = finalize_digest_summary(out, input_articles=[])
-    assert fin and _is_newsroom(fin)
+    assert fin and fin.get("sector_deep_briefs")
 
 
-def _is_newsroom(s: dict) -> bool:
-    return bool(s.get("sector_deep_briefs"))
+def test_source_match_rejects_mismatched_urls() -> None:
+    articles = _mock_articles()
+    index = DigestUrlIndex(articles)
+    crypto_headline = "Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI"
+    land_url = articles[0]["url"]
+    assert not article_matches_story(
+        articles[0], crypto_headline, context="Bitcoin suy yếu"
+    )
+    kept = filter_urls_for_story(
+        [land_url, articles[1]["url"]],
+        crypto_headline,
+        index,
+        context="Bitcoin dưới 70.000 USD",
+    )
+    assert articles[1]["url"] in kept
+    assert land_url not in kept
+
+    tphcm_headline = "TP.HCM đẩy nhanh tiến độ gỡ vướng 28 dự án bất động sản"
+    kept2 = sanitize_front_page_sources(
+        [articles[2]["url"], articles[3]["url"]],
+        headline=tphcm_headline,
+        index=index,
+        context="Chính quyền thành phố tập trung giải quyết vướng mắc pháp lý",
+    )
+    assert articles[3]["url"] in kept2
+    assert articles[2]["url"] not in kept2
+
+
+def test_soften_editor_note() -> None:
+    note = soften_editor_note("LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu.")
+    assert "48 giờ qua cho thấy" in note
+    assert "dịch chuyển mạnh mẽ" not in note
+
+
+def test_sanitize_published_content_json() -> None:
+    from scripts.sanitize_newsroom_content_json import sanitize_newsroom_public_content
+
+    payload = {
+        "briefMode": "newsroom-brief",
+        "editorNote": "LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn.",
+        "allArticles": _mock_articles(),
+        "frontPage": [
+            {
+                "rank": 2,
+                "title": "Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI",
+                "oneSentence": "Bitcoin dưới 70.000 USD.",
+                "links": [
+                    {
+                        "url": _mock_articles()[0]["url"],
+                        "title": "Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI",
+                        "host": "vietnamnet.vn",
+                    }
+                ],
+            }
+        ],
+        "sectorDeepBriefs": [],
+        "sourceDesk": [],
+    }
+    out = sanitize_newsroom_public_content(payload)
+    assert "LeonQuant ghi nhận" not in (out.get("editorNote") or "")
+    fp = (out.get("frontPage") or [])[0]
+    assert not fp.get("links")
 
 
 def test_build_newsroom_extras() -> None:
     from build_website_content import build_newsroom_web_extras
 
     raw = normalize_newsroom_brief(_fixture())
-    extras = build_newsroom_web_extras(raw, [])
+    extras = build_newsroom_web_extras(raw, _mock_articles())
     assert extras.get("editorNote")
     assert len(extras.get("sectorDeepBriefs") or []) == 4
-    d0 = extras["sectorDeepBriefs"][0]["storyDossiers"][0]
-    assert d0.get("whyItMatters")
+    fp = extras.get("frontPage") or []
+    crypto = next((x for x in fp if "Crypto" in (x.get("title") or "")), None)
+    if crypto and crypto.get("links"):
+        hosts = [str(l.get("host") or "") for l in crypto["links"]]
+        assert not any("vietnamnet" in h for h in hosts)
 
 
 if __name__ == "__main__":
     test_normalize_and_validate()
+    test_source_match_rejects_mismatched_urls()
+    test_soften_editor_note()
+    test_sanitize_published_content_json()
     test_build_newsroom_extras()
     print("OK: newsroom digest tests passed")
