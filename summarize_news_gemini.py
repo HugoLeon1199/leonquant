@@ -60,28 +60,89 @@ DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
 )
 DIGEST_SECTOR_CODES = frozenset(code for code, _ in DIGEST_FOUR_SECTORS)
 DIGEST_MIN_SECTORS_FINAL = 4
+# Internal recall (outline/chunk — không ép public)
 DIGEST_MIN_SUB_TOPICS_PER_SECTOR = 8
 DIGEST_TARGET_SUB_TOPICS_PER_SECTOR = 12
 DIGEST_MAX_SUB_TOPICS_PER_SECTOR = 20
 DIGEST_NOTABLE_FINAL_COUNT = 9
 DIGEST_MIN_NOTABLE_FINAL = 9
+# Public selection (merge + renderer)
+DIGEST_PUBLIC_TARGET_SUB_TOPICS_PER_SECTOR = 6
+DIGEST_PUBLIC_MAX_SUB_TOPICS_PER_SECTOR = 7
+DIGEST_PUBLIC_NOTABLE_COUNT = 6
+DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS = 6
 DIGEST_MAX_OUTLINE_THEMES = 18
 DIGEST_MERGE_MAX_OUTPUT_TOKENS = 32_768
 DIGEST_SECTOR_SUMMARY_MIN_CHARS = 280
+DIGEST_PUBLIC_SECTOR_SUMMARY_MIN_CHARS = 350
 
 
-def _digest_accuracy_and_freshness_block() -> str:
+def _digest_accuracy_and_freshness_block(*, for_merge: bool = False) -> str:
+    exec_rule = (
+        f"- `executive_overview`: **mảng 5–{DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS} bullet**; mỗi bullet **một trọng tâm** (Trung Đông, AI/chip, VN chính sách, thị trường, xã hội…); **cấm** lặp cùng ý; **cấm** 10 dòng dài."
+        if for_merge
+        else "- Outline/chunk: ghi nhận đủ candidate nội bộ; merge mới chọn public."
+    )
     return "\n".join(
         [
             "## Độ chính xác & tin nóng (BẮT BUỘC)",
             "- **Chỉ** dùng sự kiện/số liệu/tên riêng có trong bài crawl được cung cấp. **Cấm** bịa, **cấm** suy diễn quá mức, **cấm** thêm tin ngoài JSON.",
-            "- Mỗi `headline` / câu trong `summary` / `executive_overview` phải **khớp** nội dung ít nhất một bài nguồn; `source_urls[0]` là bài đó.",
-            "- Nếu thiếu số liệu hoặc mâu thuẫn giữa nguồn: ghi ngắn trong `gaps_and_limits`, **không** đoán.",
-            "- **Ưu tiên tin nóng 48h:** sự kiện mới, đổi chính sách, biến động thị trường, địa chính trị, công nghệ — không viết chung chung kiểu PR.",
-            "- **Đủ độ phủ nóng:** mỗi sector chọn ~12 chủ đề **khác nhau** (VN + quốc tế khi có trong dữ liệu); **cấm** 80% bản tin chỉ xoay 1–2 câu chuyện (vd chỉ SpaceX + Nvidia) khi danh mục còn nhiều lĩnh vực.",
-            "- Chủ đề được **nhiều nguồn** nhắc → ưu tiên đưa vào `executive_overview` / `sub_topics` đầu sector.",
-            "- `executive_overview`: **3–5 đoạn**, nêu **ít nhất 6–8 luồng tin then chốt** (đa ngành), có VN và quốc tế; không lặp nguyên văn `sub_topics`.",
-            "- `vietnam_highlights` / `international_highlights`: mỗi khối **2–4 câu** cụ thể (sự kiện + hàm ý), không slogan.",
+            "- Mỗi `headline` / bullet / câu trong `summary` phải **khớp** nội dung ít nhất một bài nguồn; `source_urls[0]` là bài đó.",
+            "- Nếu thiếu số liệu hoặc mâu thuẫn giữa nguồn: ghi trong `gaps_and_limits` hoặc `needs_verification`, **không** đoán.",
+            "- **Ưu tiên tin nóng 48h** có nguồn rõ; không fill số lượng bằng tin yếu (profile cá nhân, golf, hội thao, khảo cổ nhỏ) trừ khi tác động xã hội lớn.",
+            "- Chủ đề **nhiều nguồn độc lập** → ưu tiên public; **một** blog/clone (Decrypt, Tiền Phong đơn lẻ…) không được quyết định toàn bộ overview.",
+            exec_rule,
+            "- `vietnam_highlights` / `international_highlights`: mỗi khối **2–4 câu** cụ thể, không slogan.",
+            "- Kiểm tra tên riêng/sản phẩm (vd model AI): nếu không chắc theo text nguồn, **không** đưa lên headline.",
+            '- Sửa lỗi đánh máy: không viết "hạ tầng ," — dùng "hạ tầng AI" hoặc "hạ tầng dữ liệu" khi nguồn có ngữ cảnh.',
+        ]
+    )
+
+
+def _digest_confidence_and_source_quality_block() -> str:
+    return "\n".join(
+        [
+            "## confidence & source_quality (BẮT BUỘC cho public)",
+            '- Mỗi `sub_topics[]` và `notable_articles[]` phải có `source_quality` và `confidence`: `"high"` | `"medium"` | `"low"`.',
+            '- `high`: nguồn mạnh (Reuters, Bloomberg, BBC, VnExpress, Chính phủ…) hoặc **≥2 nguồn độc lập**, claim rõ trong text.',
+            '- `medium`: nguồn hợp lý, claim có căn nhưng chưa đủ đa nguồn.',
+            '- `low`: blog/clone/nguồn thứ cấp, hoặc claim lớn chưa đủ xác nhận.',
+            "- Claim lớn **bắt buộc** gắn confidence/source_quality: IPO SpaceX; ngừng bắn Mỹ–Iran / Hormuz; thay đổi chức vụ cấp cao; Moody’s/Fitch/S&P; ETF/rút ròng tỷ USD; chiến tranh/khủng hoảng/dầu/vàng/USD; số liệu thị trường lớn.",
+            "- Claim lớn chỉ nguồn yếu: **không** headline như fact chắc; đưa `needs_verification` hoặc wording thận trọng.",
+            '- Mỗi sub_topic public: thêm `reason_selected` (1 câu vì sao đáng đưa).',
+        ]
+    )
+
+
+def _digest_cautious_wording_block() -> str:
+    return "\n".join(
+        [
+            "## Wording thận trọng (khi source_quality hoặc confidence = low)",
+            '- **Cấm:** "đã xác nhận", "đạt thỏa thuận", "chắc chắn", "kỷ lục", "lịch sử", "định hình lại" cho claim chưa đủ nguồn.',
+            '- **Dùng:** "được đưa tin", "đang được theo dõi", "cần thêm xác nhận", "nếu được xác nhận".',
+            '- Ví dụ SpaceX IPO + Bitcoin chỉ từ nguồn crypto yếu → không viết như sự kiện thị trường chắc; hoặc bỏ khỏi top.',
+            '- "Mỹ–Iran đạt thỏa thuận ngừng bắn, mở Hormuz" chỉ viết chắc nếu text nguồn mạnh/rõ; nếu không: "một số nguồn đưa tin… cần theo dõi thêm".',
+        ]
+    )
+
+
+def _digest_editorial_selection_block(*, for_merge: bool) -> str:
+    if for_merge:
+        return "\n".join(
+            [
+                "## Chọn lọc public (merge — bản tin biên tập, không dump)",
+                "Bạn là **tổng biên tập** bản tin 48h LeonQuant. Nhiệm vụ **không** liệt kê nhiều tin, mà **chọn** tin đáng tin, có ý nghĩa, đại diện bức tranh 48h.",
+                f"- Mỗi sector public: **{DIGEST_PUBLIC_TARGET_SUB_TOPICS_PER_SECTOR}–{DIGEST_PUBLIC_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics` tốt nhất (ít hơn nếu không đủ tin tốt).",
+                f"- `notable_articles`: tối đa **{DIGEST_PUBLIC_NOTABLE_COUNT}** tin thật sự nổi bật; không đưa tin đời sống nhỏ vào notable.",
+                "- Partials/outline có thể nhiều candidate — merge **cắt** xuống public, sắp `importance_rank` 1 = quan trọng nhất.",
+                "- Đọc **5–8 phút** (~1.200–2.000 từ tổng); không ép 2.500–4.000 từ.",
+            ]
+        )
+    return "\n".join(
+        [
+            "## Ghi nhận nội bộ (chunk/outline)",
+            f"- Chunk: mỗi mã **5–10** candidate `sub_topics` (không ép 12); ưu tiên chất lượng.",
+            f"- Outline: tối đa {DIGEST_MAX_OUTLINE_THEMES} theme — **bản đồ chủ đề**, không biến title đơn thành sự kiện chắc chắn.",
         ]
     )
 
@@ -92,43 +153,37 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
     )
     lines = [
         "## Phân loại 4 chuyên mục (BẮT BUỘC)",
-        "- Mỗi bài / mỗi ý tin phải thuộc **ĐÚNG MỘT** trong 4 mã:",
+        "- Mỗi bài / mỗi ý tin phải thuộc **ĐÚNG MỘT** trong 4 mã (mã chỉ dùng nội bộ JSON; public hiển thị tên tiếng Việt).",
         sector_lines,
         '- `finance`: kinh tế, tài chính, chứng khoán, bất động sản, tiền ảo.',
         '- `tech`: công nghệ, AI, khoa học, bán dẫn, viễn thông.',
         '- `news`: thời sự, chính trị, ngoại giao, sự kiện quốc tế, địa chính trị.',
         '- `trends`: xu hướng, đời sống, quan điểm, góc nhìn, văn hóa, thể thao, y tế, môi trường, pháp luật/xã hội không thuần chính trị.',
         "- **Không** tạo sector ngoài 4 mã; **không** gộp hết vào finance/tech.",
-        "- Trong mỗi sector: **tổng hợp** (không liệt kê từng bài) — chỉ các **mục đáng chú ý nhất** trong 48h.",
-        "- Mỗi `sub_topics[]`: **1 câu tổng hợp** + `source_urls` (**BẮT BUỘC đúng 1 URL** — lấy từ danh sách bài crawl; **CẤM** `[]` hoặc thiếu field).",
-        "- **Mỗi dòng tóm tắt phải có link:** `source_urls[0]` là bài nguồn khớp headline (tiêu đề/nội dung), không gán URL ngẫu nhiên.",
-        "## Chọn lọc (bắt buộc)",
-        f"- Mỗi sector: khoảng **{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}** `sub_topics` (cho phép **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}–{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}**; mục tiêu ~{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}, không cứng 12 nếu tin ít).",
-        "- **Cấm** chép tiêu đề 500 bài; **cấm** một dòng một bài kiểu danh mục.",
-        "- Gom tin trùng chủ đề thành **một** dòng tổng hợp.",
-        "## Thứ tự quan trọng (bắt buộc — AI tổng hợp)",
-        "- Trong mỗi sector, `sub_topics` (hoặc `key_points` khi gộp) phải **sắp xếp theo mức độ quan trọng giảm dần**.",
-        "- **Mục đầu tiên = tin nóng / được nhắc nhiều / tác động lớn nhất** trong 48h; mục cuối = ít nổi bật hơn.",
-        "- Khi gộp batch: **sắp xếp lại** toàn bộ `sub_topics` của sector — không để tin quan trọng rơi xuống cuối.",
-        "- Dùng `importance_rank`: **1** = quan trọng nhất, tăng dần; hoặc giữ thứ tự mảng đúng như trên.",
-        _digest_accuracy_and_freshness_block(),
+        "- **Tổng hợp** (không liệt kê từng bài); mỗi `sub_topics[]`: **1 câu** + `source_urls` (**1 URL** khớp headline).",
+        "- **Không chọn tin chỉ vì headline hấp dẫn**; nội dung text không đủ → hạ confidence hoặc bỏ.",
+        "- Gom tin trùng chủ đề thành **một** dòng.",
+        "## Thứ tự quan trọng",
+        "- `importance_rank`: **1** = quan trọng nhất; sắp xếp giảm dần.",
+        _digest_editorial_selection_block(for_merge=for_merge),
+        _digest_confidence_and_source_quality_block(),
+        _digest_cautious_wording_block(),
+        _digest_accuracy_and_freshness_block(for_merge=for_merge),
     ]
     if for_merge:
         lines.extend(
             [
-                f"- **`sectors`:** đúng **4** phần tử, mã `code`: finance, tech, news, trends (thứ tự cố định).",
-                f"- Mỗi sector: mục tiêu **~{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR}** `sub_topics` (min **{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}**, max **{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}**).",
-                "- **Mọi** `sub_topics[]` phải có `source_urls`: `[\"https://...\"]` — không được bỏ trống.",
+                f"- **`sectors`:** đúng **4** phần tử (finance, tech, news, trends).",
+                f"- Public: **{DIGEST_PUBLIC_TARGET_SUB_TOPICS_PER_SECTOR}–{DIGEST_PUBLIC_MAX_SUB_TOPICS_PER_SECTOR}** `sub_topics`/sector.",
+                f"- **`notable_articles`:** tối đa **{DIGEST_PUBLIC_NOTABLE_COUNT}**.",
                 _digest_sector_summary_rules_block(),
-                f"- **`notable_articles`: đúng {DIGEST_NOTABLE_FINAL_COUNT}** tin nóng nhất (đa dạng 4 mã).",
-                "- `executive_overview` + **4× `summary` sector** + `sub_topics` ≈ **2.500–4.000 từ** tổng.",
             ]
         )
     else:
         lines.extend(
             [
                 f"- Outline: gắn theme với 1 trong 4 mã; tối đa {DIGEST_MAX_OUTLINE_THEMES} theme.",
-                f"- Mỗi chunk: `sector_notes` đủ 4 mã; **tối đa ~{DIGEST_MAX_SUB_TOPICS_PER_SECTOR}** sub_topics/mã (tin nổi bật trong batch).",
+                "- Chunk: `sector_notes` đủ 4 mã; **5–10** candidate/mã.",
             ]
         )
     return "\n".join(lines)
@@ -137,58 +192,142 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
 def _digest_sector_summary_rules_block() -> str:
     return "\n".join(
         [
-            "## Đoạn tổng hợp sector (`summary`) — BẮT BUỘC, văn phong chuyên gia",
-            "- Mỗi sector phải có `summary` **đầy đủ**: **4–6 câu** hoặc khoảng **150–250 từ** tiếng Việt (không phải 1–2 câu chung chung).",
-            "- Viết như **ghi chú phân tích** của chuyên gia kinh tế / biên tập cấp cao: khách quan, mạch lạc, **số liệu/tên/sự kiện chỉ khi có trong bài crawl**.",
-            "- Cấu trúc gợi ý: (1) **bức tranh 48h** của ngành; (2) **2–3 diễn biến nóng then chốt** (cụ thể, có thể đối chiếu nguồn); (3) **hàm ý**; (4) điểm theo dõi — **không** copy nguyên tiêu đề báo.",
-            "- `sub_topics` phải **phủ đủ** các luồng nóng trong sector (chính sách VN, thị trường, doanh nghiệp, quốc tế… tùy ngành), không chỉ 1–2 headline lặp lại trong `summary`.",
-            "- `finance`: thị trường, chính sách tiền tệ–tài khóa, tài sản, doanh nghiệh. `tech`: AI, sản phẩm, bán dẫn, đầu tư công nghệ. `news`: địa chính trị, ngoại giao, chính sách công. `trends`: xã hội, tiêu dùng, văn hóa, y tế, môi trường, pháp lý.",
-            "- **Không** liệt kê lại từng dòng `sub_topics`; `sub_topics` chỉ là điểm nhấn có link — `summary` là bài tổng hợp đọc độc lập.",
+            "## Đoạn tổng hợp sector (`summary`) — public",
+            "- Mỗi sector: **100–160 từ** — bức tranh 48h, **2–3** diễn biến chính, hàm ý ngắn.",
+            "- Văn phong biên tập; **không** copy tiêu đề; **không** lặp `executive_overview` hoặc từng `sub_topics`.",
+            "- Claim yếu: wording thận trọng (block wording).",
         ]
     )
 
 
 def _digest_sector_json_schema_fragment() -> str:
+    sub = """        {
+          "importance_rank": 1,
+          "headline": "Một dòng tổng hợp",
+          "source_urls": ["https://..."],
+          "source_quality": "high",
+          "confidence": "high",
+          "reason_selected": "Vì sao đáng đưa vào bản public"
+        }"""
     blocks = []
     for code, label in DIGEST_FOUR_SECTORS:
         blocks.append(
             f"""    {{
       "code": "{code}",
       "name": "{label}",
-      "summary": "4-6 câu (~150-250 từ): phân tích chuyên gia, bức tranh 48h + diễn biến + hàm ý + điểm theo dõi",
+      "summary": "100-160 từ: bức tranh 48h, 2-3 diễn biến, hàm ý",
       "sub_topics": [
-        {{
-          "importance_rank": 1,
-          "headline": "Tin quan trọng nhất — một dòng tổng hợp",
-          "source_urls": ["một url đại diện duy nhất"]
-        }},
-        {{
-          "importance_rank": 2,
-          "headline": "Tin ít nổi bật hơn",
-          "source_urls": ["url"]
-        }}
+{sub}
       ]
     }}"""
         )
     return ",\n".join(blocks)
 
 
+def _sub_topic_sort_key(row: dict[str, Any], fallback_index: int) -> tuple[int, int]:
+    for field in ("importance_rank", "importance", "rank"):
+        raw = row.get(field)
+        if raw is None or raw == "":
+            continue
+        try:
+            return (0, int(raw))
+        except (TypeError, ValueError):
+            continue
+    return (1, fallback_index)
+
+
+def _normalize_executive_overview_bullets(raw: Any) -> list[str]:
+    bullets: list[str] = []
+    if isinstance(raw, list):
+        for item in raw:
+            line = str(item or "").strip()
+            if line:
+                bullets.append(line)
+    elif isinstance(raw, str) and raw.strip():
+        text = raw.strip()
+        if re.search(r"(?m)^\s*[-•*]\s+", text):
+            bullets = [
+                re.sub(r"^\s*[-•*]\s+", "", ln).strip()
+                for ln in text.splitlines()
+                if ln.strip()
+            ]
+        else:
+            bullets = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+            if len(bullets) <= 2:
+                bullets = [
+                    c.strip()
+                    for c in re.split(
+                        r"(?<=[.!?…])\s+(?=[\"'“‘(A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯ0-9])",
+                        text,
+                    )
+                    if len(c.strip()) >= 24
+                ] or [text]
+    seen: set[str] = set()
+    out: list[str] = []
+    for b in bullets:
+        key = b.lower()[:80]
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(b)
+        if len(out) >= DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS:
+            break
+    return out
+
+
+def apply_digest_public_caps(summary: dict[str, Any]) -> dict[str, Any]:
+    """Trim merge output to public editorial limits (post-Gemini safety net)."""
+    if not isinstance(summary, dict):
+        return summary
+    out = dict(summary)
+    out["title"] = str(out.get("title") or "").strip() or (
+        "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ"
+    )
+    out["reading_time_minutes"] = str(out.get("reading_time_minutes") or "").strip() or "5-8"
+    bullets = _normalize_executive_overview_bullets(out.get("executive_overview"))
+    if bullets:
+        out["executive_overview"] = bullets
+
+    sectors = out.get("sectors") if isinstance(out.get("sectors"), list) else []
+    trimmed_sectors: list[dict[str, Any]] = []
+    for sec in sectors:
+        if not isinstance(sec, dict):
+            continue
+        sec_copy = dict(sec)
+        subs = sec_copy.get("sub_topics") if isinstance(sec_copy.get("sub_topics"), list) else []
+        if subs:
+            indexed = [(i, r) for i, r in enumerate(subs) if isinstance(r, dict)]
+            indexed.sort(key=lambda pair: _sub_topic_sort_key(pair[1], pair[0]))
+            sec_copy["sub_topics"] = [r for _, r in indexed][:DIGEST_PUBLIC_MAX_SUB_TOPICS_PER_SECTOR]
+        trimmed_sectors.append(sec_copy)
+    out["sectors"] = trimmed_sectors
+
+    notable = out.get("notable_articles") if isinstance(out.get("notable_articles"), list) else []
+    if notable:
+        out["notable_articles"] = notable[:DIGEST_PUBLIC_NOTABLE_COUNT]
+    return out
+
+
 def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
-    """Cảnh báo sau merge nếu output quá hẹp (không fail pipeline)."""
+    """Cảnh báo sau merge (public schema — không fail pipeline)."""
     warnings: list[str] = []
     sectors = summary.get("sectors") if isinstance(summary.get("sectors"), list) else []
     if len(sectors) < DIGEST_MIN_SECTORS_FINAL:
         warnings.append(
-            f"sectors chỉ có {len(sectors)} mục (mong đợi ≥{DIGEST_MIN_SECTORS_FINAL} — chạy lại merge hoặc chỉnh prompt)."
+            f"sectors chỉ có {len(sectors)} mục (mong đợi ≥{DIGEST_MIN_SECTORS_FINAL})."
         )
     notable = summary.get("notable_articles") if isinstance(summary.get("notable_articles"), list) else []
-    if len(notable) < DIGEST_MIN_NOTABLE_FINAL:
+    if len(notable) > DIGEST_PUBLIC_NOTABLE_COUNT:
         warnings.append(
-            f"notable_articles chỉ có {len(notable)} mục (mong đợi {DIGEST_NOTABLE_FINAL_COUNT})."
+            f"notable_articles có {len(notable)} mục (public nên ≤{DIGEST_PUBLIC_NOTABLE_COUNT})."
         )
-    elif len(notable) > DIGEST_NOTABLE_FINAL_COUNT:
+    exec_raw = summary.get("executive_overview")
+    exec_bullets = _normalize_executive_overview_bullets(exec_raw)
+    if isinstance(exec_raw, str) and exec_raw.strip() and not exec_bullets:
+        warnings.append("executive_overview: nên là mảng 5-6 bullet hoặc prose tách rõ.")
+    elif len(exec_bullets) > DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS:
         warnings.append(
-            f"notable_articles có {len(notable)} mục (nên giữ đúng {DIGEST_NOTABLE_FINAL_COUNT})."
+            f"executive_overview có {len(exec_bullets)} bullet (nên ≤{DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS})."
         )
     codes_seen: set[str] = set()
     for i, sec in enumerate(sectors):
@@ -201,18 +340,9 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
         kps = sec.get("key_points") if isinstance(sec.get("key_points"), list) else []
         n_items = len(subs) if subs else len(kps)
         label = code or sec.get("name", "?")
-        if n_items < DIGEST_MIN_SUB_TOPICS_PER_SECTOR:
+        if n_items > DIGEST_PUBLIC_MAX_SUB_TOPICS_PER_SECTOR:
             warnings.append(
-                f"sectors[{i}] ({label}) chỉ có {n_items} mục chi tiết "
-                f"(mong đợi ≥{DIGEST_MIN_SUB_TOPICS_PER_SECTOR}, mục tiêu ~{DIGEST_TARGET_SUB_TOPICS_PER_SECTOR})."
-            )
-        elif n_items == 5:
-            warnings.append(
-                f"sectors[{i}] ({label}) có đúng 5 mục — thường là output tối thiểu, nên gộp thêm tin nóng."
-            )
-        elif n_items > DIGEST_MAX_SUB_TOPICS_PER_SECTOR:
-            warnings.append(
-                f"sectors[{i}] ({label}) có {n_items} sub_topics (nên ≤{DIGEST_MAX_SUB_TOPICS_PER_SECTOR})."
+                f"sectors[{i}] ({label}) có {n_items} sub_topics (public nên ≤{DIGEST_PUBLIC_MAX_SUB_TOPICS_PER_SECTOR})."
             )
         for j, row in enumerate(subs):
             if not isinstance(row, dict):
@@ -220,18 +350,35 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
             urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
             if not urls:
                 warnings.append(
-                    f"sectors[{i}] ({label}) sub_topics[{j}] thiếu source_urls (bắt buộc 1 link)."
+                    f"sectors[{i}] ({label}) sub_topics[{j}] thiếu source_urls."
                 )
+            if not str(row.get("confidence") or "").strip():
+                warnings.append(f"sectors[{i}] sub_topics[{j}] thiếu confidence.")
+            if not str(row.get("source_quality") or "").strip():
+                warnings.append(f"sectors[{i}] sub_topics[{j}] thiếu source_quality.")
         summ = str(sec.get("summary") or "").strip()
-        if len(summ) < DIGEST_SECTOR_SUMMARY_MIN_CHARS:
+        if summ and len(summ) < DIGEST_PUBLIC_SECTOR_SUMMARY_MIN_CHARS:
             warnings.append(
                 f"sectors[{i}] ({label}) `summary` chỉ {len(summ)} ký tự "
-                f"(mong đợi ≥{DIGEST_SECTOR_SUMMARY_MIN_CHARS} — đoạn phân tích chuyên gia đầy đủ)."
+                f"(gợi ý ≥{DIGEST_PUBLIC_SECTOR_SUMMARY_MIN_CHARS})."
             )
+    for j, row in enumerate(notable):
+        if isinstance(row, dict):
+            if not str(row.get("confidence") or "").strip():
+                warnings.append(f"notable_articles[{j}] thiếu confidence.")
     missing = DIGEST_SECTOR_CODES - codes_seen
     if missing and len(sectors) < DIGEST_MIN_SECTORS_FINAL:
         warnings.append(f"thiếu mã sector: {', '.join(sorted(missing))}")
     return warnings
+
+
+def finalize_digest_summary(summary: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not isinstance(summary, dict):
+        return summary
+    capped = apply_digest_public_caps(summary)
+    for w in validate_digest_multisector_coverage(capped):
+        print(f"WARN digest coverage: {w}", file=sys.stderr)
+    return capped
 
 
 class ArticleTextExtractor(HTMLParser):
@@ -662,37 +809,30 @@ Bạn là biên tập viên tổng hợp tin cho LEON Quant Labs.
 - Số bài trong payload (toàn bộ tin đã crawl, đọc hết): {sent}
 - Khái quát bức tranh tin **48 giờ / 2 ngày gần nhất** từ **toàn bộ** các bài dưới đây.
 
-## Mục tiêu đầu ra
-- Viết bằng **tiếng Việt**, **tổng hợp** tin nóng — không liệt kê từng bài; mỗi sector tối đa **20** ý đáng chú ý.
-{_digest_four_sector_rules_block()}
-- Ưu tiên sự kiện lặp lại, tin nhiều nguồn, hoặc hàm ý rộng; gom chủ đề trùng.
-- Mỗi ý quan trọng nên kèm URL từ dữ liệu khi có thể.
+## Mục tiêu đầu ra (public — một pass)
+- Bản biên tập **5–8 phút**; không dump danh mục.
+{_digest_four_sector_rules_block(for_merge=True)}
 
-Trả về DUY NHẤT JSON hợp lệ theo schema:
+Trả về DUY NHẤT JSON:
 {{
-  "title": "Bản tin tổng hợp 48 giờ",
-  "reading_time_minutes": "5-10",
-  "executive_overview": "2-4 đoạn: bức tranh chung hai ngày qua",
+  "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
+  "reading_time_minutes": "5-8",
+  "executive_overview": ["5-6 bullet, không lặp ý"],
   "sectors": [
 {_digest_sector_json_schema_fragment()}
   ],
-  "vietnam_highlights": "Tin Việt Nam nổi bật (nếu có trong dữ liệu)",
-  "international_highlights": "Tin quốc tế nổi bật (nếu có)",
-  "timeline": [
-    {{
-      "date": "YYYY-MM-DD",
-      "headlines": ["Sự kiện/tin chính trong ngày theo dữ liệu"]
-    }}
-  ],
-  "notable_articles": [
-    {{
-      "title": "Tiêu đề",
-      "source": "nguồn",
-      "url": "url",
-      "why_notable": "1 câu"
-    }}
-  ],
-  "gaps_and_limits": "Bài thiếu text hoặc trùng chủ đề (nếu có)"
+  "vietnam_highlights": "2-4 câu",
+  "international_highlights": "2-4 câu",
+  "notable_articles": [{{
+    "title": "...",
+    "source": "...",
+    "url": "...",
+    "why_notable": "...",
+    "source_quality": "high|medium|low",
+    "confidence": "high|medium|low"
+  }}],
+  "needs_verification": [],
+  "gaps_and_limits": "Ngắn nếu có"
 }}
 
 Dữ liệu bài viết:
@@ -722,14 +862,14 @@ def build_digest_outline_prompt(
     catalog_json = json.dumps(catalog, ensure_ascii=False)
     window_desc = json.dumps(window_meta, ensure_ascii=False)
     return f"""
-Bạn là tổng biên tập tin. Nhiệm vụ: đọc **TOÀN BỘ** danh mục {total_articles} bài (chỉ title, nguồn, ngày, url) và vẽ **bức tranh toàn cảnh** 48 giờ qua.
+Bạn là tổng biên tập tin. Nhiệm vụ: đọc **TOÀN BỘ** danh mục {total_articles} bài (chỉ title, url) và vẽ **bản đồ chủ đề** 48 giờ — **không** biến title đơn thành sự kiện chắc chắn.
 
 ## Quy tắc
 - CHỈ dùng danh mục bên dưới. KHÔNG mở URL, KHÔNG tìm web.
-- Phát hiện chủ đề lặp lại trên nhiều nguồn, tin VN vs quốc tế, **sự kiện nóng nhất 48h** (ưu tiên đa nguồn).
-- Khung phải liệt kê **đủ** nhóm chủ đề nóng — không thiên 1–2 sự kiện nếu danh mục đa dạng.
-- Đây là bước **khung xương**; các bước sau sẽ đọc nội dung chi tiết từng phần — khung phải phản ánh **đủ** {total_articles} bài.
-- JSON gọn: **tối đa {DIGEST_MAX_OUTLINE_THEMES}** `dominant_themes` (phủ **đủ** các nhóm lĩnh vực có trong danh mục), **tối đa 3** mục `timeline_sketch`, **không** liệt kê từng bài trong output (chỉ ước lượng số lượng).
+- `dominant_themes` dựa trên **độ lặp nguồn** hoặc **tác động rõ**, không chỉ headline giật.
+- Một nguồn yếu/clone không được quyết định toàn bộ panorama nếu thiếu nguồn khác.
+- Claim lớn (IPO, ngừng bắn, xếp hạng tín nhiệm, ETF tỷ USD…): ghi `confidence_hint` / `source_quality_hint` / `risk_of_overstatement`.
+- JSON gọn: tối đa {DIGEST_MAX_OUTLINE_THEMES} theme; tối đa 3 `timeline_sketch`; không liệt kê từng bài.
 {_digest_four_sector_rules_block()}
 
 Cửa sổ: {window_desc}
@@ -737,22 +877,25 @@ Cửa sổ: {window_desc}
 Trả về DUY NHẤT JSON:
 {{
   "total_articles": {total_articles},
-  "panorama_summary": "2-3 đoạn: bức tranh tổng thể 48h",
+  "panorama_summary": "2-3 đoạn khung (thận trọng, không phóng đại)",
   "dominant_themes": [
     {{
-      "theme": "Tên chủ đề/sự kiện",
-      "why_dominant": "Vì sao nổi bật (nhiều bài/nguồn)",
-      "approx_article_count": "ước lượng số bài liên quan trong danh mục",
+      "theme": "Tên chủ đề",
+      "why_dominant": "Lặp nguồn / tác động",
+      "approx_article_count": "ước lượng",
+      "source_quality_hint": "high|medium|low",
+      "confidence_hint": "high|medium|low",
+      "risk_of_overstatement": "nếu title giật nhưng nguồn mỏng",
       "regions": ["vietnam", "international"],
       "sectors": ["finance", "tech", "news", "trends"]
     }}
   ],
   "vietnam_vs_global": "So sánh trọng tâm VN và thế giới",
   "timeline_sketch": [
-    {{"date": "YYYY-MM-DD", "top_headlines": ["5-10 tiêu đề hoặc sự kiện chính"]}}
+    {{"date": "YYYY-MM-DD", "top_headlines": ["tiêu đề/sự kiện — không khẳng định nếu chưa chắc"]}}
   ],
   "sources_most_active": ["domain1", "domain2"],
-  "gaps": "Mảng tin có vẻ thiếu trong danh mục (nếu có)"
+  "gaps": "Mảng tin thiếu hoặc cần xác minh (nếu có)"
 }}
 
 Danh mục đầy đủ ({total_articles} bài):
@@ -804,12 +947,12 @@ def build_digest_chunk_prompt(
 Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính sách) cho LEON Quant Labs. Đây là **phần {batch_index}/{batch_total}** của bản tin 48 giờ.
 
 ## Quy tắc
-- CHỈ dùng JSON bài viết bên dưới + khung toàn cảnh (nếu có). KHÔNG mở URL, KHÔNG tìm web, KHÔNG bịa.
-- Toàn bộ pipeline có {total_articles} bài; bạn thấy phần này — ghi nhận đủ sự kiện **trong phần được giao**, đối chiếu khung để biết phần này thuộc chủ đề lớn nào.
-- **JSON hợp lệ:** `sector_notes` đúng 4 mã; mỗi mã **8–12** `sub_topics` (không chỉ 5); mỗi mục 1 `headline` + **1** URL **khớp** headline; `notable_articles` tối đa **5**/chunk.
+- CHỈ dùng JSON bài viết + khung (nếu có). KHÔNG mở URL, KHÔNG bịa.
+- Ghi nhận **candidate** quan trọng trong phần này; ưu tiên chất lượng, không fill số lượng.
+- `sector_notes` đủ 4 mã; mỗi mã **5–10** `sub_topics` candidate; mỗi mục: headline + 1 URL + `confidence` + `source_quality` + `reason_selected`.
+- `notable_articles` tối đa **5**/chunk (chỉ tin thật nổi bật).
 {_digest_four_sector_rules_block()}
-{_digest_sector_summary_rules_block()}
-- Trong chunk: mỗi `sector_notes[].summary` viết **3–4 câu** nháp phân tích (merge sẽ mở rộng thành bản đầy đủ).
+- Chunk summary: **3–4 câu** nháp (merge viết 100–160 từ).
 {outline_block}
 ## Cửa sổ: {window_desc}
 
@@ -822,8 +965,15 @@ Trả về DUY NHẤT JSON:
     {{
       "code": "finance|tech|news|trends",
       "name": "Tên tiếng Việt",
-      "summary": "3-4 câu phân tích (nháp; merge sẽ viết 4-6 câu đầy đủ)",
-      "sub_topics": [{{"importance_rank": 1, "headline": "...", "source_urls": ["một url"]}}]
+      "summary": "3-4 câu nháp",
+      "sub_topics": [{{
+        "importance_rank": 1,
+        "headline": "...",
+        "source_urls": ["url"],
+        "source_quality": "high|medium|low",
+        "confidence": "high|medium|low",
+        "reason_selected": "..."
+      }}]
     }}
   ],
   "vietnam_notes": "Tin VN trong phần này",
@@ -856,32 +1006,47 @@ def build_digest_merge_prompt(
             + "\n"
         )
     return f"""
-Bạn là **chuyên gia phân tích & biên tập cấp cao** LEON Quant Labs (văn phong ghi chú đầu tư / bản tin vĩ mô, không PR).
+Bạn là **tổng biên tập** bản tin 48h của LeonQuant. Nhiệm vụ **không** liệt kê nhiều tin, mà **chọn** tin đáng tin, có ý nghĩa, đại diện bức tranh 48h (VN + quốc tế).
 
-Đã có {len(partials)} bản tóm tắt **phần** (chi tiết nội dung) từ tổng {total_articles} bài tin 48h. Cửa sổ: {window_desc}.
+Đã có {len(partials)} partial từ {total_articles} bài. Cửa sổ: {window_desc}.
 {outline_block}
-Nhiệm vụ: **Gộp** thành **một** bản tin duy nhất, tiếng Việt, đọc **10–15 phút** (~2.500–4.000 từ), **toàn cảnh đa ngành** (VN + quốc tế).
-- Khung toàn cảnh = xương sống (chủ đề trội trên toàn bộ {total_articles} bài).
-- Partials = chi tiết từng phần — **gộp KHÔNG được làm mất** chủ đề lớn trong khung; **cấm** chỉ giữ 2–3 sector (hạ tầng, CK, AI) nếu partials/outline còn nhiều lĩnh vực khác.
-- Gom `sector_notes` trùng tên lĩnh vực; **không** nhồi mọi thứ vào một mục "Khác".
-- Khi gộp: **viết lại** (không chép nguyên) mỗi `sectors[].summary` thành đoạn phân tích **đầy đủ, chuyên nghiệp** từ toàn bộ partials của mã đó.
-- **Tổng quan phải chính xác & đủ nóng:** `executive_overview` bám outline + partials; phủ nhiều chủ đề, không bỏ sót mảng tin VN chỉ vì quốc tế ồn ào hơn.
+- Gộp partials + outline: **cắt** xuống bản **public** (5–8 phút đọc); không ép đủ số lượng nếu tin yếu.
+- `executive_overview`: **mảng 5–6 bullet**, mỗi bullet **một trọng tâm riêng**, **không lặp** ý (Trung Đông / AI / VN / thị trường / xã hội…).
+- Mỗi sector: **{DIGEST_PUBLIC_TARGET_SUB_TOPICS_PER_SECTOR}–{DIGEST_PUBLIC_MAX_SUB_TOPICS_PER_SECTOR}** sub_topics tốt nhất + `summary` 100–160 từ.
+- Claim lớn nguồn yếu → `needs_verification` hoặc wording thận trọng; không headline như fact chắc.
 {_digest_four_sector_rules_block(for_merge=True)}
-CHỈ dùng dữ liệu được cung cấp — không bổ sung từ bên ngoài.
+CHỈ dùng dữ liệu được cung cấp.
 
 Trả về DUY NHẤT JSON:
 {{
-  "title": "Bản tin tổng hợp 48 giờ",
-  "reading_time_minutes": "10-15",
-  "executive_overview": "3-5 đoạn: 6-8 luồng tin nóng 48h, chính xác theo bài crawl, VN+quốc tế, đa ngành",
+  "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
+  "reading_time_minutes": "5-8",
+  "executive_overview": [
+    "Bullet 1: luồng tin quan trọng nhất",
+    "Bullet 2: ...",
+    "Bullet 3: ...",
+    "Bullet 4: ...",
+    "Bullet 5: ..."
+  ],
   "sectors": [
 {_digest_sector_json_schema_fragment()}
   ],
-  "vietnam_highlights": "...",
-  "international_highlights": "...",
-  "timeline": [{{"date": "YYYY-MM-DD", "headlines": ["..."]}}],
-  "notable_articles": [{{"title": "...", "source": "...", "url": "...", "why_notable": "..."}}],
-  "gaps_and_limits": "Điểm còn mờ sau khi gộp batch (nếu có)"
+  "vietnam_highlights": "2-4 câu cụ thể",
+  "international_highlights": "2-4 câu cụ thể",
+  "notable_articles": [{{
+    "title": "...",
+    "source": "...",
+    "url": "...",
+    "why_notable": "...",
+    "source_quality": "high|medium|low",
+    "confidence": "high|medium|low"
+  }}],
+  "needs_verification": [{{
+    "claim": "...",
+    "reason": "claim lớn, nguồn chưa đủ",
+    "source_urls": ["..."]
+  }}],
+  "gaps_and_limits": "Ngắn — chỉ thiếu dữ liệu thật sự"
 }}
 
 Các partial batch:
@@ -956,8 +1121,7 @@ def run_batch_digest(
             max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
         )
         if isinstance(final, dict):
-            for w in validate_digest_multisector_coverage(final):
-                print(f"WARN digest coverage: {w}", file=sys.stderr)
+            final = finalize_digest_summary(final)
         return final, partials, 1
 
     if use_existing_outline:
@@ -1116,8 +1280,7 @@ def run_batch_digest(
     )
     api_calls += 1
     if isinstance(final, dict):
-        for w in validate_digest_multisector_coverage(final):
-            print(f"WARN digest coverage: {w}", file=sys.stderr)
+        final = finalize_digest_summary(final)
     return final, partials, api_calls
 
 
@@ -1628,6 +1791,9 @@ def main() -> int:
             return 0
         print("Digest incomplete (missing partials or merge). Re-run with --resume-partials.", file=sys.stderr)
         return 1
+
+    if args.mode == "digest" and isinstance(summary, dict):
+        summary = finalize_digest_summary(summary)
 
     meta = {
         "input_file": str(input_path.resolve()),

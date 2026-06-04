@@ -1218,7 +1218,10 @@ DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
     ("trends", "Xu hướng & Đời sống"),
 )
 DIGEST_SECTOR_LABEL_BY_CODE = dict(DIGEST_FOUR_SECTORS)
-DIGEST_MAX_ITEMS_PER_SECTOR = 20
+DIGEST_MAX_ITEMS_PER_SECTOR = 20  # legacy cap
+DIGEST_PUBLIC_MAX_ITEMS_PER_SECTOR = 7
+DIGEST_PUBLIC_NOTABLE_COUNT = 6
+DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS = 6
 DIGEST_SECTOR_SUMMARY_MAX_CHARS = 2800
 _URL_MATCH_MIN_SCORE = 0.36
 
@@ -1548,14 +1551,21 @@ def _sector_items_from_raw(
             )
             if matched and used_urls is not None:
                 used_urls.add(matched)
-            items.append(
-                {
-                    "headline": headline,
-                    "links": links,
-                    "importanceRank": _sub_topic_importance_key(row, len(items))[1],
-                }
-            )
-        return items[:DIGEST_MAX_ITEMS_PER_SECTOR]
+            item: dict[str, Any] = {
+                "headline": headline,
+                "links": links,
+                "importanceRank": _sub_topic_importance_key(row, len(items))[1],
+            }
+            for key, out_key in (
+                ("confidence", "confidence"),
+                ("source_quality", "sourceQuality"),
+                ("reason_selected", "reasonSelected"),
+            ):
+                val = str(row.get(key) or "").strip()
+                if val:
+                    item[out_key] = val
+            items.append(item)
+        return items[:DIGEST_PUBLIC_MAX_ITEMS_PER_SECTOR]
 
     # key_points từ Gemini: thứ tự mảng = quan trọng giảm dần (không đảo)
     points = [str(p).strip() for p in (sector.get("key_points") or []) if str(p).strip()]
@@ -1588,7 +1598,7 @@ def _sector_items_from_raw(
                 "importanceRank": len(items) + 1,
             }
         )
-    return items[:DIGEST_MAX_ITEMS_PER_SECTOR]
+    return items[:DIGEST_PUBLIC_MAX_ITEMS_PER_SECTOR]
 
 
 def _normalize_digest_sectors_four(
@@ -1645,7 +1655,7 @@ def _normalize_digest_sectors_four(
                 seen_u.add(u)
             deduped.append(it)
         deduped.sort(key=lambda it: int(it.get("importanceRank") or 999))
-        deduped = deduped[:DIGEST_MAX_ITEMS_PER_SECTOR]
+        deduped = deduped[:DIGEST_PUBLIC_MAX_ITEMS_PER_SECTOR]
         points_legacy = [
             str(p).strip()
             for p in (b.get("keyPoints") or [])
@@ -1653,7 +1663,6 @@ def _normalize_digest_sectors_four(
         ]
         out.append(
             {
-                "code": code,
                 "name": b["name"] or label,
                 "summary": str(b.get("summary") or "").strip(),
                 "items": deduped,
@@ -1807,7 +1816,11 @@ def _digest_multisector_to_strategy_snake(
     if title:
         out["title"] = title
 
-    overview = str(summary.get("executive_overview", "") or "").strip()
+    exec_raw = summary.get("executive_overview")
+    if isinstance(exec_raw, list):
+        overview = "\n\n".join(str(x).strip() for x in exec_raw if str(x).strip())
+    else:
+        overview = str(exec_raw or "").strip()
     if overview:
         out["publication_intro"]["headline"] = title or out["publication_intro"]["headline"]
         out["publication_intro"]["description"] = overview[:1200]
@@ -1851,6 +1864,16 @@ def _digest_multisector_to_strategy_snake(
         ),
         "gaps_and_limits": str(summary.get("gaps_and_limits", "") or "").strip(),
         "reading_time_minutes": str(summary.get("reading_time_minutes", "") or "").strip(),
+        "needs_verification": (
+            summary.get("needs_verification")
+            if isinstance(summary.get("needs_verification"), list)
+            else []
+        ),
+        "executive_overview_bullets": (
+            [str(x).strip() for x in exec_raw if str(x).strip()]
+            if isinstance(exec_raw, list)
+            else []
+        ),
     }
 
     chains: list[str] = []
@@ -2689,9 +2712,32 @@ def build_payload(
             payload["digestInternationalHighlights"] = digest_pub["international_highlights"]
         if digest_pub.get("gaps_and_limits"):
             payload["digestGapsAndLimits"] = digest_pub["gaps_and_limits"]
-        overview = str((brief.get("mainThesis") or {}).get("thesis") or "").strip()
-        if overview:
-            payload["digestExecutiveBullets"] = _prose_to_bullet_lines(overview)
+        exec_bullets = digest_pub.get("executive_overview_bullets")
+        if isinstance(exec_bullets, list) and exec_bullets:
+            payload["digestExecutiveBullets"] = _dedupe_preserve_order(
+                [str(x).strip() for x in exec_bullets],
+            )[:DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS]
+        else:
+            overview = str((brief.get("mainThesis") or {}).get("thesis") or "").strip()
+            if overview:
+                payload["digestExecutiveBullets"] = _prose_to_bullet_lines(overview)[
+                    :DIGEST_PUBLIC_EXEC_OVERVIEW_MAX_BULLETS
+                ]
+        needs = digest_pub.get("needs_verification")
+        if isinstance(needs, list) and needs:
+            payload["digestNeedsVerification"] = [
+                {
+                    "claim": str(row.get("claim", "") or ""),
+                    "reason": str(row.get("reason", "") or ""),
+                    "sourceUrls": [
+                        str(u).strip()
+                        for u in (row.get("source_urls") or [])
+                        if str(u).strip()
+                    ],
+                }
+                for row in needs
+                if isinstance(row, dict) and str(row.get("claim", "") or "").strip()
+            ]
         intl_bullets = _prose_to_bullet_lines(str(digest_pub.get("international_highlights") or ""))
         if intl_bullets:
             payload["digestInternationalBullets"] = intl_bullets
@@ -2715,16 +2761,22 @@ def build_payload(
                 u = str(a.get("url") or "").strip()
                 art = by_url.get(u) if u else None
                 img = str(art.get("image_url") or "").strip() if art else ""
-                notable_out.append(
-                    {
-                        "title": str(a.get("title", "") or ""),
-                        "source": str(a.get("source", "") or ""),
-                        "url": u,
-                        "whyNotable": str(a.get("why_notable", "") or ""),
-                        "imageUrl": img,
-                    }
-                )
-            payload["digestNotableArticles"] = notable_out[:9]
+                row_out: dict[str, str] = {
+                    "title": str(a.get("title", "") or ""),
+                    "source": str(a.get("source", "") or ""),
+                    "url": u,
+                    "whyNotable": str(a.get("why_notable", "") or ""),
+                    "imageUrl": img,
+                }
+                for src_key, dst_key in (
+                    ("confidence", "confidence"),
+                    ("source_quality", "sourceQuality"),
+                ):
+                    val = str(a.get(src_key) or "").strip()
+                    if val:
+                        row_out[dst_key] = val
+                notable_out.append(row_out)
+            payload["digestNotableArticles"] = notable_out[:DIGEST_PUBLIC_NOTABLE_COUNT]
         extras = build_digest_web_extras(raw_summary, all_articles)
         payload.update(extras)
         n_sectors = len(extras.get("digestSectors") or [])

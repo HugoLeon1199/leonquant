@@ -144,7 +144,8 @@ function sectorSlug(name) {
   );
 }
 
-const DIGEST_MAX_SECTOR_ITEMS = 20;
+const DIGEST_MAX_SECTOR_ITEMS = 7;
+const DIGEST_MAX_NOTABLE = 6;
 
 const DIGEST_FOUR_SECTORS = [
   { code: "finance", name: "Kinh tế & Tài chính" },
@@ -226,7 +227,6 @@ function ensureDigestSectors(data) {
       (a, b) => (Number(a.importanceRank) || 999) - (Number(b.importanceRank) || 999),
     );
     return {
-      code,
       name: b.name || name,
       summary: b.summary,
       items: items.slice(0, DIGEST_MAX_SECTOR_ITEMS),
@@ -277,7 +277,7 @@ function buildArticleImageLookup(data) {
 function buildNotableCardsHtml(notable, imageByUrl) {
   const items = (Array.isArray(notable) ? notable : [])
     .filter((a) => a && String(a.url || "").trim())
-    .slice(0, 9);
+    .slice(0, DIGEST_MAX_NOTABLE);
   if (!items.length) {
     return `<p class="hint">Chưa có tin nổi bật trong bản digest hôm nay.</p>`;
   }
@@ -305,15 +305,13 @@ function buildNotableCardsHtml(notable, imageByUrl) {
 }
 
 function buildSectorBlockHtml(s, index) {
-  const code = String(s.code || "").trim();
   const name = String(s.name || "").trim() || "Lĩnh vực";
-  const id = sectorSlug(code || name);
+  const id = sectorSlug(name);
   const items = normalizeSectorItems(s);
   const intro = String(s.summary || "").trim();
   let h = `<article class="sector-block" id="${id}">`;
   h += `<header class="sector-head"><span class="sector-num">${String(index + 1).padStart(2, "0")}</span>`;
   h += `<div class="sector-head-main">`;
-  if (code) h += `<span class="sector-code">${escapeHtml(code)}</span>`;
   h += `<h3>${escapeHtml(name)}</h3></div></header><div class="sector-body">`;
   if (intro) h += `<p class="sector-intro">${escapeHtml(intro)}</p>`;
   if (items.length) {
@@ -346,7 +344,10 @@ function buildDigestThesisHtml(data) {
   const intl = String(data.digestInternationalHighlights || "").trim();
   const gaps = String(data.digestGapsAndLimits || "").trim();
   const notable = Array.isArray(data.digestNotableArticles)
-    ? data.digestNotableArticles.slice(0, 9)
+    ? data.digestNotableArticles.slice(0, DIGEST_MAX_NOTABLE)
+    : [];
+  const needsVerify = Array.isArray(data.digestNeedsVerification)
+    ? data.digestNeedsVerification.filter((r) => r && String(r.claim || "").trim())
     : [];
   const imageByUrl = buildArticleImageLookup(data);
   const execBullets = getDigestBullets(data, "digestExecutiveBullets", mt.thesis || "");
@@ -396,6 +397,16 @@ function buildDigestThesisHtml(data) {
       thesisHtml += `</div></details>`;
     }
     thesisHtml += `</section>`;
+  }
+  if (needsVerify.length) {
+    thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--verify">`;
+    thesisHtml += `<h3 class="sectors-section-title">Cần xác minh thêm</h3><ul class="sector-points prose-bullets">`;
+    for (const row of needsVerify) {
+      const claim = escapeHtml(String(row.claim || "").trim());
+      const reason = escapeHtml(String(row.reason || "").trim());
+      thesisHtml += `<li><strong>${claim}</strong>${reason ? ` — ${reason}` : ""}</li>`;
+    }
+    thesisHtml += `</ul></section>`;
   }
   if (gaps) {
     thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--gaps">`;

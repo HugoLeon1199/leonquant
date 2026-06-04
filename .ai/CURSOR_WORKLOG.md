@@ -195,3 +195,18 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Sources | `_invest_prioritize_source_urls` (premium first, iHeart/PR deprioritized); `source_count` = unique canonical domains |
 | Prompt | Source-quality tier rules, grounding for angle/assets, confidence high/medium/low, style examples |
 | Post-process | `_invest_temper_editorial_text` + `_coerce_invest_editorial_topic` overrides for mis-tags |
+
+## 2026-06-04 — Digest 48h global+VN: editorial public selection (prompt + renderer)
+
+**Scope:** `summarize_news_gemini.py`, `build_website_content.py`, `landing_page.html`, `scripts/embed_public_brief_into_html.mjs` only. **Not touched:** invest world/VN, `leon.py` GDELT live/world.
+
+| Area | Change |
+|------|--------|
+| Constants | `DIGEST_PUBLIC_*`: 6–7 sub_topics/sector, 6 notable, 6 exec bullets; legacy internal 8–20 kept |
+| Prompts | `build_digest_outline_prompt` — theme map + `confidence_hint` / `source_quality_hint` / `risk_of_overstatement`; chunk 5–10 candidates + confidence fields; merge = tổng biên tập 5–8 phút, bullet overview, `needs_verification` |
+| Post-merge | `apply_digest_public_caps()` + `finalize_digest_summary()` trim sectors/notable/overview |
+| Schema | `sub_topics` / `notable_articles`: `source_quality`, `confidence`, `reason_selected`; merge adds `needs_verification[]` |
+| Renderer | Max 7 items/sector, 6 notable; hide `sector-code` (finance/tech/…); section “Cần xác minh thêm”; `digestSectors` JSON without `code` |
+| Rebuild test | Input ~1725 articles (existing `gemini_digest_summary.json`); 4 sectors × 7 public items; 6 notable; validate_content OK |
+
+**Regenerate full digest:** `python summarize_news_gemini.py --mode digest` (needs `GEMINI_API_KEY`) then `python build_website_content.py`.
