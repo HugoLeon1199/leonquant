@@ -212,9 +212,9 @@ def _digest_headline_rewrite_block() -> str:
             '- Raw: "Loạt thương hiệu Việt lâu đời trở thành máy in tiền cho cổ đông" → '
             'Editorial: "Một số thương hiệu Việt lâu đời tiếp tục tạo dòng tiền ổn định cho cổ đông"',
             "- Raw EN: \"Google owner Alphabet to sell $80bn in stock...\" → "
-            'VI: "Alphabet dự kiến bán cổ phiếu để tài trợ làn sóng đầu tư AI"',
+            'VI: "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI"',
             "- Raw EN: \"Trump Says It's Time... Iran... Deal\" → "
-            'VI: "Trump thúc ép Iran đạt thỏa thuận khi đàm phán vẫn tiếp diễn"',
+            'VI: "Trump gia tăng sức ép đàm phán với Iran giữa căng thẳng vùng Vịnh"',
             "- Raw EN: \"US strikes Iran's Qeshm Island...\" → "
             'VI: "Mỹ tấn công đảo Qeshm, rủi ro Trung Đông leo thang"',
         ]
@@ -225,7 +225,8 @@ def _digest_content_polish_block() -> str:
     return "\n".join(
         [
             "## Polish nội dung public (BẮT BUỘC)",
-            "- Gom tin **cùng luồng** trong sector thành sub-cluster (vd. Mỹ-Iran/Qeshm/Tehran/ceasefire → tối đa **2** item: leo thang quân sự + đàm phán bế tắc).",
+            "- Gom tin **cùng luồng** trong sector thành sub-cluster (vd. Mỹ-Iran/Qeshm/Tehran/ceasefire → tối đa **2** item: "
+            '"Leo thang quân sự Mỹ–Iran quanh đảo Qeshm" + "Đàm phán Tehran bế tắc, rủi ro năng lượng còn kéo dài").',
             "- `summary_hint` / `reason_selected`: câu cụ thể theo actor/sự kiện/luồng — **không** dùng câu fallback máy.",
             "- Headline **tiếng Việt** cho người đọc Việt Nam; paraphrase nếu nguồn tiếng Anh.",
         ]
@@ -424,6 +425,27 @@ _GENERIC_SUMMARY_HINT = (
 )
 _GENERIC_REASON_SELECTED = "Được chọn vì bổ sung một góc riêng cho bức tranh 48h."
 
+_GENERIC_COPY_FRAGMENTS: tuple[str, ...] = (
+    _GENERIC_SUMMARY_HINT,
+    _GENERIC_REASON_SELECTED,
+    "một luồng đáng chú ý trong 48 giờ",
+    "góc riêng cho bức tranh 48h",
+    "Tin nêu bật diễn biến:",
+    "đáng chú ý trong khung 48h của sector",
+    "Sự kiện này được giữ vì đại diện cho nhóm tin:",
+)
+
+_E10_POLICY_RE = re.compile(
+    r"chỉ\s*đạo|phó\s*thủ\s*tướng|bộ\s+|nghị\s*định|chính\s*sách|thường\s*trực",
+    re.I,
+)
+_E10_CONSUMER_RE = re.compile(
+    r"người\s*tiêu\s*dùng|lộ\s*trình|triển\s*khai|hướng\s*dẫn|chất\s*lượng\s*xăng",
+    re.I,
+)
+
+_IRAN_TOPIC_RE = re.compile(r"iran|qeshm|tehran|hormuz|vùng\s*vịnh", re.I)
+
 _SPACE_TECH_RE = re.compile(
     r"blue\s*origin|nasa\b|rocket|long\s*march|space\s*launch|không\s*gian|vệ\s*tinh|"
     r"phóng\s*tên\s*lửa|mission\s+to\s+space",
@@ -439,39 +461,55 @@ _SUBTOPIC_CLUSTER_DEFS: tuple[tuple[str, re.Pattern[str], str, frozenset[str]], 
     (
         "us_iran_escalation",
         re.compile(
-            r"qeshm|strikes?\s+iran|attack.*iran|iran.*attack|war\s+live|tấn\s*công.*iran|"
-            r"leo\s*thang.*iran|iran\s*war|hormuz",
+            r"qeshm|strikes?\s+iran|us\s+strikes|iran.?s\s+qeshm|attack.*iran|iran.*attack|"
+            r"war\s+live|tấn\s*công.*iran|leo\s*thang.*iran|iran\s*war|intensify\s+attacks|"
+            r"kuwait|bahrain",
             re.I,
         ),
-        "Leo thang quân sự Mỹ-Iran quanh Qeshm",
+        "Leo thang quân sự Mỹ–Iran quanh đảo Qeshm",
         frozenset({"news"}),
     ),
     (
         "us_iran_talks",
         re.compile(
             r"trump.*iran|tehran|ceasefire|peace\s+deal|talks.*iran|rubio.*iran|"
-            r"đàm\s*phán.*iran|thỏa\s*thuận.*iran|one\s+way\s+or\s+another",
+            r"đàm\s*phán.*iran|thỏa\s*thuận.*iran|one\s+way\s+or\s+another|"
+            r"negotiat.*iran|ongoing.*talks",
             re.I,
         ),
-        "Đàm phán Mỹ-Iran bế tắc, rủi ro năng lượng còn kéo dài",
+        "Đàm phán Tehran bế tắc, rủi ro năng lượng còn kéo dài",
         frozenset({"news"}),
     ),
     (
-        "e10_global",
+        "e10_policy",
         _E10_TOPIC_RE,
-        "Triển khai xăng E10: chính sách và phản ứng thị trường",
-        frozenset({"news", "finance", "trends"}),
+        "Chính sách và chỉ đạo triển khai xăng E10 tại Việt Nam",
+        frozenset({"news", "finance"}),
+    ),
+    (
+        "e10_consumer",
+        _E10_TOPIC_RE,
+        "Người tiêu dùng và thị trường phản ứng với lộ trình xăng E10",
+        frozenset({"trends", "finance"}),
     ),
 )
 
 _HEADLINE_EN_TO_VI: tuple[tuple[re.Pattern[str], str], ...] = (
     (
-        re.compile(r"google\s+owner\s+alphabet.*sell.*stock.*ai", re.I),
-        "Alphabet dự kiến bán cổ phiếu để tài trợ làn sóng đầu tư AI",
+        re.compile(r"google\s+owner\s+alphabet.*sell.*(?:stock|bn).*ai", re.I),
+        "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI",
+    ),
+    (
+        re.compile(r"alphabet.*sell.*stock.*ai", re.I),
+        "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI",
     ),
     (
         re.compile(r"trump\s+says.*time.*iran.*deal", re.I),
-        "Trump thúc ép Iran đạt thỏa thuận khi đàm phán vẫn tiếp diễn",
+        "Trump gia tăng sức ép đàm phán với Iran giữa căng thẳng vùng Vịnh",
+    ),
+    (
+        re.compile(r"trump.*one\s+way\s+or\s+another.*iran", re.I),
+        "Trump gia tăng sức ép đàm phán với Iran giữa căng thẳng vùng Vịnh",
     ),
     (
         re.compile(r"us\s+strikes\s+iran.*qeshm", re.I),
@@ -522,7 +560,40 @@ def _is_generic_digest_copy(text: str) -> bool:
         return True
     if t in (_GENERIC_SUMMARY_HINT, _GENERIC_REASON_SELECTED):
         return True
-    return _GENERIC_SUMMARY_HINT in t or _GENERIC_REASON_SELECTED in t
+    low = t.lower()
+    for frag in _GENERIC_COPY_FRAGMENTS:
+        if frag.lower() in low:
+            return True
+    return False
+
+
+def _iran_cluster_key(headline: str) -> str | None:
+    low = str(headline or "").lower()
+    if not _IRAN_TOPIC_RE.search(low):
+        return None
+    if re.search(
+        r"qeshm|strikes?\s+iran|us\s+strikes|iran.?s\s+qeshm|war\s+live|"
+        r"tấn\s*công|intensify\s+attacks|kuwait|bahrain|leo\s*thang|mỹ\s*tấn\s*công",
+        low,
+        re.I,
+    ):
+        return "us_iran_escalation"
+    if re.search(
+        r"trump|tehran|ceasefire|peace\s+deal|talks|rubio|negotiat|"
+        r"đàm\s*phán|one\s+way\s+or\s+another|thỏa\s*thuận",
+        low,
+        re.I,
+    ):
+        return "us_iran_talks"
+    return "us_iran_escalation"
+
+
+def _e10_cluster_key(headline: str) -> str | None:
+    if not _E10_TOPIC_RE.search(str(headline or "")):
+        return None
+    if _E10_CONSUMER_RE.search(headline) and not _E10_POLICY_RE.search(headline):
+        return "e10_consumer"
+    return "e10_policy"
 
 
 def _headline_is_mostly_english(headline: str) -> bool:
@@ -541,11 +612,11 @@ def _vietnamese_public_headline(headline: str, sector_code: str = "") -> str:
         if pat.search(h):
             return vi
     low = h.lower()
-    if re.search(r"alphabet|google\s+owner", low) and re.search(r"sell|stock|ai", low):
-        return "Alphabet dự kiến bán cổ phiếu để tài trợ làn sóng đầu tư AI"
+    if re.search(r"alphabet|google\s+owner", low) and re.search(r"sell|stock|ai|spending", low):
+        return "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI"
     if "trump" in low and "iran" in low and re.search(r"deal|talks|one way", low):
-        return "Trump thúc ép Iran đạt thỏa thuận khi đàm phán vẫn tiếp diễn"
-    if re.search(r"qeshm|strikes.*iran", low):
+        return "Trump gia tăng sức ép đàm phán với Iran giữa căng thẳng vùng Vịnh"
+    if re.search(r"qeshm|strikes.*iran|us\s+strikes", low):
         return "Mỹ tấn công đảo Qeshm, rủi ro Trung Đông leo thang"
     if re.search(r"vn-index|vnindex", low, re.I):
         return h if _VIET_DIACRITIC_RE.search(h) else "VN-Index giảm mạnh, thị trường cổ phiếu phân hóa"
@@ -557,10 +628,34 @@ def _vietnamese_public_headline(headline: str, sector_code: str = "") -> str:
             "khi các công ty AI huy động vốn lớn"
         )
     if _headline_is_mostly_english(h):
-        short = re.sub(r"[^\w\s\-–—,.'\"$%]", " ", h)
-        short = re.sub(r"\s+", " ", short).strip()[:90]
-        return f"Diễn biến quốc tế: {short}"
+        return _english_headline_vietnamese_stub(h, sector_code)
     return h
+
+
+def _english_headline_vietnamese_stub(headline: str, sector_code: str = "") -> str:
+    """Paraphrase tối thiểu sang VI khi không khớp template — tránh để nguyên câu EN."""
+    low = str(headline or "").lower()
+    if re.search(r"alphabet|google", low) and "ai" in low:
+        return "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI"
+    if "trump" in low and "iran" in low:
+        return "Trump gia tăng sức ép đàm phán với Iran giữa căng thẳng vùng Vịnh"
+    if re.search(r"qeshm|strikes.*iran", low):
+        return "Mỹ tấn công đảo Qeshm, rủi ro Trung Đông leo thang"
+    if re.search(r"trump\s+signs.*ai", low):
+        return "Trump ký sắc lệnh quản trị AI, yêu cầu doanh nghiệp chia sẻ mô hình sớm"
+    if "microsoft" in low and "ai" in low:
+        return "Microsoft đẩy mạnh mô hình AI và hạ phụ thuộc OpenAI"
+    if "bitcoin" in low or "crypto" in low:
+        return "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ"
+    if _SPACE_TECH_RE.search(low):
+        return "Sự kiện không gian và công nghệ hàng không vũ trụ đáng chú ý"
+    sector_label = {
+        "finance": "tài chính",
+        "tech": "công nghệ",
+        "news": "thời sự",
+        "trends": "xu hướng",
+    }.get(sector_code, "kinh tế")
+    return f"Diễn biến {sector_label} quốc tế đáng theo dõi trong 48 giờ qua"
 
 
 def _digest_topic_stream(headline: str) -> str:
@@ -591,10 +686,10 @@ def _digest_topic_stream(headline: str) -> str:
 def _infer_summary_hint(headline: str, sector_code: str) -> str:
     low = str(headline or "").lower()
     stream = _digest_topic_stream(headline)
-    if stream == "vn_equity" or re.search(r"vn-index|hqc", low):
+    if stream == "vn_equity" or re.search(r"vn-index|vnindex|hqc", low):
         return (
-            "Diễn biến cho thấy thị trường chứng khoán Việt Nam phân hóa, "
-            "khi chỉ số chung giảm nhưng một số mã đầu cơ vẫn hút dòng tiền."
+            "Diễn biến cho thấy thị trường chứng khoán Việt Nam phân hóa: "
+            "chỉ số chung giảm nhưng một số mã đầu cơ vẫn hút dòng tiền."
         )
     if stream == "us_iran_escalation":
         return (
@@ -625,8 +720,14 @@ def _infer_summary_hint(headline: str, sector_code: str) -> str:
         return "Sự kiện không gian/công nghệ ảnh hưởng kỳ vọng hạ tầng và chuỗi cung ứng."
     if stream == "education":
         return "Diễn biến giáo dục phản ánh áp lực xã hội và kỳ vọng gia đình học sinh."
-    short = re.sub(r"\s+", " ", str(headline or "")).strip()[:72]
-    return f"Tin nêu bật diễn biến: {short} — đáng chú ý trong khung 48h của sector {sector_code}."
+    short = re.sub(r"\s+", " ", str(headline or "")).strip()[:80]
+    label = {
+        "finance": "kinh tế - tài chính",
+        "tech": "công nghệ",
+        "news": "thời sự",
+        "trends": "xu hướng",
+    }.get(sector_code, sector_code or "digest")
+    return f"Tin liên quan {label}: {short}."
 
 
 def _infer_reason_selected(headline: str, sector_code: str) -> str:
@@ -645,15 +746,30 @@ def _infer_reason_selected(headline: str, sector_code: str) -> str:
     }
     if stream in labels:
         return labels[stream]
-    short = re.sub(r"\s+", " ", str(headline or "")).strip()[:60]
-    return f"Sự kiện này được giữ vì đại diện cho nhóm tin: {short}."
+    label = {
+        "finance": "kinh tế - tài chính",
+        "tech": "công nghệ",
+        "news": "địa chính trị",
+        "trends": "đời sống - xu hướng",
+    }.get(sector_code, "bức tranh 48h")
+    return f"Đại diện cho một luồng tin trong nhóm {label}."
 
 
 def _sub_topic_cluster_key(headline: str, sector_code: str) -> str | None:
+    hl = str(headline or "")
+    if sector_code == "news":
+        iran_key = _iran_cluster_key(hl)
+        if iran_key:
+            return iran_key
+    e10_key = _e10_cluster_key(hl)
+    if e10_key:
+        for key, pat, _, sectors in _SUBTOPIC_CLUSTER_DEFS:
+            if key == e10_key and sector_code in sectors:
+                return key
     for key, pat, _, sectors in _SUBTOPIC_CLUSTER_DEFS:
-        if sector_code not in sectors:
+        if sector_code not in sectors or key.startswith("e10_"):
             continue
-        if pat.search(str(headline or "")):
+        if pat.search(hl):
             return key
     return None
 
@@ -681,6 +797,15 @@ def _merge_cluster_rows(group: list[dict[str, Any]], cluster_headline: str) -> d
         if t == "B" and tier != "A":
             tier = "B"
     base["priority_tier"] = tier
+    hl = str(cluster_headline or "")
+    infer_sector = "news"
+    e10k = _e10_cluster_key(hl)
+    if e10k == "e10_consumer":
+        infer_sector = "trends"
+    elif e10k == "e10_policy":
+        infer_sector = "news"
+    base["summary_hint"] = _infer_summary_hint(hl, infer_sector)
+    base["reason_selected"] = _infer_reason_selected(hl, infer_sector)
     return base
 
 
@@ -711,6 +836,31 @@ def _cluster_sub_topics_in_sector(
     return out
 
 
+def _ensure_specific_digest_copy(
+    row: dict[str, Any], sector_code: str, *, warn: bool = True
+) -> dict[str, Any]:
+    """Đảm bảo summary_hint/reason_selected không còn placeholder generic."""
+    out = dict(row)
+    hl = str(out.get("headline") or "").strip()
+    hint = str(out.get("summary_hint") or "").strip()
+    reason = str(out.get("reason_selected") or "").strip()
+    if not hint or _is_generic_digest_copy(hint):
+        if warn and hint:
+            print(
+                f"WARN digest polish: generic summary_hint → rewrite ({sector_code})",
+                file=sys.stderr,
+            )
+        out["summary_hint"] = _infer_summary_hint(hl, sector_code)
+    if not reason or _is_generic_digest_copy(reason):
+        if warn and reason:
+            print(
+                f"WARN digest polish: generic reason_selected → rewrite ({sector_code})",
+                file=sys.stderr,
+            )
+        out["reason_selected"] = _infer_reason_selected(hl, sector_code)
+    return out
+
+
 def _polish_sub_topic_fields(
     row: dict[str, Any], sector_code: str, *, warn_generic: bool = True
 ) -> dict[str, Any]:
@@ -726,24 +876,95 @@ def _polish_sub_topic_fields(
     out["priority_tier"] = tier if tier in ("A", "B", "C") else "B"
     hint = str(out.get("summary_hint") or "").strip()
     reason = str(out.get("reason_selected") or "").strip()
-    if not hint or _is_generic_digest_copy(hint):
-        if warn_generic and hint and _is_generic_digest_copy(hint):
-            print(
-                f"WARN digest polish: generic summary_hint → infer ({sector_code})",
-                file=sys.stderr,
-            )
-        out["summary_hint"] = _infer_summary_hint(hl, sector_code)
-    if not reason or _is_generic_digest_copy(reason):
-        if warn_generic and reason and _is_generic_digest_copy(reason):
-            print(
-                f"WARN digest polish: generic reason_selected → infer ({sector_code})",
-                file=sys.stderr,
-            )
-        out["reason_selected"] = _infer_reason_selected(hl, sector_code)
+    out = _ensure_specific_digest_copy(out, sector_code, warn=warn_generic)
     urls = [str(u).strip() for u in (out.get("source_urls") or []) if str(u).strip()]
     if urls:
         out["source_urls"] = urls[:3]
     return out
+
+
+def _consolidate_e10_globally(summary: dict[str, Any]) -> dict[str, Any]:
+    """Tối đa 2 cụm E10 toàn bài: chính sách (news/finance) + người tiêu dùng (trends)."""
+    policy_rows: list[dict[str, Any]] = []
+    consumer_rows: list[dict[str, Any]] = []
+    for sec in summary.get("sectors") or []:
+        if not isinstance(sec, dict):
+            continue
+        kept: list[dict[str, Any]] = []
+        for row in sec.get("sub_topics") or []:
+            if not isinstance(row, dict):
+                continue
+            hl = str(row.get("headline") or "")
+            if not _E10_TOPIC_RE.search(hl):
+                kept.append(row)
+                continue
+            key = _e10_cluster_key(hl)
+            if key == "e10_consumer":
+                consumer_rows.append(row)
+            else:
+                policy_rows.append(row)
+        sec["sub_topics"] = kept
+
+    titles = {key: title for key, _, title, _ in _SUBTOPIC_CLUSTER_DEFS}
+    sector_map = {s.get("code"): s for s in summary.get("sectors") or [] if isinstance(s, dict)}
+
+    def _inject(code: str, merged: dict[str, Any] | None) -> None:
+        if not merged:
+            return
+        sec = sector_map.get(code)
+        if not sec:
+            return
+        subs = sec.get("sub_topics") if isinstance(sec.get("sub_topics"), list) else []
+        subs.append(_polish_sub_topic_fields(merged, code, warn_generic=False))
+        sec["sub_topics"] = subs
+
+    if policy_rows:
+        _inject(
+            "news" if sector_map.get("news") else "finance",
+            _merge_cluster_rows(policy_rows, titles.get("e10_policy", policy_rows[0].get("headline", ""))),
+        )
+    if consumer_rows:
+        _inject(
+            "trends" if sector_map.get("trends") else "finance",
+            _merge_cluster_rows(
+                consumer_rows, titles.get("e10_consumer", consumer_rows[0].get("headline", ""))
+            ),
+        )
+    return summary
+
+
+def _enforce_digest_public_polish(summary: dict[str, Any]) -> dict[str, Any]:
+    """Validation cuối: WARN + rewrite nếu còn generic hoặc headline EN."""
+    for sec in summary.get("sectors") or []:
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "").strip().lower()
+        fixed: list[dict[str, Any]] = []
+        for row in sec.get("sub_topics") or []:
+            if not isinstance(row, dict):
+                continue
+            r = dict(row)
+            hl = str(r.get("headline") or "")
+            if _headline_is_mostly_english(hl):
+                print(
+                    f"WARN digest polish: headline EN → VI ({code}): {hl[:70]}",
+                    file=sys.stderr,
+                )
+                r["headline"] = _vietnamese_public_headline(hl, code)
+            r = _ensure_specific_digest_copy(r, code, warn=True)
+            fixed.append(r)
+        sec["sub_topics"] = fixed
+    for n in summary.get("notable_articles") or []:
+        if not isinstance(n, dict):
+            continue
+        t = str(n.get("title") or "")
+        if t and _headline_is_mostly_english(t):
+            print(f"WARN digest polish: notable EN → VI: {t[:70]}", file=sys.stderr)
+            n["title"] = _vietnamese_public_headline(_editorialize_digest_headline(t))
+        w = str(n.get("why_notable") or "")
+        if not w or _is_generic_digest_copy(w):
+            n["why_notable"] = _infer_summary_hint(n.get("title") or t, "notable")
+    return summary
 
 
 def _scrub_digest_public_copy(summary: dict[str, Any]) -> dict[str, Any]:
@@ -890,7 +1111,6 @@ def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
         if isinstance(s, dict) and str(s.get("code") or "").strip()
     }
     buckets: dict[str, list[dict[str, Any]]] = {code: [] for code, _ in DIGEST_FOUR_SECTORS}
-    e10_kept = 0
     for code, _ in DIGEST_FOUR_SECTORS:
         sec = sectors_in.get(code, {})
         for row in sec.get("sub_topics") or []:
@@ -900,10 +1120,6 @@ def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
             if not headline or _is_soft_entertainment_headline(headline):
                 continue
             target = _reroute_sector_code(headline, code)
-            if _E10_TOPIC_RE.search(headline):
-                if e10_kept >= 2:
-                    continue
-                e10_kept += 1
             buckets[target].append(row)
     out_sectors: list[dict[str, Any]] = []
     for code, label in DIGEST_FOUR_SECTORS:
@@ -920,7 +1136,7 @@ def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
             }
         )
     summary["sectors"] = out_sectors
-    return summary
+    return _consolidate_e10_globally(summary)
 
 
 def supplement_notable_from_sectors(summary: dict[str, Any]) -> dict[str, Any]:
@@ -1018,6 +1234,7 @@ def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
     out = _apply_digest_sector_hygiene(out)
     out = supplement_notable_from_sectors(out)
     out = _scrub_digest_public_copy(out)
+    out = _enforce_digest_public_polish(out)
 
     sectors = out.get("sectors") if isinstance(out.get("sectors"), list) else []
     norm_sectors: list[dict[str, Any]] = []
@@ -1053,6 +1270,37 @@ def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
         norm_notable = norm_notable[:DIGEST_PARSER_MAX_NOTABLE]
     out["notable_articles"] = norm_notable
     return out
+
+
+def validate_digest_public_polish(summary: dict[str, Any]) -> list[str]:
+    """Cảnh báo nếu public copy vẫn generic hoặc headline chủ yếu tiếng Anh."""
+    warnings: list[str] = []
+    for i, sec in enumerate(summary.get("sectors") or []):
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "?")
+        for j, row in enumerate(sec.get("sub_topics") or []):
+            if not isinstance(row, dict):
+                continue
+            hl = str(row.get("headline") or "")
+            if _is_generic_digest_copy(str(row.get("summary_hint") or "")):
+                warnings.append(f"sectors[{i}] ({code}) sub_topics[{j}] summary_hint vẫn generic.")
+            if _is_generic_digest_copy(str(row.get("reason_selected") or "")):
+                warnings.append(f"sectors[{i}] ({code}) sub_topics[{j}] reason_selected vẫn generic.")
+            if hl and _headline_is_mostly_english(hl):
+                warnings.append(f"sectors[{i}] ({code}) sub_topics[{j}] headline vẫn chủ yếu tiếng Anh.")
+    iran_count = 0
+    news_sec = next(
+        (s for s in (summary.get("sectors") or []) if isinstance(s, dict) and s.get("code") == "news"),
+        None,
+    )
+    if news_sec:
+        for row in news_sec.get("sub_topics") or []:
+            if isinstance(row, dict) and _IRAN_TOPIC_RE.search(str(row.get("headline") or "")):
+                iran_count += 1
+        if iran_count > 3:
+            warnings.append(f"news có {iran_count} sub_topics Iran (nên gom ≤2 cụm).")
+    return warnings
 
 
 def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
@@ -1197,6 +1445,8 @@ def finalize_digest_summary(
     if partials:
         summary = supplement_digest_sectors_from_partials(summary, partials)
     normalized = normalize_digest_summary(summary)
+    for w in validate_digest_public_polish(normalized):
+        print(f"WARN digest polish: {w}", file=sys.stderr)
     for w in validate_digest_multisector_coverage(normalized):
         print(f"WARN digest coverage: {w}", file=sys.stderr)
     return normalized

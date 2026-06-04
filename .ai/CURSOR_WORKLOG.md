@@ -220,6 +220,15 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Hygiene | Reroute AI policy→tech, exam→trends; drop soft entertainment; max 2× E10 toàn bài |
 | Notable | `supplement_notable_from_sectors()` fallback 5–8 từ tier A/B khi merge trả <4 |
 
+## 2026-06-04 — Digest 48h polish v2 (generic ban + VI headline + Iran/E10 cluster)
+
+| Area | Change |
+|------|--------|
+| Generic | Mở rộng `_GENERIC_COPY_FRAGMENTS`; `_ensure_specific_digest_copy` + `validate_digest_public_polish` |
+| Headline | Template Alphabet/Trump/Qeshm; `_english_headline_vietnamese_stub` thay fallback EN thô |
+| Cluster | Iran 2 cụm (Qeshm / Tehran); E10 global `_consolidate_e10_globally` (policy + consumer) |
+| Validation | `_enforce_digest_public_polish` cuối `normalize_digest_summary` |
+
 ## 2026-06-04 — Digest 48h content polish (normalize)
 
 | Area | Change |
