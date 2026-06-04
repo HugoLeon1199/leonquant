@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/leonquant-icon.svg">
+  <meta name="theme-color" content="#0f172a">
   <style>
     :root {
       --font-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -62,17 +66,32 @@
       gap: 16px;
       flex-wrap: wrap;
     }
-    .logo {
+    .logo, .brand-lockup {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-weight: 800;
       letter-spacing: -.03em;
       font-size: 1.02rem;
+      min-width: 0;
     }
+    .logo-icon-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+    }
+    .logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      display: block;
+      object-fit: cover;
+    }
+    .logo-img[data-failed="1"] { display: none; }
     .logo-mark {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 11px;
       background: linear-gradient(135deg, var(--cyan), var(--gold));
       display: grid;
@@ -80,6 +99,28 @@
       font-size: .72rem;
       font-weight: 900;
       color: #fff;
+    }
+    .logo-img:not([data-failed="1"]) + .logo-mark { display: none; }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .brand-name {
+      font-size: clamp(.95rem, 2.5vw, 1.08rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .brand-tagline {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--faint);
+      line-height: 1.3;
+      max-width: 28ch;
     }
     .nav-links {
       display: flex;
@@ -680,60 +721,409 @@
       background: var(--surface);
     }
 
-    .newsroom-editor-note {
-      margin: 0 0 24px;
-      padding: 18px 22px;
-      border-radius: 14px;
+    /* —— Newsroom publication layout —— */
+    .newsroom-report {
+      line-height: 1.62;
+      color: var(--text-soft);
+    }
+    .newsroom-report .digest-report-head { display: none; }
+    .issue-header {
+      margin: 0 0 20px;
+      padding: 22px 24px 20px;
+      border-radius: 18px;
       border: 1px solid var(--border);
-      background: var(--bg1);
-      font-size: 1.02rem;
-      line-height: 1.65;
+      background:
+        linear-gradient(135deg, rgba(8, 145, 178, .07), rgba(255, 255, 255, .98) 55%),
+        var(--surface);
+      box-shadow: var(--shadow-md);
+    }
+    .issue-badge {
+      display: inline-block;
+      margin: 0 0 10px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(90deg, var(--cyan-dim), #0f172a);
+    }
+    .issue-title {
+      margin: 0 0 6px;
+      font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+      letter-spacing: -.04em;
+      line-height: 1.12;
       color: var(--text);
     }
-    .front-page-grid { display: grid; gap: 14px; margin-bottom: 28px; }
+    .issue-subtitle {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+    .issue-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg0);
+      font-size: .74rem;
+      font-weight: 650;
+      color: var(--muted);
+    }
+    .stat-pill strong {
+      color: var(--text);
+      font-weight: 800;
+    }
+    .newsroom-toc-wrap {
+      margin: 0 0 22px;
+      padding: 0;
+    }
+    .newsroom-toc {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .newsroom-toc::-webkit-scrollbar { height: 4px; }
+    .toc-chip {
+      flex: 0 0 auto;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none !important;
+      white-space: nowrap;
+    }
+    .toc-chip:hover {
+      border-color: var(--cyan);
+      color: var(--cyan-dim);
+      background: rgba(8, 145, 178, .06);
+    }
+    @media (min-width: 900px) {
+      .newsroom-toc-wrap--sticky {
+        position: sticky;
+        top: 8px;
+        z-index: 5;
+        padding: 8px 0;
+        background: linear-gradient(180deg, var(--bg0) 70%, transparent);
+      }
+    }
+    .editor-note-card {
+      margin: 0 0 28px;
+      padding: 20px 22px 20px 26px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--cyan);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .editor-note-card .eyebrow { margin-bottom: 10px; }
+    .editor-note-body {
+      margin: 0;
+      font-size: 1.03rem;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+    .pub-section-title {
+      margin: 0 0 16px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cyan-dim);
+    }
+    .front-page-lead {
+      margin-bottom: 18px;
+      padding: 22px 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(8, 145, 178, .22);
+      background: linear-gradient(160deg, rgba(8, 145, 178, .05), var(--surface));
+      box-shadow: var(--shadow-sm);
+    }
+    .front-page-lead h3 {
+      margin: 0 0 10px;
+      font-size: clamp(1.2rem, 2.8vw, 1.45rem);
+      line-height: 1.2;
+      letter-spacing: -.03em;
+      color: var(--text);
+    }
+    .front-page-lead .fp-lead-kicker {
+      margin: 0 0 12px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .front-page-secondary-grid {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    @media (min-width: 720px) {
+      .front-page-secondary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     .front-page-card {
       padding: 16px 18px;
       border-radius: 14px;
       border: 1px solid var(--border);
       background: var(--surface);
+      box-shadow: var(--shadow-sm);
     }
-    .front-page-card h4 { margin: 0 0 8px; font-size: 1.05rem; }
+    .front-page-card--compact {
+      padding: 12px 14px;
+      background: var(--bg1);
+    }
+    .front-page-card h4 { margin: 0 0 8px; font-size: 1.02rem; line-height: 1.25; color: var(--text); }
     .front-page-card .fp-rank {
-      font-size: .72rem;
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: .68rem;
       font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
       color: var(--cyan-dim);
-      letter-spacing: .06em;
     }
-    .dossier-card {
-      margin-bottom: 16px;
+    .front-page-compact-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .sector-pub-block {
+      margin-bottom: 36px;
+      scroll-margin-top: 72px;
+    }
+    .sector-pub-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sector-pub-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(8, 145, 178, .1);
+      color: var(--cyan-dim);
+    }
+    .sector-pub-icon svg { width: 22px; height: 22px; }
+    .sector-pub-head h3 {
+      margin: 0;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      letter-spacing: -.03em;
+      color: var(--text);
+    }
+    .sector-story-count {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: .75rem;
+      font-weight: 650;
+      color: var(--faint);
+    }
+    .sector-thesis-card {
+      margin: 0 0 18px;
       padding: 16px 18px;
       border-radius: 14px;
       border: 1px solid var(--border);
       background: var(--bg1);
+      font-size: .98rem;
+      line-height: 1.68;
+      color: var(--text-soft);
     }
-    .dossier-card h4 { margin: 0 0 6px; font-size: 1rem; }
-    .dossier-meta {
-      font-size: .72rem;
-      font-weight: 700;
-      color: var(--cyan-dim);
-      text-transform: uppercase;
-      letter-spacing: .04em;
+    .dossier-card {
+      margin-bottom: 16px;
+      padding: 18px 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .dossier-card h4 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      line-height: 1.28;
+      color: var(--text);
+    }
+    .dossier-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 10px;
     }
-    .dossier-block-label {
-      font-size: .78rem;
-      font-weight: 750;
-      color: var(--muted);
-      margin: 12px 0 6px;
+    .depth-badge {
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
-    .watchlist-panel .watch-row {
-      padding: 12px 14px;
+    .depth-badge--brief {
+      background: #f1f5f9;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .depth-badge--deep {
+      background: rgba(8, 145, 178, .12);
+      color: var(--cyan-dim);
+      border: 1px solid rgba(8, 145, 178, .25);
+    }
+    .depth-badge--major {
+      background: rgba(180, 83, 9, .12);
+      color: var(--gold);
+      border: 1px solid rgba(180, 83, 9, .28);
+    }
+    .dossier-rank {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--faint);
+    }
+    .dossier-summary {
+      margin: 0 0 12px;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+    .dossier-block {
+      margin: 14px 0 0;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(15, 23, 42, .08);
+    }
+    .dossier-block:first-of-type { border-top: none; padding-top: 0; margin-top: 8px; }
+    .dossier-block-label {
+      margin: 0 0 8px;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .dossier-block p {
+      margin: 0;
+      line-height: 1.65;
+      color: var(--text-soft);
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0;
+    }
+    .chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg0);
+      font-size: .74rem;
+      font-weight: 650;
+      color: var(--muted);
+    }
+    .watchlist-panel {
+      margin: 8px 0 32px;
+      padding: 20px 22px;
+      border-radius: 16px;
+      border: 1px solid rgba(8, 145, 178, .2);
+      background: linear-gradient(180deg, rgba(8, 145, 178, .04), var(--surface));
+      box-shadow: var(--shadow-md);
+      scroll-margin-top: 72px;
+    }
+    .watchlist-grid {
+      display: grid;
+      gap: 12px;
+    }
+    @media (min-width: 720px) {
+      .watchlist-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .watch-card {
+      padding: 14px 16px;
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--surface);
-      margin-bottom: 10px;
     }
-    .source-desk-group { margin-bottom: 16px; }
+    .watch-card::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      vertical-align: middle;
+    }
+    .watch-theme {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      background: rgba(15, 23, 42, .06);
+      color: var(--text);
+    }
+    .watch-card strong { color: var(--text); }
+    .source-desk {
+      margin-bottom: 24px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg1);
+      overflow: hidden;
+      scroll-margin-top: 72px;
+    }
+    .source-desk summary {
+      cursor: pointer;
+      padding: 14px 18px;
+      font-weight: 800;
+      font-size: .92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .source-desk summary::-webkit-details-marker { display: none; }
+    .source-desk[open] summary { border-bottom: 1px solid var(--border); }
+    .source-desk-body { padding: 12px 18px 16px; }
+    .source-desk-group { margin-bottom: 14px; }
+    .source-desk-group h4 {
+      margin: 0 0 8px;
+      font-size: .82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+    }
+    .link-rows--compact a { font-size: .86rem; }
+    .newsroom-report { overflow-x: hidden; max-width: 100%; }
+    @media (max-width: 480px) {
+      .issue-header { padding: 16px 14px 14px; }
+      .issue-title { font-size: 1.28rem; }
+      .front-page-lead { padding: 16px 14px; }
+      .dossier-card { padding: 14px 14px; }
+      .watchlist-panel { padding: 16px 14px; }
+      .brand-tagline { font-size: .62rem; }
+    }
 
     body.digest-mode .source-grid { display: none; }
     body.digest-mode .hero-qs { display: none; }
@@ -790,16 +1180,22 @@
       70% { box-shadow: 0 0 0 7px rgba(239, 68, 68, 0); }
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
+    body.digest-mode .brand-lockup,
     body.digest-mode .logo {
-      font-size: clamp(1.55rem, 4vw, 2.35rem);
-      gap: 16px;
-      letter-spacing: -.04em;
+      gap: 10px;
+      max-width: 100%;
     }
+    body.digest-mode .brand-tagline {
+      display: block;
+      max-width: none;
+    }
+    body.digest-mode .logo-icon-wrap,
+    body.digest-mode .logo-img,
     body.digest-mode .logo-mark {
-      width: 56px;
-      height: 56px;
-      font-size: 1.05rem;
-      border-radius: 15px;
+      width: 40px;
+      height: 40px;
+      font-size: .78rem;
+      border-radius: 12px;
     }
 
     .digest-report { scroll-margin-top: 88px; }
@@ -1468,15 +1864,17 @@
       section.alt { padding: 24px 0; }
       .hero { padding: 18px 0 32px; }
       body.digest-mode .hero { padding: 14px 0 18px; }
-      body.digest-mode .logo {
-        font-size: clamp(1.12rem, 4.8vw, 1.45rem);
-        gap: 10px;
+      body.digest-mode .brand-tagline {
+        font-size: .58rem;
+        line-height: 1.25;
       }
+      body.digest-mode .logo-icon-wrap,
+      body.digest-mode .logo-img,
       body.digest-mode .logo-mark {
-        width: 42px;
-        height: 42px;
-        font-size: .82rem;
-        border-radius: 12px;
+        width: 34px;
+        height: 34px;
+        font-size: .7rem;
+        border-radius: 10px;
       }
       body.invest-mode .hero { padding: 14px 0 18px; }
       body.invest-mode .logo {
@@ -1575,7 +1973,16 @@
   <header class="hero">
     <div class="container">
       <nav class="nav">
-        <div class="logo"><span class="logo-mark">LQ</span> LEON Quant Labs</div>
+        <div class="logo brand-lockup">
+          <span class="logo-icon-wrap">
+            <img class="logo-img" src="assets/leonquant-icon.svg" alt="" width="36" height="36" onerror="this.setAttribute('data-failed','1')">
+            <span class="logo-mark" aria-hidden="true">LQ</span>
+          </span>
+          <span class="brand-text">
+            <span class="brand-name">LEON Quant Labs</span>
+            <span class="brand-tagline">48h Intelligence · Markets · Technology · Vietnam</span>
+          </span>
+        </div>
         <div class="nav-links" id="navLinks" data-nav-tabs="1"><a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin tức tổng hợp 24h</a><a class="nav-hub" href="/?view=live" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a></div>
       </nav>
       <h1>LEON Quant Labs</h1>
@@ -1588,7 +1995,13 @@
     <section id="brief" class="alt" data-embedded-brief="1">
       <div class="container">
         <p id="syncNote" class="sync-note">Tin tức được tổng hợp lúc 13:43 04/06/2026.</p>
-        <div id="sectionThesis" class="brief-block"><article id="digest-report" class="digest-report newsroom-report"><header class="digest-report-head"><h2>Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ</h2></header><div class="digest-main-panel"><section class="overview-part"><h3 class="sectors-section-title">Lời biên tập</h3><p class="newsroom-editor-note">Trong 48 giờ qua, LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu từ các tài sản rủi ro sang hạ tầng AI, trong khi địa chính trị Trung Đông tiếp tục là biến số gây áp lực lên thị trường năng lượng. Tại Việt Nam, trọng tâm điều hành đang dồn vào việc tháo gỡ nút thắt pháp lý cho các dự án bất động sản trọng điểm và triển khai cơ chế năng lượng mới. Bản tin này tổng hợp các luồng tin quan trọng nhất, tập trung vào tác động thực tế của các chính sách và sự thay đổi trong chiến lược đầu tư của các tập đoàn lớn, giúp người đọc nắm bắt các biến số then chốt trong 72 giờ tới.</p></section><section class="overview-part"><h3 class="sectors-section-title">Front page</h3><div class="front-page-grid"><div class="front-page-card"><h4>Căng thẳng Mỹ - Iran leo thang tại vùng Vịnh</h4><p>Các cuộc tấn công quân sự quanh đảo Qeshm làm gia tăng rủi ro gián đoạn nguồn cung năng lượng toàn cầu.</p><p>Sự leo thang quân sự trực tiếp giữa Mỹ và Iran tại các điểm nóng chiến lược như đảo Qeshm đe dọa trực tiếp đến an ninh hàng hải tại eo biển Hormuz, đẩy giá dầu và vàng biến động mạnh trong ngắn hạn.</p><ul class="link-rows"><li><a href="https://cnbc.com/2026/05/21/oil-price-today-iran-war-strait-hormuz-trump.html" target="_blank" rel="noopener noreferrer">Căng thẳng Mỹ - Iran leo thang tại vùng Vịnh</a><span class="link-meta">cnbc.com</span></li></ul></div><div class="front-page-card"><h4>Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI</h4><p>Sự sụt giảm của Bitcoin dưới mốc 70.000 USD phản ánh xu hướng nhà đầu tư ưu tiên các tập đoàn công nghệ có nền tảng AI vững chắc.</p><p>Sự phân hóa tài sản cho thấy thị trường đang định giá lại rủi ro, ưu tiên các doanh nghiệp có dòng tiền thực từ AI thay vì các tài sản đầu cơ thuần túy.</p><ul class="link-rows"><li><a href="https://vietnamnet.vn/ts-nguyen-si-dung-can-chuyen-tu-logic-den-bu-dat-dai-sang-logic-tai-tao-sinh-ke-2518559.html" target="_blank" rel="noopener noreferrer">Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI</a><span class="link-meta">vietnamnet.vn</span></li></ul></div><div class="front-page-card"><h4>TP.HCM đẩy nhanh tiến độ gỡ vướng 28 dự án bất động sản</h4><p>Chính quyền thành phố tập trung giải quyết các vướng mắc pháp lý nhằm khơi thông nguồn cung và dòng vốn cho thị trường BĐS.</p><p>Đây là tín hiệu quan trọng cho thấy nỗ lực của chính quyền trong việc ổn định thị trường bất động sản, tác động trực tiếp đến thanh khoản của các doanh nghiệp xây dựng và ngân hàng.</p><ul class="link-rows"><li><a href="https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm" target="_blank" rel="noopener noreferrer">TP.HCM đẩy nhanh tiến độ gỡ vướng 28 dự án bất động sản</a><span class="link-meta">batdongsan.baoxaydung.vn</span></li></ul></div></div></section><article class="sector-block" id="sector-kinh-te-tai-chinh"><header class="sector-head"><h3>Kinh tế &amp; Tài chính</h3></header><div class="sector-body"><p class="sector-intro">Thị trường tài chính đang trải qua giai đoạn tái cấu trúc danh mục mạnh mẽ. Tại Việt Nam, áp lực lạm phát vượt 4% trong 5 tháng đầu năm buộc các cơ quan quản lý phải cân nhắc kỹ lưỡng giữa mục tiêu tăng trưởng và ổn định vĩ mô. Trong khi đó, thị trường toàn cầu đang phản ứng với các rủi ro địa chính trị bằng cách tìm kiếm nơi trú ẩn an toàn, đồng thời đặt cược vào các tập đoàn công nghệ dẫn đầu làn sóng AI.</p><div class="dossier-card"><h4>Áp lực lạm phát và chính sách tiền tệ tại Việt Nam</h4><p>Lạm phát 5 tháng đầu năm vượt ngưỡng 4% đặt ra thách thức cho điều hành chính sách tiền tệ.</p><p>Việc lạm phát vượt mục tiêu kiểm soát đòi hỏi sự phối hợp chặt chẽ giữa chính sách tài khóa và tiền tệ để tránh gây sốc cho nền kinh tế, đặc biệt trong bối cảnh xuất khẩu đang phục hồi.</p><ul class="link-rows"><li><a href="https://tuoitre.vn/tp-hcm-tinh-chuyen-giu-mo-tien-ti-usd-hang-hai-o-lai-viet-nam-20260521153911458.htm" target="_blank" rel="noopener noreferrer">Áp lực lạm phát và chính sách tiền tệ tại Việt Nam</a><span class="link-meta">tuoitre.vn</span></li></ul></div></div></article><article class="sector-block" id="sector-cong-nghe-ai"><header class="sector-head"><h3>Công nghệ &amp; AI</h3></header><div class="sector-body"><p class="sector-intro">Cuộc đua AI không còn dừng lại ở các mô hình ngôn ngữ mà đang chuyển dịch mạnh mẽ sang hạ tầng phần cứng và ứng dụng thực tế. Các tập đoàn lớn như Microsoft và Alphabet đang huy động nguồn lực khổng lồ để củng cố vị thế, trong khi các chính sách quản lý AI của Mỹ bắt đầu định hình lại cuộc chơi cho các startup.</p><div class="dossier-card"><h4>Cuộc đua hạ tầng AI và sắc lệnh quản lý mới</h4><p>Các tập đoàn công nghệ lớn đẩy mạnh đầu tư phần cứng trong khi chính phủ Mỹ siết chặt khung pháp lý cho AI.</p><p>Sự kết hợp giữa đầu tư vốn lớn và khung pháp lý rõ ràng sẽ quyết định tốc độ thương mại hóa của các công nghệ AI trong 12-24 tháng tới.</p><ul class="link-rows"><li><a href="https://thanhnien.vn/cuc-thue-noi-ro-cach-quan-ly-thue-theo-dong-tien-185260520102436304.htm" target="_blank" rel="noopener noreferrer">Cuộc đua hạ tầng AI và sắc lệnh quản lý mới</a><span class="link-meta">thanhnien.vn</span></li></ul></div></div></article><article class="sector-block" id="sector-thoi-su-chinh-tri"><header class="sector-head"><h3>Thời sự &amp; Chính trị</h3></header><div class="sector-body"><p class="sector-intro">Địa chính trị toàn cầu đang ở trạng thái bất ổn cao độ. Sự kiện Mỹ tấn công đảo Qeshm của Iran đánh dấu một bước ngoặt trong quan hệ ngoại giao vốn đã căng thẳng, gây ra những hệ lụy trực tiếp đến an ninh năng lượng và các tuyến đường thương mại huyết mạch.</p><div class="dossier-card"><h4>Leo thang quân sự Mỹ - Iran</h4><p>Căng thẳng tại vùng Vịnh leo thang sau các cuộc tấn công quân sự trực tiếp.</p><p>Đây là điểm nóng có khả năng lan rộng, ảnh hưởng trực tiếp đến giá dầu và tâm lý thị trường tài chính toàn cầu.</p><p class="hint">Chưa có nguồn đại diện.</p></div></div></article><article class="sector-block" id="sector-xu-huong-doi-song"><header class="sector-head"><h3>Xu hướng &amp; Đời sống</h3></header><div class="sector-body"><p class="sector-intro">Xu hướng tiêu dùng tại Việt Nam đang chuyển dịch mạnh mẽ sang các giải pháp năng lượng xanh và bền vững. Việc triển khai xăng E10 không chỉ là câu chuyện chính sách mà còn là sự thay đổi trong thói quen tiêu dùng của người dân, đòi hỏi sự chuẩn bị kỹ lưỡng về hạ tầng phân phối và chất lượng sản phẩm.</p><div class="dossier-card"><h4>Triển khai xăng E10 tại Việt Nam</h4><p>Chính phủ đẩy mạnh lộ trình chuyển đổi sang xăng E10 nhằm thực hiện cam kết môi trường.</p><p>Việc chuyển đổi sang xăng E10 là bước đi chiến lược trong lộ trình giảm phát thải, tác động trực tiếp đến chi phí vận hành của hàng triệu phương tiện giao thông.</p><ul class="link-rows"><li><a href="https://thanhnien.vn/giam-thue-de-giam-gia-xang-e10-185260522192848769.htm" target="_blank" rel="noopener noreferrer">Triển khai xăng E10</a><span class="link-meta">tuoitre.vn · thanhnien.vn</span></li></ul></div></div></article><section class="overview-part"><h3 class="sectors-section-title">Watchlist 24–72h</h3><div class="watch-row"><strong>Giá dầu thô</strong><p>Biến động giá dầu Brent sau sự kiện tại đảo Qeshm.</p></div><div class="watch-row"><strong>Thị trường chứng khoán Việt Nam</strong><p>Phản ứng của nhóm cổ phiếu bất động sản trước thông tin gỡ vướng dự án.</p></div></section><section class="overview-part"><h3 class="sectors-section-title">Source desk</h3><div class="source-desk-group"><h4>Địa chính trị &amp; Tài chính</h4><ul class="link-rows"><li><a href="https://baochinhphu.vn/phan-cong-lanh-dao-chinh-phu-theo-doi-chi-dao-cac-dia-phuong-thuc-hien-muc-tieu-tang-truong-kinh-te-tren-10-102260522175527609.htm" target="_blank" rel="noopener noreferrer">Báo Chính phủ</a><span class="link-meta">baochinhphu.vn · baochinhphu.vn</span></li></ul></div></section></div></article></div>
+        <div id="sectionThesis" class="brief-block"><article id="digest-report" class="digest-report newsroom-report"><div class="digest-main-panel"><header class="issue-header" id="digest-issue-header">
+    <span class="issue-badge">48H BRIEF</span>
+    <h2 class="issue-title">48h Intelligence Brief</h2>
+    <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
+    <div class="issue-stats"><span class="stat-pill">Stories: <strong>7</strong></span><span class="stat-pill">Sources: <strong>1725</strong></span><span class="stat-pill">Updated: <strong>21:33 04/06/2026</strong></span><span class="stat-pill">Reading time: <strong>6 phút</strong></span></div>
+  </header><nav class="newsroom-toc-wrap newsroom-toc-wrap--sticky" aria-label="Mục lục bản tin"><div class="newsroom-toc"><a class="toc-chip" href="#digest-editor-note">Lời biên tập</a><a class="toc-chip" href="#digest-front-page">Front Page</a><a class="toc-chip" href="#sector-kinh-te-tai-chinh">Kinh tế</a><a class="toc-chip" href="#sector-cong-nghe-ai">Công nghệ</a><a class="toc-chip" href="#sector-thoi-su-chinh-tri">Thời sự</a><a class="toc-chip" href="#sector-xu-huong-doi-song">Đời sống</a><a class="toc-chip" href="#digest-watchlist">Watchlist</a><a class="toc-chip" href="#digest-source-desk">Source Desk</a></div></nav><section class="overview-part editor-note-card" id="digest-editor-note"><p class="eyebrow">Lời biên tập</p><p class="editor-note-body">Trong 48 giờ qua, LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu từ các tài sản rủi ro sang hạ tầng AI, trong khi địa chính trị Trung Đông tiếp tục là biến số gây áp lực lên thị trường năng lượng. Tại Việt Nam, trọng tâm điều hành đang dồn vào việc tháo gỡ nút thắt pháp lý cho các dự án bất động sản trọng điểm và triển khai cơ chế năng lượng mới. Bản tin này tổng hợp các luồng tin quan trọng nhất, tập trung vào tác động thực tế của các chính sách và sự thay đổi trong chiến lược đầu tư của các tập đoàn lớn, giúp người đọc nắm bắt các biến số then chốt trong 72 giờ tới.</p></section><section class="overview-part" id="digest-front-page"><h3 class="pub-section-title">Front Page</h3><article class="front-page-lead"><p class="fp-lead-kicker">Lead · #01</p><h3>Căng thẳng Mỹ - Iran leo thang tại vùng Vịnh</h3><p>Các cuộc tấn công quân sự quanh đảo Qeshm làm gia tăng rủi ro gián đoạn nguồn cung năng lượng toàn cầu.</p><div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>Sự leo thang quân sự trực tiếp giữa Mỹ và Iran tại các điểm nóng chiến lược như đảo Qeshm đe dọa trực tiếp đến an ninh hàng hải tại eo biển Hormuz, đẩy giá dầu và vàng biến động mạnh trong ngắn hạn.</p></div><div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><p>Phản ứng từ các đồng minh khu vực và diễn biến giá dầu thô Brent trong 24-48 giờ tới.</p></div><div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p><ul class="link-rows link-rows--compact"><li><a href="https://cnbc.com/2026/05/21/oil-price-today-iran-war-strait-hormuz-trump.html" target="_blank" rel="noopener noreferrer">Căng thẳng Mỹ - Iran leo thang tại vùng Vịnh</a><span class="link-meta">cnbc.com</span></li></ul></div></article><div class="front-page-secondary-grid"><div class="front-page-card"><span class="fp-rank">#02</span><h4>Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI</h4><p>Sự sụt giảm của Bitcoin dưới mốc 70.000 USD phản ánh xu hướng nhà đầu tư ưu tiên các tập đoàn công nghệ có nền tảng AI vững chắc.</p><p class="hint">Biến động vốn hóa của các cổ phiếu công nghệ vốn hóa lớn (Microsoft, Nvidia) và chỉ số Bitcoin.</p><ul class="link-rows link-rows--compact"><li><a href="https://vietnamnet.vn/ts-nguyen-si-dung-can-chuyen-tu-logic-den-bu-dat-dai-sang-logic-tai-tao-sinh-ke-2518559.html" target="_blank" rel="noopener noreferrer">Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI</a><span class="link-meta">vietnamnet.vn</span></li></ul></div><div class="front-page-card"><span class="fp-rank">#03</span><h4>TP.HCM đẩy nhanh tiến độ gỡ vướng 28 dự án bất động sản</h4><p>Chính quyền thành phố tập trung giải quyết các vướng mắc pháp lý nhằm khơi thông nguồn cung và dòng vốn cho thị trường BĐS.</p><p class="hint">Tiến độ phê duyệt thực tế của các dự án trong danh mục ưu tiên.</p><ul class="link-rows link-rows--compact"><li><a href="https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm" target="_blank" rel="noopener noreferrer">TP.HCM đẩy nhanh tiến độ gỡ vướng 28 dự án bất động sản</a><span class="link-meta">batdongsan.baoxaydung.vn</span></li></ul></div></div></section><section class="digest-main-sectors overview-part" id="digest-sector-deep"><h3 class="pub-section-title">Sector deep brief</h3><article class="sector-pub-block sector-block" id="sector-kinh-te-tai-chinh"><header class="sector-pub-head"><span class="sector-pub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 3 4-6"/></svg></span><div><h3>Kinh tế &amp; Tài chính</h3><span class="sector-story-count">1 story</span></div></header><div class="sector-thesis-card">Thị trường tài chính đang trải qua giai đoạn tái cấu trúc danh mục mạnh mẽ. Tại Việt Nam, áp lực lạm phát vượt 4% trong 5 tháng đầu năm buộc các cơ quan quản lý phải cân nhắc kỹ lưỡng giữa mục tiêu tăng trưởng và ổn định vĩ mô. Trong khi đó, thị trường toàn cầu đang phản ứng với các rủi ro địa chính trị bằng cách tìm kiếm nơi trú ẩn an toàn, đồng thời đặt cược vào các tập đoàn công nghệ dẫn đầu làn sóng AI.</div><div class="dossier-card"><div class="dossier-head"><span class="depth-badge depth-badge--deep">deep</span><span class="dossier-rank">#1</span></div><h4>Áp lực lạm phát và chính sách tiền tệ tại Việt Nam</h4><p class="dossier-summary">Lạm phát 5 tháng đầu năm vượt ngưỡng 4% đặt ra thách thức cho điều hành chính sách tiền tệ.</p><div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p><ul class="sector-points prose-bullets"><li>Chỉ số giá tiêu dùng tăng do áp lực giá năng lượng và hàng hóa nhập khẩu</li><li>Ngân hàng Nhà nước duy trì quan điểm thận trọng trong điều hành lãi suất</li><li>Doanh nghiệp đối mặt với chi phí đầu vào tăng cao</li></ul></div><div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>Việc lạm phát vượt mục tiêu kiểm soát đòi hỏi sự phối hợp chặt chẽ giữa chính sách tài khóa và tiền tệ để tránh gây sốc cho nền kinh tế, đặc biệt trong bối cảnh xuất khẩu đang phục hồi.</p></div><div class="dossier-block"><p class="dossier-block-label">Nhóm ảnh hưởng</p><div class="chip-row"><span class="chip">Doanh nghiệp sản xuất</span><span class="chip">Người tiêu dùng</span><span class="chip">Ngân hàng thương mại</span></div></div><div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><div class="chip-row"><span class="chip">Số liệu CPI tháng 6</span><span class="chip">Chỉ đạo mới từ NHNN</span></div></div><div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p><ul class="link-rows link-rows--compact"><li><a href="https://tuoitre.vn/tp-hcm-tinh-chuyen-giu-mo-tien-ti-usd-hang-hai-o-lai-viet-nam-20260521153911458.htm" target="_blank" rel="noopener noreferrer">Áp lực lạm phát và chính sách tiền tệ tại Việt Nam</a><span class="link-meta">tuoitre.vn</span></li></ul></div></div></article><article class="sector-pub-block sector-block" id="sector-cong-nghe-ai"><header class="sector-pub-head"><span class="sector-pub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM12 3v2M12 19v2M3 12h2M19 12h2"/></svg></span><div><h3>Công nghệ &amp; AI</h3><span class="sector-story-count">1 story</span></div></header><div class="sector-thesis-card">Cuộc đua AI không còn dừng lại ở các mô hình ngôn ngữ mà đang chuyển dịch mạnh mẽ sang hạ tầng phần cứng và ứng dụng thực tế. Các tập đoàn lớn như Microsoft và Alphabet đang huy động nguồn lực khổng lồ để củng cố vị thế, trong khi các chính sách quản lý AI của Mỹ bắt đầu định hình lại cuộc chơi cho các startup.</div><div class="dossier-card"><div class="dossier-head"><span class="depth-badge depth-badge--deep">deep</span><span class="dossier-rank">#1</span></div><h4>Cuộc đua hạ tầng AI và sắc lệnh quản lý mới</h4><p class="dossier-summary">Các tập đoàn công nghệ lớn đẩy mạnh đầu tư phần cứng trong khi chính phủ Mỹ siết chặt khung pháp lý cho AI.</p><div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p><ul class="sector-points prose-bullets"><li>Alphabet huy động vốn lớn để tài trợ hạ tầng AI</li><li>Trump ký sắc lệnh mới về quản lý AI</li><li>Sự trỗi dậy của các dòng robot hình người giá rẻ</li></ul></div><div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>Sự kết hợp giữa đầu tư vốn lớn và khung pháp lý rõ ràng sẽ quyết định tốc độ thương mại hóa của các công nghệ AI trong 12-24 tháng tới.</p></div><div class="dossier-block"><p class="dossier-block-label">Nhóm ảnh hưởng</p><div class="chip-row"><span class="chip">Các tập đoàn công nghệ lớn</span><span class="chip">Startup AI</span><span class="chip">Nhà đầu tư mạo hiểm</span></div></div><div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><div class="chip-row"><span class="chip">Phản ứng của thị trường với các quy định mới</span><span class="chip">Tiến độ triển khai các trung tâm dữ liệu AI</span></div></div><div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p><ul class="link-rows link-rows--compact"><li><a href="https://thanhnien.vn/cuc-thue-noi-ro-cach-quan-ly-thue-theo-dong-tien-185260520102436304.htm" target="_blank" rel="noopener noreferrer">Cuộc đua hạ tầng AI và sắc lệnh quản lý mới</a><span class="link-meta">thanhnien.vn</span></li></ul></div></div></article><article class="sector-pub-block sector-block" id="sector-thoi-su-chinh-tri"><header class="sector-pub-head"><span class="sector-pub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a14 14 0 0 1 0 20M12 2a14 14 0 0 0 0 20"/></svg></span><div><h3>Thời sự &amp; Chính trị</h3><span class="sector-story-count">1 story</span></div></header><div class="sector-thesis-card">Địa chính trị toàn cầu đang ở trạng thái bất ổn cao độ. Sự kiện Mỹ tấn công đảo Qeshm của Iran đánh dấu một bước ngoặt trong quan hệ ngoại giao vốn đã căng thẳng, gây ra những hệ lụy trực tiếp đến an ninh năng lượng và các tuyến đường thương mại huyết mạch.</div><div class="dossier-card"><div class="dossier-head"><span class="depth-badge depth-badge--deep">deep</span><span class="dossier-rank">#1</span></div><h4>Leo thang quân sự Mỹ - Iran</h4><p class="dossier-summary">Căng thẳng tại vùng Vịnh leo thang sau các cuộc tấn công quân sự trực tiếp.</p><div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p><ul class="sector-points prose-bullets"><li>Mỹ thực hiện tấn công vào các mục tiêu tại đảo Qeshm</li><li>Tehran phản đối mạnh mẽ và đe dọa các biện pháp đáp trả</li><li>Cộng đồng quốc tế kêu gọi kiềm chế</li></ul></div><div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>Đây là điểm nóng có khả năng lan rộng, ảnh hưởng trực tiếp đến giá dầu và tâm lý thị trường tài chính toàn cầu.</p></div><div class="dossier-block"><p class="dossier-block-label">Nhóm ảnh hưởng</p><div class="chip-row"><span class="chip">Thị trường năng lượng</span><span class="chip">Các quốc gia vùng Vịnh</span><span class="chip">Nhà đầu tư tài chính</span></div></div><div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><div class="chip-row"><span class="chip">Phản ứng từ các bên trung gian</span><span class="chip">Diễn biến quân sự tại eo biển Hormuz</span></div></div></div></article><article class="sector-pub-block sector-block" id="sector-xu-huong-doi-song"><header class="sector-pub-head"><span class="sector-pub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m12 6 2 5h5l-4 3 1 5-4-3-4 3 1-5-4-3h5z"/></svg></span><div><h3>Xu hướng &amp; Đời sống</h3><span class="sector-story-count">1 story</span></div></header><div class="sector-thesis-card">Xu hướng tiêu dùng tại Việt Nam đang chuyển dịch mạnh mẽ sang các giải pháp năng lượng xanh và bền vững. Việc triển khai xăng E10 không chỉ là câu chuyện chính sách mà còn là sự thay đổi trong thói quen tiêu dùng của người dân, đòi hỏi sự chuẩn bị kỹ lưỡng về hạ tầng phân phối và chất lượng sản phẩm.</div><div class="dossier-card"><div class="dossier-head"><span class="depth-badge depth-badge--deep">deep</span><span class="dossier-rank">#1</span></div><h4>Triển khai xăng E10 tại Việt Nam</h4><p class="dossier-summary">Chính phủ đẩy mạnh lộ trình chuyển đổi sang xăng E10 nhằm thực hiện cam kết môi trường.</p><div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p><ul class="sector-points prose-bullets"><li>Chỉ đạo quyết liệt từ các bộ ngành về lộ trình thay thế</li><li>Người dân quan tâm đến hiệu suất động cơ và giá cả</li><li>Hệ thống phân phối đang được nâng cấp</li></ul></div><div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>Việc chuyển đổi sang xăng E10 là bước đi chiến lược trong lộ trình giảm phát thải, tác động trực tiếp đến chi phí vận hành của hàng triệu phương tiện giao thông.</p></div><div class="dossier-block"><p class="dossier-block-label">Nhóm ảnh hưởng</p><div class="chip-row"><span class="chip">Người tiêu dùng</span><span class="chip">Doanh nghiệp xăng dầu</span><span class="chip">Ngành vận tải</span></div></div><div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><div class="chip-row"><span class="chip">Phản ứng của người tiêu dùng</span><span class="chip">Chính sách giá hỗ trợ</span></div></div><div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p><ul class="link-rows link-rows--compact"><li><a href="https://thanhnien.vn/giam-thue-de-giam-gia-xang-e10-185260522192848769.htm" target="_blank" rel="noopener noreferrer">Triển khai xăng E10</a><span class="link-meta">tuoitre.vn · thanhnien.vn</span></li></ul></div></div></article></section><section class="overview-part watchlist-panel" id="digest-watchlist"><h3 class="pub-section-title">Theo dõi 24–72h</h3><div class="watchlist-grid"><div class="watch-card"><span class="watch-theme">Giá dầu thô</span><p><strong>Theo dõi:</strong> Biến động giá dầu Brent sau sự kiện tại đảo Qeshm.</p><p class="hint">Rủi ro địa chính trị tại vùng Vịnh là biến số lớn nhất đối với giá năng lượng.</p></div><div class="watch-card"><span class="watch-theme">Thị trường chứng khoán Việt Nam</span><p><strong>Theo dõi:</strong> Phản ứng của nhóm cổ phiếu bất động sản trước thông tin gỡ vướng dự án.</p><p class="hint">Tâm lý nhà đầu tư đang rất nhạy cảm với các thông tin pháp lý.</p></div></div></section><details class="source-desk" id="digest-source-desk"><summary>Nguồn đại diện theo chủ đề</summary><div class="source-desk-body"><div class="source-desk-group"><h4>Địa chính trị &amp; Tài chính</h4><ul class="link-rows link-rows--compact"><li><a href="https://baochinhphu.vn/phan-cong-lanh-dao-chinh-phu-theo-doi-chi-dao-cac-dia-phuong-thuc-hien-muc-tieu-tang-truong-kinh-te-tren-10-102260522175527609.htm" target="_blank" rel="noopener noreferrer">Báo Chính phủ</a><span class="link-meta">baochinhphu.vn · baochinhphu.vn</span></li></ul></div></div></details></div></article></div>
+        
         
         
         <div id="sectionPulse" class="brief-block"><article class="digest-report" id="pulse-crawler-report"><header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2><p class="sync-note">Cập nhật 21:29 04/06/2026 (giờ Việt Nam).</p></header><div class="pulse-panel"><ol class="pulse-event-list"><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Israel và Lebanon gia hạn thỏa thuận ngừng bắn, thiết lập khu vực an ninh nhằm đẩy lùi lực lượng Hezbollah khỏi biên giới</h3><p class="pulse-event-hint">Israel và Lebanon đã đạt được thỏa thuận gia hạn lệnh ngừng bắn sau vòng đàm phán thứ tư dưới sự trung gian của Mỹ tại Washington. Điểm then chốt của thỏa thuận là thiết lập các khu vực an ninh thí điểm bên trong lãnh thổ Lebanon, nơi lực lượng Hezbollah bị cấm hoạt động. Thỏa thuận yêu cầu quân đội Lebanon phải kiểm soát hoàn toàn các khu vực này và buộc các tay súng Hezbollah phải rút khỏi phía nam sông Litani. Các bên tham gia đối thoại đã nhấn mạnh rằng tương lai của mối quan hệ Israel - Lebanon phải do chính phủ hai nước quyết định, đồng thời lên án sự can thiệp của các chủ thể nước ngoài gây bất ổn trong khu vực. Một vòng đàm phán tiếp theo dự kiến diễn ra vào tuần ngày 22 tháng 6 nhằm hướng tới một thỏa thuận hòa bình toàn diện.</p><p class="pulse-event-importance">Sự kiện này đánh dấu bước tiến quan trọng trong nỗ lực hạ nhiệt căng thẳng quân sự tại Trung Đông. Việc thiết lập khu vực an ninh và tách biệt Hezbollah khỏi biên giới có ý nghĩa chiến lược trong việc giảm thiểu nguy cơ xung đột vũ trang trực tiếp giữa các bên, mở đường cho sự ổn định an ninh dài hạn tại khu vực biên giới Lebanon - Israel.</p><p class="pulse-event-coverage">Độ phủ: <strong>90</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
@@ -1672,6 +2085,7 @@
           </div>
         </div>
       </div></li></ol></div></article></div>
+        
         
         
         <div id="sectionInvest" class="brief-block">
@@ -2174,13 +2588,259 @@
         (lk) => lk && String(lk.url || "").trim(),
       );
       if (!rows.length) return `<p class="hint">Chưa có nguồn đại diện.</p>`;
-      return buildLinkRowsHtml(rows);
+      return buildLinkRowsHtml(rows).replace(
+        'class="link-rows"',
+        'class="link-rows link-rows--compact"',
+      );
+    }
+
+    function newsroomSectorShortLabel(name) {
+      const n = String(name || "").toLowerCase();
+      if (/kinh tế|tài chính|finance/.test(n)) return "Kinh tế";
+      if (/công nghệ|tech|ai/.test(n)) return "Công nghệ";
+      if (/thời sự|chính trị|news/.test(n)) return "Thời sự";
+      if (/xu hướng|đời sống|trend|lifestyle/.test(n)) return "Đời sống";
+      return String(name || "Lĩnh vực").split("&")[0].trim() || "Lĩnh vực";
+    }
+
+    function newsroomSectorIconSvg(code, name) {
+      const c = String(code || "").toLowerCase();
+      const n = String(name || "").toLowerCase();
+      if (c.includes("finance") || /kinh tế|tài chính/.test(n)) {
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 3 4-6"/></svg>`;
+      }
+      if (c.includes("tech") || /công nghệ|ai/.test(n)) {
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM12 3v2M12 19v2M3 12h2M19 12h2"/></svg>`;
+      }
+      if (c.includes("news") || /thời sự|chính trị/.test(n)) {
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a14 14 0 0 1 0 20M12 2a14 14 0 0 0 0 20"/></svg>`;
+      }
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m12 6 2 5h5l-4 3 1 5-4-3-4 3 1-5-4-3h5z"/></svg>`;
+    }
+
+    function newsroomDepthBadgeClass(depth) {
+      const d = String(depth || "deep").toLowerCase();
+      if (d === "brief") return "depth-badge depth-badge--brief";
+      if (d === "major") return "depth-badge depth-badge--major";
+      return "depth-badge depth-badge--deep";
+    }
+
+    function newsroomCountStories(data) {
+      const front = Array.isArray(data.frontPage) ? data.frontPage.length : 0;
+      let dossiers = 0;
+      for (const sec of Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : []) {
+        dossiers += (Array.isArray(sec.storyDossiers) ? sec.storyDossiers : []).length;
+      }
+      return front + dossiers;
+    }
+
+    function newsroomSourceScanCount(data) {
+      const em = data.editorialMeta || {};
+      const candidates = [
+        em.sourcesScanned,
+        em.articlesSelected,
+        data.stats && data.stats.articlesCrawled,
+      ];
+      for (const v of candidates) {
+        const n = Number(v);
+        if (Number.isFinite(n) && n > 0) return Math.round(n);
+      }
+      const idx = data.articleLinkIndex;
+      return Array.isArray(idx) ? idx.length : 0;
+    }
+
+    function newsroomEstimateReadingMin(data) {
+      const chunks = [];
+      const push = (s) => {
+        const t = String(s || "").trim();
+        if (t) chunks.push(t);
+      };
+      push(data.editorNote);
+      for (const fp of Array.isArray(data.frontPage) ? data.frontPage : []) {
+        push(fp.title);
+        push(fp.oneSentence);
+        push(fp.whyItMatters);
+        push(fp.watchNext);
+      }
+      for (const sec of Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : []) {
+        push(sec.sectorThesis);
+        for (const d of Array.isArray(sec.storyDossiers) ? sec.storyDossiers : []) {
+          push(d.title);
+          push(d.summary);
+          push(d.whyItMatters);
+          (d.mainDevelopments || []).forEach(push);
+          (d.affectedGroups || []).forEach(push);
+          (d.watchNext || []).forEach(push);
+        }
+      }
+      for (const w of Array.isArray(data.watchlist2472h) ? data.watchlist2472h : []) {
+        push(w.theme);
+        push(w.whatToWatch);
+        push(w.why);
+      }
+      const chars = chunks.join(" ").length;
+      if (!chars) return 0;
+      return Math.max(3, Math.round(chars / 900));
+    }
+
+    function buildNewsroomStatPill(label, value) {
+      const v = value == null || value === "" ? "" : String(value).trim();
+      if (!v) return "";
+      return `<span class="stat-pill">${escapeHtml(label)}: <strong>${escapeHtml(v)}</strong></span>`;
+    }
+
+    function buildNewsroomIssueHeader(data) {
+      const updated = data.generatedAt ? formatDateVi(data.generatedAt) : "";
+      const sources = newsroomSourceScanCount(data);
+      const stories = newsroomCountStories(data);
+      const readMin = newsroomEstimateReadingMin(data);
+      let pills = "";
+      if (stories > 0) pills += buildNewsroomStatPill("Stories", String(stories));
+      if (sources > 0) pills += buildNewsroomStatPill("Sources", String(sources));
+      if (updated) pills += buildNewsroomStatPill("Updated", updated);
+      if (readMin > 0) pills += buildNewsroomStatPill("Reading time", `${readMin} phút`);
+      return `<header class="issue-header" id="digest-issue-header">
+        <span class="issue-badge">48H BRIEF</span>
+        <h2 class="issue-title">48h Intelligence Brief</h2>
+        <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
+        ${pills ? `<div class="issue-stats">${pills}</div>` : ""}
+      </header>`;
+    }
+
+    function buildNewsroomTocHtml(data) {
+      const items = [];
+      if (String(data.editorNote || "").trim()) {
+        items.push({ id: "digest-editor-note", label: "Lời biên tập" });
+      }
+      if ((data.frontPage || []).length) {
+        items.push({ id: "digest-front-page", label: "Front Page" });
+      }
+      for (const sec of Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : []) {
+        const name = String(sec.name || "").trim();
+        if (!name) continue;
+        items.push({ id: sectorSlug(name), label: newsroomSectorShortLabel(name) });
+      }
+      if ((data.watchlist2472h || []).length) {
+        items.push({ id: "digest-watchlist", label: "Watchlist" });
+      }
+      if ((data.sourceDesk || []).length) {
+        items.push({ id: "digest-source-desk", label: "Source Desk" });
+      }
+      if (!items.length) return "";
+      let html = `<nav class="newsroom-toc-wrap newsroom-toc-wrap--sticky" aria-label="Mục lục bản tin"><div class="newsroom-toc">`;
+      for (const it of items) {
+        html += `<a class="toc-chip" href="#${escapeHtml(it.id)}">${escapeHtml(it.label)}</a>`;
+      }
+      html += `</div></nav>`;
+      return html;
+    }
+
+    function buildFrontPageCardHtml(fp, variant) {
+      const rank = String(fp.rank || "").trim();
+      const rankLabel = rank ? `#${String(rank).padStart(2, "0")}` : "";
+      let html = "";
+      if (variant === "lead") {
+        html += `<article class="front-page-lead">`;
+        if (rankLabel) html += `<p class="fp-lead-kicker">Lead · ${escapeHtml(rankLabel)}</p>`;
+        html += `<h3>${escapeHtml(fp.title || "")}</h3>`;
+        if (fp.oneSentence) html += `<p>${escapeHtml(fp.oneSentence)}</p>`;
+        if (fp.whyItMatters) {
+          html += `<div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>${escapeHtml(fp.whyItMatters)}</p></div>`;
+        }
+        if (fp.watchNext) {
+          html += `<div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><p>${escapeHtml(fp.watchNext)}</p></div>`;
+        }
+        if (fp.links && fp.links.length) {
+          html += `<div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p>${buildDossierSourcesHtml(fp.links)}</div>`;
+        }
+        html += `</article>`;
+        return html;
+      }
+      const cls =
+        variant === "compact" ? "front-page-card front-page-card--compact" : "front-page-card";
+      html += `<div class="${cls}">`;
+      if (rankLabel) html += `<span class="fp-rank">${escapeHtml(rankLabel)}</span>`;
+      html += `<h4>${escapeHtml(fp.title || "")}</h4>`;
+      if (fp.oneSentence) html += `<p>${escapeHtml(fp.oneSentence)}</p>`;
+      if (fp.watchNext) {
+        html += `<p class="hint">${escapeHtml(String(fp.watchNext).slice(0, 220))}</p>`;
+      }
+      if (fp.links && fp.links.length) html += buildDossierSourcesHtml(fp.links);
+      html += `</div>`;
+      return html;
+    }
+
+    function buildNewsroomFrontPageHtml(front) {
+      const sorted = [...front].sort(
+        (a, b) => (Number(a.rank) || 999) - (Number(b.rank) || 999),
+      );
+      const lead = sorted.find((x) => Number(x.rank) === 1) || sorted[0];
+      const rest = sorted.filter((x) => x !== lead);
+      const secondary = rest.filter((x) => {
+        const r = Number(x.rank);
+        return r >= 2 && r <= 5;
+      });
+      const compact = rest.filter((x) => !secondary.includes(x));
+      let html = `<section class="overview-part" id="digest-front-page">`;
+      html += `<h3 class="pub-section-title">Front Page</h3>`;
+      if (lead) html += buildFrontPageCardHtml(lead, "lead");
+      if (secondary.length) {
+        html += `<div class="front-page-secondary-grid">`;
+        for (const fp of secondary) html += buildFrontPageCardHtml(fp, "secondary");
+        html += `</div>`;
+      }
+      if (compact.length) {
+        html += `<ul class="front-page-compact-list">`;
+        for (const fp of compact) {
+          html += `<li>${buildFrontPageCardHtml(fp, "compact")}</li>`;
+        }
+        html += `</ul>`;
+      }
+      html += `</section>`;
+      return html;
+    }
+
+    function buildDossierCardHtml(d) {
+      const depth = String(d.depthLevel || "deep");
+      const rank = String(d.rank || "").trim();
+      let html = `<div class="dossier-card">`;
+      html += `<div class="dossier-head">`;
+      html += `<span class="${newsroomDepthBadgeClass(depth)}">${escapeHtml(depth)}</span>`;
+      if (rank) html += `<span class="dossier-rank">#${escapeHtml(rank)}</span>`;
+      html += `</div>`;
+      html += `<h4>${escapeHtml(d.title || "")}</h4>`;
+      if (d.summary) html += `<p class="dossier-summary">${escapeHtml(d.summary)}</p>`;
+      const devs = Array.isArray(d.mainDevelopments) ? d.mainDevelopments : [];
+      if (devs.length) {
+        html += `<div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p>`;
+        html += `<ul class="sector-points prose-bullets">`;
+        for (const line of devs) html += `<li>${escapeHtml(line)}</li>`;
+        html += `</ul></div>`;
+      }
+      if (d.whyItMatters) {
+        html += `<div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>${escapeHtml(d.whyItMatters)}</p></div>`;
+      }
+      const ag = Array.isArray(d.affectedGroups) ? d.affectedGroups : [];
+      if (ag.length) {
+        html += `<div class="dossier-block"><p class="dossier-block-label">Nhóm ảnh hưởng</p><div class="chip-row">`;
+        for (const g of ag) html += `<span class="chip">${escapeHtml(g)}</span>`;
+        html += `</div></div>`;
+      }
+      const wn = Array.isArray(d.watchNext) ? d.watchNext : [];
+      if (wn.length) {
+        html += `<div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><div class="chip-row">`;
+        for (const line of wn) html += `<span class="chip">${escapeHtml(line)}</span>`;
+        html += `</div></div>`;
+      }
+      const links = Array.isArray(d.links) ? d.links : [];
+      if (links.length) {
+        html += `<div class="dossier-block"><p class="dossier-block-label">Nguồn đại diện</p>${buildDossierSourcesHtml(links)}</div>`;
+      }
+      html += `</div>`;
+      return html;
     }
 
     function buildNewsroomBriefParts(data) {
-      const reportTitle =
-        String(data.digestReportTitle || "").trim() ||
-        "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
       const editorNote = String(data.editorNote || "").trim();
       const front = Array.isArray(data.frontPage) ? data.frontPage : [];
       const sectors = Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : [];
@@ -2188,115 +2848,76 @@
       const desk = Array.isArray(data.sourceDesk) ? data.sourceDesk : [];
 
       let html = `<article id="digest-report" class="digest-report newsroom-report">`;
-      html += `<header class="digest-report-head"><h2>${escapeHtml(reportTitle)}</h2></header>`;
       html += `<div class="digest-main-panel">`;
+      html += buildNewsroomIssueHeader(data);
+      html += buildNewsroomTocHtml(data);
 
       if (editorNote) {
-        html += `<section class="overview-part" id="digest-editor-note">`;
-        html += `<h3 class="sectors-section-title">Lời biên tập</h3>`;
-        html += `<p class="newsroom-editor-note">${escapeHtml(editorNote)}</p></section>`;
+        const paras = editorNote.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
+        const body =
+          paras.length > 1
+            ? paras.map((p) => `<p>${escapeHtml(p)}</p>`).join("")
+            : `<p class="editor-note-body">${escapeHtml(editorNote)}</p>`;
+        html += `<section class="overview-part editor-note-card" id="digest-editor-note">`;
+        html += `<p class="eyebrow">Lời biên tập</p>${body}</section>`;
       }
 
-      if (front.length) {
-        html += `<section class="overview-part" id="digest-front-page">`;
-        html += `<h3 class="sectors-section-title">Front page</h3><div class="front-page-grid">`;
-        for (const fp of front) {
-          const rank = String(fp.rank || "").padStart(2, "0");
-          html += `<div class="front-page-card">`;
-          html += `<span class="fp-rank">#${escapeHtml(rank)}</span>`;
-          html += `<h4>${escapeHtml(fp.title || "")}</h4>`;
-          if (fp.oneSentence) html += `<p>${escapeHtml(fp.oneSentence)}</p>`;
-          if (fp.whyItMatters) {
-            html += `<p class="dossier-block-label">Vì sao quan trọng</p><p>${escapeHtml(fp.whyItMatters)}</p>`;
-          }
-          if (fp.watchNext) {
-            html += `<p class="dossier-block-label">Theo dõi tiếp</p><p>${escapeHtml(fp.watchNext)}</p>`;
-          }
-          if (fp.links && fp.links.length) html += buildDossierSourcesHtml(fp.links);
-          html += `</div>`;
-        }
-        html += `</div></section>`;
-      }
+      if (front.length) html += buildNewsroomFrontPageHtml(front);
 
       if (sectors.length) {
         html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;
-        html += `<h3 class="sectors-section-title">Sector deep brief</h3>`;
-        for (let si = 0; si < sectors.length; si++) {
-          const sec = sectors[si];
+        html += `<h3 class="pub-section-title">Sector deep brief</h3>`;
+        for (const sec of sectors) {
           const name = String(sec.name || "").trim() || "Lĩnh vực";
+          const code = String(sec.code || "").trim();
           const id = sectorSlug(name);
-          html += `<article class="sector-block" id="${id}">`;
-          html += `<header class="sector-head"><span class="sector-num">${String(si + 1).padStart(2, "0")}</span>`;
-          html += `<div class="sector-head-main"><h3>${escapeHtml(name)}</h3></div></header>`;
-          html += `<div class="sector-body">`;
-          if (sec.sectorThesis) {
-            html += `<p class="sector-intro">${escapeHtml(sec.sectorThesis)}</p>`;
-          }
           const dossiers = Array.isArray(sec.storyDossiers) ? sec.storyDossiers : [];
-          for (const d of dossiers) {
-            html += `<div class="dossier-card">`;
-            html += `<div class="dossier-meta">${escapeHtml(String(d.depthLevel || "deep"))} · #${escapeHtml(String(d.rank || ""))}</div>`;
-            html += `<h4>${escapeHtml(d.title || "")}</h4>`;
-            if (d.summary) html += `<p><strong>Tóm tắt:</strong> ${escapeHtml(d.summary)}</p>`;
-            const devs = Array.isArray(d.mainDevelopments) ? d.mainDevelopments : [];
-            if (devs.length) {
-              html += `<p class="dossier-block-label">Diễn biến chính</p>`;
-              html += `<ul class="sector-points prose-bullets">`;
-              for (const line of devs) html += `<li>${escapeHtml(line)}</li>`;
-              html += `</ul>`;
-            }
-            if (d.whyItMatters) {
-              html += `<p class="dossier-block-label">Vì sao quan trọng</p><p>${escapeHtml(d.whyItMatters)}</p>`;
-            }
-            const ag = Array.isArray(d.affectedGroups) ? d.affectedGroups : [];
-            if (ag.length) {
-              html += `<p class="dossier-block-label">Nhóm bị ảnh hưởng</p><p>${escapeHtml(ag.join(" · "))}</p>`;
-            }
-            const wn = Array.isArray(d.watchNext) ? d.watchNext : [];
-            if (wn.length) {
-              html += `<p class="dossier-block-label">Theo dõi 24–72h</p>`;
-              html += `<ul class="sector-points prose-bullets">`;
-              for (const line of wn) html += `<li>${escapeHtml(line)}</li>`;
-              html += `</ul>`;
-            }
-            html += buildDossierSourcesHtml(d.links);
-            html += `</div>`;
+          html += `<article class="sector-pub-block sector-block" id="${id}">`;
+          html += `<header class="sector-pub-head">`;
+          html += `<span class="sector-pub-icon" aria-hidden="true">${newsroomSectorIconSvg(code, name)}</span>`;
+          html += `<div><h3>${escapeHtml(name)}</h3>`;
+          if (dossiers.length) {
+            html += `<span class="sector-story-count">${dossiers.length} story</span>`;
           }
-          html += `</div></article>`;
+          html += `</div></header>`;
+          if (sec.sectorThesis) {
+            html += `<div class="sector-thesis-card">${escapeHtml(sec.sectorThesis)}</div>`;
+          }
+          for (const d of dossiers) html += buildDossierCardHtml(d);
+          html += `</article>`;
         }
         html += `</section>`;
       }
 
       if (watch.length) {
         html += `<section class="overview-part watchlist-panel" id="digest-watchlist">`;
-        html += `<h3 class="sectors-section-title">Watchlist 24–72h</h3>`;
+        html += `<h3 class="pub-section-title">Theo dõi 24–72h</h3>`;
+        html += `<div class="watchlist-grid">`;
         for (const w of watch) {
-          html += `<div class="watch-row">`;
-          html += `<strong>${escapeHtml(w.theme || "")}</strong>`;
-          if (w.whatToWatch) html += `<p>${escapeHtml(w.whatToWatch)}</p>`;
+          html += `<div class="watch-card">`;
+          if (w.theme) html += `<span class="watch-theme">${escapeHtml(w.theme)}</span>`;
+          if (w.whatToWatch) {
+            html += `<p><strong>Theo dõi:</strong> ${escapeHtml(w.whatToWatch)}</p>`;
+          }
           if (w.why) html += `<p class="hint">${escapeHtml(w.why)}</p>`;
           html += `</div>`;
         }
-        html += `</section>`;
+        html += `</div></section>`;
       }
 
       if (desk.length) {
-        html += `<section class="overview-part" id="digest-source-desk">`;
-        html += `<h3 class="sectors-section-title">Source desk</h3>`;
+        html += `<details class="source-desk" id="digest-source-desk">`;
+        html += `<summary>Nguồn đại diện theo chủ đề</summary>`;
+        html += `<div class="source-desk-body">`;
         for (const g of desk) {
           html += `<div class="source-desk-group">`;
           html += `<h4>${escapeHtml(g.topic || "")}</h4>`;
           html += buildDossierSourcesHtml(g.links);
           html += `</div>`;
         }
-        html += `</section>`;
+        html += `</div></details>`;
       }
 
-      const gaps = String(data.digestGapsAndLimits || "").trim();
-      if (gaps) {
-        html += `<section class="overview-part digest-report-extra"><h3 class="sectors-section-title">Ghi chú</h3>`;
-        html += `<p class="hint">${escapeHtml(gaps)}</p></section>`;
-      }
       html += `</div></article>`;
       return {
         linkIndex: "",

@@ -309,3 +309,16 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Payload | `compact_for_gemini(digest)` gửi `source`, `published_at`, `category`, `region` |
 | URLs | Prompt `source_urls` 1–3; `build_website_content` render tối đa 3 link/sub_topic |
 | Sub-cluster | `_digest_subcluster_block()` + merge anti-compression wording |
+
+## 2026-06-04 — Newsroom publication UI (`landing_page.html`)
+
+| Area | Detail |
+|------|--------|
+| Scope | UI only: `landing_page.html` (CSS + JS), `assets/`, `.github/workflows/pages.yml`, `scripts/newsroom_brief_render.mjs`, `scripts/embed_public_brief_into_html.mjs` |
+| Layout | Issue Header (48H BRIEF + stat pills), TOC chips (sticky desktop), editor note card, front page lead/secondary/compact, sector icons + thesis card, structured dossier blocks, watchlist panel, collapsible Source Desk (`<details>`) |
+| Brand | `assets/leonquant-icon.svg`, `assets/favicon.svg` (SVG in `<head>`); fallback `LQ` mark on `img` error |
+| Brief modes | `newsroom-brief` → publication layout; `multisector-digest` → legacy layout unchanged |
+| Deploy | `pages.yml` copies `assets/` → `_site/assets/` |
+| Tests | `python scripts/test_newsroom_digest.py`; `powershell scripts/rebuild_public_site.ps1` (embed OK) |
+| Responsive | Checked CSS breakpoints ~390px / 768px / 1280px (compact padding, horizontal TOC scroll, no overflow-x on `.newsroom-report`) |
+| Not changed | Crawler, Gemini pipeline, SQL/GDELT, invest/live logic |

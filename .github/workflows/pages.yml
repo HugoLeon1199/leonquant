@@ -70,6 +70,7 @@ jobs:
           cp web/invest_world_pulse.json _site/web/invest_world_pulse.json 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
+          cp -r assets _site/assets 2>/dev/null || true
           # Custom domain (Settings → Pages → Custom domain phải khớp DNS)
           echo "leonquant.com" > _site/CNAME
 
