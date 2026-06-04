@@ -184,3 +184,14 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Confidence | `confidence` high/medium/low on items; cautious wording when low `source_count` |
 | source_count | `display_source_count = max(source_count, unique_domains(source_urls))`; URL dedupe by domain |
 | Fallback | `_fallback_invest_topics` uses editorial guess across all allowed topics |
+
+## 2026-06-04 — Invest editorial v2: source quality, EU fiscal topic, cautious copy
+
+**Scope:** `leon.py` invest Gemini/output only.
+
+| Fix | Detail |
+|-----|--------|
+| Topics | Added `Chính sách tài khóa & Kinh tế châu Âu`, `Thương mại & Kiểm soát xuất khẩu`; Germany fiscal/health → EU topic not banks |
+| Sources | `_invest_prioritize_source_urls` (premium first, iHeart/PR deprioritized); `source_count` = unique canonical domains |
+| Prompt | Source-quality tier rules, grounding for angle/assets, confidence high/medium/low, style examples |
+| Post-process | `_invest_temper_editorial_text` + `_coerce_invest_editorial_topic` overrides for mis-tags |

@@ -69,12 +69,36 @@ INVEST_EDITORIAL_TOPICS: tuple[str, ...] = (
     "Crypto & Tài sản số",
     "Chứng khoán & Chỉ số",
     "Lãi suất & USD",
+    "Chính sách tài khóa & Kinh tế châu Âu",
     "Hàng hóa & Năng lượng",
     "Công nghệ & AI",
     "Trung Quốc & Châu Á",
     "Ngân hàng & Tín dụng",
     "Thương mại & Chuỗi cung ứng",
+    "Thương mại & Kiểm soát xuất khẩu",
     "Địa chính trị & Rủi ro thị trường",
+)
+INVEST_PREMIUM_SOURCE_FRAGMENTS: tuple[str, ...] = (
+    "reuters.com",
+    "apnews.com",
+    "ap.org",
+    "bloomberg.com",
+    "cnbc.com",
+    "ft.com",
+    "wsj.com",
+    "bbc.co",
+    "bbc.com",
+    "nikkei.com",
+    "scmp.com",
+    "aljazeera.com",
+    "marketwatch.com",
+    "coindesk.com",
+    "theblock.co",
+)
+INVEST_WEAK_SOURCE_CANON: tuple[str, ...] = (
+    "iheart.com",
+    "prnewswire.com",
+    "bignewsnetwork.com",
 )
 INVEST_SEMANTIC_JUDGE_MAX = 100
 INVEST_FEED_MAX = 28
@@ -1772,47 +1796,153 @@ def filter_invest_keyword_candidates(events: list[dict[str, Any]]) -> list[dict[
     return prepare_invest_candidates(events)
 
 
+def _invest_canonical_source_host(url: str) -> str:
+    host = urlparse(str(url)).netloc.lower().replace("www.", "")
+    if not host:
+        return ""
+    if host.endswith(".iheart.com") or host == "iheart.com":
+        return "iheart.com"
+    for weak in INVEST_WEAK_SOURCE_CANON:
+        if host == weak or host.endswith("." + weak):
+            return weak
+    return host
+
+
+def _invest_source_tier(url: str) -> int:
+    """0 = premium wire, 1 = default, 2 = syndication/PR/local clone."""
+    host = _invest_canonical_source_host(url)
+    if not host:
+        return 2
+    for frag in INVEST_PREMIUM_SOURCE_FRAGMENTS:
+        if frag in host:
+            return 0
+    if host in INVEST_WEAK_SOURCE_CANON:
+        return 2
+    if re.search(r"prnewswire|bignews|iheart|\.radio\.|syndication", host):
+        return 2
+    return 1
+
+
+def _invest_collect_source_urls(ev: dict[str, Any]) -> list[str]:
+    urls: list[str] = []
+    for s in ev.get("sources") or []:
+        if isinstance(s, str) and s.startswith("http"):
+            urls.append(s.strip())
+        elif isinstance(s, dict) and str(s.get("url") or "").startswith("http"):
+            urls.append(str(s["url"]).strip())
+    for u in ev.get("source_urls") or []:
+        if str(u).startswith("http"):
+            urls.append(str(u).strip())
+    return urls
+
+
 def _invest_unique_domain_count(urls: list[str]) -> int:
     seen: set[str] = set()
     for u in urls:
         if not str(u).startswith("http"):
             continue
-        host = urlparse(str(u)).netloc.lower().replace("www.", "")
-        if host:
-            seen.add(host)
+        canon = _invest_canonical_source_host(str(u))
+        if canon:
+            seen.add(canon)
     return len(seen)
 
 
-def _invest_dedupe_urls_by_domain(urls: list[str], *, max_urls: int = 4) -> list[str]:
-    seen: set[str] = set()
-    out: list[str] = []
+def _invest_prioritize_source_urls(urls: list[str], *, max_urls: int = 4) -> list[str]:
+    """Dedupe by canonical host/family; premium sources first; one slot per iHeart family."""
+    ranked: list[tuple[int, str, str]] = []
     for u in urls:
         if not str(u).startswith("http"):
             continue
-        host = urlparse(str(u)).netloc.lower().replace("www.", "")
-        if not host or host in seen:
+        u = str(u).strip()
+        canon = _invest_canonical_source_host(u)
+        if not canon:
             continue
-        seen.add(host)
-        out.append(str(u).strip())
+        ranked.append((_invest_source_tier(u), canon, u))
+    ranked.sort(key=lambda x: (x[0], x[1]))
+    seen: set[str] = set()
+    out: list[str] = []
+    for _tier, canon, u in ranked:
+        if canon in seen:
+            continue
+        seen.add(canon)
+        out.append(u)
         if len(out) >= max_urls:
             break
     return out
 
 
-def _invest_display_source_count(source_count: int, urls: list[str]) -> int:
-    domain_n = _invest_unique_domain_count(urls)
-    return max(int(source_count or 0), domain_n)
+def _invest_dedupe_urls_by_domain(urls: list[str], *, max_urls: int = 4) -> list[str]:
+    return _invest_prioritize_source_urls(urls, max_urls=max_urls)
+
+
+def _invest_display_source_count(_source_count: int, urls: list[str]) -> int:
+    """Public count = independent domains after syndication-family dedupe (not article clones)."""
+    n = _invest_unique_domain_count(urls)
+    return max(n, 1) if urls else 0
+
+
+def _invest_has_premium_source(urls: list[str]) -> bool:
+    return any(_invest_source_tier(u) == 0 for u in urls if str(u).startswith("http"))
+
+
+def _invest_infer_item_confidence(
+    urls: list[str],
+    explicit: str,
+    *,
+    legacy_count: int = 0,
+) -> str:
+    conf = str(explicit or "").strip().lower()
+    if conf in ("high", "medium", "low"):
+        return conf
+    domains = _invest_unique_domain_count(urls)
+    weak_only = urls and all(_invest_source_tier(u) >= 2 for u in urls if str(u).startswith("http"))
+    if weak_only or domains <= 1:
+        return "low"
+    if _invest_has_premium_source(urls) and domains >= 2:
+        return "high"
+    if domains <= 2 or legacy_count <= 3:
+        return "low"
+    if domains <= 4:
+        return "medium"
+    return "medium"
+
+
+def _invest_event_source_hint(ev: dict[str, Any]) -> str:
+    urls = _invest_collect_source_urls(ev)
+    if not urls:
+        return "no_urls"
+    ordered = _invest_prioritize_source_urls(urls, max_urls=6)
+    hosts = [_invest_canonical_source_host(u) for u in ordered]
+    tier = "premium" if _invest_has_premium_source(urls) else (
+        "weak_syndication" if all(_invest_source_tier(u) >= 2 for u in urls) else "mixed"
+    )
+    return f"{tier}|{','.join(h for h in hosts if h)[:120]}"
+
+
+_INVEST_STRONG_COPY_RE = re.compile(
+    r"trực tiếp\s+(đe dọa|ảnh hưởng|tác động)|"
+    r"ảnh hưởng\s+mạnh\s+đến|"
+    r"định hình lại dòng vốn|"
+    r"làm thay đổi cục diện|"
+    r"trực tiếp\s+đe dọa",
+    re.IGNORECASE,
+)
+
+
+def _invest_temper_editorial_text(text: str, confidence: str) -> str:
+    if confidence == "high":
+        return text
+    s = str(text or "")
+    s = _INVEST_STRONG_COPY_RE.sub("có thể làm tăng chú ý tới", s)
+    s = re.sub(r"\bảnh hưởng đến tâm lý nhà đầu tư\b", "có thể ảnh hưởng tâm lý thị trường", s, flags=re.I)
+    s = re.sub(r"\bđịnh hình\s+(tâm lý|dòng vốn)\b", "có thể ảnh hưởng \\1", s, flags=re.I)
+    s = re.sub(r"\brút quân khỏi Iran\b", "giới hạn hành động quân sự với Iran", s, flags=re.I)
+    return " ".join(s.split())
 
 
 def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
-    sources = ev.get("sources") or []
-    urls: list[str] = []
-    for s in sources:
-        if isinstance(s, str) and s.startswith("http"):
-            urls.append(s)
-        elif isinstance(s, dict) and str(s.get("url") or "").startswith("http"):
-            urls.append(str(s["url"]))
-    urls = _invest_dedupe_urls_by_domain(urls, max_urls=6)
+    all_urls = _invest_collect_source_urls(ev)
+    urls = _invest_prioritize_source_urls(all_urls, max_urls=4)
     title = str(ev.get("title_vi") or ev.get("title") or "").strip()
     summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()
     if len(summary) > 320:
@@ -1828,8 +1958,8 @@ def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
         "affected_assets": list(ev.get("affected_assets") or []),
         "sentiment_label": str(ev.get("sentiment_label") or ""),
         "num_articles": int(ev.get("num_articles") or 0),
-        "source_count": _invest_display_source_count(int(ev.get("source_count") or 0), urls),
-        "source_urls": urls[:4],
+        "source_count": _invest_display_source_count(int(ev.get("source_count") or 0), all_urls),
+        "source_urls": urls,
     }
 
 
@@ -1850,18 +1980,28 @@ def _sanitize_invest_topic_name(text: str) -> str:
 
 
 def _invest_guess_editorial_topic(ev: dict[str, Any]) -> str:
-    """Heuristic topic from event text — fixes Iran→China mis-tags."""
+    """Heuristic topic from event text — fixes mis-tags (Iran→China, DE health→banks)."""
     blob = _invest_text_blob(ev).upper()
     flags = _invest_signal_flags(blob)
     if flags.get("is_crypto"):
         return "Crypto & Tài sản số"
     if flags.get("is_equity_market"):
         return "Chứng khoán & Chỉ số"
-    if flags.get("is_credit_banking"):
-        return "Ngân hàng & Tín dụng"
     if re.search(
-        r"IRAN|TEHRAN|ISRAEL|HORMUZ|MIDDLE EAST|CONGRESS|GULF|"
-        r"MILITARY|WAR|CONFLICT|SANCTION|ESCALATION|CEASEFIRE|NATO",
+        r"EXPORT CONTROL|EXPORTING.*IRAN|IRANIAN NUCLEAR|SANCTIONS BREACH|"
+        r"VI PHẠM.*XUẤT KHẨU|KIỂM SOÁT XUẤT KHẨU|EAR\b|ITAR",
+        blob,
+    ):
+        return "Thương mại & Kiểm soát xuất khẩu"
+    if re.search(
+        r"GERMANY|ĐỨC|DEUTSCH|BUNDES|FISCAL|BUDGET|HEALTHCARE|PFLEGE|WELFARE|"
+        r"TAX REFORM|CHÍNH SÁCH TÀI KHÓA|EUROZONE",
+        blob,
+    ) and re.search(r"HEALTH|PFLEGE|FISCAL|BUDGET|WELFARE|SPENDING|PHÚC LỢI|Y TẾ", blob):
+        return "Chính sách tài khóa & Kinh tế châu Âu"
+    if re.search(
+        r"IRAN|TEHRAN|ISRAEL|HORMUZ|MIDDLE EAST|CONGRESS|HOUSE OF REPRESENTATIVES|"
+        r"WAR POWERS|MILITARY|GULF|CONFLICT|ESCALATION|CEASEFIRE",
         blob,
     ):
         if re.search(r"\bOIL\b|BRENT|WTI|LNG|HORMUZ|OPEC|CRUDE|NATURAL GAS", blob):
@@ -1871,8 +2011,12 @@ def _invest_guess_editorial_topic(ev: dict[str, Any]) -> str:
         r"IRAN|TEHRAN|ISRAEL|MIDDLE EAST", blob
     ):
         return "Trung Quốc & Châu Á"
-    if flags.get("is_trade_supply") or re.search(r"TARIFF|EXPORT CONTROL|MERCOSUR|TRADE WAR", blob):
+    if flags.get("is_trade_supply") or re.search(r"TARIFF|MERCOSUR|TRADE WAR|BRAZIL.*TAX", blob):
         return "Thương mại & Chuỗi cung ứng"
+    if flags.get("is_credit_banking") and re.search(
+        r"BANK|CREDIT|LIQUIDITY|DEFAULT|LENDING|NPL|INTERBANK", blob
+    ):
+        return "Ngân hàng & Tín dụng"
     if flags.get("is_commodity_energy") or re.search(
         r"NUCLEAR|BUSHEHR|OIL|GAS|LNG|GOLD|COPPER|LITHIUM|OPEC|ENERGY", blob
     ):
@@ -1907,6 +2051,9 @@ def _normalize_invest_topic_display_name(name: str) -> str:
         "ASIA": "Trung Quốc & Châu Á",
         "GEOPO": "Địa chính trị & Rủi ro thị trường",
         "GEOPOLITICS": "Địa chính trị & Rủi ro thị trường",
+        "EU": "Chính sách tài khóa & Kinh tế châu Âu",
+        "EUROPE": "Chính sách tài khóa & Kinh tế châu Âu",
+        "EXPORT": "Thương mại & Kiểm soát xuất khẩu",
     }
     if key in code_map:
         return code_map[key]
@@ -1915,6 +2062,10 @@ def _normalize_invest_topic_display_name(name: str) -> str:
         return "Địa chính trị & Rủi ro thị trường"
     if "trung quốc" in low or "châu á" in low:
         return "Trung Quốc & Châu Á"
+    if "kiểm soát xuất khẩu" in low or "export control" in low:
+        return "Thương mại & Kiểm soát xuất khẩu"
+    if "tài khóa" in low or "kinh tế châu âu" in low or "châu âu" in low and "chính sách" in low:
+        return "Chính sách tài khóa & Kinh tế châu Âu"
     if "thương mại" in low or "chuỗi cung" in low:
         return "Thương mại & Chuỗi cung ứng"
     if "hàng hóa" in low or "năng lượng" in low:
@@ -1936,8 +2087,17 @@ def _coerce_invest_editorial_topic(name: str, *, hint_ev: dict[str, Any] | None 
     normalized = _normalize_invest_topic_display_name(name)
     guessed = _invest_guess_editorial_topic(hint_ev) if hint_ev else ""
     if normalized and normalized in INVEST_EDITORIAL_TOPICS:
-        if guessed and normalized == "Trung Quốc & Châu Á" and guessed != normalized:
-            return guessed
+        if guessed and guessed != normalized:
+            if normalized == "Trung Quốc & Châu Á":
+                return guessed
+            if normalized == "Ngân hàng & Tín dụng" and guessed in (
+                "Chính sách tài khóa & Kinh tế châu Âu",
+                "Thương mại & Kiểm soát xuất khẩu",
+                "Địa chính trị & Rủi ro thị trường",
+            ):
+                return guessed
+            if normalized == "Công nghệ & AI" and guessed == "Thương mại & Kiểm soát xuất khẩu":
+                return guessed
         return normalized
     if guessed:
         return guessed
@@ -1949,6 +2109,7 @@ def _merge_invest_topic_item(
     merged: dict[str, Any],
     *,
     require_angle: bool,
+    base_ev: dict[str, Any] | None = None,
 ) -> dict[str, Any] | None:
     title = str(it.get("title") or merged.get("title") or "").strip()
     summary = str(it.get("summary") or merged.get("summary") or "").strip()
@@ -1964,14 +2125,18 @@ def _merge_invest_topic_item(
     elif raw_assets:
         assets = [str(raw_assets).strip()]
     sentiment = str(it.get("sentiment_label") or merged.get("sentiment_label") or "").strip()
-    confidence = str(it.get("confidence") or merged.get("confidence") or "").strip().lower()
-    if confidence not in ("high", "medium", "low"):
-        sc_raw = int(merged.get("source_count") or it.get("source_count") or 0)
-        confidence = "low" if sc_raw <= 2 else "medium" if sc_raw <= 5 else "high"
-    urls = _invest_dedupe_urls_by_domain(
-        list(merged.get("source_urls") or it.get("source_urls") or []),
-        max_urls=4,
+    all_urls = _invest_collect_source_urls(base_ev) if base_ev else []
+    if not all_urls:
+        all_urls = list(merged.get("source_urls") or it.get("source_urls") or [])
+    urls = _invest_prioritize_source_urls(all_urls, max_urls=4)
+    confidence = _invest_infer_item_confidence(
+        all_urls,
+        str(it.get("confidence") or merged.get("confidence") or ""),
+        legacy_count=int(merged.get("source_count") or it.get("source_count") or 0),
     )
+    summary = _invest_temper_editorial_text(summary, confidence)
+    angle = _invest_temper_editorial_text(angle, confidence)
+    title = _invest_temper_editorial_text(title, confidence)
     if len(summary) > 360:
         summary = summary[:357].rstrip() + "…"
     if len(angle) > 220:
@@ -1987,7 +2152,7 @@ def _merge_invest_topic_item(
         "num_articles": int(merged.get("num_articles") or it.get("num_articles") or 0),
         "source_count": _invest_display_source_count(
             int(merged.get("source_count") or it.get("source_count") or 0),
-            urls,
+            all_urls,
         ),
         "source_urls": urls,
     }
@@ -2005,9 +2170,22 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
         for it in tp.get("items") or []:
             if not isinstance(it, dict):
                 continue
-            title = _sanitize_invest_public_text(str(it.get("title") or ""))
-            summary = _sanitize_invest_public_text(str(it.get("summary") or ""))
-            angle = _sanitize_invest_public_text(str(it.get("investment_angle") or ""))
+            conf = str(it.get("confidence") or "").strip().lower()
+            if conf not in ("high", "medium", "low"):
+                conf = _invest_infer_item_confidence(
+                    list(it.get("source_urls") or []),
+                    "",
+                    legacy_count=int(it.get("source_count") or 0),
+                )
+            title = _invest_temper_editorial_text(
+                _sanitize_invest_public_text(str(it.get("title") or "")), conf
+            )
+            summary = _invest_temper_editorial_text(
+                _sanitize_invest_public_text(str(it.get("summary") or "")), conf
+            )
+            angle = _invest_temper_editorial_text(
+                _sanitize_invest_public_text(str(it.get("investment_angle") or "")), conf
+            )
             sentiment = _sanitize_invest_public_text(str(it.get("sentiment_label") or ""))
             if not title or not angle:
                 continue
@@ -2016,10 +2194,7 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
                 for a in (it.get("affected_assets") or [])
                 if str(a).strip()
             ]
-            conf = str(it.get("confidence") or "").strip().lower()
-            if conf not in ("high", "medium", "low"):
-                sc = int(it.get("source_count") or 0)
-                conf = "low" if sc <= 2 else "medium" if sc <= 5 else "high"
+            src_urls = _invest_prioritize_source_urls(list(it.get("source_urls") or []), max_urls=4)
             items_out.append(
                 {
                     **it,
@@ -2029,6 +2204,11 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
                     "sentiment_label": sentiment,
                     "affected_assets": assets,
                     "confidence": conf,
+                    "source_urls": src_urls,
+                    "source_count": _invest_display_source_count(
+                        int(it.get("source_count") or 0),
+                        list(it.get("source_urls") or []),
+                    ),
                 }
             )
         if items_out:
@@ -2066,8 +2246,9 @@ def gemini_invest_world_topics(
         summary = str(ev.get("summary_vi") or ev.get("summary") or "")[:400]
         tags = _invest_topic_tags(ev)
         sc = int(ev.get("source_count") or 0)
+        src_hint = _invest_event_source_hint(ev)
         lines.append(
-            f"{i + 1}. id={eid} | {sc} nguồn | {ev.get('num_articles')} bài | {tags} | {title} | {summary}"
+            f"{i + 1}. id={eid} | {sc} nguồn | {ev.get('num_articles')} bài | sources={src_hint} | {tags} | {title} | {summary}"
         )
 
     topics_allowed = "\n".join(f"- {t}" for t in INVEST_EDITORIAL_TOPICS)
@@ -2088,12 +2269,22 @@ Mục tiêu là chọn ít nhưng sắc, mỗi tin phải giúp người đọc 
 CHỈ được dùng đúng một trong các topic name sau (copy nguyên văn, không viết MACRO/TRADE/TECH/EQUITY):
 {topics_allowed}
 
-Quy tắc gán topic:
-- Tin Mỹ/Iran/Trung Đông/quân sự/trừng phạt có tác động thị trường → "Địa chính trị & Rủi ro thị trường" (hoặc "Hàng hóa & Năng lượng" nếu nêu rõ dầu/khí/Hormuz/OPEC).
-- KHÔNG đưa tin Iran/Mỹ/Trung Đông vào "Trung Quốc & Châu Á".
-- "Trung Quốc & Châu Á" CHỈ khi event về China/PBOC/yuan/Hong Kong/Japan/Korea/Asia macro/trade/EV/chip/property.
-- "Hàng hóa & Năng lượng" CHỈ khi có oil/gas/LNG/gold/copper/lithium/nuclear power/energy supply rõ trong nguồn.
-- "Thương mại & Chuỗi cung ứng" cho tariff/sanction/export control/import/shipping/supply chain.
+Quy tắc gán topic (bắt buộc):
+- Germany healthcare/budget/tax/fiscal reform → "Chính sách tài khóa & Kinh tế châu Âu" (KHÔNG "Ngân hàng & Tín dụng" trừ khi nói rõ bank/credit/default/lending).
+- US/Iran war powers / military resolution / Middle East security → "Địa chính trị & Rủi ro thị trường".
+- US tech export to Iran / sanctions breach / export control → "Thương mại & Kiểm soát xuất khẩu" (hoặc "Công nghệ & AI" nếu trọng tâm là chip/cyber).
+- Brazil/US tariff, Mercosur, trade war → "Thương mại & Chuỗi cung ứng".
+- Oil/gas/Hormuz/OPEC/refinery/LNG → "Hàng hóa & Năng lượng".
+- Fed/rates/yields/USD/Treasury → "Lãi suất & USD".
+- China/PBOC/yuan/property/Hong Kong/Asia macro → "Trung Quốc & Châu Á".
+- KHÔNG đưa Iran/Mỹ/Trung Đông vào "Trung Quốc & Châu Á".
+
+Chất lượng nguồn (đọc trường sources= trong event block):
+- Nếu chủ yếu local affiliate, iHeart/radio syndication, PR wire, hoặc ít domain độc lập:
+  * Không dùng: "trực tiếp đe dọa", "định hình lại dòng vốn", "làm thay đổi cục diện", "trực tiếp ảnh hưởng".
+  * Dùng: "có thể làm tăng chú ý", "là biến số cần theo dõi", "nếu leo thang có thể ảnh hưởng", "thị trường có thể phản ứng nếu...".
+  * Không gán asset quá cụ thể; confidence = low hoặc medium.
+- Nếu có Reuters/AP/Bloomberg/CNBC/FT/WSJ/BBC/Nikkei/SCMP/Al Jazeera: có thể viết chắc hơn nhưng vẫn không khuyến nghị mua/bán; confidence có thể high nếu tác động rõ.
 
 Loại hoặc không đưa lên top:
 - crime/court/local police/murder/trial nếu không có market impact.
@@ -2105,20 +2296,21 @@ Loại hoặc không đưa lên top:
 - tin không trả lời được "tài sản/ngành nào bị ảnh hưởng?"
 
 Yêu cầu viết mỗi item:
-- Title: cụ thể, actor + event + điểm đáng chú ý. Không quá 24 từ.
-- Summary: 2-4 câu — chuyện gì xảy ra và vì sao quan trọng với kinh tế/thị trường.
-- investment_angle: ĐÚNG 1 câu cụ thể; nếu không viết được câu rõ → bỏ item.
-- affected_assets: 2-5 mục; mỗi mục phải được hỗ trợ bởi (1) nguồn/event block nhắc trực tiếp, hoặc (2) hệ quả cấp một rõ và phổ biến trên thị trường.
-  Không gán quá cụ thể nếu nguồn không nêu:
-  - Không gán ETF nông nghiệp nếu chỉ nói tariff/nông sản chung.
-  - Không gán Brent/WTI nếu chỉ nói sản lượng điện hạt nhân mà không nhắc dầu/Hormuz/sanctions/xuất khẩu năng lượng.
-  - Không gán vàng/trái phiếu nếu chỉ chính trị chung không risk-off rõ.
-  - Không gán Nasdaq nếu không liên quan công nghệ/CK/tài sản rủi ro.
-  Nếu không chắc, dùng nhóm rộng: "Hàng hóa nông nghiệp", "Doanh nghiệp xuất khẩu", "Rủi ro địa chính trị", "Năng lượng khu vực", "Tài sản trú ẩn", "Cổ phiếu công nghệ".
+- Title: cụ thể, actor + event + điểm đáng chú ý. Không quá 24 từ. Không bịa "rút quân" nếu nguồn chỉ nói war powers/resolution.
+- Summary: 2-4 câu — chuyện gì xảy ra và vì sao là biến số kinh tế/thị trường (gián tiếp được, nhưng không phóng đại).
+- investment_angle: ĐÚNG 1 câu; phải trả lời "tài sản/ngành/kỳ vọng nào cần theo dõi, và vì sao?". Nếu không viết được → bỏ item.
+  KHÔNG viết chung chung: "ảnh hưởng tâm lý nhà đầu tư" (không nêu nhóm tài sản), "định hình lại dòng vốn", "trực tiếp tác động" khi chỉ là rủi ro gián tiếp.
+  Dùng: "có thể làm tăng chú ý tới...", "nếu leo thang, thị trường có thể theo dõi...", "biến số cần theo dõi là...", "tác động hiện tại mang tính gián tiếp...".
+- affected_assets: 2-5 mục; hỗ trợ bởi nguồn hoặc hệ quả cấp một rõ. Không ETF/Brent/WTI/vàng/trái phiếu/Nasdaq cụ thể nếu nguồn không nhắc.
+  Nhóm rộng khi không chắc: "Tài sản trú ẩn", "Rủi ro Trung Đông", "Doanh nghiệp xuất khẩu", "Hàng hóa nông nghiệp", "Cổ phiếu công nghệ", "Kiểm soát xuất khẩu công nghệ", "Bunds", "EUR/USD".
 - sentiment_label: trung tính | hơi tiêu cực | tiêu cực | hơi tích cực | tích cực | mixed.
-- confidence: high | medium | low (low nếu source_count thấp hoặc nguồn local/syndication).
-- Nếu source_count thấp: không dùng câu quá mạnh ("trực tiếp đe dọa", "định hình lại dòng vốn"); dùng "có thể làm tăng chú ý", "là biến số cần theo dõi", "nếu leo thang có thể ảnh hưởng...".
+- confidence: high = nguồn mạnh + tác động rõ; medium = hợp lý nhưng gián tiếp; low = nguồn yếu/syndication hoặc chưa chắc. Nếu low: wording rất thận trọng, không động từ mạnh.
 - Không khuyến nghị mua/bán. Không filler. Không nhắc GDELT/keyword/crawler/pipeline/semantic judge.
+
+Ví dụ phong cách (không copy y nguyên nếu event khác):
+- Iran war powers → topic "Địa chính trị & Rủi ro thị trường"; assets: Dầu thô, Vàng, USD, Tài sản trú ẩn; không viết "định hình lại dòng vốn".
+- California CEO export to Iran → "Thương mại & Kiểm soát xuất khẩu"; assets: Công nghệ hạ tầng, Cybersecurity, Kiểm soát xuất khẩu.
+- Germany healthcare/fiscal → "Chính sách tài khóa & Kinh tế châu Âu"; assets: Bunds, EUR/USD, Cổ phiếu tiêu dùng Đức; KHÔNG topic Ngân hàng.
 
 Format output JSON hợp lệ, không markdown:
 
@@ -2178,6 +2370,7 @@ Sự kiện:
                     {**it, "global_event_id": eid},
                     merged,
                     require_angle=True,
+                    base_ev=base,
                 )
                 if row:
                     items_out.append(row)
@@ -3212,7 +3405,7 @@ def run_invest_pipeline_from_events(
         topics = _fallback_invest_topics(feed)
         brief = _invest_world_brief_from_topics(topics)
 
-    brief = _sanitize_invest_public_text(brief)
+    brief = _invest_temper_editorial_text(_sanitize_invest_public_text(brief), "medium")
     topics = _sanitize_invest_topics_public(topics)
     stats["topics"] = len(topics)
     stats["items"] = sum(len(t.get("items") or []) for t in topics)
