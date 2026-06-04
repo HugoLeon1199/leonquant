@@ -124,6 +124,7 @@ jobs:
       # Tránh NET::ERR_CERT_COMMON_NAME_INVALID: bắt buộc đăng ký cname trên repo Pages
       # (chỉ file _site/CNAME không đủ — GitHub phải cấp Let's Encrypt cho leonquant.com).
       - name: Đăng ký custom domain + bật HTTPS (Pages API)
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
