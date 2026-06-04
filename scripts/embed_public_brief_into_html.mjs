@@ -144,8 +144,7 @@ function sectorSlug(name) {
   );
 }
 
-const DIGEST_MAX_SECTOR_ITEMS = 7;
-const DIGEST_MAX_NOTABLE = 6;
+const DIGEST_MAX_NOTABLE = 12;
 
 const DIGEST_FOUR_SECTORS = [
   { code: "finance", name: "Kinh tế & Tài chính" },
@@ -229,7 +228,7 @@ function ensureDigestSectors(data) {
     return {
       name: b.name || name,
       summary: b.summary,
-      items: items.slice(0, DIGEST_MAX_SECTOR_ITEMS),
+      items: items,
     };
   });
 }
@@ -344,10 +343,7 @@ function buildDigestThesisHtml(data) {
   const intl = String(data.digestInternationalHighlights || "").trim();
   const gaps = String(data.digestGapsAndLimits || "").trim();
   const notable = Array.isArray(data.digestNotableArticles)
-    ? data.digestNotableArticles.slice(0, DIGEST_MAX_NOTABLE)
-    : [];
-  const needsVerify = Array.isArray(data.digestNeedsVerification)
-    ? data.digestNeedsVerification.filter((r) => r && String(r.claim || "").trim())
+    ? data.digestNotableArticles
     : [];
   const imageByUrl = buildArticleImageLookup(data);
   const execBullets = getDigestBullets(data, "digestExecutiveBullets", mt.thesis || "");
@@ -397,16 +393,6 @@ function buildDigestThesisHtml(data) {
       thesisHtml += `</div></details>`;
     }
     thesisHtml += `</section>`;
-  }
-  if (needsVerify.length) {
-    thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--verify">`;
-    thesisHtml += `<h3 class="sectors-section-title">Cần xác minh thêm</h3><ul class="sector-points prose-bullets">`;
-    for (const row of needsVerify) {
-      const claim = escapeHtml(String(row.claim || "").trim());
-      const reason = escapeHtml(String(row.reason || "").trim());
-      thesisHtml += `<li><strong>${claim}</strong>${reason ? ` — ${reason}` : ""}</li>`;
-    }
-    thesisHtml += `</ul></section>`;
   }
   if (gaps) {
     thesisHtml += `<section class="overview-part digest-report-extra" id="digest-main--gaps">`;
