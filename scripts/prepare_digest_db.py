@@ -15,11 +15,13 @@ SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
 from digest_window import (  # noqa: E402
+    CALENDAR_DAY_LADDER,
     DEFAULT_DB,
     DEFAULT_GZ,
     DEFAULT_WINDOW_STATE,
     MIN_ARTICLES_DEFAULT,
     MIN_SOURCE_PROFILES,
+    ROLLING_HOURS_FALLBACK,
     db_diagnostics,
     open_db,
     resolve_export_window,
@@ -123,9 +125,10 @@ def main() -> int:
     state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-crawl")
     if not state:
         print(
-            "ERROR: crawl did not produce enough articles for digest (48h window).\n"
-            "  CI đã xóa bài cũ và cào lại — xem log bước Crawl 48h (Scrapy).\n"
-            "  Không re-seed bài cũ từ .gz (tránh tin lỗi thời).",
+            f"ERROR: fewer than {args.min_articles} articles in digest window "
+            f"(calendar {list(CALENDAR_DAY_LADDER)}d or rolling {ROLLING_HOURS_FALLBACK}h).\n"
+            "  Xem log bước Crawl; cache Actions cần tích lũy bài qua các lần chạy.\n"
+            "  Local: python scripts/run_intel_full_daily.py --skip-profile --no-crawl-skip",
             file=sys.stderr,
         )
         return 5

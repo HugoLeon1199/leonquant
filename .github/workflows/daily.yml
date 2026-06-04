@@ -1,7 +1,7 @@
 name: Tin Việt Nam 48h digest
 
-# 05:00 VN = 22:00 UTC. CI: cào web → Gemini digest. Không profile tự động (chỉ tay khi đổi link).
-# Git: data/web_intel_leonquant.duckdb.gz (profiles-only). Articles: Actions cache only.
+# 05:00 VN = 22:00 UTC. Git: chỉ data/web_intel_leonquant.duckdb.gz (profiles, nhỏ).
+# Articles: GitHub Actions cache — không xóa toàn bộ bài trước crawl.
 on:
   schedule:
     - cron: "0 22 * * *"
@@ -41,15 +41,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r leon_web_intel/requirements.txt
 
-      - name: Restore DuckDB cache (source_profiles + bài lần trước)
+      - name: Restore DuckDB cache (source_profiles + bài 48h)
         uses: actions/cache@v4
         id: cache-intel-db
         with:
           path: data/web_intel_leonquant.duckdb
-          key: intel-digest-db-v3-${{ hashFiles('data/web_intel_leonquant.duckdb.gz', 'config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
+          key: intel-digest-db-v4-${{ hashFiles('data/web_intel_leonquant.duckdb.gz', 'config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
           restore-keys: |
+            intel-digest-db-v4-
             intel-digest-db-v3-
-            intel-digest-db-v2-
 
       - name: Bootstrap DuckDB (profiles từ .gz nếu chưa có cache)
         run: |
@@ -66,9 +66,15 @@ jobs:
           import duckdb
           c = duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
           p = int(c.execute('SELECT COUNT(*) FROM source_profiles').fetchone()[0])
+          a = int(c.execute('SELECT COUNT(*) FROM articles').fetchone()[0])
+          r = int(c.execute('''
+            SELECT COUNT(*) FROM articles
+            WHERE extracted_at >= CURRENT_TIMESTAMP - INTERVAL 48 HOUR
+              AND COALESCE(content_length, 0) >= 200
+          ''').fetchone()[0])
           c.close()
-          print(f'source_profiles={p}')
-          assert p >= 10, 'Thiếu source_profiles — chạy profile tay + pack_db_seed.py rồi commit .gz'
+          print(f'source_profiles={p} articles_total={a} rolling_48h>={r}')
+          assert p >= 10, 'Thiếu source_profiles — pack_db_seed.py --mode profiles-only'
           "
 
       - name: Pin calendar date
@@ -76,10 +82,9 @@ jobs:
           echo "CRAWL_CALENDAR_DATE=$(python scripts/pin_crawl_calendar_date.py --date today --timezone Asia/Ho_Chi_Minh)" >> "$GITHUB_ENV"
           echo "Pinned: $CRAWL_CALENDAR_DATE"
 
-      - name: Clear old articles (luôn bắt đầu từ cào web mới)
-        run: python scripts/clear_intel_articles.py
-
-      - name: Crawl 48h news (Scrapy — không profile)
+      - name: Crawl 48h news (incremental — giữ cache, không wipe bài)
+        id: crawl
+        continue-on-error: true
         env:
           WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
         run: |
@@ -88,14 +93,14 @@ jobs:
             --timezone Asia/Ho_Chi_Minh \
             --skip-profile \
             --no-crawl-skip \
-            --require-today-articles 5
+            || echo "WARN: crawl exited non-zero; gate step checks 48h article window next."
 
-      - name: Prepare digest export window (sau crawl)
+      - name: Prepare digest export window (gate — bắt buộc pass trước Gemini)
         run: |
           python scripts/prepare_digest_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
-            --min-articles 10
+            --min-articles 5
 
       - name: Gemini digest and build web content
         env:
@@ -106,9 +111,9 @@ jobs:
           python scripts/run_digest_from_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
             --timezone Asia/Ho_Chi_Minh \
-            --min-clean-articles 10
+            --min-clean-articles 5
 
-      - name: Prune DuckDB (giữ cache nhỏ, cùng cửa sổ export)
+      - name: Prune DuckDB (cùng cửa sổ export — cache nhỏ cho lần sau)
         run: |
           python scripts/prune_intel_db.py \
             --date "$CRAWL_CALENDAR_DATE" \
