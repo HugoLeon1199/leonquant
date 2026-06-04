@@ -122,17 +122,15 @@ function buildNewsroomStatPill(label, value) {
 
 function buildNewsroomIssueHeader(data) {
   const updated = data.generatedAt ? formatDateVi(data.generatedAt) : "";
-  const sources = newsroomSourceScanCount(data);
   const stories = newsroomCountStories(data);
   const readMin = newsroomEstimateReadingMin(data);
   let pills = "";
-  if (stories > 0) pills += buildNewsroomStatPill("Stories", String(stories));
-  if (sources > 0) pills += buildNewsroomStatPill("Sources", String(sources));
-  if (updated) pills += buildNewsroomStatPill("Updated", updated);
-  if (readMin > 0) pills += buildNewsroomStatPill("Reading time", `${readMin} phút`);
+  if (stories > 0) pills += buildNewsroomStatPill("Tin chính", String(stories));
+  if (updated) pills += buildNewsroomStatPill("Cập nhật", updated);
+  if (readMin > 0) pills += buildNewsroomStatPill("Đọc khoảng", `${readMin} phút`);
   return `<header class="issue-header" id="digest-issue-header">
     <span class="issue-badge">48H BRIEF</span>
-    <h2 class="issue-title">48h Intelligence Brief</h2>
+    <h2 class="issue-title">Bản tin 48 giờ</h2>
     <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
     ${pills ? `<div class="issue-stats">${pills}</div>` : ""}
   </header>`;

@@ -347,10 +347,14 @@ function buildSectorBlockHtml(s, index) {
 function buildDossierSourcesHtml(links) {
   const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && String(lk.url || "").trim());
   if (!rows.length) return `<p class="hint">Chưa có nguồn đại diện.</p>`;
-  return buildLinkRowsHtml(rows).replace(
-    'class="link-rows"',
-    'class="link-rows link-rows--compact"',
-  );
+  let h = `<div class="dossier-source-links">`;
+  for (const lk of rows) {
+    const u = normalizeExternalUrl(lk.url);
+    if (!u) continue;
+    const srcLabel = escapeHtml(formatSourceLinkLabel(lk, u));
+    h += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
+  }
+  return h + `</div>`;
 }
 
 function buildNewsroomThesisHtml(data) {
@@ -506,8 +510,9 @@ function main() {
   html = html.replace(
     /<div class="nav-links" id="navLinks"[^>]*>[\s\S]*?<\/div>/i,
     '<div class="nav-links" id="navLinks" data-nav-tabs="1">' +
-      '<a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin tức tổng hợp 24h</a>' +
-      '<a class="nav-hub" href="/?view=live" data-view="live">Tin tức thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>' +
+      '<a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a>' +
+      '<a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Chuyên mục kinh tế đầu tư</a>' +
+      '<a class="nav-hub" href="/?view=live" data-view="live">Tin thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>' +
       "</div>",
   );
 
