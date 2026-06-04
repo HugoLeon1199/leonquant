@@ -63,7 +63,10 @@ jobs:
             exit 2
           fi
           python -c "
+          import gzip
+          import shutil
           import duckdb
+          from pathlib import Path
           c = duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
           p = int(c.execute('SELECT COUNT(*) FROM source_profiles').fetchone()[0])
           a = int(c.execute('SELECT COUNT(*) FROM articles').fetchone()[0])
@@ -75,6 +78,15 @@ jobs:
           c.close()
           print(f'source_profiles={p} articles_total={a} rolling_48h>={r}')
           assert p >= 10, 'Thiếu source_profiles — pack_db_seed.py --mode profiles-only'
+          if a < 5 and Path('data/web_intel_leonquant.duckdb.gz').is_file():
+              print('articles_total<5 — reseed DuckDB from .gz (cache rỗng hoặc chỉ profiles)')
+              Path('data/web_intel_leonquant.duckdb').unlink(missing_ok=True)
+              with gzip.open('data/web_intel_leonquant.duckdb.gz', 'rb') as fin, open('data/web_intel_leonquant.duckdb', 'wb') as fout:
+                  shutil.copyfileobj(fin, fout)
+              c = duckdb.connect('data/web_intel_leonquant.duckdb', read_only=True)
+              a = int(c.execute('SELECT COUNT(*) FROM articles').fetchone()[0])
+              c.close()
+              print(f'reseeded articles_total={a}')
           "
 
       - name: Pin calendar date

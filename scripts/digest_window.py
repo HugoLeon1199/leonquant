@@ -13,7 +13,7 @@ DEFAULT_DB = QUANT_ROOT / "data" / "web_intel_leonquant.duckdb"
 DEFAULT_GZ = QUANT_ROOT / "data" / "web_intel_leonquant.duckdb.gz"
 
 # Smallest calendar window first; widen only when cache/crawl is thin.
-CALENDAR_DAY_LADDER = (2, 3, 5, 7)
+CALENDAR_DAY_LADDER = (2, 3, 5, 7, 14)
 ROLLING_HOURS_FALLBACK = 48
 MIN_ARTICLES_DEFAULT = 10
 MIN_CONTENT_CHARS = 200

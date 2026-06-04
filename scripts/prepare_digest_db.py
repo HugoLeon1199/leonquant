@@ -123,6 +123,14 @@ def main() -> int:
     print(f"Pinned calendar date: {pin} ({args.timezone})")
 
     state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-crawl")
+    if not state and gz.is_file():
+        diag = db_diagnostics(db)
+        if int(diag.get("articles_total") or 0) < args.min_articles:
+            print(f"Thin DB ({diag}) — reseed from {gz.name} and retry window")
+            reseed_from_gz(db, gz)
+            state = try_resolve(
+                db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-reseed"
+            )
     if not state:
         print(
             f"ERROR: fewer than {args.min_articles} articles in digest window "
