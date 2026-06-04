@@ -109,13 +109,8 @@ export function buildNewsroomSourceProvenanceText(data) {
   return bits.join(" · ");
 }
 
-export function buildNewsroomSyncNoteText(data) {
-  const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
-  const prov = buildNewsroomSourceProvenanceText(data);
-  if (!st && !prov) return "";
-  let t = st ? `Tin tức được tổng hợp lúc ${st}` : "Tin tức được tổng hợp";
-  if (prov) t += ` · ${prov}`;
-  return `${t}.`;
+export function buildNewsroomSyncNoteText(_data) {
+  return "";
 }
 
 function newsroomEstimateReadingMin(data) {
@@ -162,25 +157,14 @@ function buildNewsroomIssueHeader(data) {
   const updated = data.generatedAt ? formatDateVi(data.generatedAt) : "";
   const stories = newsroomCountStories(data);
   const readMin = newsroomEstimateReadingMin(data);
-  const provenance = buildNewsroomSourceProvenanceText(data);
-  const scanned = newsroomArticlesScannedCount(data);
   let pills = "";
   if (stories > 0) pills += buildNewsroomStatPill("Tin chính", String(stories));
-  if (scanned > 0) pills += buildNewsroomStatPill("Bài quét", scanned.toLocaleString("vi-VN"));
   if (updated) pills += buildNewsroomStatPill("Cập nhật", updated);
   if (readMin > 0) pills += buildNewsroomStatPill("Đọc khoảng", `${readMin} phút`);
-  const deskLink =
-    Array.isArray(data.sourceDesk) && data.sourceDesk.length
-      ? ` <a class="issue-provenance-link" href="#digest-source-desk">Nguồn theo chủ đề</a>`
-      : "";
-  const provHtml = provenance
-    ? `<p class="issue-provenance">Nội dung ${escapeHtml(provenance)}.${deskLink}</p>`
-    : "";
   return `<header class="issue-header" id="digest-issue-header">
     <span class="issue-badge">Bản tin 48h</span>
     <h2 class="issue-title">Bản tin 48 giờ</h2>
     <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
-    ${provHtml}
     ${pills ? `<div class="issue-stats">${pills}</div>` : ""}
   </header>`;
 }
@@ -286,7 +270,6 @@ function buildDossierCardHtml(d, buildDossierSourcesHtml) {
   html += `</div>`;
   html += `<h4>${escapeHtml(d.title || "")}</h4>`;
   if (d.summary) html += `<p class="dossier-summary">${escapeHtml(d.summary)}</p>`;
-  if (d.links && d.links.length) html += buildDossierSourcesHtml(d.links);
   const devs = Array.isArray(d.mainDevelopments) ? d.mainDevelopments : [];
   if (devs.length) {
     html += `<div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p>`;
@@ -309,6 +292,7 @@ function buildDossierCardHtml(d, buildDossierSourcesHtml) {
     for (const line of wn) html += `<span class="chip">${escapeHtml(line)}</span>`;
     html += `</div></div>`;
   }
+  if (d.links && d.links.length) html += buildDossierSourcesHtml(d.links);
   html += `</div>`;
   return html;
 }

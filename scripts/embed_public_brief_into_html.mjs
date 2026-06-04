@@ -358,17 +358,19 @@ function buildSectorBlockHtml(s, index) {
 function buildDossierSourcesHtml(links) {
   const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && String(lk.url || "").trim());
   if (!rows.length) return "";
-  const parts = [];
+  let inner = `<div class="dossier-source-links">`;
+  let count = 0;
   for (const lk of rows) {
     const u = normalizeExternalUrl(lk.url);
     if (!u) continue;
+    count += 1;
     const srcLabel = escapeHtml(formatSourceLinkLabel(lk, u));
-    parts.push(
-      `<a class="story-source-link" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`,
-    );
+    inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
   }
-  if (!parts.length) return "";
-  return `<p class="story-source-line"><span class="story-source-label">Nguồn:</span> ${parts.join('<span class="story-source-sep" aria-hidden="true"> · </span>')}</p>`;
+  if (!count) return "";
+  inner += `</div>`;
+  const nLabel = count === 1 ? "1 bài" : `${count} bài`;
+  return `<details class="story-sources-wrap"><summary>Bấm vào xem nguồn · ${nLabel}</summary>${inner}</details>`;
 }
 
 function buildNewsroomThesisHtml(data) {
