@@ -60,7 +60,7 @@ python leon.py --dry-run
 python leon.py
 ```
 
-Output: **`market_pulse.json`** (LIVE đa lĩnh vực) + **`invest_world_pulse.json`** (tab đầu tư — lọc kinh tế/CK/vàng/crypto/vĩ mô từ cùng pool enrich, một lần `leon.py --channel world`). Production: workflow **LIVE pulse 6h** — commit cả hai file → Pages.
+Output: **`market_pulse.json`** (LIVE đa lĩnh vực) + **`invest_world_pulse.json`** (tab đầu tư — lọc kinh tế/CK/vàng/crypto/vĩ mô từ cùng pool enrich, một lần `leon.py --channel world`). Production: workflow **LIVE pulse 12h** — commit `market_pulse.json` → Pages.
 
 Secrets Actions: `GEMINI_API_KEY`, `GCP_SA_JSON`, `GOOGLE_CLOUD_PROJECT`.
 
@@ -114,7 +114,7 @@ Gate: `prepare_digest_db.py` (sau crawl, **không** re-seed bài cũ) → `data/
 - **`daily.yml`:** hai job **song song** lúc **05:00 VN** (`0 22 * * *` UTC), pipeline tách riêng:
   - **build-digest** — cào web 48h → `content.json` + `invest_vn_brief.json` (Việt Nam trong nước).
   - **invest-world** — `leon.py --channel invest` → `invest_world_pulse.json` (Tin thế giới quan trọng, GDELT 24h).
-- **`pulse-hourly.yml`:** chỉ **LIVE** `market_pulse.json` mỗi 6h (`leon.py --channel world`); không cập nhật invest desk.
+- **`pulse-hourly.yml`:** chỉ **LIVE** `market_pulse.json` mỗi **12h** (`leon.py --channel world`); không cập nhật invest desk.
 - **`pages.yml`:** deploy sau khi workflow *Tin Việt Nam 48h digest* hoàn tất (cả digest + invest-world).
   - Chạy tay digest: Actions → *Tin Việt Nam 48h digest* → *Run workflow*, hoặc `.ci-run-digest` / `.ci-run-invest-daily` trên `main`.
 - **Secret bắt buộc:** repo → Settings → Secrets → `GEMINI_API_KEY` (Google AI Studio).

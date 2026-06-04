@@ -1,9 +1,9 @@
-name: LIVE pulse 6h
+name: LIVE pulse 12h
 
 on:
   schedule:
-    # Mỗi 6 giờ đúng phút :00 UTC (00:00, 06:00, 12:00, 18:00 UTC ≈ 07:00, 13:00, 19:00, 01:00 VN).
-    - cron: "0 */6 * * *"
+    # Mỗi 12 giờ đúng phút :00 UTC (00:00, 12:00 UTC ≈ 07:00, 19:00 VN).
+    - cron: "0 */12 * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -16,7 +16,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: live-pulse-6h
+  group: live-pulse-12h
   cancel-in-progress: false
 
 jobs:
@@ -62,6 +62,6 @@ jobs:
             echo "No pulse changes"
             exit 0
           fi
-          git commit -m "Update world LIVE pulse (GDELT 6h)."
+          git commit -m "Update world LIVE pulse (GDELT 12h)."
           git pull --rebase origin main
           git push

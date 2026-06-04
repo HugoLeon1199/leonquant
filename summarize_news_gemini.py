@@ -11,7 +11,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 from build_website_content import rebuild_content_from_digest
@@ -120,6 +120,7 @@ def _digest_source_urls_block() -> str:
         [
             "## source_urls (1–3 URL đại diện)",
             "- Mỗi `sub_topics[]`: `source_urls` có **1–3** URL từ dữ liệu crawl; **cấm** `[]`.",
+            "- Chỉ copy **nguyên văn** trường `url` của bài trong JSON đầu vào — **cấm** rút gọn, đoán slug, hoặc tạo URL mới.",
             "- URL[0] phải **khớp trực tiếp** headline chính; URL[1–2] (nếu có) đại diện thêm **cùng chủ đề/sub-cluster**.",
             "- **Cấm** URL ngẫu nhiên không liên quan headline.",
         ]
@@ -622,6 +623,424 @@ def _is_low_value_digest_item(headline: str) -> bool:
     return bool(_LOW_VALUE_DIGEST_RE.search(str(headline or "")))
 
 
+def _canonical_digest_url(url: str) -> str:
+    u = str(url or "").strip()
+    if not u:
+        return ""
+    try:
+        p = urlparse(u)
+    except ValueError:
+        return u.rstrip("/")
+    host = (p.hostname or "").lower()
+    if host.startswith("www."):
+        host = host[4:]
+    path = (p.path or "").rstrip("/") or ""
+    scheme = (p.scheme or "https").lower()
+    query = f"?{p.query}" if p.query else ""
+    return f"{scheme}://{host}{path}{query}".rstrip("/")
+
+
+def _digest_url_aliases(url: str) -> list[str]:
+    c = _canonical_digest_url(url)
+    if not c or not c.startswith("http"):
+        return []
+    aliases = [c]
+    p = urlparse(c)
+    host = p.hostname or ""
+    if host and not host.startswith("www."):
+        aliases.append(_canonical_digest_url(f"{p.scheme}://www.{host}{p.path}"))
+    return aliases
+
+
+class DigestUrlIndex:
+    """Whitelist URL thật từ crawl — mọi source_urls public phải thuộc tập này."""
+
+    __slots__ = ("allowed", "by_url")
+
+    def __init__(self, articles: list[dict[str, Any]]) -> None:
+        self.allowed: set[str] = set()
+        self.by_url: dict[str, dict[str, Any]] = {}
+        for art in articles:
+            if not isinstance(art, dict):
+                continue
+            raw_u = str(art.get("url") or "")
+            if not raw_u.startswith("http"):
+                continue
+            for alias in _digest_url_aliases(raw_u):
+                self.allowed.add(alias)
+                if alias not in self.by_url:
+                    self.by_url[alias] = art
+
+    @property
+    def active(self) -> bool:
+        return bool(self.allowed)
+
+
+def _digest_headline_keywords(headline: str) -> list[str]:
+    low = str(headline or "").lower()
+    keys: list[str] = []
+    for pat, token in (
+        (r"bitcoin|btc", "bitcoin"),
+        (r"alphabet|google", "alphabet"),
+        (r"vn-index|vnindex|hqc", "vn-index"),
+        (r"vn-index|vnindex|hqc", "vnindex"),
+        (r"trump.*ai|ai.*trump|sắc lệnh.*ai", "trump ai"),
+        (r"microsoft.*ai|ai.*microsoft", "microsoft"),
+        (r"iran|qeshm|tehran", "iran"),
+        (r"e10|xăng e10", "e10"),
+        (r"bất động sản|bđs|dự án", "bất động sản"),
+        (r"giá vàng|vàng", "vàng"),
+        (r"goldman", "goldman"),
+        (r"blue origin|nasa", "blue origin"),
+        (r"openai|robot", "openai"),
+    ):
+        if re.search(pat, low):
+            keys.append(token)
+    keys.extend(re.findall(r"[\wàáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]{5,}", low, re.I)[:6])
+    seen: set[str] = set()
+    out: list[str] = []
+    for k in keys:
+        k = k.strip().lower()
+        if k and k not in seen:
+            seen.add(k)
+            out.append(k)
+    return out
+
+
+_KEYWORD_TITLE_REQUIRED = frozenset(
+    {
+        "bitcoin",
+        "alphabet",
+        "vn-index",
+        "vnindex",
+        "iran",
+        "trump ai",
+        "microsoft",
+        "goldman",
+        "blue origin",
+        "openai",
+        "e10",
+    }
+)
+
+
+def _article_matches_keywords(art: dict[str, Any], keywords: list[str]) -> bool:
+    if not keywords:
+        return True
+    title_low = str(art.get("title") or "").lower()
+    blob = f"{title_low} {art.get('content_for_ai') or ''} {art.get('text') or ''}".lower()
+    title_req = [k for k in keywords if k in _KEYWORD_TITLE_REQUIRED]
+    if title_req and any(k in title_low for k in title_req):
+        return True
+    soft = [k for k in keywords if k not in _KEYWORD_TITLE_REQUIRED]
+    if soft:
+        return any(k in blob for k in soft)
+    return False
+
+
+def _score_digest_headline_article(headline: str, art: dict[str, Any]) -> float:
+    title = str(art.get("title") or "")
+    hl = str(headline or "").strip().lower()
+    if not hl:
+        return 0.0
+    title_low = title.lower()
+    title_sc = SequenceMatcher(None, hl, title_low).ratio()
+    keywords = _digest_headline_keywords(headline)
+    if keywords and not _article_matches_keywords(art, keywords):
+        return 0.0
+    text = str(art.get("content_for_ai") or art.get("text") or art.get("summary") or "")[:500]
+    blob_sc = SequenceMatcher(None, hl, f"{title} {text}".lower()).ratio() if text else 0.0
+    hl_tokens = set(re.findall(r"[\wàáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]{4,}", hl, re.I))
+    title_tokens = set(re.findall(r"\w{4,}", title_low))
+    overlap = len(hl_tokens & title_tokens) / max(1, len(hl_tokens))
+    return max(title_sc, blob_sc * 0.55, overlap * 0.7)
+
+
+def _is_likely_fabricated_digest_url(url: str) -> bool:
+    """URL Gemini rút gọn / slug giả — không dùng path-fuzzy, chỉ headline match."""
+    u = _canonical_digest_url(url)
+    if not u.startswith("http"):
+        return True
+    try:
+        p = urlparse(u)
+    except ValueError:
+        return True
+    path = (p.path or "").strip("/")
+    if not path:
+        return True
+    if re.search(r"\d{6,}|liveblog|\.htm|/20\d{2}/", path):
+        return False
+    host = (p.hostname or "").lower()
+    if host.endswith("baochinhphu.vn") or host.endswith("dantri.com.vn"):
+        return len(path) < 12
+    if host in {"cnbc.com", "coindesk.com", "wired.com", "tuoitre.vn", "theguardian.com"}:
+        return len(path) < 28 or path.count("/") < 2
+    return len(path) < 16
+
+
+def _resolve_digest_url_by_path(
+    raw: str, headline: str, index: DigestUrlIndex
+) -> str:
+    raw_c = _canonical_digest_url(raw)
+    if not raw_c or _is_likely_fabricated_digest_url(raw_c):
+        return ""
+    if raw_c in index.allowed:
+        return raw_c
+    host = (urlparse(raw_c).hostname or "").lower()
+    if host.startswith("www."):
+        host = host[4:]
+    raw_path = urlparse(raw_c).path or ""
+    if not host or len(raw_path) < 10:
+        return ""
+    hl = str(headline or "").strip()
+    best_u = ""
+    best_sc = 0.0
+    for cand in index.allowed:
+        ch = (urlparse(cand).hostname or "").lower()
+        if ch.startswith("www."):
+            ch = ch[4:]
+        if ch != host:
+            continue
+        cand_path = urlparse(cand).path or ""
+        sc = SequenceMatcher(None, raw_path, cand_path).ratio()
+        if raw_path in cand_path or cand_path in raw_path:
+            sc = max(sc, 0.82)
+        art = index.by_url.get(cand)
+        if art and hl:
+            sc = min(1.0, sc * (0.55 + 0.45 * _score_digest_headline_article(hl, art)))
+        if sc > best_sc:
+            best_sc, best_u = sc, cand
+    return best_u if best_sc >= 0.72 else ""
+
+
+def _best_allowed_url_for_headline(
+    headline: str,
+    index: DigestUrlIndex,
+    *,
+    prefer_host: str = "",
+    sector_code: str = "",
+    min_score: float | None = None,
+) -> str:
+    best_u = ""
+    best_sc = 0.0
+    host = (prefer_host or "").lower()
+    if host.startswith("www."):
+        host = host[4:]
+
+    def _host_key(u: str) -> str:
+        h = (urlparse(u).hostname or "").lower()
+        return h[4:] if h.startswith("www.") else h
+
+    pool = [u for u in index.allowed if not host or _host_key(u) == host]
+    if not pool:
+        pool = list(index.allowed)
+    keywords = _digest_headline_keywords(headline)
+    title_req = [k for k in keywords if k in _KEYWORD_TITLE_REQUIRED]
+    if title_req:
+        filtered = [
+            u
+            for u in pool
+            if (art := index.by_url.get(u))
+            and any(k in str(art.get("title") or "").lower() for k in title_req)
+        ]
+        if filtered:
+            pool = filtered
+    elif keywords:
+        filtered = [
+            u
+            for u in pool
+            if (art := index.by_url.get(u)) and _article_matches_keywords(art, keywords)
+        ]
+        if filtered:
+            pool = filtered
+    for cand in pool:
+        art = index.by_url.get(cand)
+        if not art:
+            continue
+        sc = _score_digest_headline_article(headline, art)
+        src = str(art.get("source") or "").lower()
+        if sector_code == "finance" and re.search(r"cnbc|bloomberg|reuters|ft\.com", src):
+            sc = min(1.0, sc * 1.04)
+        if sc > best_sc:
+            best_sc, best_u = sc, cand
+    min_sc = min_score if min_score is not None else (0.32 if host else 0.36)
+    return best_u if best_u and best_sc >= min_sc else ""
+
+
+def _resolve_digest_url(
+    url: str,
+    headline: str,
+    index: DigestUrlIndex | None,
+    *,
+    sector_code: str = "",
+) -> str:
+    if index is None or not index.active:
+        return _canonical_digest_url(url)
+    raw = _canonical_digest_url(url)
+    hl = str(headline or "").strip()
+    if raw in index.allowed:
+        return raw
+    path_match = _resolve_digest_url_by_path(raw, hl, index) if raw else ""
+    if path_match:
+        if raw not in index.allowed:
+            print(
+                f"WARN digest URL: path-matched {raw[:80]} -> {path_match[:80]}",
+                file=sys.stderr,
+            )
+        return path_match
+    host = (urlparse(raw).hostname or "").lower() if raw else ""
+    if host.startswith("www."):
+        host = host[4:]
+    need_strong = bool(raw and raw not in index.allowed)
+    strong_min = 0.48 if need_strong else None
+    matched = _best_allowed_url_for_headline(
+        hl, index, prefer_host=host, sector_code=sector_code, min_score=strong_min
+    )
+    if not matched and hl:
+        matched = _best_allowed_url_for_headline(
+            hl, index, sector_code=sector_code, min_score=strong_min
+        )
+    if matched:
+        if raw and raw not in index.allowed:
+            print(
+                f"WARN digest URL: replaced fabricated {raw[:90]} -> {matched[:90]}",
+                file=sys.stderr,
+            )
+        return matched
+    if raw:
+        print(f"WARN digest URL: dropped not in whitelist: {raw}", file=sys.stderr)
+    return ""
+
+
+def _sanitize_sub_topic_urls(
+    row: dict[str, Any],
+    index: DigestUrlIndex | None,
+    sector_code: str,
+) -> dict[str, Any]:
+    out = dict(row)
+    hl = str(out.get("headline") or "").strip()
+    urls: list[str] = []
+    for raw in out.get("source_urls") or []:
+        resolved = _resolve_digest_url(str(raw), hl, index, sector_code=sector_code)
+        if resolved and resolved not in urls:
+            urls.append(resolved)
+    if not urls and hl and index and index.active:
+        resolved = _resolve_digest_url("", hl, index, sector_code=sector_code)
+        if resolved:
+            urls.append(resolved)
+    out["source_urls"] = urls[:3]
+    return out
+
+
+def _sanitize_notable_url(
+    notable: dict[str, Any],
+    index: DigestUrlIndex | None,
+) -> dict[str, Any]:
+    out = dict(notable)
+    title = str(out.get("title") or "").strip()
+    u = _resolve_digest_url(str(out.get("url") or ""), title, index, sector_code="notable")
+    if u:
+        out["url"] = u
+    else:
+        out.pop("url", None)
+    return out
+
+
+def validate_digest_url_whitelist(
+    summary: dict[str, Any],
+    index: DigestUrlIndex | None,
+) -> list[str]:
+    if index is None or not index.active:
+        return []
+    warnings: list[str] = []
+    for i, sec in enumerate(summary.get("sectors") or []):
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "?")
+        for j, row in enumerate(sec.get("sub_topics") or []):
+            if not isinstance(row, dict):
+                continue
+            for u in row.get("source_urls") or []:
+                cu = _canonical_digest_url(str(u))
+                if cu and cu not in index.allowed:
+                    warnings.append(
+                        f"sectors[{i}] ({code}) sub_topics[{j}] URL ngoài whitelist: {cu[:80]}"
+                    )
+    for k, n in enumerate(summary.get("notable_articles") or []):
+        if not isinstance(n, dict):
+            continue
+        cu = _canonical_digest_url(str(n.get("url") or ""))
+        if cu and cu not in index.allowed:
+            warnings.append(f"notable_articles[{k}] URL ngoài whitelist: {cu[:80]}")
+    return warnings
+
+
+def _infer_alphabet_digest_copy(headline: str) -> tuple[str, str] | None:
+    low = str(headline or "").lower()
+    if re.search(r"alphabet|google", low) and re.search(
+        r"huy động|vốn|capital|đầu tư|spending|ai|tài trợ|làn sóng",
+        low,
+    ):
+        return (
+            "Cho thấy chi phí đầu tư AI và hạ tầng dữ liệu đang tăng mạnh.",
+            "Đại diện cho luồng đầu tư hạ tầng AI và nhu cầu vốn của các tập đoàn công nghệ lớn.",
+        )
+    return None
+
+
+def _recompute_digest_subtopic_copy(
+    row: dict[str, Any], sector_code: str
+) -> dict[str, Any]:
+    out = dict(row)
+    hl = str(out.get("headline") or "").strip()
+    alpha = _infer_alphabet_digest_copy(hl)
+    if alpha:
+        out["summary_hint"], out["reason_selected"] = alpha
+        return out
+    out["summary_hint"] = _infer_summary_hint(hl, sector_code)
+    out["reason_selected"] = _infer_reason_selected(hl, sector_code)
+    return out
+
+
+def _bitcoin_finance_bucket(headline: str) -> str:
+    low = str(headline or "").lower()
+    if not re.search(r"bitcoin|btc", low):
+        return ""
+    if re.search(
+        r"ai|cổ phiếu|giữ sức hút|phân hóa|risk|tài sản rủi ro|giảm mạnh trong khi",
+        low,
+    ):
+        return "btc_ai_mixed"
+    if re.search(r"70\.?000|thủng|mốc|usd", low):
+        return "btc_level"
+    return "btc_other"
+
+
+def _merge_bitcoin_finance_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    mixed: list[dict[str, Any]] = []
+    level: list[dict[str, Any]] = []
+    other: list[dict[str, Any]] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        bucket = _bitcoin_finance_bucket(str(row.get("headline") or ""))
+        if bucket == "btc_ai_mixed":
+            mixed.append(row)
+        elif bucket == "btc_level":
+            level.append(row)
+        else:
+            other.append(row)
+    out = list(other)
+    if mixed and level:
+        title = str(mixed[0].get("headline") or "").strip()
+        if not title:
+            title = "Bitcoin giảm mạnh trong khi cổ phiếu AI giữ sức hút"
+        out.insert(0, _merge_cluster_rows(mixed + level, title, "finance"))
+    else:
+        out = mixed + level + out
+    return out
+
+
 def _iran_cluster_key(headline: str) -> str | None:
     low = str(headline or "").lower()
     if not _IRAN_TOPIC_RE.search(low):
@@ -779,6 +1198,9 @@ def _infer_tech_summary_hint(headline: str) -> str | None:
 
 
 def _infer_summary_hint(headline: str, sector_code: str) -> str:
+    alpha = _infer_alphabet_digest_copy(headline)
+    if alpha:
+        return alpha[0]
     low = str(headline or "").lower()
     code = str(sector_code or "").strip().lower()
     if code == "tech" or re.search(r"\bai\b|openai|nvidia|alphabet|microsoft", low):
@@ -819,6 +1241,9 @@ def _infer_summary_hint(headline: str, sector_code: str) -> str:
 
 
 def _infer_reason_selected(headline: str, sector_code: str) -> str:
+    alpha = _infer_alphabet_digest_copy(headline)
+    if alpha:
+        return alpha[1]
     stream = _digest_topic_stream(headline)
     labels = {
         "vn_equity": "Đại diện cho tâm lý ngắn hạn và độ phân hóa trên thị trường cổ phiếu trong nước.",
@@ -862,7 +1287,9 @@ def _sub_topic_cluster_key(headline: str, sector_code: str) -> str | None:
     return None
 
 
-def _merge_cluster_rows(group: list[dict[str, Any]], cluster_headline: str) -> dict[str, Any]:
+def _merge_cluster_rows(
+    group: list[dict[str, Any]], cluster_headline: str, sector_code: str = "news"
+) -> dict[str, Any]:
     indexed = [(i, r) for i, r in enumerate(group) if isinstance(r, dict)]
     indexed.sort(key=lambda pair: _sub_topic_sort_key(pair[1], pair[0]))
     base = dict(indexed[0][1])
@@ -886,15 +1313,13 @@ def _merge_cluster_rows(group: list[dict[str, Any]], cluster_headline: str) -> d
             tier = "B"
     base["priority_tier"] = tier
     hl = str(cluster_headline or "")
-    infer_sector = "news"
+    infer_sector = str(sector_code or "news").strip().lower() or "news"
     e10k = _e10_cluster_key(hl)
     if e10k == "e10_consumer":
         infer_sector = "trends"
     elif e10k == "e10_policy":
         infer_sector = "news"
-    base["summary_hint"] = _infer_summary_hint(hl, infer_sector)
-    base["reason_selected"] = _infer_reason_selected(hl, infer_sector)
-    return base
+    return _recompute_digest_subtopic_copy({**base, "headline": hl}, infer_sector)
 
 
 def _cluster_sub_topics_in_sector(
@@ -918,7 +1343,7 @@ def _cluster_sub_topics_in_sector(
         if len(group) == 1:
             out.append(group[0])
         else:
-            out.append(_merge_cluster_rows(group, str(title)))
+            out.append(_merge_cluster_rows(group, str(title), sector_code))
     out.extend(unclustered)
     out.sort(key=lambda r: _sub_topic_sort_key(r, 0))
     return out
@@ -960,6 +1385,7 @@ def _dedupe_sub_topics_by_headline(
                 break
             if tier == "B" and str(base.get("priority_tier") or "").upper()[:1] != "A":
                 base["priority_tier"] = "B"
+        base = _recompute_digest_subtopic_copy(base, sector_code)
     out = [seen[k] for k in order]
     out.sort(key=lambda r: _sub_topic_sort_key(r, 0))
     return out
@@ -991,7 +1417,11 @@ def _ensure_specific_digest_copy(
 
 
 def _polish_sub_topic_fields(
-    row: dict[str, Any], sector_code: str, *, warn_generic: bool = True
+    row: dict[str, Any],
+    sector_code: str,
+    *,
+    warn_generic: bool = True,
+    url_index: DigestUrlIndex | None = None,
 ) -> dict[str, Any]:
     out = dict(row)
     raw_hl = str(out.get("headline") or out.get("title") or "").strip()
@@ -1003,16 +1433,22 @@ def _polish_sub_topic_fields(
         hl = ""
     tier = str(out.get("priority_tier") or "").strip().upper()[:1]
     out["priority_tier"] = tier if tier in ("A", "B", "C") else "B"
-    hint = str(out.get("summary_hint") or "").strip()
-    reason = str(out.get("reason_selected") or "").strip()
-    out = _ensure_specific_digest_copy(out, sector_code, warn=warn_generic)
-    urls = [str(u).strip() for u in (out.get("source_urls") or []) if str(u).strip()]
-    if urls:
-        out["source_urls"] = urls[:3]
+    out = _recompute_digest_subtopic_copy(out, sector_code)
+    if warn_generic:
+        hint = str(out.get("summary_hint") or "")
+        if _is_generic_digest_copy(hint) or _is_weak_summary_hint(hint):
+            print(
+                f"WARN digest polish: weak summary_hint after recompute ({sector_code})",
+                file=sys.stderr,
+            )
+            out = _recompute_digest_subtopic_copy(out, sector_code)
+    out = _sanitize_sub_topic_urls(out, url_index, sector_code)
     return out
 
 
-def _consolidate_e10_globally(summary: dict[str, Any]) -> dict[str, Any]:
+def _consolidate_e10_globally(
+    summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
     """Tối đa 2 cụm E10 toàn bài: chính sách (news/finance) + người tiêu dùng (trends)."""
     policy_rows: list[dict[str, Any]] = []
     consumer_rows: list[dict[str, Any]] = []
@@ -1044,25 +1480,34 @@ def _consolidate_e10_globally(summary: dict[str, Any]) -> dict[str, Any]:
         if not sec:
             return
         subs = sec.get("sub_topics") if isinstance(sec.get("sub_topics"), list) else []
-        subs.append(_polish_sub_topic_fields(merged, code, warn_generic=False))
+        polished = _polish_sub_topic_fields(merged, code, warn_generic=False, url_index=url_index)
+        subs.append(polished)
         sec["sub_topics"] = subs
 
     if policy_rows:
         _inject(
             "news" if sector_map.get("news") else "finance",
-            _merge_cluster_rows(policy_rows, titles.get("e10_policy", policy_rows[0].get("headline", ""))),
+            _merge_cluster_rows(
+                policy_rows,
+                titles.get("e10_policy", policy_rows[0].get("headline", "")),
+                "news",
+            ),
         )
     if consumer_rows:
         _inject(
             "trends" if sector_map.get("trends") else "finance",
             _merge_cluster_rows(
-                consumer_rows, titles.get("e10_consumer", consumer_rows[0].get("headline", ""))
+                consumer_rows,
+                titles.get("e10_consumer", consumer_rows[0].get("headline", "")),
+                "trends",
             ),
         )
     return summary
 
 
-def _enforce_digest_public_polish(summary: dict[str, Any]) -> dict[str, Any]:
+def _enforce_digest_public_polish(
+    summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
     """Validation cuối: WARN + rewrite nếu còn generic hoặc headline EN."""
     for sec in summary.get("sectors") or []:
         if not isinstance(sec, dict):
@@ -1080,9 +1525,13 @@ def _enforce_digest_public_polish(summary: dict[str, Any]) -> dict[str, Any]:
                     file=sys.stderr,
                 )
                 r["headline"] = _vietnamese_public_headline(hl, code)
-            r = _ensure_specific_digest_copy(r, code, warn=True)
+            r = _recompute_digest_subtopic_copy(r, code)
+            r = _sanitize_sub_topic_urls(r, url_index, code)
             fixed.append(r)
         sec["sub_topics"] = _dedupe_sub_topics_by_headline(fixed, code)
+        sec["sub_topics"] = [
+            _sanitize_sub_topic_urls(r, url_index, code) for r in sec["sub_topics"] if isinstance(r, dict)
+        ]
     for n in summary.get("notable_articles") or []:
         if not isinstance(n, dict):
             continue
@@ -1090,13 +1539,16 @@ def _enforce_digest_public_polish(summary: dict[str, Any]) -> dict[str, Any]:
         if t and _headline_is_mostly_english(t):
             print(f"WARN digest polish: notable EN → VI: {t[:70]}", file=sys.stderr)
             n["title"] = _vietnamese_public_headline(_editorialize_digest_headline(t))
-        w = str(n.get("why_notable") or "")
-        if not w or _is_generic_digest_copy(w):
-            n["why_notable"] = _infer_summary_hint(n.get("title") or t, "notable")
+        n["why_notable"] = _infer_summary_hint(n.get("title") or t, "notable")
+        sanitized = _sanitize_notable_url(n, url_index)
+        n.clear()
+        n.update(sanitized)
     return summary
 
 
-def _scrub_digest_public_copy(summary: dict[str, Any]) -> dict[str, Any]:
+def _scrub_digest_public_copy(
+    summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
     """Pass cuối: headline VI + không còn copy generic."""
     for sec in summary.get("sectors") or []:
         if not isinstance(sec, dict):
@@ -1105,7 +1557,9 @@ def _scrub_digest_public_copy(summary: dict[str, Any]) -> dict[str, Any]:
         polished: list[dict[str, Any]] = []
         for row in sec.get("sub_topics") or []:
             if isinstance(row, dict):
-                polished.append(_polish_sub_topic_fields(row, code, warn_generic=False))
+                polished.append(
+                    _polish_sub_topic_fields(row, code, warn_generic=False, url_index=url_index)
+                )
         sec["sub_topics"] = polished
     for n in summary.get("notable_articles") or []:
         if not isinstance(n, dict):
@@ -1113,9 +1567,10 @@ def _scrub_digest_public_copy(summary: dict[str, Any]) -> dict[str, Any]:
         title = str(n.get("title") or "").strip()
         if title:
             n["title"] = _vietnamese_public_headline(_editorialize_digest_headline(title))
-        why = str(n.get("why_notable") or "").strip()
-        if not why or _is_generic_digest_copy(why):
-            n["why_notable"] = _infer_summary_hint(title, "notable")
+        n["why_notable"] = _infer_summary_hint(title, "notable")
+        sanitized = _sanitize_notable_url(n, url_index)
+        n.clear()
+        n.update(sanitized)
     return summary
 
 
@@ -1232,7 +1687,9 @@ def _reroute_sector_code(headline: str, current_code: str) -> str:
     return code if code in DIGEST_SECTOR_CODES else "trends"
 
 
-def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
+def _apply_digest_sector_hygiene(
+    summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
     """Routing, lọc giải trí, gom cluster, cap E10 toàn bài, polish fields."""
     sectors_in = {
         str(s.get("code") or "").strip().lower(): s
@@ -1262,9 +1719,13 @@ def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
     out_sectors: list[dict[str, Any]] = []
     for code, label in DIGEST_FOUR_SECTORS:
         src = sectors_in.get(code, {})
-        rows = _cluster_sub_topics_in_sector(buckets[code], code)
-        rows = [_polish_sub_topic_fields(r, code) for r in rows]
+        sector_rows = buckets[code]
+        if code == "finance":
+            sector_rows = _merge_bitcoin_finance_rows(sector_rows)
+        rows = _cluster_sub_topics_in_sector(sector_rows, code)
+        rows = [_polish_sub_topic_fields(r, code, url_index=url_index) for r in rows]
         rows = _dedupe_sub_topics_by_headline(rows, code)
+        rows = [_sanitize_sub_topic_urls(r, url_index, code) for r in rows]
         rows.sort(key=lambda r: _sub_topic_sort_key(r, 0))
         out_sectors.append(
             {
@@ -1275,10 +1736,12 @@ def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
             }
         )
     summary["sectors"] = out_sectors
-    return _consolidate_e10_globally(summary)
+    return _consolidate_e10_globally(summary, url_index=url_index)
 
 
-def supplement_notable_from_sectors(summary: dict[str, Any]) -> dict[str, Any]:
+def supplement_notable_from_sectors(
+    summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
     """Fallback notable khi Gemini trả quá ít nhưng sectors có A/B."""
     notable = [
         n for n in (summary.get("notable_articles") or []) if isinstance(n, dict)
@@ -1351,11 +1814,15 @@ def supplement_notable_from_sectors(summary: dict[str, Any]) -> dict[str, Any]:
                 }
             )
             picked += 1
-    summary["notable_articles"] = notable[:DIGEST_PARSER_MAX_NOTABLE]
+    summary["notable_articles"] = [
+        _sanitize_notable_url(n, url_index) for n in notable[:DIGEST_PARSER_MAX_NOTABLE]
+    ]
     return summary
 
 
-def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
+def normalize_digest_summary(
+    summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
     """Post-merge: sắp xếp & dedupe — không cắt quota editorial."""
     if not isinstance(summary, dict):
         return summary
@@ -1370,10 +1837,10 @@ def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
     if bullets:
         out["executive_overview"] = bullets
 
-    out = _apply_digest_sector_hygiene(out)
-    out = supplement_notable_from_sectors(out)
-    out = _scrub_digest_public_copy(out)
-    out = _enforce_digest_public_polish(out)
+    out = _apply_digest_sector_hygiene(out, url_index=url_index)
+    out = supplement_notable_from_sectors(out, url_index=url_index)
+    out = _scrub_digest_public_copy(out, url_index=url_index)
+    out = _enforce_digest_public_polish(out, url_index=url_index)
 
     sectors = out.get("sectors") if isinstance(out.get("sectors"), list) else []
     norm_sectors: list[dict[str, Any]] = []
@@ -1404,10 +1871,19 @@ def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
         why = str(nc.get("why_notable") or "").strip()
         if not why or _is_generic_digest_copy(why):
             nc["why_notable"] = _infer_summary_hint(nc.get("title") or title, "notable")
-        norm_notable.append(nc)
+        norm_notable.append(_sanitize_notable_url(nc, url_index))
     if len(norm_notable) > DIGEST_PARSER_MAX_NOTABLE:
         norm_notable = norm_notable[:DIGEST_PARSER_MAX_NOTABLE]
     out["notable_articles"] = norm_notable
+    for sec in out.get("sectors") or []:
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "").strip().lower()
+        sec["sub_topics"] = [
+            _sanitize_sub_topic_urls(r, url_index, code)
+            for r in (sec.get("sub_topics") or [])
+            if isinstance(r, dict)
+        ]
     return out
 
 
@@ -1579,14 +2055,18 @@ def finalize_digest_summary(
     summary: dict[str, Any] | None,
     *,
     partials: list[dict[str, Any]] | None = None,
+    input_articles: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     if not isinstance(summary, dict):
         return summary
     if partials:
         summary = supplement_digest_sectors_from_partials(summary, partials)
-    normalized = normalize_digest_summary(summary)
+    url_index = DigestUrlIndex(input_articles or []) if input_articles else None
+    normalized = normalize_digest_summary(summary, url_index=url_index)
     for w in validate_digest_public_polish(normalized):
         print(f"WARN digest polish: {w}", file=sys.stderr)
+    for w in validate_digest_url_whitelist(normalized, url_index):
+        print(f"WARN digest URL whitelist: {w}", file=sys.stderr)
     for w in validate_digest_multisector_coverage(normalized):
         print(f"WARN digest coverage: {w}", file=sys.stderr)
     return normalized
@@ -2408,7 +2888,9 @@ def run_batch_digest(
             max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
         )
         if isinstance(final, dict):
-            final = finalize_digest_summary(final, partials=partials)
+            final = finalize_digest_summary(
+                final, partials=partials, input_articles=enriched_articles
+            )
         return final, partials, 1
 
     if use_existing_outline:
@@ -2567,7 +3049,9 @@ def run_batch_digest(
     )
     api_calls += 1
     if isinstance(final, dict):
-        final = finalize_digest_summary(final, partials=partials)
+        final = finalize_digest_summary(
+            final, partials=partials, input_articles=enriched_articles
+        )
     return final, partials, api_calls
 
 
@@ -3081,7 +3565,7 @@ def main() -> int:
         return 1
 
     if args.mode == "digest" and isinstance(summary, dict):
-        summary = finalize_digest_summary(summary)
+        summary = finalize_digest_summary(summary, input_articles=enriched_articles)
 
     meta = {
         "input_file": str(input_path.resolve()),

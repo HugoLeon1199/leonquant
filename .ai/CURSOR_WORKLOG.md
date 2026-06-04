@@ -220,6 +220,21 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Hygiene | Reroute AI policy→tech, exam→trends; drop soft entertainment; max 2× E10 toàn bài |
 | Notable | `supplement_notable_from_sectors()` fallback 5–8 từ tier A/B khi merge trả <4 |
 
+## 2026-06-04 — Digest polish v4 — URL whitelist + recompute hint after rewrite/dedupe
+
+**Scope:** `summarize_news_gemini.py` only (48h digest normalize).
+
+| Area | Change |
+|------|--------|
+| URL whitelist | `DigestUrlIndex` từ `news_for_ai_clean.json` / enriched payload; `_sanitize_sub_topic_urls` / `_sanitize_notable_url` sau merge |
+| Fabricated URLs | Không trong `allowed_urls` → match domain+headline hoặc drop + `WARN digest URL` |
+| Copy | `_recompute_digest_subtopic_copy` sau Việt hóa headline, dedupe, merge cluster — không giữ hint/reason stream khác |
+| Alphabet | `_infer_alphabet_digest_copy` — hint/reason AI capex, không VN-Index |
+| Bitcoin finance | `_merge_bitcoin_finance_rows` — gom BTC+AI vs BTC 70k khi trùng góc |
+| Pipeline | `finalize_digest_summary(..., input_articles=)`; `validate_digest_url_whitelist` |
+
+**Regenerate:** `python summarize_news_gemini.py --mode digest` → `python build_website_content.py`.
+
 ## 2026-06-04 — Digest polish v3 (hint fallback, headline dedupe, low-value filter)
 
 | Area | Change |
