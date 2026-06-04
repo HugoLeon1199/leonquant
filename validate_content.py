@@ -15,8 +15,35 @@ DEFAULT_CONTENT = PROJECT_DIR / "content.json"
 
 def _validate_digest_content(c: dict[str, Any]) -> list[str]:
     err: list[str] = []
-    if c.get("briefMode") != "multisector-digest":
-        err.append('content.json: briefMode must be "multisector-digest"')
+    mode = c.get("briefMode")
+    if mode not in ("multisector-digest", "newsroom-brief"):
+        err.append('content.json: briefMode must be "multisector-digest" or "newsroom-brief"')
+    if mode == "newsroom-brief":
+        if not str(c.get("editorNote") or "").strip():
+            err.append("content.json: editorNote required for newsroom-brief")
+        fp = c.get("frontPage")
+        if not isinstance(fp, list) or len(fp) < 1:
+            err.append("content.json: frontPage must be non-empty for newsroom-brief")
+        sdb = c.get("sectorDeepBriefs")
+        if not isinstance(sdb, list) or len(sdb) < 4:
+            err.append("content.json: sectorDeepBriefs must have 4 sectors for newsroom-brief")
+        else:
+            for i, sec in enumerate(sdb[:4]):
+                if not isinstance(sec, dict):
+                    err.append(f"sectorDeepBriefs[{i}]: must be object")
+                    continue
+                dossiers = sec.get("storyDossiers") or []
+                if not dossiers:
+                    err.append(f"sectorDeepBriefs[{i}]: need storyDossiers")
+                for j, d in enumerate(dossiers[:3]):
+                    if isinstance(d, dict) and not str(d.get("whyItMatters") or "").strip():
+                        err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: missing whyItMatters")
+        if not str((c.get("mainThesis") or {}).get("thesis") or "").strip():
+            err.append("content.json: mainThesis.thesis required")
+        articles = c.get("articleLinkIndex")
+        if articles is not None and not isinstance(articles, list):
+            err.append("content.json: articleLinkIndex must be list")
+        return err
     if not str(c.get("generatedAt") or "").strip():
         err.append("content.json: missing generatedAt")
     sectors = c.get("digestSectors")
@@ -68,7 +95,8 @@ def main() -> int:
             print(e, file=sys.stderr)
         return 1
     n = len(c.get("digestSectors") or [])
-    print(f"OK: content.json valid ({n} sector(s), digest 48h).")
+    mode = c.get("briefMode", "multisector-digest")
+    print(f"OK: content.json valid ({n} sector(s), mode={mode}).")
     return 0
 
 

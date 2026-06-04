@@ -343,7 +343,76 @@ function buildSectorBlockHtml(s, index) {
   return h;
 }
 
+function buildDossierSourcesHtml(links) {
+  const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && String(lk.url || "").trim());
+  if (!rows.length) return `<p class="hint">Chưa có nguồn đại diện.</p>`;
+  return buildLinkRowsHtml(rows);
+}
+
+function buildNewsroomThesisHtml(data) {
+  const reportTitle =
+    String(data.digestReportTitle || "").trim() ||
+    "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
+  const editorNote = String(data.editorNote || "").trim();
+  const front = Array.isArray(data.frontPage) ? data.frontPage : [];
+  const sectors = Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : [];
+  const watch = Array.isArray(data.watchlist2472h) ? data.watchlist2472h : [];
+  const desk = Array.isArray(data.sourceDesk) ? data.sourceDesk : [];
+  let html = `<article id="digest-report" class="digest-report newsroom-report">`;
+  html += `<header class="digest-report-head"><h2>${escapeHtml(reportTitle)}</h2></header><div class="digest-main-panel">`;
+  if (editorNote) {
+    html += `<section class="overview-part"><h3 class="sectors-section-title">Lời biên tập</h3>`;
+    html += `<p class="newsroom-editor-note">${escapeHtml(editorNote)}</p></section>`;
+  }
+  if (front.length) {
+    html += `<section class="overview-part"><h3 class="sectors-section-title">Front page</h3><div class="front-page-grid">`;
+    for (const fp of front) {
+      html += `<div class="front-page-card"><h4>${escapeHtml(fp.title || "")}</h4>`;
+      if (fp.oneSentence) html += `<p>${escapeHtml(fp.oneSentence)}</p>`;
+      if (fp.whyItMatters) html += `<p>${escapeHtml(fp.whyItMatters)}</p>`;
+      if (fp.links?.length) html += buildDossierSourcesHtml(fp.links);
+      html += `</div>`;
+    }
+    html += `</div></section>`;
+  }
+  for (let si = 0; si < sectors.length; si++) {
+    const sec = sectors[si];
+    const name = String(sec.name || "").trim() || "Lĩnh vực";
+    html += `<article class="sector-block" id="${sectorSlug(name)}">`;
+    html += `<header class="sector-head"><h3>${escapeHtml(name)}</h3></header><div class="sector-body">`;
+    if (sec.sectorThesis) html += `<p class="sector-intro">${escapeHtml(sec.sectorThesis)}</p>`;
+    for (const d of sec.storyDossiers || []) {
+      html += `<div class="dossier-card"><h4>${escapeHtml(d.title || "")}</h4>`;
+      if (d.summary) html += `<p>${escapeHtml(d.summary)}</p>`;
+      if (d.whyItMatters) html += `<p>${escapeHtml(d.whyItMatters)}</p>`;
+      html += buildDossierSourcesHtml(d.links);
+      html += `</div>`;
+    }
+    html += `</div></article>`;
+  }
+  if (watch.length) {
+    html += `<section class="overview-part"><h3 class="sectors-section-title">Watchlist 24–72h</h3>`;
+    for (const w of watch) {
+      html += `<div class="watch-row"><strong>${escapeHtml(w.theme || "")}</strong>`;
+      if (w.whatToWatch) html += `<p>${escapeHtml(w.whatToWatch)}</p></div>`;
+    }
+    html += `</section>`;
+  }
+  if (desk.length) {
+    html += `<section class="overview-part"><h3 class="sectors-section-title">Source desk</h3>`;
+    for (const g of desk) {
+      html += `<div class="source-desk-group"><h4>${escapeHtml(g.topic || "")}</h4>`;
+      html += buildDossierSourcesHtml(g.links);
+      html += `</div>`;
+    }
+    html += `</section>`;
+  }
+  html += `</div></article>`;
+  return html;
+}
+
 function buildDigestThesisHtml(data) {
+  if (data.briefMode === "newsroom-brief") return buildNewsroomThesisHtml(data);
   const mt = data.mainThesis || {};
   const sectors = ensureDigestSectors(data);
   const vn = String(data.digestVietnamHighlights || "").trim();
@@ -446,8 +515,8 @@ function main() {
     process.exit(1);
   }
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
-  if (data.briefMode !== "multisector-digest") {
-    console.error("content.json must have briefMode=multisector-digest");
+  if (data.briefMode !== "multisector-digest" && data.briefMode !== "newsroom-brief") {
+    console.error("content.json must have briefMode=multisector-digest or newsroom-brief");
     process.exit(1);
   }
 

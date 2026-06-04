@@ -1150,7 +1150,18 @@ def _is_investment_strategy_brief(summary: dict[str, Any]) -> bool:
     )
 
 
+def _is_newsroom_brief(summary: dict[str, Any]) -> bool:
+    if not isinstance(summary, dict):
+        return False
+    if str(summary.get("brief_format") or "").strip() == "newsroom-brief-v1":
+        return True
+    sdb = summary.get("sector_deep_briefs")
+    return isinstance(sdb, list) and len(sdb) >= 1
+
+
 def _is_multisector_digest(summary: dict[str, Any]) -> bool:
+    if _is_newsroom_brief(summary):
+        return True
     return bool(str(summary.get("executive_overview", "") or "").strip()) and isinstance(
         summary.get("sectors"), list
     )
@@ -1905,6 +1916,231 @@ def build_digest_web_extras(
     }
 
 
+def _newsroom_sources_to_links(
+    sources: list[dict[str, Any]],
+    *,
+    by_url: dict[str, dict[str, Any]],
+    group: str,
+    add_link,
+) -> list[dict[str, str]]:
+    links: list[dict[str, str]] = []
+    for src in sources:
+        if not isinstance(src, dict):
+            continue
+        u = str(src.get("url") or "").strip()
+        if not u:
+            continue
+        add_link(
+            u,
+            title=str(src.get("title") or ""),
+            source=str(src.get("source") or ""),
+            sector=group,
+            group=group,
+        )
+        art = by_url.get(u)
+        host = _url_hostname(u)
+        links.append(
+            {
+                "url": u,
+                "title": str(src.get("title") or (art.get("title") if art else "") or host),
+                "host": host,
+                "source": str(src.get("source") or (art.get("source") if art else "") or ""),
+                "label": _link_display_label(host, str(src.get("source") or "")),
+            }
+        )
+    return links
+
+
+def build_newsroom_web_extras(
+    summary: dict[str, Any],
+    all_articles: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Newsroom brief → content.json fields + legacy digestSectors fallback."""
+    legacy_sectors: list[dict[str, Any]] = []
+    for sec in summary.get("sector_deep_briefs") or []:
+        if not isinstance(sec, dict):
+            continue
+        subs: list[dict[str, Any]] = []
+        for d in sec.get("story_dossiers") or []:
+            if not isinstance(d, dict):
+                continue
+            urls = [
+                str(s.get("url") or "").strip()
+                for s in (d.get("representative_sources") or [])
+                if isinstance(s, dict)
+            ]
+            subs.append(
+                {
+                    "headline": str(d.get("title") or "").strip(),
+                    "source_urls": [u for u in urls if u][:3],
+                    "importance_rank": d.get("rank"),
+                }
+            )
+        legacy_sectors.append(
+            {
+                "code": str(sec.get("code") or "").strip(),
+                "name": str(sec.get("name") or "").strip(),
+                "summary": str(sec.get("sector_thesis") or "").strip(),
+                "sub_topics": subs,
+            }
+        )
+    fp_lines = [
+        str(x.get("one_sentence") or "").strip()
+        for x in (summary.get("front_page") or [])
+        if isinstance(x, dict) and str(x.get("one_sentence") or "").strip()
+    ]
+    legacy_summary = {
+        "sectors": legacy_sectors,
+        "executive_overview": fp_lines[:8],
+        "notable_articles": [],
+    }
+    base = build_digest_web_extras(legacy_summary, all_articles)
+    by_url: dict[str, dict[str, Any]] = {}
+    for art in all_articles:
+        u = str(art.get("url") or "").strip()
+        if u and u not in by_url:
+            by_url[u] = art
+
+    seen: set[str] = set()
+    link_index: list[dict[str, Any]] = list(base.get("digestLinkIndex") or [])
+
+    def add_link(
+        url: str,
+        *,
+        title: str = "",
+        source: str = "",
+        sector: str = "",
+        group: str = "",
+    ) -> None:
+        u = str(url or "").strip()
+        if not u or u in seen:
+            return
+        seen.add(u)
+        art = by_url.get(u)
+        host = _url_hostname(u)
+        link_index.append(
+            {
+                "url": u,
+                "title": (title or (str(art.get("title", "")) if art else "") or host or u),
+                "host": host,
+                "source": source or (str(art.get("source", "")) if art else ""),
+                "label": _link_display_label(host, source),
+                "sector": sector,
+                "group": group or sector or "Khác",
+            }
+        )
+
+    front_page: list[dict[str, Any]] = []
+    for row in summary.get("front_page") or []:
+        if not isinstance(row, dict):
+            continue
+        title = str(row.get("title") or "").strip()
+        if not title:
+            continue
+        urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+        links = _newsroom_sources_to_links(
+            [{"url": u, "title": title, "source": ""} for u in urls],
+            by_url=by_url,
+            group="Front page",
+            add_link=add_link,
+        )
+        front_page.append(
+            {
+                "rank": int(row.get("rank") or len(front_page) + 1),
+                "title": title,
+                "oneSentence": str(row.get("one_sentence") or "").strip(),
+                "whyItMatters": str(row.get("why_it_matters") or "").strip(),
+                "watchNext": str(row.get("watch_next") or "").strip(),
+                "links": links,
+            }
+        )
+
+    sector_deep: list[dict[str, Any]] = []
+    for sec in summary.get("sector_deep_briefs") or []:
+        if not isinstance(sec, dict):
+            continue
+        code = _resolve_digest_sector_code(sec)
+        name = str(sec.get("name") or "").strip() or DIGEST_SECTOR_LABEL_BY_CODE.get(code, code)
+        dossiers_out: list[dict[str, Any]] = []
+        for d in sec.get("story_dossiers") or []:
+            if not isinstance(d, dict):
+                continue
+            title = str(d.get("title") or "").strip()
+            if not title:
+                continue
+            src_rows = [
+                s for s in (d.get("representative_sources") or []) if isinstance(s, dict)
+            ]
+            links = _newsroom_sources_to_links(
+                src_rows, by_url=by_url, group=name, add_link=add_link
+            )
+            dossiers_out.append(
+                {
+                    "rank": int(d.get("rank") or len(dossiers_out) + 1),
+                    "depthLevel": str(d.get("depth_level") or "deep"),
+                    "title": title,
+                    "summary": str(d.get("summary") or "").strip(),
+                    "mainDevelopments": [
+                        str(x).strip()
+                        for x in (d.get("main_developments") or [])
+                        if str(x).strip()
+                    ],
+                    "whyItMatters": str(d.get("why_it_matters") or "").strip(),
+                    "affectedGroups": [
+                        str(x).strip()
+                        for x in (d.get("affected_groups") or [])
+                        if str(x).strip()
+                    ],
+                    "watchNext": [
+                        str(x).strip() for x in (d.get("watch_next") or []) if str(x).strip()
+                    ],
+                    "links": links,
+                }
+            )
+        sector_deep.append(
+            {
+                "code": code,
+                "name": name,
+                "sectorThesis": str(sec.get("sector_thesis") or "").strip(),
+                "storyDossiers": dossiers_out,
+            }
+        )
+
+    watchlist = [
+        {
+            "theme": str(w.get("theme") or "").strip(),
+            "whatToWatch": str(w.get("what_to_watch") or "").strip(),
+            "why": str(w.get("why") or "").strip(),
+        }
+        for w in (summary.get("watchlist_24_72h") or [])
+        if isinstance(w, dict) and str(w.get("theme") or "").strip()
+    ]
+
+    source_desk: list[dict[str, Any]] = []
+    for row in summary.get("source_desk") or []:
+        if not isinstance(row, dict):
+            continue
+        topic = str(row.get("topic") or "").strip()
+        if not topic:
+            continue
+        src_rows = [s for s in (row.get("representative_sources") or []) if isinstance(s, dict)]
+        links = _newsroom_sources_to_links(
+            src_rows, by_url=by_url, group=topic, add_link=add_link
+        )
+        if links:
+            source_desk.append({"topic": topic, "links": links})
+
+    return {
+        **base,
+        "digestLinkIndex": link_index,
+        "editorNote": str(summary.get("editor_note") or "").strip(),
+        "frontPage": front_page,
+        "sectorDeepBriefs": sector_deep,
+        "watchlist2472h": watchlist,
+        "sourceDesk": source_desk,
+    }
+
+
 def _dedupe_preserve_order(lines: list[str]) -> list[str]:
     seen: set[str] = set()
     out: list[str] = []
@@ -1965,11 +2201,36 @@ def _digest_multisector_to_strategy_snake(
     brief_date: str,
     generated_at: str,
 ) -> dict[str, Any]:
-    """Map ``gemini_digest_summary.json`` multisector schema → strategy brief snake_case."""
+    """Map ``gemini_digest_summary.json`` multisector/newsroom schema → strategy brief snake_case."""
     out = copy.deepcopy(_default_strategy_snake(brief_date=brief_date, generated_at=generated_at))
     title = str(summary.get("title", "") or "").strip()
     if title:
         out["title"] = title
+
+    if _is_newsroom_brief(summary):
+        note = str(summary.get("editor_note") or "").strip()
+        fp = summary.get("front_page") if isinstance(summary.get("front_page"), list) else []
+        overview = note or "\n".join(
+            str(x.get("one_sentence") or "").strip()
+            for x in fp[:6]
+            if isinstance(x, dict)
+        )
+        if overview:
+            out["publication_intro"]["headline"] = title or out["publication_intro"]["headline"]
+            out["publication_intro"]["description"] = overview[:1200]
+            out["main_thesis"]["thesis"] = overview
+        out["_multisector_digest"] = True
+        out["_digest_public"] = {
+            "gaps_and_limits": str(summary.get("gaps_and_limits") or "").strip(),
+            "reading_time_minutes": str(summary.get("reading_time_minutes") or "").strip(),
+            "executive_overview_bullets": [
+                str(x.get("one_sentence") or "").strip()
+                for x in fp
+                if isinstance(x, dict) and str(x.get("one_sentence") or "").strip()
+            ],
+        }
+        _migrate_snake_to_global_strategy_v2(out)
+        return out
 
     exec_raw = summary.get("executive_overview")
     if isinstance(exec_raw, list):
@@ -2812,6 +3073,7 @@ def build_payload(
     if not brief_date and isinstance(final_payload.get("generated_at"), str):
         brief_date = final_payload["generated_at"][:10]
 
+    from_newsroom = _is_newsroom_brief(raw_summary)
     from_digest = _is_multisector_digest(raw_summary)
     snake = coerce_summary_to_strategy_brief(
         raw_summary,
@@ -2857,7 +3119,15 @@ def build_payload(
         },
     }
     if from_digest:
-        payload["briefMode"] = "multisector-digest"
+        payload["briefMode"] = "newsroom-brief" if from_newsroom else "multisector-digest"
+        if from_newsroom:
+            payload["digestReportTitle"] = (
+                str(raw_summary.get("title") or "").strip()
+                or "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)"
+            )
+            payload["digestHeroBlurb"] = (
+                "Bản tin newsroom 48h — front page, dossier theo lĩnh vực, watchlist và source desk."
+            )
         digest_pub = snake.get("_digest_public") if isinstance(snake.get("_digest_public"), dict) else {}
         if digest_pub.get("vietnam_highlights"):
             payload["digestVietnamHighlights"] = digest_pub["vietnam_highlights"]
@@ -2897,8 +3167,22 @@ def build_payload(
                 f"Digest notable: {len(notable_out)} item(s), {n_img} with thumbnail.",
                 file=sys.stderr,
             )
-        extras = build_digest_web_extras(raw_summary, all_articles)
-        payload.update(extras)
+        if from_newsroom:
+            extras = build_newsroom_web_extras(raw_summary, all_articles)
+            payload.update(extras)
+            n_dossiers = sum(
+                len(s.get("storyDossiers") or [])
+                for s in (extras.get("sectorDeepBriefs") or [])
+                if isinstance(s, dict)
+            )
+            print(
+                f"Newsroom brief: {len(extras.get('frontPage') or [])} front, "
+                f"{n_dossiers} dossier(s), {len(extras.get('watchlist2472h') or [])} watchlist.",
+                file=sys.stderr,
+            )
+        else:
+            extras = build_digest_web_extras(raw_summary, all_articles)
+            payload.update(extras)
         n_sectors = len(extras.get("digestSectors") or [])
         n_links = len(extras.get("digestLinkIndex") or [])
         print(

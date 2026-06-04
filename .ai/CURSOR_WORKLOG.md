@@ -237,6 +237,21 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Local rebuild:** `powershell scripts/rebuild_public_site.ps1` — commit `landing_page.html`, `content.json`, `gemini_digest_summary.json`, push → Pages workflow.
 
+## 2026-06-05 — Tin 48h newsroom brief (schema + renderer)
+
+**Scope:** `summarize_news_gemini.py`, `build_website_content.py`, `landing_page.html`, `validate_content.py`, `scripts/embed_public_brief_into_html.mjs`, `scripts/test_newsroom_digest.py`, `pages.yml`.
+
+| Area | Change |
+|------|--------|
+| Gemini merge | Output `newsroom-brief-v1`: `editor_note`, `front_page`, `sector_deep_briefs` + `story_dossiers`, `watchlist_24_72h`, `source_desk` |
+| Normalize | `normalize_newsroom_brief`, `validate_newsroom_brief`, URL whitelist trên dossier/front/desk |
+| Web | `briefMode=newsroom-brief`, `build_newsroom_web_extras` → `content.json` |
+| UI | Renderer tạm: Lời biên tập, Front page, Sector deep + dossier cards, Watchlist, Source desk (không redesign lớn) |
+| Legacy | `multisector-digest` vẫn hiển thị nếu `content.json` cũ |
+| Test | `python scripts/test_newsroom_digest.py` (không gọi Gemini) |
+
+**Deploy:** Lần digest CI/API tiếp theo tạo JSON newsroom; rebuild Pages để embed HTML mới.
+
 ## 2026-06-04 — HTTPS leonquant.com (`NET::ERR_CERT_COMMON_NAME_INVALID`)
 
 **Root cause:** TLS trên `leonquant.com` trả cert `CN=*.github.io` (SAN không có `leonquant.com`) — custom domain chưa đăng ký trên GitHub Pages dù DNS apex/www trỏ đúng IP GitHub.

@@ -104,8 +104,18 @@ jobs:
             grep -Fq 'data-embedded-pulse="1"' _site/index.html
             grep -Fq 'NÓNG TOÀN CẦU' _site/index.html
           fi
-          # Digest mode: sector cards + multisector flag in content.json
-          python3 -c "import json; d=json.load(open('content.json')); assert d.get('briefMode')=='multisector-digest', d.get('briefMode'); s=d.get('digestSectors') or []; assert len(s)>=4"
+          # Digest: multisector hoặc newsroom brief
+          python3 -c "
+          import json
+          d=json.load(open('content.json'))
+          m=d.get('briefMode')
+          assert m in ('multisector-digest','newsroom-brief'), m
+          if m=='newsroom-brief':
+            assert len(d.get('frontPage') or [])>=1
+            assert len(d.get('sectorDeepBriefs') or [])>=4
+          else:
+            assert len(d.get('digestSectors') or [])>=4
+          "
 
       - uses: actions/configure-pages@v5
 

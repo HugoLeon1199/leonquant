@@ -71,7 +71,15 @@ DIGEST_PARSER_MAX_SUB_TOPICS_PER_SECTOR = 25
 DIGEST_PARSER_MAX_NOTABLE = 12
 DIGEST_PARSER_MAX_EXEC_BULLETS = 12
 DIGEST_MAX_OUTLINE_THEMES = 18
-DIGEST_MERGE_MAX_OUTPUT_TOKENS = 32_768
+DIGEST_MERGE_MAX_OUTPUT_TOKENS = 65_536
+NEWSROOM_BRIEF_FORMAT = "newsroom-brief-v1"
+DIGEST_PARSER_MAX_STORY_DOSSIERS_PER_SECTOR = 25
+DIGEST_MAX_REPRESENTATIVE_SOURCES = 5
+DIGEST_PARSER_MAX_FRONT_PAGE = 12
+DIGEST_PARSER_MAX_WATCHLIST = 10
+DIGEST_PARSER_MAX_SOURCE_DESK = 12
+DIGEST_SECTOR_SUMMARY_MAX_CHARS = 2800
+NEWSROOM_DEPTH_LEVELS = frozenset({"brief", "deep", "major"})
 
 
 def _digest_adaptive_count_block() -> str:
@@ -345,6 +353,114 @@ def _digest_sector_summary_rules_block(*, for_merge: bool = False) -> str:
             ]
         )
     return "\n".join(lines)
+
+
+def _is_newsroom_brief(summary: dict[str, Any]) -> bool:
+    if not isinstance(summary, dict):
+        return False
+    if str(summary.get("brief_format") or "").strip() == NEWSROOM_BRIEF_FORMAT:
+        return True
+    sdb = summary.get("sector_deep_briefs")
+    return isinstance(sdb, list) and len(sdb) >= 1
+
+
+def _digest_newsroom_voice_block() -> str:
+    return "\n".join(
+        [
+            "## Vai trò — tổng biên tập LeonQuant (newsroom 48h)",
+            "Bạn là **tổng biên tập** của LeonQuant — một newsroom cá nhân tổng hợp tin toàn cầu và Việt Nam trong **48 giờ**.",
+            "Bạn **không** viết bản tóm tắt ngắn hay danh sách headline.",
+            "Bạn xây dựng **bản tin chuyên sâu có cấu trúc**: front page, story dossier theo sector, watchlist, source desk.",
+            "Tận dụng dữ liệu lớn từ crawler: gom nhiều bài thành **câu chuyện** có bối cảnh, diễn biến, tác động, biến số theo dõi.",
+            "Mỗi story lớn phải trả lời: **chuyện gì xảy ra → vì sao quan trọng → ai bị ảnh hưởng → theo dõi gì 24–72h**.",
+            _digest_editorial_style_block(),
+            "## Cấm văn phong chung chung",
+            'Không dùng: "Tin này đáng chú ý", "Đây là một luồng tin quan trọng", "Phản ánh bức tranh 48h", headline giật, lời khuyên mua/bán.',
+            "Viết **cụ thể** (số liệu, bên liên quan, kênh truyền dẫn tác động) khi có trong dữ liệu.",
+        ]
+    )
+
+
+def _digest_story_dossier_rules_block() -> str:
+    return "\n".join(
+        [
+            "## Story dossier (trọng tâm output)",
+            "Mỗi `story_dossier` **không** chỉ là headline. Bắt buộc:",
+            "- `title`: tiêu đề biên tập (tiếng Việt, không giật).",
+            "- `summary`: **1 câu** nêu ý chính.",
+            "- `main_developments`: **3–5** ý từ **nhiều bài** cùng cụm (diễn biến có thứ tự logic).",
+            "- `why_it_matters`: **100–180 từ** (story nhỏ) hoặc dài hơn nếu `depth_level` deep/major.",
+            "- `affected_groups`: mảng ngắn (nhóm/tài sản/ngành/quốc gia).",
+            "- `watch_next`: mảng biến số **24–72h**.",
+            "- `representative_sources`: **1–5** object `{title, source, url}` — URL **chỉ** từ input crawl.",
+            "- `depth_level`: `brief` (100–150 từ tổng nội dung dossier) | `deep` (200–350) | `major` (400–700, nhiều nguồn/tác động).",
+            "Story có nhiều nguồn và tác động đa ngành → `major`. **Không** viết 2–3 dòng sơ sài khi dữ liệu dày.",
+        ]
+    )
+
+
+def _digest_newsroom_json_schema_fragment() -> str:
+    sector_blocks = []
+    dossier = """        {
+          "rank": 1,
+          "depth_level": "deep",
+          "title": "Tiêu đề biên tập",
+          "summary": "Một câu rõ ý.",
+          "main_developments": ["ý 1", "ý 2", "ý 3"],
+          "why_it_matters": "100-500 từ tùy depth_level.",
+          "affected_groups": ["...", "..."],
+          "watch_next": ["...", "..."],
+          "representative_sources": [
+            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl"}
+          ]
+        }"""
+    for code, label in DIGEST_FOUR_SECTORS:
+        sector_blocks.append(
+            f"""    {{
+      "code": "{code}",
+      "name": "{label}",
+      "sector_thesis": "150-250 từ: câu chuyện chính của sector trong 48h (không liệt kê headline).",
+      "story_dossiers": [
+{dossier}
+      ]
+    }}"""
+        )
+    sectors_joined = ",\n".join(sector_blocks)
+    return f"""{{
+  "brief_format": "{NEWSROOM_BRIEF_FORMAT}",
+  "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
+  "reading_time_minutes": "auto",
+  "editor_note": "100-180 từ, giọng biên tập trưởng mở đầu bản tin.",
+  "front_page": [
+    {{
+      "rank": 1,
+      "title": "...",
+      "one_sentence": "...",
+      "why_it_matters": "...",
+      "watch_next": "...",
+      "source_urls": ["https://url-that-tu-crawl"]
+    }}
+  ],
+  "sector_deep_briefs": [
+{sectors_joined}
+  ],
+  "watchlist_24_72h": [
+    {{
+      "theme": "...",
+      "what_to_watch": "...",
+      "why": "..."
+    }}
+  ],
+  "source_desk": [
+    {{
+      "topic": "...",
+      "representative_sources": [
+        {{"title": "...", "source": "...", "url": "https://..."}}
+      ]
+    }}
+  ],
+  "gaps_and_limits": "Ngắn — chỉ thiếu dữ liệu thật"
+}}"""
 
 
 def _digest_sector_json_schema_fragment() -> str:
@@ -953,6 +1069,12 @@ def validate_digest_url_whitelist(
     if index is None or not index.active:
         return []
     warnings: list[str] = []
+
+    def _check(path: str, url: str) -> None:
+        cu = _canonical_digest_url(str(url))
+        if cu and cu not in index.allowed:
+            warnings.append(f"{path} URL ngoài whitelist: {cu[:80]}")
+
     for i, sec in enumerate(summary.get("sectors") or []):
         if not isinstance(sec, dict):
             continue
@@ -961,17 +1083,35 @@ def validate_digest_url_whitelist(
             if not isinstance(row, dict):
                 continue
             for u in row.get("source_urls") or []:
-                cu = _canonical_digest_url(str(u))
-                if cu and cu not in index.allowed:
-                    warnings.append(
-                        f"sectors[{i}] ({code}) sub_topics[{j}] URL ngoài whitelist: {cu[:80]}"
-                    )
+                _check(f"sectors[{i}] ({code}) sub_topics[{j}]", str(u))
     for k, n in enumerate(summary.get("notable_articles") or []):
         if not isinstance(n, dict):
             continue
-        cu = _canonical_digest_url(str(n.get("url") or ""))
-        if cu and cu not in index.allowed:
-            warnings.append(f"notable_articles[{k}] URL ngoài whitelist: {cu[:80]}")
+        _check(f"notable_articles[{k}]", str(n.get("url") or ""))
+    for i, fp in enumerate(summary.get("front_page") or []):
+        if not isinstance(fp, dict):
+            continue
+        for u in fp.get("source_urls") or []:
+            _check(f"front_page[{i}]", str(u))
+    for i, sec in enumerate(summary.get("sector_deep_briefs") or []):
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "?")
+        for j, dossier in enumerate(sec.get("story_dossiers") or []):
+            if not isinstance(dossier, dict):
+                continue
+            for k, src in enumerate(dossier.get("representative_sources") or []):
+                if isinstance(src, dict):
+                    _check(
+                        f"sector_deep_briefs[{i}] ({code}) story_dossiers[{j}] sources[{k}]",
+                        str(src.get("url") or ""),
+                    )
+    for i, desk in enumerate(summary.get("source_desk") or []):
+        if not isinstance(desk, dict):
+            continue
+        for j, src in enumerate(desk.get("representative_sources") or []):
+            if isinstance(src, dict):
+                _check(f"source_desk[{i}] sources[{j}]", str(src.get("url") or ""))
     return warnings
 
 
@@ -1820,10 +1960,305 @@ def supplement_notable_from_sectors(
     return summary
 
 
+def _infer_digest_sector_code(name: str) -> str:
+    n = (name or "").lower()
+    if any(k in n for k in ("công nghệ", "cong nghe", "ai", "khoa học", "bán dẫn", "tech", "chip")):
+        return "tech"
+    if any(k in n for k in ("chính trị", "thời sự", "ngoại giao", "địa chính", "quốc tế", "news")):
+        return "news"
+    if any(k in n for k in ("xu hướng", "đời sống", "quan điểm", "xã hội", "trends")):
+        return "trends"
+    if any(k in n for k in ("kinh tế", "tài chính", "chứng khoán", "bất động", "crypto", "finance")):
+        return "finance"
+    return "trends"
+
+
+def _coerce_depth_level(raw: Any) -> str:
+    d = str(raw or "").strip().lower()
+    return d if d in NEWSROOM_DEPTH_LEVELS else "deep"
+
+
+def _coerce_str_list(val: Any, *, max_items: int = 8) -> list[str]:
+    if isinstance(val, list):
+        out = [str(x).strip() for x in val if str(x).strip()]
+    elif isinstance(val, str) and val.strip():
+        out = [ln.strip() for ln in re.split(r"[\n;]+", val) if ln.strip()]
+    else:
+        out = []
+    return out[:max_items]
+
+
+def _sanitize_representative_sources(
+    sources: Any,
+    *,
+    headline: str,
+    index: DigestUrlIndex | None,
+    sector_code: str,
+) -> list[dict[str, str]]:
+    out: list[dict[str, str]] = []
+    seen: set[str] = set()
+    rows = sources if isinstance(sources, list) else []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        title = str(row.get("title") or "").strip()
+        src = str(row.get("source") or "").strip()
+        u = _resolve_digest_url(str(row.get("url") or ""), title or headline, index, sector_code)
+        if not u or u in seen:
+            continue
+        seen.add(u)
+        out.append({"title": title or u, "source": src, "url": u})
+        if len(out) >= DIGEST_MAX_REPRESENTATIVE_SOURCES:
+            break
+    if not out and headline and index and index.active:
+        u = _resolve_digest_url("", headline, index, sector_code)
+        if u:
+            out.append({"title": headline, "source": "", "url": u})
+    return out
+
+
+def _sanitize_story_dossier(
+    row: dict[str, Any],
+    *,
+    index: DigestUrlIndex | None,
+    sector_code: str,
+) -> dict[str, Any]:
+    out = dict(row)
+    title = str(out.get("title") or out.get("headline") or "").strip()
+    if title:
+        out["title"] = _vietnamese_public_headline(_editorialize_digest_headline(title))
+    out["summary"] = str(out.get("summary") or "").strip()
+    out["depth_level"] = _coerce_depth_level(out.get("depth_level"))
+    out["main_developments"] = _coerce_str_list(out.get("main_developments"), max_items=6)
+    out["why_it_matters"] = str(out.get("why_it_matters") or "").strip()
+    out["affected_groups"] = _coerce_str_list(out.get("affected_groups"), max_items=8)
+    out["watch_next"] = _coerce_str_list(out.get("watch_next"), max_items=6)
+    out["representative_sources"] = _sanitize_representative_sources(
+        out.get("representative_sources"),
+        headline=title,
+        index=index,
+        sector_code=sector_code,
+    )
+    try:
+        out["rank"] = int(out.get("rank") or 0) or 999
+    except (TypeError, ValueError):
+        out["rank"] = 999
+    return out
+
+
+def _sanitize_front_page_item(
+    row: dict[str, Any],
+    *,
+    index: DigestUrlIndex | None,
+) -> dict[str, Any]:
+    out = dict(row)
+    title = str(out.get("title") or "").strip()
+    if title:
+        out["title"] = _vietnamese_public_headline(_editorialize_digest_headline(title))
+    out["one_sentence"] = str(out.get("one_sentence") or "").strip()
+    out["why_it_matters"] = str(out.get("why_it_matters") or "").strip()
+    out["watch_next"] = str(out.get("watch_next") or "").strip()
+    urls: list[str] = []
+    for raw in out.get("source_urls") or []:
+        u = _resolve_digest_url(str(raw), title, index, sector_code="")
+        if u and u not in urls:
+            urls.append(u)
+    if not urls and title and index and index.active:
+        u = _resolve_digest_url("", title, index, sector_code="")
+        if u:
+            urls.append(u)
+    out["source_urls"] = urls[:3]
+    try:
+        out["rank"] = int(out.get("rank") or 0) or 999
+    except (TypeError, ValueError):
+        out["rank"] = 999
+    return out
+
+
+def normalize_newsroom_brief(
+    summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
+    """Post-merge newsroom schema: sanitize URLs, sort ranks, parser caps."""
+    out = dict(summary)
+    out["brief_format"] = NEWSROOM_BRIEF_FORMAT
+    out["title"] = str(out.get("title") or "").strip() or (
+        "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ"
+    )
+    if not str(out.get("reading_time_minutes") or "").strip():
+        out["reading_time_minutes"] = "auto"
+    out["editor_note"] = str(out.get("editor_note") or "").strip()
+
+    fp_raw = out.get("front_page") if isinstance(out.get("front_page"), list) else []
+    front: list[dict[str, Any]] = []
+    for row in fp_raw:
+        if not isinstance(row, dict):
+            continue
+        item = _sanitize_front_page_item(row, index=url_index)
+        if item.get("title"):
+            front.append(item)
+    front.sort(key=lambda r: int(r.get("rank") or 999))
+    out["front_page"] = front[:DIGEST_PARSER_MAX_FRONT_PAGE]
+
+    buckets: dict[str, dict[str, Any]] = {
+        code: {"code": code, "name": label, "sector_thesis": "", "story_dossiers": []}
+        for code, label in DIGEST_FOUR_SECTORS
+    }
+    for sec in out.get("sector_deep_briefs") or []:
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "").strip().lower()
+        if code not in buckets:
+            code = _infer_digest_sector_code(str(sec.get("name") or ""))
+        bucket = buckets[code]
+        bucket["name"] = str(sec.get("name") or "").strip() or bucket["name"]
+        thesis = str(sec.get("sector_thesis") or sec.get("summary") or "").strip()
+        if thesis:
+            bucket["sector_thesis"] = thesis[:DIGEST_SECTOR_SUMMARY_MAX_CHARS]
+        dossiers: list[dict[str, Any]] = []
+        for d in sec.get("story_dossiers") or []:
+            if not isinstance(d, dict):
+                continue
+            sd = _sanitize_story_dossier(d, index=url_index, sector_code=code)
+            if sd.get("title"):
+                dossiers.append(sd)
+        dossiers.sort(key=lambda r: int(r.get("rank") or 999))
+        bucket["story_dossiers"].extend(dossiers)
+
+    norm_sectors: list[dict[str, Any]] = []
+    for code, label in DIGEST_FOUR_SECTORS:
+        b = buckets[code]
+        seen_t: set[str] = set()
+        deduped: list[dict[str, Any]] = []
+        for d in b["story_dossiers"]:
+            key = _headline_dedupe_key(str(d.get("title") or ""))
+            if key and key in seen_t:
+                continue
+            if key:
+                seen_t.add(key)
+            deduped.append(d)
+        b["story_dossiers"] = deduped[:DIGEST_PARSER_MAX_STORY_DOSSIERS_PER_SECTOR]
+        norm_sectors.append(
+            {
+                "code": code,
+                "name": b["name"] or label,
+                "sector_thesis": b["sector_thesis"],
+                "story_dossiers": b["story_dossiers"],
+            }
+        )
+    out["sector_deep_briefs"] = norm_sectors
+
+    watch: list[dict[str, Any]] = []
+    for row in out.get("watchlist_24_72h") or []:
+        if not isinstance(row, dict):
+            continue
+        watch.append(
+            {
+                "theme": str(row.get("theme") or "").strip(),
+                "what_to_watch": str(row.get("what_to_watch") or "").strip(),
+                "why": str(row.get("why") or "").strip(),
+            }
+        )
+    out["watchlist_24_72h"] = [w for w in watch if w.get("theme")][:DIGEST_PARSER_MAX_WATCHLIST]
+
+    desk: list[dict[str, Any]] = []
+    for row in out.get("source_desk") or []:
+        if not isinstance(row, dict):
+            continue
+        topic = str(row.get("topic") or "").strip()
+        srcs = _sanitize_representative_sources(
+            row.get("representative_sources"),
+            headline=topic,
+            index=url_index,
+            sector_code="",
+        )
+        if topic and srcs:
+            desk.append({"topic": topic, "representative_sources": srcs})
+    out["source_desk"] = desk[:DIGEST_PARSER_MAX_SOURCE_DESK]
+    out["gaps_and_limits"] = str(out.get("gaps_and_limits") or "").strip()
+    return out
+
+
+def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
+    warnings: list[str] = []
+    if not str(summary.get("editor_note") or "").strip():
+        warnings.append("editor_note trống.")
+    fp = summary.get("front_page") if isinstance(summary.get("front_page"), list) else []
+    if len(fp) < 3:
+        warnings.append(f"front_page chỉ có {len(fp)} item (mong đợi ≥3).")
+    for i, item in enumerate(fp):
+        if not isinstance(item, dict):
+            continue
+        if not str(item.get("why_it_matters") or "").strip():
+            warnings.append(f"front_page[{i}] thiếu why_it_matters.")
+        if not str(item.get("watch_next") or "").strip():
+            warnings.append(f"front_page[{i}] thiếu watch_next.")
+    sdb = summary.get("sector_deep_briefs") if isinstance(summary.get("sector_deep_briefs"), list) else []
+    if len(sdb) < DIGEST_MIN_SECTORS_FINAL:
+        warnings.append(f"sector_deep_briefs chỉ có {len(sdb)} sector.")
+    for i, sec in enumerate(sdb):
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "?")
+        if not str(sec.get("sector_thesis") or "").strip():
+            warnings.append(f"sector_deep_briefs[{i}] ({code}) thiếu sector_thesis.")
+        for j, d in enumerate(sec.get("story_dossiers") or []):
+            if not isinstance(d, dict):
+                continue
+            if not str(d.get("why_it_matters") or "").strip():
+                warnings.append(f"sector_deep_briefs[{i}] dossiers[{j}] thiếu why_it_matters.")
+            devs = d.get("main_developments") if isinstance(d.get("main_developments"), list) else []
+            if len(devs) < 2:
+                warnings.append(
+                    f"sector_deep_briefs[{i}] dossiers[{j}] main_developments < 2 (headline-list risk)."
+                )
+            if _is_generic_digest_copy(str(d.get("why_it_matters") or "")):
+                warnings.append(f"sector_deep_briefs[{i}] dossiers[{j}] why_it_matters generic.")
+    return warnings
+
+
+def newsroom_brief_to_legacy_sectors(summary: dict[str, Any]) -> list[dict[str, Any]]:
+    """Map newsroom → legacy `sectors`/`sub_topics` cho build/compat."""
+    legacy: list[dict[str, Any]] = []
+    for sec in summary.get("sector_deep_briefs") or []:
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "").strip().lower()
+        subs: list[dict[str, Any]] = []
+        for d in sec.get("story_dossiers") or []:
+            if not isinstance(d, dict):
+                continue
+            urls = [
+                str(s.get("url") or "").strip()
+                for s in (d.get("representative_sources") or [])
+                if isinstance(s, dict) and str(s.get("url") or "").strip()
+            ]
+            subs.append(
+                {
+                    "importance_rank": d.get("rank") or len(subs) + 1,
+                    "priority_tier": "A" if d.get("depth_level") == "major" else "B",
+                    "headline": str(d.get("title") or "").strip(),
+                    "summary_hint": str(d.get("summary") or "").strip(),
+                    "source_urls": urls[:3],
+                    "reason_selected": str(d.get("why_it_matters") or "")[:280],
+                }
+            )
+        legacy.append(
+            {
+                "code": code,
+                "name": str(sec.get("name") or "").strip(),
+                "summary": str(sec.get("sector_thesis") or "").strip(),
+                "sub_topics": subs,
+            }
+        )
+    return legacy
+
+
 def normalize_digest_summary(
     summary: dict[str, Any], *, url_index: DigestUrlIndex | None = None
 ) -> dict[str, Any]:
     """Post-merge: sắp xếp & dedupe — không cắt quota editorial."""
+    if _is_newsroom_brief(summary):
+        return normalize_newsroom_brief(summary, url_index=url_index)
     if not isinstance(summary, dict):
         return summary
     out = dict(summary)
@@ -2059,9 +2494,16 @@ def finalize_digest_summary(
 ) -> dict[str, Any] | None:
     if not isinstance(summary, dict):
         return summary
+    url_index = DigestUrlIndex(input_articles or []) if input_articles else None
+    if _is_newsroom_brief(summary):
+        normalized = normalize_newsroom_brief(summary, url_index=url_index)
+        for w in validate_newsroom_brief(normalized):
+            print(f"WARN newsroom brief: {w}", file=sys.stderr)
+        for w in validate_digest_url_whitelist(normalized, url_index):
+            print(f"WARN digest URL whitelist: {w}", file=sys.stderr)
+        return normalized
     if partials:
         summary = supplement_digest_sectors_from_partials(summary, partials)
-    url_index = DigestUrlIndex(input_articles or []) if input_articles else None
     normalized = normalize_digest_summary(summary, url_index=url_index)
     for w in validate_digest_public_polish(normalized):
         print(f"WARN digest polish: {w}", file=sys.stderr)
@@ -2777,45 +3219,31 @@ def build_digest_merge_prompt(
         )
     partial_stats = _digest_partial_candidate_stats(partials)
     return f"""
-Bạn là **tổng biên tập** bản tin 48h của LeonQuant — biên tập **khách quan** theo dữ liệu crawl (VN + quốc tế).
+{_digest_newsroom_voice_block()}
 
 Đã có {len(partials)} partial từ {total_articles} bài. Cửa sổ: {window_desc}.
 {outline_block}
 {partial_stats}
 
-**Không có số lượng cố định cho mỗi sector.** Số tin do chất lượng và ý nghĩa quyết định.
-Nhiều tin lớn thật → giữ nhiều (gom sub-cluster nếu >15 tin cùng sector). Ít tin lớn → giữ ít.
-**Tuyệt đối không fill** tin yếu. **Không cắt** tin A/B quan trọng chỉ vì muốn gọn.
-
-**Không được hiểu "gọn" là "ít tin".** Gọn = gom thông minh, không lặp, không rác.
-Nếu partials có nhiều candidate A/B khác luồng mà final chỉ 1–3 dòng/sector → **kiểm tra lại** có bỏ sót không.
-Đối chiếu **toàn bộ** `sector_notes` từ mọi partial; bổ sung luồng A/B còn thiếu trước khi kết thúc.
+**Không có quota cố định** số story/dossier. Nếu 48h có 5 story lớn → 5 dossier sâu; nếu có 20 → giữ ~20 (gom cụm, không một bài một dòng vụn).
+**Không fill** tin yếu. **Không cắt** story quan trọng chỉ vì muốn gọn.
+Đối chiếu **toàn bộ** `sector_notes` / `candidates[]` từ mọi partial trước khi kết thúc.
 
 {_digest_four_sector_rules_block(for_merge=True)}
-CHỈ dùng dữ liệu được cung cấp.
+{_digest_story_dossier_rules_block()}
+{_digest_source_urls_block()}
+- `front_page`: **5–10** story toàn cảnh (mỗi item: `why_it_matters`, `watch_next`, `source_urls`).
+- `sector_deep_briefs`: đúng **4** sector; mỗi sector: `sector_thesis` + `story_dossiers`.
+- `watchlist_24_72h`: **4–8** chủ đề theo dõi 24–72h.
+- `source_desk`: **3–8** nhóm nguồn đại diện theo chủ đề lớn.
 
-Trả về DUY NHẤT JSON:
-{{
-  "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-  "reading_time_minutes": "auto",
-  "executive_overview": ["5-8 bullet: [diễn biến] → [vì sao đáng chú ý]; không trùng Trung Đông/AI/VN"],
-  "sectors": [
-{_digest_sector_json_schema_fragment()}
-  ],
-  "vietnam_highlights": "2-4 câu cụ thể",
-  "international_highlights": "2-4 câu cụ thể",
-  "notable_articles": [{{
-    "title": "...",
-    "source": "...",
-    "url": "...",
-    "why_notable": "...",
-    "priority_tier": "A"
-  }}],
-  "gaps_and_limits": "Ngắn — chỉ thiếu dữ liệu thật sự"
-}}
+CHỈ dùng dữ liệu được cung cấp. **Cấm** tự tạo URL.
 
-## Candidate pools (đã gom từ mọi partial — dùng làm nguồn chọn final)
-Đối chiếu **toàn bộ** `candidates[]` mỗi sector; chọn/gom thành `sub_topics` final. Giữ **đủ luồng A/B khác nhau**.
+Trả về DUY NHẤT JSON (schema newsroom):
+{_digest_newsroom_json_schema_fragment()}
+
+## Candidate pools (đã gom từ mọi partial)
+Gom candidates thành `story_dossiers` + `front_page`. Mỗi dossier = một **câu chuyện** (nhiều bài), không phải headline đơn lẻ.
 
 {partial_json}
 """.strip()
