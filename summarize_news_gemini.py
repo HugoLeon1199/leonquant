@@ -87,6 +87,44 @@ def _digest_adaptive_count_block() -> str:
     )
 
 
+def _digest_coverage_sanity_block() -> str:
+    return "\n".join(
+        [
+            "## Coverage sanity (không phải quota cứng)",
+            "- Số lượng **không cố định**, nhưng output phải **phản ánh đúng độ giàu** của dữ liệu.",
+            "- Input lớn và nhiều candidate chất lượng → mỗi sector thường nên giữ **nhiều luồng A/B khác nhau**.",
+            "- Nếu một sector có nhiều candidate tier A/B **khác chủ đề** trong partials, **phải giữ đủ các luồng chính**.",
+            "- **Không** co sector xuống 1–3 tin chỉ vì muốn gọn, trừ khi dữ liệu thật sự ít hoặc các tin **trùng** đã gom.",
+            "- Sau merge, nếu sector <4 `sub_topics`: chỉ chấp nhận khi **không còn** candidate A/B đạt chuẩn; nếu còn trong partials → **bổ sung**.",
+            "- **Gọn** = gom thông minh, không lặp, không rác — **không** hiểu gọn là ít tin.",
+        ]
+    )
+
+
+def _digest_subcluster_block() -> str:
+    return "\n".join(
+        [
+            "## Sub-cluster (khi sector nhiều tin chất lượng)",
+            "- Gom theo cụm chủ đề (vd finance: crypto/BTC, tiền tệ VN, BĐS–hạ tầng, lạm phát–XK, vàng–năng lượng, thuế–ngân hàng).",
+            "- Mỗi cụm = một `sub_topic` nếu cùng luồng; headline tổng hợp cụm, không một bài một dòng khi quá chi tiết.",
+            '- Ví dụ: priority_tier A, headline "Tài sản rủi ro phân hóa: Bitcoin giảm mạnh trong khi cổ phiếu AI giữ sức hút", '
+            'source_urls 2 URL (coindesk + báo AI), reason_selected giải thích phân hóa dòng vốn.',
+            "- Dùng `source`, `published_at`, `region` trong payload để chọn nguồn và phân VN/quốc tế.",
+        ]
+    )
+
+
+def _digest_source_urls_block() -> str:
+    return "\n".join(
+        [
+            "## source_urls (1–3 URL đại diện)",
+            "- Mỗi `sub_topics[]`: `source_urls` có **1–3** URL từ dữ liệu crawl; **cấm** `[]`.",
+            "- URL[0] phải **khớp trực tiếp** headline chính; URL[1–2] (nếu có) đại diện thêm **cùng chủ đề/sub-cluster**.",
+            "- **Cấm** URL ngẫu nhiên không liên quan headline.",
+        ]
+    )
+
+
 def _digest_quality_criteria_block() -> str:
     return "\n".join(
         [
@@ -126,7 +164,8 @@ def _digest_accuracy_and_freshness_block(*, for_merge: bool = False) -> str:
         [
             "## Độ chính xác (BẮT BUỘC)",
             "- **Chỉ** dùng nội dung bài crawl. **Cấm** bịa, **cấm** thêm tin ngoài JSON.",
-            "- Mỗi `headline` / bullet / `summary` khớp ít nhất một bài; `source_urls[0]` là bài đó.",
+            "- Mỗi `headline` / bullet / `summary` khớp ít nhất một bài; `source_urls[0]` là bài khớp headline chính.",
+            "- Dùng `source`, `published_at`, `category`, `region` trong JSON bài viết khi chọn và mô tả.",
             "- Mâu thuẫn hoặc thiếu ngữ cảnh → `gaps_and_limits` ngắn, không đoán.",
             "- Claim lớn chưa rõ trong text: wording thận trọng (\"được đưa tin\", \"cần theo dõi\"), không khẳng định như fact chắc.",
             exec_rule,
@@ -144,8 +183,9 @@ def _digest_editorial_selection_block(*, for_merge: bool) -> str:
                 "## Biên tập merge (adaptive)",
                 "Bạn là **tổng biên tập** bản tin 48h LeonQuant — khách quan theo dữ liệu crawl.",
                 "**Không có số lượng cố định** cho mỗi sector. Số tin do **chất lượng và ý nghĩa** quyết định.",
-                "Nhiều tin lớn thật → giữ nhiều. Ít tin lớn → giữ ít. **Tuyệt đối không fill** tin yếu. **Không cắt** tin quan trọng vì vượt số mẫu.",
-                "Ưu tiên: chất lượng nội dung, độ chính xác, ý nghĩa với người đọc, tính đại diện bức tranh 48h.",
+                "Nhiều tin lớn thật → giữ nhiều (tổ chức theo cụm). Ít tin lớn → giữ ít.",
+                "**Tuyệt đối không fill** tin yếu. **Không cắt** tin A/B quan trọng chỉ vì muốn gọn.",
+                "Ưu tiên: chất lượng, độ chính xác, ý nghĩa, tính đại diện bức tranh 48h.",
                 f"`reading_time_minutes`: `\"auto\"` hoặc ước lượng theo độ dài thực tế.",
             ]
         )
@@ -171,11 +211,13 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         '- `news`: thời sự, chính trị, ngoại giao, sự kiện quốc tế, địa chính trị.',
         '- `trends`: xu hướng, đời sống, quan điểm, góc nhìn, văn hóa, thể thao, y tế, môi trường, pháp luật/xã hội không thuần chính trị.',
         "- **Không** tạo sector ngoài 4 mã; **không** gộp hết vào finance/tech.",
-        "- **Tổng hợp** (không liệt kê từng bài); mỗi `sub_topics[]`: **1 câu** + `source_urls` (**1 URL** khớp headline).",
+        "- **Tổng hợp** (không liệt kê từng bài); mỗi `sub_topics[]`: headline + `source_urls` (1–3 URL).",
         "- Gom tin trùng chủ đề; không chọn chỉ vì headline giật.",
+        _digest_source_urls_block(),
         _digest_adaptive_count_block(),
         _digest_quality_criteria_block(),
         _digest_priority_tier_block(),
+        _digest_subcluster_block(),
         _digest_editorial_selection_block(for_merge=for_merge),
         _digest_accuracy_and_freshness_block(for_merge=for_merge),
     ]
@@ -184,6 +226,7 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
             [
                 "- **`sectors`:** đúng **4** phần tử (finance, tech, news, trends).",
                 "- `notable_articles`: số lượng **tự nhiên** — chỉ tin tier A/B thật sự nổi bật đa ngành.",
+                _digest_coverage_sanity_block(),
                 _digest_sector_summary_rules_block(),
             ]
         )
@@ -214,7 +257,7 @@ def _digest_sector_json_schema_fragment() -> str:
           "priority_tier": "A",
           "headline": "Một dòng tổng hợp (có thể gom sub-cluster)",
           "summary_hint": "1 câu vì sao đáng chú ý",
-          "source_urls": ["https://..."],
+          "source_urls": ["https://url-khop-headline", "https://url-cung-chu-de-neu-co"],
           "reason_selected": "Giá trị cho người đọc / bức tranh 48h"
         }"""
     blocks = []
@@ -353,6 +396,17 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
             codes_seen.add(code)
         subs = sec.get("sub_topics") if isinstance(sec.get("sub_topics"), list) else []
         label = code or sec.get("name", "?")
+        ab_count = sum(
+            1
+            for r in subs
+            if isinstance(r, dict)
+            and str(r.get("priority_tier") or "").strip().upper()[:1] in ("A", "B")
+        )
+        if len(subs) < 4 and ab_count < 3:
+            warnings.append(
+                f"sectors[{i}] ({label}) chỉ {len(subs)} sub_topics "
+                f"(coverage sanity: kiểm tra đã bỏ sót luồng A/B trong partials chưa)."
+            )
         if len(subs) > DIGEST_PARSER_MAX_SUB_TOPICS_PER_SECTOR:
             warnings.append(
                 f"sectors[{i}] ({label}) có {len(subs)} sub_topics (parser cap {DIGEST_PARSER_MAX_SUB_TOPICS_PER_SECTOR})."
@@ -367,15 +421,78 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
                 )
             if not str(row.get("reason_selected") or "").strip():
                 warnings.append(f"sectors[{i}] sub_topics[{j}] thiếu reason_selected.")
+            if len(urls) > 3:
+                warnings.append(
+                    f"sectors[{i}] ({label}) sub_topics[{j}] có {len(urls)} source_urls (nên ≤3)."
+                )
     missing = DIGEST_SECTOR_CODES - codes_seen
     if missing and len(sectors) < DIGEST_MIN_SECTORS_FINAL:
         warnings.append(f"thiếu mã sector: {', '.join(sorted(missing))}")
     return warnings
 
 
-def finalize_digest_summary(summary: dict[str, Any] | None) -> dict[str, Any] | None:
+def _headline_dedupe_key(text: str) -> str:
+    return str(text or "").strip().lower()[:120]
+
+
+def supplement_digest_sectors_from_partials(
+    summary: dict[str, Any],
+    partials: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Nếu merge co quá ít nhưng partials còn A/B — bổ sung từ candidate (không bịa)."""
+    if not partials or not isinstance(summary.get("sectors"), list):
+        return summary
+    pools = {p["code"]: p for p in aggregate_partial_sector_candidates(partials)}
+    for sec in summary["sectors"]:
+        if not isinstance(sec, dict):
+            continue
+        code = str(sec.get("code") or "").strip().lower()
+        pool = pools.get(code) or {}
+        candidates = pool.get("candidates") if isinstance(pool.get("candidates"), list) else []
+        pool_size = int(pool.get("candidates_in_partials") or len(candidates))
+        subs = [r for r in (sec.get("sub_topics") or []) if isinstance(r, dict)]
+        keys = {_headline_dedupe_key(r.get("headline") or r.get("title")) for r in subs}
+        ab_extra: list[dict[str, Any]] = []
+        for row in candidates:
+            tier = str(row.get("priority_tier") or "B").strip().upper()[:1]
+            if tier not in ("A", "B"):
+                continue
+            hl = str(row.get("headline") or row.get("title") or "").strip()
+            key = _headline_dedupe_key(hl)
+            if not key or key in keys:
+                continue
+            keys.add(key)
+            ab_extra.append(row)
+        if not ab_extra:
+            continue
+        n = len(subs)
+        if pool_size < 12 or n >= 4:
+            continue
+        # Pool giàu + merge <4: bổ sung A/B cho đến ~6–10 luồng (không vượt parser cap)
+        target = min(
+            DIGEST_PARSER_MAX_SUB_TOPICS_PER_SECTOR,
+            max(6, min(10, n + len(ab_extra))),
+        )
+        if pool_size >= 40:
+            target = min(DIGEST_PARSER_MAX_SUB_TOPICS_PER_SECTOR, max(8, target))
+        for row in ab_extra:
+            if len(subs) >= target:
+                break
+            subs.append(row)
+        subs.sort(key=lambda r: _sub_topic_sort_key(r, 0))
+        sec["sub_topics"] = subs
+    return summary
+
+
+def finalize_digest_summary(
+    summary: dict[str, Any] | None,
+    *,
+    partials: list[dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
     if not isinstance(summary, dict):
         return summary
+    if partials:
+        summary = supplement_digest_sectors_from_partials(summary, partials)
     normalized = normalize_digest_summary(summary)
     for w in validate_digest_multisector_coverage(normalized):
         print(f"WARN digest coverage: {w}", file=sys.stderr)
@@ -767,6 +884,10 @@ def compact_for_gemini(articles: list[dict[str, Any]], *, mode: str) -> list[dic
             compacted.append(
                 {
                     "title": article.get("title", ""),
+                    "source": article.get("source", ""),
+                    "published_at": article.get("published_at", ""),
+                    "category": article.get("category", ""),
+                    "region": article.get("region", ""),
                     "url": article.get("url", ""),
                     "text": article.get("content_for_ai", ""),
                 }
@@ -969,7 +1090,7 @@ Trả về DUY NHẤT JSON:
         "priority_tier": "A|B|C",
         "headline": "...",
         "summary_hint": "...",
-        "source_urls": ["url"],
+        "source_urls": ["url1", "url2"],
         "reason_selected": "..."
       }}]
     }}
@@ -986,6 +1107,79 @@ Dữ liệu phần {batch_index}:
 """.strip()
 
 
+def aggregate_partial_sector_candidates(
+    partials: list[dict[str, Any]],
+    *,
+    max_candidates_per_sector: int = 48,
+) -> list[dict[str, Any]]:
+    """Gom candidate từ mọi partial — merge nhận pool rõ ràng thay vì JSON partial khổng lồ."""
+    buckets: dict[str, list[dict[str, Any]]] = {code: [] for code, _ in DIGEST_FOUR_SECTORS}
+    seen_keys: dict[str, set[str]] = {code: set() for code in buckets}
+
+    for batch in partials:
+        if not isinstance(batch, dict):
+            continue
+        raw = batch.get("summary")
+        if not isinstance(raw, dict):
+            continue
+        for sn in raw.get("sector_notes") or []:
+            if not isinstance(sn, dict):
+                continue
+            code = str(sn.get("code") or "").strip().lower()
+            if code not in buckets:
+                continue
+            for row in sn.get("sub_topics") or []:
+                if not isinstance(row, dict):
+                    continue
+                headline = str(row.get("headline") or row.get("title") or "").strip()
+                if not headline:
+                    continue
+                key = headline.lower()[:120]
+                if key in seen_keys[code]:
+                    continue
+                seen_keys[code].add(key)
+                buckets[code].append(row)
+
+    out: list[dict[str, Any]] = []
+    for code, label in DIGEST_FOUR_SECTORS:
+        rows = buckets[code]
+        rows.sort(key=lambda r: _sub_topic_sort_key(r, 0))
+        out.append(
+            {
+                "code": code,
+                "name": label,
+                "candidates_in_partials": len(rows),
+                "candidates": rows[:max_candidates_per_sector],
+            }
+        )
+    return out
+
+
+def _digest_partial_candidate_stats(partials: list[dict[str, Any]]) -> str:
+    """Đếm candidate sub_topics trong partials — nhắc merge không co quá mức."""
+    counts: dict[str, int] = {code: 0 for code, _ in DIGEST_FOUR_SECTORS}
+    for batch in partials:
+        raw = batch.get("summary") if isinstance(batch, dict) else None
+        if not isinstance(raw, dict):
+            continue
+        for sn in raw.get("sector_notes") or []:
+            if not isinstance(sn, dict):
+                continue
+            code = str(sn.get("code") or "").strip().lower()
+            if code in counts:
+                subs = sn.get("sub_topics") if isinstance(sn.get("sub_topics"), list) else []
+                counts[code] += len(subs)
+    lines = [
+        f'- `{code}`: ~{counts[code]} candidate trong {len(partials)} partial'
+        for code, _ in DIGEST_FOUR_SECTORS
+    ]
+    return (
+        "## Thống kê candidate (partials — KHÔNG phải số final bắt buộc)\n"
+        + "\n".join(lines)
+        + "\n- Với input lớn, final thường **6–12+** `sub_topics`/sector nếu có đủ luồng A/B khác nhau; **không** chỉ 2–3 khi partials giàu."
+    )
+
+
 def build_digest_merge_prompt(
     partials: list[dict[str, Any]],
     *,
@@ -993,7 +1187,12 @@ def build_digest_merge_prompt(
     window_meta: dict[str, Any],
     global_outline: dict[str, Any] | None,
 ) -> str:
-    partial_json = json.dumps(partials, ensure_ascii=False)
+    sector_pools = aggregate_partial_sector_candidates(partials)
+    merge_payload = {
+        "partial_batch_count": len(partials),
+        "sector_candidate_pools": sector_pools,
+    }
+    partial_json = json.dumps(merge_payload, ensure_ascii=False)
     window_desc = json.dumps(window_meta, ensure_ascii=False)
     outline_block = ""
     if global_outline:
@@ -1003,16 +1202,21 @@ def build_digest_merge_prompt(
             + json.dumps(global_outline, ensure_ascii=False)
             + "\n"
         )
+    partial_stats = _digest_partial_candidate_stats(partials)
     return f"""
 Bạn là **tổng biên tập** bản tin 48h của LeonQuant — biên tập **khách quan** theo dữ liệu crawl (VN + quốc tế).
 
 Đã có {len(partials)} partial từ {total_articles} bài. Cửa sổ: {window_desc}.
 {outline_block}
+{partial_stats}
 
 **Không có số lượng cố định cho mỗi sector.** Số tin do chất lượng và ý nghĩa quyết định.
 Nhiều tin lớn thật → giữ nhiều (gom sub-cluster nếu >15 tin cùng sector). Ít tin lớn → giữ ít.
-**Tuyệt đối không fill** tin yếu để đạt quota. **Không cắt** tin quan trọng chỉ vì vượt số mẫu.
-Ưu tiên: chất lượng, độ chính xác, ý nghĩa với người đọc, tính đại diện bức tranh 48h.
+**Tuyệt đối không fill** tin yếu. **Không cắt** tin A/B quan trọng chỉ vì muốn gọn.
+
+**Không được hiểu "gọn" là "ít tin".** Gọn = gom thông minh, không lặp, không rác.
+Nếu partials có nhiều candidate A/B khác luồng mà final chỉ 1–3 dòng/sector → **kiểm tra lại** có bỏ sót không.
+Đối chiếu **toàn bộ** `sector_notes` từ mọi partial; bổ sung luồng A/B còn thiếu trước khi kết thúc.
 
 {_digest_four_sector_rules_block(for_merge=True)}
 CHỈ dùng dữ liệu được cung cấp.
@@ -1037,7 +1241,9 @@ Trả về DUY NHẤT JSON:
   "gaps_and_limits": "Ngắn — chỉ thiếu dữ liệu thật sự"
 }}
 
-Các partial batch:
+## Candidate pools (đã gom từ mọi partial — dùng làm nguồn chọn final)
+Đối chiếu **toàn bộ** `candidates[]` mỗi sector; chọn/gom thành `sub_topics` final. Giữ **đủ luồng A/B khác nhau**.
+
 {partial_json}
 """.strip()
 
@@ -1109,7 +1315,7 @@ def run_batch_digest(
             max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
         )
         if isinstance(final, dict):
-            final = finalize_digest_summary(final)
+            final = finalize_digest_summary(final, partials=partials)
         return final, partials, 1
 
     if use_existing_outline:
@@ -1268,7 +1474,7 @@ def run_batch_digest(
     )
     api_calls += 1
     if isinstance(final, dict):
-        final = finalize_digest_summary(final)
+        final = finalize_digest_summary(final, partials=partials)
     return final, partials, api_calls
 
 
@@ -1631,7 +1837,8 @@ def main() -> int:
             )
         else:
             prompt = build_macro_prompt(enriched_articles)
-    write_enriched(Path(args.enriched_output), news_payload, enriched_articles)
+    if not (args.merge_only and args.batch_digest):
+        write_enriched(Path(args.enriched_output), news_payload, enriched_articles)
 
     print(f"Input file: {input_path}")
     print(f"Mode: {args.mode}")

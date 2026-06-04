@@ -210,3 +210,12 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Schema | Bỏ ép `needs_verification` / confidence bắt buộc; ưu tiên `priority_tier` |
 
 **Regenerate:** `python summarize_news_gemini.py --mode digest` → `python build_website_content.py`.
+
+## 2026-06-04 — Digest adaptive: coverage sanity + source metadata
+
+| Area | Change |
+|------|--------|
+| Coverage | `_digest_coverage_sanity_block()` in merge — giữ đủ luồng A/B, không co 1–3 tin khi partials giàu; sanity <4 sub_topics warns only |
+| Payload | `compact_for_gemini(digest)` gửi `source`, `published_at`, `category`, `region` |
+| URLs | Prompt `source_urls` 1–3; `build_website_content` render tối đa 3 link/sub_topic |
+| Sub-cluster | `_digest_subcluster_block()` + merge anti-compression wording |

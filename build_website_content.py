@@ -1219,6 +1219,7 @@ DIGEST_FOUR_SECTORS: tuple[tuple[str, str], ...] = (
 )
 DIGEST_SECTOR_LABEL_BY_CODE = dict(DIGEST_FOUR_SECTORS)
 DIGEST_MAX_ITEMS_PER_SECTOR = 25  # parser safety only — renderer shows Gemini count
+DIGEST_MAX_SOURCE_URLS_PER_TOPIC = 3
 DIGEST_MAX_NOTABLE_ARTICLES = 12
 DIGEST_SECTOR_SUMMARY_MAX_CHARS = 2800
 _URL_MATCH_MIN_SCORE = 0.36
@@ -1528,27 +1529,41 @@ def _sector_items_from_raw(
             headline = str(row.get("headline") or row.get("title") or "").strip()
             if not headline:
                 continue
-            stated = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
-            matched = _pick_sub_topic_url(
-                headline,
-                stated,
-                by_url=by_url,
-                used_urls=used_urls,
-                sector_code=sector_code,
-                boost_urls=stated + pool,
-            )
+            stated = [
+                str(u).strip()
+                for u in (row.get("source_urls") or [])
+                if _is_http_url(str(u).strip())
+            ][:DIGEST_MAX_SOURCE_URLS_PER_TOPIC]
+            resolved: list[str] = []
+            for u in stated:
+                if used_urls is not None and u in used_urls:
+                    continue
+                resolved.append(u)
+            if not resolved:
+                matched = _pick_sub_topic_url(
+                    headline,
+                    stated,
+                    by_url=by_url,
+                    used_urls=used_urls,
+                    sector_code=sector_code,
+                    boost_urls=stated + pool,
+                )
+                if matched:
+                    resolved = [matched]
             links = (
                 _links_from_urls(
-                    [matched],
+                    resolved,
                     by_url=by_url,
                     sector_name=sector_name,
                     add_link=add_link,
+                    max_links=DIGEST_MAX_SOURCE_URLS_PER_TOPIC,
                 )
-                if matched
+                if resolved
                 else []
             )
-            if matched and used_urls is not None:
-                used_urls.add(matched)
+            if used_urls is not None:
+                for u in resolved:
+                    used_urls.add(u)
             item: dict[str, Any] = {
                 "headline": headline,
                 "links": links,
