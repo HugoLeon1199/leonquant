@@ -111,10 +111,12 @@ Gate: `prepare_digest_db.py` (sau crawl, **không** re-seed bài cũ) → `data/
 
 ## GitHub Actions
 
-- **`daily.yml`:** xóa bài cũ → crawl Scrapy → gate → Gemini → commit `content.json`. **Không profile** trên CI.
-  - **Lịch:** mỗi ngày **05:00 giờ Việt Nam** (ICT, UTC+7) — cron `0 22 * * *` UTC.
-  - Chạy tay: Actions → *Daily news digest* → *Run workflow*, hoặc push thay đổi `.ci-run-digest` lên `main`.
-- **`pages.yml`:** deploy site sau push `main` và **sau khi Daily digest commit xong** (bot push không tự kích hoạt workflow khác).
+- **`daily.yml`:** hai job **song song** lúc **05:00 VN** (`0 22 * * *` UTC), pipeline tách riêng:
+  - **build-digest** — cào web 48h → `content.json` + `invest_vn_brief.json` (Việt Nam trong nước).
+  - **invest-world** — `leon.py --channel invest` → `invest_world_pulse.json` (Tin thế giới quan trọng, GDELT 24h).
+- **`pulse-hourly.yml`:** chỉ **LIVE** `market_pulse.json` mỗi 6h (`leon.py --channel world`); không cập nhật invest desk.
+- **`pages.yml`:** deploy sau khi workflow *Tin Việt Nam 48h digest* hoàn tất (cả digest + invest-world).
+  - Chạy tay digest: Actions → *Tin Việt Nam 48h digest* → *Run workflow*, hoặc `.ci-run-digest` / `.ci-run-invest-daily` trên `main`.
 - **Secret bắt buộc:** repo → Settings → Secrets → `GEMINI_API_KEY` (Google AI Studio).
 
 Prompt mẫu: `prompts/gemini_digest_multisector_prompt_samples.md`

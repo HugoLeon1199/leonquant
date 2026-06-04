@@ -1,7 +1,9 @@
 name: Tin Việt Nam 48h digest
 
-# 05:00 VN = 22:00 UTC. Git: chỉ data/web_intel_leonquant.duckdb.gz (profiles, nhỏ).
-# Articles: GitHub Actions cache — không xóa toàn bộ bài trước crawl.
+# 05:00 VN = 22:00 UTC. Hai job song song (không gộp pipeline Python):
+#   build-digest — cào web 48h → content.json + invest_vn_brief
+#   invest-world — GDELT → invest_world_pulse.json (Tin thế giới quan trọng)
+# Pages deploy sau khi workflow này xong (cả hai job).
 on:
   schedule:
     - cron: "0 22 * * *"
@@ -10,20 +12,22 @@ on:
     branches: [main]
     paths:
       - .ci-run-digest
+      - .ci-run-invest-daily
       - .github/workflows/daily.yml
       - data/web_intel_leonquant.duckdb.gz
       - config/sources_seed.txt
       - config/tiers/*.txt
+      - leon.py
+      - sql/gdelt_invest_pulse.sql
 
 permissions:
   contents: write
 
-concurrency:
-  group: tin-viet-nam-48h-digest
-  cancel-in-progress: true
-
 jobs:
   build-digest:
+    concurrency:
+      group: tin-viet-nam-48h-digest-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -137,4 +141,54 @@ jobs:
           git config user.email "daily-brief-bot@users.noreply.github.com"
           git add news_for_ai_clean.json gemini_digest_summary.json content.json invest_vn_brief.json web/invest_vn_brief.json
           git commit -m "Update daily news digest (crawl + Gemini + web + invest VN brief)" || echo "No content changes to commit"
+          git pull --rebase origin main || true
+          git push
+
+  invest-world:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: invest-world-daily-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-gdelt.txt
+
+      - name: Install GDELT / invest dependencies
+        run: pip install -r requirements-gdelt.txt
+
+      - name: Write GCP service account
+        env:
+          GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
+        run: |
+          if [ -z "$GCP_SA_JSON" ]; then
+            echo "Missing repository secret GCP_SA_JSON"
+            exit 1
+          fi
+          printf '%s' "$GCP_SA_JSON" > credentials.json
+
+      - name: Run invest desk (GDELT 24h — Tin thế giới quan trọng)
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
+          GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python leon.py --channel invest
+
+      - name: Commit invest world pulse
+        run: |
+          git config user.name "invest-daily-bot"
+          git config user.email "invest-daily-bot@users.noreply.github.com"
+          git add invest_pulse.json invest_world_pulse.json web/invest_pulse.json web/invest_world_pulse.json
+          if git diff --staged --quiet; then
+            echo "No invest pulse changes"
+            exit 0
+          fi
+          git commit -m "Update invest world desk pulse (GDELT 24h daily)."
+          git pull --rebase origin main
           git push
