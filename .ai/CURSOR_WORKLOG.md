@@ -220,6 +220,15 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Hygiene | Reroute AI policy→tech, exam→trends; drop soft entertainment; max 2× E10 toàn bài |
 | Notable | `supplement_notable_from_sectors()` fallback 5–8 từ tier A/B khi merge trả <4 |
 
+## 2026-06-04 — Digest 48h content polish (normalize)
+
+| Area | Change |
+|------|--------|
+| Copy | Cấm generic `summary_hint`/`reason_selected`; `_infer_*` theo luồng/headline; WARN nếu còn generic |
+| Headline | `_vietnamese_public_headline` + template EN→VI; validation cảnh báo headline còn tiếng Anh |
+| Cluster | Gom Mỹ-Iran (2 cụm), E10 trong sector; routing Blue Origin/NASA → `tech` |
+| Prompt | `_digest_content_polish_block()` — sub-cluster, tiếng Việt, copy cụ thể |
+
 ## 2026-06-04 — Digest adaptive: coverage sanity + source metadata
 
 | Area | Change |
