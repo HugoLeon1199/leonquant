@@ -33,5 +33,6 @@ if (Test-Path market_pulse.json) {
 if (Test-Path invest_vn_brief.json) {
   node scripts/embed_public_invest_vn_into_html.mjs landing_page.html invest_vn_brief.json
 }
+python scripts/fix_brief_pulse_invest_layout.py
 
 Write-Host "Done. Commit landing_page.html + content.json + gemini_digest_summary.json then push."

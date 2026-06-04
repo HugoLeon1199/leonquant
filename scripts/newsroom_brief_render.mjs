@@ -65,12 +65,12 @@ function newsroomCountStories(data) {
   return front + dossiers;
 }
 
-function newsroomSourceScanCount(data) {
+function newsroomArticlesScannedCount(data) {
   const em = data.editorialMeta || {};
   const candidates = [
     em.sourcesScanned,
-    em.articlesSelected,
     data.stats && data.stats.articlesCrawled,
+    data.stats && data.stats.articlesInEnriched,
   ];
   for (const v of candidates) {
     const n = Number(v);
@@ -78,6 +78,37 @@ function newsroomSourceScanCount(data) {
   }
   const idx = data.articleLinkIndex;
   return Array.isArray(idx) ? idx.length : 0;
+}
+
+function newsroomBriefSelectedCount(data) {
+  const sel = Number(data.editorialMeta?.articlesSelected);
+  if (Number.isFinite(sel) && sel > 0) return Math.round(sel);
+  return newsroomCountStories(data);
+}
+
+/** @returns {string} Vietnamese provenance line (no trailing period). */
+export function buildNewsroomSourceProvenanceText(data) {
+  const scanned = newsroomArticlesScannedCount(data);
+  const selected = newsroomBriefSelectedCount(data);
+  if (!scanned && !selected) return "";
+  const fmt = (n) => n.toLocaleString("vi-VN");
+  const bits = [];
+  if (scanned > 0) {
+    bits.push(`tổng hợp từ khoảng ${fmt(scanned)} bài báo đã quét trong 48 giờ`);
+  }
+  if (selected > 0) {
+    bits.push(`chọn lọc thành ${fmt(selected)} tin chính trong bản tin`);
+  }
+  return bits.join(" · ");
+}
+
+export function buildNewsroomSyncNoteText(data) {
+  const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
+  const prov = buildNewsroomSourceProvenanceText(data);
+  if (!st && !prov) return "";
+  let t = st ? `Tin tức được tổng hợp lúc ${st}` : "Tin tức được tổng hợp";
+  if (prov) t += ` · ${prov}`;
+  return `${t}.`;
 }
 
 function newsroomEstimateReadingMin(data) {
@@ -124,14 +155,25 @@ function buildNewsroomIssueHeader(data) {
   const updated = data.generatedAt ? formatDateVi(data.generatedAt) : "";
   const stories = newsroomCountStories(data);
   const readMin = newsroomEstimateReadingMin(data);
+  const provenance = buildNewsroomSourceProvenanceText(data);
+  const scanned = newsroomArticlesScannedCount(data);
   let pills = "";
   if (stories > 0) pills += buildNewsroomStatPill("Tin chính", String(stories));
+  if (scanned > 0) pills += buildNewsroomStatPill("Đã quét", scanned.toLocaleString("vi-VN"));
   if (updated) pills += buildNewsroomStatPill("Cập nhật", updated);
   if (readMin > 0) pills += buildNewsroomStatPill("Đọc khoảng", `${readMin} phút`);
+  const deskLink =
+    Array.isArray(data.sourceDesk) && data.sourceDesk.length
+      ? ` <a class="issue-provenance-link" href="#digest-source-desk">Nguồn theo chủ đề</a>`
+      : "";
+  const provHtml = provenance
+    ? `<p class="issue-provenance">Nội dung ${escapeHtml(provenance)}.${deskLink}</p>`
+    : "";
   return `<header class="issue-header" id="digest-issue-header">
     <span class="issue-badge">48H BRIEF</span>
     <h2 class="issue-title">Bản tin 48 giờ</h2>
     <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
+    ${provHtml}
     ${pills ? `<div class="issue-stats">${pills}</div>` : ""}
   </header>`;
 }

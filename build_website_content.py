@@ -3112,8 +3112,21 @@ def build_payload(
         "editorialMeta": {
             "briefDate": snake.get("date", ""),
             "briefTitle": snake.get("title", ""),
-            "sourcesScanned": meta.get("sources_scanned"),
-            "articlesSelected": meta.get("articles_selected"),
+            "sourcesScanned": meta.get("sources_scanned")
+            if meta.get("sources_scanned") is not None
+            else len(all_articles),
+            "articlesSelected": meta.get("articles_selected")
+            if meta.get("articles_selected") is not None
+            else (
+                sum(
+                    len(sec.get("storyDossiers") or [])
+                    for sec in (brief.get("sectorDeepBriefs") or [])
+                    if isinstance(sec, dict)
+                )
+                + len(brief.get("frontPage") or [])
+                if from_newsroom
+                else None
+            ),
             "verifiedLinks": meta.get("verified_links"),
             "usedFallback": meta.get("used_fallback"),
         },

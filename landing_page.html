@@ -755,11 +755,24 @@
       color: var(--text);
     }
     .issue-subtitle {
-      margin: 0 0 14px;
+      margin: 0 0 8px;
       font-size: 1rem;
       color: var(--muted);
       max-width: 52ch;
     }
+    .issue-provenance {
+      margin: 0 0 12px;
+      font-size: .88rem;
+      line-height: 1.5;
+      color: var(--faint);
+      max-width: 62ch;
+    }
+    .issue-provenance-link {
+      color: var(--cyan-link);
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .issue-provenance-link:hover { text-decoration: underline; }
     .issue-stats {
       display: flex;
       flex-wrap: wrap;
@@ -1256,11 +1269,41 @@
       color: #b45309;
     }
     .invest-channel-lead {
-      margin: 0 0 1rem;
+      margin: 0 0 0.65rem;
       color: var(--muted);
-      font-size: .92rem;
-      line-height: 1.55;
+      font-size: .84rem;
+      line-height: 1.45;
+      max-width: 58ch;
     }
+    body.invest-mode #invest { padding: 24px 0 32px; }
+    body.invest-mode #invest > .container {
+      width: min(680px, 92%);
+    }
+    body.invest-mode #invest .brief-block {
+      max-width: 100%;
+    }
+    #invest #invest-desk { scroll-margin-top: 88px; }
+    #invest .invest-desk-page-head {
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border);
+    }
+    #invest .invest-desk-page-head h2 {
+      margin-bottom: 0.35rem;
+    }
+    #invest .invest-desk-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #invest .sector-points {
+      margin: 4px 0 6px;
+      padding-left: 1.1rem;
+      font-size: .8rem;
+      line-height: 1.4;
+    }
+    #invest .sector-points li { margin-bottom: 2px; }
+    #invest .invest-desk-block { margin-bottom: 0; }
     .invest-event {
       margin-bottom: 1.75rem;
       padding-bottom: 1.5rem;
@@ -1338,28 +1381,32 @@
     .invest-desk-block { margin-bottom: 2rem; }
     .invest-desk-block:last-child { margin-bottom: 0; }
     .invest-desk-section--world {
-      padding: 14px 16px 18px;
-      border-radius: 14px;
+      padding: 10px 12px 12px;
+      border-radius: 12px;
       border: 1px solid rgba(8, 145, 178, 0.22);
       background: rgba(8, 145, 178, 0.03);
     }
     .invest-desk-section--vn {
-      padding: 14px 16px 18px;
-      border-radius: 14px;
+      padding: 10px 12px 12px;
+      border-radius: 12px;
       border: 1px solid rgba(22, 163, 74, 0.22);
       background: rgba(22, 163, 74, 0.03);
     }
-    .invest-desk-head { margin-bottom: 1rem; }
+    .invest-desk-head { margin-bottom: 0.65rem; }
     .invest-desk-title {
-      margin: 0 0 4px;
-      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+      margin: 0 0 2px;
+      font-size: clamp(0.98rem, 2.2vw, 1.12rem);
       font-weight: 800;
       color: var(--text);
     }
     .invest-desk-sub {
       margin: 0;
-      font-size: .82rem;
+      font-size: .76rem;
       color: var(--muted);
+    }
+    #invest .sync-note {
+      margin: 4px 0 0;
+      font-size: .74rem;
     }
     .invest-desk-badge-gdelt {
       display: inline-block;
@@ -1371,21 +1418,27 @@
       color: var(--cyan-dim);
     }
     .invest-vn-lead {
-      margin: 0 0 1.1rem;
-      font-size: .95rem;
-      line-height: 1.58;
+      margin: 0 0 0.75rem;
+      font-size: .86rem;
+      line-height: 1.48;
       color: var(--text-soft);
+    }
+    #invest .invest-world-brief {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .invest-vn-theme-list {
       list-style: none;
-      margin: 0 0 1.5rem;
+      margin: 0 0 0.85rem;
       padding: 0;
     }
     .invest-vn-theme {
       display: flex;
-      gap: 12px;
-      margin-bottom: 1.35rem;
-      padding-bottom: 1.25rem;
+      gap: 10px;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.75rem;
       border-bottom: 1px solid var(--border);
     }
     .invest-vn-theme:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -1397,16 +1450,20 @@
       color: #16a34a;
     }
     .invest-vn-theme-title {
-      margin: 0 0 8px;
-      font-size: 1.02rem;
+      margin: 0 0 4px;
+      font-size: .92rem;
       font-weight: 800;
-      line-height: 1.35;
+      line-height: 1.32;
     }
     .invest-vn-why, .invest-vn-lens, .invest-vn-watch-body {
-      margin: 0 0 8px;
-      font-size: .9rem;
-      line-height: 1.52;
+      margin: 0 0 5px;
+      font-size: .82rem;
+      line-height: 1.45;
       color: var(--text-soft);
+    }
+    #invest .sectors-section-title {
+      margin: 0.65rem 0 0.45rem;
+      font-size: .66rem;
     }
     .invest-vn-watch-list {
       list-style: none;
@@ -1414,15 +1471,15 @@
       padding: 0;
     }
     .invest-vn-watch {
-      margin-bottom: 1rem;
-      padding: 12px 14px;
-      border-radius: 10px;
+      margin-bottom: 0.55rem;
+      padding: 8px 10px;
+      border-radius: 8px;
       border: 1px solid rgba(22, 163, 74, 0.15);
       background: rgba(255, 255, 255, 0.5);
     }
     .invest-vn-watch-title {
-      margin: 0 0 6px;
-      font-size: .98rem;
+      margin: 0 0 4px;
+      font-size: .88rem;
       font-weight: 800;
     }
     .invest-vn-status-pill {
@@ -1457,8 +1514,8 @@
       white-space: nowrap;
     }
     .invest-world-topic {
-      margin-bottom: 1.15rem;
-      padding-bottom: 1rem;
+      margin-bottom: 0.65rem;
+      padding-bottom: 0.55rem;
       border-bottom: 1px solid var(--border);
     }
     .invest-world-topic:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -1471,24 +1528,37 @@
       color: var(--cyan-dim);
     }
     .invest-world-item {
-      margin: 0 0 10px;
-      padding: 10px 12px;
+      margin: 0 0 6px;
+      padding: 8px 10px;
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.45);
       border: 1px solid rgba(8, 145, 178, 0.12);
     }
     .invest-world-item:last-child { margin-bottom: 0; }
     .invest-world-item-title {
-      margin: 0 0 6px;
-      font-size: .94rem;
+      margin: 0 0 4px;
+      font-size: .86rem;
       font-weight: 800;
-      line-height: 1.35;
+      line-height: 1.32;
     }
     .invest-world-item-summary {
-      margin: 0 0 6px;
-      font-size: .86rem;
-      line-height: 1.48;
+      margin: 0 0 4px;
+      font-size: .8rem;
+      line-height: 1.42;
       color: var(--text-soft);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    #invest .invest-world-item-meta {
+      display: none;
+    }
+    #invest .invest-vn-lens {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .invest-world-item-meta {
       margin: 0;
@@ -2009,7 +2079,7 @@
       </div>
     </section>
 
-    <section id="pulse" class="alt" hidden data-embedded-pulse="1" data-embedded-pulse="1">
+        <section id="pulse" class="alt" hidden data-embedded-pulse="1">
       <div class="container">
         <div id="sectionPulse" class="brief-block" data-embedded-pulse="1"><article class="digest-report" id="pulse-crawler-report"><header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2><p class="sync-note">Cập nhật 21:29 04/06/2026 (giờ Việt Nam).</p></header><div class="pulse-panel"><ol class="pulse-event-list"><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Israel và Lebanon gia hạn thỏa thuận ngừng bắn, thiết lập khu vực an ninh nhằm đẩy lùi lực lượng Hezbollah khỏi biên giới</h3><p class="pulse-event-hint">Israel và Lebanon đã đạt được thỏa thuận gia hạn lệnh ngừng bắn sau vòng đàm phán thứ tư dưới sự trung gian của Mỹ tại Washington. Điểm then chốt của thỏa thuận là thiết lập các khu vực an ninh thí điểm bên trong lãnh thổ Lebanon, nơi lực lượng Hezbollah bị cấm hoạt động. Thỏa thuận yêu cầu quân đội Lebanon phải kiểm soát hoàn toàn các khu vực này và buộc các tay súng Hezbollah phải rút khỏi phía nam sông Litani. Các bên tham gia đối thoại đã nhấn mạnh rằng tương lai của mối quan hệ Israel - Lebanon phải do chính phủ hai nước quyết định, đồng thời lên án sự can thiệp của các chủ thể nước ngoài gây bất ổn trong khu vực. Một vòng đàm phán tiếp theo dự kiến diễn ra vào tuần ngày 22 tháng 6 nhằm hướng tới một thỏa thuận hòa bình toàn diện.</p><p class="pulse-event-importance">Sự kiện này đánh dấu bước tiến quan trọng trong nỗ lực hạ nhiệt căng thẳng quân sự tại Trung Đông. Việc thiết lập khu vực an ninh và tách biệt Hezbollah khỏi biên giới có ý nghĩa chiến lược trong việc giảm thiểu nguy cơ xung đột vũ trang trực tiếp giữa các bên, mở đường cho sự ổn định an ninh dài hạn tại khu vực biên giới Lebanon - Israel.</p><p class="pulse-event-coverage">Độ phủ: <strong>90</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
@@ -2092,20 +2162,25 @@
           </div>
         </div>
       </div></li></ol></div></article></div>
-        
+      </div>
+    </section>
+
+    <section id="invest" class="alt" hidden>
+      <div class="container">
         <div id="sectionInvest" class="brief-block">
           <article id="invest-desk" class="digest-report">
             <header class="digest-report-head invest-desk-page-head">
               <h2>Chuyên mục kinh tế đầu tư</h2>
-              <p class="invest-channel-lead">Thế giới: tin quan trọng theo đề mục kinh tế–thị trường. Việt Nam: phân tích 48h — trung lập, không khuyến nghị giao dịch.</p>
+              <p class="invest-channel-lead">Tóm tắt kinh tế–thị trường (thế giới + Việt Nam). Trung lập, không khuyến nghị giao dịch.</p>
             </header>
+            <div class="invest-desk-layout">
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"><section class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1"><header class="invest-desk-head"><h3 class="invest-desk-title">Việt Nam trong nước</h3><p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p><p class="sync-note">Dữ liệu digest: 11:56 04/06/2026</p></header><p class="invest-vn-lead">Trong 48 giờ qua, trọng tâm điều hành của Việt Nam tập trung vào việc hỗ trợ mục tiêu tăng trưởng thông qua chính sách tiền tệ nới lỏng, tháo gỡ vướng mắc pháp lý cho hạ tầng/bất động sản và tăng cường kỷ luật trong quản lý tài chính. Song song đó, các ngành kinh tế đang tích cực chuyển đổi số để tối ưu hóa vận hành trong bối cảnh thách thức về an ninh mạng và biến động thương mại quốc tế gia tăng.</p><h4 class="sectors-section-title">Ba điểm đáng chú ý trong 48 giờ qua</h4><ol class="invest-vn-theme-list"><li class="invest-vn-theme"><p class="invest-vn-theme-rank">01</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Kỷ luật tài chính và điều hành chính sách tiền tệ</h5><p class="invest-vn-why">Cơ quan quản lý đang đồng thời siết chặt kỷ luật thị trường tiền tệ và thực thi các biện pháp hỗ trợ thanh khoản để thúc đẩy tăng trưởng.</p><ul class="sector-points prose-bullets"><li>Ngân hàng Nhà nước yêu cầu giảm lãi suất để hỗ trợ doanh nghiệp phục hồi sản xuất.</li><li>Cơ quan thuế triển khai đối chiếu hóa đơn điện tử với dữ liệu dòng tiền qua ngân hàng nhằm chống thất thu thuế.</li><li>Đề xuất nâng ngưỡng thu nhập vãng lai chịu thuế thu nhập cá nhân lên 5 triệu đồng đang được thảo luận để tối ưu hóa sắc thuế.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm doanh nghiệp sản xuất và xuất nhập khẩu có thể hưởng lợi từ chi phí vốn thấp hơn; tuy nhiên, việc kiểm soát chặt chẽ dòng tiền qua ngân hàng là biến số cần theo dõi đối với các doanh nghiệp có hoạt động kinh doanh chưa minh bạch về thuế.</p><ul class="invest-vn-link-rows"><li><a href="https://baochinhphu.vn/nhnn-siet-ky-luat-thi-truong-tien-te-yeu-cau-giam-lai-suat-102260523102302059.htm" target="_blank" rel="noopener noreferrer">NHNN siết kỷ luật thị trường tiền tệ, yêu cầu giảm lãi suất</a><span class="link-meta"> — Báo Chính phủ</span></li><li><a href="https://tuoitre.vn/co-quan-thue-se-doi-chieu-hoa-don-dien-tu-voi-dong-tien-ngan-hang-20260520133353455.htm" target="_blank" rel="noopener noreferrer">Cơ quan thuế sẽ đối chiếu hóa đơn điện tử với dòng tiền ngân hàng</a><span class="link-meta"> — Tuổi Trẻ</span></li><li><a href="https://thanhnien.vn/nang-nguong-thu-nhap-vang-lai-tinh-thu-len-5-trieu-dong-da-du-chua-185260522205445733.htm" target="_blank" rel="noopener noreferrer">Nâng ngưỡng thu nhập vãng lai tính thuế lên 5 triệu đồng</a><span class="link-meta"> — Thanh Niên</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">02</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Tháo gỡ pháp lý cho dự án hạ tầng và bất động sản</h5><p class="invest-vn-why">Việc đẩy nhanh tiến độ dự án trọng điểm được xác định là động lực chính để duy trì đà tăng trưởng kinh tế địa phương.</p><ul class="sector-points prose-bullets"><li>Cần Thơ áp dụng cơ chế đặc thù để rà soát và gỡ vướng cho 21 dự án bất động sản trên địa bàn.</li><li>Dự án cao tốc Việt Trì - Hòa Bình được định hướng triển khai trước năm 2030.</li><li>Doanh nghiệp ngành giao thông đang nỗ lực giải quyết tình trạng thiếu hụt nhân lực và vốn trong các dự án cao tốc hiện hữu.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Tốc độ phê duyệt pháp lý là biến số quyết định khả năng ghi nhận doanh thu của các doanh nghiệp xây dựng, hạ tầng và bất động sản trong các quý tiếp theo.</p><ul class="invest-vn-link-rows"><li><a href="https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm" target="_blank" rel="noopener noreferrer">Cần Thơ rà soát, gỡ vướng 21 dự án bất động sản theo cơ chế đặc thù</a><span class="link-meta"> — batdongsan.baoxaydung.vn</span></li><li><a href="https://baochinhphu.vn/xay-cao-toc-viet-tri-hoa-dim-truoc-nam-2030-102260519174840892.htm" target="_blank" rel="noopener noreferrer">Xây cao tốc Việt Trì-Hòa Bình trước năm 2030</a><span class="link-meta"> — Báo Chính phủ</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">03</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Chuyển đổi số và rủi ro an ninh mạng tài chính</h5><p class="invest-vn-why">Sự bùng nổ của ứng dụng AI và chuyển đổi số trong ngân hàng đi kèm với những rủi ro bảo mật tài khoản mới phát sinh.</p><ul class="sector-points prose-bullets"><li>Các ngân hàng như VietinBank báo cáo kết quả kinh doanh tích cực và kiểm soát nợ xấu hiệu quả.</li><li>Xuất hiện thủ đoạn lừa đảo chiếm đoạt quyền sử dụng SIM để tấn công tài khoản ngân hàng và ví điện tử.</li><li>FPT và các tập đoàn lớn đẩy mạnh tích hợp AI Agent vào quy trình vận hành doanh nghiệp.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm ngân hàng có hạ tầng số mạnh có lợi thế về chi phí vận hành, tuy nhiên rủi ro an ninh mạng là biến số cần theo dõi sát sao đối với sự ổn định của hệ thống tài chính cá nhân.</p><ul class="invest-vn-link-rows"><li><a href="https://tuoitre.vn/vietinbank-bao-lai-quy-1-tang-63-no-xau-giam-con-102-20260522194305956.htm" target="_blank" rel="noopener noreferrer">VietinBank báo lãi quý 1 tăng 63%, nợ xấu giảm còn 1,02%</a><span class="link-meta"> — Tuổi Trẻ</span></li><li><a href="https://genk.vn/phat-hien-thu-doan-moi-cuc-nguy-hiem-khien-tat-ca-otp-dang-nhap-tai-khoan-ngan-hang-vi-dien-tu-cua-nguoi-dung-chuyen-thang-cho-lua-dao-165260524080952884.chn" target="_blank" rel="noopener noreferrer">Phát hiện thủ đoạn lừa đảo chiếm đoạt SIM mới</a><span class="link-meta"> — GenK</span></li></ul></div></li></ol><h4 class="sectors-section-title">Đang theo dõi / hiện tại</h4><ul class="invest-vn-watch-list"><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Triển khai xăng E10 trên toàn quốc</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">sắp có</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Bộ Công Thương chuẩn bị lộ trình đưa xăng E10 vào thị trường từ 1/6 với đề xuất công thức tính giá mới.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> Vận tải, logistics, doanh nghiệp bán lẻ xăng dầu</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> Sự chấp nhận của thị trường và biến động chi phí đầu vào đối với các đơn vị vận tải.</p><ul class="invest-vn-link-rows"><li><a href="https://vietnamnet.vn/xang-e10-ban-tren-toan-quoc-tu-1-6-bo-cong-thuong-de-xuat-cong-thuc-tinh-gia-2517258.html" target="_blank" rel="noopener noreferrer">Xăng E10 bán trên toàn quốc từ 1/6</a><span class="link-meta"> — VietnamNet</span></li></ul></li><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Kiểm soát xuất khẩu nông sản sang Trung Quốc</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">đang diễn ra</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Các mặt hàng nông sản như gạo, hạt điều đối mặt với các tiêu chuẩn kiểm soát chặt chẽ hơn tại cửa khẩu từ 1/6.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> Doanh nghiệp xuất khẩu nông sản, nông dân</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> Tiến độ thông quan và chi phí tuân thủ quy chuẩn mới.</p><ul class="invest-vn-link-rows"><li><a href="https://dantri.com.vn/kinh-doanh/gao-hat-dieu-va-loat-nong-san-vao-trung-quoc-bi-kiem-soat-chat-tu-16-20260520065405571.htm" target="_blank" rel="noopener noreferrer">Gạo, hạt điều và loạt nông sản vào Trung Quốc bị kiểm soát chặt từ 1/6</a><span class="link-meta"> — Dân trí</span></li></ul></li></ul></section></div>
+            </div>
           </article>
         </div>
       </div>
     </section>
-
 
     <section id="reference" class="reference-secondary">
       <div class="container" style="max-width: min(1180px, 95%);">
@@ -2644,12 +2719,12 @@
       return front + dossiers;
     }
 
-    function newsroomSourceScanCount(data) {
+    function newsroomArticlesScannedCount(data) {
       const em = data.editorialMeta || {};
       const candidates = [
         em.sourcesScanned,
-        em.articlesSelected,
         data.stats && data.stats.articlesCrawled,
+        data.stats && data.stats.articlesInEnriched,
       ];
       for (const v of candidates) {
         const n = Number(v);
@@ -2657,6 +2732,36 @@
       }
       const idx = data.articleLinkIndex;
       return Array.isArray(idx) ? idx.length : 0;
+    }
+
+    function newsroomBriefSelectedCount(data) {
+      const sel = Number(data.editorialMeta?.articlesSelected);
+      if (Number.isFinite(sel) && sel > 0) return Math.round(sel);
+      return newsroomCountStories(data);
+    }
+
+    function buildNewsroomSourceProvenanceText(data) {
+      const scanned = newsroomArticlesScannedCount(data);
+      const selected = newsroomBriefSelectedCount(data);
+      if (!scanned && !selected) return "";
+      const fmt = (n) => n.toLocaleString("vi-VN");
+      const bits = [];
+      if (scanned > 0) {
+        bits.push(`tổng hợp từ khoảng ${fmt(scanned)} bài báo đã quét trong 48 giờ`);
+      }
+      if (selected > 0) {
+        bits.push(`chọn lọc thành ${fmt(selected)} tin chính trong bản tin`);
+      }
+      return bits.join(" · ");
+    }
+
+    function buildNewsroomSyncNoteText(data) {
+      const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
+      const prov = buildNewsroomSourceProvenanceText(data);
+      if (!st && !prov) return "";
+      let t = st ? `Tin tức được tổng hợp lúc ${st}` : "Tin tức được tổng hợp";
+      if (prov) t += ` · ${prov}`;
+      return `${t}.`;
     }
 
     function newsroomEstimateReadingMin(data) {
@@ -2703,14 +2808,25 @@
       const updated = data.generatedAt ? formatDateVi(data.generatedAt) : "";
       const stories = newsroomCountStories(data);
       const readMin = newsroomEstimateReadingMin(data);
+      const provenance = buildNewsroomSourceProvenanceText(data);
+      const scanned = newsroomArticlesScannedCount(data);
       let pills = "";
       if (stories > 0) pills += buildNewsroomStatPill("Tin chính", String(stories));
+      if (scanned > 0) pills += buildNewsroomStatPill("Đã quét", scanned.toLocaleString("vi-VN"));
       if (updated) pills += buildNewsroomStatPill("Cập nhật", updated);
       if (readMin > 0) pills += buildNewsroomStatPill("Đọc khoảng", `${readMin} phút`);
+      const deskLink =
+        Array.isArray(data.sourceDesk) && data.sourceDesk.length
+          ? ` <a class="issue-provenance-link" href="#digest-source-desk">Nguồn theo chủ đề</a>`
+          : "";
+      const provHtml = provenance
+        ? `<p class="issue-provenance">Nội dung ${escapeHtml(provenance)}.${deskLink}</p>`
+        : "";
       return `<header class="issue-header" id="digest-issue-header">
         <span class="issue-badge">48H BRIEF</span>
         <h2 class="issue-title">Bản tin 48 giờ</h2>
         <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
+        ${provHtml}
         ${pills ? `<div class="issue-stats">${pills}</div>` : ""}
       </header>`;
     }
@@ -3680,8 +3796,7 @@
       cachedDigestPayload = payload;
       const sync = document.getElementById("syncNote");
       if (sync) {
-        const st = payload.generatedAt ? formatDateVi(payload.generatedAt) : "";
-        sync.textContent = st ? `Tin tức được tổng hợp lúc ${st}.` : "";
+        sync.textContent = buildNewsroomSyncNoteText(payload);
       }
       const embeddedBrief = document.getElementById("brief")?.getAttribute("data-embedded-brief") === "1";
       const usable = isPayloadUsable(payload);

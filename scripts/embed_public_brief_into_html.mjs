@@ -7,7 +7,10 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { buildNewsroomThesisHtml as buildNewsroomThesisHtmlCore } from "./newsroom_brief_render.mjs";
+import {
+  buildNewsroomThesisHtml as buildNewsroomThesisHtmlCore,
+  buildNewsroomSyncNoteText,
+} from "./newsroom_brief_render.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ND = "—";
@@ -501,11 +504,11 @@ function main() {
     }
   }
 
-  const st = data.generatedAt ? formatDateVi(data.generatedAt) : "";
-  const syncHtml = st
-    ? `<p id="syncNote" class="sync-note">Tin tức được tổng hợp lúc ${escapeHtml(st)}.</p>`
+  const syncText = buildNewsroomSyncNoteText(data);
+  const syncHtml = syncText
+    ? `<p id="syncNote" class="sync-note">${escapeHtml(syncText)}</p>`
     : `<p id="syncNote" class="sync-note"></p>`;
-  html = html.replace(/<p id="syncNote" class="sync-note"><\/p>/, syncHtml);
+  html = html.replace(/<p id="syncNote" class="sync-note">[\s\S]*?<\/p>/, syncHtml);
   html = html.replace('<section id="brief" class="alt">', '<section id="brief" class="alt" data-embedded-brief="1">');
   html = html.replace(
     /<div class="nav-links" id="navLinks"[^>]*>[\s\S]*?<\/div>/i,
