@@ -454,7 +454,7 @@ function replaceBriefBlock(html, id, className, inner, nextId = "") {
   }
   const boundary = nextId
     ? `(?=\\s*<div\\s+id="${nextId}")`
-    : `(?=\\s*<div\\s+id="section)`;
+    : `(?=\\s*</div>\\s*</section>\\s*<section id="pulse")`;
   const filled = new RegExp(
     `<div\\s+id="${id}"\\s+class="${className}"[^>]*>[\\s\\S]*?${boundary}`,
     "i",
@@ -485,7 +485,7 @@ function main() {
   const thesisHtml = buildDigestThesisHtml(data);
   let html = fs.readFileSync(pagePath, "utf8");
   html = applyDigestHero(html);
-  html = replaceBriefBlock(html, "sectionThesis", "brief-block", thesisHtml, "sectionPulse");
+  html = replaceBriefBlock(html, "sectionThesis", "brief-block", thesisHtml, "");
 
   if (!/id="sourceGrid"[^>]*data-embedded-articles/i.test(html)) {
     const gridPattern = `<div\\s+id="sourceGrid"\\s+class="source-grid"\\s*>\\s*</div>`;
