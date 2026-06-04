@@ -228,7 +228,9 @@ def _digest_content_polish_block() -> str:
             "- Gom tin **cùng luồng** trong sector thành sub-cluster (vd. Mỹ-Iran/Qeshm/Tehran/ceasefire → tối đa **2** item: "
             '"Leo thang quân sự Mỹ–Iran quanh đảo Qeshm" + "Đàm phán Tehran bế tắc, rủi ro năng lượng còn kéo dài").',
             "- `summary_hint` / `reason_selected`: câu cụ thể theo actor/sự kiện/luồng — **không** dùng câu fallback máy.",
+            "- **Không** cắt `headline[:80]` làm summary_hint; tech/AI: hint riêng (Alphabet vốn, Microsoft/OpenAI, Trump EO, robot, DPPA).",
             "- Headline **tiếng Việt** cho người đọc Việt Nam; paraphrase nếu nguồn tiếng Anh.",
+            "- Bỏ tin metadata/lịch họp (vd. IMF Executive Board Calendar Archive) nếu không có phân tích.",
         ]
     )
 
@@ -433,6 +435,34 @@ _GENERIC_COPY_FRAGMENTS: tuple[str, ...] = (
     "Tin nêu bật diễn biến:",
     "đáng chú ý trong khung 48h của sector",
     "Sự kiện này được giữ vì đại diện cho nhóm tin:",
+    "Tin liên quan ",
+    "Luồng AI/công nghệ định hình lại dòng vốn",
+)
+
+_SECTOR_SUMMARY_HINT_FALLBACK: dict[str, str] = {
+    "finance": (
+        "Tin này bổ sung một góc về dòng vốn, thị trường hoặc điều hành kinh tế trong 48 giờ."
+    ),
+    "tech": (
+        "Tin này bổ sung một góc về cạnh tranh công nghệ, AI hoặc hạ tầng số."
+    ),
+    "news": (
+        "Tin này bổ sung một góc về địa chính trị, chính sách hoặc an ninh khu vực."
+    ),
+    "trends": (
+        "Tin này phản ánh một thay đổi đáng chú ý trong đời sống, tiêu dùng hoặc hành vi xã hội."
+    ),
+    "notable": (
+        "Tin này bổ sung một góc đáng chú ý trong bức tranh 48 giờ."
+    ),
+}
+
+_LOW_VALUE_DIGEST_RE = re.compile(
+    r"executive\s+board\s+calendar\s+archive|calendar\s+archive|"
+    r"board\s+calendar(?!.*(policy|rate|growth|warning))|"
+    r"imf.*calendar(?!.*(cảnh báo|growth|forecast|warning))|"
+    r"metadata\s+only|archive\s+page|sitemap|rss\s+feed\s+only",
+    re.I,
 )
 
 _E10_POLICY_RE = re.compile(
@@ -567,6 +597,31 @@ def _is_generic_digest_copy(text: str) -> bool:
     return False
 
 
+def _is_weak_summary_hint(text: str) -> bool:
+    """Câu cụt từ headline[:80] hoặc copy máy không đủ nghĩa."""
+    t = str(text or "").strip()
+    if not t or _is_generic_digest_copy(t):
+        return True
+    if t.startswith("Tin liên quan "):
+        return True
+    if re.search(r":\s*[^.]{0,12}\.\s*$", t) and len(t) < 90:
+        return True
+    if t.endswith((" lọt '.", " toà.", " lọt '.")):
+        return True
+    return False
+
+
+def _sector_summary_hint_fallback(sector_code: str) -> str:
+    code = str(sector_code or "").strip().lower()
+    return _SECTOR_SUMMARY_HINT_FALLBACK.get(
+        code, _SECTOR_SUMMARY_HINT_FALLBACK["news"]
+    )
+
+
+def _is_low_value_digest_item(headline: str) -> bool:
+    return bool(_LOW_VALUE_DIGEST_RE.search(str(headline or "")))
+
+
 def _iran_cluster_key(headline: str) -> str | None:
     low = str(headline or "").lower()
     if not _IRAN_TOPIC_RE.search(low):
@@ -683,8 +738,53 @@ def _digest_topic_stream(headline: str) -> str:
     return "general"
 
 
+def _infer_tech_summary_hint(headline: str) -> str | None:
+    low = str(headline or "").lower()
+    if re.search(r"alphabet|google\s+owner", low) and re.search(
+        r"sell|stock|capital|huy động|bn|spending|vốn",
+        low,
+    ):
+        return "Cho thấy chi phí đầu tư AI và hạ tầng dữ liệu đang tăng mạnh."
+    if re.search(r"microsoft", low) and re.search(
+        r"model|openai|giảm phụ thuộc|chi phí",
+        low,
+    ):
+        return (
+            "Phản ánh nỗ lực giảm phụ thuộc mô hình bên ngoài "
+            "và kiểm soát chi phí AI."
+        )
+    if re.search(r"trump", low) and re.search(
+        r"sắc lệnh|executive order|quản trị|oversight",
+        low,
+    ) and re.search(r"\bai\b", low):
+        return (
+            "Tác động tới khung quản trị, quyền truy cập mô hình và quan hệ "
+            "giữa chính phủ với doanh nghiệp AI."
+        )
+    if re.search(r"openai", low) and re.search(
+        r"robot|humanoid|hình người|phần cứng",
+        low,
+    ):
+        return "Cho thấy AI đang mở rộng từ phần mềm sang phần cứng và robot."
+    if re.search(r"dppa|mua bán điện trực tiếp|trung tâm dữ liệu|data center", low):
+        return (
+            "Liên quan tới khả năng cung cấp điện sạch cho hạ tầng "
+            "trung tâm dữ liệu tại Việt Nam."
+        )
+    if re.search(r"long march|tên lửa", low) and re.search(r"trung quốc|china", low):
+        return "Phản ánh cuộc đua không gian và năng lực phóng vệ tinh của Trung Quốc."
+    if re.search(r"project solara|agent-first|ưu tiên ai agent", low):
+        return "Cho thấy hệ sinh thái AI agent và thiết bị đầu cuối mới đang được định hình."
+    return None
+
+
 def _infer_summary_hint(headline: str, sector_code: str) -> str:
     low = str(headline or "").lower()
+    code = str(sector_code or "").strip().lower()
+    if code == "tech" or re.search(r"\bai\b|openai|nvidia|alphabet|microsoft", low):
+        tech_hint = _infer_tech_summary_hint(headline)
+        if tech_hint:
+            return tech_hint
     stream = _digest_topic_stream(headline)
     if stream == "vn_equity" or re.search(r"vn-index|vnindex|hqc", low):
         return (
@@ -705,11 +805,6 @@ def _infer_summary_hint(headline: str, sector_code: str) -> str:
             "Chủ đề xăng E10 ảnh hưởng chi phí vận hành và kỳ vọng người tiêu dùng "
             "trong ngắn hạn."
         )
-    if stream == "ai_tech":
-        return (
-            "Luồng AI/công nghệ định hình lại dòng vốn và kỳ vọng tăng trưởng "
-            "của các tập đoàn lớn."
-        )
     if stream == "markets":
         return "Biến động tài sản rủi ro phản ánh khẩu vị nhà đầu tư trong 48 giờ qua."
     if stream == "vn_real_estate":
@@ -720,14 +815,7 @@ def _infer_summary_hint(headline: str, sector_code: str) -> str:
         return "Sự kiện không gian/công nghệ ảnh hưởng kỳ vọng hạ tầng và chuỗi cung ứng."
     if stream == "education":
         return "Diễn biến giáo dục phản ánh áp lực xã hội và kỳ vọng gia đình học sinh."
-    short = re.sub(r"\s+", " ", str(headline or "")).strip()[:80]
-    label = {
-        "finance": "kinh tế - tài chính",
-        "tech": "công nghệ",
-        "news": "thời sự",
-        "trends": "xu hướng",
-    }.get(sector_code, sector_code or "digest")
-    return f"Tin liên quan {label}: {short}."
+    return _sector_summary_hint_fallback(code)
 
 
 def _infer_reason_selected(headline: str, sector_code: str) -> str:
@@ -836,6 +924,47 @@ def _cluster_sub_topics_in_sector(
     return out
 
 
+def _headline_match_key(text: str) -> str:
+    return re.sub(r"\s+", " ", str(text or "")).strip().lower()[:140]
+
+
+def _dedupe_sub_topics_by_headline(
+    rows: list[dict[str, Any]], sector_code: str
+) -> list[dict[str, Any]]:
+    """Sau Việt hóa headline: gom trùng trong sector, merge source_urls."""
+    seen: dict[str, dict[str, Any]] = {}
+    order: list[str] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        hl = str(row.get("headline") or row.get("title") or "").strip()
+        key = _headline_match_key(hl)
+        if not key:
+            continue
+        if key not in seen:
+            seen[key] = dict(row)
+            order.append(key)
+            continue
+        base = seen[key]
+        urls: list[str] = [
+            str(u).strip() for u in (base.get("source_urls") or []) if str(u).strip()
+        ]
+        for u in row.get("source_urls") or []:
+            s = str(u).strip()
+            if s and s not in urls:
+                urls.append(s)
+        base["source_urls"] = urls[:3]
+        for tier in (str(row.get("priority_tier") or "").upper()[:1],):
+            if tier == "A":
+                base["priority_tier"] = "A"
+                break
+            if tier == "B" and str(base.get("priority_tier") or "").upper()[:1] != "A":
+                base["priority_tier"] = "B"
+    out = [seen[k] for k in order]
+    out.sort(key=lambda r: _sub_topic_sort_key(r, 0))
+    return out
+
+
 def _ensure_specific_digest_copy(
     row: dict[str, Any], sector_code: str, *, warn: bool = True
 ) -> dict[str, Any]:
@@ -844,10 +973,10 @@ def _ensure_specific_digest_copy(
     hl = str(out.get("headline") or "").strip()
     hint = str(out.get("summary_hint") or "").strip()
     reason = str(out.get("reason_selected") or "").strip()
-    if not hint or _is_generic_digest_copy(hint):
+    if not hint or _is_generic_digest_copy(hint) or _is_weak_summary_hint(hint):
         if warn and hint:
             print(
-                f"WARN digest polish: generic summary_hint → rewrite ({sector_code})",
+                f"WARN digest polish: weak summary_hint → rewrite ({sector_code})",
                 file=sys.stderr,
             )
         out["summary_hint"] = _infer_summary_hint(hl, sector_code)
@@ -953,7 +1082,7 @@ def _enforce_digest_public_polish(summary: dict[str, Any]) -> dict[str, Any]:
                 r["headline"] = _vietnamese_public_headline(hl, code)
             r = _ensure_specific_digest_copy(r, code, warn=True)
             fixed.append(r)
-        sec["sub_topics"] = fixed
+        sec["sub_topics"] = _dedupe_sub_topics_by_headline(fixed, code)
     for n in summary.get("notable_articles") or []:
         if not isinstance(n, dict):
             continue
@@ -1117,7 +1246,16 @@ def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
             if not isinstance(row, dict):
                 continue
             headline = str(row.get("headline") or row.get("title") or "").strip()
-            if not headline or _is_soft_entertainment_headline(headline):
+            if (
+                not headline
+                or _is_soft_entertainment_headline(headline)
+                or _is_low_value_digest_item(headline)
+            ):
+                if headline and _is_low_value_digest_item(headline):
+                    print(
+                        f"WARN digest polish: drop low-value item ({code}): {headline[:70]}",
+                        file=sys.stderr,
+                    )
                 continue
             target = _reroute_sector_code(headline, code)
             buckets[target].append(row)
@@ -1126,6 +1264,7 @@ def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
         src = sectors_in.get(code, {})
         rows = _cluster_sub_topics_in_sector(buckets[code], code)
         rows = [_polish_sub_topic_fields(r, code) for r in rows]
+        rows = _dedupe_sub_topics_by_headline(rows, code)
         rows.sort(key=lambda r: _sub_topic_sort_key(r, 0))
         out_sectors.append(
             {
@@ -1283,8 +1422,9 @@ def validate_digest_public_polish(summary: dict[str, Any]) -> list[str]:
             if not isinstance(row, dict):
                 continue
             hl = str(row.get("headline") or "")
-            if _is_generic_digest_copy(str(row.get("summary_hint") or "")):
-                warnings.append(f"sectors[{i}] ({code}) sub_topics[{j}] summary_hint vẫn generic.")
+            hint_txt = str(row.get("summary_hint") or "")
+            if _is_generic_digest_copy(hint_txt) or _is_weak_summary_hint(hint_txt):
+                warnings.append(f"sectors[{i}] ({code}) sub_topics[{j}] summary_hint vẫn generic/yếu.")
             if _is_generic_digest_copy(str(row.get("reason_selected") or "")):
                 warnings.append(f"sectors[{i}] ({code}) sub_topics[{j}] reason_selected vẫn generic.")
             if hl and _headline_is_mostly_english(hl):

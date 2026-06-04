@@ -220,6 +220,14 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Hygiene | Reroute AI policy→tech, exam→trends; drop soft entertainment; max 2× E10 toàn bài |
 | Notable | `supplement_notable_from_sectors()` fallback 5–8 từ tier A/B khi merge trả <4 |
 
+## 2026-06-04 — Digest polish v3 (hint fallback, headline dedupe, low-value filter)
+
+| Area | Change |
+|------|--------|
+| summary_hint | Sector fallback câu đủ (không `headline[:80]`); `_infer_tech_summary_hint` theo từng luồng AI |
+| Dedupe | `_dedupe_sub_topics_by_headline` sau Việt hóa — merge URL tối đa 3 |
+| Filter | `_is_low_value_digest_item` (IMF calendar archive, metadata) |
+
 ## 2026-06-04 — Digest 48h polish v2 (generic ban + VI headline + Iran/E10 cluster)
 
 | Area | Change |
