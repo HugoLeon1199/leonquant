@@ -211,6 +211,15 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Regenerate:** `python summarize_news_gemini.py --mode digest` → `python build_website_content.py`.
 
+## 2026-06-04 — Digest editorial style + normalize hygiene
+
+| Area | Change |
+|------|--------|
+| Prompt | `_digest_editorial_style_block`, headline rewrite, sector routing, executive overview dedupe rules |
+| Normalize | Semantic overview dedupe (`SequenceMatcher` + topic buckets); coerce `priority_tier`/`summary_hint`/`reason_selected` |
+| Hygiene | Reroute AI policy→tech, exam→trends; drop soft entertainment; max 2× E10 toàn bài |
+| Notable | `supplement_notable_from_sectors()` fallback 5–8 từ tier A/B khi merge trả <4 |
+
 ## 2026-06-04 — Digest adaptive: coverage sanity + source metadata
 
 | Area | Change |

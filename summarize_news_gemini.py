@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import time
+from difflib import SequenceMatcher
 from datetime import datetime, timezone
 from html import unescape
 from html.parser import HTMLParser
@@ -176,6 +177,64 @@ def _digest_accuracy_and_freshness_block(*, for_merge: bool = False) -> str:
     )
 
 
+def _digest_editorial_style_block() -> str:
+    return "\n".join(
+        [
+            "## Văn phong xuất bản LeonQuant (BẮT BUỘC)",
+            "- Viết như biên tập viên kinh tế - công nghệ cấp cao, không viết như máy tóm tắt.",
+            "- Mỗi đoạn phải có thesis rõ: điều gì đang thay đổi, vì sao quan trọng, người đọc nên theo dõi biến số nào.",
+            "- Tránh câu sáo rỗng: 'chứng kiến sự phân hóa mạnh mẽ', 'đặt ra thách thức', 'tiếp tục là động lực', "
+            "'đang là tâm điểm', nếu không có chi tiết cụ thể đi kèm.",
+            "- Ưu tiên câu cụ thể: tài sản/ngành/chính sách/công nghệ nào đang bị ảnh hưởng.",
+            "- Không bê nguyên headline crawl nếu headline giật hoặc thô. Viết lại headline biên tập: ngắn, rõ actor + event + ý nghĩa.",
+            "- Summary sector không được chỉ liệt kê headline. Phải nối các tin thành một câu chuyện 48h.",
+            "- Mỗi `summary_hint` trả lời: vì sao tin này đáng chú ý với người đọc?",
+            "- Mỗi `reason_selected` phải cụ thể — không 'tin quan trọng' / 'ảnh hưởng toàn cầu' chung chung.",
+            "- Giọng trung lập, sắc, không hô hào, không khuyến nghị mua bán.",
+        ]
+    )
+
+
+def _digest_headline_rewrite_block() -> str:
+    return "\n".join(
+        [
+            "## Viết lại headline (BẮT BUỘC cho merge)",
+            "Không bê headline crawl nếu: quá giật, quá dài, từ cảm xúc ('sập', 'tháo chạy', 'địa chấn', 'máy in tiền', 'hoàn hảo đến vô thực'), không rõ ý nghĩa 48h.",
+            "Format: **[Actor/thị trường] + [sự kiện] + [vì sao đáng chú ý]**",
+            '- Raw: "Giá vàng thế giới bất ngờ sập mạnh, nhà đầu tư tháo chạy" → '
+            'Editorial: "Giá vàng giảm mạnh khi kỳ vọng rủi ro Trung Đông được định giá lại"',
+            '- Raw: "Robot hình người giá chưa tới 3.000 USD gây địa chấn" → '
+            'Editorial: "Robot hình người giá thấp làm nóng cuộc đua phần cứng AI"',
+            '- Raw: "Loạt thương hiệu Việt lâu đời trở thành máy in tiền cho cổ đông" → '
+            'Editorial: "Một số thương hiệu Việt lâu đời tiếp tục tạo dòng tiền ổn định cho cổ đông"',
+        ]
+    )
+
+
+def _digest_sector_routing_block() -> str:
+    return "\n".join(
+        [
+            "## Routing override (BẮT BUỘC)",
+            "- AI regulation / AI executive order / AI oversight / model policy → **`tech`**, không `news` (trừ khi trọng tâm chính trị thuần túy).",
+            "- Tuyển sinh, giáo dục, đời sống học đường → **`trends`**, không `news`.",
+            "- Xăng E10: chính sách năng lượng/giá/nguồn cung → `finance` hoặc `news`; phản ứng người tiêu dùng/hướng dẫn → `trends`.",
+            "- **Cả bản tin:** cùng chủ đề xăng E10 tối đa **2** lần, mỗi lần góc khác nhau.",
+            "- Tin giải trí/celebrity/listicle ('ngọc nữ đẹp nhất', 'sao', 'miss') → **không** đưa vào digest trừ tác động xã hội lớn.",
+        ]
+    )
+
+
+def _digest_executive_overview_editing_block() -> str:
+    return "\n".join(
+        [
+            "## Executive overview (5–8 bullet, không trùng ý)",
+            "- Mỗi bullet: **[Diễn biến chính] → [vì sao đáng chú ý / biến số theo dõi]**.",
+            "- Gom nếu trùng: Trung Đông/Iran/Hormuz → **một** bullet; AI/chip/chứng khoán công nghệ → **một**; VN BĐS/hạ tầng/thuế → **một**.",
+            "- **Cấm** hai bullet cùng nói lạm phát VN, cùng nói AI, cùng nói Trung Đông.",
+        ]
+    )
+
+
 def _digest_editorial_selection_block(*, for_merge: bool) -> str:
     if for_merge:
         return "\n".join(
@@ -225,9 +284,13 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         lines.extend(
             [
                 "- **`sectors`:** đúng **4** phần tử (finance, tech, news, trends).",
-                "- `notable_articles`: số lượng **tự nhiên** — chỉ tin tier A/B thật sự nổi bật đa ngành.",
+                "- `notable_articles`: **5–8** tin tier A/B đa ngành (không chỉ 2 nếu sectors giàu A/B).",
+                _digest_editorial_style_block(),
+                _digest_headline_rewrite_block(),
+                _digest_sector_routing_block(),
+                _digest_executive_overview_editing_block(),
                 _digest_coverage_sanity_block(),
-                _digest_sector_summary_rules_block(),
+                _digest_sector_summary_rules_block(for_merge=True),
             ]
         )
     else:
@@ -240,15 +303,21 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
     return "\n".join(lines)
 
 
-def _digest_sector_summary_rules_block() -> str:
-    return "\n".join(
-        [
-            "## Đoạn tổng hợp sector (`summary`) — adaptive",
-            "- Sector ít tin mạnh: **80–120 từ**. Sector nhiều tin: **150–250 từ**.",
-            "- Nêu: (1) bức tranh 48h của sector, (2) 2–4 luồng chính, (3) vì sao đáng chú ý.",
-            "- **Không** liệt kê lại từng headline; không lặp `executive_overview`.",
-        ]
-    )
+def _digest_sector_summary_rules_block(*, for_merge: bool = False) -> str:
+    lines = [
+        "## Đoạn tổng hợp sector (`summary`) — adaptive",
+        "- Sector ít tin mạnh: **80–120 từ**. Sector nhiều tin: **150–250 từ**.",
+        "- Nêu: (1) bức tranh 48h của sector, (2) 2–4 luồng chính, (3) vì sao đáng chú ý.",
+        "- **Không** liệt kê lại từng headline; không lặp `executive_overview`.",
+    ]
+    if for_merge:
+        lines.extend(
+            [
+                "- Summary phải có **thesis**: điều gì đang đổi trong 48h, ai/bên nào bị ảnh hưởng, biến số nào cần theo dõi.",
+                "- Nối các `sub_topics` thành **một câu chuyện**, không chuỗi headline rời.",
+            ]
+        )
+    return "\n".join(lines)
 
 
 def _digest_sector_json_schema_fragment() -> str:
@@ -292,6 +361,87 @@ def _sub_topic_sort_key(row: dict[str, Any], fallback_index: int) -> tuple[int, 
     return (tier_ord, 1, fallback_index)
 
 
+_OVERVIEW_TOPIC_RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("middle_east", re.compile(r"iran|israel|hormuz|trung\s*đông|dầu|venez|ukraine|nga\s*s", re.I)),
+    ("ai_tech", re.compile(r"\bai\b|chip|nvidia|microsoft|openai|robot|công nghệ|bán dẫn", re.I)),
+    ("vn_policy", re.compile(r"việt\s*nam|vn-index|ngân hàng|thuế|lãi suất|bđs|hạ tầng|đầu tư công", re.I)),
+    ("markets", re.compile(r"bitcoin|crypto|chứng khoán|vàng|etf|vnindex", re.I)),
+    ("inflation", re.compile(r"lạm phát|cpi|nhập siêu", re.I)),
+)
+
+_ENTERTAINMENT_HEADLINE_RE = re.compile(
+    r"ngọc nữ|đẹp nhất.*việt\s*nam|miss\s|sao\s|celebrity|listicle|golf\b|khảo cổ nhỏ|"
+    r"hoàn hảo đến vô thực|bikini|sao việt",
+    re.I,
+)
+
+_E10_TOPIC_RE = re.compile(r"xăng\s*e10|\be10\b|ethanol\s*e10", re.I)
+
+_AI_POLICY_RE = re.compile(
+    r"\bai\b|artificial intelligence|executive order|openai|oversight|llm|model policy|"
+    r"chip act|semiconductor",
+    re.I,
+)
+
+_EDUCATION_TRENDS_RE = re.compile(
+    r"tuyển sinh|kỳ thi|lớp\s*10|thi tốt nghiệp|giáo dục|học sinh|đại học|điểm chuẩn",
+    re.I,
+)
+
+_NOTABLE_MIN_FALLBACK = 4
+_NOTABLE_TARGET_FALLBACK = 8
+
+_SENSATIONAL_HEADLINE_RE = re.compile(
+    r'sập|tháo chạy|địa chấn|máy in tiền|hoàn hảo đến vô thực|bất ngờ\s*\"?sập',
+    re.I,
+)
+
+
+def _editorialize_digest_headline(headline: str) -> str:
+    """Fallback khi merge vẫn giữ headline crawl giật/thô."""
+    h = re.sub(r"\s+", " ", str(headline or "").strip())
+    if not h or not _SENSATIONAL_HEADLINE_RE.search(h):
+        return h
+    low = h.lower()
+    if "giá vàng" in low and ("sập" in low or "tháo chạy" in low):
+        return "Giá vàng giảm mạnh khi kỳ vọng rủi ro được định giá lại"
+    if "robot hình người" in low and "địa chấn" in low:
+        return (
+            "Robot hình người giá thấp làm nóng cuộc đua phần cứng AI "
+            "(Hugging Face công bố thiết kế mở)"
+        )
+    if "máy in tiền" in low or ("thương hiệu việt" in low and "cổ đông" in low):
+        return "Một số thương hiệu Việt lâu đời tiếp tục tạo dòng tiền ổn định cho cổ đông"
+    out = h
+    out = re.sub(r'["\']?\s*sập\s*["\']?', "giảm mạnh", out, flags=re.I)
+    out = re.sub(r"tháo chạy", "dòng tiền rút", out, flags=re.I)
+    out = re.sub(r"gây\s+địa chấn", "làm nóng cuộc đua", out, flags=re.I)
+    out = re.sub(r"địa chấn", "tác động lớn", out, flags=re.I)
+    out = re.sub(
+        r"trở thành\s+['\"]?(?:máy in tiền|dòng tiền ổn định)['\"]?\s+cho",
+        "tiếp tục tạo dòng tiền cho",
+        out,
+        flags=re.I,
+    )
+    out = re.sub(r"máy in tiền", "dòng tiền ổn định", out, flags=re.I)
+    return out.strip()[:220]
+
+
+def _overview_topic_bucket(text: str) -> str:
+    blob = str(text or "").lower()
+    for name, pat in _OVERVIEW_TOPIC_RULES:
+        if pat.search(blob):
+            return name
+    return ""
+
+
+def _bullets_overlap_semantically(a: str, b: str) -> bool:
+    if SequenceMatcher(None, a.lower(), b.lower()).ratio() >= 0.58:
+        return True
+    ta, tb = _overview_topic_bucket(a), _overview_topic_bucket(b)
+    return bool(ta and ta == tb)
+
+
 def _normalize_executive_overview_bullets(raw: Any) -> list[str]:
     bullets: list[str] = []
     if isinstance(raw, list):
@@ -318,17 +468,166 @@ def _normalize_executive_overview_bullets(raw: Any) -> list[str]:
                     )
                     if len(c.strip()) >= 24
                 ] or [text]
-    seen: set[str] = set()
     out: list[str] = []
     for b in bullets:
-        key = b.lower()[:80]
-        if key in seen:
+        if any(_bullets_overlap_semantically(b, kept) for kept in out):
             continue
-        seen.add(key)
         out.append(b)
         if len(out) >= DIGEST_PARSER_MAX_EXEC_BULLETS:
             break
     return out
+
+
+def _coerce_sub_topic_row(row: dict[str, Any]) -> dict[str, Any]:
+    out = dict(row)
+    raw_hl = str(out.get("headline") or out.get("title") or "").strip()
+    if raw_hl:
+        out["headline"] = _editorialize_digest_headline(raw_hl)
+    tier = str(out.get("priority_tier") or "").strip().upper()[:1]
+    out["priority_tier"] = tier if tier in ("A", "B", "C") else "B"
+    if not str(out.get("summary_hint") or "").strip():
+        out["summary_hint"] = (
+            "Tin này được giữ vì phản ánh một luồng đáng chú ý trong 48 giờ."
+        )
+    if not str(out.get("reason_selected") or "").strip():
+        out["reason_selected"] = (
+            "Được chọn vì bổ sung một góc riêng cho bức tranh 48h."
+        )
+    urls = [str(u).strip() for u in (out.get("source_urls") or []) if str(u).strip()]
+    if urls:
+        out["source_urls"] = urls[:3]
+    return out
+
+
+def _is_soft_entertainment_headline(headline: str) -> bool:
+    return bool(_ENTERTAINMENT_HEADLINE_RE.search(str(headline or "")))
+
+
+def _reroute_sector_code(headline: str, current_code: str) -> str:
+    h = str(headline or "")
+    code = str(current_code or "").strip().lower()
+    if code == "news" and _AI_POLICY_RE.search(h):
+        pure_politics = re.search(
+            r"thủ tướng|quốc hội|bầu cử|ngoại giao|chiến tranh|ngừng bắn|hội nghị thượng đỉnh",
+            h,
+            re.I,
+        )
+        if not pure_politics or re.search(r"\bai\b|chip|openai|nvidia|llm|executive order", h, re.I):
+            if re.search(r"\bai\b|chip|openai|nvidia|llm|executive order|oversight|semiconductor", h, re.I):
+                return "tech"
+    if code == "news" and _EDUCATION_TRENDS_RE.search(h):
+        return "trends"
+    return code if code in DIGEST_SECTOR_CODES else "trends"
+
+
+def _apply_digest_sector_hygiene(summary: dict[str, Any]) -> dict[str, Any]:
+    """Routing, lọc giải trí, cap E10 toàn bài, coerce fields."""
+    sectors_in = {
+        str(s.get("code") or "").strip().lower(): s
+        for s in (summary.get("sectors") or [])
+        if isinstance(s, dict) and str(s.get("code") or "").strip()
+    }
+    buckets: dict[str, list[dict[str, Any]]] = {code: [] for code, _ in DIGEST_FOUR_SECTORS}
+    e10_kept = 0
+    for code, _ in DIGEST_FOUR_SECTORS:
+        sec = sectors_in.get(code, {})
+        for row in sec.get("sub_topics") or []:
+            if not isinstance(row, dict):
+                continue
+            headline = str(row.get("headline") or row.get("title") or "").strip()
+            if not headline or _is_soft_entertainment_headline(headline):
+                continue
+            target = _reroute_sector_code(headline, code)
+            if _E10_TOPIC_RE.search(headline):
+                if e10_kept >= 2:
+                    continue
+                e10_kept += 1
+            buckets[target].append(_coerce_sub_topic_row(row))
+    out_sectors: list[dict[str, Any]] = []
+    for code, label in DIGEST_FOUR_SECTORS:
+        src = sectors_in.get(code, {})
+        rows = buckets[code]
+        rows.sort(key=lambda r: _sub_topic_sort_key(r, 0))
+        out_sectors.append(
+            {
+                "code": code,
+                "name": str(src.get("name") or "").strip() or label,
+                "summary": str(src.get("summary") or "").strip(),
+                "sub_topics": rows[:DIGEST_PARSER_MAX_SUB_TOPICS_PER_SECTOR],
+            }
+        )
+    summary["sectors"] = out_sectors
+    return summary
+
+
+def supplement_notable_from_sectors(summary: dict[str, Any]) -> dict[str, Any]:
+    """Fallback notable khi Gemini trả quá ít nhưng sectors có A/B."""
+    notable = [
+        n for n in (summary.get("notable_articles") or []) if isinstance(n, dict)
+    ]
+    seen_urls: set[str] = set()
+    seen_titles: set[str] = set()
+    for n in notable:
+        u = str(n.get("url") or "").strip()
+        t = _headline_dedupe_key(str(n.get("title") or ""))
+        if u:
+            seen_urls.add(u)
+        if t:
+            seen_titles.add(t)
+    if len(notable) >= _NOTABLE_MIN_FALLBACK:
+        summary["notable_articles"] = notable[:DIGEST_PARSER_MAX_NOTABLE]
+        return summary
+
+    ab_total = 0
+    for sec in summary.get("sectors") or []:
+        if not isinstance(sec, dict):
+            continue
+        for row in sec.get("sub_topics") or []:
+            if isinstance(row, dict) and str(row.get("priority_tier") or "").upper()[:1] in (
+                "A",
+                "B",
+            ):
+                ab_total += 1
+    if ab_total < _NOTABLE_MIN_FALLBACK:
+        summary["notable_articles"] = notable[:DIGEST_PARSER_MAX_NOTABLE]
+        return summary
+
+    for sec in summary.get("sectors") or []:
+        if not isinstance(sec, dict):
+            continue
+        if len(notable) >= _NOTABLE_TARGET_FALLBACK:
+            break
+        code = str(sec.get("code") or "")
+        picked = 0
+        for row in sec.get("sub_topics") or []:
+            if not isinstance(row, dict) or picked >= 2:
+                break
+            tier = str(row.get("priority_tier") or "").upper()[:1]
+            if tier not in ("A", "B"):
+                continue
+            headline = str(row.get("headline") or "").strip()
+            urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+            u = urls[0] if urls else ""
+            tkey = _headline_dedupe_key(headline)
+            if (u and u in seen_urls) or (tkey and tkey in seen_titles):
+                continue
+            if u:
+                seen_urls.add(u)
+            if tkey:
+                seen_titles.add(tkey)
+            notable.append(
+                {
+                    "title": headline,
+                    "source": "",
+                    "url": u,
+                    "why_notable": str(row.get("summary_hint") or row.get("reason_selected") or "").strip()
+                    or "Tin tier A/B nổi bật trong sector.",
+                    "priority_tier": tier,
+                }
+            )
+            picked += 1
+    summary["notable_articles"] = notable[:DIGEST_PARSER_MAX_NOTABLE]
+    return summary
 
 
 def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
@@ -345,6 +644,9 @@ def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
     bullets = _normalize_executive_overview_bullets(out.get("executive_overview"))
     if bullets:
         out["executive_overview"] = bullets
+
+    out = _apply_digest_sector_hygiene(out)
+    out = supplement_notable_from_sectors(out)
 
     sectors = out.get("sectors") if isinstance(out.get("sectors"), list) else []
     norm_sectors: list[dict[str, Any]] = []
@@ -364,8 +666,18 @@ def normalize_digest_summary(summary: dict[str, Any]) -> dict[str, Any]:
     out["sectors"] = norm_sectors
 
     notable = out.get("notable_articles") if isinstance(out.get("notable_articles"), list) else []
-    if len(notable) > DIGEST_PARSER_MAX_NOTABLE:
-        out["notable_articles"] = notable[:DIGEST_PARSER_MAX_NOTABLE]
+    norm_notable: list[dict[str, Any]] = []
+    for n in notable:
+        if not isinstance(n, dict):
+            continue
+        nc = dict(n)
+        title = str(nc.get("title") or "").strip()
+        if title:
+            nc["title"] = _editorialize_digest_headline(title)
+        norm_notable.append(nc)
+    if len(norm_notable) > DIGEST_PARSER_MAX_NOTABLE:
+        norm_notable = norm_notable[:DIGEST_PARSER_MAX_NOTABLE]
+    out["notable_articles"] = norm_notable
     return out
 
 
@@ -419,6 +731,10 @@ def validate_digest_multisector_coverage(summary: dict[str, Any]) -> list[str]:
                 warnings.append(
                     f"sectors[{i}] ({label}) sub_topics[{j}] thiếu source_urls."
                 )
+            if not str(row.get("priority_tier") or "").strip():
+                warnings.append(f"sectors[{i}] sub_topics[{j}] thiếu priority_tier (đã coerce B).")
+            if not str(row.get("summary_hint") or "").strip():
+                warnings.append(f"sectors[{i}] sub_topics[{j}] thiếu summary_hint.")
             if not str(row.get("reason_selected") or "").strip():
                 warnings.append(f"sectors[{i}] sub_topics[{j}] thiếu reason_selected.")
             if len(urls) > 3:
@@ -1225,7 +1541,7 @@ Trả về DUY NHẤT JSON:
 {{
   "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
   "reading_time_minutes": "auto",
-  "executive_overview": ["bullet adaptive — 4-10 tùy 48h, mỗi bullet một luồng"],
+  "executive_overview": ["5-8 bullet: [diễn biến] → [vì sao đáng chú ý]; không trùng Trung Đông/AI/VN"],
   "sectors": [
 {_digest_sector_json_schema_fragment()}
   ],
