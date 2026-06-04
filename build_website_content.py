@@ -2945,6 +2945,7 @@ def main() -> int:
     else:
         enriched_payload = load_json(articles_path)
     final_payload = load_json(final_path)
+    final_payload = _finalize_digest_payload_for_build(final_payload, enriched_payload)
     all_cards = build_all_article_cards(
         enriched_payload,
         not args.skip_images,
@@ -2963,6 +2964,32 @@ def main() -> int:
     return 0
 
 
+def _finalize_digest_payload_for_build(
+    final_payload: dict[str, Any], enriched_payload: dict[str, Any]
+) -> dict[str, Any]:
+    """Áp polish v4 (URL whitelist, hint recompute) trước khi dựng content.json."""
+    try:
+        from summarize_news_gemini import finalize_digest_summary
+    except ImportError:
+        return final_payload
+    articles = (
+        enriched_payload.get("articles")
+        if isinstance(enriched_payload.get("articles"), list)
+        else []
+    )
+    raw_summary = final_payload.get("summary")
+    summary_in = raw_summary if isinstance(raw_summary, dict) else final_payload
+    polished = finalize_digest_summary(summary_in, input_articles=articles)
+    if not isinstance(polished, dict):
+        return final_payload
+    out = dict(final_payload)
+    if isinstance(raw_summary, dict):
+        out["summary"] = polished
+    else:
+        out = {"summary": polished, "generated_at": out.get("generated_at")}
+    return out
+
+
 def rebuild_content_from_digest(
     digest_path: Path,
     articles_path: Path,
@@ -2979,6 +3006,7 @@ def rebuild_content_from_digest(
         enriched_payload = articles_payload_from_for_ai(articles_path)
     else:
         enriched_payload = load_json(articles_path)
+    final_payload = _finalize_digest_payload_for_build(final_payload, enriched_payload)
     all_cards = build_all_article_cards(
         enriched_payload,
         fetch_images,

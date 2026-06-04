@@ -220,6 +220,23 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Hygiene | Reroute AI policy→tech, exam→trends; drop soft entertainment; max 2× E10 toàn bài |
 | Notable | `supplement_notable_from_sectors()` fallback 5–8 từ tier A/B khi merge trả <4 |
 
+## 2026-06-04 — Public site rebuild (content.json + embedded HTML)
+
+**Scope:** `build_website_content.py`, `landing_page.html`, `scripts/rebuild_public_site.ps1`, deploy `pages.yml`.
+
+| Check | Result |
+|-------|--------|
+| Commands | `finalize_digest_summary` → `build_website_content.py --skip-images` → `embed_public_brief_into_html.mjs` (+ pulse/invest VN embed) |
+| `content.json` | `briefMode=multisector-digest`, **4** `digestSectors`, **28** sub-topic `items`, `generatedAt` set; **~3 MB** (kèm `articleLinkIndex` 1725 bài) |
+| Render chính | **Dual:** HTML nhúng sẵn (`data-embedded-brief="1"` trên `#brief`) + fetch `content.json` khi JS chạy; CI `pages.yml` embed lại vào `_site/index.html` |
+| `?view=live` | Static Pages — cùng `index.html`; LIVE dùng `#pulse` + `data-embedded-pulse="1"`; ưu tiên embed trước khi fetch `market_pulse.json` (tránh trống khi JSON 503) |
+| `?view=invest` | `#invest` + `data-embedded-invest-vn` trong repo; fetch `invest_world_pulse.json` / `invest_vn_brief.json` |
+| Live 502/503 | `leonquant.com` fetch: digest HTML OK; `market_pulse.json` đôi khi **503** — nhúng pulse vào HTML giảm phụ thuộc fetch |
+| Fake URLs | Không còn `coindesk.com/bitcoin-price-drop` / `cnbc.com/ai-stocks-rally` trong digest links sau finalize |
+| Alphabet hint | `summaryHint` AI capex + `reasonSelected` hạ tầng AI (không VN-Index) |
+
+**Local rebuild:** `powershell scripts/rebuild_public_site.ps1` — commit `landing_page.html`, `content.json`, `gemini_digest_summary.json`, push → Pages workflow.
+
 ## 2026-06-04 — Digest polish v4 — URL whitelist + recompute hint after rewrite/dedupe
 
 **Scope:** `summarize_news_gemini.py` only (48h digest normalize).
