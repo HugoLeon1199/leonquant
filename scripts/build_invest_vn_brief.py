@@ -23,7 +23,37 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONTENT = ROOT / "content.json"
 DEFAULT_OUT = ROOT / "invest_vn_brief.json"
 WEB_OUT = ROOT / "web" / "invest_vn_brief.json"
-SCHEMA_VERSION = "invest-vn-brief-v1"
+SCHEMA_VERSION = "invest-vn-brief-v2"
+VN_THEMES_SECTION_LABEL = "Ba điểm đáng chú ý trong 48 giờ qua"
+
+_VN_TITLE_REWRITES: dict[str, str] = {
+    "siết chặt quản lý thuế và kỷ luật thị trường tiền tệ": (
+        "Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng"
+    ),
+    "chuyển đổi số ngành ngân hàng và rủi ro an ninh mạng": (
+        "Ngân hàng tăng tốc số hóa, rủi ro bảo mật tài khoản nổi lên"
+    ),
+    "chuyển đổi số ngân hàng và rủi ro an ninh mạng": (
+        "Ngân hàng tăng tốc số hóa, rủi ro bảo mật tài khoản nổi lên"
+    ),
+    "chuyển đổi số và an ninh mạng ngành ngân hàng": (
+        "Ngân hàng tăng tốc số hóa, rủi ro bảo mật tài khoản nổi lên"
+    ),
+}
+
+_VN_SOURCE_GLUE_RE = re.compile(
+    r"([^\s—\-])(?=(Báo Chính phủ|Tuổi Trẻ|VietnamNet|Dân trí|GenK|VnEconomy|Cafef|Báo Xây dựng|PLO|VnExpress))",
+)
+
+_VN_FORBIDDEN_RE = re.compile(
+    r"\b(múc|nên mua|nên bán|cơ hội chắc chắn|chắc chắn sinh lời|khuyến nghị mua|khuyến nghị bán)\b",
+    re.IGNORECASE,
+)
+
+_VN_HYPE_LENS_RE = re.compile(
+    r"tín hiệu tích cực|tác động trực tiếp|định hình lại|chắc chắn sẽ|là cơ hội vàng",
+    re.IGNORECASE,
+)
 
 VN_HOST_MARKERS = (
     ".vn",
@@ -82,6 +112,49 @@ def _parse_gemini_json(text: str) -> dict[str, Any]:
 def _clip(s: str, n: int) -> str:
     t = re.sub(r"\s+", " ", (s or "").strip())
     return t if len(t) <= n else t[: n - 1].rstrip() + "…"
+
+
+def _vn_public_text(text: str) -> str:
+    s = _VN_FORBIDDEN_RE.sub("", str(text or ""))
+    s = _VN_SOURCE_GLUE_RE.sub(r"\1 —", s)
+    return " ".join(s.split())
+
+
+def _vn_rewrite_title(title: str) -> str:
+    key = str(title or "").strip().casefold()
+    return _VN_TITLE_REWRITES.get(key, str(title or "").strip())
+
+
+def _vn_temper_copy(text: str, *, max_len: int = 800) -> str:
+    s = _vn_public_text(text)
+    s = _VN_HYPE_LENS_RE.sub("biến số cần theo dõi", s)
+    s = re.sub(r"(ảnh hưởng|tác động) trực tiếp", "có thể ảnh hưởng", s, flags=re.IGNORECASE)
+    s = re.sub(r"tăng trưởng tích cực", "tăng trưởng", s, flags=re.IGNORECASE)
+    return _clip(s, max_len)
+
+
+def _vn_temper_investor_lens(text: str) -> str:
+    s = _vn_public_text(text)
+    s = _VN_HYPE_LENS_RE.sub("biến số cần theo dõi", s)
+    s = re.sub(
+        r"ảnh hưởng trực tiếp",
+        "có thể ảnh hưởng",
+        s,
+        flags=re.IGNORECASE,
+    )
+    s = re.sub(
+        r"cho thanh khoản",
+        "với thanh khoản và tiến độ triển khai",
+        s,
+        flags=re.IGNORECASE,
+    )
+    if s and not re.search(
+        r"biến số|nhóm|ngành|doanh nghiệp|tài sản|phụ thuộc|theo dõi",
+        s,
+        re.IGNORECASE,
+    ):
+        s = f"{s.rstrip('.')}; cần theo dõi nhóm ngành/tài sản liên quan theo diễn biến thực tế."
+    return _clip(s, 500)
 
 
 def build_input_pack(content: dict[str, Any]) -> dict[str, Any]:
@@ -179,18 +252,34 @@ def gemini_analyze_vn(pack: dict[str, Any]) -> dict[str, Any]:
 
     pack_json = json.dumps(pack, ensure_ascii=False, indent=2)
     prompt = f"""
-Bạn là biên tập chuyên mục kinh tế đầu tư Việt Nam của LeonQuant.
+Bạn là biên tập chuyên mục kinh tế đầu tư Việt Nam của LeonQuant (văn phong trung lập, giống bản tin nghiên cứu).
 
-CHỈ dùng dữ liệu trong "input_pack" bên dưới (digest 48 giờ, nguồn trong nước). Không dùng kiến thức ngoài để bịa số liệu, ngày tháng, hay sự kiện không có trong pack.
-Không khuyến nghị mua/bán/múc. Không nhắc AI, crawler, GDELT, pipeline, hệ thống.
+CHỈ dùng dữ liệu trong "input_pack" (digest 48 giờ, nguồn trong nước). Không bịa số liệu/sự kiện ngoài pack.
+Không khuyến nghị mua/bán/múc. Không dùng "nên mua", "cơ hội chắc chắn". Không nhắc AI, crawler, GDELT, pipeline.
 
-Nhiệm vụ — hai lớp thời gian:
-1) themes_48h: 3–5 chủ đề nói COM NHẤT trong 48 giờ qua tại Việt Nam (kinh tế, tài chính, điều hành, BĐS, FDI, ngân hàng, năng lượng, thị trường trong nước…).
-   Mỗi chủ đề: title, why_hot (vì sao được quan tâm), developments (3–6 bullet diễn biến), investor_lens (ý nghĩa với nhà đầu tư VN, trung lập), links (chỉ url có trong pack).
-2) now_watch: 2–4 mục đang chuyển biến GẦN ĐÂY / cần theo dõi tiếp (status: "đang diễn ra" hoặc "sắp có"), what_to_watch, links nếu có.
+1) themes_48h — 3–5 chủ đề NỔI BẬT NHẤT 48 giờ (kinh tế, tài chính, điều hành, BĐS, ngân hàng, năng lượng…).
+   Mỗi chủ đề:
+   - title: cụ thể, trung lập, không giật tít. Tránh cụm kiểu "siết chặt quản lý thuế và kỷ luật thị trường tiền tệ".
+     Ưu tiên góc điều hành rõ, ví dụ: "Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng";
+     "Ngân hàng tăng tốc số hóa, rủi ro bảo mật tài khoản nổi lên".
+   - why_hot: vì sao được quan tâm (1–2 câu).
+   - developments: 3–6 bullet diễn biến; KHÔNG dính tên báo vào cuối câu (tách nguồn qua links).
+   - investor_lens (Góc đầu tư): 1–2 câu TRUNG LẬP; phải nêu nhóm ngành/tài sản/doanh nghiệp bị ảnh hưởng.
+     Dùng: "biến số cần theo dõi", "tác động phụ thuộc vào", "nhóm có thể chịu ảnh hưởng".
+     KHÔNG dùng: "tín hiệu tích cực cho thanh khoản", "tác động trực tiếp" khi chưa rõ.
+     Ví dụ: "Việc tháo gỡ pháp lý là biến số cần theo dõi với nhóm bất động sản, xây dựng và hạ tầng; tác động thực tế phụ thuộc vào tiến độ phê duyệt, giải ngân và khả năng chuyển hóa thành doanh thu."
+   - links: chỉ url có trong pack; source là tên báo riêng (vd. "Báo Chính phủ"), không ghép vào cuối bullet.
 
-lead: 2–4 câu tổng quan bức tranh VN 48h.
-gaps: một câu nếu thiếu dữ liệu; nếu đủ thì để chuỗi rỗng.
+2) now_watch — 2–4 mục đang theo dõi (status: "đang diễn ra" hoặc "sắp có").
+   Mỗi mục BẮT BUỘC có:
+   - title
+   - issue (Vấn đề — 1–2 câu)
+   - affected_groups (Nhóm ảnh hưởng — liệt kê ngành/nhóm)
+   - watch_variables (Biến số cần theo dõi — 1–2 câu)
+   - links nếu có
+
+lead: 2–4 câu tổng quan VN 48h, trung lập.
+gaps: một câu nếu thiếu dữ liệu; nếu đủ thì "".
 
 Trả về JSON (không markdown):
 {{
@@ -198,19 +287,21 @@ Trả về JSON (không markdown):
   "themes_48h": [
     {{
       "rank": 1,
-      "title": "...",
+      "title": "Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng",
       "why_hot": "...",
       "developments": ["..."],
       "investor_lens": "...",
-      "links": [{{"url": "https://...", "title": "...", "source": "..."}}]
+      "links": [{{"url": "https://...", "title": "...", "source": "Báo Chính phủ"}}]
     }}
   ],
   "now_watch": [
     {{
-      "title": "...",
+      "title": "Triển khai xăng E10 trên toàn quốc",
       "status": "đang diễn ra",
-      "what_to_watch": "...",
-      "links": [{{"url": "...", "title": "...", "source": "..."}}]
+      "issue": "Bộ Công Thương đề xuất công thức tính giá xăng E10 và lộ trình triển khai rộng hơn.",
+      "affected_groups": "vận tải, bán lẻ xăng dầu, logistics, tiêu dùng",
+      "watch_variables": "chênh lệch giá với xăng khoáng, phản ứng người tiêu dùng và tác động tới chi phí đầu vào.",
+      "links": [{{"url": "...", "title": "...", "source": "VietnamNet"}}]
     }}
   ],
   "gaps": ""
@@ -256,7 +347,7 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
                 {
                     "url": u,
                     "title": _clip(str(lk.get("title") or u), 160),
-                    "source": _clip(str(lk.get("source") or ""), 80),
+                    "source": _clip(_vn_public_text(str(lk.get("source") or "")), 80),
                 }
             )
         return out[:4]
@@ -265,11 +356,11 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
     for i, th in enumerate(raw.get("themes_48h") or []):
         if not isinstance(th, dict):
             continue
-        title = _clip(str(th.get("title") or ""), 200)
+        title = _clip(_vn_rewrite_title(_vn_public_text(str(th.get("title") or ""))), 200)
         if not title:
             continue
         devs = [
-            _clip(str(d), 350)
+            _clip(_vn_public_text(str(d)), 350)
             for d in (th.get("developments") or [])
             if str(d).strip()
         ][:6]
@@ -277,9 +368,9 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
             {
                 "rank": int(th.get("rank") or i + 1),
                 "title": title,
-                "why_hot": _clip(str(th.get("why_hot") or ""), 500),
+                "why_hot": _vn_temper_copy(str(th.get("why_hot") or ""), max_len=500),
                 "developments": devs,
-                "investor_lens": _clip(str(th.get("investor_lens") or ""), 500),
+                "investor_lens": _vn_temper_investor_lens(str(th.get("investor_lens") or "")),
                 "links": _norm_links(th.get("links")),
             }
         )
@@ -292,11 +383,19 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
         title = _clip(str(nw.get("title") or ""), 200)
         if not title:
             continue
+        legacy_watch = _vn_public_text(str(nw.get("what_to_watch") or ""))
+        issue = _clip(_vn_public_text(str(nw.get("issue") or "")), 500) or _clip(legacy_watch, 500)
+        affected = _clip(_vn_public_text(str(nw.get("affected_groups") or "")), 300)
+        watch_vars = _clip(_vn_public_text(str(nw.get("watch_variables") or "")), 500)
+        if not watch_vars and legacy_watch and legacy_watch != issue:
+            watch_vars = _clip(legacy_watch, 500)
         now_watch.append(
             {
-                "title": title,
+                "title": _vn_public_text(title),
                 "status": _clip(str(nw.get("status") or "đang diễn ra"), 40),
-                "what_to_watch": _clip(str(nw.get("what_to_watch") or ""), 500),
+                "issue": issue,
+                "affected_groups": affected,
+                "watch_variables": watch_vars,
                 "links": _norm_links(nw.get("links")),
             }
         )
@@ -304,10 +403,11 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
     return {
         "schema_version": SCHEMA_VERSION,
         "channel": "invest_vn",
+        "themes_section_label": VN_THEMES_SECTION_LABEL,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "source_digest_at": pack.get("generated_at") or "",
         "window_hours": 48,
-        "lead": _clip(str(raw.get("lead") or ""), 800),
+        "lead": _vn_temper_copy(str(raw.get("lead") or ""), max_len=800),
         "themes_48h": themes[:5],
         "now_watch": now_watch[:4],
         "gaps": _clip(str(raw.get("gaps") or ""), 300),

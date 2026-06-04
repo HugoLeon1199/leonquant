@@ -69,7 +69,10 @@ function buildInvestVnHtml(data) {
     h += `<p class="invest-vn-lead">${escapeHtml(data.lead)}</p>`;
   }
   if (themes.length) {
-    h += `<h4 class="sectors-section-title">Nói com nhất 48 giờ qua</h4>`;
+    const themesLabel =
+      String(data.themes_section_label || "").trim() ||
+      "Ba điểm đáng chú ý trong 48 giờ qua";
+    h += `<h4 class="sectors-section-title">${escapeHtml(themesLabel)}</h4>`;
     h += `<ol class="invest-vn-theme-list">`;
     for (const th of themes) {
       h += `<li class="invest-vn-theme">`;
@@ -101,8 +104,14 @@ function buildInvestVnHtml(data) {
       if (nw.status) {
         h += `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`;
       }
-      if (nw.what_to_watch) {
-        h += `<p class="invest-vn-watch-body">${escapeHtml(nw.what_to_watch)}</p>`;
+      if (nw.issue) {
+        h += `<p class="invest-vn-watch-body"><strong>Vấn đề:</strong> ${escapeHtml(nw.issue)}</p>`;
+      }
+      if (nw.affected_groups) {
+        h += `<p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> ${escapeHtml(nw.affected_groups)}</p>`;
+      }
+      if (nw.watch_variables) {
+        h += `<p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> ${escapeHtml(nw.watch_variables)}</p>`;
       }
       h += buildVnLinksHtml(nw.links);
       h += `</li>`;
