@@ -48,7 +48,7 @@ function buildVnLinksHtml(links) {
     if (!u) continue;
     const label = escapeHtml(lk.title || lk.source || u);
     h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
-    if (lk.source) h += `<span class="link-meta">${escapeHtml(lk.source)}</span>`;
+    if (lk.source) h += `<span class="link-meta"> — ${escapeHtml(lk.source)}</span>`;
     h += `</li>`;
   }
   h += `</ul>`;
@@ -137,16 +137,19 @@ function main() {
   }
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
   const inner = buildInvestVnHtml(data);
-  const pattern = /<div\s+id="sectionInvestVn"\s+class="invest-desk-block"\s*>\s*<\/div>/i;
-  if (!pattern.test(fs.readFileSync(pagePath, "utf8"))) {
+  let html = fs.readFileSync(pagePath, "utf8");
+  const empty = /<div\s+id="sectionInvestVn"\s+class="invest-desk-block"\s*>\s*<\/div>/i;
+  const filled =
+    /<div\s+id="sectionInvestVn"\s+class="invest-desk-block">[\s\S]*?<\/div>(?=\s*\n\s*<\/article>)/i;
+  const replacement = `<div id="sectionInvestVn" class="invest-desk-block">${inner}</div>`;
+  if (empty.test(html)) {
+    html = html.replace(empty, replacement);
+  } else if (filled.test(html)) {
+    html = html.replace(filled, replacement);
+  } else {
     console.error("Placeholder #sectionInvestVn not found");
     process.exit(1);
   }
-  let html = fs.readFileSync(pagePath, "utf8");
-  html = html.replace(
-    pattern,
-    `<div id="sectionInvestVn" class="invest-desk-block">${inner}</div>`,
-  );
   fs.writeFileSync(pagePath, html, "utf8");
   console.log("Embedded invest VN brief into", pagePath);
 }

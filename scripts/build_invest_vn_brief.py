@@ -130,7 +130,28 @@ def _vn_temper_copy(text: str, *, max_len: int = 800) -> str:
     s = _VN_HYPE_LENS_RE.sub("biến số cần theo dõi", s)
     s = re.sub(r"(ảnh hưởng|tác động) trực tiếp", "có thể ảnh hưởng", s, flags=re.IGNORECASE)
     s = re.sub(r"tăng trưởng tích cực", "tăng trưởng", s, flags=re.IGNORECASE)
+    s = re.sub(
+        r"đang biến số cần theo dõi đến",
+        "đang trở thành biến số cần theo dõi đối với",
+        s,
+        flags=re.IGNORECASE,
+    )
+    s = re.sub(
+        r"đẩy mạnh tăng trưởng(?:\s+GDP|\s+kinh tế)?",
+        "hỗ trợ mục tiêu tăng trưởng",
+        s,
+        flags=re.IGNORECASE,
+    )
+    s = re.sub(r"trực tiếp ảnh hưởng", "có thể ảnh hưởng", s, flags=re.IGNORECASE)
     return _clip(s, max_len)
+
+
+def _vn_clean_link_title(title: str, source: str) -> str:
+    t = _vn_public_text(str(title or ""))
+    src = str(source or "").strip()
+    if src and t.casefold().endswith(src.casefold()):
+        t = t[: -len(src)].rstrip(" ,—-·")
+    return _clip(t, 160)
 
 
 def _vn_temper_investor_lens(text: str) -> str:
@@ -257,7 +278,12 @@ Bạn là biên tập chuyên mục kinh tế đầu tư Việt Nam của LeonQu
 CHỈ dùng dữ liệu trong "input_pack" (digest 48 giờ, nguồn trong nước). Không bịa số liệu/sự kiện ngoài pack.
 Không khuyến nghị mua/bán/múc. Không dùng "nên mua", "cơ hội chắc chắn". Không nhắc AI, crawler, GDELT, pipeline.
 
-1) themes_48h — 3–5 chủ đề NỔI BẬT NHẤT 48 giờ (kinh tế, tài chính, điều hành, BĐS, ngân hàng, năng lượng…).
+1) themes_48h — 3–5 chủ đề NỔI BẬT NHẤT 48 giờ. Mỗi theme MỘT trục logic rõ:
+   chính sách tiền tệ/thuế | BĐS-hạ tầng | ngân hàng-số hóa/rủi ro vận hành | năng lượng | xuất khẩu-thương mại…
+   KHÔNG gom lẫn:
+   - Kết quả kinh doanh riêng lẻ (VietinBank lãi quý, nợ xấu, giải thưởng ngân hàng…) KHÔNG đưa vào theme chính sách tiền tệ/thuế,
+     trừ khi bài trực tiếp minh họa chính sách đó.
+   - Tin ngân hàng/corporate earnings → theme ngân hàng, số hóa hoặc rủi ro vận hành; không nhét vào "kỷ luật tài chính và giảm lãi suất".
    Mỗi chủ đề:
    - title: cụ thể, trung lập, không giật tít. Tránh cụm kiểu "siết chặt quản lý thuế và kỷ luật thị trường tiền tệ".
      Ưu tiên góc điều hành rõ, ví dụ: "Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng";
@@ -278,7 +304,9 @@ Không khuyến nghị mua/bán/múc. Không dùng "nên mua", "cơ hội chắc
    - watch_variables (Biến số cần theo dõi — 1–2 câu)
    - links nếu có
 
-lead: 2–4 câu tổng quan VN 48h, trung lập.
+lead: 2–4 câu tổng quan VN 48h, trung lập, không quá rộng.
+   Tốt: "trọng tâm điều hành tập trung vào hỗ trợ tăng trưởng, tháo gỡ pháp lý cho hạ tầng/bất động sản và tăng kỷ luật tài chính."
+   Tránh: "đẩy mạnh tăng trưởng GDP" nếu input không nêu trực tiếp; tránh câu lủng "đang biến số cần theo dõi đến".
 gaps: một câu nếu thiếu dữ liệu; nếu đủ thì "".
 
 Trả về JSON (không markdown):
@@ -343,11 +371,12 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
                 continue
             if not u.startswith("http"):
                 continue
+            src = _clip(_vn_public_text(str(lk.get("source") or "")), 80)
             out.append(
                 {
                     "url": u,
-                    "title": _clip(str(lk.get("title") or u), 160),
-                    "source": _clip(_vn_public_text(str(lk.get("source") or "")), 80),
+                    "title": _vn_clean_link_title(str(lk.get("title") or u), src),
+                    "source": src,
                 }
             )
         return out[:4]
