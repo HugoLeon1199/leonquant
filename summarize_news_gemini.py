@@ -340,17 +340,24 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
 
 def _digest_sector_summary_rules_block(*, for_merge: bool = False) -> str:
     lines = [
-        "## Đoạn tổng hợp sector (`summary`) — adaptive",
-        "- Sector ít tin mạnh: **80–120 từ**. Sector nhiều tin: **150–250 từ**.",
-        "- Nêu: (1) bức tranh 48h của sector, (2) 2–4 luồng chính, (3) vì sao đáng chú ý.",
-        "- **Không** liệt kê lại từng headline; không lặp `executive_overview`.",
+        "## Đoạn ngành (`sector_thesis`) — viết đủ ý, không cap độ dài",
+        "- Chỉ dùng candidates/pools đã crawl; **không bịa** actor, số liệu, hay sự kiện.",
+        "- **Không** giới hạn số từ, câu, hay ký tự — dài bao nhiêu tùy mật độ tin thật trong pool.",
+        "- Crawl ~1000 bài → sector giàu tin phải kể **hết** luồng A/B quan trọng, không gói cả ngành vào 1–2 câu.",
+        "- Mỗi luồng: ai làm gì, diễn biến gì, tác động tới đâu; gom chủ đề trùng, không copy headline rời.",
+        "- **Không** câu meta ('để người đọc thấy', 'bản tin này gom'); **không** lặp nguyên văn `executive_briefing`.",
     ]
     if for_merge:
         lines.extend(
             [
-                "- Summary phải có **thesis**: điều gì đang đổi trong 48h, ai/bên nào bị ảnh hưởng, biến số nào cần theo dõi.",
-                "- Nối các `sub_topics` thành **một câu chuyện**, không chuỗi headline rời.",
+                "- `sector_thesis` là **đoạn chính** người đọc thấy ở mục từng ngành — phải **sâu hơn** đoạn tương ứng trong `executive_briefing.sections.sector_impacts`.",
+                "- Khi sector có **≥15** candidates: `sector_thesis` **nhiều đoạn**, bao phủ **mọi** `story_dossiers` tier A/B (không bỏ sót cụm lớn chỉ vì muốn gọn).",
+                "- Nối dossiers/subsector thành **narrative liền mạch**; `story_dossiers` là chi tiết từng cụm, không thay thế `sector_thesis` bằng summary một dòng.",
             ]
+        )
+    else:
+        lines.append(
+            "- Partial: `sector_notes[].summary` là **nháp đủ luồng** trong chunk — không cắt vì sợ dài; merge sẽ viết bản chính."
         )
     return "\n".join(lines)
 
@@ -398,14 +405,14 @@ def _digest_story_dossier_rules_block() -> str:
             "## Story dossier (trọng tâm output)",
             "Mỗi `story_dossier` **không** chỉ là headline. Bắt buộc:",
             "- `title`: tiêu đề biên tập (tiếng Việt, không giật).",
-            "- `summary`: **1 câu** nêu ý chính.",
-            "- `main_developments`: **3–5** ý từ **nhiều bài** cùng cụm (diễn biến có thứ tự logic).",
-            "- `why_it_matters`: **100–180 từ** (story nhỏ) hoặc dài hơn nếu `depth_level` deep/major.",
+            "- `summary`: ý chính — đủ rõ, không cap độ dài.",
+            "- `main_developments`: **3–5+** ý từ **nhiều bài** cùng cụm (diễn biến có thứ tự logic); thêm ý nếu pool dày.",
+            "- `why_it_matters`: giải thích tác động — **đủ sâu theo dữ liệu**, không quota từ; story lớn viết dài hơn.",
             "- `affected_groups`: mảng ngắn (nhóm/tài sản/ngành/quốc gia).",
             "- `watch_next`: mảng biến số **24–72h**.",
             "- `representative_sources`: **1–5** object `{title, source, url}` — URL **chỉ** từ input crawl.",
-            "- `depth_level`: `brief` (100–150 từ tổng nội dung dossier) | `deep` (200–350) | `major` (400–700, nhiều nguồn/tác động).",
-            "Story có nhiều nguồn và tác động đa ngành → `major`. **Không** viết 2–3 dòng sơ sài khi dữ liệu dày.",
+            "- `depth_level`: `brief` | `deep` | `major` — phân loại độ sâu; story nhiều nguồn/tác động đa ngành → `major`.",
+            "**Không** viết 2–3 dòng sơ sài khi pool có nhiều bài cùng cụm.",
         ]
     )
 
@@ -413,7 +420,7 @@ def _digest_story_dossier_rules_block() -> str:
 def _digest_newsroom_json_schema_fragment() -> str:
     subsector = """        {
           "name": "Tên ngành con do Gemini tự chọn",
-          "overview": "150-350 từ: tổng quan ngành con trong 48h.",
+          "overview": "Tổng quan ngành con 48h — đủ ý từ dữ liệu, không cap độ dài.",
           "key_points": ["ý chính 1", "ý chính 2"],
           "key_story_titles": ["Tên story dossier liên quan"],
           "representative_sources": [
@@ -458,13 +465,13 @@ def _digest_newsroom_json_schema_fragment() -> str:
   "executive_briefing": {{
     "title": "Tóm tắt tổng quan 48h",
     "sections": {{
-      "main_picture": "Bức tranh chính — 200-400 chữ.",
-      "most_mentioned": "Chủ đề được nhắc nhiều nhất — 200-350 chữ.",
-      "top_stories": "Câu chuyện quan trọng nhất — 200-400 chữ.",
-      "sector_impacts": "Tác động theo khu vực/ngành — 200-400 chữ.",
+      "main_picture": "Bức tranh chính — đủ ý từ pools, không cap độ dài.",
+      "most_mentioned": "Chủ đề được nhắc nhiều nhất — đủ ý, không cap.",
+      "top_stories": "Câu chuyện quan trọng nhất — đủ ý, không cap.",
+      "sector_impacts": "Tác động theo khu vực/ngành — đủ ý, không cap.",
       "watch_24_72h": "Theo dõi 24-72h tới — bullet cụ thể."
     }},
-    "content": "Legacy fallback: 1000-1800 chữ nếu không dùng sections.",
+    "content": "Legacy fallback nếu không dùng sections — đủ ý từ pools.",
     "representative_sources": [
       {{"title": "...", "source": "...", "url": "https://url-that-tu-crawl"}}
     ],
@@ -526,7 +533,7 @@ def _digest_sector_json_schema_fragment() -> str:
             f"""    {{
       "code": "{code}",
       "name": "{label}",
-      "summary": "80-250 từ adaptive theo số tin",
+      "summary": "Tóm tắt sector — đủ ý từ pool, không cap độ dài",
       "sub_topics": [
 {sub}
       ]
@@ -2422,8 +2429,21 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
         if not isinstance(sec, dict):
             continue
         code = str(sec.get("code") or "?")
-        if not str(sec.get("sector_thesis") or "").strip():
+        thesis = str(sec.get("sector_thesis") or "").strip()
+        if not thesis:
             warnings.append(f"sector_deep_briefs[{i}] ({code}) thiếu sector_thesis.")
+        dossiers = [d for d in (sec.get("story_dossiers") or []) if isinstance(d, dict)]
+        rich_dossiers = sum(
+            1
+            for d in dossiers
+            if str(d.get("why_it_matters") or "").strip()
+            or len(d.get("main_developments") or []) >= 2
+        )
+        if rich_dossiers >= 2 and len(thesis) < 500:
+            warnings.append(
+                f"sector_deep_briefs[{i}] ({code}) sector_thesis quá ngắn "
+                f"({len(thesis)} ký tự) dù có {rich_dossiers} dossier có nội dung."
+            )
         for k, sb in enumerate(sec.get("subsector_briefs") or []):
             if not isinstance(sb, dict):
                 continue
@@ -2726,13 +2746,23 @@ def _newsroom_dossier_target(pool_size: int, current: int) -> int:
     if pool_size < 8:
         return max(current, min(2, pool_size))
     if pool_size < 20:
-        return max(current, 3)
-    return min(DIGEST_PARSER_MAX_STORY_DOSSIERS_PER_SECTOR, max(4, min(6, pool_size // 6)))
+        return max(current, 4)
+    if pool_size < 35:
+        return min(
+            DIGEST_PARSER_MAX_STORY_DOSSIERS_PER_SECTOR,
+            max(current, 6, min(8, pool_size // 5)),
+        )
+    return min(
+        DIGEST_PARSER_MAX_STORY_DOSSIERS_PER_SECTOR,
+        max(current, 8, min(12, pool_size // 4)),
+    )
 
 
 def supplement_newsroom_from_partials(
     summary: dict[str, Any],
     partials: list[dict[str, Any]],
+    *,
+    url_index: DigestUrlIndex | None = None,
 ) -> dict[str, Any]:
     """Bổ sung front_page / dossiers từ candidate pools khi merge Gemini quá mỏng."""
     if not partials or not _is_newsroom_brief(summary):
@@ -2837,7 +2867,7 @@ def supplement_newsroom_from_partials(
             d_keys.add(key)
             hint = str(row.get("summary_hint") or "").strip()
             reason = str(row.get("reason_selected") or hint).strip()
-            rep = _candidate_to_rep_sources(row, headline=title, url_index=None)
+            rep = _candidate_to_rep_sources(row, headline=title, url_index=url_index)
             if not rep:
                 continue
             watch_hint = str(row.get("reason_selected") or hint).strip()
@@ -2952,7 +2982,9 @@ def finalize_digest_summary(
     url_index = DigestUrlIndex(input_articles or []) if input_articles else None
     if _is_newsroom_brief(summary):
         if partials:
-            summary = supplement_newsroom_from_partials(summary, partials)
+            summary = supplement_newsroom_from_partials(
+                summary, partials, url_index=url_index
+            )
         normalized = normalize_newsroom_brief(summary, url_index=url_index)
         for w in validate_newsroom_brief(normalized):
             print(f"WARN newsroom brief: {w}", file=sys.stderr)
@@ -3543,7 +3575,7 @@ Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính 
 - `sector_notes` đủ 4 mã; mỗi mục: `priority_tier`, headline, `summary_hint`, 1 URL, `reason_selected`.
 - `notable_articles`: chỉ tin tier A thật nổi bật trong phần (không cố đủ số).
 {_digest_four_sector_rules_block()}
-- Chunk `summary`: 3–4 câu nháp (merge viết adaptive 80–250 từ).
+- Chunk `summary`: nháp đủ luồng trong phần (merge viết bản chính, không cap độ dài).
 {outline_block}
 ## Cửa sổ: {window_desc}
 
@@ -3689,7 +3721,7 @@ def build_digest_merge_prompt(
 ## Minimum chất lượng (BẮT BUỘC khi candidate pools giàu)
 - Khi mỗi sector có **≥15** candidates trong pools: `front_page` **ít nhất 5** story; mỗi sector **ít nhất 3** `story_dossiers` **khác chủ đề**.
 - Mỗi `front_page` / `story_dossiers` **bắt buộc** có URL từ pools (`source_urls` / `representative_sources`) — **cấm** để trống khi candidate có URL.
-- `executive_briefing.content` **≥ 1.200 ký tự** khi pools tổng **≥ 80** candidates; viết như bản tin chuyên nghiệp (actor, sự kiện, tác động), không bullet generic.
+- Khi pools tổng **≥ 80** candidates: `executive_briefing` phải **đủ sâu** (actor, sự kiện, tác động) — không bullet generic, không cap cứng ký tự.
 - Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
 
 {_digest_four_sector_rules_block(for_merge=True)}
@@ -3697,7 +3729,7 @@ def build_digest_merge_prompt(
 {_digest_source_urls_block()}
 - `executive_briefing`: tổng hợp tin đúng và đủ ý; **không** giới hạn độ dài cứng; **cấm** câu meta kiểu "để người đọc thấy rõ", "bản tin này gom", "người đọc cần theo dõi".
 - **Không** viết section “Điểm nóng” riêng. `front_page` tối đa 8 item compatibility, có `source_urls`.
-- `sector_deep_briefs`: đúng **4** sector; `sector_thesis` viết đủ ý, thoải mái theo dữ liệu — chỉ kể chuyện đang xảy ra, không hướng dẫn người đọc.
+- `sector_deep_briefs`: đúng **4** sector; `sector_thesis` là **trọng tâm** mục ngành — viết đủ mọi luồng lớn từ pools, nhiều đoạn khi cần; chỉ kể chuyện đang xảy ra, không hướng dẫn người đọc.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
 - `watchlist_24_72h`: **4–8** chủ đề theo dõi 24–72h.
 - `source_desk`: **3–8** nhóm nguồn đại diện theo chủ đề lớn.
@@ -4458,7 +4490,14 @@ def main() -> int:
         return 1
 
     if args.mode == "digest" and isinstance(summary, dict):
-        summary = finalize_digest_summary(summary, input_articles=enriched_articles)
+        partials_for_finalize: list[dict[str, Any]] | None = None
+        if args.batch_digest:
+            partials_for_finalize = load_existing_partials(Path(args.batch_partials_output))
+        summary = finalize_digest_summary(
+            summary,
+            partials=partials_for_finalize,
+            input_articles=enriched_articles,
+        )
 
     meta = {
         "input_file": str(input_path.resolve()),

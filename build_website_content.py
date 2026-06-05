@@ -2031,6 +2031,64 @@ def _merge_sector_links(*link_groups: list[dict[str, Any]]) -> list[dict[str, An
     return out
 
 
+_SECTOR_THESIS_EXPAND_THRESHOLD = 750
+
+
+def _prose_already_covered(new_text: str, existing: str, *, threshold: float = 0.72) -> bool:
+    new_text = str(new_text or "").strip()
+    existing = str(existing or "").strip()
+    if not new_text or not existing:
+        return False
+    low_new, low_existing = new_text.lower(), existing.lower()
+    if low_new in low_existing:
+        return True
+    if len(new_text) > 60 and low_new[:60] in low_existing:
+        return True
+    return SequenceMatcher(None, low_new, low_existing).ratio() >= threshold
+
+
+def _compose_sector_thesis_for_web(sec: dict[str, Any], *, soften) -> str:
+    """Ghép sector_thesis từ merge output — chỉ text đã có, không bịa."""
+    thesis = str(sec.get("sector_thesis") or sec.get("summary") or "").strip()
+    parts: list[str] = [thesis] if thesis else []
+    body_so_far = thesis
+
+    expand = len(thesis) < _SECTOR_THESIS_EXPAND_THRESHOLD
+
+    if expand:
+        for sb in sec.get("subsector_briefs") or []:
+            if not isinstance(sb, dict):
+                continue
+            overview = str(sb.get("overview") or "").strip()
+            if len(overview) < 80 or _prose_already_covered(overview, body_so_far):
+                continue
+            parts.append(overview)
+            body_so_far = "\n\n".join(parts)
+
+        for d in sec.get("story_dossiers") or []:
+            if not isinstance(d, dict):
+                continue
+            chunks: list[str] = []
+            summary = str(d.get("summary") or "").strip()
+            why = str(d.get("why_it_matters") or "").strip()
+            devs = [str(x).strip() for x in (d.get("main_developments") or []) if str(x).strip()]
+            if summary and not _prose_already_covered(summary, body_so_far):
+                chunks.append(summary)
+            if why and not _prose_already_covered(why, body_so_far, threshold=0.68):
+                chunks.append(why)
+            elif devs:
+                dev_text = " ".join(
+                    d if d.endswith((".", "!", "?")) else f"{d}." for d in devs
+                )
+                if not _prose_already_covered(dev_text, body_so_far, threshold=0.68):
+                    chunks.append(dev_text)
+            if chunks:
+                parts.append(" ".join(chunks))
+                body_so_far = "\n\n".join(parts)
+
+    return soften("\n\n".join(p for p in parts if p).strip())
+
+
 def build_newsroom_web_extras(
     summary: dict[str, Any],
     all_articles: list[dict[str, Any]],
@@ -2320,7 +2378,7 @@ def build_newsroom_web_extras(
             {
                 "code": code,
                 "name": name,
-                "sectorThesis": soften_prose(str(sec.get("sector_thesis") or "").strip()),
+                "sectorThesis": _compose_sector_thesis_for_web(sec, soften=soften_prose),
                 "links": merged_links,
                 "subsectorBriefs": [],
                 "storyDossiers": [],
@@ -3485,6 +3543,18 @@ def main() -> int:
     return 0
 
 
+def _load_digest_partials_for_build() -> list[dict[str, Any]]:
+    partials_path = PROJECT_DIR / "gemini_digest_partials.json"
+    if not partials_path.is_file():
+        return []
+    try:
+        from summarize_news_gemini import load_existing_partials
+
+        return load_existing_partials(partials_path)
+    except Exception:
+        return []
+
+
 def _finalize_digest_payload_for_build(
     final_payload: dict[str, Any], enriched_payload: dict[str, Any]
 ) -> dict[str, Any]:
@@ -3500,7 +3570,11 @@ def _finalize_digest_payload_for_build(
     )
     raw_summary = final_payload.get("summary")
     summary_in = raw_summary if isinstance(raw_summary, dict) else final_payload
-    polished = finalize_digest_summary(summary_in, input_articles=articles)
+    polished = finalize_digest_summary(
+        summary_in,
+        partials=_load_digest_partials_for_build(),
+        input_articles=articles,
+    )
     if not isinstance(polished, dict):
         return final_payload
     out = dict(final_payload)

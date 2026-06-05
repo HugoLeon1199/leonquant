@@ -310,6 +310,9 @@ def test_build_newsroom_extras() -> None:
     if fin_sec:
         assert "links" in fin_sec
         assert fin_sec.get("storyDossiers") == []
+        thesis = str(fin_sec.get("sectorThesis") or "")
+        assert len(thesis) > 80
+        assert "Bitcoin" in thesis or "crypto" in thesis.lower()
     fp = extras.get("frontPage") or []
     crypto = next((x for x in fp if "Crypto" in (x.get("title") or "")), None)
     if crypto and crypto.get("links"):
