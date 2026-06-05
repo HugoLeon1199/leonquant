@@ -452,20 +452,20 @@ def _digest_newsroom_json_schema_fragment() -> str:
   "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
   "reading_time_minutes": "auto",
   "editor_note": "100-180 từ, giọng biên tập trưởng mở đầu bản tin.",
-  "executive_briefing": {
+  "executive_briefing": {{
     "title": "Tổng quan 48h",
     "content": "1000-2000 chữ nếu dữ liệu đủ.",
     "most_mentioned_topics": [
-      {"topic": "...", "why_mentioned": "...", "evidence_hint": "..."}
+      {{"topic": "...", "why_mentioned": "...", "evidence_hint": "..."}}
     ],
     "hottest_topics": [
-      {"topic": "...", "why_hot": "...", "impact": "...", "evidence_hint": "..."}
+      {{"topic": "...", "why_hot": "...", "impact": "...", "evidence_hint": "..."}}
     ],
     "emerging_signals": [
-      {"signal": "...", "why_watch": "..."}
+      {{"signal": "...", "why_watch": "..."}}
     ],
     "watch_next": ["...", "..."]
-  },
+  }},
   "front_page": [
     {{
       "rank": 1,
