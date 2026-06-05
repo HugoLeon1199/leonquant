@@ -380,24 +380,32 @@ function buildNewsroomThesisHtml(data) {
   });
 }
 
+function normalizeBriefMode(data) {
+  if (Array.isArray(data.digestSectors) && data.digestSectors.length) {
+    return { ...data, briefMode: "multisector-digest" };
+  }
+  return data;
+}
+
 function buildDigestThesisHtml(data) {
-  if (data.briefMode === "newsroom-brief") return buildNewsroomThesisHtml(data);
-  const mt = data.mainThesis || {};
-  const sectors = ensureDigestSectors(data);
-  const vn = String(data.digestVietnamHighlights || "").trim();
-  const intl = String(data.digestInternationalHighlights || "").trim();
-  const gaps = String(data.digestGapsAndLimits || "").trim();
-  const notable = Array.isArray(data.digestNotableArticles)
-    ? data.digestNotableArticles
+  const d = normalizeBriefMode(data);
+  if (d.briefMode === "newsroom-brief") return buildNewsroomThesisHtml(d);
+  const mt = d.mainThesis || {};
+  const sectors = ensureDigestSectors(d);
+  const vn = String(d.digestVietnamHighlights || "").trim();
+  const intl = String(d.digestInternationalHighlights || "").trim();
+  const gaps = String(d.digestGapsAndLimits || "").trim();
+  const notable = Array.isArray(d.digestNotableArticles)
+    ? d.digestNotableArticles
     : [];
-  const imageByUrl = buildArticleImageLookup(data);
-  const execBullets = getDigestBullets(data, "digestExecutiveBullets", mt.thesis || "");
-  const intlBullets = getDigestBullets(data, "digestInternationalBullets", intl);
-  const vnBullets = getDigestBullets(data, "digestVietnamBullets", vn);
+  const imageByUrl = buildArticleImageLookup(d);
+  const execBullets = getDigestBullets(d, "digestExecutiveBullets", mt.thesis || "");
+  const intlBullets = getDigestBullets(d, "digestInternationalBullets", intl);
+  const vnBullets = getDigestBullets(d, "digestVietnamBullets", vn);
   const overviewBullets = mergeOverviewBullets(execBullets, intlBullets, vnBullets);
-  const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
+  const articles = Array.isArray(d.articleLinkIndex) ? d.articleLinkIndex : [];
   const reportTitle =
-    String(data.digestReportTitle || "").trim() ||
+    String(d.digestReportTitle || "").trim() ||
     "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)";
 
   let thesisHtml = `<article id="digest-report" class="digest-report">`;

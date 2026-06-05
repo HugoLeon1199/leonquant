@@ -1509,6 +1509,56 @@ def _resolve_notable_url_from_digest(
     return best_u
 
 
+def _notable_candidates_from_newsroom(summary: dict[str, Any]) -> list[dict[str, str]]:
+    """Front page + dossier → Tin đáng chú ý khi Gemini chỉ trả newsroom schema."""
+    out: list[dict[str, str]] = []
+    seen_titles: set[str] = set()
+    for fp in summary.get("front_page") or []:
+        if not isinstance(fp, dict):
+            continue
+        title = str(fp.get("title") or "").strip()
+        if not title:
+            continue
+        key = title.lower()[:120]
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        urls = [str(u).strip() for u in (fp.get("source_urls") or []) if str(u).strip()]
+        out.append(
+            {
+                "title": title,
+                "url": urls[0] if urls else "",
+                "why_notable": str(fp.get("one_sentence") or fp.get("why_it_matters") or "").strip(),
+            }
+        )
+    for sec in summary.get("sector_deep_briefs") or []:
+        if not isinstance(sec, dict):
+            continue
+        for d in sec.get("story_dossiers") or []:
+            if not isinstance(d, dict):
+                continue
+            title = str(d.get("title") or "").strip()
+            if not title:
+                continue
+            key = title.lower()[:120]
+            if key in seen_titles:
+                continue
+            seen_titles.add(key)
+            u = ""
+            for src in d.get("representative_sources") or []:
+                if isinstance(src, dict) and str(src.get("url") or "").strip():
+                    u = str(src.get("url") or "").strip()
+                    break
+            out.append(
+                {
+                    "title": title,
+                    "url": u,
+                    "why_notable": str(d.get("summary") or "").strip()[:240],
+                }
+            )
+    return out[:DIGEST_MAX_NOTABLE_ARTICLES]
+
+
 def _enrich_notable_articles_for_public(
     notable: list[dict[str, Any]],
     *,
@@ -3171,14 +3221,15 @@ def build_payload(
         },
     }
     if from_digest:
-        payload["briefMode"] = "newsroom-brief" if from_newsroom else "multisector-digest"
+        # Public Tin 48h: giữ layout multisector (tổng quan, theo lĩnh vực, tin có ảnh, link ở cuối).
+        payload["briefMode"] = "multisector-digest"
+        payload["digestHeroBlurb"] = (
+            "Trang tổng hợp tin tức thế giới và Việt Nam trong 48 giờ qua."
+        )
         if from_newsroom:
             payload["digestReportTitle"] = (
                 str(raw_summary.get("title") or "").strip()
                 or "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)"
-            )
-            payload["digestHeroBlurb"] = (
-                "Bản tin newsroom 48h — front page, dossier theo lĩnh vực, watchlist và source desk."
             )
         digest_pub = snake.get("_digest_public") if isinstance(snake.get("_digest_public"), dict) else {}
         if digest_pub.get("vietnam_highlights"):
@@ -3205,6 +3256,8 @@ def build_payload(
         if vn_bullets:
             payload["digestVietnamBullets"] = vn_bullets
         notable = digest_pub.get("notable_articles")
+        if not (isinstance(notable, list) and notable) and from_newsroom:
+            notable = _notable_candidates_from_newsroom(raw_summary)
         if isinstance(notable, list) and notable:
             notable_out = _enrich_notable_articles_for_public(
                 notable,
