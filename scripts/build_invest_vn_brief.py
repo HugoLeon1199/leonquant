@@ -290,9 +290,9 @@ Không khuyến nghị mua/bán/múc. Không dùng "nên mua", "cơ hội chắc
    - title: cụ thể, trung lập, không giật tít. Tránh cụm kiểu "siết chặt quản lý thuế và kỷ luật thị trường tiền tệ".
      Ưu tiên góc điều hành rõ, ví dụ: "Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng";
      "Ngân hàng tăng tốc số hóa, rủi ro bảo mật tài khoản nổi lên".
-   - why_hot: vì sao được quan tâm (1–2 câu).
-   - developments: 3–6 bullet diễn biến; KHÔNG dính tên báo vào cuối câu (tách nguồn qua links).
-   - investor_lens (Góc đầu tư): 1–2 câu TRUNG LẬP; phải nêu nhóm ngành/tài sản/doanh nghiệp bị ảnh hưởng.
+   - why_hot: vì sao được quan tâm (2–3 câu, có bối cảnh).
+   - developments: 4–8 bullet diễn biến cụ thể; KHÔNG dính tên báo vào cuối câu (tách nguồn qua links).
+   - investor_lens (Góc đầu tư): 2–3 câu TRUNG LẬP; phải nêu nhóm ngành/tài sản/doanh nghiệp bị ảnh hưởng.
      Dùng: "biến số cần theo dõi", "tác động phụ thuộc vào", "nhóm có thể chịu ảnh hưởng".
      KHÔNG dùng: "tín hiệu tích cực cho thanh khoản", "tác động trực tiếp" khi chưa rõ.
      Ví dụ: "Việc tháo gỡ pháp lý là biến số cần theo dõi với nhóm bất động sản, xây dựng và hạ tầng; tác động thực tế phụ thuộc vào tiến độ phê duyệt, giải ngân và khả năng chuyển hóa thành doanh thu."
@@ -306,7 +306,7 @@ Không khuyến nghị mua/bán/múc. Không dùng "nên mua", "cơ hội chắc
    - watch_variables (Biến số cần theo dõi — 1–2 câu)
    - links nếu có
 
-lead: 2–4 câu tổng quan VN 48h, trung lập, không quá rộng.
+lead: 3–5 câu tổng quan VN 48h, trung lập, có mạch (điều hành → ngành → biến số theo dõi).
    Tốt: "trọng tâm điều hành tập trung vào hỗ trợ tăng trưởng, tháo gỡ pháp lý cho hạ tầng/bất động sản và tăng kỷ luật tài chính."
    Tránh: "đẩy mạnh tăng trưởng GDP" nếu input không nêu trực tiếp; tránh câu lủng "đang biến số cần theo dõi đến".
 gaps: một câu nếu thiếu dữ liệu; nếu đủ thì "".

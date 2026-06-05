@@ -112,6 +112,8 @@ INVEST_CORE_MIN_ABS_TONE = 4.0
 INVEST_SUPPLEMENT_MIN_ARTICLES = 70
 INVEST_MAX_BYTES_BILLED = 600_000_000  # invest SQL dry-run ~0.54 GB
 INVEST_WORLD_SCHEMA = "invest-world-topics-v2"
+INVEST_SUMMARY_MAX_CHARS = 1200
+INVEST_BRIEF_MAX_CHARS = 720
 
 # Lọc sơ bộ trước Gemini (title/summary phải có dấu hiệu kinh tế–thị trường)
 # English/theme regex for GDELT invest filter (BigQuery + post-enrich). No Vietnamese here.
@@ -1149,17 +1151,17 @@ def gemini_batch_enrich_events(
 Bạn là biên tập viên chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
 Với MỖI khối ### global_event_id=... bên dưới: CHỈ dùng đoạn bài trong khối đó. Không trộn giữa các sự kiện.
 Không nhắc AI, GDELT, crawler, pipeline, hệ thống. Không khuyến nghị mua/bán. Không bịa ticker/giá.
-Tóm tắt trung thực, cụ thể (ai làm gì, hệ quả thị trường nếu có trong bài).
-CẤM summary chung chung: "Sự kiện thuộc nhóm…", "Nhấp nguồn…", "các diễn biến kinh tế đang chịu áp lực".
+Tóm tắt ĐỦ Ý như research memo: ai làm gì, bối cảnh, diễn biến, hệ quả kinh tế/thị trường nếu bài nêu.
+CẤM summary chung chung hoặc quá ngắn (1 câu): "Sự kiện thuộc nhóm…", "Nhấp nguồn…", "các diễn biến kinh tế đang chịu áp lực".
 """
         json_shape = """
 {{
   "events": [
     {{
       "global_event_id": "...",
-      "title_vi": "tối đa 18 từ",
-      "summary_vi": "1-2 câu",
-      "importance_reason": "một câu",
+      "title_vi": "khoảng 22-32 từ: rõ sự kiện và góc kinh tế",
+      "summary_vi": "4-8 câu (khoảng 80-200 từ): diễn biến, bối cảnh, hệ quả kinh tế/thị trường nếu bài nêu",
+      "importance_reason": "2 câu: biến số đầu tư / nhóm tài sản cần theo dõi",
       "entities": ["3-6 thực thể"],
       "sector": "một trong danh sách ngành"
     }}
@@ -1252,9 +1254,9 @@ Quy tắc tóm tắt (quan trọng):
 
 Trả về JSON (không markdown):
 {{
-  "title_vi": "Tiêu đề tối đa 18 từ, rõ sự kiện",
-  "summary_vi": "1-2 câu khách quan, bám sát đoạn bài",
-  "importance_reason": "Một câu: ý nghĩa kinh tế/đầu tư (hoặc trung lập nếu bài không nói thị trường)",
+  "title_vi": "Tiêu đề khoảng 22-32 từ, rõ sự kiện",
+  "summary_vi": "4-8 câu (80-200 từ) khách quan: ai làm gì, bối cảnh, hệ quả kinh tế/thị trường nếu bài nêu",
+  "importance_reason": "2 câu: biến số đầu tư hoặc nhóm tài sản/ngành cần theo dõi (trung lập nếu bài không nói thị trường)",
   "entities": ["3-6 thực thể trong đoạn bài"],
   "sector": "một trong danh sách ngành hợp lệ"
 }}
@@ -2033,8 +2035,8 @@ def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
     urls = _invest_prioritize_source_urls(all_urls, max_urls=4)
     title = str(ev.get("title_vi") or ev.get("title") or "").strip()
     summary = str(ev.get("summary_vi") or ev.get("summary") or "").strip()
-    if len(summary) > 320:
-        summary = summary[:317].rstrip() + "…"
+    if len(summary) > INVEST_SUMMARY_MAX_CHARS:
+        summary = summary[: INVEST_SUMMARY_MAX_CHARS - 1].rstrip() + "…"
     angle = str(ev.get("investment_angle") or ev.get("importance_reason") or "").strip()
     if len(angle) > 220:
         angle = angle[:217].rstrip() + "…"
@@ -2193,6 +2195,20 @@ def _coerce_invest_editorial_topic(name: str, *, hint_ev: dict[str, Any] | None 
     return normalized if normalized in INVEST_EDITORIAL_TOPICS else ""
 
 
+def _invest_pick_public_summary(topic_summary: str, enriched_summary: str) -> str:
+    ts = str(topic_summary or "").strip()
+    es = str(enriched_summary or "").strip()
+    if not ts:
+        return es
+    if not es:
+        return ts
+    if len(es) >= len(ts) + 80:
+        return es
+    if len(ts) >= len(es) + 40:
+        return ts
+    return es if len(es) >= len(ts) else ts
+
+
 def _merge_invest_topic_item(
     it: dict[str, Any],
     merged: dict[str, Any],
@@ -2201,7 +2217,10 @@ def _merge_invest_topic_item(
     base_ev: dict[str, Any] | None = None,
 ) -> dict[str, Any] | None:
     title = str(it.get("title") or merged.get("title") or "").strip()
-    summary = str(it.get("summary") or merged.get("summary") or "").strip()
+    summary = _invest_pick_public_summary(
+        str(it.get("summary") or "").strip(),
+        str(merged.get("summary") or "").strip(),
+    )
     if not title:
         return None
     angle = str(it.get("investment_angle") or merged.get("investment_angle") or "").strip()
@@ -2226,8 +2245,8 @@ def _merge_invest_topic_item(
     summary = _invest_temper_editorial_text(summary, confidence)
     angle = _invest_temper_editorial_text(angle, confidence)
     title = _invest_temper_editorial_text(title, confidence)
-    if len(summary) > 360:
-        summary = summary[:357].rstrip() + "…"
+    if len(summary) > INVEST_SUMMARY_MAX_CHARS:
+        summary = summary[: INVEST_SUMMARY_MAX_CHARS - 1].rstrip() + "…"
     if len(angle) > 220:
         angle = angle[:217].rstrip() + "…"
     return {
@@ -2308,7 +2327,7 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
     return out
 
 
-def _clamp_invest_brief(text: str, *, max_len: int = 420) -> str:
+def _clamp_invest_brief(text: str, *, max_len: int = INVEST_BRIEF_MAX_CHARS) -> str:
     s = " ".join(str(text or "").split())
     if len(s) <= max_len:
         return s
@@ -2335,7 +2354,7 @@ def gemini_invest_world_topics(
     for i, ev in enumerate(events):
         eid = str(ev.get("global_event_id") or "")
         title = str(ev.get("title_vi") or ev.get("title") or "")[:200]
-        summary = str(ev.get("summary_vi") or ev.get("summary") or "")[:400]
+        summary = str(ev.get("summary_vi") or ev.get("summary") or "")[:1500]
         tags = _invest_topic_tags(ev)
         sc = int(ev.get("source_count") or 0)
         src_hint = _invest_event_source_hint(ev)
@@ -2388,8 +2407,8 @@ Loại hoặc không đưa lên top:
 - tin không trả lời được "tài sản/ngành nào bị ảnh hưởng?"
 
 Yêu cầu viết mỗi item:
-- Title: cụ thể, actor + event + điểm đáng chú ý. Không quá 24 từ. Không bịa "rút quân" nếu nguồn chỉ nói war powers/resolution.
-- Summary: 2-4 câu — chuyện gì xảy ra và vì sao là biến số kinh tế/thị trường (gián tiếp được, nhưng không phóng đại).
+- Title: cụ thể, actor + event + điểm đáng chú ý. Không quá 28 từ. Không bịa "rút quân" nếu nguồn chỉ nói war powers/resolution.
+- Summary: 5-10 câu (120-320 từ). BẮT BUỘC giữ chi tiết từ summary đầu vào trong event block — chỉ chỉnh văn phong và làm rõ góc kinh tế/đầu tư; KHÔNG rút gọn còn 2-4 câu. Đủ: ai làm gì, bối cảnh, diễn biến, hệ quả/thị trường nếu nguồn hỗ trợ.
 - investment_angle: ĐÚNG 1 câu; phải trả lời "tài sản/ngành/kỳ vọng nào cần theo dõi, và vì sao?". Nếu không viết được → bỏ item.
   KHÔNG viết chung chung: "ảnh hưởng tâm lý nhà đầu tư" (không nêu nhóm tài sản), "định hình lại dòng vốn", "trực tiếp tác động" khi chỉ là rủi ro gián tiếp.
   Dùng: "có thể làm tăng chú ý tới...", "nếu leo thang, thị trường có thể theo dõi...", "biến số cần theo dõi là...", "tác động hiện tại mang tính gián tiếp...".
@@ -2407,7 +2426,7 @@ Ví dụ phong cách (không copy y nguyên nếu event khác):
 Format output JSON hợp lệ, không markdown:
 
 {{
-  "brief": "2-3 câu tổng quan sắc (rates/USD, crypto, energy, AI/chip, trade, địa chính trị) — không chung chung.",
+  "brief": "3-5 câu tổng quan sắc (rates/USD, crypto, energy, AI/chip, trade, địa chính trị) — không chung chung.",
   "topics": [
     {{
       "name": "Thương mại & Chuỗi cung ứng",
@@ -2764,6 +2783,89 @@ Sự kiện:
         ev["summary"] = ev.get("summary_vi") or ""
 
     LOG.info("Gemini world deepen: updated %s/%s curated stories", len(parsed), len(prepared))
+    return events
+
+
+def gemini_invest_deepen_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Deep-read + long-form economic memo summaries for invest tab."""
+    if not events or not _configure_gemini():
+        return events
+
+    prepared: list[tuple[dict[str, Any], str]] = []
+    for ev in events:
+        merged = _scrape_deep_merged(ev)
+        if len(merged) >= GEMINI_MIN_EXCERPT_CHARS:
+            prepared.append((ev, merged))
+        else:
+            LOG.warning(
+                "Invest deepen skip %s: insufficient scrape (%s chars)",
+                ev.get("global_event_id"),
+                len(merged),
+            )
+
+    if not prepared:
+        return events
+
+    blocks = "\n".join(_deepen_event_block(ev, merged) for ev, merged in prepared)
+    model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
+    model = genai.GenerativeModel(model_name)
+    prompt = f"""
+Bạn là biên tập viên mục "Kinh tế - Đầu tư thế giới" của LeonQuant.
+
+Mỗi khối ### là một sự kiện đã lọc vì góc kinh tế/thị trường, kèm tóm tắt sơ bộ và đoạn bài từ nhiều nguồn.
+
+Nhiệm vụ:
+Viết lại tiếng Việt sao cho độc giả nắm rõ diễn biến và góc theo dõi đầu tư mà không cần mở từng nguồn.
+
+Mỗi sự kiện cần làm rõ:
+- Ai là bên liên quan (quốc gia, tổ chức, doanh nghiệp, nhân vật).
+- Chuyện gì đã xảy ra, ở đâu/khi nào nếu nguồn có.
+- Bối cảnh và diễn biến chính (2-3 điểm then chốt).
+- Hệ quả hoặc biến số kinh tế/thị trường nếu nguồn nêu hoặc suy ra hợp lý ở mức gián tiếp (không khuyến nghị mua/bán).
+
+Quy tắc:
+- Chỉ dùng thông tin trong khối sự kiện đó; không trộn global_event_id.
+- Không bịa số liệu, giá, ticker. Không nhắc AI/GDELT/crawler/pipeline.
+- Không khuyến nghị mua/bán/múc. Văn phong trung lập như research memo.
+
+Trả về JSON hợp lệ, không markdown:
+{{
+  "events": [
+    {{
+      "global_event_id": "...",
+      "title_vi": "khoảng 24-34 từ: rõ sự kiện và góc kinh tế",
+      "summary_vi": "5-12 câu, khoảng 120-400 từ: đủ bối cảnh và diễn biến, nhấn biến số kinh tế/thị trường",
+      "importance_reason": "2-3 câu: nhóm tài sản/ngành hoặc kỳ vọng cần theo dõi",
+      "entities": ["4-8 thực thể có trong nguồn"]
+    }}
+  ]
+}}
+
+Sự kiện:
+{blocks}
+""".strip()
+
+    try:
+        response = model.generate_content(prompt)
+        parsed = _parse_gemini_deepen_batch(response.text or "")
+    except Exception as exc:
+        LOG.warning("Gemini invest deepen failed: %s", exc)
+        return events
+
+    for ev, _merged in prepared:
+        eid = str(ev.get("global_event_id") or "")
+        ai = parsed.get(eid) or {}
+        if not _usable_title(ai.get("title_vi")):
+            continue
+        ev["title_vi"] = ai.get("title_vi")
+        ev["summary_vi"] = ai.get("summary_vi") or ev.get("summary_vi")
+        ev["importance_reason"] = ai.get("importance_reason") or ev.get("importance_reason")
+        if ai.get("entities"):
+            ev["entities"] = _merge_entity_lists(ai.get("entities") or [], ev.get("entities") or [], limit=10)
+        ev["title"] = ev.get("title_vi") or ""
+        ev["summary"] = ev.get("summary_vi") or ""
+
+    LOG.info("Gemini invest deepen: updated %s/%s judged stories", len(parsed), len(prepared))
     return events
 
 
@@ -3486,6 +3588,9 @@ def run_invest_pipeline_from_events(
         judged = gemini_invest_semantic_judge(judge_input)
         judged = enrich_events_for_web(judged, use_gemini=True, channel="invest")
         judged = filter_event_sources_with_gemini(judged, use_gemini=use_gemini)
+        if judged:
+            time.sleep(GEMINI_CALL_INTERVAL_SEC)
+            judged = gemini_invest_deepen_events(judged)
     else:
         judged = judge_input[:INVEST_FEED_MAX]
     stats["judged"] = len(judged)

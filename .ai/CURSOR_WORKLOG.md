@@ -366,6 +366,19 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Tests | `python scripts/test_newsroom_digest.py` — thêm `test_merge_prompt_briefing_quality_guidance`, `test_sanitize_preserves_source_excerpt` |
 | Apply | Chạy `--merge-only` (hoặc full digest loop) để Gemini sinh bản mới theo prompt |
 
+## 2026-06-06 — Invest channel: longer summaries (prompt + deepen)
+
+**Scope:** `leon.py`, `scripts/build_invest_vn_brief.py` — không đổi UI/crawler SQL.
+
+| Vấn đề | Nguyên nhân | Fix |
+|--------|-------------|-----|
+| Tin thế giới invest quá ngắn vs LIVE | Invest enrich yêu cầu 1-2 câu; topics prompt 2-4 câu; cắt 320-360 ký tự | Enrich 4-8 câu; topics 5-10 câu (120-320 từ); cap 1200 ký tự |
+| Thiếu chi tiết từ nguồn | Invest không chạy deep-read như LIVE | Thêm `gemini_invest_deepen_events()` sau enrich (120-400 từ) |
+| Topics rút gọn lại | Gemini topics ghi đè summary ngắn | `_invest_pick_public_summary()` giữ bản dài hơn từ deepen |
+| VN invest brief | Prompt lead/theme hơi cạn | Lead 3-5 câu; why_hot 2-3; developments 4-8; lens 2-3 |
+
+**Regenerate:** `python leon.py --channel invest` → rebuild `invest_world_pulse.json`; CI `build_invest_vn_brief.py` cho block VN.
+
 ## 2026-06-05 — Invest + LIVE tab presentation (research memo / radar)
 
 **Scope:** UI/CSS + pulse embed HTML only — `landing_page.html`, `scripts/embed_public_pulse_into_html.mjs`, `.ai/CURSOR_WORKLOG.md`. **Not modified:** crawler, Gemini prompts, GDELT/SQL, invest pipeline, Tin48h content.
