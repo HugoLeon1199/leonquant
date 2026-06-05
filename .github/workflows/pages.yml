@@ -52,10 +52,12 @@ jobs:
 
       - name: Dựng content.json (từ gemini_digest_summary + bài đã lọc)
         run: |
+          cp content.json content.json.repo
           python3 build_website_content.py \
             --digest-input gemini_digest_summary.json \
             --enriched-input news_for_ai_clean.json \
             --skip-images
+          python3 scripts/merge_link_published_at.py content.json.repo content.json
           python3 -c "
           import json
           d = json.load(open('content.json', encoding='utf-8'))
