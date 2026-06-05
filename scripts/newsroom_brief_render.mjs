@@ -210,20 +210,65 @@ function buildNewsroomStatPill(label, value) {
   return `<span class="stat-pill">${escapeHtml(label)}: <strong>${escapeHtml(v)}</strong></span>`;
 }
 
-function buildNewsroomIssueHeader(data) {
-  const updated = data.generatedAt ? formatDateVi(data.generatedAt) : "";
-  const stories = newsroomCountStories(data);
-  const readMin = newsroomEstimateReadingMin(data);
-  let pills = "";
-  if (stories > 0) pills += buildNewsroomStatPill("Tin chính", String(stories));
-  if (updated) pills += buildNewsroomStatPill("Cập nhật", updated);
-  if (readMin > 0) pills += buildNewsroomStatPill("Đọc khoảng", `${readMin} phút`);
-  return `<header class="issue-header" id="digest-issue-header">
-    <span class="issue-badge">Bản tin 48h</span>
-    <h2 class="issue-title">Bản tin 48 giờ</h2>
-    <p class="issue-subtitle">Tổng hợp tin tức toàn cầu và Việt Nam</p>
-    ${pills ? `<div class="issue-stats">${pills}</div>` : ""}
+function buildNewsroomIssueHeader(_data) {
+  return `<header class="issue-header issue-header--minimal" id="digest-issue-header">
+    <h2 class="issue-title">Bản tin 48h</h2>
   </header>`;
+}
+
+function countArticleSources(articles) {
+  const hosts = new Set();
+  for (const a of Array.isArray(articles) ? articles : []) {
+    const h = String(a.host || getHostName(a.url) || "")
+      .trim()
+      .toLowerCase();
+    if (h) hosts.add(h);
+  }
+  const rows = Array.isArray(articles) ? articles : [];
+  return hosts.size || rows.length;
+}
+
+function collectSectorLinks(sec) {
+  const out = [];
+  const seen = new Set();
+  const add = (lk) => {
+    const u = normalizeExternalUrl(lk?.url);
+    if (!u || seen.has(u)) return;
+    seen.add(u);
+    out.push(lk);
+  };
+  for (const lk of Array.isArray(sec.links) ? sec.links : []) add(lk);
+  for (const sb of Array.isArray(sec.subsectorBriefs) ? sec.subsectorBriefs : []) {
+    for (const lk of Array.isArray(sb.links) ? sb.links : []) add(lk);
+  }
+  for (const d of Array.isArray(sec.storyDossiers) ? sec.storyDossiers : []) {
+    for (const lk of Array.isArray(d.links) ? d.links : []) add(lk);
+  }
+  return out;
+}
+
+function buildSectorArticleLinksHtml(links) {
+  const rows = (Array.isArray(links) ? links : []).filter((lk) => normalizeExternalUrl(lk?.url));
+  if (!rows.length) return "";
+  let html = `<div class="sector-article-links">`;
+  for (const lk of rows) {
+    const u = normalizeExternalUrl(lk.url);
+    const title = escapeHtml(lk.title || u);
+    const excerpt = String(lk.excerpt || "").trim();
+    html += `<article class="sector-article-link">`;
+    html += `<a class="sector-article-link-title" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
+    if (excerpt) {
+      const paras = excerpt.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
+      if (paras.length > 1) {
+        for (const p of paras) html += `<p class="sector-article-link-excerpt">${escapeHtml(p)}</p>`;
+      } else {
+        html += `<p class="sector-article-link-excerpt">${escapeHtml(excerpt)}</p>`;
+      }
+    }
+    html += `</article>`;
+  }
+  html += `</div>`;
+  return html;
 }
 
 function executiveBriefingHasBody(briefing) {
@@ -299,8 +344,10 @@ function buildNotableCardsHtml(notable, imageByUrl) {
 function buildArticleArchiveHtml(articles) {
   const rows = (Array.isArray(articles) ? articles : []).filter((a) => normalizeExternalUrl(a?.url));
   if (!rows.length) return "";
+  const sourceCount = countArticleSources(rows);
+  const nLabel = sourceCount.toLocaleString("vi-VN");
   let h = `<details class="article-archive-wrap digest-notable-all">`;
-  h += `<summary>Bấm vào xem chi tiết · ${rows.length} bài</summary>`;
+  h += `<summary>Tổng hợp từ ${nLabel} nguồn, bấm vào xem chi tiết</summary>`;
   h += `<div class="article-archive-scroll"><ul class="link-rows">`;
   for (const L of rows) {
     const u = normalizeExternalUrl(L.url);
@@ -330,25 +377,24 @@ function buildNewsroomFeedSection(data) {
 
 function buildNewsroomTocHtml(data, sectorSlug) {
   const items = [];
-  if (String(data.editorNote || "").trim()) {
-    items.push({ id: "digest-editor-note", label: "Lời biên tập" });
-  }
-  if (executiveBriefingHasBody(data.executiveBriefing)) {
-    items.push({ id: "digest-executive-briefing", label: "Tóm tắt tổng quan 48h" });
+  if (
+    executiveBriefingHasBody(data.executiveBriefing) ||
+    String(data.editorNote || "").trim()
+  ) {
+    items.push({ id: "digest-executive-briefing", label: "Tổng quan 48h" });
   }
   if ((data.sectorDeepBriefs || []).length) {
     items.push({ id: "digest-sector-deep", label: "Đi sâu theo ngành" });
   }
+  let sectorIdx = 0;
   for (const sec of Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : []) {
     const name = String(sec.name || "").trim();
     if (!name) continue;
-    items.push({ id: sectorSlug(name), label: newsroomSectorShortLabel(name) });
-  }
-  if ((data.watchlist2472h || []).length) {
-    items.push({ id: "digest-watchlist", label: "Theo dõi tiếp" });
-  }
-  if ((data.sourceDesk || []).length) {
-    items.push({ id: "digest-source-desk", label: "Nguồn đại diện" });
+    sectorIdx += 1;
+    items.push({
+      id: sectorSlug(name),
+      label: `${sectorIdx}. ${newsroomSectorShortLabel(name)}`,
+    });
   }
   const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
   const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
@@ -364,17 +410,27 @@ function buildNewsroomTocHtml(data, sectorSlug) {
   return html;
 }
 
-function buildExecutiveBriefingHtml(briefing) {
+function buildExecutiveBriefingHtml(briefing, editorNote) {
   const b = briefing && typeof briefing === "object" ? briefing : {};
   const sections = b.sections && typeof b.sections === "object" ? b.sections : {};
   const content = String(b.content || "").trim();
+  const editor = String(editorNote || "").trim();
   const hasSections = EXEC_BRIEF_SECTIONS.some(([key]) => String(sections[key] || "").trim());
-  if (!content && !hasSections) return "";
+  if (!content && !hasSections && !editor) return "";
 
-  const title = String(b.title || "").trim() || "Tóm tắt tổng quan 48h";
+  const title = "Tổng quan 48h";
   let html = `<section class="overview-part executive-briefing-card" id="digest-executive-briefing">`;
   html += `<h3 class="pub-section-title">${escapeHtml(title)}</h3>`;
   html += `<div class="executive-briefing-body">`;
+
+  if (editor) {
+    const editorParas = editor.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
+    if (editorParas.length > 1) {
+      for (const p of editorParas) html += `<p class="executive-brief-lead">${escapeHtml(p)}</p>`;
+    } else {
+      html += `<p class="executive-brief-lead">${escapeHtml(editor)}</p>`;
+    }
+  }
 
   if (hasSections) {
     for (const [key, label] of EXEC_BRIEF_SECTIONS) {
@@ -542,109 +598,41 @@ export function buildNewsroomThesisHtml(data, deps) {
   const { sectorSlug } = deps;
   const editorNote = String(data.editorNote || "").trim();
   const sectors = Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : [];
-  const watch = Array.isArray(data.watchlist2472h) ? data.watchlist2472h : [];
-  const desk = Array.isArray(data.sourceDesk) ? data.sourceDesk : [];
   const executiveBriefing = data.executiveBriefing || {};
 
   let html = `<article id="digest-report" class="digest-report newsroom-report">`;
   html += `<div class="digest-main-panel">`;
   html += buildNewsroomIssueHeader(data);
   html += buildNewsroomTocHtml(data, sectorSlug);
-
-  if (editorNote) {
-    const paras = editorNote.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
-    const body =
-      paras.length > 1
-        ? paras.map((p) => `<p>${escapeHtml(p)}</p>`).join("")
-        : `<p class="editor-note-body">${escapeHtml(editorNote)}</p>`;
-    html += `<section class="overview-part editor-note-card" id="digest-editor-note">`;
-    html += `<p class="eyebrow">Lời biên tập</p>${body}</section>`;
-  }
-  html += buildExecutiveBriefingHtml(executiveBriefing);
+  html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
 
   if (sectors.length) {
     html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;
     html += `<h3 class="pub-section-title">Đi sâu theo từng ngành</h3>`;
+    let sectorIndex = 0;
     for (const sec of sectors) {
       const name = String(sec.name || "").trim() || "Lĩnh vực";
-      const code = String(sec.code || "").trim();
+      const thesis = String(sec.sectorThesis || "").trim();
+      const links = collectSectorLinks(sec);
+      if (!thesis && !links.length) continue;
+      sectorIndex += 1;
       const id = sectorSlug(name);
-      const dossiers = (Array.isArray(sec.storyDossiers) ? sec.storyDossiers : []).filter((d) =>
-        hasStoryLinks(d?.links),
-      );
-      const subBriefs = (Array.isArray(sec.subsectorBriefs) ? sec.subsectorBriefs : []).filter(
-        (sb) => hasStoryLinks(sb?.links),
-      );
-      if (!sec.sectorThesis && !subBriefs.length && !dossiers.length) continue;
-      html += `<article class="sector-pub-block sector-block" id="${id}">`;
-      html += `<header class="sector-pub-head">`;
-      html += `<span class="sector-pub-icon" aria-hidden="true">${newsroomSectorIconSvg(code, name)}</span>`;
-      html += `<div><h3>${escapeHtml(name)}</h3>`;
-      if (dossiers.length) {
-        html += `<span class="sector-story-count">${dossiers.length} hồ sơ</span>`;
-      }
-      html += `</div></header>`;
-      if (sec.sectorThesis) {
-        html += `<div class="sector-thesis-card">${escapeHtml(sec.sectorThesis)}</div>`;
-      }
-      if (subBriefs.length) {
-        html += `<div class="subsector-briefs"><h4>Các nhánh nổi bật trong ngành</h4>`;
-        for (const sb of subBriefs) {
-          const sbName = String(sb.name || "").trim();
-          const sbOverview = String(sb.overview || "").trim();
-          if (!sbName || !sbOverview) continue;
-          html += `<div class="subsector-card">`;
-          html += `<h4>${escapeHtml(sbName)}</h4>`;
-          html += `<p>${escapeHtml(sbOverview)}</p>`;
-          const sbPoints = Array.isArray(sb.keyPoints) ? sb.keyPoints : [];
-          if (sbPoints.length) {
-            html += `<ul class="sector-points prose-bullets">`;
-            for (const p of sbPoints) html += `<li>${escapeHtml(p)}</li>`;
-            html += `</ul>`;
-          }
-          html += buildRepresentativeSourcesHtml(sb.links);
-          html += `</div>`;
+      html += `<article class="sector-simple-block sector-block" id="${id}">`;
+      html += `<h3 class="sector-simple-title"><span class="sector-simple-num">${sectorIndex}.</span> ${escapeHtml(name)}</h3>`;
+      if (thesis) {
+        const paras = thesis.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
+        html += `<div class="sector-simple-body">`;
+        if (paras.length > 1) {
+          for (const p of paras) html += `<p>${escapeHtml(p)}</p>`;
+        } else {
+          html += `<p>${escapeHtml(thesis)}</p>`;
         }
         html += `</div>`;
       }
-      if (dossiers.length) {
-        html += `<div class="sector-dossiers"><h4>Hồ sơ tin chính</h4>`;
-        for (const d of dossiers) html += buildDossierCardHtml(d);
-        html += `</div>`;
-      }
+      html += buildSectorArticleLinksHtml(links);
       html += `</article>`;
     }
     html += `</section>`;
-  }
-
-  if (watch.length) {
-    html += `<section class="overview-part watchlist-panel" id="digest-watchlist">`;
-    html += `<h3 class="pub-section-title">Theo dõi tiếp</h3>`;
-    html += `<div class="watchlist-grid">`;
-    for (const w of watch) {
-      html += `<div class="watch-card">`;
-      if (w.theme) html += `<span class="watch-theme">${escapeHtml(w.theme)}</span>`;
-      if (w.whatToWatch) {
-        html += `<p><strong>Theo dõi:</strong> ${escapeHtml(w.whatToWatch)}</p>`;
-      }
-      if (w.why) html += `<p class="hint">${escapeHtml(w.why)}</p>`;
-      html += `</div>`;
-    }
-    html += `</div></section>`;
-  }
-
-  if (desk.length) {
-    html += `<section class="overview-part source-desk-panel" id="digest-source-desk">`;
-    html += `<h3 class="pub-section-title">Nguồn đại diện</h3>`;
-    html += `<div class="source-desk-body">`;
-    for (const g of desk) {
-      if (!hasStoryLinks(g.links)) continue;
-      html += `<div class="source-desk-group">`;
-      html += `<h4>${escapeHtml(g.topic || "")}</h4>`;
-      html += buildRepresentativeSourcesHtml(g.links);
-      html += `</div>`;
-    }
-    html += `</div></section>`;
   }
 
   html += buildNewsroomFeedSection(data);

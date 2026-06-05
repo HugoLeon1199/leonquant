@@ -1966,6 +1966,23 @@ def build_digest_web_extras(
     }
 
 
+def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 5) -> str:
+    if not isinstance(art, dict):
+        return ""
+    raw = str(art.get("summary") or art.get("description") or "").strip()
+    if not raw:
+        blob = str(art.get("content_for_ai") or "").strip()
+        if blob:
+            raw = blob[:1200]
+    if not raw:
+        return ""
+    parts = re.split(r"(?<=[.!?…])\s+", raw)
+    kept = [p.strip() for p in parts if p.strip()]
+    if len(kept) <= max_sentences:
+        return " ".join(kept)
+    return " ".join(kept[:max_sentences])
+
+
 def _newsroom_sources_to_links(
     sources: list[dict[str, Any]],
     *,
@@ -1989,6 +2006,7 @@ def _newsroom_sources_to_links(
         )
         art = by_url.get(u)
         host = _url_hostname(u)
+        excerpt = str(src.get("excerpt") or "").strip() or _article_excerpt(art)
         links.append(
             {
                 "url": u,
@@ -1996,9 +2014,25 @@ def _newsroom_sources_to_links(
                 "host": host,
                 "source": str(src.get("source") or (art.get("source") if art else "") or ""),
                 "label": _link_display_label(host, str(src.get("source") or "")),
+                "excerpt": excerpt,
             }
         )
     return links
+
+
+def _merge_sector_links(*link_groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for group in link_groups:
+        for lk in group:
+            if not isinstance(lk, dict):
+                continue
+            u = str(lk.get("url") or "").strip()
+            if not u or u in seen:
+                continue
+            seen.add(u)
+            out.append(lk)
+    return out
 
 
 def build_newsroom_web_extras(
@@ -2125,7 +2159,11 @@ def build_newsroom_web_extras(
             }
         )
 
+    editor_note = str(summary.get("editor_note") or "").strip()
     eb_in = summary.get("executive_briefing") if isinstance(summary.get("executive_briefing"), dict) else {}
+    eb_content_raw = str(eb_in.get("content") or "").strip()
+    if editor_note and editor_note not in eb_content_raw:
+        eb_content_raw = f"{editor_note}\n\n{eb_content_raw}".strip() if eb_content_raw else editor_note
     eb_sections_in = eb_in.get("sections") if isinstance(eb_in.get("sections"), dict) else {}
     eb_links = _newsroom_sources_to_links(
         [x for x in (eb_in.get("representative_sources") or []) if isinstance(x, dict)],
@@ -2134,8 +2172,7 @@ def build_newsroom_web_extras(
         add_link=add_link,
     )
     executive_briefing = {
-        "title": str(eb_in.get("title") or "Tóm tắt tổng quan 48h").strip()
-        or "Tóm tắt tổng quan 48h",
+        "title": "Tổng quan 48h",
         "sections": {
             "mainPicture": str(eb_sections_in.get("main_picture") or "").strip(),
             "mostMentioned": str(eb_sections_in.get("most_mentioned") or "").strip(),
@@ -2143,7 +2180,7 @@ def build_newsroom_web_extras(
             "sectorImpacts": str(eb_sections_in.get("sector_impacts") or "").strip(),
             "watch2472h": str(eb_sections_in.get("watch_24_72h") or "").strip(),
         },
-        "content": str(eb_in.get("content") or "").strip(),
+        "content": eb_content_raw,
         "links": eb_links,
         "mostMentionedTopics": [
             {
@@ -2266,13 +2303,25 @@ def build_newsroom_web_extras(
                     "links": links,
                 }
             )
+        sector_level_links = _newsroom_sources_to_links(
+            [x for x in (sec.get("representative_sources") or []) if isinstance(x, dict)],
+            by_url=by_url,
+            group=name,
+            add_link=add_link,
+        )
+        merged_links = _merge_sector_links(
+            sector_level_links,
+            *[sb.get("links") or [] for sb in subsector_out],
+            *[d.get("links") or [] for d in dossiers_out],
+        )
         sector_deep.append(
             {
                 "code": code,
                 "name": name,
                 "sectorThesis": str(sec.get("sector_thesis") or "").strip(),
-                "subsectorBriefs": subsector_out,
-                "storyDossiers": dossiers_out,
+                "links": merged_links,
+                "subsectorBriefs": [],
+                "storyDossiers": [],
             }
         )
 
@@ -2303,7 +2352,7 @@ def build_newsroom_web_extras(
     return {
         **base,
         "digestLinkIndex": link_index,
-        "editorNote": str(summary.get("editor_note") or "").strip(),
+        "editorNote": "",
         "executiveBriefing": executive_briefing,
         "frontPage": front_page,
         "sectorDeepBriefs": sector_deep,

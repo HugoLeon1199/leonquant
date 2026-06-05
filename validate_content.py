@@ -19,8 +19,14 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
     if mode not in ("multisector-digest", "newsroom-brief"):
         err.append('content.json: briefMode must be "multisector-digest" or "newsroom-brief"')
     if mode == "newsroom-brief":
-        if not str(c.get("editorNote") or "").strip():
-            err.append("content.json: editorNote required for newsroom-brief")
+        eb = c.get("executiveBriefing") if isinstance(c.get("executiveBriefing"), dict) else {}
+        eb_content = str(eb.get("content") or "").strip()
+        eb_sections = eb.get("sections") if isinstance(eb.get("sections"), dict) else {}
+        has_overview = bool(eb_content) or any(
+            str(v).strip() for v in eb_sections.values() if v is not None
+        )
+        if not has_overview and not str(c.get("editorNote") or "").strip():
+            err.append("content.json: executiveBriefing or editorNote required for newsroom-brief")
         fp = c.get("frontPage")
         if not isinstance(fp, list) or len(fp) < 1:
             err.append("content.json: frontPage must be non-empty for newsroom-brief")
@@ -32,12 +38,11 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
                 if not isinstance(sec, dict):
                     err.append(f"sectorDeepBriefs[{i}]: must be object")
                     continue
+                thesis = str(sec.get("sectorThesis") or "").strip()
+                links = sec.get("links") or []
                 dossiers = sec.get("storyDossiers") or []
-                if not dossiers:
-                    err.append(f"sectorDeepBriefs[{i}]: need storyDossiers")
-                for j, d in enumerate(dossiers[:3]):
-                    if isinstance(d, dict) and not str(d.get("whyItMatters") or "").strip():
-                        err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: missing whyItMatters")
+                if not thesis and not links and not dossiers:
+                    err.append(f"sectorDeepBriefs[{i}]: need sectorThesis or links")
         if not str((c.get("mainThesis") or {}).get("thesis") or "").strip():
             err.append("content.json: mainThesis.thesis required")
         articles = c.get("articleLinkIndex")

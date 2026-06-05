@@ -439,7 +439,7 @@ def _digest_newsroom_json_schema_fragment() -> str:
             f"""    {{
       "code": "{code}",
       "name": "{label}",
-      "sector_thesis": "200-500 từ nếu dữ liệu đủ.",
+      "sector_thesis": "Tóm tắt đủ ý ngành 48h — không giới hạn độ dài; viết hết điểm quan trọng Gemini thấy.",
       "subsector_briefs": [
 {subsector}
       ],

@@ -295,14 +295,14 @@ def test_build_newsroom_extras() -> None:
 
     raw = normalize_newsroom_brief(_fixture())
     extras = build_newsroom_web_extras(raw, _mock_articles())
-    assert extras.get("editorNote")
-    assert extras.get("executiveBriefing", {}).get("content")
+    eb_content = str((extras.get("executiveBriefing") or {}).get("content") or "")
+    assert eb_content
+    assert "48 giờ qua" in eb_content or "LeonQuant" not in eb_content
     assert len(extras.get("sectorDeepBriefs") or []) == 4
     fin_sec = (extras.get("sectorDeepBriefs") or [])[0]
     if fin_sec:
-        assert "subsectorBriefs" in fin_sec
-        if fin_sec.get("storyDossiers"):
-            assert "subSector" in fin_sec["storyDossiers"][0]
+        assert "links" in fin_sec
+        assert fin_sec.get("storyDossiers") == []
     fp = extras.get("frontPage") or []
     crypto = next((x for x in fp if "Crypto" in (x.get("title") or "")), None)
     if crypto and crypto.get("links"):
