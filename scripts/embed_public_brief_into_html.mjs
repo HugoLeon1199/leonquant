@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 import {
   buildNewsroomThesisHtml as buildNewsroomThesisHtmlCore,
   buildNewsroomSyncNoteText,
+  formatDateVi,
 } from "./newsroom_brief_render.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -30,19 +31,6 @@ function normalizeExternalUrl(url) {
   if (/^https?:\/\//i.test(u)) return u;
   if (u.startsWith("//")) return "https:" + u;
   return "https://" + u.replace(/^\/+/, "");
-}
-
-function formatDateVi(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return String(value);
-  return date.toLocaleString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
 }
 
 function getHostName(u) {
@@ -441,7 +429,7 @@ function buildDigestThesisHtml(data) {
         articles.map((a) => ({
           url: a.url,
           title: a.title,
-          source: [a.source, formatDateVi(a.publishedAt)].filter(Boolean).join(" · "),
+          source: [formatDateVi(a.publishedAt), a.source].filter(Boolean).join(" · "),
           host: a.host || getHostName(a.url || ""),
         })),
       );

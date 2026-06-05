@@ -12,17 +12,23 @@ export function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+/** Giờ đăng bài / timestamp hiển thị cạnh link — múi giờ Việt Nam (+7). */
 export function formatDateVi(value) {
   if (!value) return "";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return String(value);
-  return date.toLocaleString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Ho_Chi_Minh",
     year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
-  });
+    second: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+  const pick = (type) => parts.find((p) => p.type === type)?.value || "";
+  return `${pick("year")}-${pick("month")}-${pick("day")} ${pick("hour")}:${pick("minute")}:${pick("second")} +7`;
 }
 
 function newsroomSectorShortLabel(name) {
@@ -320,7 +326,9 @@ function buildNotableCardsHtml(notable, imageByUrl) {
   items.forEach((a, idx) => {
     const u = normalizeExternalUrl(a.url);
     const title = escapeHtml(a.title || u);
-    const meta = escapeHtml([a.source, a.host || getHostName(u)].filter(Boolean).join(" · "));
+    const meta = escapeHtml(
+      [formatDateVi(a.publishedAt), a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
+    );
     const img = String(a.imageUrl || a.image_url || imageByUrl.get(u) || "").trim();
     const why = escapeHtml(String(a.whyNotable || "").trim());
     const hostShort = escapeHtml((a.host || getHostName(u) || "WEB").replace(/^www\./i, "").slice(0, 8));
