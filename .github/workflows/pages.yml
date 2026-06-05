@@ -39,12 +39,30 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install build deps (DuckDB published_at enrich)
+        run: pip install duckdb pandas
+
+      - name: Bootstrap DuckDB seed (published_at / extracted_at cho link)
+        run: |
+          mkdir -p data
+          if [ ! -f data/web_intel_leonquant.duckdb ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
+            gunzip -c data/web_intel_leonquant.duckdb.gz > data/web_intel_leonquant.duckdb
+            echo "Bootstrapped DuckDB ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
+          fi
+
       - name: Dựng content.json (từ gemini_digest_summary + bài đã lọc)
         run: |
           python3 build_website_content.py \
             --digest-input gemini_digest_summary.json \
             --enriched-input news_for_ai_clean.json \
             --skip-images
+          python3 -c "
+          import json
+          d = json.load(open('content.json', encoding='utf-8'))
+          idx = d.get('articleLinkIndex') or []
+          n = sum(1 for a in idx if str(a.get('publishedAt') or '').strip())
+          assert n >= max(10, len(idx) // 20), f'articleLinkIndex thiếu publishedAt ({n}/{len(idx)})'
+          "
 
       - name: Kiểm tra content.json
         run: |

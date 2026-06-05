@@ -32,6 +32,7 @@ def _articles_from_content(data: dict[str, Any]) -> list[dict[str, Any]]:
                 "url": str(x.get("url") or ""),
                 "title": str(x.get("title") or ""),
                 "source": str(x.get("source") or ""),
+                "published_at": str(x.get("publishedAt") or x.get("published_at") or ""),
             }
             for x in idx
             if isinstance(x, dict) and str(x.get("url") or "").strip()
@@ -58,9 +59,13 @@ def _filter_story_links(
     valid = filter_urls_for_story(urls, headline, index, context=context)
     out: list[dict[str, Any]] = []
     hl_norm = _norm(headline)
+    orig_by_url = {
+        str(lk.get("url") or "").strip(): lk for lk in links if str(lk.get("url") or "").strip()
+    }
     for u in valid:
         art = by_url.get(u) or {}
-        art_title = str(art.get("title") or "").strip()
+        orig = orig_by_url.get(u) or {}
+        art_title = str(art.get("title") or orig.get("title") or "").strip()
         host = ""
         try:
             from urllib.parse import urlparse
@@ -72,16 +77,21 @@ def _filter_story_links(
         title = art_title
         if not title or _norm(title) == hl_norm:
             title = art_title or host or u
-        src = str(art.get("source") or "").strip()
-        out.append(
-            {
-                "url": u,
-                "title": title,
-                "host": host,
-                "source": src,
-                "label": _link_label(host, src),
-            }
+        src = str(art.get("source") or orig.get("source") or "").strip()
+        published = (
+            str(orig.get("publishedAt") or orig.get("published_at") or "").strip()
+            or str(art.get("published_at") or art.get("publishedAt") or "").strip()
         )
+        row: dict[str, Any] = {
+            "url": u,
+            "title": title,
+            "host": host,
+            "source": src,
+            "label": _link_label(host, src),
+        }
+        if published:
+            row["publishedAt"] = published
+        out.append(row)
     return out
 
 

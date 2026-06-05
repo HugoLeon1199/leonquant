@@ -2631,6 +2631,27 @@ def _published_at_to_iso(val: Any) -> str:
     return str(val).strip()
 
 
+def _timestamp_has_clock(iso_or_raw: str) -> bool:
+    s = str(iso_or_raw or "").strip()
+    if not s:
+        return False
+    if "T" in s:
+        return True
+    # YYYY-MM-DD HH:MM...
+    return len(s) > 10 and s[10:11] in (" ", "T")
+
+
+def _article_display_timestamp(published: Any, extracted: Any) -> str:
+    """Ưu tiên giờ đăng đầy đủ; nếu DB chỉ có ngày thì dùng extracted_at (crawl)."""
+    pub = _published_at_to_iso(published) or str(published or "").strip()
+    if pub and _timestamp_has_clock(pub):
+        return pub
+    ext = _published_at_to_iso(extracted) or str(extracted or "").strip()
+    if ext:
+        return ext
+    return pub
+
+
 def _resolve_intel_root() -> Path | None:
     env = os.environ.get("LEON_WEB_INTEL_ROOT")
     if env:
@@ -2675,7 +2696,7 @@ def _enrich_articles_from_intel_db(articles: list[dict[str, Any]]) -> list[dict[
                 placeholders = ", ".join("?" for _ in chunk)
                 rows = db.conn.execute(
                     f"""
-                    SELECT url, published_at, source_id
+                    SELECT url, published_at, extracted_at, source_id
                     FROM articles
                     WHERE url IN ({placeholders})
                     """,
@@ -2696,8 +2717,12 @@ def _enrich_articles_from_intel_db(articles: list[dict[str, Any]]) -> list[dict[
         u = str(row.get("url") or "").strip()
         meta = meta_by_url.get(u) if u else None
         if meta and not str(row.get("published_at") or "").strip():
-            iso = _published_at_to_iso(meta.get("published_at"))
+            iso = _article_display_timestamp(meta.get("published_at"), meta.get("extracted_at"))
             if iso:
+                row["published_at"] = iso
+        elif meta and not _timestamp_has_clock(str(row.get("published_at") or "")):
+            iso = _article_display_timestamp(row.get("published_at"), meta.get("extracted_at"))
+            if iso and _timestamp_has_clock(iso):
                 row["published_at"] = iso
         if not str(row.get("source") or "").strip():
             sid = str((meta or {}).get("source_id") or "").strip()
