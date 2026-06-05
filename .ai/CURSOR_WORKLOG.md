@@ -379,7 +379,19 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Regenerate:** `python leon.py --channel invest` → rebuild `invest_world_pulse.json`; CI `build_invest_vn_brief.py` cho block VN.
 
-## 2026-06-05 — Invest + LIVE tab presentation (research memo / radar)
+## 2026-06-06 — Invest: không giới hạn câu/từ/ký tự (full Gemini output)
+
+**Scope:** `leon.py`, `scripts/build_invest_vn_brief.py`, `landing_page.html` (bỏ line-clamp lens).
+
+| Layer | Thay đổi |
+|-------|----------|
+| `leon.py` enrich/deepen/topics | Prompt: tóm tắt đầy đủ, không cap; topics không viết lại summary; `_invest_resolve_public_summary()` ưu tiên deepen; `_clamp_invest_brief(max_len=None)` |
+| Deep-read block | `_deepen_event_block`: truyền full summary vào prompt (bỏ `[:500]`) |
+| `build_invest_vn_brief.py` | Bỏ `_clip` trên lead/why_hot/developments/lens/issue; input pack không cắt digest; prompt không giới hạn câu/từ |
+| UI | `.invest-vn-lens`: bỏ `-webkit-line-clamp: 2` |
+
+**Regenerate:** `python leon.py --channel invest` + `python scripts/build_invest_vn_brief.py` để JSON mới có bài dài hơn.
+
 
 **Scope:** UI/CSS + pulse embed HTML only — `landing_page.html`, `scripts/embed_public_pulse_into_html.mjs`, `.ai/CURSOR_WORKLOG.md`. **Not modified:** crawler, Gemini prompts, GDELT/SQL, invest pipeline, Tin48h content.
 

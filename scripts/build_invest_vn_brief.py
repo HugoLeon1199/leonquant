@@ -109,9 +109,12 @@ def _parse_gemini_json(text: str) -> dict[str, Any]:
         return {}
 
 
-def _clip(s: str, n: int) -> str:
+def _clip(s: str, n: int | None = None) -> str:
+    """Chuẩn hóa khoảng trắng; n=None → không cắt độ dài."""
     t = re.sub(r"\s+", " ", (s or "").strip())
-    return t if len(t) <= n else t[: n - 1].rstrip() + "…"
+    if n is None or len(t) <= n:
+        return t
+    return t[: n - 1].rstrip() + "…"
 
 
 def _vn_public_text(text: str) -> str:
@@ -125,7 +128,7 @@ def _vn_rewrite_title(title: str) -> str:
     return _VN_TITLE_REWRITES.get(key, str(title or "").strip())
 
 
-def _vn_temper_copy(text: str, *, max_len: int = 800) -> str:
+def _vn_temper_copy(text: str, *, max_len: int | None = None) -> str:
     s = _vn_public_text(text)
     s = _VN_HYPE_LENS_RE.sub("biến số cần theo dõi", s)
     s = re.sub(r"(ảnh hưởng|tác động) trực tiếp", "có thể ảnh hưởng", s, flags=re.IGNORECASE)
@@ -143,7 +146,7 @@ def _vn_temper_copy(text: str, *, max_len: int = 800) -> str:
         flags=re.IGNORECASE,
     )
     s = re.sub(r"trực tiếp ảnh hưởng", "có thể ảnh hưởng", s, flags=re.IGNORECASE)
-    return _clip(s, max_len)
+    return _clip(s, max_len) if max_len is not None else s
 
 
 def _vn_clean_link_title(title: str, source: str) -> str:
@@ -175,31 +178,31 @@ def _vn_temper_investor_lens(text: str) -> str:
         re.IGNORECASE,
     ):
         s = f"{s.rstrip('.')}; cần theo dõi nhóm ngành/tài sản liên quan theo diễn biến thực tế."
-    return _clip(s, 500)
+    return s
 
 
 def build_input_pack(content: dict[str, Any]) -> dict[str, Any]:
     pack: dict[str, Any] = {
         "generated_at": content.get("generatedAt") or "",
-        "vietnam_highlights": _clip(str(content.get("digestVietnamHighlights") or ""), 1200),
+        "vietnam_highlights": _clip(str(content.get("digestVietnamHighlights") or "")),
         "vietnam_bullets": [
-            _clip(str(b), 400)
+            _clip(str(b))
             for b in (content.get("digestVietnamBullets") or [])
             if str(b).strip()
-        ][:12],
+        ][:20],
         "overview_bullets": [],
         "sector_snippets": [],
         "vn_articles": [],
     }
     mt = content.get("mainThesis") or {}
     if isinstance(mt, dict) and mt.get("thesis"):
-        pack["overview_bullets"].append(_clip(str(mt["thesis"]), 500))
+        pack["overview_bullets"].append(_clip(str(mt["thesis"])))
 
     for sec in ("digestExecutiveSummary", "digestInternationalHighlights"):
-        t = _clip(str(content.get(sec) or ""), 400)
+        t = _clip(str(content.get(sec) or ""))
         if t:
             pack["overview_bullets"].append(t)
-    pack["overview_bullets"] = pack["overview_bullets"][:4]
+    pack["overview_bullets"] = pack["overview_bullets"][:8]
 
     for sec in content.get("digestSectors") or []:
         if not isinstance(sec, dict):
@@ -230,13 +233,13 @@ def build_input_pack(content: dict[str, Any]) -> dict[str, Any]:
                     "links": vn_links[:2],
                 }
             )
-        if items_out or _clip(str(sec.get("summary") or ""), 80):
+        if items_out or _clip(str(sec.get("summary") or "")):
             pack["sector_snippets"].append(
                 {
                     "code": code,
                     "name": str(sec.get("name") or code),
-                    "summary": _clip(str(sec.get("summary") or ""), 600),
-                    "items": items_out[:8],
+                    "summary": _clip(str(sec.get("summary") or "")),
+                    "items": items_out[:12],
                 }
             )
 
@@ -290,23 +293,23 @@ Không khuyến nghị mua/bán/múc. Không dùng "nên mua", "cơ hội chắc
    - title: cụ thể, trung lập, không giật tít. Tránh cụm kiểu "siết chặt quản lý thuế và kỷ luật thị trường tiền tệ".
      Ưu tiên góc điều hành rõ, ví dụ: "Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng";
      "Ngân hàng tăng tốc số hóa, rủi ro bảo mật tài khoản nổi lên".
-   - why_hot: vì sao được quan tâm (2–3 câu, có bối cảnh).
-   - developments: 4–8 bullet diễn biến cụ thể; KHÔNG dính tên báo vào cuối câu (tách nguồn qua links).
-   - investor_lens (Góc đầu tư): 2–3 câu TRUNG LẬP; phải nêu nhóm ngành/tài sản/doanh nghiệp bị ảnh hưởng.
+   - why_hot: vì sao được quan tâm — đủ ý, có bối cảnh; không giới hạn số câu/từ.
+   - developments: bullet diễn biến cụ thể, đủ chi tiết từ pack; KHÔNG dính tên báo vào cuối câu (tách nguồn qua links).
+   - investor_lens (Góc đầu tư): TRUNG LẬP, đủ ý; phải nêu nhóm ngành/tài sản/doanh nghiệp bị ảnh hưởng; không giới hạn độ dài.
      Dùng: "biến số cần theo dõi", "tác động phụ thuộc vào", "nhóm có thể chịu ảnh hưởng".
      KHÔNG dùng: "tín hiệu tích cực cho thanh khoản", "tác động trực tiếp" khi chưa rõ.
      Ví dụ: "Việc tháo gỡ pháp lý là biến số cần theo dõi với nhóm bất động sản, xây dựng và hạ tầng; tác động thực tế phụ thuộc vào tiến độ phê duyệt, giải ngân và khả năng chuyển hóa thành doanh thu."
    - links: chỉ url có trong pack; source là tên báo riêng (vd. "Báo Chính phủ"), không ghép vào cuối bullet.
 
-2) now_watch — 2–4 mục đang theo dõi (status: "đang diễn ra" hoặc "sắp có").
+2) now_watch — mục đang theo dõi (status: "đang diễn ra" hoặc "sắp có").
    Mỗi mục BẮT BUỘC có:
    - title
-   - issue (Vấn đề — 1–2 câu)
+   - issue (Vấn đề — đủ ý, không giới hạn độ dài)
    - affected_groups (Nhóm ảnh hưởng — liệt kê ngành/nhóm)
-   - watch_variables (Biến số cần theo dõi — 1–2 câu)
+   - watch_variables (Biến số cần theo dõi — đủ ý)
    - links nếu có
 
-lead: 3–5 câu tổng quan VN 48h, trung lập, có mạch (điều hành → ngành → biến số theo dõi).
+lead: tổng quan VN 48h, trung lập, có mạch (điều hành → ngành → biến số theo dõi); không giới hạn số câu/từ.
    Tốt: "trọng tâm điều hành tập trung vào hỗ trợ tăng trưởng, tháo gỡ pháp lý cho hạ tầng/bất động sản và tăng kỷ luật tài chính."
    Tránh: "đẩy mạnh tăng trưởng GDP" nếu input không nêu trực tiếp; tránh câu lủng "đang biến số cần theo dõi đến".
 gaps: một câu nếu thiếu dữ liệu; nếu đủ thì "".
@@ -404,19 +407,19 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
     for i, th in enumerate(raw.get("themes_48h") or []):
         if not isinstance(th, dict):
             continue
-        title = _clip(_vn_rewrite_title(_vn_public_text(str(th.get("title") or ""))), 200)
+        title = _clip(_vn_rewrite_title(_vn_public_text(str(th.get("title") or ""))))
         if not title:
             continue
         devs = [
-            _clip(_vn_public_text(str(d)), 350)
+            _clip(_vn_public_text(str(d)))
             for d in (th.get("developments") or [])
             if str(d).strip()
-        ][:6]
+        ]
         themes.append(
             {
                 "rank": int(th.get("rank") or i + 1),
                 "title": title,
-                "why_hot": _vn_temper_copy(str(th.get("why_hot") or ""), max_len=500),
+                "why_hot": _vn_temper_copy(str(th.get("why_hot") or "")),
                 "developments": devs,
                 "investor_lens": _vn_temper_investor_lens(str(th.get("investor_lens") or "")),
                 "links": _norm_links(th.get("links")),
@@ -428,15 +431,15 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
     for nw in raw.get("now_watch") or []:
         if not isinstance(nw, dict):
             continue
-        title = _clip(str(nw.get("title") or ""), 200)
+        title = _clip(str(nw.get("title") or ""))
         if not title:
             continue
         legacy_watch = _vn_public_text(str(nw.get("what_to_watch") or ""))
-        issue = _clip(_vn_public_text(str(nw.get("issue") or "")), 500) or _clip(legacy_watch, 500)
-        affected = _clip(_vn_public_text(str(nw.get("affected_groups") or "")), 300)
-        watch_vars = _clip(_vn_public_text(str(nw.get("watch_variables") or "")), 500)
+        issue = _clip(_vn_public_text(str(nw.get("issue") or ""))) or _clip(legacy_watch)
+        affected = _clip(_vn_public_text(str(nw.get("affected_groups") or "")))
+        watch_vars = _clip(_vn_public_text(str(nw.get("watch_variables") or "")))
         if not watch_vars and legacy_watch and legacy_watch != issue:
-            watch_vars = _clip(legacy_watch, 500)
+            watch_vars = _clip(legacy_watch)
         now_watch.append(
             {
                 "title": _vn_public_text(title),
@@ -455,10 +458,10 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "source_digest_at": pack.get("generated_at") or "",
         "window_hours": 48,
-        "lead": _vn_temper_copy(str(raw.get("lead") or ""), max_len=800),
+        "lead": _vn_temper_copy(str(raw.get("lead") or "")),
         "themes_48h": themes[:5],
         "now_watch": now_watch[:4],
-        "gaps": _clip(str(raw.get("gaps") or ""), 300),
+        "gaps": _clip(str(raw.get("gaps") or "")),
     }
 
 
