@@ -589,6 +589,7 @@ SELECT
   Diem_Cam_Xuc,
   So_Bao_De_Cap,
   Link_Bai_Bao,
+  DATEADDED,
   SourceURLs,
   MentionSources,
   source_count,

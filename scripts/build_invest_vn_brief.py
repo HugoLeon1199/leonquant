@@ -217,6 +217,7 @@ def build_input_pack(content: dict[str, Any]) -> dict[str, Any]:
                     "url": str(lk.get("url") or "").strip(),
                     "title": _clip(str(lk.get("title") or it.get("headline") or ""), 120),
                     "source": str(lk.get("source") or lk.get("label") or "").strip(),
+                    "published_at": str(lk.get("publishedAt") or lk.get("published_at") or "").strip(),
                 }
                 for lk in links
                 if isinstance(lk, dict) and _is_vn_url(str(lk.get("url") or ""))
@@ -252,6 +253,7 @@ def build_input_pack(content: dict[str, Any]) -> dict[str, Any]:
                 "title": _clip(str(art.get("title") or ""), 160),
                 "url": u,
                 "source": str(art.get("source") or art.get("host") or "").strip(),
+                "published_at": str(art.get("publishedAt") or art.get("published_at") or "").strip(),
             }
         )
         if len(pack["vn_articles"]) >= 25:
@@ -359,6 +361,21 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
                 if isinstance(lk, dict) and lk.get("url"):
                     allowed_urls.add(str(lk["url"]))
 
+    url_published = {
+        str(a.get("url") or "").strip(): str(a.get("published_at") or "").strip()
+        for a in pack.get("vn_articles") or []
+        if isinstance(a, dict) and str(a.get("url") or "").strip()
+    }
+    for sec in pack.get("sector_snippets") or []:
+        for it in (sec.get("items") or []) if isinstance(sec, dict) else []:
+            for lk in it.get("links") or []:
+                if isinstance(lk, dict):
+                    u = str(lk.get("url") or "").strip()
+                    if u and not str(lk.get("published_at") or "").strip():
+                        ts = url_published.get(u)
+                        if ts:
+                            lk["published_at"] = ts
+
     def _norm_links(links: Any) -> list[dict[str, str]]:
         out: list[dict[str, str]] = []
         if not isinstance(links, list):
@@ -372,13 +389,15 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
             if not u.startswith("http"):
                 continue
             src = _clip(_vn_public_text(str(lk.get("source") or "")), 80)
-            out.append(
-                {
-                    "url": u,
-                    "title": _vn_clean_link_title(str(lk.get("title") or u), src),
-                    "source": src,
-                }
-            )
+            published = str(lk.get("published_at") or lk.get("publishedAt") or url_published.get(u) or "").strip()
+            row = {
+                "url": u,
+                "title": _vn_clean_link_title(str(lk.get("title") or u), src),
+                "source": src,
+            }
+            if published:
+                row["publishedAt"] = published
+            out.append(row)
         return out[:4]
 
     themes = []

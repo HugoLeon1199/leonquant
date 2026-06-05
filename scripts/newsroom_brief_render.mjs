@@ -233,14 +233,39 @@ function buildNewsroomIssueHeader(_data) {
   </header>`;
 }
 
-function collectSectorLinks(sec) {
+function buildArticlePublishedLookup(data) {
+  const map = new Map();
+  const add = (url, ts) => {
+    const u = normalizeExternalUrl(url);
+    const t = String(ts || "").trim();
+    if (u && t && !map.has(u)) map.set(u, t);
+  };
+  for (const a of Array.isArray(data?.articleLinkIndex) ? data.articleLinkIndex : []) {
+    add(a?.url, a?.publishedAt || a?.published_at);
+  }
+  for (const a of Array.isArray(data?.allArticles) ? data.allArticles : []) {
+    add(a?.url, a?.publishedAt || a?.published_at);
+  }
+  return map;
+}
+
+function enrichLinkPublishedAt(lk, lookup) {
+  if (!lk || typeof lk !== "object") return lk;
+  if (String(lk.publishedAt || lk.published_at || "").trim()) return lk;
+  const u = normalizeExternalUrl(lk.url);
+  const ts = lookup?.get(u);
+  return ts ? { ...lk, publishedAt: ts } : lk;
+}
+
+function collectSectorLinks(sec, lookup) {
   const out = [];
   const seen = new Set();
   const add = (lk) => {
-    const u = normalizeExternalUrl(lk?.url);
+    const enriched = enrichLinkPublishedAt(lk, lookup);
+    const u = normalizeExternalUrl(enriched?.url);
     if (!u || seen.has(u)) return;
     seen.add(u);
-    out.push(lk);
+    out.push(enriched);
   };
   for (const lk of Array.isArray(sec.links) ? sec.links : []) add(lk);
   for (const sb of Array.isArray(sec.subsectorBriefs) ? sec.subsectorBriefs : []) {
@@ -285,15 +310,20 @@ function executiveBriefingHasBody(briefing) {
   return EXEC_BRIEF_SECTIONS.some(([key]) => String(sec[key] || "").trim());
 }
 
-function buildRepresentativeSourcesHtml(links) {
+function buildRepresentativeSourcesHtml(links, lookup) {
   const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && normalizeExternalUrl(lk.url));
   if (!rows.length) return "";
   let inner = `<div class="dossier-source-links">`;
   for (const lk of rows) {
-    const u = normalizeExternalUrl(lk.url);
+    const enriched = enrichLinkPublishedAt(lk, lookup);
+    const u = normalizeExternalUrl(enriched.url);
     if (!u) continue;
-    const srcLabel = escapeHtml(formatSourceLinkLabel(lk, u));
+    const srcLabel = escapeHtml(formatSourceLinkLabel(enriched, u));
+    const meta = formatLinkPublishedMeta(enriched);
+    inner += `<span class="dossier-source-item">`;
     inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
+    if (meta) inner += `<span class="sector-topic-source-meta">${escapeHtml(meta)}</span>`;
+    inner += `</span>`;
   }
   inner += `</div>`;
   return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tiêu biểu</p>${inner}</div>`;
@@ -592,7 +622,7 @@ export function buildNewsroomThesisHtml(data, deps) {
     for (const sec of sectors) {
       const name = String(sec.name || "").trim() || "Lĩnh vực";
       const thesis = String(sec.sectorThesis || "").trim();
-      const links = collectSectorLinks(sec);
+      const links = collectSectorLinks(sec, buildArticlePublishedLookup(data));
       if (!thesis && !links.length) continue;
       sectorIndex += 1;
       const id = sectorSlug(name);

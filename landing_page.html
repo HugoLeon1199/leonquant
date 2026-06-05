@@ -547,6 +547,18 @@
       text-decoration: underline !important;
       color: var(--cyan-dim);
     }
+    .dossier-source-item {
+      display: block;
+      margin-bottom: 8px;
+    }
+    .sector-topic-source-meta {
+      display: block;
+      margin: 2px 0 0;
+      font-size: .74rem;
+      line-height: 1.35;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
 
     .overview-part { scroll-margin-top: 88px; margin-bottom: 20px; }
     .overview-part:last-child { margin-bottom: 0; }
@@ -1717,6 +1729,13 @@
       list-style: none;
     }
     .invest-world-item-links li { font-size: .78rem; margin-bottom: 3px; }
+    .invest-world-item-links .link-meta {
+      display: block;
+      margin-top: 2px;
+      font-size: .72rem;
+      color: var(--faint);
+      font-variant-numeric: tabular-nums;
+    }
     .invest-world-item-links a {
       color: var(--cyan-dim);
       text-decoration: none;
@@ -2055,9 +2074,14 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.04);
       font-size: 0.78rem;
       line-height: 1.35;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+    }
+    .pulse-sources-ticker-list .link-meta {
+      display: block;
+      margin-top: 2px;
+      font-size: .7rem;
+      color: var(--faint);
+      font-variant-numeric: tabular-nums;
     }
     .pulse-sources-ticker-list a {
       font-weight: 650;
@@ -2522,7 +2546,7 @@
     }
 
     function formatLinkPublishedMeta(lk) {
-      const date = formatDateVi(lk?.publishedAt);
+      const date = formatDateVi(lk?.publishedAt || lk?.published_at);
       const host = lk?.host || getHostName(lk?.url);
       const src = String(lk?.source || lk?.label || "").trim();
       const bits = [];
@@ -2530,6 +2554,30 @@
       if (src && src !== host) bits.push(src);
       else if (host) bits.push(host);
       return bits.join(" · ");
+    }
+
+    function buildArticlePublishedLookup(data) {
+      const map = new Map();
+      const add = (url, ts) => {
+        const u = normalizeExternalUrl(url);
+        const t = String(ts || "").trim();
+        if (u && t && !map.has(u)) map.set(u, t);
+      };
+      for (const a of Array.isArray(data?.articleLinkIndex) ? data.articleLinkIndex : []) {
+        add(a?.url, a?.publishedAt || a?.published_at);
+      }
+      for (const a of Array.isArray(data?.allArticles) ? data.allArticles : []) {
+        add(a?.url, a?.publishedAt || a?.published_at);
+      }
+      return map;
+    }
+
+    function enrichLinkPublishedAt(lk, lookup) {
+      if (!lk || typeof lk !== "object") return lk;
+      if (String(lk.publishedAt || lk.published_at || "").trim()) return lk;
+      const u = normalizeExternalUrl(lk.url);
+      const ts = lookup?.get(u);
+      return ts ? { ...lk, publishedAt: ts } : lk;
     }
 
     function applyHeroBranding(data) {
@@ -2853,7 +2901,7 @@
       return h;
     }
 
-    function buildDossierSourcesHtml(links) {
+    function buildDossierSourcesHtml(links, lookup) {
       const rows = (Array.isArray(links) ? links : []).filter(
         (lk) => lk && String(lk.url || "").trim(),
       );
@@ -2861,11 +2909,16 @@
       let inner = `<div class="dossier-source-links">`;
       let count = 0;
       for (const lk of rows) {
-        const u = normalizeExternalUrl(lk.url);
+        const enriched = enrichLinkPublishedAt(lk, lookup);
+        const u = normalizeExternalUrl(enriched.url);
         if (!u) continue;
         count += 1;
-        const srcLabel = escapeHtml(formatSourceLinkLabel(lk, u));
+        const srcLabel = escapeHtml(formatSourceLinkLabel(enriched, u));
+        const meta = formatLinkPublishedMeta(enriched);
+        inner += `<span class="dossier-source-item">`;
         inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
+        if (meta) inner += `<span class="sector-topic-source-meta">${escapeHtml(meta)}</span>`;
+        inner += `</span>`;
       }
       if (!count) return "";
       inner += `</div>`;
@@ -3023,14 +3076,15 @@
       return `<span class="stat-pill">${escapeHtml(label)}: <strong>${escapeHtml(v)}</strong></span>`;
     }
 
-    function collectSectorLinks(sec) {
+    function collectSectorLinks(sec, lookup) {
       const out = [];
       const seen = new Set();
       const add = (lk) => {
-        const u = normalizeExternalUrl(lk?.url);
+        const enriched = enrichLinkPublishedAt(lk, lookup);
+        const u = normalizeExternalUrl(enriched?.url);
         if (!u || seen.has(u)) return;
         seen.add(u);
-        out.push(lk);
+        out.push(enriched);
       };
       for (const lk of Array.isArray(sec.links) ? sec.links : []) add(lk);
       for (const sb of Array.isArray(sec.subsectorBriefs) ? sec.subsectorBriefs : []) {
@@ -3250,7 +3304,7 @@
         for (const sec of sectors) {
           const name = String(sec.name || "").trim() || "Lĩnh vực";
           const thesis = String(sec.sectorThesis || "").trim();
-          const links = collectSectorLinks(sec);
+          const links = collectSectorLinks(sec, buildArticlePublishedLookup(data));
           if (!thesis && !links.length) continue;
           sectorIndex += 1;
           const id = sectorSlug(name);
@@ -3621,6 +3675,7 @@
           tone: ev.sentiment_tone ?? ev.tone,
           sentiment_label: ev.sentiment_label || pulseSentimentLabel(ev),
           entities,
+          reported_at: String(ev.reported_at || ev.reportedAt || "").trim(),
           sources: deduped.length ? deduped : sources,
         };
       });
@@ -3650,27 +3705,47 @@
       const seen = new Set();
       const out = [];
       for (const s of sources || []) {
-        const url = normalizePulseUrl(String(s.url || "").trim());
+        if (s && typeof s === "object" && !Array.isArray(s)) {
+          const url = normalizePulseUrl(String(s.url || "").trim());
+          if (!url.startsWith("http")) continue;
+          const key = pulseUrlDedupeKey(url);
+          if (seen.has(key)) continue;
+          seen.add(key);
+          out.push({
+            url,
+            name: String(s.name || "").trim() || pulseSourceLabel(url),
+            publishedAt: String(s.publishedAt || s.published_at || "").trim(),
+          });
+          continue;
+        }
+        const url = normalizePulseUrl(String(s || "").trim());
         if (!url.startsWith("http")) continue;
         const key = pulseUrlDedupeKey(url);
         if (seen.has(key)) continue;
         seen.add(key);
-        out.push({ url, name: String(s.name || "").trim() || pulseSourceLabel(url) });
+        out.push({ url, name: pulseSourceLabel(url), publishedAt: "" });
       }
       return out;
     }
 
-    function buildPulseSourcesTicker(sources) {
+    function buildPulseSourcesTicker(sources, eventReportedAt) {
+      const fallback = String(eventReportedAt || "").trim();
       let list = dedupePulseSources(
-        (Array.isArray(sources) ? sources : []).filter((s) => s && String(s.url || "").startsWith("http"))
-      );
+        (Array.isArray(sources) ? sources : []).filter((s) => s && String(s.url || s || "").startsWith("http"))
+      ).map((src) => ({
+        ...src,
+        publishedAt: String(src.publishedAt || "").trim() || fallback,
+      }));
       if (!list.length) return "";
       const base = list.slice();
       while (list.length < 6) list = list.concat(base);
       const rows = list
         .map((src) => {
           const label = escapeHtml(src.name || pulseSourceLabel(src.url));
-          return `<li><a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
+          const ts = formatDateVi(src.publishedAt);
+          return `<li><a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer">${label}</a>${
+            ts ? `<span class="link-meta">${escapeHtml(ts)}</span>` : ""
+          }</li>`;
         })
         .join("");
       return `<div class="pulse-event-sources-block">
@@ -3727,7 +3802,7 @@
         if (ev.entities && ev.entities.length) {
           h += `<p class="pulse-event-entities"><strong>Tổ chức/liên quan:</strong> ${escapeHtml(ev.entities.join(" · "))}</p>`;
         }
-        h += buildPulseSourcesTicker(ev.sources);
+        h += buildPulseSourcesTicker(ev.sources, ev.reported_at);
         h += `</li>`;
       });
       h += `</ol>`;
@@ -3859,11 +3934,17 @@
             const urls = (Array.isArray(it.source_urls) ? it.source_urls : []).filter((u) =>
               String(u).startsWith("http"),
             );
+            const linkTime = formatDateVi(
+              it.reported_at || it.reportedAt || data?.generated_at_utc || "",
+            );
             if (urls.length) {
               h += `<ul class="invest-world-item-links">`;
               urls.slice(0, 3).forEach((u) => {
-                const label = escapeHtml(pulseSourceLabel(normalizeExternalUrl(u)));
-                h += `<li><a href="${escapeHtml(normalizeExternalUrl(u))}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
+                const nu = normalizeExternalUrl(u);
+                const label = escapeHtml(pulseSourceLabel(nu));
+                h += `<li><a href="${escapeHtml(nu)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+                if (linkTime) h += `<span class="link-meta">${escapeHtml(linkTime)}</span>`;
+                h += `</li>`;
               });
               h += `</ul>`;
             }
@@ -3882,13 +3963,15 @@
           url: normalizeExternalUrl(lk?.url),
           title: String(lk?.title || "").trim(),
           source: String(lk?.source || "").trim(),
+          publishedAt: String(lk?.publishedAt || lk?.published_at || "").trim(),
         }))
         .filter((lk) => lk.url);
       if (!list.length) return "";
       let h = `<ul class="invest-vn-link-rows">`;
       list.forEach((lk) => {
         h += `<li><a href="${escapeHtml(lk.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(lk.title || lk.url)}</a>`;
-        if (lk.source) h += `<span class="link-meta"> — ${escapeHtml(lk.source)}</span>`;
+        const meta = [formatDateVi(lk.publishedAt), lk.source].filter(Boolean).join(" · ");
+        if (meta) h += `<span class="link-meta">${escapeHtml(meta)}</span>`;
         h += `</li>`;
       });
       h += `</ul>`;

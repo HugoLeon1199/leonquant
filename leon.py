@@ -313,7 +313,8 @@ WITH
       GoldsteinScale,
       AvgTone,
       NumArticles,
-      SOURCEURL
+      SOURCEURL,
+      DATEADDED
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
       AND NumArticles >= 40
@@ -364,6 +365,7 @@ WITH
       e.AvgTone,
       e.NumArticles,
       e.SOURCEURL,
+      e.DATEADDED,
       ARRAY_AGG(m.MentionURL IGNORE NULLS ORDER BY m.MentionTimeDate DESC LIMIT {MAX_MENTIONS_PER_EVENT}) AS SourceURLs,
       ARRAY_AGG(DISTINCT m.MentionSourceName IGNORE NULLS LIMIT 10) AS MentionSources,
       COUNT(DISTINCT m.MentionURL) AS source_count
@@ -378,7 +380,8 @@ WITH
       e.GoldsteinScale,
       e.AvgTone,
       e.NumArticles,
-      e.SOURCEURL
+      e.SOURCEURL,
+      e.DATEADDED
   ),
   FilteredGKG AS (
     SELECT
@@ -401,6 +404,7 @@ SELECT
   e.AvgTone AS Diem_Cam_Xuc,
   e.NumArticles AS So_Bao_De_Cap,
   e.SOURCEURL AS Link_Bai_Bao,
+  e.DATEADDED,
   COALESCE(e.SourceURLs, ARRAY<STRING>[]) AS SourceURLs,
   COALESCE(e.MentionSources, ARRAY<STRING>[]) AS MentionSources,
   e.source_count,
@@ -554,6 +558,34 @@ def _parse_bq_array_field(val: Any) -> list[str]:
         if text:
             out.append(text)
     return out
+
+
+def _gdelt_dateadded_to_iso(val: Any) -> str:
+    """GDELT DATEADDED / MentionTimeDate → ISO UTC (YYYYMMDDHHMMSS)."""
+    if val is None:
+        return ""
+    if hasattr(val, "isoformat"):
+        try:
+            dt = val.to_pydatetime() if hasattr(val, "to_pydatetime") else val  # type: ignore[assignment]
+            if getattr(dt, "tzinfo", None) is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc).isoformat()
+        except Exception:
+            pass
+    digits = re.sub(r"\D", "", str(val).strip())
+    if len(digits) >= 14:
+        try:
+            dt = datetime.strptime(digits[:14], "%Y%m%d%H%M%S").replace(tzinfo=timezone.utc)
+            return dt.isoformat()
+        except ValueError:
+            pass
+    if len(digits) >= 8:
+        try:
+            dt = datetime.strptime(digits[:8], "%Y%m%d").replace(tzinfo=timezone.utc)
+            return dt.isoformat()
+        except ValueError:
+            pass
+    return ""
 
 
 def _iter_raw_sequence(val: Any) -> list[Any]:
@@ -2016,6 +2048,7 @@ def _topic_item_from_event(ev: dict[str, Any]) -> dict[str, Any]:
         "num_articles": int(ev.get("num_articles") or 0),
         "source_count": _invest_display_source_count(int(ev.get("source_count") or 0), all_urls),
         "source_urls": urls,
+        "reported_at": str(ev.get("reported_at") or "").strip(),
     }
 
 
@@ -2211,6 +2244,9 @@ def _merge_invest_topic_item(
             all_urls,
         ),
         "source_urls": urls,
+        "reported_at": str(
+            merged.get("reported_at") or it.get("reported_at") or (base_ev or {}).get("reported_at") or ""
+        ).strip(),
     }
 
 
@@ -2948,6 +2984,7 @@ def build_events_from_bq(df: pd.DataFrame, *, channel: str = "world") -> list[di
             ),
             "entities": entities,
             "sources": sources[:MAX_MENTIONS_PER_EVENT],
+            "reported_at": _gdelt_dateadded_to_iso(row.get("DATEADDED")),
             "impact_score": impact_score(
                 rank,
                 tone,
@@ -3290,6 +3327,7 @@ def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, An
         "sentiment_label": str(ev.get("sentiment_label") or ""),
         "entities": list(ev.get("entities") or []),
         "sources": _sources_for_export(ev.get("sources") or []),
+        "reported_at": str(ev.get("reported_at") or "").strip(),
     }
     if channel != "invest":
         base["sources"] = [s["url"] for s in base["sources"]]
