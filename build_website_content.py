@@ -1,6 +1,7 @@
 import argparse
 import copy
 import json
+import os
 import sys
 import re
 import unicodedata
@@ -1686,6 +1687,7 @@ def _links_from_urls(
                 "host": host,
                 "source": src,
                 "label": _link_display_label(host, src),
+                "publishedAt": _published_at_to_iso((art or {}).get("published_at")),
             }
         )
     return out
@@ -2003,6 +2005,10 @@ def _newsroom_sources_to_links(
         art = by_url.get(u)
         host = _url_hostname(u)
         excerpt = str(src.get("excerpt") or "").strip() or _article_excerpt(art)
+        published = (
+            str(src.get("published_at") or src.get("publishedAt") or "").strip()
+            or _published_at_to_iso((art or {}).get("published_at"))
+        )
         links.append(
             {
                 "url": u,
@@ -2011,6 +2017,7 @@ def _newsroom_sources_to_links(
                 "source": str(src.get("source") or (art.get("source") if art else "") or ""),
                 "label": _link_display_label(host, str(src.get("source") or "")),
                 "excerpt": excerpt,
+                "publishedAt": published,
             }
         )
     return links
@@ -2607,6 +2614,98 @@ def _digest_multisector_to_strategy_snake(
     return out
 
 
+DEFAULT_INTEL_DB = PROJECT_DIR / "data" / "web_intel_leonquant.duckdb"
+
+
+def _published_at_to_iso(val: Any) -> str:
+    if val is None:
+        return ""
+    if hasattr(val, "isoformat"):
+        try:
+            dt = val.to_pydatetime() if hasattr(val, "to_pydatetime") else val  # type: ignore[assignment]
+            if getattr(dt, "tzinfo", None) is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc).isoformat()
+        except Exception:
+            pass
+    return str(val).strip()
+
+
+def _resolve_intel_root() -> Path | None:
+    env = os.environ.get("LEON_WEB_INTEL_ROOT")
+    if env:
+        p = Path(env).resolve()
+        return p if (p / "src" / "storage" / "db.py").is_file() else None
+    vendored = PROJECT_DIR / "leon_web_intel"
+    if (vendored / "src" / "storage" / "db.py").is_file():
+        return vendored
+    sibling = PROJECT_DIR.parent / "leon_web_intel"
+    if (sibling / "src" / "storage" / "db.py").is_file():
+        return sibling
+    return None
+
+
+def _enrich_articles_from_intel_db(articles: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Backfill published_at/source từ DuckDB crawl khi JSON AI export chưa có."""
+    if not articles:
+        return articles
+    db_path = DEFAULT_INTEL_DB
+    if not db_path.is_file():
+        return articles
+    intel = _resolve_intel_root()
+    if not intel:
+        return articles
+    need_urls = [
+        str(a.get("url") or "").strip()
+        for a in articles
+        if str(a.get("url") or "").strip()
+        and not str(a.get("published_at") or "").strip()
+    ]
+    if not need_urls:
+        return articles
+    meta_by_url: dict[str, dict[str, Any]] = {}
+    try:
+        sys.path.insert(0, str(intel / "src"))
+        from storage.db import WebIntelDB  # noqa: E402
+
+        db = WebIntelDB(db_path)
+        try:
+            for i in range(0, len(need_urls), 200):
+                chunk = need_urls[i : i + 200]
+                placeholders = ", ".join("?" for _ in chunk)
+                rows = db.conn.execute(
+                    f"""
+                    SELECT url, published_at, source_id
+                    FROM articles
+                    WHERE url IN ({placeholders})
+                    """,
+                    chunk,
+                ).fetchdf()
+                for row in rows.to_dict("records"):
+                    u = str(row.get("url") or "").strip()
+                    if u:
+                        meta_by_url[u] = row
+        finally:
+            db.close()
+    except Exception:
+        return articles
+
+    out: list[dict[str, Any]] = []
+    for art in articles:
+        row = dict(art)
+        u = str(row.get("url") or "").strip()
+        meta = meta_by_url.get(u) if u else None
+        if meta and not str(row.get("published_at") or "").strip():
+            iso = _published_at_to_iso(meta.get("published_at"))
+            if iso:
+                row["published_at"] = iso
+        if not str(row.get("source") or "").strip():
+            sid = str((meta or {}).get("source_id") or "").strip()
+            row["source"] = sid or _url_hostname(u)
+        out.append(row)
+    return out
+
+
 def articles_payload_from_for_ai(path: Path) -> dict[str, Any]:
     """``news_for_ai.json`` / ``news_for_ai_clean.json`` → shape for ``build_all_article_cards``."""
     data = load_json(path)
@@ -2618,18 +2717,21 @@ def articles_payload_from_for_ai(path: Path) -> dict[str, Any]:
         if not url:
             continue
         text = str(row.get("text") or row.get("content_for_ai") or "").strip()
+        published = _published_at_to_iso(row.get("published_at")) or str(row.get("published_at") or "").strip()
+        source = str(row.get("source") or "").strip() or _url_hostname(url)
         articles.append(
             {
                 "title": str(row.get("title") or "Tin").strip() or "Tin",
                 "url": url,
-                "source": str(row.get("source") or "").strip(),
+                "source": source,
                 "category": str(row.get("category") or "").strip(),
                 "region": str(row.get("region") or "").strip(),
-                "published_at": str(row.get("published_at") or "").strip(),
+                "published_at": published,
                 "summary": text[:800] if text else "",
                 "content_for_ai": text,
             }
         )
+    articles = _enrich_articles_from_intel_db(articles)
     return {
         "generated_at": data.get("generated_at"),
         "count": len(articles),

@@ -93,6 +93,17 @@ function formatSourceLinkLabel(lk, url) {
   return host || src || url;
 }
 
+function formatLinkPublishedMeta(lk) {
+  const date = formatDateVi(lk?.publishedAt);
+  const host = lk?.host || getHostName(lk?.url);
+  const src = String(lk?.source || lk?.label || "").trim();
+  const bits = [];
+  if (date) bits.push(date);
+  if (src && src !== host) bits.push(src);
+  else if (host) bits.push(host);
+  return bits.join(" · ");
+}
+
 function newsroomCountStories(data) {
   let dossiers = 0;
   for (const sec of Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : []) {
@@ -243,8 +254,10 @@ function buildSectorArticleLinksHtml(links) {
     const u = normalizeExternalUrl(lk.url);
     const title = escapeHtml(lk.title || u);
     const excerpt = String(lk.excerpt || "").trim();
+    const meta = formatLinkPublishedMeta(lk);
     html += `<article class="sector-article-link">`;
     html += `<a class="sector-article-link-title" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
+    if (meta) html += `<p class="sector-article-link-meta">${escapeHtml(meta)}</p>`;
     if (excerpt) {
       const paras = excerpt.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
       if (paras.length > 1) {
@@ -340,7 +353,9 @@ function buildArticleArchiveHtml(articles) {
     const u = normalizeExternalUrl(L.url);
     if (!u) continue;
     const title = escapeHtml(L.title || L.host || u);
-    const meta = escapeHtml([L.source, L.host].filter(Boolean).join(" · "));
+    const meta = escapeHtml(
+      [formatDateVi(L.publishedAt), L.source, L.host].filter(Boolean).join(" · ")
+    );
     h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
     if (meta) h += `<span class="link-meta">${meta}</span>`;
     h += `</li>`;

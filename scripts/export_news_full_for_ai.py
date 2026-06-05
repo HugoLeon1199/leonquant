@@ -26,15 +26,46 @@ def resolve_intel_root() -> Path:
     return QUANT_ROOT.parent / "leon_web_intel"
 
 
+def _published_at_iso(val: Any) -> str:
+    if val is None:
+        return ""
+    if hasattr(val, "isoformat"):
+        try:
+            dt = val.to_pydatetime() if hasattr(val, "to_pydatetime") else val  # type: ignore[assignment]
+            if getattr(dt, "tzinfo", None) is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc).isoformat()
+        except Exception:
+            pass
+    return str(val).strip()
+
+
+def _host_from_url(url: str) -> str:
+    try:
+        from urllib.parse import urlparse
+
+        host = (urlparse(url).hostname or "").lower()
+        return host[4:] if host.startswith("www.") else host
+    except Exception:
+        return ""
+
+
 def row_to_ai_article(row: dict[str, Any]) -> dict[str, Any]:
     url = str(row.get("url") or "")
     title = str(row.get("title") or "").strip() or "Untitled"
     content = str(row.get("content") or "")
-    return {
+    published = _published_at_iso(row.get("published_at"))
+    source = str(row.get("source_id") or row.get("source") or "").strip() or _host_from_url(url)
+    out: dict[str, Any] = {
         "title": title,
         "url": url,
         "text": content,
     }
+    if published:
+        out["published_at"] = published
+    if source:
+        out["source"] = source
+    return out
 
 
 def resolve_export_calendar_date(date_arg: str, tz_name: str) -> str:
@@ -166,7 +197,7 @@ def main() -> int:
             "mode": export_mode,
             "rolling_hours": rolling_hours if rolling_hours > 0 else None,
         },
-        "schema": ["title", "url", "text"],
+        "schema": ["title", "url", "text", "published_at", "source"],
         "articles": articles,
     }
     if clean_stats:

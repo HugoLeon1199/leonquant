@@ -259,12 +259,110 @@ def _digest_sector_routing_block() -> str:
 
 
 def _digest_executive_overview_editing_block() -> str:
+    return _digest_executive_briefing_writing_block()
+
+
+def _digest_anti_rule_leak_block() -> str:
     return "\n".join(
         [
-            "## Executive overview (5–8 bullet, không trùng ý)",
-            "- Mỗi bullet: **[Diễn biến chính] → [vì sao đáng chú ý / biến số theo dõi]**.",
-            "- Gom nếu trùng: Trung Đông/Iran/Hormuz → **một** bullet; AI/chip/chứng khoán công nghệ → **một**; VN BĐS/hạ tầng/thuế → **một**.",
-            "- **Cấm** hai bullet cùng nói lạm phát VN, cùng nói AI, cùng nói Trung Đông.",
+            "## Cấm lộ rule/prompt trong văn bản public (TUYỆT ĐỐI)",
+            "Mọi trường người đọc thấy (`executive_briefing`, `sector_thesis`, dossier, excerpt) phải là **tin tức/bài briefing**, không phải hướng dẫn nội bộ.",
+            "**Không** viết câu kiểu quy tắc biên tập — ví dụ SAI:",
+            '- "Thể thao và giải trí chỉ nên xuất hiện trong bản tin chính khi có tác động kinh tế – văn hóa rõ ràng."',
+            "Viết ĐÚNG — kể câu chuyện cụ thể:",
+            '- "World Cup 2026 nổi bật như một câu chuyện kinh tế – văn hóa, khi giải đấu trở thành điểm giao giữa truyền thông, tài trợ, tiêu dùng và cạnh tranh thương hiệu."',
+            "**Cấm** các cụm (và biến thể gần nghĩa) trong output public:",
+            "- chỉ nên xuất hiện / không nên đưa vào / nếu có tác động thì",
+            "- theo rule / theo prompt / theo quy tắc / dữ liệu cho thấy lặp quá nhiều",
+            "- đáng chú ý (nếu không giải thích cụ thể ngay sau đó)",
+            "- diễn biến phức tạp / tác động lớn / theo dõi diễn biến tiếp trong 24–72 giờ",
+            "- để người đọc thấy / bản tin này gom / người đọc cần theo dõi",
+            "Khi lọc nhiễu: **im lặng bỏ tin**, không giải thích rule vì sao bỏ.",
+        ]
+    )
+
+
+def _digest_executive_briefing_writing_block() -> str:
+    return "\n".join(
+        [
+            "## Tổng quan 48h (`executive_briefing`) — viết như bài briefing thật",
+            "Đây là **bài tổng hợp** (không phải outline, không phải bullet rời, không phải nhãn + một câu).",
+            "Độ dài gợi ý: **500–10.000 chữ** nếu pools đủ dày — chia **đoạn văn** có mạch, mỗi đoạn nhiều câu nối ý.",
+            "**Không** viết kiểu template:",
+            '- "Bức tranh chính: một câu." / "Chủ đề được nhắc nhiều nhất: một câu."',
+            "UI có heading riêng — **không** lặp nhãn mục trong nội dung; chỉ viết thân bài.",
+            "Bài phải nối được:",
+            "- Chủ đề nào xuất hiện **nhiều nhất** trong 48h (và vì sao).",
+            "- Câu chuyện nào **thật sự quan trọng nhất** (actor, sự kiện, không headline rời).",
+            "- Các dòng tin **liên kết** với nhau ra sao (cùng một bức tranh, không danh sách).",
+            "- Ảnh hưởng tới **ngành/khu vực** nào.",
+            "- **24–72h** tới nên theo dõi biến số gì (cụ thể, không câu rỗng).",
+            "Dùng `executive_briefing.sections` — mỗi key là **một hoặc nhiều đoạn** prose liền mạch:",
+            "- `main_picture`: mở bài — bức tranh chung 48h, các trục lớn cùng diễn ra.",
+            "- `most_mentioned`: chủ đề được nhắc nhiều + bằng chứng từ pools.",
+            "- `top_stories`: câu chuyện quan trọng nhất + mối liên hệ giữa chúng.",
+            "- `sector_impacts`: tác động theo ngành/khu vực (nối ý, không liệt kê sector).",
+            "- `watch_24_72h`: đoạn hoặc bullet **cụ thể** (tên tài sản, chính sách, sự kiện) — không filler.",
+            "`executive_briefing.content` (legacy): cùng chất lượng, có thể gộp toàn bộ sections.",
+            "Gom chủ đề trùng: Trung Đông/Iran/Hormuz → **một** luồng; AI/chip/capex → **một**; VN BĐS/hạ tầng/thuế → **một**.",
+        ]
+    )
+
+
+def _digest_sector_narrative_block() -> str:
+    return "\n".join(
+        [
+            "## Đi sâu theo từng ngành (`sector_thesis`) — bài tóm tắt ngành có mạch",
+            "Mỗi `sector_thesis` là **một bài** (nhiều đoạn), không nối summary dossier rời rạc.",
+            "**Không** viết: \"Tin A xảy ra. Tin B xảy ra. Tin C xảy ra.\"",
+            "**Viết**: \"Các tin A, B, C cùng cho thấy xu hướng…\" / \"Điểm đáng chú ý là các tín hiệu này không tách rời…\"",
+            "Cấu trúc gợi ý (4+ đoạn, linh hoạt theo dữ liệu):",
+            "- **Đoạn 1:** Ngành này 48h qua nổi bật vì điều gì (thesis mở).",
+            "- **Đoạn 2–4:** Các tin chính **liên kết** với nhau — actor, diễn biến, quan hệ nhân quả.",
+            "- **Đoạn cuối:** Tác động, rủi ro, hoặc biến số cần theo dõi tiếp.",
+            "Link nguồn (`representative_sources` / pools) đặt **sau** khi đã viết xong thân bài — thân bài không được đọc như chuỗi excerpt.",
+            "Không lặp nguyên văn `executive_briefing`; đi sâu hơn vào ngành đó.",
+        ]
+    )
+
+
+def _digest_source_excerpt_rules_block() -> str:
+    return "\n".join(
+        [
+            "## Trích yếu nguồn (`representative_sources[].excerpt`)",
+            "Mỗi nguồn tiêu biểu kèm `excerpt` (trích yếu biên tập, **không** copy máy summary RSS):",
+            "- **2–9 câu** tiếng Việt.",
+            "- Nói rõ bài đó **củng cố luận điểm nào** trong đoạn ngành/dossier gần nhất.",
+            "- Dùng fact từ input; không bịa; không lặp nguyên headline.",
+            "- Không viết \"bài này đáng chú ý\" chung chung — phải chỉ ra ý cụ thể.",
+        ]
+    )
+
+
+def _digest_newsroom_prose_example_block() -> str:
+    return "\n".join(
+        [
+            "## Mẫu văn (học giọng và cách nối ý — KHÔNG copy dữ liệu nếu input khác)",
+            "Hãy học giọng văn và cách nối ý của mẫu dưới đây, nhưng không copy dữ liệu nếu input khác.",
+            "Viết như biên tập viên đang tổng hợp 48h tin tức, không viết như nối các summary rời rạc.",
+            "",
+            "### Tổng quan 48h (mẫu)",
+            "",
+            "Trong 48 giờ qua, dòng tin nổi bật không nằm ở một sự kiện đơn lẻ, mà ở sự dịch chuyển đồng thời của ba trục lớn: thị trường tài sản rủi ro thận trọng hơn, công nghệ AI tiếp tục hút vốn, và chính sách tại Việt Nam bước vào giai đoạn cụ thể hóa mạnh hơn. Crypto, vàng, AI, bán dẫn, tài sản số, hạ tầng và năng lượng cùng xuất hiện dày đặc, cho thấy thị trường đang vừa phòng thủ trước biến động ngắn hạn, vừa tìm kiếm các câu chuyện tăng trưởng có nền tảng dài hạn.",
+            "",
+            "Ở lớp thị trường, Bitcoin và nhóm tài sản số được nhắc nhiều vì đang chịu áp lực điều chỉnh sau giai đoạn tăng mạnh. Điều đáng chú ý không chỉ là giá giảm, mà là cách dòng tiền đang được tái định vị: rời khỏi các tài sản mang tính đầu cơ cao và hướng sang những lĩnh vực có câu chuyện thực hơn như AI, bán dẫn, trung tâm dữ liệu và hạ tầng năng lượng. Đây là tín hiệu cho thấy khẩu vị rủi ro đang thay đổi.",
+            "",
+            "Tại Việt Nam, nhóm tin quan trọng xoay quanh việc hoàn thiện hành lang pháp lý cho tài sản số, siết tiêu chí doanh nghiệp tham gia thị trường tài sản mã hóa, thúc đẩy trung tâm tài chính quốc tế, tháo gỡ điểm nghẽn bất động sản và đẩy nhanh hạ tầng. Các tin này cùng cho thấy chính sách đang chuyển từ giai đoạn định hướng sang giai đoạn thiết kế luật chơi.",
+            "",
+            "Trong công nghệ, AI không còn chỉ là câu chuyện ứng dụng phần mềm. Các bài viết nổi bật cho thấy AI đang kéo theo nhu cầu về bán dẫn, dữ liệu, trung tâm dữ liệu, năng lực lưu trữ và khả năng triển khai trong ngân hàng, tài chính, sản xuất và dịch vụ.",
+            "",
+            "Trong 24–72 giờ tới, các biến số cần theo dõi gồm: phản ứng của thị trường với Bitcoin và tài sản số; diễn biến giá vàng trong nước so với thế giới; các văn bản cụ thể về tài sản mã hóa tại Việt Nam; tiến độ các dự án hạ tầng; và dòng tin mới về AI, bán dẫn, dữ liệu và trung tâm tài chính.",
+            "",
+            "### Đi sâu theo từng ngành (mẫu — Kinh tế & Tài chính, rút gọn)",
+            "",
+            "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi bốn nhóm tín hiệu: tài sản số chịu áp lực, giá vàng điều chỉnh, nhập siêu tăng mạnh và chính sách tài chính trong nước bước vào giai đoạn rõ nét hơn. Điểm đáng chú ý là các tín hiệu này không tách rời nhau. Chúng cùng phản ánh một thị trường đang đánh giá lại rủi ro, dòng vốn và kỳ vọng chính sách.",
+            "",
+            "Với tài sản số, câu chuyện không chỉ là Bitcoin giảm giá. Điều quan trọng hơn là tâm lý thị trường đang thay đổi: dòng tiền có dấu hiệu rời khỏi các tài sản mang tính đầu cơ cao và tìm đến các lĩnh vực có nền tảng tăng trưởng thực tế hơn. Trong bối cảnh Việt Nam cũng đang đẩy nhanh khung pháp lý cho tài sản số, chủ đề này trở thành giao điểm giữa thị trường toàn cầu và chính sách tài chính trong nước.",
         ]
     )
 
@@ -323,7 +421,8 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
                 _digest_headline_rewrite_block(),
                 _digest_sector_routing_block(),
                 _digest_content_polish_block(),
-                _digest_executive_overview_editing_block(),
+                _digest_executive_briefing_writing_block(),
+                _digest_anti_rule_leak_block(),
                 _digest_coverage_sanity_block(),
                 _digest_sector_summary_rules_block(for_merge=True),
             ]
@@ -340,24 +439,16 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
 
 def _digest_sector_summary_rules_block(*, for_merge: bool = False) -> str:
     lines = [
-        "## Đoạn ngành (`sector_thesis`) — viết đủ ý, không cap độ dài",
+        "## Đoạn ngành (`sector_thesis`)",
         "- Chỉ dùng candidates/pools đã crawl; **không bịa** actor, số liệu, hay sự kiện.",
-        "- **Không** giới hạn số từ, câu, hay ký tự — dài bao nhiêu tùy mật độ tin thật trong pool.",
-        "- Crawl ~1000 bài → sector giàu tin phải kể **hết** luồng A/B quan trọng, không gói cả ngành vào 1–2 câu.",
-        "- Mỗi luồng: ai làm gì, diễn biến gì, tác động tới đâu; gom chủ đề trùng, không copy headline rời.",
-        "- **Không** câu meta ('để người đọc thấy', 'bản tin này gom'); **không** lặp nguyên văn `executive_briefing`.",
+        "- Viết **bài tóm tắt ngành** nhiều đoạn — không cap độ dài; pool dày thì viết dài và có chiều sâu.",
+        "- Gom luồng A/B thành **câu chuyện liền mạch**; không chuỗi headline, không nối dossier summary rời.",
     ]
     if for_merge:
-        lines.extend(
-            [
-                "- `sector_thesis` là **đoạn chính** người đọc thấy ở mục từng ngành — phải **sâu hơn** đoạn tương ứng trong `executive_briefing.sections.sector_impacts`.",
-                "- Khi sector có **≥15** candidates: `sector_thesis` **nhiều đoạn**, bao phủ **mọi** `story_dossiers` tier A/B (không bỏ sót cụm lớn chỉ vì muốn gọn).",
-                "- Nối dossiers/subsector thành **narrative liền mạch**; `story_dossiers` là chi tiết từng cụm, không thay thế `sector_thesis` bằng summary một dòng.",
-            ]
-        )
+        lines.append(_digest_sector_narrative_block())
     else:
         lines.append(
-            "- Partial: `sector_notes[].summary` là **nháp đủ luồng** trong chunk — không cắt vì sợ dài; merge sẽ viết bản chính."
+            "- Partial: `sector_notes[].summary` ghi **luồng + mối liên hệ** trong chunk (nháp cho merge), không cắt vì sợ dài."
         )
     return "\n".join(lines)
 
@@ -393,8 +484,8 @@ def _digest_newsroom_voice_block() -> str:
             "- Mỗi nhận định lớn phải có `representative_sources` URL thật từ input; không URL → không claim lớn.",
             "- **Không** tạo section UI “Điểm nóng”: tích hợp điểm nóng vào `executive_briefing.sections` và `sector_deep_briefs`.",
             "- `front_page` chỉ compatibility nội bộ; không dùng làm section render chính.",
-            "- Tránh câu rỗng kiểu 'đáng chú ý', 'phức tạp', 'tác động lớn', 'theo dõi diễn biến tiếp trong 24-72 giờ'.",
-            "- **Cấm** câu hướng dẫn người đọc: 'để người đọc thấy rõ', 'bản tin này gom', 'người đọc cần theo dõi'. Chỉ kể tin và câu chuyện đang xảy ra.",
+            "- Viết **prose có mạch** — không outline, không nhãn + một câu, không danh sách tin rời.",
+            _digest_anti_rule_leak_block(),
         ]
     )
 
@@ -402,17 +493,17 @@ def _digest_newsroom_voice_block() -> str:
 def _digest_story_dossier_rules_block() -> str:
     return "\n".join(
         [
-            "## Story dossier (trọng tâm output)",
-            "Mỗi `story_dossier` **không** chỉ là headline. Bắt buộc:",
+            "## Story dossier (cụm tin — nội bộ, không thay `sector_thesis`)",
+            "Dossier bổ sung chi tiết từng cụm; **thân bài ngành** vẫn là `sector_thesis` viết mạch.",
             "- `title`: tiêu đề biên tập (tiếng Việt, không giật).",
-            "- `summary`: ý chính — đủ rõ, không cap độ dài.",
-            "- `main_developments`: **3–5+** ý từ **nhiều bài** cùng cụm (diễn biến có thứ tự logic); thêm ý nếu pool dày.",
-            "- `why_it_matters`: giải thích tác động — **đủ sâu theo dữ liệu**, không quota từ; story lớn viết dài hơn.",
+            "- `summary`: ý chính cụm — nối ý, không một headline.",
+            "- `main_developments`: **3–5+** ý từ nhiều bài cùng cụm (thứ tự logic).",
+            "- `why_it_matters`: tác động cụ thể — đủ sâu theo dữ liệu.",
             "- `affected_groups`: mảng ngắn (nhóm/tài sản/ngành/quốc gia).",
-            "- `watch_next`: mảng biến số **24–72h**.",
-            "- `representative_sources`: **1–5** object `{title, source, url}` — URL **chỉ** từ input crawl.",
-            "- `depth_level`: `brief` | `deep` | `major` — phân loại độ sâu; story nhiều nguồn/tác động đa ngành → `major`.",
-            "**Không** viết 2–3 dòng sơ sài khi pool có nhiều bài cùng cụm.",
+            "- `watch_next`: biến số **24–72h** cụ thể (tên, không filler).",
+            "- `representative_sources`: **1–5** object `{title, source, url, excerpt}` — URL từ crawl; `excerpt` theo quy tắc trích yếu.",
+            "- `depth_level`: `brief` | `deep` | `major`.",
+            _digest_source_excerpt_rules_block(),
         ]
     )
 
@@ -424,7 +515,7 @@ def _digest_newsroom_json_schema_fragment() -> str:
           "key_points": ["ý chính 1", "ý chính 2"],
           "key_story_titles": ["Tên story dossier liên quan"],
           "representative_sources": [
-            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl"}
+            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "2-9 câu: bài này củng cố luận điểm gì trong ngành/dossier."}
           ]
         }"""
     sector_blocks = []
@@ -439,7 +530,7 @@ def _digest_newsroom_json_schema_fragment() -> str:
           "affected_groups": ["...", "..."],
           "watch_next": ["...", "..."],
           "representative_sources": [
-            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl"}
+            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "2-9 câu trích yếu biên tập."}
           ]
         }"""
     for code, label in DIGEST_FOUR_SECTORS:
@@ -447,7 +538,7 @@ def _digest_newsroom_json_schema_fragment() -> str:
             f"""    {{
       "code": "{code}",
       "name": "{label}",
-      "sector_thesis": "Tóm tắt đủ ý ngành 48h — không giới hạn độ dài; viết hết điểm quan trọng Gemini thấy.",
+      "sector_thesis": "Bài tóm tắt ngành nhiều đoạn: mở thesis → tin chính liên kết → tác động/theo dõi. Không chuỗi headline.",
       "subsector_briefs": [
 {subsector}
       ],
@@ -465,15 +556,15 @@ def _digest_newsroom_json_schema_fragment() -> str:
   "executive_briefing": {{
     "title": "Tóm tắt tổng quan 48h",
     "sections": {{
-      "main_picture": "Bức tranh chính — đủ ý từ pools, không cap độ dài.",
-      "most_mentioned": "Chủ đề được nhắc nhiều nhất — đủ ý, không cap.",
-      "top_stories": "Câu chuyện quan trọng nhất — đủ ý, không cap.",
-      "sector_impacts": "Tác động theo khu vực/ngành — đủ ý, không cap.",
-      "watch_24_72h": "Theo dõi 24-72h tới — bullet cụ thể."
+      "main_picture": "Đoạn văn mở — bức tranh chung 48h (nhiều câu, có mạch).",
+      "most_mentioned": "Đoạn văn — chủ đề được nhắc nhiều + vì sao.",
+      "top_stories": "Đoạn văn — câu chuyện quan trọng nhất + liên kết giữa chúng.",
+      "sector_impacts": "Đoạn văn — tác động theo ngành/khu vực (nối ý).",
+      "watch_24_72h": "Đoạn hoặc bullet — biến số 24-72h cụ thể."
     }},
-    "content": "Legacy fallback nếu không dùng sections — đủ ý từ pools.",
+    "content": "Legacy: cùng chất briefing prose (500-10000 chữ nếu pools dày).",
     "representative_sources": [
-      {{"title": "...", "source": "...", "url": "https://url-that-tu-crawl"}}
+      {{"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "2-9 câu trích yếu."}}
     ],
     "most_mentioned_topics": [
       {{"topic": "...", "why_mentioned": "...", "evidence_hint": "..."}}
@@ -2402,8 +2493,19 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
     eb_total = len(eb_content) + len(section_text)
     if not eb_content and not section_text:
         warnings.append("executive_briefing trống (thiếu content và sections).")
-    elif eb_total < 800:
-        warnings.append("executive_briefing quá ngắn (<800 ký tự tổng).")
+    elif eb_total < 1500:
+        warnings.append("executive_briefing quá ngắn (<1500 ký tự tổng — có thể giống outline).")
+    for key, label in (
+        ("main_picture", "main_picture"),
+        ("most_mentioned", "most_mentioned"),
+        ("top_stories", "top_stories"),
+        ("sector_impacts", "sector_impacts"),
+    ):
+        sec_len = len(str(eb_sections.get(key) or "").strip())
+        if sec_len and sec_len < 120:
+            warnings.append(
+                f"executive_briefing.sections.{label} quá ngắn ({sec_len} ký tự) — có thể giống outline."
+            )
     if not (eb.get("representative_sources") or []):
         warnings.append("executive_briefing thiếu representative_sources.")
     generic_hits = sum(
@@ -2439,10 +2541,21 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
             if str(d.get("why_it_matters") or "").strip()
             or len(d.get("main_developments") or []) >= 2
         )
-        if rich_dossiers >= 2 and len(thesis) < 500:
+        if rich_dossiers >= 2 and len(thesis) < 800:
             warnings.append(
                 f"sector_deep_briefs[{i}] ({code}) sector_thesis quá ngắn "
-                f"({len(thesis)} ký tự) dù có {rich_dossiers} dossier có nội dung."
+                f"({len(thesis)} ký tự) dù có {rich_dossiers} dossier — có thể giống nối dossier rời."
+            )
+        leak_frags = (
+            "chỉ nên xuất hiện",
+            "không nên đưa vào",
+            "theo rule",
+            "theo prompt",
+            "dữ liệu cho thấy lặp quá nhiều",
+        )
+        if any(frag in thesis.lower() for frag in leak_frags):
+            warnings.append(
+                f"sector_deep_briefs[{i}] ({code}) sector_thesis có dấu hiệu lộ rule/prompt nội bộ."
             )
         for k, sb in enumerate(sec.get("subsector_briefs") or []):
             if not isinstance(sb, dict):
@@ -3575,7 +3688,8 @@ Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính 
 - `sector_notes` đủ 4 mã; mỗi mục: `priority_tier`, headline, `summary_hint`, 1 URL, `reason_selected`.
 - `notable_articles`: chỉ tin tier A thật nổi bật trong phần (không cố đủ số).
 {_digest_four_sector_rules_block()}
-- Chunk `summary`: nháp đủ luồng trong phần (merge viết bản chính, không cap độ dài).
+- Chunk `summary`: nháp **luồng + mối liên hệ** trong phần (merge viết briefing/dossier chính).
+- `summary_hint` / `reason_selected`: cụ thể actor+sự kiện — material cho merge viết prose, không câu rule.
 {outline_block}
 ## Cửa sổ: {window_desc}
 
@@ -3721,18 +3835,22 @@ def build_digest_merge_prompt(
 ## Minimum chất lượng (BẮT BUỘC khi candidate pools giàu)
 - Khi mỗi sector có **≥15** candidates trong pools: `front_page` **ít nhất 5** story; mỗi sector **ít nhất 3** `story_dossiers` **khác chủ đề**.
 - Mỗi `front_page` / `story_dossiers` **bắt buộc** có URL từ pools (`source_urls` / `representative_sources`) — **cấm** để trống khi candidate có URL.
-- Khi pools tổng **≥ 80** candidates: `executive_briefing` phải **đủ sâu** (actor, sự kiện, tác động) — không bullet generic, không cap cứng ký tự.
+- Khi pools tổng **≥ 80** candidates: `executive_briefing` **≥ 500 chữ** tổng (sections + content), prose có mạch — không outline một câu/mục.
 - Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
 
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}
 {_digest_source_urls_block()}
-- `executive_briefing`: tổng hợp tin đúng và đủ ý; **không** giới hạn độ dài cứng; **cấm** câu meta kiểu "để người đọc thấy rõ", "bản tin này gom", "người đọc cần theo dõi".
+- `editor_note`: **để trống** hoặc rất ngắn — UI không hiển thị Lời biên tập riêng; nội lực đổ vào `executive_briefing`.
+- `executive_briefing`: **bài briefing thật** (xem quy tắc trên) — không outline; sections mỗi mục nhiều đoạn khi pools dày.
 - **Không** viết section “Điểm nóng” riêng. `front_page` tối đa 8 item compatibility, có `source_urls`.
-- `sector_deep_briefs`: đúng **4** sector; `sector_thesis` là **trọng tâm** mục ngành — viết đủ mọi luồng lớn từ pools, nhiều đoạn khi cần; chỉ kể chuyện đang xảy ra, không hướng dẫn người đọc.
+- `sector_deep_briefs`: đúng **4** sector; `sector_thesis` = bài tóm tắt ngành có mạch (không nối dossier rời).
+- Mọi `representative_sources` quan trọng: thêm `excerpt` 2–9 câu (trích yếu biên tập).
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
 - `watchlist_24_72h`: **4–8** chủ đề theo dõi 24–72h.
 - `source_desk`: **3–8** nhóm nguồn đại diện theo chủ đề lớn.
+
+{_digest_newsroom_prose_example_block()}
 
 CHỈ dùng dữ liệu được cung cấp. **Cấm** tự tạo URL.
 

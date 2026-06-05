@@ -351,3 +351,17 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Guardrails | Không thêm hard-code phân ngành con bằng regex để thay Gemini; URL public vẫn đi qua sanitize whitelist |
 | Test ran | `python -m py_compile summarize_news_gemini.py build_website_content.py`; `python scripts/test_newsroom_digest.py`; `python build_website_content.py --skip-images --skip-notable-images`; `node scripts/embed_public_brief_into_html.mjs landing_page.html content.json` |
 | Runtime limit | `python summarize_news_gemini.py --mode digest` bị Gemini HTTP 429 (rate limit) nên dừng run; build local dùng payload sẵn có, vì vậy `executive_briefing.content` đang bị warn trống ở sample hiện tại |
+
+## 2026-06-05 — Tin48h Gemini prompts: briefing prose + anti rule-leak
+
+| Area | Detail |
+|------|--------|
+| Scope | **Prompt only** (+ minimal excerpt passthrough in sanitize); không đổi layout/UI/crawler/GDELT/live/invest |
+| `summarize_news_gemini.py` | Thêm blocks: `_digest_executive_briefing_writing_block`, `_digest_sector_narrative_block`, `_digest_anti_rule_leak_block`, `_digest_source_excerpt_rules_block`, `_digest_newsroom_prose_example_block` (mẫu văn user) |
+| Tổng quan 48h | `executive_briefing.sections` = đoạn văn briefing (gợi ý 500–10.000 chữ); cấm outline nhãn + 1 câu |
+| Từng ngành | `sector_thesis` = bài 4+ đoạn có mạch (mở → tin liên kết → tác động); cấm chuỗi headline/dossier rời |
+| Anti leak | Cấm cụm rule/prompt (“chỉ nên xuất hiện”, “theo rule”, …); validate warn nếu `sector_thesis` lộ rule |
+| Nguồn | Schema `representative_sources[].excerpt` 2–9 câu; `newsroom_source_match.sanitize_representative_sources` giữ `excerpt` |
+| Merge prompt | Gắn mẫu văn + `editor_note` để trống; minimum executive ≥500 chữ khi pools ≥80 |
+| Tests | `python scripts/test_newsroom_digest.py` — thêm `test_merge_prompt_briefing_quality_guidance`, `test_sanitize_preserves_source_excerpt` |
+| Apply | Chạy `--merge-only` (hoặc full digest loop) để Gemini sinh bản mới theo prompt |

@@ -225,10 +225,15 @@ def sanitize_representative_sources(
     context: str = "",
 ) -> list[dict[str, str]]:
     rows = sources if isinstance(sources, list) else []
+    excerpt_by_url: dict[str, str] = {}
     raw_urls: list[str] = []
     for row in rows:
         if isinstance(row, dict) and str(row.get("url") or "").strip():
-            raw_urls.append(str(row.get("url") or "").strip())
+            u = str(row.get("url") or "").strip()
+            raw_urls.append(u)
+            ex = str(row.get("excerpt") or "").strip()
+            if ex:
+                excerpt_by_url[u] = ex
     valid = filter_urls_for_story(
         raw_urls, headline, index, context=context, sector_code=sector_code
     )
@@ -237,7 +242,10 @@ def sanitize_representative_sources(
         art = index.by_url.get(u) if index and index.active else None
         title = str((art or {}).get("title") or "").strip()
         src = str((art or {}).get("source") or "").strip()
-        out.append({"title": title or u, "source": src, "url": u})
+        item: dict[str, str] = {"title": title or u, "source": src, "url": u}
+        if excerpt_by_url.get(u):
+            item["excerpt"] = excerpt_by_url[u]
+        out.append(item)
         if len(out) >= 5:
             break
     return out

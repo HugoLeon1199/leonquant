@@ -172,7 +172,12 @@ def clean_articles_for_ai(
         if max_text_chars > 0 and len(text) > max_text_chars:
             text = text[:max_text_chars]
 
-        out.append({"title": title, "url": url, "text": text})
+        row: dict[str, Any] = {"title": title, "url": url, "text": text}
+        for key in ("published_at", "source", "category", "region"):
+            val = raw.get(key)
+            if val is not None and str(val).strip():
+                row[key] = str(val).strip() if key != "published_at" else val
+        out.append(row)
 
     stats["output"] = len(out)
     return out, stats

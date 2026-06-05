@@ -14,6 +14,7 @@ from summarize_news_gemini import (  # noqa: E402
     NEWSROOM_BRIEF_FORMAT,
     DigestUrlIndex,
     aggregate_partial_sector_candidates,
+    build_digest_merge_prompt,
     finalize_digest_summary,
     normalize_newsroom_brief,
     supplement_newsroom_from_partials,
@@ -297,6 +298,40 @@ def test_supplement_newsroom_from_partials() -> None:
     assert aggregate_partial_sector_candidates(partials)[0]["candidates_in_partials"] == 2
 
 
+def test_merge_prompt_briefing_quality_guidance() -> None:
+    prompt = build_digest_merge_prompt(
+        [],
+        total_articles=1003,
+        window_meta={"timezone": "Asia/Ho_Chi_Minh"},
+        global_outline=None,
+    )
+    assert "Hãy học giọng văn" in prompt
+    assert "bài briefing thật" in prompt
+    assert "sector_thesis" in prompt
+    assert "chỉ nên xuất hiện" in prompt
+    assert "representative_sources[].excerpt" in prompt
+    assert "Không chuỗi headline" in prompt or "không chuỗi headline" in prompt.lower()
+
+
+def test_sanitize_preserves_source_excerpt() -> None:
+    from scripts.newsroom_source_match import sanitize_representative_sources
+
+    out = sanitize_representative_sources(
+        [
+            {
+                "url": "https://example.com/a",
+                "title": "Tin A",
+                "source": "example.com",
+                "excerpt": "Hai câu giải thích vì sao bài này củng cố luận điểm về dòng vốn AI.",
+            }
+        ],
+        headline="Dòng vốn AI",
+        index=None,
+    )
+    assert len(out) == 1
+    assert "củng cố luận điểm" in str(out[0].get("excerpt") or "")
+
+
 def test_build_newsroom_extras() -> None:
     from build_website_content import build_newsroom_web_extras
 
@@ -326,5 +361,7 @@ if __name__ == "__main__":
     test_soften_editor_note()
     test_sanitize_published_content_json()
     test_supplement_newsroom_from_partials()
+    test_merge_prompt_briefing_quality_guidance()
+    test_sanitize_preserves_source_excerpt()
     test_build_newsroom_extras()
     print("OK: newsroom digest tests passed")
