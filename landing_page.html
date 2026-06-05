@@ -119,16 +119,32 @@
       display: none;
     }
     .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
+      display: inline-flex;
+      flex-wrap: nowrap;
+      gap: 0;
       margin-left: auto;
       justify-content: flex-end;
-      font-size: .84rem;
-      font-weight: 600;
+      align-items: stretch;
+      padding: 3px;
+      border-radius: 11px;
+      background: rgba(15, 23, 42, .035);
+      border: 1px solid rgba(15, 23, 42, .08);
+      max-width: min(100%, 560px);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
     }
-    .nav-links a:not(.nav-hub) { color: var(--muted); }
-    .nav-links a:not(.nav-hub):hover { color: var(--text); }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a:not(.nav-tab) { color: var(--muted); }
+    .nav-links a:not(.nav-tab):hover { color: var(--text); }
+    .nav-segment {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      min-width: 0;
+      max-width: 100%;
+    }
 
     h1 {
       margin: 20px 0 12px;
@@ -1524,36 +1540,100 @@
     body.digest-mode .hero-sub,
     body.digest-mode .hero-desc { display: none; }
     body.digest-mode .hero { padding: 22px 0 28px; }
-    .nav-hub {
+    .nav-tab {
+      position: relative;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 42px;
       padding: 8px 14px;
-      border-radius: 999px;
-      font-size: .8rem;
-      font-weight: 750;
-      letter-spacing: .02em;
-      color: var(--cyan-dim);
-      border: 1px solid rgba(8, 145, 178, .28);
-      background: rgba(8, 145, 178, .08);
+      border-radius: 8px;
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .012em;
+      line-height: 1.2;
+      color: var(--muted);
+      border: 1px solid transparent;
+      background: transparent;
       text-decoration: none !important;
+      flex-shrink: 0;
+      white-space: nowrap;
+      scroll-snap-align: start;
+      transition: color .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
-    .nav-hub:hover {
-      border-color: var(--cyan);
-      background: rgba(8, 145, 178, .14);
-      color: var(--cyan-dim);
+    .nav-tab::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 5px;
+      height: 2px;
+      border-radius: 1px;
+      background: transparent;
+      transition: background .18s ease;
     }
-    .nav-links {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 8px;
-      justify-content: flex-end;
+    .nav-tab:hover {
+      color: var(--text-soft);
+      background: rgba(255, 255, 255, .72);
+    }
+    .nav-tab:focus-visible {
+      outline: 2px solid rgba(8, 145, 178, .32);
+      outline-offset: 1px;
+    }
+    .nav-tab-text--short { display: none; }
+    .nav-tab--digest.nav-tab--active {
+      color: #0e7490;
+      font-weight: 700;
+      background: rgba(8, 145, 178, .1);
+      border-color: rgba(8, 145, 178, .2);
+    }
+    .nav-tab--digest.nav-tab--active::after {
+      background: rgba(8, 145, 178, .72);
+    }
+    .nav-tab--invest.nav-tab--active {
+      color: #b45309;
+      font-weight: 700;
+      background: rgba(180, 83, 9, .08);
+      border-color: rgba(180, 83, 9, .22);
+    }
+    .nav-tab--invest.nav-tab--active::after {
+      background: rgba(180, 83, 9, .68);
+    }
+    .nav-tab--live.nav-tab--active {
+      color: #0369a1;
+      font-weight: 700;
+      background: rgba(14, 165, 233, .1);
+      border-color: rgba(14, 165, 233, .24);
+    }
+    .nav-tab--live.nav-tab--active::after {
+      background: rgba(14, 165, 233, .72);
+    }
+    .nav-live-badge {
+      display: inline-flex;
       align-items: center;
-      max-width: min(100%, 520px);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
+      gap: 5px;
+      margin-left: 1px;
+      font-weight: inherit;
     }
-    .nav-hub { flex-shrink: 0; white-space: nowrap; }
+    .nav-live-label--full { display: inline; }
+    .nav-live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      flex-shrink: 0;
+      opacity: .72;
+    }
+    .nav-tab--live.nav-tab--active .nav-live-dot {
+      opacity: 1;
+      animation: nav-live-pulse 1.6s ease-out infinite;
+    }
+    @keyframes nav-live-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.45); }
+      70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
     .story-source-line {
       font-size: .84rem;
       color: var(--muted);
@@ -1569,30 +1649,6 @@
     .story-source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
     .story-source-sep { color: var(--muted); user-select: none; }
     .source-desk--collapsed summary { cursor: pointer; }
-    .nav-hub--active {
-      color: #fff;
-      background: linear-gradient(135deg, var(--cyan), #22d3ee);
-      border-color: transparent;
-    }
-    .nav-live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-left: 2px;
-    }
-    .nav-live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #ef4444;
-      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55);
-      animation: nav-live-pulse 1.4s ease-out infinite;
-    }
-    @keyframes nav-live-pulse {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); }
-      70% { box-shadow: 0 0 0 7px rgba(239, 68, 68, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-    }
     body.digest-mode .brand-lockup,
     body.digest-mode .logo {
       gap: 10px;
@@ -1659,11 +1715,6 @@
       height: 48px;
       font-size: .9rem;
       border-radius: 14px;
-    }
-    .nav-hub--invest.nav-hub--active {
-      border-color: rgba(180, 83, 9, .35);
-      background: rgba(180, 83, 9, .08);
-      color: #b45309;
     }
     .invest-channel-lead {
       margin: 0 0 0.35rem;
@@ -2771,6 +2822,63 @@
       border: none;
       font-size: .74rem;
     }
+    .pulse-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 14px;
+    }
+    .pulse-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, .1);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: var(--font-sans);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .01em;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: color .16s ease, background .16s ease, border-color .16s ease;
+    }
+    .pulse-filter-chip:hover {
+      color: var(--text-soft);
+      border-color: rgba(14, 165, 233, .22);
+      background: rgba(14, 165, 233, .05);
+    }
+    .pulse-filter-chip:focus-visible {
+      outline: 2px solid rgba(14, 165, 233, .28);
+      outline-offset: 1px;
+    }
+    .pulse-filter-chip--active {
+      color: #0369a1;
+      font-weight: 700;
+      border-color: rgba(14, 165, 233, .32);
+      background: rgba(14, 165, 233, .1);
+    }
+    .pulse-filter-empty {
+      margin: 0 0 12px;
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        flex-wrap: wrap;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .nav-segment {
+        margin-left: 0;
+        width: 100%;
+      }
+      .nav-links {
+        width: 100%;
+        max-width: none;
+      }
+    }
 
     @media (max-width: 640px) {
       .container { width: 94%; }
@@ -2786,6 +2894,18 @@
         font-size: .7rem;
         border-radius: 10px;
       }
+      body.digest-mode .hero,
+      body.pulse-mode .hero,
+      body.invest-mode .hero {
+        position: sticky;
+        top: 0;
+        z-index: 120;
+        background: rgba(248, 250, 252, .94);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+      }
+      body.pulse-mode .hero { padding: 14px 0 18px; }
       body.invest-mode .hero { padding: 14px 0 18px; }
       body.invest-mode .logo {
         font-size: clamp(1.12rem, 4.8vw, 1.45rem);
@@ -2812,7 +2932,14 @@
         font-size: .84rem;
         line-height: 1.6;
       }
-      .nav-hub { padding: 7px 10px; font-size: .7rem; }
+      .nav-tab {
+        min-height: 44px;
+        padding: 8px 11px;
+        font-size: .82rem;
+      }
+      .nav-tab-text--full { display: none; }
+      .nav-tab-text--short { display: inline; }
+      .nav-live-badge .nav-live-label--full { display: none; }
       .sync-note { margin-bottom: 12px; font-size: .84rem; }
       .brief-block { margin-bottom: 22px; }
 
@@ -2907,7 +3034,22 @@
             <span class="brand-name">LEON Quant Labs</span>
           </span>
         </div>
-        <div class="nav-links" id="navLinks" data-nav-tabs="1"><a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a><a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Kinh tế đầu tư</a><a class="nav-hub" href="/?view=live" data-view="live">Thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a></div>
+        <div class="nav-segment">
+          <div class="nav-links" id="navLinks" role="tablist" aria-label="Chuyên mục" data-nav-tabs="1">
+            <a class="nav-tab nav-tab--digest nav-tab--active" href="/" data-view="digest" role="tab" aria-selected="true">
+              <span class="nav-tab-text nav-tab-text--full">Bản tin 48h</span>
+              <span class="nav-tab-text nav-tab-text--short">Tin48h</span>
+            </a>
+            <a class="nav-tab nav-tab--invest" href="/?view=invest" data-view="invest" role="tab" aria-selected="false">
+              <span class="nav-tab-text nav-tab-text--full">Kinh tế đầu tư</span>
+              <span class="nav-tab-text nav-tab-text--short">Đầu tư</span>
+            </a>
+            <a class="nav-tab nav-tab--live" href="/?view=live" data-view="live" role="tab" aria-selected="false">
+              <span class="nav-tab-text nav-tab-text--full">Thế giới <span class="nav-live-badge"><span class="nav-live-dot" aria-hidden="true"></span><span class="nav-live-label--full">LIVE</span></span></span>
+              <span class="nav-tab-text nav-tab-text--short">LIVE <span class="nav-live-badge"><span class="nav-live-dot" aria-hidden="true"></span></span></span>
+            </a>
+          </div>
+        </div>
       </nav>
       <h1>LEON Quant Labs</h1>
       <p class="hero-sub" id="heroSubtitle"></p>
@@ -4169,14 +4311,23 @@
       const nav = document.getElementById("navLinks");
       if (!nav) return;
       const v = view || currentView();
-      const dClass = v === "digest" ? "nav-hub nav-hub--active" : "nav-hub";
+      const dClass = v === "digest" ? "nav-tab nav-tab--digest nav-tab--active" : "nav-tab nav-tab--digest";
       const iClass =
-        v === "invest" ? "nav-hub nav-hub--invest nav-hub--active" : "nav-hub nav-hub--invest";
-      const pClass = v === "pulse" ? "nav-hub nav-hub--active" : "nav-hub";
+        v === "invest" ? "nav-tab nav-tab--invest nav-tab--active" : "nav-tab nav-tab--invest";
+      const pClass = v === "pulse" ? "nav-tab nav-tab--live nav-tab--active" : "nav-tab nav-tab--live";
       nav.innerHTML = `
-        <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest">Tin 48h</a>
-        <a class="${iClass}" href="${escapeHtml(investNavHref())}" data-view="invest">Kinh tế đầu tư</a>
-        <a class="${pClass}" href="${escapeHtml(liveNavHref())}" data-view="live">Thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a>`;
+        <a class="${dClass}" href="${escapeHtml(digestNavHref())}" data-view="digest" role="tab" aria-selected="${v === "digest" ? "true" : "false"}">
+          <span class="nav-tab-text nav-tab-text--full">Bản tin 48h</span>
+          <span class="nav-tab-text nav-tab-text--short">Tin48h</span>
+        </a>
+        <a class="${iClass}" href="${escapeHtml(investNavHref())}" data-view="invest" role="tab" aria-selected="${v === "invest" ? "true" : "false"}">
+          <span class="nav-tab-text nav-tab-text--full">Kinh tế đầu tư</span>
+          <span class="nav-tab-text nav-tab-text--short">Đầu tư</span>
+        </a>
+        <a class="${pClass}" href="${escapeHtml(liveNavHref())}" data-view="live" role="tab" aria-selected="${v === "pulse" ? "true" : "false"}">
+          <span class="nav-tab-text nav-tab-text--full">Thế giới <span class="nav-live-badge"><span class="nav-live-dot" aria-hidden="true"></span><span class="nav-live-label--full">LIVE</span></span></span>
+          <span class="nav-tab-text nav-tab-text--short">LIVE <span class="nav-live-badge"><span class="nav-live-dot" aria-hidden="true"></span></span></span>
+        </a>`;
     }
 
     function applyViewMode(view) {
@@ -4234,6 +4385,125 @@
         return;
       }
       await loadChatContent();
+    }
+
+    let pulseActiveFilter = "all";
+
+    const PULSE_FILTERS = [
+      { id: "all", label: "Tất cả" },
+      { id: "multi", label: "Đa nguồn" },
+      { id: "solo", label: "Một nguồn" },
+      { id: "economy", label: "Kinh tế" },
+      { id: "tech", label: "Công nghệ" },
+      { id: "geo", label: "Địa chính trị" },
+    ];
+
+    function matchPulseFilter(ev, filterId) {
+      const sc = Number(ev.source_count) || 0;
+      const sector = String(ev.sector || "").toLowerCase();
+      switch (filterId) {
+        case "multi":
+          return sc >= 3;
+        case "solo":
+          return sc <= 1;
+        case "economy":
+          return /kinh tế|tài chính|doanh nghiệp|logistics|hạ tầng|năng lượng/.test(sector);
+        case "tech":
+          return /công nghệ|\bai\b|bán dẫn|khoa học/.test(sector);
+        case "geo":
+          return /địa chính trị|chính trị|an ninh|xung đột/.test(sector);
+        default:
+          return true;
+      }
+    }
+
+    function filterPulseEvents(events, filterId) {
+      const id = filterId || "all";
+      return events.filter((ev) => matchPulseFilter(ev, id));
+    }
+
+    function buildPulseFilterBarHtml(activeFilter) {
+      const active = activeFilter || "all";
+      let h = `<div class="pulse-filter-bar" role="toolbar" aria-label="Lọc tin LIVE">`;
+      for (const f of PULSE_FILTERS) {
+        const cls =
+          f.id === active ? "pulse-filter-chip pulse-filter-chip--active" : "pulse-filter-chip";
+        h += `<button type="button" class="${cls}" data-pulse-filter="${escapeHtml(f.id)}" aria-pressed="${f.id === active ? "true" : "false"}">${escapeHtml(f.label)}</button>`;
+      }
+      h += `</div>`;
+      return h;
+    }
+
+    function pulseEventFromListItem(li) {
+      const scBadge = li.querySelector(".pulse-radar-badge--sources");
+      let sc = parseInt(li.getAttribute("data-source-count") || "", 10);
+      if (Number.isNaN(sc) && scBadge) {
+        const m = String(scBadge.textContent || "").match(/(\d+)/);
+        sc = m ? parseInt(m[1], 10) : 0;
+      }
+      const sector =
+        li.getAttribute("data-sector") ||
+        li.querySelector(".pulse-radar-badge--sector")?.textContent ||
+        "";
+      return { source_count: sc, sector: String(sector).trim() };
+    }
+
+    function applyPulseFilterToDom(filterId) {
+      const root = document.getElementById("sectionPulse");
+      if (!root) return;
+      const items = root.querySelectorAll(".pulse-event");
+      let visible = 0;
+      items.forEach((li) => {
+        const show = matchPulseFilter(pulseEventFromListItem(li), filterId);
+        li.hidden = !show;
+        if (show) visible += 1;
+      });
+      let empty = root.querySelector(".pulse-filter-empty");
+      if (!empty) {
+        empty = document.createElement("p");
+        empty.className = "hint pulse-filter-empty";
+        empty.textContent = "Không có tin phù hợp bộ lọc này.";
+        const panel = root.querySelector(".pulse-panel");
+        if (panel) panel.appendChild(empty);
+      }
+      empty.hidden = visible > 0;
+      root.querySelectorAll(".pulse-filter-chip").forEach((btn) => {
+        const on = btn.getAttribute("data-pulse-filter") === filterId;
+        btn.classList.toggle("pulse-filter-chip--active", on);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
+    function bindPulseFilters() {
+      const root = document.getElementById("sectionPulse");
+      if (!root || root.dataset.pulseFilterBound === "1") return;
+      root.dataset.pulseFilterBound = "1";
+      root.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-pulse-filter]");
+        if (!btn) return;
+        pulseActiveFilter = btn.getAttribute("data-pulse-filter") || "all";
+        if (cachedPulsePayload && !cachedPulsePayload.__embedded) {
+          renderPulsePage(cachedPulsePayload);
+          return;
+        }
+        applyPulseFilterToDom(pulseActiveFilter);
+      });
+    }
+
+    function ensureEmbeddedPulseFilters() {
+      const root = document.getElementById("sectionPulse");
+      if (!root || root.querySelector(".pulse-filter-bar")) return;
+      const article = root.querySelector(".digest-report");
+      const head = article?.querySelector(".digest-report-head");
+      if (!head) return;
+      head.insertAdjacentHTML("afterend", buildPulseFilterBarHtml(pulseActiveFilter));
+      root.querySelectorAll(".pulse-event").forEach((li) => {
+        if (li.getAttribute("data-source-count")) return;
+        const ev = pulseEventFromListItem(li);
+        li.setAttribute("data-source-count", String(ev.source_count || 0));
+        if (ev.sector) li.setAttribute("data-sector", ev.sector);
+      });
+      applyPulseFilterToDom(pulseActiveFilter);
     }
 
     function bindNavTabs() {
@@ -4449,7 +4719,7 @@
         const sc = Number(ev.source_count) || 0;
         const cardClass =
           sc >= 3 ? " pulse-event--multi-source" : sc <= 1 ? " pulse-event--solo-source" : "";
-        h += `<li class="pulse-event${cardClass}">`;
+        h += `<li class="pulse-event${cardClass}" data-source-count="${escapeHtml(String(sc))}" data-sector="${escapeHtml(ev.sector || "")}">`;
         h += buildPulseMetaRowHtml(ev);
         h += `<h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
         if (ev.summary) {
@@ -4470,17 +4740,25 @@
       return h;
     }
 
-    function buildPulseHtml(data) {
-      const events = normalizePulseEvents(data);
-      if (!events.length) {
+    function buildPulseHtml(data, activeFilter) {
+      const allEvents = normalizePulseEvents(data);
+      const filterId = activeFilter || pulseActiveFilter || "all";
+      const events = filterPulseEvents(allEvents, filterId);
+      if (!allEvents.length) {
         return `<div class="pulse-panel"><p class="hint">Chưa có tin LIVE. Hệ thống cập nhật mỗi 12 giờ.</p></div>`;
       }
       let h = `<article class="digest-report"><header class="digest-report-head">`;
       h += `<h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2>`;
       const updated = formatPulseUpdatedAt(data?.generated_at_utc);
       if (updated) h += `<p class="sync-note">${escapeHtml(updated)}</p>`;
-      h += `</header><div class="pulse-panel">`;
-      h += buildPulseEventListHtml(events);
+      h += `</header>`;
+      h += buildPulseFilterBarHtml(filterId);
+      h += `<div class="pulse-panel">`;
+      if (!events.length) {
+        h += `<p class="hint pulse-filter-empty">Không có tin phù hợp bộ lọc này.</p>`;
+      } else {
+        h += buildPulseEventListHtml(events);
+      }
       h += `</div></article>`;
       return h;
     }
@@ -4498,7 +4776,15 @@
         heroDesc.textContent = "";
       }
       const el = document.getElementById("sectionPulse");
-      if (el) el.innerHTML = buildPulseHtml(data || {});
+      if (data?.__embedded || hasEmbeddedPulse()) {
+        ensureEmbeddedPulseFilters();
+        bindPulseFilters();
+        return;
+      }
+      if (el) {
+        el.innerHTML = buildPulseHtml(data || {}, pulseActiveFilter);
+        bindPulseFilters();
+      }
     }
 
     async function fetchPulseFeed() {
@@ -4517,6 +4803,8 @@
       if (hasEmbeddedPulse()) {
         applyViewMode("pulse");
         cachedPulsePayload = { __embedded: true };
+        ensureEmbeddedPulseFilters();
+        bindPulseFilters();
         return;
       }
       const data = await fetchPulseFeed();

@@ -392,17 +392,18 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Regenerate:** `python leon.py --channel invest` + `python scripts/build_invest_vn_brief.py` để JSON mới có bài dài hơn.
 
+## 2026-06-06 — Tab navigation polish (segmented nav + LIVE filters)
 
-**Scope:** UI/CSS + pulse embed HTML only — `landing_page.html`, `scripts/embed_public_pulse_into_html.mjs`, `.ai/CURSOR_WORKLOG.md`. **Not modified:** crawler, Gemini prompts, GDELT/SQL, invest pipeline, Tin48h content.
+**Scope:** `landing_page.html` + `.ai/CURSOR_WORKLOG.md` only. **Not modified:** crawler, Gemini, content JSON, layout lớn ngoài header nav.
 
-| Tab | Style |
-|-----|--------|
-| **Kinh tế đầu tư** | Research memo: max-width ~820px, Be Vietnam Pro, line-height ~1.74, gold section labels, editorial source lists (border-left, no cards), spacing 36–44px between themes/items, `tabular-nums` on meta |
-| **Thế giới LIVE** | Radar/newswire: compact cards, 2-col grid desktop / 1-col mobile, meta badge row (sector · bài · nguồn · tone), hot styling when `source_count >= 3`, solo-source muted when `= 1`, cyan accent, thin borders, source links deduped by domain (no ticker loop) |
+| Mục | Chi tiết |
+|-----|----------|
+| Segmented nav | `.nav-segment` + `.nav-tab` thay pill `.nav-hub`; labels: Bản tin 48h / Kinh tế đầu tư / Thế giới LIVE |
+| Active màu vai trò | Digest: slate/cyan nhẹ; Invest: gold/amber; LIVE: cyan/blue + dot đỏ chỉ trên badge khi active |
+| Active state | Background nhẹ, border, accent line `::after`; hover/focus transition ~18ms; không gradient game-like |
+| Mobile | Sticky hero nav (≤640px); label rút: Tin48h / Đầu tư / LIVE ●; touch min 44px; scroll ngang mượt |
+| LIVE filter chips | Filter thật client-side: Tất cả, Đa nguồn, Một nguồn, Kinh tế, Công nghệ, Địa chính trị (theo `source_count` + `sector`) |
+| Typography | Be Vietnam Pro; nav `.82–.85rem`; active 700 / inactive 600 |
 
-| File | Detail |
-|------|--------|
-| `landing_page.html` | Scoped rules under `body.invest-mode #invest` and `body.pulse-mode #pulse`; `buildPulseMetaRowHtml`, `buildPulseSourceLinks` in JS render |
-| `embed_public_pulse_into_html.mjs` | Static embed matches radar card markup + domain dedupe |
+**Verify:** Desktop 1280px + mobile 390px — không overflow ngang; tab active rõ; LIVE dot chỉ pulse khi tab LIVE active.
 
-**Verify:** Open `/?view=invest` and `/?view=live` at 1280px / 390px — no horizontal overflow; links tappable; invest reads like memo, LIVE scans like radar.
