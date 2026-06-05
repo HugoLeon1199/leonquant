@@ -1826,10 +1826,7 @@
       color: var(--text-soft);
     }
     #invest .invest-world-brief {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      margin-bottom: 1rem;
     }
     .invest-vn-theme-list {
       list-style: none;
@@ -1944,14 +1941,10 @@
       line-height: 1.32;
     }
     .invest-world-item-summary {
-      margin: 0 0 4px;
-      font-size: .8rem;
-      line-height: 1.42;
+      margin: 0 0 10px;
+      font-size: .92rem;
+      line-height: 1.72;
       color: var(--text-soft);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
     #invest .invest-world-item-meta {
       display: block;
@@ -2358,11 +2351,11 @@
 
     /* —— Kinh tế đầu tư: research memo —— */
     body.invest-mode #invest > .container {
-      width: min(820px, 92%);
+      width: min(960px, 92%);
     }
     body.invest-mode #invest #invest-desk,
     body.invest-mode #invest .invest-desk-layout {
-      max-width: min(820px, 100%);
+      max-width: min(960px, 100%);
       margin-left: auto;
       margin-right: auto;
     }
@@ -2560,12 +2553,17 @@
       margin-bottom: 8px;
     }
     body.invest-mode #invest .invest-world-item-summary {
-      font-size: .96rem;
+      font-size: .94rem;
+      line-height: 1.74;
+      margin-bottom: 12px;
+    }
+    body.invest-mode #invest .invest-world-item .invest-vn-lens {
+      font-size: .92rem;
       line-height: 1.72;
+      margin-bottom: 10px;
       -webkit-line-clamp: unset;
       display: block;
       overflow: visible;
-      margin-bottom: 10px;
     }
     body.invest-mode #invest .invest-live-strip {
       padding: 0;
@@ -2688,18 +2686,15 @@
       line-height: 1.4;
     }
     body.pulse-mode #pulse .pulse-event-hint {
-      margin: 0 0 8px;
-      font-size: .82rem;
-      line-height: 1.52;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      margin: 0 0 10px;
+      font-size: .86rem;
+      line-height: 1.62;
+      color: var(--text-soft);
     }
     body.pulse-mode #pulse .pulse-event-importance {
-      margin: 0 0 8px;
-      font-size: .76rem;
-      line-height: 1.45;
+      margin: 0 0 10px;
+      font-size: .8rem;
+      line-height: 1.55;
     }
     body.pulse-mode #pulse .pulse-event-coverage,
     body.pulse-mode #pulse .pulse-event-entities {
@@ -2816,8 +2811,8 @@
         font-size: .88rem;
       }
       body.pulse-mode #pulse .pulse-event-hint {
-        font-size: .8rem;
-        -webkit-line-clamp: 4;
+        font-size: .84rem;
+        line-height: 1.6;
       }
       .nav-hub { padding: 7px 10px; font-size: .7rem; }
       .sync-note { margin-bottom: 12px; font-size: .84rem; }
@@ -4538,14 +4533,12 @@
 
     function buildInvestWorldHtml(data) {
       const topics = Array.isArray(data?.topics) ? data.topics : [];
-      const updated = formatPulseUpdatedAt(data?.generated_at_utc);
       let h = `<section class="invest-desk-section invest-desk-section--world">`;
       h += `<header class="invest-desk-head">`;
       h += `<h3 class="invest-desk-title">Tin thế giới quan trọng</h3>`;
       const feedLabel = String(data?.feed_label || "").trim()
         || "các diễn biến kinh tế - thị trường đáng chú ý";
       h += `<p class="invest-desk-sub">Tóm tắt nhanh + chi tiết theo đề mục · ${escapeHtml(feedLabel)}</p>`;
-      if (updated) h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)}</p>`;
       h += `</header>`;
       const brief = String(data?.brief || "").trim();
       if (brief) {
