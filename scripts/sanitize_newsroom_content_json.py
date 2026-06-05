@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.newsroom_copy import soften_editor_note, soften_newsroom_text  # noqa: E402
+from scripts.newsroom_copy import soften_editor_note, soften_headline, soften_prose  # noqa: E402
 from scripts.newsroom_source_match import filter_urls_for_story  # noqa: E402
 from summarize_news_gemini import DigestUrlIndex  # noqa: E402
 
@@ -96,6 +96,15 @@ def sanitize_newsroom_public_content(data: dict[str, Any]) -> dict[str, Any]:
     out = dict(data)
     note = soften_editor_note(str(out.get("editorNote") or out.get("editor_note") or ""))
     out["editorNote"] = note
+    eb = out.get("executiveBriefing")
+    if isinstance(eb, dict):
+        eb2 = dict(eb)
+        if eb2.get("content"):
+            eb2["content"] = soften_prose(str(eb2["content"]))
+        sec = eb2.get("sections")
+        if isinstance(sec, dict):
+            eb2["sections"] = {k: soften_prose(v) for k, v in sec.items() if v}
+        out["executiveBriefing"] = eb2
     pub = out.get("publicationIntro")
     if isinstance(pub, dict) and pub.get("description"):
         pub = dict(pub)
@@ -107,12 +116,12 @@ def sanitize_newsroom_public_content(data: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(row, dict):
             continue
         item = dict(row)
-        title = soften_newsroom_text(str(item.get("title") or "").strip())
+        title = soften_headline(str(item.get("title") or "").strip())
         if title:
             item["title"] = title
         for key in ("oneSentence", "whyItMatters", "watchNext"):
             if item.get(key):
-                item[key] = soften_newsroom_text(str(item[key]))
+                item[key] = soften_prose(str(item[key]))
         ctx = str(item.get("oneSentence") or "")
         links = item.get("links") if isinstance(item.get("links"), list) else []
         item["links"] = _filter_story_links(
@@ -127,18 +136,18 @@ def sanitize_newsroom_public_content(data: dict[str, Any]) -> dict[str, Any]:
             continue
         sec2 = dict(sec)
         if sec2.get("sectorThesis"):
-            sec2["sectorThesis"] = soften_newsroom_text(str(sec2["sectorThesis"]))
+            sec2["sectorThesis"] = soften_prose(str(sec2["sectorThesis"]))
         dossiers: list[dict[str, Any]] = []
         for d in sec2.get("storyDossiers") or []:
             if not isinstance(d, dict):
                 continue
             card = dict(d)
-            st = soften_newsroom_text(str(card.get("title") or "").strip())
+            st = soften_headline(str(card.get("title") or "").strip())
             if st:
                 card["title"] = st
             for key in ("summary", "whyItMatters"):
                 if card.get(key):
-                    card[key] = soften_newsroom_text(str(card[key]))
+                    card[key] = soften_prose(str(card[key]))
             ctx = str(card.get("summary") or "")
             links = card.get("links") if isinstance(card.get("links"), list) else []
             card["links"] = _filter_story_links(

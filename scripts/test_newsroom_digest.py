@@ -163,7 +163,7 @@ def test_normalize_and_validate() -> None:
     assert dossier.get("sub_sector") == "Tiền tệ và lạm phát"
     assert dossier.get("why_it_matters")
     assert len(dossier.get("main_developments") or []) >= 2
-    assert "LeonQuant ghi nhận" not in (out.get("editor_note") or "")
+    assert "để người đọc" not in (out.get("editor_note") or "").lower()
     warns = validate_newsroom_brief(out)
     assert isinstance(warns, list)
     fin = finalize_digest_summary(out, input_articles=[])
@@ -199,9 +199,16 @@ def test_source_match_rejects_mismatched_urls() -> None:
 
 
 def test_soften_editor_note() -> None:
-    note = soften_editor_note("LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu.")
-    assert "48 giờ qua cho thấy" in note
-    assert "dịch chuyển mạnh mẽ" not in note
+    from scripts.newsroom_copy import strip_newsroom_filler
+
+    note = soften_editor_note(
+        "Thị trường biến động. Bản tin này gom các nguồn để người đọc thấy rõ diễn biến."
+    )
+    assert "để người đọc" not in note
+    assert "Thị trường biến động" in note
+    cleaned = strip_newsroom_filler("X. Bản tin này gom hồ sơ để người đọc thấy rõ.")
+    assert "để người đọc" not in cleaned
+    assert "gom hồ sơ" not in cleaned
 
 
 def test_sanitize_published_content_json() -> None:
@@ -229,7 +236,7 @@ def test_sanitize_published_content_json() -> None:
         "sourceDesk": [],
     }
     out = sanitize_newsroom_public_content(payload)
-    assert "LeonQuant ghi nhận" not in (out.get("editorNote") or "")
+    assert str(out.get("editorNote") or "").strip()
     fp = (out.get("frontPage") or [])[0]
     assert not fp.get("links")
 

@@ -25,6 +25,27 @@ _SOFTEN_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\btoàn cầu\b(?=.*(?:dòng|vốn|dịch chuyển))", re.I), "thị trường"),
 ]
 
+_FILLER_SENTENCE_PATTERNS: list[re.Pattern[str]] = [
+    re.compile(r"[^.!?…\n]*\bđể người đọc\b[^.!?…\n]*[.!?…]", re.I),
+    re.compile(r"[^.!?…\n]*\bbản tin này gom\b[^.!?…\n]*[.!?…]", re.I),
+    re.compile(r"[^.!?…\n]*\bngười đọc cần theo dõi\b[^.!?…\n]*[.!?…]", re.I),
+    re.compile(r"[^.!?…\n]*\bbiến số cần theo dõi\b[^.!?…\n]*[.!?…]", re.I),
+    re.compile(r"[^.!?…\n]*\bthành từng hồ sơ\b[^.!?…\n]*[.!?…]", re.I),
+    re.compile(r"[^.!?…\n]*\bphân tích sự phân hóa của dòng vốn\b[^.!?…\n]*[.!?…]", re.I),
+]
+
+
+def strip_newsroom_filler(text: str) -> str:
+    s = str(text or "").strip()
+    if not s:
+        return s
+    for pat in _FILLER_SENTENCE_PATTERNS:
+        s = pat.sub("", s)
+    s = re.sub(r"[ \t]+\n", "\n", s)
+    s = re.sub(r"\n{3,}", "\n\n", s)
+    s = re.sub(r"  +", " ", s)
+    return s.strip()
+
 
 def soften_newsroom_text(text: str) -> str:
     s = str(text or "").strip()
@@ -38,25 +59,17 @@ def soften_newsroom_text(text: str) -> str:
     return s
 
 
-_DEFAULT_EDITOR_NOTE = (
-    "48 giờ qua cho thấy ba trục tin nổi bật: rủi ro Trung Đông tiếp tục chi phối "
-    "dầu và vàng; nhóm công nghệ lớn vẫn là tâm điểm của câu chuyện AI; còn Việt Nam "
-    "tập trung vào lạm phát, pháp lý bất động sản và chính sách năng lượng. "
-    "Bản tin này gom các nguồn liên quan thành từng hồ sơ để người đọc thấy rõ "
-    "diễn biến, tác động và biến số cần theo dõi tiếp."
-)
+def soften_prose(text: str) -> str:
+    """Long-form digest copy: chỉ bỏ câu meta, không làm mỏng giọng văn."""
+    return strip_newsroom_filler(str(text or "").strip())
 
 
 def soften_editor_note(note: str) -> str:
     raw = str(note or "").strip()
     if not raw:
-        return _DEFAULT_EDITOR_NOTE
-    s = soften_newsroom_text(raw)
-    if re.search(
-        r"leonquant ghi nhận|dịch chuyển mạnh|48 giờ qua.{0,40}48 giờ qua|"
-        r"xu hướng thị trường gần đây từ các tài sản rủi ro",
-        s,
-        re.I,
-    ):
-        return _DEFAULT_EDITOR_NOTE
-    return s
+        return ""
+    return soften_prose(raw)
+
+
+def soften_headline(text: str) -> str:
+    return soften_newsroom_text(str(text or "").strip())

@@ -1966,7 +1966,7 @@ def build_digest_web_extras(
     }
 
 
-def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 5, max_chars: int = 900) -> str:
+def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 8) -> str:
     if not isinstance(art, dict):
         return ""
     raw = str(art.get("summary") or art.get("description") or "").strip()
@@ -1976,46 +1976,7 @@ def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 5, max_
         return ""
     parts = re.split(r"(?<=[.!?…])\s+", raw)
     kept = [p.strip() for p in parts if p.strip()]
-    text = " ".join(kept[:max_sentences])
-    if len(text) <= max_chars:
-        return text
-    cut = text[:max_chars]
-    last_stop = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
-    if last_stop >= 120:
-        return cut[: last_stop + 1].strip()
-    return cut.rstrip(" ,;:") + "…"
-
-
-def _enrich_sector_thesis(
-    sec: dict[str, Any],
-    *,
-    dossiers: list[dict[str, Any]],
-    subsectors: list[dict[str, Any]],
-) -> str:
-    chunks: list[str] = []
-    seen: set[str] = set()
-    for block in (
-        str(sec.get("sector_thesis") or "").strip(),
-        *[str(sb.get("overview") or "").strip() for sb in subsectors if isinstance(sb, dict)],
-        *[
-            str(d.get("summary") or "").strip()
-            for d in dossiers
-            if isinstance(d, dict) and str(d.get("summary") or "").strip()
-        ],
-        *[
-            str(d.get("why_it_matters") or "").strip()
-            for d in dossiers
-            if isinstance(d, dict) and str(d.get("why_it_matters") or "").strip()
-        ],
-    ):
-        if not block:
-            continue
-        key = block.lower()[:160]
-        if key in seen:
-            continue
-        seen.add(key)
-        chunks.append(block)
-    return "\n\n".join(chunks)
+    return " ".join(kept[:max_sentences])
 
 
 def _newsroom_sources_to_links(
@@ -2194,11 +2155,15 @@ def build_newsroom_web_extras(
             }
         )
 
-    editor_note = str(summary.get("editor_note") or "").strip()
+    from scripts.newsroom_copy import soften_prose
+
+    editor_note = soften_prose(str(summary.get("editor_note") or "").strip())
     eb_in = summary.get("executive_briefing") if isinstance(summary.get("executive_briefing"), dict) else {}
-    eb_content_raw = str(eb_in.get("content") or "").strip()
-    if editor_note and editor_note not in eb_content_raw:
-        eb_content_raw = f"{editor_note}\n\n{eb_content_raw}".strip() if eb_content_raw else editor_note
+    eb_content_raw = soften_prose(str(eb_in.get("content") or "").strip())
+    if editor_note and editor_note not in eb_content_raw and eb_content_raw not in editor_note:
+        eb_content_raw = (
+            f"{editor_note}\n\n{eb_content_raw}".strip() if eb_content_raw else editor_note
+        )
     eb_sections_in = eb_in.get("sections") if isinstance(eb_in.get("sections"), dict) else {}
     eb_links = _newsroom_sources_to_links(
         [x for x in (eb_in.get("representative_sources") or []) if isinstance(x, dict)],
@@ -2355,11 +2320,7 @@ def build_newsroom_web_extras(
             {
                 "code": code,
                 "name": name,
-                "sectorThesis": _enrich_sector_thesis(
-                    sec,
-                    dossiers=dossiers_out,
-                    subsectors=subsector_out,
-                ),
+                "sectorThesis": soften_prose(str(sec.get("sector_thesis") or "").strip()),
                 "links": merged_links,
                 "subsectorBriefs": [],
                 "storyDossiers": [],

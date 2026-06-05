@@ -334,7 +334,7 @@ function buildArticleArchiveHtml(articles) {
   if (!rows.length) return "";
   const nLabel = rows.length.toLocaleString("vi-VN");
   let h = `<details class="article-archive-wrap digest-notable-all">`;
-  h += `<summary>Tổng hợp từ ${nLabel} bài, bấm vào xem chi tiết</summary>`;
+  h += `<summary>Bản tin được tổng hợp từ ${nLabel} bài, bấm vào xem chi tiết</summary>`;
   h += `<div class="article-archive-scroll"><ul class="link-rows">`;
   for (const L of rows) {
     const u = normalizeExternalUrl(L.url);

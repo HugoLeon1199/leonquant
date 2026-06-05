@@ -387,6 +387,7 @@ def _digest_newsroom_voice_block() -> str:
             "- **Không** tạo section UI “Điểm nóng”: tích hợp điểm nóng vào `executive_briefing.sections` và `sector_deep_briefs`.",
             "- `front_page` chỉ compatibility nội bộ; không dùng làm section render chính.",
             "- Tránh câu rỗng kiểu 'đáng chú ý', 'phức tạp', 'tác động lớn', 'theo dõi diễn biến tiếp trong 24-72 giờ'.",
+            "- **Cấm** câu hướng dẫn người đọc: 'để người đọc thấy rõ', 'bản tin này gom', 'người đọc cần theo dõi'. Chỉ kể tin và câu chuyện đang xảy ra.",
         ]
     )
 
@@ -453,7 +454,7 @@ def _digest_newsroom_json_schema_fragment() -> str:
   "brief_format": "{NEWSROOM_BRIEF_FORMAT}",
   "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
   "reading_time_minutes": "auto",
-  "editor_note": "100-180 từ, giọng biên tập trưởng mở đầu bản tin.",
+  "editor_note": "Mở đầu bản tin: tóm tắt bức tranh 48h, không nhắc người đọc phải làm gì.",
   "executive_briefing": {{
     "title": "Tóm tắt tổng quan 48h",
     "sections": {{
@@ -2150,8 +2151,11 @@ def _sanitize_executive_briefing(
         )
         if str(sec_src.get(k) or "").strip()
     }
+    from scripts.newsroom_copy import soften_prose
+
     title = str(src.get("title") or "Tóm tắt tổng quan 48h").strip() or "Tóm tắt tổng quan 48h"
-    content = str(src.get("content") or "").strip()
+    content = soften_prose(str(src.get("content") or "").strip())
+    sections = {k: soften_prose(v) for k, v in sections.items()}
     rep_sources = _sanitize_representative_sources(
         src.get("representative_sources"),
         headline=title,
@@ -2260,7 +2264,7 @@ def normalize_newsroom_brief(
     )
     if not str(out.get("reading_time_minutes") or "").strip():
         out["reading_time_minutes"] = "auto"
-    from scripts.newsroom_copy import soften_editor_note, soften_newsroom_text
+    from scripts.newsroom_copy import soften_editor_note, soften_headline, soften_prose
 
     out["editor_note"] = soften_editor_note(str(out.get("editor_note") or "").strip())
     out["executive_briefing"] = _sanitize_executive_briefing(
@@ -2298,7 +2302,7 @@ def normalize_newsroom_brief(
         bucket["name"] = str(sec.get("name") or "").strip() or bucket["name"]
         thesis = str(sec.get("sector_thesis") or sec.get("summary") or "").strip()
         if thesis:
-            bucket["sector_thesis"] = soften_newsroom_text(thesis)[:DIGEST_SECTOR_SUMMARY_MAX_CHARS]
+            bucket["sector_thesis"] = soften_prose(thesis)
         subs = _sanitize_subsector_briefs(
             sec.get("subsector_briefs"),
             index=url_index,
@@ -3691,9 +3695,9 @@ def build_digest_merge_prompt(
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}
 {_digest_source_urls_block()}
-- `executive_briefing`: bài **Tóm tắt tổng quan 48h** đầy đủ qua `sections` (5 heading); tổng **1.000–1.800 chữ**; cuối có `representative_sources` (3–8 URL).
+- `executive_briefing`: tổng hợp tin đúng và đủ ý; **không** giới hạn độ dài cứng; **cấm** câu meta kiểu "để người đọc thấy rõ", "bản tin này gom", "người đọc cần theo dõi".
 - **Không** viết section “Điểm nóng” riêng. `front_page` tối đa 8 item compatibility, có `source_urls`.
-- `sector_deep_briefs`: đúng **4** sector; mỗi sector: `sector_thesis` + `subsector_briefs` (nếu dữ liệu đủ) + `story_dossiers`.
+- `sector_deep_briefs`: đúng **4** sector; `sector_thesis` viết đủ ý, thoải mái theo dữ liệu — chỉ kể chuyện đang xảy ra, không hướng dẫn người đọc.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
 - `watchlist_24_72h`: **4–8** chủ đề theo dõi 24–72h.
 - `source_desk`: **3–8** nhóm nguồn đại diện theo chủ đề lớn.
