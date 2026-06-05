@@ -30,6 +30,28 @@ def _fixture() -> dict:
         "brief_format": NEWSROOM_BRIEF_FORMAT,
         "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
         "editor_note": "Trong 48 giờ qua, LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu.",
+        "executive_briefing": {
+            "title": "Tổng quan 48h",
+            "content": (
+                "Trong 48 giờ qua, rủi ro địa chính trị tiếp tục neo tâm lý thị trường trong khi dòng tin "
+                "AI và công nghệ vốn hóa lớn duy trì mật độ phủ cao. Việt Nam nổi bật với luồng điều hành "
+                "liên quan pháp lý bất động sản và ổn định vĩ mô."
+            )
+            * 5,
+            "most_mentioned_topics": [
+                {"topic": "Trung Đông", "why_mentioned": "Mật độ bài cao", "evidence_hint": "Iran/Hormuz"}
+            ],
+            "hottest_topics": [
+                {
+                    "topic": "Năng lượng vùng Vịnh",
+                    "why_hot": "Ảnh hưởng giá dầu",
+                    "impact": "Tăng biến động tài sản rủi ro",
+                    "evidence_hint": "Nhiều nguồn quốc tế",
+                }
+            ],
+            "emerging_signals": [{"signal": "AI capex", "why_watch": "Dẫn dắt nhóm big tech"}],
+            "watch_next": ["Brent", "Lợi suất Mỹ"],
+        },
         "front_page": [
             {
                 "rank": 1,
@@ -45,10 +67,20 @@ def _fixture() -> dict:
                 "code": "finance",
                 "name": "Kinh tế & Tài chính",
                 "sector_thesis": "Dòng tiền chọn lọc hơn; Bitcoin áp lực, AI giữ sức hút.",
+                "subsector_briefs": [
+                    {
+                        "name": "Tiền tệ và lạm phát",
+                        "overview": "Lạm phát và lãi suất tiếp tục là trục chính của sector.",
+                        "key_points": ["CPI neo cao", "Kỳ vọng nới lỏng thận trọng"],
+                        "key_story_titles": ["Bitcoin giảm áp lực quanh vùng tâm lý"],
+                        "representative_sources": [],
+                    }
+                ],
                 "story_dossiers": [
                     {
                         "rank": 1,
                         "depth_level": "deep",
+                        "sub_sector": "Tiền tệ và lạm phát",
                         "title": "Bitcoin giảm áp lực quanh vùng tâm lý",
                         "summary": "BTC chịu bán mạnh khi nhà đầu tư xoay sang cổ phiếu AI.",
                         "main_developments": ["Giảm quanh mốc 70k", "Alt rotation tăng", "ETF flow yếu"],
@@ -100,6 +132,8 @@ def test_normalize_and_validate() -> None:
     assert out.get("brief_format") == NEWSROOM_BRIEF_FORMAT
     assert len(out.get("sector_deep_briefs") or []) == 4
     dossier = out["sector_deep_briefs"][0]["story_dossiers"][0]
+    assert out.get("executive_briefing", {}).get("content")
+    assert dossier.get("sub_sector") == "Tiền tệ và lạm phát"
     assert dossier.get("why_it_matters")
     assert len(dossier.get("main_developments") or []) >= 2
     assert "LeonQuant ghi nhận" not in (out.get("editor_note") or "")
@@ -179,7 +213,13 @@ def test_build_newsroom_extras() -> None:
     raw = normalize_newsroom_brief(_fixture())
     extras = build_newsroom_web_extras(raw, _mock_articles())
     assert extras.get("editorNote")
+    assert extras.get("executiveBriefing", {}).get("content")
     assert len(extras.get("sectorDeepBriefs") or []) == 4
+    fin_sec = (extras.get("sectorDeepBriefs") or [])[0]
+    if fin_sec:
+        assert "subsectorBriefs" in fin_sec
+        if fin_sec.get("storyDossiers"):
+            assert "subSector" in fin_sec["storyDossiers"][0]
     fp = extras.get("frontPage") or []
     crypto = next((x for x in fp if "Crypto" in (x.get("title") or "")), None)
     if crypto and crypto.get("links"):

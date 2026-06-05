@@ -338,3 +338,16 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Tests | `python scripts/test_newsroom_digest.py`; `powershell scripts/rebuild_public_site.ps1` (embed OK) |
 | Responsive | Checked CSS breakpoints ~390px / 768px / 1280px (compact padding, horizontal TOC scroll, no overflow-x on `.newsroom-report`) |
 | Not changed | Crawler, Gemini pipeline, SQL/GDELT, invest/live logic |
+
+## 2026-06-05 — Tin48h newsroom: executive briefing + ngành con
+
+| Area | Detail |
+|------|--------|
+| Gemini schema/prompt | `summarize_news_gemini.py`: mở rộng `newsroom-brief-v1` với `executive_briefing`, `subsector_briefs`, `sub_sector`; prompt newsroom nhấn mạnh Gemini quyết định most-mentioned/hottest/emerging/subsector, Python chỉ hygiene |
+| Normalize | Thêm sanitize `executive_briefing`, sanitize `subsector_briefs`, preserve `sub_sector` trong dossier; merge/dedupe `subsector_briefs` theo sector code; giữ 4 sector top-level |
+| Validate | Thêm warnings cho thiếu/ngắn/generic `executive_briefing.content`, subsector thiếu source khi claim dài, dossier thiếu `representative_sources` |
+| Build mapping | `build_website_content.py`: map snake→camel cho frontend (`executiveBriefing`, `subsectorBriefs`, `subSector`) và giữ fields cũ |
+| Renderer | `scripts/newsroom_brief_render.mjs` + `landing_page.html` inline JS/CSS: thêm section “Tổng quan 48h”, TOC chip, card tín hiệu, block “Phân ngành nổi bật”, chip `subSector` ở dossier, reading time tính cả executive/subsector |
+| Guardrails | Không thêm hard-code phân ngành con bằng regex để thay Gemini; URL public vẫn đi qua sanitize whitelist |
+| Test ran | `python -m py_compile summarize_news_gemini.py build_website_content.py`; `python scripts/test_newsroom_digest.py`; `python build_website_content.py --skip-images --skip-notable-images`; `node scripts/embed_public_brief_into_html.mjs landing_page.html content.json` |
+| Runtime limit | `python summarize_news_gemini.py --mode digest` bị Gemini HTTP 429 (rate limit) nên dừng run; build local dùng payload sẵn có, vì vậy `executive_briefing.content` đang bị warn trống ở sample hiện tại |

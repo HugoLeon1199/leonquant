@@ -2125,12 +2125,71 @@ def build_newsroom_web_extras(
             }
         )
 
+    eb_in = summary.get("executive_briefing") if isinstance(summary.get("executive_briefing"), dict) else {}
+    executive_briefing = {
+        "title": str(eb_in.get("title") or "Tổng quan 48h").strip() or "Tổng quan 48h",
+        "content": str(eb_in.get("content") or "").strip(),
+        "mostMentionedTopics": [
+            {
+                "topic": str(x.get("topic") or "").strip(),
+                "whyMentioned": str(x.get("why_mentioned") or "").strip(),
+                "evidenceHint": str(x.get("evidence_hint") or "").strip(),
+            }
+            for x in (eb_in.get("most_mentioned_topics") or [])
+            if isinstance(x, dict) and str(x.get("topic") or "").strip()
+        ],
+        "hottestTopics": [
+            {
+                "topic": str(x.get("topic") or "").strip(),
+                "whyHot": str(x.get("why_hot") or "").strip(),
+                "impact": str(x.get("impact") or "").strip(),
+                "evidenceHint": str(x.get("evidence_hint") or "").strip(),
+            }
+            for x in (eb_in.get("hottest_topics") or [])
+            if isinstance(x, dict) and str(x.get("topic") or "").strip()
+        ],
+        "emergingSignals": [
+            {
+                "signal": str(x.get("signal") or "").strip(),
+                "whyWatch": str(x.get("why_watch") or "").strip(),
+            }
+            for x in (eb_in.get("emerging_signals") or [])
+            if isinstance(x, dict) and str(x.get("signal") or "").strip()
+        ],
+        "watchNext": [str(x).strip() for x in (eb_in.get("watch_next") or []) if str(x).strip()],
+    }
+
     sector_deep: list[dict[str, Any]] = []
     for sec in summary.get("sector_deep_briefs") or []:
         if not isinstance(sec, dict):
             continue
         code = _resolve_digest_sector_code(sec)
         name = str(sec.get("name") or "").strip() or DIGEST_SECTOR_LABEL_BY_CODE.get(code, code)
+        subsector_out: list[dict[str, Any]] = []
+        for sb in sec.get("subsector_briefs") or []:
+            if not isinstance(sb, dict):
+                continue
+            sb_name = str(sb.get("name") or "").strip()
+            sb_overview = str(sb.get("overview") or "").strip()
+            if not sb_name or not sb_overview:
+                continue
+            sb_links = _newsroom_sources_to_links(
+                [x for x in (sb.get("representative_sources") or []) if isinstance(x, dict)],
+                by_url=by_url,
+                group=f"{name} · {sb_name}",
+                add_link=add_link,
+            )
+            subsector_out.append(
+                {
+                    "name": sb_name,
+                    "overview": sb_overview,
+                    "keyPoints": [str(x).strip() for x in (sb.get("key_points") or []) if str(x).strip()],
+                    "keyStoryTitles": [
+                        str(x).strip() for x in (sb.get("key_story_titles") or []) if str(x).strip()
+                    ],
+                    "links": sb_links,
+                }
+            )
         dossiers_out: list[dict[str, Any]] = []
         for d in sec.get("story_dossiers") or []:
             if not isinstance(d, dict):
@@ -2167,6 +2226,7 @@ def build_newsroom_web_extras(
                 {
                     "rank": int(d.get("rank") or len(dossiers_out) + 1),
                     "depthLevel": str(d.get("depth_level") or "deep"),
+                    "subSector": str(d.get("sub_sector") or "").strip(),
                     "title": title,
                     "summary": str(d.get("summary") or "").strip(),
                     "mainDevelopments": [
@@ -2191,6 +2251,7 @@ def build_newsroom_web_extras(
                 "code": code,
                 "name": name,
                 "sectorThesis": str(sec.get("sector_thesis") or "").strip(),
+                "subsectorBriefs": subsector_out,
                 "storyDossiers": dossiers_out,
             }
         )
@@ -2223,6 +2284,7 @@ def build_newsroom_web_extras(
         **base,
         "digestLinkIndex": link_index,
         "editorNote": str(summary.get("editor_note") or "").strip(),
+        "executiveBriefing": executive_briefing,
         "frontPage": front_page,
         "sectorDeepBriefs": sector_deep,
         "watchlist2472h": watchlist,
@@ -3221,15 +3283,14 @@ def build_payload(
         },
     }
     if from_digest:
-        # Public Tin 48h: giữ layout multisector (tổng quan, theo lĩnh vực, tin có ảnh, link ở cuối).
-        payload["briefMode"] = "multisector-digest"
-        payload["digestHeroBlurb"] = (
-            "Trang tổng hợp tin tức thế giới và Việt Nam trong 48 giờ qua."
-        )
+        payload["briefMode"] = "newsroom-brief" if from_newsroom else "multisector-digest"
         if from_newsroom:
             payload["digestReportTitle"] = (
                 str(raw_summary.get("title") or "").strip()
                 or "Tổng hợp tin tức toàn cầu và Việt Nam (48 giờ)"
+            )
+            payload["digestHeroBlurb"] = (
+                "Bản tin newsroom 48h — front page, dossier theo lĩnh vực, watchlist và source desk."
             )
         digest_pub = snake.get("_digest_public") if isinstance(snake.get("_digest_public"), dict) else {}
         if digest_pub.get("vietnam_highlights"):
