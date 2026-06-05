@@ -13,8 +13,10 @@ if str(ROOT) not in sys.path:
 from summarize_news_gemini import (  # noqa: E402
     NEWSROOM_BRIEF_FORMAT,
     DigestUrlIndex,
+    aggregate_partial_sector_candidates,
     finalize_digest_summary,
     normalize_newsroom_brief,
+    supplement_newsroom_from_partials,
     validate_newsroom_brief,
 )
 from scripts.newsroom_copy import soften_editor_note  # noqa: E402
@@ -207,6 +209,62 @@ def test_sanitize_published_content_json() -> None:
     assert not fp.get("links")
 
 
+def test_supplement_newsroom_from_partials() -> None:
+    partials = [
+        {
+            "summary": {
+                "sector_notes": [
+                    {
+                        "code": "finance",
+                        "name": "Kinh tế & Tài chính",
+                        "sub_topics": [
+                            {
+                                "priority_tier": "A",
+                                "headline": "Bitcoin giảm áp lực quanh vùng tâm lý",
+                                "summary_hint": "Dòng tiền rút khỏi crypto.",
+                                "source_urls": ["https://www.coindesk.com/markets/"],
+                                "reason_selected": "Tier A trong partial.",
+                            },
+                            {
+                                "priority_tier": "B",
+                                "headline": "Fed giữ lãi suất thận trọng",
+                                "summary_hint": "Thị trường chờ phát biểu.",
+                                "source_urls": ["https://www.cnbc.com/fed/"],
+                                "reason_selected": "Tier B liên quan lãi suất.",
+                            },
+                        ],
+                    }
+                ],
+                "notable_articles": [
+                    {
+                        "title": "Iran đàm phán với Mỹ",
+                        "url": "https://www.aljazeera.com/iran/",
+                        "why_notable": "Ảnh hưởng giá dầu.",
+                    }
+                ],
+            }
+        }
+    ]
+    thin = {
+        "brief_format": NEWSROOM_BRIEF_FORMAT,
+        "front_page": [],
+        "sector_deep_briefs": [
+            {
+                "code": "finance",
+                "name": "Kinh tế & Tài chính",
+                "sector_thesis": "Thị trường thận trọng.",
+                "story_dossiers": [],
+            }
+        ],
+        "watchlist_24_72h": [],
+    }
+    out = supplement_newsroom_from_partials(thin, partials)
+    assert len(out.get("front_page") or []) >= 2
+    fin = next(s for s in out["sector_deep_briefs"] if s["code"] == "finance")
+    assert len(fin.get("story_dossiers") or []) >= 2
+    assert aggregate_partial_sector_candidates(partials)[0]["candidates_in_partials"] == 2
+
+
 def test_build_newsroom_extras() -> None:
     from build_website_content import build_newsroom_web_extras
 
@@ -232,5 +290,6 @@ if __name__ == "__main__":
     test_source_match_rejects_mismatched_urls()
     test_soften_editor_note()
     test_sanitize_published_content_json()
+    test_supplement_newsroom_from_partials()
     test_build_newsroom_extras()
     print("OK: newsroom digest tests passed")

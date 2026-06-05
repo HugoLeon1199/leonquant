@@ -1752,6 +1752,8 @@ def _scrub_digest_public_copy(
 def _editorialize_digest_headline(headline: str) -> str:
     """Fallback khi merge vẫn giữ headline crawl giật/thô."""
     h = re.sub(r"\s+", " ", str(headline or "").strip())
+    if h and h[0].islower():
+        h = h[0].upper() + h[1:]
     if not h or not _SENSATIONAL_HEADLINE_RE.search(h):
         return h
     low = h.lower()
@@ -2601,6 +2603,220 @@ def _headline_dedupe_key(text: str) -> str:
     return str(text or "").strip().lower()[:120]
 
 
+def aggregate_partial_notable_articles(
+    partials: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    seen_urls: set[str] = set()
+    out: list[dict[str, Any]] = []
+    for batch in partials:
+        if not isinstance(batch, dict):
+            continue
+        raw = batch.get("summary")
+        if not isinstance(raw, dict):
+            continue
+        for row in raw.get("notable_articles") or []:
+            if not isinstance(row, dict):
+                continue
+            url = str(row.get("url") or "").strip()
+            if not url or url in seen_urls:
+                continue
+            seen_urls.add(url)
+            out.append(row)
+    return out
+
+
+def _candidate_urls(row: dict[str, Any]) -> list[str]:
+    return [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+
+
+def _candidate_to_rep_sources(
+    row: dict[str, Any],
+    *,
+    headline: str,
+    url_index: DigestUrlIndex | None,
+) -> list[dict[str, str]]:
+    rep: list[dict[str, str]] = []
+    for url in _candidate_urls(row)[:3]:
+        art = None
+        if url_index:
+            art = url_index.by_url.get(_canonical_digest_url(url))
+        host = (urlparse(url).hostname or "").replace("www.", "")
+        rep.append(
+            {
+                "title": str((art or {}).get("title") or headline or host or url),
+                "source": str((art or {}).get("source") or host or ""),
+                "url": url,
+            }
+        )
+    return rep
+
+
+def _newsroom_dossier_target(pool_size: int, current: int) -> int:
+    if pool_size < 8:
+        return max(current, min(2, pool_size))
+    if pool_size < 20:
+        return max(current, 3)
+    return min(DIGEST_PARSER_MAX_STORY_DOSSIERS_PER_SECTOR, max(4, min(6, pool_size // 6)))
+
+
+def supplement_newsroom_from_partials(
+    summary: dict[str, Any],
+    partials: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Bổ sung front_page / dossiers từ candidate pools khi merge Gemini quá mỏng."""
+    if not partials or not _is_newsroom_brief(summary):
+        return summary
+    out = dict(summary)
+    pools = {p["code"]: p for p in aggregate_partial_sector_candidates(partials)}
+
+    fp: list[dict[str, Any]] = [
+        dict(x) for x in (out.get("front_page") or []) if isinstance(x, dict)
+    ]
+    fp_keys = {_headline_dedupe_key(x.get("title") or "") for x in fp}
+    rank = max((int(x.get("rank") or 0) for x in fp), default=0) + 1
+
+    for row in aggregate_partial_notable_articles(partials):
+        if len(fp) >= 8:
+            break
+        title = str(row.get("title") or "").strip()
+        key = _headline_dedupe_key(title)
+        if not title or key in fp_keys:
+            continue
+        fp_keys.add(key)
+        fp.append(
+            {
+                "rank": rank,
+                "title": title,
+                "one_sentence": str(row.get("why_notable") or "").strip(),
+                "why_it_matters": str(row.get("why_notable") or "").strip(),
+                "watch_next": "Theo dõi diễn biến tiếp trong 24–72 giờ.",
+                "source_urls": [str(row.get("url") or "").strip()]
+                if str(row.get("url") or "").strip()
+                else [],
+            }
+        )
+        rank += 1
+
+    if len(fp) < 5:
+        for code, _ in DIGEST_FOUR_SECTORS:
+            for row in (pools.get(code) or {}).get("candidates") or []:
+                if len(fp) >= 8:
+                    break
+                tier = str(row.get("priority_tier") or "B").strip().upper()[:1]
+                if tier not in ("A", "B"):
+                    continue
+                title = str(row.get("headline") or row.get("title") or "").strip()
+                key = _headline_dedupe_key(title)
+                if not title or key in fp_keys:
+                    continue
+                fp_keys.add(key)
+                fp.append(
+                    {
+                        "rank": rank,
+                        "title": title,
+                        "one_sentence": str(row.get("summary_hint") or "").strip(),
+                        "why_it_matters": str(
+                            row.get("reason_selected") or row.get("summary_hint") or ""
+                        ).strip(),
+                        "watch_next": "Theo dõi diễn biến tiếp trong 24–72 giờ.",
+                        "source_urls": _candidate_urls(row)[:2],
+                    }
+                )
+                rank += 1
+    out["front_page"] = fp
+
+    existing_by_code: dict[str, dict[str, Any]] = {}
+    for sec in out.get("sector_deep_briefs") or []:
+        if isinstance(sec, dict):
+            code = str(sec.get("code") or "").strip().lower()
+            if code:
+                existing_by_code[code] = dict(sec)
+
+    norm_sectors: list[dict[str, Any]] = []
+    for code, label in DIGEST_FOUR_SECTORS:
+        bucket = existing_by_code.get(code) or {
+            "code": code,
+            "name": label,
+            "sector_thesis": "",
+            "subsector_briefs": [],
+            "story_dossiers": [],
+        }
+        dossiers: list[dict[str, Any]] = [
+            dict(d)
+            for d in (bucket.get("story_dossiers") or [])
+            if isinstance(d, dict)
+        ]
+        d_keys = {_headline_dedupe_key(d.get("title") or "") for d in dossiers}
+        pool = pools.get(code) or {}
+        pool_size = int(pool.get("candidates_in_partials") or 0)
+        target = _newsroom_dossier_target(pool_size, len(dossiers))
+        d_rank = max((int(d.get("rank") or 0) for d in dossiers), default=0) + 1
+        for row in pool.get("candidates") or []:
+            if len(dossiers) >= target:
+                break
+            tier = str(row.get("priority_tier") or "B").strip().upper()[:1]
+            if tier not in ("A", "B"):
+                continue
+            title = str(row.get("headline") or row.get("title") or "").strip()
+            key = _headline_dedupe_key(title)
+            if not title or key in d_keys:
+                continue
+            d_keys.add(key)
+            hint = str(row.get("summary_hint") or "").strip()
+            reason = str(row.get("reason_selected") or hint).strip()
+            dossiers.append(
+                {
+                    "rank": d_rank,
+                    "depth_level": "deep" if tier == "A" else "brief",
+                    "title": title,
+                    "summary": hint,
+                    "main_developments": [hint] if hint else [],
+                    "why_it_matters": reason,
+                    "affected_groups": [],
+                    "watch_next": ["Theo dõi diễn biến tiếp trong 24–72 giờ."],
+                    "representative_sources": _candidate_to_rep_sources(
+                        row, headline=title, url_index=None
+                    ),
+                }
+            )
+            d_rank += 1
+        norm_sectors.append(
+            {
+                "code": code,
+                "name": str(bucket.get("name") or label),
+                "sector_thesis": str(bucket.get("sector_thesis") or "").strip(),
+                "subsector_briefs": bucket.get("subsector_briefs") or [],
+                "story_dossiers": dossiers,
+            }
+        )
+    out["sector_deep_briefs"] = norm_sectors
+
+    watch = [
+        dict(w)
+        for w in (out.get("watchlist_24_72h") or [])
+        if isinstance(w, dict) and str(w.get("theme") or "").strip()
+    ]
+    if len(watch) < 4:
+        seen_themes: set[str] = {str(w.get("theme") or "").strip().lower() for w in watch}
+        for item in fp[:6]:
+            theme = str(item.get("title") or "").strip()
+            if not theme or theme.lower() in seen_themes:
+                continue
+            seen_themes.add(theme.lower())
+            watch.append(
+                {
+                    "theme": theme,
+                    "what_to_watch": str(item.get("watch_next") or "").strip(),
+                    "why": str(item.get("why_it_matters") or "").strip(),
+                }
+            )
+            if len(watch) >= 6:
+                break
+    out["watchlist_24_72h"] = watch
+
+    return out
+
+
 def supplement_digest_sectors_from_partials(
     summary: dict[str, Any],
     partials: list[dict[str, Any]],
@@ -2660,6 +2876,8 @@ def finalize_digest_summary(
         return summary
     url_index = DigestUrlIndex(input_articles or []) if input_articles else None
     if _is_newsroom_brief(summary):
+        if partials:
+            summary = supplement_newsroom_from_partials(summary, partials)
         normalized = normalize_newsroom_brief(summary, url_index=url_index)
         for w in validate_newsroom_brief(normalized):
             print(f"WARN newsroom brief: {w}", file=sys.stderr)
@@ -3392,6 +3610,12 @@ def build_digest_merge_prompt(
 **Không có quota cố định** số story/dossier. Nếu 48h có 5 story lớn → 5 dossier sâu; nếu có 20 → giữ ~20 (gom cụm, không một bài một dòng vụn).
 **Không fill** tin yếu. **Không cắt** story quan trọng chỉ vì muốn gọn.
 Đối chiếu **toàn bộ** `sector_notes` / `candidates[]` từ mọi partial trước khi kết thúc.
+
+## Minimum chất lượng (BẮT BUỘC khi candidate pools giàu)
+- Khi mỗi sector có **≥15** candidates trong pools: `front_page` **ít nhất 5** story; mỗi sector **ít nhất 3** `story_dossiers` **khác chủ đề**.
+- Mỗi `front_page` / `story_dossiers` **bắt buộc** có URL từ pools (`source_urls` / `representative_sources`) — **cấm** để trống khi candidate có URL.
+- `executive_briefing.content` **≥ 1.200 ký tự** khi pools tổng **≥ 80** candidates; viết như bản tin chuyên nghiệp (actor, sự kiện, tác động), không bullet generic.
+- Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
 
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}

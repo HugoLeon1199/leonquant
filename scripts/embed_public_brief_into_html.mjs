@@ -381,6 +381,9 @@ function buildNewsroomThesisHtml(data) {
 }
 
 function normalizeBriefMode(data) {
+  if (data.briefMode === "newsroom-brief" || data.briefMode === "multisector-digest") {
+    return data;
+  }
   if (Array.isArray(data.digestSectors) && data.digestSectors.length) {
     return { ...data, briefMode: "multisector-digest" };
   }
