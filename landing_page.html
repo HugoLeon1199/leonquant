@@ -1954,7 +1954,12 @@
       overflow: hidden;
     }
     #invest .invest-world-item-meta {
-      display: none;
+      display: block;
+      margin: 0 0 6px;
+      font-size: .78rem;
+      line-height: 1.5;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
     }
     #invest .invest-vn-lens {
       display: -webkit-box;
@@ -2351,6 +2356,429 @@
       letter-spacing: .04em;
     }
 
+    /* —— Kinh tế đầu tư: research memo —— */
+    body.invest-mode #invest > .container {
+      width: min(820px, 92%);
+    }
+    body.invest-mode #invest #invest-desk,
+    body.invest-mode #invest .invest-desk-layout {
+      max-width: min(820px, 100%);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.invest-mode #invest .invest-desk-page-head {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    body.invest-mode #invest .invest-desk-page-head h2 {
+      font-family: var(--font-sans);
+      font-size: clamp(1.2rem, 2.6vw, 1.45rem);
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+    body.invest-mode #invest .invest-channel-lead,
+    body.invest-mode #invest .invest-channel-updated {
+      font-family: var(--font-sans);
+      max-width: 62ch;
+    }
+    body.invest-mode #invest .invest-desk-layout {
+      gap: 40px;
+    }
+    body.invest-mode #invest .invest-desk-section--world,
+    body.invest-mode #invest .invest-desk-section--vn {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    body.invest-mode #invest .invest-desk-head {
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(180, 83, 9, .16);
+    }
+    body.invest-mode #invest .invest-desk-title {
+      font-family: var(--font-sans);
+      font-size: clamp(1.05rem, 2.3vw, 1.2rem);
+      font-weight: 700;
+      letter-spacing: -.015em;
+    }
+    body.invest-mode #invest .invest-desk-sub,
+    body.invest-mode #invest #invest .sync-note {
+      font-family: var(--font-sans);
+      font-size: .8rem;
+      line-height: 1.5;
+    }
+    body.invest-mode #invest .invest-vn-lead,
+    body.invest-mode #invest .invest-world-brief {
+      font-size: .98rem;
+      line-height: 1.74;
+      color: var(--text-soft);
+      margin-bottom: 1.25rem;
+      -webkit-line-clamp: unset;
+      display: block;
+      overflow: visible;
+    }
+    body.invest-mode #invest .sectors-section-title {
+      margin: 1.75rem 0 0.85rem;
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #b45309;
+    }
+    body.invest-mode #invest .invest-vn-theme {
+      gap: 12px;
+      margin-bottom: 40px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(15, 23, 42, .08);
+    }
+    body.invest-mode #invest .invest-vn-theme:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    body.invest-mode #invest .invest-vn-theme-rank {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    body.invest-mode #invest .invest-vn-theme-title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.38;
+      letter-spacing: -.01em;
+    }
+    body.invest-mode #invest .invest-vn-why,
+    body.invest-mode #invest .invest-vn-lens,
+    body.invest-mode #invest .invest-vn-watch-body,
+    body.invest-mode #invest .sector-points {
+      font-size: .98rem;
+      line-height: 1.74;
+      color: var(--text-soft);
+    }
+    body.invest-mode #invest .invest-vn-lens {
+      -webkit-line-clamp: unset;
+      display: block;
+      overflow: visible;
+    }
+    body.invest-mode #invest .sector-points {
+      margin: 8px 0 10px;
+      padding-left: 1.15rem;
+    }
+    body.invest-mode #invest .invest-vn-link-rows,
+    body.invest-mode #invest .invest-world-item-links {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(15, 23, 42, .08);
+    }
+    body.invest-mode #invest .invest-vn-link-rows li,
+    body.invest-mode #invest .invest-world-item-links li {
+      margin: 0;
+      padding: 12px 0 12px 14px;
+      border-bottom: 1px solid rgba(15, 23, 42, .06);
+      border-left: 2px solid rgba(180, 83, 9, .28);
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+    body.invest-mode #invest .invest-vn-link-rows li:last-child,
+    body.invest-mode #invest .invest-world-item-links li:last-child {
+      border-bottom: none;
+    }
+    body.invest-mode #invest .invest-vn-link-rows a,
+    body.invest-mode #invest .invest-world-item-links a {
+      color: var(--cyan-link);
+      font-weight: 650;
+      padding: 2px 0;
+    }
+    body.invest-mode #invest .invest-vn-link-rows .link-meta,
+    body.invest-mode #invest .invest-world-item-links .link-meta {
+      display: block;
+      margin: 4px 0 0;
+      font-size: .74rem;
+      font-variant-numeric: tabular-nums;
+    }
+    body.invest-mode #invest .invest-vn-watch {
+      margin-bottom: 28px;
+      padding: 0 0 28px;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(15, 23, 42, .08);
+      background: transparent;
+    }
+    body.invest-mode #invest .invest-vn-watch:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    body.invest-mode #invest .invest-vn-status-pill {
+      background: rgba(180, 83, 9, .08);
+      color: #92400e;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 650;
+    }
+    body.invest-mode #invest .invest-world-topic {
+      margin-bottom: 36px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(15, 23, 42, .08);
+    }
+    body.invest-mode #invest .invest-world-topic:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    body.invest-mode #invest .invest-world-topic-name {
+      margin-bottom: 14px;
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #b45309;
+    }
+    body.invest-mode #invest .invest-world-item {
+      margin: 0 0 28px;
+      padding: 0 0 28px;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(15, 23, 42, .08);
+      background: transparent;
+    }
+    body.invest-mode #invest .invest-world-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    body.invest-mode #invest .invest-world-item-title {
+      font-size: .98rem;
+      font-weight: 700;
+      line-height: 1.42;
+      margin-bottom: 8px;
+    }
+    body.invest-mode #invest .invest-world-item-summary {
+      font-size: .96rem;
+      line-height: 1.72;
+      -webkit-line-clamp: unset;
+      display: block;
+      overflow: visible;
+      margin-bottom: 10px;
+    }
+    body.invest-mode #invest .invest-live-strip {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(180, 83, 9, .16);
+      background: transparent;
+    }
+
+    /* —— Thế giới LIVE: radar / newswire —— */
+    body.pulse-mode #pulse > .container {
+      width: min(1180px, 94%);
+    }
+    body.pulse-mode #pulse .digest-report-head {
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border);
+    }
+    body.pulse-mode #pulse .digest-report-head h2 {
+      font-family: var(--font-sans);
+      font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+    body.pulse-mode #pulse .pulse-title-live {
+      font-size: .68rem;
+      letter-spacing: .06em;
+      color: #dc2626;
+    }
+    body.pulse-mode #pulse .sync-note {
+      font-family: var(--font-sans);
+      font-size: .8rem;
+      margin-bottom: 0;
+    }
+    body.pulse-mode #pulse .pulse-panel {
+      padding: 14px 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: none;
+    }
+    body.pulse-mode #pulse .pulse-event-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 960px) {
+      body.pulse-mode #pulse .pulse-event-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+    }
+    body.pulse-mode #pulse .pulse-event {
+      margin-bottom: 0;
+      padding: 12px 13px 11px;
+      border: 1px solid rgba(15, 23, 42, .1);
+      border-radius: 8px;
+      background: var(--bg0);
+      box-shadow: none;
+    }
+    body.pulse-mode #pulse .pulse-event--multi-source {
+      border-color: rgba(8, 145, 178, .28);
+      background: rgba(8, 145, 178, .03);
+    }
+    body.pulse-mode #pulse .pulse-event--solo-source {
+      border-color: rgba(15, 23, 42, .08);
+      background: var(--surface);
+    }
+    body.pulse-mode #pulse .pulse-event-sector {
+      display: none;
+    }
+    body.pulse-mode #pulse .pulse-event-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 8px;
+    }
+    body.pulse-mode #pulse .pulse-radar-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(8, 145, 178, .18);
+      background: rgba(8, 145, 178, .06);
+      font-family: var(--font-sans);
+      font-size: .68rem;
+      font-weight: 650;
+      line-height: 1.35;
+      color: var(--cyan-dim);
+      font-variant-numeric: tabular-nums;
+    }
+    body.pulse-mode #pulse .pulse-radar-badge--sector {
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    body.pulse-mode #pulse .pulse-radar-badge--sources-hot {
+      border-color: rgba(8, 145, 178, .35);
+      background: rgba(8, 145, 178, .12);
+      font-weight: 750;
+      color: var(--cyan-dim);
+    }
+    body.pulse-mode #pulse .pulse-radar-badge--sources-solo {
+      border-color: rgba(15, 23, 42, .1);
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    body.pulse-mode #pulse .pulse-radar-badge--tone {
+      border-color: rgba(15, 23, 42, .1);
+      background: transparent;
+      color: var(--muted);
+    }
+    body.pulse-mode #pulse .pulse-event-title {
+      margin: 0 0 8px;
+      font-family: var(--font-sans);
+      font-size: .92rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    body.pulse-mode #pulse .pulse-event-hint {
+      margin: 0 0 8px;
+      font-size: .82rem;
+      line-height: 1.52;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    body.pulse-mode #pulse .pulse-event-importance {
+      margin: 0 0 8px;
+      font-size: .76rem;
+      line-height: 1.45;
+    }
+    body.pulse-mode #pulse .pulse-event-coverage,
+    body.pulse-mode #pulse .pulse-event-entities {
+      display: none;
+    }
+    body.pulse-mode #pulse .pulse-event-sources-block {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(15, 23, 42, .08);
+    }
+    body.pulse-mode #pulse .pulse-event-sources-head {
+      margin: 0 0 6px;
+      font-size: .68rem;
+      font-weight: 650;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    body.pulse-mode #pulse .pulse-event-source-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+    }
+    body.pulse-mode #pulse .pulse-event-source-links li {
+      margin: 0;
+      font-size: .74rem;
+      line-height: 1.35;
+    }
+    body.pulse-mode #pulse .pulse-event-source-links a {
+      display: inline-block;
+      padding: 3px 0;
+      color: var(--cyan-link);
+      font-weight: 650;
+      text-decoration: none;
+    }
+    body.pulse-mode #pulse .pulse-event-source-links a:hover {
+      text-decoration: underline;
+    }
+    body.pulse-mode #pulse .pulse-event-source-links .link-meta {
+      display: block;
+      margin-top: 1px;
+      font-size: .68rem;
+      color: var(--faint);
+      font-variant-numeric: tabular-nums;
+    }
+    body.pulse-mode #pulse .pulse-sources-ticker {
+      border: none;
+      background: transparent;
+      border-radius: 0;
+    }
+    body.pulse-mode #pulse .pulse-sources-ticker-viewport {
+      height: auto;
+      overflow: visible;
+    }
+    body.pulse-mode #pulse .pulse-sources-ticker-viewport::before,
+    body.pulse-mode #pulse .pulse-sources-ticker-viewport::after {
+      display: none;
+    }
+    body.pulse-mode #pulse .pulse-sources-ticker-scroll {
+      animation: none;
+      transform: none;
+    }
+    body.pulse-mode #pulse .pulse-sources-ticker-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+    }
+    body.pulse-mode #pulse .pulse-sources-ticker-list[aria-hidden="true"] {
+      display: none;
+    }
+    body.pulse-mode #pulse .pulse-sources-ticker-list li {
+      padding: 0;
+      border: none;
+      font-size: .74rem;
+    }
+
     @media (max-width: 640px) {
       .container { width: 94%; }
       section { padding: 28px 0; }
@@ -2375,6 +2803,21 @@
         height: 42px;
         font-size: .82rem;
         border-radius: 12px;
+      }
+      body.invest-mode #invest .invest-vn-link-rows li,
+      body.invest-mode #invest .invest-world-item-links li {
+        padding-left: 10px;
+      }
+      body.invest-mode #invest .invest-vn-link-rows a,
+      body.invest-mode #invest .invest-world-item-links a {
+        padding: 4px 0;
+      }
+      body.pulse-mode #pulse .pulse-event-title {
+        font-size: .88rem;
+      }
+      body.pulse-mode #pulse .pulse-event-hint {
+        font-size: .8rem;
+        -webkit-line-clamp: 4;
       }
       .nav-hub { padding: 7px 10px; font-size: .7rem; }
       .sync-note { margin-bottom: 12px; font-size: .84rem; }
@@ -2510,89 +2953,43 @@
       </div>
     </section>
 
-        <section id="pulse" class="alt" hidden hidden hidden hidden hidden data-embedded-pulse="1">
+        <section id="pulse" class="alt" hidden hidden hidden hidden hidden data-embedded-pulse="1" data-embedded-pulse="1">
       <div class="container">
-        <div id="sectionPulse" class="brief-block" data-embedded-pulse="1"><article class="digest-report" id="pulse-crawler-report"><header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2><p class="sync-note">Cập nhật 21:29 04/06/2026 (giờ Việt Nam).</p></header><div class="pulse-panel"><ol class="pulse-event-list"><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Israel và Lebanon gia hạn thỏa thuận ngừng bắn, thiết lập khu vực an ninh nhằm đẩy lùi lực lượng Hezbollah khỏi biên giới</h3><p class="pulse-event-hint">Israel và Lebanon đã đạt được thỏa thuận gia hạn lệnh ngừng bắn sau vòng đàm phán thứ tư dưới sự trung gian của Mỹ tại Washington. Điểm then chốt của thỏa thuận là thiết lập các khu vực an ninh thí điểm bên trong lãnh thổ Lebanon, nơi lực lượng Hezbollah bị cấm hoạt động. Thỏa thuận yêu cầu quân đội Lebanon phải kiểm soát hoàn toàn các khu vực này và buộc các tay súng Hezbollah phải rút khỏi phía nam sông Litani. Các bên tham gia đối thoại đã nhấn mạnh rằng tương lai của mối quan hệ Israel - Lebanon phải do chính phủ hai nước quyết định, đồng thời lên án sự can thiệp của các chủ thể nước ngoài gây bất ổn trong khu vực. Một vòng đàm phán tiếp theo dự kiến diễn ra vào tuần ngày 22 tháng 6 nhằm hướng tới một thỏa thuận hòa bình toàn diện.</p><p class="pulse-event-importance">Sự kiện này đánh dấu bước tiến quan trọng trong nỗ lực hạ nhiệt căng thẳng quân sự tại Trung Đông. Việc thiết lập khu vực an ninh và tách biệt Hezbollah khỏi biên giới có ý nghĩa chiến lược trong việc giảm thiểu nguy cơ xung đột vũ trang trực tiếp giữa các bên, mở đường cho sự ổn định an ninh dài hạn tại khu vực biên giới Lebanon - Israel.</p><p class="pulse-event-coverage">Độ phủ: <strong>90</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
+        <div id="sectionPulse" class="brief-block" data-embedded-pulse="1"><article class="digest-report" id="pulse-crawler-report"><header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2><p class="sync-note">Cập nhật 21:18 05/06/2026 (giờ Việt Nam).</p></header><div class="pulse-panel"><ol class="pulse-event-list"><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">An ninh - Xung đột - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">80 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">14 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Pháp chấn động sau vụ sát hại bé gái 11 tuổi, làm bùng lên tranh cãi về lỗ hổng hệ thống tư pháp trong việc xử lý các cáo buộc hiếp dâm</h3><p class="pulse-event-hint">Dư luận Pháp đang phẫn nộ sau khi thi thể của bé gái 11 tuổi tên Lyhanna được tìm thấy tại một trang trại hẻo lánh ở vùng Gers sau 6 ngày tìm kiếm. Nghi phạm hiện đang bị giam giữ đã trở thành tâm điểm của sự chỉ trích, khi truyền thông và giới quan sát đặt nghi vấn nghiêm trọng về việc các cơ quan tư pháp đã bỏ qua những cáo buộc hiếp dâm trước đó đối với đối tượng này. Tổng thống Emmanuel Macron, trong chuyến công tác tại Montenegro, cũng đã lên tiếng bày tỏ sự bàng hoàng và thừa nhận sự việc này cho thấy những vết nứt đáng báo động trong hệ thống tư pháp hiện tại. Các đơn vị cảnh sát và tình nguyện viên đã huy động lực lượng lớn tìm kiếm kể từ khi nạn nhân mất tích sau giờ học vào ngày 29 tháng 5. Hiện tại, một cuộc khám nghiệm tử thi đã được yêu cầu để làm rõ nguyên nhân cái chết.</p><p class="pulse-event-importance">Sự kiện gây chấn động dư luận quốc gia Pháp, tạo ra làn sóng phẫn nộ về an ninh trẻ em và trách nhiệm của cơ quan hành pháp. Việc Tổng thống Macron phải lên tiếng về vấn đề nội địa khi đang ở nước ngoài cho thấy mức độ nghiêm trọng và áp lực chính trị cực lớn mà vụ án đang tạo ra đối với chính quyền.</p><p class="pulse-event-coverage">Độ phủ: <strong>80</strong> bài · <strong>14</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://www.theboltonnews.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">theboltonnews.co.uk</a></li><li><a href="https://www.enfieldindependent.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">enfieldindependent.co.uk</a></li><li><a href="https://www.malverngazette.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">malverngazette.co.uk</a></li><li><a href="https://www.theargus.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">theargus.co.uk</a></li><li><a href="https://www.gazetteseries.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">gazetteseries.co.uk</a></li><li><a href="https://www.richmondandtwickenhamtimes.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">richmondandtwickenhamtimes.co.uk</a></li><li><a href="https://www.watfordobserver.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">watfordobserver.co.uk</a></li><li><a href="https://www.wirralglobe.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">wirralglobe.co.uk</a></li><li><a href="https://www.echo-news.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">echo-news.co.uk</a></li><li><a href="https://www.cotswoldjournal.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">cotswoldjournal.co.uk</a></li><li><a href="https://www.thetottenhamindependent.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">thetottenhamindependent.co.uk</a></li><li><a href="https://www.thurrockgazette.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">thurrockgazette.co.uk</a></li><li><a href="https://www.whtimes.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">whtimes.co.uk</a></li><li><a href="https://www.swindonadvertiser.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">swindonadvertiser.co.uk</a></li><li><a href="https://www.westerntelegraph.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">westerntelegraph.co.uk</a></li><li><a href="https://www.eadt.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">eadt.co.uk</a></li><li><a href="https://www.southwalesargus.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">southwalesargus.co.uk</a></li><li><a href="https://www.gazette-news.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">gazette-news.co.uk</a></li><li><a href="https://www.dorsetecho.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">dorsetecho.co.uk</a></li><li><a href="https://www.thewestonmercury.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">thewestonmercury.co.uk</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://www.theboltonnews.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">theboltonnews.co.uk</a></li><li><a href="https://www.enfieldindependent.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">enfieldindependent.co.uk</a></li><li><a href="https://www.malverngazette.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">malverngazette.co.uk</a></li><li><a href="https://www.theargus.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">theargus.co.uk</a></li><li><a href="https://www.gazetteseries.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">gazetteseries.co.uk</a></li><li><a href="https://www.richmondandtwickenhamtimes.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">richmondandtwickenhamtimes.co.uk</a></li><li><a href="https://www.watfordobserver.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">watfordobserver.co.uk</a></li><li><a href="https://www.wirralglobe.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">wirralglobe.co.uk</a></li><li><a href="https://www.echo-news.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">echo-news.co.uk</a></li><li><a href="https://www.cotswoldjournal.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">cotswoldjournal.co.uk</a></li><li><a href="https://www.thetottenhamindependent.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">thetottenhamindependent.co.uk</a></li><li><a href="https://www.thurrockgazette.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">thurrockgazette.co.uk</a></li><li><a href="https://www.whtimes.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">whtimes.co.uk</a></li><li><a href="https://www.swindonadvertiser.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">swindonadvertiser.co.uk</a></li><li><a href="https://www.westerntelegraph.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">westerntelegraph.co.uk</a></li><li><a href="https://www.eadt.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">eadt.co.uk</a></li><li><a href="https://www.southwalesargus.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">southwalesargus.co.uk</a></li><li><a href="https://www.gazette-news.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">gazette-news.co.uk</a></li><li><a href="https://www.dorsetecho.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">dorsetecho.co.uk</a></li><li><a href="https://www.thewestonmercury.co.uk/news/national/26164669.israel-lebanon-renew-ceasefire-hezbollah-banned-security-zones/" target="_blank" rel="noopener noreferrer">thewestonmercury.co.uk</a></li></ul>
-            </div>
-          </div>
-        </div>
-      </div></li><li class="pulse-event"><p class="pulse-event-sector">Chính trị - Địa chính trị</p><h3 class="pulse-event-title">Tai nạn máy bay hạng nhẹ tại Medulin, Croatia khiến bốn người thiệt mạng; cơ quan chức năng đang điều tra hiện trường</h3><p class="pulse-event-hint">Một máy bay hạng nhẹ khởi hành từ Áo đã gặp nạn và rơi tại khu vực Campanož, gần sân bay thể thao Medulin, vùng Istra, Croatia vào ngày 4/6/2026. Vụ tai nạn khiến toàn bộ bốn người trên máy bay thiệt mạng. Lực lượng cứu hộ, cảnh sát và các đơn vị y tế đã nhanh chóng có mặt tại hiện trường để triển khai công tác tìm kiếm và xử lý sự cố. Theo thông tin ban đầu từ các nhân chứng, máy bay không phát nổ mà rơi theo quỹ đạo xoắn ốc khi đang hạ cánh. Các nhà điều tra thuộc Cơ quan Điều tra tai nạn hàng không, hàng hải và đường sắt Croatia dự kiến sẽ sớm có mặt để làm rõ nguyên nhân, dù điều kiện thời tiết tại thời điểm bay được đánh giá là thuận lợi.</p><p class="pulse-event-importance">Vụ tai nạn gây chú ý do quy mô thương vong lớn đối với một chuyến bay tư nhân. Sự việc thu hút sự quan tâm của truyền thông địa phương và quốc tế vì đòi hỏi sự phối hợp khẩn cấp giữa các cơ quan an ninh hàng không Croatia và các quốc gia liên quan.</p><p class="pulse-event-coverage">Độ phủ: <strong>110</strong> bài · <strong>1</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
+        <ul class="pulse-event-source-links"><li><a href="https://www.countypress.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">countypress.co.uk</a></li><li><a href="https://www.chelmsfordweeklynews.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">chelmsfordweeklynews.co.uk</a></li><li><a href="https://www.nwemail.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">nwemail.co.uk</a></li><li><a href="https://www.burytimes.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">burytimes.co.uk</a></li><li><a href="https://www.hamhigh.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">hamhigh.co.uk</a></li><li><a href="https://www.eadt.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">eadt.co.uk</a></li><li><a href="https://www.gazetteherald.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">gazetteherald.co.uk</a></li><li><a href="https://www.gazetteseries.co.uk/news/national/26170413.fury-france-case-missing-girl-feared-killed-exposes-justice-failures/" target="_blank" rel="noopener noreferrer">gazetteseries.co.uk</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">Pháp lý - Quy định - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">80 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">20 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Hezbollah bác bỏ đề xuất ngừng bắn mới tại Lebanon, làm suy yếu nỗ lực ngoại giao của chính quyền Trump trong việc chấm dứt cuộc chiến kéo dài</h3><p class="pulse-event-hint">Nhóm Hezbollah do Iran hậu thuẫn đã chính thức từ chối đề xuất ngừng bắn mới tại Lebanon vào ngày 4 tháng 6, bất chấp những nỗ lực hòa giải từ Washington. Lãnh đạo Hezbollah, Naim Qassem, khẳng định nhóm sẽ tiếp tục kháng cự, trong khi Israel tuyên bố duy trì hiện diện quân sự và tiếp tục các cuộc không kích tại miền Nam Lebanon. Cuộc xung đột, bùng phát từ tháng 3/2026 sau các đợt tấn công Mỹ-Israel, vẫn tiếp diễn dù Mỹ đã nhiều lần công bố các lệnh ngừng bắn. Iran, bên hậu thuẫn chính cho Hezbollah, đặt điều kiện bất kỳ thỏa thuận hòa bình nào với Mỹ cũng phải bao gồm lệnh ngừng bắn tại Lebanon và cảnh báo khả năng can thiệp trực tiếp nếu Israel leo thang tấn công. Các bên hiện vẫn chưa có phản hồi tích cực đối với tuyên bố của Hezbollah, khiến hy vọng hạ nhiệt tình hình trở nên vô cùng mong manh.</p><p class="pulse-event-importance">Sự kiện ảnh hưởng trực tiếp đến an ninh khu vực Trung Đông và nỗ lực ngoại giao của chính quyền Tổng thống Mỹ Donald Trump. Việc không đạt được thỏa thuận ngừng bắn làm tăng nguy cơ leo thang xung đột quân sự, gây bất ổn cho tuyến đường hàng hải chiến lược và quan hệ giữa các cường quốc với Iran.</p><p class="pulse-event-coverage">Độ phủ: <strong>80</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/region/239118/pao-avion-u-hrvatskoj-nezvanicno-ima-mrtvih-cure-strasni-detalji/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li></ul>
-            </div>
-          </div>
-        </div>
-      </div></li><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Mỹ duy trì đối thoại chiến lược với Đan Mạch về vai trò quốc phòng của Greenland trong hệ thống NATO</h3><p class="pulse-event-hint">Ngoại trưởng Mỹ Marco Rubio khẳng định trong phiên điều trần tại Hạ viện rằng Greenland hiện vẫn thuộc chủ quyền của Đan Mạch, nhưng xác nhận Washington đang tích cực thảo luận với cả Đan Mạch và chính quyền Greenland về việc sử dụng hòn đảo này cho mục đích phòng thủ chung. Greenland được coi là mắt xích then chốt trong hệ thống phòng thủ tên lửa của NATO. Những cuộc thảo luận này diễn ra trong bối cảnh Đan Mạch vừa ổn định chính phủ mới dưới thời Thủ tướng Mette Frederiksen. Quan hệ trong khối NATO đang đối mặt với nhiều thách thức sau các biến động địa chính trị gần đây, bao gồm các đợt điều chuyển quân đội Mỹ tại châu Âu và sự bất đồng trong việc hỗ trợ quân sự tại Trung Đông.</p><p class="pulse-event-importance">Greenland đóng vai trò chiến lược đối với an ninh Bắc Cực và năng lực phòng thủ của NATO. Các cuộc đàm phán giữa Mỹ và Đan Mạch phản ánh những nỗ lực điều chỉnh vị thế quân sự của Mỹ tại các khu vực nhạy cảm, trong bối cảnh các liên minh phương Tây đang chịu áp lực về sự gắn kết nội bộ.</p><p class="pulse-event-coverage">Độ phủ: <strong>110</strong> bài · <strong>1</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
+        <ul class="pulse-event-source-links"><li><a href="http://www.cambodiantimes.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">cambodiantimes.com</a></li><li><a href="http://www.irishsun.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">irishsun.com</a></li><li><a href="http://www.trinidadtimes.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">trinidadtimes.com</a></li><li><a href="http://www.asiabulletin.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">asiabulletin.com</a></li><li><a href="http://www.northkoreatimes.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">northkoreatimes.com</a></li><li><a href="http://www.saltlakecitysun.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">saltlakecitysun.com</a></li><li><a href="http://www.malaysiasun.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">malaysiasun.com</a></li><li><a href="http://www.tennesseedaily.com/news/279102244/prospects-for-ending-war-hit-as-hezbollah-rejects-ceasefire-deal" target="_blank" rel="noopener noreferrer">tennesseedaily.com</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">Pháp lý - Quy định - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">80 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">20 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Mỹ đề xuất áp thuế bổ sung 10-12,5% lên nhiều đối tác thương mại lớn nhằm đáp trả tình trạng lao động cưỡng bức trong chuỗi sản xuất toàn cầu</h3><p class="pulse-event-hint">Đại diện Thương mại Hoa Kỳ (USTR) Jamieson Greer vừa thông báo đề xuất áp mức thuế bổ sung ít nhất 10% đối với hàng hóa nhập khẩu từ nhiều đối tác chiến lược. Theo đó, EU, Canada, Mexico, Đài Loan và Vương quốc Anh sẽ đối mặt với mức thuế 10%, trong khi Trung Quốc, Nhật Bản, Ấn Độ, Hàn Quốc và Thụy Sĩ chịu mức thuế 12,5%. Động thái này nhằm mục tiêu duy trì nguồn thu thuế sau khi các biện pháp cũ bị tòa án bác bỏ, đồng thời gây sức ép lên các đối tác trong việc kiểm soát hàng hóa sản xuất từ lao động cưỡng bức. Chính quyền Tổng thống Donald Trump lập luận rằng việc các nước không xử lý triệt để vấn đề này tạo ra sự cạnh tranh không bình đẳng cho lao động Mỹ. Để hạn chế ảnh hưởng đến giá tiêu dùng trong nước, Mỹ đã đề xuất miễn trừ cho một số mặt hàng thiết yếu như phụ tùng máy bay, thực phẩm và khoáng sản hiếm phục vụ công nghệ cao.</p><p class="pulse-event-importance">Đây là thay đổi lớn trong chính sách thương mại quốc tế của Mỹ, tác động trực tiếp đến chuỗi cung ứng toàn cầu. Việc áp thuế diện rộng lên các nền kinh tế hàng đầu dự báo sẽ làm gia tăng căng thẳng thương mại và có thể gây biến động chi phí đầu vào cho các ngành công nghiệp chủ chốt như công nghệ và ô tô.</p><p class="pulse-event-coverage">Độ phủ: <strong>80</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li><li><a href="https://www.b92.net/info/svet/239145/tramp-ne-odustaje-od-grenlanda-rubio-za-sada-je-deo-danske/vest" target="_blank" rel="noopener noreferrer">b92.net</a></li></ul>
-            </div>
-          </div>
-        </div>
-      </div></li><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Đại học Ohio State bồi thường 100 triệu USD giải quyết vụ kiện lạm dụng tình dục kéo dài 8 năm</h3><p class="pulse-event-hint">Đại học Ohio State (OSU) đã chính thức đạt thỏa thuận bồi thường 100 triệu USD cho khoảng 280 cựu sinh viên từng là nạn nhân bị bác sĩ đội tuyển Richard Strauss lạm dụng tình dục trong các đợt kiểm tra sức khỏe từ năm 1978 đến 1998. Thỏa thuận này kết thúc cuộc chiến pháp lý kéo dài 8 năm và tiếp nối khoản bồi thường 60 triệu USD đã được chi trả cho 300 nạn nhân khác trước đó. Cuộc điều tra độc lập vào năm 2018 cho thấy Strauss đã có hành vi lạm dụng với ít nhất 177 nam sinh viên. OSU đã triển khai nhiều cải cách quy định nội bộ và cung cấp các dịch vụ hỗ trợ tâm lý nhằm khắc phục hậu quả và ngăn chặn sai phạm tái diễn trong môi trường đại học.</p><p class="pulse-event-importance">Vụ việc là một trong những vụ kiện lớn về đạo đức nghề nghiệp và an toàn sinh viên tại các trường đại học Mỹ. Khoản tiền bồi thường kỷ lục nhấn mạnh trách nhiệm giải trình của các tổ chức giáo dục đối với hành vi sai phạm của nhân viên trong quá khứ.</p><p class="pulse-event-coverage">Độ phủ: <strong>50</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
+        <ul class="pulse-event-source-links"><li><a href="http://www.cambodiantimes.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">cambodiantimes.com</a></li><li><a href="http://www.irishsun.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">irishsun.com</a></li><li><a href="http://www.trinidadtimes.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">trinidadtimes.com</a></li><li><a href="http://www.asiabulletin.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">asiabulletin.com</a></li><li><a href="http://www.baltimorestar.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">baltimorestar.com</a></li><li><a href="http://www.northkoreatimes.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">northkoreatimes.com</a></li><li><a href="http://www.chinanationalnews.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">chinanationalnews.com</a></li><li><a href="http://www.austinglobe.com/news/279100121/trump-administration-plans-fresh-tariffs-on-key-partners" target="_blank" rel="noopener noreferrer">austinglobe.com</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">An ninh - Xung đột - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">56 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">20 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Tổng thống Trump để ngỏ khả năng đàm phán trực tiếp với Lãnh đạo tối cao Iran nhằm chấm dứt cuộc xung đột quân sự đã kéo dài 4 tháng qua</h3><p class="pulse-event-hint">Trong một thông báo bất ngờ tại Nhà Trắng ngày 4 tháng 6, Tổng thống Donald Trump tuyên bố sẵn sàng gặp Lãnh đạo tối cao Iran, Ayatollah Mojtaba Khamenei, để thảo luận về một thỏa thuận chấm dứt xung đột. Cuộc chiến bắt đầu từ tháng 2/2026 với chiến dịch &#039;Operation Epic Fury&#039; của liên quân Mỹ-Israel đã gây ra những tổn thất nặng nề về kinh tế, đặc biệt là việc đóng cửa eo biển Hormuz - tuyến đường dầu mỏ huyết mạch của thế giới. Cuộc xung đột này đã thay đổi bộ máy lãnh đạo Iran sau cái chết của cựu lãnh đạo Ali Khamenei và sự kế nhiệm của con trai ông, Mojtaba Khamenei. Mặc dù phía Mỹ đang tìm kiếm con đường ngoại giao để giải quyết khủng hoảng, nhưng các cuộc đàm phán hiện tại vẫn gặp nhiều bế tắc trước những yêu cầu phức tạp từ cả hai phía sau chuỗi các cuộc tấn công quân sự tốn kém.</p><p class="pulse-event-importance">Sự kiện đánh dấu một bước ngoặt tiềm năng trong quan hệ địa chính trị Mỹ-Iran, có ý nghĩa quyết định đến an ninh năng lượng toàn cầu do liên quan đến eo biển Hormuz. Nếu thành công, thỏa thuận có thể chấm dứt một cuộc chiến đã gây thiệt hại hàng tỷ USD và làm gián đoạn chuỗi cung ứng năng lượng thế giới.</p><p class="pulse-event-coverage">Độ phủ: <strong>56</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://wsfcam.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wsfcam.iheart.com</a></li><li><a href="https://wflaorlando.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wflaorlando.iheart.com</a></li><li><a href="https://newsradio710.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio710.iheart.com</a></li><li><a href="https://newsradio1170.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio1170.iheart.com</a></li><li><a href="https://95wxtk.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">95wxtk.iheart.com</a></li><li><a href="https://wrko.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wrko.iheart.com</a></li><li><a href="https://wonw1280.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wonw1280.iheart.com</a></li><li><a href="https://newsradio1410.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio1410.iheart.com</a></li><li><a href="https://wjbo.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wjbo.iheart.com</a></li><li><a href="https://newstalk1090.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newstalk1090.iheart.com</a></li><li><a href="https://800wvhu.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">800wvhu.iheart.com</a></li><li><a href="https://ktok.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">ktok.iheart.com</a></li><li><a href="https://knst.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">knst.iheart.com</a></li><li><a href="https://943wsc.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">943wsc.iheart.com</a></li><li><a href="https://newsradio540.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio540.iheart.com</a></li><li><a href="https://wrak.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wrak.iheart.com</a></li><li><a href="https://newstalk1130.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newstalk1130.iheart.com</a></li><li><a href="https://1440wgig.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">1440wgig.iheart.com</a></li><li><a href="https://wiba.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wiba.iheart.com</a></li><li><a href="https://wmmbam.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wmmbam.iheart.com</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://wsfcam.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wsfcam.iheart.com</a></li><li><a href="https://wflaorlando.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wflaorlando.iheart.com</a></li><li><a href="https://newsradio710.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio710.iheart.com</a></li><li><a href="https://newsradio1170.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio1170.iheart.com</a></li><li><a href="https://95wxtk.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">95wxtk.iheart.com</a></li><li><a href="https://wrko.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wrko.iheart.com</a></li><li><a href="https://wonw1280.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wonw1280.iheart.com</a></li><li><a href="https://newsradio1410.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio1410.iheart.com</a></li><li><a href="https://wjbo.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wjbo.iheart.com</a></li><li><a href="https://newstalk1090.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newstalk1090.iheart.com</a></li><li><a href="https://800wvhu.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">800wvhu.iheart.com</a></li><li><a href="https://ktok.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">ktok.iheart.com</a></li><li><a href="https://knst.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">knst.iheart.com</a></li><li><a href="https://943wsc.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">943wsc.iheart.com</a></li><li><a href="https://newsradio540.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newsradio540.iheart.com</a></li><li><a href="https://wrak.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wrak.iheart.com</a></li><li><a href="https://newstalk1130.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">newstalk1130.iheart.com</a></li><li><a href="https://1440wgig.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">1440wgig.iheart.com</a></li><li><a href="https://wiba.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wiba.iheart.com</a></li><li><a href="https://wmmbam.iheart.com/content/2026-06-04-osu-settles-with-student-athlete-sex-abuse-victims-for-100m/" target="_blank" rel="noopener noreferrer">wmmbam.iheart.com</a></li></ul>
-            </div>
-          </div>
-        </div>
-      </div></li><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Bắc Macedonia đề xuất dự thảo luật mới về đại diện dân tộc sau khi bãi bỏ công cụ cân bằng gây tranh cãi</h3><p class="pulse-event-hint">Đại biểu Adnan Azizi thuộc đảng VLEN tại Bắc Macedonia đã giới thiệu dự thảo luật mới về &#039;Đại diện công bằng và thỏa đáng&#039;. Động thái này nhằm cụ thể hóa nguyên tắc hiến pháp về đa sắc tộc sau khi Tòa án Hiến pháp nước này bãi bỏ &#039;công cụ cân bằng&#039; vốn được coi là cơ chế trung gian trong hơn hai thập kỷ qua. Dự thảo mới tập trung tạo dựng khung pháp lý minh bạch trong tuyển dụng khu vực công, ngăn chặn việc lợi dụng bản sắc dân tộc để trục lợi cá nhân. Đảng VLEN coi đây là bước đi lịch sử nhằm củng cố Hiệp định Khung Ohrid và đảm bảo tính chất đa sắc tộc của nhà nước thông qua các cơ chế giám sát thực tế từ dữ liệu dân số.</p><p class="pulse-event-importance">Việc cải cách cơ chế tuyển dụng dựa trên sắc tộc là vấn đề nội chính nhạy cảm tại Bắc Macedonia. Luật mới mang tính định hình lại cách thức vận hành bộ máy nhà nước, đảm bảo sự công bằng xã hội và ổn định chính trị cho một quốc gia đa sắc tộc.</p><p class="pulse-event-coverage">Độ phủ: <strong>60</strong> bài · <strong>9</strong> nguồn · Tích cực</p><div class="pulse-event-sources-block">
+        <ul class="pulse-event-source-links"><li><a href="https://newsradio1470.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">newsradio1470.iheart.com</a></li><li><a href="https://kprcradio.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">kprcradio.iheart.com</a></li><li><a href="https://koacolorado.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">koacolorado.iheart.com</a></li><li><a href="https://wwnc.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">wwnc.iheart.com</a></li><li><a href="https://khow.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">khow.iheart.com</a></li><li><a href="https://wlac.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">wlac.iheart.com</a></li><li><a href="https://newsradio910wltp.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">newsradio910wltp.iheart.com</a></li><li><a href="https://whoradio.iheart.com/content/2026-06-05-trump-open-to-meeting-ayatollah-for-iran-deal/" target="_blank" rel="noopener noreferrer">whoradio.iheart.com</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">Xã hội - Bất ổn - Biểu tình</span><span class="pulse-radar-badge pulse-radar-badge--count">52 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">20 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Ủy ban Tài khoản Công cảnh báo hệ thống tị nạn của Anh đang bên bờ vực sụp đổ do thiếu chiến lược dài hạn và quản lý kém hiệu quả</h3><p class="pulse-event-hint">Báo cáo mới nhất từ Ủy ban Tài khoản Công (PAC) của Anh mô tả tình trạng hệ thống tị nạn hiện tại là &#039;gây sốc và không thể chấp nhận được&#039;. PAC chỉ trích Bộ Nội vụ đã quá tập trung vào các giải pháp ứng phó tức thời thay vì xây dựng một chiến lược tổng thể, dẫn đến việc mất kiểm soát đối với vị trí của những người xin tị nạn bị từ chối. Trước những áp lực này, Bộ trưởng Nội vụ Shabana Mahmood đã công bố kế hoạch cải tổ, trong đó quy chế tị nạn tại Anh sẽ trở thành tạm thời và phải xem xét lại định kỳ mỗi 30 tháng. Chủ tịch Ủy ban, Sir Geoffrey Clifton-Brown, nhận định rằng sự thiếu hụt trong quản trị đã khiến chính phủ liên tục phải đối phó với những áp lực dồn nén từ khu vực này sang khu vực khác.</p><p class="pulse-event-importance">Sự kiện phản ánh khủng hoảng trong quản lý an ninh biên giới và chính sách đối nội tại Anh. Việc hệ thống tị nạn sụp đổ gây áp lực lên ngân sách quốc gia và tạo ra những bất ổn xã hội, đồng thời là thách thức lớn đối với uy tín của chính phủ đương nhiệm.</p><p class="pulse-event-coverage">Độ phủ: <strong>52</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://www.ora24.tv/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">ora24.tv</a></li><li><a href="https://aktuale.mk/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">aktuale.mk</a></li><li><a href="https://tvkoha.tv/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">tvkoha.tv</a></li><li><a href="https://zyrtare.net/2026/06/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">zyrtare.net</a></li><li><a href="https://zyrtare.net/2026/06/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">zyrtare.net</a></li><li><a href="https://ina-online.net/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">ina-online.net</a></li><li><a href="https://3shi.net/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">3shi.net</a></li><li><a href="https://tetova1.mk/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">tetova1.mk</a></li><li><a href="https://lajmpress.org/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">lajmpress.org</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://www.ora24.tv/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">ora24.tv</a></li><li><a href="https://aktuale.mk/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">aktuale.mk</a></li><li><a href="https://tvkoha.tv/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">tvkoha.tv</a></li><li><a href="https://zyrtare.net/2026/06/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">zyrtare.net</a></li><li><a href="https://zyrtare.net/2026/06/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">zyrtare.net</a></li><li><a href="https://ina-online.net/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">ina-online.net</a></li><li><a href="https://3shi.net/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">3shi.net</a></li><li><a href="https://tetova1.mk/azizi-per-here-te-pare-perfaqesimi-i-drejte-dhe-adekuat-po-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">tetova1.mk</a></li><li><a href="https://lajmpress.org/azizi-per-here-te-pare-perfaqesimi-i-drejte-vendoset-ne-ligj-kerkojme-miratim-me-badenter/" target="_blank" rel="noopener noreferrer">lajmpress.org</a></li></ul>
-            </div>
-          </div>
-        </div>
-      </div></li><li class="pulse-event"><p class="pulse-event-sector">Chính trị - Địa chính trị</p><h3 class="pulse-event-title">Romania đối mặt với sụt giảm doanh số bán lẻ; Otokar đẩy mạnh sản xuất quốc phòng nội địa</h3><p class="pulse-event-hint">Số liệu thống kê cho thấy doanh số bán lẻ của Romania trong giai đoạn từ tháng 1 đến tháng 4 năm 2026 giảm 5,8% so với cùng kỳ năm ngoái. Trái ngược với bức tranh tiêu dùng, lĩnh vực công nghiệp quốc phòng ghi nhận tín hiệu tích cực khi tập đoàn Thổ Nhĩ Kỳ Otokar hoàn tất mua lại cổ phần đa số tại Automecanica S.A. để sản xuất dòng xe bọc thép COBRA II. Bên cạnh các diễn biến kinh tế, Romania đang ghi nhận tiến độ khả quan tại dự án đường cao tốc Carpathian đoạn Tigveni–Curtea de Argeș. Về mặt pháp lý, cựu Bộ trưởng Tài chính Darius Vâlcov đã được tòa án ra lệnh trả tự do.</p><p class="pulse-event-importance">Sự kết hợp giữa suy giảm doanh số bán lẻ và các khoản đầu tư chiến lược vào quốc phòng cho thấy sự chuyển dịch trong ưu tiên nguồn lực kinh tế tại Romania. Dự án hạ tầng giao thông và các biến động chính trị cấp cao cũng phản ánh bối cảnh vĩ mô đa chiều của quốc gia này.</p><p class="pulse-event-coverage">Độ phủ: <strong>56</strong> bài · <strong>1</strong> nguồn · Tích cực</p><div class="pulse-event-sources-block">
+        <ul class="pulse-event-source-links"><li><a href="https://www.messengernewspapers.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">messengernewspapers.co.uk</a></li><li><a href="https://www.dailyecho.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">dailyecho.co.uk</a></li><li><a href="https://www.newsandstar.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">newsandstar.co.uk</a></li><li><a href="https://www.wandsworthguardian.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">wandsworthguardian.co.uk</a></li><li><a href="https://www.penarthtimes.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">penarthtimes.co.uk</a></li><li><a href="https://www.thewestonmercury.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">thewestonmercury.co.uk</a></li><li><a href="https://www.hexham-courant.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">hexham-courant.co.uk</a></li><li><a href="https://www.wharfedaleobserver.co.uk/news/national/26168291.asylum-system-brink-collapse-mps-warn/" target="_blank" rel="noopener noreferrer">wharfedaleobserver.co.uk</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--solo-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">Pháp lý - Quy định - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">40 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-solo">1 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Tranh cãi pháp lý nảy sinh tại Thổ Nhĩ Kỳ sau khi sự cố phương tiện khiến việc dẫn giải Thị trưởng Istanbul Ekrem İmamoğlu tới tòa án bị hoãn lại</h3><p class="pulse-event-hint">Phiên tòa xét xử Thị trưởng Istanbul Ekrem İmamoğlu về cáo buộc phỉ báng đã gây xôn xao dư luận khi ông không thể có mặt trực tiếp tại tòa án Kartal như lệnh của thẩm phán. Cơ quan kiểm sát cho biết phương tiện dẫn giải từ nhà tù Silivri bị hỏng, buộc ông İmamoğlu phải tham gia thông qua hệ thống video trực tuyến SEGBİS. Các đại biểu đảng đối lập CHP kịch liệt phản đối, gọi đây là hình thức sách nhiễu tâm lý và sự cản trở công lý có tổ chức nhằm vào vị thị trưởng. Trước đó, thẩm phán đã yêu cầu ông İmamoğlu phải có mặt trực tiếp để thực hiện nguyên tắc tranh tụng đối mặt, nhưng sự cố bất ngờ đã làm gián đoạn kế hoạch này, dấy lên nghi vấn về sự can thiệp của chính quyền vào tiến trình xét xử.</p><p class="pulse-event-importance">Vụ việc làm gia tăng căng thẳng chính trị giữa phe đối lập và chính quyền tại Thổ Nhĩ Kỳ. Việc các chính trị gia cấp cao bị xét xử trong bối cảnh các quy trình tư pháp bị nghi ngờ thiếu minh bạch thường xuyên gây ra các cuộc biểu tình và ảnh hưởng đến ổn định chính trị khu vực Istanbul.</p><p class="pulse-event-coverage">Độ phủ: <strong>40</strong> bài · <strong>1</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li><li><a href="https://www.romaniapress.com/news=193913" target="_blank" rel="noopener noreferrer">romaniapress.com</a></li></ul>
-            </div>
-          </div>
-        </div>
-      </div></li><li class="pulse-event"><p class="pulse-event-sector">Pháp lý - Quy định - Tội phạm</p><h3 class="pulse-event-title">Đức điều tra vụ tai nạn chết người trong đợt huấn luyện đặc nhiệm GSG 9 tại thao trường Putlos</h3><p class="pulse-event-hint">Cơ quan chức năng Đức đang tiến hành điều tra một cảnh sát về tội vô ý làm chết người sau vụ tai nạn thương tâm tại thao trường Putlos thuộc bang Schleswig-Holstein. Trong một buổi tập bắn vào ngày 11/5, một thành viên của lực lượng đặc nhiệm chống khủng bố GSG 9 bị nghi ngờ đã tráo đổi nhầm đạn tập bằng đạn thật khi nạp súng. Một cảnh sát khác đã bị bắn trúng và tử vong ngay tại chỗ dù được cứu hộ kịp thời. Bộ trưởng Nội vụ Đức Alexander Dobrindt đã mô tả sự việc là một tai nạn bi thảm. Hiện các công tố viên đang làm rõ quy trình quản lý vũ khí của đơn vị tinh nhuệ này để xác định nguyên nhân cụ thể dẫn đến sai sót chết người này.</p><p class="pulse-event-importance">Vụ việc gây chấn động do liên quan đến GSG 9, lực lượng đặc nhiệm tinh nhuệ bậc nhất của Đức. Tai nạn đặt ra câu hỏi về các tiêu chuẩn an toàn trong huấn luyện quân sự và quản lý đạn dược của lực lượng an ninh cấp cao.</p><p class="pulse-event-coverage">Độ phủ: <strong>40</strong> bài · <strong>12</strong> nguồn · Tiêu cực mạnh</p><div class="pulse-event-sources-block">
+        <ul class="pulse-event-source-links"><li><a href="https://www.birgun.net/haber/chp-li-tezcan-imamoglu-nun-durusmaya-getirilmesi-savcilik-talimatiyla-engellendi-716588" target="_blank" rel="noopener noreferrer">birgun.net</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--solo-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">Pháp lý - Quy định - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">40 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-solo">1 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Nhà báo İsmail Arı đối mặt với phiên tòa đầu tiên sau 75 ngày tạm giam tại Thổ Nhĩ Kỳ với các cáo buộc liên quan đến lan truyền thông tin</h3><p class="pulse-event-hint">Nhà báo İsmail Arı đã có mặt tại phiên xét xử đầu tiên tại Tòa án Hình sự Sơ thẩm số 2 Ankara sau 75 ngày bị giam giữ. Ông phải đối mặt với các cáo buộc &#039;lan truyền thông tin sai lệch&#039; và &#039;vi phạm quyền riêng tư&#039;, với tổng mức án đề nghị lên tới 8 năm tù. Tại tòa, dù luật sư của ông đã nộp đơn kiến nghị về tính vi hiến của các cáo buộc, nhưng thẩm phán đã bác bỏ. Phía công tố yêu cầu tiếp tục duy trì lệnh tạm giam đối với nhà báo này trong thời gian chờ thu thập thêm bằng chứng từ các cơ quan hữu quan. Phiên tòa đã thu hút sự quan tâm lớn từ giới luật sư và công chúng, khiến cơ quan chức năng phải chuyển tới phòng xét xử lớn hơn để đáp ứng nhu cầu tham dự đông đảo.</p><p class="pulse-event-importance">Đây là sự kiện tiêu biểu trong bối cảnh tranh luận về quyền tự do báo chí và độc lập tư pháp tại Thổ Nhĩ Kỳ. Việc giam giữ nhà báo trong thời gian dài và các cáo buộc pháp lý nghiêm trọng thu hút sự giám sát từ các tổ chức quốc tế về nhân quyền và truyền thông.</p><p class="pulse-event-coverage">Độ phủ: <strong>40</strong> bài · <strong>1</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://www.traunsteiner-tagblatt.de/nachrichten_artikel,-toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-_arid,999412.html" target="_blank" rel="noopener noreferrer">traunsteiner-tagblatt.de</a></li><li><a href="https://www.berchtesgadener-anzeiger.de/startseite_artikel,-toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-_arid,999412.html" target="_blank" rel="noopener noreferrer">berchtesgadener-anzeiger.de</a></li><li><a href="https://www.stimme.de/leben/panorama/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-art-5179236" target="_blank" rel="noopener noreferrer">stimme.de</a></li><li><a href="https://www.epochtimes.de/gesellschaft/blaulicht-kategorie/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-a5510282.html" target="_blank" rel="noopener noreferrer">epochtimes.de</a></li><li><a href="https://www.focus.de/panorama/welt/kollege-erschossen-gsg9-polizist-vertauschte-wohl-munition_a67c6246-1e52-49e2-aa39-8b8c50a8ada4.html" target="_blank" rel="noopener noreferrer">focus.de</a></li><li><a href="https://www.weser-kurier.de/deutschland-welt/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-doc8651vclte6u29bixce6" target="_blank" rel="noopener noreferrer">weser-kurier.de</a></li><li><a href="https://www.tageblatt.de/Nachrichten/Toedlicher-Unfall-bei-GSG-9-Polizist-vertauschte-Munition-746576.html" target="_blank" rel="noopener noreferrer">tageblatt.de</a></li><li><a href="https://www.noz.de/deutschland-welt/panorama/artikel/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-50731645" target="_blank" rel="noopener noreferrer">noz.de</a></li><li><a href="https://www.idowa.de/panorama/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-art-398200" target="_blank" rel="noopener noreferrer">idowa.de</a></li><li><a href="https://www.gea.de/welt/weltspiegel_artikel,-t%C3%B6dlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-_arid,7156463.html" target="_blank" rel="noopener noreferrer">gea.de</a></li><li><a href="https://www.shz.de/deutschland-welt/panorama/artikel/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-50731646" target="_blank" rel="noopener noreferrer">shz.de</a></li><li><a href="https://www.zeit.de/news/2026-06/04/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition" target="_blank" rel="noopener noreferrer">zeit.de</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://www.traunsteiner-tagblatt.de/nachrichten_artikel,-toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-_arid,999412.html" target="_blank" rel="noopener noreferrer">traunsteiner-tagblatt.de</a></li><li><a href="https://www.berchtesgadener-anzeiger.de/startseite_artikel,-toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-_arid,999412.html" target="_blank" rel="noopener noreferrer">berchtesgadener-anzeiger.de</a></li><li><a href="https://www.stimme.de/leben/panorama/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-art-5179236" target="_blank" rel="noopener noreferrer">stimme.de</a></li><li><a href="https://www.epochtimes.de/gesellschaft/blaulicht-kategorie/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-a5510282.html" target="_blank" rel="noopener noreferrer">epochtimes.de</a></li><li><a href="https://www.focus.de/panorama/welt/kollege-erschossen-gsg9-polizist-vertauschte-wohl-munition_a67c6246-1e52-49e2-aa39-8b8c50a8ada4.html" target="_blank" rel="noopener noreferrer">focus.de</a></li><li><a href="https://www.weser-kurier.de/deutschland-welt/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-doc8651vclte6u29bixce6" target="_blank" rel="noopener noreferrer">weser-kurier.de</a></li><li><a href="https://www.tageblatt.de/Nachrichten/Toedlicher-Unfall-bei-GSG-9-Polizist-vertauschte-Munition-746576.html" target="_blank" rel="noopener noreferrer">tageblatt.de</a></li><li><a href="https://www.noz.de/deutschland-welt/panorama/artikel/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-50731645" target="_blank" rel="noopener noreferrer">noz.de</a></li><li><a href="https://www.idowa.de/panorama/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-art-398200" target="_blank" rel="noopener noreferrer">idowa.de</a></li><li><a href="https://www.gea.de/welt/weltspiegel_artikel,-t%C3%B6dlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-_arid,7156463.html" target="_blank" rel="noopener noreferrer">gea.de</a></li><li><a href="https://www.shz.de/deutschland-welt/panorama/artikel/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition-50731646" target="_blank" rel="noopener noreferrer">shz.de</a></li><li><a href="https://www.zeit.de/news/2026-06/04/toedlicher-unfall-bei-gsg-9-polizist-vertauschte-munition" target="_blank" rel="noopener noreferrer">zeit.de</a></li></ul>
-            </div>
-          </div>
-        </div>
-      </div></li><li class="pulse-event"><p class="pulse-event-sector">An ninh - Xung đột - Tội phạm</p><h3 class="pulse-event-title">Richard Gere khởi động sáng kiến di cư tại Berlin, thẳng thắn chỉ trích chính sách của Donald Trump</h3><p class="pulse-event-hint">Diễn viên và nhà hoạt động nhân quyền Richard Gere đã công bố &#039;Sáng kiến chung về Di cư&#039; (Joint Initiative on Migration) tại Berlin, phối hợp cùng Hertie School. Mục tiêu của dự án là nghiên cứu nguyên nhân gốc rễ dẫn đến di cư không tự nguyện và vận động các chính sách hỗ trợ nhân đạo thay vì chỉ tập trung vào việc ngăn chặn. Tại buổi ra mắt, Gere công khai chỉ trích quan điểm của Tổng thống Donald Trump về người di cư, đồng thời tuyên bố tự hào khi bị ông Trump gắn nhãn là &#039;kẻ gây rối&#039;. Chính phủ Đức đã bày tỏ sự ủng hộ đối với sáng kiến này, nhấn mạnh tầm quan trọng của việc thay đổi tư duy từ an ninh hóa sang tiếp cận nhân văn đối với vấn đề di cư tại châu Âu.</p><p class="pulse-event-importance">Sáng kiến này là một nỗ lực kết hợp giữa giới nghệ sĩ và chính trị nhằm thay đổi cách nhìn nhận toàn cầu về khủng hoảng di cư. Sự phản đối công khai của Richard Gere đối với Donald Trump tạo ra sự chú ý đáng kể về mặt truyền thông đối với chính sách nhập cư của Mỹ và châu Âu.</p><p class="pulse-event-coverage">Độ phủ: <strong>40</strong> bài · <strong>5</strong> nguồn · Tiêu cực mạnh</p><div class="pulse-event-sources-block">
+        <ul class="pulse-event-source-links"><li><a href="https://www.birgun.net/haber/75-gundur-tutuklu-bulunan-muhabirimiz-ismail-ari-hakim-karsisinda-716600" target="_blank" rel="noopener noreferrer">birgun.net</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--solo-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">An ninh - Xung đột - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">40 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-solo">1 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Tấn công bằng máy bay không người lái tại Biển Đen khiến một ngư dân Thổ Nhĩ Kỳ thiệt mạng và làm dấy lên lo ngại về an ninh hàng hải</h3><p class="pulse-event-hint">Một tàu đánh cá treo cờ Thổ Nhĩ Kỳ đã trở thành mục tiêu của một vụ tấn công bằng máy bay không người lái (drone) khi đang hoạt động trong vùng kinh tế đặc quyền của Thổ Nhĩ Kỳ, ngoài khơi İnebolu. Vụ nổ đã khiến ngư dân Cüneyit Varlık từ Trabzon tử vong và 5 người khác bị thương. Các đội cứu hộ địa phương, bao gồm Sahil Bot Komutanlığı (Bộ Tư lệnh tàu cứu hộ ven biển), đã nhanh chóng sơ tán nạn nhân vào cảng İnebolu để điều trị tại bệnh viện địa phương. Mặc dù chưa có bên nào nhận trách nhiệm, sự việc đang gây ra sự quan ngại sâu sắc về an ninh tại tuyến đường biển kết nối giữa Thổ Nhĩ Kỳ và Ukraine, nơi các hoạt động quân sự và thương mại đang diễn ra song song.</p><p class="pulse-event-importance">Sự kiện gây rủi ro trực tiếp đến an ninh vận tải biển và đánh bắt cá tại khu vực Biển Đen. Việc một tàu dân sự bị tấn công trong vùng kinh tế đặc quyền đặt ra thách thức an ninh lớn cho Thổ Nhĩ Kỳ trong bối cảnh xung đột khu vực vẫn còn phức tạp.</p><p class="pulse-event-coverage">Độ phủ: <strong>40</strong> bài · <strong>1</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list"><li><a href="https://www.n-tv.de/ticker/Richard-Gere-kritisiert-Donald-Trump-seine-Initiative-beleuchtet-Fluchtursachen-id30892374.html" target="_blank" rel="noopener noreferrer">n-tv.de</a></li><li><a href="https://www.aktiencheck.de/news/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.aktiencheck.de/analysen/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.finanzen.net/nachricht/aktien/gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-15728014" target="_blank" rel="noopener noreferrer">finanzen.net</a></li><li><a href="https://www.finanznachrichten.de/nachrichten-2026-06/68683052-gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-016.htm" target="_blank" rel="noopener noreferrer">finanznachrichten.de</a></li><li><a href="https://www.n-tv.de/ticker/Richard-Gere-kritisiert-Donald-Trump-seine-Initiative-beleuchtet-Fluchtursachen-id30892374.html" target="_blank" rel="noopener noreferrer">n-tv.de</a></li><li><a href="https://www.aktiencheck.de/news/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.aktiencheck.de/analysen/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.finanzen.net/nachricht/aktien/gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-15728014" target="_blank" rel="noopener noreferrer">finanzen.net</a></li><li><a href="https://www.finanznachrichten.de/nachrichten-2026-06/68683052-gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-016.htm" target="_blank" rel="noopener noreferrer">finanznachrichten.de</a></li></ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true"><li><a href="https://www.n-tv.de/ticker/Richard-Gere-kritisiert-Donald-Trump-seine-Initiative-beleuchtet-Fluchtursachen-id30892374.html" target="_blank" rel="noopener noreferrer">n-tv.de</a></li><li><a href="https://www.aktiencheck.de/news/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.aktiencheck.de/analysen/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.finanzen.net/nachricht/aktien/gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-15728014" target="_blank" rel="noopener noreferrer">finanzen.net</a></li><li><a href="https://www.finanznachrichten.de/nachrichten-2026-06/68683052-gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-016.htm" target="_blank" rel="noopener noreferrer">finanznachrichten.de</a></li><li><a href="https://www.n-tv.de/ticker/Richard-Gere-kritisiert-Donald-Trump-seine-Initiative-beleuchtet-Fluchtursachen-id30892374.html" target="_blank" rel="noopener noreferrer">n-tv.de</a></li><li><a href="https://www.aktiencheck.de/news/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.aktiencheck.de/analysen/Artikel-Gere_kritisiert_Trump_Initiative_beleuchtet_Fluchtursachen-19822325" target="_blank" rel="noopener noreferrer">aktiencheck.de</a></li><li><a href="https://www.finanzen.net/nachricht/aktien/gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-15728014" target="_blank" rel="noopener noreferrer">finanzen.net</a></li><li><a href="https://www.finanznachrichten.de/nachrichten-2026-06/68683052-gere-kritisiert-trump-initiative-beleuchtet-fluchtursachen-016.htm" target="_blank" rel="noopener noreferrer">finanznachrichten.de</a></li></ul>
-            </div>
-          </div>
-        </div>
+        <ul class="pulse-event-source-links"><li><a href="https://www.birgun.net/haber/kastamonu-inebolu-da-balikci-teknesi-iha-ile-vuruldu-bir-balikci-oldu-5-kisi-yaralandi-716629" target="_blank" rel="noopener noreferrer">birgun.net</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">Pháp lý - Quy định - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">50 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">20 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Hiệu trưởng Đại học Wollongong tạm rời chức vụ để phục vụ cuộc điều tra tham nhũng của Ủy ban Độc lập Chống Tham nhũng (ICAC)</h3><p class="pulse-event-hint">Michael Still, Hiệu trưởng (Chancellor) Đại học Wollongong, đã quyết định tạm rời khỏi vị trí lãnh đạo trong thời gian chờ đợi kết quả điều tra từ Ủy ban Độc lập Chống Tham nhũng (ICAC) của bang New South Wales. Cuộc điều tra tập trung vào các cáo buộc sai phạm trong việc đấu thầu hợp đồng, trong đó có mối liên hệ với Aspirall Consulting International và việc quản lý xung đột lợi ích liên quan đến các hợp đồng tư vấn khác như KordaMentha. ICAC cũng đang xem xét cáo buộc đối với các nhân sự cấp cao khác về việc lạm dụng quyền lực để tác động đến quá trình tuyển dụng nhằm thu lợi cho cộng sự. Hội đồng trường Đại học Wollongong đã xác nhận việc tôn trọng quyết định của ông Still và khẳng định cam kết duy trì mục tiêu đào tạo và nghiên cứu cốt lõi.</p><p class="pulse-event-importance">Vụ việc ảnh hưởng nghiêm trọng đến uy tín của một trong những đại học hàng đầu nước Úc. Điều tra về tham nhũng trong môi trường giáo dục đại học, đặc biệt là các vấn đề liên quan đến đấu thầu công, nhận được sự quan tâm lớn từ công chúng vì tác động đến niềm tin vào quản trị công và minh bạch tài chính.</p><p class="pulse-event-coverage">Độ phủ: <strong>50</strong> bài · <strong>20</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
+        <p class="pulse-event-sources-head">Nguồn</p>
+        <ul class="pulse-event-source-links"><li><a href="https://www.edenmagnet.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">edenmagnet.com.au</a></li><li><a href="https://www.hardenexpress.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">hardenexpress.com.au</a></li><li><a href="https://www.sconeadvocate.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">sconeadvocate.com.au</a></li><li><a href="https://www.yasstribune.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">yasstribune.com.au</a></li><li><a href="https://www.cootamundraherald.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">cootamundraherald.com.au</a></li><li><a href="https://www.crookwellgazette.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">crookwellgazette.com.au</a></li><li><a href="https://www.redlandcitybulletin.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">redlandcitybulletin.com.au</a></li><li><a href="https://www.wellingtontimes.com.au/story/9286947/university-head-stands-aside-over-corruption-probe/" target="_blank" rel="noopener noreferrer">wellingtontimes.com.au</a></li></ul>
+      </div></li><li class="pulse-event"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">Chính trị - Địa chính trị</span><span class="pulse-radar-badge pulse-radar-badge--count">50 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources">2 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tích cực</span></div><h3 class="pulse-event-title">Mỹ triển khai chiến dịch quy mô lớn diệt trừ loài ruồi ký sinh New World Screwworm sau khi phát hiện ca nhiễm tại Texas</h3><p class="pulse-event-hint">Bộ Nông nghiệp Mỹ (USDA) đã thiết lập vùng kiểm soát và cách ly tại Texas sau khi xác nhận trường hợp nhiễm ruồi ký sinh (New World Screwworm) đầu tiên kể từ năm 1966 trên một con bê 3 tuần tuổi. Đây là loài ký sinh trùng đặc biệt nguy hiểm khi ấu trùng của chúng có khả năng ăn mòn mô sống trên cơ thể động vật và con người, gây ra tổn thương nghiêm trọng hoặc tử vong. Chiến lược chủ đạo được áp dụng là thả hàng trăm triệu con côn trùng vô sinh để cắt đứt chu kỳ sinh sản tự nhiên của loài này. Các biện pháp tăng cường giám sát tại biên giới với Mexico và kiểm tra sức khỏe động vật đang được siết chặt để ngăn chặn sự lây lan của loài sinh vật vốn đã được coi là đã bị xóa sổ tại Mỹ cách đây 6 thập kỷ.</p><p class="pulse-event-importance">Sự xuất hiện trở lại của loài ký sinh trùng này đe dọa trực tiếp ngành chăn nuôi và sức khỏe cộng đồng. Việc Mỹ phải huy động các biện pháp kiểm soát biên giới cho thấy quy mô nghiêm trọng của vấn đề đối với an ninh sinh học quốc gia.</p><p class="pulse-event-coverage">Độ phủ: <strong>50</strong> bài · <strong>2</strong> nguồn · Tích cực</p><div class="pulse-event-sources-block">
+        <p class="pulse-event-sources-head">Nguồn</p>
+        <ul class="pulse-event-source-links"><li><a href="https://www.lifo.gr/now/world/ipa-epistrateyoyn-myges-kai-skyloys-sti-mahi-kata-toy-sarkofagoy-parasitoy" target="_blank" rel="noopener noreferrer">lifo.gr</a></li><li><a href="https://www.thehindubusinessline.com/news/world/how-flesh-eating-screwworms-in-cattle-could-raise-us-beef-prices/article71063739.ece" target="_blank" rel="noopener noreferrer">thehindubusinessline.com</a></li></ul>
+      </div></li><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">An ninh - Xung đột - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">60 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">7 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tích cực</span></div><h3 class="pulse-event-title">Thị trường drone Ấn Độ đón nhận khoản đầu tư chiến lược từ Innquete Private Limited, khẳng định tầm quan trọng của công nghệ cao trong sản xuất truyền thống</h3><p class="pulse-event-hint">Công ty Innquete Private Limited vừa công bố nhận khoản đầu tư chiến lược trong lĩnh vực công nghệ drone tại Ấn Độ. Mặc dù các chi tiết tài chính được bảo mật do sự nhạy cảm của thị trường, thương vụ này phản ánh niềm tin mạnh mẽ của các nhà đầu tư vào tiềm năng tăng trưởng của drone trong việc tối ưu hóa hậu cần, nông nghiệp và giám sát tại Ấn Độ. Sự ủng hộ từ khung pháp lý của Chính phủ Ấn Độ cùng phong trào đẩy mạnh sáng tạo nội địa đang biến quốc gia này thành một điểm đến hấp dẫn cho các khoản đầu tư công nghệ chuyên sâu (deep-tech). Đây là dấu hiệu của sự chuyển dịch khi các ngành công nghiệp truyền thống đang tích cực tích hợp các công nghệ tự động hóa và dữ liệu thời gian thực để nâng cao hiệu quả vận hành.</p><p class="pulse-event-importance">Sự kiện phản ánh xu hướng công nghệ hóa các ngành sản xuất truyền thống tại Ấn Độ, một nền kinh tế đang phát triển nhanh. Việc tăng cường đầu tư vào drone không chỉ thúc đẩy sáng tạo nội địa mà còn thay đổi bộ mặt của chuỗi cung ứng và nông nghiệp trong khu vực.</p><p class="pulse-event-coverage">Độ phủ: <strong>60</strong> bài · <strong>7</strong> nguồn · Tích cực</p><div class="pulse-event-sources-block">
+        <p class="pulse-event-sources-head">Nguồn</p>
+        <ul class="pulse-event-source-links"><li><a href="http://www.irishsun.com/news/279103451/strategic-investment-signals-growing-confidence-in-india-drone-economy-with-investment-in-innquete" target="_blank" rel="noopener noreferrer">irishsun.com</a></li><li><a href="http://www.taiwansun.com/news/279103451/strategic-investment-signals-growing-confidence-in-india-drone-economy-with-investment-in-innquete" target="_blank" rel="noopener noreferrer">taiwansun.com</a></li><li><a href="http://www.iranherald.com/news/279103451/strategic-investment-signals-growing-confidence-in-india-drone-economy-with-investment-in-innquete" target="_blank" rel="noopener noreferrer">iranherald.com</a></li><li><a href="http://www.myanmarnews.net/news/279103451/strategic-investment-signals-growing-confidence-in-india-drone-economy-with-investment-in-innquete" target="_blank" rel="noopener noreferrer">myanmarnews.net</a></li><li><a href="http://www.sandiegosun.com/news/279103451/strategic-investment-signals-growing-confidence-in-india-drone-economy-with-investment-in-innquete" target="_blank" rel="noopener noreferrer">sandiegosun.com</a></li><li><a href="http://www.europesun.com/news/279103451/strategic-investment-signals-growing-confidence-in-india-drone-economy-with-investment-in-innquete" target="_blank" rel="noopener noreferrer">europesun.com</a></li><li><a href="http://www.austinglobe.com/news/279103451/strategic-investment-signals-growing-confidence-in-india-drone-economy-with-investment-in-innquete" target="_blank" rel="noopener noreferrer">austinglobe.com</a></li></ul>
       </div></li></ol></div></article></div>
+        </div>
       </div>
     </section>
 
@@ -3980,18 +4377,45 @@
       return out;
     }
 
-    function buildPulseSourcesTicker(sources, eventReportedAt) {
+    function buildPulseMetaRowHtml(ev) {
+      const sc = Number(ev.source_count) || 0;
+      const na = Number(ev.num_articles) || 0;
+      const sentiment = ev.sentiment_label || pulseSentimentLabel(ev);
+      let h = `<div class="pulse-event-meta-row">`;
+      if (ev.sector) {
+        h += `<span class="pulse-radar-badge pulse-radar-badge--sector">${escapeHtml(ev.sector)}</span>`;
+      }
+      if (na > 0) {
+        h += `<span class="pulse-radar-badge pulse-radar-badge--count">${escapeHtml(String(na))} bài</span>`;
+      }
+      if (sc > 0) {
+        const srcClass =
+          sc >= 3
+            ? " pulse-radar-badge--sources-hot"
+            : sc <= 1
+              ? " pulse-radar-badge--sources-solo"
+              : "";
+        h += `<span class="pulse-radar-badge pulse-radar-badge--sources${srcClass}">${escapeHtml(String(sc))} nguồn</span>`;
+      }
+      if (sentiment) {
+        const sClass = pulseSentimentClass(sentiment);
+        h += `<span class="pulse-radar-badge pulse-radar-badge--tone ${sClass}">${escapeHtml(sentiment)}</span>`;
+      }
+      h += `</div>`;
+      return h;
+    }
+
+    function buildPulseSourceLinks(sources, eventReportedAt) {
       const fallback = String(eventReportedAt || "").trim();
-      let list = dedupePulseSources(
+      const list = dedupePulseSources(
         (Array.isArray(sources) ? sources : []).filter((s) => s && String(s.url || s || "").startsWith("http"))
       ).map((src) => ({
         ...src,
         publishedAt: String(src.publishedAt || "").trim() || fallback,
       }));
       if (!list.length) return "";
-      const base = list.slice();
-      while (list.length < 6) list = list.concat(base);
       const rows = list
+        .slice(0, 8)
         .map((src) => {
           const label = escapeHtml(src.name || pulseSourceLabel(src.url));
           const ts = formatDateVi(src.publishedAt);
@@ -4002,15 +4426,12 @@
         .join("");
       return `<div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list">${rows}</ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true">${rows}</ul>
-            </div>
-          </div>
-        </div>
+        <ul class="pulse-event-source-links">${rows}</ul>
       </div>`;
+    }
+
+    function buildPulseSourcesTicker(sources, eventReportedAt) {
+      return buildPulseSourceLinks(sources, eventReportedAt);
     }
 
     function formatPulseUpdatedAt(iso) {
@@ -4032,12 +4453,11 @@
     function buildPulseEventListHtml(events) {
       let h = `<ol class="pulse-event-list">`;
       events.forEach((ev) => {
-        const sentiment = ev.sentiment_label || pulseSentimentLabel(ev);
-        const sClass = pulseSentimentClass(sentiment);
-        h += `<li class="pulse-event">`;
-        if (ev.sector) {
-          h += `<p class="pulse-event-sector">${escapeHtml(ev.sector)}</p>`;
-        }
+        const sc = Number(ev.source_count) || 0;
+        const cardClass =
+          sc >= 3 ? " pulse-event--multi-source" : sc <= 1 ? " pulse-event--solo-source" : "";
+        h += `<li class="pulse-event${cardClass}">`;
+        h += buildPulseMetaRowHtml(ev);
         h += `<h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
         if (ev.summary) {
           h += `<p class="pulse-event-hint">${escapeHtml(ev.summary)}</p>`;
@@ -4046,15 +4466,11 @@
           h += `<p class="pulse-event-importance">${escapeHtml(ev.importance)}</p>`;
         }
         h += `<p class="pulse-event-coverage">Độ phủ: <strong>${escapeHtml(ev.num_articles)}</strong> bài báo`;
-        h += ` · <strong>${escapeHtml(ev.source_count)}</strong> nguồn khác nhau`;
-        if (sentiment) {
-          h += ` · Tone: <span class="${sClass}">${escapeHtml(sentiment)}</span>`;
-        }
-        h += `</p>`;
+        h += ` · <strong>${escapeHtml(ev.source_count)}</strong> nguồn khác nhau</p>`;
         if (ev.entities && ev.entities.length) {
           h += `<p class="pulse-event-entities"><strong>Tổ chức/liên quan:</strong> ${escapeHtml(ev.entities.join(" · "))}</p>`;
         }
-        h += buildPulseSourcesTicker(ev.sources, ev.reported_at);
+        h += buildPulseSourceLinks(ev.sources, ev.reported_at);
         h += `</li>`;
       });
       h += `</ol>`;

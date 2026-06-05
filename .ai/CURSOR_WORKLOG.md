@@ -365,3 +365,19 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 | Merge prompt | Gắn mẫu văn + `editor_note` để trống; minimum executive ≥500 chữ khi pools ≥80 |
 | Tests | `python scripts/test_newsroom_digest.py` — thêm `test_merge_prompt_briefing_quality_guidance`, `test_sanitize_preserves_source_excerpt` |
 | Apply | Chạy `--merge-only` (hoặc full digest loop) để Gemini sinh bản mới theo prompt |
+
+## 2026-06-05 — Invest + LIVE tab presentation (research memo / radar)
+
+**Scope:** UI/CSS + pulse embed HTML only — `landing_page.html`, `scripts/embed_public_pulse_into_html.mjs`, `.ai/CURSOR_WORKLOG.md`. **Not modified:** crawler, Gemini prompts, GDELT/SQL, invest pipeline, Tin48h content.
+
+| Tab | Style |
+|-----|--------|
+| **Kinh tế đầu tư** | Research memo: max-width ~820px, Be Vietnam Pro, line-height ~1.74, gold section labels, editorial source lists (border-left, no cards), spacing 36–44px between themes/items, `tabular-nums` on meta |
+| **Thế giới LIVE** | Radar/newswire: compact cards, 2-col grid desktop / 1-col mobile, meta badge row (sector · bài · nguồn · tone), hot styling when `source_count >= 3`, solo-source muted when `= 1`, cyan accent, thin borders, source links deduped by domain (no ticker loop) |
+
+| File | Detail |
+|------|--------|
+| `landing_page.html` | Scoped rules under `body.invest-mode #invest` and `body.pulse-mode #pulse`; `buildPulseMetaRowHtml`, `buildPulseSourceLinks` in JS render |
+| `embed_public_pulse_into_html.mjs` | Static embed matches radar card markup + domain dedupe |
+
+**Verify:** Open `/?view=invest` and `/?view=live` at 1280px / 390px — no horizontal overflow; links tappable; invest reads like memo, LIVE scans like radar.

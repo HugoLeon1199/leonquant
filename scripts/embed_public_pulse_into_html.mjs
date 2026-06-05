@@ -48,6 +48,36 @@ function pulseSourceLabel(url) {
   }
 }
 
+function pulseUrlDedupeKey(url) {
+  const clean = normalizeExternalUrl(url);
+  try {
+    const p = new URL(clean);
+    const host = p.hostname.replace(/^www\./i, "").toLowerCase();
+    const pathPart = p.pathname.replace(/\/$/, "") || "/";
+    return `${host}|${pathPart}`;
+  } catch {
+    return clean;
+  }
+}
+
+function dedupePulseSources(sources) {
+  const seen = new Set();
+  const out = [];
+  for (const s of sources || []) {
+    const url = normalizeExternalUrl(String(s?.url || s || "").trim());
+    if (!url.startsWith("http")) continue;
+    const key = pulseUrlDedupeKey(url);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({
+      url,
+      name: String(s?.name || "").trim() || pulseSourceLabel(url),
+      publishedAt: String(s?.publishedAt || s?.published_at || "").trim(),
+    });
+  }
+  return out;
+}
+
 function normalizePulseSources(raw) {
   if (!Array.isArray(raw)) return [];
   const out = [];
@@ -64,15 +94,41 @@ function normalizePulseSources(raw) {
       out.push({ url: u, name });
     }
   }
-  return out;
+  return dedupePulseSources(out);
 }
 
-function buildPulseSourcesTicker(sources) {
-  let list = normalizePulseSources(sources);
+function buildPulseMetaRowHtml(ev) {
+  const sc = Number(ev.source_count) || 0;
+  const na = Number(ev.num_articles) || 0;
+  const tone = String(ev.sentiment_label || "").trim();
+  let h = `<div class="pulse-event-meta-row">`;
+  if (ev.sector) {
+    h += `<span class="pulse-radar-badge pulse-radar-badge--sector">${escapeHtml(ev.sector)}</span>`;
+  }
+  if (na > 0) {
+    h += `<span class="pulse-radar-badge pulse-radar-badge--count">${escapeHtml(String(na))} bài</span>`;
+  }
+  if (sc > 0) {
+    const srcClass =
+      sc >= 3
+        ? " pulse-radar-badge--sources-hot"
+        : sc <= 1
+          ? " pulse-radar-badge--sources-solo"
+          : "";
+    h += `<span class="pulse-radar-badge pulse-radar-badge--sources${srcClass}">${escapeHtml(String(sc))} nguồn</span>`;
+  }
+  if (tone) {
+    h += `<span class="pulse-radar-badge pulse-radar-badge--tone">${escapeHtml(tone)}</span>`;
+  }
+  h += `</div>`;
+  return h;
+}
+
+function buildPulseSourceLinks(sources) {
+  const list = normalizePulseSources(sources);
   if (!list.length) return "";
-  const base = list.slice();
-  while (list.length < 6) list = list.concat(base);
   const rows = list
+    .slice(0, 8)
     .map((src) => {
       const label = escapeHtml(src.name || pulseSourceLabel(src.url));
       return `<li><a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
@@ -80,14 +136,7 @@ function buildPulseSourcesTicker(sources) {
     .join("");
   return `<div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
-        <div class="pulse-sources-ticker">
-          <div class="pulse-sources-ticker-viewport">
-            <div class="pulse-sources-ticker-scroll">
-              <ul class="pulse-sources-ticker-list">${rows}</ul>
-              <ul class="pulse-sources-ticker-list" aria-hidden="true">${rows}</ul>
-            </div>
-          </div>
-        </div>
+        <ul class="pulse-event-source-links">${rows}</ul>
       </div>`;
 }
 
@@ -102,20 +151,23 @@ function buildPulseHtml(data) {
   if (updated) h += `<p class="sync-note">Cập nhật ${escapeHtml(updated)} (giờ Việt Nam).</p>`;
   h += `</header><div class="pulse-panel"><ol class="pulse-event-list">`;
   for (const ev of events) {
-    h += `<li class="pulse-event">`;
-    if (ev.sector) h += `<p class="pulse-event-sector">${escapeHtml(ev.sector)}</p>`;
+    const sc = Number(ev.source_count) || 0;
+    const cardClass =
+      sc >= 3 ? " pulse-event--multi-source" : sc <= 1 ? " pulse-event--solo-source" : "";
+    h += `<li class="pulse-event${cardClass}">`;
+    h += buildPulseMetaRowHtml(ev);
     h += `<h3 class="pulse-event-title">${escapeHtml(ev.title)}</h3>`;
     if (ev.summary) h += `<p class="pulse-event-hint">${escapeHtml(ev.summary)}</p>`;
     if (ev.importance_reason) {
       h += `<p class="pulse-event-importance">${escapeHtml(ev.importance_reason)}</p>`;
     }
     const na = ev.num_articles ?? "—";
-    const sc = ev.source_count ?? "—";
+    const scText = ev.source_count ?? "—";
     const tone = ev.sentiment_label || "";
-    h += `<p class="pulse-event-coverage">Độ phủ: <strong>${escapeHtml(na)}</strong> bài · <strong>${escapeHtml(sc)}</strong> nguồn`;
+    h += `<p class="pulse-event-coverage">Độ phủ: <strong>${escapeHtml(na)}</strong> bài · <strong>${escapeHtml(scText)}</strong> nguồn`;
     if (tone) h += ` · ${escapeHtml(tone)}`;
     h += `</p>`;
-    h += buildPulseSourcesTicker(ev.sources);
+    h += buildPulseSourceLinks(ev.sources);
     h += `</li>`;
   }
   h += `</ol></div></article>`;
@@ -131,7 +183,6 @@ function replacePulseBlock(html, inner) {
       `$1<div id="sectionPulse" class="brief-block">${inner}</div>`,
     );
   }
-  // Only replace #sectionPulse inside #pulse — do not match across #invest (old nextId=sectionInvest boundary swallowed <section id="invest">).
   const filled = new RegExp(
     '(<section id="pulse"[^>]*>\\s*<div class="container">\\s*)' +
       '<div id="sectionPulse" class="brief-block"[^>]*>[\\s\\S]*?' +
