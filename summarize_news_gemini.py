@@ -383,8 +383,10 @@ def _digest_newsroom_voice_block() -> str:
             "- Phân biệt rõ `most_mentioned_topics` (được nhắc nhiều) và `hottest_topics` (nóng theo impact/recency/source diversity).",
             "- Không nhầm nhiều bài với nóng thật; nhiều bài nhưng một domain không đủ gọi là nóng toàn cục.",
             "- Lọc nhiễu: coupon/promo/listing/review vụn/giải trí nhẹ/thể thao trận đơn lẻ không lên vị trí chính.",
-            "- Mỗi nhận định lớn phải kiểm chứng được bằng front_page, dossiers, subsector_briefs hoặc source_desk.",
-            "- Tránh câu rỗng kiểu 'đáng chú ý', 'phức tạp', 'tác động lớn' nếu không có giải thích cụ thể.",
+            "- Mỗi nhận định lớn phải có `representative_sources` URL thật từ input; không URL → không claim lớn.",
+            "- **Không** tạo section UI “Điểm nóng”: tích hợp điểm nóng vào `executive_briefing.sections` và `sector_deep_briefs`.",
+            "- `front_page` chỉ compatibility nội bộ; không dùng làm section render chính.",
+            "- Tránh câu rỗng kiểu 'đáng chú ý', 'phức tạp', 'tác động lớn', 'theo dõi diễn biến tiếp trong 24-72 giờ'.",
         ]
     )
 
@@ -453,8 +455,18 @@ def _digest_newsroom_json_schema_fragment() -> str:
   "reading_time_minutes": "auto",
   "editor_note": "100-180 từ, giọng biên tập trưởng mở đầu bản tin.",
   "executive_briefing": {{
-    "title": "Tổng quan 48h",
-    "content": "1000-2000 chữ nếu dữ liệu đủ.",
+    "title": "Tóm tắt tổng quan 48h",
+    "sections": {{
+      "main_picture": "Bức tranh chính — 200-400 chữ.",
+      "most_mentioned": "Chủ đề được nhắc nhiều nhất — 200-350 chữ.",
+      "top_stories": "Câu chuyện quan trọng nhất — 200-400 chữ.",
+      "sector_impacts": "Tác động theo khu vực/ngành — 200-400 chữ.",
+      "watch_24_72h": "Theo dõi 24-72h tới — bullet cụ thể."
+    }},
+    "content": "Legacy fallback: 1000-1800 chữ nếu không dùng sections.",
+    "representative_sources": [
+      {{"title": "...", "source": "...", "url": "https://url-that-tu-crawl"}}
+    ],
     "most_mentioned_topics": [
       {{"topic": "...", "why_mentioned": "...", "evidence_hint": "..."}}
     ],
@@ -2083,12 +2095,32 @@ def _sanitize_story_dossier(
     return out
 
 
-def _sanitize_executive_briefing(val: Any) -> dict[str, Any]:
+def _is_generic_watch_line(text: str) -> bool:
+    t = str(text or "").strip().lower()
+    if not t:
+        return True
+    generic = (
+        "theo dõi diễn biến tiếp trong 24-72 giờ",
+        "theo dõi diễn biến tiếp trong 24–72 giờ",
+        "theo dõi diễn biến tiếp",
+    )
+    return any(g in t for g in generic)
+
+
+def _strip_generic_watch_lines(lines: list[str]) -> list[str]:
+    return [x for x in lines if not _is_generic_watch_line(x)]
+
+
+def _sanitize_executive_briefing(
+    val: Any, *, index: DigestUrlIndex | None = None
+) -> dict[str, Any]:
     if isinstance(val, str):
         body = str(val).strip()
         return {
-            "title": "Tổng quan 48h",
+            "title": "Tóm tắt tổng quan 48h",
+            "sections": {},
             "content": body,
+            "representative_sources": [],
             "most_mentioned_topics": [],
             "hottest_topics": [],
             "emerging_signals": [],
@@ -2106,9 +2138,32 @@ def _sanitize_executive_briefing(val: Any) -> dict[str, Any]:
                 out_rows.append(obj)
         return out_rows[:8]
 
+    sec_src = src.get("sections") if isinstance(src.get("sections"), dict) else {}
+    sections = {
+        k: str(sec_src.get(k) or "").strip()
+        for k in (
+            "main_picture",
+            "most_mentioned",
+            "top_stories",
+            "sector_impacts",
+            "watch_24_72h",
+        )
+        if str(sec_src.get(k) or "").strip()
+    }
+    title = str(src.get("title") or "Tóm tắt tổng quan 48h").strip() or "Tóm tắt tổng quan 48h"
+    content = str(src.get("content") or "").strip()
+    rep_sources = _sanitize_representative_sources(
+        src.get("representative_sources"),
+        headline=title,
+        index=index,
+        sector_code="",
+        context=content or " ".join(sections.values()),
+    )
     return {
-        "title": str(src.get("title") or "Tổng quan 48h").strip() or "Tổng quan 48h",
-        "content": str(src.get("content") or "").strip(),
+        "title": title,
+        "sections": sections,
+        "content": content,
+        "representative_sources": rep_sources,
         "most_mentioned_topics": _topic_rows(
             src.get("most_mentioned_topics"),
             keys=("topic", "why_mentioned", "evidence_hint"),
@@ -2121,7 +2176,9 @@ def _sanitize_executive_briefing(val: Any) -> dict[str, Any]:
             src.get("emerging_signals"),
             keys=("signal", "why_watch"),
         ),
-        "watch_next": _coerce_str_list(src.get("watch_next"), max_items=8),
+        "watch_next": _strip_generic_watch_lines(
+            _coerce_str_list(src.get("watch_next"), max_items=8)
+        ),
     }
 
 
@@ -2146,6 +2203,8 @@ def _sanitize_subsector_briefs(
             sector_code=sector_code,
             context=overview,
         )
+        if not srcs:
+            continue
         out.append(
             {
                 "name": name,
@@ -2204,7 +2263,9 @@ def normalize_newsroom_brief(
     from scripts.newsroom_copy import soften_editor_note, soften_newsroom_text
 
     out["editor_note"] = soften_editor_note(str(out.get("editor_note") or "").strip())
-    out["executive_briefing"] = _sanitize_executive_briefing(out.get("executive_briefing"))
+    out["executive_briefing"] = _sanitize_executive_briefing(
+        out.get("executive_briefing"), index=url_index
+    )
 
     fp_raw = out.get("front_page") if isinstance(out.get("front_page"), list) else []
     front: list[dict[str, Any]] = []
@@ -2249,7 +2310,8 @@ def normalize_newsroom_brief(
             if not isinstance(d, dict):
                 continue
             sd = _sanitize_story_dossier(d, index=url_index, sector_code=code)
-            if sd.get("title"):
+            sd["watch_next"] = _strip_generic_watch_lines(sd.get("watch_next") or [])
+            if sd.get("title") and sd.get("representative_sources"):
                 dossiers.append(sd)
         dossiers.sort(key=lambda r: int(r.get("rank") or 999))
         bucket["story_dossiers"].extend(dossiers)
@@ -2324,10 +2386,15 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
     fp = summary.get("front_page") if isinstance(summary.get("front_page"), list) else []
     eb = summary.get("executive_briefing") if isinstance(summary.get("executive_briefing"), dict) else {}
     eb_content = str(eb.get("content") or "").strip()
-    if not eb_content:
-        warnings.append("executive_briefing.content trống.")
-    elif len(eb_content) < 800:
-        warnings.append("executive_briefing.content quá ngắn (<800 ký tự).")
+    eb_sections = eb.get("sections") if isinstance(eb.get("sections"), dict) else {}
+    section_text = " ".join(str(v).strip() for v in eb_sections.values() if str(v).strip())
+    eb_total = len(eb_content) + len(section_text)
+    if not eb_content and not section_text:
+        warnings.append("executive_briefing trống (thiếu content và sections).")
+    elif eb_total < 800:
+        warnings.append("executive_briefing quá ngắn (<800 ký tự tổng).")
+    if not (eb.get("representative_sources") or []):
+        warnings.append("executive_briefing thiếu representative_sources.")
     generic_hits = sum(
         1
         for frag in ("đáng chú ý", "bức tranh 48h", "diễn biến phức tạp", "tác động lớn")
@@ -2689,7 +2756,7 @@ def supplement_newsroom_from_partials(
                 "title": title,
                 "one_sentence": str(row.get("why_notable") or "").strip(),
                 "why_it_matters": str(row.get("why_notable") or "").strip(),
-                "watch_next": "Theo dõi diễn biến tiếp trong 24–72 giờ.",
+                "watch_next": str(row.get("why_notable") or "").strip()[:120],
                 "source_urls": [str(row.get("url") or "").strip()]
                 if str(row.get("url") or "").strip()
                 else [],
@@ -2718,7 +2785,9 @@ def supplement_newsroom_from_partials(
                         "why_it_matters": str(
                             row.get("reason_selected") or row.get("summary_hint") or ""
                         ).strip(),
-                        "watch_next": "Theo dõi diễn biến tiếp trong 24–72 giờ.",
+                        "watch_next": str(
+                            row.get("reason_selected") or row.get("summary_hint") or ""
+                        ).strip()[:120],
                         "source_urls": _candidate_urls(row)[:2],
                     }
                 )
@@ -2764,6 +2833,10 @@ def supplement_newsroom_from_partials(
             d_keys.add(key)
             hint = str(row.get("summary_hint") or "").strip()
             reason = str(row.get("reason_selected") or hint).strip()
+            rep = _candidate_to_rep_sources(row, headline=title, url_index=None)
+            if not rep:
+                continue
+            watch_hint = str(row.get("reason_selected") or hint).strip()
             dossiers.append(
                 {
                     "rank": d_rank,
@@ -2773,10 +2846,8 @@ def supplement_newsroom_from_partials(
                     "main_developments": [hint] if hint else [],
                     "why_it_matters": reason,
                     "affected_groups": [],
-                    "watch_next": ["Theo dõi diễn biến tiếp trong 24–72 giờ."],
-                    "representative_sources": _candidate_to_rep_sources(
-                        row, headline=title, url_index=None
-                    ),
+                    "watch_next": [watch_hint[:120]] if watch_hint else [],
+                    "representative_sources": rep,
                 }
             )
             d_rank += 1
@@ -3620,8 +3691,8 @@ def build_digest_merge_prompt(
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}
 {_digest_source_urls_block()}
-- `executive_briefing`: bắt buộc có `content` đủ sâu (ưu tiên 1.000–2.000 chữ nếu dữ liệu đủ), nêu rõ most-mentioned vs hottest vs emerging.
-- `front_page`: **5–10** story toàn cảnh (mỗi item: `why_it_matters`, `watch_next`, `source_urls`).
+- `executive_briefing`: bài **Tóm tắt tổng quan 48h** đầy đủ qua `sections` (5 heading); tổng **1.000–1.800 chữ**; cuối có `representative_sources` (3–8 URL).
+- **Không** viết section “Điểm nóng” riêng. `front_page` tối đa 8 item compatibility, có `source_urls`.
 - `sector_deep_briefs`: đúng **4** sector; mỗi sector: `sector_thesis` + `subsector_briefs` (nếu dữ liệu đủ) + `story_dossiers`.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
 - `watchlist_24_72h`: **4–8** chủ đề theo dõi 24–72h.

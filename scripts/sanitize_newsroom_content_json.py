@@ -144,8 +144,25 @@ def sanitize_newsroom_public_content(data: dict[str, Any]) -> dict[str, Any]:
             card["links"] = _filter_story_links(
                 links, headline=st, context=ctx, index=index, by_url=by_url
             )
-            dossiers.append(card)
+            if card["links"]:
+                dossiers.append(card)
         sec2["storyDossiers"] = dossiers
+        sub_out: list[dict[str, Any]] = []
+        for sb in sec2.get("subsectorBriefs") or []:
+            if not isinstance(sb, dict):
+                continue
+            sb2 = dict(sb)
+            sb_links = sb2.get("links") if isinstance(sb2.get("links"), list) else []
+            sb2["links"] = _filter_story_links(
+                sb_links,
+                headline=str(sb2.get("name") or ""),
+                context=str(sb2.get("overview") or ""),
+                index=index,
+                by_url=by_url,
+            )
+            if sb2["links"]:
+                sub_out.append(sb2)
+        sec2["subsectorBriefs"] = sub_out
         sectors_out.append(sec2)
     out["sectorDeepBriefs"] = sectors_out
 

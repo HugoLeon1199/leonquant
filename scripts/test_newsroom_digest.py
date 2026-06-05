@@ -33,7 +33,20 @@ def _fixture() -> dict:
         "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
         "editor_note": "Trong 48 giờ qua, LeonQuant ghi nhận sự dịch chuyển mạnh mẽ của dòng vốn toàn cầu.",
         "executive_briefing": {
-            "title": "Tổng quan 48h",
+            "title": "Tóm tắt tổng quan 48h",
+            "sections": {
+                "main_picture": "Bức tranh chính 48h qua cho thấy rủi ro địa chính trị và AI capex dẫn dắt dòng tin."
+                * 3,
+                "most_mentioned": "Chủ đề Trung Đông và năng lượng được nhắc nhiều nhất trên các nguồn quốc tế."
+                * 3,
+            },
+            "representative_sources": [
+                {
+                    "url": "https://vietnamnet.vn/dong-von-dich-chuyen-tu-crypto-sang-co-phieu-ai-123.htm",
+                    "title": "Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI",
+                    "source": "vietnamnet.vn",
+                }
+            ],
             "content": (
                 "Trong 48 giờ qua, rủi ro địa chính trị tiếp tục neo tâm lý thị trường trong khi dòng tin "
                 "AI và công nghệ vốn hóa lớn duy trì mật độ phủ cao. Việt Nam nổi bật với luồng điều hành "
@@ -75,7 +88,13 @@ def _fixture() -> dict:
                         "overview": "Lạm phát và lãi suất tiếp tục là trục chính của sector.",
                         "key_points": ["CPI neo cao", "Kỳ vọng nới lỏng thận trọng"],
                         "key_story_titles": ["Bitcoin giảm áp lực quanh vùng tâm lý"],
-                        "representative_sources": [],
+                        "representative_sources": [
+                            {
+                                "url": "https://vietnamnet.vn/dong-von-dich-chuyen-tu-crypto-sang-co-phieu-ai-123.htm",
+                                "title": "Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI",
+                                "source": "vietnamnet.vn",
+                            }
+                        ],
                     }
                 ],
                 "story_dossiers": [
@@ -89,7 +108,13 @@ def _fixture() -> dict:
                         "why_it_matters": "Phản ánh risk-off có chọn lọc, không rút khỏi tài sản rủi ro hoàn toàn.",
                         "affected_groups": ["Nhà đầu tư crypto", "Miner"],
                         "watch_next": ["Funding rate", "Dòng ETF"],
-                        "representative_sources": [],
+                        "representative_sources": [
+                            {
+                                "url": "https://vietnamnet.vn/dong-von-dich-chuyen-tu-crypto-sang-co-phieu-ai-123.htm",
+                                "title": "Dòng vốn dịch chuyển từ Crypto sang cổ phiếu AI",
+                                "source": "vietnamnet.vn",
+                            }
+                        ],
                     }
                 ],
             },

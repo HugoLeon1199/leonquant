@@ -2126,9 +2126,25 @@ def build_newsroom_web_extras(
         )
 
     eb_in = summary.get("executive_briefing") if isinstance(summary.get("executive_briefing"), dict) else {}
+    eb_sections_in = eb_in.get("sections") if isinstance(eb_in.get("sections"), dict) else {}
+    eb_links = _newsroom_sources_to_links(
+        [x for x in (eb_in.get("representative_sources") or []) if isinstance(x, dict)],
+        by_url=by_url,
+        group="Tóm tắt tổng quan 48h",
+        add_link=add_link,
+    )
     executive_briefing = {
-        "title": str(eb_in.get("title") or "Tổng quan 48h").strip() or "Tổng quan 48h",
+        "title": str(eb_in.get("title") or "Tóm tắt tổng quan 48h").strip()
+        or "Tóm tắt tổng quan 48h",
+        "sections": {
+            "mainPicture": str(eb_sections_in.get("main_picture") or "").strip(),
+            "mostMentioned": str(eb_sections_in.get("most_mentioned") or "").strip(),
+            "topStories": str(eb_sections_in.get("top_stories") or "").strip(),
+            "sectorImpacts": str(eb_sections_in.get("sector_impacts") or "").strip(),
+            "watch2472h": str(eb_sections_in.get("watch_24_72h") or "").strip(),
+        },
         "content": str(eb_in.get("content") or "").strip(),
+        "links": eb_links,
         "mostMentionedTopics": [
             {
                 "topic": str(x.get("topic") or "").strip(),
@@ -2179,6 +2195,8 @@ def build_newsroom_web_extras(
                 group=f"{name} · {sb_name}",
                 add_link=add_link,
             )
+            if not sb_links:
+                continue
             subsector_out.append(
                 {
                     "name": sb_name,
@@ -2222,6 +2240,8 @@ def build_newsroom_web_extras(
             links = _newsroom_sources_to_links(
                 src_rows, by_url=by_url, group=name, add_link=add_link
             )
+            if not links:
+                continue
             dossiers_out.append(
                 {
                     "rank": int(d.get("rank") or len(dossiers_out) + 1),

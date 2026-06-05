@@ -369,8 +369,7 @@ function buildDossierSourcesHtml(links) {
   }
   if (!count) return "";
   inner += `</div>`;
-  const nLabel = count === 1 ? "1 bài" : `${count} bài`;
-  return `<details class="story-sources-wrap"><summary>Bấm vào xem nguồn · ${nLabel}</summary>${inner}</details>`;
+  return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tiêu biểu</p>${inner}</div>`;
 }
 
 function buildNewsroomThesisHtml(data) {
