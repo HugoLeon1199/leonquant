@@ -31,6 +31,24 @@ export function formatDateVi(value) {
   return `${pick("year")}-${pick("month")}-${pick("day")} ${pick("hour")}:${pick("minute")}:${pick("second")} +7`;
 }
 
+/** Giờ pipeline chạy xong — hiển thị dưới tiêu đề bản tin / chuyên mục. */
+export function formatDailyUpdateNoteVi(value) {
+  if (!value) return "";
+  try {
+    const at = new Date(value).toLocaleString("vi-VN", {
+      timeZone: "Asia/Ho_Chi_Minh",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return at ? `Cập nhật hàng ngày lúc ${at} (giờ Việt Nam).` : "";
+  } catch {
+    return "";
+  }
+}
+
 function newsroomSectorShortLabel(name) {
   const n = String(name || "").toLowerCase();
   if (/kinh tế|tài chính|finance/.test(n)) return "Kinh tế";
@@ -227,9 +245,10 @@ function buildNewsroomStatPill(label, value) {
   return `<span class="stat-pill">${escapeHtml(label)}: <strong>${escapeHtml(v)}</strong></span>`;
 }
 
-function buildNewsroomIssueHeader(_data) {
+function buildNewsroomIssueHeader(data) {
+  const updateNote = formatDailyUpdateNoteVi(data?.generatedAt);
   return `<header class="issue-header issue-header--minimal" id="digest-issue-header">
-    <h2 class="issue-title">Bản tin 48h</h2>
+    <h2 class="issue-title">Bản tin 48h</h2>${updateNote ? `<p class="issue-updated">${escapeHtml(updateNote)}</p>` : ""}
   </header>`;
 }
 
