@@ -1966,21 +1966,56 @@ def build_digest_web_extras(
     }
 
 
-def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 5) -> str:
+def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 5, max_chars: int = 900) -> str:
     if not isinstance(art, dict):
         return ""
     raw = str(art.get("summary") or art.get("description") or "").strip()
     if not raw:
-        blob = str(art.get("content_for_ai") or "").strip()
-        if blob:
-            raw = blob[:1200]
+        raw = str(art.get("content_for_ai") or "").strip()
     if not raw:
         return ""
     parts = re.split(r"(?<=[.!?…])\s+", raw)
     kept = [p.strip() for p in parts if p.strip()]
-    if len(kept) <= max_sentences:
-        return " ".join(kept)
-    return " ".join(kept[:max_sentences])
+    text = " ".join(kept[:max_sentences])
+    if len(text) <= max_chars:
+        return text
+    cut = text[:max_chars]
+    last_stop = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
+    if last_stop >= 120:
+        return cut[: last_stop + 1].strip()
+    return cut.rstrip(" ,;:") + "…"
+
+
+def _enrich_sector_thesis(
+    sec: dict[str, Any],
+    *,
+    dossiers: list[dict[str, Any]],
+    subsectors: list[dict[str, Any]],
+) -> str:
+    chunks: list[str] = []
+    seen: set[str] = set()
+    for block in (
+        str(sec.get("sector_thesis") or "").strip(),
+        *[str(sb.get("overview") or "").strip() for sb in subsectors if isinstance(sb, dict)],
+        *[
+            str(d.get("summary") or "").strip()
+            for d in dossiers
+            if isinstance(d, dict) and str(d.get("summary") or "").strip()
+        ],
+        *[
+            str(d.get("why_it_matters") or "").strip()
+            for d in dossiers
+            if isinstance(d, dict) and str(d.get("why_it_matters") or "").strip()
+        ],
+    ):
+        if not block:
+            continue
+        key = block.lower()[:160]
+        if key in seen:
+            continue
+        seen.add(key)
+        chunks.append(block)
+    return "\n\n".join(chunks)
 
 
 def _newsroom_sources_to_links(
@@ -2264,11 +2299,13 @@ def build_newsroom_web_extras(
                 urls = filter_urls_for_story(
                     urls, title, url_index, context=str(d.get("summary") or "")
                 )
+                dossier_summary = str(d.get("summary") or "").strip()
                 src_rows = [
                     {
                         "url": u,
                         "title": str((by_url.get(u) or {}).get("title") or ""),
                         "source": str((by_url.get(u) or {}).get("source") or ""),
+                        "excerpt": dossier_summary,
                     }
                     for u in urls
                 ]
@@ -2318,7 +2355,11 @@ def build_newsroom_web_extras(
             {
                 "code": code,
                 "name": name,
-                "sectorThesis": str(sec.get("sector_thesis") or "").strip(),
+                "sectorThesis": _enrich_sector_thesis(
+                    sec,
+                    dossiers=dossiers_out,
+                    subsectors=subsector_out,
+                ),
                 "links": merged_links,
                 "subsectorBriefs": [],
                 "storyDossiers": [],

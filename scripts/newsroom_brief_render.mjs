@@ -216,18 +216,6 @@ function buildNewsroomIssueHeader(_data) {
   </header>`;
 }
 
-function countArticleSources(articles) {
-  const hosts = new Set();
-  for (const a of Array.isArray(articles) ? articles : []) {
-    const h = String(a.host || getHostName(a.url) || "")
-      .trim()
-      .toLowerCase();
-    if (h) hosts.add(h);
-  }
-  const rows = Array.isArray(articles) ? articles : [];
-  return hosts.size || rows.length;
-}
-
 function collectSectorLinks(sec) {
   const out = [];
   const seen = new Set();
@@ -344,10 +332,9 @@ function buildNotableCardsHtml(notable, imageByUrl) {
 function buildArticleArchiveHtml(articles) {
   const rows = (Array.isArray(articles) ? articles : []).filter((a) => normalizeExternalUrl(a?.url));
   if (!rows.length) return "";
-  const sourceCount = countArticleSources(rows);
-  const nLabel = sourceCount.toLocaleString("vi-VN");
+  const nLabel = rows.length.toLocaleString("vi-VN");
   let h = `<details class="article-archive-wrap digest-notable-all">`;
-  h += `<summary>Tổng hợp từ ${nLabel} nguồn, bấm vào xem chi tiết</summary>`;
+  h += `<summary>Tổng hợp từ ${nLabel} bài, bấm vào xem chi tiết</summary>`;
   h += `<div class="article-archive-scroll"><ul class="link-rows">`;
   for (const L of rows) {
     const u = normalizeExternalUrl(L.url);
@@ -375,39 +362,8 @@ function buildNewsroomFeedSection(data) {
   return html;
 }
 
-function buildNewsroomTocHtml(data, sectorSlug) {
-  const items = [];
-  if (
-    executiveBriefingHasBody(data.executiveBriefing) ||
-    String(data.editorNote || "").trim()
-  ) {
-    items.push({ id: "digest-executive-briefing", label: "Tổng quan 48h" });
-  }
-  if ((data.sectorDeepBriefs || []).length) {
-    items.push({ id: "digest-sector-deep", label: "Đi sâu theo ngành" });
-  }
-  let sectorIdx = 0;
-  for (const sec of Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : []) {
-    const name = String(sec.name || "").trim();
-    if (!name) continue;
-    sectorIdx += 1;
-    items.push({
-      id: sectorSlug(name),
-      label: `${sectorIdx}. ${newsroomSectorShortLabel(name)}`,
-    });
-  }
-  const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
-  const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
-  if (notable.length || articles.length) {
-    items.push({ id: "digest-main--notable", label: "Tin đáng chú ý" });
-  }
-  if (!items.length) return "";
-  let html = `<nav class="newsroom-toc-wrap newsroom-toc-wrap--sticky" aria-label="Mục lục bản tin"><div class="newsroom-toc">`;
-  for (const it of items) {
-    html += `<a class="toc-chip" href="#${escapeHtml(it.id)}">${escapeHtml(it.label)}</a>`;
-  }
-  html += `</div></nav>`;
-  return html;
+function buildNewsroomTocHtml(_data, _sectorSlug) {
+  return "";
 }
 
 function buildExecutiveBriefingHtml(briefing, editorNote) {
@@ -617,7 +573,7 @@ export function buildNewsroomThesisHtml(data, deps) {
       if (!thesis && !links.length) continue;
       sectorIndex += 1;
       const id = sectorSlug(name);
-      html += `<article class="sector-simple-block sector-block" id="${id}">`;
+      html += `<article class="sector-simple-block" id="${id}">`;
       html += `<h3 class="sector-simple-title"><span class="sector-simple-num">${sectorIndex}.</span> ${escapeHtml(name)}</h3>`;
       if (thesis) {
         const paras = thesis.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
