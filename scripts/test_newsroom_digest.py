@@ -311,6 +311,88 @@ def test_merge_prompt_briefing_quality_guidance() -> None:
     assert "chỉ nên xuất hiện" in prompt
     assert "representative_sources[].excerpt" in prompt
     assert "Không chuỗi headline" in prompt or "không chuỗi headline" in prompt.lower()
+    assert "500–10.000" not in prompt
+    assert "500-10000" not in prompt
+    assert "2–9 câu" not in prompt
+    assert "100-500 từ" not in prompt
+    assert "Không ép số câu/số chữ" in prompt
+    assert "Tổng thống Mỹ Donald Trump" in prompt
+    assert "Cục Dự trữ Liên bang Mỹ (Fed)" in prompt
+    assert "Kevin Warsh" in prompt or "Fed / chủ tịch Fed" in prompt
+    assert "SpaceX" in prompt
+    assert "48h thật" in prompt or "cửa sổ 48h" in prompt
+
+
+def test_main_editorial_story_cluster_dedupe() -> None:
+    from scripts.newsroom_main_quality import enforce_newsroom_main_editorial_quality
+
+    raw = {
+        "brief_format": NEWSROOM_BRIEF_FORMAT,
+        "front_page": [
+            {"rank": 1, "title": "Kevin Warsh được xem là ứng viên Fed", "source_urls": []},
+            {"rank": 2, "title": "Fed chọn Kevin Warsh làm chủ tịch", "source_urls": []},
+            {"rank": 3, "title": "SpaceX IPO có thể huy động vốn lớn", "source_urls": []},
+            {"rank": 4, "title": "Starship và kế hoạch IPO SpaceX", "source_urls": []},
+        ],
+        "sector_deep_briefs": [
+            {
+                "code": "finance",
+                "name": "Kinh tế & Tài chính",
+                "sector_thesis": "Thị trường thận trọng.",
+                "story_dossiers": [],
+            }
+        ],
+    }
+    out = enforce_newsroom_main_editorial_quality(raw)
+    titles = [str(x.get("title") or "") for x in out.get("front_page") or []]
+    assert len(titles) == 2
+    assert sum("warsh" in t.lower() or "fed" in t.lower() for t in titles) == 1
+    assert sum("spacex" in t.lower() or "starship" in t.lower() for t in titles) == 1
+
+
+def test_main_editorial_rejects_bad_urls_and_titles() -> None:
+    from scripts.newsroom_main_quality import (
+        enforce_newsroom_main_editorial_quality,
+        is_bad_main_editorial_title,
+        is_bad_main_editorial_url,
+    )
+
+    assert is_bad_main_editorial_title("PAGE NOT FOUND")
+    assert is_bad_main_editorial_title("nan")
+    assert is_bad_main_editorial_url("https://example.com/category/world")
+    assert is_bad_main_editorial_url("https://example.com/news/coupon-deals")
+
+    raw = {
+        "brief_format": NEWSROOM_BRIEF_FORMAT,
+        "notable_articles": [
+            {"title": "PAGE NOT FOUND", "url": "https://example.com/a.htm"},
+            {"title": "Tin hợp lệ", "url": "https://example.com/2026/05/story-123456.htm"},
+        ],
+        "sector_deep_briefs": [],
+    }
+    out = enforce_newsroom_main_editorial_quality(raw)
+    notable = out.get("notable_articles") or []
+    assert len(notable) == 1
+    assert notable[0]["title"] == "Tin hợp lệ"
+
+
+def test_archive_link_index_unchanged() -> None:
+    from build_website_content import build_newsroom_web_extras
+
+    articles = _mock_articles() + [
+        {
+            "url": "https://example.com/category/world",
+            "title": "PAGE NOT FOUND",
+            "source": "example.com",
+        }
+    ]
+    raw = normalize_newsroom_brief(_fixture())
+    extras = build_newsroom_web_extras(raw, articles)
+    archive = extras.get("articleLinkIndex") or []
+    assert len(archive) == len(articles)
+    render_src = (ROOT / "scripts" / "newsroom_brief_render.mjs").read_text(encoding="utf-8")
+    assert "Bản tin được tổng hợp từ" in render_src
+    assert "bấm vào xem chi tiết" in render_src
 
 
 def test_sanitize_preserves_source_excerpt() -> None:
@@ -362,6 +444,9 @@ if __name__ == "__main__":
     test_sanitize_published_content_json()
     test_supplement_newsroom_from_partials()
     test_merge_prompt_briefing_quality_guidance()
+    test_main_editorial_story_cluster_dedupe()
+    test_main_editorial_rejects_bad_urls_and_titles()
+    test_archive_link_index_unchanged()
     test_sanitize_preserves_source_excerpt()
     test_build_newsroom_extras()
     print("OK: newsroom digest tests passed")

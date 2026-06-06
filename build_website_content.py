@@ -1416,7 +1416,11 @@ def _is_http_url(url: str) -> bool:
 
 def _is_plausible_article_url(url: str) -> bool:
     """Bỏ URL placeholder Gemini (slug ngắn, không có id bài)."""
+    from scripts.newsroom_main_quality import is_bad_main_editorial_url
+
     u = str(url or "").strip()
+    if is_bad_main_editorial_url(u):
+        return False
     if not _is_http_url(u):
         return False
     try:
@@ -1569,6 +1573,12 @@ def _enrich_notable_articles_for_public(
     metadata_timeout: int,
 ) -> list[dict[str, str]]:
     """Resolve URL crawl + og:image cho Tin đáng chú ý (tối đa ~12 mục)."""
+    from scripts.newsroom_main_quality import (
+        dedupe_rows_by_story_cluster,
+        is_bad_main_editorial_title,
+        is_bad_main_editorial_url,
+    )
+
     by_url: dict[str, dict[str, Any]] = {}
     for art in all_articles:
         u = str(art.get("url") or "").strip()
@@ -1581,7 +1591,11 @@ def _enrich_notable_articles_for_public(
         if not isinstance(a, dict):
             continue
         title = str(a.get("title") or "").strip()
+        if is_bad_main_editorial_title(title):
+            continue
         u = str(a.get("url") or "").strip()
+        if u and is_bad_main_editorial_url(u, title=title):
+            continue
         art = by_url.get(u) if u and _is_plausible_article_url(u) else None
         from_digest = _resolve_notable_url_from_digest(title, raw_summary)
         if from_digest:
@@ -1624,7 +1638,14 @@ def _enrich_notable_articles_for_public(
             row_out["priorityTier"] = tier
         if u:
             out.append(row_out)
-    return out[:DIGEST_MAX_NOTABLE_ARTICLES]
+    if not out:
+        return []
+    dedupe_rows = [
+        {"title": r["title"], "why_notable": r.get("whyNotable", ""), "_orig": r}
+        for r in out
+    ]
+    clustered = dedupe_rows_by_story_cluster(dedupe_rows, extra_keys=("why_notable",))
+    return [row["_orig"] for row in clustered][:DIGEST_MAX_NOTABLE_ARTICLES]
 
 
 def _resolve_url_for_headline(
@@ -1674,7 +1695,7 @@ def _links_from_urls(
     out: list[dict[str, str]] = []
     for u in urls[: max(1, max_links)]:
         u = str(u or "").strip()
-        if not u:
+        if not u or not _is_plausible_article_url(u):
             continue
         add_link(u, sector=sector_name, group=sector_name)
         art = by_url.get(u)
@@ -1988,12 +2009,14 @@ def _newsroom_sources_to_links(
     group: str,
     add_link,
 ) -> list[dict[str, str]]:
+    from scripts.newsroom_main_quality import is_bad_main_editorial_url
+
     links: list[dict[str, str]] = []
     for src in sources:
         if not isinstance(src, dict):
             continue
         u = str(src.get("url") or "").strip()
-        if not u:
+        if not u or is_bad_main_editorial_url(u, title=str(src.get("title") or "")):
             continue
         add_link(
             u,

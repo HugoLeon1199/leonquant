@@ -165,7 +165,7 @@ def _digest_priority_tier_block() -> str:
 
 def _digest_accuracy_and_freshness_block(*, for_merge: bool = False) -> str:
     exec_rule = (
-        "- `executive_overview`: **mảng bullet adaptive** — 48h đơn giản: 4–5 bullet; nhiều diễn biến lớn: 7–10. "
+        "- `executive_overview`: **mảng bullet adaptive** — đủ luồng quan trọng, không quota cố định. "
         "Mỗi bullet **một luồng khác** (Trung Đông/năng lượng, Ukraine, AI/chip, crypto/IPO, VN tiền tệ/thuế/BĐS, xã hội/y tế…). **Cấm** lặp ý."
         if for_merge
         else "- Outline/chunk: ghi nhận candidate; merge chọn theo chất lượng."
@@ -179,9 +179,124 @@ def _digest_accuracy_and_freshness_block(*, for_merge: bool = False) -> str:
             "- Mâu thuẫn hoặc thiếu ngữ cảnh → `gaps_and_limits` ngắn, không đoán.",
             "- Claim lớn chưa rõ trong text: wording thận trọng (\"được đưa tin\", \"cần theo dõi\"), không khẳng định như fact chắc.",
             exec_rule,
-            "- `vietnam_highlights` / `international_highlights`: 2–4 câu cụ thể.",
+            "- `vietnam_highlights` / `international_highlights`: đủ ý cụ thể theo mức độ quan trọng — không quota câu.",
             '- Không viết "hạ tầng ," — dùng "hạ tầng AI" / "hạ tầng dữ liệu" theo nguồn.',
             "- Tên sản phẩm/model: chỉ dùng nếu chắc trong text nguồn.",
+        ]
+    )
+
+
+def _digest_adaptive_length_block() -> str:
+    return "\n".join(
+        [
+            "## Độ dài biên tập (adaptive — KHÔNG quota cứng)",
+            "- **Không ép số câu/số chữ.**",
+            "- Độ dài do **mức độ quan trọng**, **độ phức tạp** và **số nguồn chất lượng** quyết định.",
+            "- Tin nóng/quan trọng → viết đủ sâu; tin nhỏ → tóm tắt gọn.",
+            "- **Không** viết dài để đủ quota; **không** viết ngắn đến mức mất ý chính.",
+            "- `executive_briefing`, `sector_thesis`, dossier, excerpt: chia **đoạn văn** có mạch; độ dài tự nhiên theo pool.",
+        ]
+    )
+
+
+def _digest_entity_clarity_block() -> str:
+    return "\n".join(
+        [
+            "## Rõ chủ thể (Entity clarity — BẮT BUỘC cho văn bản public)",
+            "Người đọc bình thường phải hiểu **ai/cái gì** ngay lần nhắc đầu — không dùng tên-viết-tắt mơ hồ nếu độc giả có thể không biết.",
+            "",
+            "**Quy tắc lần nhắc đầu:**",
+            "- **Người:** vai trò + họ tên đầy đủ nếu có trong dữ liệu.",
+            '  Ví dụ: "Tổng thống Mỹ Donald Trump" — không chỉ "Trump".',
+            "- **Tổ chức/doanh nghiệp:** loại hình + tên.",
+            '  Ví dụ: "công ty công nghệ FPT" hoặc "cổ phiếu công ty FPT" — không chỉ "FPT".',
+            "- **Chỉ số/thị trường:** giải thích ngắn lần đầu.",
+            '  Ví dụ: "VN-Index, chỉ số đại diện thị trường chứng khoán Việt Nam".',
+            "- **Viết tắt:** mở rộng một lần, sau đó dùng viết tắt.",
+            '  Ví dụ: "Cục Dự trữ Liên bang Mỹ (Fed)"; sau đó "Fed".',
+            "- **Sự kiện nổi tiếng:** nêu tên sự kiện thật.",
+            '  Ví dụ: "Ngày hội bóng đá lớn nhất hành tinh World Cup 2026" — không chỉ "ngày hội bóng đá lớn nhất hành tinh".',
+            "- **Big tech/startup nổi tiếng:** thêm ngữ cảnh ngắn khi hữu ích.",
+            '  Ví dụ: "SpaceX, công ty hàng không vũ trụ của Elon Musk".',
+            "- **Mã cổ phiếu/ticker:** nói rõ là cổ phiếu/công ty/ngành.",
+            '  Ví dụ: "cổ phiếu FPT", "nhóm cổ phiếu ngân hàng", "cổ phiếu Nvidia".',
+            "",
+            "**Lần nhắc sau:** có thể rút gọn (Trump, Fed, FPT…) nếu đã rõ ngữ cảnh.",
+            "**Tránh:** lặp giải thích mỗi câu; ngoặc dài robot; biến bài thành từ điển.",
+            "",
+            "**Ví dụ SAI → ĐÚNG:**",
+            '- SAI: "Trump gây sức ép lên Iran."',
+            '  ĐÚNG: "Tổng thống Mỹ Donald Trump gia tăng sức ép lên Iran trong bối cảnh đàm phán hạt nhân bế tắc."',
+            '- SAI: "FPT tăng mạnh."',
+            '  ĐÚNG: "Cổ phiếu công ty công nghệ FPT tăng mạnh, phản ánh dòng tiền vẫn quan tâm nhóm công nghệ Việt Nam."',
+            '- SAI: "Ngày hội bóng đá lớn nhất hành tinh đang nóng lên."',
+            '  ĐÚNG: "Ngày hội bóng đá lớn nhất hành tinh World Cup 2026 đang trở thành câu chuyện kinh tế – truyền thông lớn, khi tài trợ, bản quyền và du lịch cùng được kích hoạt."',
+            '- SAI: "Fed phát tín hiệu mới."',
+            '  ĐÚNG: "Cục Dự trữ Liên bang Mỹ (Fed) phát tín hiệu mới về lãi suất, ảnh hưởng trực tiếp đến kỳ vọng thị trường tài chính toàn cầu."',
+        ]
+    )
+
+
+def _digest_who_what_why_block() -> str:
+    return "\n".join(
+        [
+            "## Ai – Việc gì – Vì sao (Who–What–Why)",
+            "Mỗi đoạn/ý quan trọng phải làm rõ:",
+            "- **Ai/cái gì** là chủ thể chính? (theo quy tắc Entity clarity ở lần nhắc đầu)",
+            "- **Chuyện gì** đã xảy ra? (fact từ dữ liệu, không bịa)",
+            "- **Vì sao** quan trọng — tác động tới thị trường, chính sách, công nghệ, xã hội, hoặc bối cảnh Việt Nam/toàn cầu?",
+            "Không để người đọc đoán mò đối tượng hoặc mức độ quan trọng.",
+        ]
+    )
+
+
+def _digest_main_freshness_block() -> str:
+    return "\n".join(
+        [
+            "## Độ mới — nội dung chính Tin48h (BẮT BUỘC)",
+            "- `executive_briefing`, `sector_thesis`, `story_dossiers`, `front_page`, notable: **ưu tiên bài trong cửa sổ 48h thật** (`published_at` gần nhất).",
+            "- **Không** để tin cũ chiếm vị trí chính nếu cùng chủ đề đã có bài mới hơn trong input.",
+            "- Bài cũ vẫn có thể nằm trong archive đầy đủ — nhưng **không** lên Tổng quan / Đi sâu ngành / Tin đáng chú ý nếu không còn relevance 48h.",
+            "- Khi gom cụm (Fed, SpaceX, Iran…): chọn nguồn **mới + đại diện** nhất, không lặp cùng diễn biến nhiều lần.",
+        ]
+    )
+
+
+def _digest_main_quality_block() -> str:
+    return "\n".join(
+        [
+            "## Chất lượng nguồn — phần chính (BẮT BUỘC)",
+            "- **Không** dùng link/tiêu đề kiểu PAGE NOT FOUND, `nan`, trang category/section rỗng, trang listing/review/coupon/promo làm story chính.",
+            "- **Không** chọn thể thao/giải trí làm story chính trừ khi có tác động kinh tế, văn hóa, địa chính trị hoặc xã hội rõ.",
+            "- Tin yếu/nhiễu: để archive minh bạch — **không** đưa vào notable, front page, dossier chính.",
+            "- Mỗi `representative_sources` / `source_urls` phải khớp story và là bài thật từ crawl.",
+        ]
+    )
+
+
+def _digest_story_cluster_block() -> str:
+    return "\n".join(
+        [
+            "## Gom story — tránh lặp ở phần chính (BẮT BUỘC)",
+            "Cùng một câu chuyện chỉ xuất hiện **một lần** ở output chính (có thể nhiều URL trong cùng dossier).",
+            "Ví dụ phải gom, không lặp 3–5 lần:",
+            "- Kevin Warsh / Fed / chủ tịch Fed → **một** cụm chính sách tiền tệ.",
+            "- SpaceX / Starship / IPO SpaceX → **một** cụm.",
+            "- Iran / Hormuz / đàm phán Trump–Iran → **một** hoặc tối đa **hai** cụm (quân sự vs đàm phán) — không rải rác.",
+            "**Không** gom/dedupe archive đầy đủ — chỉ output biên tập chính.",
+        ]
+    )
+
+
+def _digest_gemini_writing_rules_block() -> str:
+    return "\n\n".join(
+        [
+            _digest_adaptive_length_block(),
+            _digest_entity_clarity_block(),
+            _digest_who_what_why_block(),
+            _digest_main_freshness_block(),
+            _digest_main_quality_block(),
+            _digest_story_cluster_block(),
         ]
     )
 
@@ -223,7 +338,7 @@ def _digest_headline_rewrite_block() -> str:
             "- Raw EN: \"Google owner Alphabet to sell $80bn in stock...\" → "
             'VI: "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI"',
             "- Raw EN: \"Trump Says It's Time... Iran... Deal\" → "
-            'VI: "Trump gia tăng sức ép đàm phán với Iran giữa căng thẳng vùng Vịnh"',
+            'VI: "Tổng thống Mỹ Donald Trump gia tăng sức ép đàm phán với Iran giữa căng thẳng vùng Vịnh"',
             "- Raw EN: \"US strikes Iran's Qeshm Island...\" → "
             'VI: "Mỹ tấn công đảo Qeshm, rủi ro Trung Đông leo thang"',
         ]
@@ -287,7 +402,8 @@ def _digest_executive_briefing_writing_block() -> str:
         [
             "## Tổng quan 48h (`executive_briefing`) — viết như bài briefing thật",
             "Đây là **bài tổng hợp** (không phải outline, không phải bullet rời, không phải nhãn + một câu).",
-            "Độ dài gợi ý: **500–10.000 chữ** nếu pools đủ dày — chia **đoạn văn** có mạch, mỗi đoạn nhiều câu nối ý.",
+            "Viết **đủ ý** theo mức độ quan trọng và độ phức tạp của pools — chia **đoạn văn** có mạch; tin lớn phân tích sâu, tin nhỏ gọn.",
+            "Không ép số chữ/số câu; không viết dài để đủ quota; không viết ngắn đến mức mất ý chính.",
             "**Không** viết kiểu template:",
             '- "Bức tranh chính: một câu." / "Chủ đề được nhắc nhiều nhất: một câu."',
             "UI có heading riêng — **không** lặp nhãn mục trong nội dung; chỉ viết thân bài.",
@@ -331,7 +447,7 @@ def _digest_source_excerpt_rules_block() -> str:
         [
             "## Trích yếu nguồn (`representative_sources[].excerpt`)",
             "Mỗi nguồn tiêu biểu kèm `excerpt` (trích yếu biên tập, **không** copy máy summary RSS):",
-            "- **2–9 câu** tiếng Việt.",
+            "- Độ dài **adaptive**: đủ ý theo mức quan trọng của nguồn — không quota câu/chữ.",
             "- Nói rõ bài đó **củng cố luận điểm nào** trong đoạn ngành/dossier gần nhất.",
             "- Dùng fact từ input; không bịa; không lặp nguyên headline.",
             "- Không viết \"bài này đáng chú ý\" chung chung — phải chỉ ra ý cụ thể.",
@@ -416,12 +532,13 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         lines.extend(
             [
                 "- **`sectors`:** đúng **4** phần tử (finance, tech, news, trends).",
-                "- `notable_articles`: **5–8** tin tier A/B đa ngành (không chỉ 2 nếu sectors giàu A/B).",
+                "- `notable_articles`: tier A/B đa ngành — số lượng adaptive theo chất lượng pools (không quota cố định).",
                 _digest_editorial_style_block(),
                 _digest_headline_rewrite_block(),
                 _digest_sector_routing_block(),
                 _digest_content_polish_block(),
                 _digest_executive_briefing_writing_block(),
+                _digest_gemini_writing_rules_block(),
                 _digest_anti_rule_leak_block(),
                 _digest_coverage_sanity_block(),
                 _digest_sector_summary_rules_block(for_merge=True),
@@ -497,8 +614,8 @@ def _digest_story_dossier_rules_block() -> str:
             "Dossier bổ sung chi tiết từng cụm; **thân bài ngành** vẫn là `sector_thesis` viết mạch.",
             "- `title`: tiêu đề biên tập (tiếng Việt, không giật).",
             "- `summary`: ý chính cụm — nối ý, không một headline.",
-            "- `main_developments`: **3–5+** ý từ nhiều bài cùng cụm (thứ tự logic).",
-            "- `why_it_matters`: tác động cụ thể — đủ sâu theo dữ liệu.",
+            "- `main_developments`: các ý chính từ nhiều bài cùng cụm (thứ tự logic) — đủ ý theo độ phức tạp, không quota số ý.",
+            "- `why_it_matters`: tác động cụ thể — đủ sâu theo `depth_level` và dữ liệu.",
             "- `affected_groups`: mảng ngắn (nhóm/tài sản/ngành/quốc gia).",
             "- `watch_next`: biến số **24–72h** cụ thể (tên, không filler).",
             "- `representative_sources`: **1–5** object `{title, source, url, excerpt}` — URL từ crawl; `excerpt` theo quy tắc trích yếu.",
@@ -515,7 +632,7 @@ def _digest_newsroom_json_schema_fragment() -> str:
           "key_points": ["ý chính 1", "ý chính 2"],
           "key_story_titles": ["Tên story dossier liên quan"],
           "representative_sources": [
-            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "2-9 câu: bài này củng cố luận điểm gì trong ngành/dossier."}
+            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "Trích yếu adaptive: bài này củng cố luận điểm gì trong ngành/dossier."}
           ]
         }"""
     sector_blocks = []
@@ -524,13 +641,13 @@ def _digest_newsroom_json_schema_fragment() -> str:
           "depth_level": "deep",
           "sub_sector": "Tên ngành con do Gemini tự chọn",
           "title": "Tiêu đề biên tập",
-          "summary": "Một câu rõ ý.",
+          "summary": "Tóm tắt cụm — rõ ai/việc gì/vì sao.",
           "main_developments": ["ý 1", "ý 2", "ý 3"],
-          "why_it_matters": "100-500 từ tùy depth_level.",
+          "why_it_matters": "Tác động — đủ sâu theo depth_level và dữ liệu.",
           "affected_groups": ["...", "..."],
           "watch_next": ["...", "..."],
           "representative_sources": [
-            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "2-9 câu trích yếu biên tập."}
+            {"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "Trích yếu adaptive — biên tập, không copy RSS."}
           ]
         }"""
     for code, label in DIGEST_FOUR_SECTORS:
@@ -562,9 +679,9 @@ def _digest_newsroom_json_schema_fragment() -> str:
       "sector_impacts": "Đoạn văn — tác động theo ngành/khu vực (nối ý).",
       "watch_24_72h": "Đoạn hoặc bullet — biến số 24-72h cụ thể."
     }},
-    "content": "Legacy: cùng chất briefing prose (500-10000 chữ nếu pools dày).",
+    "content": "Legacy: cùng chất briefing prose — độ dài adaptive theo pools.",
     "representative_sources": [
-      {{"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "2-9 câu trích yếu."}}
+      {{"title": "...", "source": "...", "url": "https://url-that-tu-crawl", "excerpt": "Trích yếu adaptive."}}
     ],
     "most_mentioned_topics": [
       {{"topic": "...", "why_mentioned": "...", "evidence_hint": "..."}}
@@ -2478,7 +2595,9 @@ def normalize_newsroom_brief(
             desk.append({"topic": topic, "representative_sources": srcs})
     out["source_desk"] = desk[:DIGEST_PARSER_MAX_SOURCE_DESK]
     out["gaps_and_limits"] = str(out.get("gaps_and_limits") or "").strip()
-    return out
+    from scripts.newsroom_main_quality import enforce_newsroom_main_editorial_quality
+
+    return enforce_newsroom_main_editorial_quality(out, url_index=url_index)
 
 
 def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
@@ -3559,8 +3678,8 @@ Trả về DUY NHẤT JSON:
   "sectors": [
 {_digest_sector_json_schema_fragment()}
   ],
-  "vietnam_highlights": "2-4 câu",
-  "international_highlights": "2-4 câu",
+  "vietnam_highlights": "Đủ ý cụ thể — adaptive theo dữ liệu VN",
+  "international_highlights": "Đủ ý cụ thể — adaptive theo dữ liệu quốc tế",
   "notable_articles": [{{
     "title": "...",
     "source": "...",
@@ -3690,6 +3809,7 @@ Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính 
 {_digest_four_sector_rules_block()}
 - Chunk `summary`: nháp **luồng + mối liên hệ** trong phần (merge viết briefing/dossier chính).
 - `summary_hint` / `reason_selected`: cụ thể actor+sự kiện — material cho merge viết prose, không câu rule.
+{_digest_gemini_writing_rules_block()}
 {outline_block}
 ## Cửa sổ: {window_desc}
 
@@ -3702,7 +3822,7 @@ Trả về DUY NHẤT JSON:
     {{
       "code": "finance|tech|news|trends",
       "name": "Tên tiếng Việt",
-      "summary": "3-4 câu nháp",
+      "summary": "Nháp luồng + mối liên hệ trong phần — đủ ý, adaptive",
       "sub_topics": [{{
         "importance_rank": 1,
         "priority_tier": "A|B|C",
@@ -3835,7 +3955,7 @@ def build_digest_merge_prompt(
 ## Minimum chất lượng (BẮT BUỘC khi candidate pools giàu)
 - Khi mỗi sector có **≥15** candidates trong pools: `front_page` **ít nhất 5** story; mỗi sector **ít nhất 3** `story_dossiers` **khác chủ đề**.
 - Mỗi `front_page` / `story_dossiers` **bắt buộc** có URL từ pools (`source_urls` / `representative_sources`) — **cấm** để trống khi candidate có URL.
-- Khi pools tổng **≥ 80** candidates: `executive_briefing` **≥ 500 chữ** tổng (sections + content), prose có mạch — không outline một câu/mục.
+- Khi pools tổng **≥ 80** candidates: `executive_briefing` phải là **prose có mạch** (sections + content) — không outline một câu/mục; độ dài adaptive theo mức quan trọng.
 - Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
 
 {_digest_four_sector_rules_block(for_merge=True)}
@@ -3845,7 +3965,7 @@ def build_digest_merge_prompt(
 - `executive_briefing`: **bài briefing thật** (xem quy tắc trên) — không outline; sections mỗi mục nhiều đoạn khi pools dày.
 - **Không** viết section “Điểm nóng” riêng. `front_page` tối đa 8 item compatibility, có `source_urls`.
 - `sector_deep_briefs`: đúng **4** sector; `sector_thesis` = bài tóm tắt ngành có mạch (không nối dossier rời).
-- Mọi `representative_sources` quan trọng: thêm `excerpt` 2–9 câu (trích yếu biên tập).
+- Mọi `representative_sources` quan trọng: thêm `excerpt` trích yếu biên tập — độ dài adaptive, đủ ý.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
 - `watchlist_24_72h`: **4–8** chủ đề theo dõi 24–72h.
 - `source_desk`: **3–8** nhóm nguồn đại diện theo chủ đề lớn.

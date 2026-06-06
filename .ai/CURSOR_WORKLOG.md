@@ -426,3 +426,30 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Fix:** `build_website_content.py` — enrich cả link thiếu giờ; dùng `extracted_at` từ DuckDB; `_link_published_at()` cho sector links. JS `enrichLinkPublishedAt` nâng date-only lên ISO có giờ. Rebuild `content.json` + embed HTML.
 
+## 2026-06-06 — Tin48h Gemini prompt: adaptive length + entity clarity (`summarize_news_gemini.py`)
+
+**Scope:** Prompt-only patch for Tin48h digest (`summarize_news_gemini.py`). **No** UI/layout, tabs/navigation, crawler, invest/live/VN logic, or JSON schema changes.
+
+| Change | Detail |
+|--------|--------|
+| Adaptive length | Replaced hard hints (500–10.000 chữ, 2–9 câu, 100–500 từ, 3–5+ ý, ≥500 chữ merge) with editorial adaptive wording — deeper for hot stories, concise for minor ones; no sentence/word quotas |
+| Entity clarity | New block: first-mention rules for people, orgs, indices, abbreviations, events, big tech, tickers; bad/good examples (Trump, FPT, World Cup, Fed) |
+| Who–What–Why | Each important paragraph must clarify subject, event, and why it matters |
+| Natural writing | Full context on first mention only; avoid glossary tone and parenthesis overload |
+| Unchanged | No hallucination, fake URLs, generic copy, topic repetition, AI/prompt leakage; Gemini = editor, Python = hygiene/render |
+
+**Verify:** `python -m py_compile summarize_news_gemini.py` · `python scripts/test_newsroom_digest.py`
+
+## 2026-06-06 — Tin48h main editorial quality (prompt + Python hygiene)
+
+**Scope:** Tin48h prompt + main briefing content quality only. **No** tab/UI/navigation changes; archive link text and full `articleLinkIndex` archive unchanged.
+
+| Area | Detail |
+|------|--------|
+| Prompt | Adaptive length (no word/sentence quotas); entity clarity + Who–What–Why; main 48h freshness; source quality rules; story-cluster dedupe guidance (Fed/Warsh, SpaceX, Iran) |
+| Python | `scripts/newsroom_main_quality.py` — filter PAGE NOT FOUND/nan/category/spam URLs from main output; story-cluster dedupe on front page/dossiers/notable; freshness sort; wired in `normalize_newsroom_brief` + `build_website_content` notable/links |
+| Archive | `articleLinkIndex` still lists all crawled articles; render string “Bản tin được tổng hợp từ … bài, bấm vào xem chi tiết” unchanged |
+| Unchanged | Tabs, invest/live/VN, crawler, JSON schema shape, no hallucination / fake URL rules |
+
+**Verify:** `python -m py_compile summarize_news_gemini.py build_website_content.py` · `python scripts/test_newsroom_digest.py`
+
