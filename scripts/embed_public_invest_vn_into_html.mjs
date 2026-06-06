@@ -194,6 +194,29 @@ function buildInvestVnHtml(data) {
   return h;
 }
 
+function replaceSectionInvestVn(html, inner) {
+  const openRe = /<div\s+id="sectionInvestVn"\s+class="invest-desk-block">/i;
+  const m = openRe.exec(html);
+  if (!m) return null;
+  const start = m.index;
+  let pos = m.index + m[0].length;
+  let depth = 1;
+  while (pos < html.length && depth > 0) {
+    const nextOpen = html.indexOf("<div", pos);
+    const nextClose = html.indexOf("</div>", pos);
+    if (nextClose === -1) return null;
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth += 1;
+      pos = nextOpen + 4;
+    } else {
+      depth -= 1;
+      pos = nextClose + 6;
+    }
+  }
+  const replacement = `<div id="sectionInvestVn" class="invest-desk-block">${inner}</div>`;
+  return html.slice(0, start) + replacement + html.slice(pos);
+}
+
 function main() {
   const pagePath = path.resolve(process.argv[2] || "");
   const jsonPath = path.resolve(process.argv[3] || "");
@@ -204,19 +227,12 @@ function main() {
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
   const inner = buildInvestVnHtml(data);
   let html = fs.readFileSync(pagePath, "utf8");
-  const empty = /<div\s+id="sectionInvestVn"\s+class="invest-desk-block"\s*>\s*<\/div>/i;
-  const filled =
-    /<div\s+id="sectionInvestVn"\s+class="invest-desk-block">[\s\S]*?<\/div>(?=\s*\n\s*<\/div>\s*\n\s*<\/article>)/i;
-  const replacement = `<div id="sectionInvestVn" class="invest-desk-block">${inner}</div>`;
-  if (empty.test(html)) {
-    html = html.replace(empty, replacement);
-  } else if (filled.test(html)) {
-    html = html.replace(filled, replacement);
-  } else {
+  const updated = replaceSectionInvestVn(html, inner);
+  if (updated == null) {
     console.error("Placeholder #sectionInvestVn not found");
     process.exit(1);
   }
-  fs.writeFileSync(pagePath, html, "utf8");
+  fs.writeFileSync(pagePath, updated, "utf8");
   console.log("Embedded invest VN brief into", pagePath);
 }
 
