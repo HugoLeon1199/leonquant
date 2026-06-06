@@ -14,8 +14,9 @@ DEFAULT_DB = QUANT_ROOT / "data" / "web_intel_leonquant.duckdb"
 DEFAULT_GZ = QUANT_ROOT / "data" / "web_intel_leonquant.duckdb.gz"
 
 # Smallest calendar window first; widen only when cache/crawl is thin.
-CALENDAR_DAY_LADDER = (2, 3, 5, 7, 14)
-ROLLING_HOURS_FALLBACK = 48
+CALENDAR_DAY_LADDER = (2, 3, 5, 7, 14, 21)
+ROLLING_HOURS_LADDER = (48, 72, 96, 168)
+ROLLING_HOURS_FALLBACK = ROLLING_HOURS_LADDER[0]
 MIN_ARTICLES_DEFAULT = 10
 MIN_CONTENT_CHARS = 200
 MIN_SOURCE_PROFILES = 10
@@ -93,7 +94,7 @@ def resolve_export_window(
     timezone_name: str,
     min_articles: int = MIN_ARTICLES_DEFAULT,
 ) -> dict[str, Any] | None:
-    """Pick smallest usable window; prefer calendar days, else rolling 48h by extracted_at."""
+    """Pick smallest usable window; prefer calendar days, else rolling by extracted_at."""
     for days in CALENDAR_DAY_LADDER:
         n = count_calendar_articles(
             db_path, date=date, timezone_name=timezone_name, recent_calendar_days=days
@@ -109,18 +110,41 @@ def resolve_export_window(
                 "timezone": timezone_name,
             }
 
-    rolling = count_rolling_articles(db_path)
-    if rolling >= min_articles:
-        return {
-            "mode": "rolling",
-            "recent_calendar_days": CALENDAR_DAY_LADDER[0],
-            "rolling_hours": ROLLING_HOURS_FALLBACK,
-            "article_count": rolling,
-            "min_articles": min_articles,
-            "end_date": date,
-            "timezone": timezone_name,
-        }
+    for hours in ROLLING_HOURS_LADDER:
+        rolling = count_rolling_articles(db_path, hours=hours)
+        if rolling >= min_articles:
+            return {
+                "mode": "rolling",
+                "recent_calendar_days": CALENDAR_DAY_LADDER[0],
+                "rolling_hours": hours,
+                "article_count": rolling,
+                "min_articles": min_articles,
+                "end_date": date,
+                "timezone": timezone_name,
+            }
     return None
+
+
+def purge_stale_extracted_articles(db_path: Path, *, hours: int = 168) -> int:
+    """Drop articles crawled longer ago than ``hours`` (frees stale CI cache before re-gate)."""
+    h = max(1, int(hours))
+    db = open_db(db_path)
+    try:
+        before = int(db.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
+        db.conn.execute(
+            f"""
+            DELETE FROM articles
+            WHERE extracted_at < CURRENT_TIMESTAMP - INTERVAL {h} HOUR
+            """
+        )
+        after = int(db.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
+        try:
+            db.conn.execute("VACUUM")
+        except Exception:
+            pass
+        return before - after
+    finally:
+        db.close()
 
 
 def write_window_state(state: dict[str, Any], path: Path = DEFAULT_WINDOW_STATE) -> Path:

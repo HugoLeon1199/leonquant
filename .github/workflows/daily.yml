@@ -19,6 +19,8 @@ on:
       - config/tiers/*.txt
       - leon.py
       - sql/gdelt_invest_pulse.sql
+      - scripts/digest_window.py
+      - scripts/prepare_digest_db.py
 
 permissions:
   contents: write
@@ -100,23 +102,43 @@ jobs:
 
       - name: Crawl 48h news (incremental — giữ cache, không wipe bài)
         id: crawl
-        continue-on-error: true
         env:
           WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
         run: |
-          python scripts/run_intel_full_daily.py \
-            --date "$CRAWL_CALENDAR_DATE" \
-            --timezone Asia/Ho_Chi_Minh \
-            --skip-profile \
-            --no-crawl-skip \
-            || echo "WARN: crawl exited non-zero; gate step checks 48h article window next."
+          set -e
+          crawl_once() {
+            python scripts/run_intel_full_daily.py \
+              --date "$CRAWL_CALENDAR_DATE" \
+              --timezone Asia/Ho_Chi_Minh \
+              --skip-profile \
+              --no-crawl-skip \
+              --require-today-articles 3
+          }
+          crawl_once || crawl_once
 
       - name: Prepare digest export window (gate — bắt buộc pass trước Gemini)
+        id: digest_gate
         run: |
-          python scripts/prepare_digest_db.py \
-            --date "$CRAWL_CALENDAR_DATE" \
-            --timezone Asia/Ho_Chi_Minh \
-            --min-articles 5
+          gate_once() {
+            python scripts/prepare_digest_db.py \
+              --date "$CRAWL_CALENDAR_DATE" \
+              --timezone Asia/Ho_Chi_Minh \
+              --min-articles 5
+          }
+          gate_once && exit 0
+          rc=$?
+          if [ "$rc" -eq 6 ]; then
+            echo "Gate after reseed — crawl again then re-check window"
+            python scripts/run_intel_full_daily.py \
+              --date "$CRAWL_CALENDAR_DATE" \
+              --timezone Asia/Ho_Chi_Minh \
+              --skip-profile \
+              --no-crawl-skip \
+              --require-today-articles 3
+            gate_once
+            exit $?
+          fi
+          exit "$rc"
 
       - name: Gemini digest and build web content
         env:
@@ -155,6 +177,13 @@ jobs:
             sleep 20
           done
           exit 1
+
+      - name: Save DuckDB cache (articles 48h for lần cron sau)
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: data/web_intel_leonquant.duckdb
+          key: intel-digest-db-v4-${{ hashFiles('data/web_intel_leonquant.duckdb.gz', 'config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
 
   invest-world:
     runs-on: ubuntu-latest

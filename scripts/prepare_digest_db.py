@@ -21,9 +21,10 @@ from digest_window import (  # noqa: E402
     DEFAULT_WINDOW_STATE,
     MIN_ARTICLES_DEFAULT,
     MIN_SOURCE_PROFILES,
-    ROLLING_HOURS_FALLBACK,
+    ROLLING_HOURS_LADDER,
     db_diagnostics,
     open_db,
+    purge_stale_extracted_articles,
     resolve_export_window,
     write_window_state,
 )
@@ -123,18 +124,32 @@ def main() -> int:
     print(f"Pinned calendar date: {pin} ({args.timezone})")
 
     state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-crawl")
-    if not state and gz.is_file():
+    if not state:
         diag = db_diagnostics(db)
-        if int(diag.get("articles_total") or 0) < args.min_articles:
-            print(f"Thin DB ({diag}) — reseed from {gz.name} and retry window")
+        rolling = int(diag.get("rolling_48h_articles") or 0)
+        total = int(diag.get("articles_total") or 0)
+        if total >= args.min_articles and rolling < args.min_articles:
+            removed = purge_stale_extracted_articles(db, hours=max(ROLLING_HOURS_LADDER))
+            print(f"Stale cache: purged {removed} article(s) with extracted_at older than {max(ROLLING_HOURS_LADDER)}h")
+            state = try_resolve(
+                db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-purge"
+            )
+        if not state and total < args.min_articles and gz.is_file():
+            print(f"Thin DB ({diag}) — bootstrap reseed from {gz.name} (caller should crawl again if still empty)")
             reseed_from_gz(db, gz)
             state = try_resolve(
                 db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-reseed"
             )
+            if not state:
+                print(
+                    "HINT: DuckDB reseeded from .gz but export window still empty — run crawl again.",
+                    file=sys.stderr,
+                )
+                return 6
     if not state:
         print(
             f"ERROR: fewer than {args.min_articles} articles in digest window "
-            f"(calendar {list(CALENDAR_DAY_LADDER)}d or rolling {ROLLING_HOURS_FALLBACK}h).\n"
+            f"(calendar {list(CALENDAR_DAY_LADDER)}d or rolling {list(ROLLING_HOURS_LADDER)}h).\n"
             "  Xem log bước Crawl; cache Actions cần tích lũy bài qua các lần chạy.\n"
             "  Local: python scripts/run_intel_full_daily.py --skip-profile --no-crawl-skip",
             file=sys.stderr,
