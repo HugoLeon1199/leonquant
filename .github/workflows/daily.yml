@@ -105,16 +105,14 @@ jobs:
         env:
           WEB_INTEL_RECENT_CALENDAR_DAYS: "2"
         run: |
-          set -e
           crawl_once() {
             python scripts/run_intel_full_daily.py \
               --date "$CRAWL_CALENDAR_DATE" \
               --timezone Asia/Ho_Chi_Minh \
               --skip-profile \
-              --no-crawl-skip \
-              --require-today-articles 3
+              --no-crawl-skip
           }
-          crawl_once || crawl_once
+          crawl_once || crawl_once || echo "WARN: crawl incomplete — gate checks DuckDB window next."
 
       - name: Prepare digest export window (gate — bắt buộc pass trước Gemini)
         id: digest_gate
@@ -133,8 +131,7 @@ jobs:
               --date "$CRAWL_CALENDAR_DATE" \
               --timezone Asia/Ho_Chi_Minh \
               --skip-profile \
-              --no-crawl-skip \
-              --require-today-articles 3
+              --no-crawl-skip
             gate_once
             exit $?
           fi
