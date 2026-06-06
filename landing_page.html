@@ -2624,11 +2624,9 @@
       border-bottom: 1px solid rgba(180, 83, 9, .16);
       background: transparent;
     }
-    #invest #invest-quick-read,
     #invest #invest-world,
     #invest #invest-vn,
-    #invest #invest-watch,
-    #invest #invest-sources {
+    #invest #invest-watch {
       scroll-margin-top: 88px;
     }
     .invest-quick-read {
@@ -2709,8 +2707,7 @@
       line-height: 1.45;
       color: var(--muted);
     }
-    body.invest-mode #invest .invest-desk-block + .invest-desk-block,
-    body.invest-mode #invest #investSourcesFoot {
+    body.invest-mode #invest .invest-desk-block + .invest-desk-block {
       margin-top: 2.5rem;
       padding-top: 0.5rem;
       border-top: 2px solid rgba(15, 23, 42, .09);
@@ -3369,7 +3366,6 @@
               <p class="invest-channel-updated sync-note" id="investChannelUpdated" hidden></p>
             </header>
             <div class="invest-desk-layout">
-            <div id="investQuickRead" class="invest-desk-block"></div>
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"></div>
             </div>
@@ -5097,119 +5093,10 @@
         .join("")}</div>`;
     }
 
-    function hasInvestRenderableData(worldData, vnData) {
-      const topics = Array.isArray(worldData?.topics) ? worldData.topics : [];
-      const worldItems = topics.some((tp) => (tp.items || []).length);
-      const worldEvents = normalizePulseEvents(worldData).length;
-      const vnThemes = Array.isArray(vnData?.themes_48h) ? vnData.themes_48h.length : 0;
-      const vnWatch = Array.isArray(vnData?.now_watch) ? vnData.now_watch.length : 0;
-      return Boolean(
-        worldItems ||
-          worldEvents ||
-          vnThemes ||
-          vnWatch ||
-          String(worldData?.brief || "").trim() ||
-          String(vnData?.lead || "").trim(),
-      );
-    }
-
-    function collectInvestWorldHighlights(worldData, limit) {
-      const max = limit || 3;
-      const out = [];
-      const topics = Array.isArray(worldData?.topics) ? worldData.topics : [];
-      for (const tp of topics) {
-        for (const it of tp.items || []) {
-          const title = String(it.title || "").trim();
-          if (!title) continue;
-          out.push({
-            title,
-            angle: String(it.investment_angle || "").trim(),
-            assets: Array.isArray(it.affected_assets) ? it.affected_assets : [],
-          });
-          if (out.length >= max) return out;
-        }
-      }
-      if (out.length < max) {
-        for (const ev of normalizePulseEvents(worldData)) {
-          const title = String(ev.title || "").trim();
-          if (!title) continue;
-          out.push({ title, angle: String(ev.summary || "").trim(), assets: [] });
-          if (out.length >= max) return out;
-        }
-      }
-      return out;
-    }
-
-    function collectInvestVnHighlights(vnData, limit) {
-      const max = limit || 3;
-      const out = [];
-      for (const th of vnData?.themes_48h || []) {
-        const title = String(th.title || "").trim();
-        if (!title) continue;
-        out.push({
-          title,
-          lens: String(th.investor_lens || th.why_hot || "").trim(),
-        });
-        if (out.length >= max) return out;
-      }
-      return out;
-    }
-
-    function collectInvestAssetTags(worldData, vnData, limit) {
-      const max = limit || 8;
-      const seen = new Set();
-      const out = [];
-      const push = (tag) => {
-        const t = String(tag || "").trim();
-        if (!t) return;
-        const key = t.toLowerCase();
-        if (seen.has(key)) return;
-        seen.add(key);
-        out.push(t);
-      };
-      for (const tp of worldData?.topics || []) {
-        for (const it of tp.items || []) {
-          for (const a of it.affected_assets || []) push(a);
-        }
-      }
-      for (const nw of vnData?.now_watch || []) {
-        for (const part of String(nw.affected_groups || "")
-          .split(/[,;·]/)
-          .map((s) => s.trim())
-          .filter(Boolean)) {
-          push(part);
-        }
-      }
-      return out.slice(0, max);
-    }
-
-    function collectInvestWatchLines(vnData, worldData, limit) {
-      const max = limit || 4;
-      const out = [];
-      for (const nw of vnData?.now_watch || []) {
-        const title = String(nw.title || "").trim();
-        const watch = String(nw.watch_variables || nw.issue || "").trim();
-        if (title && watch) out.push(`${title}: ${watch}`);
-        else if (title) out.push(title);
-        if (out.length >= max) return out;
-      }
-      for (const tp of worldData?.topics || []) {
-        for (const it of tp.items || []) {
-          const angle = String(it.investment_angle || "").trim();
-          const title = String(it.title || "").trim();
-          if (title && angle) out.push(`${title}: ${angle}`);
-          if (out.length >= max) return out;
-        }
-      }
-      return out;
-    }
-
     const INVEST_SECTION_NO = {
-      quick: "I",
-      world: "II",
-      vn: "III",
-      watch: "IV",
-      sources: "V",
+      world: "I",
+      vn: "II",
+      watch: "III",
     };
 
     function buildInvestMajorHead(num, titleHtml, sub, tone) {
@@ -5221,128 +5108,6 @@
       h += `<h3 class="invest-major-title">${titleHtml}</h3>`;
       if (sub) h += `<p class="invest-major-sub">${escapeHtml(sub)}</p>`;
       h += `</div></header>`;
-      return h;
-    }
-
-    function buildInvestQuickReadHtml(worldData, vnData) {
-      if (!hasInvestRenderableData(worldData, vnData)) return "";
-      const worldBrief = String(worldData?.brief || "").trim();
-      const vnLead = String(vnData?.lead || "").trim();
-      const worldHi = collectInvestWorldHighlights(worldData, 3);
-      const vnHi = collectInvestVnHighlights(vnData, 3);
-      const assets = collectInvestAssetTags(worldData, vnData, 8);
-      const watchLines = collectInvestWatchLines(vnData, worldData, 4);
-      let h = `<section id="invest-quick-read" class="invest-quick-read invest-live-strip">`;
-      h += buildInvestMajorHead(
-        INVEST_SECTION_NO.quick,
-        "Đọc nhanh cho nhà đầu tư",
-        "Tóm tắt biến số chính và điểm cần theo dõi 24–72h",
-        "quick",
-      );
-      if (worldBrief) {
-        h += `<p class="invest-quick-read-lead">${escapeHtml(worldBrief)}</p>`;
-      } else if (vnLead && !worldHi.length) {
-        h += `<p class="invest-quick-read-lead">${escapeHtml(vnLead)}</p>`;
-      }
-      if (worldHi.length) {
-        h += `<div class="invest-quick-read-block">`;
-        h += `<p class="invest-quick-read-kicker">Biến số toàn cầu</p>`;
-        h += `<ul class="invest-quick-read-list">`;
-        worldHi.forEach((row) => {
-          let line = row.title;
-          if (row.angle) line += ` — ${row.angle}`;
-          h += `<li>${escapeHtml(line)}</li>`;
-        });
-        h += `</ul></div>`;
-      }
-      if (vnHi.length) {
-        h += `<div class="invest-quick-read-block">`;
-        h += `<p class="invest-quick-read-kicker">Việt Nam &amp; thị trường trong nước</p>`;
-        if (vnLead && worldBrief) {
-          h += `<p class="invest-quick-read-lead">${escapeHtml(vnLead)}</p>`;
-        }
-        h += `<ul class="invest-quick-read-list">`;
-        vnHi.forEach((row) => {
-          let line = row.title;
-          if (row.lens) line += ` — ${row.lens}`;
-          h += `<li>${escapeHtml(line)}</li>`;
-        });
-        h += `</ul></div>`;
-      } else if (vnLead && worldBrief) {
-        h += `<div class="invest-quick-read-block">`;
-        h += `<p class="invest-quick-read-kicker">Việt Nam &amp; thị trường trong nước</p>`;
-        h += `<p class="invest-quick-read-lead">${escapeHtml(vnLead)}</p></div>`;
-      }
-      if (assets.length) {
-        h += `<div class="invest-quick-read-block">`;
-        h += `<p class="invest-quick-read-kicker">Tài sản / ngành liên quan</p>`;
-        h += investBadgeRow(assets, "coverage");
-        h += `</div>`;
-      }
-      if (watchLines.length) {
-        h += `<div class="invest-quick-read-block">`;
-        h += `<p class="invest-quick-read-kicker">Theo dõi tiếp (24–72h)</p>`;
-        h += `<ul class="invest-quick-read-list">`;
-        watchLines.forEach((line) => {
-          h += `<li>${escapeHtml(line)}</li>`;
-        });
-        h += `</ul></div>`;
-      }
-      h += `</section>`;
-      return h;
-    }
-
-    function collectInvestSourceRows(worldData, vnData, limit) {
-      const max = limit || 24;
-      const seen = new Set();
-      const out = [];
-      const add = (url, title, meta) => {
-        const nu = normalizeExternalUrl(url);
-        if (!nu.startsWith("http") || seen.has(nu)) return;
-        seen.add(nu);
-        out.push({
-          url: nu,
-          title: String(title || nu).trim(),
-          meta: String(meta || "").trim(),
-        });
-      };
-      for (const tp of worldData?.topics || []) {
-        for (const it of tp.items || []) {
-          const linkTime = formatDateVi(
-            it.reported_at || it.reportedAt || worldData?.generated_at_utc || "",
-          );
-          for (const u of (it.source_urls || []).slice(0, 3)) {
-            add(u, pulseSourceLabel(normalizeExternalUrl(u)), linkTime);
-            if (out.length >= max) return out;
-          }
-        }
-      }
-      const pushVnLinks = (links) => {
-        for (const lk of links || []) {
-          const meta = [formatDateVi(lk.publishedAt || lk.published_at), lk.source]
-            .filter(Boolean)
-            .join(" · ");
-          add(lk.url, lk.title || lk.url, meta);
-          if (out.length >= max) return out;
-        }
-      };
-      for (const th of vnData?.themes_48h || []) pushVnLinks(th.links);
-      for (const nw of vnData?.now_watch || []) pushVnLinks(nw.links);
-      return out;
-    }
-
-    function buildInvestSourcesHtml(worldData, vnData) {
-      const rows = collectInvestSourceRows(worldData, vnData, 24);
-      if (!rows.length) return "";
-      let h = `<section id="invest-sources" class="invest-sources-foot">`;
-      h += buildInvestMajorHead(INVEST_SECTION_NO.sources, "Nguồn", "Liên kết tham khảo theo từng mục", "sources");
-      h += `<ul class="invest-vn-link-rows">`;
-      rows.forEach((row) => {
-        h += `<li><a href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.title)}</a>`;
-        if (row.meta) h += `<span class="link-meta">${escapeHtml(row.meta)}</span>`;
-        h += `</li>`;
-      });
-      h += `</ul></section>`;
       return h;
     }
 
@@ -5601,28 +5366,12 @@
         channelUpdated.textContent = note;
         channelUpdated.hidden = !note;
       }
-      const quickEl = document.getElementById("investQuickRead");
-      if (quickEl) {
-        quickEl.innerHTML = hasInvestRenderableData(worldData, vnData)
-          ? buildInvestQuickReadHtml(worldData, vnData)
-          : "";
-      }
       const worldEl = document.getElementById("sectionInvestWorld");
       const vnEl = document.getElementById("sectionInvestVn");
+      document.getElementById("investSourcesFoot")?.remove();
       if (worldEl) worldEl.innerHTML = buildInvestWorldHtml(worldData || { events: [] });
       if (vnEl && !hasEmbeddedInvestVn()) {
         vnEl.innerHTML = buildInvestVnHtml(vnData || {});
-      }
-      let sourcesEl = document.getElementById("investSourcesFoot");
-      const layout = document.querySelector("#invest .invest-desk-layout");
-      if (!sourcesEl && layout) {
-        sourcesEl = document.createElement("div");
-        sourcesEl.id = "investSourcesFoot";
-        sourcesEl.className = "invest-desk-block";
-        layout.appendChild(sourcesEl);
-      }
-      if (sourcesEl) {
-        sourcesEl.innerHTML = buildInvestSourcesHtml(worldData, vnData);
       }
     }
 
