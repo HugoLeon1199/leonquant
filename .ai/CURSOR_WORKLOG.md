@@ -474,3 +474,19 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Fix:** Stage `news_for_ai.json`; match `invest-world` pattern (exit 0 if no staged diff; rebase without swallowing errors). **No re-run triggered** in this patch.
 
+## 2026-06-06 — Kinh tế đầu tư: presentation + editorial prompt
+
+**Scope:** `landing_page.html` (invest tab CSS/JS only), `leon.py` (invest Gemini prompts), `scripts/build_invest_vn_brief.py`, `scripts/embed_public_invest_vn_into_html.mjs`, `.ai/CURSOR_WORKLOG.md`.
+
+| Change | Detail |
+|--------|--------|
+| Quick index | Internal anchor chips: Đọc nhanh · Biến số toàn cầu · Việt Nam & thị trường trong nước · Đang theo dõi · Nguồn (not a new nav tab) |
+| Quick read | Client-side strip “Đọc nhanh cho nhà đầu tư” from `worldData`/`vnData` only — global/VN highlights, assets, 24–72h watch |
+| Hierarchy | Labeled memo fields (Sự kiện, Tác động, Tài sản, Độ phủ nguồn, Nguồn / Chủ đề, Diễn biến, Góc đầu tư…) |
+| Wording | Display: “Biến số toàn cầu”, “Việt Nam & thị trường trong nước”, “Độ phủ nguồn” (nav tab label unchanged) |
+| Colors | Amber/gold accent, slate text, cyan source links, subtle badges — no dashboard/crypto styling |
+| Prompts | `INVEST_EDITORIAL_LENGTH_RULE` + entity clarity + Who/What/Why/Watch in invest enrich/deepen/topics/VN brief; removed “ĐÚNG 1 câu” on `investment_angle` |
+| Unchanged | Tin48h tab, World LIVE, top nav tabs, archive, crawler, overall site redesign |
+
+**Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py`; `node scripts/embed_public_invest_vn_into_html.mjs landing_page.html invest_vn_brief.json`
+

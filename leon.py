@@ -65,6 +65,18 @@ INVEST_MAX_ENRICH_EVENTS = 220
 INVEST_CURATION_POOL = 220
 INVEST_MARKET_ENTITY_MIN_ARTICLES = 30
 INVEST_PUBLIC_FEED_LABEL = "các diễn biến kinh tế - thị trường đáng chú ý"
+INVEST_EDITORIAL_LENGTH_RULE = (
+    "Không giới hạn số câu/số chữ. Tóm tắt phải đúng, đủ ý và bám sát dữ liệu nguồn. "
+    "Tin quan trọng hoặc phức tạp có thể viết dài hơn để giải thích đủ bối cảnh, chủ thể, diễn biến, "
+    "tác động và biến số theo dõi. Tin nhỏ thì viết gọn. Không viết dài để lấp chỗ, "
+    "không rút ngắn đến mức mất ý chính."
+)
+INVEST_EDITORIAL_ENTITY_RULE = (
+    "- Lần đầu nhắc phải xác định rõ chủ thể: ví dụ \"Tổng thống Mỹ Donald Trump\" (không chỉ \"Trump\"); "
+    "\"cổ phiếu công ty công nghệ FPT\" (không chỉ \"FPT\"); \"Cục Dự trữ Liên bang Mỹ (Fed)\" (không chỉ \"Fed\").\n"
+    "- Mỗi mục quan trọng phải trả lời: Ai/cái gì? Chuyện gì đã xảy ra? "
+    "Vì sao quan trọng với thị trường/ngành/chính sách/bối cảnh VN–toàn cầu? Cần theo dõi gì tiếp theo?"
+)
 INVEST_EDITORIAL_TOPICS: tuple[str, ...] = (
     "Crypto & Tài sản số",
     "Chứng khoán & Chỉ số",
@@ -1145,12 +1157,14 @@ def gemini_batch_enrich_events(
     model = genai.GenerativeModel(model_name)
 
     if channel == "invest":
-        role_rules = """
+        role_rules = f"""
 Bạn là biên tập viên chuyên mục kinh tế đầu tư vĩ mô của LeonQuant.
 Với MỖI khối ### global_event_id=... bên dưới: CHỈ dùng đoạn bài trong khối đó. Không trộn giữa các sự kiện.
 Không nhắc AI, GDELT, crawler, pipeline, hệ thống. Không khuyến nghị mua/bán. Không bịa ticker/giá.
 Tóm tắt ĐỦ Ý như research memo: bám sát toàn bộ đoạn bài, không giới hạn độ dài, không rút gọn.
 CẤM summary chung chung hoặc quá ngắn (1 câu): "Sự kiện thuộc nhóm…", "Nhấp nguồn…", "các diễn biến kinh tế đang chịu áp lực".
+{INVEST_EDITORIAL_LENGTH_RULE}
+{INVEST_EDITORIAL_ENTITY_RULE}
 """
         json_shape = """
 {{
@@ -1248,7 +1262,9 @@ Quy tắc tóm tắt (quan trọng):
 - Nếu bài không nêu tác động kinh tế: summary trung lập, không ép về thị trường.
 - Không suy diễn risk-on/risk-off/khủng hoảng/bùng nổ hay giá/ticker nếu bài không đề cập (tone trung tính vẫn OK).
 - Công nghệ chiến lược (AI agent, quantum, chip, cyber) giữ đúng góc đầu tư/ngành nếu bài nêu.
-- importance_reason: một câu — ý nghĩa với nhà đầu tư khi bài hỗ trợ; nếu không rõ thì nói trung lập.
+- importance_reason: đủ ý — ý nghĩa với nhà đầu tư khi bài hỗ trợ; nếu không rõ thì nói trung lập.
+{INVEST_EDITORIAL_LENGTH_RULE}
+{INVEST_EDITORIAL_ENTITY_RULE}
 
 Trả về JSON (không markdown):
 {{
@@ -2334,7 +2350,7 @@ def _invest_world_brief_from_topics(topics: list[dict[str, Any]]) -> str:
 def gemini_invest_world_topics(
     events: list[dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], str]:
-    """Gom đề mục + brief 2–3 câu toàn cảnh (một lần gọi Gemini)."""
+    """Gom đề mục + brief toàn cảnh (một lần gọi Gemini)."""
     if not events or not _configure_gemini():
         topics = _fallback_invest_topics(events)
         return topics, _invest_world_brief_from_topics(topics)
@@ -2358,7 +2374,9 @@ def gemini_invest_world_topics(
 Bạn là biên tập viên trưởng mục "Kinh tế - Đầu tư thế giới" của LeonQuant.
 
 Nhiệm vụ:
-Từ danh sách events đã qua vòng lọc đầu tư, hãy chọn và nhóm các tin xứng đáng nhất cho mục "Tin thế giới quan trọng".
+Từ danh sách events đã qua vòng lọc đầu tư, hãy chọn và nhóm các tin xứng đáng nhất cho mục "Biến số toàn cầu".
+{INVEST_EDITORIAL_LENGTH_RULE}
+{INVEST_EDITORIAL_ENTITY_RULE}
 
 Mục tiêu không phải là liệt kê nhiều tin.
 Mục tiêu là chọn ít nhưng sắc, mỗi tin phải giúp người đọc hiểu:
@@ -2398,7 +2416,7 @@ Loại hoặc không đưa lên top:
 Yêu cầu viết mỗi item:
 - Title: cụ thể, actor + event + điểm đáng chú ý. Không bịa "rút quân" nếu nguồn chỉ nói war powers/resolution.
 - Summary: KHÔNG viết lại / KHÔNG rút gọn — để trống "" hoặc copy nguyên văn từ summary trong event block. Hệ thống hiển thị tóm tắt enrich/deepen đầy đủ.
-- investment_angle: ĐÚNG 1 câu; phải trả lời "tài sản/ngành/kỳ vọng nào cần theo dõi, và vì sao?". Nếu không viết được → bỏ item.
+- investment_angle: đủ ý, không giới hạn số câu nếu cần; phải trả lời "tài sản/ngành/kỳ vọng nào cần theo dõi, và vì sao?". Nếu không viết được → bỏ item.
   KHÔNG viết chung chung: "ảnh hưởng tâm lý nhà đầu tư" (không nêu nhóm tài sản), "định hình lại dòng vốn", "trực tiếp tác động" khi chỉ là rủi ro gián tiếp.
   Dùng: "có thể làm tăng chú ý tới...", "nếu leo thang, thị trường có thể theo dõi...", "biến số cần theo dõi là...", "tác động hiện tại mang tính gián tiếp...".
 - affected_assets: 2-5 mục; hỗ trợ bởi nguồn hoặc hệ quả cấp một rõ. Không ETF/Brent/WTI/vàng/trái phiếu/Nasdaq cụ thể nếu nguồn không nhắc.
@@ -2809,13 +2827,15 @@ Viết lại tiếng Việt sao cho độc giả nắm rõ diễn biến và gó
 Mỗi sự kiện cần làm rõ:
 - Ai là bên liên quan (quốc gia, tổ chức, doanh nghiệp, nhân vật).
 - Chuyện gì đã xảy ra, ở đâu/khi nào nếu nguồn có.
-- Bối cảnh và diễn biến chính (2-3 điểm then chốt).
+- Bối cảnh và diễn biến chính — đủ điểm then chốt theo mức độ phức tạp của tin, không cố định số lượng.
 - Hệ quả hoặc biến số kinh tế/thị trường nếu nguồn nêu hoặc suy ra hợp lý ở mức gián tiếp (không khuyến nghị mua/bán).
 
 Quy tắc:
 - Chỉ dùng thông tin trong khối sự kiện đó; không trộn global_event_id.
 - Không bịa số liệu, giá, ticker. Không nhắc AI/GDELT/crawler/pipeline.
 - Không khuyến nghị mua/bán/múc. Văn phong trung lập như research memo.
+{INVEST_EDITORIAL_LENGTH_RULE}
+{INVEST_EDITORIAL_ENTITY_RULE}
 
 Trả về JSON hợp lệ, không markdown:
 {{
@@ -3506,7 +3526,7 @@ Trả về JSON (không markdown):
     {{
       "global_event_id": "...",
       "keep": true,
-      "investment_angle": "một câu tiếng Việt — tác động đầu tư cụ thể",
+      "investment_angle": "tiếng Việt — tác động đầu tư cụ thể, đủ ý, không giới hạn số câu nếu cần",
       "reject_reason": ""
     }}
   ],

@@ -40,6 +40,28 @@ function formatDateVi(iso) {
   });
 }
 
+function investFieldRow(label, innerHtml) {
+  const body = String(innerHtml || "").trim();
+  if (!body) return "";
+  return (
+    `<div class="invest-field-row">` +
+    `<span class="invest-field-label">${escapeHtml(label)}</span>` +
+    `<div class="invest-field-body">${body}</div>` +
+    `</div>`
+  );
+}
+
+function investBadgeRow(items, badgeClass) {
+  const list = (Array.isArray(items) ? items : [])
+    .map((x) => String(x || "").trim())
+    .filter(Boolean);
+  if (!list.length) return "";
+  const cls = badgeClass ? ` invest-badge--${badgeClass}` : "";
+  return `<div class="invest-badge-row">${list
+    .map((x) => `<span class="invest-badge${cls}">${escapeHtml(x)}</span>`)
+    .join("")}</div>`;
+}
+
 function buildVnLinksHtml(links) {
   if (!Array.isArray(links) || !links.length) return "";
   let h = `<ul class="invest-vn-link-rows">`;
@@ -48,7 +70,10 @@ function buildVnLinksHtml(links) {
     if (!u) continue;
     const label = escapeHtml(lk.title || lk.source || u);
     h += `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
-    if (lk.source) h += `<span class="link-meta"> — ${escapeHtml(lk.source)}</span>`;
+    const meta = [formatDateVi(lk.publishedAt || lk.published_at), lk.source]
+      .filter(Boolean)
+      .join(" · ");
+    if (meta) h += `<span class="link-meta">${escapeHtml(meta)}</span>`;
     h += `</li>`;
   }
   h += `</ul>`;
@@ -59,9 +84,9 @@ function buildInvestVnHtml(data) {
   const themes = Array.isArray(data.themes_48h) ? data.themes_48h : [];
   const watch = Array.isArray(data.now_watch) ? data.now_watch : [];
   const updated = formatDateVi(data.source_digest_at || data.generated_at_utc);
-  let h = `<section class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1">`;
+  let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1">`;
   h += `<header class="invest-desk-head">`;
-  h += `<h3 class="invest-desk-title">Việt Nam trong nước</h3>`;
+  h += `<h3 class="invest-desk-title">Việt Nam &amp; thị trường trong nước</h3>`;
   h += `<p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p>`;
   if (updated) h += `<p class="sync-note">Dữ liệu digest: ${escapeHtml(updated)}</p>`;
   h += `</header>`;
@@ -78,47 +103,69 @@ function buildInvestVnHtml(data) {
       h += `<li class="invest-vn-theme">`;
       h += `<p class="invest-vn-theme-rank">${String(th.rank || "").padStart(2, "0")}</p>`;
       h += `<div class="invest-vn-theme-body">`;
-      h += `<h5 class="invest-vn-theme-title">${escapeHtml(th.title)}</h5>`;
-      if (th.why_hot) h += `<p class="invest-vn-why">${escapeHtml(th.why_hot)}</p>`;
+      h += investFieldRow(
+        "Chủ đề",
+        `<h5 class="invest-vn-theme-title">${escapeHtml(th.title)}</h5>`,
+      );
+      let devBody = "";
+      if (th.why_hot) devBody += `<p class="invest-vn-why">${escapeHtml(th.why_hot)}</p>`;
       if (Array.isArray(th.developments) && th.developments.length) {
-        h += `<ul class="sector-points prose-bullets">`;
+        devBody += `<ul class="sector-points prose-bullets">`;
         for (const d of th.developments) {
-          h += `<li>${escapeHtml(d)}</li>`;
+          devBody += `<li>${escapeHtml(d)}</li>`;
         }
-        h += `</ul>`;
+        devBody += `</ul>`;
       }
+      if (devBody) h += investFieldRow("Diễn biến chính", devBody);
       if (th.investor_lens) {
-        h += `<p class="invest-vn-lens"><strong>Góc đầu tư:</strong> ${escapeHtml(th.investor_lens)}</p>`;
+        h += investFieldRow(
+          "Góc đầu tư",
+          `<p class="invest-vn-lens">${escapeHtml(th.investor_lens)}</p>`,
+        );
       }
-      h += buildVnLinksHtml(th.links);
+      const linksHtml = buildVnLinksHtml(th.links);
+      if (linksHtml) h += investFieldRow("Nguồn", linksHtml);
       h += `</div></li>`;
     }
     h += `</ol>`;
   }
   if (watch.length) {
-    h += `<h4 class="sectors-section-title">Đang theo dõi / hiện tại</h4>`;
+    h += `<div id="invest-watch" class="invest-vn-watch-block">`;
+    h += `<h4 class="sectors-section-title">Đang theo dõi</h4>`;
     h += `<ul class="invest-vn-watch-list">`;
     for (const nw of watch) {
       h += `<li class="invest-vn-watch">`;
-      h += `<h5 class="invest-vn-watch-title">${escapeHtml(nw.title)}</h5>`;
-      if (nw.status) {
-        h += `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`;
-      }
+      h += investFieldRow(
+        "Chủ đề",
+        `<h5 class="invest-vn-watch-title">${escapeHtml(nw.title)}</h5>` +
+          (nw.status
+            ? `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`
+            : ""),
+      );
       if (nw.issue) {
-        h += `<p class="invest-vn-watch-body"><strong>Vấn đề:</strong> ${escapeHtml(nw.issue)}</p>`;
+        h += investFieldRow(
+          "Diễn biến chính",
+          `<p class="invest-vn-watch-body">${escapeHtml(nw.issue)}</p>`,
+        );
       }
-      if (nw.affected_groups) {
-        h += `<p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> ${escapeHtml(nw.affected_groups)}</p>`;
+      const watchBits = [];
+      if (nw.affected_groups) watchBits.push(String(nw.affected_groups).trim());
+      if (nw.watch_variables) watchBits.push(String(nw.watch_variables).trim());
+      if (watchBits.length) {
+        h += investFieldRow(
+          "Nhóm ảnh hưởng / biến số theo dõi",
+          investBadgeRow(watchBits, "watch"),
+        );
       }
-      if (nw.watch_variables) {
-        h += `<p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> ${escapeHtml(nw.watch_variables)}</p>`;
-      }
-      h += buildVnLinksHtml(nw.links);
+      const linksHtml = buildVnLinksHtml(nw.links);
+      if (linksHtml) h += investFieldRow("Nguồn", linksHtml);
       h += `</li>`;
     }
-    h += `</ul>`;
-  }
-  if (!themes.length && !watch.length) {
+        h += `</ul></div>`;
+      } else {
+        h += `<div id="invest-watch" class="invest-vn-watch-block" hidden aria-hidden="true"></div>`;
+      }
+      if (!themes.length && !watch.length) {
     h += `<p class="hint">Chưa có phân tích VN. Chạy digest ngày hoặc kiểm tra invest_vn_brief.json.</p>`;
   }
   if (data.gaps) {
@@ -140,7 +187,7 @@ function main() {
   let html = fs.readFileSync(pagePath, "utf8");
   const empty = /<div\s+id="sectionInvestVn"\s+class="invest-desk-block"\s*>\s*<\/div>/i;
   const filled =
-    /<div\s+id="sectionInvestVn"\s+class="invest-desk-block">[\s\S]*?<\/div>(?=\s*\n\s*<\/article>)/i;
+    /<div\s+id="sectionInvestVn"\s+class="invest-desk-block">[\s\S]*?<\/div>(?=\s*\n\s*<\/div>\s*\n\s*<\/article>)/i;
   const replacement = `<div id="sectionInvestVn" class="invest-desk-block">${inner}</div>`;
   if (empty.test(html)) {
     html = html.replace(empty, replacement);

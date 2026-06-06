@@ -2623,6 +2623,131 @@
       border-bottom: 1px solid rgba(180, 83, 9, .16);
       background: transparent;
     }
+    #invest #invest-quick-read,
+    #invest #invest-world,
+    #invest #invest-vn,
+    #invest #invest-watch,
+    #invest #invest-sources {
+      scroll-margin-top: 88px;
+    }
+    .invest-quick-index {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 1.25rem;
+      padding: 0 0 1rem;
+      border-bottom: 1px solid rgba(15, 23, 42, .08);
+    }
+    .invest-quick-index a {
+      display: inline-block;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(180, 83, 9, .22);
+      background: rgba(180, 83, 9, .05);
+      color: #92400e;
+      font-size: .76rem;
+      font-weight: 650;
+      text-decoration: none;
+      line-height: 1.35;
+    }
+    .invest-quick-index a:hover {
+      background: rgba(180, 83, 9, .1);
+      border-color: rgba(180, 83, 9, .35);
+    }
+    .invest-quick-read {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(15, 23, 42, .1);
+    }
+    .invest-section-label {
+      margin: 0 0 10px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #b45309;
+    }
+    .invest-quick-read-block {
+      margin: 0 0 12px;
+    }
+    .invest-quick-read-block:last-child { margin-bottom: 0; }
+    .invest-quick-read-kicker {
+      margin: 0 0 6px;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .invest-quick-read-list {
+      margin: 0;
+      padding-left: 1.15rem;
+      font-size: .94rem;
+      line-height: 1.68;
+      color: var(--text-soft);
+    }
+    .invest-quick-read-list li { margin-bottom: 6px; }
+    .invest-quick-read-lead {
+      margin: 0 0 10px;
+      font-size: .94rem;
+      line-height: 1.68;
+      color: var(--text-soft);
+    }
+    .invest-field-row {
+      margin: 0 0 12px;
+    }
+    .invest-field-row:last-child { margin-bottom: 0; }
+    .invest-field-label {
+      display: block;
+      margin: 0 0 4px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .invest-field-body {
+      font-size: .94rem;
+      line-height: 1.68;
+      color: var(--text-soft);
+    }
+    .invest-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .invest-badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      border: 1px solid rgba(15, 23, 42, .1);
+      background: rgba(248, 250, 252, .9);
+      font-size: .74rem;
+      font-weight: 650;
+      line-height: 1.35;
+      color: var(--text-soft);
+    }
+    .invest-badge--coverage {
+      border-color: rgba(180, 83, 9, .18);
+      background: rgba(180, 83, 9, .05);
+      color: #92400e;
+    }
+    .invest-badge--watch {
+      border-color: rgba(8, 145, 178, .18);
+      background: rgba(8, 145, 178, .04);
+      color: #0e7490;
+    }
+    .invest-sources-foot {
+      margin-top: 0.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(15, 23, 42, .1);
+    }
+    .invest-sources-foot .invest-section-label {
+      margin-bottom: 12px;
+    }
+    .invest-vn-watch-block {
+      margin-top: 0.25rem;
+    }
 
     /* —— Thế giới LIVE: radar / newswire —— */
     body.pulse-mode #pulse > .container {
@@ -3181,6 +3306,7 @@
               <p class="invest-channel-lead">Tóm tắt kinh tế–thị trường (thế giới + Việt Nam).</p>
               <p class="invest-channel-updated sync-note" id="investChannelUpdated" hidden></p>
             </header>
+            <div id="investDeskChrome" class="invest-desk-chrome"></div>
             <div class="invest-desk-layout">
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"><section class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1"><header class="invest-desk-head"><h3 class="invest-desk-title">Việt Nam trong nước</h3><p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p><p class="sync-note">Dữ liệu digest: 06:22 05/06/2026</p></header><p class="invest-vn-lead">Trong 48 giờ qua, trọng tâm điều hành của Chính phủ và Ngân hàng Nhà nước tập trung vào việc ổn định thị trường tiền tệ, yêu cầu giảm lãi suất để hỗ trợ tăng trưởng kinh tế, đồng thời thúc đẩy chuyển đổi số và tháo gỡ vướng mắc pháp lý tại các địa phương.</p><h4 class="sectors-section-title">Ba điểm đáng chú ý trong 48 giờ qua</h4><ol class="invest-vn-theme-list"><li class="invest-vn-theme"><p class="invest-vn-theme-rank">01</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng</h5><p class="invest-vn-why">Cơ quan điều hành tiền tệ đang siết chặt kỷ luật thị trường và phát đi chỉ đạo trực tiếp nhằm giảm lãi suất, nhằm tạo đà cho mục tiêu tăng trưởng kinh tế địa phương.</p><ul class="sector-points prose-bullets"><li>Ngân hàng Nhà nước yêu cầu các tổ chức tín dụng siết chặt kỷ luật thị trường tiền tệ, đồng thời chỉ đạo giảm lãi suất hỗ trợ doanh nghiệp.</li><li>Chính phủ phân công lãnh đạo theo dõi, chỉ đạo sát sao các địa phương thực hiện mục tiêu tăng trưởng kinh tế trên 10%.</li><li>Giá vàng trong nước ghi nhận đà giảm nhưng vẫn duy trì chênh lệch đáng kể so với giá thế giới.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm ngành tài chính và doanh nghiệp vay vốn lớn là đối tượng chịu có thể ảnh hưởng từ chính sách lãi suất; các biến số cần theo dõi bao gồm biên lợi nhuận ròng của ngân hàng và khả năng hấp thụ vốn thực tế của nền kinh tế.</p><ul class="invest-vn-link-rows"><li><a href="https://baochinhphu.vn/nhnn-siet-ky-luat-thi-truong-tien-te-yeu-cau-giam-lai-suat-102260523102302059.htm" target="_blank" rel="noopener noreferrer">NHNN siết kỷ luật thị trường tiền tệ, yêu cầu giảm lãi suất</a><span class="link-meta"> — Báo Chính phủ</span></li><li><a href="https://baochinhphu.vn/phan-cong-lanh-dao-chinh-phu-theo-doi-chi-dao-cac-dia-phuong-thuc-hien-muc-tieu-tang-truong-kinh-te-tren-10-102260522175527609.htm" target="_blank" rel="noopener noreferrer">Phân công Lãnh đạo Chính phủ theo dõi, chỉ đạo các địa phương thực hiện mục tiêu tăng trưởng kinh tế trên 10%</a><span class="link-meta"> — Báo Chính phủ</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">02</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Ngân hàng đẩy mạnh số hóa và quản trị rủi ro vận hành</h5><p class="invest-vn-why">Chuyển đổi số được định hướng là yếu tố tiên quyết trong ngành ngân hàng, song hành với yêu cầu nâng cao hiệu quả ngăn chặn rủi ro giao dịch.</p><ul class="sector-points prose-bullets"><li>Lãnh đạo Ngân hàng Nhà nước nhấn mạnh tầm quan trọng của việc tiên phong chuyển đổi số trong khối ngân hàng.</li><li>Hệ thống cảnh báo rủi ro của ngân hàng đã hỗ trợ chặn thành công 4.400 tỉ đồng giao dịch nghi vấn lừa đảo.</li><li>Các ngân hàng đang cạnh tranh trong việc nâng cao trải nghiệm số thông qua các chương trình thúc đẩy gửi tiết kiệm trực tuyến.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Việc tăng cường đầu tư cho công nghệ và quản trị rủi ro sẽ ảnh hưởng đến chi phí vận hành (OPEX) của các ngân hàng; hiệu quả của các nền tảng số là yếu tố cạnh tranh cần theo dõi trong dài hạn.</p><ul class="invest-vn-link-rows"><li><a href="https://baochinhphu.vn/ngan-hang-phai-tien-phong-chuyen-doi-so-102260522174213595.htm" target="_blank" rel="noopener noreferrer">Phó Thống đốc Phạm Tiến Dũng: Ngân hàng phải tiên phong chuyển đổi số</a><span class="link-meta"> — Báo Chính phủ</span></li><li><a href="https://thanhnien.vn/chan-4400-ti-chuyen-khoan-lua-dao-nho-ngan-hang-canh-bao-185260523072608036.htm" target="_blank" rel="noopener noreferrer">Chặn 4.400 tỉ chuyển khoản lừa đảo nhờ ngân hàng cảnh báo</a><span class="link-meta"> — Thanh Niên</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">03</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Tháo gỡ pháp lý và phát triển hạ tầng địa phương</h5><p class="invest-vn-why">Các địa phương trọng điểm đang thực hiện cơ chế đặc thù và công bố danh mục dự án nhằm khơi thông nguồn lực đầu tư đất đai, nhà ở.</p><ul class="sector-points prose-bullets"><li>Đà Nẵng công bố danh mục 350 dự án áp dụng cơ chế đặc thù để tháo gỡ vướng mắc.</li><li>Đà Nẵng công bố 113 khu đất dành cho đầu tư nhà ở xã hội.</li><li>Tiến độ thi công nhà ga sân bay Long Thành đang được giám sát chặt chẽ trước hạn chót tháng 6.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm doanh nghiệp bất động sản và xây dựng hạ tầng tại các địa phương có cơ chế đặc thù sẽ chịu tác động từ tiến độ phê duyệt dự án; đây là biến số cần theo dõi sát sao.</p><ul class="invest-vn-link-rows"><li><a href="https://thanhnien.vn/da-nang-cong-bo-350-du-an-duoc-ap-dung-co-che-dac-thu-de-thao-go-18526052309260613.htm" target="_blank" rel="noopener noreferrer">Đà Nẵng công bố 350 dự án được áp dụng cơ chế đặc thù để tháo gỡ</a><span class="link-meta"> — Thanh Niên</span></li><li><a href="https://thanhnien.vn/nha-ga-san-bay-long-thanh-moi-dat-63-san-luong-du-han-chot-thang-6-185260523221840377.htm" target="_blank" rel="noopener noreferrer">Nhà ga sân bay Long Thành mới đạt 63% sản lượng dù &#039;hạn chót&#039; tháng 6</a><span class="link-meta"> — Thanh Niên</span></li></ul></div></li></ol><h4 class="sectors-section-title">Đang theo dõi / hiện tại</h4><ul class="invest-vn-watch-list"><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Cơ chế phí sàn thương mại điện tử</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">đang diễn ra</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Các chủ shop phản ánh việc tăng phí tại các sàn thương mại điện tử, đặt ra yêu cầu về cơ chế giám sát từ cơ quan chức năng.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> thương mại điện tử, bán lẻ, doanh nghiệp nhỏ và vừa</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> động thái của cơ quan quản lý trong việc thiết lập khung giám sát và tác động đến chi phí kinh doanh của người bán.</p><ul class="invest-vn-link-rows"><li><a href="https://thanhnien.vn/san-thuong-mai-dien-tu-tang-phi-chuyen-gia-de-xuat-co-che-giam-sat-185260522181231712.htm" target="_blank" rel="noopener noreferrer">Sàn thương mại điện tử tăng phí, chuyên gia đề xuất cơ chế giám sát</a><span class="link-meta"> — Thanh Niên</span></li></ul></li><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Chính sách thuế xăng E10</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">đang diễn ra</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Đề xuất giảm thuế đối với xăng E10 nhằm kích thích tiêu dùng và hỗ trợ tăng trưởng kinh tế.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> năng lượng, vận tải, logistics</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> phản ứng của chính sách thuế và tác động của giá thành phẩm đến chi phí vận hành ngành logistics.</p><ul class="invest-vn-link-rows"><li><a href="https://thanhnien.vn/giam-thue-de-giam-gia-xang-e10-185260522192848769.htm" target="_blank" rel="noopener noreferrer">Giảm thuế để giảm giá xăng E10</a><span class="link-meta"> — Thanh Niên</span></li></ul></li></ul></section></div>
@@ -4886,14 +5012,272 @@
       renderPulsePage(cachedPulsePayload);
     }
 
+    function investFieldRow(label, innerHtml) {
+      const body = String(innerHtml || "").trim();
+      if (!body) return "";
+      return (
+        `<div class="invest-field-row">` +
+        `<span class="invest-field-label">${escapeHtml(label)}</span>` +
+        `<div class="invest-field-body">${body}</div>` +
+        `</div>`
+      );
+    }
+
+    function investBadgeRow(items, badgeClass) {
+      const list = (Array.isArray(items) ? items : [])
+        .map((x) => String(x || "").trim())
+        .filter(Boolean);
+      if (!list.length) return "";
+      const cls = badgeClass ? ` invest-badge--${badgeClass}` : "";
+      return `<div class="invest-badge-row">${list
+        .map((x) => `<span class="invest-badge${cls}">${escapeHtml(x)}</span>`)
+        .join("")}</div>`;
+    }
+
+    function hasInvestRenderableData(worldData, vnData) {
+      const topics = Array.isArray(worldData?.topics) ? worldData.topics : [];
+      const worldItems = topics.some((tp) => (tp.items || []).length);
+      const worldEvents = normalizePulseEvents(worldData).length;
+      const vnThemes = Array.isArray(vnData?.themes_48h) ? vnData.themes_48h.length : 0;
+      const vnWatch = Array.isArray(vnData?.now_watch) ? vnData.now_watch.length : 0;
+      return Boolean(
+        worldItems ||
+          worldEvents ||
+          vnThemes ||
+          vnWatch ||
+          String(worldData?.brief || "").trim() ||
+          String(vnData?.lead || "").trim(),
+      );
+    }
+
+    function collectInvestWorldHighlights(worldData, limit) {
+      const max = limit || 3;
+      const out = [];
+      const topics = Array.isArray(worldData?.topics) ? worldData.topics : [];
+      for (const tp of topics) {
+        for (const it of tp.items || []) {
+          const title = String(it.title || "").trim();
+          if (!title) continue;
+          out.push({
+            title,
+            angle: String(it.investment_angle || "").trim(),
+            assets: Array.isArray(it.affected_assets) ? it.affected_assets : [],
+          });
+          if (out.length >= max) return out;
+        }
+      }
+      if (out.length < max) {
+        for (const ev of normalizePulseEvents(worldData)) {
+          const title = String(ev.title || "").trim();
+          if (!title) continue;
+          out.push({ title, angle: String(ev.summary || "").trim(), assets: [] });
+          if (out.length >= max) return out;
+        }
+      }
+      return out;
+    }
+
+    function collectInvestVnHighlights(vnData, limit) {
+      const max = limit || 3;
+      const out = [];
+      for (const th of vnData?.themes_48h || []) {
+        const title = String(th.title || "").trim();
+        if (!title) continue;
+        out.push({
+          title,
+          lens: String(th.investor_lens || th.why_hot || "").trim(),
+        });
+        if (out.length >= max) return out;
+      }
+      return out;
+    }
+
+    function collectInvestAssetTags(worldData, vnData, limit) {
+      const max = limit || 8;
+      const seen = new Set();
+      const out = [];
+      const push = (tag) => {
+        const t = String(tag || "").trim();
+        if (!t) return;
+        const key = t.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        out.push(t);
+      };
+      for (const tp of worldData?.topics || []) {
+        for (const it of tp.items || []) {
+          for (const a of it.affected_assets || []) push(a);
+        }
+      }
+      for (const nw of vnData?.now_watch || []) {
+        for (const part of String(nw.affected_groups || "")
+          .split(/[,;·]/)
+          .map((s) => s.trim())
+          .filter(Boolean)) {
+          push(part);
+        }
+      }
+      return out.slice(0, max);
+    }
+
+    function collectInvestWatchLines(vnData, worldData, limit) {
+      const max = limit || 4;
+      const out = [];
+      for (const nw of vnData?.now_watch || []) {
+        const title = String(nw.title || "").trim();
+        const watch = String(nw.watch_variables || nw.issue || "").trim();
+        if (title && watch) out.push(`${title}: ${watch}`);
+        else if (title) out.push(title);
+        if (out.length >= max) return out;
+      }
+      for (const tp of worldData?.topics || []) {
+        for (const it of tp.items || []) {
+          const angle = String(it.investment_angle || "").trim();
+          const title = String(it.title || "").trim();
+          if (title && angle) out.push(`${title}: ${angle}`);
+          if (out.length >= max) return out;
+        }
+      }
+      return out;
+    }
+
+    function buildInvestQuickIndexHtml() {
+      return (
+        `<nav class="invest-quick-index" aria-label="Mục lục chuyên mục">` +
+        `<a href="#invest-quick-read">Đọc nhanh</a>` +
+        `<a href="#invest-world">Biến số toàn cầu</a>` +
+        `<a href="#invest-vn">Việt Nam &amp; thị trường trong nước</a>` +
+        `<a href="#invest-watch">Đang theo dõi</a>` +
+        `<a href="#invest-sources">Nguồn</a>` +
+        `</nav>`
+      );
+    }
+
+    function buildInvestQuickReadHtml(worldData, vnData) {
+      if (!hasInvestRenderableData(worldData, vnData)) return "";
+      const worldBrief = String(worldData?.brief || "").trim();
+      const vnLead = String(vnData?.lead || "").trim();
+      const worldHi = collectInvestWorldHighlights(worldData, 3);
+      const vnHi = collectInvestVnHighlights(vnData, 3);
+      const assets = collectInvestAssetTags(worldData, vnData, 8);
+      const watchLines = collectInvestWatchLines(vnData, worldData, 4);
+      let h = `<section id="invest-quick-read" class="invest-quick-read invest-live-strip">`;
+      h += `<h3 class="invest-section-label">Đọc nhanh cho nhà đầu tư</h3>`;
+      if (worldBrief) {
+        h += `<p class="invest-quick-read-lead">${escapeHtml(worldBrief)}</p>`;
+      } else if (vnLead && !worldHi.length) {
+        h += `<p class="invest-quick-read-lead">${escapeHtml(vnLead)}</p>`;
+      }
+      if (worldHi.length) {
+        h += `<div class="invest-quick-read-block">`;
+        h += `<p class="invest-quick-read-kicker">Biến số toàn cầu</p>`;
+        h += `<ul class="invest-quick-read-list">`;
+        worldHi.forEach((row) => {
+          let line = row.title;
+          if (row.angle) line += ` — ${row.angle}`;
+          h += `<li>${escapeHtml(line)}</li>`;
+        });
+        h += `</ul></div>`;
+      }
+      if (vnHi.length) {
+        h += `<div class="invest-quick-read-block">`;
+        h += `<p class="invest-quick-read-kicker">Việt Nam &amp; thị trường trong nước</p>`;
+        if (vnLead && worldBrief) {
+          h += `<p class="invest-quick-read-lead">${escapeHtml(vnLead)}</p>`;
+        }
+        h += `<ul class="invest-quick-read-list">`;
+        vnHi.forEach((row) => {
+          let line = row.title;
+          if (row.lens) line += ` — ${row.lens}`;
+          h += `<li>${escapeHtml(line)}</li>`;
+        });
+        h += `</ul></div>`;
+      } else if (vnLead && worldBrief) {
+        h += `<div class="invest-quick-read-block">`;
+        h += `<p class="invest-quick-read-kicker">Việt Nam &amp; thị trường trong nước</p>`;
+        h += `<p class="invest-quick-read-lead">${escapeHtml(vnLead)}</p></div>`;
+      }
+      if (assets.length) {
+        h += `<div class="invest-quick-read-block">`;
+        h += `<p class="invest-quick-read-kicker">Tài sản / ngành liên quan</p>`;
+        h += investBadgeRow(assets, "coverage");
+        h += `</div>`;
+      }
+      if (watchLines.length) {
+        h += `<div class="invest-quick-read-block">`;
+        h += `<p class="invest-quick-read-kicker">Theo dõi tiếp (24–72h)</p>`;
+        h += `<ul class="invest-quick-read-list">`;
+        watchLines.forEach((line) => {
+          h += `<li>${escapeHtml(line)}</li>`;
+        });
+        h += `</ul></div>`;
+      }
+      h += `</section>`;
+      return h;
+    }
+
+    function collectInvestSourceRows(worldData, vnData, limit) {
+      const max = limit || 24;
+      const seen = new Set();
+      const out = [];
+      const add = (url, title, meta) => {
+        const nu = normalizeExternalUrl(url);
+        if (!nu.startsWith("http") || seen.has(nu)) return;
+        seen.add(nu);
+        out.push({
+          url: nu,
+          title: String(title || nu).trim(),
+          meta: String(meta || "").trim(),
+        });
+      };
+      for (const tp of worldData?.topics || []) {
+        for (const it of tp.items || []) {
+          const linkTime = formatDateVi(
+            it.reported_at || it.reportedAt || worldData?.generated_at_utc || "",
+          );
+          for (const u of (it.source_urls || []).slice(0, 3)) {
+            add(u, pulseSourceLabel(normalizeExternalUrl(u)), linkTime);
+            if (out.length >= max) return out;
+          }
+        }
+      }
+      const pushVnLinks = (links) => {
+        for (const lk of links || []) {
+          const meta = [formatDateVi(lk.publishedAt || lk.published_at), lk.source]
+            .filter(Boolean)
+            .join(" · ");
+          add(lk.url, lk.title || lk.url, meta);
+          if (out.length >= max) return out;
+        }
+      };
+      for (const th of vnData?.themes_48h || []) pushVnLinks(th.links);
+      for (const nw of vnData?.now_watch || []) pushVnLinks(nw.links);
+      return out;
+    }
+
+    function buildInvestSourcesHtml(worldData, vnData) {
+      const rows = collectInvestSourceRows(worldData, vnData, 24);
+      if (!rows.length) return "";
+      let h = `<section id="invest-sources" class="invest-sources-foot">`;
+      h += `<h3 class="invest-section-label">Nguồn</h3>`;
+      h += `<ul class="invest-vn-link-rows">`;
+      rows.forEach((row) => {
+        h += `<li><a href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.title)}</a>`;
+        if (row.meta) h += `<span class="link-meta">${escapeHtml(row.meta)}</span>`;
+        h += `</li>`;
+      });
+      h += `</ul></section>`;
+      return h;
+    }
+
     function buildInvestWorldHtml(data) {
       const topics = Array.isArray(data?.topics) ? data.topics : [];
-      let h = `<section class="invest-desk-section invest-desk-section--world">`;
+      let h = `<section id="invest-world" class="invest-desk-section invest-desk-section--world">`;
       h += `<header class="invest-desk-head">`;
-      h += `<h3 class="invest-desk-title">Tin thế giới quan trọng</h3>`;
+      h += `<h3 class="invest-desk-title">Biến số toàn cầu</h3>`;
       const feedLabel = String(data?.feed_label || "").trim()
         || "các diễn biến kinh tế - thị trường đáng chú ý";
-      h += `<p class="invest-desk-sub">Tóm tắt nhanh + chi tiết theo đề mục · ${escapeHtml(feedLabel)}</p>`;
+      h += `<p class="invest-desk-sub">Tóm tắt theo đề mục · ${escapeHtml(feedLabel)}</p>`;
       h += `</header>`;
       const brief = String(data?.brief || "").trim();
       if (brief) {
@@ -4905,8 +5289,12 @@
           h += `<div class="invest-world-topic"><h4 class="invest-world-topic-name">Tin quan trọng</h4>`;
           events.slice(0, 8).forEach((ev) => {
             h += `<div class="invest-world-item">`;
-            h += `<p class="invest-world-item-title">${escapeHtml(ev.title)}</p>`;
-            if (ev.summary) h += `<p class="invest-world-item-summary">${escapeHtml(ev.summary)}</p>`;
+            const eventBody =
+              `<p class="invest-world-item-title">${escapeHtml(ev.title)}</p>` +
+              (ev.summary
+                ? `<p class="invest-world-item-summary">${escapeHtml(ev.summary)}</p>`
+                : "");
+            h += investFieldRow("Sự kiện", eventBody);
             h += `</div>`;
           });
           h += `</div>`;
@@ -4921,23 +5309,24 @@
           h += `<h4 class="invest-world-topic-name">${escapeHtml(tp.name || "Đề mục")}</h4>`;
           items.forEach((it) => {
             h += `<div class="invest-world-item">`;
-            h += `<p class="invest-world-item-title">${escapeHtml(it.title)}</p>`;
-            if (it.summary) {
-              h += `<p class="invest-world-item-summary">${escapeHtml(it.summary)}</p>`;
-            }
+            const eventBody =
+              `<p class="invest-world-item-title">${escapeHtml(it.title)}</p>` +
+              (it.summary
+                ? `<p class="invest-world-item-summary">${escapeHtml(it.summary)}</p>`
+                : "");
+            h += investFieldRow("Sự kiện", eventBody);
             const angle = String(it.investment_angle || "").trim();
             if (angle) {
-              h += `<p class="invest-vn-lens"><strong>Góc theo dõi:</strong> ${escapeHtml(angle)}</p>`;
+              h += investFieldRow(
+                "Tác động / góc theo dõi",
+                `<p class="invest-vn-lens">${escapeHtml(angle)}</p>`,
+              );
             }
             const assets = (Array.isArray(it.affected_assets) ? it.affected_assets : [])
               .map((a) => String(a || "").trim())
               .filter(Boolean);
             if (assets.length) {
-              h += `<p class="invest-world-item-meta"><strong>Tài sản liên quan:</strong> ${escapeHtml(assets.join(" · "))}</p>`;
-            }
-            const sentiment = String(it.sentiment_label || "").trim();
-            if (sentiment) {
-              h += `<p class="invest-world-item-meta"><strong>Sắc thái:</strong> ${escapeHtml(sentiment)}</p>`;
+              h += investFieldRow("Tài sản/ngành liên quan", investBadgeRow(assets));
             }
             const n = Number(it.num_articles) || 0;
             const sc = Number(it.source_count) || 0;
@@ -4945,7 +5334,10 @@
               const bits = [];
               if (n > 0) bits.push(`${n} bài báo`);
               if (sc > 0) bits.push(`${sc} nguồn tham khảo`);
-              h += `<p class="invest-world-item-meta"><strong>Mức độ chú ý:</strong> ${escapeHtml(bits.join(" · "))}</p>`;
+              h += investFieldRow(
+                "Độ phủ nguồn",
+                investBadgeRow([bits.join(" · ")], "coverage"),
+              );
             }
             const urls = (Array.isArray(it.source_urls) ? it.source_urls : []).filter((u) =>
               String(u).startsWith("http"),
@@ -4954,15 +5346,16 @@
               it.reported_at || it.reportedAt || data?.generated_at_utc || "",
             );
             if (urls.length) {
-              h += `<ul class="invest-world-item-links">`;
+              let linksHtml = `<ul class="invest-world-item-links">`;
               urls.slice(0, 3).forEach((u) => {
                 const nu = normalizeExternalUrl(u);
                 const label = escapeHtml(pulseSourceLabel(nu));
-                h += `<li><a href="${escapeHtml(nu)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
-                if (linkTime) h += `<span class="link-meta">${escapeHtml(linkTime)}</span>`;
-                h += `</li>`;
+                linksHtml += `<li><a href="${escapeHtml(nu)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+                if (linkTime) linksHtml += `<span class="link-meta">${escapeHtml(linkTime)}</span>`;
+                linksHtml += `</li>`;
               });
-              h += `</ul>`;
+              linksHtml += `</ul>`;
+              h += investFieldRow("Nguồn", linksHtml);
             }
             h += `</div>`;
           });
@@ -4998,9 +5391,9 @@
       const themes = Array.isArray(data?.themes_48h) ? data.themes_48h : [];
       const watch = Array.isArray(data?.now_watch) ? data.now_watch : [];
       const digestAt = data?.source_digest_at ? formatPulseUpdatedAt(data.source_digest_at) : "";
-      let h = `<section class="invest-desk-section invest-desk-section--vn">`;
+      let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn">`;
       h += `<header class="invest-desk-head">`;
-      h += `<h3 class="invest-desk-title">Việt Nam trong nước</h3>`;
+      h += `<h3 class="invest-desk-title">Việt Nam &amp; thị trường trong nước</h3>`;
       h += `<p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p>`;
       if (digestAt) h += `<p class="sync-note">Dữ liệu digest: ${escapeHtml(digestAt)}</p>`;
       h += `</header>`;
@@ -5017,47 +5410,68 @@
           h += `<li class="invest-vn-theme">`;
           h += `<p class="invest-vn-theme-rank">${String(th.rank || "").padStart(2, "0")}</p>`;
           h += `<div class="invest-vn-theme-body">`;
-          h += `<h5 class="invest-vn-theme-title">${escapeHtml(th.title)}</h5>`;
-          if (th.why_hot) h += `<p class="invest-vn-why">${escapeHtml(th.why_hot)}</p>`;
+          h += investFieldRow(
+            "Chủ đề",
+            `<h5 class="invest-vn-theme-title">${escapeHtml(th.title)}</h5>`,
+          );
+          let devBody = "";
+          if (th.why_hot) devBody += `<p class="invest-vn-why">${escapeHtml(th.why_hot)}</p>`;
           if (Array.isArray(th.developments) && th.developments.length) {
-            h += `<ul class="sector-points prose-bullets">`;
+            devBody += `<ul class="sector-points prose-bullets">`;
             th.developments.forEach((d) => {
-              h += `<li>${escapeHtml(d)}</li>`;
+              devBody += `<li>${escapeHtml(d)}</li>`;
             });
-            h += `</ul>`;
+            devBody += `</ul>`;
           }
+          if (devBody) h += investFieldRow("Diễn biến chính", devBody);
           if (th.investor_lens) {
-            h += `<p class="invest-vn-lens"><strong>Góc đầu tư:</strong> ${escapeHtml(th.investor_lens)}</p>`;
+            h += investFieldRow(
+              "Góc đầu tư",
+              `<p class="invest-vn-lens">${escapeHtml(th.investor_lens)}</p>`,
+            );
           }
-          h += buildInvestVnLinksHtml(th.links);
+          const linksHtml = buildInvestVnLinksHtml(th.links);
+          if (linksHtml) h += investFieldRow("Nguồn", linksHtml);
           h += `</div></li>`;
         });
         h += `</ol>`;
       }
       if (watch.length) {
-        h += `<h4 class="sectors-section-title">Đang theo dõi / hiện tại</h4>`;
+        h += `<div id="invest-watch" class="invest-vn-watch-block">`;
+        h += `<h4 class="sectors-section-title">Đang theo dõi</h4>`;
         h += `<ul class="invest-vn-watch-list">`;
         watch.forEach((nw) => {
           h += `<li class="invest-vn-watch">`;
-          h += `<h5 class="invest-vn-watch-title">${escapeHtml(nw.title)}</h5>`;
-          if (nw.status) {
-            h += `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`;
-          }
+          h += investFieldRow(
+            "Chủ đề",
+            `<h5 class="invest-vn-watch-title">${escapeHtml(nw.title)}</h5>` +
+              (nw.status
+                ? `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`
+                : ""),
+          );
           if (nw.issue) {
-            h += `<p class="invest-vn-watch-body"><strong>Vấn đề:</strong> ${escapeHtml(nw.issue)}</p>`;
+            h += investFieldRow(
+              "Diễn biến chính",
+              `<p class="invest-vn-watch-body">${escapeHtml(nw.issue)}</p>`,
+            );
           }
-          if (nw.affected_groups) {
-            h += `<p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> ${escapeHtml(nw.affected_groups)}</p>`;
+          const watchBits = [];
+          if (nw.affected_groups) watchBits.push(String(nw.affected_groups).trim());
+          if (nw.watch_variables) watchBits.push(String(nw.watch_variables).trim());
+          if (watchBits.length) {
+            h += investFieldRow(
+              "Nhóm ảnh hưởng / biến số theo dõi",
+              investBadgeRow(watchBits, "watch"),
+            );
           }
-          if (nw.watch_variables) {
-            h += `<p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> ${escapeHtml(nw.watch_variables)}</p>`;
-          }
-          h += buildInvestVnLinksHtml(nw.links);
+          const linksHtml = buildInvestVnLinksHtml(nw.links);
+          if (linksHtml) h += investFieldRow("Nguồn", linksHtml);
           h += `</li>`;
         });
-        h += `</ul>`;
+        h += `</ul></div>`;
+      } else {
+        h += `<div id="invest-watch" class="invest-vn-watch-block" hidden aria-hidden="true"></div>`;
       }
-      if (!themes.length && !watch.length) {
         h += `<p class="hint">Chưa có phân tích VN. Chờ bản digest ngày hoặc thử tải lại.</p>`;
       }
       if (data?.gaps) {
@@ -5069,9 +5483,10 @@
 
     function hasEmbeddedInvestVn() {
       const el = document.getElementById("sectionInvestVn");
-      return (
-        el?.querySelector("[data-embedded-invest-vn]") != null && Boolean(el.innerHTML.trim())
-      );
+      const section = el?.querySelector("[data-embedded-invest-vn]");
+      if (!section || !el.innerHTML.trim()) return false;
+      // Legacy embeds (pre memo-hierarchy refresh) are rebuilt client-side from JSON.
+      return section.querySelector("#invest-vn") != null;
     }
 
     function resolveInvestChannelUpdatedAt(worldData, vnData) {
@@ -5099,11 +5514,28 @@
         channelUpdated.textContent = note;
         channelUpdated.hidden = !note;
       }
+      const chromeEl = document.getElementById("investDeskChrome");
+      if (chromeEl) {
+        chromeEl.innerHTML = hasInvestRenderableData(worldData, vnData)
+          ? buildInvestQuickIndexHtml() + buildInvestQuickReadHtml(worldData, vnData)
+          : "";
+      }
       const worldEl = document.getElementById("sectionInvestWorld");
       const vnEl = document.getElementById("sectionInvestVn");
       if (worldEl) worldEl.innerHTML = buildInvestWorldHtml(worldData || { events: [] });
       if (vnEl && !hasEmbeddedInvestVn()) {
         vnEl.innerHTML = buildInvestVnHtml(vnData || {});
+      }
+      let sourcesEl = document.getElementById("investSourcesFoot");
+      const layout = document.querySelector("#invest .invest-desk-layout");
+      if (!sourcesEl && layout) {
+        sourcesEl = document.createElement("div");
+        sourcesEl.id = "investSourcesFoot";
+        sourcesEl.className = "invest-desk-block";
+        layout.appendChild(sourcesEl);
+      }
+      if (sourcesEl) {
+        sourcesEl.innerHTML = buildInvestSourcesHtml(worldData, vnData);
       }
     }
 
