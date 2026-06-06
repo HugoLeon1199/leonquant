@@ -62,6 +62,17 @@ function investBadgeRow(items, badgeClass) {
     .join("")}</div>`;
 }
 
+function buildInvestMajorHead(num, titleHtml, sub, tone) {
+  const toneClass = tone ? ` invest-major-head--${tone}` : "";
+  let h = `<header class="invest-major-head${toneClass}">`;
+  h += `<p class="invest-major-num" aria-hidden="true">${escapeHtml(num)}</p>`;
+  h += `<div class="invest-major-text">`;
+  h += `<h3 class="invest-major-title">${titleHtml}</h3>`;
+  if (sub) h += `<p class="invest-major-sub">${escapeHtml(sub)}</p>`;
+  h += `</div></header>`;
+  return h;
+}
+
 function buildVnLinksHtml(links) {
   if (!Array.isArray(links) || !links.length) return "";
   let h = `<ul class="invest-vn-link-rows">`;
@@ -85,11 +96,14 @@ function buildInvestVnHtml(data) {
   const watch = Array.isArray(data.now_watch) ? data.now_watch : [];
   const updated = formatDateVi(data.source_digest_at || data.generated_at_utc);
   let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1">`;
-  h += `<header class="invest-desk-head">`;
-  h += `<h3 class="invest-desk-title">Việt Nam &amp; thị trường trong nước</h3>`;
-  h += `<p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p>`;
-  if (updated) h += `<p class="sync-note">Dữ liệu digest: ${escapeHtml(updated)}</p>`;
-  h += `</header>`;
+  h += buildInvestMajorHead(
+    "02",
+    "Việt Nam &amp; thị trường trong nước",
+    updated
+      ? `Phân tích từ tin 48 giờ · digest ${updated}`
+      : "Phân tích từ tin 48 giờ · chi tiết & góc đầu tư",
+    "vn",
+  );
   if (data.lead) {
     h += `<p class="invest-vn-lead">${escapeHtml(data.lead)}</p>`;
   }
@@ -131,7 +145,12 @@ function buildInvestVnHtml(data) {
   }
   if (watch.length) {
     h += `<div id="invest-watch" class="invest-vn-watch-block">`;
-    h += `<h4 class="sectors-section-title">Đang theo dõi</h4>`;
+    h += buildInvestMajorHead(
+      "03",
+      "Đang theo dõi",
+      "Biến số và chủ đề cần theo dõi tiếp",
+      "watch",
+    );
     h += `<ul class="invest-vn-watch-list">`;
     for (const nw of watch) {
       h += `<li class="invest-vn-watch">`;

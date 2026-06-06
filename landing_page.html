@@ -2411,15 +2411,16 @@
       margin-right: auto;
     }
     body.invest-mode #invest .invest-desk-page-head {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 2px solid rgba(180, 83, 9, .2);
     }
     body.invest-mode #invest .invest-desk-page-head h2 {
       font-family: var(--font-sans);
-      font-size: clamp(1.2rem, 2.6vw, 1.45rem);
-      font-weight: 700;
-      letter-spacing: -.02em;
+      font-size: clamp(1.35rem, 3vw, 1.65rem);
+      font-weight: 800;
+      letter-spacing: -.025em;
+      color: var(--text);
     }
     body.invest-mode #invest .invest-channel-lead,
     body.invest-mode #invest .invest-channel-updated {
@@ -2628,31 +2629,150 @@
     #invest #invest-vn,
     #invest #invest-watch,
     #invest #invest-sources {
-      scroll-margin-top: 88px;
+      scroll-margin-top: 120px;
+    }
+    body.invest-mode #investDeskChrome {
+      position: sticky;
+      top: 52px;
+      z-index: 30;
+      margin: 0 0 1.25rem;
+      padding: 12px 0 10px;
+      background: rgba(255, 255, 255, .94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(15, 23, 42, .1);
+    }
+    .invest-quick-index-label {
+      margin: 0 0 8px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
     .invest-quick-index {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 0 0 1.25rem;
-      padding: 0 0 1rem;
-      border-bottom: 1px solid rgba(15, 23, 42, .08);
+      margin: 0;
+      padding: 0;
+      border-bottom: none;
     }
     .invest-quick-index a {
-      display: inline-block;
-      padding: 5px 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
       border-radius: 999px;
       border: 1px solid rgba(180, 83, 9, .22);
       background: rgba(180, 83, 9, .05);
-      color: #92400e;
-      font-size: .76rem;
-      font-weight: 650;
+      color: #78350f;
+      font-size: .8rem;
+      font-weight: 700;
       text-decoration: none;
       line-height: 1.35;
+      transition: background .15s, border-color .15s, color .15s;
     }
     .invest-quick-index a:hover {
-      background: rgba(180, 83, 9, .1);
-      border-color: rgba(180, 83, 9, .35);
+      background: rgba(180, 83, 9, .12);
+      border-color: rgba(180, 83, 9, .4);
+    }
+    .invest-quick-index a.is-active {
+      background: rgba(180, 83, 9, .16);
+      border-color: rgba(180, 83, 9, .45);
+      color: #451a03;
+      box-shadow: inset 0 0 0 1px rgba(180, 83, 9, .12);
+    }
+    .invest-idx-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.65rem;
+      padding: 1px 5px;
+      border-radius: 6px;
+      font-size: .68rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .04em;
+      background: rgba(15, 23, 42, .07);
+      color: var(--text);
+    }
+    .invest-quick-index a.is-active .invest-idx-num {
+      background: rgba(180, 83, 9, .22);
+      color: #451a03;
+    }
+    .invest-major-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin: 0 0 1.15rem;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(248, 250, 252, .65);
+    }
+    .invest-major-head--quick {
+      border-left: 4px solid #b45309;
+      background: rgba(180, 83, 9, .04);
+    }
+    .invest-major-head--world {
+      border-left: 4px solid #0e7490;
+      background: rgba(8, 145, 178, .04);
+    }
+    .invest-major-head--vn {
+      border-left: 4px solid #b45309;
+      background: rgba(180, 83, 9, .05);
+    }
+    .invest-major-head--watch {
+      border-left: 4px solid #64748b;
+      background: rgba(100, 116, 139, .05);
+    }
+    .invest-major-head--sources {
+      border-left: 4px solid #0891b2;
+      background: rgba(8, 145, 178, .04);
+    }
+    .invest-major-num {
+      flex: 0 0 auto;
+      margin: 0;
+      font-size: clamp(1.65rem, 4vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.03em;
+      color: rgba(15, 23, 42, .22);
+    }
+    .invest-major-head--world .invest-major-num { color: rgba(14, 116, 144, .35); }
+    .invest-major-head--vn .invest-major-num,
+    .invest-major-head--quick .invest-major-num { color: rgba(180, 83, 9, .35); }
+    .invest-major-head--watch .invest-major-num { color: rgba(100, 116, 139, .4); }
+    .invest-major-head--sources .invest-major-num { color: rgba(8, 145, 178, .35); }
+    .invest-major-text { flex: 1; min-width: 0; }
+    .invest-major-title {
+      margin: 0 0 4px;
+      font-size: clamp(1.15rem, 2.8vw, 1.38rem);
+      font-weight: 800;
+      line-height: 1.28;
+      letter-spacing: -.02em;
+      color: var(--text);
+    }
+    .invest-major-head--world .invest-major-title { color: #0c4a6e; }
+    .invest-major-head--vn .invest-major-title { color: #78350f; }
+    .invest-major-sub {
+      margin: 0;
+      font-size: .82rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+    body.invest-mode #invest .invest-desk-block + .invest-desk-block,
+    body.invest-mode #invest #investSourcesFoot {
+      margin-top: 2.5rem;
+      padding-top: 0.5rem;
+      border-top: 2px solid rgba(15, 23, 42, .09);
+    }
+    body.invest-mode #invest .invest-vn-theme-rank {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #b45309;
+      min-width: 2rem;
     }
     .invest-quick-read {
       margin-bottom: 1.75rem;
@@ -5141,16 +5261,83 @@
       return out;
     }
 
+    function buildInvestMajorHead(num, titleHtml, sub, tone) {
+      const toneClass = tone ? ` invest-major-head--${tone}` : "";
+      let h = `<header class="invest-major-head${toneClass}">`;
+      h += `<p class="invest-major-num" aria-hidden="true">${escapeHtml(num)}</p>`;
+      h += `<div class="invest-major-text">`;
+      h += `<h3 class="invest-major-title">${titleHtml}</h3>`;
+      if (sub) h += `<p class="invest-major-sub">${escapeHtml(sub)}</p>`;
+      h += `</div></header>`;
+      return h;
+    }
+
     function buildInvestQuickIndexHtml() {
-      return (
-        `<nav class="invest-quick-index" aria-label="Mục lục chuyên mục">` +
-        `<a href="#invest-quick-read">Đọc nhanh</a>` +
-        `<a href="#invest-world">Biến số toàn cầu</a>` +
-        `<a href="#invest-vn">Việt Nam &amp; thị trường trong nước</a>` +
-        `<a href="#invest-watch">Đang theo dõi</a>` +
-        `<a href="#invest-sources">Nguồn</a>` +
-        `</nav>`
-      );
+      const items = [
+        ["#invest-quick-read", "00", "Đọc nhanh"],
+        ["#invest-world", "01", "Biến số toàn cầu"],
+        ["#invest-vn", "02", "Việt Nam &amp; thị trường trong nước"],
+        ["#invest-watch", "03", "Đang theo dõi"],
+        ["#invest-sources", "04", "Nguồn"],
+      ];
+      let h = `<p class="invest-quick-index-label">Mục lục — chạm để nhảy tới phần</p>`;
+      h += `<nav class="invest-quick-index" aria-label="Mục lục chuyên mục">`;
+      items.forEach(([href, num, label]) => {
+        h += `<a href="${href}" data-invest-anchor="${href.slice(1)}">`;
+        h += `<span class="invest-idx-num">${num}</span> ${label}`;
+        h += `</a>`;
+      });
+      h += `</nav>`;
+      return h;
+    }
+
+    function bindInvestScrollSpy() {
+      const nav = document.querySelector("#invest .invest-quick-index");
+      if (!nav) return;
+      const links = [...nav.querySelectorAll("a[data-invest-anchor]")];
+      if (!links.length) return;
+      const sectionById = new Map();
+      links.forEach((link) => {
+        const id = link.getAttribute("data-invest-anchor");
+        const el = id ? document.getElementById(id) : null;
+        if (el) sectionById.set(id, { link, el });
+      });
+      if (!sectionById.size) return;
+
+      const setActive = (id) => {
+        links.forEach((link) => {
+          link.classList.toggle(
+            "is-active",
+            link.getAttribute("data-invest-anchor") === id,
+          );
+        });
+      };
+
+      if ("IntersectionObserver" in window) {
+        const visible = new Map();
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const id = entry.target.id;
+              if (!id) return;
+              if (entry.isIntersecting) visible.set(id, entry.intersectionRatio);
+              else visible.delete(id);
+            });
+            if (!visible.size) return;
+            const best = [...visible.entries()].sort((a, b) => b[1] - a[1])[0];
+            if (best) setActive(best[0]);
+          },
+          { root: null, rootMargin: "-20% 0px -62% 0px", threshold: [0, 0.12, 0.35, 0.6] },
+        );
+        sectionById.forEach(({ el }) => observer.observe(el));
+      }
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          const id = link.getAttribute("data-invest-anchor");
+          if (id) setActive(id);
+        });
+      });
     }
 
     function buildInvestQuickReadHtml(worldData, vnData) {
@@ -5162,7 +5349,12 @@
       const assets = collectInvestAssetTags(worldData, vnData, 8);
       const watchLines = collectInvestWatchLines(vnData, worldData, 4);
       let h = `<section id="invest-quick-read" class="invest-quick-read invest-live-strip">`;
-      h += `<h3 class="invest-section-label">Đọc nhanh cho nhà đầu tư</h3>`;
+      h += buildInvestMajorHead(
+        "00",
+        "Đọc nhanh cho nhà đầu tư",
+        "Tóm tắt biến số chính và điểm cần theo dõi 24–72h",
+        "quick",
+      );
       if (worldBrief) {
         h += `<p class="invest-quick-read-lead">${escapeHtml(worldBrief)}</p>`;
       } else if (vnLead && !worldHi.length) {
@@ -5259,7 +5451,7 @@
       const rows = collectInvestSourceRows(worldData, vnData, 24);
       if (!rows.length) return "";
       let h = `<section id="invest-sources" class="invest-sources-foot">`;
-      h += `<h3 class="invest-section-label">Nguồn</h3>`;
+      h += buildInvestMajorHead("04", "Nguồn", "Liên kết tham khảo theo từng mục", "sources");
       h += `<ul class="invest-vn-link-rows">`;
       rows.forEach((row) => {
         h += `<li><a href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.title)}</a>`;
@@ -5273,12 +5465,14 @@
     function buildInvestWorldHtml(data) {
       const topics = Array.isArray(data?.topics) ? data.topics : [];
       let h = `<section id="invest-world" class="invest-desk-section invest-desk-section--world">`;
-      h += `<header class="invest-desk-head">`;
-      h += `<h3 class="invest-desk-title">Biến số toàn cầu</h3>`;
       const feedLabel = String(data?.feed_label || "").trim()
         || "các diễn biến kinh tế - thị trường đáng chú ý";
-      h += `<p class="invest-desk-sub">Tóm tắt theo đề mục · ${escapeHtml(feedLabel)}</p>`;
-      h += `</header>`;
+      h += buildInvestMajorHead(
+        "01",
+        "Biến số toàn cầu",
+        `Tóm tắt theo đề mục · ${feedLabel}`,
+        "world",
+      );
       const brief = String(data?.brief || "").trim();
       if (brief) {
         h += `<p class="invest-vn-lead invest-world-brief">${escapeHtml(brief)}</p>`;
@@ -5392,11 +5586,14 @@
       const watch = Array.isArray(data?.now_watch) ? data.now_watch : [];
       const digestAt = data?.source_digest_at ? formatPulseUpdatedAt(data.source_digest_at) : "";
       let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn">`;
-      h += `<header class="invest-desk-head">`;
-      h += `<h3 class="invest-desk-title">Việt Nam &amp; thị trường trong nước</h3>`;
-      h += `<p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p>`;
-      if (digestAt) h += `<p class="sync-note">Dữ liệu digest: ${escapeHtml(digestAt)}</p>`;
-      h += `</header>`;
+      h += buildInvestMajorHead(
+        "02",
+        "Việt Nam &amp; thị trường trong nước",
+        digestAt
+          ? `Phân tích từ tin 48 giờ · digest ${digestAt}`
+          : "Phân tích từ tin 48 giờ · chi tiết & góc đầu tư",
+        "vn",
+      );
       if (data?.lead) {
         h += `<p class="invest-vn-lead">${escapeHtml(data.lead)}</p>`;
       }
@@ -5438,7 +5635,12 @@
       }
       if (watch.length) {
         h += `<div id="invest-watch" class="invest-vn-watch-block">`;
-        h += `<h4 class="sectors-section-title">Đang theo dõi</h4>`;
+        h += buildInvestMajorHead(
+          "03",
+          "Đang theo dõi",
+          "Biến số và chủ đề cần theo dõi tiếp",
+          "watch",
+        );
         h += `<ul class="invest-vn-watch-list">`;
         watch.forEach((nw) => {
           h += `<li class="invest-vn-watch">`;
@@ -5537,6 +5739,7 @@
       if (sourcesEl) {
         sourcesEl.innerHTML = buildInvestSourcesHtml(worldData, vnData);
       }
+      bindInvestScrollSpy();
     }
 
     /** Khối thế giới tab đầu tư — invest_world_pulse (GDELT enrich + lọc kinh tế, không phải market_pulse). */
