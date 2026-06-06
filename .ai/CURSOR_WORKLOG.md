@@ -407,3 +407,16 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Verify:** Desktop 1280px + mobile 390px — không overflow ngang; tab active rõ; LIVE dot chỉ pulse khi tab LIVE active.
 
+## 2026-06-06 — UI review cuối 3 tab (nav + spacing + LIVE motion)
+
+**Scope:** `landing_page.html` + rebuild embed từ `content.json` / `market_pulse.json` / `invest_vn_brief.json`. **Not modified:** crawler, Gemini prompts, nội dung JSON.
+
+| Tab | Review / fix |
+|-----|----------------|
+| **Tin48h** | Embed đã đúng layout newsroom: Bản tin 48h → Tổng quan 48h → Đi sâu theo từng ngành → Tin đáng chú ý; không TOC/stat pill/Lời biên tập |
+| **Kinh tế đầu tư** | Line-height 1.76–1.78; mobile spacing 36–40px → 28–32px; link nguồn min-height 44px |
+| **Thế giới LIVE** | Tắt ticker/LIVE blink animation trên mobile; badge sector max-width; multi/solo contrast giữ nguyên |
+| **Nav** | Segmented control (commit trước); `overflow-x: clip` tránh scroll ngang |
+
+**Rebuild:** `node scripts/embed_public_brief_into_html.mjs landing_page.html content.json` (+ pulse/invest VN nếu có JSON).
+

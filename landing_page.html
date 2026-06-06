@@ -38,6 +38,7 @@
       scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
+      overflow-x: clip;
     }
     body {
       margin: 0;
@@ -46,6 +47,7 @@
       line-height: 1.52;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      overflow-x: clip;
       background:
         radial-gradient(ellipse 120% 80% at 10% -10%, rgba(8, 145, 178, .07), transparent 50%),
         radial-gradient(ellipse 90% 60% at 90% 10%, rgba(180, 83, 9, .05), transparent 45%),
@@ -1729,9 +1731,6 @@
       line-height: 1.45;
     }
     body.invest-mode #invest { padding: 24px 0 32px; }
-    body.invest-mode #invest > .container {
-      width: min(680px, 92%);
-    }
     body.invest-mode #invest .brief-block {
       max-width: 100%;
     }
@@ -2063,6 +2062,9 @@
     @media (prefers-reduced-motion: reduce) {
       .pulse-title-live { animation: none; }
       .pulse-sources-ticker-scroll { animation: none; }
+      .pulse-event-ticker-scroll,
+      .pulse-live-ticker-scroll { animation: none; }
+      .nav-tab--live.nav-tab--active .nav-live-dot { animation: none; }
     }
     .pulse-event-links-row {
       display: flex;
@@ -2455,7 +2457,7 @@
     body.invest-mode #invest .invest-vn-lead,
     body.invest-mode #invest .invest-world-brief {
       font-size: .98rem;
-      line-height: 1.74;
+      line-height: 1.76;
       color: var(--text-soft);
       margin-bottom: 1.25rem;
       -webkit-line-clamp: unset;
@@ -2499,7 +2501,7 @@
     body.invest-mode #invest .invest-vn-watch-body,
     body.invest-mode #invest .sector-points {
       font-size: .98rem;
-      line-height: 1.74;
+      line-height: 1.76;
       color: var(--text-soft);
     }
     body.invest-mode #invest .invest-vn-lens {
@@ -2603,7 +2605,7 @@
     }
     body.invest-mode #invest .invest-world-item-summary {
       font-size: .94rem;
-      line-height: 1.74;
+      line-height: 1.76;
       margin-bottom: 12px;
     }
     body.invest-mode #invest .invest-world-item .invest-vn-lens {
@@ -2920,10 +2922,58 @@
       body.invest-mode #invest .invest-vn-link-rows li,
       body.invest-mode #invest .invest-world-item-links li {
         padding-left: 10px;
+        min-height: 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      body.invest-mode #invest .invest-desk-layout { gap: 32px; }
+      body.invest-mode #invest .invest-vn-theme {
+        margin-bottom: 30px;
+        padding-bottom: 28px;
+      }
+      body.invest-mode #invest .invest-world-topic {
+        margin-bottom: 30px;
+        padding-bottom: 26px;
+      }
+      body.invest-mode #invest .invest-world-item {
+        margin-bottom: 26px;
+        padding-bottom: 26px;
+      }
+      body.invest-mode #invest .invest-vn-watch {
+        margin-bottom: 24px;
+        padding-bottom: 24px;
+      }
+      body.pulse-mode #pulse .pulse-title-live {
+        animation: none;
+        opacity: .9;
+      }
+      body.pulse-mode #pulse .pulse-event-ticker-scroll,
+      body.pulse-mode #pulse .pulse-live-ticker-scroll {
+        animation: none;
+      }
+      body.pulse-mode #pulse .pulse-radar-badge--sector {
+        max-width: min(100%, 11.5rem);
+      }
+      body.pulse-mode #pulse .pulse-event-source-links a {
+        display: inline-block;
+        padding: 6px 0;
+        min-height: 44px;
+        line-height: 1.35;
+      }
+      body.invest-mode #invest .invest-vn-lead,
+      body.invest-mode #invest .invest-world-brief,
+      body.invest-mode #invest .invest-vn-why,
+      body.invest-mode #invest .invest-vn-lens,
+      body.invest-mode #invest .invest-world-item-summary {
+        line-height: 1.78;
       }
       body.invest-mode #invest .invest-vn-link-rows a,
       body.invest-mode #invest .invest-world-item-links a {
-        padding: 4px 0;
+        padding: 6px 0;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
       }
       body.pulse-mode #pulse .pulse-event-title {
         font-size: .88rem;
@@ -3035,20 +3085,7 @@
           </span>
         </div>
         <div class="nav-segment">
-          <div class="nav-links" id="navLinks" role="tablist" aria-label="Chuyên mục" data-nav-tabs="1">
-            <a class="nav-tab nav-tab--digest nav-tab--active" href="/" data-view="digest" role="tab" aria-selected="true">
-              <span class="nav-tab-text nav-tab-text--full">Bản tin 48h</span>
-              <span class="nav-tab-text nav-tab-text--short">Tin48h</span>
-            </a>
-            <a class="nav-tab nav-tab--invest" href="/?view=invest" data-view="invest" role="tab" aria-selected="false">
-              <span class="nav-tab-text nav-tab-text--full">Kinh tế đầu tư</span>
-              <span class="nav-tab-text nav-tab-text--short">Đầu tư</span>
-            </a>
-            <a class="nav-tab nav-tab--live" href="/?view=live" data-view="live" role="tab" aria-selected="false">
-              <span class="nav-tab-text nav-tab-text--full">Thế giới <span class="nav-live-badge"><span class="nav-live-dot" aria-hidden="true"></span><span class="nav-live-label--full">LIVE</span></span></span>
-              <span class="nav-tab-text nav-tab-text--short">LIVE <span class="nav-live-badge"><span class="nav-live-dot" aria-hidden="true"></span></span></span>
-            </a>
-          </div>
+          <div class="nav-links" id="navLinks" data-nav-tabs="1"><a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a><a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Kinh tế đầu tư</a><a class="nav-hub" href="/?view=live" data-view="live">Thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a></div>
         </div>
       </nav>
       <h1>LEON Quant Labs</h1>
@@ -3085,10 +3122,11 @@
         
         
         
+        
       </div>
     </section>
 
-        <section id="pulse" class="alt" hidden hidden hidden hidden hidden data-embedded-pulse="1" data-embedded-pulse="1">
+        <section id="pulse" class="alt" hidden hidden hidden hidden hidden data-embedded-pulse="1" data-embedded-pulse="1" data-embedded-pulse="1">
       <div class="container">
         <div id="sectionPulse" class="brief-block" data-embedded-pulse="1"><article class="digest-report" id="pulse-crawler-report"><header class="digest-report-head"><h2>NÓNG TOÀN CẦU <span class="pulse-title-live">🔴 LIVE</span></h2><p class="sync-note">Cập nhật 21:18 05/06/2026 (giờ Việt Nam).</p></header><div class="pulse-panel"><ol class="pulse-event-list"><li class="pulse-event pulse-event--multi-source"><div class="pulse-event-meta-row"><span class="pulse-radar-badge pulse-radar-badge--sector">An ninh - Xung đột - Tội phạm</span><span class="pulse-radar-badge pulse-radar-badge--count">80 bài</span><span class="pulse-radar-badge pulse-radar-badge--sources pulse-radar-badge--sources-hot">14 nguồn</span><span class="pulse-radar-badge pulse-radar-badge--tone">Tiêu cực</span></div><h3 class="pulse-event-title">Pháp chấn động sau vụ sát hại bé gái 11 tuổi, làm bùng lên tranh cãi về lỗ hổng hệ thống tư pháp trong việc xử lý các cáo buộc hiếp dâm</h3><p class="pulse-event-hint">Dư luận Pháp đang phẫn nộ sau khi thi thể của bé gái 11 tuổi tên Lyhanna được tìm thấy tại một trang trại hẻo lánh ở vùng Gers sau 6 ngày tìm kiếm. Nghi phạm hiện đang bị giam giữ đã trở thành tâm điểm của sự chỉ trích, khi truyền thông và giới quan sát đặt nghi vấn nghiêm trọng về việc các cơ quan tư pháp đã bỏ qua những cáo buộc hiếp dâm trước đó đối với đối tượng này. Tổng thống Emmanuel Macron, trong chuyến công tác tại Montenegro, cũng đã lên tiếng bày tỏ sự bàng hoàng và thừa nhận sự việc này cho thấy những vết nứt đáng báo động trong hệ thống tư pháp hiện tại. Các đơn vị cảnh sát và tình nguyện viên đã huy động lực lượng lớn tìm kiếm kể từ khi nạn nhân mất tích sau giờ học vào ngày 29 tháng 5. Hiện tại, một cuộc khám nghiệm tử thi đã được yêu cầu để làm rõ nguyên nhân cái chết.</p><p class="pulse-event-importance">Sự kiện gây chấn động dư luận quốc gia Pháp, tạo ra làn sóng phẫn nộ về an ninh trẻ em và trách nhiệm của cơ quan hành pháp. Việc Tổng thống Macron phải lên tiếng về vấn đề nội địa khi đang ở nước ngoài cho thấy mức độ nghiêm trọng và áp lực chính trị cực lớn mà vụ án đang tạo ra đối với chính quyền.</p><p class="pulse-event-coverage">Độ phủ: <strong>80</strong> bài · <strong>14</strong> nguồn · Tiêu cực</p><div class="pulse-event-sources-block">
         <p class="pulse-event-sources-head">Nguồn</p>
@@ -3139,8 +3177,7 @@
             </header>
             <div class="invest-desk-layout">
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
-            <div id="sectionInvestVn" class="invest-desk-block"><section class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1"><header class="invest-desk-head"><h3 class="invest-desk-title">Việt Nam trong nước</h3><p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p><p class="sync-note">Dữ liệu digest: 11:56 04/06/2026</p></header><p class="invest-vn-lead">Trong 48 giờ qua, trọng tâm điều hành của Việt Nam tập trung vào việc hỗ trợ mục tiêu tăng trưởng thông qua chính sách tiền tệ nới lỏng, tháo gỡ vướng mắc pháp lý cho hạ tầng/bất động sản và tăng cường kỷ luật trong quản lý tài chính. Song song đó, các ngành kinh tế đang tích cực chuyển đổi số để tối ưu hóa vận hành trong bối cảnh thách thức về an ninh mạng và biến động thương mại quốc tế gia tăng.</p><h4 class="sectors-section-title">Ba điểm đáng chú ý trong 48 giờ qua</h4><ol class="invest-vn-theme-list"><li class="invest-vn-theme"><p class="invest-vn-theme-rank">01</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Kỷ luật tài chính và điều hành chính sách tiền tệ</h5><p class="invest-vn-why">Cơ quan quản lý đang đồng thời siết chặt kỷ luật thị trường tiền tệ và thực thi các biện pháp hỗ trợ thanh khoản để thúc đẩy tăng trưởng.</p><ul class="sector-points prose-bullets"><li>Ngân hàng Nhà nước yêu cầu giảm lãi suất để hỗ trợ doanh nghiệp phục hồi sản xuất.</li><li>Cơ quan thuế triển khai đối chiếu hóa đơn điện tử với dữ liệu dòng tiền qua ngân hàng nhằm chống thất thu thuế.</li><li>Đề xuất nâng ngưỡng thu nhập vãng lai chịu thuế thu nhập cá nhân lên 5 triệu đồng đang được thảo luận để tối ưu hóa sắc thuế.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm doanh nghiệp sản xuất và xuất nhập khẩu có thể hưởng lợi từ chi phí vốn thấp hơn; tuy nhiên, việc kiểm soát chặt chẽ dòng tiền qua ngân hàng là biến số cần theo dõi đối với các doanh nghiệp có hoạt động kinh doanh chưa minh bạch về thuế.</p><ul class="invest-vn-link-rows"><li><a href="https://baochinhphu.vn/nhnn-siet-ky-luat-thi-truong-tien-te-yeu-cau-giam-lai-suat-102260523102302059.htm" target="_blank" rel="noopener noreferrer">NHNN siết kỷ luật thị trường tiền tệ, yêu cầu giảm lãi suất</a><span class="link-meta"> — Báo Chính phủ</span></li><li><a href="https://tuoitre.vn/co-quan-thue-se-doi-chieu-hoa-don-dien-tu-voi-dong-tien-ngan-hang-20260520133353455.htm" target="_blank" rel="noopener noreferrer">Cơ quan thuế sẽ đối chiếu hóa đơn điện tử với dòng tiền ngân hàng</a><span class="link-meta"> — Tuổi Trẻ</span></li><li><a href="https://thanhnien.vn/nang-nguong-thu-nhap-vang-lai-tinh-thu-len-5-trieu-dong-da-du-chua-185260522205445733.htm" target="_blank" rel="noopener noreferrer">Nâng ngưỡng thu nhập vãng lai tính thuế lên 5 triệu đồng</a><span class="link-meta"> — Thanh Niên</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">02</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Tháo gỡ pháp lý cho dự án hạ tầng và bất động sản</h5><p class="invest-vn-why">Việc đẩy nhanh tiến độ dự án trọng điểm được xác định là động lực chính để duy trì đà tăng trưởng kinh tế địa phương.</p><ul class="sector-points prose-bullets"><li>Cần Thơ áp dụng cơ chế đặc thù để rà soát và gỡ vướng cho 21 dự án bất động sản trên địa bàn.</li><li>Dự án cao tốc Việt Trì - Hòa Bình được định hướng triển khai trước năm 2030.</li><li>Doanh nghiệp ngành giao thông đang nỗ lực giải quyết tình trạng thiếu hụt nhân lực và vốn trong các dự án cao tốc hiện hữu.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Tốc độ phê duyệt pháp lý là biến số quyết định khả năng ghi nhận doanh thu của các doanh nghiệp xây dựng, hạ tầng và bất động sản trong các quý tiếp theo.</p><ul class="invest-vn-link-rows"><li><a href="https://batdongsan.baoxaydung.vn/can-tho-ra-soat-go-vuong-21-du-an-bat-dong-san-theo-co-che-dac-thu-192260523141631666.htm" target="_blank" rel="noopener noreferrer">Cần Thơ rà soát, gỡ vướng 21 dự án bất động sản theo cơ chế đặc thù</a><span class="link-meta"> — batdongsan.baoxaydung.vn</span></li><li><a href="https://baochinhphu.vn/xay-cao-toc-viet-tri-hoa-dim-truoc-nam-2030-102260519174840892.htm" target="_blank" rel="noopener noreferrer">Xây cao tốc Việt Trì-Hòa Bình trước năm 2030</a><span class="link-meta"> — Báo Chính phủ</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">03</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Chuyển đổi số và rủi ro an ninh mạng tài chính</h5><p class="invest-vn-why">Sự bùng nổ của ứng dụng AI và chuyển đổi số trong ngân hàng đi kèm với những rủi ro bảo mật tài khoản mới phát sinh.</p><ul class="sector-points prose-bullets"><li>Các ngân hàng như VietinBank báo cáo kết quả kinh doanh tích cực và kiểm soát nợ xấu hiệu quả.</li><li>Xuất hiện thủ đoạn lừa đảo chiếm đoạt quyền sử dụng SIM để tấn công tài khoản ngân hàng và ví điện tử.</li><li>FPT và các tập đoàn lớn đẩy mạnh tích hợp AI Agent vào quy trình vận hành doanh nghiệp.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm ngân hàng có hạ tầng số mạnh có lợi thế về chi phí vận hành, tuy nhiên rủi ro an ninh mạng là biến số cần theo dõi sát sao đối với sự ổn định của hệ thống tài chính cá nhân.</p><ul class="invest-vn-link-rows"><li><a href="https://tuoitre.vn/vietinbank-bao-lai-quy-1-tang-63-no-xau-giam-con-102-20260522194305956.htm" target="_blank" rel="noopener noreferrer">VietinBank báo lãi quý 1 tăng 63%, nợ xấu giảm còn 1,02%</a><span class="link-meta"> — Tuổi Trẻ</span></li><li><a href="https://genk.vn/phat-hien-thu-doan-moi-cuc-nguy-hiem-khien-tat-ca-otp-dang-nhap-tai-khoan-ngan-hang-vi-dien-tu-cua-nguoi-dung-chuyen-thang-cho-lua-dao-165260524080952884.chn" target="_blank" rel="noopener noreferrer">Phát hiện thủ đoạn lừa đảo chiếm đoạt SIM mới</a><span class="link-meta"> — GenK</span></li></ul></div></li></ol><h4 class="sectors-section-title">Đang theo dõi / hiện tại</h4><ul class="invest-vn-watch-list"><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Triển khai xăng E10 trên toàn quốc</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">sắp có</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Bộ Công Thương chuẩn bị lộ trình đưa xăng E10 vào thị trường từ 1/6 với đề xuất công thức tính giá mới.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> Vận tải, logistics, doanh nghiệp bán lẻ xăng dầu</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> Sự chấp nhận của thị trường và biến động chi phí đầu vào đối với các đơn vị vận tải.</p><ul class="invest-vn-link-rows"><li><a href="https://vietnamnet.vn/xang-e10-ban-tren-toan-quoc-tu-1-6-bo-cong-thuong-de-xuat-cong-thuc-tinh-gia-2517258.html" target="_blank" rel="noopener noreferrer">Xăng E10 bán trên toàn quốc từ 1/6</a><span class="link-meta"> — VietnamNet</span></li></ul></li><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Kiểm soát xuất khẩu nông sản sang Trung Quốc</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">đang diễn ra</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Các mặt hàng nông sản như gạo, hạt điều đối mặt với các tiêu chuẩn kiểm soát chặt chẽ hơn tại cửa khẩu từ 1/6.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> Doanh nghiệp xuất khẩu nông sản, nông dân</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> Tiến độ thông quan và chi phí tuân thủ quy chuẩn mới.</p><ul class="invest-vn-link-rows"><li><a href="https://dantri.com.vn/kinh-doanh/gao-hat-dieu-va-loat-nong-san-vao-trung-quoc-bi-kiem-soat-chat-tu-16-20260520065405571.htm" target="_blank" rel="noopener noreferrer">Gạo, hạt điều và loạt nông sản vào Trung Quốc bị kiểm soát chặt từ 1/6</a><span class="link-meta"> — Dân trí</span></li></ul></li></ul></section></div>
-            </div>
+            <div id="sectionInvestVn" class="invest-desk-block"><section class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1"><header class="invest-desk-head"><h3 class="invest-desk-title">Việt Nam trong nước</h3><p class="invest-desk-sub">Phân tích từ tin 48 giờ · chi tiết &amp; góc đầu tư</p><p class="sync-note">Dữ liệu digest: 06:22 05/06/2026</p></header><p class="invest-vn-lead">Trong 48 giờ qua, trọng tâm điều hành của Chính phủ và Ngân hàng Nhà nước tập trung vào việc ổn định thị trường tiền tệ, yêu cầu giảm lãi suất để hỗ trợ tăng trưởng kinh tế, đồng thời thúc đẩy chuyển đổi số và tháo gỡ vướng mắc pháp lý tại các địa phương.</p><h4 class="sectors-section-title">Ba điểm đáng chú ý trong 48 giờ qua</h4><ol class="invest-vn-theme-list"><li class="invest-vn-theme"><p class="invest-vn-theme-rank">01</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng</h5><p class="invest-vn-why">Cơ quan điều hành tiền tệ đang siết chặt kỷ luật thị trường và phát đi chỉ đạo trực tiếp nhằm giảm lãi suất, nhằm tạo đà cho mục tiêu tăng trưởng kinh tế địa phương.</p><ul class="sector-points prose-bullets"><li>Ngân hàng Nhà nước yêu cầu các tổ chức tín dụng siết chặt kỷ luật thị trường tiền tệ, đồng thời chỉ đạo giảm lãi suất hỗ trợ doanh nghiệp.</li><li>Chính phủ phân công lãnh đạo theo dõi, chỉ đạo sát sao các địa phương thực hiện mục tiêu tăng trưởng kinh tế trên 10%.</li><li>Giá vàng trong nước ghi nhận đà giảm nhưng vẫn duy trì chênh lệch đáng kể so với giá thế giới.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm ngành tài chính và doanh nghiệp vay vốn lớn là đối tượng chịu có thể ảnh hưởng từ chính sách lãi suất; các biến số cần theo dõi bao gồm biên lợi nhuận ròng của ngân hàng và khả năng hấp thụ vốn thực tế của nền kinh tế.</p><ul class="invest-vn-link-rows"><li><a href="https://baochinhphu.vn/nhnn-siet-ky-luat-thi-truong-tien-te-yeu-cau-giam-lai-suat-102260523102302059.htm" target="_blank" rel="noopener noreferrer">NHNN siết kỷ luật thị trường tiền tệ, yêu cầu giảm lãi suất</a><span class="link-meta"> — Báo Chính phủ</span></li><li><a href="https://baochinhphu.vn/phan-cong-lanh-dao-chinh-phu-theo-doi-chi-dao-cac-dia-phuong-thuc-hien-muc-tieu-tang-truong-kinh-te-tren-10-102260522175527609.htm" target="_blank" rel="noopener noreferrer">Phân công Lãnh đạo Chính phủ theo dõi, chỉ đạo các địa phương thực hiện mục tiêu tăng trưởng kinh tế trên 10%</a><span class="link-meta"> — Báo Chính phủ</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">02</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Ngân hàng đẩy mạnh số hóa và quản trị rủi ro vận hành</h5><p class="invest-vn-why">Chuyển đổi số được định hướng là yếu tố tiên quyết trong ngành ngân hàng, song hành với yêu cầu nâng cao hiệu quả ngăn chặn rủi ro giao dịch.</p><ul class="sector-points prose-bullets"><li>Lãnh đạo Ngân hàng Nhà nước nhấn mạnh tầm quan trọng của việc tiên phong chuyển đổi số trong khối ngân hàng.</li><li>Hệ thống cảnh báo rủi ro của ngân hàng đã hỗ trợ chặn thành công 4.400 tỉ đồng giao dịch nghi vấn lừa đảo.</li><li>Các ngân hàng đang cạnh tranh trong việc nâng cao trải nghiệm số thông qua các chương trình thúc đẩy gửi tiết kiệm trực tuyến.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Việc tăng cường đầu tư cho công nghệ và quản trị rủi ro sẽ ảnh hưởng đến chi phí vận hành (OPEX) của các ngân hàng; hiệu quả của các nền tảng số là yếu tố cạnh tranh cần theo dõi trong dài hạn.</p><ul class="invest-vn-link-rows"><li><a href="https://baochinhphu.vn/ngan-hang-phai-tien-phong-chuyen-doi-so-102260522174213595.htm" target="_blank" rel="noopener noreferrer">Phó Thống đốc Phạm Tiến Dũng: Ngân hàng phải tiên phong chuyển đổi số</a><span class="link-meta"> — Báo Chính phủ</span></li><li><a href="https://thanhnien.vn/chan-4400-ti-chuyen-khoan-lua-dao-nho-ngan-hang-canh-bao-185260523072608036.htm" target="_blank" rel="noopener noreferrer">Chặn 4.400 tỉ chuyển khoản lừa đảo nhờ ngân hàng cảnh báo</a><span class="link-meta"> — Thanh Niên</span></li></ul></div></li><li class="invest-vn-theme"><p class="invest-vn-theme-rank">03</p><div class="invest-vn-theme-body"><h5 class="invest-vn-theme-title">Tháo gỡ pháp lý và phát triển hạ tầng địa phương</h5><p class="invest-vn-why">Các địa phương trọng điểm đang thực hiện cơ chế đặc thù và công bố danh mục dự án nhằm khơi thông nguồn lực đầu tư đất đai, nhà ở.</p><ul class="sector-points prose-bullets"><li>Đà Nẵng công bố danh mục 350 dự án áp dụng cơ chế đặc thù để tháo gỡ vướng mắc.</li><li>Đà Nẵng công bố 113 khu đất dành cho đầu tư nhà ở xã hội.</li><li>Tiến độ thi công nhà ga sân bay Long Thành đang được giám sát chặt chẽ trước hạn chót tháng 6.</li></ul><p class="invest-vn-lens"><strong>Góc đầu tư:</strong> Nhóm doanh nghiệp bất động sản và xây dựng hạ tầng tại các địa phương có cơ chế đặc thù sẽ chịu tác động từ tiến độ phê duyệt dự án; đây là biến số cần theo dõi sát sao.</p><ul class="invest-vn-link-rows"><li><a href="https://thanhnien.vn/da-nang-cong-bo-350-du-an-duoc-ap-dung-co-che-dac-thu-de-thao-go-18526052309260613.htm" target="_blank" rel="noopener noreferrer">Đà Nẵng công bố 350 dự án được áp dụng cơ chế đặc thù để tháo gỡ</a><span class="link-meta"> — Thanh Niên</span></li><li><a href="https://thanhnien.vn/nha-ga-san-bay-long-thanh-moi-dat-63-san-luong-du-han-chot-thang-6-185260523221840377.htm" target="_blank" rel="noopener noreferrer">Nhà ga sân bay Long Thành mới đạt 63% sản lượng dù &#039;hạn chót&#039; tháng 6</a><span class="link-meta"> — Thanh Niên</span></li></ul></div></li></ol><h4 class="sectors-section-title">Đang theo dõi / hiện tại</h4><ul class="invest-vn-watch-list"><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Cơ chế phí sàn thương mại điện tử</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">đang diễn ra</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Các chủ shop phản ánh việc tăng phí tại các sàn thương mại điện tử, đặt ra yêu cầu về cơ chế giám sát từ cơ quan chức năng.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> thương mại điện tử, bán lẻ, doanh nghiệp nhỏ và vừa</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> động thái của cơ quan quản lý trong việc thiết lập khung giám sát và tác động đến chi phí kinh doanh của người bán.</p><ul class="invest-vn-link-rows"><li><a href="https://thanhnien.vn/san-thuong-mai-dien-tu-tang-phi-chuyen-gia-de-xuat-co-che-giam-sat-185260522181231712.htm" target="_blank" rel="noopener noreferrer">Sàn thương mại điện tử tăng phí, chuyên gia đề xuất cơ chế giám sát</a><span class="link-meta"> — Thanh Niên</span></li></ul></li><li class="invest-vn-watch"><h5 class="invest-vn-watch-title">Chính sách thuế xăng E10</h5><p class="invest-vn-watch-status"><span class="invest-vn-status-pill">đang diễn ra</span></p><p class="invest-vn-watch-body"><strong>Vấn đề:</strong> Đề xuất giảm thuế đối với xăng E10 nhằm kích thích tiêu dùng và hỗ trợ tăng trưởng kinh tế.</p><p class="invest-vn-watch-body"><strong>Nhóm ảnh hưởng:</strong> năng lượng, vận tải, logistics</p><p class="invest-vn-watch-body"><strong>Biến số cần theo dõi:</strong> phản ứng của chính sách thuế và tác động của giá thành phẩm đến chi phí vận hành ngành logistics.</p><ul class="invest-vn-link-rows"><li><a href="https://thanhnien.vn/giam-thue-de-giam-gia-xang-e10-185260522192848769.htm" target="_blank" rel="noopener noreferrer">Giảm thuế để giảm giá xăng E10</a><span class="link-meta"> — Thanh Niên</span></li></ul></li></ul></section></div>
           </article>
         </div>
       </div>
