@@ -453,3 +453,18 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Verify:** `python -m py_compile summarize_news_gemini.py build_website_content.py` · `python scripts/test_newsroom_digest.py`
 
+## 2026-06-06 — Tin48h sector-depth prompt + rendering preservation
+
+**Scope:** Sector-depth prompt + `build_newsroom_web_extras` data preservation only. **No** tabs/navigation, archive link label, invest/live, crawler, or page redesign.
+
+| Area | Detail |
+|------|--------|
+| Prompt (`sector_thesis`) | No fixed word/sentence quotas; depth scales with hot-story density; required layers when data exists (thesis, main clusters, Who–What–Why, impact, watch 24–72h); synthesize-not-list; absorb all quality dossiers/subsectors; bad/good examples (shallow “điểm sáng thu hút vốn” vs deep AI infra narrative) |
+| Validation | Warn on shallow/generic `sector_thesis`; missing concrete entities; `sector_thesis` not reflecting main dossier clusters when multiple rich dossiers exist |
+| Render fix | `build_newsroom_web_extras()` was building `subsector_out` / `dossiers_out` then writing empty arrays — now **preserves** `subsectorBriefs` and `storyDossiers` in `content.json` (UI can stay compact; structured data no longer discarded) |
+| Unchanged | Archive `articleLinkIndex` + label “Bản tin được tổng hợp từ … bài, bấm vào xem chi tiết”; tabs; invest/live; crawler |
+
+**Verify:** `python -m py_compile summarize_news_gemini.py build_website_content.py` · `python scripts/test_newsroom_digest.py` · `python build_website_content.py --skip-images --skip-notable-images` · `node scripts/embed_public_brief_into_html.mjs landing_page.html content.json`
+
+**Apply new prose:** re-run Gemini digest/merge — existing `gemini_digest_summary.json` still has short sector theses until regenerated.
+

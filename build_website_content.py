@@ -2407,8 +2407,8 @@ def build_newsroom_web_extras(
                 "name": name,
                 "sectorThesis": _compose_sector_thesis_for_web(sec, soften=soften_prose),
                 "links": merged_links,
-                "subsectorBriefs": [],
-                "storyDossiers": [],
+                "subsectorBriefs": subsector_out,
+                "storyDossiers": dossiers_out,
             }
         )
 

@@ -428,14 +428,34 @@ def _digest_executive_briefing_writing_block() -> str:
 def _digest_sector_narrative_block() -> str:
     return "\n".join(
         [
-            "## Đi sâu theo từng ngành (`sector_thesis`) — bài tóm tắt ngành có mạch",
+            "## Đi sâu theo từng ngành (`sector_thesis`) — bài tóm tắt ngành đủ sâu theo dữ liệu",
             "Mỗi `sector_thesis` là **một bài** (nhiều đoạn), không nối summary dossier rời rạc.",
-            "**Không** viết: \"Tin A xảy ra. Tin B xảy ra. Tin C xảy ra.\"",
-            "**Viết**: \"Các tin A, B, C cùng cho thấy xu hướng…\" / \"Điểm đáng chú ý là các tín hiệu này không tách rời…\"",
-            "Cấu trúc gợi ý (4+ đoạn, linh hoạt theo dữ liệu):",
-            "- **Đoạn 1:** Ngành này 48h qua nổi bật vì điều gì (thesis mở).",
-            "- **Đoạn 2–4:** Các tin chính **liên kết** với nhau — actor, diễn biến, quan hệ nhân quả.",
-            "- **Đoạn cuối:** Tác động, rủi ro, hoặc biến số cần theo dõi tiếp.",
+            "**Không ép số câu/số chữ.** Ngành nhiều tin nóng → viết dài và sâu; ngành ít tin → gọn nhưng **không** mất ý chính.",
+            "Không padding; không rút gọn đến mức chỉ còn một câu sáo.",
+            "",
+            "**Các lớp cần phủ khi dữ liệu có (trong prose liền mạch, không heading robot):**",
+            "- **Sector thesis:** ngành này 48h qua nổi bật vì điều gì.",
+            "- **Main clusters:** các cụm tin chính — gom theo chủ đề, không liệt kê headline rời.",
+            "- **Who–What–Why:** ai/cái gì, chuyện gì xảy ra, vì sao quan trọng.",
+            "- **Impact:** tác động tới thị trường, chính sách, doanh nghiệp, người tiêu dùng, Việt Nam/toàn cầu.",
+            "- **Watch next:** biến số cần theo dõi **24–72h** tới (cụ thể, không filler).",
+            "",
+            "**Tổng hợp, không liệt kê:**",
+            '- **Không:** "Tin A xảy ra. Tin B xảy ra. Tin C xảy ra."',
+            '- **Viết:** "Các tin A, B, C cùng cho thấy…" / "Điểm chung là…" / "Rủi ro nằm ở…" / "Biến số tiếp theo là…"',
+            "",
+            "**Ví dụ SAI (quá nông):**",
+            '"Công nghệ và AI tiếp tục là điểm sáng thu hút vốn."',
+            "",
+            "**Ví dụ ĐÚNG (đủ chiều sâu):**",
+            '"Công nghệ và AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu công nghệ, '
+            "mà còn ở hạ tầng dữ liệu, bán dẫn, trung tâm dữ liệu và ứng dụng AI trong tài chính – sản xuất. "
+            "Các bài liên quan đến Nvidia, OpenAI, SpaceX hoặc doanh nghiệp công nghệ Việt Nam cần được nối "
+            'thành một bức tranh về dòng vốn, năng lực tính toán và cạnh tranh hạ tầng."',
+            "",
+            "**Hấp thụ dossier/subsector:**",
+            "- Nếu sector có nhiều `story_dossiers` hoặc `subsector_briefs` chất lượng, `sector_thesis` **phải** tổng hợp đủ ý chính từng cụm.",
+            "- **Không** bỏ qua dossier A/B chỉ vì muốn gọn; **không** lặp nguyên văn dossier.",
             "Link nguồn (`representative_sources` / pools) đặt **sau** khi đã viết xong thân bài — thân bài không được đọc như chuỗi excerpt.",
             "Không lặp nguyên văn `executive_briefing`; đi sâu hơn vào ngành đó.",
         ]
@@ -558,8 +578,9 @@ def _digest_sector_summary_rules_block(*, for_merge: bool = False) -> str:
     lines = [
         "## Đoạn ngành (`sector_thesis`)",
         "- Chỉ dùng candidates/pools đã crawl; **không bịa** actor, số liệu, hay sự kiện.",
-        "- Viết **bài tóm tắt ngành** nhiều đoạn — không cap độ dài; pool dày thì viết dài và có chiều sâu.",
+        "- Viết **bài tóm tắt ngành** nhiều đoạn — **không cap** độ dài; pool dày / nhiều dossier → viết dài và đủ lớp (thesis, clusters, Who–What–Why, impact, watch next).",
         "- Gom luồng A/B thành **câu chuyện liền mạch**; không chuỗi headline, không nối dossier summary rời.",
+        "- `sector_thesis` phải **hấp thụ** các cụm trong `story_dossiers`/`subsector_briefs` cùng sector — không bỏ cụm quan trọng vì muốn ngắn.",
     ]
     if for_merge:
         lines.append(_digest_sector_narrative_block())
@@ -2600,6 +2621,95 @@ def normalize_newsroom_brief(
     return enforce_newsroom_main_editorial_quality(out, url_index=url_index)
 
 
+_SECTOR_THESIS_STOPWORDS = frozenset(
+    {
+        "trong",
+        "theo",
+        "này",
+        "được",
+        "các",
+        "cho",
+        "với",
+        "từ",
+        "khi",
+        "một",
+        "nhiều",
+        "thị",
+        "trường",
+        "ngành",
+        "tin",
+        "bài",
+        "quá",
+        "48h",
+        "giờ",
+    }
+)
+
+_SHALLOW_SECTOR_THESIS_MARKERS = (
+    "tiếp tục là điểm sáng",
+    "tiếp tục là động lực",
+    "động lực tăng trưởng",
+    "đang tập trung vào",
+    "đẩy mạnh đầu tư",
+    "điểm sáng thu hút vốn",
+    "tâm điểm",
+    "nổi bật vì",
+)
+
+
+def _sector_thesis_entity_count(text: str) -> int:
+    return len(
+        re.findall(
+            r"\b(?:Bitcoin|Ethereum|Fed|VN-Index|Nvidia|OpenAI|SpaceX|Iran|Trump|FPT|"
+            r"World Cup|Brent|Alphabet|Microsoft|Iran|Hormuz|"
+            r"[A-ZÀ-Ỹ][\wÀ-ỹ]{2,})\b",
+            text,
+        )
+    )
+
+
+def _is_shallow_or_generic_sector_thesis(thesis: str) -> bool:
+    t = thesis.strip()
+    if not t:
+        return False
+    lower = t.lower()
+    sentence_breaks = len(re.findall(r"[.!?…]", t))
+    if sentence_breaks <= 1 and len(t) < 220:
+        return True
+    markers = sum(1 for m in _SHALLOW_SECTOR_THESIS_MARKERS if m in lower)
+    entities = _sector_thesis_entity_count(t)
+    if markers >= 1 and entities < 2 and len(t) < 420:
+        return True
+    return False
+
+
+def _dossier_title_keywords(title: str) -> list[str]:
+    words = re.findall(r"[\wÀ-ỹ]{5,}", str(title or ""))
+    out: list[str] = []
+    for w in words:
+        lw = w.lower()
+        if lw in _SECTOR_THESIS_STOPWORDS:
+            continue
+        out.append(lw)
+    return out[:4]
+
+
+def _sector_thesis_missing_dossier_clusters(thesis: str, dossiers: list[dict[str, Any]]) -> list[str]:
+    """Dossier titles whose main keywords do not appear in sector_thesis."""
+    lower = thesis.lower()
+    missing: list[str] = []
+    for d in dossiers:
+        if not isinstance(d, dict):
+            continue
+        title = str(d.get("title") or "").strip()
+        if not title:
+            continue
+        keys = _dossier_title_keywords(title)
+        if keys and not any(k in lower for k in keys):
+            missing.append(title)
+    return missing
+
+
 def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
     warnings: list[str] = []
     if not str(summary.get("editor_note") or "").strip():
@@ -2665,6 +2775,21 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
                 f"sector_deep_briefs[{i}] ({code}) sector_thesis quá ngắn "
                 f"({len(thesis)} ký tự) dù có {rich_dossiers} dossier — có thể giống nối dossier rời."
             )
+        if _is_shallow_or_generic_sector_thesis(thesis):
+            warnings.append(
+                f"sector_deep_briefs[{i}] ({code}) sector_thesis quá nông/generic — thiếu actor/sự kiện cụ thể."
+            )
+        elif len(thesis) >= 120 and _sector_thesis_entity_count(thesis) < 2:
+            warnings.append(
+                f"sector_deep_briefs[{i}] ({code}) sector_thesis thiếu thực thể/sự kiện cụ thể (tên, ticker, tổ chức)."
+            )
+        if rich_dossiers >= 2:
+            missing_clusters = _sector_thesis_missing_dossier_clusters(thesis, dossiers)
+            if len(missing_clusters) >= max(2, len(dossiers) // 2):
+                sample = ", ".join(missing_clusters[:3])
+                warnings.append(
+                    f"sector_deep_briefs[{i}] ({code}) sector_thesis chưa phản ánh cụm dossier chính: {sample}."
+                )
         leak_frags = (
             "chỉ nên xuất hiện",
             "không nên đưa vào",

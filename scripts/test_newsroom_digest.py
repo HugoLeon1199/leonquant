@@ -321,6 +321,9 @@ def test_merge_prompt_briefing_quality_guidance() -> None:
     assert "Kevin Warsh" in prompt or "Fed / chủ tịch Fed" in prompt
     assert "SpaceX" in prompt
     assert "48h thật" in prompt or "cửa sổ 48h" in prompt
+    assert "điểm sáng thu hút vốn" in prompt or "quá nông" in prompt
+    assert "Main clusters" in prompt or "cụm tin chính" in prompt
+    assert "hấp thụ" in prompt.lower() or "Hấp thụ dossier" in prompt
 
 
 def test_main_editorial_story_cluster_dedupe() -> None:
@@ -417,8 +420,17 @@ def test_sanitize_preserves_source_excerpt() -> None:
 def test_build_newsroom_extras() -> None:
     from build_website_content import build_newsroom_web_extras
 
+    articles = _mock_articles()
     raw = normalize_newsroom_brief(_fixture())
-    extras = build_newsroom_web_extras(raw, _mock_articles())
+    fin_src = articles[1]["url"]
+    fin_sec_raw = raw["sector_deep_briefs"][0]
+    for sb in fin_sec_raw.get("subsector_briefs") or []:
+        if isinstance(sb, dict) and sb.get("representative_sources"):
+            sb["representative_sources"][0]["url"] = fin_src
+    for d in fin_sec_raw.get("story_dossiers") or []:
+        if isinstance(d, dict) and d.get("representative_sources"):
+            d["representative_sources"][0]["url"] = fin_src
+    extras = build_newsroom_web_extras(raw, articles)
     eb_content = str((extras.get("executiveBriefing") or {}).get("content") or "")
     assert eb_content
     assert "48 giờ qua" in eb_content or "LeonQuant" not in eb_content
@@ -426,7 +438,8 @@ def test_build_newsroom_extras() -> None:
     fin_sec = (extras.get("sectorDeepBriefs") or [])[0]
     if fin_sec:
         assert "links" in fin_sec
-        assert fin_sec.get("storyDossiers") == []
+        assert len(fin_sec.get("storyDossiers") or []) >= 1
+        assert len(fin_sec.get("subsectorBriefs") or []) >= 1
         thesis = str(fin_sec.get("sectorThesis") or "")
         assert len(thesis) > 80
         assert "Bitcoin" in thesis or "crypto" in thesis.lower()
@@ -435,6 +448,52 @@ def test_build_newsroom_extras() -> None:
     if crypto and crypto.get("links"):
         hosts = [str(l.get("host") or "") for l in crypto["links"]]
         assert not any("vietnamnet" in h for h in hosts)
+
+
+def test_sector_thesis_depth_validation() -> None:
+    shallow = {
+        "brief_format": NEWSROOM_BRIEF_FORMAT,
+        "executive_briefing": {"content": "x" * 600, "sections": {}, "representative_sources": []},
+        "front_page": [
+            {
+                "rank": 1,
+                "title": "A",
+                "one_sentence": "B",
+                "why_it_matters": "C",
+                "watch_next": "D",
+                "source_urls": [],
+            }
+        ]
+        * 3,
+        "sector_deep_briefs": [
+            {
+                "code": "tech",
+                "name": "Công nghệ & AI",
+                "sector_thesis": "Công nghệ và AI tiếp tục là điểm sáng thu hút vốn.",
+                "story_dossiers": [
+                    {
+                        "title": "Nvidia huy động vốn cho hạ tầng AI",
+                        "why_it_matters": "Ảnh hưởng capex chip.",
+                        "main_developments": ["A", "B"],
+                        "representative_sources": [{"url": "https://example.com/a"}],
+                    },
+                    {
+                        "title": "OpenAI mở rộng trung tâm dữ liệu",
+                        "why_it_matters": "Kéo nhu cầu điện.",
+                        "main_developments": ["C", "D"],
+                        "representative_sources": [{"url": "https://example.com/b"}],
+                    },
+                ],
+            },
+            {"code": "finance", "name": "Kinh tế", "sector_thesis": "x" * 900, "story_dossiers": []},
+            {"code": "news", "name": "Thời sự", "sector_thesis": "y" * 900, "story_dossiers": []},
+            {"code": "trends", "name": "Xu hướng", "sector_thesis": "z" * 900, "story_dossiers": []},
+        ],
+    }
+    warns = validate_newsroom_brief(shallow)
+    joined = " ".join(warns)
+    assert "quá nông/generic" in joined
+    assert "chưa phản ánh cụm dossier" in joined or "Nvidia" in joined
 
 
 if __name__ == "__main__":
@@ -448,5 +507,6 @@ if __name__ == "__main__":
     test_main_editorial_rejects_bad_urls_and_titles()
     test_archive_link_index_unchanged()
     test_sanitize_preserves_source_excerpt()
+    test_sector_thesis_depth_validation()
     test_build_newsroom_extras()
     print("OK: newsroom digest tests passed")
