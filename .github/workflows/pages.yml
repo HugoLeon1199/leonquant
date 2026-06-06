@@ -42,12 +42,24 @@ jobs:
       - name: Install build deps (DuckDB published_at enrich)
         run: pip install duckdb pandas
 
+      - name: Restore DuckDB cache (crawl gần — ưu tiên hơn .gz seed)
+        uses: actions/cache@v4
+        id: cache-intel-db
+        with:
+          path: data/web_intel_leonquant.duckdb
+          key: intel-digest-db-v4-${{ hashFiles('data/web_intel_leonquant.duckdb.gz', 'config/sources_seed.txt', 'leon_web_intel/config/crawl_rules.yaml', 'config/tiers/*.txt') }}
+          restore-keys: |
+            intel-digest-db-v4-
+            intel-digest-db-v3-
+
       - name: Bootstrap DuckDB seed (published_at / extracted_at cho link)
         run: |
           mkdir -p data
           if [ ! -f data/web_intel_leonquant.duckdb ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
             gunzip -c data/web_intel_leonquant.duckdb.gz > data/web_intel_leonquant.duckdb
-            echo "Bootstrapped DuckDB ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
+            echo "Bootstrapped DuckDB from .gz ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
+          elif [ -f data/web_intel_leonquant.duckdb ]; then
+            echo "Using DuckDB ($(du -h data/web_intel_leonquant.duckdb | cut -f1)) cache=${{ steps.cache-intel-db.outputs.cache-hit }}"
           fi
 
       - name: Dựng content.json (từ gemini_digest_summary + bài đã lọc)

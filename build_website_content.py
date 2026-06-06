@@ -2671,12 +2671,25 @@ def _link_published_at(*, art: dict[str, Any] | None, src: dict[str, Any] | None
     return ""
 
 
+def _combine_pub_date_with_extracted_time(pub_date: str, extracted_iso: str) -> str:
+    """Gắn giờ crawl vào ngày đăng khi DB chỉ lưu YYYY-MM-DD (tránh hiển thị ngày crawl)."""
+    pd = str(pub_date or "").strip()[:10]
+    if len(pd) != 10 or pd[4] != "-" or pd[7] != "-":
+        return extracted_iso
+    ext = _published_at_to_iso(extracted_iso) or str(extracted_iso or "").strip()
+    if not ext or "T" not in ext:
+        return pd
+    return f"{pd}T{ext.split('T', 1)[1]}"
+
+
 def _article_display_timestamp(published: Any, extracted: Any) -> str:
-    """Ưu tiên giờ đăng đầy đủ; nếu DB chỉ có ngày thì dùng extracted_at (crawl)."""
-    pub = _published_at_to_iso(published) or str(published or "").strip()
+    """Ưu tiên giờ đăng đầy đủ; ngày-only + extracted_at → ngày đăng + giờ crawl."""
+    pub = _clean_published_at(_published_at_to_iso(published) or str(published or "").strip())
     if pub and _timestamp_has_clock(pub):
         return pub
-    ext = _published_at_to_iso(extracted) or str(extracted or "").strip()
+    ext = _clean_published_at(_published_at_to_iso(extracted) or str(extracted or "").strip())
+    if pub and ext and not _timestamp_has_clock(pub):
+        return _combine_pub_date_with_extracted_time(pub, ext)
     if ext:
         return ext
     return pub
