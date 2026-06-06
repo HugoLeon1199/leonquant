@@ -1687,7 +1687,7 @@ def _links_from_urls(
                 "host": host,
                 "source": src,
                 "label": _link_display_label(host, src),
-                "publishedAt": _published_at_to_iso((art or {}).get("published_at")),
+                "publishedAt": _link_published_at(art=art),
             }
         )
     return out
@@ -1953,7 +1953,7 @@ def build_digest_web_extras(
             "title": str(a.get("title") or "").strip() or _url_hostname(str(a.get("url") or "")),
             "url": str(a.get("url") or "").strip(),
             "source": str(a.get("source") or "").strip(),
-            "publishedAt": str(a.get("published_at") or "").strip(),
+            "publishedAt": _link_published_at(art=a) or _clean_published_at(a.get("published_at")),
             "host": _url_hostname(str(a.get("url") or "")),
             "image_url": str(a.get("image_url") or "").strip(),
         }
@@ -2005,10 +2005,7 @@ def _newsroom_sources_to_links(
         art = by_url.get(u)
         host = _url_hostname(u)
         excerpt = str(src.get("excerpt") or "").strip() or _article_excerpt(art)
-        published = (
-            str(src.get("published_at") or src.get("publishedAt") or "").strip()
-            or _published_at_to_iso((art or {}).get("published_at"))
-        )
+        published = _link_published_at(art=art, src=src)
         links.append(
             {
                 "url": u,
@@ -2641,6 +2638,39 @@ def _timestamp_has_clock(iso_or_raw: str) -> bool:
     return len(s) > 10 and s[10:11] in (" ", "T")
 
 
+def _clean_published_at(val: Any) -> str:
+    s = str(val or "").strip()
+    if not s or s.lower() in ("nan", "none", "null"):
+        return ""
+    return s
+
+
+def _needs_published_db_enrich(art: dict[str, Any]) -> bool:
+    u = str(art.get("url") or "").strip()
+    if not u:
+        return False
+    pub = _clean_published_at(art.get("published_at"))
+    return not pub or not _timestamp_has_clock(pub)
+
+
+def _link_published_at(*, art: dict[str, Any] | None, src: dict[str, Any] | None = None) -> str:
+    """Giờ hiển thị cạnh link — ưu tiên timestamp có giờ từ bài crawl."""
+    candidates: list[Any] = []
+    if art:
+        candidates.append(art.get("published_at"))
+    if src:
+        candidates.extend([src.get("published_at"), src.get("publishedAt")])
+    for raw in candidates:
+        iso = _clean_published_at(_published_at_to_iso(raw) or raw)
+        if iso and _timestamp_has_clock(iso):
+            return iso
+    for raw in candidates:
+        iso = _clean_published_at(_published_at_to_iso(raw) or raw)
+        if iso:
+            return iso
+    return ""
+
+
 def _article_display_timestamp(published: Any, extracted: Any) -> str:
     """Ưu tiên giờ đăng đầy đủ; nếu DB chỉ có ngày thì dùng extracted_at (crawl)."""
     pub = _published_at_to_iso(published) or str(published or "").strip()
@@ -2676,12 +2706,13 @@ def _enrich_articles_from_intel_db(articles: list[dict[str, Any]]) -> list[dict[
     intel = _resolve_intel_root()
     if not intel:
         return articles
-    need_urls = [
-        str(a.get("url") or "").strip()
-        for a in articles
-        if str(a.get("url") or "").strip()
-        and not str(a.get("published_at") or "").strip()
-    ]
+    need_urls = list(
+        dict.fromkeys(
+            str(a.get("url") or "").strip()
+            for a in articles
+            if _needs_published_db_enrich(a)
+        )
+    )
     if not need_urls:
         return articles
     meta_by_url: dict[str, dict[str, Any]] = {}
@@ -2715,15 +2746,18 @@ def _enrich_articles_from_intel_db(articles: list[dict[str, Any]]) -> list[dict[
     for art in articles:
         row = dict(art)
         u = str(row.get("url") or "").strip()
+        row["published_at"] = _clean_published_at(row.get("published_at"))
         meta = meta_by_url.get(u) if u else None
-        if meta and not str(row.get("published_at") or "").strip():
-            iso = _article_display_timestamp(meta.get("published_at"), meta.get("extracted_at"))
-            if iso:
-                row["published_at"] = iso
-        elif meta and not _timestamp_has_clock(str(row.get("published_at") or "")):
-            iso = _article_display_timestamp(row.get("published_at"), meta.get("extracted_at"))
-            if iso and _timestamp_has_clock(iso):
-                row["published_at"] = iso
+        if meta:
+            iso = _article_display_timestamp(
+                row.get("published_at") or meta.get("published_at"),
+                meta.get("extracted_at"),
+            )
+            if iso and (
+                not row.get("published_at") or not _timestamp_has_clock(str(row.get("published_at")))
+            ):
+                if _timestamp_has_clock(iso) or not row.get("published_at"):
+                    row["published_at"] = iso
         if not str(row.get("source") or "").strip():
             sid = str((meta or {}).get("source_id") or "").strip()
             row["source"] = sid or _url_hostname(u)
@@ -2743,6 +2777,7 @@ def articles_payload_from_for_ai(path: Path) -> dict[str, Any]:
             continue
         text = str(row.get("text") or row.get("content_for_ai") or "").strip()
         published = _published_at_to_iso(row.get("published_at")) or str(row.get("published_at") or "").strip()
+        published = _clean_published_at(published)
         source = str(row.get("source") or "").strip() or _url_hostname(url)
         articles.append(
             {

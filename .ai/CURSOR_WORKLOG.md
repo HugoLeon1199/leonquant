@@ -420,3 +420,9 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Rebuild:** `node scripts/embed_public_brief_into_html.mjs landing_page.html content.json` (+ pulse/invest VN nếu có JSON).
 
+## 2026-06-06 — Fix giờ đăng link (publishedAt từ DuckDB extracted_at)
+
+**Nguyên nhân:** `news_for_ai_clean.json` chỉ có ngày (`2026-05-23`); `_enrich_articles_from_intel_db` bỏ qua vì coi là “đã có published_at” → web hiển thị giờ cũ/sai (00:07 +7).
+
+**Fix:** `build_website_content.py` — enrich cả link thiếu giờ; dùng `extracted_at` từ DuckDB; `_link_published_at()` cho sector links. JS `enrichLinkPublishedAt` nâng date-only lên ISO có giờ. Rebuild `content.json` + embed HTML.
+

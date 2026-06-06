@@ -15,8 +15,10 @@ export function escapeHtml(value) {
 /** Giờ đăng bài / timestamp hiển thị cạnh link — múi giờ Việt Nam (+7). */
 export function formatDateVi(value) {
   if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return String(value);
+  const raw = String(value).trim();
+  if (!raw || raw.toLowerCase() === "nan") return "";
+  const date = new Date(raw);
+  if (Number.isNaN(date.getTime())) return raw;
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Ho_Chi_Minh",
     year: "numeric",
@@ -252,12 +254,25 @@ function buildNewsroomIssueHeader(data) {
   </header>`;
 }
 
+function timestampHasClock(value) {
+  const s = String(value || "").trim();
+  if (!s || s.toLowerCase() === "nan") return false;
+  if (s.includes("T")) return true;
+  return s.length > 10 && (s[10] === " " || s[10] === "T");
+}
+
 function buildArticlePublishedLookup(data) {
   const map = new Map();
   const add = (url, ts) => {
     const u = normalizeExternalUrl(url);
     const t = String(ts || "").trim();
-    if (u && t && !map.has(u)) map.set(u, t);
+    if (!u || !t || t.toLowerCase() === "nan") return;
+    const prev = map.get(u);
+    if (!prev) {
+      map.set(u, t);
+      return;
+    }
+    if (!timestampHasClock(prev) && timestampHasClock(t)) map.set(u, t);
   };
   for (const a of Array.isArray(data?.articleLinkIndex) ? data.articleLinkIndex : []) {
     add(a?.url, a?.publishedAt || a?.published_at);
@@ -270,10 +285,21 @@ function buildArticlePublishedLookup(data) {
 
 function enrichLinkPublishedAt(lk, lookup) {
   if (!lk || typeof lk !== "object") return lk;
-  if (String(lk.publishedAt || lk.published_at || "").trim()) return lk;
+  const cur = String(lk.publishedAt || lk.published_at || "").trim();
+  const curBad = !cur || cur.toLowerCase() === "nan";
   const u = normalizeExternalUrl(lk.url);
   const ts = lookup?.get(u);
-  return ts ? { ...lk, publishedAt: ts } : lk;
+  if (curBad && ts) return { ...lk, publishedAt: ts };
+  if (cur && !timestampHasClock(cur) && ts && timestampHasClock(ts)) {
+    return { ...lk, publishedAt: ts };
+  }
+  if (curBad) {
+    const next = { ...lk };
+    delete next.publishedAt;
+    delete next.published_at;
+    return next;
+  }
+  return lk;
 }
 
 function collectSectorLinks(sec, lookup) {
