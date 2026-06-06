@@ -505,3 +505,19 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py` · `node scripts/embed_public_invest_vn_into_html.mjs landing_page.html invest_vn_brief.json`
 
+## 2026-06-06 — Kinh tế đầu tư: now_watch under Vietnam section (structure only)
+
+**Scope:** `landing_page.html` (invest VN renderer + CSS), `scripts/embed_public_invest_vn_into_html.mjs`, `.ai/CURSOR_WORKLOG.md`.
+
+| Change | Detail |
+|--------|--------|
+| Structure | `now_watch` stays in JSON; rendered **inside** section **02 Việt Nam & thị trường trong nước** |
+| Label | Subsection **“Theo dõi tiếp”** (no section number); removed standalone **03 Đang theo dõi** |
+| Filter | Skip watch items without valid source link or with weak/stale content (>21d vs digest) |
+| Main sections | **01** Biến số toàn cầu · **02** Việt Nam & thị trường trong nước only |
+| No quick index / quick-read | Confirmed unchanged |
+| Prompts | No sentence/word/character cap in invest prompts (unchanged this patch) |
+| Unchanged | Tin48h tab, World LIVE, top nav, crawler, data generation outside invest |
+
+**Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py` · `node scripts/embed_public_invest_vn_into_html.mjs landing_page.html invest_vn_brief.json`
+

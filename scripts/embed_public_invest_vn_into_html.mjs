@@ -74,6 +74,57 @@ function buildInvestMajorHead(num, titleHtml, sub, tone) {
   return h;
 }
 
+function investVnWatchValidLinks(links) {
+  if (!Array.isArray(links)) return [];
+  return links
+    .map((lk) => ({
+      url: normalizeExternalUrl(lk?.url),
+      title: String(lk?.title || "").trim(),
+      source: String(lk?.source || "").trim(),
+      publishedAt: String(lk?.publishedAt || lk?.published_at || "").trim(),
+    }))
+    .filter(
+      (lk) =>
+        lk.url.startsWith("http") &&
+        (lk.source.length >= 2 || lk.title.length >= 4),
+    );
+}
+
+function parseInvestDigestMs(iso) {
+  if (!iso) return NaN;
+  const t = new Date(iso).getTime();
+  return Number.isNaN(t) ? NaN : t;
+}
+
+function isUsefulNowWatchItem(nw, digestAtIso) {
+  if (!nw || typeof nw !== "object") return false;
+  const title = String(nw.title || "").trim();
+  if (title.length < 4) return false;
+  const validLinks = investVnWatchValidLinks(nw.links);
+  if (!validLinks.length) return false;
+  const issue = String(nw.issue || "").trim();
+  const watchVars = String(nw.watch_variables || "").trim();
+  const affected = String(nw.affected_groups || "").trim();
+  if (!issue && !watchVars && !affected) return false;
+  const digestMs = parseInvestDigestMs(digestAtIso);
+  if (Number.isFinite(digestMs)) {
+    const maxAgeMs = 21 * 24 * 60 * 60 * 1000;
+    let newestLinkMs = -Infinity;
+    for (const lk of validLinks) {
+      const pMs = parseInvestDigestMs(lk.publishedAt);
+      if (Number.isFinite(pMs)) newestLinkMs = Math.max(newestLinkMs, pMs);
+    }
+    if (Number.isFinite(newestLinkMs) && digestMs - newestLinkMs > maxAgeMs) return false;
+  }
+  return true;
+}
+
+function filterUsefulNowWatch(watch, digestAtIso) {
+  return (Array.isArray(watch) ? watch : []).filter((nw) =>
+    isUsefulNowWatchItem(nw, digestAtIso),
+  );
+}
+
 function buildVnLinksHtml(links) {
   if (!Array.isArray(links) || !links.length) return "";
   let h = `<ul class="invest-vn-link-rows">`;
@@ -92,9 +143,48 @@ function buildVnLinksHtml(links) {
   return h;
 }
 
+function buildInvestVnWatchSubsectionHtml(watchItems) {
+  if (!watchItems.length) return "";
+  let h = `<div id="invest-watch" class="invest-vn-watch-block">`;
+  h += `<h4 class="invest-vn-watch-kicker">Theo dõi tiếp</h4>`;
+  h += `<ul class="invest-vn-watch-list">`;
+  for (const nw of watchItems) {
+    h += `<li class="invest-vn-watch">`;
+    h += investFieldRow(
+      "Chủ đề",
+      `<h5 class="invest-vn-watch-title">${escapeHtml(nw.title)}</h5>` +
+        (nw.status
+          ? `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`
+          : ""),
+    );
+    if (nw.issue) {
+      h += investFieldRow(
+        "Diễn biến chính",
+        `<p class="invest-vn-watch-body">${escapeHtml(nw.issue)}</p>`,
+      );
+    }
+    const watchBits = [];
+    if (nw.affected_groups) watchBits.push(String(nw.affected_groups).trim());
+    if (nw.watch_variables) watchBits.push(String(nw.watch_variables).trim());
+    if (watchBits.length) {
+      h += investFieldRow(
+        "Nhóm ảnh hưởng / biến số theo dõi",
+        investBadgeRow(watchBits, "watch"),
+      );
+    }
+    const linksHtml = buildVnLinksHtml(investVnWatchValidLinks(nw.links));
+    if (linksHtml) h += investFieldRow("Nguồn", linksHtml);
+    h += `</li>`;
+  }
+  h += `</ul></div>`;
+  return h;
+}
+
 function buildInvestVnHtml(data) {
   const themes = Array.isArray(data.themes_48h) ? data.themes_48h : [];
   const watch = Array.isArray(data.now_watch) ? data.now_watch : [];
+  const digestAtIso = data.source_digest_at || data.generated_at_utc || "";
+  const watchUseful = filterUsefulNowWatch(watch, digestAtIso);
   const updated = formatDateVi(data.source_digest_at || data.generated_at_utc);
   let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1">`;
   h += buildInvestMajorHead(
@@ -144,48 +234,8 @@ function buildInvestVnHtml(data) {
     }
     h += `</ol>`;
   }
-  if (watch.length) {
-    h += `<div id="invest-watch" class="invest-vn-watch-block">`;
-    h += buildInvestMajorHead(
-      "03",
-      "Đang theo dõi",
-      "Biến số và chủ đề cần theo dõi tiếp",
-      "watch",
-    );
-    h += `<ul class="invest-vn-watch-list">`;
-    for (const nw of watch) {
-      h += `<li class="invest-vn-watch">`;
-      h += investFieldRow(
-        "Chủ đề",
-        `<h5 class="invest-vn-watch-title">${escapeHtml(nw.title)}</h5>` +
-          (nw.status
-            ? `<p class="invest-vn-watch-status"><span class="invest-vn-status-pill">${escapeHtml(nw.status)}</span></p>`
-            : ""),
-      );
-      if (nw.issue) {
-        h += investFieldRow(
-          "Diễn biến chính",
-          `<p class="invest-vn-watch-body">${escapeHtml(nw.issue)}</p>`,
-        );
-      }
-      const watchBits = [];
-      if (nw.affected_groups) watchBits.push(String(nw.affected_groups).trim());
-      if (nw.watch_variables) watchBits.push(String(nw.watch_variables).trim());
-      if (watchBits.length) {
-        h += investFieldRow(
-          "Nhóm ảnh hưởng / biến số theo dõi",
-          investBadgeRow(watchBits, "watch"),
-        );
-      }
-      const linksHtml = buildVnLinksHtml(nw.links);
-      if (linksHtml) h += investFieldRow("Nguồn", linksHtml);
-      h += `</li>`;
-    }
-        h += `</ul></div>`;
-      } else {
-        h += `<div id="invest-watch" class="invest-vn-watch-block" hidden aria-hidden="true"></div>`;
-      }
-      if (!themes.length && !watch.length) {
+  h += buildInvestVnWatchSubsectionHtml(watchUseful);
+  if (!themes.length && !watchUseful.length && !data.lead) {
     h += `<p class="hint">Chưa có phân tích VN. Chạy digest ngày hoặc kiểm tra invest_vn_brief.json.</p>`;
   }
   if (data.gaps) {
