@@ -521,3 +521,20 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py` · `node scripts/embed_public_invest_vn_into_html.mjs landing_page.html invest_vn_brief.json`
 
+## 2026-06-06 — Kinh tế đầu tư: Gemini prompt professionalism (invest only)
+
+**Scope:** `leon.py` (invest editorial constants + all invest Gemini prompts), `scripts/build_invest_vn_brief.py`, `.ai/CURSOR_WORKLOG.md`.
+
+| Change | Detail |
+|--------|--------|
+| Memo structure | Fact / Context / Transmission / Implication / Watch / Uncertainty — cover in prose, no mechanical labels |
+| Specificity | Entity detail rule — expand vague phrases when source has names/agencies/numbers |
+| Transmission | investment_angle / investor_lens must name impact channel when possible |
+| Caution | Separate fact from implication; no buy/sell; cautious wording |
+| Relevance | Do not force weak investment angles |
+| Legal / market / policy | Domain-specific fields when source supports |
+| Length | No fixed sentence/word/character cap — completeness by importance |
+| Unchanged | Tin48h, World LIVE, UI/layout, nav, crawler, data schema |
+
+**Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py`
+

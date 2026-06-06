@@ -20,6 +20,10 @@ from urllib.parse import urlparse
 import google.generativeai as genai
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from leon import invest_editorial_rules_block
 DEFAULT_CONTENT = ROOT / "content.json"
 DEFAULT_OUT = ROOT / "invest_vn_brief.json"
 WEB_OUT = ROOT / "web" / "invest_vn_brief.json"
@@ -277,15 +281,14 @@ def gemini_analyze_vn(pack: dict[str, Any]) -> dict[str, Any]:
     model = genai.GenerativeModel(model_name)
 
     pack_json = json.dumps(pack, ensure_ascii=False, indent=2)
+    editorial = invest_editorial_rules_block()
     prompt = f"""
-Bạn là biên tập chuyên mục kinh tế đầu tư Việt Nam của LeonQuant (văn phong trung lập, giống bản tin nghiên cứu).
+Bạn là biên tập chuyên mục kinh tế đầu tư Việt Nam của LeonQuant (văn phong trung lập, giống memo nghiên cứu đầu tư chuyên nghiệp).
 
 CHỈ dùng dữ liệu trong "input_pack" (digest 48 giờ, nguồn trong nước). Không bịa số liệu/sự kiện ngoài pack.
 Không khuyến nghị mua/bán/múc. Không dùng "nên mua", "cơ hội chắc chắn". Không nhắc AI, crawler, GDELT, pipeline.
 
-Không giới hạn số câu/số chữ. Tóm tắt phải đúng, đủ ý và bám sát dữ liệu nguồn. Tin quan trọng hoặc phức tạp có thể viết dài hơn để giải thích đủ bối cảnh, chủ thể, diễn biến, tác động và biến số theo dõi. Tin nhỏ thì viết gọn. Không viết dài để lấp chỗ, không rút ngắn đến mức mất ý chính.
-- Lần đầu nhắc phải xác định rõ chủ thể: ví dụ "Tổng thống Mỹ Donald Trump" (không chỉ "Trump"); "cổ phiếu công ty công nghệ FPT" (không chỉ "FPT"); "Cục Dự trữ Liên bang Mỹ (Fed)" (không chỉ "Fed"). Giải thích bối cảnh công ty/thị trường/sự kiện khi cần.
-- Mỗi mục quan trọng phải trả lời: Ai/cái gì? Chuyện gì đã xảy ra? Vì sao quan trọng với thị trường/ngành/chính sách? Cần theo dõi gì tiếp theo?
+{editorial}
 
 1) themes_48h — 3–5 chủ đề NỔI BẬT NHẤT 48 giờ. Mỗi theme MỘT trục logic rõ:
    chính sách tiền tệ/thuế | BĐS-hạ tầng | ngân hàng-số hóa/rủi ro vận hành | năng lượng | xuất khẩu-thương mại…
@@ -297,21 +300,21 @@ Không giới hạn số câu/số chữ. Tóm tắt phải đúng, đủ ý và
    - title: cụ thể, trung lập, không giật tít. Tránh cụm kiểu "siết chặt quản lý thuế và kỷ luật thị trường tiền tệ".
      Ưu tiên góc điều hành rõ, ví dụ: "Kỷ luật tài chính và định hướng giảm lãi suất hỗ trợ tăng trưởng";
      "Ngân hàng tăng tốc số hóa, rủi ro bảo mật tài khoản nổi lên".
-   - why_hot: vì sao được quan tâm — đủ ý, có bối cảnh; không giới hạn số câu/từ.
-   - developments: bullet diễn biến cụ thể, đủ chi tiết từ pack; KHÔNG dính tên báo vào cuối câu (tách nguồn qua links).
-   - investor_lens (Góc đầu tư): TRUNG LẬP, đủ ý; phải nêu nhóm ngành/tài sản/doanh nghiệp bị ảnh hưởng; không giới hạn độ dài.
+   - why_hot: vì sao được quan tâm — đủ ý, có bối cảnh; không giới hạn số câu/từ; tránh câu mơ hồ nếu pack có tên/chức/cơ quan/số liệu cụ thể.
+   - developments: bullet diễn biến cụ thể từ pack (tên, cơ quan, quyết định, số liệu khi có); KHÔNG dính tên báo vào cuối câu (tách nguồn qua links).
+   - investor_lens (Góc đầu tư): TRUNG LẬP, memo phân tích — nêu kênh truyền tác động, nhóm ngành/tài sản, biến số theo dõi, điểm chưa rõ; không giới hạn độ dài.
      Dùng: "biến số cần theo dõi", "tác động phụ thuộc vào", "nhóm có thể chịu ảnh hưởng".
      KHÔNG dùng: "tín hiệu tích cực cho thanh khoản", "tác động trực tiếp" khi chưa rõ.
      Ví dụ: "Việc tháo gỡ pháp lý là biến số cần theo dõi với nhóm bất động sản, xây dựng và hạ tầng; tác động thực tế phụ thuộc vào tiến độ phê duyệt, giải ngân và khả năng chuyển hóa thành doanh thu."
    - links: chỉ url có trong pack; source là tên báo riêng (vd. "Báo Chính phủ"), không ghép vào cuối bullet.
 
-2) now_watch — mục đang theo dõi (status: "đang diễn ra" hoặc "sắp có").
+2) now_watch — mục theo dõi tiếp (status: "đang diễn ra" hoặc "sắp có"); chỉ thêm nếu có góc VN rõ và nguồn trong pack.
    Mỗi mục BẮT BUỘC có:
-   - title
-   - issue (Vấn đề — đủ ý, không giới hạn độ dài)
+   - title (cụ thể, không mơ hồ nếu pack có chi tiết)
+   - issue (dữ kiện + bối cảnh — đủ ý, không giới hạn độ dài; tách suy luận khỏi fact)
    - affected_groups (Nhóm ảnh hưởng — liệt kê ngành/nhóm)
-   - watch_variables (Biến số cần theo dõi — đủ ý)
-   - links nếu có
+   - watch_variables (Biến số cần theo dõi — kênh tác động + điểm chưa rõ nếu có)
+   - links nếu có (chỉ url trong pack)
 
 lead: tổng quan VN 48h, trung lập, có mạch (điều hành → ngành → biến số theo dõi); không giới hạn số câu/từ.
    Tốt: "trọng tâm điều hành tập trung vào hỗ trợ tăng trưởng, tháo gỡ pháp lý cho hạ tầng/bất động sản và tăng kỷ luật tài chính."

@@ -66,17 +66,87 @@ INVEST_CURATION_POOL = 220
 INVEST_MARKET_ENTITY_MIN_ARTICLES = 30
 INVEST_PUBLIC_FEED_LABEL = "các diễn biến kinh tế - thị trường đáng chú ý"
 INVEST_EDITORIAL_LENGTH_RULE = (
-    "Không giới hạn số câu/số chữ. Tóm tắt phải đúng, đủ ý và bám sát dữ liệu nguồn. "
-    "Tin quan trọng hoặc phức tạp có thể viết dài hơn để giải thích đủ bối cảnh, chủ thể, diễn biến, "
-    "tác động và biến số theo dõi. Tin nhỏ thì viết gọn. Không viết dài để lấp chỗ, "
-    "không rút ngắn đến mức mất ý chính."
+    "Không giới hạn số câu/số chữ. Độ dài phụ thuộc vào mức độ quan trọng, độ phức tạp và độ dày dữ liệu nguồn. "
+    "Tin quan trọng hoặc phức tạp có thể viết dài hơn để giải thích đủ bối cảnh, chủ thể, diễn biến, tác động và biến số theo dõi. "
+    "Tin nhỏ thì viết gọn. Không viết dài để lấp chỗ, không rút ngắn đến mức mất ý chính."
+)
+INVEST_EDITORIAL_MEMO_RULE = (
+    "Cấu trúc memo phân tích (không in nhãn Fact/Context… ra output, nhưng nội dung phải cover khi nguồn hỗ trợ):\n"
+    "- Fact: dữ kiện nguồn nói gì?\n"
+    "- Context: bối cảnh chính sách/ngành/thị trường là gì?\n"
+    "- Transmission channel: tác động đi qua kênh nào?\n"
+    "- Investment implication: ý nghĩa gì với nhà đầu tư/ngành/tài sản?\n"
+    "- Watch variables: cần theo dõi gì tiếp theo?\n"
+    "- Uncertainty: điểm nào còn chưa rõ?"
+)
+INVEST_EDITORIAL_SPECIFICITY_RULE = (
+    "Độ cụ thể & thực thể: không tóm tắt mơ hồ nếu nguồn có chi tiết. "
+    "Ưu tiên tên đầy đủ người/tổ chức/công ty/cơ quan, chức danh, ngành/thị trường, bối cảnh, "
+    "chính sách/buộc tội/quyết định/số liệu/dự án cụ thể, và vì sao quan trọng.\n"
+    "Tránh khi nguồn có chi tiết hơn: \"một số lãnh đạo\" → tên/chức/đơn vị; "
+    "\"cơ quan chức năng\" → tên cơ quan; \"doanh nghiệp lớn\" → tên công ty + ngành; "
+    "\"FPT\" → \"công ty công nghệ FPT\" hoặc \"cổ phiếu công ty công nghệ FPT\"; "
+    "\"Trump\" → \"Tổng thống Mỹ Donald Trump\" (lần đầu); "
+    "\"Fed\" → \"Cục Dự trữ Liên bang Mỹ (Fed)\" (lần đầu); "
+    "\"ngày hội bóng đá lớn nhất hành tinh\" → \"World Cup 2026\" nếu đúng sự kiện."
+)
+INVEST_EDITORIAL_TRANSMISSION_RULE = (
+    "Kênh truyền tác động (investment_angle / investor_lens phải nêu kênh khi có thể): "
+    "lãi suất/tỷ giá/USD; giá dầu/vàng/hàng hóa; chi phí đầu vào; tín dụng/thanh khoản; "
+    "pháp lý/quản trị/điều tra; tiêu dùng/nhu cầu; chuỗi cung ứng; ngân sách/đầu tư công; "
+    "định giá/tâm lý thị trường; doanh thu/biên lợi nhuận/tiến độ dự án.\n"
+    "Tránh: \"Vụ việc có thể ảnh hưởng đến ngành điện.\" "
+    "Tốt hơn: \"Vụ việc làm tăng rủi ro quản trị trong ngành điện; biến số cần theo dõi là phạm vi điều tra, "
+    "đơn vị/dự án liên quan và khả năng tác động tới tiến độ đầu tư hoặc tâm lý thị trường đối với nhóm năng lượng.\""
+)
+INVEST_EDITORIAL_CAUTION_RULE = (
+    "Tách bản chất và suy luận: không trình bày suy luận như sự thật. "
+    "Dùng: \"có thể ảnh hưởng\", \"phụ thuộc vào\", \"cần theo dõi\", \"chưa rõ phạm vi\", "
+    "\"theo nguồn công bố\", \"nếu thông tin này mở rộng sang…\".\n"
+    "Không viết: \"sẽ làm cổ phiếu tăng/giảm\", \"chắc chắn tác động\", \"đây là cơ hội\", "
+    "\"tín hiệu tích cực mạnh\" — trừ khi nguồn nêu rõ và vẫn viết thận trọng."
+)
+INVEST_EDITORIAL_RELEVANCE_RULE = (
+    "Không ép góc đầu tư: tin liên quan yếu → tóm tắt trung lập, không phóng đại tác động thị trường; "
+    "hạ ưu tiên nếu có thể; nói rõ tác động gián tiếp hoặc hạn chế nếu không đủ cơ sở."
+)
+INVEST_EDITORIAL_LEGAL_RULE = (
+    "Tin điều tra/khởi tố/xét xử/phạt/kiểm tra/quản trị/vi phạm đấu thầu/ngân hàng-CK-BĐS-đầu tư công: "
+    "nêu (nếu nguồn có) tên người/tổ chức, chức danh/đơn vị, nội dung cáo buộc/vi phạm, dự án/công ty/ngành liên quan, "
+    "vì sao quan trọng với quản trị/rủi ro chính sách/trì hoãn dự án/tâm lý ngành. "
+    "Không suy diễn có tội vượt quá wording nguồn."
+)
+INVEST_EDITORIAL_MARKET_RULE = (
+    "Tin thị trường/cổ phiếu/tài sản/doanh nghiệp: nêu (nếu nguồn có) tên công ty/tài sản, ngành, "
+    "biến động/số liệu chính, lý do nguồn đưa ra, nhóm bị ảnh hưởng, biến số theo dõi tiếp."
+)
+INVEST_EDITORIAL_POLICY_RULE = (
+    "Tin chính sách/vĩ mô: nêu (nếu nguồn có) cơ quan ban hành, nội dung quyết định/chính sách, "
+    "nhóm bị ảnh hưởng, lộ trình triển khai, kênh tác động thị trường/ngành, điểm dữ liệu/chính sách cần theo dõi tiếp."
 )
 INVEST_EDITORIAL_ENTITY_RULE = (
-    "- Lần đầu nhắc phải xác định rõ chủ thể: ví dụ \"Tổng thống Mỹ Donald Trump\" (không chỉ \"Trump\"); "
-    "\"cổ phiếu công ty công nghệ FPT\" (không chỉ \"FPT\"); \"Cục Dự trữ Liên bang Mỹ (Fed)\" (không chỉ \"Fed\").\n"
+    "- Lần đầu nhắc phải xác định rõ chủ thể (xem thêm quy tắc độ cụ thể ở trên).\n"
     "- Mỗi mục quan trọng phải trả lời: Ai/cái gì? Chuyện gì đã xảy ra? "
     "Vì sao quan trọng với thị trường/ngành/chính sách/bối cảnh VN–toàn cầu? Cần theo dõi gì tiếp theo?"
 )
+
+
+def invest_editorial_rules_block() -> str:
+    """Shared invest Gemini editorial rules — no fixed length cap; research-memo tone."""
+    return "\n\n".join(
+        (
+            INVEST_EDITORIAL_LENGTH_RULE,
+            INVEST_EDITORIAL_MEMO_RULE,
+            INVEST_EDITORIAL_SPECIFICITY_RULE,
+            INVEST_EDITORIAL_TRANSMISSION_RULE,
+            INVEST_EDITORIAL_CAUTION_RULE,
+            INVEST_EDITORIAL_RELEVANCE_RULE,
+            INVEST_EDITORIAL_LEGAL_RULE,
+            INVEST_EDITORIAL_MARKET_RULE,
+            INVEST_EDITORIAL_POLICY_RULE,
+            INVEST_EDITORIAL_ENTITY_RULE,
+        )
+    )
 INVEST_EDITORIAL_TOPICS: tuple[str, ...] = (
     "Crypto & Tài sản số",
     "Chứng khoán & Chỉ số",
@@ -1163,8 +1233,7 @@ Với MỖI khối ### global_event_id=... bên dưới: CHỈ dùng đoạn bà
 Không nhắc AI, GDELT, crawler, pipeline, hệ thống. Không khuyến nghị mua/bán. Không bịa ticker/giá.
 Tóm tắt ĐỦ Ý như research memo: bám sát toàn bộ đoạn bài, không giới hạn độ dài, không rút gọn.
 CẤM summary chung chung hoặc quá ngắn (1 câu): "Sự kiện thuộc nhóm…", "Nhấp nguồn…", "các diễn biến kinh tế đang chịu áp lực".
-{INVEST_EDITORIAL_LENGTH_RULE}
-{INVEST_EDITORIAL_ENTITY_RULE}
+{invest_editorial_rules_block()}
 """
         json_shape = """
 {{
@@ -1263,8 +1332,7 @@ Quy tắc tóm tắt (quan trọng):
 - Không suy diễn risk-on/risk-off/khủng hoảng/bùng nổ hay giá/ticker nếu bài không đề cập (tone trung tính vẫn OK).
 - Công nghệ chiến lược (AI agent, quantum, chip, cyber) giữ đúng góc đầu tư/ngành nếu bài nêu.
 - importance_reason: đủ ý — ý nghĩa với nhà đầu tư khi bài hỗ trợ; nếu không rõ thì nói trung lập.
-{INVEST_EDITORIAL_LENGTH_RULE}
-{INVEST_EDITORIAL_ENTITY_RULE}
+{invest_editorial_rules_block()}
 
 Trả về JSON (không markdown):
 {{
@@ -2375,8 +2443,7 @@ Bạn là biên tập viên trưởng mục "Kinh tế - Đầu tư thế giới
 
 Nhiệm vụ:
 Từ danh sách events đã qua vòng lọc đầu tư, hãy chọn và nhóm các tin xứng đáng nhất cho mục "Biến số toàn cầu".
-{INVEST_EDITORIAL_LENGTH_RULE}
-{INVEST_EDITORIAL_ENTITY_RULE}
+{invest_editorial_rules_block()}
 
 Mục tiêu không phải là liệt kê nhiều tin.
 Mục tiêu là chọn ít nhưng sắc, mỗi tin phải giúp người đọc hiểu:
@@ -2416,7 +2483,7 @@ Loại hoặc không đưa lên top:
 Yêu cầu viết mỗi item:
 - Title: cụ thể, actor + event + điểm đáng chú ý. Không bịa "rút quân" nếu nguồn chỉ nói war powers/resolution.
 - Summary: KHÔNG viết lại / KHÔNG rút gọn — để trống "" hoặc copy nguyên văn từ summary trong event block. Hệ thống hiển thị tóm tắt enrich/deepen đầy đủ.
-- investment_angle: đủ ý, không giới hạn số câu nếu cần; phải trả lời "tài sản/ngành/kỳ vọng nào cần theo dõi, và vì sao?". Nếu không viết được → bỏ item.
+- investment_angle: memo phân tích — nêu kênh truyền tác động, biến số theo dõi, điểm chưa rõ; không giới hạn số câu nếu cần; phải trả lời "tài sản/ngành/kỳ vọng nào cần theo dõi, và vì sao?". Nếu không viết được → bỏ item.
   KHÔNG viết chung chung: "ảnh hưởng tâm lý nhà đầu tư" (không nêu nhóm tài sản), "định hình lại dòng vốn", "trực tiếp tác động" khi chỉ là rủi ro gián tiếp.
   Dùng: "có thể làm tăng chú ý tới...", "nếu leo thang, thị trường có thể theo dõi...", "biến số cần theo dõi là...", "tác động hiện tại mang tính gián tiếp...".
 - affected_assets: 2-5 mục; hỗ trợ bởi nguồn hoặc hệ quả cấp một rõ. Không ETF/Brent/WTI/vàng/trái phiếu/Nasdaq cụ thể nếu nguồn không nhắc.
@@ -2597,6 +2664,8 @@ không liên quan thị trường — dù đang viral.
 Ưu tiên đa dạng chủ đề kinh tế khi có ứng viên; không chọn toàn chính trị chỉ vì nhiều bài.
 
 Không nhắc AI, GDELT, crawler, pipeline, hệ thống.
+
+{invest_editorial_rules_block()}
 
 Trả về JSON (không markdown):
 {{
@@ -2834,8 +2903,7 @@ Quy tắc:
 - Chỉ dùng thông tin trong khối sự kiện đó; không trộn global_event_id.
 - Không bịa số liệu, giá, ticker. Không nhắc AI/GDELT/crawler/pipeline.
 - Không khuyến nghị mua/bán/múc. Văn phong trung lập như research memo.
-{INVEST_EDITORIAL_LENGTH_RULE}
-{INVEST_EDITORIAL_ENTITY_RULE}
+{invest_editorial_rules_block()}
 
 Trả về JSON hợp lệ, không markdown:
 {{
@@ -2979,6 +3047,8 @@ Không giữ event chỉ vì mô tả bối cảnh kinh tế chung.
 Chỉ giữ nếu event có investment_angle cụ thể: tài sản, ngành, chính sách, chuỗi cung ứng, công nghệ chiến lược
 hoặc kỳ vọng thị trường nào bị ảnh hưởng.
 Nếu không thể viết investment_angle đủ ý và cụ thể (tài sản/ngành/kỳ vọng cần theo dõi), bỏ event đó.
+
+{invest_editorial_rules_block()}
 
 Không nhắc AI, GDELT, crawler, pipeline.
 
@@ -3517,6 +3587,8 @@ Chỉ keep=true khi có investment_angle cụ thể (tác động tài sản, ng
 noise_hint=true (crime/local/PR/sports…) KHÔNG tự động bỏ — nhưng phải có góc đầu tư rõ (ngân hàng, supply chain, commodity, regulation, công ty lớn…).
 BỎ: gossip; scandal đời sống; crime/accident địa phương không hệ quả kinh tế; thể thao/giải trí thường; PR sản phẩm nhỏ; tòa án đời sống.
 Giữ tối đa {INVEST_FEED_MAX} event; có thể ít hơn nhiều nếu không đủ chất lượng.
+
+{invest_editorial_rules_block()}
 
 Không nhắc GDELT/crawler/pipeline/AI hệ thống. Không khuyến nghị mua/bán.
 
