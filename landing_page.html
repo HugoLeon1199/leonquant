@@ -5675,6 +5675,7 @@
       } else {
         h += `<div id="invest-watch" class="invest-vn-watch-block" hidden aria-hidden="true"></div>`;
       }
+      if (!themes.length && !watch.length) {
         h += `<p class="hint">Chưa có phân tích VN. Chờ bản digest ngày hoặc thử tải lại.</p>`;
       }
       if (data?.gaps) {
