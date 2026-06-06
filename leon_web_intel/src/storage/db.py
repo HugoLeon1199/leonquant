@@ -804,7 +804,11 @@ class WebIntelDB:
         timezone_name: str,
         recent_calendar_days: int = 2,
     ) -> list[dict[str, Any]]:
-        """Articles whose publication falls in the recent local calendar window ending on target date."""
+        """Articles whose publication falls in the recent local calendar window ending on target date.
+
+        Articles with a parseable ``published_at`` outside the window are excluded even if
+        re-crawled inside it. Missing/unparseable publish dates may match on ``extracted_at``.
+        """
         n = max(1, int(recent_calendar_days))
         start_utc, end_utc = target_recent_calendar_days_range(target_date_str, timezone_name, n)
         target_d = resolve_calendar_date(target_date_str, timezone_name)
@@ -837,11 +841,7 @@ class WebIntelDB:
                     ) >= 200:
                         out.append(row)
                 continue
-            # Published outside calendar window but re-crawled inside it (common on warm CI cache).
             if pub_dt and not is_datetime_in_range(pub_dt, start_utc, end_utc):
-                if ext_dt and is_datetime_in_range(ext_dt, start_utc, end_utc):
-                    if int(row.get("content_length") or 0) >= 200:
-                        out.append(row)
                 continue
             # Unparseable published_at: treat like missing
             if ext_dt and is_datetime_in_range(ext_dt, start_utc, end_utc):

@@ -2828,6 +2828,26 @@ def articles_payload_from_for_ai(path: Path) -> dict[str, Any]:
             }
         )
     articles = _enrich_articles_from_intel_db(articles)
+    window = data.get("window") if isinstance(data.get("window"), dict) else {}
+    end_date = str(window.get("end_date") or "").strip() or None
+    tz_name = str(window.get("timezone") or "Asia/Ho_Chi_Minh").strip()
+    num_days = max(1, int(window.get("recent_calendar_days") or 2))
+    if end_date:
+        sys.path.insert(0, str(PROJECT_DIR / "scripts"))
+        from digest_window import filter_articles_recent_calendar_days  # noqa: E402
+
+        before = len(articles)
+        articles = filter_articles_recent_calendar_days(
+            articles,
+            end_date_str=end_date,
+            timezone_name=tz_name,
+            num_days=num_days,
+        )
+        if before != len(articles):
+            print(
+                f"  calendar filter ({num_days}d ending {end_date}): "
+                f"{before} -> {len(articles)} articles"
+            )
     return {
         "generated_at": data.get("generated_at"),
         "count": len(articles),

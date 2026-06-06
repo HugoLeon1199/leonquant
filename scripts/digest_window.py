@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 QUANT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_WINDOW_STATE = QUANT_ROOT / "data" / "digest_export_window.json"
@@ -147,3 +148,72 @@ def prune_calendar_days_from_state(state: dict[str, Any]) -> int:
     if state.get("mode") == "rolling":
         return max(CALENDAR_DAY_LADDER[0], 3)
     return max(int(state.get("recent_calendar_days") or CALENDAR_DAY_LADDER[0]), 3)
+
+
+def recent_calendar_day_set(
+    end_date_str: str | None,
+    timezone_name: str,
+    num_days: int,
+) -> set[date]:
+    """Local calendar dates covered by the export window (inclusive end day)."""
+    sys_path = intel_root() / "src"
+    import sys
+
+    if str(sys_path) not in sys.path:
+        sys.path.insert(0, str(sys_path))
+    from utils.today_filter import resolve_calendar_date  # noqa: E402
+
+    anchor = resolve_calendar_date(end_date_str, timezone_name)
+    n = max(1, int(num_days))
+    return {anchor - timedelta(days=i) for i in range(n)}
+
+
+def _parse_article_datetime(val: Any) -> datetime | None:
+    if val is None:
+        return None
+    s = str(val).strip()
+    if not s or s.lower() in ("nan", "none", "null"):
+        return None
+    sys_path = intel_root() / "src"
+    import sys
+
+    if str(sys_path) not in sys.path:
+        sys.path.insert(0, str(sys_path))
+    from utils.today_filter import parse_any_datetime  # noqa: E402
+
+    return parse_any_datetime(s)
+
+
+def article_local_calendar_day(
+    art: dict[str, Any],
+    *,
+    timezone_name: str,
+) -> date | None:
+    """Best-effort local publish day; falls back to extracted_at when publish is missing."""
+    pub_dt = _parse_article_datetime(art.get("published_at"))
+    if pub_dt is not None:
+        return pub_dt.astimezone(ZoneInfo(timezone_name)).date()
+    for key in ("extracted_at", "extractedAt"):
+        ext_dt = _parse_article_datetime(art.get(key))
+        if ext_dt is not None:
+            return ext_dt.astimezone(ZoneInfo(timezone_name)).date()
+    return None
+
+
+def filter_articles_recent_calendar_days(
+    articles: list[dict[str, Any]],
+    *,
+    end_date_str: str | None,
+    timezone_name: str = "Asia/Ho_Chi_Minh",
+    num_days: int = 2,
+) -> list[dict[str, Any]]:
+    """Keep articles whose publish day (or crawl day if publish missing) is in the window."""
+    allowed = recent_calendar_day_set(end_date_str, timezone_name, num_days)
+    out: list[dict[str, Any]] = []
+    for art in articles:
+        if not isinstance(art, dict):
+            continue
+        day = article_local_calendar_day(art, timezone_name=timezone_name)
+        if day is not None and day in allowed:
+            out.append(art)
+    return out
