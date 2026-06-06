@@ -490,3 +490,18 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py`; `node scripts/embed_public_invest_vn_into_html.mjs landing_page.html invest_vn_brief.json`
 
+## 2026-06-06 — Kinh tế đầu tư: section numbering 01/02/03 + prompt (invest only)
+
+**Scope:** `landing_page.html` (invest CSS/JS), `leon.py` (invest prompts), `scripts/build_invest_vn_brief.py`, `scripts/embed_public_invest_vn_into_html.mjs`, `.ai/CURSOR_WORKLOG.md`.
+
+| Change | Detail |
+|--------|--------|
+| Numbering | Section headers **01 / 02 / 03** (was Roman I / II / III): Biến số toàn cầu · Việt Nam & thị trường trong nước · Đang theo dõi |
+| Visual | Two-digit number subtle (tabular, muted); title prominent; amber/gold + slate + cyan links unchanged |
+| Prompts | `INVEST_EDITORIAL_LENGTH_RULE` — no fixed sentence/word/character cap; entity clarity (Trump/FPT/Fed examples); judge prompts drop “một câu investment_angle” |
+| No quick index | Confirmed — no chip TOC / anchor index added |
+| No quick-read | Confirmed — no “Đọc nhanh cho nhà đầu tư” block added |
+| Unchanged | Tin48h tab, World LIVE, top nav, Tin48h archive, crawler, data pipelines unrelated to invest |
+
+**Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py` · `node scripts/embed_public_invest_vn_into_html.mjs landing_page.html invest_vn_brief.json`
+

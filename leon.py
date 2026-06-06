@@ -2589,7 +2589,7 @@ GIỮ tin nếu ít nhất một điều đúng:
 Không giữ event chỉ vì mô tả bối cảnh kinh tế chung.
 Chỉ giữ nếu event có investment_angle cụ thể: tài sản, ngành, chính sách, chuỗi cung ứng, công nghệ chiến lược
 hoặc kỳ vọng thị trường nào bị ảnh hưởng.
-Nếu không thể viết một câu investment_angle rõ ràng, bỏ event đó.
+Nếu không thể viết investment_angle đủ ý và cụ thể (tài sản/ngành/kỳ vọng cần theo dõi), bỏ event đó.
 
 BỎ tin chỉ là: scandal cá nhân, tội phạm địa phương, lễ tang, giải trí, shooting/vụ án
 không liên quan thị trường — dù đang viral.
@@ -2978,7 +2978,7 @@ BỎ dù viral:
 Không giữ event chỉ vì mô tả bối cảnh kinh tế chung.
 Chỉ giữ nếu event có investment_angle cụ thể: tài sản, ngành, chính sách, chuỗi cung ứng, công nghệ chiến lược
 hoặc kỳ vọng thị trường nào bị ảnh hưởng.
-Nếu không thể viết một câu investment_angle rõ ràng, bỏ event đó.
+Nếu không thể viết investment_angle đủ ý và cụ thể (tài sản/ngành/kỳ vọng cần theo dõi), bỏ event đó.
 
 Không nhắc AI, GDELT, crawler, pipeline.
 

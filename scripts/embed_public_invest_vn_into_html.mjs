@@ -98,7 +98,7 @@ function buildInvestVnHtml(data) {
   const updated = formatDateVi(data.source_digest_at || data.generated_at_utc);
   let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1">`;
   h += buildInvestMajorHead(
-    "II",
+    "02",
     "Việt Nam &amp; thị trường trong nước",
     updated
       ? `Phân tích từ tin 48 giờ · digest ${updated}`
@@ -147,7 +147,7 @@ function buildInvestVnHtml(data) {
   if (watch.length) {
     h += `<div id="invest-watch" class="invest-vn-watch-block">`;
     h += buildInvestMajorHead(
-      "III",
+      "03",
       "Đang theo dõi",
       "Biến số và chủ đề cần theo dõi tiếp",
       "watch",
