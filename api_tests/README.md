@@ -20,6 +20,18 @@ python api_tests/test_news_apis.py
 
 Từ thư mục gốc `leonquant/`.
 
+## Cron 30 phút (1 request / lần)
+
+Luân phiên **worldnews → gnews → newsdata**, gom URL unique vào `data/`:
+
+```bash
+python api_tests/cron_fetch.py
+```
+
+GitHub Actions: `.github/workflows/api-cron-30m.yml` (`*/30 * * * *` UTC), bot commit `api_tests/data/cron_accumulator.json` + `cron_summary.md`.
+
+Mai xem tổng trong `api_tests/data/cron_summary.md`.
+
 ## Output
 
 | File | Mô tả |

@@ -1,0 +1,42 @@
+name: API cron 30m
+
+on:
+  schedule:
+    # Mỗi 30 phút UTC — 1 HTTP request/API luân phiên (worldnews → gnews → newsdata).
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: api-cron-30m
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: One API request (rotate)
+        run: python api_tests/cron_fetch.py
+
+      - name: Commit accumulator
+        run: |
+          git config user.name "api-cron-bot"
+          git config user.email "api-cron-bot@users.noreply.github.com"
+          git add api_tests/data/cron_accumulator.json api_tests/data/cron_summary.md
+          if git diff --staged --quiet; then
+            echo "No accumulator changes"
+            exit 0
+          fi
+          git commit -m "API cron: accumulate news URLs (30m)."
+          git pull --rebase origin main
+          git push

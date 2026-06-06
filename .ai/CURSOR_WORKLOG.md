@@ -557,3 +557,14 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Validation:** `python -m py_compile api_tests/test_news_apis.py`
 
+## 2026-06-06 — API cron 30m (1 request/run, accumulate URLs)
+
+| File | Purpose |
+|------|---------|
+| `api_tests/cron_fetch.py` | Rotate worldnews → gnews → newsdata; 1 HTTP request/run |
+| `api_tests/data/cron_accumulator.json` | Unique URLs + run log (tracked in git) |
+| `api_tests/data/cron_summary.md` | Human-readable totals for daily check |
+| `.github/workflows/api-cron-30m.yml` | Cron `*/30 * * * *` UTC, bot commit |
+
+**Run:** `python api_tests/cron_fetch.py` · **Validation:** `python -m py_compile api_tests/cron_fetch.py`
+
