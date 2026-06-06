@@ -1,0 +1,66 @@
+name: Rebuild invest VN brief
+
+# Chạy Gemini analyst memo cho khối "Việt Nam & thị trường trong nước"
+# từ content.json sẵn có — không cần crawl / digest gate.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .ci-run-invest-vn-brief
+      - .github/workflows/rebuild-invest-vn.yml
+      - invest_editorial.py
+      - scripts/build_invest_vn_brief.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rebuild-invest-vn-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rebuild-invest-vn:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -q google-generativeai
+
+      - name: Rebuild invest VN brief from content.json
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ ! -f content.json ]; then
+            echo "ERROR: content.json missing on main" >&2
+            exit 2
+          fi
+          python scripts/build_invest_vn_brief.py --content content.json
+
+      - name: Commit invest VN brief
+        run: |
+          git config user.name "invest-vn-bot"
+          git config user.email "invest-vn-bot@users.noreply.github.com"
+          git add invest_vn_brief.json web/invest_vn_brief.json
+          if git diff --staged --quiet; then
+            echo "No invest VN brief changes"
+            exit 0
+          fi
+          git commit -m "Update invest VN brief (Gemini analyst memo from content.json)."
+          for attempt in 1 2 3 4 5 6; do
+            if git pull --rebase origin main && git push origin main; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; retry in 20s..."
+            sleep 20
+          done
+          exit 1
