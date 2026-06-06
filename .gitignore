@@ -35,7 +35,11 @@ market_snapshot.json
 gemini_digest_outline.json
 prompts/last_gemini_prompt.txt
 
-# Leon Web Intel DuckDB — uncompressed local only; CI uses .duckdb.gz in git
+# Standalone API quality test outputs (regenerate via api_tests/test_news_apis.py)
+api_tests/output/*
+!api_tests/output/.gitkeep
+
+# Leon Web Intel DuckDB
 data/web_intel_leonquant.duckdb
 data/web_intel_leonquant.duckdb.wal
 data/*.duckdb

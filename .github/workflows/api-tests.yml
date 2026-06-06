@@ -1,0 +1,33 @@
+name: API news quality test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - api_tests/**
+      - .env.example
+      - .github/workflows/api-tests.yml
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run API quality tests
+        run: python api_tests/test_news_apis.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: api-quality-report
+          path: |
+            api_tests/output/api_quality_report.md
+            api_tests/output/api_quality_report.csv
+            api_tests/output/*_sample.json

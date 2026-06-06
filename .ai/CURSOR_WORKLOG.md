@@ -538,3 +538,22 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Validation:** `python -m py_compile leon.py scripts/build_invest_vn_brief.py`
 
+## 2026-06-06 — Standalone news API quality tests (input eval only)
+
+**Scope:** `api_tests/` — **not** integrated into web, Tin48h, invest, or LIVE pipeline.
+
+| File | Purpose |
+|------|---------|
+| `api_tests/test_news_apis.py` | Fetch NewsData.io, GNews.io, WorldNews API; normalize schema; quality heuristics |
+| `api_tests/README.md` | How to run + env vars |
+| `api_tests/output/*` | Samples + `api_quality_report.md` / `.csv` (gitignored) |
+| `.env.example` | Placeholders `NEWSDATA_API_KEY`, `GNEWS_API_KEY`, `WORLDNEWS_API_KEY` |
+
+**Run:** `python api_tests/test_news_apis.py` from repo root (keys in `.env.example`; CI workflow `api-tests.yml`).
+
+**Checks:** content length, truncation hints, 48h freshness, URL overlap vs `content.json`, cross-API duplicate URLs, quota/auth errors in report.
+
+**Unchanged:** `content.json`, `landing_page.html`, crawl/Gemini digest, invest, LIVE.
+
+**Validation:** `python -m py_compile api_tests/test_news_apis.py`
+
