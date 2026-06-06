@@ -247,10 +247,13 @@ function buildNewsroomStatPill(label, value) {
   return `<span class="stat-pill">${escapeHtml(label)}: <strong>${escapeHtml(v)}</strong></span>`;
 }
 
+const NEWSROOM_ISSUE_TAGLINE = "Từ từng dòng tin đến bức tranh lớn.";
+
 function buildNewsroomIssueHeader(data) {
   const updateNote = formatDailyUpdateNoteVi(data?.generatedAt);
   return `<header class="issue-header issue-header--minimal" id="digest-issue-header">
     <h2 class="issue-title">Bản tin 48h</h2>${updateNote ? `<p class="issue-updated">${escapeHtml(updateNote)}</p>` : ""}
+    <p class="issue-tagline">${escapeHtml(NEWSROOM_ISSUE_TAGLINE)}</p>
   </header>`;
 }
 
