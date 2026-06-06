@@ -8,7 +8,10 @@ on:
   workflow_dispatch:
   # Commit từ Daily digest (GITHUB_TOKEN) không kích hoạt push → Pages; chạy lại sau digest xong.
   workflow_run:
-    workflows: ["Tin Việt Nam 48h digest", "LIVE pulse 12h"]
+    workflows:
+      - Tin Việt Nam 48h digest
+      - LIVE pulse 12h
+      - Rebuild invest VN brief
     types: [completed]
     branches: [main]
 
