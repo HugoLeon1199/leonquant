@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from leon import invest_editorial_rules_block
+from invest_editorial import invest_editorial_rules_block
 DEFAULT_CONTENT = ROOT / "content.json"
 DEFAULT_OUT = ROOT / "invest_vn_brief.json"
 WEB_OUT = ROOT / "web" / "invest_vn_brief.json"
