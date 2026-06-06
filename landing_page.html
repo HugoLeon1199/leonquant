@@ -2629,76 +2629,12 @@
     #invest #invest-vn,
     #invest #invest-watch,
     #invest #invest-sources {
-      scroll-margin-top: 120px;
+      scroll-margin-top: 88px;
     }
-    body.invest-mode #investDeskChrome {
-      position: sticky;
-      top: 52px;
-      z-index: 30;
-      margin: 0 0 1.25rem;
-      padding: 12px 0 10px;
-      background: rgba(255, 255, 255, .94);
-      backdrop-filter: blur(10px);
+    .invest-quick-read {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
       border-bottom: 1px solid rgba(15, 23, 42, .1);
-    }
-    .invest-quick-index-label {
-      margin: 0 0 8px;
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .invest-quick-index {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 0;
-      padding: 0;
-      border-bottom: none;
-    }
-    .invest-quick-index a {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(180, 83, 9, .22);
-      background: rgba(180, 83, 9, .05);
-      color: #78350f;
-      font-size: .8rem;
-      font-weight: 700;
-      text-decoration: none;
-      line-height: 1.35;
-      transition: background .15s, border-color .15s, color .15s;
-    }
-    .invest-quick-index a:hover {
-      background: rgba(180, 83, 9, .12);
-      border-color: rgba(180, 83, 9, .4);
-    }
-    .invest-quick-index a.is-active {
-      background: rgba(180, 83, 9, .16);
-      border-color: rgba(180, 83, 9, .45);
-      color: #451a03;
-      box-shadow: inset 0 0 0 1px rgba(180, 83, 9, .12);
-    }
-    .invest-idx-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 1.65rem;
-      padding: 1px 5px;
-      border-radius: 6px;
-      font-size: .68rem;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: .04em;
-      background: rgba(15, 23, 42, .07);
-      color: var(--text);
-    }
-    .invest-quick-index a.is-active .invest-idx-num {
-      background: rgba(180, 83, 9, .22);
-      color: #451a03;
     }
     .invest-major-head {
       display: flex;
@@ -2733,12 +2669,23 @@
     .invest-major-num {
       flex: 0 0 auto;
       margin: 0;
-      font-size: clamp(1.65rem, 4vw, 2.1rem);
+      min-width: 2.75rem;
+      font-size: clamp(1.5rem, 3.5vw, 1.95rem);
       font-weight: 800;
       line-height: 1;
       font-variant-numeric: tabular-nums;
-      letter-spacing: -.03em;
-      color: rgba(15, 23, 42, .22);
+      letter-spacing: -.02em;
+      color: rgba(15, 23, 42, .28);
+      text-align: center;
+    }
+    .invest-major-num-label {
+      display: block;
+      margin-bottom: 3px;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
     .invest-major-head--world .invest-major-num { color: rgba(14, 116, 144, .35); }
     .invest-major-head--vn .invest-major-num,
@@ -2773,11 +2720,6 @@
       font-weight: 800;
       color: #b45309;
       min-width: 2rem;
-    }
-    .invest-quick-read {
-      margin-bottom: 1.75rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px solid rgba(15, 23, 42, .1);
     }
     .invest-section-label {
       margin: 0 0 10px;
@@ -3426,8 +3368,8 @@
               <p class="invest-channel-lead">Tóm tắt kinh tế–thị trường (thế giới + Việt Nam).</p>
               <p class="invest-channel-updated sync-note" id="investChannelUpdated" hidden></p>
             </header>
-            <div id="investDeskChrome" class="invest-desk-chrome"></div>
             <div class="invest-desk-layout">
+            <div id="investQuickRead" class="invest-desk-block"></div>
             <div id="sectionInvestWorld" class="invest-desk-block"></div>
             <div id="sectionInvestVn" class="invest-desk-block"></div>
             </div>
@@ -5262,83 +5204,24 @@
       return out;
     }
 
+    const INVEST_SECTION_NO = {
+      quick: "I",
+      world: "II",
+      vn: "III",
+      watch: "IV",
+      sources: "V",
+    };
+
     function buildInvestMajorHead(num, titleHtml, sub, tone) {
       const toneClass = tone ? ` invest-major-head--${tone}` : "";
       let h = `<header class="invest-major-head${toneClass}">`;
-      h += `<p class="invest-major-num" aria-hidden="true">${escapeHtml(num)}</p>`;
+      h += `<p class="invest-major-num" aria-hidden="true">`;
+      h += `<span class="invest-major-num-label">Phần</span>${escapeHtml(num)}</p>`;
       h += `<div class="invest-major-text">`;
       h += `<h3 class="invest-major-title">${titleHtml}</h3>`;
       if (sub) h += `<p class="invest-major-sub">${escapeHtml(sub)}</p>`;
       h += `</div></header>`;
       return h;
-    }
-
-    function buildInvestQuickIndexHtml() {
-      const items = [
-        ["#invest-quick-read", "00", "Đọc nhanh"],
-        ["#invest-world", "01", "Biến số toàn cầu"],
-        ["#invest-vn", "02", "Việt Nam &amp; thị trường trong nước"],
-        ["#invest-watch", "03", "Đang theo dõi"],
-        ["#invest-sources", "04", "Nguồn"],
-      ];
-      let h = `<p class="invest-quick-index-label">Mục lục — chạm để nhảy tới phần</p>`;
-      h += `<nav class="invest-quick-index" aria-label="Mục lục chuyên mục">`;
-      items.forEach(([href, num, label]) => {
-        h += `<a href="${href}" data-invest-anchor="${href.slice(1)}">`;
-        h += `<span class="invest-idx-num">${num}</span> ${label}`;
-        h += `</a>`;
-      });
-      h += `</nav>`;
-      return h;
-    }
-
-    function bindInvestScrollSpy() {
-      const nav = document.querySelector("#invest .invest-quick-index");
-      if (!nav) return;
-      const links = [...nav.querySelectorAll("a[data-invest-anchor]")];
-      if (!links.length) return;
-      const sectionById = new Map();
-      links.forEach((link) => {
-        const id = link.getAttribute("data-invest-anchor");
-        const el = id ? document.getElementById(id) : null;
-        if (el) sectionById.set(id, { link, el });
-      });
-      if (!sectionById.size) return;
-
-      const setActive = (id) => {
-        links.forEach((link) => {
-          link.classList.toggle(
-            "is-active",
-            link.getAttribute("data-invest-anchor") === id,
-          );
-        });
-      };
-
-      if ("IntersectionObserver" in window) {
-        const visible = new Map();
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              const id = entry.target.id;
-              if (!id) return;
-              if (entry.isIntersecting) visible.set(id, entry.intersectionRatio);
-              else visible.delete(id);
-            });
-            if (!visible.size) return;
-            const best = [...visible.entries()].sort((a, b) => b[1] - a[1])[0];
-            if (best) setActive(best[0]);
-          },
-          { root: null, rootMargin: "-20% 0px -62% 0px", threshold: [0, 0.12, 0.35, 0.6] },
-        );
-        sectionById.forEach(({ el }) => observer.observe(el));
-      }
-
-      links.forEach((link) => {
-        link.addEventListener("click", () => {
-          const id = link.getAttribute("data-invest-anchor");
-          if (id) setActive(id);
-        });
-      });
     }
 
     function buildInvestQuickReadHtml(worldData, vnData) {
@@ -5351,7 +5234,7 @@
       const watchLines = collectInvestWatchLines(vnData, worldData, 4);
       let h = `<section id="invest-quick-read" class="invest-quick-read invest-live-strip">`;
       h += buildInvestMajorHead(
-        "00",
+        INVEST_SECTION_NO.quick,
         "Đọc nhanh cho nhà đầu tư",
         "Tóm tắt biến số chính và điểm cần theo dõi 24–72h",
         "quick",
@@ -5452,7 +5335,7 @@
       const rows = collectInvestSourceRows(worldData, vnData, 24);
       if (!rows.length) return "";
       let h = `<section id="invest-sources" class="invest-sources-foot">`;
-      h += buildInvestMajorHead("04", "Nguồn", "Liên kết tham khảo theo từng mục", "sources");
+      h += buildInvestMajorHead(INVEST_SECTION_NO.sources, "Nguồn", "Liên kết tham khảo theo từng mục", "sources");
       h += `<ul class="invest-vn-link-rows">`;
       rows.forEach((row) => {
         h += `<li><a href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.title)}</a>`;
@@ -5469,7 +5352,7 @@
       const feedLabel = String(data?.feed_label || "").trim()
         || "các diễn biến kinh tế - thị trường đáng chú ý";
       h += buildInvestMajorHead(
-        "01",
+        INVEST_SECTION_NO.world,
         "Biến số toàn cầu",
         `Tóm tắt theo đề mục · ${feedLabel}`,
         "world",
@@ -5588,7 +5471,7 @@
       const digestAt = data?.source_digest_at ? formatPulseUpdatedAt(data.source_digest_at) : "";
       let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn">`;
       h += buildInvestMajorHead(
-        "02",
+        INVEST_SECTION_NO.vn,
         "Việt Nam &amp; thị trường trong nước",
         digestAt
           ? `Phân tích từ tin 48 giờ · digest ${digestAt}`
@@ -5637,7 +5520,7 @@
       if (watch.length) {
         h += `<div id="invest-watch" class="invest-vn-watch-block">`;
         h += buildInvestMajorHead(
-          "03",
+          INVEST_SECTION_NO.watch,
           "Đang theo dõi",
           "Biến số và chủ đề cần theo dõi tiếp",
           "watch",
@@ -5718,10 +5601,10 @@
         channelUpdated.textContent = note;
         channelUpdated.hidden = !note;
       }
-      const chromeEl = document.getElementById("investDeskChrome");
-      if (chromeEl) {
-        chromeEl.innerHTML = hasInvestRenderableData(worldData, vnData)
-          ? buildInvestQuickIndexHtml() + buildInvestQuickReadHtml(worldData, vnData)
+      const quickEl = document.getElementById("investQuickRead");
+      if (quickEl) {
+        quickEl.innerHTML = hasInvestRenderableData(worldData, vnData)
+          ? buildInvestQuickReadHtml(worldData, vnData)
           : "";
       }
       const worldEl = document.getElementById("sectionInvestWorld");
@@ -5741,7 +5624,6 @@
       if (sourcesEl) {
         sourcesEl.innerHTML = buildInvestSourcesHtml(worldData, vnData);
       }
-      bindInvestScrollSpy();
     }
 
     /** Khối thế giới tab đầu tư — invest_world_pulse (GDELT enrich + lọc kinh tế, không phải market_pulse). */

@@ -65,7 +65,8 @@ function investBadgeRow(items, badgeClass) {
 function buildInvestMajorHead(num, titleHtml, sub, tone) {
   const toneClass = tone ? ` invest-major-head--${tone}` : "";
   let h = `<header class="invest-major-head${toneClass}">`;
-  h += `<p class="invest-major-num" aria-hidden="true">${escapeHtml(num)}</p>`;
+  h += `<p class="invest-major-num" aria-hidden="true">`;
+  h += `<span class="invest-major-num-label">Phần</span>${escapeHtml(num)}</p>`;
   h += `<div class="invest-major-text">`;
   h += `<h3 class="invest-major-title">${titleHtml}</h3>`;
   if (sub) h += `<p class="invest-major-sub">${escapeHtml(sub)}</p>`;
@@ -97,7 +98,7 @@ function buildInvestVnHtml(data) {
   const updated = formatDateVi(data.source_digest_at || data.generated_at_utc);
   let h = `<section id="invest-vn" class="invest-desk-section invest-desk-section--vn" data-embedded-invest-vn="1">`;
   h += buildInvestMajorHead(
-    "02",
+    "III",
     "Việt Nam &amp; thị trường trong nước",
     updated
       ? `Phân tích từ tin 48 giờ · digest ${updated}`
@@ -146,7 +147,7 @@ function buildInvestVnHtml(data) {
   if (watch.length) {
     h += `<div id="invest-watch" class="invest-vn-watch-block">`;
     h += buildInvestMajorHead(
-      "03",
+      "IV",
       "Đang theo dõi",
       "Biến số và chủ đề cần theo dõi tiếp",
       "watch",
