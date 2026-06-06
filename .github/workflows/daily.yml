@@ -145,8 +145,16 @@ jobs:
             exit 0
           fi
           git commit -m "Update daily news digest (crawl + Gemini + web + invest VN brief)."
-          git pull --rebase origin main
-          git push
+          # enriched_news.json is tracked but not part of web bundle — discard so rebase is not blocked.
+          git restore enriched_news.json 2>/dev/null || true
+          for attempt in 1 2 3 4 5 6; do
+            if git pull --rebase origin main && git push origin main; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; retry in 20s..."
+            sleep 20
+          done
+          exit 1
 
   invest-world:
     runs-on: ubuntu-latest
