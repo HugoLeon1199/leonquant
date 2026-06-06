@@ -468,3 +468,9 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Apply new prose:** re-run Gemini digest/merge — existing `gemini_digest_summary.json` still has short sector theses until regenerated.
 
+## 2026-06-06 — CI digest commit fix (daily.yml)
+
+**Issue:** `build-digest` Gemini/build succeeded but push failed — export updates tracked `news_for_ai.json` while commit step only staged `news_for_ai_clean.json`; dirty tree blocked `git pull --rebase` (hidden by `|| true`), then `git push` failed.
+
+**Fix:** Stage `news_for_ai.json`; match `invest-world` pattern (exit 0 if no staged diff; rebase without swallowing errors). **No re-run triggered** in this patch.
+
