@@ -96,7 +96,20 @@ def resolve_export_window(
     timezone_name: str,
     min_articles: int = MIN_ARTICLES_DEFAULT,
 ) -> dict[str, Any] | None:
-    """Pick smallest usable window; prefer calendar days, else rolling by extracted_at."""
+    """Pick smallest usable window; prefer rolling extract freshness, then 2 calendar days."""
+    for hours in ROLLING_HOURS_LADDER:
+        rolling = count_rolling_articles(db_path, hours=hours)
+        if rolling >= min_articles:
+            return {
+                "mode": "rolling",
+                "recent_calendar_days": DIGEST_CALENDAR_DAY_LADDER[0],
+                "rolling_hours": hours,
+                "article_count": rolling,
+                "min_articles": min_articles,
+                "end_date": date,
+                "timezone": timezone_name,
+            }
+
     for days in DIGEST_CALENDAR_DAY_LADDER:
         n = count_calendar_articles(
             db_path, date=date, timezone_name=timezone_name, recent_calendar_days=days
@@ -112,18 +125,6 @@ def resolve_export_window(
                 "timezone": timezone_name,
             }
 
-    for hours in ROLLING_HOURS_LADDER:
-        rolling = count_rolling_articles(db_path, hours=hours)
-        if rolling >= min_articles:
-            return {
-                "mode": "rolling",
-                "recent_calendar_days": CALENDAR_DAY_LADDER[0],
-                "rolling_hours": hours,
-                "article_count": rolling,
-                "min_articles": min_articles,
-                "end_date": date,
-                "timezone": timezone_name,
-            }
     return None
 
 

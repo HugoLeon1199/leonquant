@@ -124,10 +124,6 @@ def main() -> int:
     pin = pin_date(args.date, args.timezone)
     print(f"Pinned calendar date: {pin} ({args.timezone})")
 
-    removed = purge_stale_extracted_articles(db, hours=72)
-    if removed:
-        print(f"Pre-gate purge: removed {removed} article(s) with extracted_at older than 72h")
-
     state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-crawl")
     if not state:
         diag = db_diagnostics(db)
