@@ -64,10 +64,13 @@ def _parse_ts(ts: str) -> float | None:
         return None
 
 
-def _pick_better_timestamp(current: str, candidate: str) -> str:
+def _pick_better_timestamp(current: str, candidate: str, *, min_ts: float | None = None) -> str:
     cur = str(current or "").strip()
     cand = str(candidate or "").strip()
     if not cand:
+        return cur
+    cand_parsed = _parse_ts(cand)
+    if min_ts is not None and cand_parsed is not None and cand_parsed < min_ts:
         return cur
     if not cur:
         return cand
@@ -84,7 +87,7 @@ def _pick_better_timestamp(current: str, candidate: str) -> str:
     return cur
 
 
-def _apply_links(links: list[Any], pub: dict[str, str]) -> int:
+def _apply_links(links: list[Any], pub: dict[str, str], *, min_ts: float | None = None) -> int:
     n = 0
     for lk in links:
         if not isinstance(lk, dict):
@@ -96,7 +99,7 @@ def _apply_links(links: list[Any], pub: dict[str, str]) -> int:
         if not ts_prior:
             continue
         cur = str(lk.get("publishedAt") or lk.get("published_at") or "").strip()
-        best = _pick_better_timestamp(cur, ts_prior)
+        best = _pick_better_timestamp(cur, ts_prior, min_ts=min_ts)
         if best and best != cur:
             lk["publishedAt"] = best
             n += 1
@@ -107,6 +110,9 @@ def merge_published_at(prior: dict[str, Any], target: dict[str, Any]) -> dict[st
     pub = _published_map(prior)
     if not pub:
         return target
+    from datetime import datetime, timedelta
+
+    min_ts = (datetime.utcnow() - timedelta(hours=72)).timestamp()
     out = dict(target)
     merged = 0
     idx = out.get("articleLinkIndex")
@@ -118,7 +124,7 @@ def merge_published_at(prior: dict[str, Any], target: dict[str, Any]) -> dict[st
             if not u or u not in pub:
                 continue
             cur = str(row.get("publishedAt") or "").strip()
-            best = _pick_better_timestamp(cur, pub[u])
+            best = _pick_better_timestamp(cur, pub[u], min_ts=min_ts)
             if best and best != cur:
                 row["publishedAt"] = best
                 merged += 1
@@ -127,20 +133,20 @@ def merge_published_at(prior: dict[str, Any], target: dict[str, Any]) -> dict[st
             continue
         for d in sec.get("storyDossiers") or []:
             if isinstance(d, dict) and isinstance(d.get("links"), list):
-                merged += _apply_links(d["links"], pub)
+                merged += _apply_links(d["links"], pub, min_ts=min_ts)
         for sb in sec.get("subsectorBriefs") or []:
             if isinstance(sb, dict) and isinstance(sb.get("links"), list):
-                merged += _apply_links(sb["links"], pub)
+                merged += _apply_links(sb["links"], pub, min_ts=min_ts)
     for row in out.get("frontPage") or []:
         if isinstance(row, dict) and isinstance(row.get("links"), list):
-            merged += _apply_links(row["links"], pub)
+            merged += _apply_links(row["links"], pub, min_ts=min_ts)
     for row in out.get("digestNotableArticles") or []:
         if isinstance(row, dict):
             u = str(row.get("url") or "").strip()
             if not u or u not in pub:
                 continue
             cur = str(row.get("publishedAt") or "").strip()
-            best = _pick_better_timestamp(cur, pub[u])
+            best = _pick_better_timestamp(cur, pub[u], min_ts=min_ts)
             if best and best != cur:
                 row["publishedAt"] = best
                 merged += 1

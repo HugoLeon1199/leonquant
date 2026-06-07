@@ -19,6 +19,7 @@ from digest_window import (  # noqa: E402
     DEFAULT_DB,
     DEFAULT_GZ,
     DEFAULT_WINDOW_STATE,
+    DIGEST_CALENDAR_DAY_LADDER,
     MIN_ARTICLES_DEFAULT,
     MIN_SOURCE_PROFILES,
     ROLLING_HOURS_LADDER,
@@ -123,6 +124,10 @@ def main() -> int:
     pin = pin_date(args.date, args.timezone)
     print(f"Pinned calendar date: {pin} ({args.timezone})")
 
+    removed = purge_stale_extracted_articles(db, hours=72)
+    if removed:
+        print(f"Pre-gate purge: removed {removed} article(s) with extracted_at older than 72h")
+
     state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-crawl")
     if not state:
         diag = db_diagnostics(db)
@@ -149,7 +154,7 @@ def main() -> int:
     if not state:
         print(
             f"ERROR: fewer than {args.min_articles} articles in digest window "
-            f"(calendar {list(CALENDAR_DAY_LADDER)}d or rolling {list(ROLLING_HOURS_LADDER)}h).\n"
+            f"(calendar {list(DIGEST_CALENDAR_DAY_LADDER)}d or rolling {list(ROLLING_HOURS_LADDER)}h).\n"
             "  Xem log bước Crawl; cache Actions cần tích lũy bài qua các lần chạy.\n"
             "  Local: python scripts/run_intel_full_daily.py --skip-profile --no-crawl-skip",
             file=sys.stderr,

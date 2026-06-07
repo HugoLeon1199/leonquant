@@ -15,6 +15,8 @@ DEFAULT_GZ = QUANT_ROOT / "data" / "web_intel_leonquant.duckdb.gz"
 
 # Smallest calendar window first; widen only when cache/crawl is thin.
 CALENDAR_DAY_LADDER = (2, 3, 5, 7, 14, 21)
+# Tin48h product: never widen calendar beyond today+yesterday — use rolling 48h instead.
+DIGEST_CALENDAR_DAY_LADDER = (2,)
 ROLLING_HOURS_LADDER = (48, 72, 96, 168)
 ROLLING_HOURS_FALLBACK = ROLLING_HOURS_LADDER[0]
 MIN_ARTICLES_DEFAULT = 10
@@ -95,7 +97,7 @@ def resolve_export_window(
     min_articles: int = MIN_ARTICLES_DEFAULT,
 ) -> dict[str, Any] | None:
     """Pick smallest usable window; prefer calendar days, else rolling by extracted_at."""
-    for days in CALENDAR_DAY_LADDER:
+    for days in DIGEST_CALENDAR_DAY_LADDER:
         n = count_calendar_articles(
             db_path, date=date, timezone_name=timezone_name, recent_calendar_days=days
         )
@@ -239,5 +241,36 @@ def filter_articles_recent_calendar_days(
             continue
         day = article_local_calendar_day(art, timezone_name=timezone_name)
         if day is not None and day in allowed:
+            out.append(art)
+    return out
+
+
+def filter_digest_fresh_articles(
+    articles: list[dict[str, Any]],
+    *,
+    end_date_str: str | None,
+    timezone_name: str = "Asia/Ho_Chi_Minh",
+    max_calendar_days: int = 2,
+    rolling_hours: int = 48,
+) -> list[dict[str, Any]]:
+    """Tin48h export: today+yesterday by publish day; exclude stale publish even if re-crawled."""
+    allowed = recent_calendar_day_set(end_date_str, timezone_name, max_calendar_days)
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=max(1, int(rolling_hours)))
+    tz = ZoneInfo(timezone_name)
+    out: list[dict[str, Any]] = []
+    for art in articles:
+        if not isinstance(art, dict):
+            continue
+        pub_dt = _parse_article_datetime(art.get("published_at"))
+        if pub_dt is not None:
+            if pub_dt.astimezone(tz).date() in allowed:
+                out.append(art)
+            continue
+        ext_dt = _parse_article_datetime(art.get("extracted_at") or art.get("extractedAt"))
+        if ext_dt is None:
+            continue
+        if ext_dt.astimezone(timezone.utc) < cutoff:
+            continue
+        if ext_dt.astimezone(tz).date() in allowed:
             out.append(art)
     return out

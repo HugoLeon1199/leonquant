@@ -2831,22 +2831,23 @@ def articles_payload_from_for_ai(path: Path) -> dict[str, Any]:
     window = data.get("window") if isinstance(data.get("window"), dict) else {}
     end_date = str(window.get("end_date") or "").strip() or None
     tz_name = str(window.get("timezone") or "Asia/Ho_Chi_Minh").strip()
-    num_days = max(1, int(window.get("recent_calendar_days") or 2))
+    rolling_hours = int(window.get("rolling_hours") or 48)
     if end_date:
         sys.path.insert(0, str(PROJECT_DIR / "scripts"))
-        from digest_window import filter_articles_recent_calendar_days  # noqa: E402
+        from digest_window import filter_digest_fresh_articles  # noqa: E402
 
         before = len(articles)
-        articles = filter_articles_recent_calendar_days(
+        articles = filter_digest_fresh_articles(
             articles,
             end_date_str=end_date,
             timezone_name=tz_name,
-            num_days=num_days,
+            max_calendar_days=2,
+            rolling_hours=rolling_hours,
         )
         if before != len(articles):
             print(
-                f"  calendar filter ({num_days}d ending {end_date}): "
-                f"{before} -> {len(articles)} articles"
+                f"  Tin48h freshness filter ({before} -> {len(articles)} articles, "
+                f"2d ending {end_date})"
             )
     return {
         "generated_at": data.get("generated_at"),

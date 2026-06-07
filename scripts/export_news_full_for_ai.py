@@ -177,6 +177,25 @@ def main() -> int:
         db.close()
 
     articles = [row_to_ai_article(r) for r in rows]
+
+    sys.path.insert(0, str(SCRIPTS))
+    from digest_window import filter_digest_fresh_articles  # noqa: E402
+
+    before_fresh = len(articles)
+    articles = filter_digest_fresh_articles(
+        articles,
+        end_date_str=export_date,
+        timezone_name=args.timezone,
+        max_calendar_days=min(recent_days, 2),
+        rolling_hours=rolling_hours if rolling_hours > 0 else 48,
+    )
+    if before_fresh != len(articles):
+        print(
+            f"  Tin48h freshness filter: {before_fresh} -> {len(articles)} articles "
+            f"(max 2 calendar days ending {export_date})"
+        )
+    recent_days = min(recent_days, 2)
+
     clean_stats: dict[str, int] | None = None
     if args.clean:
         sys.path.insert(0, str(SCRIPTS))
