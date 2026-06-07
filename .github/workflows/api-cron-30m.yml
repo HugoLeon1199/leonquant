@@ -38,5 +38,12 @@ jobs:
             exit 0
           fi
           git commit -m "API cron: accumulate news URLs (30m)."
-          git pull --rebase origin main
-          git push
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            if git pull origin main --no-rebase --no-edit && git push origin main; then
+              exit 0
+            fi
+            git merge --abort 2>/dev/null || true
+            sleep 30
+          done
+          exit 1

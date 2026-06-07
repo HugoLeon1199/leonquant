@@ -158,20 +158,25 @@ jobs:
         run: |
           git config user.name "daily-brief-bot"
           git config user.email "daily-brief-bot@users.noreply.github.com"
+          git restore enriched_news.json 2>/dev/null || true
           git add news_for_ai.json news_for_ai_clean.json gemini_digest_summary.json content.json invest_vn_brief.json web/invest_vn_brief.json
           if git diff --staged --quiet; then
             echo "No digest content changes"
             exit 0
           fi
           git commit -m "Update daily news digest (crawl + Gemini + web + invest VN brief)."
-          # enriched_news.json is tracked but not part of web bundle — discard so rebase is not blocked.
-          git restore enriched_news.json 2>/dev/null || true
-          for attempt in 1 2 3 4 5 6; do
-            if git pull --rebase origin main && git push origin main; then
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            git restore enriched_news.json 2>/dev/null || true
+            git diff --name-only | while read -r f; do
+              [ -n "$f" ] && git restore "$f" 2>/dev/null || true
+            done
+            git fetch origin main
+            if git pull origin main --no-rebase --no-edit && git push origin main; then
               exit 0
             fi
-            echo "Push attempt ${attempt} failed; retry in 20s..."
-            sleep 20
+            git merge --abort 2>/dev/null || true
+            echo "Push attempt ${attempt} failed; retry in 45s..."
+            sleep 45
           done
           exit 1
 
@@ -228,5 +233,12 @@ jobs:
             exit 0
           fi
           git commit -m "Update invest world desk pulse (GDELT 24h daily)."
-          git pull --rebase origin main
-          git push
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            if git pull origin main --no-rebase --no-edit && git push origin main; then
+              exit 0
+            fi
+            git merge --abort 2>/dev/null || true
+            sleep 30
+          done
+          exit 1
