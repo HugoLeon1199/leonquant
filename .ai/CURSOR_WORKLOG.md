@@ -568,3 +568,17 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Run:** `python api_tests/cron_fetch.py` · **Validation:** `python -m py_compile api_tests/cron_fetch.py`
 
+## 2026-06-07 — Fix Tin48h link cũ (May / 21-day export)
+
+**Nguyên nhân:** `news_for_ai_clean.json` còn cửa sổ **21 ngày** (1561 bài publish May) từ CI trước fix; `content.json` build từ export đó → link/ngày sai.
+
+**Đã làm (local):**
+- `prepare_digest_db.py`: purge 8541 bài publish ngoài today+yesterday; window rolling 48h (~479 fresh).
+- Re-export `news_for_ai.json` / `news_for_ai_clean.json` → **456 bài**, window `recent_calendar_days: 2`, rolling 48h.
+- `build_website_content.py`: luôn áp `filter_digest_fresh_articles` (kể cả thiếu `window.end_date`); bỏ URL Gemini ngoài pool 48h; backfill link front/dossier khi whitelist lọc hết URL cũ.
+- Rebuild `content.json`: **456** `allArticles` / `articleLinkIndex`, **0** URL `/may/` hoặc `2026-05`, `publishedAt` trong 48h.
+
+**Chưa:** Gemini digest vẫn summary cũ (source_urls May đã strip) — frontPage links có thể trống đến khi CI chạy lại Gemini trên export mới.
+
+**Deploy:** push `news_for_ai*.json` + `content.json` + `data/digest_export_window.json` qua daily workflow.
+

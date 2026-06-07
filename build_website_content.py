@@ -1449,12 +1449,13 @@ def _pick_sub_topic_url(
     sector_code: str,
     boost_urls: list[str],
 ) -> str:
-    """Ưu tiên URL Gemini; không bỏ link chỉ vì lệch sector trong matcher."""
+    """Ưu tiên URL Gemini nếu còn trong pool crawl 48h; không giữ link cũ ngoài whitelist."""
     for u in stated:
         s = str(u or "").strip()
         if not _is_plausible_article_url(s) or (used_urls is not None and s in used_urls):
             continue
-        return s
+        if s in by_url:
+            return s
     return _resolve_url_for_headline(
         headline,
         by_url=by_url,
@@ -1757,7 +1758,7 @@ def _sector_items_from_raw(
             stated = [
                 str(u).strip()
                 for u in (row.get("source_urls") or [])
-                if _is_http_url(str(u).strip())
+                if _is_http_url(str(u).strip()) and str(u).strip() in by_url
             ][:DIGEST_MAX_SOURCE_URLS_PER_TOPIC]
             resolved: list[str] = []
             for u in stated:
@@ -2216,6 +2217,14 @@ def build_newsroom_web_extras(
             )
         except Exception:
             pass
+        if not urls:
+            matched = _resolve_url_for_headline(
+                title,
+                by_url=by_url,
+                used_urls=seen,
+            )
+            if matched:
+                urls = [matched]
         links = _newsroom_sources_to_links(
             [
                 {
@@ -2364,6 +2373,26 @@ def build_newsroom_web_extras(
             links = _newsroom_sources_to_links(
                 src_rows, by_url=by_url, group=name, add_link=add_link
             )
+            if not links:
+                matched = _resolve_url_for_headline(
+                    title,
+                    by_url=by_url,
+                    used_urls=seen,
+                    sector_code=code,
+                )
+                if matched:
+                    links = _newsroom_sources_to_links(
+                        [
+                            {
+                                "url": matched,
+                                "title": str((by_url.get(matched) or {}).get("title") or ""),
+                                "source": str((by_url.get(matched) or {}).get("source") or ""),
+                            }
+                        ],
+                        by_url=by_url,
+                        group=name,
+                        add_link=add_link,
+                    )
             if not links:
                 continue
             dossiers_out.append(
@@ -2829,30 +2858,40 @@ def articles_payload_from_for_ai(path: Path) -> dict[str, Any]:
         )
     articles = _enrich_articles_from_intel_db(articles)
     window = data.get("window") if isinstance(data.get("window"), dict) else {}
-    end_date = str(window.get("end_date") or "").strip() or None
     tz_name = str(window.get("timezone") or "Asia/Ho_Chi_Minh").strip()
     rolling_hours = int(window.get("rolling_hours") or 48)
-    if end_date:
-        sys.path.insert(0, str(PROJECT_DIR / "scripts"))
-        from digest_window import filter_digest_fresh_articles  # noqa: E402
+    end_date = str(window.get("end_date") or "").strip()
+    if not end_date:
+        from zoneinfo import ZoneInfo
 
-        before = len(articles)
-        articles = filter_digest_fresh_articles(
-            articles,
-            end_date_str=end_date,
-            timezone_name=tz_name,
-            max_calendar_days=2,
-            rolling_hours=rolling_hours,
+        end_date = datetime.now(ZoneInfo(tz_name)).date().isoformat()
+    sys.path.insert(0, str(PROJECT_DIR / "scripts"))
+    from digest_window import filter_digest_fresh_articles  # noqa: E402
+
+    before = len(articles)
+    articles = filter_digest_fresh_articles(
+        articles,
+        end_date_str=end_date,
+        timezone_name=tz_name,
+        max_calendar_days=2,
+        rolling_hours=rolling_hours,
+    )
+    if before != len(articles):
+        print(
+            f"  Tin48h freshness filter ({before} -> {len(articles)} articles, "
+            f"2d ending {end_date})"
         )
-        if before != len(articles):
-            print(
-                f"  Tin48h freshness filter ({before} -> {len(articles)} articles, "
-                f"2d ending {end_date})"
-            )
     return {
         "generated_at": data.get("generated_at"),
         "count": len(articles),
         "articles": articles,
+        "window": {
+            **window,
+            "end_date": end_date,
+            "timezone": tz_name,
+            "recent_calendar_days": 2,
+            "rolling_hours": rolling_hours if rolling_hours else None,
+        },
     }
 
 
