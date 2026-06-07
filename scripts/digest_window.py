@@ -89,6 +89,72 @@ def db_diagnostics(db_path: Path) -> dict[str, Any]:
         db.close()
 
 
+def fetch_rolling_article_rows(db_path: Path, *, hours: int) -> list[dict[str, Any]]:
+    h = max(1, int(hours))
+    db = open_db(db_path)
+    try:
+        df = db.conn.execute(
+            f"""
+            SELECT * FROM articles
+            WHERE extracted_at >= CURRENT_TIMESTAMP - INTERVAL {h} HOUR
+              AND COALESCE(content_length, 0) >= {MIN_CONTENT_CHARS}
+            ORDER BY extracted_at DESC
+            """
+        ).fetchdf()
+        return df.to_dict("records")
+    finally:
+        db.close()
+
+
+def count_digest_fresh_in_db(
+    db_path: Path,
+    *,
+    date: str,
+    timezone_name: str,
+    rolling_hours: int = ROLLING_HOURS_FALLBACK,
+) -> int:
+    rows = fetch_rolling_article_rows(db_path, hours=rolling_hours)
+    return len(
+        filter_digest_fresh_articles(
+            rows,
+            end_date_str=date,
+            timezone_name=timezone_name,
+            max_calendar_days=DIGEST_CALENDAR_DAY_LADDER[0],
+            rolling_hours=rolling_hours,
+        )
+    )
+
+
+def purge_published_outside_calendar_window(
+    db_path: Path,
+    *,
+    end_date_str: str,
+    timezone_name: str,
+    num_days: int = 2,
+) -> int:
+    """Remove articles with parseable publish day outside today+yesterday (stale May cache)."""
+    allowed = recent_calendar_day_set(end_date_str, timezone_name, num_days)
+    tz = ZoneInfo(timezone_name)
+    db = open_db(db_path)
+    try:
+        before = int(db.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
+        df = db.conn.execute("SELECT id, published_at FROM articles").fetchdf()
+        drop_ids: list[Any] = []
+        for row in df.to_dict("records"):
+            pub_dt = _parse_article_datetime(row.get("published_at"))
+            if pub_dt is None:
+                continue
+            if pub_dt.astimezone(tz).date() not in allowed:
+                drop_ids.append(row.get("id"))
+        if drop_ids:
+            placeholders = ",".join("?" * len(drop_ids))
+            db.conn.execute(f"DELETE FROM articles WHERE id IN ({placeholders})", drop_ids)
+        after = int(db.conn.execute("SELECT COUNT(*) FROM articles").fetchone()[0])
+        return before - after
+    finally:
+        db.close()
+
+
 def resolve_export_window(
     db_path: Path,
     *,
@@ -96,30 +162,50 @@ def resolve_export_window(
     timezone_name: str,
     min_articles: int = MIN_ARTICLES_DEFAULT,
 ) -> dict[str, Any] | None:
-    """Pick smallest usable window; prefer rolling extract freshness, then 2 calendar days."""
+    """Pick window where Tin48h-fresh article count (publish day) meets minimum."""
     for hours in ROLLING_HOURS_LADDER:
-        rolling = count_rolling_articles(db_path, hours=hours)
-        if rolling >= min_articles:
+        raw = count_rolling_articles(db_path, hours=hours)
+        if raw < min_articles:
+            continue
+        fresh = count_digest_fresh_in_db(
+            db_path, date=date, timezone_name=timezone_name, rolling_hours=hours
+        )
+        if fresh >= min_articles:
             return {
                 "mode": "rolling",
                 "recent_calendar_days": DIGEST_CALENDAR_DAY_LADDER[0],
                 "rolling_hours": hours,
-                "article_count": rolling,
+                "article_count": fresh,
                 "min_articles": min_articles,
                 "end_date": date,
                 "timezone": timezone_name,
             }
 
     for days in DIGEST_CALENDAR_DAY_LADDER:
-        n = count_calendar_articles(
-            db_path, date=date, timezone_name=timezone_name, recent_calendar_days=days
+        db = open_db(db_path)
+        try:
+            rows = db.fetch_today_articles(
+                target_date_str=date,
+                timezone_name=timezone_name,
+                recent_calendar_days=days,
+            )
+        finally:
+            db.close()
+        fresh = len(
+            filter_digest_fresh_articles(
+                rows,
+                end_date_str=date,
+                timezone_name=timezone_name,
+                max_calendar_days=days,
+                rolling_hours=ROLLING_HOURS_FALLBACK,
+            )
         )
-        if n >= min_articles:
+        if fresh >= min_articles:
             return {
                 "mode": "calendar",
                 "recent_calendar_days": days,
                 "rolling_hours": None,
-                "article_count": n,
+                "article_count": fresh,
                 "min_articles": min_articles,
                 "end_date": date,
                 "timezone": timezone_name,

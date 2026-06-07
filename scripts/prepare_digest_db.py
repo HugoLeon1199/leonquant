@@ -25,6 +25,7 @@ from digest_window import (  # noqa: E402
     ROLLING_HOURS_LADDER,
     db_diagnostics,
     open_db,
+    purge_published_outside_calendar_window,
     purge_stale_extracted_articles,
     resolve_export_window,
     write_window_state,
@@ -123,6 +124,12 @@ def main() -> int:
 
     pin = pin_date(args.date, args.timezone)
     print(f"Pinned calendar date: {pin} ({args.timezone})")
+
+    removed_pub = purge_published_outside_calendar_window(
+        db, end_date_str=pin, timezone_name=args.timezone, num_days=2
+    )
+    if removed_pub:
+        print(f"Purged {removed_pub} article(s) with publish date outside today+yesterday")
 
     state = try_resolve(db, date=pin, timezone=args.timezone, min_articles=args.min_articles, label="post-crawl")
     if not state:
