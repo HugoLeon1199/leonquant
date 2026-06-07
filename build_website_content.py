@@ -1368,7 +1368,13 @@ def _score_headline_to_article(headline: str, art: dict[str, Any]) -> float:
     title = str(art.get("title") or "").strip()
     if not title:
         return 0.0
-    text = str(art.get("text") or "")[:1000]
+    text = str(
+        art.get("text")
+        or art.get("content_for_ai")
+        or art.get("summary")
+        or art.get("description")
+        or ""
+    )[:1000]
     ht = _headline_tokens(headline)
     title_norm = _normalize_vn_text(title)
     blob_norm = title_norm + " " + _normalize_vn_text(text)
@@ -2117,9 +2123,45 @@ def _compose_sector_thesis_for_web(sec: dict[str, Any], *, soften) -> str:
     return soften("\n\n".join(p for p in parts if p).strip())
 
 
+def _sector_fallback_links(
+    *,
+    sector_code: str,
+    by_url: dict[str, dict[str, Any]],
+    used_urls: set[str] | None,
+    limit: int = 6,
+) -> list[dict[str, Any]]:
+    """Gán link sector từ pool crawl 48h khi Gemini URL cũ bị lọc hết."""
+    scored: list[tuple[float, str, dict[str, Any]]] = []
+    for u, art in by_url.items():
+        if used_urls and u in used_urls:
+            continue
+        if _infer_article_sector_code(art) != sector_code:
+            continue
+        pub = str(art.get("published_at") or "")
+        scored.append((pub, u, art))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    out: list[dict[str, Any]] = []
+    for _, u, art in scored[: max(1, limit)]:
+        host = _url_hostname(u)
+        out.append(
+            {
+                "url": u,
+                "title": str(art.get("title") or host),
+                "host": host,
+                "source": str(art.get("source") or ""),
+                "label": _link_display_label(host, str(art.get("source") or "")),
+                "excerpt": _article_excerpt(art),
+                "publishedAt": _link_published_at(art=art),
+            }
+        )
+    return out
+
+
 def build_newsroom_web_extras(
     summary: dict[str, Any],
     all_articles: list[dict[str, Any]],
+    *,
+    match_articles: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Newsroom brief → content.json fields + legacy digestSectors fallback."""
     legacy_sectors: list[dict[str, Any]] = []
@@ -2161,8 +2203,9 @@ def build_newsroom_web_extras(
         "notable_articles": [],
     }
     base = build_digest_web_extras(legacy_summary, all_articles)
+    match_pool = match_articles if match_articles else all_articles
     by_url: dict[str, dict[str, Any]] = {}
-    for art in all_articles:
+    for art in match_pool:
         u = str(art.get("url") or "").strip()
         if u and u not in by_url:
             by_url[u] = art
@@ -2208,7 +2251,7 @@ def build_newsroom_web_extras(
             from scripts.newsroom_source_match import filter_urls_for_story
             from summarize_news_gemini import DigestUrlIndex
 
-            url_index = DigestUrlIndex(all_articles)
+            url_index = DigestUrlIndex(list(by_url.values()))
             urls = filter_urls_for_story(
                 urls,
                 title,
@@ -2354,7 +2397,7 @@ def build_newsroom_web_extras(
                 from scripts.newsroom_source_match import filter_urls_for_story
                 from summarize_news_gemini import DigestUrlIndex
 
-                url_index = DigestUrlIndex(all_articles)
+                url_index = DigestUrlIndex(list(by_url.values()))
                 urls = filter_urls_for_story(
                     urls, title, url_index, context=str(d.get("summary") or "")
                 )
@@ -2387,14 +2430,13 @@ def build_newsroom_web_extras(
                                 "url": matched,
                                 "title": str((by_url.get(matched) or {}).get("title") or ""),
                                 "source": str((by_url.get(matched) or {}).get("source") or ""),
+                                "excerpt": str(d.get("summary") or "").strip(),
                             }
                         ],
                         by_url=by_url,
                         group=name,
                         add_link=add_link,
                     )
-            if not links:
-                continue
             dossiers_out.append(
                 {
                     "rank": int(d.get("rank") or len(dossiers_out) + 1),
@@ -2430,6 +2472,21 @@ def build_newsroom_web_extras(
             *[sb.get("links") or [] for sb in subsector_out],
             *[d.get("links") or [] for d in dossiers_out],
         )
+        if not merged_links:
+            merged_links = _sector_fallback_links(
+                sector_code=code,
+                by_url=by_url,
+                used_urls=seen,
+                limit=8,
+            )
+            for lk in merged_links:
+                add_link(
+                    str(lk.get("url") or ""),
+                    title=str(lk.get("title") or ""),
+                    source=str(lk.get("source") or ""),
+                    sector=name,
+                    group=name,
+                )
         sector_deep.append(
             {
                 "code": code,
@@ -3721,7 +3778,13 @@ def build_payload(
                 file=sys.stderr,
             )
         if from_newsroom:
-            extras = build_newsroom_web_extras(raw_summary, all_articles)
+            extras = build_newsroom_web_extras(
+                raw_summary,
+                all_articles,
+                match_articles=enriched_payload.get("articles")
+                if isinstance(enriched_payload.get("articles"), list)
+                else None,
+            )
             payload.update(extras)
             n_dossiers = sum(
                 len(s.get("storyDossiers") or [])

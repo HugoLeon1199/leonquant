@@ -582,3 +582,11 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Deploy:** push `news_for_ai*.json` + `content.json` + `data/digest_export_window.json` qua daily workflow.
 
+## 2026-06-07 — Khôi phục link + nội dung Tin48h (sau lọc URL cũ)
+
+**Lỗi:** Lọc URL May làm `representative_sources` rỗng → `enforce_newsroom_main_editorial_quality` xóa hết dossier; matcher headline không đọc `summary`; UI không render `frontPage` / `storyDossiers`.
+
+**Fix:** Giữ dossier khi thiếu URL (gán link lại lúc build); `_score_headline_to_article` dùng summary; sector fallback links; render front page + dossier cards (`landing_page.html`, `newsroom_brief_render.mjs`).
+
+**Kết quả local:** 21 dossier, 11+ link dossier, 6 link front, 8 link/sector, 456 archive links.
+

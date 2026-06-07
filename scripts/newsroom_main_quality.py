@@ -291,8 +291,6 @@ def enforce_newsroom_main_editorial_quality(
                 [x for x in (sd.get("representative_sources") or []) if isinstance(x, dict)],
                 url_index=url_index,
             )
-            if not srcs:
-                continue
             sd["representative_sources"] = srcs
             if not _track_cluster(sd):
                 continue

@@ -2551,7 +2551,7 @@ def normalize_newsroom_brief(
                 continue
             sd = _sanitize_story_dossier(d, index=url_index, sector_code=code)
             sd["watch_next"] = _strip_generic_watch_lines(sd.get("watch_next") or [])
-            if sd.get("title") and sd.get("representative_sources"):
+            if sd.get("title"):
                 dossiers.append(sd)
         dossiers.sort(key=lambda r: int(r.get("rank") or 999))
         bucket["story_dossiers"].extend(dossiers)

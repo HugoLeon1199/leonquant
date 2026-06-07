@@ -662,6 +662,13 @@ export function buildNewsroomThesisHtml(data, deps) {
   html += buildNewsroomIssueHeader(data);
   html += buildNewsroomTocHtml(data, sectorSlug);
   html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
+  const front = Array.isArray(data.frontPage) ? data.frontPage : [];
+  if (front.length) {
+    html += `<section class="overview-part front-page-section" id="digest-front-page">`;
+    html += `<h3 class="pub-section-title">Điểm nóng 48h</h3>`;
+    html += buildNewsroomFrontPageHtml(front, deps.buildDossierSourcesHtml);
+    html += `</section>`;
+  }
 
   if (sectors.length) {
     html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;
@@ -687,6 +694,14 @@ export function buildNewsroomThesisHtml(data, deps) {
         html += `</div>`;
       }
       html += buildSectorArticleLinksHtml(links);
+      const dossiers = Array.isArray(sec.storyDossiers) ? sec.storyDossiers : [];
+      if (dossiers.length) {
+        html += `<div class="sector-dossiers">`;
+        for (const d of dossiers) {
+          html += buildDossierCardHtml(d);
+        }
+        html += `</div>`;
+      }
       html += `</article>`;
     }
     html += `</section>`;
