@@ -2,25 +2,24 @@
 
 Started: `2026-06-06T18:35:57.362051+00:00`
 Query: `economy OR finance OR market`
-Updated: `2026-06-10T04:57:49.102511+00:00`
+Updated: `2026-06-10T08:57:14.101936+00:00`
 
 ## Totals
 
-- HTTP requests: **33**
-- Unique URLs: **465**
-- URLs with full-ish body: **216**
+- HTTP requests: **34**
+- Unique URLs: **495**
+- URLs with full-ish body: **242**
 
 ## By API
 
 | API | runs | fetched | unique URLs | full body |
 |-----|------|---------|-------------|-----------|
-| worldnews | 11 | 326 | 245 | 216 |
+| worldnews | 12 | 356 | 275 | 242 |
 | gnews | 11 | 110 | 110 | 0 |
 | newsdata | 11 | 110 | 110 | 0 |
 
 ## Recent runs (last 12)
 
-- `2026-06-08T22:10:20.034931+00:00` **worldnews** → 29 fetched, +7 new · OK
 - `2026-06-08T23:47:16.794684+00:00` **gnews** → 10 fetched, +10 new · OK
 - `2026-06-09T03:37:10.676595+00:00` **newsdata** → 10 fetched, +10 new · OK
 - `2026-06-09T07:51:25.442419+00:00` **worldnews** → 30 fetched, +30 new · OK
@@ -32,5 +31,6 @@ Updated: `2026-06-10T04:57:49.102511+00:00`
 - `2026-06-09T22:58:39.972906+00:00` **worldnews** → 30 fetched, +9 new · OK
 - `2026-06-10T00:21:32.337808+00:00` **gnews** → 10 fetched, +10 new · OK
 - `2026-06-10T04:57:49.102511+00:00` **newsdata** → 10 fetched, +10 new · OK
+- `2026-06-10T08:57:14.101936+00:00` **worldnews** → 30 fetched, +30 new · OK
 
 _Rotate: worldnews → gnews → newsdata. Standalone — chưa vào Tin48h pipeline._
