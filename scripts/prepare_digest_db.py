@@ -8,6 +8,7 @@ import gzip
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 QUANT_ROOT = Path(__file__).resolve().parents[1]
@@ -85,6 +86,20 @@ def try_resolve(
     return state
 
 
+def latest_extract_is_stale(diag: dict, *, max_age_hours: int = 6) -> bool:
+    raw = str(diag.get("latest_extracted_at") or "").strip()
+    if not raw:
+        return True
+    try:
+        dt = datetime.fromisoformat(raw)
+    except ValueError:
+        return True
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    age = datetime.now(timezone.utc) - dt.astimezone(timezone.utc)
+    return age > timedelta(hours=max(1, int(max_age_hours)))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Prepare DuckDB + export window for 48h digest")
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
@@ -154,6 +169,13 @@ def main() -> int:
                     file=sys.stderr,
                 )
                 return 6
+        if not state and latest_extract_is_stale(diag):
+            print(
+                "HINT: latest_extracted_at is stale/missing after crawl; caller should retry crawl "
+                "or rebuild source_profiles before treating the digest window as empty.",
+                file=sys.stderr,
+            )
+            return 6
     if not state:
         print(
             f"ERROR: fewer than {args.min_articles} articles in digest window "
