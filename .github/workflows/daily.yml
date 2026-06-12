@@ -133,7 +133,7 @@ jobs:
           }
           gate_once && exit 0
           rc=$?
-          if [ "$rc" -eq 6 ]; then
+          if [ "$rc" -eq 5 ] || [ "$rc" -eq 6 ]; then
             recover_once "$rc"
             gate_once
             exit $?
