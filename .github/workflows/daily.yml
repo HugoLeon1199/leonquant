@@ -60,7 +60,11 @@ jobs:
       - name: Bootstrap DuckDB (profiles từ .gz nếu chưa có cache)
         run: |
           mkdir -p data
-          if [ ! -f data/web_intel_leonquant.duckdb ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
+          if [ "${{ steps.cache-intel-db.outputs.cache-hit }}" != "true" ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
+            rm -f data/web_intel_leonquant.duckdb
+            gunzip -c data/web_intel_leonquant.duckdb.gz > data/web_intel_leonquant.duckdb
+            echo "Bootstrapped clean seed from .gz because exact cache key was not hit"
+          elif [ ! -f data/web_intel_leonquant.duckdb ] && [ -f data/web_intel_leonquant.duckdb.gz ]; then
             gunzip -c data/web_intel_leonquant.duckdb.gz > data/web_intel_leonquant.duckdb
             echo "Decompressed seed ($(du -h data/web_intel_leonquant.duckdb | cut -f1))"
           fi
