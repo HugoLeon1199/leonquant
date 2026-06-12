@@ -124,20 +124,21 @@ jobs:
               --min-articles 5
           }
           recover_once() {
-            echo "Gate failed (rc=$1) - rebuild DuckDB from seed profiles, refresh source_profiles, then crawl again."
-            python -c "from pathlib import Path; import sys; sys.path.insert(0, 'scripts'); from digest_window import db_diagnostics; print(f'Pre-recovery DB: {db_diagnostics(Path(\"data/web_intel_leonquant.duckdb\"))}')"
+            echo "Gate requested one more crawl pass (rc=$1) with existing source_profiles."
             python scripts/run_intel_full_daily.py \
               --date "$CRAWL_CALENDAR_DATE" \
               --timezone Asia/Ho_Chi_Minh \
-              --fresh-db \
-              --force-refresh-profile \
+              --skip-profile \
               --no-crawl-skip
           }
           gate_once && exit 0
           rc=$?
-          recover_once "$rc"
-          gate_once
-          exit $?
+          if [ "$rc" -eq 6 ]; then
+            recover_once "$rc"
+            gate_once
+            exit $?
+          fi
+          exit "$rc"
 
       - name: Gemini digest and build web content
         env:

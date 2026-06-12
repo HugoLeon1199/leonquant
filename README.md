@@ -87,7 +87,7 @@ python scripts/run_intel_full_daily.py --date today --timezone Asia/Ho_Chi_Minh 
 
 **Vì sao trước hay lỗi:** không phải do “phân loại web” trên CI — do **bài cũ trong cache** + export/prune lệch cửa sổ, đôi khi **re-seed .gz** nạp lại hàng nghìn bài lỗi thời thay vì tin vừa crawl.
 
-**CI hàng ngày (tự động):** xóa bài cũ → **Scrapy cào 48h** → Gemini digest. **Không** chạy `run_profile.py` trên Actions.
+**CI hàng ngày (tự động):** xóa bài cũ → **Scrapy cào 48h** → Gemini digest. Daily recovery chỉ **cào lại** với source_profiles sẵn có; **không** full re-profile mỗi ngày.
 
 **Khi bạn đổi link nguồn (tay):**
 
@@ -114,6 +114,7 @@ Gate: `prepare_digest_db.py` (sau crawl, **không** re-seed bài cũ) → `data/
 - **`daily.yml`:** hai job **song song** lúc **05:00 VN** (`0 22 * * *` UTC), pipeline tách riêng:
   - **build-digest** — cào web 48h → `content.json` + `invest_vn_brief.json` (Việt Nam trong nước).
   - **invest-world** — `leon.py --channel invest` → `invest_world_pulse.json` (Tin thế giới quan trọng, GDELT 24h).
+- **`profile-refresh-monthly.yml`:** refresh `source_profiles` từ `config/sources_seed.txt` mỗi tháng một lần (và có thể chạy tay), rồi pack lại `data/web_intel_leonquant.duckdb.gz` theo mode `profiles-only`.
 - **`pulse-hourly.yml`:** chỉ **LIVE** `market_pulse.json` mỗi **12h** (`leon.py --channel world`); không cập nhật invest desk.
 - **`pages.yml`:** deploy sau khi workflow *Tin Việt Nam 48h digest* hoàn tất (cả digest + invest-world).
   - Chạy tay digest: Actions → *Tin Việt Nam 48h digest* → *Run workflow*, hoặc `.ci-run-digest` / `.ci-run-invest-daily` trên `main`.
