@@ -129,7 +129,7 @@ jobs:
               --date "$CRAWL_CALENDAR_DATE" \
               --timezone Asia/Ho_Chi_Minh \
               --skip-profile \
-              --no-crawl-skip
+              --no-crawl-skip || echo "WARN: recovery crawl incomplete - re-check gate with whatever landed in DuckDB."
           }
           gate_once && exit 0
           rc=$?
