@@ -10,6 +10,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+import duckdb
+
 QUANT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = QUANT_ROOT / "data" / "web_intel_leonquant.duckdb"
 DEFAULT_GZ = QUANT_ROOT / "data" / "web_intel_leonquant.duckdb.gz"
@@ -46,6 +48,7 @@ def main() -> int:
     sys.path.insert(0, str(root / "src"))
     from storage.db import WebIntelDB  # noqa: E402
 
+    raw_mb = 0.0
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp) / "seed.duckdb"
         shutil.copy2(src, work)
@@ -77,12 +80,19 @@ def main() -> int:
         finally:
             db.close()
 
+        # Merge any pending WAL state into the main DuckDB file before gzip.
+        chk = duckdb.connect(str(work))
+        try:
+            chk.execute("CHECKPOINT")
+        finally:
+            chk.close()
+
         out = args.output.resolve()
         out.parent.mkdir(parents=True, exist_ok=True)
         with open(work, "rb") as fin, gzip.open(out, "wb", compresslevel=9) as fout:
             shutil.copyfileobj(fin, fout)
+        raw_mb = work.stat().st_size / 1024 / 1024
 
-    raw_mb = work.stat().st_size / 1024 / 1024
     gz_mb = out.stat().st_size / 1024 / 1024
     print(f"Wrote {out} ({gz_mb:.1f} MB gzip, {raw_mb:.1f} MB raw, mode={args.mode})")
     return 0
