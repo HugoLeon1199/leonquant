@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-13T04:20:02.482991+00:00",
+  "generated_at": "2026-06-13T05:57:41.992599+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 692683,
+    "estimated_input_tokens": 698859,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 561,
-    "sent_article_count": 561,
+    "input_article_count": 569,
+    "sent_article_count": 569,
     "window": {
       "end_date": "2026-06-13",
       "timezone": "Asia/Ho_Chi_Minh",
@@ -25,193 +25,125 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "12",
-    "editor_note": "Bản tin tổng hợp các sự kiện trọng yếu trong 48 giờ qua, tập trung vào sự kiện lịch sử SpaceX IPO, diễn biến địa chính trị Mỹ-Iran và các quy định mới về AI.",
+    "editor_note": "Bản tin tập trung vào sự kiện SpaceX IPO, diễn biến địa chính trị Mỹ-Iran và các thay đổi chính sách tại Việt Nam.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh toàn cầu bị chi phối bởi sự kiện lịch sử khi SpaceX chính thức IPO trên Nasdaq, đưa Elon Musk trở thành tỷ phú nghìn tỷ USD đầu tiên trên thế giới. Sự kiện này không chỉ tạo ra làn sóng biến động trên thị trường tài chính mà còn đặt ra những câu hỏi về định giá các công ty công nghệ tư nhân. Song song đó, các tín hiệu hạ nhiệt căng thẳng giữa Mỹ và Iran đã mang lại hy vọng cho thị trường năng lượng, trong khi lĩnh vực AI đối mặt với sự kiểm soát chặt chẽ hơn từ chính phủ.",
-        "most_mentioned": "SpaceX IPO là chủ đề được nhắc đến nhiều nhất với hơn 85 bài viết, phản ánh sự quan tâm cực độ của giới đầu tư toàn cầu. Tiếp theo là các diễn biến ngoại giao Mỹ-Iran và các lệnh đình chỉ mô hình AI từ Anthropic, cho thấy sự giao thoa giữa quyền lực công nghệ và chính sách quốc gia.",
-        "top_stories": "Câu chuyện quan trọng nhất là sự kiện SpaceX IPO và tác động của nó đến tâm lý thị trường. Việc Anthropic bị buộc đình chỉ các mô hình AI như Fable 5 và Mythos 5 cũng là một cột mốc quan trọng, đánh dấu bước ngoặt trong cách các chính phủ giám sát an toàn AI.",
-        "sector_impacts": "Tại Việt Nam, sự chú ý tập trung vào các quy định mới về truy xuất nguồn gốc hàng hóa rủi ro cao và quản lý bất động sản. Trong khi đó, thị trường toàn cầu đang phản ứng với sự biến động của giá vàng và các sự kiện mở màn World Cup 2026.",
-        "watch_24_72h": "Cần theo dõi sát sao phản ứng của các quỹ chỉ số đối với định giá của SpaceX, các chi tiết kỹ thuật trong thỏa thuận Mỹ-Iran và tác động của quy định truy xuất hàng hóa mới tại Việt Nam từ ngày 1/7."
+        "main_picture": "Trong 48 giờ qua, bức tranh toàn cầu bị chi phối bởi sự kiện SpaceX chính thức niêm yết trên sàn Nasdaq, đưa Elon Musk trở thành tỷ phú nghìn tỷ USD đầu tiên. Sự kiện này không chỉ là cột mốc tài chính mà còn tạo ra làn sóng biến động mạnh trên thị trường vốn và crypto. Song song đó, các tín hiệu về khả năng đạt được thỏa thuận hòa bình Mỹ-Iran đang làm dịu bớt áp lực lên giá dầu và tâm lý nhà đầu tư toàn cầu.",
+        "most_mentioned": "IPO của SpaceX là chủ đề được nhắc đến nhiều nhất, với sự quan tâm đặc biệt từ các nguồn tin tài chính quốc tế. Sự kiện này được phân tích dưới nhiều góc độ: từ tác động đến định giá các công ty hàng không vũ trụ tư nhân đến ảnh hưởng trực tiếp lên danh mục đầu tư của các quỹ lớn.",
+        "top_stories": "Thỏa thuận Mỹ-Iran nổi lên như một câu chuyện địa chính trị then chốt. Việc các bên phát đi tín hiệu hòa giải đã trực tiếp làm giảm bớt rủi ro cho thị trường năng lượng, vốn đang chịu nhiều áp lực từ căng thẳng vùng Vịnh.",
+        "sector_impacts": "Tại Việt Nam, các thông tin kinh tế tập trung vào việc chuẩn hóa thị trường bất động sản và các quy định mới về truy xuất nguồn gốc hàng hóa từ 1/7. Đồng thời, sự kiện World Cup 2026 khai mạc tại Mỹ cũng đang trở thành điểm giao thoa giữa truyền thông, tài trợ và tiêu dùng.",
+        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi phản ứng của thị trường chứng khoán Việt Nam trước biến động IPO SpaceX, diễn biến thực tế của thỏa thuận Mỹ-Iran và các văn bản hướng dẫn thi hành quy định truy xuất nguồn gốc hàng hóa mới."
       },
-      "content": "Bản tin tổng hợp các sự kiện trọng yếu trong 48 giờ qua, tập trung vào sự kiện lịch sử SpaceX IPO, diễn biến địa chính trị Mỹ-Iran và các quy định mới về AI.",
+      "content": "Thị trường toàn cầu đang trải qua giai đoạn chuyển dịch tâm lý mạnh mẽ. Việc SpaceX lên sàn không chỉ là một thương vụ IPO đơn thuần mà còn là biểu tượng cho sự thống trị của các tập đoàn công nghệ tư nhân trong kỷ nguyên mới. Tại Việt Nam, sự tập trung của các cơ quan quản lý vào việc siết chặt quy định truy xuất nguồn gốc và chuẩn hóa thị trường bất động sản cho thấy nỗ lực minh bạch hóa nền kinh tế trước thềm nửa cuối năm 2026.",
       "representative_sources": [],
       "most_mentioned_topics": [
         {
-          "topic": "SpaceX IPO",
-          "why_mentioned": "Sự kiện tài chính lớn nhất thập kỷ.",
-          "evidence_hint": "85 bài viết trên các kênh tài chính."
-        },
-        {
-          "topic": "Mỹ-Iran",
-          "why_mentioned": "Ảnh hưởng trực tiếp đến giá dầu và an ninh toàn cầu.",
-          "evidence_hint": "45 bài viết từ các nguồn tin tức quốc tế."
+          "topic": "IPO SpaceX",
+          "why_mentioned": "Sự kiện tài chính lớn nhất trong 48 giờ qua",
+          "evidence_hint": "Lặp lại dày đặc trên các nguồn tin tài chính quốc tế"
         }
       ],
       "hottest_topics": [
         {
-          "topic": "AI Safety Regulation",
-          "why_hot": "Can thiệp trực tiếp vào sản phẩm của các công ty AI hàng đầu.",
-          "impact": "Thay đổi cách phát triển mô hình AI.",
-          "evidence_hint": "30 bài viết về lệnh đình chỉ của chính phủ."
+          "topic": "Địa chính trị Mỹ-Iran",
+          "why_hot": "Tác động trực tiếp đến giá năng lượng",
+          "impact": "Giảm rủi ro cho thị trường chứng khoán",
+          "evidence_hint": "Được các chuyên gia phân tích năng lượng quan tâm"
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Siết chặt quản lý AI",
-          "why_watch": "Các công ty AI sẽ phải đối mặt với rào cản pháp lý cao hơn."
+          "signal": "Siết chặt truy xuất nguồn gốc hàng hóa tại Việt Nam",
+          "why_watch": "Ảnh hưởng trực tiếp đến chuỗi cung ứng và bán lẻ từ 1/7"
         }
       ],
       "watch_next": [
-        "Định giá SpaceX",
-        "Thỏa thuận Mỹ-Iran",
-        "Quy định truy xuất hàng hóa Việt Nam"
+        "Biến động giá cổ phiếu SpaceX",
+        "Phản ứng của thị trường dầu mỏ với tin tức Mỹ-Iran",
+        "Các văn bản hướng dẫn truy xuất nguồn gốc tại Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "SpaceX IPO: Elon Musk trở thành tỷ phú nghìn tỷ USD",
-        "one_sentence": "Sự kiện IPO của SpaceX trên Nasdaq đã thay đổi cục diện tài sản cá nhân và thị trường công nghệ.",
-        "why_it_matters": "Định giá lại toàn bộ ngành hàng không vũ trụ tư nhân.",
-        "watch_next": "Biến động giá cổ phiếu trong tuần đầu.",
+        "title": "SpaceX IPO chính thức lên sàn Nasdaq",
+        "one_sentence": "Thương vụ IPO lịch sử đưa Elon Musk trở thành tỷ phú nghìn tỷ USD đầu tiên.",
+        "why_it_matters": "Tạo ra làn sóng biến động mạnh trên thị trường tài chính và crypto.",
+        "watch_next": "Biến động giá cổ phiếu SpaceX trong những phiên đầu.",
         "source_urls": []
       },
       {
         "rank": 2,
-        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
-        "one_sentence": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD.",
-        "why_it_matters": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD.",
-        "watch_next": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD.",
+        "title": "Việt Nam siết chặt quy định truy xuất nguồn gốc hàng hóa từ 1/7",
+        "one_sentence": "Các quy định mới nhằm minh bạch hóa thị trường và bảo vệ người tiêu dùng.",
+        "why_it_matters": "Ảnh hưởng trực tiếp đến các doanh nghiệp sản xuất và bán lẻ.",
+        "watch_next": "Các văn bản hướng dẫn thi hành cụ thể.",
         "source_urls": []
       },
       {
         "rank": 3,
-        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
-        "one_sentence": "Động thái quản lý AI quan trọng liên quan đến an ninh quốc gia.",
-        "why_it_matters": "Động thái quản lý AI quan trọng liên quan đến an ninh quốc gia.",
-        "watch_next": "Động thái quản lý AI quan trọng liên quan đến an ninh quốc gia.",
-        "source_urls": []
-      },
-      {
-        "rank": 4,
-        "title": "Thủ tướng Lê Minh Hưng phát động thi đua tăng trưởng bền vững 2 con số",
-        "one_sentence": "Định hướng chiến lược quan trọng nhất của Chính phủ Việt Nam trong giai đoạn 2026-2030.",
-        "why_it_matters": "Định hướng chiến lược quan trọng nhất của Chính phủ Việt Nam trong giai đoạn 2026-2030.",
-        "watch_next": "Định hướng chiến lược quan trọng nhất của Chính phủ Việt Nam trong giai đoạn 2026-2030.",
+        "title": "Anthropic đình chỉ quyền truy cập các mô hình AI Fable 5 và Mythos 5",
+        "one_sentence": "Động thái quan trọng của chính phủ Mỹ trong việc kiểm soát an ninh AI.",
+        "why_it_matters": "Động thái quan trọng của chính phủ Mỹ trong việc kiểm soát an ninh AI.",
+        "watch_next": "Động thái quan trọng của chính phủ Mỹ trong việc kiểm soát an ninh AI.",
         "source_urls": [
-          "https://tienphong.vn/thu-tuong-neu-6-noi-dung-thi-dua-de-dat-muc-tieu-tang-truong-2-con-so-post1851031.tpo"
+          "https://cointelegraph.com/news/anthropic-suspends-access-to-fable-mythos-citing-us-directive"
         ]
       },
       {
         "rank": 5,
-        "title": "Mỹ và Iran tiến gần đến thỏa thuận hòa bình",
-        "one_sentence": "Sự kiện địa chính trị có khả năng thay đổi cục diện an ninh và kinh tế năng lượng toàn cầu.",
-        "why_it_matters": "Sự kiện địa chính trị có khả năng thay đổi cục diện an ninh và kinh tế năng lượng toàn cầu.",
-        "watch_next": "Sự kiện địa chính trị có khả năng thay đổi cục diện an ninh và kinh tế năng lượng toàn cầu.",
+        "title": "Stanford tái tạo sụn khớp",
+        "one_sentence": "Đột phá y học quan trọng.",
+        "why_it_matters": "Đột phá y học quan trọng.",
+        "watch_next": "Đột phá y học quan trọng.",
         "source_urls": [
-          "https://theatlantic.com/national-security/2026/06/us-iran-war-deal-trump/687543?utm_source=feed"
+          "https://sciencedaily.com/releases/2026/06/260612021604.htm"
         ]
       },
       {
         "rank": 6,
-        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
-        "one_sentence": "Đột phá y học có tiềm năng thay đổi cách điều trị bệnh xương khớp.",
-        "why_it_matters": "Đột phá y học có tiềm năng thay đổi cách điều trị bệnh xương khớp.",
-        "watch_next": "Đột phá y học có tiềm năng thay đổi cách điều trị bệnh xương khớp.",
+        "title": "NASA công bố phi hành đoàn sứ mệnh Artemis III",
+        "one_sentence": "Đánh dấu bước tiến quan trọng trong chương trình thám hiểm Mặt trăng của nhân loại.",
+        "why_it_matters": "Đánh dấu bước tiến quan trọng trong chương trình thám hiểm Mặt trăng của nhân loại.",
+        "watch_next": "Đánh dấu bước tiến quan trọng trong chương trình thám hiểm Mặt trăng của nhân loại.",
         "source_urls": []
       },
       {
         "rank": 8,
-        "title": "Chính phủ Mỹ yêu cầu Anthropic tạm dừng các model AI mạnh nhất",
-        "one_sentence": "Cho thấy sự can thiệp trực tiếp của chính phủ vào sự phát triển của các model AI tiên phong.",
-        "why_it_matters": "Cho thấy sự can thiệp trực tiếp của chính phủ vào sự phát triển của các model AI tiên phong.",
-        "watch_next": "Cho thấy sự can thiệp trực tiếp của chính phủ vào sự phát triển của các model AI tiên phong.",
-        "source_urls": [
-          "https://wired.com/story/anthropic-says-us-government-ordered-it-to-shut-down-mythos-models"
-        ]
-      },
-      {
-        "rank": 9,
-        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
-        "one_sentence": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD.",
-        "why_it_matters": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD.",
-        "watch_next": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD.",
-        "source_urls": [
-          "https://coindesk.com/markets/2026/06/12/spacex-opens-at-usdtk-in-blockbuster-nasdaq-debut"
-        ]
+        "title": "Chính phủ Mỹ đình chỉ các mô hình AI mạnh nhất của Anthropic",
+        "one_sentence": "Phản ánh sự can thiệp mạnh mẽ của chính phủ vào lĩnh vực AI frontier.",
+        "why_it_matters": "Phản ánh sự can thiệp mạnh mẽ của chính phủ vào lĩnh vực AI frontier.",
+        "watch_next": "Phản ánh sự can thiệp mạnh mẽ của chính phủ vào lĩnh vực AI frontier.",
+        "source_urls": []
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Thị trường tài chính 48 giờ qua xoay quanh sự kiện SpaceX IPO và các biến động của giá vàng. Dòng vốn đang có sự dịch chuyển thận trọng khi nhà đầu tư đánh giá lại rủi ro địa chính trị từ thỏa thuận Mỹ-Iran.",
+        "sector_thesis": "Kinh tế tài chính 48 giờ qua tập trung vào các biến động vĩ mô từ IPO SpaceX và các thay đổi chính sách tại Việt Nam. Thị trường đang đánh giá lại rủi ro và dòng vốn trong bối cảnh các quy định mới về truy xuất nguồn gốc hàng hóa sắp có hiệu lực.",
         "subsector_briefs": [],
-        "story_dossiers": [
-          {
-            "rank": 3,
-            "depth_level": "deep",
-            "title": "Thủ tướng Lê Minh Hưng phát động thi đua tăng trưởng bền vững 2 con số giai đoạn 2026-2030",
-            "summary": "Thủ tướng nhấn mạnh việc đổi mới tư duy, hoàn thiện thể chế và đẩy mạnh hạ tầng để đạt mục tiêu tăng trưởng kinh tế bền vững.",
-            "main_developments": [
-              "Thủ tướng nhấn mạnh việc đổi mới tư duy, hoàn thiện thể chế và đẩy mạnh hạ tầng để đạt mục tiêu tăng trưởng kinh tế bền vững."
-            ],
-            "why_it_matters": "Đây là định hướng chính sách kinh tế quan trọng nhất của Chính phủ trong 48 giờ qua, ảnh hưởng trực tiếp đến chiến lược phát triển của các địa phương trọng điểm.",
-            "affected_groups": [],
-            "watch_next": [
-              "Đây là định hướng chính sách kinh tế quan trọng nhất của Chính phủ trong 48 giờ qua, ảnh hưởng trực tiếp đến chiến lược"
-            ],
-            "representative_sources": [
-              {
-                "title": "Thủ tướng nêu 6 nội dung thi đua để đạt mục tiêu tăng trưởng 2 con số",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/thu-tuong-neu-6-noi-dung-thi-dua-de-dat-muc-tieu-tang-truong-2-con-so-post1851031.tpo"
-              }
-            ],
-            "sub_sector": ""
-          }
-        ]
+        "story_dossiers": []
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Lĩnh vực công nghệ đang đối mặt với làn sóng kiểm soát mới từ chính phủ, đặc biệt là trong lĩnh vực AI. Việc đình chỉ các mô hình AI của Anthropic cho thấy an toàn AI đang trở thành ưu tiên hàng đầu.",
+        "sector_thesis": "Công nghệ 48 giờ qua xoay quanh sự kiện SpaceX và các ứng dụng công nghệ trong quản lý kinh tế. Sự kiện IPO của SpaceX là minh chứng cho sức mạnh của các tập đoàn công nghệ tư nhân.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI & Quy định",
-            "title": "Anthropic đình chỉ mô hình AI",
-            "summary": "Anthropic buộc phải dừng các mô hình AI theo chỉ thị chính phủ.",
+            "title": "Anthropic đình chỉ quyền truy cập các mô hình AI Fable 5 và Mythos 5",
+            "summary": "Anthropic tạm dừng các mô hình AI hàng đầu sau chỉ thị an ninh quốc gia từ chính phủ Mỹ liên quan đến rủi ro jailbreak.",
             "main_developments": [
-              "Đình chỉ Fable 5",
-              "Đình chỉ Mythos 5"
+              "Anthropic tạm dừng các mô hình AI hàng đầu sau chỉ thị an ninh quốc gia từ chính phủ Mỹ liên quan đến rủi ro jailbreak."
             ],
-            "why_it_matters": "Tăng cường an toàn AI.",
-            "affected_groups": [
-              "Công ty AI",
-              "Người dùng"
-            ],
-            "watch_next": [
-              "Phản ứng của các công ty AI khác"
-            ],
-            "representative_sources": []
-          },
-          {
-            "rank": 2,
-            "depth_level": "deep",
-            "title": "Anthropic đình chỉ các mô hình AI Fable 5 và Mythos 5 theo chỉ thị của chính phủ Mỹ",
-            "summary": "Công ty AI Anthropic buộc phải tạm dừng quyền truy cập vào các mô hình AI hàng đầu do lo ngại về an ninh quốc gia và rủi ro jailbreak.",
-            "main_developments": [
-              "Công ty AI Anthropic buộc phải tạm dừng quyền truy cập vào các mô hình AI hàng đầu do lo ngại về an ninh quốc gia và rủi ro jailbreak."
-            ],
-            "why_it_matters": "Đánh dấu bước ngoặt trong việc quản lý an toàn AI, ảnh hưởng trực tiếp đến các nhà phát triển và người dùng frontier models.",
+            "why_it_matters": "Sự kiện quan trọng về an ninh AI và chính sách kiểm soát công nghệ.",
             "affected_groups": [],
             "watch_next": [
-              "Đánh dấu bước ngoặt trong việc quản lý an toàn AI, ảnh hưởng trực tiếp đến các nhà phát triển và người dùng frontier mod"
+              "Sự kiện quan trọng về an ninh AI và chính sách kiểm soát công nghệ."
             ],
             "representative_sources": [
               {
@@ -223,17 +155,39 @@
             "sub_sector": ""
           },
           {
-            "rank": 3,
+            "rank": 2,
             "depth_level": "deep",
-            "title": "Đột phá chip lượng tử hoạt động ở nhiệt độ cực thấp",
-            "summary": "Đại học Hồng Kông phát triển chip lấy cảm hứng từ não bộ hoạt động gần độ không tuyệt đối, hỗ trợ tính toán lượng tử.",
+            "title": "Ripple thúc đẩy thanh toán cho AI agents trên XRP Ledger",
+            "summary": "Ripple tích hợp stablecoin RLUSD vào hệ sinh thái AI để hỗ trợ thanh toán tự động cho các tác nhân AI.",
             "main_developments": [
-              "Đại học Hồng Kông phát triển chip lấy cảm hứng từ não bộ hoạt động gần độ không tuyệt đối, hỗ trợ tính toán lượng tử."
+              "Ripple tích hợp stablecoin RLUSD vào hệ sinh thái AI để hỗ trợ thanh toán tự động cho các tác nhân AI."
             ],
-            "why_it_matters": "Bước tiến kỹ thuật quan trọng trong lĩnh vực phần cứng lượng tử.",
+            "why_it_matters": "Xu hướng kết hợp giữa blockchain và AI đang là điểm nóng công nghệ.",
             "affected_groups": [],
             "watch_next": [
-              "Bước tiến kỹ thuật quan trọng trong lĩnh vực phần cứng lượng tử."
+              "Xu hướng kết hợp giữa blockchain và AI đang là điểm nóng công nghệ."
+            ],
+            "representative_sources": [
+              {
+                "title": "Ripple chases AI’s machine economy as XRPL stablecoins near $1 billion",
+                "source": "cryptoslate_com",
+                "url": "https://cryptoslate.com/ripple-chases-ais-machine-economy-as-xrpl-stablecoins-near-1-billion"
+              }
+            ],
+            "sub_sector": ""
+          },
+          {
+            "rank": 3,
+            "depth_level": "deep",
+            "title": "Đột phá chip neuromorphic hoạt động ở nhiệt độ gần độ không tuyệt đối",
+            "summary": "Các nhà khoa học tại Đại học Hong Kong phát triển chip lấy cảm hứng từ não bộ, hứa hẹn thay đổi cách thức vận hành của máy tính lượng tử.",
+            "main_developments": [
+              "Các nhà khoa học tại Đại học Hong Kong phát triển chip lấy cảm hứng từ não bộ, hứa hẹn thay đổi cách thức vận hành của máy tính lượng tử."
+            ],
+            "why_it_matters": "Bước tiến quan trọng trong việc giải quyết bài toán nhiệt độ và hiệu suất cho máy tính lượng tử.",
+            "affected_groups": [],
+            "watch_next": [
+              "Bước tiến quan trọng trong việc giải quyết bài toán nhiệt độ và hiệu suất cho máy tính lượng tử."
             ],
             "representative_sources": [],
             "sub_sector": ""
@@ -241,23 +195,17 @@
           {
             "rank": 4,
             "depth_level": "deep",
-            "title": "Chính phủ Mỹ yêu cầu Anthropic tạm dừng các model AI mạnh nhất",
-            "summary": "Anthropic phải vô hiệu hóa Claude Fable 5 và Mythos 5 sau chỉ thị an ninh quốc gia, gây tranh cãi về quy trình kiểm soát AI.",
+            "title": "Chính phủ Mỹ đình chỉ các mô hình AI mạnh nhất của Anthropic",
+            "summary": "Anthropic buộc phải tắt quyền truy cập vào Claude Fable 5 và Mythos 5 do lo ngại về an ninh quốc gia và khả năng bị 'jailbreak'.",
             "main_developments": [
-              "Anthropic phải vô hiệu hóa Claude Fable 5 và Mythos 5 sau chỉ thị an ninh quốc gia, gây tranh cãi về quy trình kiểm soát AI."
+              "Anthropic buộc phải tắt quyền truy cập vào Claude Fable 5 và Mythos 5 do lo ngại về an ninh quốc gia và khả năng bị 'jailbreak'."
             ],
-            "why_it_matters": "Đánh dấu bước ngoặt trong quản lý AI, ảnh hưởng đến chiến lược phát triển của các công ty công nghệ lớn.",
+            "why_it_matters": "Đánh dấu bước ngoặt trong việc quản lý AI của chính phủ Mỹ đối với các công ty công nghệ hàng đầu.",
             "affected_groups": [],
             "watch_next": [
-              "Đánh dấu bước ngoặt trong quản lý AI, ảnh hưởng đến chiến lược phát triển của các công ty công nghệ lớn."
+              "Đánh dấu bước ngoặt trong việc quản lý AI của chính phủ Mỹ đối với các công ty công nghệ hàng đầu."
             ],
-            "representative_sources": [
-              {
-                "title": "Anthropic Says It’s Taking Claude Fable 5 Offline to Comply With US Government Order",
-                "source": "wired_com",
-                "url": "https://wired.com/story/anthropic-says-us-government-ordered-it-to-shut-down-mythos-models"
-              }
-            ],
+            "representative_sources": [],
             "sub_sector": ""
           }
         ]
@@ -265,109 +213,101 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Địa chính trị toàn cầu có dấu hiệu hạ nhiệt với các tín hiệu đàm phán giữa Mỹ và Iran. Đây là yếu tố quan trọng ảnh hưởng đến thị trường năng lượng và tâm lý nhà đầu tư.",
+        "sector_thesis": "Thời sự 48 giờ qua tập trung vào các tín hiệu hòa bình Mỹ-Iran và các quy định chính sách tại Việt Nam.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
-            "rank": 4,
+            "rank": 1,
             "depth_level": "deep",
-            "title": "Bạo loạn tại Belfast bị cáo buộc có sự tham gia của nhóm cực đoan",
-            "summary": "Các nhóm thượng đẳng da trắng bị cáo buộc điều phối các cuộc bạo loạn tại Belfast sau một vụ tấn công bằng dao, gây ra làn sóng phẫn nộ.",
+            "sub_sector": "Địa chính trị",
+            "title": "Thỏa thuận Mỹ-Iran",
+            "summary": "Các tín hiệu hòa giải giữa Mỹ và Iran giúp giảm bớt rủi ro địa chính trị.",
             "main_developments": [
-              "Các nhóm thượng đẳng da trắng bị cáo buộc điều phối các cuộc bạo loạn tại Belfast sau một vụ tấn công bằng dao, gây ra làn sóng phẫn nộ."
+              "Tín hiệu hòa bình",
+              "Giảm áp lực giá dầu"
             ],
-            "why_it_matters": "Sự kiện an ninh quốc tế nghiêm trọng với sự tham gia của các tổ chức cực đoan.",
-            "affected_groups": [],
+            "why_it_matters": "Ổn định thị trường năng lượng toàn cầu.",
+            "affected_groups": [
+              "Thị trường năng lượng",
+              "Nhà đầu tư"
+            ],
             "watch_next": [
-              "Sự kiện an ninh quốc tế nghiêm trọng với sự tham gia của các tổ chức cực đoan."
+              "Diễn biến đàm phán thực tế"
             ],
-            "representative_sources": [],
-            "sub_sector": ""
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Việt Nam tập trung vào các quy định mới về truy xuất nguồn gốc hàng hóa và quản lý bất động sản, trong khi thế giới hướng về World Cup 2026.",
+        "sector_thesis": "Xu hướng 48 giờ qua nổi bật với sự kiện World Cup 2026 và các quy định mới về truy xuất nguồn gốc hàng hóa tại Việt Nam.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "brief",
-            "sub_sector": "Chính sách Việt Nam",
-            "title": "Quy định mới tại Việt Nam",
-            "summary": "Việt Nam triển khai quy định truy xuất hàng hóa mới.",
+            "sub_sector": "Thể thao & Văn hóa",
+            "title": "World Cup 2026",
+            "summary": "World Cup 2026 khai mạc tại Mỹ, trở thành tâm điểm truyền thông toàn cầu.",
             "main_developments": [
-              "Hiệu lực từ 1/7",
-              "Tăng cường quản lý"
+              "Khai mạc",
+              "Thu hút du lịch"
             ],
-            "why_it_matters": "Minh bạch thị trường.",
+            "why_it_matters": "Tác động đến kinh tế du lịch và truyền thông.",
             "affected_groups": [
-              "Doanh nghiệp",
-              "Người tiêu dùng"
+              "Doanh nghiệp bán lẻ",
+              "Du lịch"
             ],
             "watch_next": [
-              "Triển khai thực tế"
+              "Diễn biến các trận đấu"
             ],
             "representative_sources": []
           },
           {
             "rank": 2,
             "depth_level": "deep",
-            "title": "World Cup 2026 khai mạc với sự tham gia của nhiều nghệ sĩ quốc tế",
-            "summary": "Sự kiện bóng đá lớn nhất hành tinh chính thức khởi tranh tại Mỹ, Canada và Mexico.",
+            "title": "World Cup 2026 khai mạc, kỳ vọng thúc đẩy thị trường cá cược dự đoán",
+            "summary": "Sự kiện thể thao lớn nhất hành tinh được dự báo sẽ tạo ra hàng tỷ USD doanh thu cho các nền tảng dự đoán.",
             "main_developments": [
-              "Sự kiện bóng đá lớn nhất hành tinh chính thức khởi tranh tại Mỹ, Canada và Mexico."
+              "Sự kiện thể thao lớn nhất hành tinh được dự báo sẽ tạo ra hàng tỷ USD doanh thu cho các nền tảng dự đoán."
             ],
-            "why_it_matters": "Sự kiện văn hóa - thể thao lớn nhất thế giới có tác động mạnh mẽ đến kinh tế và truyền thông.",
+            "why_it_matters": "Sự kiện văn hóa-thể thao có tác động kinh tế lớn.",
             "affected_groups": [],
             "watch_next": [
-              "Sự kiện văn hóa - thể thao lớn nhất thế giới có tác động mạnh mẽ đến kinh tế và truyền thông."
+              "Sự kiện văn hóa-thể thao có tác động kinh tế lớn."
             ],
-            "representative_sources": [
-              {
-                "title": "Lisa (BlackPink) làm bùng nổ khai mạc World Cup",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/lisa-blackpink-lam-bung-no-khai-mac-world-cup-post1851016.tpo"
-              }
-            ],
+            "representative_sources": [],
             "sub_sector": ""
           },
           {
             "rank": 3,
-            "depth_level": "deep",
-            "title": "World Cup 2026: Cơ hội kinh tế và thách thức",
-            "summary": "Giải đấu được kỳ vọng tạo ra cú hích kinh tế 41 tỷ USD, đồng thời là sân khấu trình diễn của AI và công nghệ kết nối thế hệ mới.",
+            "depth_level": "brief",
+            "title": "Khảo sát của Anthropic: Người Mỹ lo ngại về việc làm do AI",
+            "summary": "Đa số người Mỹ lo ngại về việc mất việc làm do AI, nhưng vẫn hy vọng công nghệ này sẽ giúp chữa trị các bệnh hiểm nghèo.",
             "main_developments": [
-              "Giải đấu được kỳ vọng tạo ra cú hích kinh tế 41 tỷ USD, đồng thời là sân khấu trình diễn của AI và công nghệ kết nối thế hệ mới."
+              "Đa số người Mỹ lo ngại về việc mất việc làm do AI, nhưng vẫn hy vọng công nghệ này sẽ giúp chữa trị các bệnh hiểm nghèo."
             ],
-            "why_it_matters": "Sự kiện văn hóa - thể thao lớn nhất hành tinh với tác động kinh tế đa chiều.",
+            "why_it_matters": "Phản ánh tâm lý xã hội quan trọng đối với sự phát triển của AI.",
             "affected_groups": [],
             "watch_next": [
-              "Sự kiện văn hóa - thể thao lớn nhất hành tinh với tác động kinh tế đa chiều."
+              "Phản ánh tâm lý xã hội quan trọng đối với sự phát triển của AI."
             ],
-            "representative_sources": [
-              {
-                "title": "World Cup 2026 là máy in tiền khổng lồ hay canh bạc đắt đỏ?",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/world-cup-2026-la-may-in-tien-khong-lo-hay-canh-bac-dat-do-20260611111759747.htm"
-              }
-            ],
+            "representative_sources": [],
             "sub_sector": ""
           },
           {
             "rank": 4,
             "depth_level": "brief",
-            "title": "Cảnh báo lừa đảo tiền mã hóa nhắm vào người hâm mộ World Cup 2026",
-            "summary": "Các tổ chức an ninh cảnh báo về sự gia tăng của các trang web bán vé giả và các chương trình khuyến mãi tiền mã hóa lừa đảo nhân dịp World Cup.",
+            "title": "Thực phẩm siêu chế biến liên quan đến suy giảm khả năng tập trung",
+            "summary": "Nghiên cứu trên 2.100 người cho thấy mối liên hệ giữa thực phẩm siêu chế biến và sự suy giảm nhận thức, ngay cả với người có chế độ ăn lành mạnh.",
             "main_developments": [
-              "Các tổ chức an ninh cảnh báo về sự gia tăng của các trang web bán vé giả và các chương trình khuyến mãi tiền mã hóa lừa đảo nhân dịp World Cup."
+              "Nghiên cứu trên 2.100 người cho thấy mối liên hệ giữa thực phẩm siêu chế biến và sự suy giảm nhận thức, ngay cả với người có chế độ ăn lành mạnh."
             ],
-            "why_it_matters": "Cảnh báo thiết thực cho người dùng trong bối cảnh sự kiện thể thao lớn đang diễn ra.",
+            "why_it_matters": "Cảnh báo sức khỏe cộng đồng có tác động rộng rãi đến lối sống hiện đại.",
             "affected_groups": [],
             "watch_next": [
-              "Cảnh báo thiết thực cho người dùng trong bối cảnh sự kiện thể thao lớn đang diễn ra."
+              "Cảnh báo sức khỏe cộng đồng có tác động rộng rãi đến lối sống hiện đại."
             ],
             "representative_sources": [],
             "sub_sector": ""
@@ -377,38 +317,38 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "SpaceX IPO",
+        "theme": "IPO SpaceX",
         "what_to_watch": "Biến động giá cổ phiếu",
-        "why": "Đánh giá tâm lý thị trường sau IPO."
+        "why": "Ảnh hưởng đến tâm lý thị trường vốn"
       },
       {
-        "theme": "SpaceX IPO: Elon Musk trở thành tỷ phú nghìn tỷ USD",
-        "what_to_watch": "Biến động giá cổ phiếu trong tuần đầu.",
-        "why": "Định giá lại toàn bộ ngành hàng không vũ trụ tư nhân."
+        "theme": "Mỹ-Iran",
+        "what_to_watch": "Diễn biến đàm phán",
+        "why": "Tác động đến giá dầu"
       },
       {
-        "theme": "SpaceX IPO debuts on Nasdaq, Elon Musk becomes first trillionaire",
-        "what_to_watch": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD.",
-        "why": "Sự kiện tài chính mang tính lịch sử với định giá công ty vượt ngưỡng 2 nghìn tỷ USD."
+        "theme": "SpaceX IPO chính thức lên sàn Nasdaq",
+        "what_to_watch": "Biến động giá cổ phiếu SpaceX trong những phiên đầu.",
+        "why": "Tạo ra làn sóng biến động mạnh trên thị trường tài chính và crypto."
       },
       {
-        "theme": "Anthropic suspends access to Fable 5, Mythos 5, citing US directive",
-        "what_to_watch": "Động thái quản lý AI quan trọng liên quan đến an ninh quốc gia.",
-        "why": "Động thái quản lý AI quan trọng liên quan đến an ninh quốc gia."
+        "theme": "Việt Nam siết chặt quy định truy xuất nguồn gốc hàng hóa từ 1/7",
+        "what_to_watch": "Các văn bản hướng dẫn thi hành cụ thể.",
+        "why": "Ảnh hưởng trực tiếp đến các doanh nghiệp sản xuất và bán lẻ."
       },
       {
-        "theme": "Thủ tướng Lê Minh Hưng phát động thi đua tăng trưởng bền vững 2 con số",
-        "what_to_watch": "Định hướng chiến lược quan trọng nhất của Chính phủ Việt Nam trong giai đoạn 2026-2030.",
-        "why": "Định hướng chiến lược quan trọng nhất của Chính phủ Việt Nam trong giai đoạn 2026-2030."
+        "theme": "Anthropic đình chỉ quyền truy cập các mô hình AI Fable 5 và Mythos 5",
+        "what_to_watch": "Động thái quan trọng của chính phủ Mỹ trong việc kiểm soát an ninh AI.",
+        "why": "Động thái quan trọng của chính phủ Mỹ trong việc kiểm soát an ninh AI."
       },
       {
-        "theme": "Mỹ và Iran tiến gần đến thỏa thuận hòa bình",
-        "what_to_watch": "Sự kiện địa chính trị có khả năng thay đổi cục diện an ninh và kinh tế năng lượng toàn cầu.",
-        "why": "Sự kiện địa chính trị có khả năng thay đổi cục diện an ninh và kinh tế năng lượng toàn cầu."
+        "theme": "IPO SpaceX định giá 1,8 nghìn tỷ USD",
+        "what_to_watch": "Sự kiện tài chính lớn nhất trong 48h qua.",
+        "why": "Sự kiện tài chính lớn nhất trong 48h qua."
       }
     ],
     "source_desk": [],
-    "gaps_and_limits": "Thiếu chi tiết kỹ thuật về thỏa thuận Mỹ-Iran.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng cụ thể của thị trường chứng khoán Việt Nam trước biến động IPO SpaceX.",
     "notable_articles": []
   }
 }
