@@ -12,6 +12,9 @@ __pycache__/
 *.log
 *.tmp
 *.bak
+_tmp*
+_check_live_embed.py
+_site*/
 
 # AI digest intermediates (large; summary + outline are tracked)
 gemini_digest_partials.json
@@ -46,6 +49,8 @@ data/*.duckdb
 data/*.duckdb.wal
 !data/web_intel_leonquant.duckdb.gz
 data/digest_export_window.json
+data/_tmp.gz
+data/_diag_*.json
 
 # Leon Web Intel (vendored crawler) — runtime artifacts
 leon_web_intel/data/db/*.duckdb

@@ -47,6 +47,11 @@ Commit dang chuan bi push sua CI 2026-06-13:
 - Pin `scrapy>=2.11.0,<2.17`
 - Tang cap BigQuery invest len `750_000_000`
 
+Commit cleanup an toan:
+- Bo khoi git `enriched_news.json` va `final_summary.json` vi la output regenerate/stale
+- Giu lai output workflow dang dung: `content.json`, `news_for_ai*.json`, `gemini_digest_summary.json`, `invest*.json`
+- Local co the xoa `_tmp*`, `_site*`, cache/raw crawl; khong xoa `.env`, `credentials.json`, DB seed
+
 Muc tieu:
 - Daily cron nhanh va on dinh hon
 - Re-profile nguon web chi chay dinh ky/thu cong
