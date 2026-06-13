@@ -186,7 +186,14 @@ class SitemapArticleSpider(scrapy.Spider):
             return self.max_urls_per_source
         return self.max_articles_per_source
 
+    async def start(self) -> Any:
+        for request in self._iter_start_requests():
+            yield request
+
     def start_requests(self) -> Any:
+        yield from self._iter_start_requests()
+
+    def _iter_start_requests(self) -> Any:
         for row in self.sources:
             sid = row["source_id"]
             self._reserved.setdefault(sid, 0)

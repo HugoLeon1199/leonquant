@@ -42,6 +42,11 @@ Commit da push lien quan den daily/profile cadence:
 - them workflow `profile-refresh-monthly.yml`
 - cap nhat `README.md`
 
+Commit dang chuan bi push sua CI 2026-06-13:
+- Scrapy 2.16 bo goi `start_requests()`: them `async start()` cho 3 spider RSS/Sitemap/HTML
+- Pin `scrapy>=2.11.0,<2.17`
+- Tang cap BigQuery invest len `750_000_000`
+
 Muc tieu:
 - Daily cron nhanh va on dinh hon
 - Re-profile nguon web chi chay dinh ky/thu cong

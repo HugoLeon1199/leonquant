@@ -74,7 +74,14 @@ class HtmlArticleSpider(scrapy.Spider):
     def _target_date_obj(self):
         return resolve_calendar_date(self.target_date_str, self.timezone_str)
 
+    async def start(self) -> Any:
+        for request in self._iter_start_requests():
+            yield request
+
     def start_requests(self) -> Any:
+        yield from self._iter_start_requests()
+
+    def _iter_start_requests(self) -> Any:
         for row in self.sources:
             sid = row["source_id"]
             self._attempted.setdefault(sid, 0)

@@ -112,7 +112,7 @@ INVEST_SQL_MARKET_RELEVANCE_MIN = 2
 INVEST_CORE_MIN_ARTICLES = 40
 INVEST_CORE_MIN_ABS_TONE = 4.0
 INVEST_SUPPLEMENT_MIN_ARTICLES = 70
-INVEST_MAX_BYTES_BILLED = 600_000_000  # invest SQL dry-run ~0.54 GB
+INVEST_MAX_BYTES_BILLED = 750_000_000  # invest run 2026-06-12 needed ~608 MB; keep a bounded ceiling.
 INVEST_WORLD_SCHEMA = "invest-world-topics-v2"
 
 # Lọc sơ bộ trước Gemini (title/summary phải có dấu hiệu kinh tế–thị trường)
