@@ -401,26 +401,29 @@ def _digest_executive_briefing_writing_block() -> str:
     return "\n".join(
         [
             "## Tổng quan 48h (`executive_briefing`) — viết như bài briefing thật",
-            "Đây là **bài tổng hợp** (không phải outline, không phải bullet rời, không phải nhãn + một câu).",
-            "Viết **đủ ý** theo mức độ quan trọng và độ phức tạp của pools — chia **đoạn văn** có mạch; tin lớn phân tích sâu, tin nhỏ gọn.",
-            "Không ép số chữ/số câu; không viết dài để đủ quota; không viết ngắn đến mức mất ý chính.",
-            "**Không** viết kiểu template:",
-            '- "Bức tranh chính: một câu." / "Chủ đề được nhắc nhiều nhất: một câu."',
-            "UI có heading riêng — **không** lặp nhãn mục trong nội dung; chỉ viết thân bài.",
+            "Đây là **bài mở số** của trang Tin48h: editorial trước, nguồn tham chiếu đặt sau; không phải outline, không phải bullet rời, không phải nhãn + một câu.",
+            "Ưu tiên `executive_briefing.content` như **thân bài chính**. Viết 3–5 đoạn có mạch: mở bức tranh, các story quyết định, tác động, rồi watchlist 24–72h.",
+            "Viết **đủ ý** theo mức độ quan trọng và độ phức tạp của pools — tin lớn phân tích sâu, tin nhỏ gọn. Không ép số chữ/số câu; không viết dài để đủ quota; không viết ngắn đến mức mất ý chính.",
+            "Mỗi đoạn phải trả lời đủ **actor + event + implication**. Người đọc phải hiểu ngay: ai/cái gì, chuyện gì xảy ra, vì sao đáng quan tâm.",
+            "**Cấm** mở đoạn bằng các nhãn template hoặc câu meta-biên tập như:",
+            '- "Bức tranh chính là…" / "Chủ đề được nhắc nhiều nhất là…" / "Câu chuyện quan trọng nhất là…" / "Tác động theo khu vực/ngành là…"',
+            '- "Phản ánh sự quan tâm của giới đầu tư" / "Đặt ra những câu hỏi" / "Tiếp tục là tâm điểm" nếu không có biến số cụ thể đi ngay sau.',
+            "UI đã có heading riêng — **không** lặp nhãn mục trong thân bài; chỉ viết prose như mở bài trang nhất.",
             "Bài phải nối được:",
-            "- Chủ đề nào xuất hiện **nhiều nhất** trong 48h (và vì sao).",
-            "- Câu chuyện nào **thật sự quan trọng nhất** (actor, sự kiện, không headline rời).",
-            "- Các dòng tin **liên kết** với nhau ra sao (cùng một bức tranh, không danh sách).",
-            "- Ảnh hưởng tới **ngành/khu vực** nào.",
-            "- **24–72h** tới nên theo dõi biến số gì (cụ thể, không câu rỗng).",
-            "Dùng `executive_briefing.sections` — mỗi key là **một hoặc nhiều đoạn** prose liền mạch:",
-            "- `main_picture`: mở bài — bức tranh chung 48h, các trục lớn cùng diễn ra.",
-            "- `most_mentioned`: chủ đề được nhắc nhiều + bằng chứng từ pools.",
-            "- `top_stories`: câu chuyện quan trọng nhất + mối liên hệ giữa chúng.",
-            "- `sector_impacts`: tác động theo ngành/khu vực (nối ý, không liệt kê sector).",
-            "- `watch_24_72h`: đoạn hoặc bullet **cụ thể** (tên tài sản, chính sách, sự kiện) — không filler.",
-            "`executive_briefing.content` (legacy): cùng chất lượng, có thể gộp toàn bộ sections.",
+            "- Trục nào đang chi phối 48h qua.",
+            "- Story nào thật sự quyết định tâm lý thị trường/chính sách.",
+            "- Các dòng tin liên kết với nhau ra sao (cùng một bức tranh, không danh sách headline).",
+            "- Tác động tới ngành/khu vực/tài sản nào.",
+            "- **24–72h** tới nên theo dõi biến số gì (tên tài sản, doanh nghiệp, chính sách, sự kiện; không filler).",
+            "Giữ `executive_briefing.sections` để back-compat, nhưng **không ép** phải đủ 5 mục. Chỉ điền section khi thật sự có góc riêng, không trùng ý với `content`.",
+            "- `main_picture`: 1–2 đoạn mở bức tranh chung 48h, nếu cần.",
+            "- `most_mentioned`: chỉ dùng khi lượng nhắc đến là dữ kiện đáng kể, không phải đổi nhãn cho cùng một story.",
+            "- `top_stories`: chỉ dùng khi có 1–2 câu chuyện cần tách riêng, không lặp nội dung mở bài.",
+            "- `sector_impacts`: chỉ dùng khi có tác động liên ngành rõ ràng.",
+            "- `watch_24_72h`: ưu tiên bullet/đoạn **cụ thể**, nêu biến số, mốc, actor.",
+            "Nếu `content` đã đủ sạch và đầy, `sections` có thể để rất mỏng hoặc bỏ trống phần không cần thiết.",
             "Gom chủ đề trùng: Trung Đông/Iran/Hormuz → **một** luồng; AI/chip/capex → **một**; VN BĐS/hạ tầng/thuế → **một**.",
+            "Ví dụ hướng viết đúng cho `content`: mở ngay bằng 1-2 trục chính của 48h, đoạn sau đi vào story lớn, đoạn tiếp nêu tác động tới Việt Nam/tài sản, rồi chốt bằng 3-5 watchpoints cụ thể.",
         ]
     )
 
@@ -429,9 +432,14 @@ def _digest_sector_narrative_block() -> str:
     return "\n".join(
         [
             "## Đi sâu theo từng ngành (`sector_thesis`) — bài tóm tắt ngành đủ sâu theo dữ liệu",
-            "Mỗi `sector_thesis` là **một bài** (nhiều đoạn), không nối summary dossier rời rạc.",
+            "Mỗi `sector_thesis` là **một mini analyst note** (nhiều đoạn), không nối summary dossier rời rạc.",
             "**Không ép số câu/số chữ.** Ngành nhiều tin nóng → viết dài và sâu; ngành ít tin → gọn nhưng **không** mất ý chính.",
-            "Không padding; không rút gọn đến mức chỉ còn một câu sáo.",
+            "Không padding; không rút gọn đến mức chỉ còn một câu sáo; không biến thành chuỗi headline cùng tag.",
+            "",
+            "Form ưu tiên:",
+            "- Đoạn 1: thesis của ngành trong 48h qua — ngành này đang đổi hướng ở đâu.",
+            "- Đoạn 2–3: 1–3 cụm story chính, mỗi cụm phải có actor + event + implication.",
+            "- Đoạn cuối: tác động thực tế + 2–4 biến số cần theo dõi 24–72h tới.",
             "",
             "**Các lớp cần phủ khi dữ liệu có (trong prose liền mạch, không heading robot):**",
             "- **Sector thesis:** ngành này 48h qua nổi bật vì điều gì.",
@@ -443,6 +451,7 @@ def _digest_sector_narrative_block() -> str:
             "**Tổng hợp, không liệt kê:**",
             '- **Không:** "Tin A xảy ra. Tin B xảy ra. Tin C xảy ra."',
             '- **Viết:** "Các tin A, B, C cùng cho thấy…" / "Điểm chung là…" / "Rủi ro nằm ở…" / "Biến số tiếp theo là…"',
+            '- **Không:** "Ngành này tiếp tục là điểm sáng/đang thu hút sự chú ý/mang lại nhiều cơ hội và thách thức."',
             "",
             "**Ví dụ SAI (quá nông):**",
             '"Công nghệ và AI tiếp tục là điểm sáng thu hút vốn."',
@@ -456,8 +465,9 @@ def _digest_sector_narrative_block() -> str:
             "**Hấp thụ dossier/subsector:**",
             "- Nếu sector có nhiều `story_dossiers` hoặc `subsector_briefs` chất lượng, `sector_thesis` **phải** tổng hợp đủ ý chính từng cụm.",
             "- **Không** bỏ qua dossier A/B chỉ vì muốn gọn; **không** lặp nguyên văn dossier.",
-            "Link nguồn (`representative_sources` / pools) đặt **sau** khi đã viết xong thân bài — thân bài không được đọc như chuỗi excerpt.",
+            "Link nguồn (`representative_sources` / pools) đặt **sau** khi đã viết xong thân bài — thân bài không được đọc như chuỗi excerpt hay danh sách nguồn.",
             "Không lặp nguyên văn `executive_briefing`; đi sâu hơn vào ngành đó.",
+            "Ví dụ hướng viết đúng: mở bằng thesis ngành, sau đó nối 2-3 story chính thành một narrative, cuối cùng chốt tác động tới Việt Nam/tài sản/doanh nghiệp và watchlist cụ thể.",
         ]
     )
 
@@ -622,6 +632,7 @@ def _digest_newsroom_voice_block() -> str:
             "- Mỗi nhận định lớn phải có `representative_sources` URL thật từ input; không URL → không claim lớn.",
             "- **Không** tạo section UI “Điểm nóng”: tích hợp điểm nóng vào `executive_briefing.sections` và `sector_deep_briefs`.",
             "- `front_page` chỉ compatibility nội bộ; không dùng làm section render chính.",
+            "- `front_page` / `notable_articles` / `story_dossiers` public phải Việt hoá tiêu đề tự nhiên; không để raw English headline lên output nếu đã có cách viết Việt tốt hơn.",
             "- Viết **prose có mạch** — không outline, không nhãn + một câu, không danh sách tin rời.",
             _digest_anti_rule_leak_block(),
         ]
@@ -2392,6 +2403,15 @@ def _sanitize_executive_briefing(
     title = str(src.get("title") or "Tóm tắt tổng quan 48h").strip() or "Tóm tắt tổng quan 48h"
     content = soften_prose(str(src.get("content") or "").strip())
     sections = {k: soften_prose(v) for k, v in sections.items()}
+    if not content and sections:
+        ordered = [
+            sections.get("main_picture", ""),
+            sections.get("most_mentioned", ""),
+            sections.get("top_stories", ""),
+            sections.get("sector_impacts", ""),
+            sections.get("watch_24_72h", ""),
+        ]
+        content = "\n\n".join(part.strip() for part in ordered if str(part).strip())
     rep_sources = _sanitize_representative_sources(
         src.get("representative_sources"),
         headline=title,
