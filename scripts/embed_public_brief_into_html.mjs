@@ -343,7 +343,7 @@ function buildSectorBlockHtml(s, index) {
   return h;
 }
 
-function buildDossierSourcesHtml(links) {
+function buildDossierSourcesHtml(links, label = "Nguồn tiêu biểu") {
   const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && String(lk.url || "").trim());
   if (!rows.length) return "";
   let inner = `<div class="dossier-source-links">`;
@@ -357,7 +357,7 @@ function buildDossierSourcesHtml(links) {
   }
   if (!count) return "";
   inner += `</div>`;
-  return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tiêu biểu</p>${inner}</div>`;
+  return `<div class="representative-sources-block"><p class="dossier-block-label">${escapeHtml(label)}</p>${inner}</div>`;
 }
 
 function buildNewsroomThesisHtml(data) {
@@ -365,6 +365,32 @@ function buildNewsroomThesisHtml(data) {
     sectorSlug,
     buildDossierSourcesHtml,
   });
+}
+
+function normalizedCopyKey(text) {
+  return String(text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function sectionLooksDistinctFromContent(sectionText, contentText) {
+  const sec = normalizedCopyKey(sectionText);
+  const body = normalizedCopyKey(contentText);
+  if (!sec) return false;
+  if (!body) return true;
+  if (sec.length < 90) return false;
+  if (body.includes(sec)) return false;
+  const secWords = sec.split(" ").filter((w) => w.length >= 4);
+  if (!secWords.length) return false;
+  let hits = 0;
+  secWords.forEach((w) => {
+    if (body.includes(w)) hits += 1;
+  });
+  return hits / secWords.length < 0.6;
 }
 
 function normalizeBriefMode(data) {
