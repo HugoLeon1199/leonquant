@@ -1632,8 +1632,15 @@ def _enrich_notable_articles_for_public(
         src = str(a.get("source") or "").strip() or (
             str(art.get("source") or "").strip() if art else ""
         ) or host
+        title_vi = title
+        try:
+            from summarize_news_gemini import _editorialize_digest_headline, _vietnamese_public_headline
+
+            title_vi = _vietnamese_public_headline(_editorialize_digest_headline(title))
+        except Exception:
+            pass
         row_out: dict[str, str] = {
-            "title": title,
+            "title": title_vi,
             "source": src,
             "url": u,
             "host": host,
@@ -2268,6 +2275,13 @@ def build_newsroom_web_extras(
             )
             if matched:
                 urls = [matched]
+        title_vi = title
+        try:
+            from summarize_news_gemini import _editorialize_digest_headline, _vietnamese_public_headline
+
+            title_vi = _vietnamese_public_headline(_editorialize_digest_headline(title))
+        except Exception:
+            pass
         links = _newsroom_sources_to_links(
             [
                 {
@@ -2284,7 +2298,7 @@ def build_newsroom_web_extras(
         front_page.append(
             {
                 "rank": int(row.get("rank") or len(front_page) + 1),
-                "title": title,
+                "title": title_vi,
                 "oneSentence": str(row.get("one_sentence") or "").strip(),
                 "whyItMatters": str(row.get("why_it_matters") or "").strip(),
                 "watchNext": str(row.get("watch_next") or "").strip(),

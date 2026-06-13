@@ -544,7 +544,7 @@ function buildExecutiveBriefingHtml(briefing, editorNote) {
     }
   }
 
-  if (hasSections && useSectionsAsPrimary) {
+  if (!content && hasSections && useSectionsAsPrimary) {
     for (const [key, label] of EXEC_BRIEF_SECTIONS) {
       const body = String(sections[key] || "").trim();
       if (!body) continue;
@@ -556,50 +556,6 @@ function buildExecutiveBriefingHtml(briefing, editorNote) {
         html += `<p>${escapeHtml(body)}</p>`;
       }
       html += `</div>`;
-    }
-  } else if (hasSections) {
-    for (const [key, label] of EXEC_BRIEF_SECTIONS) {
-      const body = String(sections[key] || "").trim();
-      if (!sectionLooksDistinctFromContent(body, content)) continue;
-      const paras = body.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
-      html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">${escapeHtml(label)}</h4>`;
-      if (paras.length > 1) {
-        for (const p of paras) html += `<p>${escapeHtml(p)}</p>`;
-      } else {
-        html += `<p>${escapeHtml(body)}</p>`;
-      }
-      html += `</div>`;
-    }
-  }
-
-  if (content) {
-    const most = Array.isArray(b.mostMentionedTopics) ? b.mostMentionedTopics : [];
-    if (most.length) {
-      html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">Chủ đề được nhắc nhiều nhất</h4><ul class="sector-points prose-bullets">`;
-      for (const t of most.slice(0, 6)) {
-        const topic = String(t.topic || "").trim();
-        if (!topic) continue;
-        const why = String(t.whyMentioned || "").trim();
-        html += `<li><strong>${escapeHtml(topic)}</strong>${why ? `: ${escapeHtml(why)}` : ""}</li>`;
-      }
-      html += `</ul></div>`;
-    }
-    const hot = Array.isArray(b.hottestTopics) ? b.hottestTopics : [];
-    if (hot.length) {
-      html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">Câu chuyện quan trọng nhất</h4><ul class="sector-points prose-bullets">`;
-      for (const t of hot.slice(0, 6)) {
-        const topic = String(t.topic || "").trim();
-        if (!topic) continue;
-        const why = String(t.whyHot || "").trim();
-        html += `<li><strong>${escapeHtml(topic)}</strong>${why ? `: ${escapeHtml(why)}` : ""}</li>`;
-      }
-      html += `</ul></div>`;
-    }
-    const wn = Array.isArray(b.watchNext) ? b.watchNext : [];
-    if (wn.length) {
-      html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">Theo dõi 24–72h tới</h4><ul class="sector-points prose-bullets">`;
-      for (const t of wn.slice(0, 8)) html += `<li>${escapeHtml(t)}</li>`;
-      html += `</ul></div>`;
     }
   }
 
@@ -644,33 +600,9 @@ function buildFrontPageCardHtml(fp, variant, buildDossierSourcesHtml) {
 }
 
 function buildNewsroomFrontPageHtml(front, buildDossierSourcesHtml) {
-  const sorted = [...front].sort(
-    (a, b) => (Number(a.rank) || 999) - (Number(b.rank) || 999),
-  );
-  const lead = sorted.find((x) => Number(x.rank) === 1) || sorted[0];
-  const rest = sorted.filter((x) => x !== lead);
-  const secondary = rest.filter((x) => {
-    const r = Number(x.rank);
-    return r >= 2 && r <= 5;
-  });
-  const compact = rest.filter((x) => !secondary.includes(x));
-  let html = `<section class="overview-part" id="digest-front-page">`;
-  html += `<h3 class="pub-section-title">Điểm nóng</h3>`;
-  if (lead) html += buildFrontPageCardHtml(lead, "lead", buildDossierSourcesHtml);
-  if (secondary.length) {
-    html += `<div class="front-page-secondary-grid">`;
-    for (const fp of secondary) html += buildFrontPageCardHtml(fp, "secondary", buildDossierSourcesHtml);
-    html += `</div>`;
-  }
-  if (compact.length) {
-    html += `<ul class="front-page-compact-list">`;
-    for (const fp of compact) {
-      html += `<li>${buildFrontPageCardHtml(fp, "compact", buildDossierSourcesHtml)}</li>`;
-    }
-    html += `</ul>`;
-  }
-  html += `</section>`;
-  return html;
+  void front;
+  void buildDossierSourcesHtml;
+  return "";
 }
 
 function buildDossierCardHtml(d) {
@@ -726,13 +658,6 @@ export function buildNewsroomThesisHtml(data, deps) {
   html += buildNewsroomIssueHeader(data);
   html += buildNewsroomTocHtml(data, sectorSlug);
   html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
-  const front = Array.isArray(data.frontPage) ? data.frontPage : [];
-  if (front.length) {
-    html += `<section class="overview-part front-page-section" id="digest-front-page">`;
-    html += `<h3 class="pub-section-title">Điểm nóng 48h</h3>`;
-    html += buildNewsroomFrontPageHtml(front, deps.buildDossierSourcesHtml);
-    html += `</section>`;
-  }
 
   if (sectors.length) {
     html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;

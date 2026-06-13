@@ -632,6 +632,7 @@ def _digest_newsroom_voice_block() -> str:
             "- Mỗi nhận định lớn phải có `representative_sources` URL thật từ input; không URL → không claim lớn.",
             "- **Không** tạo section UI “Điểm nóng”: tích hợp điểm nóng vào `executive_briefing.sections` và `sector_deep_briefs`.",
             "- `front_page` chỉ compatibility nội bộ; không dùng làm section render chính.",
+            "- `front_page` / `notable_articles` / `story_dossiers` public phải Việt hoá tiêu đề tự nhiên; không để raw English headline lên output nếu đã có cách viết Việt tốt hơn.",
             "- Viết **prose có mạch** — không outline, không nhãn + một câu, không danh sách tin rời.",
             _digest_anti_rule_leak_block(),
         ]

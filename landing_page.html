@@ -4281,23 +4281,10 @@
           html += `<p>${escapeHtml(content)}</p>`;
         }
       }
-      if (hasSections && useSectionsAsPrimary) {
+      if (!content && hasSections && useSectionsAsPrimary) {
         for (const [key, label] of sectionLabels) {
           const body = String(sections[key] || "").trim();
           if (!body) continue;
-          const secParas = body.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
-          html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">${escapeHtml(label)}</h4>`;
-          if (secParas.length > 1) {
-            for (const p of secParas) html += `<p>${escapeHtml(p)}</p>`;
-          } else {
-            html += `<p>${escapeHtml(body)}</p>`;
-          }
-          html += `</div>`;
-        }
-      } else if (hasSections) {
-        for (const [key, label] of sectionLabels) {
-          const body = String(sections[key] || "").trim();
-          if (!sectionLooksDistinctFromContent(body, content)) continue;
           const secParas = body.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
           html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">${escapeHtml(label)}</h4>`;
           if (secParas.length > 1) {
@@ -4348,33 +4335,8 @@
     }
 
     function buildNewsroomFrontPageHtml(front) {
-      const sorted = [...front].sort(
-        (a, b) => (Number(a.rank) || 999) - (Number(b.rank) || 999),
-      );
-      const lead = sorted.find((x) => Number(x.rank) === 1) || sorted[0];
-      const rest = sorted.filter((x) => x !== lead);
-      const secondary = rest.filter((x) => {
-        const r = Number(x.rank);
-        return r >= 2 && r <= 5;
-      });
-      const compact = rest.filter((x) => !secondary.includes(x));
-      let html = `<section class="overview-part" id="digest-front-page">`;
-      html += `<h3 class="pub-section-title">Điểm nóng</h3>`;
-      if (lead) html += buildFrontPageCardHtml(lead, "lead");
-      if (secondary.length) {
-        html += `<div class="front-page-secondary-grid">`;
-        for (const fp of secondary) html += buildFrontPageCardHtml(fp, "secondary");
-        html += `</div>`;
-      }
-      if (compact.length) {
-        html += `<ul class="front-page-compact-list">`;
-        for (const fp of compact) {
-          html += `<li>${buildFrontPageCardHtml(fp, "compact")}</li>`;
-        }
-        html += `</ul>`;
-      }
-      html += `</section>`;
-      return html;
+      void front;
+      return "";
     }
 
     function buildDossierCardHtml(d) {
@@ -4425,14 +4387,6 @@
       html += buildNewsroomIssueHeader(data);
       html += buildNewsroomTocHtml(data);
       html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
-      const front = Array.isArray(data.frontPage) ? data.frontPage : [];
-      if (front.length) {
-        html += `<section class="overview-part front-page-section" id="digest-front-page">`;
-        html += `<h3 class="pub-section-title">Điểm nóng 48h</h3>`;
-        html += buildNewsroomFrontPageHtml(front);
-        html += `</section>`;
-      }
-
       if (sectors.length) {
         html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;
         html += `<h3 class="pub-section-title">Đi sâu theo từng ngành</h3>`;
