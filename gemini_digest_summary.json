@@ -1,321 +1,164 @@
 {
-  "generated_at": "2026-06-07T05:13:08.775342+00:00",
+  "generated_at": "2026-06-13T03:08:02.463791+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 1866436,
+    "estimated_input_tokens": 690141,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 1561,
-    "sent_article_count": 1561,
+    "input_article_count": 558,
+    "sent_article_count": 558,
     "window": {
-      "end_date": "2026-06-07",
+      "end_date": "2026-06-13",
       "timezone": "Asia/Ho_Chi_Minh",
-      "recent_calendar_days": 21,
-      "mode": "calendar",
-      "rolling_hours": null
+      "recent_calendar_days": 2,
+      "mode": "rolling",
+      "rolling_hours": 48
     }
   },
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các chuyển động kinh tế, công nghệ và địa chính trị quan trọng trong 48 giờ qua, tập trung vào các xu hướng định hình thị trường và chính sách.",
+    "editor_note": "Bản tin tổng hợp các sự kiện tài chính, công nghệ và địa chính trị nổi bật trong 48 giờ qua, tập trung vào các tác động vĩ mô và xu hướng chuyển đổi số.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh kinh tế toàn cầu chịu ảnh hưởng mạnh bởi các biến động địa chính trị tại Trung Đông và sự điều chỉnh chính sách tiền tệ. Tại Việt Nam, trọng tâm chuyển dịch sang việc thúc đẩy tăng trưởng kinh tế, hiện đại hóa hạ tầng và quản lý thuế số hóa. Các tập đoàn công nghệ lớn đang đẩy mạnh đầu tư vào AI, trong khi thị trường tài chính ghi nhận sự phân hóa rõ rệt giữa cổ phiếu công nghệ và các tài sản rủi ro.",
-        "most_mentioned": "Chủ đề chuyển đổi số và quản lý thuế đang được nhắc đến nhiều nhất, đặc biệt là các báo cáo về quản lý hộ kinh doanh và xác thực sinh trắc học. Điều này phản ánh nỗ lực của cơ quan chức năng trong việc minh bạch hóa dòng tiền và hiện đại hóa quản lý hành chính.",
-        "top_stories": "Sự bùng nổ của hạ tầng AI và bán dẫn tiếp tục là tâm điểm thu hút sự quan tâm từ các tập đoàn công nghệ và quỹ đầu tư toàn cầu. Song song đó, căng thẳng địa chính trị tại Trung Đông đang tác động trực tiếp đến giá dầu và tâm lý thị trường tài chính quốc tế.",
-        "sector_impacts": "Các chính sách nội tại của Việt Nam như tăng trưởng GDP và cải cách thủ tục hành chính đang tạo ra những tác động tích cực đến môi trường kinh doanh, trong khi thế giới vẫn đang phải đối mặt với các rủi ro địa chính trị và sự cạnh tranh khốc liệt trong lĩnh vực công nghệ cao.",
-        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi sát sao các biến động về giá dầu, phản ứng của thị trường chứng khoán trước các thông tin về chính sách tiền tệ và tiến độ triển khai các dự án hạ tầng trọng điểm tại Việt Nam."
+        "main_picture": "Trong 48 giờ qua, tâm điểm toàn cầu là thương vụ IPO lịch sử của SpaceX trên sàn Nasdaq, đưa Elon Musk trở thành tỷ phú nghìn tỷ USD đầu tiên, tạo làn sóng đầu tư mạnh mẽ nhưng cũng gây tranh cãi về định giá. Song song đó, các tín hiệu hòa bình giữa Mỹ và Iran đang làm hạ nhiệt thị trường năng lượng, dù vẫn còn nhiều hoài nghi về tính bền vững. Tại Việt Nam, các doanh nghiệp đang tập trung vào chuyển đổi số và thích ứng với các quy định mới về truy xuất nguồn gốc hàng hóa, trong khi thị trường tài chính ghi nhận sự biến động mạnh của giá vàng và lãi suất.",
+        "most_mentioned": "Chủ đề được nhắc nhiều nhất là IPO của SpaceX và các tác động của nó đến thị trường vốn toàn cầu, với hơn 45 bài viết ghi nhận sự quan tâm đặc biệt từ giới đầu tư. Tiếp theo là các diễn biến địa chính trị Mỹ - Iran và các chính sách quản lý kinh tế mới tại Việt Nam.",
+        "top_stories": "Sự kiện Elon Musk trở thành tỷ phú nghìn tỷ USD đầu tiên sau IPO của SpaceX là câu chuyện quan trọng nhất, phản ánh sự thống trị của các công ty công nghệ tư nhân trong kỷ nguyên mới. Kết hợp với các tín hiệu hạ nhiệt xung đột Mỹ - Iran, thị trường đang có sự điều chỉnh kỳ vọng về rủi ro địa chính trị và giá năng lượng.",
+        "sector_impacts": "Tác động lan tỏa đến ngành tài chính và công nghệ là rất rõ rệt. Trong khi các nhà đầu tư công nghệ tập trung vào định giá SpaceX, các nhà đầu tư năng lượng lại đang theo dõi sát sao các diễn biến ngoại giao tại Trung Đông để dự báo xu hướng giá dầu.",
+        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi: biến động giá cổ phiếu SpaceX sau IPO, các tuyên bố chính thức từ Tehran và Washington về thỏa thuận hòa bình, và phản ứng của thị trường vàng trong nước trước các quy định mới."
       },
-      "content": "Trong 48 giờ qua, bức tranh kinh tế toàn cầu chịu ảnh hưởng mạnh bởi các biến động địa chính trị tại Trung Đông và sự điều chỉnh chính sách tiền tệ. Tại Việt Nam, trọng tâm chuyển dịch sang việc thúc đẩy tăng trưởng kinh tế, hiện đại hóa hạ tầng và quản lý thuế số hóa. Các tập đoàn công nghệ lớn đang đẩy mạnh đầu tư vào AI, trong khi thị trường tài chính ghi nhận sự phân hóa rõ rệt giữa cổ phiếu công nghệ và các tài sản rủi ro.",
+      "content": "Tóm tắt tổng quan 48h: Trong 48 giờ qua, tâm điểm toàn cầu là thương vụ IPO lịch sử của SpaceX trên sàn Nasdaq, đưa Elon Musk trở thành tỷ phú nghìn tỷ USD đầu tiên, tạo làn sóng đầu tư mạnh mẽ nhưng cũng gây tranh cãi về định giá. Song song đó, các tín hiệu hòa bình giữa Mỹ và Iran đang làm hạ nhiệt thị trường năng lượng, dù vẫn còn nhiều hoài nghi về tính bền vững. Tại Việt Nam, các doanh nghiệp đang tập trung vào chuyển đổi số và thích ứng với các quy định mới về truy xuất nguồn gốc hàng hóa, trong khi thị trường tài chính ghi nhận sự biến động mạnh của giá vàng và lãi suất.",
       "representative_sources": [],
       "most_mentioned_topics": [
         {
-          "topic": "Chuyển đổi số và Quản lý thuế",
-          "why_mentioned": "Lặp lại trong nhiều báo cáo về quản lý hộ kinh doanh và xác thực sinh trắc học.",
-          "evidence_hint": "Dữ liệu từ các nguồn tin chính phủ và báo chí trong nước."
+          "topic": "IPO SpaceX",
+          "why_mentioned": "Ảnh hưởng trực tiếp đến vốn hóa và tâm lý nhà đầu tư toàn cầu",
+          "evidence_hint": "45 bài viết"
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Căng thẳng địa chính trị và Năng lượng",
-          "why_hot": "Tác động trực tiếp đến giá dầu và tâm lý thị trường toàn cầu.",
-          "impact": "Biến động giá năng lượng và tâm lý nhà đầu tư.",
-          "evidence_hint": "Các báo cáo từ CNBC và The Guardian."
+          "topic": "Hạ nhiệt xung đột Mỹ - Iran",
+          "why_hot": "Tác động trực tiếp đến giá dầu và địa chính trị Trung Đông",
+          "impact": "Thị trường năng lượng",
+          "evidence_hint": "20 bài viết"
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Sự phân hóa dòng vốn vào AI và bán dẫn",
-          "why_watch": "Dòng vốn đang tập trung mạnh vào các doanh nghiệp có nền tảng hạ tầng AI vững chắc."
+          "signal": "Siết quy định truy xuất nguồn gốc hàng hóa tại Việt Nam",
+          "why_watch": "Ảnh hưởng trực tiếp đến hoạt động kinh doanh của doanh nghiệp từ 1/7"
         }
       ],
       "watch_next": [
-        "Biến động giá dầu thế giới",
-        "Phản ứng của thị trường chứng khoán",
-        "Tiến độ chính sách thuế tại Việt Nam"
+        "Biến động giá cổ phiếu SpaceX",
+        "Diễn biến đàm phán Mỹ - Iran",
+        "Phản ứng thị trường vàng Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Cơ quan thuế sẽ đối chiếu hóa đơn điện tử với dòng tiền ngân hàng",
-        "one_sentence": "Tin tức quan trọng về chính sách thuế ảnh hưởng trực tiếp đến hàng triệu hộ kinh doanh.",
-        "why_it_matters": "Tin tức quan trọng về chính sách thuế ảnh hưởng trực tiếp đến hàng triệu hộ kinh doanh.",
-        "watch_next": "Tin tức quan trọng về chính sách thuế ảnh hưởng trực tiếp đến hàng triệu hộ kinh doanh.",
-        "source_urls": [
-          "https://tuoitre.vn/co-quan-thue-se-doi-chieu-hoa-don-dien-tu-voi-dong-tien-ngan-hang-20260520133353455.htm"
-        ]
-      },
-      {
-        "rank": 2,
-        "title": "Ông Lê Mạnh Cường làm Tổng giám đốc Petrovietnam",
-        "one_sentence": "Thay đổi nhân sự cấp cao tại tập đoàn năng lượng quốc gia.",
-        "why_it_matters": "Thay đổi nhân sự cấp cao tại tập đoàn năng lượng quốc gia.",
-        "watch_next": "Thay đổi nhân sự cấp cao tại tập đoàn năng lượng quốc gia.",
-        "source_urls": [
-          "https://tuoitre.vn/ong-le-manh-cuong-lam-tong-giam-doc-petrovietnam-2026052009340023.htm"
-        ]
-      },
-      {
-        "rank": 3,
-        "title": "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI",
-        "one_sentence": "Đánh dấu bước ngoặt lớn nhất trong lịch sử tìm kiếm trực tuyến.",
-        "why_it_matters": "Đánh dấu bước ngoặt lớn nhất trong lịch sử tìm kiếm trực tuyến.",
-        "watch_next": "Đánh dấu bước ngoặt lớn nhất trong lịch sử tìm kiếm trực tuyến.",
-        "source_urls": [
-          "https://time.com/article/2026/05/20/google-search-ai-internet"
-        ]
-      },
-      {
-        "rank": 4,
-        "title": "Đất Xanh tái cấu trúc thành BLUEMARQ GROUP",
-        "one_sentence": "Sự kiện tái định vị thương hiệu quan trọng của một doanh nghiệp BĐS lớn tại Việt Nam.",
-        "why_it_matters": "Sự kiện tái định vị thương hiệu quan trọng của một doanh nghiệp BĐS lớn tại Việt Nam.",
-        "watch_next": "Sự kiện tái định vị thương hiệu quan trọng của một doanh nghiệp BĐS lớn tại Việt Nam.",
+        "title": "SpaceX IPO chính thức lên sàn Nasdaq",
+        "one_sentence": "Thương vụ IPO lịch sử của SpaceX đưa Elon Musk trở thành tỷ phú nghìn tỷ USD đầu tiên.",
+        "why_it_matters": "Định hình lại thị trường vốn cho các công ty công nghệ tư nhân.",
+        "watch_next": "Biến động giá cổ phiếu sau IPO.",
         "source_urls": []
       },
       {
-        "rank": 5,
-        "title": "Meta sa thải 8.000 người qua email lúc 4h sáng",
-        "one_sentence": "Sự kiện sa thải quy mô lớn phản ánh sự chuyển dịch chiến lược sang AI của Meta.",
-        "why_it_matters": "Sự kiện sa thải quy mô lớn phản ánh sự chuyển dịch chiến lược sang AI của Meta.",
-        "watch_next": "Sự kiện sa thải quy mô lớn phản ánh sự chuyển dịch chiến lược sang AI của Meta.",
+        "rank": 2,
+        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
+        "one_sentence": "Sự kiện IPO lớn nhất lịch sử với định giá khổng lồ, tác động trực tiếp đến tâm lý thị trường.",
+        "why_it_matters": "Sự kiện IPO lớn nhất lịch sử với định giá khổng lồ, tác động trực tiếp đến tâm lý thị trường.",
+        "watch_next": "Sự kiện IPO lớn nhất lịch sử với định giá khổng lồ, tác động trực tiếp đến tâm lý thị trường.",
+        "source_urls": []
+      },
+      {
+        "rank": 3,
+        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
+        "one_sentence": "Diễn biến pháp lý quan trọng liên quan đến vụ sụp đổ FTX.",
+        "why_it_matters": "Diễn biến pháp lý quan trọng liên quan đến vụ sụp đổ FTX.",
+        "watch_next": "Diễn biến pháp lý quan trọng liên quan đến vụ sụp đổ FTX.",
+        "source_urls": []
+      },
+      {
+        "rank": 4,
+        "title": "Mỹ và Iran tiến gần đến thỏa thuận hòa bình",
+        "one_sentence": "Sự kiện địa chính trị có tác động lớn đến thị trường năng lượng và an ninh toàn cầu.",
+        "why_it_matters": "Sự kiện địa chính trị có tác động lớn đến thị trường năng lượng và an ninh toàn cầu.",
+        "watch_next": "Sự kiện địa chính trị có tác động lớn đến thị trường năng lượng và an ninh toàn cầu.",
         "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/meta-sa-thai-8000-nguoi-qua-email-luc-4h-sang-20260520155619462.htm"
+          "https://tienphong.vn/pakistan-my-iran-chot-van-ban-cuoi-cung-cua-thoa-thuan-hoa-binh-post1851006.tpo"
+        ]
+      },
+      {
+        "rank": 5,
+        "title": "Facebook, Instagram gặp sự cố gián đoạn toàn cầu",
+        "one_sentence": "Sự cố kỹ thuật lớn ảnh hưởng đến hàng tỷ người dùng và hoạt động kinh tế số.",
+        "why_it_matters": "Sự cố kỹ thuật lớn ảnh hưởng đến hàng tỷ người dùng và hoạt động kinh tế số.",
+        "watch_next": "Sự cố kỹ thuật lớn ảnh hưởng đến hàng tỷ người dùng và hoạt động kinh tế số.",
+        "source_urls": [
+          "https://tienphong.vn/facebook-sap-toan-cau-mark-zuckerberg-boc-hoi-hang-ty-usd-post1851008.tpo"
         ]
       },
       {
         "rank": 6,
-        "title": "Trung Quốc chốt mua 200 máy bay Boeing của Mỹ",
-        "one_sentence": "Tín hiệu tích cực trong quan hệ thương mại Mỹ-Trung.",
-        "why_it_matters": "Tín hiệu tích cực trong quan hệ thương mại Mỹ-Trung.",
-        "watch_next": "Tín hiệu tích cực trong quan hệ thương mại Mỹ-Trung.",
-        "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/trung-quoc-chot-mua-200-may-bay-boeing-cua-my-20260520194307903.htm"
-        ]
+        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
+        "one_sentence": "Đột phá y học có tiềm năng thay đổi cách điều trị viêm khớp.",
+        "why_it_matters": "Đột phá y học có tiềm năng thay đổi cách điều trị viêm khớp.",
+        "watch_next": "Đột phá y học có tiềm năng thay đổi cách điều trị viêm khớp.",
+        "source_urls": []
       },
       {
         "rank": 7,
-        "title": "Việt Nam đặt mục tiêu tăng trưởng GDP 10%: Cơ hội và thách thức từ hạ tầng đến thể chế",
-        "one_sentence": "Bài viết tổng hợp góc nhìn chuyên gia về mục tiêu tăng trưởng kinh tế đầy tham vọng của Việt Nam.",
-        "why_it_matters": "Bài viết tổng hợp góc nhìn chuyên gia về mục tiêu tăng trưởng kinh tế đầy tham vọng của Việt Nam.",
-        "watch_next": "Bài viết tổng hợp góc nhìn chuyên gia về mục tiêu tăng trưởng kinh tế đầy tham vọng của Việt Nam.",
-        "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/phan-dau-tang-truong-gdp-10-viet-nam-co-gi-can-gi-20260518112319105.htm"
-        ]
+        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
+        "one_sentence": "Đánh dấu cột mốc tài chính lịch sử của cá nhân và doanh nghiệp.",
+        "why_it_matters": "Đánh dấu cột mốc tài chính lịch sử của cá nhân và doanh nghiệp.",
+        "watch_next": "Đánh dấu cột mốc tài chính lịch sử của cá nhân và doanh nghiệp.",
+        "source_urls": []
       },
       {
         "rank": 8,
-        "title": "SpaceX đặt mục tiêu 10.000 vụ phóng tên lửa mỗi năm và kế hoạch IPO kỷ lục",
-        "one_sentence": "Sự kiện IPO tiềm năng lớn nhất lịch sử công nghệ toàn cầu.",
-        "why_it_matters": "Sự kiện IPO tiềm năng lớn nhất lịch sử công nghệ toàn cầu.",
-        "watch_next": "Sự kiện IPO tiềm năng lớn nhất lịch sử công nghệ toàn cầu.",
-        "source_urls": [
-          "https://tuoitre.vn/spacex-dat-muc-tieu-10-000-vu-phong-ten-lua-moi-nam-chuan-bi-ipo-ky-luc-20260521145430687.htm"
-        ]
+        "title": "Diễn biến kinh tế quốc tế đáng theo dõi trong 48 giờ qua",
+        "one_sentence": "Sự can thiệp trực tiếp của chính phủ vào phát triển AI frontier.",
+        "why_it_matters": "Sự can thiệp trực tiếp của chính phủ vào phát triển AI frontier.",
+        "watch_next": "Sự can thiệp trực tiếp của chính phủ vào phát triển AI frontier.",
+        "source_urls": []
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính đang đối mặt với sự phân hóa mạnh mẽ do tác động của chính sách tiền tệ và địa chính trị. Các doanh nghiệp đang tập trung vào việc tối ưu hóa dòng tiền và thích ứng với các quy định thuế mới.",
+        "sector_thesis": "Ngành tài chính trong 48 giờ qua tập trung vào các biến động vĩ mô từ IPO SpaceX và sự điều chỉnh của thị trường năng lượng do căng thẳng Mỹ - Iran. Tại Việt Nam, sự chú ý dồn vào các quy định mới về truy xuất nguồn gốc hàng hóa và biến động giá vàng.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
-            "rank": 1,
-            "depth_level": "deep",
-            "title": "Cơ quan thuế siết chặt quản lý dòng tiền và hóa đơn điện tử",
-            "summary": "Cơ quan thuế đẩy mạnh đối chiếu dữ liệu hóa đơn điện tử với dòng tiền ngân hàng để minh bạch hóa nghĩa vụ thuế của hộ kinh doanh và doanh nghiệp.",
-            "main_developments": [
-              "Cơ quan thuế đẩy mạnh đối chiếu dữ liệu hóa đơn điện tử với dòng tiền ngân hàng để minh bạch hóa nghĩa vụ thuế của hộ kinh doanh và doanh nghiệp."
-            ],
-            "why_it_matters": "Đây là thay đổi chính sách quan trọng ảnh hưởng trực tiếp đến cách thức vận hành của hộ kinh doanh và doanh nghiệp nhỏ tại Việt Nam.",
-            "affected_groups": [],
-            "watch_next": [
-              "Đây là thay đổi chính sách quan trọng ảnh hưởng trực tiếp đến cách thức vận hành của hộ kinh doanh và doanh nghiệp nhỏ t"
-            ],
-            "representative_sources": [
-              {
-                "title": "Cơ quan thuế sẽ đối chiếu hóa đơn điện tử với dòng tiền ngân hàng",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/co-quan-thue-se-doi-chieu-hoa-don-dien-tu-voi-dong-tien-ngan-hang-20260520133353455.htm"
-              },
-              {
-                "title": "Cục Thuế nói rõ cách quản lý thuế theo dòng tiền",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/cuc-thue-noi-ro-cach-quan-ly-thue-theo-dong-tien-185260520102436304.htm"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
             "rank": 3,
             "depth_level": "deep",
-            "title": "Đa dạng hóa nguồn vốn, giảm áp lực cho tín dụng ngân hàng",
-            "summary": "VCCI và các chuyên gia đề xuất phát triển thị trường vốn, sàn giao dịch chứng khoán quốc tế và crowdfunding để hỗ trợ doanh nghiệp nhỏ và vừa.",
+            "title": "Giá vàng trong nước tăng mạnh lên 147 triệu đồng/lượng",
+            "summary": "Giá vàng miếng SJC và vàng nhẫn đồng loạt tăng vọt, chênh lệch giá mua-bán thu hẹp trong bối cảnh bất ổn kinh tế toàn cầu.",
             "main_developments": [
-              "VCCI và các chuyên gia đề xuất phát triển thị trường vốn, sàn giao dịch chứng khoán quốc tế và crowdfunding để hỗ trợ doanh nghiệp nhỏ và vừa."
+              "Giá vàng miếng SJC và vàng nhẫn đồng loạt tăng vọt, chênh lệch giá mua-bán thu hẹp trong bối cảnh bất ổn kinh tế toàn cầu."
             ],
-            "why_it_matters": "Giải pháp chiến lược cho bài toán thiếu vốn của doanh nghiệp Việt Nam giai đoạn 2026-2030.",
+            "why_it_matters": "Phản ánh biến động mạnh của tài sản trú ẩn trong bối cảnh vĩ mô bất ổn.",
             "affected_groups": [],
             "watch_next": [
-              "Giải pháp chiến lược cho bài toán thiếu vốn của doanh nghiệp Việt Nam giai đoạn 2026-2030."
+              "Phản ánh biến động mạnh của tài sản trú ẩn trong bối cảnh vĩ mô bất ổn."
             ],
             "representative_sources": [
               {
-                "title": "Đa dạng hóa nguồn vốn, giảm áp lực cho tín dụng ngân hàng",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/da-dang-hoa-nguon-von-giam-ap-luc-cho-tin-dung-ngan-hang-102260521135732817.htm"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 4,
-            "depth_level": "deep",
-            "title": "Việt Nam đặt mục tiêu tăng trưởng GDP 10%: Cơ hội và thách thức từ hạ tầng đến thể chế",
-            "summary": "Các chuyên gia và doanh nghiệp lớn đồng thuận về tính khả thi của mục tiêu tăng trưởng 10% nếu giải phóng được sức dân và cải cách thể chế.",
-            "main_developments": [
-              "Các chuyên gia và doanh nghiệp lớn đồng thuận về tính khả thi của mục tiêu tăng trưởng 10% nếu giải phóng được sức dân và cải cách thể chế."
-            ],
-            "why_it_matters": "Đây là chủ đề trọng tâm về định hướng kinh tế vĩ mô của Việt Nam trong giai đoạn 2026-2031.",
-            "affected_groups": [],
-            "watch_next": [
-              "Đây là chủ đề trọng tâm về định hướng kinh tế vĩ mô của Việt Nam trong giai đoạn 2026-2031."
-            ],
-            "representative_sources": [
-              {
-                "title": "Phấn đấu tăng trưởng GDP 10%: Việt Nam có gì, cần gì?",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/phan-dau-tang-truong-gdp-10-viet-nam-co-gi-can-gi-20260518112319105.htm"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 5,
-            "depth_level": "deep",
-            "title": "Bộ Tài chính Việt Nam trình Chính phủ bổ sung 10 khoản thu nhập được miễn thuế thu nhập cá nhân",
-            "summary": "Dự thảo đề xuất miễn thuế cho nhiều đối tượng, từ nông dân tham gia 'Cánh đồng lớn' đến nhân lực công nghệ cao và chuyên gia khởi nghiệp sáng tạo.",
-            "main_developments": [
-              "Dự thảo đề xuất miễn thuế cho nhiều đối tượng, từ nông dân tham gia 'Cánh đồng lớn' đến nhân lực công nghệ cao và chuyên gia khởi nghiệp sáng tạo."
-            ],
-            "why_it_matters": "Chính sách thuế mới ảnh hưởng trực tiếp đến nhiều nhóm đối tượng lao động và doanh nghiệp tại Việt Nam.",
-            "affected_groups": [],
-            "watch_next": [
-              "Chính sách thuế mới ảnh hưởng trực tiếp đến nhiều nhóm đối tượng lao động và doanh nghiệp tại Việt Nam."
-            ],
-            "representative_sources": [
-              {
-                "title": "Trình Chính phủ bổ sung 10 khoản thu nhập được miễn thuế thu nhập cá nhân",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/trinh-chinh-phu-bo-sung-10-khoan-thu-nhap-duoc-mien-thue-thu-nhap-ca-nhan-185260521192450401.htm"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 9,
-            "depth_level": "deep",
-            "title": "Tháo gỡ loạt vướng mắc cho dự án chống ngập và kết nối giao thông cửa ngõ TP.HCM",
-            "summary": "UBND TP.HCM chỉ đạo đẩy nhanh tiến độ dự án chống ngập 10.000 tỷ và kết nối giao thông Phạm Văn Đồng - Gò Dưa.",
-            "main_developments": [
-              "UBND TP.HCM chỉ đạo đẩy nhanh tiến độ dự án chống ngập 10.000 tỷ và kết nối giao thông Phạm Văn Đồng - Gò Dưa."
-            ],
-            "why_it_matters": "Dự án hạ tầng trọng điểm ảnh hưởng trực tiếp đến đời sống và kinh tế khu vực phía Nam.",
-            "affected_groups": [],
-            "watch_next": [
-              "Dự án hạ tầng trọng điểm ảnh hưởng trực tiếp đến đời sống và kinh tế khu vực phía Nam."
-            ],
-            "representative_sources": [
-              {
-                "title": "Tháo gỡ loạt vướng mắc cho dự án chống ngập và kết nối giao thông cửa ngõ TP.HCM",
-                "source": "baoxaydung_vn",
-                "url": "https://batdongsan.baoxaydung.vn/thao-go-loat-vuong-mac-cho-du-an-chong-ngap-va-ket-noi-giao-thong-cua-ngo-tphcm-192260521145537212.htm"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 10,
-            "depth_level": "deep",
-            "title": "Bitcoin chịu áp lực bán tháo từ dữ liệu vĩ mô và dòng vốn ETF",
-            "summary": "Dòng vốn ETF Bitcoin ghi nhận đợt rút ròng lớn nhất trong 7 tuần do lo ngại lãi suất Fed và căng thẳng địa chính trị.",
-            "main_developments": [
-              "Dòng vốn ETF Bitcoin ghi nhận đợt rút ròng lớn nhất trong 7 tuần do lo ngại lãi suất Fed và căng thẳng địa chính trị."
-            ],
-            "why_it_matters": "Phản ánh sự thay đổi trong tâm lý nhà đầu tư tổ chức trước các dữ liệu lạm phát và kỳ vọng lãi suất mới.",
-            "affected_groups": [],
-            "watch_next": [
-              "Phản ánh sự thay đổi trong tâm lý nhà đầu tư tổ chức trước các dữ liệu lạm phát và kỳ vọng lãi suất mới."
-            ],
-            "representative_sources": [
-              {
-                "title": "Bitcoin ETF flows expose the split inside crypto’s $1 billion selloff",
-                "source": "cryptoslate_com",
-                "url": "https://cryptoslate.com/bitcoin-etf-flows-macro-risk-test"
-              },
-              {
-                "title": "Bitcoin is left stranded as Fed projections flip to 54% chance of rate hikes this year",
-                "source": "cryptoslate_com",
-                "url": "https://cryptoslate.com/bitcoin-holders-expected-fed-relief-futures-now-point-the-other-way"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 12,
-            "depth_level": "deep",
-            "title": "Thủ tướng phân công Phó Thủ tướng chỉ đạo các địa phương đạt mục tiêu tăng trưởng kinh tế trên 10%",
-            "summary": "Chính phủ phân công các Phó Thủ tướng theo dõi sát sao từng vùng kinh tế nhằm tháo gỡ điểm nghẽn, thúc đẩy tăng trưởng hai con số.",
-            "main_developments": [
-              "Chính phủ phân công các Phó Thủ tướng theo dõi sát sao từng vùng kinh tế nhằm tháo gỡ điểm nghẽn, thúc đẩy tăng trưởng hai con số."
-            ],
-            "why_it_matters": "Đây là chỉ đạo chiến lược quan trọng nhất của Chính phủ Việt Nam trong giai đoạn hiện nay.",
-            "affected_groups": [],
-            "watch_next": [
-              "Đây là chỉ đạo chiến lược quan trọng nhất của Chính phủ Việt Nam trong giai đoạn hiện nay."
-            ],
-            "representative_sources": [
-              {
-                "title": "Phân công Lãnh đạo Chính phủ theo dõi, chỉ đạo các địa phương thực hiện mục tiêu tăng trưởng kinh tế trên 10%",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/phan-cong-lanh-dao-chinh-phu-theo-doi-chi-dao-cac-dia-phuong-thuc-hien-muc-tieu-tang-truong-kinh-te-tren-10-102260522175527609.htm"
-              },
-              {
-                "title": "Thủ tướng Lê Minh Hưng phân công thêm nhiệm vụ cho các Phó thủ tướng",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/thu-tuong-le-minh-hung-phan-cong-them-nhiem-vu-cho-cac-pho-thu-tuong-20260522193223718.htm"
+                "title": "Giá vàng hôm nay (13/6): Tăng lên 147 triệu đồng/lượng",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/gia-vang-hom-nay-136-tang-len-147-trieu-dongluong-post1851023.tpo"
               }
             ],
             "sub_sector": ""
@@ -325,27 +168,27 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Lĩnh vực công nghệ đang chứng kiến làn sóng đầu tư mạnh mẽ vào hạ tầng AI và bán dẫn. Các tập đoàn lớn đang chạy đua để chiếm lĩnh thị phần trong kỷ nguyên AI.",
+        "sector_thesis": "Công nghệ trong 48 giờ qua xoay quanh sự kiện SpaceX và các nỗ lực chuyển đổi số tại Việt Nam.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
-            "rank": 2,
+            "rank": 1,
             "depth_level": "deep",
-            "title": "Google tái định hình công cụ tìm kiếm với AI, thay đổi cách người dùng truy cập Internet",
-            "summary": "Google tích hợp mô hình Gemini 3.5 Flash vào thanh tìm kiếm, tạo ra các trang tóm tắt tùy chỉnh thay vì danh sách liên kết truyền thống.",
+            "title": "Facebook, Instagram gặp sự cố gián đoạn toàn cầu",
+            "summary": "Hàng triệu người dùng không thể truy cập các nền tảng của Meta trong nhiều giờ, gây gián đoạn hoạt động kinh doanh trực tuyến.",
             "main_developments": [
-              "Google tích hợp mô hình Gemini 3.5 Flash vào thanh tìm kiếm, tạo ra các trang tóm tắt tùy chỉnh thay vì danh sách liên kết truyền thống."
+              "Hàng triệu người dùng không thể truy cập các nền tảng của Meta trong nhiều giờ, gây gián đoạn hoạt động kinh doanh trực tuyến."
             ],
-            "why_it_matters": "Sự thay đổi lớn nhất trong 25 năm của Google, tác động trực tiếp đến lưu lượng truy cập web toàn cầu.",
+            "why_it_matters": "Ảnh hưởng trực tiếp đến hàng tỷ người dùng và hoạt động kinh tế số.",
             "affected_groups": [],
             "watch_next": [
-              "Sự thay đổi lớn nhất trong 25 năm của Google, tác động trực tiếp đến lưu lượng truy cập web toàn cầu."
+              "Ảnh hưởng trực tiếp đến hàng tỷ người dùng và hoạt động kinh tế số."
             ],
             "representative_sources": [
               {
-                "title": "Google Shifts to AI Search, Heralding Major Change in How People Use the Internet",
-                "source": "time_com",
-                "url": "https://time.com/article/2026/05/20/google-search-ai-internet"
+                "title": "Facebook sập toàn cầu, Mark Zuckerberg 'bốc hơi' hàng tỷ USD?",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/facebook-sap-toan-cau-mark-zuckerberg-boc-hoi-hang-ty-usd-post1851008.tpo"
               }
             ],
             "sub_sector": ""
@@ -353,136 +196,48 @@
           {
             "rank": 3,
             "depth_level": "deep",
-            "title": "Meta sa thải 8.000 người để dồn lực cho tham vọng AI",
-            "summary": "Meta tái cấu trúc bộ máy, cắt giảm nhân sự để tập trung nguồn lực cho hạ tầng AI và các mô hình ngôn ngữ lớn.",
+            "title": "Chính phủ Mỹ yêu cầu Anthropic ngừng hoạt động các mô hình AI mạnh nhất",
+            "summary": "Anthropic buộc phải vô hiệu hóa Claude Fable 5 và Mythos 5 do lo ngại về an ninh quốc gia, đánh dấu sự can thiệp mạnh tay của chính phủ vào AI.",
             "main_developments": [
-              "Meta tái cấu trúc bộ máy, cắt giảm nhân sự để tập trung nguồn lực cho hạ tầng AI và các mô hình ngôn ngữ lớn."
+              "Anthropic buộc phải vô hiệu hóa Claude Fable 5 và Mythos 5 do lo ngại về an ninh quốc gia, đánh dấu sự can thiệp mạnh tay của chính phủ vào AI."
             ],
-            "why_it_matters": "Sự kiện sa thải quy mô lớn phản ánh xu hướng chuyển dịch nhân sự sang lĩnh vực AI của Big Tech.",
+            "why_it_matters": "Sự kiện mang tính bước ngoặt trong quản lý AI toàn cầu.",
             "affected_groups": [],
             "watch_next": [
-              "Sự kiện sa thải quy mô lớn phản ánh xu hướng chuyển dịch nhân sự sang lĩnh vực AI của Big Tech."
+              "Sự kiện mang tính bước ngoặt trong quản lý AI toàn cầu."
             ],
             "representative_sources": [
               {
-                "title": "Meta sa thải 8.000 người qua email lúc 4h sáng",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/meta-sa-thai-8000-nguoi-qua-email-luc-4h-sang-20260520155619462.htm"
+                "title": "Anthropic Says It’s Taking Claude Fable 5 Offline to Comply With US Government Order",
+                "source": "wired_com",
+                "url": "https://wired.com/story/anthropic-says-us-government-ordered-it-to-shut-down-mythos-models"
               }
             ],
             "sub_sector": ""
           },
           {
-            "rank": 5,
+            "rank": 4,
             "depth_level": "deep",
-            "title": "Nvidia công bố doanh thu tăng vọt 85%, đẩy mạnh đầu tư vào chip CPU",
-            "summary": "Nvidia báo cáo doanh thu 81,62 tỷ USD và công bố kế hoạch mở rộng sang thị trường CPU với tiềm năng 200 tỷ USD.",
+            "title": "Google kiện mạng lưới tội phạm mạng Trung Quốc lạm dụng Gemini AI",
+            "summary": "Google khởi kiện nhóm tội phạm sử dụng Gemini AI để tạo hàng nghìn trang web giả mạo và gửi hàng triệu tin nhắn lừa đảo.",
             "main_developments": [
-              "Nvidia báo cáo doanh thu 81,62 tỷ USD và công bố kế hoạch mở rộng sang thị trường CPU với tiềm năng 200 tỷ USD."
+              "Google khởi kiện nhóm tội phạm sử dụng Gemini AI để tạo hàng nghìn trang web giả mạo và gửi hàng triệu tin nhắn lừa đảo."
             ],
-            "why_it_matters": "Nvidia là tâm điểm của làn sóng AI toàn cầu, ảnh hưởng lớn đến tâm lý thị trường.",
+            "why_it_matters": "Cảnh báo về rủi ro an ninh mạng khi AI bị lạm dụng ở quy mô công nghiệp.",
             "affected_groups": [],
             "watch_next": [
-              "Nvidia là tâm điểm của làn sóng AI toàn cầu, ảnh hưởng lớn đến tâm lý thị trường."
+              "Cảnh báo về rủi ro an ninh mạng khi AI bị lạm dụng ở quy mô công nghiệp."
             ],
             "representative_sources": [
               {
-                "title": "Nvidia analyst reaction: Street loves Jensen Huang's new $200 billion opportunity",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/05/21/nvidia-analyst-reaction-street-loves-jensen-huangs-new-200-billion-opportunity-.html"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 6,
-            "depth_level": "deep",
-            "title": "AMD cam kết đầu tư hơn 10 tỷ USD vào hệ sinh thái AI tại Đài Loan",
-            "summary": "AMD mở rộng hợp tác với các đối tác đóng gói chip tại Đài Loan để cạnh tranh với Nvidia trong hạ tầng AI.",
-            "main_developments": [
-              "AMD mở rộng hợp tác với các đối tác đóng gói chip tại Đài Loan để cạnh tranh với Nvidia trong hạ tầng AI."
-            ],
-            "why_it_matters": "Động thái chiến lược nhằm đảm bảo chuỗi cung ứng chip AI trước nhu cầu khổng lồ.",
-            "affected_groups": [],
-            "watch_next": [
-              "Động thái chiến lược nhằm đảm bảo chuỗi cung ứng chip AI trước nhu cầu khổng lồ."
-            ],
-            "representative_sources": [
-              {
-                "title": "AMD commits more than $10bn to Taiwan’s AI ecosystem with ASE, SPIL and Helios as the visible deliverables",
-                "source": "thenextweb_com",
-                "url": "https://thenextweb.com/news/amd-10bn-taiwan-ai-ecosystem-helios-ase-spil"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 7,
-            "depth_level": "deep",
-            "title": "Google I/O 2026: Kỷ nguyên AI tự hành và công cụ xác thực nội dung",
-            "summary": "Google giới thiệu các tác nhân AI chạy ngầm trong Search và công cụ 'Anti-AI' để xác thực nguồn gốc nội dung.",
-            "main_developments": [
-              "Google giới thiệu các tác nhân AI chạy ngầm trong Search và công cụ 'Anti-AI' để xác thực nguồn gốc nội dung."
-            ],
-            "why_it_matters": "Thay đổi cốt lõi trong cách người dùng tương tác với thông tin và AI.",
-            "affected_groups": [],
-            "watch_next": [
-              "Thay đổi cốt lõi trong cách người dùng tương tác với thông tin và AI."
-            ],
-            "representative_sources": [
-              {
-                "title": "Google ra mắt AI chạy ngầm trong Search, tự cập nhật tin tức thay người dùng",
-                "source": "genk_vn",
-                "url": "https://genk.vn/google-ra-mat-ai-chay-ngam-trong-search-tu-cap-nhat-tin-tuc-thay-nguoi-dung-165262005175147707.chn"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 8,
-            "depth_level": "deep",
-            "title": "AI của Google (GNoME) phát hiện 2,2 triệu cấu trúc tinh thể mới",
-            "summary": "Công cụ AI GNoME rút ngắn hàng trăm năm nghiên cứu khoa học vật liệu, mở đường cho pin và chất siêu dẫn thế hệ mới.",
-            "main_developments": [
-              "Công cụ AI GNoME rút ngắn hàng trăm năm nghiên cứu khoa học vật liệu, mở đường cho pin và chất siêu dẫn thế hệ mới."
-            ],
-            "why_it_matters": "Bước ngoặt trong ứng dụng AI vào nghiên cứu khoa học cơ bản và phát triển vật liệu mới.",
-            "affected_groups": [],
-            "watch_next": [
-              "Bước ngoặt trong ứng dụng AI vào nghiên cứu khoa học cơ bản và phát triển vật liệu mới."
-            ],
-            "representative_sources": [
-              {
-                "title": "Phát hiện hơn 2 triệu cấu trúc tinh thể mới, AI của Google rút ngắn 800 năm nghiên cứu cho nhân loại",
-                "source": "khoahoc_tv",
-                "url": "https://khoahoc.tv/phat-hien-hon-2-trieu-cau-truc-tinh-the-moi-ai-cua-google-rut-ngan-800-nam-nghien-cuu-cho-nhan-loai-131807"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 10,
-            "depth_level": "deep",
-            "title": "Google ra mắt Gemini Omni và Gemini Spark tại I/O 2026",
-            "summary": "Google giới thiệu mô hình AI đa phương thức mới và trợ lý AI cá nhân hoạt động 24/7 để cạnh tranh trên thị trường.",
-            "main_developments": [
-              "Google giới thiệu mô hình AI đa phương thức mới và trợ lý AI cá nhân hoạt động 24/7 để cạnh tranh trên thị trường."
-            ],
-            "why_it_matters": "Bước tiến quan trọng của Google trong việc tích hợp AI vào đời sống và công việc.",
-            "affected_groups": [],
-            "watch_next": [
-              "Bước tiến quan trọng của Google trong việc tích hợp AI vào đời sống và công việc."
-            ],
-            "representative_sources": [
-              {
-                "title": "Google Launches Gemini Spark: A 24/7 AI Agent That Wants to Make You Ditch OpenClaw - Decrypt",
-                "source": "decrypt_co",
-                "url": "https://decrypt.co/368389/google-gemini-spark-ai-agent-challenge-hermes-openclaw"
+                "title": "Google sues Chinese scammers using Gemini AI for fraud - Engadget",
+                "source": "engadget_com",
+                "url": "https://engadget.com/2192873/google-injunction-chinese-ai-scams"
               },
               {
-                "title": "Google Unveils Gemini Omni—A Next-Gen AI Video Builder That Can 'Simulate the World' - Decrypt",
-                "source": "decrypt_co",
-                "url": "https://decrypt.co/368393/google-unveils-gemini-omni-next-gen-ai-video-builder-simulate-world"
+                "title": "Google sues Chinese cybercrime ring that used Gemini to build phishing sites and send 2.5 million scam texts",
+                "source": "thenextweb_com",
+                "url": "https://thenextweb.com/news/google-sues-outsider-enterprise-ai-scam-texts"
               }
             ],
             "sub_sector": ""
@@ -492,76 +247,27 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Tình hình địa chính trị thế giới đang có những diễn biến phức tạp, đặc biệt là tại khu vực Trung Đông, gây áp lực lên các chính sách đối ngoại và kinh tế toàn cầu.",
+        "sector_thesis": "Địa chính trị tập trung vào các tín hiệu hòa bình giữa Mỹ và Iran.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
-            "rank": 1,
-            "depth_level": "deep",
-            "title": "Việt Nam tham gia hội nghị hải quan khu vực châu Á - Thái Bình Dương",
-            "summary": "Đoàn Hải quan Việt Nam tham dự hội nghị WCO tại Hồng Kông, khẳng định cam kết hợp tác kiểm soát và tạo thuận lợi thương mại.",
-            "main_developments": [
-              "Đoàn Hải quan Việt Nam tham dự hội nghị WCO tại Hồng Kông, khẳng định cam kết hợp tác kiểm soát và tạo thuận lợi thương mại."
-            ],
-            "why_it_matters": "Hoạt động ngoại giao quan trọng trong lĩnh vực quản lý nhà nước và thương mại.",
-            "affected_groups": [],
-            "watch_next": [
-              "Hoạt động ngoại giao quan trọng trong lĩnh vực quản lý nhà nước và thương mại."
-            ],
-            "representative_sources": [
-              {
-                "title": "Việt Nam tham gia tích cực hội nghị hải quan khu vực châu Á - Thái Bình Dương",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/viet-nam-tham-gia-tich-cuc-hoi-nghi-hai-quan-khu-vuc-chau-a-thai-binh-duong-102260519171211207.htm"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 2,
-            "depth_level": "deep",
-            "title": "Tác động kinh tế từ việc đóng cửa eo biển Hormuz và căng thẳng Iran",
-            "summary": "Việc đóng cửa eo biển Hormuz gây thiệt hại lớn cho kinh tế toàn cầu, buộc các quốc gia phải tìm kiếm nguồn cung năng lượng thay thế.",
-            "main_developments": [
-              "Việc đóng cửa eo biển Hormuz gây thiệt hại lớn cho kinh tế toàn cầu, buộc các quốc gia phải tìm kiếm nguồn cung năng lượng thay thế."
-            ],
-            "why_it_matters": "Sự kiện địa chính trị lõi ảnh hưởng đến giá dầu và lạm phát toàn cầu.",
-            "affected_groups": [],
-            "watch_next": [
-              "Sự kiện địa chính trị lõi ảnh hưởng đến giá dầu và lạm phát toàn cầu."
-            ],
-            "representative_sources": [
-              {
-                "title": "Maths behind Hormuz toll: Is paying Iran for transit cheaper than blockade?",
-                "source": "aljazeera_com",
-                "url": "https://aljazeera.com/features/2026/5/21/maths-behind-hormuz-toll-is-paying-iran-for-transit-cheaper-than-blockade"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
             "rank": 3,
             "depth_level": "deep",
-            "title": "Trung Quốc chốt mua 200 máy bay Boeing",
-            "summary": "Trung Quốc xác nhận đơn hàng lớn với Boeing, tín hiệu hạ nhiệt căng thẳng thương mại Mỹ-Trung.",
+            "title": "Nhóm cực đoan bị cáo buộc kích động bạo loạn tại Belfast",
+            "summary": "Các nhóm thượng đẳng da trắng bị phát hiện đóng vai trò quan trọng trong việc tổ chức và kích động các cuộc bạo loạn gần đây tại Belfast.",
             "main_developments": [
-              "Trung Quốc xác nhận đơn hàng lớn với Boeing, tín hiệu hạ nhiệt căng thẳng thương mại Mỹ-Trung."
+              "Các nhóm thượng đẳng da trắng bị phát hiện đóng vai trò quan trọng trong việc tổ chức và kích động các cuộc bạo loạn gần đây tại Belfast."
             ],
-            "why_it_matters": "Bước ngoặt trong quan hệ thương mại Mỹ-Trung sau các cuộc gặp cấp cao.",
+            "why_it_matters": "Sự kiện xã hội nghiêm trọng có yếu tố cực đoan hóa trực tuyến.",
             "affected_groups": [],
             "watch_next": [
-              "Bước ngoặt trong quan hệ thương mại Mỹ-Trung sau các cuộc gặp cấp cao."
+              "Sự kiện xã hội nghiêm trọng có yếu tố cực đoan hóa trực tuyến."
             ],
             "representative_sources": [
               {
-                "title": "Trung Quốc chốt mua 200 máy bay Boeing của Mỹ",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/trung-quoc-chot-mua-200-may-bay-boeing-cua-my-20260520194307903.htm"
-              },
-              {
-                "title": "Bắc Kinh chốt mua 200 chiếc Boeing, Mỹ - Trung thúc đẩy đàm phán giảm thuế đối ứng",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/bac-kinh-chot-mua-200-chiec-boeing-my-trung-thuc-day-dam-phan-giam-thue-doi-ung-2026052017193564.htm"
+                "title": "A White Supremacist Youth Group Helped Orchestrate the Belfast Riots",
+                "source": "wired_com",
+                "url": "https://wired.com/story/a-white-supremacist-youth-group-helped-orchestrate-the-belfast-riots"
               }
             ],
             "sub_sector": ""
@@ -571,98 +277,85 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Các xu hướng tiêu dùng và đời sống đang dần thay đổi theo hướng số hóa, với sự hỗ trợ của các công nghệ mới và chính sách quản lý hiện đại.",
+        "sector_thesis": "Xu hướng tại Việt Nam tập trung vào các quy định mới về truy xuất nguồn gốc hàng hóa.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "title": "Nhà ở cho thuê được xác định là trụ cột chiến lược",
-            "summary": "Chính phủ đẩy mạnh phát triển nhà ở cho thuê để giải quyết nhu cầu an sinh tại các đô thị lớn.",
+            "sub_sector": "Chính sách kinh doanh",
+            "title": "Việt Nam siết quy định truy xuất nguồn gốc hàng hóa",
+            "summary": "Chính phủ Việt Nam ban hành quy định mới về truy xuất nguồn gốc hàng hóa.",
             "main_developments": [
-              "Chính phủ đẩy mạnh phát triển nhà ở cho thuê để giải quyết nhu cầu an sinh tại các đô thị lớn."
+              "Quy định mới",
+              "Thời hạn áp dụng 1/7"
             ],
-            "why_it_matters": "Thay đổi tư duy chiến lược về an sinh xã hội và nhà ở tại Việt Nam.",
+            "why_it_matters": "Tăng cường minh bạch thị trường và bảo vệ người tiêu dùng.",
+            "affected_groups": [
+              "Doanh nghiệp",
+              "Người tiêu dùng"
+            ],
+            "watch_next": [
+              "Triển khai thực tế"
+            ],
+            "representative_sources": []
+          },
+          {
+            "rank": 2,
+            "depth_level": "deep",
+            "title": "World Cup 2026 khai mạc với sự tham gia của nhiều nghệ sĩ quốc tế",
+            "summary": "Sự kiện thể thao lớn nhất hành tinh chính thức khởi tranh tại Mỹ, Canada và Mexico, thu hút sự chú ý toàn cầu.",
+            "main_developments": [
+              "Sự kiện thể thao lớn nhất hành tinh chính thức khởi tranh tại Mỹ, Canada và Mexico, thu hút sự chú ý toàn cầu."
+            ],
+            "why_it_matters": "Sự kiện văn hóa - thể thao có tầm ảnh hưởng toàn cầu.",
             "affected_groups": [],
             "watch_next": [
-              "Thay đổi tư duy chiến lược về an sinh xã hội và nhà ở tại Việt Nam."
+              "Sự kiện văn hóa - thể thao có tầm ảnh hưởng toàn cầu."
             ],
             "representative_sources": [
               {
-                "title": "Nhà ở cho thuê cung không đủ cầu",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/nha-o-cho-thue-cung-khong-du-cau-185260520200740568.htm"
-              },
-              {
-                "title": "Nhà ở cho thuê là trụ cột chiến lược",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/nha-o-cho-thue-la-tru-cot-chien-luoc-185260520220808713.htm"
+                "title": "Lisa (BlackPink) làm bùng nổ khai mạc World Cup",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/lisa-blackpink-lam-bung-no-khai-mac-world-cup-post1851016.tpo"
               }
             ],
             "sub_sector": ""
           },
           {
             "rank": 3,
-            "depth_level": "deep",
-            "title": "Giới hạn chịu nhiệt của con người: Tại sao nắng nóng trở thành mối đe dọa hàng đầu",
-            "summary": "Nhiệt độ bầu ướt 35 độ C là ngưỡng nguy hiểm cho con người, với các rủi ro sức khỏe tăng cao ngay cả khi chưa đạt giới hạn tuyệt đối.",
-            "main_developments": [
-              "Nhiệt độ bầu ướt 35 độ C là ngưỡng nguy hiểm cho con người, với các rủi ro sức khỏe tăng cao ngay cả khi chưa đạt giới hạn tuyệt đối."
-            ],
-            "why_it_matters": "Vấn đề sức khỏe cộng đồng cấp bách trong bối cảnh biến đổi khí hậu toàn cầu.",
-            "affected_groups": [],
-            "watch_next": [
-              "Vấn đề sức khỏe cộng đồng cấp bách trong bối cảnh biến đổi khí hậu toàn cầu."
-            ],
-            "representative_sources": [
-              {
-                "title": "Giới hạn chịu nóng của con người không cao như chúng ta tưởng",
-                "source": "khoahoc_tv",
-                "url": "https://khoahoc.tv/gioi-han-chiu-nong-cua-con-nguoi-khong-cao-nhu-chung-ta-tuong-132105"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 5,
-            "depth_level": "deep",
-            "title": "Gieo hạt giống nguồn nhân lực chất lượng cao từ sân chơi Toán học AIMO",
-            "summary": "Cuộc thi AIMO 2026 thu hút gần 1.300 thí sinh, khẳng định xu hướng hội nhập quốc tế trong giáo dục tư duy toán học tại Việt Nam.",
-            "main_developments": [
-              "Cuộc thi AIMO 2026 thu hút gần 1.300 thí sinh, khẳng định xu hướng hội nhập quốc tế trong giáo dục tư duy toán học tại Việt Nam."
-            ],
-            "why_it_matters": "Xu hướng giáo dục STEM và hội nhập quốc tế của học sinh Việt Nam.",
-            "affected_groups": [],
-            "watch_next": [
-              "Xu hướng giáo dục STEM và hội nhập quốc tế của học sinh Việt Nam."
-            ],
-            "representative_sources": [
-              {
-                "title": "Gieo hạt giống nguồn nhân lực chất lượng cao từ sân chơi Toán học AIMO",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/gieo-hat-giong-nguon-nhan-luc-chat-luong-cao-tu-san-choi-toan-hoc-aimo-post1845807.tpo"
-              }
-            ],
-            "sub_sector": ""
-          },
-          {
-            "rank": 6,
             "depth_level": "brief",
-            "title": "Nông nghiệp phát thải thấp: Động lực cạnh tranh mới",
-            "summary": "Việt Nam đẩy mạnh sản xuất nông nghiệp xanh để đáp ứng các tiêu chuẩn khắt khe từ thị trường quốc tế.",
+            "title": "Thực phẩm siêu chế biến có thể làm suy giảm khả năng tập trung",
+            "summary": "Nghiên cứu trên 2.100 người cho thấy mối liên hệ giữa thực phẩm siêu chế biến và sự suy giảm nhận thức.",
             "main_developments": [
-              "Việt Nam đẩy mạnh sản xuất nông nghiệp xanh để đáp ứng các tiêu chuẩn khắt khe từ thị trường quốc tế."
+              "Nghiên cứu trên 2.100 người cho thấy mối liên hệ giữa thực phẩm siêu chế biến và sự suy giảm nhận thức."
             ],
-            "why_it_matters": "Xu hướng tất yếu của ngành nông nghiệp xuất khẩu Việt Nam.",
+            "why_it_matters": "Xu hướng tiêu dùng và sức khỏe cộng đồng đang được quan tâm rộng rãi.",
             "affected_groups": [],
             "watch_next": [
-              "Xu hướng tất yếu của ngành nông nghiệp xuất khẩu Việt Nam."
+              "Xu hướng tiêu dùng và sức khỏe cộng đồng đang được quan tâm rộng rãi."
+            ],
+            "representative_sources": [],
+            "sub_sector": ""
+          },
+          {
+            "rank": 4,
+            "depth_level": "brief",
+            "title": "Muối tôm Việt Nam tạo cơn sốt tại thị trường Hàn Quốc",
+            "summary": "Sản phẩm muối tôm sấy của Việt Nam đang trở thành mặt hàng được ưa chuộng tại Hàn Quốc, phản ánh tiềm năng xuất khẩu gia vị đặc sản.",
+            "main_developments": [
+              "Sản phẩm muối tôm sấy của Việt Nam đang trở thành mặt hàng được ưa chuộng tại Hàn Quốc, phản ánh tiềm năng xuất khẩu gia vị đặc sản."
+            ],
+            "why_it_matters": "Điểm sáng trong xuất khẩu nông sản và văn hóa ẩm thực Việt Nam.",
+            "affected_groups": [],
+            "watch_next": [
+              "Điểm sáng trong xuất khẩu nông sản và văn hóa ẩm thực Việt Nam."
             ],
             "representative_sources": [
               {
-                "title": "Nông nghiệp phát thải thấp: Động lực cạnh tranh nông sản",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/nong-nghiep-phat-thai-thap-dong-luc-moi-nang-suc-canh-tranh-cho-nong-san-10226051918152665.htm"
+                "title": "Muối tôm Việt có hình con tôm trái tim ‘đốn tim’ khách Hàn Quốc",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/muoi-tom-viet-co-hinh-con-tom-trai-tim-don-tim-khach-han-quoc-2525400.html"
               }
             ],
             "sub_sector": ""
@@ -672,38 +365,38 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến xung đột và tác động đến giá dầu.",
-        "why": "Ảnh hưởng trực tiếp đến chi phí năng lượng toàn cầu."
+        "theme": "IPO SpaceX",
+        "what_to_watch": "Giá cổ phiếu",
+        "why": "Đánh giá tâm lý nhà đầu tư."
       },
       {
-        "theme": "Cơ quan thuế sẽ đối chiếu hóa đơn điện tử với dòng tiền ngân hàng",
-        "what_to_watch": "Tin tức quan trọng về chính sách thuế ảnh hưởng trực tiếp đến hàng triệu hộ kinh doanh.",
-        "why": "Tin tức quan trọng về chính sách thuế ảnh hưởng trực tiếp đến hàng triệu hộ kinh doanh."
+        "theme": "SpaceX IPO chính thức lên sàn Nasdaq",
+        "what_to_watch": "Biến động giá cổ phiếu sau IPO.",
+        "why": "Định hình lại thị trường vốn cho các công ty công nghệ tư nhân."
       },
       {
-        "theme": "Ông Lê Mạnh Cường làm Tổng giám đốc Petrovietnam",
-        "what_to_watch": "Thay đổi nhân sự cấp cao tại tập đoàn năng lượng quốc gia.",
-        "why": "Thay đổi nhân sự cấp cao tại tập đoàn năng lượng quốc gia."
+        "theme": "SpaceX opens at $162 in blockbuster Nasdaq debut",
+        "what_to_watch": "Sự kiện IPO lớn nhất lịch sử với định giá khổng lồ, tác động trực tiếp đến tâm lý thị trường.",
+        "why": "Sự kiện IPO lớn nhất lịch sử với định giá khổng lồ, tác động trực tiếp đến tâm lý thị trường."
       },
       {
-        "theme": "Google Shifts to AI Search, Heralding Major Change in How People Use the Internet",
-        "what_to_watch": "Đánh dấu bước ngoặt lớn nhất trong lịch sử tìm kiếm trực tuyến.",
-        "why": "Đánh dấu bước ngoặt lớn nhất trong lịch sử tìm kiếm trực tuyến."
+        "theme": "Sam Bankman-Fried, de FTX, pierde apelación de condena penal por cargos de fraude y conspiración",
+        "what_to_watch": "Diễn biến pháp lý quan trọng liên quan đến vụ sụp đổ FTX.",
+        "why": "Diễn biến pháp lý quan trọng liên quan đến vụ sụp đổ FTX."
       },
       {
-        "theme": "Đất Xanh tái cấu trúc thành BLUEMARQ GROUP",
-        "what_to_watch": "Sự kiện tái định vị thương hiệu quan trọng của một doanh nghiệp BĐS lớn tại Việt Nam.",
-        "why": "Sự kiện tái định vị thương hiệu quan trọng của một doanh nghiệp BĐS lớn tại Việt Nam."
+        "theme": "Mỹ và Iran tiến gần đến thỏa thuận hòa bình",
+        "what_to_watch": "Sự kiện địa chính trị có tác động lớn đến thị trường năng lượng và an ninh toàn cầu.",
+        "why": "Sự kiện địa chính trị có tác động lớn đến thị trường năng lượng và an ninh toàn cầu."
       },
       {
-        "theme": "Meta sa thải 8.000 người qua email lúc 4h sáng",
-        "what_to_watch": "Sự kiện sa thải quy mô lớn phản ánh sự chuyển dịch chiến lược sang AI của Meta.",
-        "why": "Sự kiện sa thải quy mô lớn phản ánh sự chuyển dịch chiến lược sang AI của Meta."
+        "theme": "Facebook, Instagram gặp sự cố gián đoạn toàn cầu",
+        "what_to_watch": "Sự cố kỹ thuật lớn ảnh hưởng đến hàng tỷ người dùng và hoạt động kinh tế số.",
+        "why": "Sự cố kỹ thuật lớn ảnh hưởng đến hàng tỷ người dùng và hoạt động kinh tế số."
       }
     ],
     "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động dài hạn của các chính sách thuế mới đối với doanh nghiệp nhỏ và vừa.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của thỏa thuận Mỹ-Iran đối với các hợp đồng thương mại dài hạn tại khu vực Đông Nam Á.",
     "notable_articles": []
   }
 }
