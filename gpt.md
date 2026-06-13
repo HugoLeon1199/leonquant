@@ -6,7 +6,7 @@
 
 Pipeline chinh:
 - Crawl tin tu nhieu nguon vao DuckDB: `scripts/run_intel_full_daily.py` + `leon_web_intel/`
-- Loc va xuat du lieu cho AI: `scripts/export_news_full_for_ai.py` -> `news_for_ai.json` -> `news_for_ai_clean.json`
+- Loc/xuat du lieu cho AI: `scripts/export_news_full_for_ai.py` -> `news_for_ai.json` -> `news_for_ai_clean.json`
 - Tao ban tin 48h bang Gemini: `scripts/run_digest_from_db.py`, `scripts/run_digest_loop.py`, `summarize_news_gemini.py`
 - Dung du lieu web cong khai: `build_website_content.py` -> `content.json` -> `landing_page.html`
 - Tab the gioi/invest dung GDELT: `leon.py`, `invest_world_pulse.json`, `market_pulse.json`
@@ -18,49 +18,58 @@ Output quan trong:
 - `invest_vn_brief.json`: khoi Viet Nam cho tab dau tu
 - `data/web_intel_leonquant.duckdb.gz`: seed DB nho de GitHub Actions bootstrap
 
+Rule editorial Tin48h:
+- Uu tien `editorial-first, source-backed second`
+- Than bai tom tat/nganh viet nhu briefing, khong chen link vao giua doan
+- Giu nguyen link nguon va dat cuoi tung khoi lon (`Tong quan 48h`, moi nganh)
+
 ## GitHub Actions
 
 Workflow chinh:
 - `.github/workflows/daily.yml`: crawl Tin48h + Gemini + build web + invest-world
 - `.github/workflows/pages.yml`: deploy GitHub Pages
-- `.github/workflows/profile-refresh-monthly.yml`: refresh `source_profiles` moi thang 1 lan hoac chay tay
 
-Logic hien tai:
-- Daily run mac dinh dung `--skip-profile`
-- Neu gate fail vi DB stale/thin (`rc=6`), daily chi crawl lai 1 lan nua voi source profiles san co
-- Khong full re-profile trong cron hang ngay
-- Re-profile tach rieng sang workflow monthly/manual
+Van de da gap:
+- Workflow `Tin Viet Nam 48h digest` bi fail o step `Prepare digest export window`
+- Crawl step pass, nhung gate ket luan khong du bai hop le 48h de chay Gemini
 
 ## Ban da sua gi
 
-Commit da push lien quan den gate Tin48h:
-- `d9c1f3c` - `Harden Tin48h gate recovery on Actions`
-- them stale detection trong `scripts/prepare_digest_db.py`
+Fix da push len remote:
+- Commit `d9c1f3c` - `Harden Tin48h gate recovery on Actions`
 
-Commit da push lien quan den daily/profile cadence:
-- workflow daily recovery quay lai che do nhe: recrawl, khong `force-refresh-profile`
-- them workflow `profile-refresh-monthly.yml`
-- cap nhat `README.md`
+Noi dung fix:
+- Sua `scripts/prepare_digest_db.py`
+- Them check `latest_extracted_at` de nhan ra truong hop DB stale/missing sau crawl
+- Neu DB chua co crawl moi that su, script tra ve huong retry/recovery thay vi fail ngay
 
-Commit dang chuan bi push sua CI 2026-06-13:
-- Scrapy 2.16 bo goi `start_requests()`: them `async start()` cho 3 spider RSS/Sitemap/HTML
-- Pin `scrapy>=2.11.0,<2.17`
-- Tang cap BigQuery invest len `750_000_000`
-
-Commit cleanup an toan:
-- Bo khoi git `enriched_news.json` va `final_summary.json` vi la output regenerate/stale
-- Giu lai output workflow dang dung: `content.json`, `news_for_ai*.json`, `gemini_digest_summary.json`, `invest*.json`
-- Local co the xoa `_tmp*`, `_site*`, cache/raw crawl; khong xoa `.env`, `credentials.json`, DB seed
+- Sua `.github/workflows/daily.yml`
+- Neu gate fail, workflow se tu recovery ngay tren GitHub:
+- rebuild DB tu seed profiles
+- `--fresh-db`
+- `--force-refresh-profile`
+- recrawl
+- gate lai truoc khi chay Gemini
 
 Muc tieu:
-- Daily cron nhanh va on dinh hon
-- Re-profile nguon web chi chay dinh ky/thu cong
-- Giam nguy co job Tin48h bi treo rat lau o pha profile
+- De workflow Tin48h tu chua lan dau tien khi cache/profile tren Actions bi hong hoac qua cu
+- Giam viec phai chay local de cuu pipeline
+
+## Trang thai gan nhat
+
+Lan cuoi minh kiem tra:
+- Run `Tin Viet Nam 48h digest`: `27427612026`
+- Link: https://github.com/HugoLeon1199/leonquant/actions/runs/27427612026
+- Status luc do: `in_progress`
+
+Ghi chu:
+- `invest-world` da pass
+- `build-digest` dang chay o step gate/recovery lau hon truoc, cho thay fix dang co tac dung
 
 ## Cach nho nhanh cho lan sau
 
 Neu Tin48h hong:
 1. Xem run moi nhat cua `Tin Viet Nam 48h digest`
-2. Kiem tra no dung o `gate`, `Gemini`, hay `commit`
+2. Kiem tra no fail o `gate`, `Gemini`, hay `commit`
 3. Neu fail o gate, uu tien xem `scripts/prepare_digest_db.py` va block recovery trong `daily.yml`
-4. Neu nhieu nguon doi structure, chay workflow `profile-refresh-monthly.yml` bang tay truoc khi retrigger digest
+4. Khong can chay local neu muc tieu la cuu pipeline GitHub

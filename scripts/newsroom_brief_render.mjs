@@ -377,6 +377,51 @@ function buildRepresentativeSourcesHtml(links, lookup) {
   return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tiêu biểu</p>${inner}</div>`;
 }
 
+function buildExecutiveSourceLinksHtml(links, lookup) {
+  const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && normalizeExternalUrl(lk.url));
+  if (!rows.length) return "";
+  let inner = `<div class="dossier-source-links">`;
+  for (const lk of rows) {
+    const enriched = enrichLinkPublishedAt(lk, lookup);
+    const u = normalizeExternalUrl(enriched.url);
+    if (!u) continue;
+    const srcLabel = escapeHtml(formatSourceLinkLabel(enriched, u));
+    const meta = formatLinkPublishedMeta(enriched);
+    inner += `<span class="dossier-source-item">`;
+    inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
+    if (meta) inner += `<span class="sector-topic-source-meta">${escapeHtml(meta)}</span>`;
+    inner += `</span>`;
+  }
+  inner += `</div>`;
+  return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tham chiếu chính</p>${inner}</div>`;
+}
+
+function normalizedCopyKey(text) {
+  return String(text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function sectionLooksDistinctFromContent(sectionText, contentText) {
+  const sec = normalizedCopyKey(sectionText);
+  const body = normalizedCopyKey(contentText);
+  if (!sec) return false;
+  if (!body) return true;
+  if (sec.length < 90) return false;
+  if (body.includes(sec)) return false;
+  const secWords = sec.split(" ").filter((w) => w.length >= 4);
+  if (!secWords.length) return false;
+  let hits = 0;
+  secWords.forEach((w) => {
+    if (body.includes(w)) hits += 1;
+  });
+  return hits / secWords.length < 0.6;
+}
+
 function buildArticleImageLookup(data) {
   const map = new Map();
   const add = (url, img) => {
@@ -489,7 +534,17 @@ function buildExecutiveBriefingHtml(briefing, editorNote) {
     }
   }
 
-  if (hasSections) {
+  const useSectionsAsPrimary = !content;
+  if (content) {
+    const paras = content.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
+    if (paras.length > 1) {
+      for (const p of paras) html += `<p>${escapeHtml(p)}</p>`;
+    } else {
+      html += `<p>${escapeHtml(content)}</p>`;
+    }
+  }
+
+  if (hasSections && useSectionsAsPrimary) {
     for (const [key, label] of EXEC_BRIEF_SECTIONS) {
       const body = String(sections[key] || "").trim();
       if (!body) continue;
@@ -502,13 +557,22 @@ function buildExecutiveBriefingHtml(briefing, editorNote) {
       }
       html += `</div>`;
     }
-  } else {
-    const paras = content.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
-    if (paras.length > 1) {
-      for (const p of paras) html += `<p>${escapeHtml(p)}</p>`;
-    } else if (content) {
-      html += `<p>${escapeHtml(content)}</p>`;
+  } else if (hasSections) {
+    for (const [key, label] of EXEC_BRIEF_SECTIONS) {
+      const body = String(sections[key] || "").trim();
+      if (!sectionLooksDistinctFromContent(body, content)) continue;
+      const paras = body.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
+      html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">${escapeHtml(label)}</h4>`;
+      if (paras.length > 1) {
+        for (const p of paras) html += `<p>${escapeHtml(p)}</p>`;
+      } else {
+        html += `<p>${escapeHtml(body)}</p>`;
+      }
+      html += `</div>`;
     }
+  }
+
+  if (content) {
     const most = Array.isArray(b.mostMentionedTopics) ? b.mostMentionedTopics : [];
     if (most.length) {
       html += `<div class="executive-brief-section"><h4 class="executive-brief-heading">Chủ đề được nhắc nhiều nhất</h4><ul class="sector-points prose-bullets">`;
@@ -541,7 +605,7 @@ function buildExecutiveBriefingHtml(briefing, editorNote) {
 
   html += `</div>`;
   const briefLinks = Array.isArray(b.links) ? b.links : [];
-  if (briefLinks.length) html += buildRepresentativeSourcesHtml(briefLinks);
+  if (briefLinks.length) html += buildExecutiveSourceLinksHtml(briefLinks);
   html += `</section>`;
   return html;
 }
