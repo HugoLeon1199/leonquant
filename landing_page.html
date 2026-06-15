@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -352,6 +352,28 @@
       color: var(--faint);
       font-size: .85rem;
     }
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--cyan);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(8,145,178,.35);
+      transition: opacity .2s, transform .2s;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .back-to-top.visible { display: flex; }
+    .back-to-top:hover { transform: translateY(-2px); opacity: .9; }
 
     /* —— Digest mode (bản tin đa ngành) —— */
     .digest-toc {
@@ -1555,6 +1577,13 @@
     body.digest-mode .hero-sub,
     body.digest-mode .hero-desc { display: none; }
     body.digest-mode .hero { padding: 22px 0 28px; }
+    .nav-timestamp {
+      font-size: .78rem;
+      color: var(--faint);
+      margin: 6px 0 0;
+      letter-spacing: .01em;
+    }
+    body:not(.digest-mode) .nav-timestamp { display: none !important; }
     .nav-tab {
       position: relative;
       display: inline-flex;
@@ -3295,6 +3324,7 @@
           <div class="nav-links" id="navLinks" data-nav-tabs="1"><a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a><a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Kinh tế đầu tư</a><a class="nav-hub" href="/?view=live" data-view="live">Thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a></div>
         </div>
       </nav>
+      <p class="nav-timestamp" id="navTimestamp" hidden></p>
       <h1>LEON Quant Labs</h1>
       <p class="hero-sub" id="heroSubtitle"></p>
       <p class="hero-desc" id="heroDescription"></p>
@@ -3663,6 +3693,11 @@
             "Tóm tắt đầy đủ và liên kết nguồn nằm ngay bên dưới.";
           heroDesc.textContent = short + (String(pub.description || "").length > 220 ? "…" : "");
         }
+      }
+      const navTs = document.getElementById("navTimestamp");
+      if (navTs && digestMode && data.generatedAt) {
+        navTs.textContent = "Cập nhật: " + formatPulseUpdatedAt(data.generatedAt);
+        navTs.hidden = false;
       }
     }
 
@@ -4242,8 +4277,17 @@
       </header>`;
     }
 
-    function buildNewsroomTocHtml(_data) {
-      return "";
+    function buildNewsroomTocHtml(data) {
+      const sectors = Array.isArray(data?.sectorDeepBriefs) ? data.sectorDeepBriefs : [];
+      if (!sectors.length) return "";
+      let h = '<nav class="digest-toc" aria-label="Mục lục lĩnh vực">';
+      sectors.forEach((s) => {
+        const name = String(s.name || "Lĩnh vực").trim();
+        const id = sectorSlug(name);
+        h += '<a href="#' + id + '">' + escapeHtml(name) + '</a>';
+      });
+      h += '</nav>';
+      return h;
     }
 
     function buildExecutiveBriefingHtml(briefing, editorNote) {
@@ -5652,6 +5696,18 @@
       });
     }
     startBriefApp();
+
+    (function() {
+      const btn = document.createElement("button");
+      btn.className = "back-to-top";
+      btn.setAttribute("aria-label", "Lên đầu trang");
+      btn.innerHTML = "&#8679;";
+      document.body.appendChild(btn);
+      btn.addEventListener("click", function() { window.scrollTo({ top: 0, behavior: "smooth" }); });
+      window.addEventListener("scroll", function() {
+        btn.classList.toggle("visible", window.scrollY > 500);
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>
