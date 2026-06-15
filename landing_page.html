@@ -57,6 +57,7 @@
     a { color: var(--cyan-link); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .container { width: min(1020px, 92%); margin: 0 auto; }
+    body.digest-mode .container { width: min(1400px, 96%); }
 
     .hero {
       padding: 28px 0 48px;
@@ -375,6 +376,179 @@
     .back-to-top.visible { display: flex; }
     .back-to-top:hover { transform: translateY(-2px); opacity: .9; }
 
+    /* ——————————————————————————————————————
+       FOX NEWSPAPER STYLE — Tin48h redesign
+       —————————————————————————————————————— */
+
+    /* Lead Story Card (frontPage rank 1) */
+    .lead-story-card {
+      display: block;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 32px;
+      text-decoration: none !important;
+      color: inherit;
+      transition: box-shadow .2s;
+    }
+    .lead-story-card:hover { box-shadow: 0 8px 32px rgba(15,23,42,.13); text-decoration: none !important; }
+    .lead-story-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--bg2);
+    }
+    .lead-story-img-ph {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--faint);
+      text-transform: uppercase;
+    }
+    .lead-story-body {
+      padding: 22px 24px 24px;
+    }
+    .lead-story-cat {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+    .lead-story-title {
+      margin: 0 0 12px;
+      font-size: clamp(1.35rem, 3vw, 1.85rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -.035em;
+      color: var(--text);
+    }
+    .lead-story-blurb {
+      margin: 0 0 14px;
+      font-size: 1.02rem;
+      line-height: 1.6;
+      color: var(--text-soft);
+    }
+    .lead-story-meta {
+      font-size: .75rem;
+      color: var(--faint);
+      font-weight: 600;
+    }
+    .lead-story-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: .82rem;
+      font-weight: 800;
+      color: var(--cyan-link);
+      letter-spacing: .01em;
+    }
+
+    /* Notable Articles — Grid 2 cột kiểu Fox */
+    .notable-grid {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 720px) {
+      .notable-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .notable-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none !important;
+      color: inherit;
+      transition: box-shadow .18s, border-color .18s;
+    }
+    .notable-card:hover { box-shadow: var(--shadow-md); border-color: rgba(8,145,178,.3); text-decoration: none !important; }
+    .notable-card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      background: var(--bg2);
+    }
+    .notable-card-img-ph {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      color: var(--faint);
+      text-transform: uppercase;
+    }
+    .notable-card-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
+    .notable-card-cat {
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cyan-dim);
+      margin-bottom: 7px;
+    }
+    .notable-card-title {
+      margin: 0 0 8px;
+      font-size: .95rem;
+      font-weight: 750;
+      line-height: 1.38;
+      color: var(--text);
+      flex: 1;
+    }
+    .notable-card-why {
+      margin: 0 0 10px;
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .notable-card-meta {
+      font-size: .7rem;
+      color: var(--faint);
+      font-weight: 600;
+    }
+
+    /* Sector accent colors — Fox newspaper category style */
+    .sector-simple-block[data-sector="finance"] .sector-simple-title,
+    .sector-block[data-sector="finance"] .sector-head { border-left: 4px solid #0891b2; }
+    .sector-simple-block[data-sector="finance"] .sector-simple-num,
+    .sector-block[data-sector="finance"] .sector-num { background: linear-gradient(135deg, #0891b2, #0e7490); }
+
+    .sector-simple-block[data-sector="tech"] .sector-simple-title,
+    .sector-block[data-sector="tech"] .sector-head { border-left: 4px solid #4f46e5; }
+    .sector-simple-block[data-sector="tech"] .sector-simple-num,
+    .sector-block[data-sector="tech"] .sector-num { background: linear-gradient(135deg, #4f46e5, #4338ca); }
+
+    .sector-simple-block[data-sector="news"] .sector-simple-title,
+    .sector-block[data-sector="news"] .sector-head { border-left: 4px solid #b45309; }
+    .sector-simple-block[data-sector="news"] .sector-simple-num,
+    .sector-block[data-sector="news"] .sector-num { background: linear-gradient(135deg, #b45309, #92400e); }
+
+    .sector-simple-block[data-sector="trends"] .sector-simple-title,
+    .sector-block[data-sector="trends"] .sector-head { border-left: 4px solid #059669; }
+    .sector-simple-block[data-sector="trends"] .sector-simple-num,
+    .sector-block[data-sector="trends"] .sector-num { background: linear-gradient(135deg, #059669, #047857); }
+
+    .sector-simple-title { padding-left: 14px; }
+    .sector-head { padding-left: 16px; }
+
     /* —— Digest mode (bản tin đa ngành) —— */
     .digest-toc {
       display: flex;
@@ -484,9 +658,10 @@
     }
     .sector-head h3 {
       margin: 0;
-      font-size: 1.05rem;
-      letter-spacing: -.02em;
-      line-height: 1.35;
+      font-size: 1.12rem;
+      font-weight: 800;
+      letter-spacing: -.025em;
+      line-height: 1.3;
     }
     .sector-mini-toc {
       display: flex;
@@ -573,9 +748,10 @@
     .sector-topic-main { flex: 1; min-width: 0; }
     .sector-topic-headline {
       margin: 0 0 6px;
-      color: var(--text-soft);
-      font-size: .9rem;
-      line-height: 1.55;
+      color: var(--text);
+      font-size: .93rem;
+      font-weight: 650;
+      line-height: 1.5;
     }
     .sector-topic-source {
       display: inline-block;
@@ -786,12 +962,15 @@
 
     /* —— Newsroom publication layout —— */
     .newsroom-report {
-      --newsroom-read: min(820px, 100%);
+      --newsroom-read: min(1320px, 100%);
       overflow-x: hidden;
       max-width: 100%;
       line-height: 1.75;
       color: var(--text-soft);
       font-family: var(--font-serif);
+    }
+    body.digest-mode .newsroom-report {
+      --newsroom-read: min(1400px, 100%);
     }
     .newsroom-report .digest-report-head { display: none; }
     .newsroom-report .digest-main-panel {
@@ -803,6 +982,9 @@
       border-radius: 0;
       background: transparent;
       box-shadow: none;
+    }
+    body.digest-mode .newsroom-report .digest-main-panel {
+      max-width: 100%;
     }
     .issue-header {
       margin: 0 0 20px;
@@ -897,11 +1079,13 @@
     .newsroom-report .pub-section-title {
       margin: 0 0 18px;
       padding-top: 28px;
-      border-top: 1px solid var(--border);
-      font-family: var(--font-serif);
-      font-size: clamp(1.12rem, 2.4vw, 1.32rem);
-      font-weight: 700;
-      letter-spacing: -.02em;
+      padding-bottom: 10px;
+      border-top: 2px solid var(--cyan);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-sans);
+      font-size: clamp(1.15rem, 2.4vw, 1.38rem);
+      font-weight: 800;
+      letter-spacing: -.025em;
       text-transform: none;
       color: var(--text);
     }
@@ -1010,6 +1194,89 @@
       font-size: .98rem;
       line-height: 1.75;
       color: var(--muted);
+    }
+    body.digest-mode .newsroom-report .sector-article-links {
+      gap: 14px;
+      border-top: none;
+      margin-top: 20px;
+    }
+    @media (min-width: 1100px) {
+      body.digest-mode .newsroom-report .sector-article-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+      body.digest-mode .newsroom-report .notable-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        border-top: none;
+      }
+      body.digest-mode .newsroom-report .notable-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+      body.digest-mode .newsroom-report .notable-item-thumb {
+        width: 100%;
+        height: 160px;
+        border-radius: 0;
+      }
+      body.digest-mode .newsroom-report .notable-item-body {
+        padding: 14px 16px 16px;
+      }
+      body.digest-mode .newsroom-report .notable-item-rank {
+        width: auto;
+        margin: 0 0 8px;
+      }
+      body.digest-mode .newsroom-report .notable-item-why {
+        margin-top: 8px;
+      }
+    }
+    body.digest-mode .newsroom-report .sector-article-link {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-top: 3px solid rgba(8, 145, 178, .22);
+      border-left: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    body.digest-mode .newsroom-report .sector-article-link:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+    .sector-article-link--img {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .sector-link-thumb {
+      flex-shrink: 0;
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      background: var(--bg2);
+    }
+    .sector-link-body {
+      flex: 1;
+      min-width: 0;
+    }
+    @media (max-width: 719px) {
+      .sector-article-link--img {
+        flex-direction: column;
+      }
+      .sector-link-thumb {
+        width: 100%;
+        height: 180px;
+      }
     }
     .newsroom-report .notable-list {
       gap: 0;
@@ -3917,6 +4184,48 @@
       return map;
     }
 
+    function sectorCodeFromName(name) {
+      const n = String(name || "").toLowerCase();
+      if (/kinh t|t.i ch.nh|finance/.test(n)) return "finance";
+      if (/c.ng ngh|tech|ai/.test(n)) return "tech";
+      if (/th.i s.|ch.nh tr.|news/.test(n)) return "news";
+      if (/xu h.ng|.i s.ng|trend/.test(n)) return "trends";
+      return "other";
+    }
+
+    function buildLeadStoryHtml(frontPage, imageByUrl) {
+      if (!Array.isArray(frontPage) || !frontPage.length) return "";
+      const item = frontPage.find(fp => fp.rank === 1) || frontPage[0];
+      if (!item) return "";
+      const title = escapeHtml(String(item.title || "").trim());
+      const blurb = escapeHtml(String(item.oneSentence || item.whyItMatters || "").trim());
+      const link0 = Array.isArray(item.links) && item.links[0] ? item.links[0] : null;
+      const href = link0 ? normalizeExternalUrl(link0.url) : "";
+      const source = link0 ? escapeHtml(String(link0.source || link0.host || "").trim()) : "";
+      const pubAt = link0 ? escapeHtml(formatDateVi(link0.publishedAt) || "") : "";
+      const meta = [pubAt, source].filter(Boolean).join(" · ");
+      const img = link0 && imageByUrl ? String(imageByUrl.get(normalizeExternalUrl(link0.url)) || "").trim() : "";
+      if (!title) return "";
+      const openTag = href
+        ? `<a class="lead-story-card" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">`
+        : `<article class="lead-story-card">`;
+      const closeTag = href ? `</a>` : `</article>`;
+      let h = openTag;
+      if (img) {
+        h += `<img class="lead-story-img" src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
+      } else {
+        h += `<div class="lead-story-img-ph">Tin hàng đầu</div>`;
+      }
+      h += `<div class="lead-story-body">`;
+      h += `<span class="lead-story-cat">Tin nổi bật #1</span>`;
+      h += `<h2 class="lead-story-title">${title}</h2>`;
+      if (blurb) h += `<p class="lead-story-blurb">${blurb}</p>`;
+      if (meta) h += `<span class="lead-story-meta">${meta}</span>`;
+      if (href) h += `<span class="lead-story-link">Đọc tiếp →</span>`;
+      h += `</div>${closeTag}`;
+      return h;
+    }
+
     function buildNotableCardsHtml(notable, imageByUrl) {
       const items = (Array.isArray(notable) ? notable : [])
         .filter((a) => a && String(a.url || "").trim())
@@ -3962,7 +4271,8 @@
       const items = normalizeSectorItems(s);
       const intro = String(s.summary || "").trim();
 
-      let h = `<article class="sector-block" id="${id}">`;
+      const sCode = sectorCodeFromName(name);
+      let h = `<article class="sector-block" id="${id}" data-sector="${sCode}">`;
       h += `<header class="sector-head"><span class="sector-num">${String(index + 1).padStart(2, "0")}</span>`;
       h += `<div class="sector-head-main">`;
       h += `<h3>${escapeHtml(name)}</h3></div></header>`;
@@ -4236,7 +4546,7 @@
       return out;
     }
 
-    function buildSectorArticleLinksHtml(links) {
+    function buildSectorArticleLinksHtml(links, lookup, imageByUrl) {
       const rows = (Array.isArray(links) ? links : []).filter((lk) => normalizeExternalUrl(lk?.url));
       if (!rows.length) return "";
       let html = `<div class="sector-article-links">`;
@@ -4245,7 +4555,16 @@
         const title = escapeHtml(lk.title || u);
         const excerpt = String(lk.excerpt || "").trim();
         const meta = formatLinkPublishedMeta(lk);
-        html += `<article class="sector-article-link">`;
+        const img = String(
+          lk.imageUrl || lk.image_url || (imageByUrl && imageByUrl.get(u)) || "",
+        ).trim();
+        if (img) {
+          html += `<article class="sector-article-link sector-article-link--img">`;
+          html += `<img class="sector-link-thumb" src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">`;
+          html += `<div class="sector-link-body">`;
+        } else {
+          html += `<article class="sector-article-link">`;
+        }
         html += `<a class="sector-article-link-title" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
         if (meta) html += `<p class="sector-article-link-meta">${escapeHtml(meta)}</p>`;
         if (excerpt) {
@@ -4256,6 +4575,7 @@
             html += `<p class="sector-article-link-excerpt">${escapeHtml(excerpt)}</p>`;
           }
         }
+        if (img) html += `</div>`;
         html += `</article>`;
       }
       html += `</div>`;
@@ -4425,10 +4745,13 @@
       const editorNote = String(data.editorNote || "").trim();
       const executiveBriefing = data.executiveBriefing || {};
       const sectors = Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : [];
+      const articleLookup = buildArticlePublishedLookup(data);
+      const imageByUrlLead = buildArticleImageLookup(data);
 
       let html = `<article id="digest-report" class="digest-report newsroom-report">`;
       html += `<div class="digest-main-panel">`;
       html += buildNewsroomIssueHeader(data);
+      html += buildLeadStoryHtml(data.frontPage, imageByUrlLead);
       html += buildNewsroomTocHtml(data);
       html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
       if (sectors.length) {
@@ -4438,11 +4761,12 @@
         for (const sec of sectors) {
           const name = String(sec.name || "").trim() || "Lĩnh vực";
           const thesis = String(sec.sectorThesis || "").trim();
-          const links = collectSectorLinks(sec, buildArticlePublishedLookup(data));
+          const links = collectSectorLinks(sec, articleLookup);
           if (!thesis && !links.length) continue;
           sectorIndex += 1;
           const id = sectorSlug(name);
-          html += `<article class="sector-simple-block" id="${id}">`;
+          const sCode = sectorCodeFromName(name);
+          html += `<article class="sector-simple-block" id="${id}" data-sector="${sCode}">`;
           html += `<h3 class="sector-simple-title"><span class="sector-simple-num">${sectorIndex}.</span> ${escapeHtml(name)}</h3>`;
           if (thesis) {
             const paras = thesis.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
@@ -4454,7 +4778,7 @@
             }
             html += `</div>`;
           }
-          html += buildSectorArticleLinksHtml(links);
+          html += buildSectorArticleLinksHtml(links, articleLookup, imageByUrlLead);
           const dossiers = Array.isArray(sec.storyDossiers) ? sec.storyDossiers : [];
           if (dossiers.length) {
             html += `<div class="sector-dossiers">`;
