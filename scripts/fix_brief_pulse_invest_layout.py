@@ -22,6 +22,20 @@ def _ensure_digest_css(html: str) -> str:
     )
 
 
+def _ensure_pulse_live_width_css(html: str) -> str:
+    """Make the The gioi LIVE page use a wider, near full-width container."""
+    return re.sub(
+        r"body\.pulse-mode\s+#pulse\s*>\s+\.container\s*\{\s*width:\s*min\(1180px,\s*94%\);\s*\}",
+        "body.pulse-mode #pulse > .container {\n"
+        "      width: min(1680px, calc(100% - 32px));\n"
+        "      max-width: none;\n"
+        "    }",
+        html,
+        count=1,
+        flags=re.I,
+    )
+
+
 def _split_invest_from_pulse(html: str) -> str:
     if re.search(r'<section id="invest"', html, re.I):
         return html
@@ -72,7 +86,7 @@ def _split_all_from_brief(html: str) -> str:
     )
     m_invest = re.search(
         r'(<div id="sectionInvest" class="brief-block">[\s\S]*?)'
-        r"(?=\s*</div>\s*</section>\s*<section id=\"reference\")",
+        r"(?=\s*</div>\s*</section>\s*<section id=\"reference")",
         html,
     )
     if not (m_thesis and m_pulse and m_invest):
@@ -94,7 +108,7 @@ def _split_all_from_brief(html: str) -> str:
         {invest_block}
       </div>
     </section>
-"""
+ """
 
     new_brief = f"""{brief_open}
         {sync_note.strip()}
@@ -143,6 +157,7 @@ def main() -> None:
         print("OK: restored #pulse and #invest from #brief.")
 
     html = _ensure_digest_css(html)
+    html = _ensure_pulse_live_width_css(html)
     html = re.sub(
         r'(<section id="pulse"[^>]*)\s*data-embedded-pulse="1"\s*data-embedded-pulse="1"',
         r'\1 data-embedded-pulse="1"',
