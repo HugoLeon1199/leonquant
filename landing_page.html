@@ -376,6 +376,34 @@
     .back-to-top.visible { display: flex; }
     .back-to-top:hover { transform: translateY(-2px); opacity: .9; }
 
+    /* Sector icon thay số thứ tự */
+    .sector-icon { font-size: 1.25rem; margin-right: 6px; vertical-align: middle; }
+
+    /* Sector article link có ảnh — kiểu Fox Newspaper */
+    .sector-article-link--img {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      border-left: none; background: none;
+    }
+    .sector-link-thumb {
+      flex-shrink: 0; width: 110px; height: 74px;
+      object-fit: cover; border-radius: 8px;
+      background: var(--bg2);
+    }
+    .sector-link-body { flex: 1; min-width: 0; }
+    .sector-link-body .sector-article-link-title { display: block; }
+
+    /* Sector links 2 cột trên màn rộng */
+    @media (min-width: 1100px) {
+      .sector-article-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 28px; }
+    }
+
+    /* Notable grid 3 cột trên màn rộng */
+    @media (min-width: 1100px) {
+      .notable-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
     /* ——————————————————————————————————————
        FOX NEWSPAPER STYLE — Tin48h redesign
        —————————————————————————————————————— */
@@ -486,14 +514,14 @@
     .notable-card-img-ph {
       width: 100%;
       height: 160px;
-      background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
+      background: linear-gradient(135deg, var(--ph-from, #e2e8f0), var(--ph-to, #f1f5f9));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .1em;
-      color: var(--faint);
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: -.01em;
+      color: var(--ph-text, #475569);
       text-transform: uppercase;
     }
     .notable-card-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
@@ -4038,7 +4066,7 @@
     }
 
     const DIGEST_MAX_SECTOR_ITEMS = 25;
-    const DIGEST_MAX_NOTABLE = 12;
+    const DIGEST_MAX_NOTABLE = 10;
 
     const DIGEST_FOUR_SECTORS = [
       { code: "finance", name: "Kinh tế & Tài chính" },
@@ -4184,6 +4212,34 @@
       return map;
     }
 
+    function sectorIcon(code) {
+      if (code === "finance") return "📈";
+      if (code === "tech") return "💡";
+      if (code === "news") return "🌐";
+      if (code === "trends") return "✨";
+      return "📌";
+    }
+
+    function sectorIcon(code) {
+      if (code === "finance") return "📈";
+      if (code === "tech") return "💡";
+      if (code === "news") return "🌐";
+      if (code === "trends") return "✨";
+      return "📌";
+    }
+
+    function placeholderColors(host) {
+      const palettes = [
+        { from:"#dbeafe", to:"#bfdbfe", text:"#1e40af" },
+        { from:"#dcfce7", to:"#bbf7d0", text:"#166534" },
+        { from:"#fef3c7", to:"#fde68a", text:"#92400e" },
+        { from:"#fce7f3", to:"#fbcfe8", text:"#9d174d" },
+        { from:"#ede9fe", to:"#ddd6fe", text:"#5b21b6" },
+      ];
+      const idx = String(host||"").split("").reduce((a,c)=>a+c.charCodeAt(0),0) % palettes.length;
+      return palettes[idx];
+    }
+
     function sectorCodeFromName(name) {
       const n = String(name || "").toLowerCase();
       if (/kinh t|t.i ch.nh|finance/.test(n)) return "finance";
@@ -4228,41 +4284,38 @@
 
     function buildNotableCardsHtml(notable, imageByUrl) {
       const items = (Array.isArray(notable) ? notable : [])
-        .filter((a) => a && String(a.url || "").trim())
-        .slice(0, DIGEST_MAX_NOTABLE); /* parser safety only */
+        .filter((a) => a && String(a.url || `).trim())
+        .slice(0, DIGEST_MAX_NOTABLE);
       if (!items.length) {
         return `<p class="hint">Chưa có tin nổi bật trong bản digest hôm nay.</p>`;
       }
-      let h = `<div class="notable-list">`;
-      items.forEach((a, idx) => {
+      let h = `<div class="notable-grid">`;
+      items.forEach((a) => {
         const u = normalizeExternalUrl(a.url);
         const title = escapeHtml(a.title || u);
         const meta = escapeHtml(
-          [formatDateVi(a.publishedAt), a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
+          [formatDateVi(a.publishedAt), a.source, a.host || getHostName(u)].filter(Boolean).join( · ),
         );
-        const img = String(
-          a.imageUrl || a.image_url || imageByUrl.get(u) || "",
-        ).trim();
-        const why = escapeHtml(String(a.whyNotable || "").trim());
-        const hostShort = escapeHtml(
-          (a.host || getHostName(u) || "WEB").replace(/^www\./i, "").slice(0, 8),
-        );
-        const rank = String(idx + 1).padStart(2, "0");
-        h += `<a class="notable-item" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
-        h += `<span class="notable-item-rank">${rank}</span>`;
+        const img = String(a.imageUrl || a.image_url || imageByUrl.get(u) || `).trim();
+        const why = escapeHtml(String(a.whyNotable || `).trim());
+        const hostShort = escapeHtml((a.host || getHostName(u) || "WEB").replace(/^www\./i, `).slice(0, 12));
+        h += `<a class="notable-card" href="" target="_blank" rel="noopener noreferrer">`;
         if (img) {
-          h += `<span class="notable-item-thumb"><img src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></span>`;
+          h += `<img class="notable-card-img" src="" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
         } else {
-          h += `<span class="notable-item-thumb notable-item-thumb--ph" aria-hidden="true">${hostShort}</span>`;
+          const pc = placeholderColors(a.host || getHostName(u) || `);
+          h += `<div class="notable-card-img-ph" style="--ph-from:;--ph-to:;--ph-text:"></div>`;
         }
-        h += `<span class="notable-item-body">`;
-        h += `<span class="notable-item-title">${title}</span>`;
-        if (meta) h += `<span class="notable-item-meta">${meta}</span>`;
-        if (why) h += `<span class="notable-item-why">${why}</span>`;
-        h += `</span></a>`;
+        h += `<div class="notable-card-body">`;
+        h += `<span class="notable-card-cat"></span>`;
+        h += `<p class="notable-card-title"></p>`;
+        if (why) h += `<p class="notable-card-why"></p>`;
+        if (meta) h += `<span class="notable-card-meta"></span>`;
+        h += `</div></a>`;
       });
       h += `</div>`;
       return h;
+    }
     }
 
     function buildSectorBlockHtml(s, index) {
@@ -4751,7 +4804,7 @@
       let html = `<article id="digest-report" class="digest-report newsroom-report">`;
       html += `<div class="digest-main-panel">`;
       html += buildNewsroomIssueHeader(data);
-      html += buildLeadStoryHtml(data.frontPage, imageByUrlLead);
+
       html += buildNewsroomTocHtml(data);
       html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
       if (sectors.length) {
@@ -4767,7 +4820,8 @@
           const id = sectorSlug(name);
           const sCode = sectorCodeFromName(name);
           html += `<article class="sector-simple-block" id="${id}" data-sector="${sCode}">`;
-          html += `<h3 class="sector-simple-title"><span class="sector-simple-num">${sectorIndex}.</span> ${escapeHtml(name)}</h3>`;
+          const icon = sectorIcon(sCode);
+          html += `<h3 class="sector-simple-title"><span class="sector-icon" aria-hidden="true">${icon}</span> ${escapeHtml(name)}</h3>`;
           if (thesis) {
             const paras = thesis.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
             html += `<div class="sector-simple-body">`;
@@ -4779,14 +4833,14 @@
             html += `</div>`;
           }
           html += buildSectorArticleLinksHtml(links, articleLookup, imageByUrlLead);
-          const dossiers = Array.isArray(sec.storyDossiers) ? sec.storyDossiers : [];
-          if (dossiers.length) {
-            html += `<div class="sector-dossiers">`;
-            for (const d of dossiers) {
-              html += buildDossierCardHtml(d);
-            }
-            html += `</div>`;
-          }
+
+
+
+
+
+
+
+
           html += `</article>`;
         }
         html += `</section>`;
