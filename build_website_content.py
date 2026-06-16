@@ -2001,8 +2001,8 @@ def build_digest_web_extras(
 
     return {
         "digestSectors": sectors_out,
-        "digestLinkIndex": link_index,
-        "articleLinkIndex": article_links,
+        "digestLinkIndex": [_sanitize_public_link_row(row) for row in link_index],
+        "articleLinkIndex": [_sanitize_public_link_row(row) for row in article_links],
     }
 
 
@@ -2231,6 +2231,24 @@ def _public_display_title(title: str, *, host: str = "", sector_code: str = "") 
     return host or raw
 
 
+def _sanitize_public_link_row(
+    row: dict[str, Any],
+    *,
+    sector_code: str = "",
+    fallback_title: str = "",
+) -> dict[str, Any]:
+    out = dict(row or {})
+    url = str(out.get("url") or "").strip()
+    host = _url_hostname(url)
+    title = str(out.get("title") or "").strip() or fallback_title or host or url
+    out["title"] = _public_display_title(title, host=host, sector_code=sector_code)
+    if "excerpt" in out:
+        from scripts.newsroom_copy import sanitize_public_prose
+
+        out["excerpt"] = sanitize_public_prose(str(out.get("excerpt") or "").strip(), fallback="")
+    return out
+
+
 def build_newsroom_web_extras(
     summary: dict[str, Any],
     all_articles: list[dict[str, Any]],
@@ -2373,12 +2391,12 @@ def build_newsroom_web_extras(
         why_it_matters = sanitize_public_prose(str(row.get("why_it_matters") or "").strip(), fallback="")
         watch_next = sanitize_public_prose(str(row.get("watch_next") or "").strip(), fallback="")
         if one_sentence and why_it_matters and _prose_already_covered(why_it_matters, one_sentence, threshold=0.84):
-            why_it_matters = "Diễn biến này có thể ảnh hưởng đến thị trường và dòng tiền ngắn hạn."
+            why_it_matters = "Diễn biến này có thể tác động trực tiếp đến thị trường liên quan trong ngắn hạn."
         if watch_next and (
             _prose_already_covered(watch_next, one_sentence, threshold=0.84)
             or _prose_already_covered(watch_next, why_it_matters, threshold=0.84)
         ):
-            watch_next = "Theo dõi phản ứng tiếp theo trong 24-72 giờ tới."
+            watch_next = "Theo dõi phản ứng tiếp theo của thị trường trong 24-72 giờ tới."
         if not one_sentence or not why_it_matters or not watch_next:
             continue
         front_page.append(
@@ -2426,20 +2444,20 @@ def build_newsroom_web_extras(
                 one_sentence = summary_text or f"Diễn biến liên quan đến {title}."
                 why_it_matters = sanitize_public_prose(
                     str(d.get("why_it_matters") or summary_text or "").strip(),
-                    fallback="Diễn biến này có thể ảnh hưởng đến thị trường và dòng tiền ngắn hạn.",
+                    fallback="Diễn biến này có thể tác động trực tiếp đến thị trường liên quan trong ngắn hạn.",
                 )
                 watch_next = sanitize_public_prose(
                     " ".join(
                         str(x).strip() for x in (d.get("watch_next") or []) if str(x).strip()
                     ),
-                    fallback="Theo dõi phản ứng tiếp theo trong 24-72 giờ tới.",
+                    fallback="Theo dõi phản ứng tiếp theo của thị trường trong 24-72 giờ tới.",
                 )
                 if _prose_already_covered(why_it_matters, one_sentence, threshold=0.84):
-                    why_it_matters = "Diễn biến này có thể ảnh hưởng đến thị trường và dòng tiền ngắn hạn."
+                    why_it_matters = "Diễn biến này có thể tác động trực tiếp đến thị trường liên quan trong ngắn hạn."
                 if _prose_already_covered(watch_next, one_sentence, threshold=0.84) or _prose_already_covered(
                     watch_next, why_it_matters, threshold=0.84
                 ):
-                    watch_next = "Theo dõi phản ứng tiếp theo trong 24-72 giờ tới."
+                    watch_next = "Theo dõi phản ứng tiếp theo của thị trường trong 24-72 giờ tới."
                 front_page.append(
                     {
                         "rank": len(front_page) + 1,
@@ -2454,6 +2472,30 @@ def build_newsroom_web_extras(
                     break
             if len(front_page) >= 4:
                 break
+
+    filtered_front_page: list[dict[str, Any]] = []
+    seen_front: set[tuple[str, str]] = set()
+    for row in front_page:
+        title = str(row.get("title") or "").strip()
+        one_sentence = str(row.get("oneSentence") or "").strip()
+        why = str(row.get("whyItMatters") or "").strip()
+        nxt = str(row.get("watchNext") or "").strip()
+        norm_key = (title.lower(), one_sentence.lower())
+        if norm_key in seen_front:
+            continue
+        seen_front.add(norm_key)
+        generic_title = re.search(r"diễn biến .* đáng theo dõi trong 48 giờ qua", title, re.I)
+        generic_body = re.search(r"tổng hợp toàn cảnh|ảnh hưởng đến thị trường và dòng tiền ngắn hạn", one_sentence + " " + why + " " + nxt, re.I)
+        if generic_title and generic_body:
+            continue
+        filtered_front_page.append(row)
+    front_page = [
+        {
+            **row,
+            "rank": i + 1,
+        }
+        for i, row in enumerate(filtered_front_page)
+    ]
 
     editor_note = sanitize_public_prose(str(summary.get("editor_note") or "").strip(), fallback="")
     eb_in = summary.get("executive_briefing") if isinstance(summary.get("executive_briefing"), dict) else {}
@@ -2699,9 +2741,44 @@ def build_newsroom_web_extras(
         if links:
             source_desk.append({"topic": topic, "links": links})
 
+    front_page = [
+        {
+            **row,
+            "links": [_sanitize_public_link_row(lk, fallback_title=str(row.get("title") or "")) for lk in (row.get("links") or [])],
+        }
+        for row in front_page
+    ]
+    executive_briefing["links"] = [
+        _sanitize_public_link_row(lk, fallback_title=str(executive_briefing.get("title") or ""))
+        for lk in (executive_briefing.get("links") or [])
+    ]
+    for sec in sector_deep:
+        sec["links"] = [_sanitize_public_link_row(lk, fallback_title=str(sec.get("name") or "")) for lk in (sec.get("links") or [])]
+        sec["subsectorBriefs"] = [
+            {
+                **sb,
+                "links": [_sanitize_public_link_row(lk, fallback_title=str(sb.get("name") or "")) for lk in (sb.get("links") or [])],
+            }
+            for sb in (sec.get("subsectorBriefs") or [])
+        ]
+        sec["storyDossiers"] = [
+            {
+                **d,
+                "links": [_sanitize_public_link_row(lk, fallback_title=str(d.get("title") or "")) for lk in (d.get("links") or [])],
+            }
+            for d in (sec.get("storyDossiers") or [])
+        ]
+    source_desk = [
+        {
+            **row,
+            "links": [_sanitize_public_link_row(lk, fallback_title=str(row.get("topic") or "")) for lk in (row.get("links") or [])],
+        }
+        for row in source_desk
+    ]
+
     return {
         **base,
-        "digestLinkIndex": link_index,
+        "digestLinkIndex": [_sanitize_public_link_row(row) for row in link_index],
         "editorNote": "",
         "executiveBriefing": executive_briefing,
         "frontPage": front_page,
