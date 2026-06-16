@@ -4284,38 +4284,38 @@
 
     function buildNotableCardsHtml(notable, imageByUrl) {
       const items = (Array.isArray(notable) ? notable : [])
-        .filter((a) => a && String(a.url || `).trim())
+        .filter((a) => a && String(a.url || "").trim())
         .slice(0, DIGEST_MAX_NOTABLE);
       if (!items.length) {
         return `<p class="hint">Chưa có tin nổi bật trong bản digest hôm nay.</p>`;
       }
+      const imageLookup = imageByUrl instanceof Map ? imageByUrl : new Map();
       let h = `<div class="notable-grid">`;
       items.forEach((a) => {
         const u = normalizeExternalUrl(a.url);
         const title = escapeHtml(a.title || u);
         const meta = escapeHtml(
-          [formatDateVi(a.publishedAt), a.source, a.host || getHostName(u)].filter(Boolean).join( · ),
+          [formatDateVi(a.publishedAt), a.source, a.host || getHostName(u)].filter(Boolean).join(" · "),
         );
-        const img = String(a.imageUrl || a.image_url || imageByUrl.get(u) || `).trim();
-        const why = escapeHtml(String(a.whyNotable || `).trim());
-        const hostShort = escapeHtml((a.host || getHostName(u) || "WEB").replace(/^www\./i, `).slice(0, 12));
-        h += `<a class="notable-card" href="" target="_blank" rel="noopener noreferrer">`;
+        const img = String(a.imageUrl || a.image_url || imageLookup.get(u) || "").trim();
+        const why = escapeHtml(String(a.whyNotable || "").trim());
+        const hostLabel = escapeHtml((a.host || getHostName(u) || "WEB").replace(/^www\./i, "").slice(0, 12));
+        h += `<a class="notable-card" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">`;
         if (img) {
-          h += `<img class="notable-card-img" src="" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
+          h += `<img class="notable-card-img" src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
         } else {
-          const pc = placeholderColors(a.host || getHostName(u) || `);
-          h += `<div class="notable-card-img-ph" style="--ph-from:;--ph-to:;--ph-text:"></div>`;
+          const pc = placeholderColors(a.host || getHostName(u) || "");
+          h += `<div class="notable-card-img-ph" style="--ph-from:${escapeHtml(pc.from)};--ph-to:${escapeHtml(pc.to)};--ph-text:${escapeHtml(pc.text)}">${hostLabel}</div>`;
         }
         h += `<div class="notable-card-body">`;
-        h += `<span class="notable-card-cat"></span>`;
-        h += `<p class="notable-card-title"></p>`;
-        if (why) h += `<p class="notable-card-why"></p>`;
-        if (meta) h += `<span class="notable-card-meta"></span>`;
+        h += `<span class="notable-card-cat">${escapeHtml(a.category || a.sector || "Tin nổi bật")}</span>`;
+        h += `<p class="notable-card-title">${title}</p>`;
+        if (why) h += `<p class="notable-card-why">${why}</p>`;
+        if (meta) h += `<span class="notable-card-meta">${meta}</span>`;
         h += `</div></a>`;
       });
       h += `</div>`;
       return h;
-    }
     }
 
     function buildSectorBlockHtml(s, index) {
