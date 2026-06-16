@@ -16,6 +16,7 @@ from summarize_news_gemini import (  # noqa: E402
     aggregate_partial_sector_candidates,
     build_digest_merge_prompt,
     finalize_digest_summary,
+    find_ungrounded_entities,
     normalize_newsroom_brief,
     supplement_newsroom_from_partials,
     validate_newsroom_brief,
@@ -324,6 +325,222 @@ def test_merge_prompt_briefing_quality_guidance() -> None:
     assert "điểm sáng thu hút vốn" in prompt or "quá nông" in prompt
     assert "Main clusters" in prompt or "cụm tin chính" in prompt
     assert "hấp thụ" in prompt.lower() or "Hấp thụ dossier" in prompt
+
+
+def test_merge_prompt_mentions_key_excerpt_usage_guidance() -> None:
+    prompt = build_digest_merge_prompt(
+        [], total_articles=1003, window_meta={"timezone": "Asia/Ho_Chi_Minh"}, global_outline=None
+    )
+    assert "key_excerpt" in prompt
+
+
+def test_merge_prompt_mentions_front_page_criteria() -> None:
+    prompt = build_digest_merge_prompt(
+        [], total_articles=1003, window_meta={"timezone": "Asia/Ho_Chi_Minh"}, global_outline=None
+    )
+    assert "Tiêu chí tin nổi bật" in prompt
+    assert "thỏa thuận" in prompt and "xauusd" in prompt.lower()
+
+
+def test_aggregate_partial_candidates_keeps_key_excerpt_field() -> None:
+    partials = [
+        {
+            "batch_index": 1,
+            "summary": {
+                "sector_notes": [
+                    {
+                        "code": "finance",
+                        "sub_topics": [
+                            {
+                                "headline": "Fed tang lai suat",
+                                "summary_hint": "Fed quyet dinh tang.",
+                                "key_excerpt": "Fed tang 0.25%, theo Powell ngay 15/6.",
+                                "source_urls": ["https://example.com/fed"],
+                            }
+                        ],
+                    }
+                ]
+            },
+        }
+    ]
+    out = aggregate_partial_sector_candidates(partials)
+    finance_pool = next(p for p in out if p["code"] == "finance")
+    assert finance_pool["candidates"][0]["key_excerpt"] == "Fed tang 0.25%, theo Powell ngay 15/6."
+
+
+def test_aggregate_partial_candidates_works_when_key_excerpt_absent() -> None:
+    partials = [
+        {
+            "batch_index": 1,
+            "summary": {
+                "sector_notes": [
+                    {
+                        "code": "finance",
+                        "sub_topics": [
+                            {
+                                "headline": "Tin khong co key_excerpt",
+                                "summary_hint": "Hint cu.",
+                                "source_urls": ["https://example.com/old"],
+                            }
+                        ],
+                    }
+                ]
+            },
+        }
+    ]
+    out = aggregate_partial_sector_candidates(partials)
+    finance_pool = next(p for p in out if p["code"] == "finance")
+    cand = finance_pool["candidates"][0]
+    assert "key_excerpt" not in cand
+    assert cand["headline"] == "Tin khong co key_excerpt"
+    assert cand["summary_hint"] == "Hint cu."
+
+
+def test_validate_flags_ungrounded_entity_in_executive_briefing() -> None:
+    corpus_blob = "Fed tang lai suat hom nay. Bitcoin tang gia manh trong phien chieu."
+    summary = {
+        "editor_note": "note",
+        "executive_briefing": {
+            "content": ("SpaceX vua hoan tat IPO va Cursor thuc hien M&A lon. " * 30),
+            "representative_sources": [],
+            "sections": {},
+        },
+        "front_page": [],
+        "sector_deep_briefs": [
+            {"code": c, "sector_thesis": "y" * 130, "story_dossiers": []}
+            for c in ("finance", "tech", "news", "trends")
+        ],
+    }
+    warnings = validate_newsroom_brief(summary, corpus_blob)
+    hits = [w for w in warnings if "có thể hallucinate" in w]
+    assert hits, f"expected a hallucination warning, got warnings: {warnings}"
+    assert "SpaceX" in hits[0] and "Cursor" in hits[0]
+
+
+def test_validate_no_false_positive_when_entity_in_corpus() -> None:
+    corpus_blob = "SpaceX vua hoan tat IPO lon nhat lich su. Cac nha dau tu theo doi sat."
+    summary = {
+        "editor_note": "note",
+        "executive_briefing": {
+            "content": ("SpaceX vua hoan tat IPO gay chu y lon. " * 30),
+            "representative_sources": [],
+            "sections": {},
+        },
+        "front_page": [],
+        "sector_deep_briefs": [
+            {"code": c, "sector_thesis": "y" * 130, "story_dossiers": []}
+            for c in ("finance", "tech", "news", "trends")
+        ],
+    }
+    warnings = validate_newsroom_brief(summary, corpus_blob)
+    hits = [w for w in warnings if "có thể hallucinate" in w and "SpaceX" in w]
+    assert not hits, f"SpaceX is grounded in corpus, should not be flagged: {warnings}"
+
+
+def test_validate_no_false_positive_when_no_corpus_blob_passed() -> None:
+    # Goi validate KHONG truyen corpus_titles_blob (gia tri mac dinh "") - phai
+    # khong crash va khong tu nhien bao loi hallucinate vi thieu du lieu doi chieu.
+    summary = {
+        "editor_note": "note",
+        "executive_briefing": {
+            "content": ("SpaceX vua hoan tat IPO gay chu y lon. " * 30),
+            "representative_sources": [],
+            "sections": {},
+        },
+        "front_page": [],
+        "sector_deep_briefs": [
+            {"code": c, "sector_thesis": "y" * 130, "story_dossiers": []}
+            for c in ("finance", "tech", "news", "trends")
+        ],
+    }
+    warnings = validate_newsroom_brief(summary)
+    hits = [w for w in warnings if "có thể hallucinate" in w]
+    assert not hits, f"without corpus_titles_blob, should not flag hallucination: {warnings}"
+
+
+def test_validate_warns_when_front_page_empty_but_dossiers_rich() -> None:
+    summary = {
+        "editor_note": "note",
+        "executive_briefing": {
+            "content": "x" * 1600,
+            "representative_sources": [{"title": "a", "url": "https://a.com"}],
+            "sections": {},
+        },
+        "front_page": [],
+        "sector_deep_briefs": [
+            {
+                "code": "finance",
+                "sector_thesis": "y" * 900,
+                "story_dossiers": [
+                    {
+                        "title": "t",
+                        "depth_level": "major",
+                        "why_it_matters": "z",
+                        "main_developments": ["a", "b"],
+                        "representative_sources": [{"title": "s", "url": "https://s.com"}],
+                    }
+                ],
+            },
+            *[{"code": c, "sector_thesis": "y" * 900, "story_dossiers": []} for c in ("tech", "news", "trends")],
+        ],
+    }
+    warnings = validate_newsroom_brief(summary)
+    hits = [w for w in warnings if "khả năng cao có tin đạt tiêu chí" in w]
+    assert hits, f"expected front_page-empty-despite-rich-dossiers warning, got: {warnings}"
+
+
+def test_validate_no_warning_when_front_page_empty_and_corpus_genuinely_thin() -> None:
+    summary = {
+        "editor_note": "note",
+        "executive_briefing": {
+            "content": "x" * 1600,
+            "representative_sources": [{"title": "a", "url": "https://a.com"}],
+            "sections": {},
+        },
+        "front_page": [],
+        "sector_deep_briefs": [
+            {"code": c, "sector_thesis": "y" * 900, "story_dossiers": []}
+            for c in ("finance", "tech", "news", "trends")
+        ],
+    }
+    warnings = validate_newsroom_brief(summary)
+    hits = [w for w in warnings if "khả năng cao có tin đạt tiêu chí" in w]
+    assert not hits, f"corpus genuinely has no dossiers, should not warn about missed front_page: {warnings}"
+
+
+def test_validate_warns_when_sectors_full_but_zero_dossiers() -> None:
+    summary = {
+        "editor_note": "note",
+        "executive_briefing": {
+            "content": "x" * 1600,
+            "representative_sources": [{"title": "a", "url": "https://a.com"}],
+            "sections": {},
+        },
+        "front_page": [{"title": "t", "why_it_matters": "w", "watch_next": "n"}],
+        "sector_deep_briefs": [
+            {"code": c, "sector_thesis": "y" * 900, "story_dossiers": []}
+            for c in ("finance", "tech", "news", "trends")
+        ],
+    }
+    warnings = validate_newsroom_brief(summary)
+    hits = [w for w in warnings if "KHÔNG sector nào có story_dossiers" in w]
+    assert hits, f"expected all-sectors-empty warning, got: {warnings}"
+
+
+def test_find_ungrounded_entities_direct() -> None:
+    missing = find_ungrounded_entities(
+        "SpaceX vua IPO va Cursor M&A gay chu y.",
+        [],
+        "Fed tang lai suat. Bitcoin tang gia.",
+    )
+    assert "SpaceX" in missing and "Cursor" in missing
+
+
+def test_find_ungrounded_entities_no_false_positive_on_vietnamese_sentence_starts() -> None:
+    missing = find_ungrounded_entities(
+        "Trong khi đó, Điều này cho thấy Định hướng mới.", [], ""
+    )
+    assert missing == [], f"capitalized Vietnamese sentence-starters should not be flagged: {missing}"
 
 
 def test_main_editorial_story_cluster_dedupe() -> None:
@@ -688,4 +905,16 @@ if __name__ == "__main__":
     test_sector_thesis_depth_validation()
     test_build_newsroom_extras()
     test_validate_content_newsroom_quality_rules()
+    test_merge_prompt_mentions_key_excerpt_usage_guidance()
+    test_merge_prompt_mentions_front_page_criteria()
+    test_aggregate_partial_candidates_keeps_key_excerpt_field()
+    test_aggregate_partial_candidates_works_when_key_excerpt_absent()
+    test_validate_flags_ungrounded_entity_in_executive_briefing()
+    test_validate_no_false_positive_when_entity_in_corpus()
+    test_validate_no_false_positive_when_no_corpus_blob_passed()
+    test_validate_warns_when_front_page_empty_but_dossiers_rich()
+    test_validate_no_warning_when_front_page_empty_and_corpus_genuinely_thin()
+    test_validate_warns_when_sectors_full_but_zero_dossiers()
+    test_find_ungrounded_entities_direct()
+    test_find_ungrounded_entities_no_false_positive_on_vietnamese_sentence_starts()
     print("OK: newsroom digest tests passed")

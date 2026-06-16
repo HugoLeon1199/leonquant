@@ -366,11 +366,37 @@ def _digest_sector_routing_block() -> str:
         [
             "## Routing override (BẮT BUỘC)",
             "- AI regulation / AI executive order / AI oversight / model policy → **`tech`**, không `news` (trừ khi trọng tâm chính trị thuần túy).",
+            "- Phân loại theo NỘI DUNG bài viết, không theo domain nguồn: ví dụ CoinDesk đăng bài về ETF Bitcoin được SEC phê duyệt → `finance` (chủ đề tài chính/quy định); CoinDesk đăng bài về AI agent giao dịch tự động → `tech` (chủ đề công nghệ) — cùng nguồn nhưng sector khác nhau tùy nội dung.",
             "- Tuyển sinh, giáo dục, đời sống học đường → **`trends`**, không `news`.",
             "- Xăng E10: chính sách năng lượng/giá/nguồn cung → `finance` hoặc `news`; phản ứng người tiêu dùng/hướng dẫn → `trends`.",
             "- **Cả bản tin:** cùng chủ đề xăng E10 tối đa **2** lần, mỗi lần góc khác nhau.",
             "- Tin giải trí/celebrity/listicle ('ngọc nữ đẹp nhất', 'sao', 'miss') → **không** đưa vào digest trừ tác động xã hội lớn.",
             "- Blue Origin / NASA / phóng tên lửa / nhiệm vụ không gian → **`tech`** (hoặc `trends` nếu góc đời sống), không `news` trừ chính sách/chính trị thuần.",
+        ]
+    )
+
+
+_FRONT_PAGE_HIGHLIGHT_KEYWORDS = (
+    "thỏa thuận",
+    "lãi suất",
+    "ipo",
+    "tăng trưởng gdp",
+    "chiến tranh",
+    "vàng",
+    "xauusd",
+)
+
+
+def _digest_front_page_criteria_block() -> str:
+    keywords_joined = ", ".join(f'"{k}"' for k in _FRONT_PAGE_HIGHLIGHT_KEYWORDS)
+    return "\n".join(
+        [
+            "## Tiêu chí tin nổi bật (front_page) — BẮT BUỘC áp dụng",
+            "Một tin được coi là nổi bật và PHẢI có mặt trong `front_page` nếu thỏa MỘT trong hai điều kiện:",
+            "1. Cùng một sự kiện/chủ đề được ít nhất **3 nguồn khác nhau** (khác domain/tên cơ quan báo chí trong field `source`) đưa tin trong cửa sổ 48h — tự đối chiếu qua toàn bộ candidates/partials, không cần đếm chính xác tuyệt đối, ước lượng hợp lý là đủ.",
+            f"2. Tiêu đề hoặc nội dung chính chứa một trong các từ khóa: {keywords_joined} (hoặc biến thể rõ nghĩa tương đương).",
+            "Nếu sau khi rà soát có ít nhất 1 tin đạt tiêu chí trên mà KHÔNG đưa vào `front_page` — coi là lỗi, phải sửa trước khi trả JSON.",
+            "Nếu rà soát toàn bộ corpus mà THẬT SỰ không có tin nào đạt tiêu chí (corpus toàn tin nhỏ/nhiễu) — có thể để `front_page` trống, nhưng đây là trường hợp hiếm; nếu corpus có ≥80 candidates mà `front_page` trống, hãy tự kiểm tra lại vì khả năng cao đã bỏ sót.",
         ]
     )
 
@@ -404,7 +430,7 @@ def _digest_executive_briefing_writing_block() -> str:
         [
             "## Tổng quan 48h (`executive_briefing`) — viết như bài briefing thật",
             "Đây là **bài mở số** của trang Tin48h: editorial liền mạch, không phải outline, không phải bullet rời, không phải nhãn + một câu. UI không hiển thị danh sách nguồn riêng cho phần này — mọi nguồn quan trọng phải được dẫn chiếu tự nhiên trong văn bản hoặc qua sector/dossier phía dưới.",
-            "`front_page` chỉ là compatibility cũ cho pipeline nội bộ; không dùng làm block render chính, có thể để rất mỏng hoặc bỏ trống nếu briefing đã đủ mạnh.",
+            "`front_page` là danh sách tin nổi bật BẮT BUỘC phải có khi corpus đạt tiêu chí highlight (xem '## Tiêu chí tin nổi bật' phía dưới) — không được để trống chỉ vì executive_briefing đã viết đủ; hai phần này phục vụ mục đích khác nhau (executive_briefing = bài mở số liền mạch, front_page = danh sách rank để UI hiển thị khối tin nổi bật riêng).",
             "Ưu tiên `executive_briefing.content` như **thân bài chính**. Viết 3–5 đoạn có mạch: mở bức tranh, các story quyết định, tác động, rồi watchlist 24–72h.",
             "Viết **đủ ý** theo mức độ quan trọng và độ phức tạp của pools — tin lớn phân tích sâu, tin nhỏ gọn. Không ép số chữ/số câu; không viết dài để đủ quota; không viết ngắn đến mức mất ý chính.",
             "**Dài hơn là chấp nhận được và được khuyến khích** khi 48h qua có nhiều dữ kiện thật để khai triển — điều kiện bắt buộc: mỗi câu/đoạn phải mở ra một góc mới (story mới, tác động mới, biến số mới), **không** diễn đạt lại ý đã nói bằng từ khác, không thêm câu đệm cho dài.",
@@ -443,6 +469,7 @@ def _digest_sector_narrative_block() -> str:
             "**Không ép số câu/số chữ.** Ngành nhiều tin nóng → viết dài và sâu; ngành ít tin → gọn nhưng **không** mất ý chính.",
             "**Viết dài là tốt nếu mỗi đoạn mở ra một góc mới** (cụm tin mới, tác động mới, biến số mới) — **cấm** lặp lại ý đã nói ở đoạn trước bằng cách diễn đạt khác, cấm câu đệm/transition không mang dữ kiện.",
             "Không padding; không rút gọn đến mức chỉ còn một câu sáo; không biến thành chuỗi headline cùng tag.",
+            "- Khi viết `sector_thesis`, đối chiếu `key_excerpt` của các candidate tier A/B trong sector (không chỉ headline) để lấy dữ kiện cụ thể (số liệu, tên, trích dẫn) làm dày mỗi đoạn — đây là nguồn dữ kiện CHI TIẾT NHẤT bạn có được, vì bạn không đọc lại text gốc của bài báo.",
             "",
             "Form ưu tiên:",
             "- Đoạn 1: thesis của ngành trong 48h qua — ngành này đang đổi hướng ở đâu.",
@@ -499,6 +526,7 @@ def _digest_source_excerpt_rules_block() -> str:
             "- Nói rõ bài đó **củng cố luận điểm nào** trong đoạn ngành/dossier gần nhất.",
             "- Dùng fact từ input; không bịa; không lặp nguyên headline.",
             "- Không viết \"bài này đáng chú ý\" chung chung — phải chỉ ra ý cụ thể.",
+            "- Nếu candidate tương ứng đã có `key_excerpt` trong pools, dùng nó làm nền viết `excerpt` (diễn giải lại cho mượt, không copy nguyên văn) thay vì tự bịa.",
         ]
     )
 
@@ -648,8 +676,10 @@ def _digest_newsroom_voice_block() -> str:
             "- Không nhầm nhiều bài với nóng thật; nhiều bài nhưng một domain không đủ gọi là nóng toàn cục.",
             "- Lọc nhiễu: coupon/promo/listing/review vụn/giải trí nhẹ/thể thao trận đơn lẻ không lên vị trí chính.",
             "- Mỗi nhận định lớn phải có `representative_sources` URL thật từ input; không URL → không claim lớn.",
+            "- Trước khi viết tên riêng/công ty/sự kiện trong `executive_briefing.content` hay `sector_thesis`, tự kiểm tra: tên đó có xuất hiện (nguyên văn hoặc biến thể gần) trong title/text của ít nhất 1 bài trong input không? Nếu không chắc — BỎ tên đó, diễn đạt chung hơn, KHÔNG đoán.",
             "- **Không** tạo section UI “Điểm nóng”: tích hợp điểm nóng vào `executive_briefing.sections` và `sector_deep_briefs`.",
-            "- `front_page` chỉ compatibility nội bộ; không dùng làm section render chính.",
+            "- `front_page` BẮT BUỘC có khi có tin đạt tiêu chí highlight (xem '## Tiêu chí tin nổi bật' dưới đây) — không bỏ trống chỉ vì đã có executive_briefing/sector_thesis.",
+            _digest_front_page_criteria_block(),
             "- `front_page` / `notable_articles` / `story_dossiers` public phải Việt hoá tiêu đề tự nhiên; không để raw English headline lên output nếu đã có cách viết Việt tốt hơn.",
             "- Mọi prose public (`editor_note`, `executive_briefing`, `sector_thesis`, `summary`, `why_it_matters`, `watch_next`) phải viết bằng tiếng Việt tự nhiên; chỉ giữ nguyên tên riêng, ticker, tên công ty, tên chương trình hay thuật ngữ bắt buộc.",
             "- Viết **prose có mạch** — không outline, không nhãn + một câu, không danh sách tin rời.",
@@ -668,6 +698,7 @@ def _digest_story_dossier_rules_block() -> str:
             "đây là đoạn hiển thị công khai phía trên danh sách nguồn, phải tự đứng được mà không cần đọc thêm: nêu chuyện gì xảy ra, "
             "ai/cái gì liên quan, vì sao đáng chú ý. Mỗi câu phải có ý mới, không lặp.",
             "- `main_developments`: các ý chính từ nhiều bài cùng cụm (thứ tự logic) — đủ ý theo độ phức tạp, không quota số ý.",
+            "- Khi candidate có sẵn `key_excerpt` (từ pools): DÙNG nó — không chỉ `headline`/`summary_hint` — làm nguyên liệu chính viết `summary`/`main_developments`/`why_it_matters`; đây là dữ kiện cụ thể nhất bạn có, KHÔNG đọc lại text gốc nên PHẢI khai thác triệt để field này.",
             "- `why_it_matters`: tác động cụ thể — đủ sâu theo `depth_level` và dữ liệu.",
             "- `affected_groups`: mảng ngắn (nhóm/tài sản/ngành/quốc gia).",
             "- `watch_next`: biến số **24–72h** cụ thể (tên, không filler).",
@@ -1558,7 +1589,8 @@ def _vietnamese_public_headline(headline: str, sector_code: str = "") -> str:
             "khi các công ty AI huy động vốn lớn"
         )
     if _headline_is_mostly_english(h):
-        return _english_headline_vietnamese_stub(h, sector_code)
+        stub = _english_headline_vietnamese_stub(h, sector_code)
+        return stub if stub else h
     return h
 
 
@@ -1579,13 +1611,10 @@ def _english_headline_vietnamese_stub(headline: str, sector_code: str = "") -> s
         return "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ"
     if _SPACE_TECH_RE.search(low):
         return "Sự kiện không gian và công nghệ hàng không vũ trụ đáng chú ý"
-    sector_label = {
-        "finance": "tài chính",
-        "tech": "công nghệ",
-        "news": "thời sự",
-        "trends": "xu hướng",
-    }.get(sector_code, "kinh tế")
-    return f"Diễn biến {sector_label} quốc tế đáng theo dõi trong 48 giờ qua"
+    # Không khớp pattern hardcode nào -> KHÔNG dùng câu mẫu chung (gây trùng lặp
+    # anchor text giữa nhiều bài khác nhau). Trả về chuỗi rỗng để caller tự quyết
+    # định fallback về title gốc tiếng Anh (truncate ở nơi gọi).
+    return ""
 
 
 def _digest_topic_stream(headline: str) -> str:
@@ -2785,7 +2814,80 @@ def _looks_english_heavy_public_copy(text: str) -> bool:
     return len(latin_tokens) >= max(8, len(vi_chars) * 2)
 
 
-def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
+_PROPER_NOUN_KNOWN_RE = re.compile(
+    r"\b(?:Bitcoin|Ethereum|Fed|VN-Index|VNIndex|Nvidia|OpenAI|SpaceX|Iran|Trump|FPT|"
+    r"World Cup|Brent|Alphabet|Microsoft|Google|Apple|Tesla|Amazon|Meta|Cursor)\b"
+)
+# Cum 2-3 tu viet hoa lien tiep (vd "Donald Trump", "World Cup 2026") - it kha nang
+# la dau cau tieng Viet thong thuong (chi 1 tu viet hoa dau cau). KHONG bat tu don
+# le viet hoa de tranh false positive voi tu dau cau tieng Viet (vd "Trong", "Dong").
+_PROPER_NOUN_MULTIWORD_RE = re.compile(
+    r"\b[A-ZÀ-Ỹ][\wÀ-ỹ]{2,}(?:\s+[A-ZÀ-Ỹ][\wÀ-ỹ]{2,}){1,2}\b"
+)
+
+_ENTITY_GROUNDING_STOPWORDS = {
+    "việt nam",
+    "trung quốc",
+    "hoa kỳ",
+    "hà nội",
+    "châu á",
+    "đông nam á",
+}
+
+
+def _extract_candidate_entities(text: str, max_items: int = 12) -> list[str]:
+    raw = str(text or "")
+    hits = _PROPER_NOUN_KNOWN_RE.findall(raw) + _PROPER_NOUN_MULTIWORD_RE.findall(raw)
+    out: list[str] = []
+    seen: set[str] = set()
+    for h in hits:
+        h = h.strip()
+        if len(h) < 4:
+            continue
+        key = h.lower()
+        if key in _ENTITY_GROUNDING_STOPWORDS or key in seen:
+            continue
+        seen.add(key)
+        out.append(h)
+        if len(out) >= max_items:
+            break
+    return out
+
+
+def find_ungrounded_entities(
+    text: str,
+    representative_sources: list[dict[str, Any]] | None = None,
+    full_corpus_titles_blob: str = "",
+) -> list[str]:
+    """Best-effort lint: phát hiện thực thể trong `text` không thấy ở nguồn/corpus.
+
+    Không phải parser ngữ nghĩa hoàn hảo — mục tiêu là bắt được trường hợp rõ
+    như "SpaceX IPO"/"Cursor M&A" khi 2 cụm từ này không xuất hiện ở đâu trong
+    input, không phải đối chiếu ngữ nghĩa chính xác tuyệt đối.
+    """
+    entities = _extract_candidate_entities(text)
+    if not entities:
+        return []
+    src_blob = " ".join(
+        f"{s.get('title', '')} {s.get('excerpt', '')}"
+        for s in (representative_sources or [])
+        if isinstance(s, dict)
+    ).lower()
+    corpus_blob = (full_corpus_titles_blob or "").lower()
+    if not corpus_blob and not src_blob:
+        return []
+    missing: list[str] = []
+    for ent in entities:
+        low = ent.lower()
+        if low in src_blob or low in corpus_blob:
+            continue
+        missing.append(ent)
+    return missing
+
+
+def validate_newsroom_brief(
+    summary: dict[str, Any], corpus_titles_blob: str = ""
+) -> list[str]:
     warnings: list[str] = []
     if not str(summary.get("editor_note") or "").strip():
         warnings.append("editor_note trống.")
@@ -2819,6 +2921,14 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
     )
     if generic_hits >= 2 and len(re.findall(r"[A-ZÀ-Ỹ][\wÀ-ỹ]{2,}", eb_content)) < 15:
         warnings.append("executive_briefing.content có dấu hiệu generic, thiếu actor/sự kiện cụ thể.")
+    eb_ungrounded = find_ungrounded_entities(
+        eb_content, eb.get("representative_sources"), corpus_titles_blob
+    )
+    if eb_ungrounded:
+        warnings.append(
+            "executive_briefing.content nhắc thực thể không thấy trong corpus/representative_sources "
+            f"(có thể hallucinate): {', '.join(eb_ungrounded)}."
+        )
     for i, item in enumerate(fp):
         if not isinstance(item, dict):
             continue
@@ -2829,6 +2939,34 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
     sdb = summary.get("sector_deep_briefs") if isinstance(summary.get("sector_deep_briefs"), list) else []
     if len(sdb) < DIGEST_MIN_SECTORS_FINAL:
         warnings.append(f"sector_deep_briefs chỉ có {len(sdb)} sector.")
+    total_dossiers_all = sum(
+        len([d for d in (sec.get("story_dossiers") or []) if isinstance(d, dict)])
+        for sec in sdb
+        if isinstance(sec, dict)
+    )
+    if len(sdb) >= DIGEST_MIN_SECTORS_FINAL and total_dossiers_all == 0:
+        warnings.append(
+            "sector_deep_briefs có đủ 4 sector nhưng KHÔNG sector nào có story_dossiers "
+            "— có dấu hiệu output bị rút gọn quá mức (rủi ro front_page/storyDossiers/sourceDesk đều trống)."
+        )
+    if not fp:
+        rich_dossier_count = sum(
+            1
+            for sec in sdb
+            if isinstance(sec, dict)
+            for d in (sec.get("story_dossiers") or [])
+            if isinstance(d, dict)
+            and (
+                str(d.get("depth_level") or "").strip().lower() == "major"
+                or len(d.get("main_developments") or []) >= 3
+            )
+        )
+        if total_dossiers_all >= 3 or rich_dossier_count >= 1:
+            warnings.append(
+                f"front_page trống dù sector_deep_briefs có {total_dossiers_all} dossier "
+                f"({rich_dossier_count} dossier depth=major/nhiều ý) — khả năng cao có tin đạt tiêu chí "
+                "highlight bị bỏ sót khỏi front_page."
+            )
     for i, sec in enumerate(sdb):
         if not isinstance(sec, dict):
             continue
@@ -2863,6 +3001,17 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
                 warnings.append(
                     f"sector_deep_briefs[{i}] ({code}) sector_thesis chưa phản ánh cụm dossier chính: {sample}."
                 )
+        sector_sources: list[dict[str, Any]] = []
+        for d in dossiers:
+            sector_sources.extend(
+                s for s in (d.get("representative_sources") or []) if isinstance(s, dict)
+            )
+        sector_ungrounded = find_ungrounded_entities(thesis, sector_sources, corpus_titles_blob)
+        if sector_ungrounded:
+            warnings.append(
+                f"sector_deep_briefs[{i}] ({code}) sector_thesis nhắc thực thể không thấy trong "
+                f"corpus/representative_sources: {', '.join(sector_ungrounded)}."
+            )
         leak_frags = (
             "chỉ nên xuất hiện",
             "không nên đưa vào",
@@ -3410,13 +3559,16 @@ def finalize_digest_summary(
     if not isinstance(summary, dict):
         return summary
     url_index = DigestUrlIndex(input_articles or []) if input_articles else None
+    corpus_titles_blob = " ".join(
+        str(a.get("title") or "") for a in (input_articles or []) if isinstance(a, dict)
+    ).lower()
     if _is_newsroom_brief(summary):
         if partials:
             summary = supplement_newsroom_from_partials(
                 summary, partials, url_index=url_index
             )
         normalized = normalize_newsroom_brief(summary, url_index=url_index)
-        for w in validate_newsroom_brief(normalized):
+        for w in validate_newsroom_brief(normalized, corpus_titles_blob):
             print(f"WARN newsroom brief: {w}", file=sys.stderr)
         for w in validate_digest_url_whitelist(normalized, url_index):
             print(f"WARN digest URL whitelist: {w}", file=sys.stderr)
@@ -4007,6 +4159,7 @@ Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính 
 {_digest_four_sector_rules_block()}
 - Chunk `summary`: nháp **luồng + mối liên hệ** trong phần (merge viết briefing/dossier chính).
 - `summary_hint` / `reason_selected`: cụ thể actor+sự kiện — material cho merge viết prose, không câu rule.
+- `key_excerpt`: 2–4 câu trích yếu CỤ THỂ từ chính text bài báo vừa đọc trong chunk này — phải có dữ kiện thực (số liệu, tên riêng, trích dẫn ngắn, mốc thời gian), KHÔNG được là câu chung như `summary_hint`; đây là nguyên liệu DUY NHẤT merge có để viết sâu, vì merge sẽ KHÔNG đọc lại text gốc. Chỉ điền cho sub_topic đã được giữ (đạt tier A/B/C) — không ép điền cho mọi bài.
 {_digest_gemini_writing_rules_block()}
 {outline_block}
 ## Cửa sổ: {window_desc}
@@ -4026,6 +4179,7 @@ Trả về DUY NHẤT JSON:
         "priority_tier": "A|B|C",
         "headline": "...",
         "summary_hint": "...",
+        "key_excerpt": "2-4 câu trích yếu cụ thể từ text bài báo - số liệu/tên/trích dẫn, KHÔNG phải câu chung",
         "source_urls": ["url1", "url2"],
         "reason_selected": "..."
       }}]
@@ -4048,7 +4202,11 @@ def aggregate_partial_sector_candidates(
     *,
     max_candidates_per_sector: int = 48,
 ) -> list[dict[str, Any]]:
-    """Gom candidate từ mọi partial — merge nhận pool rõ ràng thay vì JSON partial khổng lồ."""
+    """Gom candidate từ mọi partial — merge nhận pool rõ ràng thay vì JSON partial khổng lồ.
+
+    Mỗi candidate giữ nguyên tất cả field từ chunk (bao gồm `key_excerpt` nếu có) —
+    merge dùng field này để viết sâu hơn mà không cần đọc lại text gốc.
+    """
     buckets: dict[str, list[dict[str, Any]]] = {code: [] for code, _ in DIGEST_FOUR_SECTORS}
     seen_keys: dict[str, set[str]] = {code: set() for code in buckets}
 
@@ -4074,6 +4232,8 @@ def aggregate_partial_sector_candidates(
                 if key in seen_keys[code]:
                     continue
                 seen_keys[code].add(key)
+                # row la sub_topic nguyen ven tu chunk, bao gom ca field moi nhu
+                # key_excerpt neu co - KHONG loc field o day.
                 buckets[code].append(row)
 
     out: list[dict[str, Any]] = []
@@ -4150,18 +4310,21 @@ def build_digest_merge_prompt(
 **Không fill** tin yếu. **Không cắt** story quan trọng chỉ vì muốn gọn.
 Đối chiếu **toàn bộ** `sector_notes` / `candidates[]` từ mọi partial trước khi kết thúc.
 
+{_digest_front_page_criteria_block()}
+
 ## Minimum chất lượng (BẮT BUỘC khi candidate pools giàu)
-- `front_page` chỉ là dữ liệu compatibility; không bắt buộc đủ số lượng khi briefing và sector đã mạnh.
+- `front_page` BẮT BUỘC có ít nhất các tin đạt tiêu chí highlight (xem '## Tiêu chí tin nổi bật'); KHÔNG để trống dù executive_briefing/sector_thesis đã viết đủ — đây là 2 mục đích khác nhau, không thay thế nhau.
 - Mọi `front_page` / `story_dossiers` nếu được sinh ra thì phải có URL từ pools (`source_urls` / `representative_sources`); không tạo filler để ép số lượng.
 - Khi pools tổng **≥ 80** candidates: `executive_briefing` phải là **prose có mạch** (sections + content) — không outline một câu/mục; độ dài adaptive theo mức quan trọng.
 - Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
+- Khi candidate có `key_excerpt`: đây là dữ kiện chi tiết nhất từ text gốc bạn có được — PHẢI khai thác để viết executive_briefing/sector_thesis/dossier sâu hơn, không chỉ dựa vào headline/summary_hint.
 
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}
 {_digest_source_urls_block()}
 - `editor_note`: **để trống** hoặc rất ngắn — UI không hiển thị Lời biên tập riêng; nội lực đổ vào `executive_briefing`.
 - `executive_briefing`: **bài briefing thật** (xem quy tắc trên) — không outline; sections mỗi mục nhiều đoạn khi pools dày.
-- **Không** viết section "điểm nóng" riêng. `front_page` chỉ là compatibility, không phải trụ cột hiển thị public.
+- **Không** viết thêm section văn xuôi "điểm nóng" trong executive_briefing (giữ điểm nóng tích hợp trong prose như đã hướng dẫn) — nhưng `front_page` (dạng list có rank) vẫn BẮT BUỘC điền khi có tin đạt tiêu chí, đây là 2 cơ chế hiển thị khác nhau.
 - `sector_deep_briefs`: đúng **4** sector; `sector_thesis` = bài tóm tắt ngành có mạch (không nối dossier rời).
 - Mọi `representative_sources` quan trọng: thêm `excerpt` trích yếu biên tập — độ dài adaptive, đủ ý.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
@@ -4176,7 +4339,7 @@ Trả về DUY NHẤT JSON (schema newsroom):
 {_digest_newsroom_json_schema_fragment()}
 
 ## Candidate pools (đã gom từ mọi partial)
-Gom candidates thành `story_dossiers` + `front_page` nội bộ, nhưng public ưu tiên `executive_briefing` và `sector_thesis`.
+Gom candidates thành `story_dossiers` + `front_page` (front_page hiển thị public khi có tin đạt tiêu chí highlight) + `executive_briefing`/`sector_thesis` (bài viết liền mạch).
 
 {partial_json}
 """.strip()
@@ -4188,6 +4351,9 @@ _DIGEST_SHALLOW_WARNING_MARKERS = (
     "chưa phản ánh cụm dossier chính",
     "có dấu hiệu generic",
     "thiếu representative_sources",
+    "khả năng cao có tin đạt tiêu chí",
+    "KHÔNG sector nào có story_dossiers",
+    "có thể hallucinate",
 )
 
 
@@ -4259,8 +4425,18 @@ def _run_merge_with_quality_retry(
     try:
         if not _is_newsroom_brief(final):
             return final
+        # Best-effort: dung title cua candidate da gom tu partials lam corpus blob
+        # xap xi (khong co full corpus o day) - du de bat hallucination ro rang,
+        # finalize_digest_summary() se check lai voi corpus day du sau cung.
+        retry_corpus_blob = " ".join(
+            str(row.get("headline") or row.get("title") or "")
+            for pool in aggregate_partial_sector_candidates(partials)
+            for row in pool.get("candidates", [])
+        ).lower()
         shallow_warnings = [
-            w for w in validate_newsroom_brief(final) if _is_shallow_digest_warning(w)
+            w
+            for w in validate_newsroom_brief(final, retry_corpus_blob)
+            if _is_shallow_digest_warning(w)
         ]
     except Exception as exc:
         print(f"WARN newsroom brief: bỏ qua bước kiểm tra nông/ngắn do lỗi: {exc}", file=sys.stderr)

@@ -12,7 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from build_website_content import build_newsroom_web_extras  # noqa: E402
+from build_website_content import _article_excerpt, build_newsroom_web_extras  # noqa: E402
 
 
 def _make_articles(n: int) -> list[dict]:
@@ -87,11 +87,37 @@ def test_empty_corpus_still_returns_no_crash() -> None:
     assert links == [], "with no articles at all, links should stay empty (no crash)"
 
 
+def test_article_excerpt_prefers_content_for_ai_over_rss_summary() -> None:
+    art = {
+        "summary": "Tin ngan RSS.",
+        "content_for_ai": "So lieu GDP tang dac trung 6.5%. Theo phat ngon cua bo truong ngay 16/6.",
+    }
+    out = _article_excerpt(art)
+    assert "GDP" in out, f"expected content_for_ai content in excerpt, got: {out!r}"
+    assert out != "Tin ngan RSS.", "must not just return the short RSS summary verbatim"
+
+
+def test_article_excerpt_falls_back_to_summary_when_content_for_ai_empty() -> None:
+    art = {"summary": "Chi co RSS summary o day.", "content_for_ai": ""}
+    out = _article_excerpt(art)
+    assert out == "Chi co RSS summary o day."
+
+
+def test_article_excerpt_respects_sentence_cap_with_content_for_ai() -> None:
+    long_text = " ".join(f"Cau so {i} co du kien rieng." for i in range(20))
+    art = {"content_for_ai": long_text}
+    out = _article_excerpt(art)
+    assert out.count(".") <= 4, f"expected excerpt capped at <=4 sentences, got {out.count('.')}: {out!r}"
+
+
 def main() -> int:
     tests = [
         test_fallback_fills_links_when_sources_and_front_page_empty,
         test_no_fallback_needed_when_sources_present,
         test_empty_corpus_still_returns_no_crash,
+        test_article_excerpt_prefers_content_for_ai_over_rss_summary,
+        test_article_excerpt_falls_back_to_summary_when_content_for_ai_empty,
+        test_article_excerpt_respects_sentence_cap_with_content_for_ai,
     ]
     failed = 0
     for t in tests:

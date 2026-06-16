@@ -2009,14 +2009,18 @@ def build_digest_web_extras(
 def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 8) -> str:
     if not isinstance(art, dict):
         return ""
-    raw = str(art.get("summary") or art.get("description") or "").strip()
+    # content_for_ai = noi dung da crawl day du, uu tien hon RSS summary/description
+    # (thuong chi 1-2 cau ngan) de tan dung du lieu thuc te da thu thap.
+    raw = str(art.get("content_for_ai") or "").strip()
+    used_content_for_ai = bool(raw)
     if not raw:
-        raw = str(art.get("content_for_ai") or "").strip()
+        raw = str(art.get("summary") or art.get("description") or "").strip()
     if not raw:
         return ""
     parts = re.split(r"(?<=[.!?…])\s+", raw)
     kept = [p.strip() for p in parts if p.strip()]
-    excerpt = " ".join(kept[:max_sentences])
+    cap = 4 if used_content_for_ai else max_sentences
+    excerpt = " ".join(kept[:cap])
     from scripts.newsroom_copy import sanitize_public_prose
 
     return sanitize_public_prose(excerpt, fallback="")
@@ -2220,15 +2224,28 @@ def _public_display_title(title: str, *, host: str = "", sector_code: str = "") 
         from summarize_news_gemini import _editorialize_digest_headline, _vietnamese_public_headline
 
         vi = _vietnamese_public_headline(_editorialize_digest_headline(raw), sector_code=sector_code)
-        if vi and not is_english_heavy_public_copy(vi):
+        # vi != raw (Gemini/pattern hardcode da dich thanh cau khac) la dieu kien
+        # bat buoc - neu vi == raw (fallback moi tra ve title goc khi khong khop
+        # pattern nao) thi day KHONG phai ban da Viet hoa, phai roi xuong logic
+        # truncate ben duoi, khong duoc return som o day.
+        if vi and vi != raw and not is_english_heavy_public_copy(vi):
             return vi
     except Exception:
         pass
+    candidate = raw
     if len(latin_tokens) >= 5:
         soft = soften_headline(raw)
-        if soft and soft != raw:
+        if soft and soft != raw and not is_english_heavy_public_copy(soft):
             return soft
-    return host or raw
+        if soft:
+            candidate = soft
+    # Không Việt hóa được -> GIỮ title (gốc hoặc đã soften nhẹ, vẫn tiếng Anh),
+    # truncate 60 ký tự, KHÔNG dùng câu mẫu chung (tránh nhiều bài khác nhau
+    # có cùng anchor text).
+    fallback = candidate.strip()
+    if len(fallback) > 60:
+        fallback = fallback[:57].rstrip() + "..."
+    return fallback or host or raw
 
 
 def _sanitize_public_link_row(
