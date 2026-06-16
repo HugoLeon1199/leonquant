@@ -4187,6 +4187,7 @@ _DIGEST_SHALLOW_WARNING_MARKERS = (
     "quá nông",
     "chưa phản ánh cụm dossier chính",
     "có dấu hiệu generic",
+    "thiếu representative_sources",
 )
 
 

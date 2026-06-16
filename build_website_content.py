@@ -2557,6 +2557,27 @@ def build_newsroom_web_extras(
     }
     if not executive_briefing["links"] and front_page:
         executive_briefing["links"] = list(front_page[0].get("links") or [])[:2]
+    if not executive_briefing["links"] and by_url:
+        ranked_arts = sorted(
+            by_url.values(),
+            key=lambda a: len(str(a.get("content_for_ai") or a.get("text") or "")),
+            reverse=True,
+        )[:20]
+        fallback_links = _newsroom_sources_to_links(
+            [
+                {
+                    "url": str(art.get("url") or "").strip(),
+                    "title": str(art.get("title") or ""),
+                    "source": str(art.get("source") or ""),
+                }
+                for art in ranked_arts
+                if str(art.get("url") or "").strip()
+            ],
+            by_url=by_url,
+            group="Tóm tắt tổng quan 48h",
+            add_link=add_link,
+        )
+        executive_briefing["links"] = fallback_links[:2]
 
     sector_deep: list[dict[str, Any]] = []
     for sec in summary.get("sector_deep_briefs") or []:
