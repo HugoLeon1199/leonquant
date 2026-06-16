@@ -4253,9 +4253,17 @@ def _run_merge_with_quality_retry(
         min_retry_interval=min_request_interval,
         max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
     )
-    if not isinstance(final, dict) or not _is_newsroom_brief(final):
+    if not isinstance(final, dict):
         return final
-    shallow_warnings = [w for w in validate_newsroom_brief(final) if _is_shallow_digest_warning(w)]
+    try:
+        if not _is_newsroom_brief(final):
+            return final
+        shallow_warnings = [
+            w for w in validate_newsroom_brief(final) if _is_shallow_digest_warning(w)
+        ]
+    except Exception as exc:
+        print(f"WARN newsroom brief: bỏ qua bước kiểm tra nông/ngắn do lỗi: {exc}", file=sys.stderr)
+        return final
     if not shallow_warnings:
         return final
     print(
@@ -4263,16 +4271,22 @@ def _run_merge_with_quality_retry(
         "retry merge 1 lần với phản hồi cụ thể.",
         file=sys.stderr,
     )
-    retry_prompt = merge_prompt + "\n\n" + _digest_shallow_retry_feedback_block(shallow_warnings, final)
-    wait_between_gemini_requests(0, min_request_interval)
-    retried = call_gemini(
-        retry_prompt,
-        model,
-        api_key,
-        timeout=gemini_timeout,
-        min_retry_interval=min_request_interval,
-        max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
-    )
+    try:
+        retry_prompt = merge_prompt + "\n\n" + _digest_shallow_retry_feedback_block(
+            shallow_warnings, final
+        )
+        wait_between_gemini_requests(0, min_request_interval)
+        retried = call_gemini(
+            retry_prompt,
+            model,
+            api_key,
+            timeout=gemini_timeout,
+            min_retry_interval=min_request_interval,
+            max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
+        )
+    except Exception as exc:
+        print(f"WARN newsroom brief: retry merge lỗi, giữ bản đầu: {exc}", file=sys.stderr)
+        return final
     if isinstance(retried, dict):
         return retried
     return final
