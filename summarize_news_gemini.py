@@ -633,6 +633,7 @@ def _digest_newsroom_voice_block() -> str:
             "- **Không** tạo section UI “Điểm nóng”: tích hợp điểm nóng vào `executive_briefing.sections` và `sector_deep_briefs`.",
             "- `front_page` chỉ compatibility nội bộ; không dùng làm section render chính.",
             "- `front_page` / `notable_articles` / `story_dossiers` public phải Việt hoá tiêu đề tự nhiên; không để raw English headline lên output nếu đã có cách viết Việt tốt hơn.",
+            "- Mọi prose public (`editor_note`, `executive_briefing`, `sector_thesis`, `summary`, `why_it_matters`, `watch_next`) phải viết bằng tiếng Việt tự nhiên; chỉ giữ nguyên tên riêng, ticker, tên công ty, tên chương trình hay thuật ngữ bắt buộc.",
             "- Viết **prose có mạch** — không outline, không nhãn + một câu, không danh sách tin rời.",
             _digest_anti_rule_leak_block(),
         ]
@@ -2728,6 +2729,21 @@ def _sector_thesis_missing_dossier_clusters(thesis: str, dossiers: list[dict[str
         if keys and not any(k in lower for k in keys):
             missing.append(title)
     return missing
+
+
+def _looks_english_heavy_public_copy(text: str) -> bool:
+    raw = str(text or "").strip()
+    if len(raw) < 48:
+        return False
+    latin_tokens = re.findall(r"[A-Za-z][A-Za-z'-]{2,}", raw)
+    if len(latin_tokens) < 8:
+        return False
+    vi_chars = re.findall(
+        r"[àáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]",
+        raw,
+        re.I,
+    )
+    return len(latin_tokens) >= max(8, len(vi_chars) * 2)
 
 
 def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:

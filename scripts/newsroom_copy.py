@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tone down newsroom copy — less hype, more cautious Vietnamese."""
+"""Tone down newsroom copy and keep public prose consistently Vietnamese."""
 
 from __future__ import annotations
 
@@ -25,13 +25,26 @@ _SOFTEN_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\btoàn cầu\b(?=.*(?:dòng|vốn|dịch chuyển))", re.I), "thị trường"),
 ]
 
+_PUBLIC_COPY_TRANSLATIONS: list[tuple[re.Pattern[str], str]] = [
+    (re.compile(r"\blead stories\b", re.I), "câu chuyện dẫn dắt"),
+    (re.compile(r"\bkey angles\b", re.I), "các nhánh chính"),
+    (re.compile(r"\bwatch next\b", re.I), "theo dõi tiếp"),
+    (re.compile(r"\bwhy it matters\b", re.I), "vì sao quan trọng"),
+    (re.compile(r"\bfront page\b", re.I), "trang nhất"),
+    (re.compile(r"\bexecutive briefing\b", re.I), "tổng quan 48h"),
+    (re.compile(r"\bbig picture\b", re.I), "bức tranh chính"),
+    (re.compile(r"\btop stories\b", re.I), "câu chuyện quan trọng nhất"),
+    (re.compile(r"\bsector impacts\b", re.I), "tác động theo ngành"),
+    (re.compile(r"\bwatch ?24 ?[-–] ?72h\b", re.I), "theo dõi 24-72h tới"),
+]
+
 _FILLER_SENTENCE_PATTERNS: list[re.Pattern[str]] = [
-    re.compile(r"[^.!?…\n]*\bđể người đọc\b[^.!?…\n]*[.!?…]", re.I),
-    re.compile(r"[^.!?…\n]*\bbản tin này gom\b[^.!?…\n]*[.!?…]", re.I),
-    re.compile(r"[^.!?…\n]*\bngười đọc cần theo dõi\b[^.!?…\n]*[.!?…]", re.I),
-    re.compile(r"[^.!?…\n]*\bbiến số cần theo dõi\b[^.!?…\n]*[.!?…]", re.I),
-    re.compile(r"[^.!?…\n]*\bthành từng hồ sơ\b[^.!?…\n]*[.!?…]", re.I),
-    re.compile(r"[^.!?…\n]*\bphân tích sự phân hóa của dòng vốn\b[^.!?…\n]*[.!?…]", re.I),
+    re.compile(r"[^.!?\n]*\bđể người đọc\b[^.!?\n]*[.!?]", re.I),
+    re.compile(r"[^.!?\n]*\bbản tin này gom\b[^.!?\n]*[.!?]", re.I),
+    re.compile(r"[^.!?\n]*\bngười đọc cần theo dõi\b[^.!?\n]*[.!?]", re.I),
+    re.compile(r"[^.!?\n]*\bbiến số cần theo dõi\b[^.!?\n]*[.!?]", re.I),
+    re.compile(r"[^.!?\n]*\bthành từng hồ sơ\b[^.!?\n]*[.!?]", re.I),
+    re.compile(r"[^.!?\n]*\bphân tích sự phân hóa của dòng vốn\b[^.!?\n]*[.!?]", re.I),
 ]
 
 
@@ -51,6 +64,8 @@ def soften_newsroom_text(text: str) -> str:
     s = str(text or "").strip()
     if not s:
         return s
+    for pat, repl in _PUBLIC_COPY_TRANSLATIONS:
+        s = pat.sub(repl, s)
     for pat, repl in _HEADLINE_REPLACEMENTS:
         if pat.match(s):
             return repl
@@ -60,8 +75,8 @@ def soften_newsroom_text(text: str) -> str:
 
 
 def soften_prose(text: str) -> str:
-    """Long-form digest copy: chỉ bỏ câu meta, không làm mỏng giọng văn."""
-    return strip_newsroom_filler(str(text or "").strip())
+    """Long-form digest copy: bỏ câu meta và Việt hóa các nhãn công khai."""
+    return soften_newsroom_text(strip_newsroom_filler(str(text or "").strip()))
 
 
 def soften_editor_note(note: str) -> str:

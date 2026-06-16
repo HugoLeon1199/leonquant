@@ -4770,7 +4770,7 @@
       const lead = rows.find((fp) => Number(fp.rank) === 1) || rows[0];
       const others = rows.filter((fp) => fp !== lead).slice(0, 5);
       let html = `<section class="overview-part digest-front-page" id="digest-front-page">`;
-      html += `<h3 class="pub-section-title">Lead Stories</h3>`;
+      html += `<h3 class="pub-section-title">Câu chuyện dẫn dắt</h3>`;
       html += buildFrontPageCardHtml(lead, "lead");
       if (others.length) {
         html += `<div class="digest-front-page-grid">`;
@@ -4865,7 +4865,7 @@
             ? sec.subsectorBriefs.filter((sb) => sb && sb.overview)
             : [];
           if (subsectors.length) {
-            html += `<div class="subsector-briefs"><h4>Key angles</h4>`;
+            html += `<div class="subsector-briefs"><h4>Các nhánh chính</h4>`;
             for (const sb of subsectors.slice(0, 3)) {
               html += `<div class="dossier-card">`;
               html += `<h4>${escapeHtml(sb.name || "")}</h4>`;
@@ -6093,7 +6093,7 @@
 
     async function loadChatContent() {
       const sync = document.getElementById("syncNote");
-      if (sync) sync.textContent = "Đang tải brief…";
+      if (sync) sync.textContent = "Đang tải bản tin…";
       try {
         const config = await loadFeedConfig();
         const remoteUrl = config.remoteFeedUrl || "";
@@ -6113,7 +6113,7 @@
           if (sync) {
             const emb = document.getElementById("brief")?.getAttribute("data-embedded-brief") === "1";
             sync.textContent = emb
-              ? "Hiển thị bản brief đóng gói sẵn — không tải được content.json (thử Ctrl+F5 hoặc kiểm tra mạng)."
+              ? "Hiển thị bản tin đóng gói sẵn — không tải được content.json (thử Ctrl+F5 hoặc kiểm tra mạng)."
               : "Không tải được content.json.";
           }
           return;
@@ -6121,7 +6121,7 @@
         renderPage(data);
       } catch (err) {
         console.error(err);
-        if (sync) sync.textContent = "Lỗi khi tải brief.";
+        if (sync) sync.textContent = "Lỗi khi tải bản tin.";
       }
     }
 
