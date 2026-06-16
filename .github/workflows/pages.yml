@@ -153,7 +153,7 @@ jobs:
           if m == 'newsroom-brief':
             assert 'Bản tin 48' in html or 'issue-header' in html, 'newsroom layout missing in embedded HTML'
             assert 'Front Page' not in html, 'newsroom labels should be Vietnamese'
-            assert len(d.get('frontPage') or []) >= 1
+            # frontPage is optional now; public layout is driven by executiveBriefing + sectorDeepBriefs
             assert len(d.get('sectorDeepBriefs') or []) >= 4
           else:
             assert 'Bấm vào xem chi tiết' in html, 'multisector archive missing'
