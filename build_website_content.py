@@ -2653,17 +2653,22 @@ def build_newsroom_web_extras(
             ]
             if not links:
                 continue
-            render_style = "full" if len(main_developments) >= 2 else "thin"
+            dossier_summary_text = sanitize_public_prose(str(d.get("summary") or "").strip(), fallback="")
             why_it_matters = sanitize_public_prose(str(d.get("why_it_matters") or "").strip(), fallback="")
+            render_style = "full" if len(main_developments) >= 2 else "thin"
             if render_style == "full" and not why_it_matters:
-                continue
+                # Thiếu why_it_matters không còn loại bỏ hẳn dossier — chỉ hạ xuống "thin"
+                # miễn có summary 2-5 câu hợp lệ, tránh rơi về raw fallback link dài+excerpt.
+                if not dossier_summary_text:
+                    continue
+                render_style = "thin"
             dossiers_out.append(
                 {
                     "rank": len(dossiers_out) + 1,
                     "depthLevel": "brief" if render_style == "thin" else str(d.get("depth_level") or "deep"),
                     "subSector": str(d.get("sub_sector") or "").strip(),
                     "title": title,
-                    "summary": sanitize_public_prose(str(d.get("summary") or "").strip(), fallback=""),
+                    "summary": dossier_summary_text,
                     "mainDevelopments": main_developments,
                     "whyItMatters": why_it_matters,
                     "affectedGroups": [

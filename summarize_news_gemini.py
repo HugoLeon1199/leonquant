@@ -194,6 +194,8 @@ def _digest_adaptive_length_block() -> str:
             "- Độ dài do **mức độ quan trọng**, **độ phức tạp** và **số nguồn chất lượng** quyết định.",
             "- Tin nóng/quan trọng → viết đủ sâu; tin nhỏ → tóm tắt gọn.",
             "- **Không** viết dài để đủ quota; **không** viết ngắn đến mức mất ý chính.",
+            "- **Viết dài hơn là tốt nếu mỗi câu thêm thông tin mới** (fact mới, góc nhìn mới, hệ quả mới). "
+            "**Cấm** lặp lại ý đã nói bằng từ ngữ khác để kéo dài; cấm câu đệm không mang dữ kiện; cấm liệt kê lan man không có mạch nối.",
             "- `executive_briefing`, `sector_thesis`, dossier, excerpt: chia **đoạn văn** có mạch; độ dài tự nhiên theo pool.",
         ]
     )
@@ -405,6 +407,7 @@ def _digest_executive_briefing_writing_block() -> str:
             "Ph?n `front_page` ch? l? compatibility c? cho pipeline n?i b?; kh?ng d?ng l?m block render ch?nh v? c? th? ?? r?t m?ng ho?c b? tr?ng n?u briefing ?? ?? m?nh.",
             "Ưu tiên `executive_briefing.content` như **thân bài chính**. Viết 3–5 đoạn có mạch: mở bức tranh, các story quyết định, tác động, rồi watchlist 24–72h.",
             "Viết **đủ ý** theo mức độ quan trọng và độ phức tạp của pools — tin lớn phân tích sâu, tin nhỏ gọn. Không ép số chữ/số câu; không viết dài để đủ quota; không viết ngắn đến mức mất ý chính.",
+            "**Dài hơn là chấp nhận được và được khuyến khích** khi 48h qua có nhiều dữ kiện thật để khai triển — điều kiện bắt buộc: mỗi câu/đoạn phải mở ra một góc mới (story mới, tác động mới, biến số mới), **không** diễn đạt lại ý đã nói bằng từ khác, không thêm câu đệm cho dài.",
             "Mỗi đoạn phải trả lời đủ **actor + event + implication**. Người đọc phải hiểu ngay: ai/cái gì, chuyện gì xảy ra, vì sao đáng quan tâm.",
             "**Cấm** mở đoạn bằng các nhãn template hoặc câu meta-biên tập như:",
             '- "Bức tranh chính là…" / "Chủ đề được nhắc nhiều nhất là…" / "Câu chuyện quan trọng nhất là…" / "Tác động theo khu vực/ngành là…"',
@@ -435,6 +438,7 @@ def _digest_sector_narrative_block() -> str:
             "## Đi sâu theo từng ngành (`sector_thesis`) — bài tóm tắt ngành đủ sâu theo dữ liệu",
             "Mỗi `sector_thesis` là **một mini analyst note** (nhiều đoạn), không nối summary dossier rời rạc.",
             "**Không ép số câu/số chữ.** Ngành nhiều tin nóng → viết dài và sâu; ngành ít tin → gọn nhưng **không** mất ý chính.",
+            "**Viết dài là tốt nếu mỗi đoạn mở ra một góc mới** (cụm tin mới, tác động mới, biến số mới) — **cấm** lặp lại ý đã nói ở đoạn trước bằng cách diễn đạt khác, cấm câu đệm/transition không mang dữ kiện.",
             "Không padding; không rút gọn đến mức chỉ còn một câu sáo; không biến thành chuỗi headline cùng tag.",
             "",
             "Form ưu tiên:",
@@ -462,6 +466,16 @@ def _digest_sector_narrative_block() -> str:
             "mà còn ở hạ tầng dữ liệu, bán dẫn, trung tâm dữ liệu và ứng dụng AI trong tài chính – sản xuất. "
             "Các bài liên quan đến Nvidia, OpenAI, SpaceX hoặc doanh nghiệp công nghệ Việt Nam cần được nối "
             'thành một bức tranh về dòng vốn, năng lực tính toán và cạnh tranh hạ tầng."',
+            "",
+            "**Ví dụ SAI (dài nhưng lặp ý dưới dạng diễn đạt khác — không chấp nhận):**",
+            '"Ngành công nghệ đang thu hút nhiều sự quan tâm. Có thể thấy công nghệ là lĩnh vực được chú ý nhiều trong 48h qua. '
+            'Điều này cho thấy công nghệ tiếp tục là tâm điểm của thị trường."',
+            "",
+            "**Ví dụ ĐÚNG (dài vì mỗi câu mở góc mới, không lặp):**",
+            '"Công nghệ và AI 48h qua nổi bật ở hạ tầng dữ liệu và bán dẫn, không chỉ ở cổ phiếu. '
+            "Nvidia và các nhà cung cấp chip tiếp tục mở rộng công suất để đáp ứng nhu cầu trung tâm dữ liệu, "
+            "trong khi OpenAI công bố hợp tác mới với doanh nghiệp tài chính — cho thấy AI đang chuyển từ giai đoạn "
+            'thử nghiệm sang triển khai thực tế trong vận hành."',
             "",
             "**Hấp thụ dossier/subsector:**",
             "- Nếu sector có nhiều `story_dossiers` hoặc `subsector_briefs` chất lượng, `sector_thesis` **phải** tổng hợp đủ ý chính từng cụm.",
@@ -647,7 +661,9 @@ def _digest_story_dossier_rules_block() -> str:
             "## Story dossier (cụm tin — nội bộ, không thay `sector_thesis`)",
             "Dossier bổ sung chi tiết từng cụm; **thân bài ngành** vẫn là `sector_thesis` viết mạch.",
             "- `title`: tiêu đề biên tập (tiếng Việt, không giật).",
-            "- `summary`: ý chính cụm — nối ý, không một headline.",
+            "- `summary`: **2–5 câu hoàn chỉnh, nối ý thành đoạn văn** (không phải một headline, không phải excerpt copy từ bài crawl) — "
+            "đây là đoạn hiển thị công khai phía trên danh sách nguồn, phải tự đứng được mà không cần đọc thêm: nêu chuyện gì xảy ra, "
+            "ai/cái gì liên quan, vì sao đáng chú ý. Mỗi câu phải có ý mới, không lặp.",
             "- `main_developments`: các ý chính từ nhiều bài cùng cụm (thứ tự logic) — đủ ý theo độ phức tạp, không quota số ý.",
             "- `why_it_matters`: tác động cụ thể — đủ sâu theo `depth_level` và dữ liệu.",
             "- `affected_groups`: mảng ngắn (nhóm/tài sản/ngành/quốc gia).",

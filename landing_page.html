@@ -408,80 +408,6 @@
        FOX NEWSPAPER STYLE — Tin48h redesign
        —————————————————————————————————————— */
 
-    /* Lead Story Card (frontPage rank 1) */
-    .lead-story-card {
-      display: block;
-      border-radius: 16px;
-      overflow: hidden;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-md);
-      margin-bottom: 32px;
-      text-decoration: none !important;
-      color: inherit;
-      transition: box-shadow .2s;
-    }
-    .lead-story-card:hover { box-shadow: 0 8px 32px rgba(15,23,42,.13); text-decoration: none !important; }
-    .lead-story-img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      display: block;
-      background: var(--bg2);
-    }
-    .lead-story-img-ph {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      color: var(--faint);
-      text-transform: uppercase;
-    }
-    .lead-story-body {
-      padding: 22px 24px 24px;
-    }
-    .lead-story-cat {
-      display: inline-block;
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 10px;
-    }
-    .lead-story-title {
-      margin: 0 0 12px;
-      font-size: clamp(1.35rem, 3vw, 1.85rem);
-      font-weight: 800;
-      line-height: 1.18;
-      letter-spacing: -.035em;
-      color: var(--text);
-    }
-    .lead-story-blurb {
-      margin: 0 0 14px;
-      font-size: 1.02rem;
-      line-height: 1.6;
-      color: var(--text-soft);
-    }
-    .lead-story-meta {
-      font-size: .75rem;
-      color: var(--faint);
-      font-weight: 600;
-    }
-    .lead-story-link {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: .82rem;
-      font-weight: 800;
-      color: var(--cyan-link);
-      letter-spacing: .01em;
-    }
-
     /* Notable Articles — Grid 2 cột kiểu Fox */
     .notable-grid {
       display: grid;
@@ -1518,75 +1444,16 @@
       text-transform: uppercase;
       color: var(--cyan-dim);
     }
-    .front-page-lead {
-      margin-bottom: 18px;
-      padding: 22px 24px;
-      border-radius: 16px;
-      border: 1px solid rgba(8, 145, 178, .22);
-      background: linear-gradient(160deg, rgba(8, 145, 178, .05), var(--surface));
-      box-shadow: var(--shadow-sm);
-    }
-    .front-page-lead h3 {
-      margin: 0 0 10px;
-      font-size: clamp(1.2rem, 2.8vw, 1.45rem);
-      line-height: 1.2;
-      letter-spacing: -.03em;
-      color: var(--text);
-    }
-    .front-page-lead .fp-lead-kicker {
-      margin: 0 0 12px;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-    .front-page-secondary-grid {
-      display: grid;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .digest-front-page-grid,
     .dossier-grid {
       display: grid;
       gap: 14px;
       margin-top: 14px;
     }
     @media (min-width: 720px) {
-      .front-page-secondary-grid,
-      .digest-front-page-grid,
       .dossier-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (min-width: 1080px) {
       .dossier-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .front-page-card {
-      padding: 16px 18px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      box-shadow: var(--shadow-sm);
-    }
-    .front-page-card--compact {
-      padding: 12px 14px;
-      background: var(--bg1);
-    }
-    .front-page-card h4 { margin: 0 0 8px; font-size: 1.02rem; line-height: 1.25; color: var(--text); }
-    .front-page-card .fp-rank {
-      display: inline-block;
-      margin-bottom: 8px;
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--cyan-dim);
-    }
-    .front-page-compact-list {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
     }
     .sector-pub-block {
       margin-bottom: 36px;
@@ -1870,7 +1737,6 @@
       }
       .issue-header { padding: 16px 14px 14px; }
       .issue-title { font-size: 1.28rem; }
-      .front-page-lead { padding: 16px 14px; }
       .dossier-card { padding: 14px 14px; }
       .watchlist-panel { padding: 16px 14px; }
       .brand-tagline { font-size: .62rem; }
@@ -4260,39 +4126,6 @@
       return "other";
     }
 
-    function buildLeadStoryHtml(frontPage, imageByUrl) {
-      if (!Array.isArray(frontPage) || !frontPage.length) return "";
-      const item = frontPage.find(fp => fp.rank === 1) || frontPage[0];
-      if (!item) return "";
-      const title = escapeHtml(String(item.title || "").trim());
-      const blurb = escapeHtml(String(item.oneSentence || item.whyItMatters || "").trim());
-      const link0 = Array.isArray(item.links) && item.links[0] ? item.links[0] : null;
-      const href = link0 ? normalizeExternalUrl(link0.url) : "";
-      const source = link0 ? escapeHtml(String(link0.source || link0.host || "").trim()) : "";
-      const pubAt = link0 ? escapeHtml(formatDateVi(link0.publishedAt) || "") : "";
-      const meta = [pubAt, source].filter(Boolean).join(" · ");
-      const img = link0 && imageByUrl ? String(imageByUrl.get(normalizeExternalUrl(link0.url)) || "").trim() : "";
-      if (!title) return "";
-      const openTag = href
-        ? `<a class="lead-story-card" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">`
-        : `<article class="lead-story-card">`;
-      const closeTag = href ? `</a>` : `</article>`;
-      let h = openTag;
-      if (img) {
-        h += `<img class="lead-story-img" src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
-      } else {
-        h += `<div class="lead-story-img-ph">Tin hàng đầu</div>`;
-      }
-      h += `<div class="lead-story-body">`;
-      h += `<span class="lead-story-cat">Tin nổi bật #1</span>`;
-      h += `<h2 class="lead-story-title">${title}</h2>`;
-      if (blurb) h += `<p class="lead-story-blurb">${blurb}</p>`;
-      if (meta) h += `<span class="lead-story-meta">${meta}</span>`;
-      if (href) h += `<span class="lead-story-link">Đọc tiếp →</span>`;
-      h += `</div>${closeTag}`;
-      return h;
-    }
-
     function buildNotableCardsHtml(notable, imageByUrl) {
       const items = (Array.isArray(notable) ? notable : [])
         .filter((a) => a && String(a.url || "").trim())
@@ -4610,40 +4443,10 @@
       return out;
     }
 
-    function buildSectorArticleLinksHtml(links, lookup, imageByUrl) {
-      const rows = (Array.isArray(links) ? links : []).filter((lk) => normalizeExternalUrl(lk?.url));
-      if (!rows.length) return "";
-      let html = `<div class="sector-article-links">`;
-      for (const lk of rows) {
-        const u = normalizeExternalUrl(lk.url);
-        const title = escapeHtml(lk.title || u);
-        const excerpt = String(lk.excerpt || "").trim();
-        const meta = formatLinkPublishedMeta(lk);
-        const img = String(
-          lk.imageUrl || lk.image_url || (imageByUrl && imageByUrl.get(u)) || "",
-        ).trim();
-        if (img) {
-          html += `<article class="sector-article-link sector-article-link--img">`;
-          html += `<img class="sector-link-thumb" src="${escapeHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">`;
-          html += `<div class="sector-link-body">`;
-        } else {
-          html += `<article class="sector-article-link">`;
-        }
-        html += `<a class="sector-article-link-title" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
-        if (meta) html += `<p class="sector-article-link-meta">${escapeHtml(meta)}</p>`;
-        if (excerpt) {
-          const paras = excerpt.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
-          if (paras.length > 1) {
-            for (const p of paras) html += `<p class="sector-article-link-excerpt">${escapeHtml(p)}</p>`;
-          } else {
-            html += `<p class="sector-article-link-excerpt">${escapeHtml(excerpt)}</p>`;
-          }
-        }
-        if (img) html += `</div>`;
-        html += `</article>`;
-      }
-      html += `</div>`;
-      return html;
+    function buildSectorArticleLinksHtml(links, lookup) {
+      // Style gọn theo "Chuyên mục kinh tế đầu tư Thế giới": chỉ domain/brand + ngày,
+      // không ảnh, không excerpt dài — tái dùng đúng pattern của buildDossierSourcesHtml.
+      return buildDossierSourcesHtml(links, lookup, "Nguồn");
     }
 
     function formatDailyUpdateNoteVi(iso) {
@@ -4729,60 +4532,6 @@
       return html;
     }
 
-    function buildFrontPageCardHtml(fp, variant) {
-      const rank = String(fp.rank || "").trim();
-      const rankLabel = rank ? `#${String(rank).padStart(2, "0")}` : "";
-      let html = "";
-      if (variant === "lead") {
-        html += `<article class="front-page-lead">`;
-        if (rankLabel) html += `<p class="fp-lead-kicker">Điểm nóng · ${escapeHtml(rankLabel)}</p>`;
-        html += `<h3>${escapeHtml(fp.title || "")}</h3>`;
-        if (fp.oneSentence) html += `<p>${escapeHtml(fp.oneSentence)}</p>`;
-        if (fp.whyItMatters) {
-          html += `<div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>${escapeHtml(fp.whyItMatters)}</p></div>`;
-        }
-        if (fp.watchNext) {
-          html += `<div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><p>${escapeHtml(fp.watchNext)}</p></div>`;
-        }
-        if (fp.links && fp.links.length) html += buildDossierSourcesHtml(fp.links);
-        html += `</article>`;
-        return html;
-      }
-      const cls =
-        variant === "compact" ? "front-page-card front-page-card--compact" : "front-page-card";
-      html += `<div class="${cls}">`;
-      if (rankLabel) html += `<span class="fp-rank">${escapeHtml(rankLabel)}</span>`;
-      html += `<h4>${escapeHtml(fp.title || "")}</h4>`;
-      if (fp.oneSentence) html += `<p>${escapeHtml(fp.oneSentence)}</p>`;
-      if (fp.watchNext) {
-        html += `<p class="hint">${escapeHtml(String(fp.watchNext).slice(0, 220))}</p>`;
-      }
-      if (fp.links && fp.links.length) html += buildDossierSourcesHtml(fp.links);
-      html += `</div>`;
-      return html;
-    }
-
-    function buildNewsroomFrontPageHtml(front) {
-      const rows = Array.isArray(front)
-        ? front.filter((fp) => fp && Array.isArray(fp.links) && fp.links.length)
-        : [];
-      if (!rows.length) return "";
-      const lead = rows.find((fp) => Number(fp.rank) === 1) || rows[0];
-      const others = rows.filter((fp) => fp !== lead).slice(0, 5);
-      let html = `<section class="overview-part digest-front-page" id="digest-front-page">`;
-      html += `<h3 class="pub-section-title">Câu chuyện dẫn dắt</h3>`;
-      html += buildFrontPageCardHtml(lead, "lead");
-      if (others.length) {
-        html += `<div class="digest-front-page-grid">`;
-        for (const item of others) {
-          html += buildFrontPageCardHtml(item, others.length >= 3 ? "compact" : "default");
-        }
-        html += `</div>`;
-      }
-      html += `</section>`;
-      return html;
-    }
-
     function buildDossierCardHtml(d) {
       const depth = String(d.depthLevel || "deep");
       const renderStyle = String(d.renderStyle || "full");
@@ -4827,14 +4576,12 @@
       const executiveBriefing = data.executiveBriefing || {};
       const sectors = Array.isArray(data.sectorDeepBriefs) ? data.sectorDeepBriefs : [];
       const articleLookup = buildArticlePublishedLookup(data);
-      const imageByUrlLead = buildArticleImageLookup(data);
 
       let html = `<article id="digest-report" class="digest-report newsroom-report">`;
       html += `<div class="digest-main-panel">`;
       html += buildNewsroomIssueHeader(data);
 
       html += buildNewsroomTocHtml(data);
-      html += buildNewsroomFrontPageHtml(data.frontPage);
       html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
       if (sectors.length) {
         html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;
@@ -4888,7 +4635,7 @@
             for (const dossier of dossiers.slice(0, 6)) html += buildDossierCardHtml(dossier);
             html += `</div>`;
           }
-          html += buildSectorArticleLinksHtml(links, articleLookup, imageByUrlLead);
+          html += buildSectorArticleLinksHtml(links, articleLookup);
 
 
 

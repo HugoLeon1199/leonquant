@@ -325,30 +325,10 @@ function collectSectorLinks(sec, lookup) {
   return out;
 }
 
-function buildSectorArticleLinksHtml(links) {
-  const rows = (Array.isArray(links) ? links : []).filter((lk) => normalizeExternalUrl(lk?.url));
-  if (!rows.length) return "";
-  let html = `<div class="sector-article-links">`;
-  for (const lk of rows) {
-    const u = normalizeExternalUrl(lk.url);
-    const title = escapeHtml(lk.title || u);
-    const excerpt = String(lk.excerpt || "").trim();
-    const meta = formatLinkPublishedMeta(lk);
-    html += `<article class="sector-article-link">`;
-    html += `<a class="sector-article-link-title" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
-    if (meta) html += `<p class="sector-article-link-meta">${escapeHtml(meta)}</p>`;
-    if (excerpt) {
-      const paras = excerpt.split(/\n{2,}|\r\n\r\n/).map((p) => p.trim()).filter(Boolean);
-      if (paras.length > 1) {
-        for (const p of paras) html += `<p class="sector-article-link-excerpt">${escapeHtml(p)}</p>`;
-      } else {
-        html += `<p class="sector-article-link-excerpt">${escapeHtml(excerpt)}</p>`;
-      }
-    }
-    html += `</article>`;
-  }
-  html += `</div>`;
-  return html;
+function buildSectorArticleLinksHtml(links, lookup) {
+  // Style gọn theo "Chuyên mục kinh tế đầu tư Thế giới": chỉ domain/brand + ngày,
+  // không excerpt dài — tái dùng đúng pattern của buildRepresentativeSourcesHtml.
+  return buildRepresentativeSourcesHtml(links, lookup);
 }
 
 function executiveBriefingHasBody(briefing) {
