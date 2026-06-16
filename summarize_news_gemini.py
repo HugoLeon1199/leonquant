@@ -403,11 +403,14 @@ def _digest_executive_briefing_writing_block() -> str:
     return "\n".join(
         [
             "## Tổng quan 48h (`executive_briefing`) — viết như bài briefing thật",
-            "Đây là **bài mở số** của trang Tin48h: editorial trước, nguồn tham chiếu đặt sau; không phải outline, không phải bullet rời, không phải nhãn + một câu.",
-            "Ph?n `front_page` ch? l? compatibility c? cho pipeline n?i b?; kh?ng d?ng l?m block render ch?nh v? c? th? ?? r?t m?ng ho?c b? tr?ng n?u briefing ?? ?? m?nh.",
+            "Đây là **bài mở số** của trang Tin48h: editorial liền mạch, không phải outline, không phải bullet rời, không phải nhãn + một câu. UI không hiển thị danh sách nguồn riêng cho phần này — mọi nguồn quan trọng phải được dẫn chiếu tự nhiên trong văn bản hoặc qua sector/dossier phía dưới.",
+            "`front_page` chỉ là compatibility cũ cho pipeline nội bộ; không dùng làm block render chính, có thể để rất mỏng hoặc bỏ trống nếu briefing đã đủ mạnh.",
             "Ưu tiên `executive_briefing.content` như **thân bài chính**. Viết 3–5 đoạn có mạch: mở bức tranh, các story quyết định, tác động, rồi watchlist 24–72h.",
             "Viết **đủ ý** theo mức độ quan trọng và độ phức tạp của pools — tin lớn phân tích sâu, tin nhỏ gọn. Không ép số chữ/số câu; không viết dài để đủ quota; không viết ngắn đến mức mất ý chính.",
             "**Dài hơn là chấp nhận được và được khuyến khích** khi 48h qua có nhiều dữ kiện thật để khai triển — điều kiện bắt buộc: mỗi câu/đoạn phải mở ra một góc mới (story mới, tác động mới, biến số mới), **không** diễn đạt lại ý đã nói bằng từ khác, không thêm câu đệm cho dài.",
+            "**BẮT BUỘC phủ đủ — không phải xin phép dài, mà là buộc phải đủ:** `content` phải điểm qua **từng cụm tin lớn (tier A/B)** đã được chọn vào `sector_notes`/`story_dossiers` từ mọi partial — không bỏ sót cụm nào đủ tầm vóc chỉ vì muốn viết ngắn/gọn. "
+            "Nếu pools có N cụm tier A/B thật sự khác nhau, bài phải có đủ chỗ cho N góc đó (không nén N cụm thành 1-2 câu chung). "
+            "**Cấm tuyệt đối** rút gọn cả bài xuống vài dòng/một đoạn ngắn khi pools giàu dữ liệu — input đã tổng hợp từ hàng trăm bài viết, output phải phản ánh đúng khối lượng đó, không phải tóm tắt-của-tóm tắt.",
             "Mỗi đoạn phải trả lời đủ **actor + event + implication**. Người đọc phải hiểu ngay: ai/cái gì, chuyện gì xảy ra, vì sao đáng quan tâm.",
             "**Cấm** mở đoạn bằng các nhãn template hoặc câu meta-biên tập như:",
             '- "Bức tranh chính là…" / "Chủ đề được nhắc nhiều nhất là…" / "Câu chuyện quan trọng nhất là…" / "Tác động theo khu vực/ngành là…"',
@@ -4148,8 +4151,8 @@ def build_digest_merge_prompt(
 Đối chiếu **toàn bộ** `sector_notes` / `candidates[]` từ mọi partial trước khi kết thúc.
 
 ## Minimum chất lượng (BẮT BUỘC khi candidate pools giàu)
-- `front_page` ch? l? d? li?u compatibility; kh?ng b?t bu?c ?? s? l??ng khi briefing v? sector ?? m?nh.
-- M?i `front_page` / `story_dossiers` n?u ?? sinh ra th? ph?i c? URL t? pools (`source_urls` / `representative_sources`); kh?ng t?o filler ?? ?p s? l??ng.
+- `front_page` chỉ là dữ liệu compatibility; không bắt buộc đủ số lượng khi briefing và sector đã mạnh.
+- Mọi `front_page` / `story_dossiers` nếu được sinh ra thì phải có URL từ pools (`source_urls` / `representative_sources`); không tạo filler để ép số lượng.
 - Khi pools tổng **≥ 80** candidates: `executive_briefing` phải là **prose có mạch** (sections + content) — không outline một câu/mục; độ dài adaptive theo mức quan trọng.
 - Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
 
@@ -4158,7 +4161,7 @@ def build_digest_merge_prompt(
 {_digest_source_urls_block()}
 - `editor_note`: **để trống** hoặc rất ngắn — UI không hiển thị Lời biên tập riêng; nội lực đổ vào `executive_briefing`.
 - `executive_briefing`: **bài briefing thật** (xem quy tắc trên) — không outline; sections mỗi mục nhiều đoạn khi pools dày.
-- **Kh?ng** vi?t section ??i?m n?ng? ri?ng. `front_page` ch? l? compatibility, kh?ng ph?i tr? c?t hi?n th? public.
+- **Không** viết section "điểm nóng" riêng. `front_page` chỉ là compatibility, không phải trụ cột hiển thị public.
 - `sector_deep_briefs`: đúng **4** sector; `sector_thesis` = bài tóm tắt ngành có mạch (không nối dossier rời).
 - Mọi `representative_sources` quan trọng: thêm `excerpt` trích yếu biên tập — độ dài adaptive, đủ ý.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
@@ -4173,10 +4176,106 @@ Trả về DUY NHẤT JSON (schema newsroom):
 {_digest_newsroom_json_schema_fragment()}
 
 ## Candidate pools (đã gom từ mọi partial)
-Gom candidates th?nh `story_dossiers` + `front_page` n?i b?, nh?ng public ?u ti?n `executive_briefing` v? `sector_thesis`.
+Gom candidates thành `story_dossiers` + `front_page` nội bộ, nhưng public ưu tiên `executive_briefing` và `sector_thesis`.
 
 {partial_json}
 """.strip()
+
+
+_DIGEST_SHALLOW_WARNING_MARKERS = (
+    "quá ngắn",
+    "quá nông",
+    "chưa phản ánh cụm dossier chính",
+    "có dấu hiệu generic",
+)
+
+
+def _is_shallow_digest_warning(warning: str) -> bool:
+    return any(marker in warning for marker in _DIGEST_SHALLOW_WARNING_MARKERS)
+
+
+def _digest_shallow_retry_feedback_block(
+    warnings: list[str], previous_draft: dict[str, Any]
+) -> str:
+    warn_lines = "\n".join(f"- {w}" for w in warnings)
+    draft_excerpt = json.dumps(
+        {
+            "executive_briefing": previous_draft.get("executive_briefing"),
+            "sector_deep_briefs": [
+                {"name": s.get("name"), "sector_thesis": s.get("sector_thesis")}
+                for s in (previous_draft.get("sector_deep_briefs") or [])
+                if isinstance(s, dict)
+            ],
+        },
+        ensure_ascii=False,
+    )
+    return f"""
+## PHẢN HỒI CHẤT LƯỢNG — VIẾT LẠI PHẦN BỊ LỖI (BẮT BUỘC)
+Bản nháp trước đã bị từ chối vì các lý do cụ thể sau:
+{warn_lines}
+
+Bản nháp trước (chỉ phần liên quan, để bạn biết tránh lặp lại lỗi tương tự — không copy nguyên văn):
+{draft_excerpt}
+
+Viết lại TOÀN BỘ JSON theo đúng schema và quy tắc đã nêu ở trên, sửa cụ thể từng lỗi liệt kê —
+đặc biệt: `executive_briefing.content` và `sector_thesis` phải phủ đủ các cụm tin tier A/B đã có
+trong candidate pools, không nén ngắn hơn bản trước, không generic, không thiếu actor/sự kiện cụ thể.
+""".strip()
+
+
+def _run_merge_with_quality_retry(
+    partials: list[dict[str, Any]],
+    *,
+    total_articles: int,
+    window_meta: dict[str, Any],
+    global_outline: dict[str, Any] | None,
+    model: str,
+    api_key: str,
+    gemini_timeout: int,
+    min_request_interval: float,
+) -> dict[str, Any] | None:
+    """Gọi merge Gemini; nếu validate phát hiện output nông/ngắn dù pools giàu, retry 1 lần với phản hồi cụ thể."""
+    sorted_summaries = [
+        p["summary"] for p in sorted(partials, key=lambda p: int(p.get("batch_index") or 0))
+    ]
+    merge_prompt = build_digest_merge_prompt(
+        sorted_summaries,
+        total_articles=total_articles,
+        window_meta=window_meta,
+        global_outline=global_outline,
+    )
+    print(f"Merge prompt ~{estimate_tokens_from_chars(len(merge_prompt))} tokens")
+    final = call_gemini(
+        merge_prompt,
+        model,
+        api_key,
+        timeout=gemini_timeout,
+        min_retry_interval=min_request_interval,
+        max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
+    )
+    if not isinstance(final, dict) or not _is_newsroom_brief(final):
+        return final
+    shallow_warnings = [w for w in validate_newsroom_brief(final) if _is_shallow_digest_warning(w)]
+    if not shallow_warnings:
+        return final
+    print(
+        f"WARN newsroom brief: output nông/ngắn ({len(shallow_warnings)} cảnh báo) — "
+        "retry merge 1 lần với phản hồi cụ thể.",
+        file=sys.stderr,
+    )
+    retry_prompt = merge_prompt + "\n\n" + _digest_shallow_retry_feedback_block(shallow_warnings, final)
+    wait_between_gemini_requests(0, min_request_interval)
+    retried = call_gemini(
+        retry_prompt,
+        model,
+        api_key,
+        timeout=gemini_timeout,
+        min_retry_interval=min_request_interval,
+        max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
+    )
+    if isinstance(retried, dict):
+        return retried
+    return final
 
 
 def run_batch_digest(
@@ -4231,19 +4330,15 @@ def run_batch_digest(
             print(f"Dry-run merge prompt ~{estimate_tokens_from_chars(len(mp))} tokens")
             return None, partials, 1
         wait_between_gemini_requests(api_pause_seconds, min_request_interval)
-        merge_prompt = build_digest_merge_prompt(
-            [p["summary"] for p in sorted(partials, key=lambda p: int(p.get("batch_index") or 0))],
+        final = _run_merge_with_quality_retry(
+            partials,
             total_articles=total_articles,
             window_meta=window_meta,
             global_outline=global_outline,
-        )
-        final = call_gemini(
-            merge_prompt,
-            model,
-            api_key,
-            timeout=gemini_timeout,
-            min_retry_interval=min_request_interval,
-            max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
+            model=model,
+            api_key=api_key,
+            gemini_timeout=gemini_timeout,
+            min_request_interval=min_request_interval,
         )
         if isinstance(final, dict):
             final = finalize_digest_summary(
@@ -4388,22 +4483,16 @@ def run_batch_digest(
 
     print(f"Wrote partials -> {partials_path}")
 
-    merge_prompt = build_digest_merge_prompt(
-        [p["summary"] for p in sorted(partials, key=lambda p: int(p.get("batch_index") or 0))],
+    wait_between_gemini_requests(api_pause_seconds, min_request_interval)
+    final = _run_merge_with_quality_retry(
+        partials,
         total_articles=total_articles,
         window_meta=window_meta,
         global_outline=global_outline,
-    )
-    print(f"Merge prompt ~{estimate_tokens_from_chars(len(merge_prompt))} tokens")
-    wait_between_gemini_requests(api_pause_seconds, min_request_interval)
-
-    final = call_gemini(
-        merge_prompt,
-        model,
-        api_key,
-        timeout=gemini_timeout,
-        min_retry_interval=min_request_interval,
-        max_output_tokens=DIGEST_MERGE_MAX_OUTPUT_TOKENS,
+        model=model,
+        api_key=api_key,
+        gemini_timeout=gemini_timeout,
+        min_request_interval=min_request_interval,
     )
     api_calls += 1
     if isinstance(final, dict):

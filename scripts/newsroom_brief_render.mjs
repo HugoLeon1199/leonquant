@@ -306,6 +306,9 @@ function enrichLinkPublishedAt(lk, lookup) {
 }
 
 function collectSectorLinks(sec, lookup) {
+  // Chỉ gom link sector-level "rời" — subsectorBriefs[].links và storyDossiers[].links
+  // đã tự hiển thị kèm summary riêng (buildRepresentativeSourcesHtml/buildDossierCardHtml);
+  // gộp lại ở đây sẽ gây trùng lặp link.
   const out = [];
   const seen = new Set();
   const add = (lk) => {
@@ -316,12 +319,6 @@ function collectSectorLinks(sec, lookup) {
     out.push(enriched);
   };
   for (const lk of Array.isArray(sec.links) ? sec.links : []) add(lk);
-  for (const sb of Array.isArray(sec.subsectorBriefs) ? sec.subsectorBriefs : []) {
-    for (const lk of Array.isArray(sb.links) ? sb.links : []) add(lk);
-  }
-  for (const d of Array.isArray(sec.storyDossiers) ? sec.storyDossiers : []) {
-    for (const lk of Array.isArray(d.links) ? d.links : []) add(lk);
-  }
   return out;
 }
 
@@ -355,25 +352,6 @@ function buildRepresentativeSourcesHtml(links, lookup) {
   }
   inner += `</div>`;
   return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tiêu biểu</p>${inner}</div>`;
-}
-
-function buildExecutiveSourceLinksHtml(links, lookup) {
-  const rows = (Array.isArray(links) ? links : []).filter((lk) => lk && normalizeExternalUrl(lk.url));
-  if (!rows.length) return "";
-  let inner = `<div class="dossier-source-links">`;
-  for (const lk of rows) {
-    const enriched = enrichLinkPublishedAt(lk, lookup);
-    const u = normalizeExternalUrl(enriched.url);
-    if (!u) continue;
-    const srcLabel = escapeHtml(formatSourceLinkLabel(enriched, u));
-    const meta = formatLinkPublishedMeta(enriched);
-    inner += `<span class="dossier-source-item">`;
-    inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
-    if (meta) inner += `<span class="sector-topic-source-meta">${escapeHtml(meta)}</span>`;
-    inner += `</span>`;
-  }
-  inner += `</div>`;
-  return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tham chiếu chính</p>${inner}</div>`;
 }
 
 function normalizedCopyKey(text) {
@@ -540,8 +518,6 @@ function buildExecutiveBriefingHtml(briefing, editorNote) {
   }
 
   html += `</div>`;
-  const briefLinks = Array.isArray(b.links) ? b.links : [];
-  if (briefLinks.length) html += buildExecutiveSourceLinksHtml(briefLinks);
   html += `</section>`;
   return html;
 }
