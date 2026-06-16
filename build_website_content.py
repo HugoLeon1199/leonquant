@@ -2295,13 +2295,20 @@ def build_newsroom_web_extras(
             group="Front page",
             add_link=add_link,
         )
+        if not links:
+            continue
+        one_sentence = str(row.get("one_sentence") or "").strip()
+        why_it_matters = str(row.get("why_it_matters") or "").strip()
+        watch_next = str(row.get("watch_next") or "").strip()
+        if not one_sentence or not why_it_matters or not watch_next:
+            continue
         front_page.append(
             {
-                "rank": int(row.get("rank") or len(front_page) + 1),
+                "rank": len(front_page) + 1,
                 "title": title_vi,
-                "oneSentence": str(row.get("one_sentence") or "").strip(),
-                "whyItMatters": str(row.get("why_it_matters") or "").strip(),
-                "watchNext": str(row.get("watch_next") or "").strip(),
+                "oneSentence": one_sentence,
+                "whyItMatters": why_it_matters,
+                "watchNext": watch_next,
                 "links": links,
             }
         )
@@ -2362,6 +2369,8 @@ def build_newsroom_web_extras(
         ],
         "watchNext": [str(x).strip() for x in (eb_in.get("watch_next") or []) if str(x).strip()],
     }
+    if not executive_briefing["links"] and front_page:
+        executive_briefing["links"] = list(front_page[0].get("links") or [])[:2]
 
     sector_deep: list[dict[str, Any]] = []
     for sec in summary.get("sector_deep_briefs") or []:
@@ -2451,19 +2460,26 @@ def build_newsroom_web_extras(
                         group=name,
                         add_link=add_link,
                     )
+            main_developments = [
+                str(x).strip()
+                for x in (d.get("main_developments") or [])
+                if str(x).strip()
+            ]
+            if not links:
+                continue
+            render_style = "full" if len(main_developments) >= 2 else "thin"
+            why_it_matters = str(d.get("why_it_matters") or "").strip()
+            if render_style == "full" and not why_it_matters:
+                continue
             dossiers_out.append(
                 {
-                    "rank": int(d.get("rank") or len(dossiers_out) + 1),
-                    "depthLevel": str(d.get("depth_level") or "deep"),
+                    "rank": len(dossiers_out) + 1,
+                    "depthLevel": "brief" if render_style == "thin" else str(d.get("depth_level") or "deep"),
                     "subSector": str(d.get("sub_sector") or "").strip(),
                     "title": title,
                     "summary": str(d.get("summary") or "").strip(),
-                    "mainDevelopments": [
-                        str(x).strip()
-                        for x in (d.get("main_developments") or [])
-                        if str(x).strip()
-                    ],
-                    "whyItMatters": str(d.get("why_it_matters") or "").strip(),
+                    "mainDevelopments": main_developments,
+                    "whyItMatters": why_it_matters,
                     "affectedGroups": [
                         str(x).strip()
                         for x in (d.get("affected_groups") or [])
@@ -2473,6 +2489,7 @@ def build_newsroom_web_extras(
                         str(x).strip() for x in (d.get("watch_next") or []) if str(x).strip()
                     ],
                     "links": links,
+                    "renderStyle": render_style,
                 }
             )
         sector_level_links = _newsroom_sources_to_links(
@@ -2501,6 +2518,8 @@ def build_newsroom_web_extras(
                     sector=name,
                     group=name,
                 )
+        if not merged_links and not dossiers_out and not subsector_out and not str(sec.get("sector_thesis") or "").strip():
+            continue
         sector_deep.append(
             {
                 "code": code,
@@ -2519,7 +2538,10 @@ def build_newsroom_web_extras(
             "why": str(w.get("why") or "").strip(),
         }
         for w in (summary.get("watchlist_24_72h") or [])
-        if isinstance(w, dict) and str(w.get("theme") or "").strip()
+        if isinstance(w, dict)
+        and str(w.get("theme") or "").strip()
+        and str(w.get("what_to_watch") or "").strip()
+        and str(w.get("why") or "").strip()
     ]
 
     source_desk: list[dict[str, Any]] = []

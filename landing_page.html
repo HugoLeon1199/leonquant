@@ -1546,8 +1546,19 @@
       gap: 14px;
       margin-bottom: 14px;
     }
+    .digest-front-page-grid,
+    .dossier-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
     @media (min-width: 720px) {
-      .front-page-secondary-grid { grid-template-columns: repeat(2, 1fr); }
+      .front-page-secondary-grid,
+      .digest-front-page-grid,
+      .dossier-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1080px) {
+      .dossier-grid { grid-template-columns: repeat(3, 1fr); }
     }
     .front-page-card {
       padding: 16px 18px;
@@ -4752,12 +4763,29 @@
     }
 
     function buildNewsroomFrontPageHtml(front) {
-      void front;
-      return "";
+      const rows = Array.isArray(front)
+        ? front.filter((fp) => fp && Array.isArray(fp.links) && fp.links.length)
+        : [];
+      if (!rows.length) return "";
+      const lead = rows.find((fp) => Number(fp.rank) === 1) || rows[0];
+      const others = rows.filter((fp) => fp !== lead).slice(0, 5);
+      let html = `<section class="overview-part digest-front-page" id="digest-front-page">`;
+      html += `<h3 class="pub-section-title">Lead Stories</h3>`;
+      html += buildFrontPageCardHtml(lead, "lead");
+      if (others.length) {
+        html += `<div class="digest-front-page-grid">`;
+        for (const item of others) {
+          html += buildFrontPageCardHtml(item, others.length >= 3 ? "compact" : "default");
+        }
+        html += `</div>`;
+      }
+      html += `</section>`;
+      return html;
     }
 
     function buildDossierCardHtml(d) {
       const depth = String(d.depthLevel || "deep");
+      const renderStyle = String(d.renderStyle || "full");
       const rank = String(d.rank || "").trim();
       let html = `<div class="dossier-card">`;
       html += `<div class="dossier-head">`;
@@ -4768,7 +4796,7 @@
       html += `<h4>${escapeHtml(d.title || "")}</h4>`;
       if (d.summary) html += `<p class="dossier-summary">${escapeHtml(d.summary)}</p>`;
       const devs = Array.isArray(d.mainDevelopments) ? d.mainDevelopments : [];
-      if (devs.length) {
+      if (renderStyle !== "thin" && devs.length) {
         html += `<div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p>`;
         html += `<ul class="sector-points prose-bullets">`;
         for (const line of devs) html += `<li>${escapeHtml(line)}</li>`;
@@ -4778,7 +4806,7 @@
         html += `<div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>${escapeHtml(d.whyItMatters)}</p></div>`;
       }
       const ag = Array.isArray(d.affectedGroups) ? d.affectedGroups : [];
-      if (ag.length) {
+      if (renderStyle !== "thin" && ag.length) {
         html += `<div class="dossier-block"><p class="dossier-block-label">Nhóm ảnh hưởng</p><div class="chip-row">`;
         for (const g of ag) html += `<span class="chip">${escapeHtml(g)}</span>`;
         html += `</div></div>`;
@@ -4806,6 +4834,7 @@
       html += buildNewsroomIssueHeader(data);
 
       html += buildNewsroomTocHtml(data);
+      html += buildNewsroomFrontPageHtml(data.frontPage);
       html += buildExecutiveBriefingHtml(executiveBriefing, editorNote);
       if (sectors.length) {
         html += `<section class="digest-main-sectors overview-part" id="digest-sector-deep">`;
@@ -4832,6 +4861,33 @@
             }
             html += `</div>`;
           }
+          const subsectors = Array.isArray(sec.subsectorBriefs)
+            ? sec.subsectorBriefs.filter((sb) => sb && sb.overview)
+            : [];
+          if (subsectors.length) {
+            html += `<div class="subsector-briefs"><h4>Key angles</h4>`;
+            for (const sb of subsectors.slice(0, 3)) {
+              html += `<div class="dossier-card">`;
+              html += `<h4>${escapeHtml(sb.name || "")}</h4>`;
+              html += `<p class="dossier-summary">${escapeHtml(sb.overview || "")}</p>`;
+              if (Array.isArray(sb.keyPoints) && sb.keyPoints.length) {
+                html += `<ul class="sector-points prose-bullets">`;
+                for (const line of sb.keyPoints.slice(0, 4)) html += `<li>${escapeHtml(line)}</li>`;
+                html += `</ul>`;
+              }
+              if (sb.links && sb.links.length) html += buildDossierSourcesHtml(sb.links);
+              html += `</div>`;
+            }
+            html += `</div>`;
+          }
+          const dossiers = Array.isArray(sec.storyDossiers)
+            ? sec.storyDossiers.filter((d) => d && d.links && d.links.length)
+            : [];
+          if (dossiers.length) {
+            html += `<div class="dossier-grid">`;
+            for (const dossier of dossiers.slice(0, 6)) html += buildDossierCardHtml(dossier);
+            html += `</div>`;
+          }
           html += buildSectorArticleLinksHtml(links, articleLookup, imageByUrlLead);
 
 
@@ -4844,6 +4900,23 @@
           html += `</article>`;
         }
         html += `</section>`;
+      }
+
+      const watchlist = Array.isArray(data.watchlist2472h)
+        ? data.watchlist2472h.filter((w) => w && w.theme && w.whatToWatch && w.why)
+        : [];
+      if (watchlist.length) {
+        html += `<section class="overview-part digest-watchlist" id="digest-watchlist">`;
+        html += `<h3 class="pub-section-title">Theo dõi 24–72h tới</h3>`;
+        html += `<div class="dossier-grid">`;
+        for (const row of watchlist.slice(0, 6)) {
+          html += `<div class="dossier-card">`;
+          html += `<div class="dossier-head"><span class="chip chip--subsector">${escapeHtml(row.theme || "")}</span></div>`;
+          html += `<h4>${escapeHtml(row.whatToWatch || "")}</h4>`;
+          html += `<p class="dossier-summary">${escapeHtml(row.why || "")}</p>`;
+          html += `</div>`;
+        }
+        html += `</div></section>`;
       }
 
       const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];

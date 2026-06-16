@@ -13,6 +13,27 @@ PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_CONTENT = PROJECT_DIR / "content.json"
 
 
+def _norm_text(value: Any) -> str:
+    return " ".join(str(value or "").strip().lower().split())
+
+
+def _duplicateish(*values: Any) -> bool:
+    seen: set[str] = set()
+    texts = [_norm_text(v) for v in values if _norm_text(v)]
+    for text in texts:
+        if text in seen:
+            return True
+        seen.add(text)
+    if len(texts) < 2:
+        return False
+    for i, left in enumerate(texts):
+        for right in texts[i + 1 :]:
+            short, long = (left, right) if len(left) <= len(right) else (right, left)
+            if len(short) >= 24 and short in long:
+                return True
+    return False
+
+
 def _validate_digest_content(c: dict[str, Any]) -> list[str]:
     err: list[str] = []
     mode = c.get("briefMode")
@@ -27,9 +48,29 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
         )
         if not has_overview and not str(c.get("editorNote") or "").strip():
             err.append("content.json: executiveBriefing or editorNote required for newsroom-brief")
+        if not isinstance(eb.get("links"), list) or not eb.get("links"):
+            err.append("content.json: executiveBriefing.links must contain at least 1 source for newsroom-brief")
         fp = c.get("frontPage")
         if not isinstance(fp, list) or len(fp) < 1:
             err.append("content.json: frontPage must be non-empty for newsroom-brief")
+        else:
+            expected_rank = 1
+            for i, row in enumerate(fp):
+                if not isinstance(row, dict):
+                    err.append(f"frontPage[{i}]: must be object")
+                    continue
+                if int(row.get("rank") or 0) != expected_rank:
+                    err.append(f"frontPage[{i}]: rank must be continuous starting at 1")
+                expected_rank += 1
+                if not isinstance(row.get("links"), list) or not row.get("links"):
+                    err.append(f"frontPage[{i}]: links must contain at least 1 source")
+                if _duplicateish(
+                    row.get("title"),
+                    row.get("oneSentence"),
+                    row.get("whyItMatters"),
+                    row.get("watchNext"),
+                ):
+                    err.append(f"frontPage[{i}]: title/summary/why/watch have duplicate phrasing")
         sdb = c.get("sectorDeepBriefs")
         if not isinstance(sdb, list) or len(sdb) < 4:
             err.append("content.json: sectorDeepBriefs must have 4 sectors for newsroom-brief")
@@ -43,6 +84,17 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
                 dossiers = sec.get("storyDossiers") or []
                 if not thesis and not links and not dossiers:
                     err.append(f"sectorDeepBriefs[{i}]: need sectorThesis or links")
+                for j, dossier in enumerate(dossiers):
+                    if not isinstance(dossier, dict):
+                        err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: must be object")
+                        continue
+                    if not isinstance(dossier.get("links"), list) or not dossier.get("links"):
+                        err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: links required")
+                    devs = dossier.get("mainDevelopments")
+                    if not isinstance(devs, list) or len([x for x in devs if str(x).strip()]) < 2:
+                        err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: need at least 2 mainDevelopments")
+                    if _duplicateish(dossier.get("whyItMatters"), " ".join(dossier.get("watchNext") or [])):
+                        err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: whyItMatters duplicates watchNext")
         if not str((c.get("mainThesis") or {}).get("thesis") or "").strip():
             err.append("content.json: mainThesis.thesis required")
         articles = c.get("articleLinkIndex")

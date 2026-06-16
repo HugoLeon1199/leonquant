@@ -448,6 +448,7 @@ def test_build_newsroom_extras() -> None:
     if crypto and crypto.get("links"):
         hosts = [str(l.get("host") or "") for l in crypto["links"]]
         assert not any("vietnamnet" in h for h in hosts)
+    assert all(item.get("links") for item in fp)
 
 
 def test_sector_thesis_depth_validation() -> None:
@@ -496,6 +497,181 @@ def test_sector_thesis_depth_validation() -> None:
     assert "chưa phản ánh cụm dossier" in joined or "Nvidia" in joined
 
 
+def test_main_editorial_front_page_requires_sources_and_continuous_rank() -> None:
+    from scripts.newsroom_main_quality import enforce_newsroom_main_editorial_quality
+
+    raw = {
+        "brief_format": NEWSROOM_BRIEF_FORMAT,
+        "front_page": [
+            {
+                "rank": 2,
+                "title": "Tin cÃ³ nguá»“n",
+                "one_sentence": "Thá»‹ trÆ°á»ng pháº£n á»©ng vá»›i cÃ¢u chuyá»‡n cÃ³ nguá»“n rÃµ rÃ ng.",
+                "why_it_matters": "CÃ¢u chuyá»‡n nÃ y áº£nh hÆ°á»Ÿng Ä‘áº¿n Ä‘á»‹nh vá»‹ tÃ i sáº£n rá»§i ro.",
+                "watch_next": "Theo dÃµi lá»£i suáº¥t vÃ  dÃ²ng vá»‘n liÃªn thá»‹ trÆ°á»ng.",
+                "source_urls": ["https://example.com/2026/06/story-a-123456.htm"],
+            },
+            {
+                "rank": 8,
+                "title": "Tin thiáº¿u nguá»“n",
+                "one_sentence": "KhÃ´ng nÃªn cÃ²n xuáº¥t hiá»‡n trÃªn front page.",
+                "why_it_matters": "Náº¿u khÃ´ng cÃ³ nguá»“n thÃ¬ khÃ´ng Ä‘á»§ chuáº©n newsroom.",
+                "watch_next": "Theo dÃµi thÃªm.",
+                "source_urls": [],
+            },
+        ],
+        "sector_deep_briefs": [],
+    }
+    out = enforce_newsroom_main_editorial_quality(raw)
+    front = out.get("front_page") or []
+    assert len(front) == 1
+    assert front[0]["rank"] == 1
+    assert front[0]["source_urls"] == ["https://example.com/2026/06/story-a-123456.htm"]
+
+
+def test_main_editorial_falls_back_executive_sources_and_drops_thin_dossiers() -> None:
+    from scripts.newsroom_main_quality import enforce_newsroom_main_editorial_quality
+
+    raw = {
+        "brief_format": NEWSROOM_BRIEF_FORMAT,
+        "executive_briefing": {"content": "x" * 1600, "sections": {}, "representative_sources": []},
+        "front_page": [
+            {
+                "rank": 1,
+                "title": "CÃ¢u chuyá»‡n chÃ­nh",
+                "one_sentence": "DÃ²ng vá»‘n rá»i crypto Ä‘á»ƒ sang nhÃ³m AI vá»‘n hÃ³a lá»›n.",
+                "why_it_matters": "Cho tháº¥y Æ°u tiÃªn tÃ i sáº£n Ä‘Ã£ Ä‘á»•i sang háº¡ táº§ng AI.",
+                "watch_next": "Theo dÃµi ETF crypto vÃ  capex trung tÃ¢m dá»¯ liá»‡u.",
+                "source_urls": ["https://example.com/2026/06/story-main-123456.htm"],
+            }
+        ],
+        "sector_deep_briefs": [
+            {
+                "code": "tech",
+                "name": "CÃ´ng nghá»‡ & AI",
+                "sector_thesis": "AI capex dáº«n dÃ²ng vá»‘n.",
+                "story_dossiers": [
+                    {
+                        "rank": 1,
+                        "title": "Dossier má»ng",
+                        "summary": "Chá»‰ cÃ³ má»™t Ã½ nÃªn khÃ´ng nÃªn lÃªn deep brief.",
+                        "main_developments": ["Má»™t Ã½"],
+                        "why_it_matters": "Ná»™i dung cÃ²n quÃ¡ má»ng.",
+                        "watch_next": ["Theo dÃµi Ä‘Æ¡n hÃ ng má»›i"],
+                        "representative_sources": [{"url": "https://example.com/2026/06/story-thin-123456.htm"}],
+                    }
+                ],
+            }
+        ],
+    }
+    out = enforce_newsroom_main_editorial_quality(raw)
+    assert out.get("executive_briefing", {}).get("representative_sources")
+    tech = (out.get("sector_deep_briefs") or [])[0]
+    assert not tech.get("story_dossiers")
+    assert out.get("watchlist_24_72h")
+
+
+def test_validate_content_newsroom_quality_rules() -> None:
+    from validate_content import _validate_digest_content
+
+    payload = {
+        "briefMode": "newsroom-brief",
+        "mainThesis": {"thesis": "DÃ²ng vá»‘n vÃ  Ä‘á»‹a chÃ­nh trá»‹ cÃ¹ng Ä‘á»‹nh hÃ¬nh bá»©c tranh 48h."},
+        "executiveBriefing": {"content": "x" * 200, "sections": {}, "links": []},
+        "frontPage": [
+            {
+                "rank": 2,
+                "title": "A",
+                "oneSentence": "A",
+                "whyItMatters": "A",
+                "watchNext": "A",
+                "links": [],
+            }
+        ],
+        "sectorDeepBriefs": [
+            {"name": "1", "sectorThesis": "x", "links": [], "storyDossiers": []},
+            {"name": "2", "sectorThesis": "x", "links": [], "storyDossiers": []},
+            {"name": "3", "sectorThesis": "x", "links": [], "storyDossiers": []},
+            {
+                "name": "4",
+                "sectorThesis": "x",
+                "links": [{"url": "https://example.com/a"}],
+                "storyDossiers": [
+                    {
+                        "title": "Thin",
+                        "mainDevelopments": ["Má»™t Ã½"],
+                        "whyItMatters": "TrÃ¹ng",
+                        "watchNext": ["TrÃ¹ng"],
+                        "links": [],
+                    }
+                ],
+            },
+        ],
+    }
+    errs = _validate_digest_content(payload)
+    joined = " ".join(errs)
+    assert "executiveBriefing.links" in joined
+    assert "frontPage[0]: rank must be continuous" in joined
+    assert "frontPage[0]: links must contain" in joined
+    assert "duplicate phrasing" in joined
+    assert "need at least 2 mainDevelopments" in joined
+
+
+def test_main_editorial_story_cluster_dedupe() -> None:
+    from scripts.newsroom_main_quality import enforce_newsroom_main_editorial_quality
+
+    raw = {
+        "brief_format": NEWSROOM_BRIEF_FORMAT,
+        "front_page": [
+            {
+                "rank": 1,
+                "title": "Kevin Warsh được xem là ứng viên Fed",
+                "one_sentence": "Bối cảnh Fed thay đổi.",
+                "why_it_matters": "Bầu Fed ảnh hưởng lợi suất toàn cầu.",
+                "watch_next": "Theo dõi phản ứng trái phiếu.",
+                "source_urls": ["https://example.com/2026/06/warsh-a-123456.htm"],
+            },
+            {
+                "rank": 2,
+                "title": "Fed chọn Kevin Warsh làm chủ tịch",
+                "one_sentence": "Kỳ vọng thị trường đổi nhịp.",
+                "why_it_matters": "Kỳ vọng chính sách tiền tệ thay đổi.",
+                "watch_next": "Theo dõi USD và lợi suất.",
+                "source_urls": ["https://example.com/2026/06/warsh-b-123457.htm"],
+            },
+            {
+                "rank": 3,
+                "title": "SpaceX IPO có thể huy động vốn lớn",
+                "one_sentence": "Nhóm vũ trụ tư nhân lại nóng lên.",
+                "why_it_matters": "Thị trường sơ cấp có thể nóng lên.",
+                "watch_next": "Theo dõi hồ sơ IPO và định giá.",
+                "source_urls": ["https://example.com/2026/06/spacex-a-123458.htm"],
+            },
+            {
+                "rank": 4,
+                "title": "Starship và kế hoạch IPO SpaceX",
+                "one_sentence": "Tiến độ thử nghiệm gắn với câu chuyện vốn hóa.",
+                "why_it_matters": "Nhóm vũ trụ tư nhân thu hút vốn lớn.",
+                "watch_next": "Theo dõi tiến độ thử nghiệm.",
+                "source_urls": ["https://example.com/2026/06/spacex-b-123459.htm"],
+            },
+        ],
+        "sector_deep_briefs": [
+            {
+                "code": "finance",
+                "name": "Kinh tế & Tài chính",
+                "sector_thesis": "Thị trường thận trọng.",
+                "story_dossiers": [],
+            }
+        ],
+    }
+    out = enforce_newsroom_main_editorial_quality(raw)
+    titles = [str(x.get("title") or "") for x in out.get("front_page") or []]
+    assert len(titles) == 2
+    assert sum("warsh" in t.lower() or "fed" in t.lower() for t in titles) == 1
+    assert sum("spacex" in t.lower() or "starship" in t.lower() for t in titles) == 1
+
+
 if __name__ == "__main__":
     test_normalize_and_validate()
     test_source_match_rejects_mismatched_urls()
@@ -505,8 +681,11 @@ if __name__ == "__main__":
     test_merge_prompt_briefing_quality_guidance()
     test_main_editorial_story_cluster_dedupe()
     test_main_editorial_rejects_bad_urls_and_titles()
+    test_main_editorial_front_page_requires_sources_and_continuous_rank()
+    test_main_editorial_falls_back_executive_sources_and_drops_thin_dossiers()
     test_archive_link_index_unchanged()
     test_sanitize_preserves_source_excerpt()
     test_sector_thesis_depth_validation()
     test_build_newsroom_extras()
+    test_validate_content_newsroom_quality_rules()
     print("OK: newsroom digest tests passed")
