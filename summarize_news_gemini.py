@@ -402,6 +402,7 @@ def _digest_executive_briefing_writing_block() -> str:
         [
             "## Tổng quan 48h (`executive_briefing`) — viết như bài briefing thật",
             "Đây là **bài mở số** của trang Tin48h: editorial trước, nguồn tham chiếu đặt sau; không phải outline, không phải bullet rời, không phải nhãn + một câu.",
+            "Ph?n `front_page` ch? l? compatibility c? cho pipeline n?i b?; kh?ng d?ng l?m block render ch?nh v? c? th? ?? r?t m?ng ho?c b? tr?ng n?u briefing ?? ?? m?nh.",
             "Ưu tiên `executive_briefing.content` như **thân bài chính**. Viết 3–5 đoạn có mạch: mở bức tranh, các story quyết định, tác động, rồi watchlist 24–72h.",
             "Viết **đủ ý** theo mức độ quan trọng và độ phức tạp của pools — tin lớn phân tích sâu, tin nhỏ gọn. Không ép số chữ/số câu; không viết dài để đủ quota; không viết ngắn đến mức mất ý chính.",
             "Mỗi đoạn phải trả lời đủ **actor + event + implication**. Người đọc phải hiểu ngay: ai/cái gì, chuyện gì xảy ra, vì sao đáng quan tâm.",
@@ -2799,8 +2800,6 @@ def validate_newsroom_brief(summary: dict[str, Any]) -> list[str]:
     )
     if generic_hits >= 2 and len(re.findall(r"[A-ZÀ-Ỹ][\wÀ-ỹ]{2,}", eb_content)) < 15:
         warnings.append("executive_briefing.content có dấu hiệu generic, thiếu actor/sự kiện cụ thể.")
-    if len(fp) < 3:
-        warnings.append(f"front_page chỉ có {len(fp)} item (mong đợi ≥3).")
     for i, item in enumerate(fp):
         if not isinstance(item, dict):
             continue
@@ -4133,8 +4132,8 @@ def build_digest_merge_prompt(
 Đối chiếu **toàn bộ** `sector_notes` / `candidates[]` từ mọi partial trước khi kết thúc.
 
 ## Minimum chất lượng (BẮT BUỘC khi candidate pools giàu)
-- Khi mỗi sector có **≥15** candidates trong pools: `front_page` **ít nhất 5** story; mỗi sector **ít nhất 3** `story_dossiers` **khác chủ đề**.
-- Mỗi `front_page` / `story_dossiers` **bắt buộc** có URL từ pools (`source_urls` / `representative_sources`) — **cấm** để trống khi candidate có URL.
+- `front_page` ch? l? d? li?u compatibility; kh?ng b?t bu?c ?? s? l??ng khi briefing v? sector ?? m?nh.
+- M?i `front_page` / `story_dossiers` n?u ?? sinh ra th? ph?i c? URL t? pools (`source_urls` / `representative_sources`); kh?ng t?o filler ?? ?p s? l??ng.
 - Khi pools tổng **≥ 80** candidates: `executive_briefing` phải là **prose có mạch** (sections + content) — không outline một câu/mục; độ dài adaptive theo mức quan trọng.
 - Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
 
@@ -4143,7 +4142,7 @@ def build_digest_merge_prompt(
 {_digest_source_urls_block()}
 - `editor_note`: **để trống** hoặc rất ngắn — UI không hiển thị Lời biên tập riêng; nội lực đổ vào `executive_briefing`.
 - `executive_briefing`: **bài briefing thật** (xem quy tắc trên) — không outline; sections mỗi mục nhiều đoạn khi pools dày.
-- **Không** viết section “Điểm nóng” riêng. `front_page` tối đa 8 item compatibility, có `source_urls`.
+- **Kh?ng** vi?t section ??i?m n?ng? ri?ng. `front_page` ch? l? compatibility, kh?ng ph?i tr? c?t hi?n th? public.
 - `sector_deep_briefs`: đúng **4** sector; `sector_thesis` = bài tóm tắt ngành có mạch (không nối dossier rời).
 - Mọi `representative_sources` quan trọng: thêm `excerpt` trích yếu biên tập — độ dài adaptive, đủ ý.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
@@ -4158,7 +4157,7 @@ Trả về DUY NHẤT JSON (schema newsroom):
 {_digest_newsroom_json_schema_fragment()}
 
 ## Candidate pools (đã gom từ mọi partial)
-Gom candidates thành `story_dossiers` + `front_page`. Mỗi dossier = một **câu chuyện** (nhiều bài), không phải headline đơn lẻ.
+Gom candidates th?nh `story_dossiers` + `front_page` n?i b?, nh?ng public ?u ti?n `executive_briefing` v? `sector_thesis`.
 
 {partial_json}
 """.strip()

@@ -66,9 +66,7 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
                 err.append(f"executiveBriefing.links[{i}].excerpt is too English-heavy")
                 break
         fp = c.get("frontPage")
-        if not isinstance(fp, list) or len(fp) < 1:
-            err.append("content.json: frontPage must be non-empty for newsroom-brief")
-        else:
+        if isinstance(fp, list) and len(fp) > 0:
             expected_rank = 1
             for i, row in enumerate(fp):
                 if not isinstance(row, dict):

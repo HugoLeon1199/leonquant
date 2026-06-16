@@ -2781,7 +2781,6 @@ def build_newsroom_web_extras(
         "digestLinkIndex": [_sanitize_public_link_row(row) for row in link_index],
         "editorNote": "",
         "executiveBriefing": executive_briefing,
-        "frontPage": front_page,
         "sectorDeepBriefs": sector_deep,
         "watchlist2472h": watchlist,
         "sourceDesk": source_desk,
