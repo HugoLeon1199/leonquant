@@ -34,6 +34,15 @@ def _duplicateish(*values: Any) -> bool:
     return False
 
 
+def _english_heavy(text: Any) -> bool:
+    try:
+        from scripts.newsroom_copy import is_english_heavy_public_copy
+
+        return is_english_heavy_public_copy(str(text or ""))
+    except Exception:
+        return False
+
+
 def _validate_digest_content(c: dict[str, Any]) -> list[str]:
     err: list[str] = []
     mode = c.get("briefMode")
@@ -50,6 +59,12 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
             err.append("content.json: executiveBriefing or editorNote required for newsroom-brief")
         if not isinstance(eb.get("links"), list) or not eb.get("links"):
             err.append("content.json: executiveBriefing.links must contain at least 1 source for newsroom-brief")
+        if _english_heavy(eb_content):
+            err.append("content.json: executiveBriefing.content is too English-heavy for newsroom-brief")
+        for i, lk in enumerate(eb.get("links") or []):
+            if isinstance(lk, dict) and _english_heavy(lk.get("excerpt")):
+                err.append(f"executiveBriefing.links[{i}].excerpt is too English-heavy")
+                break
         fp = c.get("frontPage")
         if not isinstance(fp, list) or len(fp) < 1:
             err.append("content.json: frontPage must be non-empty for newsroom-brief")
@@ -64,6 +79,11 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
                 expected_rank += 1
                 if not isinstance(row.get("links"), list) or not row.get("links"):
                     err.append(f"frontPage[{i}]: links must contain at least 1 source")
+                if any(
+                    _english_heavy(row.get(field))
+                    for field in ("oneSentence", "whyItMatters", "watchNext")
+                ):
+                    err.append(f"frontPage[{i}]: public copy is too English-heavy")
                 if _duplicateish(
                     row.get("title"),
                     row.get("oneSentence"),
@@ -71,6 +91,10 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
                     row.get("watchNext"),
                 ):
                     err.append(f"frontPage[{i}]: title/summary/why/watch have duplicate phrasing")
+                for j, lk in enumerate(row.get("links") or []):
+                    if isinstance(lk, dict) and _english_heavy(lk.get("excerpt")):
+                        err.append(f"frontPage[{i}].links[{j}].excerpt is too English-heavy")
+                        break
         sdb = c.get("sectorDeepBriefs")
         if not isinstance(sdb, list) or len(sdb) < 4:
             err.append("content.json: sectorDeepBriefs must have 4 sectors for newsroom-brief")
@@ -90,16 +114,32 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
                         continue
                     if not isinstance(dossier.get("links"), list) or not dossier.get("links"):
                         err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: links required")
+                    if _english_heavy(dossier.get("summary")) or _english_heavy(dossier.get("whyItMatters")):
+                        err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: public copy is too English-heavy")
                     devs = dossier.get("mainDevelopments")
                     if not isinstance(devs, list) or len([x for x in devs if str(x).strip()]) < 2:
                         err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: need at least 2 mainDevelopments")
                     if _duplicateish(dossier.get("whyItMatters"), " ".join(dossier.get("watchNext") or [])):
                         err.append(f"sectorDeepBriefs[{i}].storyDossiers[{j}]: whyItMatters duplicates watchNext")
+                    for lk in dossier.get("links") or []:
+                        if isinstance(lk, dict) and _english_heavy(lk.get("excerpt")):
+                            err.append(
+                                f"sectorDeepBriefs[{i}].storyDossiers[{j}]: links.excerpt is too English-heavy"
+                            )
+                            break
         if not str((c.get("mainThesis") or {}).get("thesis") or "").strip():
             err.append("content.json: mainThesis.thesis required")
         articles = c.get("articleLinkIndex")
         if articles is not None and not isinstance(articles, list):
             err.append("content.json: articleLinkIndex must be list")
+        all_articles = c.get("allArticles")
+        if isinstance(all_articles, list):
+            for i, art in enumerate(all_articles[:50]):
+                if not isinstance(art, dict):
+                    continue
+                if any(_english_heavy(art.get(field)) for field in ("summary", "description", "content_for_ai", "text")):
+                    err.append(f"allArticles[{i}]: public summary text is too English-heavy")
+                    break
         return err
     if not str(c.get("generatedAt") or "").strip():
         err.append("content.json: missing generatedAt")

@@ -88,3 +88,91 @@ def soften_editor_note(note: str) -> str:
 
 def soften_headline(text: str) -> str:
     return soften_newsroom_text(str(text or "").strip())
+
+
+_ENGLISH_COMMON_WORDS = {
+    "the",
+    "and",
+    "for",
+    "with",
+    "from",
+    "that",
+    "this",
+    "they",
+    "their",
+    "will",
+    "would",
+    "could",
+    "should",
+    "must",
+    "market",
+    "markets",
+    "deal",
+    "agreement",
+    "rally",
+    "surge",
+    "warns",
+    "warning",
+    "report",
+    "reports",
+    "source",
+    "sources",
+    "share",
+    "shares",
+    "trade",
+    "trading",
+    "policy",
+    "rate",
+    "rates",
+    "bank",
+    "banks",
+    "tech",
+    "sector",
+    "sectors",
+    "investors",
+    "investor",
+    "prices",
+    "price",
+    "oil",
+    "gold",
+    "crypto",
+}
+
+_VIETNAMESE_DIACRITIC_RE = re.compile(
+    r"[àáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệ"
+    r"ìíỉĩịòóỏõọôốồổỗộơớờởỡợ"
+    r"ùúủũụưứừửữựỳýỷỹỵ]",
+    re.I,
+)
+
+_ENGLISH_TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z'’-]{2,}")
+
+
+def is_english_heavy_public_copy(text: str) -> bool:
+    """Detect public prose that is too English-heavy for the newsroom brief."""
+    raw = str(text or "").strip()
+    if len(raw) < 48:
+        return False
+    raw = re.sub(r"https?://\S+", " ", raw)
+    tokens = _ENGLISH_TOKEN_RE.findall(raw)
+    if len(tokens) < 8:
+        return False
+    vi_marks = len(_VIETNAMESE_DIACRITIC_RE.findall(raw))
+    common_hits = sum(1 for tok in tokens if tok.lower() in _ENGLISH_COMMON_WORDS)
+    if common_hits >= 6:
+        return True
+    if common_hits >= 4 and vi_marks <= 3:
+        return True
+    if common_hits >= 3 and vi_marks == 0 and len(raw) >= 120:
+        return True
+    return False
+
+
+def sanitize_public_prose(text: str, *, fallback: str = "") -> str:
+    """Clean public prose and drop it if it is still too English-heavy."""
+    s = soften_prose(text)
+    if not s:
+        return fallback
+    if is_english_heavy_public_copy(s):
+        return fallback
+    return s

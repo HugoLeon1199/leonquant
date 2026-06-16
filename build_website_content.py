@@ -2013,7 +2013,10 @@ def _article_excerpt(art: dict[str, Any] | None, *, max_sentences: int = 8) -> s
         return ""
     parts = re.split(r"(?<=[.!?…])\s+", raw)
     kept = [p.strip() for p in parts if p.strip()]
-    return " ".join(kept[:max_sentences])
+    excerpt = " ".join(kept[:max_sentences])
+    from scripts.newsroom_copy import sanitize_public_prose
+
+    return sanitize_public_prose(excerpt, fallback="")
 
 
 def _newsroom_sources_to_links(
@@ -2024,29 +2027,34 @@ def _newsroom_sources_to_links(
     add_link,
 ) -> list[dict[str, str]]:
     from scripts.newsroom_main_quality import is_bad_main_editorial_url
+    from scripts.newsroom_copy import sanitize_public_prose
 
     links: list[dict[str, str]] = []
     for src in sources:
         if not isinstance(src, dict):
             continue
         u = str(src.get("url") or "").strip()
-        if not u or is_bad_main_editorial_url(u, title=str(src.get("title") or "")):
+        art = by_url.get(u)
+        title_hint = str(src.get("title") or (art.get("title") if art else "") or "").strip()
+        if not u or is_bad_main_editorial_url(u, title=title_hint):
             continue
         add_link(
             u,
-            title=str(src.get("title") or ""),
+            title=title_hint,
             source=str(src.get("source") or ""),
             sector=group,
             group=group,
         )
-        art = by_url.get(u)
         host = _url_hostname(u)
-        excerpt = str(src.get("excerpt") or "").strip() or _article_excerpt(art)
+        excerpt = sanitize_public_prose(
+            str(src.get("excerpt") or "").strip() or _article_excerpt(art),
+            fallback="",
+        )
         published = _link_published_at(art=art, src=src)
         links.append(
             {
                 "url": u,
-                "title": str(src.get("title") or (art.get("title") if art else "") or host),
+                "title": title_hint or host,
                 "host": host,
                 "source": str(src.get("source") or (art.get("source") if art else "") or ""),
                 "label": _link_display_label(host, str(src.get("source") or "")),
@@ -2127,7 +2135,9 @@ def _compose_sector_thesis_for_web(sec: dict[str, Any], *, soften) -> str:
                 parts.append(" ".join(chunks))
                 body_so_far = "\n\n".join(parts)
 
-    return soften("\n\n".join(p for p in parts if p).strip())
+    from scripts.newsroom_copy import sanitize_public_prose
+
+    return sanitize_public_prose(soften("\n\n".join(p for p in parts if p).strip()), fallback="")
 
 
 def _sector_fallback_links(
@@ -2148,6 +2158,8 @@ def _sector_fallback_links(
         scored.append((pub, u, art))
     scored.sort(key=lambda x: x[0], reverse=True)
     out: list[dict[str, Any]] = []
+    from scripts.newsroom_copy import sanitize_public_prose
+
     for _, u, art in scored[: max(1, limit)]:
         host = _url_hostname(u)
         out.append(
@@ -2157,10 +2169,26 @@ def _sector_fallback_links(
                 "host": host,
                 "source": str(art.get("source") or ""),
                 "label": _link_display_label(host, str(art.get("source") or "")),
-                "excerpt": _article_excerpt(art),
+                "excerpt": sanitize_public_prose(_article_excerpt(art), fallback=""),
                 "publishedAt": _link_published_at(art=art),
             }
         )
+    return out
+
+
+def _sanitize_public_article_record(article: dict[str, Any]) -> dict[str, Any]:
+    from scripts.newsroom_copy import sanitize_public_prose
+
+    out = dict(article)
+    for field in ("summary", "description", "content_for_ai", "text", "excerpt"):
+        raw = str(out.get(field) or "").strip()
+        if not raw:
+            continue
+        cleaned = sanitize_public_prose(raw, fallback="")
+        if cleaned:
+            out[field] = cleaned
+        else:
+            out.pop(field, None)
     return out
 
 
@@ -2171,6 +2199,8 @@ def build_newsroom_web_extras(
     match_articles: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Newsroom brief → content.json fields + legacy digestSectors fallback."""
+    from scripts.newsroom_copy import sanitize_public_prose, soften_prose
+
     legacy_sectors: list[dict[str, Any]] = []
     for sec in summary.get("sector_deep_briefs") or []:
         if not isinstance(sec, dict):
@@ -2253,7 +2283,8 @@ def build_newsroom_web_extras(
         title = str(row.get("title") or "").strip()
         if not title:
             continue
-        urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+        raw_urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
+        urls = list(raw_urls)
         try:
             from scripts.newsroom_source_match import filter_urls_for_story
             from summarize_news_gemini import DigestUrlIndex
@@ -2275,6 +2306,8 @@ def build_newsroom_web_extras(
             )
             if matched:
                 urls = [matched]
+        if not urls and raw_urls:
+            urls = raw_urls[:3]
         title_vi = title
         try:
             from summarize_news_gemini import _editorialize_digest_headline, _vietnamese_public_headline
@@ -2286,7 +2319,7 @@ def build_newsroom_web_extras(
             [
                 {
                     "url": u,
-                    "title": str((by_url.get(u) or {}).get("title") or ""),
+                    "title": str((by_url.get(u) or {}).get("title") or title_vi or title or ""),
                     "source": str((by_url.get(u) or {}).get("source") or ""),
                 }
                 for u in urls
@@ -2297,9 +2330,16 @@ def build_newsroom_web_extras(
         )
         if not links:
             continue
-        one_sentence = str(row.get("one_sentence") or "").strip()
-        why_it_matters = str(row.get("why_it_matters") or "").strip()
-        watch_next = str(row.get("watch_next") or "").strip()
+        one_sentence = sanitize_public_prose(str(row.get("one_sentence") or "").strip(), fallback="")
+        why_it_matters = sanitize_public_prose(str(row.get("why_it_matters") or "").strip(), fallback="")
+        watch_next = sanitize_public_prose(str(row.get("watch_next") or "").strip(), fallback="")
+        if one_sentence and why_it_matters and _prose_already_covered(why_it_matters, one_sentence, threshold=0.84):
+            why_it_matters = "Diễn biến này có thể ảnh hưởng đến thị trường và dòng tiền ngắn hạn."
+        if watch_next and (
+            _prose_already_covered(watch_next, one_sentence, threshold=0.84)
+            or _prose_already_covered(watch_next, why_it_matters, threshold=0.84)
+        ):
+            watch_next = "Theo dõi phản ứng tiếp theo trong 24-72 giờ tới."
         if not one_sentence or not why_it_matters or not watch_next:
             continue
         front_page.append(
@@ -2313,11 +2353,72 @@ def build_newsroom_web_extras(
             }
         )
 
-    from scripts.newsroom_copy import soften_prose
+    if not front_page:
+        for sec in summary.get("sector_deep_briefs") or []:
+            if not isinstance(sec, dict):
+                continue
+            sec_name = str(sec.get("name") or "").strip()
+            for d in sec.get("story_dossiers") or []:
+                if not isinstance(d, dict):
+                    continue
+                title = sanitize_public_prose(str(d.get("title") or "").strip(), fallback="")
+                if not title:
+                    continue
+                src_rows = [s for s in (d.get("representative_sources") or []) if isinstance(s, dict)]
+                src_rows = [
+                    {
+                        **s,
+                        "title": str(s.get("title") or title or ""),
+                    }
+                    for s in src_rows
+                ]
+                links = _newsroom_sources_to_links(
+                    src_rows,
+                    by_url=by_url,
+                    group=sec_name or "Tin nổi bật",
+                    add_link=add_link,
+                )
+                if not links:
+                    continue
+                summary_text = sanitize_public_prose(
+                    str(d.get("summary") or d.get("why_it_matters") or "").strip(),
+                    fallback="",
+                )
+                one_sentence = summary_text or f"Diễn biến liên quan đến {title}."
+                why_it_matters = sanitize_public_prose(
+                    str(d.get("why_it_matters") or summary_text or "").strip(),
+                    fallback="Diễn biến này có thể ảnh hưởng đến thị trường và dòng tiền ngắn hạn.",
+                )
+                watch_next = sanitize_public_prose(
+                    " ".join(
+                        str(x).strip() for x in (d.get("watch_next") or []) if str(x).strip()
+                    ),
+                    fallback="Theo dõi phản ứng tiếp theo trong 24-72 giờ tới.",
+                )
+                if _prose_already_covered(why_it_matters, one_sentence, threshold=0.84):
+                    why_it_matters = "Diễn biến này có thể ảnh hưởng đến thị trường và dòng tiền ngắn hạn."
+                if _prose_already_covered(watch_next, one_sentence, threshold=0.84) or _prose_already_covered(
+                    watch_next, why_it_matters, threshold=0.84
+                ):
+                    watch_next = "Theo dõi phản ứng tiếp theo trong 24-72 giờ tới."
+                front_page.append(
+                    {
+                        "rank": len(front_page) + 1,
+                        "title": title,
+                        "oneSentence": one_sentence,
+                        "whyItMatters": why_it_matters,
+                        "watchNext": watch_next,
+                        "links": links,
+                    }
+                )
+                if len(front_page) >= 4:
+                    break
+            if len(front_page) >= 4:
+                break
 
-    editor_note = soften_prose(str(summary.get("editor_note") or "").strip())
+    editor_note = sanitize_public_prose(str(summary.get("editor_note") or "").strip(), fallback="")
     eb_in = summary.get("executive_briefing") if isinstance(summary.get("executive_briefing"), dict) else {}
-    eb_content_raw = soften_prose(str(eb_in.get("content") or "").strip())
+    eb_content_raw = sanitize_public_prose(str(eb_in.get("content") or "").strip(), fallback="")
     if editor_note and editor_note not in eb_content_raw and eb_content_raw not in editor_note:
         eb_content_raw = (
             f"{editor_note}\n\n{eb_content_raw}".strip() if eb_content_raw else editor_note
@@ -2332,18 +2433,18 @@ def build_newsroom_web_extras(
     executive_briefing = {
         "title": "Tổng quan 48h",
         "sections": {
-            "mainPicture": str(eb_sections_in.get("main_picture") or "").strip(),
-            "mostMentioned": str(eb_sections_in.get("most_mentioned") or "").strip(),
-            "topStories": str(eb_sections_in.get("top_stories") or "").strip(),
-            "sectorImpacts": str(eb_sections_in.get("sector_impacts") or "").strip(),
-            "watch2472h": str(eb_sections_in.get("watch_24_72h") or "").strip(),
+            "mainPicture": sanitize_public_prose(str(eb_sections_in.get("main_picture") or "").strip(), fallback=""),
+            "mostMentioned": sanitize_public_prose(str(eb_sections_in.get("most_mentioned") or "").strip(), fallback=""),
+            "topStories": sanitize_public_prose(str(eb_sections_in.get("top_stories") or "").strip(), fallback=""),
+            "sectorImpacts": sanitize_public_prose(str(eb_sections_in.get("sector_impacts") or "").strip(), fallback=""),
+            "watch2472h": sanitize_public_prose(str(eb_sections_in.get("watch_24_72h") or "").strip(), fallback=""),
         },
         "content": eb_content_raw,
         "links": eb_links,
         "mostMentionedTopics": [
             {
-                "topic": str(x.get("topic") or "").strip(),
-                "whyMentioned": str(x.get("why_mentioned") or "").strip(),
+                "topic": sanitize_public_prose(str(x.get("topic") or "").strip(), fallback=""),
+                "whyMentioned": sanitize_public_prose(str(x.get("why_mentioned") or "").strip(), fallback=""),
                 "evidenceHint": str(x.get("evidence_hint") or "").strip(),
             }
             for x in (eb_in.get("most_mentioned_topics") or [])
@@ -2351,9 +2452,9 @@ def build_newsroom_web_extras(
         ],
         "hottestTopics": [
             {
-                "topic": str(x.get("topic") or "").strip(),
-                "whyHot": str(x.get("why_hot") or "").strip(),
-                "impact": str(x.get("impact") or "").strip(),
+                "topic": sanitize_public_prose(str(x.get("topic") or "").strip(), fallback=""),
+                "whyHot": sanitize_public_prose(str(x.get("why_hot") or "").strip(), fallback=""),
+                "impact": sanitize_public_prose(str(x.get("impact") or "").strip(), fallback=""),
                 "evidenceHint": str(x.get("evidence_hint") or "").strip(),
             }
             for x in (eb_in.get("hottest_topics") or [])
@@ -2361,13 +2462,17 @@ def build_newsroom_web_extras(
         ],
         "emergingSignals": [
             {
-                "signal": str(x.get("signal") or "").strip(),
-                "whyWatch": str(x.get("why_watch") or "").strip(),
+                "signal": sanitize_public_prose(str(x.get("signal") or "").strip(), fallback=""),
+                "whyWatch": sanitize_public_prose(str(x.get("why_watch") or "").strip(), fallback=""),
             }
             for x in (eb_in.get("emerging_signals") or [])
             if isinstance(x, dict) and str(x.get("signal") or "").strip()
         ],
-        "watchNext": [str(x).strip() for x in (eb_in.get("watch_next") or []) if str(x).strip()],
+        "watchNext": [
+            sanitize_public_prose(str(x).strip(), fallback="")
+            for x in (eb_in.get("watch_next") or [])
+            if str(x).strip()
+        ],
     }
     if not executive_briefing["links"] and front_page:
         executive_briefing["links"] = list(front_page[0].get("links") or [])[:2]
@@ -2383,7 +2488,7 @@ def build_newsroom_web_extras(
             if not isinstance(sb, dict):
                 continue
             sb_name = str(sb.get("name") or "").strip()
-            sb_overview = str(sb.get("overview") or "").strip()
+            sb_overview = sanitize_public_prose(str(sb.get("overview") or "").strip(), fallback="")
             if not sb_name or not sb_overview:
                 continue
             sb_links = _newsroom_sources_to_links(
@@ -2468,7 +2573,7 @@ def build_newsroom_web_extras(
             if not links:
                 continue
             render_style = "full" if len(main_developments) >= 2 else "thin"
-            why_it_matters = str(d.get("why_it_matters") or "").strip()
+            why_it_matters = sanitize_public_prose(str(d.get("why_it_matters") or "").strip(), fallback="")
             if render_style == "full" and not why_it_matters:
                 continue
             dossiers_out.append(
@@ -2477,7 +2582,7 @@ def build_newsroom_web_extras(
                     "depthLevel": "brief" if render_style == "thin" else str(d.get("depth_level") or "deep"),
                     "subSector": str(d.get("sub_sector") or "").strip(),
                     "title": title,
-                    "summary": str(d.get("summary") or "").strip(),
+                    "summary": sanitize_public_prose(str(d.get("summary") or "").strip(), fallback=""),
                     "mainDevelopments": main_developments,
                     "whyItMatters": why_it_matters,
                     "affectedGroups": [
@@ -2531,18 +2636,15 @@ def build_newsroom_web_extras(
             }
         )
 
-    watchlist = [
-        {
-            "theme": str(w.get("theme") or "").strip(),
-            "whatToWatch": str(w.get("what_to_watch") or "").strip(),
-            "why": str(w.get("why") or "").strip(),
-        }
-        for w in (summary.get("watchlist_24_72h") or [])
-        if isinstance(w, dict)
-        and str(w.get("theme") or "").strip()
-        and str(w.get("what_to_watch") or "").strip()
-        and str(w.get("why") or "").strip()
-    ]
+    watchlist: list[dict[str, Any]] = []
+    for w in summary.get("watchlist_24_72h") or []:
+        if not isinstance(w, dict):
+            continue
+        theme = str(w.get("theme") or "").strip()
+        what_to_watch = sanitize_public_prose(str(w.get("what_to_watch") or "").strip(), fallback="")
+        why = sanitize_public_prose(str(w.get("why") or "").strip(), fallback="")
+        if theme and what_to_watch and why:
+            watchlist.append({"theme": theme, "whatToWatch": what_to_watch, "why": why})
 
     source_desk: list[dict[str, Any]] = []
     for row in summary.get("source_desk") or []:
@@ -3715,6 +3817,8 @@ def build_payload(
     brief = strategy_brief_to_public_json(snake)
     meta = final_payload.get("meta") if isinstance(final_payload.get("meta"), dict) else {}
 
+    public_all_articles = [_sanitize_public_article_record(a) for a in all_articles]
+
     payload: dict[str, Any] = {
         "siteTitle": "LEON Quant Labs",
         "sectionLabel": (
@@ -3735,7 +3839,7 @@ def build_payload(
         "generatedAt": generated_at,
         "schemaVersion": "global-market-strategy-brief-v2",
         **brief,
-        "allArticles": all_articles,
+        "allArticles": public_all_articles,
         "stats": {
             "articlesCrawled": len(all_articles),
             "articlesInEnriched": enriched_payload.get("count", len(enriched_payload.get("articles", []))),
@@ -3939,6 +4043,31 @@ def _finalize_digest_payload_for_build(
         out["summary"] = polished
     else:
         out = {"summary": polished, "generated_at": out.get("generated_at")}
+
+    def _preserve_source_fields(dst: dict[str, Any], src: dict[str, Any]) -> None:
+        if not isinstance(dst, dict) or not isinstance(src, dict):
+            return
+        if not dst.get("front_page") and src.get("front_page"):
+            dst["front_page"] = src.get("front_page")
+        if not dst.get("watchlist_24_72h") and src.get("watchlist_24_72h"):
+            dst["watchlist_24_72h"] = src.get("watchlist_24_72h")
+        for key in ("representative_sources", "source_urls", "links"):
+            if src.get(key) and not dst.get(key):
+                dst[key] = src.get(key)
+        eb_dst = dst.get("executive_briefing")
+        eb_src = src.get("executive_briefing")
+        if isinstance(eb_dst, dict) and isinstance(eb_src, dict):
+            _preserve_source_fields(eb_dst, eb_src)
+        for key in ("sector_deep_briefs", "story_dossiers", "subsector_briefs"):
+            dst_list = dst.get(key)
+            src_list = src.get(key)
+            if isinstance(dst_list, list) and isinstance(src_list, list):
+                for i, src_item in enumerate(src_list):
+                    if i >= len(dst_list):
+                        break
+                    _preserve_source_fields(dst_list[i], src_item)
+
+    _preserve_source_fields(out.get("summary") if isinstance(out.get("summary"), dict) else out, summary_in)
     return out
 
 
