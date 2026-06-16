@@ -1959,7 +1959,7 @@ def build_digest_web_extras(
         link_index.append(
             {
                 "url": u,
-                "title": t or host or u,
+                "title": _public_display_title(t or host or u, host=host, sector_code=sector),
                 "host": host,
                 "source": src,
                 "label": _link_display_label(host, src),
@@ -1985,7 +1985,10 @@ def build_digest_web_extras(
 
     article_links = [
         {
-            "title": str(a.get("title") or "").strip() or _url_hostname(str(a.get("url") or "")),
+            "title": _public_display_title(
+                str(a.get("title") or "").strip() or _url_hostname(str(a.get("url") or "")),
+                host=_url_hostname(str(a.get("url") or "")),
+            ),
             "url": str(a.get("url") or "").strip(),
             "source": str(a.get("source") or "").strip(),
             "publishedAt": _link_published_at(art=a) or _clean_published_at(a.get("published_at")),
@@ -2035,7 +2038,11 @@ def _newsroom_sources_to_links(
             continue
         u = str(src.get("url") or "").strip()
         art = by_url.get(u)
-        title_hint = str(src.get("title") or (art.get("title") if art else "") or "").strip()
+        title_hint = _public_display_title(
+            str(src.get("title") or (art.get("title") if art else "") or "").strip(),
+            host=_url_hostname(u),
+            sector_code=group,
+        )
         if not u or is_bad_main_editorial_url(u, title=title_hint):
             continue
         add_link(
@@ -2180,6 +2187,9 @@ def _sanitize_public_article_record(article: dict[str, Any]) -> dict[str, Any]:
     from scripts.newsroom_copy import sanitize_public_prose
 
     out = dict(article)
+    raw_title = str(out.get("title") or "").strip()
+    if raw_title:
+        out["title"] = _public_display_title(raw_title, host=_url_hostname(str(out.get("url") or "")))
     for field in ("summary", "description", "content_for_ai", "text", "excerpt"):
         raw = str(out.get(field) or "").strip()
         if not raw:
@@ -2190,6 +2200,35 @@ def _sanitize_public_article_record(article: dict[str, Any]) -> dict[str, Any]:
         else:
             out.pop(field, None)
     return out
+
+
+def _public_display_title(title: str, *, host: str = "", sector_code: str = "") -> str:
+    from scripts.newsroom_copy import is_english_heavy_public_copy, soften_headline
+
+    raw = str(title or "").strip()
+    if not raw:
+        return host or ""
+    vi_marks = re.findall(
+        r"[àáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]",
+        raw,
+        re.I,
+    )
+    latin_tokens = re.findall(r"[A-Za-z][A-Za-z'’-]{2,}", raw)
+    if vi_marks and not is_english_heavy_public_copy(raw):
+        return soften_headline(raw)
+    try:
+        from summarize_news_gemini import _editorialize_digest_headline, _vietnamese_public_headline
+
+        vi = _vietnamese_public_headline(_editorialize_digest_headline(raw), sector_code=sector_code)
+        if vi and not is_english_heavy_public_copy(vi):
+            return vi
+    except Exception:
+        pass
+    if len(latin_tokens) >= 5:
+        soft = soften_headline(raw)
+        if soft and soft != raw:
+            return soft
+    return host or raw
 
 
 def build_newsroom_web_extras(
