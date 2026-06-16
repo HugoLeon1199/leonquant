@@ -86,7 +86,7 @@ def _split_all_from_brief(html: str) -> str:
     )
     m_invest = re.search(
         r'(<div id="sectionInvest" class="brief-block">[\s\S]*?)'
-        r"(?=\s*</div>\s*</section>\s*<section id=\"reference")",
+        r'(?=\s*</div>\s*</section>\s*<section id="reference")',
         html,
     )
     if not (m_thesis and m_pulse and m_invest):
