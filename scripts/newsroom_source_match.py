@@ -177,6 +177,9 @@ def article_matches_story(
     return score_article_for_story(art, headline, context=context) >= floor
 
 
+_LOOSE_SCORE_FLOOR = 0.20
+
+
 def filter_urls_for_story(
     urls: list[str],
     headline: str,
@@ -184,8 +187,17 @@ def filter_urls_for_story(
     *,
     context: str = "",
     sector_code: str = "",
+    main_developments: list[str] | None = None,
 ) -> list[str]:
-    """Keep only whitelist URLs whose crawled article matches the story."""
+    """Keep whitelist URLs whose crawled article matches the story.
+
+    Rollup/thematic headlines (synthesized by Gemini across several articles)
+    often don't textually resemble any single article title, so headline-only
+    matching fails them. We also try matching each main_developments bullet
+    (a specific fact) against the corpus, and as a last resort keep the
+    best-scoring whitelisted candidate above a loose floor instead of
+    dropping the story's sources entirely.
+    """
     if index is None or not getattr(index, "active", False):
         return [u for u in urls if str(u).strip().startswith("http")][:3]
 
@@ -193,10 +205,11 @@ def filter_urls_for_story(
 
     prof = story_profile(headline, context=context)
     min_sc = prof.get("min_score", 0.40)
-    out: list[str] = []
-    seen: set[str] = set()
     hl = str(headline or "").strip()
+    bullets = [str(b).strip() for b in (main_developments or []) if str(b).strip()]
 
+    resolved: list[tuple[str, dict[str, Any]]] = []
+    seen: set[str] = set()
     for raw in urls:
         raw_c = _canonical_digest_url(str(raw))
         if not raw_c:
@@ -207,13 +220,49 @@ def filter_urls_for_story(
         if not u or u in seen:
             continue
         art = index.by_url.get(u)
-        if not art or not article_matches_story(art, hl, context=context, min_score=min_sc):
+        if not art:
             continue
         seen.add(u)
-        out.append(u)
-        if len(out) >= 3:
-            break
-    return out
+        resolved.append((u, art))
+
+    if not resolved:
+        return []
+
+    out: list[str] = []
+    out_seen: set[str] = set()
+
+    for u, art in resolved:
+        if article_matches_story(art, hl, context=context, min_score=min_sc):
+            out_seen.add(u)
+            out.append(u)
+            if len(out) >= 3:
+                break
+
+    if len(out) < 3 and bullets:
+        for bullet in bullets:
+            if len(out) >= 3:
+                break
+            best_u, best_score = "", 0.0
+            for u, art in resolved:
+                if u in out_seen:
+                    continue
+                score = score_article_for_story(art, bullet, context=context)
+                if score > best_score:
+                    best_u, best_score = u, score
+            if best_u and best_score >= min_sc:
+                out_seen.add(best_u)
+                out.append(best_u)
+
+    if not out:
+        best_u, best_score = "", 0.0
+        for u, art in resolved:
+            score = score_article_for_story(art, hl, context=context)
+            if score > best_score:
+                best_u, best_score = u, score
+        if best_u and best_score >= _LOOSE_SCORE_FLOOR:
+            out.append(best_u)
+
+    return out[:3]
 
 
 def sanitize_representative_sources(
@@ -223,6 +272,7 @@ def sanitize_representative_sources(
     index: Any,
     sector_code: str = "",
     context: str = "",
+    main_developments: list[str] | None = None,
 ) -> list[dict[str, str]]:
     rows = sources if isinstance(sources, list) else []
     excerpt_by_url: dict[str, str] = {}
@@ -235,7 +285,12 @@ def sanitize_representative_sources(
             if ex:
                 excerpt_by_url[u] = ex
     valid = filter_urls_for_story(
-        raw_urls, headline, index, context=context, sector_code=sector_code
+        raw_urls,
+        headline,
+        index,
+        context=context,
+        sector_code=sector_code,
+        main_developments=main_developments,
     )
     out: list[dict[str, str]] = []
     for u in valid:

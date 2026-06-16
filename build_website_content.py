@@ -4000,6 +4000,17 @@ def main() -> int:
     )
     Path(args.output).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    n_front = len(payload.get("frontPage") or [])
+    n_dossiers = sum(
+        len(sec.get("storyDossiers") or [])
+        for sec in (payload.get("sectorDeepBriefs") or [])
+        if isinstance(sec, dict)
+    )
+    n_desk = len(payload.get("sourceDesk") or [])
+    print(
+        f"content.json counts: frontPage={n_front} storyDossiers={n_dossiers} "
+        f"sourceDesk={n_desk}"
+    )
     print(f"Done: {len(all_cards)} article cards -> {args.output}")
     return 0
 

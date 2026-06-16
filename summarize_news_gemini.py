@@ -2293,6 +2293,7 @@ def _sanitize_representative_sources(
     index: DigestUrlIndex | None,
     sector_code: str,
     context: str = "",
+    main_developments: list[str] | None = None,
 ) -> list[dict[str, str]]:
     from scripts.newsroom_source_match import sanitize_representative_sources as _nr_sanitize
 
@@ -2302,6 +2303,7 @@ def _sanitize_representative_sources(
         index=index,
         sector_code=sector_code,
         context=context,
+        main_developments=main_developments,
     )
 
 
@@ -2330,12 +2332,22 @@ def _sanitize_story_dossier(
     out["why_it_matters"] = soften_newsroom_text(str(out.get("why_it_matters") or "").strip())
     out["affected_groups"] = _coerce_str_list(out.get("affected_groups"), max_items=8)
     out["watch_next"] = _coerce_str_list(out.get("watch_next"), max_items=6)
+    dossier_context = " ".join(
+        part
+        for part in (
+            str(out.get("summary") or ""),
+            str(out.get("why_it_matters") or ""),
+            " ".join(out.get("main_developments") or []),
+        )
+        if part.strip()
+    )
     out["representative_sources"] = _sanitize_representative_sources(
         out.get("representative_sources"),
         headline=title,
         index=index,
         sector_code=sector_code,
-        context=str(out.get("summary") or ""),
+        context=dossier_context,
+        main_developments=out.get("main_developments"),
     )
     try:
         out["rank"] = int(out.get("rank") or 0) or 999
@@ -2496,7 +2508,14 @@ def _sanitize_front_page_item(
     for key in ("title", "one_sentence", "why_it_matters", "watch_next"):
         if out.get(key):
             out[key] = soften_newsroom_text(str(out[key]))
-    ctx = str(out.get("one_sentence") or "")
+    ctx = " ".join(
+        part
+        for part in (
+            str(out.get("one_sentence") or ""),
+            str(out.get("why_it_matters") or ""),
+        )
+        if part.strip()
+    )
     out["source_urls"] = sanitize_front_page_sources(
         [str(u) for u in (out.get("source_urls") or []) if str(u).strip()],
         headline=title,

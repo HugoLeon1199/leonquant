@@ -286,6 +286,25 @@ def _unique_nonempty_texts(*values: Any) -> list[str]:
     return out
 
 
+def _distinct_text(value: Any, *already_used: Any) -> str:
+    """Return value's text only if it's non-empty and distinct from already_used.
+
+    Unlike copying a sibling field as a fallback, this leaves the field blank
+    when there's no genuinely different text, so build_website_content.py's
+    render_style logic can fall back to a thinner layout instead of showing
+    the same sentence three times.
+    """
+    text = str(value or "").strip()
+    norm = _norm_editorial_text(text)
+    if not text or not norm:
+        return ""
+    for other in already_used:
+        other_norm = _norm_editorial_text(str(other or "").strip())
+        if other_norm and other_norm == norm:
+            return ""
+    return text
+
+
 def _front_page_row_is_publishable(row: dict[str, Any]) -> bool:
     urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
     if not urls:
@@ -377,17 +396,15 @@ def enforce_newsroom_main_editorial_quality(
             continue
         row_copy = dict(row)
         row_copy["source_urls"] = [str(u).strip() for u in (row_copy.get("source_urls") or []) if str(u).strip()][:3]
-        row_copy["one_sentence"] = _unique_nonempty_texts(row_copy.get("one_sentence"))[0]
-        row_copy["why_it_matters"] = _unique_nonempty_texts(
-            row_copy.get("why_it_matters"),
-            row_copy.get("one_sentence"),
-        )[0]
-        watch_lines = _unique_nonempty_texts(
+        row_copy["one_sentence"] = str(row_copy.get("one_sentence") or "").strip()
+        row_copy["why_it_matters"] = _distinct_text(
+            row_copy.get("why_it_matters"), row_copy.get("one_sentence")
+        )
+        row_copy["watch_next"] = _distinct_text(
             row_copy.get("watch_next"),
             row_copy.get("why_it_matters"),
             row_copy.get("one_sentence"),
         )
-        row_copy["watch_next"] = watch_lines[0] if watch_lines else ""
         publishable_front.append(row_copy)
     for idx, row in enumerate(publishable_front[:12], start=1):
         row["rank"] = idx
