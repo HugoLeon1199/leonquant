@@ -1042,6 +1042,19 @@
         "nextPage": "1781590548478379790",
         "status": "success"
       }
+    },
+    {
+      "run_at_utc": "2026-06-16T21:26:10.097799+00:00",
+      "api": "worldnews",
+      "http_status": 200,
+      "articles_fetched": 30,
+      "new_unique_urls": 1,
+      "errors": [],
+      "quota_hint": {
+        "available": 9131,
+        "offset": 0,
+        "number": 30
+      }
     }
   ],
   "articles_by_url": {
@@ -11313,25 +11326,34 @@
       "looks_full_content": false,
       "published_at_utc": "2026-06-16T06:15:48+00:00",
       "within_48h": true
+    },
+    "https://www.canadanews.net/news/279127414/assessing-the-economic-footprint-of-new-casino-sites-in-canada": {
+      "first_seen_utc": "2026-06-16T21:26:10.097799+00:00",
+      "api": "worldnews",
+      "title": "Assessing the Economic Footprint of New Casino Sites in Canada",
+      "content_length": 7894,
+      "looks_full_content": true,
+      "published_at_utc": "2026-06-16T00:00:00+00:00",
+      "within_48h": true
     }
   },
   "stats": {
-    "total_runs": 84,
-    "total_requests": 84,
-    "unique_urls_total": 1141,
-    "full_content_urls": 535,
+    "total_runs": 85,
+    "total_requests": 85,
+    "unique_urls_total": 1142,
+    "full_content_urls": 536,
     "by_api_unique": {
-      "worldnews": 581,
+      "worldnews": 582,
       "gnews": 280,
       "newsdata": 280
     },
     "by_api_full_content": {
-      "worldnews": 535
+      "worldnews": 536
     },
     "by_api_runs": {
       "worldnews": {
-        "runs": 28,
-        "articles_fetched": 834,
+        "runs": 29,
+        "articles_fetched": 864,
         "errors": 0
       },
       "gnews": {
@@ -11345,7 +11367,7 @@
         "errors": 0
       }
     },
-    "last_run_utc": "2026-06-16T18:16:23.568084+00:00"
+    "last_run_utc": "2026-06-16T21:26:10.097799+00:00"
   },
-  "updated_at_utc": "2026-06-16T18:16:23.568084+00:00"
+  "updated_at_utc": "2026-06-16T21:26:10.097799+00:00"
 }
