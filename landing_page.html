@@ -734,9 +734,8 @@
     }
     .dossier-source-item {
       display: block;
-      margin-bottom: 10px;
-      padding-left: 14px;
-      border-left: 2px solid rgba(8,145,178,.25);
+      margin-bottom: 12px;
+      padding-left: 0;
       position: relative;
     }
     .sector-topic-source-meta {
@@ -1725,9 +1724,11 @@
     }
     .dossier-source-links {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-direction: column;
+      gap: 0;
       margin: 0;
+      padding-left: 14px;
+      border-left: 2px solid rgba(8,145,178,.25);
     }
     @media (max-width: 480px) {
       .newsroom-report .issue-header--minimal {
@@ -4276,7 +4277,7 @@
       }
       if (!count) return "";
       inner += `</div>`;
-      return `<div class="representative-sources-block"><p class="dossier-block-label">Nguồn tiêu biểu</p>${inner}</div>`;
+      return inner;
     }
 
     function normalizedCopyKey(text) {
@@ -4571,7 +4572,6 @@
       if (d.subSector) html += `<span class="chip chip--subsector">${escapeHtml(d.subSector)}</span>`;
       html += `</div>`;
       html += `<h4>${escapeHtml(d.title || "")}</h4>`;
-      if (d.summary) html += `<p class="dossier-summary">${escapeHtml(d.summary)}</p>`;
       if (d.links && d.links.length) html += buildDossierSourcesHtml(d.links);
       html += `</div>`;
       return html;

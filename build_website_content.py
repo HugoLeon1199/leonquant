@@ -2189,11 +2189,11 @@ def _newsroom_sources_to_links(
             group=group,
         )
         host = _url_hostname(u)
-        excerpt = str(src.get("excerpt") or "").strip()
-        if excerpt and not _is_vietnamese_text(excerpt):
-            excerpt = ""  # Gemini excerpt not Vietnamese — discard, try crawled
+        excerpt = _article_excerpt(art)  # ưu tiên nội dung crawl thực (dài, đầy đủ)
         if not excerpt:
-            excerpt = _article_excerpt(art)
+            excerpt = str(src.get("excerpt") or "").strip()
+            if excerpt and not _is_vietnamese_text(excerpt):
+                excerpt = ""
         if not excerpt or not _is_vietnamese_text(excerpt):
             continue
         published = _link_published_at(art=art, src=src)
