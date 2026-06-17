@@ -56,8 +56,8 @@
     }
     a { color: var(--cyan-link); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .container { width: min(1020px, 92%); margin: 0 auto; }
-    body.digest-mode .container { width: min(1400px, 96%); }
+    .container { width: min(1680px, 98vw); margin: 0 auto; }
+    body.digest-mode .container { width: min(1760px, 98.5vw); }
 
     .hero {
       padding: 28px 0 48px;
@@ -2646,11 +2646,11 @@
 
     /* —— Kinh tế đầu tư: research memo —— */
     body.invest-mode #invest > .container {
-      width: min(1400px, 97vw);
+      width: min(1760px, 98.5vw);
     }
     body.invest-mode #invest #invest-desk,
     body.invest-mode #invest .invest-desk-layout {
-      max-width: min(1400px, 100%);
+      max-width: min(1760px, 100%);
       margin-left: auto;
       margin-right: auto;
     }
@@ -3074,7 +3074,7 @@
 
     /* —— Thế giới LIVE: radar / newswire —— */
     body.pulse-mode #pulse > .container {
-      width: min(1180px, 94%);
+      width: min(1760px, 98.5vw);
     }
     body.pulse-mode #pulse .digest-report-head {
       margin-bottom: 0.85rem;
@@ -3335,6 +3335,9 @@
 
     @media (max-width: 640px) {
       .container { width: 94%; }
+      body.digest-mode .container,
+      body.pulse-mode #pulse > .container,
+      body.invest-mode #invest > .container { width: 94vw; }
       section { padding: 28px 0; }
       section.alt { padding: 24px 0; }
       .hero { padding: 18px 0 32px; }
