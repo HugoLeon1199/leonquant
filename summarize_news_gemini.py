@@ -397,6 +397,8 @@ def _digest_front_page_criteria_block() -> str:
             f"2. Tiêu đề hoặc nội dung chính chứa một trong các từ khóa: {keywords_joined} (hoặc biến thể rõ nghĩa tương đương).",
             "Nếu sau khi rà soát có ít nhất 1 tin đạt tiêu chí trên mà KHÔNG đưa vào `front_page` — coi là lỗi, phải sửa trước khi trả JSON.",
             "Nếu rà soát toàn bộ corpus mà THẬT SỰ không có tin nào đạt tiêu chí (corpus toàn tin nhỏ/nhiễu) — có thể để `front_page` trống, nhưng đây là trường hợp hiếm; nếu corpus có ≥80 candidates mà `front_page` trống, hãy tự kiểm tra lại vì khả năng cao đã bỏ sót.",
+            "- `front_page` PHẢI có ít nhất 3–5 entries nếu có bất kỳ dossier `depth_level=major` hoặc `deep` nào trong sector_deep_briefs.",
+            "- Nếu không có dossier rõ ràng, chọn 3 story cluster nổi bật nhất từ executive_briefing làm entries cho front_page.",
         ]
     )
 
@@ -470,6 +472,9 @@ def _digest_sector_narrative_block() -> str:
             "**Viết dài là tốt nếu mỗi đoạn mở ra một góc mới** (cụm tin mới, tác động mới, biến số mới) — **cấm** lặp lại ý đã nói ở đoạn trước bằng cách diễn đạt khác, cấm câu đệm/transition không mang dữ kiện.",
             "Không padding; không rút gọn đến mức chỉ còn một câu sáo; không biến thành chuỗi headline cùng tag.",
             "- Khi viết `sector_thesis`, đối chiếu `key_excerpt` của các candidate tier A/B trong sector (không chỉ headline) để lấy dữ kiện cụ thể (số liệu, tên, trích dẫn) làm dày mỗi đoạn — đây là nguồn dữ kiện CHI TIẾT NHẤT bạn có được, vì bạn không đọc lại text gốc của bài báo.",
+            "- **BẮT BUỘC**: `sector_thesis` phải có ≥1 số liệu hoặc tên riêng cụ thể (tên công ty, tên người, con số %) lấy từ `key_excerpt` của candidate tier A/B. Không được viết đoạn nào hoàn toàn trừu tượng khi pool có `key_excerpt` chứa dữ kiện.",
+            "- SAI: \"Ngành bán dẫn tiếp tục chứng kiến nhiều biến động quan trọng.\"",
+            "- ĐÚNG: \"Nvidia thông báo tăng công suất H100 thêm 40%, đưa tổng đơn hàng datacenter lên 12 tỷ USD...\"",
             "",
             "Form ưu tiên:",
             "- Đoạn 1: thesis của ngành trong 48h qua — ngành này đang đổi hướng ở đâu.",
@@ -3023,6 +3028,21 @@ def validate_newsroom_brief(
             warnings.append(
                 f"sector_deep_briefs[{i}] ({code}) sector_thesis có dấu hiệu lộ rule/prompt nội bộ."
             )
+        # 1B: thesis dài nhưng không có số liệu cụ thể
+        if len(thesis) >= 500 and not re.search(r"\d", thesis):
+            warnings.append(
+                f"[{code}] sector_thesis thiếu số liệu cụ thể — có thể quá abstract"
+            )
+        # 1C: dossier summary quá ngắn cho depth major/deep
+        for dos in sec.get("story_dossiers") or []:
+            if not isinstance(dos, dict):
+                continue
+            depth = str(dos.get("depth_level") or "").strip().lower()
+            summ = str(dos.get("summary") or "").strip()
+            if depth in ("major", "deep") and len(summ) < 150:
+                warnings.append(
+                    f"dossier '{dos.get('title', '')}' summary quá ngắn cho {depth} ({len(summ)} ký tự)"
+                )
         for k, sb in enumerate(sec.get("subsector_briefs") or []):
             if not isinstance(sb, dict):
                 continue
@@ -4354,6 +4374,7 @@ _DIGEST_SHALLOW_WARNING_MARKERS = (
     "khả năng cao có tin đạt tiêu chí",
     "KHÔNG sector nào có story_dossiers",
     "có thể hallucinate",
+    "thiếu số liệu cụ thể",
 )
 
 

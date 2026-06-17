@@ -720,7 +720,10 @@
     }
     .dossier-source-item {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      padding-left: 14px;
+      border-left: 2px solid rgba(8,145,178,.25);
+      position: relative;
     }
     .sector-topic-source-meta {
       display: block;
@@ -729,6 +732,13 @@
       line-height: 1.35;
       color: var(--muted);
       font-variant-numeric: tabular-nums;
+    }
+    .sector-link-excerpt {
+      display: block;
+      margin: 3px 0 0;
+      font-size: .82rem;
+      line-height: 1.55;
+      color: var(--text-soft);
     }
 
     .overview-part { scroll-margin-top: 88px; margin-bottom: 20px; }
@@ -3949,7 +3959,7 @@
     }
 
     const DIGEST_MAX_SECTOR_ITEMS = 25;
-    const DIGEST_MAX_NOTABLE = 10;
+    const DIGEST_MAX_NOTABLE = 6;
 
     const DIGEST_FOUR_SECTORS = [
       { code: "finance", name: "Kinh tế & Tài chính" },
@@ -4218,9 +4228,11 @@
         count += 1;
         const srcLabel = escapeHtml(formatSourceLinkLabel(enriched, u));
         const meta = formatLinkPublishedMeta(enriched);
+        const ex = String(lk.excerpt || "").trim();
         inner += `<span class="dossier-source-item">`;
         inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
         if (meta) inner += `<span class="sector-topic-source-meta">${escapeHtml(meta)}</span>`;
+        if (ex) inner += `<span class="sector-link-excerpt">${escapeHtml(ex)}</span>`;
         inner += `</span>`;
       }
       if (!count) return "";
@@ -4464,7 +4476,7 @@
         ["mostMentioned", "Chủ đề được nhắc nhiều nhất"],
         ["topStories", "Câu chuyện quan trọng nhất"],
         ["sectorImpacts", "Tác động theo khu vực/ngành"],
-        ["watch2472h", "Theo dõi 24–72h tới"],
+        // watch2472h bỏ khỏi executive briefing — hiển thị riêng ở watchlist panel bên dưới
       ];
       const content = String(b.content || "").trim();
       const editor = String(editorNote || "").trim();
@@ -4631,20 +4643,45 @@
         ? data.watchlist2472h.filter((w) => w && w.theme && w.whatToWatch && w.why)
         : [];
       if (watchlist.length) {
-        html += `<section class="overview-part digest-watchlist" id="digest-watchlist">`;
-        html += `<h3 class="pub-section-title">Theo dõi 24–72h tới</h3>`;
-        html += `<div class="dossier-grid">`;
-        for (const row of watchlist.slice(0, 6)) {
-          html += `<div class="dossier-card">`;
-          html += `<div class="dossier-head"><span class="chip chip--subsector">${escapeHtml(row.theme || "")}</span></div>`;
-          html += `<h4>${escapeHtml(row.whatToWatch || "")}</h4>`;
-          html += `<p class="dossier-summary">${escapeHtml(row.why || "")}</p>`;
+        html += `<section class="overview-part watchlist-panel" id="digest-watchlist">`;
+        html += `<h3 class="pub-section-title" style="margin-bottom:16px">👁 Theo dõi 24–72h tới</h3>`;
+        html += `<div class="watchlist-grid">`;
+        for (const row of watchlist.slice(0, 8)) {
+          const theme = String(row.theme || "").trim();
+          const what = String(row.whatToWatch || "").trim();
+          const why = String(row.why || "").trim();
+          // Bỏ qua nếu what và why giống hệt nhau (Gemini hay lặp)
+          const isDupe = what && why && what.toLowerCase().slice(0,80) === why.toLowerCase().slice(0,80);
+          html += `<div class="watch-card">`;
+          if (theme) html += `<span class="watch-theme">${escapeHtml(theme)}</span>`;
+          html += `<p style="margin:4px 0 6px;font-weight:700;font-size:.9rem;color:var(--text);line-height:1.4">${escapeHtml(what)}</p>`;
+          if (why && !isDupe) html += `<p style="margin:0;font-size:.82rem;color:var(--muted);line-height:1.55">${escapeHtml(why)}</p>`;
           html += `</div>`;
         }
         html += `</div></section>`;
       }
 
-      const notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
+      let notable = Array.isArray(data.digestNotableArticles) ? data.digestNotableArticles : [];
+      // Fallback: nếu digestNotableArticles rỗng, dùng top 6 link từ digestLinkIndex
+      if (!notable.length) {
+        const linkIdx = Array.isArray(data.digestLinkIndex) ? data.digestLinkIndex : [];
+        const seenHosts = {};
+        notable = linkIdx.filter((lk) => {
+          if (!lk || !String(lk.url || "").trim()) return false;
+          if (!String(lk.excerpt || "").trim()) return false;
+          const h = String(lk.host || getHostName(lk.url || "")).replace(/^www\./,"");
+          if ((seenHosts[h] || 0) >= 1) return false;
+          seenHosts[h] = (seenHosts[h] || 0) + 1;
+          return true;
+        }).slice(0, 6).map((lk) => ({
+          url: lk.url,
+          title: lk.title || lk.label || lk.host,
+          source: lk.source || lk.label || "",
+          host: lk.host || getHostName(lk.url || ""),
+          sector: lk.sector || lk.group || "",
+          whyNotable: String(lk.excerpt || "").trim(),
+        }));
+      }
       const articles = Array.isArray(data.articleLinkIndex) ? data.articleLinkIndex : [];
       if (notable.length || articles.length) {
         const imageByUrl = buildArticleImageLookup(data);

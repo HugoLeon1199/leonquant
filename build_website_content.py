@@ -1200,12 +1200,51 @@ _SOURCE_DISPLAY_BY_HOST: dict[str, str] = {
     "bloomberg.com": "Bloomberg",
     "bbc.com": "BBC",
     "bbc.co.uk": "BBC",
+    "coindesk.com": "CoinDesk",
+    "cointelegraph.com": "CoinTelegraph",
+    "cryptoslate.com": "CryptoSlate",
+    "decrypt.co": "Decrypt",
+    "theblock.co": "The Block",
+    "ft.com": "Financial Times",
+    "wsj.com": "WSJ",
+    "nytimes.com": "NYT",
+    "apnews.com": "AP News",
+    "investing.com": "Investing.com",
+    "forbes.com": "Forbes",
+    "businessinsider.com": "Business Insider",
+    "techradar.com": "TechRadar",
+    "arstechnica.com": "Ars Technica",
+    "engadget.com": "Engadget",
+    "sciencedaily.com": "Science Daily",
+    "nature.com": "Nature",
+    "newscientist.com": "New Scientist",
+    "theatlantic.com": "The Atlantic",
+    "time.com": "TIME",
+    "livescience.com": "Live Science",
+    "space.com": "Space.com",
+    "axios.com": "Axios",
+    "politico.com": "Politico",
+    "vox.com": "Vox",
+    "thehill.com": "The Hill",
+    "washingtonpost.com": "Washington Post",
+    "economist.com": "The Economist",
+    "marketwatch.com": "MarketWatch",
+    "seekingalpha.com": "Seeking Alpha",
+    "benzinga.com": "Benzinga",
+    "cryptonews.com": "CryptoNews",
 }
 
 
 def _source_brand_name(host: str, raw_source: str = "") -> str:
     host_key = (host or "").lower().strip()
     raw = (raw_source or "").strip()
+    # Handle raw like "coindesk_com" → "coindesk.com"
+    if raw and "_" in raw and "." not in raw:
+        raw_as_host = raw.replace("_", ".")
+        mapped = _SOURCE_DISPLAY_BY_HOST.get(raw_as_host.lower(), "")
+        if mapped:
+            return mapped
+        # Fall through to host lookup
     if raw and raw.lower() not in (host_key, f"www.{host_key}") and "." not in raw:
         return raw
     if raw and raw.lower() not in (host_key, f"www.{host_key}") and raw != host_key:
@@ -1569,6 +1608,63 @@ def _notable_candidates_from_newsroom(summary: dict[str, Any]) -> list[dict[str,
                 }
             )
     return out[:DIGEST_MAX_NOTABLE_ARTICLES]
+
+
+def _notable_from_link_index(
+    link_index: list[dict[str, Any]],
+    all_articles: list[dict[str, Any]],
+    limit: int = 6,
+) -> list[dict[str, Any]]:
+    """Fallback: lấy notable từ digestLinkIndex khi Gemini không sinh front_page/dossiers."""
+    by_url: dict[str, dict[str, Any]] = {}
+    for art in all_articles:
+        u = str(art.get("url") or "").strip()
+        if u and u not in by_url:
+            by_url[u] = art
+
+    seen_hosts: dict[str, int] = {}
+    seen_titles: set[str] = set()
+    out: list[dict[str, Any]] = []
+
+    for lk in link_index:
+        if not isinstance(lk, dict):
+            continue
+        u = str(lk.get("url") or "").strip()
+        if not u:
+            continue
+        art = by_url.get(u, {})
+        excerpt = str(lk.get("excerpt") or art.get("excerpt") or art.get("description") or "").strip()
+        if not excerpt:
+            continue
+        title = str(lk.get("title") or art.get("title") or "").strip()
+        if not title:
+            continue
+        title_key = title.lower()[:100]
+        if title_key in seen_titles:
+            continue
+        host = str(lk.get("host") or _url_hostname(u))
+        if seen_hosts.get(host, 0) >= 1:
+            continue
+        seen_titles.add(title_key)
+        seen_hosts[host] = seen_hosts.get(host, 0) + 1
+        sector_code = str(lk.get("sector") or lk.get("group") or "")
+        sector_label = DIGEST_SECTOR_LABEL_BY_CODE.get(sector_code, "") or sector_code
+        out.append(
+            {
+                "title": title,
+                "url": u,
+                "why_notable": excerpt[:300],
+                "imageUrl": str(art.get("image_url") or art.get("thumbnail_url") or "").strip(),
+                "source": str(lk.get("source") or art.get("source") or "").strip(),
+                "host": host,
+                "label": _link_display_label(host, str(lk.get("source") or "")),
+                "sector": sector_label,
+                "publishedAt": str(art.get("published_at") or "").strip(),
+            }
+        )
+        if len(out) >= limit:
+            break
+    return out
 
 
 def _enrich_notable_articles_for_public(
@@ -2057,10 +2153,9 @@ def _newsroom_sources_to_links(
             group=group,
         )
         host = _url_hostname(u)
-        excerpt = sanitize_public_prose(
-            str(src.get("excerpt") or "").strip() or _article_excerpt(art),
-            fallback="",
-        )
+        excerpt = str(src.get("excerpt") or "").strip() or _article_excerpt(art)
+        if not excerpt:
+            continue
         published = _link_published_at(art=art, src=src)
         links.append(
             {
@@ -2076,17 +2171,29 @@ def _newsroom_sources_to_links(
     return links
 
 
-def _merge_sector_links(*link_groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _is_vietnamese_text(text: str) -> bool:
+    """Check if text contains Vietnamese characters (tone marks, etc)."""
+    text = str(text or "").strip()
+    viet_chars = "àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ"
+    return any(c.lower() in viet_chars for c in text)
+
+
+def _merge_sector_links(*link_groups: list[dict[str, Any]], max_per_host: int = 2) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
-    seen: set[str] = set()
+    seen_urls: set[str] = set()
+    seen_hosts: dict[str, int] = {}
     for group in link_groups:
         for lk in group:
             if not isinstance(lk, dict):
                 continue
             u = str(lk.get("url") or "").strip()
-            if not u or u in seen:
+            if not u or u in seen_urls:
                 continue
-            seen.add(u)
+            host = str(lk.get("host") or _url_hostname(u))
+            if seen_hosts.get(host, 0) >= max_per_host:
+                continue
+            seen_urls.add(u)
+            seen_hosts[host] = seen_hosts.get(host, 0) + 1
             out.append(lk)
     return out
 
@@ -2171,8 +2278,14 @@ def _sector_fallback_links(
     out: list[dict[str, Any]] = []
     from scripts.newsroom_copy import sanitize_public_prose
 
-    for _, u, art in scored[: max(1, limit)]:
+    for _, u, art in scored[: max(1, limit * 3)]:
         host = _url_hostname(u)
+        excerpt = _article_excerpt(art)
+        if not excerpt:
+            continue
+        # Nếu excerpt tiếng Anh, skip (chỉ lấy tiếng Việt)
+        if not _is_vietnamese_text(excerpt):
+            continue
         out.append(
             {
                 "url": u,
@@ -2180,10 +2293,12 @@ def _sector_fallback_links(
                 "host": host,
                 "source": str(art.get("source") or ""),
                 "label": _link_display_label(host, str(art.get("source") or "")),
-                "excerpt": sanitize_public_prose(_article_excerpt(art), fallback=""),
+                "excerpt": excerpt,
                 "publishedAt": _link_published_at(art=art),
             }
         )
+        if len(out) >= limit:
+            break
     return out
 
 
@@ -2761,6 +2876,7 @@ def build_newsroom_web_extras(
         )
 
     watchlist: list[dict[str, Any]] = []
+    seen_themes: set[str] = set()
     for w in summary.get("watchlist_24_72h") or []:
         if not isinstance(w, dict):
             continue
@@ -2768,7 +2884,13 @@ def build_newsroom_web_extras(
         what_to_watch = sanitize_public_prose(str(w.get("what_to_watch") or "").strip(), fallback="")
         why = sanitize_public_prose(str(w.get("why") or "").strip(), fallback="")
         if theme and what_to_watch and why:
+            theme_key = theme.lower()[:50]
+            if theme_key in seen_themes:
+                continue
+            seen_themes.add(theme_key)
             watchlist.append({"theme": theme, "whatToWatch": what_to_watch, "why": why})
+            if len(watchlist) >= 5:
+                break
 
     source_desk: list[dict[str, Any]] = []
     for row in summary.get("source_desk") or []:
@@ -4061,6 +4183,7 @@ def build_payload(
         notable = digest_pub.get("notable_articles")
         if not (isinstance(notable, list) and notable) and from_newsroom:
             notable = _notable_candidates_from_newsroom(raw_summary)
+        _notable_from_gemini = bool(isinstance(notable, list) and notable)
         if isinstance(notable, list) and notable:
             notable_out = _enrich_notable_articles_for_public(
                 notable,
@@ -4084,6 +4207,18 @@ def build_payload(
                 else None,
             )
             payload.update(extras)
+            # Fallback: nếu Gemini không sinh notable, lấy từ digestLinkIndex đã build
+            if not _notable_from_gemini and not payload.get("digestNotableArticles"):
+                payload["digestNotableArticles"] = _notable_from_link_index(
+                    extras.get("digestLinkIndex") or [],
+                    all_articles,
+                    limit=6,
+                )
+                if payload["digestNotableArticles"]:
+                    print(
+                        f"Digest notable fallback: {len(payload['digestNotableArticles'])} item(s) from link index.",
+                        file=sys.stderr,
+                    )
             n_dossiers = sum(
                 len(s.get("storyDossiers") or [])
                 for s in (extras.get("sectorDeepBriefs") or [])
