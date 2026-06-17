@@ -3025,6 +3025,11 @@
       background: rgba(8, 145, 178, .04);
       color: #0e7490;
     }
+    .invest-badge--caution {
+      border-color: rgba(100, 116, 139, .22);
+      background: rgba(100, 116, 139, .06);
+      color: #475569;
+    }
     .invest-sources-foot {
       margin-top: 0.5rem;
       padding-top: 1.25rem;
@@ -5427,6 +5432,33 @@
       return h;
     }
 
+    function investConfidenceLabel(confidence) {
+      const c = String(confidence || "").trim().toLowerCase();
+      if (c === "high") return "độ tin cậy cao";
+      if (c === "medium") return "độ tin cậy vừa";
+      if (c === "low") return "nguồn hạn chế";
+      return "";
+    }
+
+    function buildInvestQuickRead(lines, lead) {
+      const clean = (Array.isArray(lines) ? lines : [])
+        .map((x) => String(x || "").trim())
+        .filter(Boolean);
+      const leadText = String(lead || "").trim();
+      if (!clean.length && !leadText) return "";
+      let h = `<div class="invest-quick-read">`;
+      if (leadText) h += `<p class="invest-quick-read-lead">${escapeHtml(leadText)}</p>`;
+      if (clean.length) {
+        h += `<ul class="invest-quick-read-list">`;
+        clean.forEach((line) => {
+          h += `<li>${escapeHtml(line)}</li>`;
+        });
+        h += `</ul>`;
+      }
+      h += `</div>`;
+      return h;
+    }
+
     function buildInvestWorldHtml(data) {
       const topics = Array.isArray(data?.topics) ? data.topics : [];
       let h = `<section id="invest-world" class="invest-desk-section invest-desk-section--world">`;
@@ -5442,6 +5474,22 @@
       if (brief) {
         h += `<p class="invest-vn-lead invest-world-brief">${escapeHtml(brief)}</p>`;
       }
+      const worldItems = topics.flatMap((tp) => (Array.isArray(tp.items) ? tp.items : []));
+      const worldEventCount = worldItems.length || Number(data?.total_events || 0);
+      const worldWeakCount = worldItems.filter((it) =>
+        String(it.confidence || "").toLowerCase() === "low" || Number(it.source_count || 0) <= 1,
+      ).length;
+      const worldQuick = [];
+      if (topics.length || worldEventCount) {
+        worldQuick.push(`${topics.length || 1} đề mục · ${worldEventCount} sự kiện đạt lọc đầu tư`);
+      }
+      const worldUpdated = formatPulseUpdatedAt(data?.generated_at_utc || "");
+      if (worldUpdated) worldQuick.push(`Cập nhật ${worldUpdated}`);
+      if (worldWeakCount) worldQuick.push(`${worldWeakCount} mục có nguồn hạn chế, đọc như tín hiệu cần theo dõi`);
+      if (worldEventCount > 0 && worldEventCount < 5) {
+        worldQuick.push("Bản ngắn vì chỉ giữ các tin có kênh tác động đầu tư đủ rõ.");
+      }
+      h += buildInvestQuickRead(worldQuick);
       if (!topics.length) {
         const events = normalizePulseEvents(data);
         if (events.length) {
@@ -5493,10 +5541,16 @@
               const bits = [];
               if (n > 0) bits.push(`${n} bài báo`);
               if (sc > 0) bits.push(`${sc} nguồn tham khảo`);
+              const confidence = investConfidenceLabel(it.confidence);
+              if (confidence) bits.push(confidence);
               h += investFieldRow(
                 "Độ phủ nguồn",
-                investBadgeRow([bits.join(" · ")], "coverage"),
+                investBadgeRow([bits.join(" · ")], sc <= 1 || String(it.confidence || "").toLowerCase() === "low" ? "caution" : "coverage"),
               );
+            }
+            const coverageNote = String(it.coverage_note || "").trim();
+            if (coverageNote) {
+              h += investFieldRow("Ghi chú nguồn", investBadgeRow([coverageNote], "caution"));
             }
             const urls = (Array.isArray(it.source_urls) ? it.source_urls : []).filter((u) =>
               String(u).startsWith("http"),
@@ -5652,6 +5706,15 @@
       if (data?.lead) {
         h += `<p class="invest-vn-lead">${escapeHtml(data.lead)}</p>`;
       }
+      const vnQuick = [];
+      if (themes.length || watchUseful.length) {
+        vnQuick.push(`${themes.length} chủ đề chính · ${watchUseful.length} biến số theo dõi`);
+      }
+      if (digestAt) vnQuick.push(`Nguồn từ digest ${digestAt}`);
+      if (themes.length > 0 && themes.length < 3) {
+        vnQuick.push("Bản VN đang mỏng, chỉ giữ các cụm có nguồn trong nước và góc thị trường rõ.");
+      }
+      h += buildInvestQuickRead(vnQuick);
       if (themes.length) {
         const themesLabel =
           String(data?.themes_section_label || "").trim() ||

@@ -2239,6 +2239,15 @@ def _merge_invest_topic_item(
         str(it.get("confidence") or merged.get("confidence") or ""),
         legacy_count=int(merged.get("source_count") or it.get("source_count") or 0),
     )
+    display_source_count = _invest_display_source_count(
+        int(merged.get("source_count") or it.get("source_count") or 0),
+        all_urls,
+    )
+    coverage_note = ""
+    if confidence == "low" or display_source_count <= 1:
+        coverage_note = "Nguồn hạn chế - đọc như tín hiệu cần theo dõi, chưa phải kết luận chắc chắn."
+    elif display_source_count <= 2:
+        coverage_note = "Độ phủ nguồn vừa phải - ưu tiên theo dõi thêm xác nhận từ nguồn lớn."
     summary = _invest_temper_editorial_text(summary, confidence)
     angle = _invest_temper_editorial_text(angle, confidence)
     title = _invest_temper_editorial_text(title, confidence)
@@ -2251,10 +2260,8 @@ def _merge_invest_topic_item(
         "sentiment_label": sentiment,
         "confidence": confidence,
         "num_articles": int(merged.get("num_articles") or it.get("num_articles") or 0),
-        "source_count": _invest_display_source_count(
-            int(merged.get("source_count") or it.get("source_count") or 0),
-            all_urls,
-        ),
+        "source_count": display_source_count,
+        "coverage_note": coverage_note,
         "source_urls": urls,
         "reported_at": str(
             merged.get("reported_at") or it.get("reported_at") or (base_ev or {}).get("reported_at") or ""
@@ -2299,6 +2306,16 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
                 if str(a).strip()
             ]
             src_urls = _invest_prioritize_source_urls(list(it.get("source_urls") or []), max_urls=4)
+            display_source_count = _invest_display_source_count(
+                int(it.get("source_count") or 0),
+                list(it.get("source_urls") or []),
+            )
+            coverage_note = str(it.get("coverage_note") or "").strip()
+            if not coverage_note:
+                if conf == "low" or display_source_count <= 1:
+                    coverage_note = "Nguồn hạn chế - đọc như tín hiệu cần theo dõi, chưa phải kết luận chắc chắn."
+                elif display_source_count <= 2:
+                    coverage_note = "Độ phủ nguồn vừa phải - ưu tiên theo dõi thêm xác nhận từ nguồn lớn."
             items_out.append(
                 {
                     **it,
@@ -2309,10 +2326,8 @@ def _sanitize_invest_topics_public(topics: list[dict[str, Any]]) -> list[dict[st
                     "affected_assets": assets,
                     "confidence": conf,
                     "source_urls": src_urls,
-                    "source_count": _invest_display_source_count(
-                        int(it.get("source_count") or 0),
-                        list(it.get("source_urls") or []),
-                    ),
+                    "source_count": display_source_count,
+                    "coverage_note": coverage_note,
                 }
             )
         if items_out:

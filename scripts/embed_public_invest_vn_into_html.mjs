@@ -74,6 +74,23 @@ function buildInvestMajorHead(num, titleHtml, sub, tone) {
   return h;
 }
 
+function buildInvestQuickRead(lines, lead) {
+  const clean = (Array.isArray(lines) ? lines : [])
+    .map((x) => String(x || "").trim())
+    .filter(Boolean);
+  const leadText = String(lead || "").trim();
+  if (!clean.length && !leadText) return "";
+  let h = `<div class="invest-quick-read">`;
+  if (leadText) h += `<p class="invest-quick-read-lead">${escapeHtml(leadText)}</p>`;
+  if (clean.length) {
+    h += `<ul class="invest-quick-read-list">`;
+    for (const line of clean) h += `<li>${escapeHtml(line)}</li>`;
+    h += `</ul>`;
+  }
+  h += `</div>`;
+  return h;
+}
+
 function investVnWatchValidLinks(links) {
   if (!Array.isArray(links)) return [];
   return links
@@ -198,6 +215,15 @@ function buildInvestVnHtml(data) {
   if (data.lead) {
     h += `<p class="invest-vn-lead">${escapeHtml(data.lead)}</p>`;
   }
+  const quick = [];
+  if (themes.length || watchUseful.length) {
+    quick.push(`${themes.length} chủ đề chính · ${watchUseful.length} biến số theo dõi`);
+  }
+  if (updated) quick.push(`Nguồn từ digest ${updated}`);
+  if (themes.length > 0 && themes.length < 3) {
+    quick.push("Bản VN đang mỏng, chỉ giữ các cụm có nguồn trong nước và góc thị trường rõ.");
+  }
+  h += buildInvestQuickRead(quick);
   if (themes.length) {
     const themesLabel =
       String(data.themes_section_label || "").trim() ||

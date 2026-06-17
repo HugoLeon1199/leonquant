@@ -59,6 +59,30 @@ _VN_HYPE_LENS_RE = re.compile(
     re.IGNORECASE,
 )
 
+_VN_MARKET_CHANNEL_RE = re.compile(
+    r"đầu tư công|giải ngân|hạ tầng|logistics|ngân hàng|tín dụng|lãi suất|thanh khoản|"
+    r"chứng khoán|bất động sản|trái phiếu|xuất khẩu|đơn hàng|năng lượng|xăng dầu|"
+    r"chi phí|biên lợi nhuận|doanh thu|dòng tiền|tỷ giá|USD/VND|lạm phát",
+    re.IGNORECASE,
+)
+
+_VN_LEGAL_ONLY_RE = re.compile(
+    r"vụ án|hầu tòa|bị cáo|khởi tố|xét xử|cựu chủ tịch|công an|viện kiểm sát|"
+    r"sai phạm đấu thầu|y tế|vật tư y tế",
+    re.IGNORECASE,
+)
+
+_VN_HEALTH_ONLY_RE = re.compile(
+    r"bệnh viện|khám chữa bệnh|y tế|vật tư y tế|cơ sở 2",
+    re.IGNORECASE,
+)
+
+_VN_STRONG_MARKET_CHANNEL_RE = re.compile(
+    r"đầu tư công|giải ngân|chi phí|doanh thu|dòng tiền|biên lợi nhuận|trái phiếu|"
+    r"tín dụng|lãi suất|ngân hàng|chứng khoán|xuất khẩu|logistics",
+    re.IGNORECASE,
+)
+
 VN_HOST_MARKERS = (
     ".vn",
     "baochinhphu.vn",
@@ -183,6 +207,195 @@ def _vn_temper_investor_lens(text: str) -> str:
     ):
         s = f"{s.rstrip('.')}; cần theo dõi nhóm ngành/tài sản liên quan theo diễn biến thực tế."
     return s
+
+
+def _vn_has_market_channel(*values: Any) -> bool:
+    blob = " ".join(str(v or "") for v in values)
+    return bool(_VN_MARKET_CHANNEL_RE.search(blob))
+
+
+def _vn_watch_is_publishable(row: dict[str, Any]) -> bool:
+    blob = " ".join(
+        str(row.get(k) or "")
+        for k in ("title", "issue", "affected_groups", "watch_variables")
+    )
+    if not blob.strip():
+        return False
+    if _VN_LEGAL_ONLY_RE.search(blob) and not _vn_has_market_channel(blob):
+        return False
+    if _VN_HEALTH_ONLY_RE.search(blob) and not _VN_STRONG_MARKET_CHANNEL_RE.search(blob):
+        return False
+    return _vn_has_market_channel(blob)
+
+
+def _fallback_theme_title(code: str, name: str) -> str:
+    code = (code or "").strip().lower()
+    if code == "finance":
+        return "Tài chính, ngân hàng và dòng vốn trong nước"
+    if code == "tech":
+        return "Công nghệ, hạ tầng số và rủi ro vận hành"
+    if code == "politics":
+        return "Chính sách điều hành, hạ tầng và đầu tư công"
+    if code == "lifestyle":
+        return "Tiêu dùng, chi phí sinh hoạt và chính sách xã hội"
+    return name or "Diễn biến kinh tế trong nước"
+
+
+def _fallback_theme_lens(code: str) -> str:
+    code = (code or "").strip().lower()
+    if code == "finance":
+        return "Biến số cần theo dõi là tín dụng, thanh khoản hệ thống, chi phí vốn và phản ứng của nhóm ngân hàng, chứng khoán, bất động sản."
+    if code == "tech":
+        return "Biến số cần theo dõi là mức độ chuyển đổi người dùng, chi phí đầu tư hạ tầng số, an toàn vận hành và tác động tới năng suất doanh nghiệp."
+    if code == "politics":
+        return "Biến số cần theo dõi là tiến độ giải ngân, mặt bằng chi phí dự án, năng lực nhà thầu và khả năng chuyển hóa thành doanh thu của nhóm hạ tầng."
+    if code == "lifestyle":
+        return "Biến số cần theo dõi là sức mua, chi phí đầu vào, chính sách giá và ảnh hưởng lan tỏa tới bán lẻ, vận tải, tiêu dùng."
+    return "Biến số cần theo dõi là kênh truyền sang chi phí, dòng tiền, doanh thu và kỳ vọng của các nhóm ngành liên quan."
+
+
+def _fallback_themes_from_pack(
+    pack: dict[str, Any],
+    *,
+    start_rank: int,
+    existing_titles: set[str],
+) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    rank = start_rank
+    for sec in pack.get("sector_snippets") or []:
+        if not isinstance(sec, dict):
+            continue
+        items = [it for it in (sec.get("items") or []) if isinstance(it, dict)]
+        links: list[dict[str, str]] = []
+        developments: list[str] = []
+        for it in items:
+            headline = _vn_public_text(str(it.get("headline") or "")).strip()
+            if headline:
+                developments.append(_clip(headline, 180))
+            for lk in it.get("links") or []:
+                if not isinstance(lk, dict):
+                    continue
+                url = str(lk.get("url") or "").strip()
+                if not url.startswith("http"):
+                    continue
+                source = _clip(_vn_public_text(str(lk.get("source") or "")), 80)
+                row = {
+                    "url": url,
+                    "title": _vn_clean_link_title(str(lk.get("title") or headline or url), source),
+                    "source": source,
+                }
+                published = str(lk.get("published_at") or lk.get("publishedAt") or "").strip()
+                if published:
+                    row["publishedAt"] = published
+                links.append(row)
+        if not links or not developments:
+            continue
+        code = str(sec.get("code") or "").strip().lower()
+        title = _fallback_theme_title(code, str(sec.get("name") or ""))
+        key = title.casefold()
+        if key in existing_titles:
+            continue
+        summary = _vn_temper_copy(str(sec.get("summary") or developments[0]))
+        out.append(
+            {
+                "rank": rank,
+                "title": title,
+                "why_hot": summary,
+                "developments": developments[:4],
+                "investor_lens": _fallback_theme_lens(code),
+                "links": links[:4],
+            }
+        )
+        existing_titles.add(key)
+        rank += 1
+        if len(out) >= 3:
+            break
+    return out
+
+
+def _fallback_themes_from_articles(
+    pack: dict[str, Any],
+    *,
+    start_rank: int,
+    existing_titles: set[str],
+) -> list[dict[str, Any]]:
+    groups: list[tuple[str, str, str, re.Pattern[str]]] = [
+        (
+            "Bất động sản, đô thị và pháp lý dự án",
+            "Các tin về quản lý đô thị, không gian ngầm, hạ tầng xây dựng và pháp lý dự án tạo thêm biến số cho chi phí triển khai và tiến độ cấp phép.",
+            "Biến số cần theo dõi là tiến độ phê duyệt, chi phí tuân thủ, khả năng giải phóng mặt bằng và tác động tới nhóm bất động sản, xây dựng, vật liệu.",
+            re.compile(r"bất động|đô thị|không gian ngầm|xây dựng|dự án|nhà ở|hạ tầng", re.IGNORECASE),
+        ),
+        (
+            "Ngân hàng, tín dụng và hạ tầng số",
+            "Các tin liên quan ngân hàng, tín dụng và dịch vụ số phản ánh thay đổi trong hạ tầng vận hành tài chính và khả năng tiếp cận khách hàng.",
+            "Biến số cần theo dõi là tín dụng, chi phí vốn, an toàn hệ thống, tốc độ chuyển đổi số và phản ứng của nhóm ngân hàng, chứng khoán.",
+            re.compile(r"ngân hàng|tín dụng|lãi suất|thanh toán|chuyển đổi số|tài khoản|chứng khoán", re.IGNORECASE),
+        ),
+        (
+            "Tiêu dùng, thu nhập và chi phí sinh hoạt",
+            "Các thay đổi về lương, trợ cấp, giá và dịch vụ thiết yếu có thể ảnh hưởng đến sức mua và chi phí vận hành của doanh nghiệp.",
+            "Biến số cần theo dõi là thu nhập khả dụng, sức mua, chi phí đầu vào và phản ứng của nhóm bán lẻ, tiêu dùng, vận tải.",
+            re.compile(r"lương|trợ cấp|giá|xăng|tiêu dùng|thu nhập|bán lẻ|chi phí", re.IGNORECASE),
+        ),
+        (
+            "Xuất khẩu, logistics và chuỗi cung ứng",
+            "Các tin về vận tải, cảng, xuất khẩu và chuỗi cung ứng là tín hiệu theo dõi cho đơn hàng, chi phí logistics và biên lợi nhuận.",
+            "Biến số cần theo dõi là sản lượng, đơn hàng, cước vận tải, thời gian thông quan và sức cầu từ thị trường bên ngoài.",
+            re.compile(r"xuất khẩu|logistics|cảng|vận tải|chuỗi cung|đơn hàng|thương mại", re.IGNORECASE),
+        ),
+    ]
+    articles = [a for a in (pack.get("vn_articles") or []) if isinstance(a, dict)]
+    out: list[dict[str, Any]] = []
+    rank = start_rank
+    existing_blob = " ".join(existing_titles)
+    for title, why, lens, pattern in groups:
+        if any(word in existing_blob for word in title.casefold().split()[:2]):
+            continue
+        rows = [
+            a for a in articles
+            if pattern.search(str(a.get("title") or ""))
+            and str(a.get("url") or "").startswith("http")
+        ]
+        if len(rows) < 2:
+            continue
+        links = []
+        developments = []
+        seen_urls: set[str] = set()
+        for art in rows[:4]:
+            url = str(art.get("url") or "").strip()
+            if not url or url in seen_urls:
+                continue
+            seen_urls.add(url)
+            headline = _vn_public_text(str(art.get("title") or "")).strip()
+            if headline:
+                developments.append(_clip(headline, 180))
+            row = {
+                "url": url,
+                "title": _vn_clean_link_title(headline or url, str(art.get("source") or "")),
+                "source": _clip(_vn_public_text(str(art.get("source") or "")), 80),
+            }
+            published = str(art.get("published_at") or art.get("publishedAt") or "").strip()
+            if published:
+                row["publishedAt"] = published
+            links.append(row)
+        if len(links) < 2 or not developments:
+            continue
+        out.append(
+            {
+                "rank": rank,
+                "title": title,
+                "why_hot": why,
+                "developments": developments[:4],
+                "investor_lens": lens,
+                "links": links[:4],
+            }
+        )
+        existing_titles.add(title.casefold())
+        rank += 1
+        if len(out) >= 3:
+            break
+    return out
 
 
 def build_input_pack(content: dict[str, Any]) -> dict[str, Any]:
@@ -433,6 +646,25 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
             }
         )
     themes.sort(key=lambda x: x["rank"])
+    if len(themes) < 3:
+        existing_titles = {str(t.get("title") or "").casefold() for t in themes}
+        themes.extend(
+            _fallback_themes_from_pack(
+                pack,
+                start_rank=len(themes) + 1,
+                existing_titles=existing_titles,
+            )[: max(0, 3 - len(themes))]
+        )
+        if len(themes) < 3:
+            existing_titles = {str(t.get("title") or "").casefold() for t in themes}
+            themes.extend(
+                _fallback_themes_from_articles(
+                    pack,
+                    start_rank=len(themes) + 1,
+                    existing_titles=existing_titles,
+                )[: max(0, 3 - len(themes))]
+            )
+        themes.sort(key=lambda x: int(x.get("rank") or 999))
 
     now_watch = []
     for nw in raw.get("now_watch") or []:
@@ -447,16 +679,16 @@ def normalize_brief(raw: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]
         watch_vars = _clip(_vn_public_text(str(nw.get("watch_variables") or "")))
         if not watch_vars and legacy_watch and legacy_watch != issue:
             watch_vars = _clip(legacy_watch)
-        now_watch.append(
-            {
-                "title": _vn_public_text(title),
-                "status": _clip(str(nw.get("status") or "đang diễn ra"), 40),
-                "issue": issue,
-                "affected_groups": affected,
-                "watch_variables": watch_vars,
-                "links": _norm_links(nw.get("links")),
-            }
-        )
+        watch_row = {
+            "title": _vn_public_text(title),
+            "status": _clip(str(nw.get("status") or "đang diễn ra"), 40),
+            "issue": issue,
+            "affected_groups": affected,
+            "watch_variables": watch_vars,
+            "links": _norm_links(nw.get("links")),
+        }
+        if _vn_watch_is_publishable(watch_row):
+            now_watch.append(watch_row)
 
     return {
         "schema_version": SCHEMA_VERSION,
