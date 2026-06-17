@@ -71,8 +71,8 @@
       flex-wrap: wrap;
     }
     .logo, .brand-lockup {
-      --logo-size: 48px;
-      --logo-radius: 15px;
+      --logo-size: 60px;
+      --logo-radius: 18px;
       display: flex;
       align-items: center;
       gap: 14px;
@@ -120,6 +120,17 @@
       letter-spacing: -.03em;
       line-height: 1;
       color: var(--text);
+    }
+    .brand-name--sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
     .brand-tagline {
       display: none;
@@ -1880,8 +1891,8 @@
     .source-desk--collapsed summary { cursor: pointer; }
     body.digest-mode .brand-lockup,
     body.digest-mode .logo {
-      --logo-size: 52px;
-      --logo-radius: 16px;
+      --logo-size: 64px;
+      --logo-radius: 19px;
       gap: 10px;
       max-width: 100%;
     }
@@ -1938,8 +1949,8 @@
     body.invest-mode .hero-desc { display: none; }
     body.invest-mode .hero { padding: 22px 0 28px; }
     body.invest-mode .logo {
-      --logo-size: 58px;
-      --logo-radius: 18px;
+      --logo-size: 70px;
+      --logo-radius: 21px;
       font-size: clamp(1.35rem, 3.2vw, 1.85rem);
       gap: 14px;
     }
@@ -3328,8 +3339,8 @@
       body.digest-mode .logo,
       body.pulse-mode .logo,
       body.invest-mode .logo {
-        --logo-size: 44px;
-        --logo-radius: 13px;
+        --logo-size: 52px;
+        --logo-radius: 16px;
       }
       body.digest-mode .logo-icon-wrap,
       body.digest-mode .logo-img,
@@ -3522,11 +3533,11 @@
       <nav class="nav">
         <div class="logo brand-lockup">
           <span class="logo-icon-wrap">
-            <img class="logo-img" src="assets/htson-icon.svg" alt="" width="58" height="58" onerror="this.setAttribute('data-failed','1')">
+            <img class="logo-img" src="assets/htson-icon.svg" alt="" width="70" height="70" onerror="this.setAttribute('data-failed','1')">
             <span class="logo-mark" aria-hidden="true">HT</span>
           </span>
           <span class="brand-text">
-            <span class="brand-name">HTSON</span>
+            <span class="brand-name brand-name--sr">HTSON</span>
           </span>
         </div>
         <div class="nav-segment">
