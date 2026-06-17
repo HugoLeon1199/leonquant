@@ -306,32 +306,26 @@ def _distinct_text(value: Any, *already_used: Any) -> str:
 
 
 def _front_page_row_is_publishable(row: dict[str, Any]) -> bool:
-    urls = [str(u).strip() for u in (row.get("source_urls") or []) if str(u).strip()]
-    if not urls:
-        return False
     title = str(row.get("title") or "").strip()
-    one = str(row.get("one_sentence") or "").strip()
     why = str(row.get("why_it_matters") or "").strip()
+    if not title or not why:
+        return False
+    one = str(row.get("one_sentence") or "").strip()
     watch = str(row.get("watch_next") or "").strip()
-    if not title or not one or not why or not watch:
+    if not one and not watch:
         return False
-    if _looks_duplicateish(title, one) or _looks_duplicateish(one, why) or _looks_duplicateish(why, watch):
-        return False
-    if _is_generic_editorial_text(why) and _is_generic_editorial_text(watch):
+    if _is_generic_editorial_text(why):
         return False
     return True
 
 
 def _dossier_is_publishable(row: dict[str, Any]) -> bool:
-    srcs = [x for x in (row.get("representative_sources") or []) if isinstance(x, dict)]
-    if not srcs:
-        return False
     title = str(row.get("title") or "").strip()
     why = str(row.get("why_it_matters") or "").strip()
     if not title or not why:
         return False
     devs = [str(x).strip() for x in (row.get("main_developments") or []) if str(x).strip()]
-    if len(devs) < 2:
+    if not devs:
         return False
     watch_lines = [str(x).strip() for x in (row.get("watch_next") or []) if str(x).strip()]
     if watch_lines and any(_looks_duplicateish(why, line) for line in watch_lines):

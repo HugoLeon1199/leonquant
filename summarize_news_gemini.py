@@ -3388,13 +3388,14 @@ def supplement_newsroom_from_partials(
         if not title or key in fp_keys:
             continue
         fp_keys.add(key)
+        fp_why = str(row.get("why_notable") or "").strip()
         fp.append(
             {
                 "rank": rank,
                 "title": title,
-                "one_sentence": str(row.get("why_notable") or "").strip(),
-                "why_it_matters": str(row.get("why_notable") or "").strip(),
-                "watch_next": str(row.get("why_notable") or "").strip()[:120],
+                "one_sentence": title,
+                "why_it_matters": fp_why or title,
+                "watch_next": fp_why[:120] if fp_why else title[:120],
                 "source_urls": [str(row.get("url") or "").strip()]
                 if str(row.get("url") or "").strip()
                 else [],
@@ -3415,17 +3416,18 @@ def supplement_newsroom_from_partials(
                 if not title or key in fp_keys:
                     continue
                 fp_keys.add(key)
+                fp_hint = str(row.get("summary_hint") or "").strip()
+                fp_reason = str(row.get("reason_selected") or fp_hint).strip()
+                # one_sentence and why_it_matters must differ; watch_next must differ from both
+                fp_one = fp_hint if (fp_hint and fp_hint != fp_reason) else title
+                fp_watch = fp_reason if (fp_reason and fp_reason != fp_one) else (fp_hint or title)[:120]
                 fp.append(
                     {
                         "rank": rank,
                         "title": title,
-                        "one_sentence": str(row.get("summary_hint") or "").strip(),
-                        "why_it_matters": str(
-                            row.get("reason_selected") or row.get("summary_hint") or ""
-                        ).strip(),
-                        "watch_next": str(
-                            row.get("reason_selected") or row.get("summary_hint") or ""
-                        ).strip()[:120],
+                        "one_sentence": fp_one,
+                        "why_it_matters": fp_reason or fp_one,
+                        "watch_next": fp_watch[:120],
                         "source_urls": _candidate_urls(row)[:2],
                     }
                 )
@@ -3472,17 +3474,25 @@ def supplement_newsroom_from_partials(
             hint = str(row.get("summary_hint") or "").strip()
             reason = str(row.get("reason_selected") or hint).strip()
             rep = _candidate_to_rep_sources(row, headline=title, url_index=url_index)
-            watch_hint = str(row.get("reason_selected") or hint).strip()
+            devs: list[str] = []
+            if hint:
+                devs.append(hint)
+            if reason and reason != hint:
+                devs.append(reason)
+            if not devs:
+                devs = [title]
+            # watch_next must differ from why_it_matters to pass editorial filter
+            watch_text = hint if hint and hint != reason else ""
             dossiers.append(
                 {
                     "rank": d_rank,
                     "depth_level": "deep" if tier == "A" else "brief",
                     "title": title,
                     "summary": hint,
-                    "main_developments": [hint] if hint else [],
+                    "main_developments": devs,
                     "why_it_matters": reason,
                     "affected_groups": [],
-                    "watch_next": [watch_hint[:120]] if watch_hint else [],
+                    "watch_next": [watch_text[:120]] if watch_text else [],
                     "representative_sources": rep,
                 }
             )
