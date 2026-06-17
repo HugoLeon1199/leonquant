@@ -23,8 +23,8 @@ PAUSE_BETWEEN_STEPS_SEC = 60
 # Chỉ chờ lâu khi Gemini báo quota/rate-limit; lỗi khác (code, mạng) thử lại sau 90s.
 PAUSE_ON_QUOTA_FAIL_SEC = 300
 PAUSE_ON_OTHER_FAIL_SEC = 90
-# 25k token/chunk để có 3-5 chunks từ 800+ bài (ước tính char//4 undercount ~40% cho tiếng Việt)
-FREE_TIER_MAX_INPUT_TOKENS = 25_000
+# 60k token/chunk để có ~10-15 chunks từ 800+ bài (char//4 undercount ~40% cho tiếng Việt nên 60k thực ~40k)
+FREE_TIER_MAX_INPUT_TOKENS = 60_000
 FREE_TIER_SLEEP_SEC = 60
 # Chỉ accept gemini_digest_summary.json sau khi có đủ partials (tránh summary sinh sớm từ chunk đầu)
 MIN_PARTIALS_BEFORE_MERGE = 2
