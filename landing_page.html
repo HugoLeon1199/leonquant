@@ -4563,14 +4563,7 @@
     }
 
     function buildDossierCardHtml(d) {
-      const depth = String(d.depthLevel || "deep");
-      const rank = String(d.rank || "").trim();
       let html = `<div class="dossier-card">`;
-      html += `<div class="dossier-head">`;
-      html += `<span class="${newsroomDepthBadgeClass(depth)}">${escapeHtml(newsroomDepthBadgeLabel(depth))}</span>`;
-      if (rank) html += `<span class="dossier-rank">#${escapeHtml(rank)}</span>`;
-      if (d.subSector) html += `<span class="chip chip--subsector">${escapeHtml(d.subSector)}</span>`;
-      html += `</div>`;
       html += `<h4>${escapeHtml(d.title || "")}</h4>`;
       if (d.links && d.links.length) html += buildDossierSourcesHtml(d.links);
       html += `</div>`;
