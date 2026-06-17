@@ -2922,6 +2922,8 @@ GIỮ khi câu chuyện có ít nhất một trục tác động rõ, đọc t�
 - Địa chính trị, an ninh, ngoại giao, xung đột, thỏa thuận, ngừng bắn, sự cố lớn liên quốc gia.
 - Công nghệ quy mô lớn, AI, bán dẫn, hạ tầng số, an ninh mạng diện rộng.
 - Sự kiện xã hội/quốc tế rất lớn có hệ quả xuyên biên giới hoặc tầm ảnh hưởng đa quốc gia.
+- Thể thao chỉ giữ khi là biến cố toàn cầu thật sự, ví dụ World Cup/Olympic với hat-trick, kỷ lục, tranh cãi lớn, an ninh, host economy hoặc làn sóng truyền thông quốc tế rất rộng.
+- Crypto chỉ giữ khi là cú sốc thị trường toàn cầu thật sự, ví dụ Bitcoin/crypto lao dốc mạnh, sụp sàn, halting, hay biến cố pháp lý/chính sách lan sang hệ thống tài chính.
 
 Với tin tiêu cực, CHỈ GIỮ nếu có ảnh hưởng rõ ở cấp quốc gia, khu vực hoặc toàn cầu.
 Ví dụ có thể giữ:
@@ -2932,12 +2934,14 @@ Ví dụ có thể giữ:
 BỎ dù có rất nhiều bài báo:
 - trộm cắp, giết người, cưỡng hiếp, bắt giữ, án hình sự địa phương, truy nã, cảnh sát đột kích nếu chủ yếu là vụ đời sống cục bộ,
 - tai nạn đơn lẻ, cháy nổ cục bộ, mất tích, drama giải trí, scandal cá nhân,
-- tin thể thao/giải trí/tabloid chỉ nóng vì chú ý truyền thông nhưng không có hệ quả rộng,
+- tin thể thao/giải trí/tabloid chỉ nóng vì chú ý truyền thông nhưng không có hệ quả rộng; Messi ghi bàn thường ngày ở Miami không lên,
 - vụ pháp lý/tòa án chỉ ảnh hưởng một cá nhân hay một cộng đồng nhỏ.
 
 Ưu tiên đa dạng câu chuyện và đa dạng tone:
 - nếu có tin trung tính hoặc tích cực đủ tầm thế giới thì phải cân nhắc giữ,
 - không để danh sách bị lấn át bởi chiến sự, tội phạm hoặc scandal nếu còn ứng viên mạnh ở vĩ mô, thị trường, năng lượng, công nghệ hay ngoại giao.
+- Messi lập hat-trick ở World Cup, kỷ lục Olympic hoặc biến cố thể thao có tác động truyền thông toàn cầu có thể được giữ nếu summary cho thấy đây là câu chuyện vượt khỏi phạm vi trận đấu.
+- Bitcoin giảm nhẹ theo ngày thường thì bỏ; Bitcoin rơi kiểu 70k xuống 40k trong một ngày, sụp sàn, hay cú sốc chính sách lớn thì phải cân nhắc giữ.
 
 Nếu hai câu chuyện cùng nóng tương đương, ưu tiên câu chuyện có hệ quả rộng hơn với:
 - kinh tế và thị trường,
@@ -3514,8 +3518,6 @@ WORLD_INFRASTRUCTURE_HINTS: tuple[str, ...] = (
     "telecom",
     "satellite",
 )
-
-
 def _world_live_text(ev: dict[str, Any]) -> str:
     bits = [
         str(ev.get("primary_sector") or ev.get("sector") or ""),
