@@ -22,7 +22,7 @@ DEFAULT_ENRICHED_FILE = PROJECT_DIR / "news_for_ai_clean.json"
 DEFAULT_OUTPUT_FILE = PROJECT_DIR / "content.json"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 LEONQuantLabs/1.0"
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 HTSON/1.0"
 )
 FETCH_HTML_MAX_BYTES = 450_000
 IMG_TAG_RE = re.compile(
@@ -1080,13 +1080,13 @@ def _migrate_snake_to_global_strategy_v2(out: dict[str, Any]) -> None:
 def _default_strategy_snake(*, brief_date: str, generated_at: str) -> dict[str, Any]:
     """Shell Global Market Strategy Brief v2 khi thiếu dữ liệu — tone nghiên cứu, không nhắc tooling."""
     base = {
-        "title": "LEON Quant Labs — Global Market Strategy Brief",
+        "title": "HTSON — Global Market Strategy Brief",
         "date": brief_date,
         "generated_at": generated_at,
         "publication_intro": {
             "headline": "Góc nhìn chiến lược thị trường toàn cầu cho nhà đầu tư Việt Nam",
             "description": (
-                "LEON Quant Labs chuyển biến động vĩ mô và thanh khoản toàn cầu thành khung hành động danh mục "
+                "HTSON chuyển biến động vĩ mô và thanh khoản toàn cầu thành khung hành động danh mục "
                 "ngắn gọn, có thể theo dõi theo ngày."
             ),
         },
@@ -3524,13 +3524,13 @@ def _legacy_to_strategy_snake(summary: dict[str, Any], *, brief_date: str, gener
 
     return {
         "title": str(summary.get("title", "") or "").strip()
-        or "LEON Quant Labs — Góc nhìn vĩ mô và chiến lược thị trường",
+        or "HTSON — Góc nhìn vĩ mô và chiến lược thị trường",
         "date": str(summary.get("date", "") or "").strip() or brief_date,
         "generated_at": str(summary.get("generated_at", "") or "").strip() or generated_at,
         "publication_intro": {
             "headline": "Góc nhìn vĩ mô và chiến lược thị trường dành cho nhà đầu tư Việt Nam",
             "description": (
-                "LEON Quant Labs tập trung vào việc chuyển biến động vĩ mô toàn cầu thành góc nhìn đầu tư "
+                "HTSON tập trung vào việc chuyển biến động vĩ mô toàn cầu thành góc nhìn đầu tư "
                 "có thể hành động tại thị trường Việt Nam."
             ),
         },
@@ -4021,7 +4021,7 @@ def public_payload_to_snake_summary(content: dict[str, Any]) -> dict[str, Any]:
         }
 
     em = content.get("editorialMeta") if isinstance(content.get("editorialMeta"), dict) else {}
-    title = str(em.get("briefTitle", "") or "").strip() or "LEON Quant Labs — Global Market Strategy Brief"
+    title = str(em.get("briefTitle", "") or "").strip() or "HTSON — Global Market Strategy Brief"
     brief_date = str(em.get("briefDate", "") or "").strip()
     if not brief_date:
         ga = str(content.get("generatedAt", "") or "")
@@ -4181,7 +4181,7 @@ def build_payload(
     public_all_articles = [_sanitize_public_article_record(a) for a in all_articles]
 
     payload: dict[str, Any] = {
-        "siteTitle": "LEON Quant Labs",
+        "siteTitle": "HTSON",
         "sectionLabel": (
             "Toàn cảnh tin tức 48 giờ"
             if from_digest
