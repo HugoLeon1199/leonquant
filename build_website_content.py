@@ -2591,12 +2591,17 @@ def build_newsroom_web_extras(
             group="Front page",
             add_link=add_link,
         )
-        one_sentence = sanitize_public_prose(str(row.get("one_sentence") or "").strip(), fallback="") or title_vi
+        if not links:
+            continue
+        one_sentence = sanitize_public_prose(str(row.get("one_sentence") or "").strip(), fallback="")
         why_it_matters = sanitize_public_prose(str(row.get("why_it_matters") or "").strip(), fallback="")
         watch_next = sanitize_public_prose(str(row.get("watch_next") or "").strip(), fallback="")
         if not why_it_matters:
             continue
-        if one_sentence and why_it_matters and _prose_already_covered(why_it_matters, one_sentence, threshold=0.84):
+        # If one_sentence is same as title, use why_it_matters as one_sentence instead
+        if not one_sentence or _prose_already_covered(title_vi, one_sentence, threshold=0.90):
+            one_sentence = why_it_matters
+        if _prose_already_covered(why_it_matters, one_sentence, threshold=0.84):
             why_it_matters = "Diễn biến này có thể tác động trực tiếp đến thị trường liên quan trong ngắn hạn."
         if not watch_next:
             watch_next = "Theo dõi diễn biến tiếp theo trong 24-72 giờ tới."
@@ -2873,6 +2878,8 @@ def build_newsroom_web_extras(
                         group=name,
                         add_link=add_link,
                     )
+            if not links:
+                continue
             main_developments = [
                 str(x).strip()
                 for x in (d.get("main_developments") or [])
