@@ -3316,17 +3316,20 @@
 
     @media (max-width: 720px) {
       .nav {
-        flex-wrap: wrap;
-        align-items: stretch;
-        gap: 10px;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 8px;
       }
       .nav-segment {
+        flex: 1 1 auto;
         margin-left: 0;
-        width: 100%;
+        min-width: 0;
+        width: auto;
       }
       .nav-links {
-        width: 100%;
+        width: auto;
         max-width: none;
+        justify-content: flex-start;
       }
     }
 
