@@ -3408,7 +3408,7 @@ def supplement_newsroom_from_partials(
                 if len(fp) >= 8:
                     break
                 tier = str(row.get("priority_tier") or "B").strip().upper()[:1]
-                if tier not in ("A", "B"):
+                if tier not in ("A", "B", "C"):
                     continue
                 title = str(row.get("headline") or row.get("title") or "").strip()
                 key = _headline_dedupe_key(title)
@@ -3462,7 +3462,7 @@ def supplement_newsroom_from_partials(
             if len(dossiers) >= target:
                 break
             tier = str(row.get("priority_tier") or "B").strip().upper()[:1]
-            if tier not in ("A", "B"):
+            if tier not in ("A", "B", "C"):
                 continue
             title = str(row.get("headline") or row.get("title") or "").strip()
             key = _headline_dedupe_key(title)
@@ -3472,8 +3472,6 @@ def supplement_newsroom_from_partials(
             hint = str(row.get("summary_hint") or "").strip()
             reason = str(row.get("reason_selected") or hint).strip()
             rep = _candidate_to_rep_sources(row, headline=title, url_index=url_index)
-            if not rep:
-                continue
             watch_hint = str(row.get("reason_selected") or hint).strip()
             dossiers.append(
                 {
