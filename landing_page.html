@@ -71,9 +71,11 @@
       flex-wrap: wrap;
     }
     .logo, .brand-lockup {
+      --logo-size: 48px;
+      --logo-radius: 15px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       font-weight: 800;
       letter-spacing: -.03em;
       font-size: 1.02rem;
@@ -82,25 +84,26 @@
     .logo-icon-wrap {
       position: relative;
       flex-shrink: 0;
-      width: 36px;
-      height: 36px;
+      width: var(--logo-size);
+      height: var(--logo-size);
     }
     .logo-img {
-      width: 36px;
-      height: 36px;
-      border-radius: 11px;
+      width: var(--logo-size);
+      height: var(--logo-size);
+      border-radius: var(--logo-radius);
       display: block;
       object-fit: cover;
+      box-shadow: 0 8px 22px rgba(120, 82, 18, .18), 0 0 0 1px rgba(154, 116, 31, .18);
     }
     .logo-img[data-failed="1"] { display: none; }
     .logo-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 11px;
+      width: var(--logo-size);
+      height: var(--logo-size);
+      border-radius: var(--logo-radius);
       background: linear-gradient(135deg, var(--cyan), var(--gold));
       display: grid;
       place-items: center;
-      font-size: .72rem;
+      font-size: .88rem;
       font-weight: 900;
       color: #fff;
     }
@@ -112,10 +115,10 @@
       min-width: 0;
     }
     .brand-name {
-      font-size: clamp(.95rem, 2.5vw, 1.08rem);
+      font-size: clamp(1.22rem, 2.7vw, 1.52rem);
       font-weight: 800;
       letter-spacing: -.03em;
-      line-height: 1.15;
+      line-height: 1;
       color: var(--text);
     }
     .brand-tagline {
@@ -1877,16 +1880,18 @@
     .source-desk--collapsed summary { cursor: pointer; }
     body.digest-mode .brand-lockup,
     body.digest-mode .logo {
+      --logo-size: 52px;
+      --logo-radius: 16px;
       gap: 10px;
       max-width: 100%;
     }
     body.digest-mode .logo-icon-wrap,
     body.digest-mode .logo-img,
     body.digest-mode .logo-mark {
-      width: 40px;
-      height: 40px;
+      width: var(--logo-size);
+      height: var(--logo-size);
       font-size: .78rem;
-      border-radius: 12px;
+      border-radius: var(--logo-radius);
     }
 
     .digest-report { scroll-margin-top: 88px; }
@@ -1933,14 +1938,18 @@
     body.invest-mode .hero-desc { display: none; }
     body.invest-mode .hero { padding: 22px 0 28px; }
     body.invest-mode .logo {
+      --logo-size: 58px;
+      --logo-radius: 18px;
       font-size: clamp(1.35rem, 3.2vw, 1.85rem);
-      gap: 12px;
+      gap: 14px;
     }
+    body.invest-mode .logo-icon-wrap,
+    body.invest-mode .logo-img,
     body.invest-mode .logo-mark {
-      width: 48px;
-      height: 48px;
+      width: var(--logo-size);
+      height: var(--logo-size);
       font-size: .9rem;
-      border-radius: 14px;
+      border-radius: var(--logo-radius);
     }
     .invest-channel-lead {
       margin: 0 0 0.35rem;
@@ -3316,13 +3325,19 @@
       section.alt { padding: 24px 0; }
       .hero { padding: 18px 0 32px; }
       body.digest-mode .hero { padding: 14px 0 18px; }
+      body.digest-mode .logo,
+      body.pulse-mode .logo,
+      body.invest-mode .logo {
+        --logo-size: 44px;
+        --logo-radius: 13px;
+      }
       body.digest-mode .logo-icon-wrap,
       body.digest-mode .logo-img,
       body.digest-mode .logo-mark {
-        width: 34px;
-        height: 34px;
+        width: var(--logo-size);
+        height: var(--logo-size);
         font-size: .7rem;
-        border-radius: 10px;
+        border-radius: var(--logo-radius);
       }
       body.digest-mode .hero,
       body.pulse-mode .hero,
@@ -3341,11 +3356,13 @@
         font-size: clamp(1.12rem, 4.8vw, 1.45rem);
         gap: 10px;
       }
+      body.invest-mode .logo-icon-wrap,
+      body.invest-mode .logo-img,
       body.invest-mode .logo-mark {
-        width: 42px;
-        height: 42px;
+        width: var(--logo-size);
+        height: var(--logo-size);
         font-size: .82rem;
-        border-radius: 12px;
+        border-radius: var(--logo-radius);
       }
       body.invest-mode #invest .invest-vn-link-rows li,
       body.invest-mode #invest .invest-world-item-links li {
@@ -3505,7 +3522,7 @@
       <nav class="nav">
         <div class="logo brand-lockup">
           <span class="logo-icon-wrap">
-            <img class="logo-img" src="assets/htson-icon.svg" alt="" width="36" height="36" onerror="this.setAttribute('data-failed','1')">
+            <img class="logo-img" src="assets/htson-icon.svg" alt="" width="58" height="58" onerror="this.setAttribute('data-failed','1')">
             <span class="logo-mark" aria-hidden="true">HT</span>
           </span>
           <span class="brand-text">
