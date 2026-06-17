@@ -4267,9 +4267,11 @@
         count += 1;
         const srcLabel = escapeHtml(formatSourceLinkLabel(enriched, u));
         const meta = formatLinkPublishedMeta(enriched);
+        const ex = String(lk.excerpt || "").trim();
         inner += `<span class="dossier-source-item">`;
         inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
         if (meta) inner += `<span class="sector-topic-source-meta">${escapeHtml(meta)}</span>`;
+        if (ex) inner += `<span class="sector-link-excerpt">${escapeHtml(ex)}</span>`;
         inner += `</span>`;
       }
       if (!count) return "";
@@ -4561,7 +4563,6 @@
 
     function buildDossierCardHtml(d) {
       const depth = String(d.depthLevel || "deep");
-      const renderStyle = String(d.renderStyle || "full");
       const rank = String(d.rank || "").trim();
       let html = `<div class="dossier-card">`;
       html += `<div class="dossier-head">`;
@@ -4571,28 +4572,6 @@
       html += `</div>`;
       html += `<h4>${escapeHtml(d.title || "")}</h4>`;
       if (d.summary) html += `<p class="dossier-summary">${escapeHtml(d.summary)}</p>`;
-      const devs = Array.isArray(d.mainDevelopments) ? d.mainDevelopments : [];
-      if (renderStyle !== "thin" && devs.length) {
-        html += `<div class="dossier-block"><p class="dossier-block-label">Diễn biến chính</p>`;
-        html += `<ul class="sector-points prose-bullets">`;
-        for (const line of devs) html += `<li>${escapeHtml(line)}</li>`;
-        html += `</ul></div>`;
-      }
-      if (d.whyItMatters) {
-        html += `<div class="dossier-block"><p class="dossier-block-label">Vì sao quan trọng</p><p>${escapeHtml(d.whyItMatters)}</p></div>`;
-      }
-      const ag = Array.isArray(d.affectedGroups) ? d.affectedGroups : [];
-      if (renderStyle !== "thin" && ag.length) {
-        html += `<div class="dossier-block"><p class="dossier-block-label">Nhóm ảnh hưởng</p><div class="chip-row">`;
-        for (const g of ag) html += `<span class="chip">${escapeHtml(g)}</span>`;
-        html += `</div></div>`;
-      }
-      const wn = Array.isArray(d.watchNext) ? d.watchNext : [];
-      if (wn.length) {
-        html += `<div class="dossier-block"><p class="dossier-block-label">Theo dõi tiếp</p><div class="chip-row">`;
-        for (const line of wn) html += `<span class="chip">${escapeHtml(line)}</span>`;
-        html += `</div></div>`;
-      }
       if (d.links && d.links.length) html += buildDossierSourcesHtml(d.links);
       html += `</div>`;
       return html;
