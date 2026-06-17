@@ -316,21 +316,28 @@ WITH
       AvgTone,
       NumArticles,
       SOURCEURL,
-      DATEADDED
+      DATEADDED,
+      CASE
+        WHEN EventRootCode IN ('04', '05', '06', '07', '13', '15', '16') THEN 4
+        WHEN EventRootCode IN ('18', '19', '20') THEN 3
+        WHEN EventRootCode IN ('08') THEN 3
+        WHEN EventRootCode IN ('10', '11', '12') THEN 2
+        WHEN EventRootCode IN ('09', '14', '17') THEN 1
+        ELSE 2
+      END AS GlobalImpactHint
     FROM `gdelt-bq.gdeltv2.events_partitioned`
     WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY)
-      AND NumArticles >= 40
-      AND ABS(AvgTone) >= 4
+      AND NumArticles >= 25
       AND SOURCEURL IS NOT NULL
       AND STARTS_WITH(SOURCEURL, 'http')
     QUALIFY ROW_NUMBER() OVER (
       PARTITION BY GLOBALEVENTID
-      ORDER BY NumArticles DESC, ABS(AvgTone) DESC
+      ORDER BY NumArticles DESC, GlobalImpactHint DESC, ABS(AvgTone) DESC
     ) = 1
   ),
   TopEvents AS (
     SELECT * FROM RankedTopEvents
-    ORDER BY NumArticles DESC, ABS(AvgTone) DESC
+    ORDER BY NumArticles DESC, GlobalImpactHint DESC, ABS(AvgTone) DESC
     LIMIT {TOP_EVENTS_POOL}
   ),
   FilteredMentions AS (
@@ -445,7 +452,18 @@ SELECT
   g.V2Locations
 FROM EventSources AS e
 LEFT JOIN FilteredGKG AS g ON e.SOURCEURL = g.DocumentIdentifier
-ORDER BY e.NumArticles DESC, ABS(e.AvgTone) DESC, e.source_count DESC
+ORDER BY
+  e.NumArticles DESC,
+  CASE
+    WHEN e.EventRootCode IN ('04', '05', '06', '07', '13', '15', '16') THEN 4
+    WHEN e.EventRootCode IN ('18', '19', '20') THEN 3
+    WHEN e.EventRootCode IN ('08') THEN 3
+    WHEN e.EventRootCode IN ('10', '11', '12') THEN 2
+    WHEN e.EventRootCode IN ('09', '14', '17') THEN 1
+    ELSE 2
+  END DESC,
+  e.source_count DESC,
+  ABS(e.AvgTone) DESC
 LIMIT {BQ_OUTPUT_LIMIT}
 """.strip()
 
@@ -2881,6 +2899,71 @@ Sự kiện:
     return events
 
 
+def _world_live_curation_prompt(*, sectors_list: str, lines: str) -> str:
+    return f"""
+Bạn là biên tập mục "Tin nóng thế giới" của LeonQuant.
+Mục tiêu: chọn ra những câu chuyện đang được nhắc nhiều nhất và có ảnh hưởng rộng thật sự tới thế giới hoặc ít nhất một khu vực lớn.
+Đây không phải feed tổng hợp tội phạm, tai nạn hay scandal đời sống.
+
+Danh sách dưới đây là các sự kiện nóng 24h (đã có title/summary tiếng Việt). Làm HAI việc trong một lần:
+
+1) GOM TRÙNG: các global_event_id mô tả CÙNG MỘT vụ/câu chuyện -> một cluster.
+   keep_id = id đại diện, ưu tiên id có nhiều bài hơn và rõ ý hơn.
+   KHÔNG gom chỉ vì cùng sector, cùng quốc gia, hoặc cùng nhân vật nhưng khác vụ.
+
+2) CHỌN LÊN MỤC: duyệt từng cluster và giữ TẤT CẢ keep_id đạt chuẩn.
+   Không cần đủ số lượng. Trung thực biên tập quan trọng hơn viral.
+   Tối đa {TARGET_HOT_EVENTS} id nếu quá nhiều câu chuyện đạt chuẩn.
+
+GIỮ khi câu chuyện có ít nhất một trục tác động rõ, đọc từ title/summary chứ không đoán mò:
+- Vĩ mô, lãi suất, lạm phát, tiền tệ, tài khóa, tăng trưởng, suy thoái.
+- Thị trường tài sản, chứng khoán, trái phiếu, tiền tệ, hàng hóa, crypto.
+- Năng lượng, chuỗi cung ứng, logistics, thương mại, trừng phạt, hạ tầng trọng yếu.
+- Địa chính trị, an ninh, ngoại giao, xung đột, thỏa thuận, ngừng bắn, sự cố lớn liên quốc gia.
+- Công nghệ quy mô lớn, AI, bán dẫn, hạ tầng số, an ninh mạng diện rộng.
+- Sự kiện xã hội/quốc tế rất lớn có hệ quả xuyên biên giới hoặc tầm ảnh hưởng đa quốc gia.
+
+Với tin tiêu cực, CHỈ GIỮ nếu có ảnh hưởng rõ ở cấp quốc gia, khu vực hoặc toàn cầu.
+Ví dụ có thể giữ:
+- khủng hoảng an ninh làm rung chuyển chính sách hoặc thị trường,
+- thảm họa lớn làm gián đoạn hạ tầng, chuỗi cung ứng hoặc năng lượng,
+- vụ pháp lý lớn kéo theo thay đổi chính sách, doanh nghiệp lớn, quyền lực nhà nước hoặc quan hệ quốc tế.
+
+BỎ dù có rất nhiều bài báo:
+- trộm cắp, giết người, cưỡng hiếp, bắt giữ, án hình sự địa phương, truy nã, cảnh sát đột kích nếu chủ yếu là vụ đời sống cục bộ,
+- tai nạn đơn lẻ, cháy nổ cục bộ, mất tích, drama giải trí, scandal cá nhân,
+- tin thể thao/giải trí/tabloid chỉ nóng vì chú ý truyền thông nhưng không có hệ quả rộng,
+- vụ pháp lý/tòa án chỉ ảnh hưởng một cá nhân hay một cộng đồng nhỏ.
+
+Ưu tiên đa dạng câu chuyện và đa dạng tone:
+- nếu có tin trung tính hoặc tích cực đủ tầm thế giới thì phải cân nhắc giữ,
+- không để danh sách bị lấn át bởi chiến sự, tội phạm hoặc scandal nếu còn ứng viên mạnh ở vĩ mô, thị trường, năng lượng, công nghệ hay ngoại giao.
+
+Nếu hai câu chuyện cùng nóng tương đương, ưu tiên câu chuyện có hệ quả rộng hơn với:
+- kinh tế và thị trường,
+- chính sách và quan hệ quốc tế,
+- năng lượng, logistics, chuỗi cung ứng,
+- an ninh và hạ tầng xuyên biên giới.
+
+Không nhắc AI, GDELT, crawler, pipeline.
+
+Trả về JSON (không markdown):
+{{
+  "clusters": [
+    {{"keep_id": "GlobalEventID", "member_ids": ["id1", "id2"], "reason": "một câu tiếng Việt"}}
+  ],
+  "selected_ids": ["GlobalEventID", ...],
+  "notes": "một câu tiếng Việt"
+}}
+
+Danh sách ngành gợi ý (tham khảo, không bắt buộc khớp):
+{sectors_list}
+
+Sự kiện:
+{lines}
+""".strip()
+
+
 def gemini_world_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
     """One API call: cluster duplicates + keep only global/macro/regional-impact stories for world LIVE."""
     if len(events) < 1 or not _configure_gemini():
@@ -2890,7 +2973,8 @@ def gemini_world_dedupe_and_curate(events: list[dict[str, Any]]) -> tuple[list[d
     lines = "\n".join(f"{i + 1}. {_event_dedupe_brief(ev)}" for i, ev in enumerate(events))
     model_name = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL
     model = genai.GenerativeModel(model_name)
-    prompt = f"""
+    prompt = _world_live_curation_prompt(sectors_list=sectors_list, lines=lines)
+    legacy_prompt = f"""
 Bạn là biên tập mục "Tin nóng thế giới" của LeonQuant — chọn tin có tác động thật lên thế giới hoặc ít nhất một khu vực lớn, BẤT KỂ lĩnh vực (kinh tế, chính trị, thể thao, văn hóa, truyền thông, y tế, v.v.).
 
 Danh sách dưới đây là sự kiện nóng 24h (nhiều báo đưa; đã có title/summary tiếng Việt). Làm HAI việc trong một lần:
@@ -3324,6 +3408,275 @@ def _merge_clusters_from_gemini(
     return merged
 
 
+WORLD_LIVE_BUCKETS: tuple[str, ...] = (
+    "macro_market",
+    "geopolitics_security",
+    "energy_supply",
+    "technology_ai",
+    "infrastructure_risk",
+    "social_global",
+    "legal_crime",
+    "other",
+)
+WORLD_LIVE_PRIORITY_BUCKETS: tuple[str, ...] = (
+    "macro_market",
+    "geopolitics_security",
+    "energy_supply",
+    "technology_ai",
+    "infrastructure_risk",
+)
+WORLD_LIVE_BUCKET_CAPS: dict[str, int] = {
+    "legal_crime": 2,
+    "social_global": 2,
+}
+WORLD_BROAD_IMPACT_HINTS: tuple[str, ...] = (
+    "global",
+    "world",
+    "international",
+    "regional",
+    "nationwide",
+    "cross-border",
+    "summit",
+    "treaty",
+    "ceasefire",
+    "sanction",
+    "tariff",
+    "trade",
+    "supply chain",
+    "shipping",
+    "oil",
+    "gas",
+    "lng",
+    "opec",
+    "inflation",
+    "interest rate",
+    "central bank",
+    "bond",
+    "stock",
+    "market",
+    "currency",
+    "forex",
+    "semiconductor",
+    "chip",
+    "ai",
+    "cyber",
+    "grid",
+    "power",
+    "port",
+    "airport",
+    "pipeline",
+    "blockade",
+    "strait",
+    "hormuz",
+    "red sea",
+    "nato",
+    "un ",
+    " eu ",
+    "g7",
+    "g20",
+)
+WORLD_LOCAL_NEGATIVE_HINTS: tuple[str, ...] = (
+    "murder",
+    "killing",
+    "rape",
+    "sexual assault",
+    "robbery",
+    "burglary",
+    "stabbing",
+    "shooting",
+    "kidnap",
+    "abduction",
+    "drug bust",
+    "arrested",
+    "arrest",
+    "indicted",
+    "suspect",
+    "police",
+    "court appearance",
+    "trial date",
+    "celebrity",
+    "dating",
+    "rumor",
+    "divorce",
+    "tabloid",
+)
+WORLD_INFRASTRUCTURE_HINTS: tuple[str, ...] = (
+    "bridge",
+    "airport",
+    "port",
+    "rail",
+    "metro",
+    "power grid",
+    "electricity",
+    "nuclear plant",
+    "pipeline",
+    "subsea cable",
+    "telecom",
+    "satellite",
+)
+
+
+def _world_live_text(ev: dict[str, Any]) -> str:
+    bits = [
+        str(ev.get("primary_sector") or ev.get("sector") or ""),
+        str(ev.get("title_vi") or ev.get("title") or ""),
+        str(ev.get("summary_vi") or ev.get("summary") or ""),
+        str(ev.get("importance_reason") or ""),
+        str(ev.get("gkg_themes") or ""),
+        str(ev.get("gkg_organizations") or ""),
+        str(ev.get("gkg_locations") or ""),
+    ]
+    return " ".join(bit.strip().lower() for bit in bits if bit).strip()
+
+
+def _contains_any(text: str, hints: tuple[str, ...]) -> bool:
+    return any(hint in text for hint in hints)
+
+
+def _world_live_bucket(ev: dict[str, Any]) -> str:
+    sector = str(ev.get("primary_sector") or ev.get("sector") or "").lower()
+    text = _world_live_text(ev)
+    if any(token in sector for token in ("kinh tế", "tài chính", "doanh nghiệp", "logistics")) or _contains_any(
+        text,
+        (
+            "inflation",
+            "interest rate",
+            "central bank",
+            "bond",
+            "equity",
+            "stock",
+            "market",
+            "usd",
+            "dollar",
+            "forex",
+            "trade",
+            "tariff",
+        ),
+    ):
+        return "macro_market"
+    if any(token in sector for token in ("chính trị", "an ninh")) or _contains_any(
+        text,
+        ("war", "military", "missile", "ceasefire", "sanction", "border", "nato", "summit", "diplom"),
+    ):
+        return "geopolitics_security"
+    if any(token in sector for token in ("năng lượng", "khí hậu")) or _contains_any(
+        text,
+        ("oil", "gas", "lng", "opec", "power", "electricity", "mining", "climate", "emission"),
+    ):
+        return "energy_supply"
+    if any(token in sector for token in ("công nghệ", "khoa học")) or _contains_any(
+        text,
+        ("ai", "chip", "semiconductor", "data center", "cyber", "software", "robotics", "satellite"),
+    ):
+        return "technology_ai"
+    if any(token in sector for token in ("hạ tầng", "bất động sản")) or _contains_any(text, WORLD_INFRASTRUCTURE_HINTS):
+        return "infrastructure_risk"
+    if "pháp lý" in sector:
+        return "legal_crime"
+    if "xã hội" in sector:
+        return "social_global"
+    return "other"
+
+
+def _world_story_has_broad_impact(ev: dict[str, Any]) -> bool:
+    text = _world_live_text(ev)
+    bucket = _world_live_bucket(ev)
+    num_articles = int(ev.get("num_articles") or 0)
+    source_count = int(ev.get("source_count") or 0)
+    if bucket in WORLD_LIVE_PRIORITY_BUCKETS:
+        return True
+    if _contains_any(text, WORLD_BROAD_IMPACT_HINTS):
+        return True
+    if num_articles >= 90 and source_count >= 8:
+        return True
+    return False
+
+
+def _world_story_is_localized_negative(ev: dict[str, Any]) -> bool:
+    bucket = _world_live_bucket(ev)
+    text = _world_live_text(ev)
+    if bucket not in {"legal_crime", "social_global"}:
+        return False
+    if _world_story_has_broad_impact(ev):
+        return False
+    if _contains_any(text, WORLD_LOCAL_NEGATIVE_HINTS):
+        return True
+    num_articles = int(ev.get("num_articles") or 0)
+    source_count = int(ev.get("source_count") or 0)
+    return num_articles < 120 or source_count < 10
+
+
+def _mark_world_editorial_flags(ev: dict[str, Any]) -> dict[str, Any]:
+    flagged = dict(ev)
+    flags = list(flagged.get("editorial_flags") or [])
+    bucket = _world_live_bucket(flagged)
+    if int(flagged.get("source_count") or 0) <= 1:
+        flags.append("source_coverage_weak")
+    if bucket in {"legal_crime", "social_global"} and not _world_story_has_broad_impact(flagged):
+        flags.append("broad_impact_unclear")
+    if flags:
+        flagged["editorial_flags"] = sorted(set(flags))
+    flagged["editorial_bucket"] = bucket
+    return flagged
+
+
+def rebalance_world_live_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if not events:
+        return []
+
+    ranked = [_mark_world_editorial_flags(ev) for ev in events]
+    filtered = [ev for ev in ranked if not _world_story_is_localized_negative(ev)]
+    if not filtered:
+        filtered = ranked
+
+    result: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    bucket_counts: dict[str, int] = {bucket: 0 for bucket in WORLD_LIVE_BUCKETS}
+
+    for bucket in WORLD_LIVE_PRIORITY_BUCKETS:
+        for ev in filtered:
+            eid = str(ev.get("global_event_id") or "")
+            if not eid or eid in seen:
+                continue
+            if _world_live_bucket(ev) != bucket:
+                continue
+            if not _world_story_has_broad_impact(ev):
+                continue
+            result.append(ev)
+            seen.add(eid)
+            bucket_counts[bucket] += 1
+            break
+
+    overflow: list[dict[str, Any]] = []
+    for ev in filtered:
+        eid = str(ev.get("global_event_id") or "")
+        if not eid or eid in seen:
+            continue
+        bucket = _world_live_bucket(ev)
+        cap = WORLD_LIVE_BUCKET_CAPS.get(bucket)
+        if cap is not None and bucket_counts.get(bucket, 0) >= cap:
+            overflow.append(ev)
+            continue
+        result.append(ev)
+        seen.add(eid)
+        bucket_counts[bucket] = bucket_counts.get(bucket, 0) + 1
+
+    for ev in overflow:
+        eid = str(ev.get("global_event_id") or "")
+        if not eid or eid in seen:
+            continue
+        result.append(ev)
+        seen.add(eid)
+
+    LOG.info(
+        "World rebalance: kept %s/%s after filtering localized negatives; buckets=%s",
+        len(result),
+        len(events),
+        {k: v for k, v in bucket_counts.items() if v},
+    )
+    return result
+
+
 def dedupe_events_with_gemini(
     events: list[dict[str, Any]], *, use_gemini: bool = True, channel: str = "world"
 ) -> list[dict[str, Any]]:
@@ -3388,6 +3741,7 @@ def dedupe_events_with_gemini(
         if len(picked) >= TARGET_HOT_EVENTS:
             break
     LOG.info("World feed: %s stories selected (max %s)", len(picked), TARGET_HOT_EVENTS)
+    picked = rebalance_world_live_events(picked)
     if picked:
         time.sleep(GEMINI_CALL_INTERVAL_SEC)
         picked = gemini_world_deepen_events(picked)
@@ -3446,6 +3800,10 @@ def _public_event(ev: dict[str, Any], *, channel: str = "world") -> dict[str, An
         "reported_at": str(ev.get("reported_at") or "").strip(),
     }
     if channel != "invest":
+        if ev.get("editorial_flags"):
+            base["editorial_flags"] = list(ev.get("editorial_flags") or [])
+        if ev.get("editorial_bucket"):
+            base["editorial_bucket"] = str(ev.get("editorial_bucket") or "").strip()
         base["sources"] = [s["url"] for s in base["sources"]]
         return base
     base.update(
