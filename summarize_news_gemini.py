@@ -2986,7 +2986,12 @@ def validate_newsroom_brief(
             if str(d.get("why_it_matters") or "").strip()
             or len(d.get("main_developments") or []) >= 2
         )
-        if rich_dossiers >= 2 and len(thesis) < 800:
+        if thesis and len(thesis) < 300:
+            warnings.append(
+                f"sector_deep_briefs[{i}] ({code}) sector_thesis ngắn "
+                f"({len(thesis)} ký tự < 300) — cần viết thêm phân tích từ candidate pools."
+            )
+        elif rich_dossiers >= 2 and len(thesis) < 800:
             warnings.append(
                 f"sector_deep_briefs[{i}] ({code}) sector_thesis quá ngắn "
                 f"({len(thesis)} ký tự) dù có {rich_dossiers} dossier — có thể giống nối dossier rời."
@@ -4175,6 +4180,7 @@ Bạn là **chuyên gia phân tích tin** (kinh tế–thị trường–chính 
 - CHỈ dùng JSON bài viết + khung (nếu có). KHÔNG mở URL, KHÔNG bịa.
 - Ghi nhận **candidate** đạt tiêu chuẩn; số lượng **tự nhiên** theo phần — không fill, không quota.
 - `sector_notes` đủ 4 mã; mỗi mục: `priority_tier`, headline, `summary_hint`, 1 URL, `reason_selected`.
+- `importance_rank`: **BẮT BUỘC** điền cho mọi sub_topic (số nguyên, 1 = quan trọng nhất trong sector này). Tier A → rank ≤ 2. Không để thiếu field này.
 - `notable_articles`: chỉ tin tier A thật nổi bật trong phần (không cố đủ số).
 {_digest_four_sector_rules_block()}
 - Chunk `summary`: nháp **luồng + mối liên hệ** trong phần (merge viết briefing/dossier chính).
@@ -4339,6 +4345,13 @@ def build_digest_merge_prompt(
 - Headline tiếng Việt, viết hoa chữ đầu, không copy thô từ RSS.
 - Khi candidate có `key_excerpt`: đây là dữ kiện chi tiết nhất từ text gốc bạn có được — PHẢI khai thác để viết executive_briefing/sector_thesis/dossier sâu hơn, không chỉ dựa vào headline/summary_hint.
 
+## KIỂM TRA BẮT BUỘC TRƯỚC KHI TRẢ JSON
+Sau khi tạo xong JSON, **tự kiểm tra** từng điểm sau (nếu vi phạm → viết lại phần đó):
+1. `sector_thesis` mỗi sector: đếm số đoạn — **nếu < 3 đoạn** hoặc < 300 ký tự → chưa đủ độ sâu, viết thêm phân tích cụ thể từ `key_excerpt` + `summary_hint` trong pools.
+2. `front_page`: nếu `[]` nhưng candidates tier A trong pools ≥ 3 → **bắt buộc điền ≥ 3 entries** từ candidates tier A.
+3. `notable_articles`: nếu `[]` nhưng có candidates tier A đa ngành (≥ 2 sector khác nhau) → **bắt buộc điền**.
+4. `representative_sources` trong mỗi sector: **phải có ≥ 2 sources** với `excerpt` tiếng Việt biên tập thực sự (không để rỗng `""`).
+
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}
 {_digest_source_urls_block()}
@@ -4375,6 +4388,8 @@ _DIGEST_SHALLOW_WARNING_MARKERS = (
     "KHÔNG sector nào có story_dossiers",
     "có thể hallucinate",
     "thiếu số liệu cụ thể",
+    "sector_thesis ngắn",
+    "front_page trống",
 )
 
 

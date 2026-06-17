@@ -1279,12 +1279,41 @@ _URL_MATCH_MIN_SCORE = 0.36
 
 def _infer_digest_sector_code(name: str) -> str:
     n = (name or "").lower()
+    # Crime/society signals bắt trước tech để tránh false positive "ai" trong "bạn trai", "tai nạn"
+    if any(
+        k in n
+        for k in (
+            "cảnh sát",
+            "công an",
+            "vụ án",
+            "điều tra",
+            "khởi tố",
+            "bị hại",
+            "nạn nhân",
+            "tội phạm",
+            "tử vong",
+            "xô xát",
+            "bắt giữ",
+            "cướp ",
+            "trộm",
+            "lừa đảo",
+            "tai nạn giao thông",
+        )
+    ):
+        return "trends"
     if any(
         k in n
         for k in (
             "công nghệ",
             "cong nghe",
-            "ai",
+            "trí tuệ nhân tạo",
+            "artificial intelligence",
+            "openai",
+            "chatgpt",
+            "llm",
+            "deep learning",
+            "machine learning",
+            " ai ",
             "khoa học",
             "bán dẫn",
             "viễn thông",

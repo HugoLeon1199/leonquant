@@ -23,8 +23,11 @@ PAUSE_BETWEEN_STEPS_SEC = 60
 # Chỉ chờ lâu khi Gemini báo quota/rate-limit; lỗi khác (code, mạng) thử lại sau 90s.
 PAUSE_ON_QUOTA_FAIL_SEC = 300
 PAUSE_ON_OTHER_FAIL_SEC = 90
-FREE_TIER_MAX_INPUT_TOKENS = 100_000
+# 25k token/chunk để có 3-5 chunks từ 800+ bài (ước tính char//4 undercount ~40% cho tiếng Việt)
+FREE_TIER_MAX_INPUT_TOKENS = 25_000
 FREE_TIER_SLEEP_SEC = 60
+# Chỉ accept gemini_digest_summary.json sau khi có đủ partials (tránh summary sinh sớm từ chunk đầu)
+MIN_PARTIALS_BEFORE_MERGE = 2
 
 
 def partial_count() -> int:
@@ -90,8 +93,19 @@ def main() -> int:
                 stderr=subprocess.STDOUT,
             )
         if SUMMARY.is_file():
-            print("Done:", SUMMARY)
-            return 0
+            pc = partial_count()
+            if pc >= MIN_PARTIALS_BEFORE_MERGE:
+                print("Done:", SUMMARY)
+                return 0
+            # Summary sinh quá sớm (chỉ 1 chunk) — xóa để loop chạy thêm batch
+            SUMMARY.unlink()
+            print(
+                f"[loop] Summary appeared early ({pc} partial(s) < {MIN_PARTIALS_BEFORE_MERGE} required). "
+                "Deleted, continuing to accumulate more chunks...",
+                flush=True,
+            )
+            time.sleep(PAUSE_BETWEEN_STEPS_SEC)
+            continue
         if rc != 0:
             tail = ""
             if LOOP_LOG.is_file():
