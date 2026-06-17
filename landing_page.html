@@ -4624,14 +4624,6 @@
             }
             html += `</div>`;
           }
-          const dossiers = Array.isArray(sec.storyDossiers)
-            ? sec.storyDossiers.filter((d) => d && d.links && d.links.length)
-            : [];
-          if (dossiers.length) {
-            html += `<div class="dossier-grid">`;
-            for (const dossier of dossiers.slice(0, 6)) html += buildDossierCardHtml(dossier);
-            html += `</div>`;
-          }
           html += buildSectorArticleLinksHtml(links, articleLookup);
 
 
