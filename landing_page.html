@@ -4264,11 +4264,9 @@
         count += 1;
         const srcLabel = escapeHtml(formatSourceLinkLabel(enriched, u));
         const meta = formatLinkPublishedMeta(enriched);
-        const ex = String(lk.excerpt || "").trim();
         inner += `<span class="dossier-source-item">`;
         inner += `<a class="sector-topic-source" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a>`;
         if (meta) inner += `<span class="sector-topic-source-meta">${escapeHtml(meta)}</span>`;
-        if (ex) inner += `<span class="sector-link-excerpt">${escapeHtml(ex)}</span>`;
         inner += `</span>`;
       }
       if (!count) return "";
