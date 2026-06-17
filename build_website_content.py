@@ -1632,9 +1632,11 @@ def _notable_from_link_index(
         u = str(lk.get("url") or "").strip()
         if not u:
             continue
-        art = by_url.get(u, {})
-        excerpt = str(lk.get("excerpt") or art.get("excerpt") or art.get("description") or "").strip()
+        art = by_url.get(u) or {}
+        excerpt = str(lk.get("excerpt") or "").strip()
         if not excerpt:
+            excerpt = _article_excerpt(art)
+        if not excerpt or not _is_vietnamese_text(excerpt):
             continue
         title = str(lk.get("title") or art.get("title") or "").strip()
         if not title:
@@ -1649,13 +1651,18 @@ def _notable_from_link_index(
         seen_hosts[host] = seen_hosts.get(host, 0) + 1
         sector_code = str(lk.get("sector") or lk.get("group") or "")
         sector_label = DIGEST_SECTOR_LABEL_BY_CODE.get(sector_code, "") or sector_code
+        img = str(art.get("image_url") or art.get("thumbnail_url") or "").strip()
+        if not img:
+            blob = str(art.get("summary") or art.get("content_for_ai") or "")
+            img = extract_image_from_plaintext(blob)
         out.append(
             {
                 "title": title,
                 "url": u,
-                "why_notable": excerpt[:300],
-                "imageUrl": str(art.get("image_url") or art.get("thumbnail_url") or "").strip(),
+                "whyNotable": excerpt[:300],
+                "imageUrl": img,
                 "source": str(lk.get("source") or art.get("source") or "").strip(),
+                "sourceUrl": u,
                 "host": host,
                 "label": _link_display_label(host, str(lk.get("source") or "")),
                 "sector": sector_label,
@@ -2153,8 +2160,12 @@ def _newsroom_sources_to_links(
             group=group,
         )
         host = _url_hostname(u)
-        excerpt = str(src.get("excerpt") or "").strip() or _article_excerpt(art)
+        excerpt = str(src.get("excerpt") or "").strip()
+        if excerpt and not _is_vietnamese_text(excerpt):
+            excerpt = ""  # Gemini excerpt not Vietnamese — discard, try crawled
         if not excerpt:
+            excerpt = _article_excerpt(art)
+        if not excerpt or not _is_vietnamese_text(excerpt):
             continue
         published = _link_published_at(art=art, src=src)
         links.append(
@@ -2172,10 +2183,25 @@ def _newsroom_sources_to_links(
 
 
 def _is_vietnamese_text(text: str) -> bool:
-    """Check if text contains Vietnamese characters (tone marks, etc)."""
+    """Check if text is primarily Vietnamese (not English/Spanish with scattered diacritics)."""
     text = str(text or "").strip()
-    viet_chars = "àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ"
-    return any(c.lower() in viet_chars for c in text)
+    # Exclusive Vietnamese chars: ă/â/ê/ô/ơ/ư/đ and their tonal variants.
+    # NOT: à/á/è/é/ì/í/ò/ó/ù/ú/ý (shared with Spanish/Portuguese).
+    viet_exclusive = "ăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớởỡợưừứửữựỷỹỵđ"
+    viet_chars = [c for c in text if c.lower() in viet_exclusive]
+    if not viet_chars:
+        return False
+    # Require at least 3 exclusive chars OR they make up ≥5% of alpha chars.
+    # This rejects English text with a single embedded Vietnamese phrase.
+    alpha_count = sum(1 for c in text if c.isalpha())
+    if alpha_count == 0:
+        return False
+    ratio = len(viet_chars) / alpha_count
+    # Short texts (< 30 alpha): ≥2 exclusive chars is enough.
+    # Longer texts: require ≥8% ratio to exclude English text with embedded Vietnamese phrases.
+    if alpha_count < 30:
+        return len(viet_chars) >= 2
+    return ratio >= 0.08
 
 
 def _merge_sector_links(*link_groups: list[dict[str, Any]], max_per_host: int = 2) -> list[dict[str, Any]]:
@@ -2264,11 +2290,15 @@ def _sector_fallback_links(
     by_url: dict[str, dict[str, Any]],
     used_urls: set[str] | None,
     limit: int = 6,
+    viet_only: bool = True,
 ) -> list[dict[str, Any]]:
     """Gán link sector từ pool crawl 48h khi Gemini URL cũ bị lọc hết."""
     scored: list[tuple[float, str, dict[str, Any]]] = []
+    _foreign_lang_path_re = re.compile(r"/(?:es|pt|fr|de|ja|ko|zh|ar)/")
     for u, art in by_url.items():
         if used_urls and u in used_urls:
+            continue
+        if _foreign_lang_path_re.search(u):
             continue
         if _infer_article_sector_code(art) != sector_code:
             continue
@@ -2276,16 +2306,19 @@ def _sector_fallback_links(
         scored.append((pub, u, art))
     scored.sort(key=lambda x: x[0], reverse=True)
     out: list[dict[str, Any]] = []
+    seen_hosts: dict[str, int] = {}
     from scripts.newsroom_copy import sanitize_public_prose
 
-    for _, u, art in scored[: max(1, limit * 3)]:
+    for _, u, art in scored[: max(1, limit * 4)]:
         host = _url_hostname(u)
+        if seen_hosts.get(host, 0) >= 2:
+            continue
         excerpt = _article_excerpt(art)
         if not excerpt:
             continue
-        # Nếu excerpt tiếng Anh, skip (chỉ lấy tiếng Việt)
-        if not _is_vietnamese_text(excerpt):
+        if viet_only and not _is_vietnamese_text(excerpt):
             continue
+        seen_hosts[host] = seen_hosts.get(host, 0) + 1
         out.append(
             {
                 "url": u,
@@ -2379,6 +2412,18 @@ def _sanitize_public_link_row(
 
         out["excerpt"] = sanitize_public_prose(str(out.get("excerpt") or "").strip(), fallback="")
     return out
+
+
+def _truncate_watchlist_line(text: str, max_chars: int = 80) -> str:
+    text = text.strip()
+    if len(text) <= max_chars:
+        return text
+    cut = text[:max_chars]
+    for sep in (",", "；", ";", " "):
+        idx = cut.rfind(sep)
+        if idx > max_chars // 2:
+            return cut[:idx].rstrip(" ,;")
+    return cut.rstrip()
 
 
 def build_newsroom_web_extras(
@@ -2862,6 +2907,11 @@ def build_newsroom_web_extras(
                     sector=name,
                     group=name,
                 )
+        # Final language gate: drop any link whose excerpt is not Vietnamese
+        merged_links = [
+            lk for lk in merged_links
+            if not lk.get("excerpt") or _is_vietnamese_text(lk["excerpt"])
+        ]
         if not merged_links and not dossiers_out and not subsector_out and not str(sec.get("sector_thesis") or "").strip():
             continue
         sector_deep.append(
@@ -2881,8 +2931,10 @@ def build_newsroom_web_extras(
         if not isinstance(w, dict):
             continue
         theme = str(w.get("theme") or "").strip()
-        what_to_watch = sanitize_public_prose(str(w.get("what_to_watch") or "").strip(), fallback="")
-        why = sanitize_public_prose(str(w.get("why") or "").strip(), fallback="")
+        what_to_watch = _truncate_watchlist_line(sanitize_public_prose(str(w.get("what_to_watch") or "").strip(), fallback=""))
+        why_raw = sanitize_public_prose(str(w.get("why") or "").strip(), fallback="")
+        # Bỏ why nếu trùng lặp với what_to_watch, ngược lại truncate
+        why = "" if why_raw.lower()[:60] == what_to_watch.lower()[:60] else _truncate_watchlist_line(why_raw)
         if theme and what_to_watch and why:
             theme_key = theme.lower()[:50]
             if theme_key in seen_themes:
@@ -4207,11 +4259,20 @@ def build_payload(
                 else None,
             )
             payload.update(extras)
-            # Fallback: nếu Gemini không sinh notable, lấy từ digestLinkIndex đã build
+            # Fallback: nếu Gemini không sinh notable, lấy từ sectorDeepBriefs links
             if not _notable_from_gemini and not payload.get("digestNotableArticles"):
+                raw_articles = (
+                    enriched_payload.get("articles")
+                    if isinstance(enriched_payload.get("articles"), list)
+                    else all_articles
+                )
+                sector_links: list[dict[str, Any]] = []
+                for _sec in extras.get("sectorDeepBriefs") or []:
+                    for _lk in _sec.get("links") or []:
+                        sector_links.append({**_lk, "sector": _sec.get("code", ""), "group": _sec.get("name", "")})
                 payload["digestNotableArticles"] = _notable_from_link_index(
-                    extras.get("digestLinkIndex") or [],
-                    all_articles,
+                    sector_links,
+                    raw_articles,
                     limit=6,
                 )
                 if payload["digestNotableArticles"]:
