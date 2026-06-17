@@ -2591,20 +2591,20 @@ def build_newsroom_web_extras(
             group="Front page",
             add_link=add_link,
         )
-        if not links:
-            continue
-        one_sentence = sanitize_public_prose(str(row.get("one_sentence") or "").strip(), fallback="")
+        one_sentence = sanitize_public_prose(str(row.get("one_sentence") or "").strip(), fallback="") or title_vi
         why_it_matters = sanitize_public_prose(str(row.get("why_it_matters") or "").strip(), fallback="")
         watch_next = sanitize_public_prose(str(row.get("watch_next") or "").strip(), fallback="")
+        if not why_it_matters:
+            continue
         if one_sentence and why_it_matters and _prose_already_covered(why_it_matters, one_sentence, threshold=0.84):
             why_it_matters = "Diễn biến này có thể tác động trực tiếp đến thị trường liên quan trong ngắn hạn."
-        if watch_next and (
+        if not watch_next:
+            watch_next = "Theo dõi diễn biến tiếp theo trong 24-72 giờ tới."
+        elif (
             _prose_already_covered(watch_next, one_sentence, threshold=0.84)
             or _prose_already_covered(watch_next, why_it_matters, threshold=0.84)
         ):
             watch_next = "Theo dõi phản ứng tiếp theo của thị trường trong 24-72 giờ tới."
-        if not one_sentence or not why_it_matters or not watch_next:
-            continue
         front_page.append(
             {
                 "rank": len(front_page) + 1,
@@ -2878,8 +2878,6 @@ def build_newsroom_web_extras(
                 for x in (d.get("main_developments") or [])
                 if str(x).strip()
             ]
-            if not links:
-                continue
             dossier_summary_text = sanitize_public_prose(str(d.get("summary") or "").strip(), fallback="")
             why_it_matters = sanitize_public_prose(str(d.get("why_it_matters") or "").strip(), fallback="")
             render_style = "full" if len(main_developments) >= 2 else "thin"
@@ -3027,6 +3025,7 @@ def build_newsroom_web_extras(
         "digestLinkIndex": [_sanitize_public_link_row(row) for row in link_index],
         "editorNote": "",
         "executiveBriefing": executive_briefing,
+        "frontPage": front_page,
         "sectorDeepBriefs": sector_deep,
         "watchlist2472h": watchlist,
         "sourceDesk": source_desk,
