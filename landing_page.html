@@ -1573,11 +1573,19 @@
       font-weight: 700;
       color: var(--faint);
     }
+    .dossier-title {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
     .dossier-summary {
       margin: 0 0 12px;
-      font-size: .95rem;
-      font-weight: 600;
+      font-size: .9rem;
+      font-weight: 500;
       color: var(--text-soft);
+      line-height: 1.55;
     }
     .dossier-block {
       margin: 14px 0 0;
@@ -4625,9 +4633,32 @@
             html += `</div>`;
           }
           html += buildSectorArticleLinksHtml(links, articleLookup);
-
-
-
+          // Render story dossiers
+          const dossiers = Array.isArray(sec.storyDossiers)
+            ? sec.storyDossiers.filter((d) => d && (d.summary || d.mainDevelopments?.length))
+            : [];
+          if (dossiers.length) {
+            html += `<div class="dossier-list"><h4>Câu chuyện nổi bật</h4>`;
+            for (const d of dossiers) {
+              const dTitle = String(d.title || "").trim();
+              const dSummary = String(d.summary || "").trim();
+              const devs = Array.isArray(d.mainDevelopments) ? d.mainDevelopments.filter(Boolean) : [];
+              const dLinks = Array.isArray(d.links) ? d.links : [];
+              if (!dTitle && !dSummary) continue;
+              html += `<div class="dossier-card">`;
+              if (dTitle) html += `<h5 class="dossier-title">${escapeHtml(dTitle)}</h5>`;
+              if (devs.length) {
+                html += `<ul class="sector-points prose-bullets">`;
+                for (const line of devs.slice(0, 3)) html += `<li>${escapeHtml(line)}</li>`;
+                html += `</ul>`;
+              } else if (dSummary) {
+                html += `<p class="dossier-summary">${escapeHtml(dSummary)}</p>`;
+              }
+              if (dLinks.length) html += buildDossierSourcesHtml(dLinks);
+              html += `</div>`;
+            }
+            html += `</div>`;
+          }
 
 
 

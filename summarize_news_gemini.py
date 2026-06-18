@@ -105,6 +105,8 @@ def _digest_coverage_sanity_block() -> str:
             "- Nếu một sector có nhiều candidate tier A/B **khác chủ đề** trong partials, **phải giữ đủ các luồng chính**.",
             "- **Không** co sector xuống 1–3 tin chỉ vì muốn gọn, trừ khi dữ liệu thật sự ít hoặc các tin **trùng** đã gom.",
             "- Sau merge, nếu sector <4 `sub_topics`: chỉ chấp nhận khi **không còn** candidate A/B đạt chuẩn; nếu còn trong partials → **bổ sung**.",
+            "- **Ngưỡng tối thiểu khi pools dày**: input ≥500 bài → mỗi sector phải có ≥5 `story_dossiers` trừ khi giải thích trong `gaps_and_limits`; input ≥200 bài → ≥3 `story_dossiers`.",
+            "- Nếu đang viết merge và một sector chỉ có 1–2 dossiers nhưng pool còn nhiều candidate A/B → DỪNG, bổ sung dossiers trước khi tiếp.",
             "- **Gọn** = gom thông minh, không lặp, không rác — **không** hiểu gọn là ít tin.",
         ]
     )
@@ -399,6 +401,11 @@ def _digest_front_page_criteria_block() -> str:
             "Nếu rà soát toàn bộ corpus mà THẬT SỰ không có tin nào đạt tiêu chí (corpus toàn tin nhỏ/nhiễu) — có thể để `front_page` trống, nhưng đây là trường hợp hiếm; nếu corpus có ≥80 candidates mà `front_page` trống, hãy tự kiểm tra lại vì khả năng cao đã bỏ sót.",
             "- `front_page` PHẢI có ít nhất 3–5 entries nếu có bất kỳ dossier `depth_level=major` hoặc `deep` nào trong sector_deep_briefs.",
             "- Nếu không có dossier rõ ràng, chọn 3 story cluster nổi bật nhất từ executive_briefing làm entries cho front_page.",
+            "- `one_sentence` PHẢI KHÁC với `title`: thêm ngữ cảnh, impact hoặc diễn biến mà title không nêu.",
+            "  SAI: title = 'SpaceX IPO gây chấn động' → one_sentence = 'SpaceX IPO gây chấn động' (copy nguyên).",
+            "  ĐÚNG: one_sentence = 'IPO ước tính 200-350 tỷ USD — lớn nhất lịch sử hàng không tư nhân — sẽ tái định nghĩa cách vốn tổ chức nhìn nhận deep-tech ngoài Silicon Valley.'",
+            "- `source_urls` KHÔNG ĐƯỢC RỖng (`[]`) cho bất kỳ front_page entry nào.",
+            "  Nếu không tìm được URL khớp từ pools → BỎ tin đó, chọn tin khác có URL. KHÔNG tạo URL mới.",
         ]
     )
 
@@ -467,6 +474,8 @@ def _digest_sector_narrative_block() -> str:
     return "\n".join(
         [
             "## Đi sâu theo từng ngành (`sector_thesis`) — bài tóm tắt ngành đủ sâu theo dữ liệu",
+            "**TRƯỚC KHI VIẾT `sector_thesis`, thực hiện bước này:**",
+            "Liệt kê trong đầu các `key_excerpt` từ candidates tier A/B của sector. Mỗi đoạn viết ra phải kéo ít nhất 1 fact/số liệu/tên riêng từ key_excerpt đó vào. Bỏ qua bước này → sector_thesis sẽ trừu tượng, không có dữ kiện, vi phạm quy tắc.",
             "Mỗi `sector_thesis` là **một mini analyst note** (nhiều đoạn), không nối summary dossier rời rạc.",
             "**Không ép số câu/số chữ.** Ngành nhiều tin nóng → viết dài và sâu; ngành ít tin → gọn nhưng **không** mất ý chính.",
             "**Viết dài là tốt nếu mỗi đoạn mở ra một góc mới** (cụm tin mới, tác động mới, biến số mới) — **cấm** lặp lại ý đã nói ở đoạn trước bằng cách diễn đạt khác, cấm câu đệm/transition không mang dữ kiện.",
@@ -598,6 +607,8 @@ def _digest_four_sector_rules_block(*, for_merge: bool = False) -> str:
         '- `tech`: công nghệ, AI, khoa học, bán dẫn, viễn thông.',
         '- `news`: thời sự, chính trị, ngoại giao, sự kiện quốc tế, địa chính trị.',
         '- `trends`: xu hướng, đời sống, quan điểm, góc nhìn, văn hóa, thể thao, y tế, môi trường, pháp luật/xã hội không thuần chính trị.',
+        '  KHÔNG bao gồm: crypto/DeFi/token (→ `finance`), an ninh mạng/AI research/khoa học ứng dụng (→ `tech`), ngoại giao/chính sách nhà nước (→ `news`).',
+        '  Phù hợp: viral xã hội, thể thao có tác động văn hóa/kinh tế, y tế cộng đồng, môi trường/lối sống, giáo dục, du lịch.',
         "- **Không** tạo sector ngoài 4 mã; **không** gộp hết vào finance/tech.",
         "- **Tổng hợp** (không liệt kê từng bài); mỗi `sub_topics[]`: headline + `source_urls` (1–3 URL).",
         "- Gom tin trùng chủ đề; không chọn chỉ vì headline giật.",
@@ -703,10 +714,20 @@ def _digest_story_dossier_rules_block() -> str:
             "đây là đoạn hiển thị công khai phía trên danh sách nguồn, phải tự đứng được mà không cần đọc thêm: nêu chuyện gì xảy ra, "
             "ai/cái gì liên quan, vì sao đáng chú ý. Mỗi câu phải có ý mới, không lặp.",
             "- `main_developments`: các ý chính từ nhiều bài cùng cụm (thứ tự logic) — đủ ý theo độ phức tạp, không quota số ý.",
+            "  **CẤM copy bất kỳ câu nào từ `summary` vào `main_developments`** — mỗi bullet PHẢI là thông tin MỚI, sự kiện riêng biệt chưa có trong summary.",
+            "  **CẤM copy câu nào từ `why_it_matters` vào `main_developments`** — hai field phải bổ sung nhau:",
+            "  `main_developments` = CÁI GÌ đã xảy ra (sự kiện, con số cụ thể, diễn biến, tên tổ chức/người liên quan).",
+            "  `why_it_matters` = VÌ SAO quan trọng (tác động, hệ quả, ý nghĩa với thị trường/người đọc).",
+            "  Nếu không có gì mới → để mảng ngắn (1 bullet cụ thể) chứ không copy.",
+            "  SAI: summary = 'Bitcoin miners được định giá theo AI infra' → main_developments[0] = 'Bitcoin miners được định giá theo AI infra' (← copy nguyên).",
+            "  ĐÚNG: main_developments = ['Core Scientific ký hợp đồng 200MW với hyperscaler AI', 'Standard Chartered dự báo miners cung cấp 15% điện cho AI training Mỹ đến 2027'].",
             "- Khi candidate có sẵn `key_excerpt` (từ pools): DÙNG nó — không chỉ `headline`/`summary_hint` — làm nguyên liệu chính viết `summary`/`main_developments`/`why_it_matters`; đây là dữ kiện cụ thể nhất bạn có, KHÔNG đọc lại text gốc nên PHẢI khai thác triệt để field này.",
-            "- `why_it_matters`: tác động cụ thể — đủ sâu theo `depth_level` và dữ liệu.",
+            "- `why_it_matters`: **BẮT BUỘC không rỗng** — tối thiểu 1 câu nêu tác động cụ thể, kể cả với dossier `brief`. Không để trống.",
             "- `affected_groups`: mảng ngắn (nhóm/tài sản/ngành/quốc gia).",
-            "- `watch_next`: biến số **24–72h** cụ thể (tên, không filler).",
+            "- `watch_next`: biến số **24–72h** cụ thể — câu hỏi hoặc điều kiện cần theo dõi tiếp.",
+            "  **CẤM copy từ `summary`, `main_developments` hay `why_it_matters`** — đây là forward-looking, không nhắc lại.",
+            "  SAI: watch_next = ['Các công ty đào Bitcoin đang được định giá dựa trên tiềm năng AI...'] (← copy summary).",
+            "  ĐÚNG: watch_next = ['Giá điện Texas Q3 — biến số chi phí chính', 'Hợp đồng AI hyperscaler có được gia hạn khi nhu cầu datacenter hạ nhiệt?'].",
             "- `representative_sources`: **1–5** object `{title, source, url, excerpt}` — URL từ crawl; `excerpt` theo quy tắc trích yếu.",
             "- `depth_level`: `brief` | `deep` | `major`.",
             _digest_source_excerpt_rules_block(),
@@ -2361,6 +2382,24 @@ def _sanitize_representative_sources(
     )
 
 
+def _drop_lines_copied_from_summary(lines: list[str], summary_lower: str) -> list[str]:
+    """Bỏ bullet nào là copy-paste của summary (substring 40+ ký tự trùng nhau)."""
+    out = []
+    for line in lines:
+        line_lower = line.strip().lower()
+        if not line_lower:
+            continue
+        # Exact match
+        if line_lower == summary_lower:
+            continue
+        # Coi là copy-paste nếu ≥40 ký tự đầu của line trùng với summary
+        probe = line_lower[:80]
+        if len(probe) >= 40 and probe in summary_lower:
+            continue
+        out.append(line)
+    return out
+
+
 def _sanitize_story_dossier(
     row: dict[str, Any],
     *,
@@ -2386,6 +2425,21 @@ def _sanitize_story_dossier(
     out["why_it_matters"] = soften_newsroom_text(str(out.get("why_it_matters") or "").strip())
     out["affected_groups"] = _coerce_str_list(out.get("affected_groups"), max_items=8)
     out["watch_next"] = _coerce_str_list(out.get("watch_next"), max_items=6)
+    # Dedup: bỏ main_developments và watch_next copy-paste từ summary
+    summary_text = out.get("summary", "").strip().lower()
+    if summary_text:
+        out["main_developments"] = _drop_lines_copied_from_summary(
+            out["main_developments"], summary_text
+        )
+        out["watch_next"] = _drop_lines_copied_from_summary(
+            out["watch_next"], summary_text
+        )
+    # Dedup: bỏ main_developments copy-paste từ why_it_matters
+    why_text = out.get("why_it_matters", "").strip().lower()
+    if why_text:
+        out["main_developments"] = _drop_lines_copied_from_summary(
+            out["main_developments"], why_text
+        )
     dossier_context = " ".join(
         part
         for part in (
@@ -2553,7 +2607,11 @@ def _sanitize_front_page_item(
     title = str(out.get("title") or "").strip()
     if title:
         out["title"] = _vietnamese_public_headline(_editorialize_digest_headline(title))
-    out["one_sentence"] = str(out.get("one_sentence") or "").strip()
+    one_s = str(out.get("one_sentence") or "").strip()
+    # Nếu one_sentence là copy nguyên title → xóa (UI sẽ chỉ dùng title)
+    if one_s and title and one_s.lower() == title.lower():
+        one_s = ""
+    out["one_sentence"] = one_s
     out["why_it_matters"] = str(out.get("why_it_matters") or "").strip()
     out["watch_next"] = str(out.get("watch_next") or "").strip()
     from scripts.newsroom_copy import soften_newsroom_text
@@ -2693,8 +2751,29 @@ def normalize_newsroom_brief(
                 "why": str(row.get("why") or "").strip(),
             }
         )
-    out["watchlist_24_72h"] = [w for w in watch if w.get("theme")][:DIGEST_PARSER_MAX_WATCHLIST]
-
+    # Dedup: bỏ items có theme là tên sector (lazy Gemini) hoặc headline bài báo (>70 ký tự)
+    _sector_name_blacklist = {
+        code.lower() for code, _ in DIGEST_FOUR_SECTORS
+    } | {
+        label.lower() for _, label in DIGEST_FOUR_SECTORS
+    } | {"kinh tế & tài chính", "công nghệ & ai", "thời sự & chính trị", "xu hướng & đời sống"}
+    seen_themes: set[str] = set()
+    clean_watch: list[dict[str, Any]] = []
+    for w in watch:
+        theme = w.get("theme", "").strip()
+        if not theme:
+            continue
+        if len(theme) > 70:  # headline bị nhầm làm theme
+            continue
+        theme_lower = theme.lower()
+        if theme_lower in _sector_name_blacklist:  # tên sector bị nhầm làm theme
+            continue
+        theme_key = theme_lower[:40]
+        if theme_key in seen_themes:  # trùng theme
+            continue
+        seen_themes.add(theme_key)
+        clean_watch.append(w)
+    out["watchlist_24_72h"] = clean_watch[:DIGEST_PARSER_MAX_WATCHLIST]
     desk: list[dict[str, Any]] = []
     for row in out.get("source_desk") or []:
         if not isinstance(row, dict):
@@ -3508,16 +3587,18 @@ def supplement_newsroom_from_partials(
         )
     out["sector_deep_briefs"] = norm_sectors
 
+    _bl = {code.lower() for code, _ in DIGEST_FOUR_SECTORS} | {lbl.lower() for _, lbl in DIGEST_FOUR_SECTORS}
     watch = [
         dict(w)
         for w in (out.get("watchlist_24_72h") or [])
         if isinstance(w, dict) and str(w.get("theme") or "").strip()
+        and str(w.get("theme") or "").strip().lower() not in _bl
     ]
     if len(watch) < 4:
         seen_themes: set[str] = {str(w.get("theme") or "").strip().lower() for w in watch}
         for item in fp[:6]:
             theme = str(item.get("title") or "").strip()
-            if not theme or theme.lower() in seen_themes:
+            if not theme or theme.lower() in seen_themes or theme.lower() in _bl:
                 continue
             seen_themes.add(theme.lower())
             watch.append(
@@ -4217,6 +4298,9 @@ Trả về DUY NHẤT JSON:
         "source_urls": ["url1", "url2"],
         "reason_selected": "..."
       }}]
+    Lưu ý `source_urls`: BẮT BUỘC ≥1 URL thực từ bài báo trong batch này — KHÔNG để mảng rỗng.
+    Đây là nguồn dữ liệu DUY NHẤT để build `representative_sources` ở merge step.
+    Nếu bài không có URL → BỎ bài khỏi sub_topics, đừng thêm sub_topic không URL.
     }}
   ],
   "vietnam_notes": "Tin VN trong phần này",
@@ -4247,9 +4331,10 @@ def aggregate_partial_sector_candidates(
     for batch in partials:
         if not isinstance(batch, dict):
             continue
+        # Support both {batch_index, summary: {...}} and bare summary dicts
         raw = batch.get("summary")
         if not isinstance(raw, dict):
-            continue
+            raw = batch  # caller passed summary dicts directly
         for sn in raw.get("sector_notes") or []:
             if not isinstance(sn, dict):
                 continue
@@ -4289,9 +4374,11 @@ def _digest_partial_candidate_stats(partials: list[dict[str, Any]]) -> str:
     """Đếm candidate sub_topics trong partials — nhắc merge không co quá mức."""
     counts: dict[str, int] = {code: 0 for code, _ in DIGEST_FOUR_SECTORS}
     for batch in partials:
-        raw = batch.get("summary") if isinstance(batch, dict) else None
-        if not isinstance(raw, dict):
+        if not isinstance(batch, dict):
             continue
+        raw = batch.get("summary")
+        if not isinstance(raw, dict):
+            raw = batch  # caller passed summary dicts directly
         for sn in raw.get("sector_notes") or []:
             if not isinstance(sn, dict):
                 continue
@@ -4359,6 +4446,10 @@ Sau khi tạo xong JSON, **tự kiểm tra** từng điểm sau (nếu vi phạm
 2. `front_page`: nếu `[]` nhưng candidates tier A trong pools ≥ 3 → **bắt buộc điền ≥ 3 entries** từ candidates tier A.
 3. `notable_articles`: nếu `[]` nhưng có candidates tier A đa ngành (≥ 2 sector khác nhau) → **bắt buộc điền**.
 4. `representative_sources` trong mỗi sector: **phải có ≥ 2 sources** với `excerpt` tiếng Việt biên tập thực sự (không để rỗng `""`).
+5. **Dossier copy-paste check**: với MỖI `story_dossiers[]`, đọc lại `summary` rồi đọc `main_developments` và `watch_next` — nếu bất kỳ bullet nào trong `main_developments` hoặc `watch_next` trùng hoặc gần giống câu trong `summary` → **viết lại** bullet đó thành thông tin MỚI (fact khác, diễn biến khác, hoặc câu hỏi forward-looking). Vi phạm phổ biến nhất: copy nguyên câu từ summary vào main_developments[0] và watch_next[0].
+6. **front_page one_sentence check**: với MỖI `front_page[]`, so sánh `title` và `one_sentence` — nếu giống nhau hoặc chỉ khác vài từ → **viết lại** `one_sentence` thêm ngữ cảnh/impact/số liệu cụ thể mà title không có.
+7. **front_page source_urls check**: với MỖI `front_page[]`, nếu `source_urls` là `[]` → **bắt buộc tìm URL từ pools** khớp với tin đó và điền vào; nếu thật sự không có URL phù hợp → **bỏ entry đó** khỏi front_page, thay bằng entry khác có URL.
+8. **watchlist theme check**: đọc lại từng `watchlist_24_72h[].theme` — nếu dài hơn 50 ký tự hoặc trùng/gần giống một front_page title → **đây là lỗi**, viết lại thành tên chủ đề ngắn (2–6 từ).
 
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}
@@ -4369,7 +4460,12 @@ Sau khi tạo xong JSON, **tự kiểm tra** từng điểm sau (nếu vi phạm
 - `sector_deep_briefs`: đúng **4** sector; `sector_thesis` = bài tóm tắt ngành có mạch (không nối dossier rời).
 - Mọi `representative_sources` quan trọng: thêm `excerpt` trích yếu biên tập — độ dài adaptive, đủ ý.
 - Trong `story_dossiers`, cố gắng gắn `sub_sector` khi có căn cứ dữ liệu (không ép cho đủ).
-- `watchlist_24_72h`: **4–8** chủ đề theo dõi 24–72h.
+- `watchlist_24_72h`: **4–6** chủ đề theo dõi 24–72h.
+  - `theme`: tên chủ đề ngắn gọn **2–6 từ** (ví dụ: "Fed/lãi suất Mỹ", "Địa chính trị Trung Đông").
+    **CẤM** dùng headline bài báo hoặc front_page title làm `theme` — dấu hiệu: theme dài >40 ký tự hoặc trùng với một front_page title.
+  - Mỗi chủ đề chỉ xuất hiện **MỘT LẦN** — trước khi thêm item mới, kiểm tra danh sách hiện tại không có item cùng bản chất (dù diễn đạt khác).
+  - SAI: `{{"theme": "Thỏa thuận Mỹ-Iran làm dịu căng thẳng eo biển Hormuz", ...}}` (← headline front_page bị nhầm làm theme).
+  - ĐÚNG: `{{"theme": "Địa chính trị Trung Đông", "what_to_watch": "Xác nhận chính thức thỏa thuận Mỹ-Iran và phản ứng giá dầu Brent", "why": "..."}}`.
 - `source_desk`: **3–8** nhóm nguồn đại diện theo chủ đề lớn.
 
 {_digest_newsroom_prose_example_block()}

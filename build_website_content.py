@@ -2610,6 +2610,14 @@ def build_newsroom_web_extras(
             or _prose_already_covered(watch_next, why_it_matters, threshold=0.84)
         ):
             watch_next = "Theo dõi phản ứng tiếp theo của thị trường trong 24-72 giờ tới."
+        # Lấy image từ article đầu tiên tìm được qua URL
+        image_url = ""
+        for u in urls:
+            art = by_url.get(u)
+            if art:
+                image_url = str(art.get("image_url") or "").strip()
+                if image_url:
+                    break
         front_page.append(
             {
                 "rank": len(front_page) + 1,
@@ -2618,6 +2626,7 @@ def build_newsroom_web_extras(
                 "whyItMatters": why_it_matters,
                 "watchNext": watch_next,
                 "links": links,
+                "imageUrl": image_url,
             }
         )
 
