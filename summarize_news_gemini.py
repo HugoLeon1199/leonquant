@@ -653,6 +653,9 @@ def _digest_sector_summary_rules_block(*, for_merge: bool = False) -> str:
         "- Viết **bài tóm tắt ngành** nhiều đoạn — **không cap** độ dài; pool dày / nhiều dossier → viết dài và đủ lớp (thesis, clusters, Who–What–Why, impact, watch next).",
         "- Gom luồng A/B thành **câu chuyện liền mạch**; không chuỗi headline, không nối dossier summary rời.",
         "- `sector_thesis` phải **hấp thụ** các cụm trong `story_dossiers`/`subsector_briefs` cùng sector — không bỏ cụm quan trọng vì muốn ngắn.",
+        "- Sau khi viết xong `sector_thesis`, **liệt kê nội tâm** các chủ đề/nhân vật/sự kiện cụ thể đã nhắc trong bài. "
+        "Chọn `representative_sources` để **mỗi chủ đề lớn có ít nhất 1 link đại diện** — không chọn ngẫu nhiên từ pools. "
+        "Ví dụ: thesis đề cập Mỹ-Iran + Tô Lâm + quy hoạch Hà Nội → cần ≥3 links cover đúng 3 chủ đề đó.",
     ]
     if for_merge:
         lines.append(_digest_sector_narrative_block())
@@ -728,7 +731,8 @@ def _digest_story_dossier_rules_block() -> str:
             "  **CẤM copy từ `summary`, `main_developments` hay `why_it_matters`** — đây là forward-looking, không nhắc lại.",
             "  SAI: watch_next = ['Các công ty đào Bitcoin đang được định giá dựa trên tiềm năng AI...'] (← copy summary).",
             "  ĐÚNG: watch_next = ['Giá điện Texas Q3 — biến số chi phí chính', 'Hợp đồng AI hyperscaler có được gia hạn khi nhu cầu datacenter hạ nhiệt?'].",
-            "- `representative_sources`: **1–5** object `{title, source, url, excerpt}` — URL từ crawl; `excerpt` theo quy tắc trích yếu.",
+            "- `representative_sources`: **1–5** object `{title, source, url, excerpt}` — chọn để **cover các chủ đề/sự kiện cụ thể đã nhắc trong `summary`/`main_developments`** (không random từ pools). "
+            "Mỗi link phải map rõ về ít nhất 1 ý đã viết ở trên; URL từ crawl; `excerpt` theo quy tắc trích yếu.",
             "- `depth_level`: `brief` | `deep` | `major`.",
             _digest_source_excerpt_rules_block(),
         ]
@@ -4450,6 +4454,7 @@ Sau khi tạo xong JSON, **tự kiểm tra** từng điểm sau (nếu vi phạm
 6. **front_page one_sentence check**: với MỖI `front_page[]`, so sánh `title` và `one_sentence` — nếu giống nhau hoặc chỉ khác vài từ → **viết lại** `one_sentence` thêm ngữ cảnh/impact/số liệu cụ thể mà title không có.
 7. **front_page source_urls check**: với MỖI `front_page[]`, nếu `source_urls` là `[]` → **bắt buộc tìm URL từ pools** khớp với tin đó và điền vào; nếu thật sự không có URL phù hợp → **bỏ entry đó** khỏi front_page, thay bằng entry khác có URL.
 8. **watchlist theme check**: đọc lại từng `watchlist_24_72h[].theme` — nếu dài hơn 50 ký tự hoặc trùng/gần giống một front_page title → **đây là lỗi**, viết lại thành tên chủ đề ngắn (2–6 từ).
+9. **representative_sources topic-coverage check**: với mỗi `sector_deep_briefs[].representative_sources` và `story_dossiers[].representative_sources`, đọc lại `sector_thesis`/`summary` rồi kiểm tra: có chủ đề/nhân vật/sự kiện lớn nào được nhắc nhưng chưa có link đại diện không? Nếu có → thêm link từ pools cover chủ đề đó. Mỗi link phải có `excerpt` giải thích rõ nó cover chủ đề nào trong thesis/summary.
 
 {_digest_four_sector_rules_block(for_merge=True)}
 {_digest_story_dossier_rules_block()}
