@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DIGEST_MODEL = "gemini-3.1-flash-lite"
+DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
 LOOP_LOG = ROOT / "gemini_digest_loop.log"
