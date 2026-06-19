@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-8b")
+DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
 LOOP_LOG = ROOT / "gemini_digest_loop.log"
@@ -66,32 +66,31 @@ def main() -> int:
         total = expected_total()
         label = f"{n}/{total}" if total else str(n)
         print(f"\n=== Step {step} | partials {label} ===", flush=True)
+        cmd = [
+            sys.executable,
+            str(ROOT / "summarize_news_gemini.py"),
+            "--input",
+            str(ROOT / "news_for_ai_clean.json"),
+            "--mode",
+            "digest",
+            "--batch-digest",
+            "--model",
+            DIGEST_MODEL,
+            "--max-input-tokens-per-request",
+            str(FREE_TIER_MAX_INPUT_TOKENS),
+            "--resume-partials",
+            "--max-api-calls",
+            "1",
+            "--api-pause",
+            str(FREE_TIER_SLEEP_SEC),
+        ]
         with open(LOOP_LOG, "a", encoding="utf-8") as logf:
-            rc = subprocess.call(
-                [
-                    sys.executable,
-                    str(ROOT / "summarize_news_gemini.py"),
-                    "--input",
-                    str(ROOT / "news_for_ai_clean.json"),
-                    "--mode",
-                    "digest",
-                    "--batch-digest",
-                    "--model",
-                    DIGEST_MODEL,
-                    "--max-input-tokens-per-request",
-                    str(FREE_TIER_MAX_INPUT_TOKENS),
-                    "--resume-partials",
-                    "--max-api-calls",
-                    "1",
-                    "--min-request-interval",
-                    str(FREE_TIER_SLEEP_SEC),
-                    "--api-pause",
-                    str(FREE_TIER_SLEEP_SEC),
-                ],
-                cwd=ROOT,
-                stdout=logf,
-                stderr=subprocess.STDOUT,
-            )
+            proc = subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
+            for line in proc.stdout:
+                sys.stdout.write(line)
+                sys.stdout.flush()
+                logf.write(line)
+            rc = proc.wait()
         if SUMMARY.is_file():
             pc = partial_count()
             if pc >= MIN_PARTIALS_BEFORE_MERGE:
