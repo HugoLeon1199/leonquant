@@ -14,18 +14,18 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
+DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-8b")
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
 LOOP_LOG = ROOT / "gemini_digest_loop.log"
-# Free tier: 60s between successful steps so TPM window can reset (~125k/min).
-PAUSE_BETWEEN_STEPS_SEC = 60
-# Chỉ chờ lâu khi Gemini báo quota/rate-limit; lỗi khác (code, mạng) thử lại sau 90s.
+# Free tier: 30s between successful steps (flash-8b có quota cao hơn, ít cần chờ).
+PAUSE_BETWEEN_STEPS_SEC = 30
+# Chỉ chờ lâu khi Gemini báo quota/rate-limit; lỗi khác (code, mạng) thử lại sau 60s.
 PAUSE_ON_QUOTA_FAIL_SEC = 300
-PAUSE_ON_OTHER_FAIL_SEC = 90
+PAUSE_ON_OTHER_FAIL_SEC = 60
 # 100k token/chunk → ~10 chunks từ 800+ bài (TPM free tier 125k/min, mỗi chunk ~1 phút)
 FREE_TIER_MAX_INPUT_TOKENS = 100_000
-FREE_TIER_SLEEP_SEC = 60
+FREE_TIER_SLEEP_SEC = 30
 # Chỉ accept gemini_digest_summary.json sau khi có đủ partials (tránh summary sinh sớm từ chunk đầu)
 MIN_PARTIALS_BEFORE_MERGE = 2
 
