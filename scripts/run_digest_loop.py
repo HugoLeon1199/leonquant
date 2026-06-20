@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Run batch digest one API call at a time (free-tier friendly).
+"""Run batch digest — parallel-friendly, tận dụng TPM 4M/phút của gemini-3.1-flash-lite.
 
-Timing: each step waits for Gemini to finish, then sleeps 60s before the next step
-(plus 60s before each API call inside summarize_news_gemini.py).
+Mỗi chunk ~100K tokens. TPM limit 4M/phút → chạy 3 chunks/lần an toàn (300K < 4M).
+Sau mỗi batch 3 chunks, sleep 10s để tránh burst TPM rồi tiếp tục.
 """
 from __future__ import annotations
 
@@ -18,15 +18,17 @@ DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
 LOOP_LOG = ROOT / "gemini_digest_loop.log"
-# Free tier: 30s between successful steps (flash-8b có quota cao hơn, ít cần chờ).
-PAUSE_BETWEEN_STEPS_SEC = 30
-# Chỉ chờ lâu khi Gemini báo quota/rate-limit; lỗi khác (code, mạng) thử lại sau 60s.
-PAUSE_ON_QUOTA_FAIL_SEC = 300
-PAUSE_ON_OTHER_FAIL_SEC = 60
-# 100k token/chunk → ~10 chunks từ 800+ bài (TPM free tier 125k/min, mỗi chunk ~1 phút)
+# Chạy 3 API calls/lần: 3 chunks × 100K tokens = 300K TPM << 4M limit
+CALLS_PER_STEP = int(os.environ.get("DIGEST_CALLS_PER_STEP", "3"))
+# Sleep ngắn giữa các batch (tránh burst)
+PAUSE_BETWEEN_STEPS_SEC = 10
+# Chỉ chờ lâu khi Gemini báo quota/rate-limit
+PAUSE_ON_QUOTA_FAIL_SEC = 120
+PAUSE_ON_OTHER_FAIL_SEC = 30
+# 100k token/chunk → ~10 chunks từ 800+ bài
 FREE_TIER_MAX_INPUT_TOKENS = 100_000
-FREE_TIER_SLEEP_SEC = 30
-# Chỉ accept gemini_digest_summary.json sau khi có đủ partials (tránh summary sinh sớm từ chunk đầu)
+FREE_TIER_SLEEP_SEC = 5
+# Chỉ accept gemini_digest_summary.json sau khi có đủ partials
 MIN_PARTIALS_BEFORE_MERGE = 2
 
 
@@ -80,7 +82,7 @@ def main() -> int:
             str(FREE_TIER_MAX_INPUT_TOKENS),
             "--resume-partials",
             "--max-api-calls",
-            "1",
+            str(CALLS_PER_STEP),
             "--api-pause",
             str(FREE_TIER_SLEEP_SEC),
         ]
