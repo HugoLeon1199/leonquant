@@ -109,7 +109,7 @@ def main() -> int:
     if rc != 0:
         return rc
 
-    rc = run([PY, str(SCRIPTS / "clean_news_for_ai.py"), "--keep-listings", "--no-dedupe", "--min-text-chars", "0"])
+    rc = run([PY, str(SCRIPTS / "clean_news_for_ai.py")])
     if rc != 0:
         return rc
 
