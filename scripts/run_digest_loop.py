@@ -18,15 +18,13 @@ DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
 LOOP_LOG = ROOT / "gemini_digest_loop.log"
-# 1 chunk duy nhất ~900K token → 1 API call chunk + 1 merge = 2 calls total
+# Chunk 1.5M token → 2-3M raw data vừa 2 chunks, merge = 3 calls total
 CALLS_PER_STEP = int(os.environ.get("DIGEST_CALLS_PER_STEP", "10"))
-# Sleep ngắn giữa các bước
 PAUSE_BETWEEN_STEPS_SEC = 10
-# Chỉ chờ lâu khi Gemini báo quota/rate-limit
 PAUSE_ON_QUOTA_FAIL_SEC = 120
 PAUSE_ON_OTHER_FAIL_SEC = 30
-# 900K token/chunk → toàn bộ 800+ bài vào 1 chunk (context window 1M)
-FREE_TIER_MAX_INPUT_TOKENS = 900_000
+# 1.5M/chunk: nếu raw ~3M tokens thì 2 chunks; nếu <1.5M thì 1 chunk
+FREE_TIER_MAX_INPUT_TOKENS = 950_000
 FREE_TIER_SLEEP_SEC = 5
 # Chỉ accept gemini_digest_summary.json sau khi có đủ partials
 MIN_PARTIALS_BEFORE_MERGE = 2
