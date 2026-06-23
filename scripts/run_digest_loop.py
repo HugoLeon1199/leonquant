@@ -17,16 +17,29 @@ ROOT = Path(__file__).resolve().parents[1]
 DIGEST_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
 SUMMARY = ROOT / "gemini_digest_summary.json"
 PARTIALS = ROOT / "gemini_digest_partials.json"
+OUTLINE = ROOT / "gemini_digest_outline.json"
 LOOP_LOG = ROOT / "gemini_digest_loop.log"
-# 100K token/chunk → ~10 chunks, mỗi lần gọi 1 chunk
-CALLS_PER_STEP = int(os.environ.get("DIGEST_CALLS_PER_STEP", "1"))
-PAUSE_BETWEEN_STEPS_SEC = 60
+# CI (DIGEST_LOOP_FORCE=1): 3 calls/step để nhanh hơn — free tier local giữ 1
+_CI_MODE = bool(os.environ.get("DIGEST_LOOP_FORCE"))
+CALLS_PER_STEP = int(os.environ.get("DIGEST_CALLS_PER_STEP", "3" if _CI_MODE else "1"))
+PAUSE_BETWEEN_STEPS_SEC = 30 if _CI_MODE else 60
 PAUSE_ON_QUOTA_FAIL_SEC = 300
 PAUSE_ON_OTHER_FAIL_SEC = 60
 FREE_TIER_MAX_INPUT_TOKENS = 100_000
 FREE_TIER_SLEEP_SEC = 60
+# Giới hạn tổng số bước để tránh loop vô tận khi quota bị block liên tục
+MAX_STEPS = int(os.environ.get("DIGEST_LOOP_MAX_STEPS", "80"))
 # Chỉ accept gemini_digest_summary.json sau khi có đủ partials
 MIN_PARTIALS_BEFORE_MERGE = 2
+FATAL_ERROR_MARKERS = (
+    "api_key_invalid",
+    "api key not found",
+    "please pass a valid api key",
+    "status=invalid_argument",
+    "status=not_found",
+    "model not found",
+    "unsupported model",
+)
 
 
 def partial_count() -> int:
@@ -46,6 +59,16 @@ def expected_total() -> int | None:
     return int(partials[0].get("batch_total") or 0) or None
 
 
+def recent_log_tail() -> str:
+    if not LOOP_LOG.is_file():
+        return ""
+    return LOOP_LOG.read_text(encoding="utf-8", errors="replace")[-4000:].lower()
+
+
+def is_fatal_gemini_error(log_tail: str) -> bool:
+    return any(marker in log_tail for marker in FATAL_ERROR_MARKERS)
+
+
 def main() -> int:
     if not (ROOT / "news_for_ai_clean.json").is_file():
         print("ERROR: missing news_for_ai_clean.json — run export + clean first.", file=sys.stderr)
@@ -61,10 +84,18 @@ def main() -> int:
     step = 0
     while not SUMMARY.is_file():
         step += 1
+        if step > MAX_STEPS:
+            print(
+                f"ERROR: reached MAX_STEPS={MAX_STEPS} without completing digest. "
+                "Likely persistent quota block. Failing CI fast.",
+                file=sys.stderr,
+                flush=True,
+            )
+            return 1
         n = partial_count()
         total = expected_total()
         label = f"{n}/{total}" if total else str(n)
-        print(f"\n=== Step {step} | partials {label} ===", flush=True)
+        print(f"\n=== Step {step}/{MAX_STEPS} | partials {label} ===", flush=True)
         cmd = [
             sys.executable,
             str(ROOT / "summarize_news_gemini.py"),
@@ -83,6 +114,8 @@ def main() -> int:
             "--api-pause",
             str(FREE_TIER_SLEEP_SEC),
         ]
+        if OUTLINE.is_file():
+            cmd.append("--use-existing-outline")
         with open(LOOP_LOG, "a", encoding="utf-8") as logf:
             proc = subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
             for line in proc.stdout:
@@ -105,9 +138,15 @@ def main() -> int:
             time.sleep(PAUSE_BETWEEN_STEPS_SEC)
             continue
         if rc != 0:
-            tail = ""
-            if LOOP_LOG.is_file():
-                tail = LOOP_LOG.read_text(encoding="utf-8", errors="replace")[-4000:].lower()
+            tail = recent_log_tail()
+            if is_fatal_gemini_error(tail):
+                print(
+                    "Fatal Gemini configuration error detected in digest loop log. "
+                    "Stop retrying so CI fails fast instead of timing out.",
+                    file=sys.stderr,
+                    flush=True,
+                )
+                return rc
             quota_hit = any(
                 x in tail
                 for x in ("429", "quota", "rate limit", "resource exhausted", "too many requests")
