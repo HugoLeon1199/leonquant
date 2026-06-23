@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Run batch digest — parallel-friendly, tận dụng TPM 4M/phút của gemini-3.1-flash-lite.
 
-Mỗi chunk ~100K tokens. TPM limit 4M/phút → chạy 3 chunks/lần an toàn (300K < 4M).
-Sau mỗi batch 3 chunks, sleep 10s để tránh burst TPM rồi tiếp tục.
+Mỗi chunk ~60K tokens. TPM limit 4M/phút → chạy 3 chunks/lần an toàn (180K < 4M).
+Sau mỗi batch 3 chunks, sleep 30s để tránh burst TPM rồi tiếp tục.
 """
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ CALLS_PER_STEP = int(os.environ.get("DIGEST_CALLS_PER_STEP", "3" if _CI_MODE els
 PAUSE_BETWEEN_STEPS_SEC = 30 if _CI_MODE else 60
 PAUSE_ON_QUOTA_FAIL_SEC = 300
 PAUSE_ON_OTHER_FAIL_SEC = 60
-FREE_TIER_MAX_INPUT_TOKENS = 100_000
+FREE_TIER_MAX_INPUT_TOKENS = 60_000
 FREE_TIER_SLEEP_SEC = 60
 # Giới hạn tổng số bước để tránh loop vô tận khi quota bị block liên tục
 MAX_STEPS = int(os.environ.get("DIGEST_LOOP_MAX_STEPS", "80"))
