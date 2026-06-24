@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Preflight checks before full batch digest (gemini-3.1-flash-lite, ~100k/request, free TPM).
+Preflight checks before full batch digest (current GEMINI_MODEL, ~100k/request).
 
 Steps:
   1. API key + model ping (tiny JSON)
@@ -39,19 +39,18 @@ from summarize_news_gemini import (  # noqa: E402
     resolve_max_input_tokens_per_request,
 )
 
-MODEL = "gemini-3.1-flash-lite"
 MAX_INPUT = 100_000
 INPUT_JSON = ROOT / "news_for_ai_clean.json"
 OUTLINE_JSON = ROOT / "gemini_digest_outline.json"
 PARTIALS_JSON = ROOT / "gemini_digest_partials.json"
 
 
-def ping(key: str) -> bool:
+def ping(key: str, model: str) -> bool:
     print("\n[1] Ping model (tiny JSON)...")
     try:
         out = call_gemini(
-            'Reply JSON only: {"status":"ok","model":"gemini-3.1-flash-lite"}',
-            MODEL,
+            f'Reply JSON only: {{"status":"ok","model":"{model}"}}',
+            model,
             key,
             timeout=90,
             min_retry_interval=0,
@@ -64,7 +63,7 @@ def ping(key: str) -> bool:
         return False
 
 
-def dry_run_plan(payload: dict) -> int:
+def dry_run_plan(payload: dict, model: str) -> int:
     print("\n[2] Dry-run plan (no API)...")
     articles = payload.get("articles") or []
     window = payload.get("window") or {}
@@ -72,7 +71,7 @@ def dry_run_plan(payload: dict) -> int:
     enriched = enrich_articles(
         articles, 0, 0, 20, refetch_urls=False, quiet=True
     )
-    cap = resolve_max_input_tokens_per_request(MODEL, MAX_INPUT, 0)
+    cap = resolve_max_input_tokens_per_request(model, MAX_INPUT, 0)
     chunks = chunk_enriched_articles_by_tokens(
         enriched,
         cap,
@@ -114,7 +113,7 @@ def check_partials_compat(expected_total: int) -> None:
         print("    Backup partials before restart, or resume only if batch_total matches.")
 
 
-def mini_chunk_test(key: str, payload: dict) -> bool:
+def mini_chunk_test(key: str, payload: dict, model: str) -> bool:
     print("\n[3] Mini chunk (2 articles, production prompt shape)...")
     articles = (payload.get("articles") or [])[:2]
     window = payload.get("window") or {}
@@ -133,7 +132,7 @@ def mini_chunk_test(key: str, payload: dict) -> bool:
     try:
         out = call_gemini(
             prompt,
-            MODEL,
+            model,
             key,
             timeout=300,
             min_retry_interval=0,
@@ -152,7 +151,7 @@ def mini_chunk_test(key: str, payload: dict) -> bool:
         return False
 
 
-def live_chunk_test(key: str, payload: dict) -> bool:
+def live_chunk_test(key: str, payload: dict, model: str) -> bool:
     print("\n[4] Live chunk 1 (real size, 200k budget)...")
     articles = payload.get("articles") or []
     window = payload.get("window") or {}
@@ -160,7 +159,7 @@ def live_chunk_test(key: str, payload: dict) -> bool:
     enriched = enrich_articles(
         articles, 0, 0, 20, refetch_urls=False, quiet=True
     )
-    cap = resolve_max_input_tokens_per_request(MODEL, MAX_INPUT, 0)
+    cap = resolve_max_input_tokens_per_request(model, MAX_INPUT, 0)
     chunks = chunk_enriched_articles_by_tokens(
         enriched,
         cap,
@@ -188,7 +187,7 @@ def live_chunk_test(key: str, payload: dict) -> bool:
     try:
         out = call_gemini(
             prompt,
-            MODEL,
+            model,
             key,
             timeout=1800,
             min_retry_interval=60,
@@ -213,6 +212,7 @@ def main() -> int:
 
     load_env_file(ROOT / ".env")
     key = os.environ.get("GEMINI_API_KEY", "")
+    model = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite").strip() or "gemini-3.1-flash-lite"
     if not key:
         print("GEMINI_API_KEY missing", file=sys.stderr)
         return 2
@@ -221,14 +221,14 @@ def main() -> int:
         return 2
 
     payload = load_json(args.input)
-    print(f"Preflight: model={MODEL}, max_input={MAX_INPUT}, input={args.input.name}")
+    print(f"Preflight: model={model}, max_input={MAX_INPUT}, input={args.input.name}")
 
     ok = True
-    ok = ping(key) and ok
-    dry_run_plan(payload)
-    ok = mini_chunk_test(key, payload) and ok
+    ok = ping(key, model) and ok
+    dry_run_plan(payload, model)
+    ok = mini_chunk_test(key, payload, model) and ok
     if args.live_chunk:
-        ok = live_chunk_test(key, payload) and ok
+        ok = live_chunk_test(key, payload, model) and ok
     else:
         print("\n[4] Skipped live chunk 1 (pass --live-chunk to test ~200k request)")
 
