@@ -37,17 +37,18 @@ MODEL_INPUT_TOKEN_LIMIT: dict[str, int] = {
 MODEL_OUTPUT_TOKEN_LIMIT_DEFAULT = 65_536
 OUTPUT_TOKEN_RESERVE = 70_000
 PROMPT_TEMPLATE_TOKEN_SLACK = 12_000
-# Free tier flash-lite: ~125k TPM — keep each request at ~100k input tokens.
+# Free tier flash-lite: 15 RPM / 1M TPM / 1500 RPD (gemini-3.1-flash-lite & 2.5-flash-lite).
+# 15 RPM → safe interval = 60/15 = 4s. Use 5s for a small safety margin.
 # See https://ai.google.dev/gemini-api/docs/rate-limits
 DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST = 100_000
-FREE_TIER_TPM_FLASH_LITE = 125_000
+FREE_TIER_TPM_FLASH_LITE = 1_000_000
 # 0 = use DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST only (no extra TPM shrink).
 DEFAULT_FREE_TPM_LIMIT = 0
-MIN_REQUEST_INTERVAL_SECONDS = 60.0
+MIN_REQUEST_INTERVAL_SECONDS = 5.0
 MODEL_FREE_TPM_HINT: dict[str, int] = {
     "gemini-3.1-flash-lite": FREE_TIER_TPM_FLASH_LITE,
     "gemini-2.5-flash-lite": FREE_TIER_TPM_FLASH_LITE,
-    "gemini-2.5-flash": 250_000,
+    "gemini-2.5-flash": 500_000,
 }
 # Legacy char cap (ignored when --max-input-tokens-per-request > 0 or auto).
 BATCH_DIGEST_CHUNK_CHARS_DEFAULT = 0
@@ -4911,6 +4912,40 @@ def parse_gemini_json_text(text: str) -> dict[str, Any]:
         raise
 
 
+def _extract_google_error_payload(error: HTTPError) -> tuple[str | None, str]:
+    try:
+        raw = error.read().decode("utf-8", errors="replace")
+    except Exception:
+        return None, ""
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        return None, raw.strip()
+    err = payload.get("error") or {}
+    status = str(err.get("status") or "").strip() or None
+    message = str(err.get("message") or "").strip()
+    return status, message
+
+
+def _should_retry_gemini_http_error(error: HTTPError, *, status: str | None, message: str) -> bool:
+    if error.code in (429, 500, 503):
+        return True
+    if error.code == 400:
+        text = f"{status or ''} {message}".lower()
+        if any(token in text for token in ("rate limit", "resource exhausted", "quota")):
+            return True
+    return False
+
+
+def _format_gemini_http_error(error: HTTPError, *, model: str, status: str | None, message: str) -> RuntimeError:
+    parts = [f"Gemini HTTP {error.code} model={model}"]
+    if status:
+        parts.append(f"status={status}")
+    if message:
+        parts.append(message)
+    return RuntimeError(" | ".join(parts))
+
+
 def call_gemini(
     prompt: str,
     model: str,
@@ -4946,15 +4981,19 @@ def call_gemini(
             content = response_payload["candidates"][0]["content"]["parts"][0]["text"]
             return parse_gemini_json_text(content)
         except HTTPError as error:
-            last_error = error
-            if error.code not in (429, 500, 503) or attempt >= max_retries - 1:
-                raise
+            status, message = _extract_google_error_payload(error)
+            wrapped = _format_gemini_http_error(error, model=model, status=status, message=message)
+            last_error = wrapped
+            if not _should_retry_gemini_http_error(error, status=status, message=message) or attempt >= max_retries - 1:
+                raise wrapped
             retry_after = error.headers.get("Retry-After")
             wait = int(retry_after) if retry_after and str(retry_after).isdigit() else min(180, 20 * (2**attempt))
             wait = max(wait, min_retry_interval)
             print(
                 f"Gemini HTTP {error.code}, retry in {wait}s "
-                f"({attempt + 1}/{max_retries}) model={model}",
+                f"({attempt + 1}/{max_retries}) model={model}"
+                + (f" status={status}" if status else "")
+                + (f" message={message}" if message else ""),
                 file=sys.stderr,
             )
             time.sleep(wait)
