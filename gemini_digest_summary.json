@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-24T02:33:41.058048+00:00",
+  "generated_at": "2026-06-24T03:52:53.099468+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 1026531,
+    "estimated_input_tokens": 1010366,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 1,
+    "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 800,
-    "sent_article_count": 800,
+    "input_article_count": 840,
+    "sent_article_count": 840,
     "window": {
       "end_date": "2026-06-24",
       "timezone": "Asia/Ho_Chi_Minh",
@@ -24,113 +24,108 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "15",
-    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và địa chính trị trong 48 giờ qua, tập trung vào các sự kiện có tác động thực tế đến thị trường và chính sách.",
+    "reading_time_minutes": "auto",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và chính sách trọng điểm trong 48 giờ qua, tập trung vào các luồng tin có tác động thực tế đến thị trường và đời sống.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn điều chỉnh mạnh khi đà bán tháo cổ phiếu công nghệ và chip bán dẫn lan rộng, kéo theo sự sụt giảm của các tài sản rủi ro như Bitcoin. Trong khi đó, tại Việt Nam, dòng vốn FDI và đầu tư công tiếp tục là điểm sáng với các dự án hạ tầng trọng điểm và sự tham gia của các tập đoàn lớn, cho thấy sự chuyển dịch chiến lược sang các lĩnh vực công nghệ cao và năng lượng.",
-        "most_mentioned": "AI và hạ tầng bán dẫn là chủ đề chi phối mọi luồng tin, từ các đợt huy động vốn kỷ lục của SpaceX đến các báo cáo về năng lực tính toán của các mô hình AI mới. Sự quan tâm không còn dừng lại ở phần mềm mà đã chuyển dịch sang hạ tầng năng lượng và trung tâm dữ liệu.",
-        "top_stories": "Sự kiện chính trị quan trọng nhất là việc Bộ Chính trị thống nhất chủ trương thành lập thành phố Bắc Ninh trực thuộc Trung ương, định hình lại bản đồ công nghiệp bán dẫn Việt Nam. Song song đó, các diễn biến địa chính trị tại Vùng Vịnh và lộ trình đàm phán Mỹ-Iran đang tác động trực tiếp đến giá năng lượng và an ninh hàng hải toàn cầu.",
-        "sector_impacts": "Các chính sách tiền tệ của Fed và sự biến động của thị trường chứng khoán Mỹ đang tạo áp lực lên tâm lý nhà đầu tư Việt Nam, đặc biệt là nhóm cổ phiếu ngân hàng và bất động sản, trong khi các doanh nghiệp công nghệ Việt đang đẩy mạnh mở rộng thị trường quốc tế."
+        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn điều chỉnh mạnh khi dòng vốn rút khỏi các cổ phiếu công nghệ và bán dẫn, phản ánh tâm lý lo ngại về hiệu quả thực tế của các khoản đầu tư AI khổng lồ. Trong khi đó, tại Việt Nam, chính sách tài chính đang chuyển dịch mạnh mẽ với các cơ chế tín dụng đặc thù cho hạ tầng và sự sôi động của các thương vụ M&A lớn, tạo ra những điểm sáng riêng biệt giữa bối cảnh vĩ mô thận trọng.",
+        "most_mentioned": "Chủ đề AI và hạ tầng bán dẫn tiếp tục chi phối tin tức toàn cầu với các cột mốc mới từ OpenAI, ByteDance và sự kiện siêu máy tính LineShine của Trung Quốc. Tại Việt Nam, sự chú ý tập trung vào các chính sách nới lỏng tín dụng cho hạ tầng trọng điểm và các thay đổi trong cơ cấu cổ đông tại các ngân hàng thương mại.",
+        "top_stories": "Sự kiện tỷ phú Phạm Nhật Vượng trở thành cổ đông lớn của LPBank và việc Ngân hàng Nhà nước loại trừ dư nợ các dự án hạ tầng trọng điểm khỏi chỉ tiêu tín dụng là những điểm nhấn quan trọng. Song song đó, căng thẳng địa chính trị tại eo biển Hormuz và chiến dịch sơ tán thủy thủ đoàn đang định hình lại kỳ vọng về an ninh năng lượng toàn cầu.",
+        "sector_impacts": "Ngành tài chính Việt Nam đang đón nhận làn sóng M&A mới, trong khi ngành công nghệ đối mặt với áp lực quản lý và cạnh tranh gay gắt về năng lực tính toán. Các quy định mới về định danh người bán trên sàn TMĐT và xác thực sinh trắc học ngân hàng cho thấy nỗ lực làm sạch thị trường số."
       },
-      "content": "Trong 48 giờ qua, thị trường tài chính thị trường chứng kiến sự phân hóa rõ rệt khi dòng vốn rời bỏ các tài sản đầu cơ để tìm đến các lĩnh vực có nền tảng thực tế. Bitcoin giảm dưới 60.000 USD do áp lực từ các quỹ ETF và sự cạnh tranh từ các khoản đầu tư vào hạ tầng AI. Tại Việt Nam, sự xuất hiện của tỷ phú Phạm Nhật Vượng trong danh sách cổ đông lớn của Ngân hàng TMCP Lộc Phát Việt Nam (LPBank) và các dự án hạ tầng nghìn tỷ của liên danh Hòa Phát - THACO - Đại Quang Minh cho thấy dòng vốn nội địa đang tập trung vào các lĩnh vực có tính chiến lược cao. Đồng thời, các chính sách mới về bảo hiểm xây dựng và quản lý thuế trong lĩnh vực dịch vụ làm đẹp đang siết chặt kỷ cương, tạo ra môi trường kinh doanh minh bạch hơn. Cuộc đua AI cũng ghi nhận những bước tiến mới khi các tập đoàn lớn như SpaceX, OpenAI và ByteDance liên tục huy động vốn kỷ lục để tài trợ cho hạ tầng tính toán, trong khi các chính phủ bắt đầu siết chặt quản lý an ninh mạng đối với các mô hình AI tiên tiến.",
+      "content": "Thị trường tài chính toàn cầu đang trải qua đợt điều chỉnh đáng kể khi cổ phiếu công nghệ và bán dẫn bị bán tháo, kéo theo sự sụt giảm của Bitcoin và các tài sản rủi ro. Tâm điểm của sự chú ý là hiệu quả thực tế của các khoản đầu tư khổng lồ vào AI, khi các tập đoàn lớn như Oracle bắt đầu tái cấu trúc nhân sự để tập trung nguồn lực cho hạ tầng dữ liệu. Tại Việt Nam, các chính sách về tín dụng xanh, hạ tầng giao thông trọng điểm và sự kiện cổ đông lớn tại LPBank đang tạo ra những luồng tin tức có tác động trực tiếp đến tâm lý nhà đầu tư. Căng thẳng địa chính trị tại eo biển Hormuz và các đàm phán Mỹ-Iran đang định hình lại kỳ vọng về giá năng lượng toàn cầu, trong khi các quy định mới về định danh người bán trên sàn TMĐT và xác thực sinh trắc học ngân hàng cho thấy nỗ lực làm sạch thị trường số.",
       "representative_sources": [
         {
-          "title": "Bitcoin's June fall below $60,000 highlights new institutional headwinds: Deutsche Bank",
-          "source": "coindesk_com",
-          "url": "https://coindesk.com/markets/2026/06/23/bitcoin-s-recent-drop-below-usd60-000-signals-fed-etf-and-ai-pressures-deutsche-bank"
+          "title": "OpenAI's GPT-5.5 Cyber AI Beats Anthropic's Banned Mythos Model—And Nobody's Shutting It Down - Decrypt",
+          "source": "decrypt_co",
+          "url": "https://decrypt.co/371900/openai-gpt-5-5-cyber-ai-beats-anthropic-banned-claude-mythos"
+        },
+        {
+          "title": "Crypto Today: Ethereum Foundation Cuts Staff, Senate Advances CBDC Ban",
+          "source": "cointelegraph_com",
+          "url": "https://cointelegraph.com/news/what-happened-in-crypto-today"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Biến động tài sản rủi ro",
-          "why_mentioned": "Bitcoin và cổ phiếu công nghệ chịu áp lực bán tháo toàn cầu.",
-          "evidence_hint": "Lặp lại trong nhiều báo cáo tài chính quốc tế."
-        },
-        {
-          "topic": "Hạ tầng AI và bán dẫn",
-          "why_mentioned": "Nhu cầu năng lượng và chip AI thúc đẩy các dự án hạ tầng lớn.",
-          "evidence_hint": "Dữ liệu từ các báo cáo về trung tâm dữ liệu và đầu tư của Big Tech."
+          "topic": "Biến động thị trường công nghệ và AI",
+          "why_mentioned": "Sự điều chỉnh dòng vốn toàn cầu sau giai đoạn tăng trưởng nóng của nhóm cổ phiếu AI.",
+          "evidence_hint": "Bán tháo cổ phiếu bán dẫn và công nghệ trên Nasdaq và các thị trường châu Á."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Thành lập thành phố Bắc Ninh trực thuộc Trung ương",
-          "why_hot": "Định hình lại chiến lược công nghiệp bán dẫn Việt Nam.",
-          "impact": "Thu hút FDI và thay đổi bản đồ đô thị.",
-          "evidence_hint": "Quyết định từ Bộ Chính trị."
-        },
-        {
-          "topic": "Sự kiện địa chính trị Vùng Vịnh",
-          "why_hot": "Ảnh hưởng trực tiếp đến giá dầu và an ninh hàng hải.",
-          "impact": "Tác động đến lạm phát và chuỗi cung ứng toàn cầu.",
-          "evidence_hint": "Lộ trình đàm phán Mỹ-Iran."
+          "topic": "Chính sách tín dụng hạ tầng Việt Nam",
+          "why_hot": "Tác động trực tiếp đến thanh khoản và tăng trưởng tín dụng của các ngân hàng thương mại.",
+          "impact": "Khơi thông vốn cho 18 dự án hạ tầng trọng điểm.",
+          "evidence_hint": "Thông tư của Ngân hàng Nhà nước về loại trừ dư nợ dự án lớn."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch sang mô hình nhà ở cho thuê tại Việt Nam",
-          "why_watch": "Thay đổi tư duy chính sách từ sở hữu sang tiếp cận nhà ở."
+          "signal": "Tái cấu trúc nhân sự Big Tech vì AI",
+          "why_watch": "Dấu hiệu chuyển dịch cơ cấu ngành công nghệ toàn cầu sang hạ tầng AI."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường với Bitcoin và tài sản số",
-        "Tiến độ giải ngân đầu tư công cho các dự án hạ tầng trọng điểm",
-        "Diễn biến giá vàng trong nước so với thế giới"
+        "Phản ứng của thị trường chứng khoán với lãi suất Fed",
+        "Tiến độ các dự án hạ tầng trọng điểm tại Việt Nam",
+        "Diễn biến đàm phán Mỹ-Iran"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Bitcoin giảm mạnh dưới 60.000 USD do dòng vốn chuyển dịch sang AI",
-        "one_sentence": "Bitcoin chịu áp lực bán tháo khi nhà đầu tư tổ chức rút vốn khỏi các quỹ ETF để tái phân bổ vào hạ tầng AI và bán dẫn.",
-        "why_it_matters": "Phản ánh sự thay đổi khẩu vị rủi ro của nhà đầu tư tổ chức trong bối cảnh vĩ mô bất ổn.",
-        "watch_next": "Theo dõi dòng vốn ETF trong 72 giờ tới.",
-        "source_urls": [
-          "https://coindesk.com/markets/2026/06/23/bitcoin-s-recent-drop-below-usd60-000-signals-fed-etf-and-ai-pressures-deutsche-bank"
-        ]
+        "title": "Thị trường chứng khoán toàn cầu rung lắc trước áp lực bán tháo cổ phiếu công nghệ",
+        "one_sentence": "Nhà đầu tư lo ngại về hiệu quả thực tế của các khoản đầu tư AI khiến cổ phiếu bán dẫn và công nghệ bị bán tháo, kéo theo sự biến động của các tài sản rủi ro trên toàn cầu.",
+        "why_it_matters": "Phản ánh tâm lý thị trường toàn cầu đang chuyển dịch từ kỳ vọng AI sang lo ngại về hiệu quả thực tế.",
+        "watch_next": "Theo dõi biến động của chỉ số Nasdaq và các cổ phiếu bán dẫn trong 24-72 giờ tới.",
+        "source_urls": []
       },
       {
         "rank": 2,
-        "title": "Bộ Chính trị thống nhất chủ trương thành lập thành phố Bắc Ninh",
-        "one_sentence": "Bắc Ninh được định hướng trở thành trung tâm công nghiệp bán dẫn và AI hàng đầu, đánh dấu bước ngoặt trong chiến lược phát triển đô thị công nghiệp Việt Nam.",
-        "why_it_matters": "Định hình lại bản đồ công nghiệp bán dẫn và thu hút FDI vào công nghệ cao.",
-        "watch_next": "Các văn bản hướng dẫn thực hiện quy hoạch đô thị mới.",
+        "title": "Tỷ phú Phạm Nhật Vượng trở thành cổ đông lớn của LPBank",
+        "one_sentence": "Ông Phạm Nhật Vượng sở hữu 4,894% vốn điều lệ tại LPBank, đánh dấu sự thay đổi đáng chú ý trong cơ cấu cổ đông và tạo cú hích lớn cho cổ phiếu này trên thị trường chứng khoán.",
+        "why_it_matters": "Sự kiện M&A/đầu tư cá nhân quy mô lớn tác động trực tiếp đến tâm lý thị trường chứng khoán Việt Nam.",
+        "watch_next": "Theo dõi diễn biến giá cổ phiếu LPB và các thông tin công bố liên quan đến chiến lược đầu tư.",
         "source_urls": [
-          "https://baoxaydung.vn/bo-chinh-tri-thong-nhat-chu-truong-thanh-lap-thanh-pho-bac-ninh-truc-thuoc-trung-uong-192260623222649666.htm"
+          "https://tuoitre.vn/co-phieu-lpbank-tang-kich-tran-khi-xuat-hien-co-dong-ten-pham-nhat-vuong-100260623122554239.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "SpaceX huy động 89 tỷ USD trong đợt phát hành trái phiếu đầu tiên",
-        "one_sentence": "SpaceX huy động vốn kỷ lục để tái cơ cấu nợ và tài trợ cho các dự án AI, Starlink và Starship, khẳng định niềm tin của thị trường nợ vào hệ sinh thái của Elon Musk.",
-        "why_it_matters": "Sự kiện tài chính lớn nhất trong 48h, phản ánh nhu cầu vốn cực lớn của các công ty công nghệ.",
-        "watch_next": "Tiến độ triển khai các dự án Starship.",
-        "source_urls": []
+        "title": "Ngân hàng Nhà nước hướng dẫn cơ chế tín dụng đặc thù cho 18 dự án hạ tầng trọng điểm",
+        "one_sentence": "NHNN cho phép loại trừ dư nợ tín dụng phát sinh mới của 18 dự án hạ tầng lớn khi tính toán chỉ tiêu tăng trưởng tín dụng hằng năm, nhằm khơi thông nguồn vốn cho các dự án quy mô lớn.",
+        "why_it_matters": "Tác động trực tiếp đến dòng vốn vào các dự án hạ tầng quy mô lớn, ảnh hưởng đến thanh khoản và tăng trưởng tín dụng của các ngân hàng thương mại.",
+        "watch_next": "Theo dõi tiến độ giải ngân tín dụng cho các dự án hạ tầng trọng điểm.",
+        "source_urls": [
+          "https://vietnamnet.vn/18-du-an-trong-diem-voi-nhu-cau-von-hon-752-nghin-ty-duoc-ho-tro-co-che-tin-dung-2528698.html"
+        ]
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự phân hóa dòng vốn và các chính sách hạ tầng đặc thù. Trong khi tài sản số chịu áp lực điều chỉnh, dòng vốn FDI và đầu tư công tại Việt Nam lại ghi nhận những tín hiệu tích cực từ các dự án hạ tầng trọng điểm. Sự xuất hiện của các cổ đông lớn trong ngành ngân hàng và các liên minh doanh nghiệp lớn cho thấy sự dịch chuyển dòng vốn vào các lĩnh vực có tính chiến lược cao. Nhà đầu tư cần theo dõi sát sao các văn bản pháp lý về tài sản số và tiến độ giải ngân đầu tư công trong thời gian tới.",
+        "sector_thesis": "Ngành tài chính 48 giờ qua nổi bật với các động thái nới lỏng tín dụng hạ tầng tại Việt Nam và sự điều chỉnh dòng chú ý thị trường. Việc Ngân hàng Nhà nước cho phép loại trừ dư nợ các dự án trọng điểm khỏi chỉ tiêu tăng trưởng tín dụng là bước đi chiến lược nhằm khơi thông nguồn vốn cho hạ tầng. Đồng thời, sự kiện tỷ phú Phạm Nhật Vượng đầu tư vào LPBank cho thấy sức hấp dẫn của các thương vụ M&A lớn trong bối cảnh thị trường chứng khoán đang tìm kiếm động lực tăng trưởng mới. Các nhà đầu tư cần theo dõi sát sao các văn bản hướng dẫn cụ thể về tín dụng xanh và diễn biến giá vàng trong bối cảnh Fed duy trì lập trường tiền tệ cứng rắn.",
         "subsector_briefs": [
           {
-            "name": "Thị trường tài sản số",
-            "overview": "Bitcoin và các tài sản rủi ro chịu áp lực bán tháo do tâm lý 'risk-off' và sự chuyển dịch vốn sang các cổ phiếu công nghệ AI.",
+            "name": "Tín dụng & Ngân hàng",
+            "overview": "Chính sách tín dụng đang chuyển dịch mạnh mẽ nhằm hỗ trợ hạ tầng và tăng trưởng bền vững.",
             "key_points": [
-              "Bitcoin giảm dưới 60.000 USD",
-              "Dòng vốn ETF rút ròng 6 tuần liên tiếp"
+              "Loại trừ dư nợ dự án hạ tầng khỏi room tín dụng",
+              "Thúc đẩy tín dụng xanh với hỗ trợ lãi suất"
             ],
             "key_story_titles": [
-              "Bitcoin chịu áp lực từ dòng vốn chuyển dịch sang AI"
+              "Ngân hàng Nhà nước hướng dẫn cơ chế tín dụng đặc thù cho 18 dự án hạ tầng trọng điểm"
             ],
             "representative_sources": [
               {
-                "title": "Bitcoin's June fall below $60,000 highlights new institutional headwinds: Deutsche Bank",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/markets/2026/06/23/bitcoin-s-recent-drop-below-usd60-000-signals-fed-etf-and-ai-pressures-deutsche-bank"
+                "title": "Chi tiết 18 dự án trọng điểm cần vốn hơn 752 nghìn tỷ được hỗ trợ tín dụng đặc thù",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/18-du-an-trong-diem-voi-nhu-cau-von-hon-752-nghin-ty-duoc-ho-tro-co-che-tin-dung-2528698.html",
+                "excerpt": "Các dự án bao gồm nhóm dự án phục vụ Hội nghị APEC, dự án PPP, đường sắt tốc độ cao và Cảng hàng không quốc tế Gia Bình."
               }
             ]
           }
@@ -138,31 +133,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Đầu tư hạ tầng",
-            "title": "Liên danh Hòa Phát - THACO - Đại Quang Minh với siêu dự án sông Hồng",
-            "summary": "Liên danh Hòa Phát, THACO và doanh nhân Trần Đăng Khoa đã được phê duyệt dự án Trục đại lộ cảnh quan sông Hồng với tổng mức đầu tư sơ bộ 736.963 tỷ đồng, đánh dấu sự dịch chuyển dòng vốn lớn vào hạ tầng trọng điểm.",
+            "depth_level": "major",
+            "sub_sector": "Tín dụng & Ngân hàng",
+            "title": "Cơ chế tín dụng đặc thù cho hạ tầng trọng điểm",
+            "summary": "Ngân hàng Nhà nước cho phép loại trừ dư nợ tín dụng phát sinh mới của 18 dự án hạ tầng lớn khi tính toán chỉ tiêu tăng trưởng tín dụng hằng năm. Chính sách này nhằm tháo gỡ điểm nghẽn vốn cho các dự án quy mô lớn như đường sắt tốc độ cao và cảng hàng không, đồng thời tạo dư địa cho các ngân hàng thương mại tham gia cấp vốn.",
             "main_developments": [
-              "Hòa Phát và CTCP Đầu tư KVS góp 600 tỷ đồng vào CTCP Điện gió ngoài khơi Sông Hậu.",
-              "Ông Trần Đình Long và ông Trần Đăng Khoa mỗi người trực tiếp góp 400 tỷ đồng vào dự án năng lượng.",
-              "Dự án Trục đại lộ cảnh quan sông Hồng được phê duyệt với quy mô đầu tư khổng lồ."
+              "Các dự án bao gồm tuyến đường sắt tốc độ cao Bến Thành - Cần Giờ, Hà Nội - Quảng Ninh và Cảng hàng không quốc tế Gia Bình.",
+              "Ngân hàng được loại trừ phần dư nợ phát sinh mới hằng năm đối với khách hàng triển khai dự án khi tính toán mức tăng trưởng tín dụng.",
+              "Chính sách có hiệu lực từ ngày 1/7, giúp các ngân hàng có thêm dư địa cấp tín dụng cho những phân khúc được khuyến khích phát triển."
             ],
-            "why_it_matters": "Đánh dấu sự tham gia của các tập đoàn tư nhân lớn vào các dự án hạ tầng quốc gia, thúc đẩy tăng trưởng kinh tế dài hạn.",
+            "why_it_matters": "Tác động trực tiếp đến thanh khoản hệ thống ngân hàng và khả năng triển khai các dự án hạ tầng lớn tại Việt Nam, đóng vai trò quan trọng trong việc thúc đẩy tăng trưởng kinh tế.",
             "affected_groups": [
-              "Ngành xây dựng",
-              "Ngành năng lượng",
-              "Bất động sản"
+              "Ngân hàng thương mại",
+              "Doanh nghiệp hạ tầng",
+              "Nhà đầu tư bất động sản"
             ],
             "watch_next": [
-              "Tiến độ giải ngân thực tế của dự án",
-              "Phản ứng của thị trường chứng khoán đối với các doanh nghiệp liên quan"
+              "Tiến độ giải ngân tín dụng cho các dự án hạ tầng trọng điểm",
+              "Phản ứng của các ngân hàng thương mại đối với chính sách mới"
             ],
             "representative_sources": [
               {
-                "title": "Liên minh 3 Chủ tịch họ Trần: Từ siêu dự án Sông Hồng đến mạng lưới nghìn tỷ ngành năng lượng và mỏ sắt 5 triệu tấn",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/lien-minh-3-chu-tich-ho-tran-tu-sieu-du-an-song-hong-den-mang-luoi-nghin-ty-nganh-nang-luong-va-mo-sat-5-trieu-tan-188260624080830595.chn",
-                "excerpt": "Sự hợp tác chiến lược giữa Hòa Phát, THACO và doanh nhân Trần Đăng Khoa trong các dự án hạ tầng quy mô lớn."
+                "title": "Chi tiết 18 dự án trọng điểm cần vốn hơn 752 nghìn tỷ được hỗ trợ tín dụng đặc thù",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/18-du-an-trong-diem-voi-nhu-cau-von-hon-752-nghin-ty-duoc-ho-tro-co-che-tin-dung-2528698.html",
+                "excerpt": "Các dự án bao gồm nhóm dự án phục vụ Hội nghị APEC, dự án PPP, đường sắt tốc độ cao và Cảng hàng không quốc tế Gia Bình."
               }
             ]
           }
@@ -171,36 +166,36 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu công nghệ, mà còn ở hạ tầng dữ liệu, bán dẫn và năng lượng. Các tập đoàn lớn như SpaceX, OpenAI và các doanh nghiệp công nghệ Việt Nam đang đẩy mạnh đầu tư vào hạ tầng để đáp ứng nhu cầu AI ngày càng tăng. Sự kiện Trung Quốc giành lại ngôi siêu máy tính nhanh nhất thế giới với chip nội địa cho thấy cuộc đua bán dẫn đang bước vào giai đoạn mới, đòi hỏi sự tự chủ cao hơn. Nhà đầu tư cần theo dõi các biến số về chi phí hạ tầng và năng lượng phục vụ AI trong 24-72 giờ tới.",
+        "sector_thesis": "Ngành công nghệ 48 giờ qua chứng kiến sự cạnh tranh khốc liệt trong lĩnh vực AI và hạ tầng bán dẫn. Việc Trung Quốc vượt Mỹ giành ngôi siêu máy tính nhanh nhất thế giới với hệ thống LineShine không dùng chip GPU Mỹ là một bước ngoặt địa chính trị công nghệ. Trong khi đó, các tập đoàn lớn như Oracle đang đối mặt với áp lực tái cấu trúc nhân sự để dồn vốn cho hạ tầng AI, phản ánh sự chuyển dịch từ giai đoạn thử nghiệm sang triển khai thực tế. Các nhà đầu tư và doanh nghiệp cần theo dõi sát sao các diễn biến về hạ tầng năng lượng cho AI và các quy định quản lý AI từ các chính phủ.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI và An ninh mạng",
-            "title": "OpenAI ra mắt mô hình GPT-5.5-Cyber",
-            "summary": "OpenAI giới thiệu mô hình GPT-5.5-Cyber tập trung vào an ninh mạng, đạt 85,6% trên bảng xếp hạng CyberGym, vượt qua mô hình Mythos của Anthropic trong bối cảnh an ninh quốc gia Mỹ đang siết chặt quản lý AI.",
+            "sub_sector": "Hạ tầng AI & Bán dẫn",
+            "title": "Trung Quốc vượt Mỹ giành ngôi siêu máy tính nhanh nhất thế giới",
+            "summary": "Siêu máy tính LineShine của Trung Quốc đạt tốc độ 2,2 exaflop mà không cần dùng chip GPU của Mỹ, đánh dấu bước ngoặt trong cuộc đua bán dẫn toàn cầu. Hệ thống này sử dụng chip CPU thiết kế nội địa với kiến trúc tích hợp khả năng tính toán kiểu GPU, không phụ thuộc vào chip gia tốc của NVIDIA hay AMD.",
             "main_developments": [
-              "GPT-5.5-Cyber được ra mắt như một phần của chương trình phòng thủ mạng Daybreak.",
-              "Mô hình đạt điểm số vượt trội trên bảng xếp hạng CyberGym.",
-              "Anthropic bị chính phủ Mỹ đình chỉ hoạt động mô hình Mythos vì lý do an ninh quốc gia."
+              "LineShine đạt tốc độ duy trì 2,2 exaflop, nhanh hơn 20% so với hệ thống El Capitan của Mỹ.",
+              "Hệ thống sử dụng chip CPU nội địa, cho thấy năng lực tự chủ bán dẫn của Trung Quốc đã đạt bước tiến quan trọng.",
+              "Sự kiện này diễn ra trong bối cảnh Mỹ đang thắt chặt các lệnh cấm vận bán dẫn đối với Trung Quốc."
             ],
-            "why_it_matters": "Đánh dấu bước tiến quan trọng trong cuộc đua AI và quản lý an ninh quốc gia đối với các mô hình AI tiên tiến.",
+            "why_it_matters": "Đây là sự kiện địa chính trị công nghệ quan trọng, cho thấy năng lực tự chủ bán dẫn của Trung Quốc đang dần bắt kịp và vượt qua các rào cản công nghệ từ Mỹ.",
             "affected_groups": [
-              "Ngành an ninh mạng",
-              "Các công ty AI",
-              "Chính phủ"
+              "Ngành bán dẫn toàn cầu",
+              "Các tập đoàn công nghệ Mỹ",
+              "Chính phủ các nước trong cuộc đua AI"
             ],
             "watch_next": [
-              "Phản ứng của Anthropic đối với lệnh đình chỉ",
-              "Tác động của mô hình mới đến thị trường an ninh mạng"
+              "Phản ứng của Mỹ đối với các lệnh cấm vận bán dẫn mới",
+              "Tiến độ phát triển các hệ thống siêu máy tính tiếp theo của Mỹ"
             ],
             "representative_sources": [
               {
-                "title": "OpenAI's GPT-5.5 Cyber AI Beats Anthropic's Banned Mythos Model—And Nobody's Shutting It Down - Decrypt",
-                "source": "decrypt_co",
-                "url": "https://decrypt.co/371900/openai-gpt-5-5-cyber-ai-beats-anthropic-banned-claude-mythos",
-                "excerpt": "OpenAI giới thiệu mô hình mới nhằm phát hiện lỗ hổng phần mềm, trong khi đối thủ Anthropic vẫn bị đình chỉ hoạt động."
+                "title": "Lần đầu tiên sau 9 năm, Trung Quốc vượt Mỹ giành lại ngôi siêu máy tính nhanh nhất thế giới: Dùng toàn chip nội địa",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/lan-dau-tien-sau-9-nam-trung-quoc-vuot-my-gianh-lai-ngoi-sieu-may-tinh-nhanh-nhat-the-gioi-dung-toan-chip-noi-dia-188260624083530704.chn",
+                "excerpt": "Hệ thống LineShine dùng chip CPU với thiết kế tích hợp khả năng tính toán kiểu GPU, không phụ thuộc vào chip gia tốc của NVIDIA hay AMD."
               }
             ]
           }
@@ -209,35 +204,56 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48 giờ qua tập trung vào các diễn biến địa chính trị tại Vùng Vịnh và các sự kiện chính trị quan trọng tại Việt Nam. Thỏa thuận ngừng bắn giữa Mỹ và Iran đang tạo ra những thay đổi lớn trong an ninh hàng hải và giá năng lượng toàn cầu. Tại Việt Nam, Đại hội Đoàn toàn quốc và các quyết định về quy hoạch đô thị đang định hình tầm nhìn phát triển trong giai đoạn mới. Các diễn biến này đòi hỏi sự theo dõi sát sao về tác động đến ổn định khu vực và chính sách đối ngoại.",
-        "subsector_briefs": [],
-        "story_dossiers": [
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua xoay quanh các quyết định lập pháp quan trọng tại Mỹ và các hoạt động ngoại giao chiến lược của Việt Nam. Việc Thượng viện Mỹ thông qua dự luật cấm Fed phát hành CBDC đến năm 2030 là một quyết định có tầm ảnh hưởng lớn đến tương lai tiền tệ kỹ thuật số. Tại Việt Nam, chủ trương thành lập thành phố Bắc Ninh trực thuộc Trung ương và các hoạt động ngoại giao tại Cuba khẳng định định hướng phát triển vùng và quan hệ quốc tế chiến lược. Các diễn biến tại eo biển Hormuz cũng đang là tâm điểm chú ý của cộng đồng quốc tế.",
+        "subsector_briefs": [
           {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Chính trị Việt Nam",
-            "title": "Thành lập thành phố Bắc Ninh trực thuộc Trung ương",
-            "summary": "Bộ Chính trị thống nhất chủ trương thành lập thành phố Bắc Ninh trực thuộc Trung ương, định hướng trở thành trung tâm công nghiệp bán dẫn, AI và công nghệ cao hàng đầu khu vực.",
-            "main_developments": [
-              "Bắc Ninh được định hướng phát triển công nghiệp hiện đại, công nghệ cao.",
-              "Trọng tâm là công nghiệp điện tử, bán dẫn, vi mạch và trí tuệ nhân tạo."
+            "name": "Địa chính trị & Ngoại giao",
+            "overview": "Căng thẳng tại eo biển Hormuz và các hoạt động ngoại giao chiến lược của Việt Nam đang định hình bức tranh thời sự.",
+            "key_points": [
+              "Sơ tán thủy thủ tại eo biển Hormuz",
+              "Ngoại giao Việt Nam - Cuba"
             ],
-            "why_it_matters": "Sự kiện chính trị - kinh tế quan trọng, định hình lại bản đồ đô thị và chiến lược công nghiệp bán dẫn của Việt Nam.",
-            "affected_groups": [
-              "Tỉnh Bắc Ninh",
-              "Ngành bán dẫn",
-              "Nhà đầu tư FDI"
-            ],
-            "watch_next": [
-              "Các văn bản hướng dẫn thực hiện quy hoạch",
-              "Phản ứng của các nhà đầu tư FDI"
+            "key_story_titles": [
+              "Chiến dịch sơ tán thủy thủ tại eo biển Hormuz"
             ],
             "representative_sources": [
               {
-                "title": "Bộ Chính trị thống nhất chủ trương thành lập thành phố Bắc Ninh trực thuộc Trung ương",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/bo-chinh-tri-thong-nhat-chu-truong-thanh-lap-thanh-pho-bac-ninh-truc-thuoc-trung-uong-192260623222649666.htm",
-                "excerpt": "Bắc Ninh được định hướng trở thành trung tâm công nghiệp bán dẫn, AI và công nghệ cao hàng đầu khu vực."
+                "title": "Mở chiến dịch sơ tán 11.000 thủy thủ mắc kẹt tại eo biển Hormuz",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/mo-chien-dich-so-tan-11000-thuy-thu-mac-ket-tai-eo-bien-hormuz-188260624090352215.chn",
+                "excerpt": "Chiến dịch giải cứu thuỷ thủ mắc kẹt trên eo biển Hormuz được thực hiện với sự hợp tác chặt chẽ với Iran, Oman và Mỹ."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "major",
+            "sub_sector": "Địa chính trị & Ngoại giao",
+            "title": "Chiến dịch sơ tán thủy thủ tại eo biển Hormuz",
+            "summary": "Tổ chức Hàng hải Quốc tế (IMO) bắt đầu chiến dịch sơ tán hơn 11.000 thủy thủ bị mắc kẹt tại eo biển Hormuz sau các thỏa thuận hòa bình sơ bộ giữa Mỹ và Iran. Đây là nỗ lực lớn nhằm đảm bảo an toàn cho thủy thủ đoàn và khôi phục hoạt động hàng hải trong khu vực sau thời gian dài căng thẳng.",
+            "main_developments": [
+              "Chiến dịch được thực hiện với sự hợp tác chặt chẽ giữa Iran, Oman và Mỹ.",
+              "Hơn 11.000 thủy thủ mắc kẹt trên các tàu chở dầu sẽ được sơ tán theo kế hoạch quy mô lớn.",
+              "Đây là kết quả của biên bản ghi nhớ giữa Mỹ và Iran nhằm chấm dứt xung đột tại khu vực."
+            ],
+            "why_it_matters": "Sự kiện có tác động trực tiếp đến an ninh hàng hải và giá năng lượng toàn cầu, góp phần giảm bớt căng thẳng địa chính trị tại vùng Vịnh.",
+            "affected_groups": [
+              "Ngành vận tải biển",
+              "Thị trường năng lượng toàn cầu",
+              "Các quốc gia vùng Vịnh"
+            ],
+            "watch_next": [
+              "Phản ứng của giá dầu Brent sau khi hoạt động hàng hải được khôi phục",
+              "Tiến độ thực hiện các thỏa thuận hòa bình giữa Mỹ và Iran"
+            ],
+            "representative_sources": [
+              {
+                "title": "Mở chiến dịch sơ tán 11.000 thủy thủ mắc kẹt tại eo biển Hormuz",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/mo-chien-dich-so-tan-11000-thuy-thu-mac-ket-tai-eo-bien-hormuz-188260624090352215.chn",
+                "excerpt": "Tổng thư ký Tổ chức Hàng hải quốc tế (IMO) Arsenio Dominguez cho biết chiến dịch giải cứu thuỷ thủ mắc kẹt trên eo biển Hormuz sẽ được thực hiện với sự hợp tác chặt chẽ với Iran, Oman và Mỹ."
               }
             ]
           }
@@ -246,35 +262,56 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua nổi bật với sự kiện World Cup 2026 và các xu hướng y tế, giáo dục mới. Sự cuồng nhiệt của người hâm mộ bóng đá toàn cầu không chỉ tạo ra tác động văn hóa mà còn thúc đẩy kinh tế địa phương. Đồng thời, các nghiên cứu mới về y tế và giáo dục đang thay đổi cách chúng ta nhìn nhận về lão hóa, dinh dưỡng và phương pháp học tập. Các xu hướng này phản ánh một xã hội đang tìm kiếm sự cân bằng giữa công nghệ và giá trị sống thực tế.",
-        "subsector_briefs": [],
-        "story_dossiers": [
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua tập trung vào các thay đổi pháp lý trong thương mại điện tử và các cảnh báo y tế cộng đồng. Luật Thương mại điện tử 2025 với quy định định danh người bán là bước đi quan trọng để làm sạch thị trường. Đồng thời, các cảnh báo về rủi ro sức khỏe từ thuốc lá điện tử và thực phẩm bổ sung cho thấy sự quan tâm ngày càng lớn của cộng đồng đối với an toàn y tế trong kỷ nguyên số. Các sự kiện văn hóa như World Cup 2026 cũng đang trở thành tâm điểm thu hút sự quan tâm của giới trẻ Việt Nam.",
+        "subsector_briefs": [
           {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Y tế và Đời sống",
-            "title": "Nghiên cứu mới về khả năng đào thải vi nhựa của Kimchi",
-            "summary": "Nghiên cứu sơ bộ cho thấy lợi khuẩn trong Kimchi có thể hỗ trợ cơ thể đào thải hạt vi nhựa, mở ra hướng đi mới cho y tế cộng đồng và dinh dưỡng bền vững.",
-            "main_developments": [
-              "Chủng vi khuẩn axit lactic từ Kimchi có khả năng bám vào 57% lượng nhựa nano.",
-              "Hỗ trợ đào thải nhựa qua hệ tiêu hóa trong mô hình phòng thí nghiệm.",
-              "Cần thêm các kiểm chứng lâm sàng để khẳng định hiệu quả trên người."
+            "name": "Pháp luật & Đời sống",
+            "overview": "Các quy định pháp lý mới về TMĐT và cảnh báo y tế đang định hình lại thói quen tiêu dùng.",
+            "key_points": [
+              "Định danh người bán trên sàn TMĐT",
+              "Cảnh báo rủi ro từ thuốc lá điện tử"
             ],
-            "why_it_matters": "Xu hướng y tế cộng đồng và dinh dưỡng bền vững đang được dư luận quan tâm.",
-            "affected_groups": [
-              "Người tiêu dùng",
-              "Ngành thực phẩm"
-            ],
-            "watch_next": [
-              "Các nghiên cứu lâm sàng tiếp theo",
-              "Phản ứng của cộng đồng y tế"
+            "key_story_titles": [
+              "Luật Thương mại điện tử 2025: Định danh người bán để làm sạch thị trường"
             ],
             "representative_sources": [
               {
-                "title": "Phát hiện mới: Một thực phẩm quen thuộc có thể “quét sạch” hạt vi nhựa trong ruột",
-                "source": "genk_vn",
-                "url": "https://genk.vn/phat-hien-moi-mot-thuc-pham-quen-thuoc-co-the-quet-sach-hat-vi-nhua-trong-ruot-165260623201702775.chn",
-                "excerpt": "Lợi khuẩn trong Kimchi có thể hỗ trợ cơ thể đào thải hạt vi nhựa."
+                "title": "Hàng giả, hàng nhái sẽ hết đất sống?",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/hang-gia-hang-nhai-se-het-dat-song-100260622225512512.htm",
+                "excerpt": "Quy định mới bắt buộc sàn TMĐT xác thực danh tính người bán, người livestream nhằm hạn chế hàng giả."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "brief",
+            "sub_sector": "Pháp luật & Đời sống",
+            "title": "Luật Thương mại điện tử 2025: Định danh người bán",
+            "summary": "Luật Thương mại điện tử 2025 chính thức có hiệu lực, bắt buộc các sàn TMĐT phải xác thực danh tính người bán và người livestream. Quy định này nhằm làm sạch thị trường, hạn chế hàng giả và bảo vệ quyền lợi người tiêu dùng trong kỷ nguyên số.",
+            "main_developments": [
+              "Sàn TMĐT phải có trách nhiệm định danh người bán hàng trên nền tảng số.",
+              "Quy định áp dụng cho cả người bán hàng và người livestream bán hàng.",
+              "Đây là bước đi quan trọng để kiểm soát chất lượng hàng hóa trên các nền tảng trực tuyến."
+            ],
+            "why_it_matters": "Thay đổi pháp lý quan trọng ảnh hưởng đến thói quen mua sắm và kinh doanh trực tuyến tại Việt Nam.",
+            "affected_groups": [
+              "Người tiêu dùng",
+              "Người bán hàng trực tuyến",
+              "Các sàn TMĐT"
+            ],
+            "watch_next": [
+              "Phản ứng của các sàn TMĐT đối với quy định mới",
+              "Tác động đến thị trường hàng giả trực tuyến"
+            ],
+            "representative_sources": [
+              {
+                "title": "Hàng giả, hàng nhái sẽ hết đất sống?",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/hang-gia-hang-nhai-se-het-dat-song-100260622225512512.htm",
+                "excerpt": "Quy định mới bắt buộc sàn TMĐT xác thực danh tính người bán, người livestream nhằm hạn chế hàng giả."
               }
             ]
           }
@@ -283,58 +320,79 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường tài sản số",
-        "what_to_watch": "Phản ứng của Bitcoin và các quỹ ETF",
-        "why": "Đánh giá khẩu vị rủi ro của nhà đầu tư."
+        "theme": "Chính sách tiền tệ Fed",
+        "what_to_watch": "Phản ứng của thị trường chứng khoán và giá vàng đối với các tín hiệu lãi suất từ Fed.",
+        "why": "Ảnh hưởng trực tiếp đến dòng vốn toàn cầu và tài sản trú ẩn."
       },
       {
-        "theme": "Địa chính trị Vùng Vịnh",
-        "what_to_watch": "Lộ trình đàm phán Mỹ-Iran",
-        "why": "Ảnh hưởng trực tiếp đến giá năng lượng toàn cầu."
+        "theme": "Địa chính trị Trung Đông",
+        "what_to_watch": "Tiến độ sơ tán thủy thủ và đàm phán Mỹ-Iran tại eo biển Hormuz.",
+        "why": "Tác động đến an ninh năng lượng và giá dầu Brent."
       },
       {
-        "theme": "Hạ tầng công nghệ Việt Nam",
-        "what_to_watch": "Tiến độ giải ngân đầu tư công",
-        "why": "Động lực tăng trưởng kinh tế trong nước."
+        "theme": "Hạ tầng Việt Nam",
+        "what_to_watch": "Tiến độ giải ngân tín dụng cho 18 dự án hạ tầng trọng điểm.",
+        "why": "Động lực tăng trưởng kinh tế và thanh khoản hệ thống ngân hàng."
       },
       {
-        "theme": "Bitcoin giảm mạnh dưới 60.000 USD do dòng vốn chuyển dịch sang AI",
-        "what_to_watch": "Theo dõi dòng vốn ETF trong 72 giờ tới.",
-        "why": "Phản ánh sự thay đổi khẩu vị rủi ro của nhà đầu tư tổ chức trong bối cảnh vĩ mô bất ổn."
-      },
-      {
-        "theme": "Bộ Chính trị thống nhất chủ trương thành lập thành phố Bắc Ninh",
-        "what_to_watch": "Các văn bản hướng dẫn thực hiện quy hoạch đô thị mới.",
-        "why": "Định hình lại bản đồ công nghiệp bán dẫn và thu hút FDI vào công nghệ cao."
-      },
-      {
-        "theme": "SpaceX huy động 89 tỷ USD trong đợt phát hành trái phiếu đầu tiên",
-        "what_to_watch": "Tiến độ triển khai các dự án Starship.",
-        "why": "Sự kiện tài chính lớn nhất trong 48h, phản ánh nhu cầu vốn cực lớn của các công ty công nghệ."
+        "theme": "Cạnh tranh AI toàn cầu",
+        "what_to_watch": "Các diễn biến mới về hạ tầng bán dẫn và quy định quản lý AI.",
+        "why": "Định hình lại cán cân quyền lực công nghệ giữa Mỹ và Trung Quốc."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin chịu áp lực từ dòng vốn chuyển dịch sang AI và chính sách tiền tệ của Fed",
-        "why": "Phân tích vĩ mô quan trọng về sự thay đổi khẩu vị rủi ro của nhà đầu tư tổ chức."
+        "what_to_watch": "Bitcoin chịu áp lực từ sự phân hóa dòng vốn và biến động thị trường công nghệ",
+        "why": "Phản ánh mối tương quan chặt chẽ giữa thị trường crypto và cổ phiếu công nghệ trong bối cảnh vĩ mô hiện tại."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin kiểm tra mức thấp nhất trong hai tuần tại 62.000 USD trong bối cảnh thị trường công nghệ rung lắc",
-        "why": "Phản ánh sự tương quan chặt chẽ giữa tài sản rủi ro (crypto) và cổ phiếu công nghệ trong bối cảnh vĩ mô bất ổn."
+        "what_to_watch": "Bitcoin và tài sản rủi ro chịu áp lực bán tháo theo cổ phiếu công nghệ",
+        "why": "Phản ánh xu hướng dòng vốn rút khỏi tài sản rủi ro trong bối cảnh vĩ mô bất ổn."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin đối mặt rủi ro từ điện toán lượng tử và chính sách mới của Mỹ",
-        "why": "Sự kiện địa chính trị và công nghệ tác động trực tiếp đến an ninh tài sản số lớn nhất thế giới."
+        "what_to_watch": "Quỹ đầu tư Oman tham gia thương vụ rót 255 triệu USD vào Vinpearl",
+        "why": "Đánh dấu sự quan tâm của dòng vốn ngoại vào ngành du lịch nghỉ dưỡng Việt Nam."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bộ Chính trị thống nhất chủ trương thành lập thành phố Bắc Ninh trực thuộc Trung ương",
-        "why": "Sự kiện chính trị - kinh tế quan trọng, định hình lại bản đồ đô thị và chiến lược công nghiệp bán dẫn của Việt Nam."
+        "what_to_watch": "Thaco tái định vị thương hiệu Mazda với bộ đôi SUV điện hóa CX-60 và CX-90",
+        "why": "Đánh dấu bước chuyển dịch chiến lược của Thaco trong phân khúc xe điện hóa tại thị trường Việt Nam."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Dự án chuyển nước Nam-Bắc của Trung Quốc: Kỳ tích kỹ thuật hay rủi ro sinh thái?",
+        "why": "Đây là dự án hạ tầng thủy lợi lớn nhất thế giới, có tác động sâu rộng đến kinh tế, địa chính trị và môi trường khu vực."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "OpenAI ra mắt model GPT-5.5-Cyber trong bối cảnh Anthropic bị siết chặt quản lý",
+        "why": "Sự thay đổi cán cân quyền lực giữa các công ty AI hàng đầu dưới áp lực quản lý của chính phủ."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các chính sách thuế mới đối với hộ kinh doanh tại Việt Nam.",
+    "source_desk": [
+      {
+        "topic": "Tài chính & Đầu tư",
+        "representative_sources": [
+          {
+            "title": "Chi tiết 18 dự án trọng điểm cần vốn hơn 752 nghìn tỷ được hỗ trợ tín dụng đặc thù",
+            "source": "vietnamnet_vn",
+            "url": "https://vietnamnet.vn/18-du-an-trong-diem-voi-nhu-cau-von-hon-752-nghin-ty-duoc-ho-tro-co-che-tin-dung-2528698.html"
+          }
+        ]
+      },
+      {
+        "topic": "Địa chính trị & Thời sự",
+        "representative_sources": [
+          {
+            "title": "Mở chiến dịch sơ tán 11.000 thủy thủ mắc kẹt tại eo biển Hormuz",
+            "source": "cafef_vn",
+            "url": "https://cafef.vn/mo-chien-dich-so-tan-11000-thuy-thu-mac-ket-tai-eo-bien-hormuz-188260624090352215.chn"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các chính sách thuế mới đối với hộ kinh doanh cá thể tại Việt Nam.",
     "notable_articles": []
   }
 }
