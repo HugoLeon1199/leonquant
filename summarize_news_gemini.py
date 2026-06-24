@@ -37,11 +37,13 @@ MODEL_INPUT_TOKEN_LIMIT: dict[str, int] = {
 MODEL_OUTPUT_TOKEN_LIMIT_DEFAULT = 65_536
 OUTPUT_TOKEN_RESERVE = 70_000
 PROMPT_TEMPLATE_TOKEN_SLACK = 12_000
-# Free tier flash-lite: 15 RPM / 1M TPM / 1500 RPD (gemini-3.1-flash-lite & 2.5-flash-lite).
-# 15 RPM → safe interval = 60/15 = 4s. Use 5s for a small safety margin.
+# Free tier flash-lite: 15 RPM / 250K input-TPM / 1500 RPD (gemini-3.1-flash-lite).
+# Confirmed from 429 error: limit=250000 on generate_content_free_tier_input_token_count.
+# 15 RPM → safe interval = 60/15 = 4s. Use 5s margin.
+# TPM budget: 250K/min → 3 calls/step × 70K = 210K < 250K (safe buffer).
 # See https://ai.google.dev/gemini-api/docs/rate-limits
 DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST = 100_000
-FREE_TIER_TPM_FLASH_LITE = 1_000_000
+FREE_TIER_TPM_FLASH_LITE = 250_000
 # 0 = use DEFAULT_MAX_INPUT_TOKENS_PER_REQUEST only (no extra TPM shrink).
 DEFAULT_FREE_TPM_LIMIT = 0
 MIN_REQUEST_INTERVAL_SECONDS = 5.0

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Run batch digest — gemini-3.1-flash-lite free tier: 15 RPM / 1M TPM / 1500 RPD.
+"""Run batch digest — gemini-3.1-flash-lite free tier: 15 RPM / 250K input-TPM / 1500 RPD.
 
-Mỗi chunk ~80K tokens. 15 RPM → interval 5s/call. 3 calls/step với 5s giữa mỗi call
-→ mỗi step ~3-4 phút thực thi + 10s pause. Tổng ~13 chunks + merge ≈ ~15 phút.
+Mỗi chunk ~70K tokens. 3 calls/step = 210K tokens < 250K TPM limit (confirmed từ 429 log).
+15 RPM → interval 5s/call. Tổng ~15 chunks + merge ≈ ~16 phút.
 """
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ CALLS_PER_STEP = int(os.environ.get("DIGEST_CALLS_PER_STEP", "3" if _CI_MODE els
 PAUSE_BETWEEN_STEPS_SEC = 10 if _CI_MODE else 30
 PAUSE_ON_QUOTA_FAIL_SEC = 120
 PAUSE_ON_OTHER_FAIL_SEC = 30
-FREE_TIER_MAX_INPUT_TOKENS = 80_000
+FREE_TIER_MAX_INPUT_TOKENS = 70_000
 FREE_TIER_SLEEP_SEC = 5
 # Giới hạn tổng số bước để tránh loop vô tận khi quota bị block liên tục
 MAX_STEPS = int(os.environ.get("DIGEST_LOOP_MAX_STEPS", "80"))
