@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-25T23:17:43.802369+00:00",
+  "generated_at": "2026-06-26T23:14:40.296668+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 897580,
+    "estimated_input_tokens": 828808,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 3,
+    "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 756,
-    "sent_article_count": 756,
+    "input_article_count": 701,
+    "sent_article_count": 701,
     "window": {
-      "end_date": "2026-06-26",
+      "end_date": "2026-06-27",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,81 +24,92 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "15",
-    "editor_note": "Bản tin tổng hợp các biến động tài chính, đột phá công nghệ và chính sách hạ tầng trọng điểm trong 48 giờ qua.",
+    "reading_time_minutes": "auto",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và địa chính trị trong 48 giờ qua, tập trung vào các thay đổi chính sách và tác động thị trường thực tế.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường tài chính thị trường đang trải qua đợt tái định vị dòng vốn mạnh mẽ khi các tài sản rủi ro như Bitcoin và kim loại quý chịu áp lực bán tháo lớn. Trong khi đó, tại Việt Nam, trọng tâm điều hành chuyển dịch sang việc cụ thể hóa các dự án hạ tầng trọng điểm và nới lỏng cơ chế tín dụng để thúc đẩy đầu tư công.",
-        "most_mentioned": "Biến động của Bitcoin và nhóm tài sản số chiếm ưu thế trong các nguồn tin quốc tế, với hơn 1 tỷ USD vị thế phái sinh bị thanh lý. Sự chú ý đang dần chuyển dịch từ các tài sản đầu cơ sang hạ tầng AI và bán dẫn, nơi các doanh nghiệp như Micron Technology ghi nhận kết quả kinh doanh vượt kỳ vọng.",
-        "top_stories": "Sự kiện Bitcoin rơi xuống dưới 60.000 USD và giá vàng mất mốc 4.000 USD/ounce phản ánh tâm lý thận trọng trước chính sách tiền tệ cứng rắn của Cục Dự trữ Liên bang Mỹ (Fed). Tại Việt Nam, Chính phủ đã thống nhất giao Hà Nội làm chủ quản hai dự án đường sắt quốc gia với tổng vốn 40.000 tỷ đồng, đánh dấu bước tiến mới trong phân cấp quản lý hạ tầng.",
-        "sector_impacts": "Ngành công nghệ ghi nhận đột phá với chip sub-1nm của IBM và nhu cầu chip nhớ cho AI, trong khi ngành bất động sản Việt Nam đón nhận tín hiệu tích cực từ việc loại trừ dư nợ cho 18 dự án hạ tầng lớn khỏi giới hạn tăng trưởng tín dụng.",
-        "watch_24_72h": "Trong 24–72 giờ tới, cần theo dõi: phản ứng của thị trường tiền số với các đợt thanh lý mới; diễn biến giá vàng trong nước so với thế giới; các văn bản hướng dẫn cụ thể về tài sản mã hóa tại Việt Nam; và tiến độ giải ngân đầu tư công tại các dự án hạ tầng trọng điểm."
+        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn điều chỉnh mạnh khi Bitcoin rơi xuống mức thấp nhất 21 tháng, chịu áp lực từ dòng vốn ETF rút ròng và lập trường chính sách tiền tệ cứng rắn của Cục Dự trữ Liên bang Mỹ (Fed). Trong khi đó, tại Việt Nam, trọng tâm chính sách chuyển dịch sang việc hoàn thiện hành lang pháp lý cho tài sản số, đẩy mạnh các dự án hạ tầng trọng điểm và chuẩn bị vận hành sàn giao dịch carbon đầu tiên.",
+        "most_mentioned": "Bitcoin và thị trường tiền điện tử là chủ đề được nhắc đến nhiều nhất, với sự sụt giảm xuống dưới mốc 60.000 USD. Sự kiện này không chỉ là biến động giá đơn thuần mà còn cho thấy sự tái định vị dòng vốn của các tổ chức lớn trước áp lực thanh lý đòn bẩy và kỳ vọng lãi suất cao.",
+        "top_stories": "Câu chuyện quan trọng nhất là sự can thiệp của chính phủ Mỹ vào lộ trình phát hành các mô hình AI tiên tiến của OpenAI, cùng với việc Việt Nam chuẩn bị vận hành sàn giao dịch carbon vào ngày 29/6. Hai sự kiện này đại diện cho xu hướng quản lý chặt chẽ hơn đối với công nghệ và cam kết mạnh mẽ về tăng trưởng bền vững.",
+        "sector_impacts": "Tác động lan tỏa từ chính sách tiền tệ Mỹ đang gây áp lực lên giá vàng và thị trường bất động sản Việt Nam, trong khi các dự án hạ tầng trọng điểm tại TP.HCM như đường vượt biển Cần Giờ và cao tốc TP.HCM - Mộc Bài đang trở thành động lực tăng trưởng mới cho khu vực phía Nam.",
+        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi sát sao: phản ứng của thị trường tài sản số tại mốc hỗ trợ 58.000 USD, các văn bản hướng dẫn vận hành sàn giao dịch carbon tại Việt Nam, và diễn biến xung đột tại eo biển Hormuz sau các cuộc tấn công đáp trả của Mỹ."
       },
-      "content": "Thị trường tài chính thị trường đang trải qua giai đoạn điều chỉnh mạnh mẽ khi các tài sản rủi ro như Bitcoin và kim loại quý chịu áp lực bán tháo. Sự kiện Bitcoin giảm xuống dưới 60.000 USD và giá vàng mất mốc 4.000 USD/ounce không chỉ là biến động giá đơn thuần, mà là tín hiệu cho thấy dòng vốn đang tái định vị khỏi các tài sản đầu cơ để tìm đến các lĩnh vực có câu chuyện tăng trưởng thực tế như hạ tầng AI và bán dẫn. Tại Việt Nam, chính sách điều hành đang chuyển dịch mạnh mẽ sang giai đoạn cụ thể hóa, với việc Chính phủ giao Hà Nội làm chủ quản các dự án đường sắt quốc gia và nới room tín dụng cho các dự án hạ tầng lớn, tạo động lực cho dòng vốn vào bất động sản và xây dựng. Trong khi đó, ngành công nghệ tiếp tục ghi nhận những đột phá về chip sub-1nm và nhu cầu hạ tầng dữ liệu, khẳng định AI không còn là câu chuyện phần mềm mà đã trở thành cuộc đua về năng lực tính toán và phần cứng.",
+      "content": "Thị trường tài chính thị trường đang trải qua giai đoạn điều chỉnh mạnh. Bitcoin giảm xuống mức thấp nhất 21 tháng, với hơn 1 tỷ USD vị thế đòn bẩy bị thanh lý, trong khi các quỹ ETF Bitcoin ghi nhận dòng vốn rút ròng gần 692 triệu USD trong một phiên. Sự thận trọng này được củng cố bởi lập trường chính sách tiền tệ cứng rắn từ Fed, khi lạm phát Mỹ vẫn duy trì ở mức trên 4%. Tại Việt Nam, trọng tâm chính sách chuyển dịch sang việc hoàn thiện hành lang pháp lý cho tài sản số và đẩy mạnh các dự án hạ tầng trọng điểm. Việc TP.HCM khởi công loạt dự án nhà ở xã hội và hạ tầng giao thông vào đầu tháng 7 cho thấy nỗ lực khơi thông nguồn lực nội tại. Trong lĩnh vực công nghệ, sự can thiệp của chính phủ Mỹ vào lộ trình phát hành mô hình GPT-5.6 của OpenAI đánh dấu một bước ngoặt trong quản lý AI, buộc các doanh nghiệp phải cân nhắc lại chiến lược triển khai và chi phí vận hành. Đồng thời, đột phá của IBM với chip 0,7nm kiến trúc nanostack đang mở ra chương mới cho ngành bán dẫn toàn cầu.",
       "representative_sources": [
         {
-          "title": "Noticias del precio de Bitcoin: BTC alcanza los $58,000 pero un short-squeeze podría preparar un rebote",
-          "source": "coindesk_com",
-          "url": "https://coindesk.com/es/markets/2026/06/25/bitcoin-plunges-to-new-multi-year-low-of-usd58-000-but-a-short-squeeze-setup-emerges"
+          "title": "Giá bitcoin rơi thấp nhất 21 tháng, dự báo đáy sâu vào cuối năm gây chú ý",
+          "source": "dantri_com_vn",
+          "url": "https://dantri.com.vn/kinh-doanh/gia-bitcoin-roi-thap-nhat-21-thang-du-bao-day-sau-vao-cuoi-nam-gay-chu-y-20260625235409230.htm",
+          "excerpt": "Bitcoin rơi xuống vùng giá thấp nhất kể từ tháng 9/2024, gây lo ngại về chu kỳ giảm sâu."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Biến động thị trường tài chính & Crypto",
-          "why_mentioned": "Lặp lại dày đặc trên các nguồn tin tài chính quốc tế về liquidations và giá BTC.",
-          "evidence_hint": "Dữ liệu từ CoinGlass cho thấy gần 1 tỷ USD các vị thế phái sinh đã bị thanh lý."
+          "topic": "Biến động thị trường tiền điện tử",
+          "why_mentioned": "Sự sụt giảm mạnh của Bitcoin và áp lực thanh lý đòn bẩy trên diện rộng.",
+          "evidence_hint": "Hơn 1 tỷ USD vị thế đòn bẩy bị thanh lý trong 24 giờ."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Hạ tầng & Quy hoạch đô thị Việt Nam",
-          "why_hot": "Nhiều thông báo từ Bộ Xây dựng và các địa phương về đường sắt, cao tốc.",
-          "impact": "Thúc đẩy tiến độ đầu tư công và tạo nguồn thu ngân sách.",
-          "evidence_hint": "Chính phủ thống nhất giao Hà Nội làm chủ quản 2 dự án đường sắt quốc gia."
+          "topic": "Quản lý AI tiên phong",
+          "why_hot": "Chính phủ Mỹ can thiệp vào lộ trình phát hành mô hình AI của OpenAI.",
+          "impact": "Thay đổi lộ trình phát triển và chiến lược chi tiêu của các Big Tech.",
+          "evidence_hint": "OpenAI giới hạn quyền truy cập GPT-5.6 theo yêu cầu của Nhà Trắng."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dịch chuyển dòng vốn từ Crypto sang hạ tầng AI",
-          "why_watch": "Nhà đầu tư đang ưu tiên các lĩnh vực có nền tảng tăng trưởng thực tế."
+          "signal": "Chuyển dịch sang mô hình AI hiệu quả chi phí",
+          "why_watch": "Doanh nghiệp đang ưu tiên các mô hình AI giá rẻ thay vì các mô hình frontier đắt đỏ."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường tiền số với các đợt thanh lý mới",
-        "Diễn biến giá vàng trong nước so với thế giới",
-        "Tiến độ giải ngân đầu tư công tại các dự án hạ tầng trọng điểm"
+        "Phản ứng của thị trường tài sản số tại mốc 58.000 USD",
+        "Tiến độ vận hành sàn giao dịch carbon tại Việt Nam",
+        "Diễn biến xung đột tại eo biển Hormuz"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Bitcoin và thị trường tiền số chịu áp lực thanh lý mạnh",
-        "one_sentence": "Hơn 1 tỷ USD vị thế phái sinh bị thanh lý khi Bitcoin rơi xuống dưới 60.000 USD, phản ánh tâm lý lo ngại về chính sách lãi suất của Fed.",
-        "why_it_matters": "Sự kiện này đánh dấu sự dịch chuyển dòng vốn khỏi các tài sản rủi ro cao.",
-        "watch_next": "Theo dõi các đợt thanh lý tiếp theo và phản ứng của các quỹ ETF Bitcoin.",
+        "title": "Bitcoin giảm xuống mức thấp nhất 21 tháng",
+        "one_sentence": "Bitcoin rơi xuống ngưỡng 58.100 USD, với hơn 1 tỷ USD vị thế đòn bẩy bị thanh lý trong 24 giờ qua do áp lực từ thị trường chứng khoán công nghệ.",
+        "why_it_matters": "Phản ánh tâm lý e ngại rủi ro thị trường và sự điều chỉnh dòng vốn khỏi các tài sản đầu cơ cao.",
+        "watch_next": "Khả năng giữ mốc hỗ trợ 58.000 USD trong các phiên tới.",
         "source_urls": [
-          "https://decrypt.co/372074/bitcoin-plummets-strategy-strc-dives-further-100"
+          "https://coindesk.com/markets/2026/06/26/bitcoin-bounces-from-usd58-000-as-derivatives-signal-more-pain-in-the-pipeline"
         ]
       },
       {
         "rank": 2,
-        "title": "Chính phủ giao Hà Nội làm chủ quản 2 dự án đường sắt quốc gia",
-        "one_sentence": "Hà Nội được giao làm chủ quản dự án đường sắt Ngọc Hồi - Phú Xuyên và vành đai phía Đông với tổng vốn 40.000 tỷ đồng nhằm đẩy nhanh tiến độ hạ tầng.",
-        "why_it_matters": "Đây là bước đi chiến lược trong việc phân cấp quản lý hạ tầng giao thông trọng điểm tại Thủ đô.",
-        "watch_next": "Tiến độ hoàn thiện hồ sơ và thủ tục triển khai dự án trong giai đoạn 2027-2028.",
+        "title": "Việt Nam chuẩn bị vận hành sàn giao dịch carbon đầu tiên",
+        "one_sentence": "Sàn giao dịch carbon trong nước sẽ chính thức khai trương vào ngày 29/6, đánh dấu cột mốc quan trọng trong lộ trình Net Zero 2050 của Việt Nam.",
+        "why_it_matters": "Tạo nền tảng pháp lý và thị trường cho doanh nghiệp thực hiện cam kết giảm phát thải.",
+        "watch_next": "Quy chế nghiệp vụ chi tiết và phản ứng của các doanh nghiệp phát thải lớn.",
         "source_urls": [
-          "https://baochinhphu.vn/thong-nhat-phuong-an-giao-tp-ha-noi-lam-chu-dau-tu-2-du-an-duong-sat-quoc-gia-102260625163838114.htm"
+          "https://baochinhphu.vn/viet-nam-chuan-bi-van-hanh-san-giao-dich-cac-bon-dau-tien-102260626174322565.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Giá vàng và bạc đảo chiều giảm sâu trên thị trường quốc tế",
-        "one_sentence": "Giá vàng thế giới xuyên thủng mốc 4.000 USD/ounce do đồng USD mạnh lên và kỳ vọng Fed duy trì lãi suất cao, gây áp lực lên tài sản trú ẩn.",
-        "why_it_matters": "Sự đảo chiều này ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và các doanh nghiệp trang sức trong nước.",
-        "watch_next": "Theo dõi biến động giá vàng trong nước so với thế giới.",
+        "title": "Mỹ tấn công đáp trả Iran tại eo biển Hormuz",
+        "one_sentence": "Quân đội Mỹ thực hiện các cuộc tấn công vào cơ sở hạ tầng radar và kho tên lửa của Iran sau vụ tấn công tàu hàng Ever Lovely.",
+        "why_it_matters": "Gia tăng rủi ro xung đột quân sự trực tiếp, đe dọa an ninh năng lượng tại khu vực chiến lược.",
+        "watch_next": "Phản ứng từ Tehran và biến động giá dầu Brent.",
         "source_urls": [
-          "https://vietnamnet.vn/gia-vang-hom-nay-25-6-2026-vang-the-gioi-roi-tu-do-ap-luc-de-nang-len-sjc-2529108.html"
+          "https://cnbc.com/2026/06/26/us-strikes-iran-strait-of-hormuz-ceasefire.html"
+        ]
+      },
+      {
+        "rank": 4,
+        "title": "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ",
+        "one_sentence": "",
+        "why_it_matters": "Cung cấp cái nhìn sâu sắc về dữ liệu phái sinh và tâm lý thị trường trong bối cảnh Bitcoin giảm mạnh.",
+        "watch_next": "",
+        "source_urls": [
+          "https://coindesk.com/markets/2026/06/26/bitcoin-bounces-from-usd58-000-as-derivatives-signal-more-pain-in-the-pipeline"
         ]
       }
     ],
@@ -106,49 +117,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh mạnh của các tài sản rủi ro và nỗ lực đẩy mạnh đầu tư công tại Việt Nam. Sự sụt giảm của Bitcoin và kim loại quý phản ánh tâm lý thận trọng trước chính sách tiền tệ của Fed, trong khi các chính sách hạ tầng trong nước đang tạo ra những điểm sáng về dòng vốn. Các nhà đầu tư đang có xu hướng dịch chuyển từ tài sản đầu cơ sang các lĩnh vực có nền tảng tăng trưởng thực tế như hạ tầng AI và bán dẫn. Đặc biệt, việc Ngân hàng Nhà nước loại trừ dư nợ cho 18 dự án hạ tầng lớn khỏi giới hạn tăng trưởng tín dụng là một bước ngoặt quan trọng cho các tập đoàn bất động sản và xây dựng.",
+        "sector_thesis": "Thị trường tài chính 48 giờ qua chịu áp lực điều chỉnh mạnh từ cả yếu tố vĩ mô quốc tế và sự tái cấu trúc trong nước. Bitcoin và các tài sản rủi ro đang trong giai đoạn kiểm định lại các mốc hỗ trợ quan trọng, trong khi tại Việt Nam, dòng vốn đang tập trung vào các dự án hạ tầng và nhà ở xã hội. Điểm nhấn là sự chuẩn bị cho sàn giao dịch carbon, cho thấy nỗ lực kết hợp giữa tăng trưởng kinh tế và cam kết môi trường. Các doanh nghiệp bất động sản như Phát Đạt cũng đang tái cấu trúc tài chính thông qua các thương vụ M&A lớn tại Thủ Thiêm.",
         "subsector_briefs": [
           {
-            "name": "Tài sản số & Crypto",
-            "overview": "Thị trường tiền số chứng kiến đợt bán tháo lớn với hơn 1 tỷ USD vị thế bị thanh lý, Bitcoin giảm xuống dưới 60.000 USD.",
+            "name": "Thị trường tài sản số",
+            "overview": "Thị trường tiền điện tử đang trải qua đợt bán tháo mạnh, với Bitcoin giảm xuống mức thấp nhất 21 tháng do áp lực thanh lý đòn bẩy và dòng vốn ETF rút ròng.",
             "key_points": [
-              "Thanh lý phái sinh kỷ lục",
-              "Dòng vốn dịch chuyển sang AI"
+              "Bitcoin kiểm định mốc 58.000 USD",
+              "Dòng vốn ETF rút ròng gần 692 triệu USD",
+              "Áp lực thanh lý đòn bẩy lớn"
             ],
             "key_story_titles": [
-              "Bitcoin và thị trường tiền số chịu áp lực thanh lý mạnh"
+              "Bitcoin giảm xuống mức thấp nhất 21 tháng"
             ],
             "representative_sources": [
               {
-                "title": "Noticias del precio de Bitcoin: BTC alcanza los $58,000 pero un short-squeeze podría preparar un rebote",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/es/markets/2026/06/25/bitcoin-plunges-to-new-multi-year-low-of-usd58-000-but-a-short-squeeze-setup-emerges"
-              }
-            ]
-          }
-        ],
-        "story_dossiers": []
-      },
-      {
-        "code": "tech",
-        "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu công nghệ, mà còn ở hạ tầng dữ liệu, bán dẫn và trung tâm dữ liệu. Các bài viết về Micron Technology và chip sub-1nm của IBM cho thấy nhu cầu hạ tầng AI vẫn là động lực chính của thị trường. Đồng thời, sự chuyển dịch của các startup Web3 sang hạ tầng dữ liệu AI cho thấy xu hướng tích hợp công nghệ đang diễn ra mạnh mẽ. Việc Apple tăng giá sản phẩm do chi phí chip nhớ leo thang là minh chứng rõ nhất cho tác động của cơn sốt AI lên chuỗi cung ứng phần cứng toàn cầu.",
-        "subsector_briefs": [
-          {
-            "name": "Bán dẫn & Hạ tầng AI",
-            "overview": "Nhu cầu chip nhớ cho AI bùng nổ, đẩy giá linh kiện tăng vọt và thúc đẩy các đột phá về chip sub-1nm.",
-            "key_points": [
-              "Micron báo cáo doanh thu vượt kỳ vọng",
-              "IBM công bố chip 0.7nm"
-            ],
-            "key_story_titles": [
-              "Micron Technology dẫn đầu đà tăng trưởng hạ tầng AI"
-            ],
-            "representative_sources": [
-              {
-                "title": "Micron Technology (MU) se disparó un 16% tras resultados sorprendentes y una guía sólida",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/es/markets/2026/06/25/micron-delivers-blowout-earnings-surges-16-and-deals-crypto-bulls-a-blow"
+                "title": "Bitcoin nearly loses $58K as ETF outflows decide whether inflation relief holds",
+                "source": "cryptoslate_com",
+                "url": "https://cryptoslate.com/bitcoin-nearly-loses-58k-as-etf-outflows-decide-whether-inflation-relief-holds"
               }
             ]
           }
@@ -157,28 +143,67 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Bán dẫn & Hạ tầng AI",
-            "title": "Sự bùng nổ của hạ tầng AI và bán dẫn",
-            "summary": "Nhu cầu chip nhớ cho AI tăng vọt thúc đẩy doanh thu của các hãng bán dẫn như Micron, đồng thời tạo ra áp lực chi phí lên các thiết bị điện tử tiêu dùng.",
+            "sub_sector": "Bất động sản & Hạ tầng",
+            "title": "TP.HCM đẩy mạnh hạ tầng và nhà ở xã hội",
+            "summary": "TP.HCM khởi công đồng loạt 4 dự án nhà ở xã hội với hơn 6.200 căn hộ và chuẩn bị khởi công các dự án hạ tầng trọng điểm như cao tốc TP.HCM - Mộc Bài, nhằm giải quyết nhu cầu an sinh và khơi thông kết nối vùng.",
             "main_developments": [
-              "Micron báo cáo doanh thu quý 3 đạt 41,5 tỷ USD",
-              "IBM công bố chip sub-1nm với kiến trúc NanoStack",
-              "Apple tăng giá MacBook và iPad do chi phí chip nhớ tăng vọt"
+              "Khởi công 4 dự án nhà ở xã hội với 6.229 căn hộ.",
+              "Kế hoạch khởi công đường vượt biển Cần Giờ và cảng Cái Mép Hạ vào ngày 1/7.",
+              "Phát Đạt hợp tác cùng Lotte tại dự án Eco Smart City Thủ Thiêm với sự tài trợ vốn từ MBBank."
             ],
-            "why_it_matters": "Tác động trực tiếp của cơn sốt AI lên chi phí tiêu dùng và biên lợi nhuận doanh nghiệp.",
+            "why_it_matters": "Các dự án này đóng vai trò then chốt trong việc đảm bảo an sinh xã hội và tạo động lực tăng trưởng kinh tế cho khu vực phía Nam trong giai đoạn 2026-2030.",
             "affected_groups": [
-              "Nhà sản xuất bán dẫn",
-              "Người tiêu dùng thiết bị điện tử"
+              "Người lao động",
+              "Doanh nghiệp bất động sản",
+              "Nhà đầu tư hạ tầng"
             ],
             "watch_next": [
-              "Tình trạng thiếu hụt chip nhớ sau năm 2027",
-              "Phản ứng của thị trường với giá linh kiện tăng"
+              "Tiến độ giải ngân vốn đầu tư công",
+              "Tác động của các dự án hạ tầng đến giá đất khu vực lân cận"
             ],
             "representative_sources": [
               {
-                "title": "Micron Technology (MU) se disparó un 16% tras resultados sorprendentes y una guía sólida",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/es/markets/2026/06/25/micron-delivers-blowout-earnings-surges-16-and-deals-crypto-bulls-a-blow"
+                "title": "TP.HCM khởi công đường vượt biển Cần Giờ, công viên Bến Nhà Rồng ngày 1-7",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/tphcm-khoi-cong-duong-vuot-bien-can-gio-cong-vien-ben-nha-rong-ngay-1-7-100260626130140361.htm",
+                "excerpt": "TP.HCM chuẩn bị khởi công đồng loạt các dự án lớn nhân dịp kỷ niệm 50 năm ngày thành phố mang tên Bác."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "tech",
+        "name": "Công nghệ & AI",
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua nổi bật với sự can thiệp của chính phủ vào các mô hình AI tiên phong và những đột phá trong bán dẫn. Việc OpenAI giới hạn phát hành GPT-5.6 cho thấy sự chuyển dịch từ giai đoạn phát triển tự do sang giai đoạn quản lý chặt chẽ. Đồng thời, các doanh nghiệp đang có xu hướng tối ưu hóa chi phí bằng cách chuyển sang các mô hình AI hiệu quả hơn, thay vì chỉ tập trung vào các mô hình frontier đắt đỏ. Đột phá của IBM với chip 0,7nm cũng khẳng định vị thế của công nghệ bán dẫn trong việc vượt qua các giới hạn vật lý hiện tại.",
+        "subsector_briefs": [],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "AI & Quản lý công nghệ",
+            "title": "OpenAI dưới sự giám sát của chính phủ Mỹ",
+            "summary": "OpenAI đã phát hành giới hạn dòng mô hình GPT-5.6 cho một nhóm đối tác tin cậy theo yêu cầu của chính quyền Mỹ, nhằm thiết lập khung kiểm duyệt và triển khai an toàn cho các mô hình AI mạnh mẽ trước khi phát hành rộng rãi.",
+            "main_developments": [
+              "Chính quyền Mỹ yêu cầu OpenAI hạn chế quyền truy cập vào GPT-5.6.",
+              "Mô hình Sol được thiết kế để tăng cường khả năng phòng thủ an ninh mạng.",
+              "OpenAI cam kết tuân thủ khung quản lý mới về AI tiên phong."
+            ],
+            "why_it_matters": "Đây là bước ngoặt trong quản lý công nghệ, cho thấy sự can thiệp ngày càng sâu của chính phủ vào lộ trình phát triển của các Big Tech, ảnh hưởng đến tốc độ đổi mới AI toàn cầu.",
+            "affected_groups": [
+              "OpenAI",
+              "Các đối tác công nghệ",
+              "Cơ quan quản lý nhà nước"
+            ],
+            "watch_next": [
+              "Phản ứng của các đối tác công nghệ khác",
+              "Khung pháp lý chi tiết về AI tiên phong"
+            ],
+            "representative_sources": [
+              {
+                "title": "OpenAI limits GPT-5.6 rollout after government request, says restrictions shouldn’t be the norm | TechCrunch",
+                "source": "techcrunch_com",
+                "url": "https://techcrunch.com/2026/06/26/openai-limits-gpt-5-6-rollout-after-government-request-says-restrictions-shouldnt-be-the-norm"
               }
             ]
           }
@@ -187,112 +212,63 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua tập trung vào các quyết định hạ tầng trọng điểm tại Việt Nam và các sự kiện quốc tế nghiêm trọng. Việc Chính phủ giao Hà Nội làm chủ quản các dự án đường sắt quốc gia là điểm nhấn quan trọng trong nỗ lực đẩy mạnh đầu tư công. Trên bình diện quốc tế, thảm họa động đất tại Venezuela và căng thẳng địa chính trị tại Trung Đông đang là những vấn đề cần theo dõi sát sao. Sự hợp tác hải quan giữa Việt Nam và Hoa Kỳ cũng là một bước tiến quan trọng trong quan hệ đối tác chiến lược.",
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua bị chi phối bởi căng thẳng địa chính trị tại Trung Đông và các diễn biến quân sự tại Ukraine. Sự kiện Mỹ tấn công đáp trả Iran tại eo biển Hormuz đã làm gia tăng rủi ro an ninh năng lượng toàn cầu. Bên cạnh đó, các vấn đề nhân quyền và chính sách nhập cư tại Mỹ cũng đang thu hút sự chú ý của cộng đồng quốc tế, cùng với việc Burkina Faso cắt đứt quan hệ ngoại giao với Pháp, cho thấy sự thay đổi trong liên minh địa chính trị tại châu Phi.",
         "subsector_briefs": [
           {
-            "name": "Hạ tầng giao thông Việt Nam",
-            "overview": "Chính phủ đẩy mạnh phân cấp quản lý hạ tầng, giao Hà Nội làm chủ quản các dự án đường sắt trọng điểm.",
+            "name": "Địa chính trị Trung Đông",
+            "overview": "Căng thẳng leo thang tại eo biển Hormuz sau vụ tấn công tàu hàng, dẫn đến các cuộc tấn công đáp trả quân sự từ phía Mỹ.",
             "key_points": [
-              "Giao Hà Nội làm chủ quản 2 dự án đường sắt",
-              "Tổng vốn đầu tư 40.000 tỷ đồng"
+              "Mỹ tấn công cơ sở hạ tầng quân sự Iran",
+              "Iran cảnh báo các chuyến bay quân sự Israel",
+              "Thỏa thuận khung hòa bình Israel-Lebanon"
             ],
             "key_story_titles": [
-              "Việt Nam thống nhất giao Hà Nội làm chủ quản 2 dự án đường sắt quốc gia"
+              "Mỹ tấn công đáp trả Iran tại eo biển Hormuz"
             ],
             "representative_sources": [
               {
-                "title": "Thống nhất phương án giao TP. Hà Nội làm cơ quan chủ quản 2 dự án đường sắt quốc gia",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/thong-nhat-phuong-an-giao-tp-ha-noi-lam-chu-dau-tu-2-du-an-duong-sat-quoc-gia-102260625163838114.htm",
-                "excerpt": "Chính phủ thống nhất giao Hà Nội làm chủ quản 2 dự án đường sắt quan trọng."
+                "title": "US strikes Iran in response to drone strike on commercial ship",
+                "source": "aljazeera_com",
+                "url": "https://aljazeera.com/news/2026/6/26/us-strikes-iran-in-response-to-drone-strike-on-commercial-ship"
               }
             ]
           }
         ],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Hạ tầng giao thông Việt Nam",
-            "title": "Đẩy mạnh hạ tầng giao thông tại Hà Nội",
-            "summary": "Chính phủ thống nhất giao Hà Nội làm chủ quản hai dự án đường sắt quốc gia với tổng vốn 40.000 tỷ đồng nhằm đẩy nhanh tiến độ hạ tầng giao thông Thủ đô.",
-            "main_developments": [
-              "Tuyến đường sắt từ ga Phú Xuyên đến ga Ngọc Hồi",
-              "Tuyến đường sắt vành đai phía đông kết nối Hà Nội với Hưng Yên",
-              "Áp dụng cơ chế đặc thù theo Nghị quyết số 258/2025/QH15"
-            ],
-            "why_it_matters": "Đây là dự án hạ tầng chiến lược giúp di dời đường sắt ra khỏi nội đô và tăng cường kết nối vùng.",
-            "affected_groups": [
-              "Người dân Hà Nội",
-              "Ngành giao thông vận tải"
-            ],
-            "watch_next": [
-              "Tiến độ hoàn thiện hồ sơ dự án",
-              "Thời điểm khởi công dự kiến"
-            ],
-            "representative_sources": [
-              {
-                "title": "Thống nhất phương án giao TP. Hà Nội làm cơ quan chủ quản 2 dự án đường sắt quốc gia",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/thong-nhat-phuong-an-giao-tp-ha-noi-lam-chu-dau-tu-2-du-an-duong-sat-quoc-gia-102260625163838114.htm",
-                "excerpt": "Chính phủ thống nhất giao Hà Nội làm chủ quản 2 dự án đường sắt quan trọng."
-              }
-            ]
-          }
-        ]
+        "story_dossiers": []
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống trong 48 giờ qua nổi bật với các sự kiện thể thao toàn cầu như World Cup 2026 và các vấn đề thời tiết cực đoan. Nắng nóng kỷ lục tại miền Bắc đang gây áp lực lớn lên đời sống và hệ thống điện, trong khi các sự kiện văn hóa như sinh nhật của Lionel Messi tại World Cup thu hút sự quan tâm lớn. Các nghiên cứu về sức khỏe và hành vi tiêu dùng cũng cho thấy những thay đổi đáng kể trong tư duy của người dân, đặc biệt là xu hướng ưu tiên trải nghiệm thay vì hàng hiệu.",
-        "subsector_briefs": [
-          {
-            "name": "Thời tiết & Đời sống",
-            "overview": "Nắng nóng gay gắt tại miền Bắc với nhiệt độ vượt ngưỡng 42 độ C, gây áp lực lên hệ thống điện và sức khỏe.",
-            "key_points": [
-              "Nhiệt độ vượt 42 độ C",
-              "Áp lực lên hệ thống điện"
-            ],
-            "key_story_titles": [
-              "Nắng nóng kỷ lục 42,2 độ C tại miền Bắc"
-            ],
-            "representative_sources": [
-              {
-                "title": "Nắng nóng kỷ lục 42,2 độ C",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/nang-nong-ky-luc-422-do-c-185260625202653022.htm",
-                "excerpt": "Nhiệt độ tại nhiều tỉnh miền Bắc vượt ngưỡng 42 độ C."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua phản ánh sự quan tâm đến an sinh xã hội và văn hóa giải trí. Việc đẩy mạnh nhà ở cho thuê tại Việt Nam và sự bùng nổ của World Cup 2026 là những điểm nhấn chính. Đồng thời, các vấn đề về an ninh mạng trong bối cảnh sự kiện thể thao lớn và sự thay đổi trong tư duy về hiệu suất lao động cũng đang được xã hội quan tâm. Các quy định mới về quản lý thông tin trên mạng xã hội tại Việt Nam cũng đang tác động trực tiếp đến hành vi người dùng.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Thời tiết & Đời sống",
-            "title": "Nắng nóng gay gắt tại miền Bắc",
-            "summary": "Nhiệt độ tại miền Bắc vượt ngưỡng 42 độ C, gây áp lực lớn lên hệ thống điện và sức khỏe cộng đồng, buộc người dân phải thay đổi thói quen sinh hoạt.",
+            "sub_sector": "An sinh xã hội",
+            "title": "Chính sách nhà ở xã hội tại Việt Nam",
+            "summary": "Bộ Xây dựng yêu cầu các địa phương đẩy mạnh phát triển nhà ở cho thuê, với mục tiêu khởi công ít nhất một dự án trong tháng 6/2026, nhằm giải quyết nhu cầu an cư cho người lao động tại các đô thị lớn.",
             "main_developments": [
-              "Nhiệt độ tại Tây Hiếu (Nghệ An) đạt 42,2 độ C",
-              "Hệ thống điện chịu áp lực quá tải do nhu cầu làm mát tăng cao",
-              "Cảnh báo về sức khỏe cộng đồng trong điều kiện nắng nóng cực đoan"
+              "TP.HCM khởi công 4 dự án nhà ở xã hội với hơn 6.200 căn hộ.",
+              "Bộ Xây dựng yêu cầu bố trí quỹ đất sạch cho nhà ở cho thuê.",
+              "Mục tiêu hoàn thành gần 200.000 căn nhà ở xã hội đến năm 2030."
             ],
-            "why_it_matters": "Ảnh hưởng trực tiếp đến đời sống, sản xuất nông nghiệp và chi phí năng lượng.",
+            "why_it_matters": "Đây là chính sách an sinh quan trọng, giúp ổn định đời sống người lao động và giảm áp lực lên thị trường bất động sản thương mại.",
             "affected_groups": [
-              "Người dân miền Bắc",
-              "Ngành điện lực"
+              "Người lao động",
+              "Chính quyền địa phương",
+              "Doanh nghiệp bất động sản"
             ],
             "watch_next": [
-              "Dự báo thời tiết trong những ngày tới",
-              "Khả năng cung ứng điện"
+              "Tiến độ khởi công tại các địa phương",
+              "Khả năng tiếp cận vốn của người mua nhà"
             ],
             "representative_sources": [
               {
-                "title": "Nắng nóng kỷ lục 42,2 độ C",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/nang-nong-ky-luc-422-do-c-185260625202653022.htm",
-                "excerpt": "Nhiệt độ tại nhiều tỉnh miền Bắc vượt ngưỡng 42 độ C."
+                "title": "TP.HCM khởi công hơn 6.200 căn nhà ở xã hội dịp 50 năm thành phố mang tên Bác",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/tphcm-khoi-cong-hon-6200-can-nha-o-xa-hoi-dip-50-nam-thanh-pho-mang-ten-bac-188260626194939766.chn",
+                "excerpt": "TP.HCM đẩy mạnh phát triển nhà ở xã hội để đảm bảo an sinh."
               }
             ]
           }
@@ -301,54 +277,54 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường Crypto",
-        "what_to_watch": "Phản ứng của Bitcoin với các đợt thanh lý mới",
-        "why": "Tâm lý nhà đầu tư đang rất thận trọng trước chính sách lãi suất của Fed."
+        "theme": "Thị trường tài sản số",
+        "what_to_watch": "Khả năng giữ mốc hỗ trợ 58.000 USD của Bitcoin",
+        "why": "Tâm lý thị trường đang rất mong manh trước áp lực thanh lý đòn bẩy."
       },
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến an ninh tại eo biển Hormuz",
-        "why": "Ảnh hưởng trực tiếp đến giá dầu và an ninh năng lượng toàn cầu."
+        "what_to_watch": "Phản ứng của Iran sau các cuộc tấn công của Mỹ",
+        "why": "Nguy cơ leo thang xung đột ảnh hưởng trực tiếp đến an ninh năng lượng."
       },
       {
-        "theme": "Đầu tư công Việt Nam",
-        "what_to_watch": "Tiến độ giải ngân các dự án hạ tầng trọng điểm",
-        "why": "Đây là động lực tăng trưởng chính của kinh tế Việt Nam trong năm 2026."
+        "theme": "Chính sách môi trường Việt Nam",
+        "what_to_watch": "Lễ khai trương sàn giao dịch carbon ngày 29/6",
+        "why": "Đây là cột mốc quan trọng trong lộ trình Net Zero 2050."
       },
       {
-        "theme": "Chính sách tiền tệ Fed",
-        "what_to_watch": "Dữ liệu lạm phát và phát biểu của các quan chức Fed",
-        "why": "Quyết định lãi suất của Fed ảnh hưởng đến toàn bộ thị trường tài chính toàn cầu."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin đối mặt áp lực thanh lý và biến động mạnh",
-        "why": "Sự kiện quan trọng nhất ảnh hưởng đến tâm lý thị trường tài chính toàn cầu trong 48h qua."
+        "theme": "Quản lý AI toàn cầu",
+        "what_to_watch": "Các phản ứng tiếp theo từ OpenAI và các đối tác",
+        "why": "Sự can thiệp của chính phủ Mỹ đang định hình lại lộ trình phát triển AI."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Giá xăng dầu trong nước giảm mạnh lần thứ hai liên tiếp",
-        "why": "Tác động trực tiếp đến chi phí vận tải và lạm phát trong nước."
+        "what_to_watch": "Thị trường tiền điện tử chao đảo: Bitcoin giảm xuống mức thấp nhất 21 tháng",
+        "why": "Đây là sự kiện tài chính quan trọng nhất trong 48 giờ qua, phản ánh tâm lý thị trường toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Cần Thơ đề xuất hỗ trợ tới 75% hạ tầng kỹ thuật cho dự án nhà ở xã hội",
-        "why": "Chính sách trực tiếp tác động đến nguồn cung nhà ở xã hội và tiến độ đầu tư công tại địa phương."
+        "what_to_watch": "Bitcoin đối mặt áp lực bán tháo và ETF outflows trong bối cảnh Fed giữ lập trường hawkish",
+        "why": "Phản ánh trực tiếp xu hướng dòng vốn tài chính toàn cầu và tâm lý thị trường crypto."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Pin sodium-ion của Trung Quốc đạt hiệu suất cạnh tranh với công nghệ của Tesla",
-        "why": "Đánh giá quan trọng về sự thay đổi chuỗi cung ứng vật liệu pin toàn cầu."
+        "what_to_watch": "TP.HCM khởi công 4 dự án nhà ở xã hội với hơn 6.200 căn hộ",
+        "why": "Dự án quy mô lớn tác động trực tiếp đến chính sách an sinh và thị trường bất động sản tại TP.HCM."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Giá vàng và bạc đảo chiều giảm sâu trên thị trường quốc tế",
-        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và tài sản trú ẩn."
+        "what_to_watch": "Thiếu hụt nước đe dọa tham vọng khai thác Lithium tại Mỹ",
+        "why": "Tác động trực tiếp đến chuỗi cung ứng năng lượng xanh và chính sách tự chủ khoáng sản của Mỹ."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Airwallex huy động 320 triệu USD, định giá 11 tỷ USD với kỳ vọng vào nền kinh tế tác nhân AI",
+        "why": "Đánh dấu bước tiến lớn của fintech trong việc tích hợp AI vào hạ tầng thanh toán toàn cầu."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Micron Technology dẫn đầu đà tăng trưởng hạ tầng AI",
-        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư vào cổ phiếu công nghệ và hạ tầng AI."
+        "what_to_watch": "OpenAI giới hạn phát hành GPT-5.6 theo yêu cầu của chính phủ Mỹ",
+        "why": "Sự can thiệp của chính phủ vào các mô hình AI tiên phong là một bước ngoặt lớn trong quản lý công nghệ."
       }
     ],
     "source_desk": [
@@ -356,14 +332,14 @@
         "topic": "Tài chính & Crypto",
         "representative_sources": [
           {
-            "title": "Noticias del precio de Bitcoin: BTC alcanza los $58,000 pero un short-squeeze podría preparar un rebote",
+            "title": "Crypto market clings to support as bitcoin hits 21-month low: Crypto Markets Today",
             "source": "coindesk_com",
-            "url": "https://coindesk.com/es/markets/2026/06/25/bitcoin-plunges-to-new-multi-year-low-of-usd58-000-but-a-short-squeeze-setup-emerges"
+            "url": "https://coindesk.com/markets/2026/06/26/bitcoin-bounces-from-usd58-000-as-derivatives-signal-more-pain-in-the-pipeline"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các chính sách thuế mới đối với hộ kinh doanh tại Việt Nam sau ngày 1/7.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các chính sách thuế mới đối với doanh nghiệp nhỏ và vừa tại Việt Nam.",
     "notable_articles": []
   }
 }
