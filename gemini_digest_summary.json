@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-29T22:57:36.512396+00:00",
+  "generated_at": "2026-06-30T23:13:06.876335+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 836440,
+    "estimated_input_tokens": 898352,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 691,
-    "sent_article_count": 691,
+    "input_article_count": 750,
+    "sent_article_count": 750,
     "window": {
-      "end_date": "2026-06-30",
+      "end_date": "2026-07-01",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,159 +25,113 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động địa chính trị, chính sách vĩ mô và xu hướng công nghệ trong 48 giờ qua.",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, chính sách và công nghệ trong 48 giờ qua, tập trung vào các sự kiện có tác động thực tế đến thị trường và đời sống kinh tế.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh toàn cầu bị chi phối bởi sự hạ nhiệt tạm thời của căng thẳng Mỹ-Iran tại eo biển Hormuz, song song với những biến động mạnh trong thị trường tài sản số và hạ tầng công nghệ. Tại Việt Nam, trọng tâm dồn vào việc công bố Quy hoạch Thủ đô tầm nhìn 100 năm và các thay đổi chính sách thuế, hạ tầng có hiệu lực từ ngày 1/7.",
-        "most_mentioned": "Quy hoạch Hà Nội và các chính sách thuế mới là chủ đề được nhắc nhiều nhất trong nước, phản ánh nỗ lực cụ thể hóa chiến lược phát triển dài hạn. Trên bình diện quốc tế, các quy định pháp lý về tài sản số (MiCA) và sự dịch chuyển của các tập đoàn công nghệ lớn đang định hình lại dòng vốn đầu tư.",
-        "top_stories": "Sự kiện Mỹ-Iran đồng ý đàm phán tại Doha đã làm dịu tâm lý thị trường, giúp chứng khoán Mỹ đạt đỉnh mới. Đồng thời, việc Comcast tách mảng truyền thông và Rocket Lab mua lại Iridium cho thấy xu hướng tái cấu trúc mạnh mẽ nhằm tối ưu hóa giá trị trong ngành công nghệ và viễn thông.",
-        "sector_impacts": "Nhóm ngân hàng Việt Nam hưởng lợi từ chính sách tín dụng mới, trong khi nhóm bất động sản và công nghệ đang đón nhận các luồng vốn đầu tư hạ tầng quy mô lớn. Ngược lại, thị trường vàng và tài sản số đang chịu áp lực điều chỉnh do kỳ vọng lãi suất và thay đổi pháp lý.",
-        "watch_24_72h": "Cần theo dõi sát: phản ứng của giá dầu sau đàm phán Mỹ-Iran, tiến độ thực thi các quy định thuế mới tại Việt Nam từ 1/7, và diễn biến cổ phiếu các tập đoàn công nghệ sau các thương vụ M&A lớn."
+        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường chứng kiến sự dịch chuyển dòng vốn mạnh mẽ khi các thực thể lớn như MicroStrategy thay đổi chiến lược tích lũy Bitcoin, trong khi các liên minh tài chính mới như Open Standard thách thức vị thế của các stablecoin truyền thống. Tại Việt Nam, trọng tâm kinh tế chuyển dịch sang giai đoạn thực thi chính sách thuế mới từ ngày 1/7 và đẩy mạnh hạ tầng chiến lược với loạt dự án quy mô gần 10 tỷ USD tại TP.HCM.",
+        "most_mentioned": "Chủ đề về chính sách thuế mới tại Việt Nam và sự biến động của tài sản số (Bitcoin, stablecoin) chiếm ưu thế. Việc điều chỉnh lương cơ sở từ 1/7 và các quy định quản lý thuế mới đang tạo ra những tác động trực tiếp đến chi phí vận hành doanh nghiệp và an sinh xã hội.",
+        "top_stories": "Sự kiện MicroStrategy thay đổi chiến lược Bitcoin từ tích lũy vĩnh viễn sang quản lý vốn chủ động và việc TP.HCM khởi công 8 dự án hạ tầng gần 10 tỷ USD là hai câu chuyện quyết định tâm lý thị trường. Các sự kiện này phản ánh nỗ lực của cả doanh nghiệp và chính phủ trong việc tối ưu hóa nguồn lực trước bối cảnh kinh tế vĩ mô nhiều biến động.",
+        "sector_impacts": "Ngành tài chính đối mặt với áp lực thanh khoản và sự phân hóa dòng vốn, trong khi ngành công nghệ tập trung vào việc thương mại hóa AI thông qua các mô hình hiệu năng cao và hạ tầng dữ liệu. Các chính sách thuế mới tại Việt Nam đang buộc các hộ kinh doanh và doanh nghiệp vận tải phải tái cấu trúc mô hình hoạt động.",
+        "watch_24_72h": "HCM; và các văn bản hướng dẫn chi tiết về thuế đối với kinh doanh vàng tại Việt Nam."
       },
-      "content": "Bức tranh 48 giờ qua cho thấy sự phân hóa rõ rệt giữa các tài sản trú ẩn và tài sản rủi ro. Trong khi vàng và bạc điều chỉnh giảm do áp lực từ chính sách tiền tệ, dòng vốn đang có xu hướng dịch chuyển sang hạ tầng AI và bán dẫn. Tại Việt Nam, việc công bố Quy hoạch Thủ đô tầm nhìn 100 năm không chỉ là sự kiện chính trị mà còn là tín hiệu cho thấy các dự án hạ tầng trọng điểm sẽ sớm được triển khai, tạo động lực cho doanh nghiệp bất động sản và xây dựng. Đồng thời, các quy định thuế mới có hiệu lực từ 1/7, bao gồm thuế chuyển nhượng vàng miếng và tài sản số, đang đặt ra thách thức mới cho nhà đầu tư cá nhân.",
+      "content": "Thị trường tài chính 48 giờ qua chứng kiến sự thay đổi chiến lược từ các thực thể lớn. MicroStrategy (MSTR) đã công bố kế hoạch bán Bitcoin để huy động vốn, đánh dấu bước ngoặt từ chiến lược tích lũy vĩnh viễn sang quản lý vốn chủ động. Cùng lúc đó, sự ra mắt của Open USD bởi liên minh các tập đoàn như Stripe, Coinbase, Visa, Mastercard đang đe dọa vị thế của USDC, gây biến động mạnh cho cổ phiếu Circle (CRCL). Tại Việt Nam, từ ngày 1/7, hàng loạt chính sách thuế mới và việc điều chỉnh lương cơ sở đã chính thức có hiệu lực, tác động trực tiếp đến chi phí vận hành của doanh nghiệp và quyền lợi an sinh của người dân. Song song đó, TP.HCM đã khởi công 8 dự án hạ tầng trọng điểm với tổng vốn gần 10 tỷ USD, khẳng định quyết tâm đẩy mạnh đầu tư công để tạo đà tăng trưởng. Trong 24-72 giờ tới, nhà đầu tư cần theo dõi sát sao phản ứng của thị trường tài sản số trước các thay đổi về cung cầu và tiến độ triển khai các chính sách thuế mới tại Việt Nam.",
       "representative_sources": [
         {
-          "title": "Hà Nội công bố quy hoạch 100 năm, doanh nghiệp sẵn sàng đầu tư các dự án trọng điểm",
-          "source": "baoxaydung_vn",
-          "url": "https://batdongsan.baoxaydung.vn/doanh-nghiep-bat-dong-san-san-sang-thuc-hien-quy-hoach-tam-nhin-100-nam-cua-thu-do-ha-noi-192260629161002913.htm"
+          "title": "Trump pocketed more than $1 billion from crypto ties as industry headed toward slump",
+          "source": "coindesk_com",
+          "url": "https://coindesk.com/policy/2026/06/30/trump-pocketed-more-than-usd1-billion-from-crypto-ties-as-industry-headed-toward-slump"
+        },
+        {
+          "title": "FCA Finalizes Landmark Crypto Rules to Make UK a 'Global Hub' - Decrypt",
+          "source": "decrypt_co",
+          "url": "https://decrypt.co/372394/fca-finalizes-landmark-crypto-rules-to-make-uk-a-global-hub"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Quy hoạch Thủ đô Hà Nội",
-          "why_mentioned": "Tác động trực tiếp đến chiến lược phát triển dài hạn và thu hút đầu tư.",
-          "evidence_hint": "Lặp lại trên nhiều nguồn tin kinh tế và xây dựng."
+          "topic": "Chính sách thuế mới tại Việt Nam",
+          "why_mentioned": "Tác động trực tiếp đến hàng triệu người dân và doanh nghiệp từ ngày 1/7.",
+          "evidence_hint": "Loạt tin về lương cơ sở, thuế xăng dầu và quản lý thuế hộ kinh doanh."
         },
         {
-          "topic": "Căng thẳng Mỹ-Iran",
-          "why_mentioned": "Ảnh hưởng trực tiếp đến giá dầu và tâm lý thị trường toàn cầu.",
-          "evidence_hint": "Tin tức dày đặc trên các nguồn tài chính quốc tế."
+          "topic": "Biến động tài sản số",
+          "why_mentioned": "Sự thay đổi chiến lược của các thực thể lớn và quy định pháp lý mới.",
+          "evidence_hint": "Tin về MicroStrategy và liên minh Open Standard."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Chính sách thuế mới tại Việt Nam",
-          "why_hot": "Có hiệu lực từ 1/7, tác động trực tiếp đến nhà đầu tư vàng và tài sản số.",
-          "impact": "Thay đổi chi phí giao dịch và cấu trúc danh mục đầu tư.",
-          "evidence_hint": "Các bài viết về thuế thu nhập cá nhân 0,1% với vàng miếng."
+          "topic": "Chiến lược Bitcoin của MicroStrategy",
+          "why_hot": "Thay đổi vị thế của một trong những thực thể nắm giữ Bitcoin lớn nhất thế giới.",
+          "impact": "Gây áp lực tâm lý và cung lên thị trường tài sản số.",
+          "evidence_hint": "Thông báo bán tới 1,25 tỷ USD Bitcoin."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dịch chuyển dòng vốn sang hạ tầng AI",
-          "why_watch": "Các công ty đào Bitcoin đang chuyển hướng sang cung cấp năng lượng cho trung tâm dữ liệu AI."
+          "signal": "Dịch chuyển dòng vốn từ Big Tech sang hạ tầng AI",
+          "why_watch": "Nhà đầu tư đang ưu tiên các công ty cung cấp chip và hạ tầng dữ liệu thay vì các công ty phần mềm AI thuần túy."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường vàng sau khi mất mốc 4.000 USD/ounce",
-        "Tiến độ triển khai các dự án hạ tầng tại Hà Nội",
-        "Tác động của quy định MiCA đến người dùng crypto tại EU"
+        "Phản ứng của thị trường Bitcoin sau thay đổi chiến lược của MicroStrategy",
+        "Tiến độ giải ngân các dự án hạ tầng tại TP.HCM",
+        "Các văn bản hướng dẫn chi tiết về thuế đối với kinh doanh vàng tại Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Hà Nội công bố quy hoạch 100 năm",
-        "one_sentence": "Quy hoạch xác định bốn đột phá chiến lược gồm thể chế, khoa học công nghệ, hạ tầng giao thông đa tầng và phục hồi các dòng sông, dự kiến rút ngắn 30% thời gian triển khai quy hoạch phân khu.",
-        "why_it_matters": "Định hình chiến lược phát triển dài hạn của Thủ đô, mở ra cơ hội cho các dự án hạ tầng trọng điểm.",
-        "watch_next": "Tiến độ triển khai các dự án phân khu trong năm 2026.",
-        "source_urls": [
-          "https://batdongsan.baoxaydung.vn/doanh-nghiep-bat-dong-san-san-sang-thuc-hien-quy-hoach-tam-nhin-100-nam-cua-thu-do-ha-noi-192260629161002913.htm"
-        ]
+        "title": "MicroStrategy thay đổi chiến lược Bitcoin",
+        "one_sentence": "Công ty nắm giữ Bitcoin lớn nhất thế giới MicroStrategy (MSTR) thay đổi chiến lược từ tích lũy vĩnh viễn sang bán tới 1,25 tỷ USD Bitcoin để huy động vốn, gây áp lực lên thị trường.",
+        "why_it_matters": "Thay đổi vị thế của một trong những thực thể nắm giữ Bitcoin lớn nhất thế giới, ảnh hưởng trực tiếp đến tâm lý và cung cầu trên thị trường tài sản số.",
+        "watch_next": "Phản ứng của thị trường Bitcoin trong 24-72 giờ tới.",
+        "source_urls": []
       },
       {
         "rank": 2,
-        "title": "Thị trường tài chính toàn cầu phục hồi sau lệnh ngừng bắn Mỹ-Iran",
-        "one_sentence": "Chứng khoán Mỹ đạt đỉnh mới trên 52.000 điểm khi Mỹ và Iran đồng ý tạm dừng các cuộc tấn công, cho phép tàu thương mại lưu thông tự do qua eo biển Hormuz.",
-        "why_it_matters": "Giải tỏa áp lực lên giá năng lượng và tâm lý thị trường toàn cầu.",
-        "watch_next": "Diễn biến đàm phán tại Doha và phản ứng của giá dầu Brent.",
-        "source_urls": []
+        "title": "TP.HCM khởi công 8 dự án hạ tầng gần 10 tỷ USD",
+        "one_sentence": "TP.HCM chính thức khởi công 8 dự án trọng điểm với tổng vốn đầu tư 9,6 tỷ USD, bao gồm cao tốc Hồ Tràm - Long Thành và đường vượt biển Cần Giờ.",
+        "why_it_matters": "Đây là sự kiện hạ tầng quan trọng nhất trong 48h qua, tác động trực tiếp đến chiến lược phát triển kinh tế vùng Đông Nam Bộ.",
+        "watch_next": "Tiến độ giải ngân và tác động của các dự án đến tăng trưởng kinh tế khu vực.",
+        "source_urls": [
+          "https://thanhnien.vn/nhung-sieu-cong-trinh-dua-tphcm-vao-ky-nguyen-tang-truong-moi-185260630224324782.htm"
+        ]
       },
       {
         "rank": 3,
-        "title": "Thị trường tiền điện tử châu Âu đối mặt với làn sóng thanh lọc trước hạn chót MiCA",
-        "one_sentence": "Khoảng 80% trong số 3.000 nhà cung cấp dịch vụ tài sản ảo tại châu Âu có nguy cơ phải đóng cửa do không đáp ứng được các tiêu chuẩn khắt khe của quy định MiCA có hiệu lực từ 1/7.",
-        "why_it_matters": "Thay đổi cấu trúc thị trường tiền điện tử toàn cầu và yêu cầu tuân thủ pháp lý cao hơn.",
-        "watch_next": "Tác động đến người dùng crypto tại EU sau ngày 1/7.",
-        "source_urls": []
+        "title": "Chính sách thuế mới và lương cơ sở từ 1/7",
+        "one_sentence": "Việt Nam chính thức áp dụng mức lương cơ sở mới 2,53 triệu đồng/tháng và các chính sách thuế mới từ ngày 1/7, ảnh hưởng đến hàng triệu người dân và doanh nghiệp.",
+        "why_it_matters": "Tác động trực tiếp đến chi phí vận hành doanh nghiệp, CPI và đời sống an sinh xã hội.",
+        "watch_next": "Phản ứng của thị trường và các văn bản hướng dẫn chi tiết.",
+        "source_urls": [
+          "https://tienphong.vn/tu-17-hang-trieu-nguoi-huong-loi-tu-chinh-sach-moi-ve-bhxh-bhyt-post1855735.tpo"
+        ]
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48 giờ qua nổi bật với sự điều chỉnh của các tài sản trú ẩn như vàng và bạc, trong khi nhóm ngân hàng Việt Nam giữ sắc xanh nhờ chính sách tín dụng mới. Việc áp dụng thuế thu nhập cá nhân đối với vàng và tài sản số từ 1/7 đang tạo ra sự thay đổi trong tâm lý nhà đầu tư. Các doanh nghiệp đang đẩy mạnh tái cấu trúc vốn để thích nghi với môi trường lãi suất biến động.",
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh của các tài sản rủi ro và việc cụ thể hóa các chính sách thuế mới tại Việt Nam. Sự thay đổi chiến lược của các thực thể lớn như MicroStrategy và sự ra đời của các liên minh stablecoin mới cho thấy thị trường đang đánh giá lại rủi ro và dòng vốn. Tại Việt Nam, các chính sách thuế và hạ tầng đang bước vào giai đoạn thực thi mạnh mẽ, tác động trực tiếp đến chi phí vận hành doanh nghiệp và tâm lý nhà đầu tư.",
         "subsector_briefs": [
           {
-            "name": "Chính sách tiền tệ và Thuế",
-            "overview": "Các thay đổi chính sách vĩ mô từ 1/7 đang tác động trực tiếp đến thanh khoản và chi phí giao dịch của nhà đầu tư.",
+            "name": "Tài sản số & Pháp lý",
+            "overview": "Thị trường tài sản số đang chịu áp lực điều chỉnh mạnh do thay đổi chiến lược của các 'cá voi' và sự siết chặt quy định pháp lý tại Anh và Mỹ.",
             "key_points": [
-              "Miễn thuế VAT đào tạo lái xe",
-              "Thuế 0,1% chuyển nhượng vàng miếng",
-              "Nới room tín dụng cho 18 dự án trọng điểm"
+              "MicroStrategy thay đổi chiến lược Bitcoin",
+              "Anh hoàn thiện khung pháp lý crypto"
             ],
             "key_story_titles": [
-              "Chính sách thuế và tín dụng mới tại Việt Nam"
+              "MicroStrategy thay đổi chiến lược Bitcoin"
             ],
             "representative_sources": [
               {
-                "title": "Sắc xanh lan tỏa nhưng VN-Index vẫn 'bốc hơi' 17 điểm",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/sac-xanh-lan-toa-nhung-vn-index-van-boc-hoi-17-diem-100260629152355797.htm",
-                "excerpt": "Ngân hàng Nhà nước nới room tín dụng cho 18 dự án trọng điểm và nâng tỉ lệ vốn ngắn hạn cho vay trung dài hạn."
-              }
-            ]
-          }
-        ],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Chính sách tiền tệ và Thuế",
-            "title": "Thay đổi chính sách thuế và tín dụng tại Việt Nam",
-            "summary": "Từ ngày 1/7/2026, Việt Nam áp dụng loạt quy định mới về thuế thu nhập cá nhân đối với vàng miếng và tài sản số, đồng thời nới lỏng room tín dụng cho các dự án trọng điểm. Những thay đổi này nhằm mục tiêu minh bạch hóa thị trường tài chính và thúc đẩy tăng trưởng kinh tế trong bối cảnh toàn cầu biến động.",
-            "main_developments": [
-              "Áp thuế 0,1% đối với thu nhập từ chuyển nhượng vàng miếng.",
-              "Nâng tỉ lệ tối đa sử dụng nguồn vốn ngắn hạn cho vay trung và dài hạn từ 30% lên 40%.",
-              "Loại trừ dư nợ của 18 dự án trọng điểm khỏi hạn mức tăng trưởng tín dụng."
-            ],
-            "why_it_matters": "Tác động trực tiếp đến chi phí đầu tư của người dân và khả năng cung ứng vốn của hệ thống ngân hàng.",
-            "affected_groups": [
-              "Nhà đầu tư vàng",
-              "Hệ thống ngân hàng",
-              "Doanh nghiệp bất động sản"
-            ],
-            "watch_next": [
-              "Phản ứng của thị trường vàng sau khi áp thuế",
-              "Khả năng giải ngân vốn của các dự án trọng điểm"
-            ],
-            "representative_sources": []
-          }
-        ]
-      },
-      {
-        "code": "tech",
-        "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI đang chuyển dịch từ giai đoạn thử nghiệm sang triển khai hạ tầng quy mô lớn. Các tập đoàn công nghệ Hàn Quốc cam kết đầu tư 550 tỷ USD cho bán dẫn và AI, trong khi tại Việt Nam, các doanh nghiệp như G-Group đang gia nhập đường đua bán dẫn. AI không chỉ là phần mềm mà đang trở thành động lực chính cho các thương vụ M&A và quản lý đô thị thông minh.",
-        "subsector_briefs": [
-          {
-            "name": "AI và Hạ tầng công nghệ",
-            "overview": "Sự bùng nổ của AI đang kéo theo nhu cầu khổng lồ về hạ tầng bán dẫn, trung tâm dữ liệu và các ứng dụng AI chuyên biệt.",
-            "key_points": [
-              "Đầu tư 550 tỷ USD vào bán dẫn tại Hàn Quốc",
-              "Hà Nội nâng cấp hệ thống camera AI",
-              "Ứng dụng AI trong y tế và khảo cổ"
-            ],
-            "key_story_titles": [
-              "Ứng dụng AI trong y tế và quản lý đô thị"
-            ],
-            "representative_sources": [
-              {
-                "title": "Thêm 2.460 camera AI ở Hà Nội sắp vận hành từ 1/7",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/them-2460-camera-ai-o-ha-noi-sap-van-hanh-tu-1-7-19226062917472646.htm",
-                "excerpt": "Hà Nội nâng tổng số camera AI lên gần 5.000 chiếc để tối ưu hóa quản lý giao thông và an ninh đô thị."
+                "title": "Strategy Plan Splits Views as MSTR, STRC Trade Mixed",
+                "source": "cointelegraph_com",
+                "url": "https://cointelegraph.com/news/strategy-new-plan-split-community-mstr-strc-climb?utm_source=rss_feed&utm_medium=feed&utm_campaign=rss_partner_inbound",
+                "excerpt": "MicroStrategy thay đổi chiến lược từ tích lũy vĩnh viễn sang bán Bitcoin để huy động vốn."
               }
             ]
           }
@@ -186,87 +140,82 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI và Hạ tầng công nghệ",
-            "title": "Ứng dụng AI trong y tế và quản lý đô thị",
-            "summary": "Công nghệ AI đang được triển khai mạnh mẽ trong các lĩnh vực y tế và quản lý đô thị thông minh, từ việc sản xuất vaccine ung thư cá nhân hóa đến tối ưu hóa giao thông công cộng. Các dự án này không chỉ nâng cao hiệu quả vận hành mà còn mở ra những hướng đi mới trong việc giải quyết các thách thức xã hội phức tạp.",
+            "sub_sector": "Tài sản số",
+            "title": "MicroStrategy thay đổi chiến lược Bitcoin",
+            "summary": "MicroStrategy (MSTR) công bố kế hoạch bán tới 1,25 tỷ USD Bitcoin để huy động vốn, đánh dấu bước ngoặt từ chiến lược tích lũy vĩnh viễn sang quản lý vốn chủ động.",
             "main_developments": [
-              "Trung Quốc khởi công dây chuyền sản xuất vaccine ung thư cá nhân hóa hỗ trợ bởi AI.",
-              "Hà Nội nâng cấp hệ thống camera AI lên gần 5.000 chiếc để quản lý giao thông.",
-              "Các nhà nghiên cứu sử dụng AI để giải mã các cuộn giấy cổ 2.000 năm tuổi."
+              "Công ty được phép bán tới 21.082 BTC để trang trải chi phí.",
+              "Đảo ngược chính sách 'không bao giờ bán' của Michael Saylor.",
+              "Cổ phiếu MSTR chịu áp lực điều chỉnh sau thông báo."
             ],
-            "why_it_matters": "AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế, mang lại giá trị kinh tế và xã hội rõ rệt.",
+            "why_it_matters": "Thay đổi vị thế của một trong những thực thể nắm giữ Bitcoin lớn nhất thế giới, ảnh hưởng trực tiếp đến tâm lý và cung cầu trên thị trường tài sản số.",
             "affected_groups": [
-              "Ngành y tế",
-              "Cơ quan quản lý đô thị",
-              "Doanh nghiệp công nghệ"
+              "Nhà đầu tư Bitcoin",
+              "Cổ đông MSTR"
             ],
             "watch_next": [
-              "Hiệu quả thực tế của hệ thống camera AI tại Hà Nội",
-              "Tiến độ thương mại hóa vaccine ung thư AI"
+              "Phản ứng của thị trường Bitcoin trong 24-72 giờ tới"
             ],
             "representative_sources": []
           }
         ]
       },
       {
-        "code": "news",
-        "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự 48 giờ qua tập trung vào các diễn biến địa chính trị tại Trung Đông và các chỉ đạo quan trọng về an ninh phi truyền thống tại Việt Nam. Phán quyết của Tòa án Tối cao Mỹ về quyền sa thải của Tổng thống đang tạo ra làn sóng tranh luận về cấu trúc quyền lực. Tại Việt Nam, công tác quản lý cán bộ và phòng chống thiên tai được đặt lên hàng đầu.",
+        "code": "tech",
+        "name": "Công nghệ & AI",
+        "sector_thesis": "Công nghệ & AI trong 48 giờ qua tập trung vào việc thương mại hóa các mô hình AI hiệu năng cao và tác động của AI đến hạ tầng năng lượng. Các công ty đang dịch chuyển từ việc chỉ cung cấp hạ tầng sang hỗ trợ triển khai trực tiếp cho doanh nghiệp. Tại Việt Nam, việc vận hành hệ thống truy xuất nguồn gốc nông sản quốc gia là bước tiến quan trọng trong chuyển đổi số ngành nông nghiệp.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Địa chính trị và An ninh",
-            "title": "Chỉ đạo về quản lý cán bộ và thiên tai",
-            "summary": "Lãnh đạo Đảng và Nhà nước Việt Nam đã đưa ra các chỉ đạo quan trọng về việc chấn chỉnh công tác đánh giá cán bộ và chủ động quản trị rủi ro trong phòng chống thiên tai. Những chỉ đạo này nhằm nâng cao chất lượng đội ngũ cán bộ và đảm bảo an toàn tính mạng cho người dân trước các tình huống thiên tai khẩn cấp.",
+            "depth_level": "deep",
+            "sub_sector": "AI",
+            "title": "Anthropic ra mắt Claude Sonnet 5",
+            "summary": "Anthropic giới thiệu mô hình Claude Sonnet 5, được thiết kế để cung cấp trí tuệ gần bằng Opus nhưng với chi phí thấp hơn, tập trung vào các tác vụ lập trình và tác nhân AI.",
             "main_developments": [
-              "Yêu cầu chấn chỉnh biểu hiện nể nang, né tránh trong đánh giá cán bộ.",
-              "Chuyển từ ứng phó bị động sang quản trị rủi ro chủ động trong phòng chống thiên tai.",
-              "Thiết lập cơ chế chi viện liên xã để bảo vệ tính mạng nhân dân."
+              "Giá 2 USD cho mỗi triệu input tokens.",
+              "Hiệu năng tiệm cận Opus 4.8 trên benchmark.",
+              "Tối ưu hóa cho các tác vụ lập trình và tự động hóa."
             ],
-            "why_it_matters": "Nâng cao hiệu quả quản lý nhà nước và bảo vệ an ninh phi truyền thống.",
+            "why_it_matters": "Sự cạnh tranh trong lĩnh vực mô hình ngôn ngữ lớn (LLM) đang đẩy nhanh tốc độ ra mắt các model hiệu năng cao với chi phí thấp.",
             "affected_groups": [
-              "Cán bộ công chức",
-              "Người dân tại các vùng thiên tai"
+              "Doanh nghiệp công nghệ",
+              "Nhà phát triển AI"
             ],
             "watch_next": [
-              "Kết quả thực hiện đánh giá cán bộ tại các địa phương",
-              "Tiến độ cập nhật kịch bản thiên tai"
+              "Phản ứng của các đối thủ cạnh tranh trong 24-72 giờ tới"
             ],
             "representative_sources": [
               {
-                "title": "Ông Trần Sỹ Thanh: Kịp thời phát hiện, chấn chỉnh biểu hiện nể nang, 'dĩ hòa vi quý' trong đánh giá cán bộ",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/ong-tran-sy-thanh-kip-thoi-phat-hien-chan-chinh-bieu-hien-ne-nang-di-hoa-vi-quy-trong-danh-gia-can-bo-post1855471.tpo",
-                "excerpt": "Chủ nhiệm Ủy ban Kiểm tra Trung ương yêu cầu chấn chỉnh công tác đánh giá cán bộ."
+                "title": "Anthropic's Claude Sonnet 5 Closes In on Opus 4.8 at a Fraction of the Price - Decrypt",
+                "source": "decrypt_co",
+                "url": "https://decrypt.co/372458/anthropic-claude-sonnet-5-close-opus-4-8",
+                "excerpt": "Anthropic giới thiệu mô hình Claude Sonnet 5 với chi phí tối ưu."
               }
             ]
           }
         ]
       },
       {
-        "code": "trends",
-        "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng đời sống 48 giờ qua phản ánh sự thay đổi trong hành vi tiêu dùng và sức khỏe cộng đồng. Trào lưu du lịch kết hợp thể thao đang phát triển mạnh, trong khi các vấn đề sức khỏe như nhồi máu cơ tim ở người trẻ do thuốc lá đang trở thành hồi chuông cảnh báo. Các thay đổi chính sách giao thông như xe bán tải được lưu hành như ô tô con đang tác động trực tiếp đến người dùng cá nhân.",
+        "code": "news",
+        "name": "Thời sự & Chính trị",
+        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua nổi bật với các phán quyết pháp lý quan trọng tại Mỹ và các nỗ lực điều hành kinh tế tại Việt Nam. Các địa phương như Cần Thơ, Quảng Ninh và Khánh Hòa đang đẩy mạnh quy hoạch và thu hút đầu tư để bứt phá tăng trưởng, trong khi Chính phủ Việt Nam tiếp tục hoàn thiện khung pháp lý về đối ngoại và quản lý kinh tế.",
         "subsector_briefs": [
           {
-            "name": "Sức khỏe và Lối sống",
-            "overview": "Sự thay đổi trong thói quen sinh hoạt và các vấn đề sức khỏe cộng đồng đang trở thành tâm điểm chú ý.",
+            "name": "Chính trị & Pháp lý",
+            "overview": "Các phán quyết của Tòa án Tối cao Mỹ về quyền công dân và chi tiêu chính trị đang gây ra những tranh cãi lớn trong xã hội Mỹ.",
             "key_points": [
-              "Nhồi máu cơ tim ở người trẻ",
-              "Xu hướng du lịch kết hợp thể thao",
-              "Thay đổi chính sách giao thông"
+              "Tòa án Tối cao Mỹ bác bỏ lệnh hạn chế quyền công dân",
+              "Cần Thơ đặt mục tiêu tăng trưởng hai con số"
             ],
             "key_story_titles": [
-              "Thay đổi chính sách giao thông và thói quen tiêu dùng"
+              "Tòa án Tối cao Mỹ bác bỏ lệnh hạn chế quyền công dân"
             ],
             "representative_sources": [
               {
-                "title": "Xe bán tải chính thức được lưu hành như ô tô con",
-                "source": "baoxaydung_vn",
-                "url": "https://xe.baoxaydung.vn/xe-ban-tai-chinh-thuc-duoc-luu-hanh-nhu-o-to-con-192260629185746474.htm",
-                "excerpt": "Các mẫu xe bán tải phổ biến sẽ được lưu thông như ô tô con từ ngày 1/7/2026."
+                "title": "Supreme Court upholds birthright citizenship, blocks Trump order",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/06/30/supreme-court-birthright-citizenship-ruling.html"
               }
             ]
           }
@@ -274,95 +223,118 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "brief",
-            "sub_sector": "Sức khỏe và Lối sống",
-            "title": "Thay đổi chính sách giao thông và thói quen tiêu dùng",
-            "summary": "Các thay đổi về chính sách giao thông và xu hướng du lịch kết hợp thể thao đang định hình lại thói quen tiêu dùng của người dân. Việc xe bán tải được lưu hành như ô tô con và sự phát triển của các trào lưu thể thao mới cho thấy sự linh hoạt trong quản lý và nhu cầu trải nghiệm ngày càng cao của xã hội.",
+            "depth_level": "deep",
+            "sub_sector": "Pháp lý",
+            "title": "Tòa án Tối cao Mỹ bác bỏ lệnh hạn chế quyền công dân",
+            "summary": "Tòa án Tối cao Mỹ ra phán quyết 6-3 bác bỏ lệnh hành pháp của Tổng thống Donald Trump nhằm xóa bỏ quyền công dân theo nơi sinh, khẳng định quyền này được bảo vệ bởi Hiến pháp.",
             "main_developments": [
-              "Xe bán tải cabin kép được tổ chức giao thông như ô tô con từ 1/7.",
-              "Trào lưu Hyrox thúc đẩy ngành du lịch và khách sạn phát triển dịch vụ phục hồi chuyên biệt.",
-              "Người dân chuyển sang đi làm bằng xe buýt nhờ ứng dụng công nghệ."
+              "Bác bỏ nỗ lực hạn chế quyền công dân đối với con cái người nhập cư.",
+              "Phán quyết 6-3 tạo ra đòn giáng mạnh vào chính sách nhập cư của chính quyền Trump.",
+              "Các nhà lập pháp và người ủng hộ quyền nhập cư phản ứng tích cực."
             ],
-            "why_it_matters": "Tác động trực tiếp đến thói quen di chuyển và hành vi tiêu dùng của người dân.",
+            "why_it_matters": "Đây là sự kiện chính trị quan trọng ảnh hưởng đến chính sách nhập cư và xã hội Mỹ, khẳng định quyền công dân theo nơi sinh được bảo vệ bởi Hiến pháp.",
             "affected_groups": [
-              "Người dùng xe cá nhân",
-              "Ngành du lịch",
-              "Hành khách xe buýt"
+              "Người nhập cư tại Mỹ",
+              "Chính quyền Trump"
             ],
             "watch_next": [
-              "Phản ứng của người dùng đối với quy định xe bán tải mới",
-              "Sự phát triển của các dịch vụ du lịch thể thao"
+              "Phản ứng tiếp theo của chính quyền Trump trong 24-72 giờ tới"
             ],
             "representative_sources": []
+          }
+        ]
+      },
+      {
+        "code": "trends",
+        "name": "Xu hướng & Đời sống",
+        "sector_thesis": "Xu hướng & Đời sống trong 48 giờ qua xoay quanh các sự kiện giáo dục và thay đổi thói quen tiêu dùng. Việc công bố điểm thi tốt nghiệp THPT tại Việt Nam và xu hướng chọn trường tư thục cho thấy sự quan tâm lớn đến giáo dục. Đồng thời, các xu hướng tiêu dùng xanh như xăng E10 và bảo hiểm sức khỏe chủ động đang dần trở thành một phần của lối sống hiện đại.",
+        "subsector_briefs": [],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "Giáo dục",
+            "title": "Bộ GD&ĐT công bố điểm thi tốt nghiệp THPT",
+            "summary": "Bộ Giáo dục và Đào tạo công bố điểm thi tốt nghiệp THPT 2026, thí sinh bắt đầu quy trình đăng ký nguyện vọng xét tuyển đại học từ ngày 2/7 đến 14/7.",
+            "main_developments": [
+              "Thí sinh tra cứu điểm thi trên cổng thông tin của Bộ.",
+              "Quy trình đăng ký nguyện vọng xét tuyển bắt đầu từ 2/7.",
+              "Các trường đại học công bố kết quả trúng tuyển đợt 1 trước 17h ngày 13/8."
+            ],
+            "why_it_matters": "Đây là sự kiện giáo dục có tác động trực tiếp đến hàng triệu học sinh và gia đình tại Việt Nam, quyết định lộ trình học tập tiếp theo.",
+            "affected_groups": [
+              "Học sinh THPT",
+              "Phụ huynh"
+            ],
+            "watch_next": [
+              "Tiến độ đăng ký nguyện vọng xét tuyển trong 24-72 giờ tới"
+            ],
+            "representative_sources": [
+              {
+                "title": "Bộ GD&ĐT công bố điểm thi Tốt nghiệp THPT, lưu ý vàng sau khi biết điểm",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/bo-gddt-cong-bo-diem-thi-tot-nghiep-thpt-luu-y-vang-sau-khi-biet-diem-post1855496.tpo",
+                "excerpt": "Thí sinh trên cả nước bắt đầu tra cứu điểm thi và chuẩn bị cho quy trình đăng ký nguyện vọng xét tuyển đại học."
+              }
+            ]
           }
         ]
       }
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến đàm phán tại Doha và phản ứng của giá dầu Brent.",
-        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng và tâm lý thị trường toàn cầu."
+        "theme": "Thị trường Bitcoin",
+        "what_to_watch": "Phản ứng giá sau thông báo bán Bitcoin của MicroStrategy",
+        "why": "Ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và cung cầu thị trường."
+      },
+      {
+        "theme": "Hạ tầng TP.HCM",
+        "what_to_watch": "Tiến độ giải ngân các dự án hạ tầng trọng điểm",
+        "why": "Tác động đến tăng trưởng kinh tế khu vực phía Nam."
       },
       {
         "theme": "Chính sách thuế Việt Nam",
-        "what_to_watch": "Việc thực thi thuế 0,1% đối với vàng miếng từ 1/7.",
-        "why": "Tác động trực tiếp đến nhà đầu tư vàng và thanh khoản thị trường."
+        "what_to_watch": "Các văn bản hướng dẫn chi tiết về thuế vàng",
+        "why": "Ảnh hưởng đến tâm lý nhà đầu tư và thị trường vàng trong nước."
       },
       {
-        "theme": "Hạ tầng AI",
-        "what_to_watch": "Tiến độ đầu tư vào các trung tâm dữ liệu AI.",
-        "why": "Động lực chính cho tăng trưởng công nghệ và dòng vốn M&A."
+        "theme": "MicroStrategy thay đổi chiến lược Bitcoin",
+        "what_to_watch": "Phản ứng của thị trường Bitcoin trong 24-72 giờ tới.",
+        "why": "Thay đổi vị thế của một trong những thực thể nắm giữ Bitcoin lớn nhất thế giới, ảnh hưởng trực tiếp đến tâm lý và cung cầu trên thị trường tài sản số."
       },
       {
-        "theme": "Thị trường Crypto",
-        "what_to_watch": "Tác động của quy định MiCA tại EU sau ngày 1/7.",
-        "why": "Thay đổi cấu trúc thị trường và yêu cầu tuân thủ pháp lý."
+        "theme": "TP.HCM khởi công 8 dự án hạ tầng gần 10 tỷ USD",
+        "what_to_watch": "Tiến độ giải ngân và tác động của các dự án đến tăng trưởng kinh tế khu vực.",
+        "why": "Đây là sự kiện hạ tầng quan trọng nhất trong 48h qua, tác động trực tiếp đến chiến lược phát triển kinh tế vùng Đông Nam Bộ."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thị trường tiền điện tử châu Âu đối mặt với làn sóng thanh lọc trước hạn chót MiCA",
-        "why": "Đây là sự kiện pháp lý quan trọng nhất ảnh hưởng đến cấu trúc thị trường tiền điện tử toàn cầu trong 48 giờ qua."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Tác động của quy định MiCA tại EU và sự dịch chuyển của các sàn giao dịch",
-        "why": "Đây là sự kiện pháp lý quan trọng nhất ảnh hưởng đến cấu trúc thị trường crypto tại châu Âu trong 48 giờ qua."
+        "theme": "Chính sách thuế mới và lương cơ sở từ 1/7",
+        "what_to_watch": "Phản ứng của thị trường và các văn bản hướng dẫn chi tiết.",
+        "why": "Tác động trực tiếp đến chi phí vận hành doanh nghiệp, CPI và đời sống an sinh xã hội."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bộ Xây dựng kiến nghị miễn thuế VAT đối với hoạt động đào tạo lái xe",
-        "why": "Tác động trực tiếp đến chi phí vận tải và người dân, phản ánh sự thay đổi trong quy định pháp lý về cơ sở đào tạo."
+        "what_to_watch": "Circle (CRCL) lao dốc khi liên minh Open Standard ra mắt stablecoin Open USD",
+        "why": "Đây là sự kiện quan trọng nhất làm thay đổi cấu trúc thị trường stablecoin và gây biến động mạnh cho cổ phiếu liên quan."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Hà Nội công bố quy hoạch 100 năm, doanh nghiệp sẵn sàng đầu tư các dự án trọng điểm",
-        "why": "Đây là sự kiện kinh tế - quy hoạch quan trọng nhất của Việt Nam trong 48 giờ qua, định hình chiến lược phát triển dài hạn của Thủ đô."
+        "what_to_watch": "Strategy (MSTR) thay đổi chiến lược Bitcoin: Từ tích lũy vĩnh viễn sang quản lý vốn chủ động",
+        "why": "Đây là sự kiện quan trọng nhất trong 48h qua, thay đổi vị thế của một trong những thực thể nắm giữ Bitcoin lớn nhất thế giới."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Rocket Lab mua lại công ty viễn thông vệ tinh Iridium với giá 8 tỷ USD",
-        "why": "Đây là thương vụ M&A chiến lược có quy mô lớn, tác động trực tiếp đến thị trường công nghệ không gian và quốc phòng."
+        "what_to_watch": "Chính sách thuế mới và quản lý vận tải: Siết chặt xe hợp đồng trá hình",
+        "why": "Tác động trực tiếp đến môi trường kinh doanh vận tải và trật tự an toàn giao thông."
       },
       {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Sự trỗi dậy của các mô hình AI chuyên biệt cho lập trình và an ninh mạng",
-        "why": "Sự cạnh tranh về năng lực AI giữa Mỹ và Trung Quốc trong lĩnh vực an ninh mạng là xu hướng công nghệ then chốt."
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Chính sách thuế mới và điều chỉnh lương cơ sở từ 1/7",
+        "why": "Tác động trực tiếp đến hàng triệu người dân và doanh nghiệp từ ngày 1/7."
       }
     ],
-    "source_desk": [
-      {
-        "topic": "Kinh tế & Tài chính",
-        "representative_sources": [
-          {
-            "title": "Từ 1/7/2026, mua bán vàng miếng phải nộp thuế thu nhập cá nhân",
-            "source": "cafef_vn",
-            "url": "https://cafef.vn/tu-1-7-2026-mua-ban-vang-mieng-phai-nop-thue-thu-nhap-ca-nhan-188260629214913138.chn"
-          }
-        ]
-      }
-    ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các chính sách thuế mới tại Việt Nam đối với doanh nghiệp nhỏ và vừa.",
+    "source_desk": [],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng cụ thể của các hộ kinh doanh nhỏ lẻ đối với chính sách thuế mới tại Việt Nam.",
     "notable_articles": []
   }
 }
