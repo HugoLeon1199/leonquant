@@ -81,6 +81,7 @@ jobs:
           python tech/publication.py
           python tech/validate_publication.py
           python tech/test_pipeline.py
+          python tech/update_worklog.py
 
       - name: Mirror outputs for the existing Pages bundle
         run: |
@@ -99,6 +100,7 @@ jobs:
           git config user.name "tech-radar-bot"
           git config user.email "tech-radar-bot@users.noreply.github.com"
           git add \
+            .ai/CURSOR_WORKLOG.md \
             tech/config/sources_active.txt \
             tech/config/sources_disabled.txt \
             tech/config/tiers \
