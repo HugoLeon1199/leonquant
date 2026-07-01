@@ -158,9 +158,27 @@
     .nav-segment {
       display: flex;
       align-items: center;
+      gap: 10px;
       margin-left: auto;
       min-width: 0;
       max-width: 100%;
+    }
+    .nav-tech-link {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 118, 110, .14);
+      background: rgba(15, 118, 110, .06);
+      color: var(--teal);
+      font-size: .84rem;
+      font-weight: 800;
+      text-decoration: none !important;
+    }
+    .nav-tech-link:hover {
+      background: rgba(15, 118, 110, .10);
+      color: var(--text);
     }
 
     h1 {
@@ -3557,6 +3575,7 @@
         </div>
         <div class="nav-segment">
           <div class="nav-links" id="navLinks" data-nav-tabs="1"><a class="nav-hub nav-hub--active" href="/" data-view="digest">Tin 48h</a><a class="nav-hub nav-hub--invest" href="/?view=invest" data-view="invest">Kinh tế đầu tư</a><a class="nav-hub" href="/?view=live" data-view="live">Thế giới <span class="nav-live-badge"><span class="nav-live-dot"></span>LIVE</span></a></div>
+          <a class="nav-tech-link" href="/tech/">Báo Công nghệ &amp; AI</a>
         </div>
       </nav>
       <p class="nav-timestamp" id="navTimestamp" hidden></p>

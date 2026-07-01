@@ -1,0 +1,81 @@
+name: Refresh tech source profiles monthly
+
+on:
+  schedule:
+    - cron: "40 21 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-tech-profiles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    concurrency:
+      group: refresh-tech-profiles-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Precheck validation report
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("reports/tech_source_validation.json")
+          if not path.is_file():
+              raise SystemExit("Missing reports/tech_source_validation.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          meta = data.get("validation_meta") or {}
+          if not meta.get("report_valid"):
+              raise SystemExit("tech_source_validation.json exists but report_valid=false")
+          if int(meta.get("active_source_count") or 0) <= 0:
+              raise SystemExit("No active tech sources available for profile refresh.")
+          PY
+
+      - name: Install profiler dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r leon_web_intel/requirements.txt
+
+      - name: Rebuild active tech source profiles
+        run: |
+          rm -f data/web_intel_tech.duckdb
+          python leon_web_intel/run_profile.py \
+            --input config/tech_sources_active.txt \
+            --profile-only \
+            --db data/web_intel_tech.duckdb \
+            --force-refresh
+
+      - name: Pack tech profile seed
+        run: |
+          python scripts/pack_db_seed.py \
+            --db data/web_intel_tech.duckdb \
+            --output data/web_intel_tech.duckdb.gz \
+            --mode profiles-only
+
+      - name: Commit refreshed tech seed
+        run: |
+          git config user.name "tech-profile-refresh-bot"
+          git config user.email "tech-profile-refresh-bot@users.noreply.github.com"
+          git add data/web_intel_tech.duckdb.gz
+          if git diff --staged --quiet; then
+            echo "No tech profile seed changes"
+            exit 0
+          fi
+          git commit -m "Refresh standalone tech profile seed."
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            if git pull origin main --no-rebase --no-edit && git push origin main; then
+              exit 0
+            fi
+            git merge --abort 2>/dev/null || true
+            sleep 30
+          done
+          exit 1

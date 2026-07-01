@@ -590,3 +590,35 @@ Log fields: `bq_bytes_billed`, `bq_rows`, `candidates`, `judge_input`, `judged`,
 
 **Kết quả local:** 21 dossier, 11+ link dossier, 6 link front, 8 link/sector, 456 archive links.
 
+## 2026-07-01 - Standalone Tech & AI scaffold (Phase 0 gate + independent pipeline)
+
+Scope: Them nhanh tech/ tach biet, khong sua logic/schema/output cua Tin 48h, invest, world LIVE.
+
+- Phase 0 gate: config/tech_sources_catalog.txt + scripts/validate_tech_sources.py -> profile + discovery + sample extract + classify + sinh tech_sources_active.txt / tech_disabled_sources.txt / tech_tiers/** / report JSON+MD.
+- Crawl tech: scripts/run_tech_intel_pipeline.py -> precheck validation report, DB rieng data/web_intel_tech.duckdb, output tech_news_output_today.json / tech_news_for_ai.json / tech_news_for_ai_clean.json.
+- GDELT tech: sql/gdelt_tech_pulse.sql + scripts/run_tech_gdelt.py -> TopEvents truoc, EventMentions URL that, GKG sau TopEvents, dry-run, max bytes billed, retain output cu khi rong.
+- Publication: scripts/build_tech_publication.py + scripts/validate_tech_publication.py -> schema tech-newsroom-v1, Python own grounding/count/freshness/dedupe.
+- Web: tech/index.html standalone; landing_page.html chi them anchor /tech/; pages.yml append copy artifact tech.
+- Workflows: .github/workflows/tech-radar.yml + .github/workflows/tech-profile-refresh.yml.
+- Tests: scripts/test_tech_pipeline.py fixture/offline pass.
+
+Validation status snapshot live:
+- PASS: chua chay live
+- SOFT_PASS: chua chay live
+- blocked/paywall/captcha: chua chay live
+- bai mau extract thanh cong: chua chay live
+- URL can Leon kiem tra lai: se co sau khi chay scripts/validate_tech_sources.py
+
+## 2026-07-01 - Validation live kick-off update
+
+- Muc tieu: lay ket qua that cho Phase 0 truoc khi mo production tech.
+- Moi truong: da bootstrap `pip` trong `.venv` va cai `leon_web_intel/requirements.txt` thanh cong.
+- Lenh da chay: `.\.venv\Scripts\python.exe scripts\validate_tech_sources.py`
+- Trang thai hien tai: run live van dang chay background voi PID `23308`; shell timeout nhung process chua dung.
+- Report cuoi chua co: `reports/tech_source_validation.json`, `reports/tech_source_validation.md`, `config/tech_sources_active.txt`, `config/tech_disabled_sources.txt`, `config/tech_tiers/**`.
+- PASS: chua chot
+- SOFT_PASS: chua chot
+- blocked/paywall/captcha: chua chot
+- bai mau extract thanh cong: chua chot
+- URL can Leon kiem tra lai: chua chot, doi report cuoi
+- Luu y: khong commit `reports/tech_validation.duckdb*`; chi theo doi den khi run xong roi append ket qua that.
