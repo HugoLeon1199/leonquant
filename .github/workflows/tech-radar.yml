@@ -5,6 +5,8 @@ on:
     - cron: "17 9 * * *"
       timezone: "Asia/Ho_Chi_Minh"
   workflow_dispatch:
+  issues:
+    types: [opened]
   push:
     branches: [main]
     paths:
@@ -34,16 +36,21 @@ jobs:
         id: cadence
         env:
           EVENT_NAME: ${{ github.event_name }}
+          ISSUE_TITLE: ${{ github.event.issue.title || '' }}
         run: |
           python - <<'PY'
           import json, os
           from datetime import datetime, timezone
           from pathlib import Path
-          force = os.environ.get("EVENT_NAME") != "schedule"
+          event = os.environ.get("EVENT_NAME", "")
+          issue_title = os.environ.get("ISSUE_TITLE", "")
+          force = event in {"workflow_dispatch", "push"} or (
+              event == "issues" and issue_title == "RUN_TECH_72H_NOW"
+          )
           path = Path("tech_publication.json")
-          should_run = force or not path.is_file()
+          should_run = force or (event == "schedule" and not path.is_file())
           age_hours = None
-          if not should_run:
+          if event == "schedule" and path.is_file():
               try:
                   payload = json.loads(path.read_text(encoding="utf-8"))
                   raw = str(payload.get("generated_at_utc") or "")
@@ -56,7 +63,7 @@ jobs:
                   should_run = True
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
               out.write(f"should_run={'true' if should_run else 'false'}\n")
-          print(f"should_run={should_run} age_hours={age_hours}")
+          print(f"event={event} issue_title={issue_title!r} should_run={should_run} age_hours={age_hours}")
           PY
 
       - uses: actions/setup-python@v5
