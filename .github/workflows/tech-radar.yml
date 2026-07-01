@@ -2,7 +2,7 @@ name: Tech Radar
 
 on:
   schedule:
-    - cron: "17 9 */3 * *"
+    - cron: "17 9 * * *"
       timezone: "Asia/Ho_Chi_Minh"
   workflow_dispatch:
   push:
@@ -30,17 +30,49 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Enforce the 72-hour cadence
+        id: cadence
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          force = os.environ.get("EVENT_NAME") != "schedule"
+          path = Path("tech_publication.json")
+          should_run = force or not path.is_file()
+          age_hours = None
+          if not should_run:
+              try:
+                  payload = json.loads(path.read_text(encoding="utf-8"))
+                  raw = str(payload.get("generated_at_utc") or "")
+                  dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+                  if dt.tzinfo is None:
+                      dt = dt.replace(tzinfo=timezone.utc)
+                  age_hours = (datetime.now(timezone.utc) - dt.astimezone(timezone.utc)).total_seconds() / 3600
+                  should_run = age_hours >= 72
+              except Exception:
+                  should_run = True
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+              out.write(f"should_run={'true' if should_run else 'false'}\n")
+          print(f"should_run={should_run} age_hours={age_hours}")
+          PY
+
       - uses: actions/setup-python@v5
+        if: steps.cadence.outputs.should_run == 'true'
         with:
           python-version: "3.12"
 
       - name: Install existing project dependencies
+        if: steps.cadence.outputs.should_run == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install -r leon_web_intel/requirements.txt
           pip install -r requirements-gdelt.txt
 
       - name: Restore standalone tech DuckDB cache
+        if: steps.cadence.outputs.should_run == 'true'
         uses: actions/cache@v4
         with:
           path: data/web_intel_tech.duckdb
@@ -49,12 +81,15 @@ jobs:
             intel-tech-72h-v1-
 
       - name: Validate source catalog
+        if: steps.cadence.outputs.should_run == 'true'
         run: python tech/validate_sources.py --resume
 
       - name: Crawl the latest 72 hours
+        if: steps.cadence.outputs.should_run == 'true'
         run: python tech/crawl.py
 
       - name: Write existing GCP credentials
+        if: steps.cadence.outputs.should_run == 'true'
         env:
           GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
         run: |
@@ -62,18 +97,21 @@ jobs:
           printf '%s' "$GCP_SA_JSON" > credentials.json
 
       - name: Estimate 72h query cost
+        if: steps.cadence.outputs.should_run == 'true'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: credentials.json
           GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
         run: python tech/gdelt.py --dry-run --max-bytes-billed 2000000000
 
       - name: Run 72h technology query
+        if: steps.cadence.outputs.should_run == 'true'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: credentials.json
           GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
         run: python tech/gdelt.py --max-bytes-billed 2000000000
 
       - name: Build and validate the publication
+        if: steps.cadence.outputs.should_run == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.1-flash-lite' }}
@@ -84,6 +122,7 @@ jobs:
           python tech/update_worklog.py
 
       - name: Mirror outputs for the existing Pages bundle
+        if: steps.cadence.outputs.should_run == 'true'
         run: |
           mkdir -p web
           cp tech/data/gdelt_pulse.json tech_gdelt_pulse.json
@@ -92,10 +131,11 @@ jobs:
           cp tech/data/publication.json web/tech_publication.json
 
       - name: Remove temporary credentials
-        if: always()
+        if: ${{ always() && steps.cadence.outputs.should_run == 'true' }}
         run: rm -f credentials.json
 
       - name: Commit only standalone tech artifacts
+        if: steps.cadence.outputs.should_run == 'true'
         run: |
           git config user.name "tech-radar-bot"
           git config user.email "tech-radar-bot@users.noreply.github.com"
@@ -129,6 +169,7 @@ jobs:
           exit 1
 
       - name: Deploy through the existing Pages workflow
+        if: steps.cadence.outputs.should_run == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
