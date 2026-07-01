@@ -163,6 +163,23 @@ def dedupe_stories(stories: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return out
 
 
+def unique_links_by_domain(links: list[dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    seen_domains: set[str] = set()
+    for link in links:
+        url = str(link.get("url") or "").strip()
+        if not url:
+            continue
+        domain = canonical_domain(url)
+        if not domain or domain in seen_domains:
+            continue
+        seen_domains.add(domain)
+        out.append(link)
+        if len(out) >= limit:
+            break
+    return out
+
+
 def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, Any]) -> dict[str, Any]:
     clean_articles = clean_payload.get("articles") or []
     crawl_clusters = cluster_clean_articles(clean_articles)
@@ -204,7 +221,7 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
             "independent_domain_count": len({canonical_domain(x.get('url') or '') for x in source_desk if x.get('url')}),
             "official_source_present": any(is_official_host(x.get("url") or "") for x in source_desk),
             "freshness_hours": 48,
-            "links": source_desk[:5],
+            "links": unique_links_by_domain(source_desk, limit=5),
             "tags": ["tong_quan"],
         }
     ]

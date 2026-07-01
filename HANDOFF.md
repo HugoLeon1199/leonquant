@@ -173,3 +173,46 @@
 ### Dang do / Viec tiep theo
 - Cho PID `46404` xong hoac chuyen sang batch/limit neu can cat thoi gian.
 - Khi co report full, cap nhat tong PASS / SOFT_PASS / blocked-paywall-captcha / sample extracts / URL can review.
+
+## [2026-07-01 15:40] - [Codex]
+
+### Da lam
+- Chay live Phase 0 validation xong va lay report that trong `tech/reports/source_validation.json` / `.md`.
+- Chay live crawl Tech xong sau khi bootstrap profile DB tu `tech/crawl.py`; output da co `news_output_today.json`, `news_output_all.json`, `news_for_ai.json`, `news_for_ai_clean.json`.
+- Thu GDELT dry-run va xac nhan bi chan boi thieu ADC/credentials BigQuery trong runtime hien tai.
+- Chay publication smoke voi crawl that + GDELT empty placeholder de kiem tra builder/validator, sau do chay publication ra artifact thuc `tech/data/publication.json` va `tech/web/publication.json`.
+- Fix publication builder de overview khong lap domain va validate pass.
+
+### Quyet dinh quan trong
+- Khong gia mao GDELT: runtime hien tai khong co ADC hop le nen GDELT live van blocked.
+- Publication dang co crawl stories that, GDELT event_count = 0, nen co the dung nhu artifact tam cho website/validation.
+
+### File da thay doi
+- `scripts/build_tech_publication.py`
+- `tech/crawl.py`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `HANDOFF.md`
+- `.ai/CURSOR_WORKLOG.md`
+
+### Verify / Test
+- `.\.venv\Scripts\python.exe tech\validate_sources.py --force-refresh` -> pass
+- `.\.venv\Scripts\python.exe tech\crawl.py` -> pass
+- `.\.venv\Scripts\python.exe tech\gdelt.py --dry-run` -> fail do `DefaultCredentialsError` (missing ADC)
+- `.\.venv\Scripts\python.exe tech\publication.py --gdelt-input <temp empty json>` -> pass
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass
+
+### So lieu chot
+- Catalog: 100
+- Active: 7
+- Disabled: 93
+- Status counts: CAPTCHA 25, ARTICLE_EXTRACTION_FAILED 36, DEAD_URL 22, JS_ONLY 6, PASS_SITEMAP 5, PASS_RSS 2, SOFT_PASS 3, PAYWALL 1
+- Article sample extracts thanh cong: 465 samples tu 93 sources
+- Crawl output: 27 today / 76 all / 24 clean
+- Publication: 24 stories / 0 GDELT events
+- URL can Leon kiem tra lai: `https://techcrunch.com/category/artificial-intelligence/`, `https://www.theverge.com/ai-artificial-intelligence`, `https://arstechnica.com/ai/`, `https://www.wired.com/tag/artificial-intelligence/`, `https://www.technologyreview.com/topic/artificial-intelligence/`, `https://venturebeat.com/category/ai/`, `https://spectrum.ieee.org/artificial-intelligence`, `https://www.techrepublic.com/topic/artificial-intelligence/`
+
+### Dang do / Viec tiep theo
+- Co ADC BigQuery hop le thi chay lai `tech\gdelt.py` va regenerate publication de co GDELT thuc.
+- Neu muon push, stage chi cac file Tech va worklog; bo qua scratch/unrelated changes o repo root.

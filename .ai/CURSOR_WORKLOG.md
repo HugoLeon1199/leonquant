@@ -632,3 +632,48 @@ Validation status snapshot live:
 - `tech-radar.yml` va `tech-profile-refresh.yml` da chuyen sang entrypoints Tech moi.
 - PASS: smoke validation / offline tech pipeline tests.
 - FULL Phase 0 / crawl / GDELT / publication / GitHub Actions: dang cho live result.
+
+## [2026-07-01 15:40] - Live Tech run update
+
+- Validation live da hoan tat.
+- Crawl live da hoan tat.
+- Publication da build thanh cong tu crawl that + GDELT empty placeholder.
+- GDELT live dry-run bi chan boi thieu ADC/BigQuery credentials trong runtime hien tai.
+
+### Tong so
+- Catalog: 100
+- Active: 7
+- Disabled: 93
+- PASS_RSS: 2
+- PASS_SITEMAP: 5
+- SOFT_PASS: 3
+- blocked/paywall/captcha: CAPTCHA 25, ARTICLE_EXTRACTION_FAILED 36, DEAD_URL 22, JS_ONLY 6, PAYWALL 1
+- bai mau extract thanh cong: 465 samples tu 93 sources
+- Crawl articles: 27 today, 76 all, 24 clean
+- GDELT events: 0
+- Publication stories: 24
+
+### Test
+- `python tech/validate_sources.py --force-refresh` -> pass
+- `python tech/crawl.py` -> pass
+- `python tech/publication.py` -> pass
+- `python tech/validate_publication.py` -> pass
+- `python scripts/test_tech_pipeline.py` -> pass
+
+### GDELT / bytes
+- Dry-run bytes: unavailable
+- Ly do: `DefaultCredentialsError` do khong co ADC hop le trong runtime hien tai
+
+### URL can Leon kiem tra lai
+- `https://techcrunch.com/category/artificial-intelligence/`
+- `https://www.theverge.com/ai-artificial-intelligence`
+- `https://arstechnica.com/ai/`
+- `https://www.wired.com/tag/artificial-intelligence/`
+- `https://www.technologyreview.com/topic/artificial-intelligence/`
+- `https://venturebeat.com/category/ai/`
+- `https://spectrum.ieee.org/artificial-intelligence`
+- `https://www.techrepublic.com/topic/artificial-intelligence/`
+
+### Remaining
+- Can ADC BigQuery hop le neu muon chay GDELT live that va cap nhat publication co event_count > 0.
+- Neu push, chi stage file Tech + worklog; giu scratch/unrelated changes ngoai scope.

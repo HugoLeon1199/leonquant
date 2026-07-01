@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -40,6 +41,21 @@ def publication_age_hours(path: Path) -> float | None:
         return None
 
 
+def has_profiles(db_path: Path) -> bool:
+    if not db_path.is_file():
+        return False
+    try:
+        import duckdb
+
+        con = duckdb.connect(str(db_path), read_only=True)
+        try:
+            return int(con.execute("SELECT COUNT(*) FROM source_profiles").fetchone()[0]) > 0
+        finally:
+            con.close()
+    except Exception:
+        return False
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Standalone Tech crawl wrapper")
     parser.add_argument("--force", action="store_true", help="Ignore the 72h publish gate")
@@ -54,10 +70,28 @@ def main() -> int:
     configure_tech_env()
     from scripts import run_tech_intel_pipeline as impl  # noqa: WPS433
 
+    db_path = TECH_ROOT / "data" / "web_intel_tech.duckdb"
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    if not has_profiles(db_path):
+        profile_cmd = [
+            sys.executable,
+            str(ROOT / "leon_web_intel" / "run_profile.py"),
+            "--input",
+            str(TECH_ROOT / "config" / "sources_active.txt"),
+            "--profile-only",
+            "--db",
+            str(db_path),
+            "--force-refresh",
+        ]
+        print("+", " ".join(profile_cmd), flush=True)
+        rc = subprocess.call(profile_cmd, cwd=TECH_ROOT)
+        if rc != 0:
+            return rc
+
     sys.argv = [
         sys.argv[0],
         "--db",
-        str(TECH_ROOT / "data" / "web_intel_tech.duckdb"),
+        str(db_path),
         "--seed",
         str(TECH_ROOT / "config" / "sources_active.txt"),
         "--tiers-dir",
