@@ -3,220 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LeonQuant Tech Radar</title>
-  <meta name="description" content="Báo Công nghệ & AI độc lập của LeonQuant.">
+  <title>LeonQuant — Công nghệ & AI 72h</title>
+  <meta name="description" content="Bản tin Công nghệ và AI chọn lọc trong 72 giờ gần nhất.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #f5f7fa;
-      --surface: rgba(255,255,255,.92);
-      --border: rgba(15,23,42,.10);
-      --text: #0f172a;
-      --muted: #475569;
-      --teal: #0f766e;
-      --blue: #1d4ed8;
-      --amber: #b45309;
-      --shadow: 0 10px 30px rgba(15,23,42,.08);
-      --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
-      --font-alt: "IBM Plex Sans", system-ui, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-sans);
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(29,78,216,.08), transparent 34%),
-        radial-gradient(circle at top right, rgba(15,118,110,.10), transparent 28%),
-        linear-gradient(180deg, #f9fbfd, var(--bg));
-    }
-    a { color: var(--blue); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .shell { width: min(1240px, 94vw); margin: 0 auto; padding: 28px 0 56px; }
-    .masthead {
-      display: grid;
-      gap: 16px;
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(236,253,245,.9));
-      box-shadow: var(--shadow);
-    }
-    .kicker { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); font-weight: 800; }
-    h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.02; }
-    .sub { margin: 0; color: var(--muted); max-width: 70ch; }
-    .home-link { font-weight: 700; }
-    .summary {
-      margin-top: 18px;
-      padding: 20px 22px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(15,118,110,.12);
-    }
-    .summary p { margin: 0; color: var(--muted); line-height: 1.65; }
-    .sections { margin-top: 28px; display: grid; gap: 18px; }
-    .section-card {
-      padding: 22px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-    .section-title {
-      margin: 0 0 14px;
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -.02em;
-    }
-    .story-list { display: grid; gap: 14px; }
-    .story {
-      padding: 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,.08);
-      background: #fff;
-    }
-    .story h3 { margin: 0 0 8px; font-size: 1rem; line-height: 1.35; }
-    .story p { margin: 0 0 10px; color: var(--muted); line-height: 1.6; }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-      font-family: var(--font-alt);
-      font-size: .78rem;
-      color: var(--muted);
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(29,78,216,.08);
-      border: 1px solid rgba(29,78,216,.12);
-      color: var(--blue);
-      font-weight: 700;
-    }
-    .pill.warn {
-      color: var(--amber);
-      background: rgba(180,83,9,.08);
-      border-color: rgba(180,83,9,.12);
-    }
-    .links { margin: 0; padding-left: 18px; color: var(--muted); }
-    .links li { margin-bottom: 6px; }
-    .error {
-      margin-top: 24px;
-      padding: 18px;
-      border-radius: 16px;
-      background: rgba(220,38,38,.06);
-      border: 1px solid rgba(220,38,38,.16);
-      color: #991b1b;
-    }
-    @media (max-width: 700px) {
-      .shell { width: min(94vw, 100%); padding-top: 18px; }
-      .masthead, .section-card { padding: 18px; border-radius: 18px; }
-      .story { padding: 14px; }
-    }
+    :root { --bg:#f3f6fa; --surface:#fff; --text:#0f172a; --muted:#526174; --line:#dce3eb; --blue:#1d4ed8; --teal:#0f766e; --amber:#a16207; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Be Vietnam Pro",system-ui,sans-serif; color:var(--text); background:linear-gradient(180deg,#f8fbff,var(--bg)); }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .shell { width:min(1180px,94vw); margin:auto; padding:24px 0 60px; }
+    .hero { padding:28px; border:1px solid var(--line); border-radius:24px; background:var(--surface); box-shadow:0 14px 38px rgba(15,23,42,.08); }
+    .kicker { color:var(--teal); font-size:.75rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { margin:8px 0 10px; font-size:clamp(2rem,5vw,3.6rem); line-height:1.05; }
+    .lead { max-width:760px; color:var(--muted); line-height:1.7; }
+    .topline { display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap; }
+    .stats { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+    .pill { padding:6px 11px; border-radius:999px; background:#eef4ff; color:var(--blue); font-size:.8rem; font-weight:700; }
+    .sections { display:grid; gap:18px; margin-top:24px; }
+    .section { padding:22px; border:1px solid var(--line); border-radius:22px; background:var(--surface); box-shadow:0 8px 28px rgba(15,23,42,.06); }
+    .section h2 { margin:0 0 14px; font-size:1.25rem; }
+    .stories { display:grid; gap:14px; }
+    .story { padding:17px; border:1px solid #e7ecf2; border-radius:17px; background:#fcfdff; }
+    .story h3 { margin:0 0 8px; font-size:1.05rem; line-height:1.4; }
+    .story p { margin:0 0 10px; color:var(--muted); line-height:1.65; }
+    .meta { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:9px; font-size:.76rem; color:var(--muted); }
+    .badge { padding:4px 9px; border-radius:999px; background:#e9f7f4; color:var(--teal); font-weight:700; }
+    .badge.warn { background:#fff7df; color:var(--amber); }
+    .use { padding:10px 12px; border-left:3px solid var(--teal); background:#f1faf8; border-radius:8px; }
+    .links { margin:10px 0 0; padding-left:19px; }
+    .links li { margin:6px 0; color:var(--muted); }
+    .error { margin-top:20px; padding:16px; border:1px solid #fecaca; border-radius:14px; background:#fff1f2; color:#9f1239; }
+    @media(max-width:700px){ .shell{width:95vw;padding-top:12px}.hero,.section{padding:17px;border-radius:17px}.story{padding:14px} }
   </style>
 </head>
 <body>
   <main class="shell">
-    <section class="masthead">
-      <div class="kicker">LeonQuant / Tech</div>
-      <h1>Báo Công nghệ &amp; AI</h1>
-      <p class="sub">Một nhánh độc lập với Tin 48h, Kinh tế đầu tư và Thế giới LIVE. Chỉ giữ các câu chuyện có grounding URL rõ ràng, có tín hiệu nguồn đủ mạnh và không tự fill nội dung yếu.</p>
-      <a class="home-link" href="/">Về trang chính</a>
-      <div class="summary" id="summaryBox">
-        <p>Đang tải bản tech publication…</p>
+    <header class="hero">
+      <div class="topline">
+        <div class="kicker">LeonQuant / Tech 72h</div>
+        <a href="/">Về trang chính</a>
       </div>
-    </section>
-    <section class="sections" id="sections"></section>
-    <div class="error" id="errorBox" hidden></div>
+      <h1>Công nghệ &amp; AI</h1>
+      <p class="lead">Các phát minh, sản phẩm, mã nguồn, hạ tầng và chính sách đáng chú ý trong 72 giờ gần nhất. Diễn đàn được dùng để phát hiện chủ đề, còn nhãn “Nóng” cần xác nhận từ báo độc lập hoặc nguồn chính thức.</p>
+      <div class="stats" id="stats"><span class="pill">Đang tải bản tin…</span></div>
+    </header>
+    <div class="sections" id="sections"></div>
+    <div class="error" id="error" hidden></div>
   </main>
   <script>
-    const SECTION_LABELS = {
-      tong_quan: "Tổng quan",
-      tin_nong: "Tin nóng",
-      model_agent_moi: "Model / agent mới",
-      cach_dung_ai: "Cách dùng AI",
-      open_source_developer_tools: "Open-source / developer tools",
-      chip_ha_tang: "Chip / hạ tầng",
-      robotics: "Robotics",
-      cybersecurity: "Cybersecurity",
-      chinh_sach_cuoc_dua_toan_cau: "Chính sách / cuộc đua toàn cầu",
-      radar_khu_vuc: "Radar khu vực",
-      watchlist_24_72h: "Watchlist 24-72h",
-      source_desk: "Source desk"
+    const labels = {
+      tong_quan:"Tổng quan 72 giờ", tin_nong:"Tin nóng", model_agent_moi:"Model và agent mới",
+      cach_dung_ai:"Cách ứng dụng AI", open_source_developer_tools:"Mã nguồn và công cụ developer",
+      chip_ha_tang:"Chip, GPU và hạ tầng", robotics:"Robotics và tự động hóa",
+      cybersecurity:"An toàn công nghệ", chinh_sach_cuoc_dua_toan_cau:"Chính sách và cuộc đua toàn cầu",
+      radar_khu_vuc:"Radar khu vực", watchlist_24_72h:"Theo dõi tiếp"
     };
-
-    function esc(v) {
-      return String(v ?? "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
-    }
-
-    function renderStory(story) {
+    const order = Object.keys(labels);
+    const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    function storyHtml(story) {
+      const warning = story.confirmation_label === "chua_duoc_xac_nhan_rong";
       const links = Array.isArray(story.links) ? story.links : [];
-      const warn = story.confirmation_label === "chua_duoc_xac_nhan_rong";
-      return `
-        <article class="story">
-          <div class="meta">
-            <span class="pill${warn ? " warn" : ""}">${warn ? "Chưa được xác nhận rộng" : "Hot"}</span>
-            <span>${esc(story.source_count || 0)} nguồn</span>
-            <span>${esc(story.independent_domain_count || 0)} domain độc lập</span>
-            <span>${esc(story.freshness_hours || 0)}h</span>
-          </div>
-          <h3>${esc(story.headline || "")}</h3>
-          <p>${esc(story.summary || story.deck || "")}</p>
-          ${links.length ? `<ul class="links">${links.map((link) => `<li><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">${esc(link.title || link.url)}</a></li>`).join("")}</ul>` : ""}
-        </article>
-      `;
+      return `<article class="story">
+        <div class="meta">
+          <span class="badge${warning ? ' warn' : ''}">${warning ? 'Tín hiệu ban đầu' : 'Nóng'}</span>
+          <span>${esc(story.independent_domain_count || 0)} báo độc lập</span>
+          <span>${esc(story.source_count || 0)} nguồn</span>
+          <span>${esc(story.freshness_hours || 0)} giờ</span>
+        </div>
+        <h3>${esc(story.headline)}</h3>
+        <p>${esc(story.summary)}</p>
+        ${story.why_it_matters ? `<p><strong>Vì sao đáng chú ý:</strong> ${esc(story.why_it_matters)}</p>` : ""}
+        ${story.practical_use ? `<p class="use"><strong>Cách dùng:</strong> ${esc(story.practical_use)}</p>` : ""}
+        ${links.length ? `<ul class="links">${links.map((link) => `<li><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">${esc(link.title || link.domain)}</a></li>`).join("")}</ul>` : ""}
+      </article>`;
     }
-
-    function render(payload) {
-      const summary = document.getElementById("summaryBox");
-      const sectionsEl = document.getElementById("sections");
-      const sections = payload.sections || {};
-      const stats = payload.stats || {};
-      summary.innerHTML = `
-        <p>
-          Hiện có ${esc(stats.story_count || 0)} cụm chuyện, ${esc(stats.crawl_cluster_count || 0)} cụm từ crawl riêng
-          và ${esc(stats.gdelt_event_count || 0)} tín hiệu từ GDELT Tech riêng.
-        </p>
-      `;
-      const order = Object.keys(SECTION_LABELS);
-      sectionsEl.innerHTML = order
+    function render(data) {
+      const stats = data.stats || {};
+      document.getElementById("stats").innerHTML = `<span class="pill">${esc(stats.story_count || 0)} câu chuyện</span><span class="pill">Cửa sổ ${esc(data.window_hours || 72)} giờ</span><span class="pill">Cập nhật ${esc((data.generated_at_utc || "").replace("T", " ").slice(0, 16))} UTC</span>`;
+      const sections = data.sections || {};
+      document.getElementById("sections").innerHTML = order
         .filter((key) => Array.isArray(sections[key]) && sections[key].length)
-        .map((key) => `
-          <section class="section-card">
-            <h2 class="section-title">${esc(SECTION_LABELS[key])}</h2>
-            <div class="story-list">
-              ${sections[key].map((story) => renderStory(story)).join("")}
-            </div>
-          </section>
-        `)
+        .map((key) => `<section class="section"><h2>${esc(labels[key])}</h2><div class="stories">${sections[key].map(storyHtml).join("")}</div></section>`)
         .join("");
     }
-
-    async function fetchTechJson() {
-      const candidates = ["../tech_publication.json", "../web/tech_publication.json"];
-      for (const path of candidates) {
+    async function loadPublication() {
+      const paths = ["../tech_publication.json", "../web/tech_publication.json", "data/publication.json"];
+      for (const path of paths) {
         try {
-          const resp = await fetch(`${path}?ts=${Date.now()}`, { cache: "no-store" });
-          if (!resp.ok) continue;
-          return await resp.json();
+          const response = await fetch(`${path}?ts=${Date.now()}`, {cache:"no-store"});
+          if (response.ok) return await response.json();
         } catch (_) {}
       }
-      throw new Error("Không tải được tech_publication.json");
+      throw new Error("Chưa có bản tin Tech 72h hợp lệ");
     }
-
-    fetchTechJson()
-      .then(render)
-      .catch((err) => {
-        const errorBox = document.getElementById("errorBox");
-        errorBox.hidden = false;
-        errorBox.textContent = String(err && err.message ? err.message : err);
-      });
+    loadPublication().then(render).catch((error) => {
+      const box = document.getElementById("error");
+      box.hidden = false;
+      box.textContent = error.message || String(error);
+    });
   </script>
 </body>
 </html>
