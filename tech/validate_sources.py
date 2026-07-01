@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -134,7 +133,8 @@ def main() -> int:
         for entry in entries:
             url = entry["url"]
             domain = host_from_url(url)
-            if domain in seen_domains:
+            duplicate = domain in seen_domains
+            if duplicate:
                 row = {
                     "name": entry["name"], "input_url": url, "domain": domain,
                     "source_type": source_type(url), "validation_status": "DUPLICATE_DOMAIN",
@@ -142,6 +142,7 @@ def main() -> int:
                 }
             elif url in finished:
                 row = finished[url]
+                row["source_type"] = source_type(url)
             else:
                 try:
                     row = legacy.validate_source(
@@ -155,6 +156,7 @@ def main() -> int:
                         "article_samples": [], "notes": str(exc),
                     }
                 row["source_type"] = source_type(url)
+            if not duplicate:
                 seen_domains.add(domain)
             rows.append(row)
             checkpoint(rows, len(entries), complete=False)
