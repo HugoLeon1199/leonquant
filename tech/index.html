@@ -62,25 +62,48 @@
       radar_khu_vuc:"Radar khu vực", watchlist_24_72h:"Theo dõi tiếp"
     };
     const order = Object.keys(labels);
-    const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-    function storyHtml(s){
-      const warning = s.confirmation_label === "chua_duoc_xac_nhan_rong";
-      const links = Array.isArray(s.links) ? s.links : [];
+    const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    function storyHtml(story) {
+      const warning = story.confirmation_label === "chua_duoc_xac_nhan_rong";
+      const links = Array.isArray(story.links) ? story.links : [];
       return `<article class="story">
-        <div class="meta"><span class="badge${warning?' warn':''}">${warning?'Tín hiệu ban đầu':'Nóng'}</span><span>${esc(s.independent_domain_count||0)} báo độc lập</span><span>${esc(s.source_count||0)} nguồn</span><span>${esc(s.freshness_hours||0)} giờ</span></div>
-        <h3>${esc(s.headline)}</h3><p>${esc(s.summary)}</p>
-        ${s.why_it_matters ? `<p><strong>Vì sao đáng chú ý:</strong> ${esc(s.why_it_matters)}</p>` : ""}
-        ${s.practical_use ? `<p class="use"><strong>Cách dùng:</strong> ${esc(s.practical_use)}</p>` : ""}
-        ${links.length ? `<ul class="links">${links.map(x=>`<li><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title||x.domain)}</a></li>`).join("")}</ul>` : ""}
+        <div class="meta">
+          <span class="badge${warning ? ' warn' : ''}">${warning ? 'Tín hiệu ban đầu' : 'Nóng'}</span>
+          <span>${esc(story.independent_domain_count || 0)} báo độc lập</span>
+          <span>${esc(story.source_count || 0)} nguồn</span>
+          <span>${esc(story.freshness_hours || 0)} giờ</span>
+        </div>
+        <h3>${esc(story.headline)}</h3>
+        <p>${esc(story.summary)}</p>
+        ${story.why_it_matters ? `<p><strong>Vì sao đáng chú ý:</strong> ${esc(story.why_it_matters)}</p>` : ""}
+        ${story.practical_use ? `<p class="use"><strong>Cách dùng:</strong> ${esc(story.practical_use)}</p>` : ""}
+        ${links.length ? `<ul class="links">${links.map((link) => `<li><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">${esc(link.title || link.domain)}</a></li>`).join("")}</ul>` : ""}
       </article>`;
     }
-    function render(data){
+    function render(data) {
       const stats = data.stats || {};
-      document.getElementById("stats").innerHTML = `<span class="pill">${esc(stats.story_count||0)} câu chuyện</span><span class="pill">Cửa sổ ${esc(data.window_hours||72)} giờ</span><span class="pill">Cập nhật ${esc((data.generated_at_utc||"").replace("T"," ").slice(0,16))} UTC</span>`;
+      document.getElementById("stats").innerHTML = `<span class="pill">${esc(stats.story_count || 0)} câu chuyện</span><span class="pill">Cửa sổ ${esc(data.window_hours || 72)} giờ</span><span class="pill">Cập nhật ${esc((data.generated_at_utc || "").replace("T", " ").slice(0, 16))} UTC</span>`;
       const sections = data.sections || {};
-      document.getElementById("sections").innerHTML = order.filter(k=>Array.isArray(sections[k])&&sections[k].length).map(k=>`<section class="section"><h2>${esc(labels[k])}</h2><div class="stories">${sections[k].map(storyHtml).join("")}</div></section>`).join("");
+      document.getElementById("sections").innerHTML = order
+        .filter((key) => Array.isArray(sections[key]) && sections[key].length)
+        .map((key) => `<section class="section"><h2>${esc(labels[key])}</h2><div class="stories">${sections[key].map(storyHtml).join("")}</div></section>`)
+        .join("");
     }
-    fetch(`data/publication.json?ts=${Date.now()}`, {cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("Chưa có bản tin Tech 72h hợp lệ");return r.json()}).then(render).catch(err=>{const box=document.getElementById("error");box.hidden=false;box.textContent=err.message||String(err)});
+    async function loadPublication() {
+      const paths = ["../tech_publication.json", "../web/tech_publication.json", "data/publication.json"];
+      for (const path of paths) {
+        try {
+          const response = await fetch(`${path}?ts=${Date.now()}`, {cache:"no-store"});
+          if (response.ok) return await response.json();
+        } catch (_) {}
+      }
+      throw new Error("Chưa có bản tin Tech 72h hợp lệ");
+    }
+    loadPublication().then(render).catch((error) => {
+      const box = document.getElementById("error");
+      box.hidden = false;
+      box.textContent = error.message || String(error);
+    });
   </script>
 </body>
 </html>
