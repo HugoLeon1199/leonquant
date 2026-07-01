@@ -2,8 +2,18 @@ name: Tech Radar
 
 on:
   schedule:
-    - cron: "20 1,7,13,19 * * *"
+    - cron: "17 9 */3 * *"
+      timezone: "Asia/Ho_Chi_Minh"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .ci-run-tech
+      - .github/workflows/tech-radar.yml
+      - tech/**/*.py
+      - tech/sql/**
+      - tech/index.html
+      - config/tech_sources_catalog.txt
 
 permissions:
   contents: write
@@ -11,7 +21,7 @@ permissions:
 jobs:
   tech-radar:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 360
     concurrency:
       group: tech-radar-${{ github.ref }}
       cancel-in-progress: true
@@ -23,82 +33,78 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Precheck validation report
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          path = Path("reports/tech_source_validation.json")
-          if not path.is_file():
-              raise SystemExit("Missing reports/tech_source_validation.json. Run Phase 0 validation first.")
-          data = json.loads(path.read_text(encoding="utf-8"))
-          meta = data.get("validation_meta") or {}
-          if not meta.get("report_valid"):
-              raise SystemExit("tech_source_validation.json exists but report_valid=false")
-          if int(meta.get("active_source_count") or 0) <= 0:
-              raise SystemExit("No active sources in validation report.")
-          print(f"Validation ready: active_sources={meta.get('active_source_count')}")
-          PY
-
-      - name: Install crawl + GDELT deps
+      - name: Install existing project dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r leon_web_intel/requirements.txt
           pip install -r requirements-gdelt.txt
 
-      - name: Restore tech DuckDB cache
+      - name: Restore standalone tech DuckDB cache
         uses: actions/cache@v4
-        id: cache-tech-db
         with:
           path: data/web_intel_tech.duckdb
-          key: intel-tech-db-v1-${{ hashFiles('data/web_intel_tech.duckdb.gz', 'config/tech_sources_active.txt', 'config/tech_tiers/*.txt', 'reports/tech_source_validation.json') }}
+          key: intel-tech-72h-v1-${{ hashFiles('tech/config/sources_active.txt', 'tech/reports/source_validation.json') }}-${{ github.run_id }}
           restore-keys: |
-            intel-tech-db-v1-
+            intel-tech-72h-v1-
 
-      - name: Bootstrap tech DuckDB
-        run: |
-          mkdir -p data
-          if [ ! -f data/web_intel_tech.duckdb ] && [ -f data/web_intel_tech.duckdb.gz ]; then
-            gunzip -c data/web_intel_tech.duckdb.gz > data/web_intel_tech.duckdb
-          fi
+      - name: Validate source catalog
+        run: python tech/validate_sources.py --resume
 
-      - name: Crawl validated tech sources
-        run: |
-          python scripts/run_tech_intel_pipeline.py --skip-profile
+      - name: Crawl the latest 72 hours
+        run: python tech/crawl.py
 
-      - name: Write GCP credentials
+      - name: Write existing GCP credentials
         env:
           GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
         run: |
-          if [ -z "$GCP_SA_JSON" ]; then
-            echo "Missing GCP_SA_JSON"
-            exit 1
-          fi
+          test -n "$GCP_SA_JSON" || { echo "Missing existing GCP_SA_JSON secret"; exit 1; }
           printf '%s' "$GCP_SA_JSON" > credentials.json
 
-      - name: Run tech GDELT pulse
+      - name: Estimate 72h query cost
         env:
           GOOGLE_APPLICATION_CREDENTIALS: credentials.json
           GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-        run: |
-          python scripts/run_tech_gdelt.py
+        run: python tech/gdelt.py --dry-run --max-bytes-billed 2000000000
 
-      - name: Build + validate tech publication
-        run: |
-          python scripts/build_tech_publication.py
-          python scripts/validate_tech_publication.py
-          python scripts/test_tech_pipeline.py
+      - name: Run 72h technology query
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
+          GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+        run: python tech/gdelt.py --max-bytes-billed 2000000000
 
-      - name: Commit tech artifacts
+      - name: Build and validate the publication
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.1-flash-lite' }}
+        run: |
+          python tech/publication.py
+          python tech/validate_publication.py
+          python tech/test_pipeline.py
+
+      - name: Remove temporary credentials
+        if: always()
+        run: rm -f credentials.json
+
+      - name: Commit only standalone tech artifacts
         run: |
           git config user.name "tech-radar-bot"
           git config user.email "tech-radar-bot@users.noreply.github.com"
-          git add tech_news_output_today.json tech_news_output_all.json tech_news_for_ai.json tech_news_for_ai_clean.json tech_gdelt_pulse.json web/tech_gdelt_pulse.json tech_publication.json web/tech_publication.json
+          git add \
+            tech/config/sources_active.txt \
+            tech/config/sources_disabled.txt \
+            tech/config/tiers \
+            tech/config/tiers_manifest.json \
+            tech/reports/source_validation.json \
+            tech/reports/source_validation.md \
+            tech/data/news_for_ai.json \
+            tech/data/news_for_ai_clean.json \
+            tech/data/gdelt_pulse.json \
+            tech/data/publication.json
           if git diff --staged --quiet; then
-            echo "No tech artifact changes"
+            echo "No technology artifacts changed"
             exit 0
           fi
-          git commit -m "Update standalone tech radar artifacts."
+          git commit -m "Update Technology and AI 72h edition."
           for attempt in 1 2 3 4 5; do
             git fetch origin main
             if git pull origin main --no-rebase --no-edit && git push origin main; then
@@ -108,10 +114,3 @@ jobs:
             sleep 30
           done
           exit 1
-
-      - name: Save tech DuckDB cache
-        if: success()
-        uses: actions/cache/save@v4
-        with:
-          path: data/web_intel_tech.duckdb
-          key: intel-tech-db-v1-${{ hashFiles('data/web_intel_tech.duckdb.gz', 'config/tech_sources_active.txt', 'config/tech_tiers/*.txt', 'reports/tech_source_validation.json') }}
