@@ -17,6 +17,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   tech-radar:
@@ -81,6 +82,14 @@ jobs:
           python tech/validate_publication.py
           python tech/test_pipeline.py
 
+      - name: Mirror outputs for the existing Pages bundle
+        run: |
+          mkdir -p web
+          cp tech/data/gdelt_pulse.json tech_gdelt_pulse.json
+          cp tech/data/gdelt_pulse.json web/tech_gdelt_pulse.json
+          cp tech/data/publication.json tech_publication.json
+          cp tech/data/publication.json web/tech_publication.json
+
       - name: Remove temporary credentials
         if: always()
         run: rm -f credentials.json
@@ -99,7 +108,9 @@ jobs:
             tech/data/news_for_ai.json \
             tech/data/news_for_ai_clean.json \
             tech/data/gdelt_pulse.json \
-            tech/data/publication.json
+            tech/data/publication.json \
+            tech_gdelt_pulse.json web/tech_gdelt_pulse.json \
+            tech_publication.json web/tech_publication.json
           if git diff --staged --quiet; then
             echo "No technology artifacts changed"
             exit 0
@@ -114,3 +125,14 @@ jobs:
             sleep 30
           done
           exit 1
+
+      - name: Deploy through the existing Pages workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsSL -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/pages.yml/dispatches" \
+            -d '{"ref":"main"}'
