@@ -5,31 +5,40 @@ from __future__ import annotations
 
 import json
 import re
+import os
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG_DIR = ROOT / "config"
-REPORTS_DIR = ROOT / "reports"
-TECH_TIERS_DIR = CONFIG_DIR / "tech_tiers"
+
+TECH_BASE_DIR = Path(os.environ.get("LEON_TECH_BASE_DIR", str(ROOT))).resolve()
+TECH_IS_STANDALONE = TECH_BASE_DIR.name.lower() == "tech"
+
+CONFIG_DIR = TECH_BASE_DIR / "config" if TECH_IS_STANDALONE else ROOT / "config"
+DATA_DIR = TECH_BASE_DIR / "data" if TECH_IS_STANDALONE else ROOT
+WEB_DIR = TECH_BASE_DIR / "web" if TECH_IS_STANDALONE else ROOT / "web"
+REPORTS_DIR = TECH_BASE_DIR / "reports" if TECH_IS_STANDALONE else ROOT / "reports"
+
+TECH_TIERS_DIR = CONFIG_DIR / ("tech_tiers" if TECH_IS_STANDALONE else "tech_tiers")
 
 TECH_CATALOG = CONFIG_DIR / "tech_sources_catalog.txt"
-TECH_ACTIVE = CONFIG_DIR / "tech_sources_active.txt"
-TECH_DISABLED = CONFIG_DIR / "tech_disabled_sources.txt"
+TECH_ACTIVE = CONFIG_DIR / ("sources_active.txt" if TECH_IS_STANDALONE else "tech_sources_active.txt")
+TECH_DISABLED = CONFIG_DIR / ("sources_disabled.txt" if TECH_IS_STANDALONE else "tech_disabled_sources.txt")
 TECH_TIERS_MANIFEST = CONFIG_DIR / "tech_tiers_manifest.json"
-TECH_VALIDATION_JSON = REPORTS_DIR / "tech_source_validation.json"
-TECH_VALIDATION_MD = REPORTS_DIR / "tech_source_validation.md"
+TECH_VALIDATION_JSON = REPORTS_DIR / "source_validation.json" if TECH_IS_STANDALONE else REPORTS_DIR / "tech_source_validation.json"
+TECH_VALIDATION_MD = REPORTS_DIR / "source_validation.md" if TECH_IS_STANDALONE else REPORTS_DIR / "tech_source_validation.md"
+TECH_VALIDATION_DB = REPORTS_DIR / "tech_validation.duckdb"
 
-TECH_NEWS_TODAY = ROOT / "tech_news_output_today.json"
-TECH_NEWS_ALL = ROOT / "tech_news_output_all.json"
-TECH_NEWS_FOR_AI = ROOT / "tech_news_for_ai.json"
-TECH_NEWS_FOR_AI_CLEAN = ROOT / "tech_news_for_ai_clean.json"
+TECH_NEWS_TODAY = DATA_DIR / "news_output_today.json"
+TECH_NEWS_ALL = DATA_DIR / "news_output_all.json"
+TECH_NEWS_FOR_AI = DATA_DIR / "news_for_ai.json"
+TECH_NEWS_FOR_AI_CLEAN = DATA_DIR / "news_for_ai_clean.json"
 
-TECH_GDELT_OUTPUT = ROOT / "tech_gdelt_pulse.json"
-TECH_GDELT_WEB_OUTPUT = ROOT / "web" / "tech_gdelt_pulse.json"
-TECH_PUBLICATION_OUTPUT = ROOT / "tech_publication.json"
-TECH_PUBLICATION_WEB_OUTPUT = ROOT / "web" / "tech_publication.json"
+TECH_GDELT_OUTPUT = DATA_DIR / "gdelt_pulse.json"
+TECH_GDELT_WEB_OUTPUT = WEB_DIR / "gdelt_pulse.json"
+TECH_PUBLICATION_OUTPUT = DATA_DIR / "publication.json"
+TECH_PUBLICATION_WEB_OUTPUT = WEB_DIR / "publication.json"
 
 TECH_PUBLICATION_SCHEMA = "tech-newsroom-v1"
 TECH_GDELT_SCHEMA = "tech-gdelt-pulse-v1"

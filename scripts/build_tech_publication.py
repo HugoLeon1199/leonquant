@@ -142,7 +142,7 @@ def story_from_gdelt(event: dict[str, Any]) -> dict[str, Any]:
         "source_count": source_count,
         "independent_domain_count": independent_domain_count,
         "official_source_present": official,
-        "freshness_hours": int(event.get("freshness_hours") or 24),
+        "freshness_hours": int(event.get("freshness_hours") or 72),
         "links": links,
         "tags": [section, *tags[1:3]],
     }

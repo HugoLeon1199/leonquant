@@ -26,7 +26,7 @@ WITH
         )
       ) AS event_hint_u
     FROM `gdelt-bq.gdeltv2.events_partitioned`
-    WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
+    WHERE _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 72 HOUR)
       AND SOURCEURL IS NOT NULL
       AND STARTS_WITH(SOURCEURL, 'http')
       AND NOT REGEXP_CONTAINS(
@@ -106,7 +106,7 @@ WITH
     FROM `gdelt-bq.gdeltv2.eventmentions_partitioned` AS m
     INNER JOIN TopEvents AS e
       ON m.GLOBALEVENTID = e.GLOBALEVENTID
-    WHERE m._PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
+    WHERE m._PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 72 HOUR)
       AND m.MentionIdentifier IS NOT NULL
       AND STARTS_WITH(m.MentionIdentifier, 'http')
       AND NOT REGEXP_CONTAINS(
@@ -152,7 +152,7 @@ WITH
     FROM LimitedEventDocs AS d
     INNER JOIN `gdelt-bq.gdeltv2.gkg_partitioned` AS g
       ON g.DocumentIdentifier = d.url
-     AND g._PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 24 HOUR)
+     AND g._PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 72 HOUR)
     WHERE g.DocumentIdentifier IS NOT NULL
   ),
 

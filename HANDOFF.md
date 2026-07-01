@@ -131,3 +131,45 @@
   - `config/tech_disabled_sources.txt`
   - `config/tech_tiers/**`
 - Sau khi co report cuoi, append lai thong ke PASS / SOFT_PASS / blocked-paywall-captcha / sample extracts / URL can Leon review.
+
+## [2026-07-01 14:45] - [Codex]
+
+### Da lam
+- Them lop wrapper Tech trong `tech/` de chay bang `python tech/...` ma van re-use cac script o `scripts/`.
+- Chuyen artifact Tech sang `tech/config`, `tech/data`, `tech/reports`, `tech/web` thong qua `LEON_TECH_BASE_DIR`.
+- Smoke live `python tech/validate_sources.py --limit 1` da pass va ghi dung vao `tech/reports/source_validation.json`.
+
+### Quyet dinh quan trong
+- Gi? full Phase 0 validation la job live dang chay rieng; khong ep commit report partial.
+- Tech crawl/export/publication/GDELT/validate/test se chay qua `tech/` entrypoints, khong co tac dong den Tin48h / Invest / World / Pages cu.
+
+### File da thay doi
+- `tech/_bootstrap.py`
+- `tech/validate_sources.py`
+- `tech/crawl.py`
+- `tech/gdelt.py`
+- `tech/publication.py`
+- `tech/validate_publication.py`
+- `tech/test_pipeline.py`
+- `scripts/tech_common.py`
+- `scripts/validate_tech_sources.py`
+- `scripts/run_tech_intel_pipeline.py`
+- `scripts/run_tech_gdelt.py`
+- `scripts/build_tech_publication.py`
+- `sql/gdelt_tech_pulse.sql`
+- `.github/workflows/tech-radar.yml`
+- `.github/workflows/tech-profile-refresh.yml`
+- `.github/workflows/pages.yml`
+- `tech/index.html`
+- `tech/config/tech_sources_catalog.txt`
+- `HANDOFF.md`
+
+### Verify / Test
+- `.\.venv\Scripts\python.exe -m py_compile ...` cho bo script tech moi -> pass.
+- `.\.venv\Scripts\python.exe tech\test_pipeline.py` -> pass.
+- `.\.venv\Scripts\python.exe tech\validate_sources.py --limit 1` -> pass va sinh output tech standalone.
+- Full `.\.venv\Scripts\python.exe tech\validate_sources.py --force-refresh` -> dang chay nen PID `46404`, chua flush report cuoi.
+
+### Dang do / Viec tiep theo
+- Cho PID `46404` xong hoac chuyen sang batch/limit neu can cat thoi gian.
+- Khi co report full, cap nhat tong PASS / SOFT_PASS / blocked-paywall-captcha / sample extracts / URL can review.

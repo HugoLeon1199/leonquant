@@ -46,6 +46,7 @@ from scripts.tech_common import (  # noqa: E402
     TECH_TIERS_MANIFEST,
     TECH_VALIDATION_JSON,
     TECH_VALIDATION_MD,
+    TECH_VALIDATION_DB,
     canonical_domain,
     dump_json,
     ensure_parent,
@@ -459,7 +460,7 @@ def main() -> int:
         entries = entries[: args.limit]
 
     rules = load_crawl_rules(LEON_ROOT / "config" / "crawl_rules.yaml")
-    REPORT_DB = ROOT / "reports" / "tech_validation.duckdb"
+    REPORT_DB = TECH_VALIDATION_DB
     REPORT_DB.parent.mkdir(parents=True, exist_ok=True)
 
     http = CachedHttpClient(rules, cache_dir=LEON_ROOT / "data" / "cache" / "http", profile_cache_days=0)

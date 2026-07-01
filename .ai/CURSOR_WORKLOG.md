@@ -622,3 +622,13 @@ Validation status snapshot live:
 - bai mau extract thanh cong: chua chot
 - URL can Leon kiem tra lai: chua chot, doi report cuoi
 - Luu y: khong commit `reports/tech_validation.duckdb*`; chi theo doi den khi run xong roi append ket qua that.
+
+## 2026-07-01 - Tech wrapper + 72h gate update
+
+- Da them entrypoints `tech/validate_sources.py`, `tech/crawl.py`, `tech/gdelt.py`, `tech/publication.py`, `tech/validate_publication.py`, `tech/test_pipeline.py`.
+- Da chuyen Tech artifact space sang `tech/config`, `tech/data`, `tech/reports`, `tech/web` qua `LEON_TECH_BASE_DIR`.
+- Smoke live `tech/validate_sources.py --limit 1` pass; full `tech/validate_sources.py --force-refresh` dang chay background PID `46404` va chua flush full report.
+- `tech/crawl.py` co 72h publish gate, `sql/gdelt_tech_pulse.sql` da len 72h, `tech/index.html` fetch `./data/publication.json`.
+- `tech-radar.yml` va `tech-profile-refresh.yml` da chuyen sang entrypoints Tech moi.
+- PASS: smoke validation / offline tech pipeline tests.
+- FULL Phase 0 / crawl / GDELT / publication / GitHub Actions: dang cho live result.

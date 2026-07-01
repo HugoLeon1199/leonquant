@@ -106,7 +106,7 @@ def build_event(row: dict[str, Any]) -> dict[str, Any]:
         "topic_tags": event_tags(blob),
         "company_tags": companies_from_blob(blob),
         "reported_at": str(row.get("DATEADDED") or ""),
-        "freshness_hours": 24,
+        "freshness_hours": 72,
         "hot_candidate": len(domains) >= 2 or (official_present and len(domains) >= 2),
         "pool_kind": str(row.get("pool_kind") or ""),
         "avg_tone": float(row.get("AvgTone") or 0.0),
@@ -129,7 +129,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=TECH_GDELT_OUTPUT)
     parser.add_argument("--web-output", type=Path, default=TECH_GDELT_WEB_OUTPUT)
     parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--max-bytes-billed", type=int, default=700_000_000)
+    parser.add_argument("--max-bytes-billed", type=int, default=2_000_000_000)
     args = parser.parse_args()
 
     sql = SQL_PATH.read_text(encoding="utf-8")
@@ -141,7 +141,7 @@ def main() -> int:
         maximum_bytes_billed=args.max_bytes_billed,
     )
     if args.dry_run:
-        print(f"tech dry-run bytes_billed={meta['bytes_billed']}")
+        print(f"tech dry-run estimated_bytes={meta['bytes_billed']}")
         return 0
 
     events = [build_event(row) for row in (rows or [])]
@@ -157,7 +157,7 @@ def main() -> int:
     payload = {
         "schema_version": TECH_GDELT_SCHEMA,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "query_window_hours": 24,
+        "query_window_hours": 72,
         "bq_bytes_billed": int(meta.get("bytes_billed") or 0),
         "events": events,
     }

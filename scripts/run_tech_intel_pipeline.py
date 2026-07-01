@@ -39,6 +39,7 @@ def main() -> int:
     parser.add_argument("--clean-output", type=Path, default=TECH_NEWS_FOR_AI_CLEAN)
     parser.add_argument("--date", default="today")
     parser.add_argument("--timezone", default="Asia/Ho_Chi_Minh")
+    parser.add_argument("--rolling-hours", type=int, default=72)
     parser.add_argument("--skip-profile", action="store_true")
     parser.add_argument("--min-clean-articles", type=int, default=5)
     args = parser.parse_args()
@@ -111,6 +112,8 @@ def main() -> int:
             args.date,
             "--timezone",
             args.timezone,
+            "--rolling-hours",
+            str(max(1, int(args.rolling_hours))),
             "--output",
             str(args.ai_output),
         ]

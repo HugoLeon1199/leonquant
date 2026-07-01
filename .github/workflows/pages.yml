@@ -103,11 +103,11 @@ jobs:
           cp web/invest_vn_brief.json _site/web/invest_vn_brief.json 2>/dev/null || true
           cp invest_world_pulse.json _site/invest_world_pulse.json 2>/dev/null || true
           cp web/invest_world_pulse.json _site/web/invest_world_pulse.json 2>/dev/null || true
-          cp tech_gdelt_pulse.json _site/tech_gdelt_pulse.json 2>/dev/null || true
-          cp web/tech_gdelt_pulse.json _site/web/tech_gdelt_pulse.json 2>/dev/null || true
-          cp tech_publication.json _site/tech_publication.json 2>/dev/null || true
-          cp web/tech_publication.json _site/web/tech_publication.json 2>/dev/null || true
-          mkdir -p _site/tech
+          mkdir -p _site/tech/data _site/tech/web
+          cp tech/data/gdelt_pulse.json _site/tech/data/gdelt_pulse.json 2>/dev/null || true
+          cp tech/web/gdelt_pulse.json _site/tech/web/gdelt_pulse.json 2>/dev/null || true
+          cp tech/data/publication.json _site/tech/data/publication.json 2>/dev/null || true
+          cp tech/web/publication.json _site/tech/web/publication.json 2>/dev/null || true
           cp tech/index.html _site/tech/index.html 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
