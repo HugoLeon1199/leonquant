@@ -15,7 +15,7 @@ CONFIG_DIR = TECH_ROOT / "config"
 REPORTS_DIR = TECH_ROOT / "reports"
 DATA_DIR = TECH_ROOT / "data"
 TIERS_DIR = CONFIG_DIR / "tiers"
-CATALOG = CONFIG_DIR / "sources_catalog.txt"
+CATALOG = ROOT / "config" / "tech_sources_catalog.txt"
 ACTIVE = CONFIG_DIR / "sources_active.txt"
 DISABLED = CONFIG_DIR / "sources_disabled.txt"
 TIERS_MANIFEST = CONFIG_DIR / "tiers_manifest.json"
@@ -31,7 +31,7 @@ PUBLICATION_SCHEMA = "tech-newsroom-72h-v1"
 GDELT_SCHEMA = "tech-gdelt-72h-v1"
 VALIDATION_SCHEMA = "tech-source-validation-72h-v1"
 PASS_STATUSES = {"PASS_RSS", "PASS_SITEMAP", "PASS_HTML", "PASS_FORUM_RSS"}
-FORBIDDEN_PUBLIC_TERMS = ("pipeline", "crawler", "gdelt", "gemini", "prompt", "bigquery")
+FORBIDDEN_PUBLIC_TERMS = ("gdelt", "crawler", "pipeline tech", "bigquery bytes", "gemini biên tập")
 
 OFFICIAL_HOSTS = {
     "openai.com", "anthropic.com", "deepmind.google", "blog.google", "ai.meta.com",
@@ -45,20 +45,19 @@ COMMUNITY_HINTS = (
     "news.ycombinator.com", "lobste.rs", "github.com",
 )
 TECH_HINTS = (
-    "artificial intelligence", "generative ai", "large language model", "llm", "ai agent",
-    "multimodal", "machine learning", "deep learning", "openai", "anthropic", "claude",
-    "gemini", "llama", "deepseek", "qwen", "mistral", "copilot", "gpu", "semiconductor",
-    "chip", "data center", "cloud", "cybersecurity", "robotics", "autonomous", "quantum",
-    "open source", "open-source", "github", "人工智能", "生成式", "人工知能", "生成ai",
-    "인공지능", "искусственный интеллект", "الذكاء الاصطناعي",
+    "artificial intelligence", "generative ai", "large language model", "llm",
+    "machine learning", "deep learning", "openai", "anthropic", "claude", "gemini",
+    "llama", "deepseek", "qwen", "mistral", "copilot", "gpu", "semiconductor",
+    "chip", "data center", "cloud", "security", "robotics", "autonomous", "quantum",
+    "open source", "open-source", "github", "人工智能", "人工知能", "인공지능",
 )
 SECTION_HINTS = {
     "model_agent_moi": ("model", "llm", "agent", "gpt", "claude", "gemini", "llama", "deepseek", "qwen"),
-    "cach_dung_ai": ("workflow", "use case", "productivity", "deployment", "copilot", "automation", "how to"),
+    "cach_dung_ai": ("workflow", "use case", "productivity", "deployment", "copilot", "automation"),
     "open_source_developer_tools": ("open source", "open-source", "github", "sdk", "framework", "developer", "docker"),
     "chip_ha_tang": ("gpu", "chip", "semiconductor", "hbm", "data center", "cloud", "server", "tsmc", "asml"),
     "robotics": ("robot", "robotics", "humanoid", "drone", "robotaxi", "autonomous"),
-    "cybersecurity": ("cyber", "security", "breach", "vulnerability", "zero-day", "deepfake"),
+    "cybersecurity": ("cyber", "security", "breach", "vulnerability", "deepfake"),
     "chinh_sach_cuoc_dua_toan_cau": ("regulation", "policy", "copyright", "export control", "sanction", "ai act", "antitrust"),
     "radar_khu_vuc": ("china", "japan", "korea", "taiwan", "india", "russia", "arab", "africa", "europe", "asia"),
 }
@@ -89,9 +88,7 @@ def canonical_url(url: str) -> str:
     p = urlparse(str(url or "").strip())
     if not p.scheme or not p.netloc:
         return ""
-    host = p.netloc.lower()
-    if host.startswith("www."):
-        host = host[4:]
+    host = p.netloc.lower().removeprefix("www.")
     path = re.sub(r"/+", "/", p.path or "/")
     if path != "/":
         path = path.rstrip("/")
@@ -154,8 +151,7 @@ def freshness_hours(values: list[Any], default: int = WINDOW_HOURS) -> int:
     dts = [x for x in (parse_datetime(v) for v in values) if x]
     if not dts:
         return default
-    age = int((datetime.now(timezone.utc) - max(dts)).total_seconds() // 3600)
-    return max(0, min(default, age))
+    return max(0, min(default, int((datetime.now(timezone.utc) - max(dts)).total_seconds() // 3600)))
 
 
 def story_id(text: str) -> str:
