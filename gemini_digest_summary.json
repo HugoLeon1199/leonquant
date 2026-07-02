@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-01T23:25:32.554016+00:00",
+  "generated_at": "2026-07-02T23:21:09.347598+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 824677,
+    "estimated_input_tokens": 743918,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 713,
-    "sent_article_count": 713,
+    "input_article_count": 665,
+    "sent_article_count": 665,
     "window": {
-      "end_date": "2026-07-02",
+      "end_date": "2026-07-03",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,79 +25,83 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động tài chính, hạ tầng và chính sách công nghệ trong 48 giờ qua, tập trung vào các dữ liệu thực tế từ thị trường và chỉ đạo điều hành.",
+    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, pháp lý và công nghệ trong 48 giờ qua, tập trung vào các sự kiện có tác động trực tiếp đến thị trường và đời sống.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh kinh tế thị trường bị chi phối bởi sự điều chỉnh mạnh của các tài sản rủi ro, đặc biệt là Bitcoin khi ghi nhận tháng 6 tồi tệ nhất lịch sử với dòng vốn ETF rút kỷ lục 4,5 tỷ USD. Trong khi đó, dòng chú ý thị trường đang tái định vị sang hạ tầng AI và năng lượng sạch, điển hình qua thương vụ 4,2 tỷ USD của KKR vào năng lượng tái tạo. Tại Việt Nam, trọng tâm điều hành dồn vào việc cụ thể hóa các dự án hạ tầng chiến lược và thay đổi khung pháp lý tài chính từ tháng 7.",
-        "most_mentioned": "Hạ tầng giao thông và chính sách tín dụng là hai chủ đề được nhắc nhiều nhất. Việc TP.HCM khởi công 8 dự án hạ tầng trọng điểm với tổng vốn 9,6 tỷ USD và các thay đổi trong Thông tư 29/2026 về hạn mức vay tiêu dùng đang tạo ra những tác động trực tiếp đến kỳ vọng tăng trưởng của doanh nghiệp và người dân.",
-        "top_stories": "Sự kiện khởi công đồng loạt 8 dự án hạ tầng tại TP.HCM, bao gồm cảng Cái Mép Hạ và đường vượt biển Cần Giờ - Vũng Tàu, cùng với việc ngân hàng UOB đầu tư 450 triệu USD xây trụ sở tại khu Ba Son, đã tạo nên một làn sóng đầu tư hạ tầng mạnh mẽ. Các sự kiện này không chỉ là những dự án đơn lẻ mà còn là bước đi chiến lược nhằm hiện thực hóa mục tiêu đưa TP.HCM trở thành trung tâm tài chính khu vực.",
-        "sector_impacts": "Ngành công nghệ đang chứng kiến sự phân hóa khi các mô hình AI lớn như Claude Fable 5 của Anthropic được khôi phục, trong khi cổ phiếu bán dẫn như Micron và Intel chịu áp lực điều chỉnh. Tại Việt Nam, ngành gia công phần mềm đang chịu sức ép từ AI tạo sinh, buộc các doanh nghiệp như FPT phải chuyển dịch sang các mảng giá trị cao hơn.",
-        "watch_24_72h": "HCM, và các văn bản hướng dẫn chi tiết về thuế tài sản số tại Việt Nam."
+        "main_picture": "Bức tranh 48 giờ qua bị chi phối bởi dữ liệu việc làm Mỹ tháng 6 chỉ đạt 57.000 việc làm, thấp hơn nhiều so với dự báo, khiến kỳ vọng Fed tăng lãi suất giảm mạnh và thúc đẩy dòng tiền tìm đến các tài sản trú ẩn. Tại Việt Nam, Ngân hàng Thế giới (WB) chính thức nâng hạng Việt Nam lên nhóm quốc gia thu nhập trung bình cao, một cột mốc quan trọng khẳng định đà tăng trưởng bền vững.",
+        "most_mentioned": "Dữ liệu việc làm Mỹ và các vụ án kinh tế lớn tại Việt Nam (PNJ, EVNNPT, ONUS) là những chủ đề được nhắc đến nhiều nhất, phản ánh sự quan tâm của giới đầu tư vào cả vĩ mô quốc tế và rủi ro pháp lý nội địa.",
+        "top_stories": "Sự kiện Việt Nam được WB xếp vào nhóm thu nhập trung bình cao là điểm sáng vĩ mô, trong khi các vụ án buôn lậu kim cương và sai phạm tại ngành điện cho thấy nỗ lực làm sạch môi trường kinh doanh đang được đẩy mạnh.",
+        "sector_impacts": "Dòng vốn tài chính đang có xu hướng thận trọng, chuyển dịch từ các tài sản rủi ro sang nhóm phòng thủ. Trong khi đó, công nghệ AI tiếp tục là động lực đầu tư chính với các dự án hạ tầng lớn tại Việt Nam.",
+        "watch_24_72h": "Theo dõi phản ứng của thị trường chứng khoán trước các thông tin pháp lý mới, diễn biến giá vàng trong nước và các văn bản hướng dẫn chính sách thuế, tín dụng mới ban hành."
       },
-      "content": "Thị trường tài chính 48 giờ qua bị chi phối bởi tâm lý phòng thủ. Bitcoin giảm 20% trong tháng 6, đánh dấu hiệu suất tháng tồi tệ nhất kể từ 2022, với dòng vốn ETF rút ròng kỷ lục 4,5 tỷ USD. Sự dịch chuyển dòng vốn này cho thấy nhà đầu tư tổ chức đang tái định vị danh mục sang các tài sản có nền tảng thực tế hơn. Tại Việt Nam, chính sách tài chính bước vào giai đoạn cụ thể hóa mạnh mẽ với việc nâng hạn mức vay không cần chứng minh tài chính lên 400 triệu đồng và áp dụng xác thực sinh trắc học cho giao dịch lớn, ảnh hưởng trực tiếp đến quy trình vận hành của doanh nghiệp và người dân.\n\nTrong lĩnh vực công nghệ, AI không còn là câu chuyện của phần mềm đơn thuần mà đang chuyển dịch sang hạ tầng dữ liệu và năng lượng. Các thương vụ đầu tư lớn như của KKR vào năng lượng sạch hay Together AI huy động 800 triệu USD cho thấy nhu cầu khổng lồ về năng lực tính toán. Tại Việt Nam, sự kiện khởi công 8 dự án hạ tầng trọng điểm tại TP.HCM và trụ sở UOB Plaza là những bước đi chiến lược nhằm xây dựng hạ tầng mềm cho Trung tâm Tài chính quốc tế, củng cố vị thế cạnh tranh của khu vực phía Nam.",
+      "content": "Bức tranh 48 giờ qua bị chi phối bởi dữ liệu việc làm Mỹ tháng 6 chỉ đạt 57.000 việc làm, thấp hơn nhiều so với dự báo, khiến kỳ vọng Fed tăng lãi suất giảm mạnh. Điều này thúc đẩy dòng tiền tìm đến các tài sản trú ẩn như vàng và Bitcoin. Tại Việt Nam, Ngân hàng Thế giới (WB) chính thức nâng hạng Việt Nam lên nhóm quốc gia thu nhập trung bình cao, một cột mốc quan trọng khẳng định đà tăng trưởng bền vững. Tuy nhiên, thị trường cũng đối mặt với các vụ án kinh tế lớn liên quan đến buôn lậu kim cương tại PNJ và sai phạm tại Tổng công ty Truyền tải điện quốc gia, gây áp lực lên niềm tin nhà đầu tư. Trong lĩnh vực công nghệ, các tập đoàn lớn như Microsoft và Amazon đang chuyển hướng sang mô hình triển khai AI trực tiếp cho doanh nghiệp, trong khi Việt Nam khởi công các dự án hạ tầng công nghệ trọng điểm tại Thái Nguyên, khẳng định vị thế trong chuỗi cung ứng bán dẫn toàn cầu.",
       "representative_sources": [
         {
-          "title": "Bitcoin’s 20% June crash looks even deadlier on the charts. Here’s why",
+          "title": "ChatGPT developer OpenAI reported to discuss offering U.S. government a 5% stake",
           "source": "coindesk_com",
-          "url": "https://coindesk.com/markets/2026/07/01/bitcoin-s-20-june-crash-looks-even-deadlier-on-the-charts-here-s-why"
+          "url": "https://coindesk.com/policy/2026/07/02/openai-reported-to-discuss-offering-u-s-government-a-5-stake"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Biến động thị trường tài sản số",
-          "why_mentioned": "Áp lực bán kỷ lục từ các quỹ ETF Bitcoin.",
-          "evidence_hint": "Dữ liệu dòng vốn rút ròng 4,5 tỷ USD trong tháng 6."
+          "topic": "Dữ liệu việc làm Mỹ",
+          "why_mentioned": "Tác động trực tiếp đến chính sách tiền tệ toàn cầu.",
+          "evidence_hint": "Lặp lại trên CNBC, Coindesk, Cafef."
+        },
+        {
+          "topic": "Vụ án kinh tế Việt Nam",
+          "why_mentioned": "Ảnh hưởng đến uy tín doanh nghiệp và thị trường.",
+          "evidence_hint": "Đưa tin dày đặc trên Tiền Phong, Tuổi Trẻ, Cafef."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Hạ tầng giao thông TP.HCM",
-          "why_hot": "Khởi công đồng loạt 8 dự án trọng điểm.",
-          "impact": "Tác động trực tiếp đến kinh tế vùng Đông Nam Bộ.",
-          "evidence_hint": "Tổng vốn đầu tư 9,6 tỷ USD."
+          "topic": "Nâng hạng kinh tế Việt Nam",
+          "why_hot": "Sự kiện vĩ mô quan trọng nhất trong 48h.",
+          "impact": "Cải thiện vị thế quốc gia và niềm tin nhà đầu tư.",
+          "evidence_hint": "Được đưa tin bởi WB và các báo lớn tại Việt Nam."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch dòng vốn sang hạ tầng AI",
-          "why_watch": "Nhà đầu tư ưu tiên các doanh nghiệp có năng lực tính toán và năng lượng sạch."
+          "signal": "Chuyển dịch sang AI triển khai thực tế",
+          "why_watch": "Các tập đoàn lớn đang chuyển từ thử nghiệm sang thương mại hóa AI quy mô lớn."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường tài sản số",
-        "Tiến độ giải ngân các dự án hạ tầng tại TP.HCM"
+        "Diễn biến giá vàng trong nước",
+        "Phản ứng của thị trường chứng khoán với các vụ án kinh tế",
+        "Văn bản hướng dẫn chính sách thuế mới"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "TP.HCM khởi công 8 dự án hạ tầng trọng điểm",
-        "one_sentence": "Tổng vốn đầu tư 9,6 tỷ USD cho 8 dự án chiến lược, bao gồm cảng Cái Mép Hạ và đường vượt biển Cần Giờ - Vũng Tàu, nhằm tạo động lực tăng trưởng mới cho vùng Đông Nam Bộ.",
-        "why_it_matters": "Đây là sự kiện hạ tầng lớn nhất trong 48 giờ qua, tác động trực tiếp đến triển vọng kinh tế và logistics của khu vực phía Nam.",
-        "watch_next": "Tiến độ giải phóng mặt bằng và giải ngân vốn đầu tư công trong quý 3/2026.",
-        "source_urls": [
-          "https://baochinhphu.vn/tphcm-khoi-cong-dong-loat-8-du-an-trong-diem-chao-mung-50-nam-thanh-pho-vinh-du-mang-ten-bac-102260701090536761.htm"
-        ]
+        "title": "Dữ liệu việc làm Mỹ tháng 6 thấp kỷ lục",
+        "one_sentence": "Nền kinh tế Mỹ chỉ tạo ra 57.000 việc làm mới, thấp hơn nhiều so với dự báo, làm giảm kỳ vọng Fed tăng lãi suất và thúc đẩy dòng tiền vào tài sản trú ẩn.",
+        "why_it_matters": "Dữ liệu vĩ mô quan trọng nhất trong 48h, tác động trực tiếp đến chính sách tiền tệ và tâm lý thị trường tài chính toàn cầu.",
+        "watch_next": "Kỳ vọng lãi suất của Fed trong tháng 9.",
+        "source_urls": []
       },
       {
         "rank": 2,
-        "title": "Bitcoin ETF ghi nhận tháng tồi tệ nhất lịch sử",
-        "one_sentence": "Dòng vốn rút ròng kỷ lục 4,5 tỷ USD trong tháng 6 đã đẩy giá Bitcoin giảm 20%, phản ánh tâm lý thận trọng của nhà đầu tư tổ chức trước áp lực lãi suất.",
-        "why_it_matters": "Dòng vốn ETF là chỉ báo quan trọng nhất cho tâm lý nhà đầu tư tổ chức, sự sụt giảm này cho thấy sự dịch chuyển dòng vốn sang các tài sản khác.",
-        "watch_next": "Diễn biến giá Bitcoin quanh mốc 60.000 USD và các dữ liệu kinh tế Mỹ tiếp theo.",
+        "title": "Việt Nam gia nhập nhóm quốc gia thu nhập trung bình cao",
+        "one_sentence": "Ngân hàng Thế giới chính thức nâng hạng Việt Nam với GNI bình quân đầu người đạt 4.970 USD năm 2025, vượt ngưỡng 4.636 USD theo tiêu chí mới.",
+        "why_it_matters": "Sự kiện vĩ mô quan trọng nhất đối với vị thế kinh tế quốc gia, ảnh hưởng đến niềm tin nhà đầu tư và khả năng tiếp cận vốn ODA.",
+        "watch_next": "Phản ứng của các tổ chức xếp hạng tín nhiệm quốc tế.",
         "source_urls": [
-          "https://cointelegraph.com/news/bitcoin-etf-4-5-billion-outflow-june-worst-on-record?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+          "https://tienphong.vn/wb-xep-viet-nam-vao-nhom-quoc-gia-thu-nhap-trung-binh-cao-post1856440.tpo"
         ]
       },
       {
         "rank": 3,
-        "title": "UOB đầu tư 450 triệu USD xây trụ sở tại TP.HCM",
-        "one_sentence": "Ngân hàng UOB Việt Nam khởi công tòa tháp UOB Plaza tại khu Ba Son, khẳng định cam kết dài hạn và củng cố vị thế của TP.HCM như một trung tâm tài chính khu vực.",
-        "why_it_matters": "Dự án hạ tầng tài chính quy mô lớn này là minh chứng cho niềm tin của khối ngoại vào hạ tầng mềm của Việt Nam.",
-        "watch_next": "Tiến độ xây dựng dự kiến hoàn thành vào năm 2030.",
+        "title": "Triệt phá đường dây buôn lậu kim cương liên quan đến PNJ",
+        "one_sentence": "Công an tỉnh Thanh Hóa bắt giữ 22 đối tượng, bao gồm Giám đốc PNJ-LAP, trong đường dây buôn lậu hơn 28.000 viên kim cương từ Hồng Kông vào Việt Nam.",
+        "why_it_matters": "Vụ án kinh tế nghiêm trọng ảnh hưởng trực tiếp đến uy tín doanh nghiệp lớn và thị trường vàng bạc đá quý.",
+        "watch_next": "Diễn biến điều tra mở rộng và tác động đến cổ phiếu PNJ.",
         "source_urls": [
-          "https://tuoitre.vn/uob-dau-tu-450-trieu-usd-xay-tru-so-o-trung-tam-tai-chinh-quoc-te-tphcm-100260701174648466.htm"
+          "https://tienphong.vn/mot-giam-doc-cua-pnj-bi-bat-trong-duong-day-buon-lau-hon-28000-vien-kim-cuong-post1856429.tpo"
         ]
       }
     ],
@@ -105,24 +109,83 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh của tài sản rủi ro và những thay đổi chính sách tín dụng quan trọng tại Việt Nam. Dòng vốn đang có xu hướng dịch chuyển từ các tài sản đầu cơ sang các dự án hạ tầng và lĩnh vực có khả năng tạo dòng tiền ổn định. Các chính sách mới về hạn mức vay và quản lý thuế từ tháng 7 đang tạo ra một môi trường kinh doanh minh bạch hơn, đồng thời thúc đẩy các ngân hàng tối ưu hóa nguồn vốn. Nhà đầu tư hiện đang đánh giá tài sản dựa trên vị trí chiến lược và khả năng khai thác dòng tiền thực tế thay vì kỳ vọng tăng giá vốn ngắn hạn.",
+        "sector_thesis": "Kinh tế & Tài chính 48h qua nổi bật với sự kiện Việt Nam được nâng hạng thu nhập trung bình cao, song song với những biến động vĩ mô từ Mỹ. Dòng vốn đang có sự phân hóa mạnh mẽ khi nhà đầu tư tìm kiếm sự an toàn trước các rủi ro pháp lý nội địa và bất ổn từ dữ liệu việc làm Mỹ. Các ngân hàng thương mại Việt Nam như VPBank và SeABank đang tăng lãi suất huy động để thu hút dòng tiền, trong khi Ngân hàng Nhà nước duy trì chính sách tín dụng linh hoạt cho các dự án trọng điểm của Vingroup và Sun Group. Sự kiện triệt phá đường dây buôn lậu kim cương tại PNJ-LAP và thu giữ 350kg vàng bạc trong vụ án ONUS cho thấy nỗ lực làm sạch thị trường tài chính đang được đẩy mạnh quyết liệt.",
         "subsector_briefs": [
           {
-            "name": "Thị trường tài chính & Tiền điện tử",
-            "overview": "Thị trường tài sản số chịu áp lực điều chỉnh mạnh do dòng vốn ETF rút ròng kỷ lục, trong khi các ngân hàng lớn bắt đầu tham gia vào thị trường stablecoin.",
+            "name": "Vĩ mô & Chính sách",
+            "overview": "Việt Nam chính thức gia nhập nhóm thu nhập trung bình cao theo WB, trong khi tín dụng tăng 7,41% và NHNN duy trì định hướng vốn vào sản xuất.",
             "key_points": [
-              "Bitcoin giảm 20% trong tháng 6",
-              "Dòng vốn ETF rút ròng 4,5 tỷ USD",
-              "Crédit Agricole phát hành stablecoin EURXT"
+              "WB nâng hạng Việt Nam",
+              "Tín dụng tăng 7,41%",
+              "Chính sách thuế mới"
             ],
             "key_story_titles": [
-              "Bitcoin ghi nhận tháng 6 tồi tệ nhất lịch sử"
+              "Việt Nam được WB xếp vào nhóm quốc gia thu nhập trung bình cao"
             ],
             "representative_sources": [
               {
-                "title": "Bitcoin’s 20% June crash looks even deadlier on the charts. Here’s why",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/markets/2026/07/01/bitcoin-s-20-june-crash-looks-even-deadlier-on-the-charts-here-s-why"
+                "title": "WB: Việt Nam chính thức vào nhóm quốc gia thu nhập trung bình cao",
+                "source": "baochinhphu_vn",
+                "url": "https://baochinhphu.vn/wb-viet-nam-chinh-thuc-vao-nhom-quoc-gia-thu-nhap-trung-binh-cao-10226070213574374.htm",
+                "excerpt": "GNI bình quân đầu người đạt 4.970 USD năm 2025."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "major",
+            "sub_sector": "Pháp luật kinh tế",
+            "title": "Vụ án buôn lậu kim cương tại PNJ-LAP",
+            "summary": "Công an tỉnh Thanh Hóa đã khởi tố 22 bị can trong đường dây buôn lậu hơn 28.000 viên kim cương từ Hồng Kông vào Việt Nam, liên quan trực tiếp đến Đặng Ngọc Thảo, Giám đốc Công ty TNHH một thành viên giám định PNJ (PNJ-LAP). Vụ án gây chấn động thị trường vàng bạc đá quý do tính chất nghiêm trọng của việc làm giả giấy kiểm định.",
+            "main_developments": [
+              "Thu giữ 1.100 viên kim cương trong đợt khám xét đầu tiên",
+              "Đặng Ngọc Thảo bị cáo buộc mài bỏ mã số GIA để làm giả giấy kiểm định",
+              "Đường dây đã thực hiện trót lọt 141 lượt vận chuyển từ năm 2024"
+            ],
+            "why_it_matters": "Ảnh hưởng trực tiếp đến uy tín của PNJ và đặt ra câu hỏi về tính minh bạch trong quy trình kiểm định đá quý tại Việt Nam.",
+            "affected_groups": [
+              "PNJ",
+              "Thị trường vàng bạc đá quý",
+              "Nhà đầu tư chứng khoán"
+            ],
+            "watch_next": [
+              "Kết luận điều tra cuối cùng",
+              "Phản ứng của cổ phiếu PNJ trên sàn chứng khoán"
+            ],
+            "representative_sources": [
+              {
+                "title": "Một giám đốc của PNJ bị bắt trong đường dây buôn lậu hơn 28.000 viên kim cương",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/mot-giam-doc-cua-pnj-bi-bat-trong-duong-day-buon-lau-hon-28000-vien-kim-cuong-post1856429.tpo",
+                "excerpt": "Đặng Ngọc Thảo bị bắt vì hành vi buôn lậu và làm giả giấy kiểm định."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "tech",
+        "name": "Công nghệ & AI",
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua chuyển dịch từ thử nghiệm sang thương mại hóa quy mô lớn. Các tập đoàn lớn như Microsoft và Amazon đang đầu tư hàng tỷ USD vào các đơn vị triển khai AI trực tiếp cho doanh nghiệp, trong khi Việt Nam đẩy mạnh các dự án công nghệ cao tại Thái Nguyên và TP.HCM. FPT đã khẳng định vị thế trong chuỗi cung ứng bán dẫn toàn cầu khi hợp tác cùng Intel và TSMC. Sự kiện Venice AI đạt định giá 1 tỷ USD cho thấy nhu cầu về quyền riêng tư trong AI đang tăng cao, trong khi Apple phải đối mặt với áp lực tăng giá sản phẩm do thiếu hụt RAM vì cơn sốt trung tâm dữ liệu AI.",
+        "subsector_briefs": [
+          {
+            "name": "AI & Hạ tầng",
+            "overview": "Microsoft và Amazon đẩy mạnh mô hình triển khai AI doanh nghiệp, trong khi Việt Nam khởi công dự án Thung lũng Silicon tại Thái Nguyên.",
+            "key_points": [
+              "Microsoft đầu tư 2,5 tỷ USD vào AI",
+              "FPT hợp tác cùng Intel và TSMC",
+              "Dự án công nghệ cao tại Thái Nguyên"
+            ],
+            "key_story_titles": [
+              "Microsoft đầu tư 2,5 tỷ USD vào đơn vị triển khai AI mới"
+            ],
+            "representative_sources": [
+              {
+                "title": "Microsoft commits $2.5 billion and 6,000 employees to new AI implementation unit",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/07/02/microsoft-commits-2point5-billion-6000-employees-ai-implementation-unit.html"
               }
             ]
           }
@@ -131,61 +194,29 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Chính sách tài chính Việt Nam",
-            "title": "Thay đổi chính sách tín dụng và thuế từ tháng 7/2026",
-            "summary": "Ngân hàng Nhà nước Việt Nam đã ban hành các quy định mới nhằm nới lỏng hạn mức vay nhỏ và siết chặt quản lý giao dịch lớn, cùng với đó là việc áp dụng thuế tiêu thụ đặc biệt mới đối với xăng dầu. Những thay đổi này nhằm mục đích khơi thông dòng vốn cho các dự án trung và dài hạn, đồng thời tăng cường tính minh bạch trong quản lý tài chính doanh nghiệp.",
+            "sub_sector": "AI Doanh nghiệp",
+            "title": "Microsoft đẩy mạnh triển khai AI doanh nghiệp",
+            "summary": "Microsoft đã công bố khoản đầu tư 2,5 tỷ USD để thành lập đơn vị 'Microsoft Frontier Company', với đội ngũ 6.000 kỹ sư chuyên trách hỗ trợ khách hàng doanh nghiệp triển khai AI. Động thái này đánh dấu bước chuyển dịch quan trọng từ việc bán phần mềm sang cung cấp dịch vụ triển khai trực tiếp, nhằm chứng minh hiệu quả kinh tế thực tế của AI trong vận hành doanh nghiệp.",
             "main_developments": [
-              "Nâng hạn mức vay không cần chứng minh tài chính lên 400 triệu đồng từ ngày 15/8/2026.",
-              "Áp dụng xác thực sinh trắc học cho giao dịch trên 50 triệu đồng từ ngày 1/7/2026.",
-              "Khôi phục thuế tiêu thụ đặc biệt đối với xăng dầu, đẩy giá bán lẻ tăng từ 1/7/2026."
+              "Cam kết 6.000 nhân sự hỗ trợ trực tiếp tại doanh nghiệp",
+              "Mô hình 'forward deployed engineering' được áp dụng để tối ưu hóa quy trình",
+              "Cạnh tranh trực tiếp với AWS trong mảng dịch vụ AI doanh nghiệp"
             ],
-            "why_it_matters": "Các chính sách này ảnh hưởng trực tiếp đến chi phí vận hành của doanh nghiệp và khả năng tiếp cận vốn của người dân, đồng thời định hình lại môi trường kinh doanh trong nửa cuối năm 2026.",
+            "why_it_matters": "Đây là bước đi chiến lược nhằm thương mại hóa AI ở quy mô lớn, giúp doanh nghiệp vượt qua rào cản kỹ thuật khi ứng dụng công nghệ mới.",
             "affected_groups": [
-              "Doanh nghiệp nhỏ và vừa",
-              "Người tiêu dùng",
-              "Hệ thống ngân hàng thương mại"
+              "Khách hàng doanh nghiệp",
+              "Microsoft",
+              "Đối thủ cạnh tranh trong mảng Cloud"
             ],
             "watch_next": [
-              "Tác động của thuế xăng dầu đến lạm phát",
-              "Hiệu quả của việc xác thực sinh trắc học trong ngăn chặn gian lận tài chính"
-            ],
-            "representative_sources": []
-          }
-        ]
-      },
-      {
-        "code": "tech",
-        "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua tập trung vào việc tối ưu hóa hạ tầng và ứng dụng AI trong sản xuất. Các doanh nghiệp lớn đang chuyển dịch từ việc đầu tư ồ ạt sang tối ưu hóa chi phí và thương mại hóa công suất điện toán. Tại Việt Nam, chỉ đạo của Tổng Bí thư, Chủ tịch nước Tô Lâm về việc chuyển mạnh từ xây dựng cơ chế sang tạo ra sản phẩm công nghệ thực tế đang định hình lại chiến lược đổi mới sáng tạo quốc gia. Sự trỗi dậy của AI tạo sinh đang buộc các doanh nghiệp gia công phần mềm phải chuyển dịch sang các mảng giá trị cao hơn để duy trì lợi thế cạnh tranh.",
-        "subsector_briefs": [],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "AI và Sản xuất",
-            "title": "Giới hạn của AI trong quản trị sản xuất công nghiệp",
-            "summary": "Các doanh nghiệp sản xuất lớn như Ford đang bắt đầu nhận ra những giới hạn của AI trong việc thay thế tư duy con người đối với các quy trình kiểm soát chất lượng phức tạp. Việc tuyển dụng lại các kỹ sư giàu kinh nghiệm cho thấy sự kết hợp giữa công nghệ và tư duy con người vẫn là chìa khóa để đạt hiệu quả sản xuất tối ưu.",
-            "main_developments": [
-              "Ford tuyển dụng lại 300 kỹ sư giàu kinh nghiệm làm kiểm toán viên nội bộ.",
-              "AI không đạt kỳ vọng trong việc kiểm soát chất lượng sản xuất tại Ford.",
-              "Sự kết hợp giữa tư duy con người và năng lực xử lý của AI mang lại hiệu quả cao hơn."
-            ],
-            "why_it_matters": "Đây là bài học thực tế cho các doanh nghiệp đang trong quá trình chuyển đổi số, nhấn mạnh rằng AI là công cụ hỗ trợ chứ không thể thay thế hoàn toàn tư duy chuyên gia.",
-            "affected_groups": [
-              "Doanh nghiệp sản xuất",
-              "Kỹ sư công nghệ",
-              "Ngành công nghiệp ô tô"
-            ],
-            "watch_next": [
-              "Khả năng tích hợp AI vào quy trình sản xuất của các doanh nghiệp Việt Nam",
-              "Xu hướng tuyển dụng nhân sự cấp cao trong ngành sản xuất"
+              "Hiệu quả triển khai thực tế tại các khách hàng lớn",
+              "Phản ứng của các đối thủ như Google và AWS"
             ],
             "representative_sources": [
               {
-                "title": "Bài học xương máu khi ảo tưởng sức mạnh trí tuệ nhân tạo: Ford tuyển dụng lại các kỹ sư giàu kinh nghiệm sau khi trí tuệ nhân tạo không đạt kỳ vọng",
-                "source": "genk_vn",
-                "url": "https://genk.vn/bai-hoc-xuong-mau-khi-ao-tuong-suc-manh-tri-tue-nhan-tao-ford-tuyen-dung-lai-cac-ky-su-giau-kinh-nghiem-sau-khi-tri-tue-nhan-tao-khong-dat-ky-vong-165260701122331238.chn",
-                "excerpt": "Ford tuyển dụng lại kỹ sư giàu kinh nghiệm sau khi AI không đạt kỳ vọng trong kiểm soát chất lượng."
+                "title": "Microsoft commits $2.5 billion and 6,000 employees to new AI implementation unit",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/07/02/microsoft-commits-2point5-billion-6000-employees-ai-implementation-unit.html"
               }
             ]
           }
@@ -194,56 +225,36 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48 giờ qua bị chi phối bởi các diễn biến địa chính trị tại Trung Đông và những thay đổi pháp lý quan trọng tại EU. Việc quy định MiCA chính thức có hiệu lực tại EU đánh dấu bước ngoặt trong quản lý tài sản số toàn cầu. Tại Việt Nam, các chỉ đạo về đẩy nhanh tiến độ hạ tầng và kỷ luật đầu tư công đang được thực thi quyết liệt, đặc biệt là sau các sự kiện khởi công hạ tầng trọng điểm tại TP.HCM và các chỉ đạo của lãnh đạo cấp cao về việc tạo ra sản phẩm công nghệ thực tế.",
-        "subsector_briefs": [
-          {
-            "name": "Địa chính trị và An ninh",
-            "overview": "Căng thẳng tại Trung Đông và xung đột Nga-Ukraine tiếp tục gây áp lực lên an ninh năng lượng và ổn định toàn cầu.",
-            "key_points": [
-              "Mỹ cân nhắc quân sự với Iran",
-              "Nga thiếu hụt nhiên liệu do bị tấn công nhà máy lọc dầu",
-              "Ukraine tấn công Crimea"
-            ],
-            "key_story_titles": [
-              "Tổng thống Mỹ Donald Trump cân nhắc nối lại hoạt động quân sự nhằm vào Iran"
-            ],
-            "representative_sources": [
-              {
-                "title": "Tổng thống Mỹ Trump từng cân nhắc nối lại các hoạt động quân sự nhằm vào Iran",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/tong-thong-my-trump-tung-can-nhac-noi-lai-cac-hoat-dong-quan-su-nham-vao-iran-post1856067.tpo",
-                "excerpt": "Mỹ để ngỏ các phương án quân sự nếu đàm phán hạt nhân với Iran không đạt kết quả."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Thời sự và Chính trị 48h qua tập trung vào các diễn biến xung đột tại Ukraine và các chính sách an sinh xã hội mới tại Việt Nam. Nga gia tăng áp lực quân sự với các đợt tấn công quy mô lớn vào Kyiv, trong khi Đức cáo buộc Ukraine đứng sau vụ phá hoại đường ống Nord Stream. Tại Việt Nam, các quy định mới về BHYT và an ninh mạng được ban hành nhằm nâng cao quyền lợi người dân và bảo vệ an ninh thông tin. Sự ổn định chính trị và an ninh mạng trở thành ưu tiên hàng đầu trong bối cảnh các mối đe dọa lừa đảo trực tuyến gia tăng, với việc NHNN ngăn chặn thành công hơn 5.200 tỷ đồng giao dịch lừa đảo.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Pháp lý tài sản số",
-            "title": "Quy định MiCA có hiệu lực tại EU",
-            "summary": "Quy định về Thị trường tài sản mã hóa (MiCA) đã chính thức có hiệu lực tại Liên minh châu Âu, yêu cầu tất cả các công ty tiền điện tử phục vụ khách hàng tại khu vực này phải có giấy phép hoặc ngừng hoạt động. Đây là khung pháp lý toàn diện đầu tiên trên thế giới nhằm quản lý thị trường tài sản số.",
+            "depth_level": "major",
+            "sub_sector": "An sinh xã hội",
+            "title": "Quyền lợi mới cho người tham gia BHYT",
+            "summary": "Từ ngày 1/7/2026, chính sách mới cho phép quỹ Bảo hiểm Y tế (BHYT) thanh toán 50% chi phí khám ngoại trú cho một số nhóm bệnh trước đây chưa được chi trả. Đây là bước tiến quan trọng trong việc mở rộng phạm vi bảo vệ sức khỏe cho người dân, đặc biệt là tại các cơ sở y tế cấp cơ bản và chuyên sâu, giúp giảm bớt gánh nặng tài chính cho các hộ gia đình.",
             "main_developments": [
-              "Các công ty tiền điện tử phải có giấy phép MiCA để hoạt động tại EU.",
-              "Quy định áp dụng cho 27 quốc gia thành viên.",
-              "Tạo ra sự phân hóa trong ngành giữa các đơn vị tuân thủ và không tuân thủ."
+              "Áp dụng cho các cơ sở y tế cấp cơ bản và chuyên sâu",
+              "Thanh toán 50% mức hưởng cho khám ngoại trú",
+              "Mở rộng danh mục bệnh được chi trả"
             ],
-            "why_it_matters": "MiCA thiết lập tiêu chuẩn mới cho quản lý tài sản số toàn cầu, có thể trở thành hình mẫu cho các quốc gia khác trong việc xây dựng khung pháp lý tương tự.",
+            "why_it_matters": "Cải thiện đáng kể khả năng tiếp cận dịch vụ y tế chất lượng cao cho người dân, góp phần đảm bảo an sinh xã hội bền vững.",
             "affected_groups": [
-              "Sàn giao dịch tiền điện tử",
-              "Nhà phát hành stablecoin",
-              "Nhà đầu tư tại EU"
+              "Người tham gia BHYT",
+              "Cơ sở y tế",
+              "Người bệnh"
             ],
             "watch_next": [
-              "Phản ứng của các sàn giao dịch lớn",
-              "Tác động đến thanh khoản thị trường tiền điện tử tại EU"
+              "Tác động đến cân đối quỹ BHYT",
+              "Phản ứng của người dân tại các cơ sở y tế"
             ],
             "representative_sources": [
               {
-                "title": "MiCA is live as Europe's crypto industry splits over winners and losers",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/policy/2026/07/01/europe-s-mica-rollout-sparks-debate-over-who-wins-under-new-crypto-rules"
+                "title": "Tất cả người dân có bảo hiểm y tế trên cả nước sẽ được hưởng quyền lợi chưa từng có từ 1/7",
+                "source": "genk_vn",
+                "url": "https://genk.vn/tat-ca-nguoi-dan-co-bao-hiem-y-te-tren-ca-nuoc-se-duoc-huong-quyen-loi-chua-tung-co-tu-1-7-165260702013840432.chn",
+                "excerpt": "Quỹ BHYT thanh toán 50% chi phí khám ngoại trú cho một số nhóm bệnh."
               }
             ]
           }
@@ -252,96 +263,131 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua ghi nhận sự chuyển dịch trong tư duy tiêu dùng và quy hoạch đô thị. Tại Việt Nam, quy hoạch Thủ đô tầm nhìn 100 năm và các dự án nhà ở xã hội đang tạo ra làn sóng phân hóa mới trên thị trường bất động sản. Đồng thời, các thay đổi chính sách về ngày nghỉ lễ và quản lý flycam cho thấy sự quan tâm ngày càng lớn đến chất lượng sống và an ninh xã hội. Giới trẻ cũng đang có xu hướng chuyển dịch sang các mô hình tiêu dùng tiết kiệm nhưng vẫn đảm bảo sự độc đáo, như tổ chức đám cưới tại các chuỗi nhà hàng phổ thông.",
-        "subsector_briefs": [],
+        "sector_thesis": "Xu hướng và Đời sống 48h qua ghi nhận sự sôi động của thể thao toàn cầu với World Cup 2026 và các xu hướng tiêu dùng mới tại Việt Nam. Đội tuyển Mỹ đã tiến vào vòng 16 đội World Cup sau chiến thắng trước Bosnia, trong khi các thương hiệu thời trang lớn như Levi's và The North Face đang tái cấu trúc danh mục sản phẩm để tập trung vào khách hàng nữ. Tại Việt Nam, xu hướng chuyển dịch sang xe điện đang thay đổi thị trường ô tô, với chi phí vận hành thấp là động lực chính. Bên cạnh đó, các nghiên cứu khoa học về thói quen đọc sách giấy và các cảnh báo y tế về suy thận cũng thu hút sự quan tâm lớn của cộng đồng.",
+        "subsector_briefs": [
+          {
+            "name": "Thể thao & Tiêu dùng",
+            "overview": "World Cup 2026 thu hút sự chú ý toàn cầu, trong khi người tiêu dùng Việt Nam ưu tiên xe điện và các sản phẩm thời trang bền vững.",
+            "key_points": [
+              "Mỹ vào vòng 16 đội World Cup",
+              "Xu hướng xe điện tại Việt Nam",
+              "Thời trang nữ tăng trưởng"
+            ],
+            "key_story_titles": [
+              "Xác định các cặp đấu vòng 1/8 World Cup 2026"
+            ],
+            "representative_sources": [
+              {
+                "title": "Xác định 5 cặp đấu đầu tiên tại vòng 1/8 World Cup 2026",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/xac-dinh-5-cap-dau-dau-tien-tai-vong-1-8-world-cup-2026-192260702172736056.htm",
+                "excerpt": "Các đội bóng lớn giành vé vào vòng 1/8 World Cup 2026."
+              }
+            ]
+          }
+        ],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Giáo dục",
-            "title": "Hà Nội dẫn đầu về số điểm 10 trong kỳ thi tốt nghiệp THPT 2026",
-            "summary": "Thủ đô Hà Nội đã khẳng định vị thế giáo dục hàng đầu cả nước với 1.182 bài thi đạt điểm 10 trong kỳ thi tốt nghiệp THPT năm 2026. Kết quả này không chỉ phản ánh chất lượng giảng dạy tại các trường phổ thông trên địa bàn mà còn cho thấy sự nỗ lực của học sinh Thủ đô trong một kỳ thi có tính cạnh tranh cao.",
+            "sub_sector": "Tiêu dùng xanh",
+            "title": "Xu hướng chuyển dịch sang xe điện tại Việt Nam",
+            "summary": "Người dùng Việt Nam đang có sự chuyển dịch mạnh mẽ sang sử dụng xe điện, với động lực chính là chi phí vận hành thấp và trải nghiệm lái vượt trội so với xe xăng. Các phản hồi thực tế từ người dùng cho thấy sự hài lòng cao sau thời gian dài sử dụng, khẳng định xu hướng tiêu dùng xanh đang thay đổi cấu trúc thị trường ô tô trong nước.",
             "main_developments": [
-              "Hà Nội ghi nhận 1.182 bài thi đạt điểm 10.",
-              "Môn Toán dẫn đầu với 676 điểm 10.",
-              "Môn Lịch sử có 263 thí sinh đạt điểm tuyệt đối."
+              "Chi phí vận hành giảm mạnh so với xe xăng/dầu",
+              "Cảm giác lái và công nghệ là yếu tố giữ chân người dùng",
+              "Sự phát triển của hạ tầng trạm sạc hỗ trợ người dùng"
             ],
-            "why_it_matters": "Kết quả này là chỉ báo quan trọng về chất lượng giáo dục phổ thông tại Hà Nội, ảnh hưởng đến định hướng tuyển sinh đại học và phát triển nguồn nhân lực chất lượng cao.",
+            "why_it_matters": "Sự thay đổi này không chỉ ảnh hưởng đến doanh số các hãng xe mà còn thúc đẩy quá trình chuyển đổi năng lượng trong giao thông tại Việt Nam.",
             "affected_groups": [
-              "Học sinh THPT",
-              "Các trường đại học",
-              "Phụ huynh"
+              "Người tiêu dùng",
+              "Các hãng xe điện",
+              "Ngành năng lượng"
             ],
             "watch_next": [
-              "Điểm chuẩn xét tuyển đại học năm 2026",
-              "Tác động của kết quả thi đến định hướng nghề nghiệp của học sinh"
+              "Tốc độ mở rộng hạ tầng trạm sạc",
+              "Chính sách ưu đãi thuế cho xe điện"
             ],
-            "representative_sources": [
-              {
-                "title": "Hà Nội đứng đầu toàn quốc về điểm tuyệt đối ở 4 môn thi tốt nghiệp THPT",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/ha-noi-dung-dau-toan-quoc-ve-diem-tuyet-doi-o-4-mon-thi-tot-nghiep-thpt-192260701153312832.htm",
-                "excerpt": "Hà Nội ghi nhận 1.182 bài thi đạt điểm 10, dẫn đầu nhiều môn thi quan trọng."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       }
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường tài sản số",
-        "what_to_watch": "Phản ứng của giá Bitcoin và dòng vốn ETF",
-        "why": "Áp lực rút vốn kỷ lục trong tháng 6 đang gây tâm lý tiêu cực cho nhà đầu tư."
-      },
-      {
-        "theme": "Hạ tầng giao thông Việt Nam",
-        "what_to_watch": "Tiến độ giải ngân các dự án tại TP.HCM",
-        "why": "Đây là động lực tăng trưởng chính của kinh tế vùng Đông Nam Bộ."
+        "theme": "Chính sách tiền tệ Mỹ",
+        "what_to_watch": "Phản ứng của Fed sau dữ liệu việc làm tháng 6",
+        "why": "Ảnh hưởng trực tiếp đến lãi suất và dòng vốn toàn cầu."
       },
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Đàm phán Mỹ - Iran tại Doha",
-        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng và giá dầu toàn cầu."
+        "what_to_watch": "Diễn biến đàm phán tại Doha và lưu lượng dầu qua Hormuz",
+        "why": "Quyết định xu hướng giá dầu và lạm phát năng lượng."
       },
       {
-        "theme": "Chính sách tài chính Việt Nam",
-        "what_to_watch": "Các văn bản hướng dẫn thuế tài sản số",
-        "why": "Ảnh hưởng đến hoạt động của các doanh nghiệp và nhà đầu tư trong ngành."
+        "theme": "Pháp luật kinh tế Việt Nam",
+        "what_to_watch": "Kết quả điều tra các vụ án kinh tế lớn",
+        "why": "Tác động đến niềm tin nhà đầu tư và thị trường chứng khoán."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin ghi nhận tháng 6 tồi tệ nhất lịch sử với dòng vốn ETF rút kỷ lục",
-        "why": "Phản ánh xu hướng rút vốn của nhà đầu tư tổ chức và tâm lý thị trường tiêu cực."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin ETF ghi nhận tháng tồi tệ nhất lịch sử với 4,5 tỷ USD dòng vốn rút ròng",
-        "why": "Dòng vốn ETF là chỉ báo quan trọng nhất cho tâm lý nhà đầu tư tổ chức hiện nay."
+        "theme": "Công nghệ AI",
+        "what_to_watch": "Tiến độ triển khai AI tại các doanh nghiệp lớn",
+        "why": "Đánh giá hiệu quả thương mại hóa của làn sóng AI."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Ngân hàng Nhà nước nâng hạn mức vay không cần chứng minh tài chính lên 400 triệu đồng",
-        "why": "Thay đổi quan trọng trong chính sách tín dụng tiêu dùng, ảnh hưởng trực tiếp đến người dân và doanh nghiệp nhỏ."
+        "what_to_watch": "Việt Nam được WB xếp vào nhóm quốc gia thu nhập trung bình cao",
+        "why": "Sự kiện vĩ mô quan trọng nhất đối với vị thế kinh tế quốc gia của Việt Nam."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Nhà đầu tư bất động sản chuyển dịch sang tiêu chí tạo dòng tiền",
-        "why": "Phản ánh sự thay đổi khẩu vị đầu tư trong bối cảnh vĩ mô biến động."
+        "what_to_watch": "Triệt phá đường dây buôn lậu kim cương xuyên quốc gia liên quan đến PNJ",
+        "why": "Vụ án kinh tế nghiêm trọng ảnh hưởng trực tiếp đến uy tín doanh nghiệp lớn và thị trường vàng bạc đá quý."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "AI đang thay đổi phương trình kinh tế của ngành gia công phần mềm Việt Nam",
-        "why": "Phân tích tác động trực tiếp của AI đến mô hình kinh doanh cốt lõi của ngành xuất khẩu phần mềm Việt Nam."
+        "what_to_watch": "Thu giữ 350kg kim loại vàng, bạc trong vụ án tiền số ONUS",
+        "why": "Vụ án tài chính quy mô lớn với hàng triệu tài khoản người dùng, tác động mạnh đến niềm tin thị trường tiền số."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "WB xếp Việt Nam vào nhóm quốc gia thu nhập trung bình cao",
+        "why": "Sự kiện vĩ mô quan trọng nhất, đánh dấu bước ngoặt trong phân loại kinh tế quốc tế của Việt Nam."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Ra mắt tổ chức phi lợi nhuận Ethereum Institutional thúc đẩy chấp nhận tài chính",
-        "why": "Thay đổi chiến lược quan trọng trong quản trị và phát triển hệ sinh thái Ethereum."
+        "what_to_watch": "OpenAI đề xuất chia sẻ 5% cổ phần cho chính phủ Mỹ",
+        "why": "Sự kiện mang tính bước ngoặt trong quan hệ giữa Big Tech và chính phủ Mỹ."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Venice AI đạt định giá 1 tỷ USD với mô hình tập trung vào quyền riêng tư",
+        "why": "Đánh dấu sự trỗi dậy của các giải pháp AI tập trung vào quyền riêng tư trong bối cảnh lo ngại về dữ liệu."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động dài hạn của các chính sách thuế mới đối với hộ kinh doanh nhỏ lẻ; cần theo dõi thêm diễn biến thực tế của các dự án hạ tầng vừa khởi công.",
+    "source_desk": [
+      {
+        "topic": "Kinh tế & Tài chính",
+        "representative_sources": [
+          {
+            "title": "WB: Việt Nam chính thức vào nhóm quốc gia thu nhập trung bình cao",
+            "source": "baochinhphu_vn",
+            "url": "https://baochinhphu.vn/wb-viet-nam-chinh-thuc-vao-nhom-quoc-gia-thu-nhap-trung-binh-cao-10226070213574374.htm"
+          }
+        ]
+      },
+      {
+        "topic": "Công nghệ & AI",
+        "representative_sources": [
+          {
+            "title": "FPT vừa đứng \"chung mâm\" với Intel và TSMC",
+            "source": "genk_vn",
+            "url": "https://genk.vn/fpt-vua-dung-chung-mam-voi-intel-va-tsmc-165260702164608332.chn"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể của Chính phủ Việt Nam sau khi được WB nâng hạng; các diễn biến chi tiết về xung đột tại Trung Đông còn mang tính chất đưa tin nhanh, thiếu phân tích sâu.",
     "notable_articles": []
   }
 }
