@@ -7,7 +7,6 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Any
 from urllib.parse import urlparse
 
 from scripts.tech_common import TECH_PUBLICATION_OUTPUT, TECH_PUBLICATION_SCHEMA
@@ -26,6 +25,8 @@ REQUIRED_SECTIONS = {
     "watchlist_24_72h",
     "source_desk",
 }
+FORBIDDEN_TERMS = ("pipeline", "crawler", "gdelt", "gemini", "bigquery")
+MAX_SUMMARY_CHARS = 340
 
 
 def _host(url: str) -> str:
@@ -37,6 +38,8 @@ def validate(payload: dict[str, Any]) -> list[str]:
     errs: list[str] = []
     if payload.get("schema_version") != TECH_PUBLICATION_SCHEMA:
         errs.append(f"schema_version must be {TECH_PUBLICATION_SCHEMA}")
+    if int(payload.get("window_hours") or 0) != 72:
+        errs.append("window_hours must be 72")
     sections = payload.get("sections")
     if not isinstance(sections, dict):
         return ["sections must be an object"]
@@ -65,6 +68,12 @@ def validate(payload: dict[str, Any]) -> list[str]:
                 errs.append(f"sections.{sec_name}[{idx}].links must be list")
                 continue
             seen_domains: set[str] = set()
+            public_texts = [
+                str(item.get("headline") or ""),
+                str(item.get("deck") or ""),
+                str(item.get("summary") or ""),
+                str(item.get("why_it_matters") or ""),
+            ]
             for link_idx, link in enumerate(links):
                 if not isinstance(link, dict):
                     errs.append(f"sections.{sec_name}[{idx}].links[{link_idx}] must be object")
@@ -72,6 +81,7 @@ def validate(payload: dict[str, Any]) -> list[str]:
                 url = str(link.get("url") or "").strip()
                 if not url.startswith("http"):
                     errs.append(f"sections.{sec_name}[{idx}].links[{link_idx}] invalid url")
+                public_texts.append(str(link.get("title") or ""))
                 host = _host(url)
                 if host in seen_domains:
                     errs.append(f"sections.{sec_name}[{idx}] duplicate source domain {host}")
@@ -81,10 +91,23 @@ def validate(payload: dict[str, Any]) -> list[str]:
             domain_count = int(item.get("independent_domain_count") or 0)
             label = str(item.get("confirmation_label") or "")
             official = bool(item.get("official_source_present"))
+            headline = str(item.get("headline") or "")
+            summary = str(item.get("summary") or "")
+            why = str(item.get("why_it_matters") or "")
+            if "24-48h" in headline or "24-48h" in summary or "24-48h" in why:
+                errs.append(f"sections.{sec_name}[{idx}] still references 24-48h")
+            if len(summary) > MAX_SUMMARY_CHARS:
+                errs.append(f"sections.{sec_name}[{idx}] summary too long")
             if label == "hot" and not (domain_count >= 2 or (official and domain_count >= 2)):
                 errs.append(f"sections.{sec_name}[{idx}] hot label violates confirmation rule")
             if label == "chua_duoc_xac_nhan_rong" and source_count < 1:
                 errs.append(f"sections.{sec_name}[{idx}] unconfirmed story needs at least one source")
+            for text in public_texts:
+                lowered = text.lower()
+                for term in FORBIDDEN_TERMS:
+                    if term in lowered:
+                        errs.append(f"forbidden public term found: {term}")
+                        break
     return errs
 
 

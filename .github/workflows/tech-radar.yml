@@ -68,7 +68,7 @@ jobs:
           print(f"run_tech={'true' if run_tech else 'false'}")
           print(f"age_hours={age_hours:.2f}")
           if not run_tech:
-              print(f"Tech publish age {age_hours:.1f}h < 72h, skipping crawl/GDELT/Gemini.")
+              print(f"Tech publish age {age_hours:.1f}h < 72h, skipping tech refresh.")
           PY
 
       - name: Install crawl + GDELT deps
@@ -113,11 +113,23 @@ jobs:
 
       - name: Run tech GDELT pulse
         if: steps.gate.outputs.run_tech == 'true'
+        id: gdelt
         env:
           GOOGLE_APPLICATION_CREDENTIALS: credentials.json
           GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
         run: |
-          python tech/gdelt.py --dry-run
+          if [ -z "$GOOGLE_CLOUD_PROJECT" ]; then
+            echo "Missing GOOGLE_CLOUD_PROJECT"
+            exit 1
+          fi
+          DRYRUN_OUTPUT="$(python tech/gdelt.py --dry-run)"
+          echo "$DRYRUN_OUTPUT"
+          ESTIMATED_BYTES="$(printf '%s' "$DRYRUN_OUTPUT" | sed -n 's/.*estimated_bytes=\([0-9][0-9]*\).*/\1/p')"
+          if [ -z "$ESTIMATED_BYTES" ]; then
+            echo "Could not parse dry-run estimated bytes"
+            exit 1
+          fi
+          echo "estimated_bytes=$ESTIMATED_BYTES" >> "$GITHUB_OUTPUT"
           python tech/gdelt.py
 
       - name: Build + validate tech publication
@@ -127,12 +139,17 @@ jobs:
           python tech/validate_publication.py
           python tech/test_pipeline.py
 
+      - name: Update tech worklog
+        if: steps.gate.outputs.run_tech == 'true'
+        run: |
+          python tech/update_worklog.py
+
       - name: Commit tech artifacts
         if: steps.gate.outputs.run_tech == 'true'
         run: |
           git config user.name "tech-radar-bot"
           git config user.email "tech-radar-bot@users.noreply.github.com"
-          git add tech/config/sources_active.txt tech/config/sources_disabled.txt tech/config/tech_tiers/*.txt tech/config/tech_tiers_manifest.json tech/reports/source_validation.json tech/reports/source_validation.md tech/data/news_output_today.json tech/data/news_output_all.json tech/data/news_for_ai.json tech/data/news_for_ai_clean.json tech/data/gdelt_pulse.json tech/web/gdelt_pulse.json tech/data/publication.json tech/web/publication.json
+          git add .ai/CURSOR_WORKLOG.md tech/config/sources_active.txt tech/config/sources_disabled.txt tech/config/tech_tiers/*.txt tech/config/tech_tiers_manifest.json tech/reports/source_validation.json tech/reports/source_validation.md tech/data/news_output_today.json tech/data/news_output_all.json tech/data/news_for_ai.json tech/data/news_for_ai_clean.json tech/data/gdelt_pulse.json tech/web/gdelt_pulse.json tech/data/publication.json tech/web/publication.json
           if git diff --staged --quiet; then
             echo "No tech artifact changes"
             exit 0

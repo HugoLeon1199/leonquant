@@ -5,11 +5,9 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
 
 from google.cloud import bigquery
 
@@ -94,7 +92,7 @@ def build_event(row: dict[str, Any]) -> dict[str, Any]:
         part for part in [actor1, actor2, orgs, themes, str(row.get("Link_Bai_Bao") or "")] if part
     )
     title_parts = [part for part in [actor1, actor2] if part]
-    title = " — ".join(title_parts) or str(row.get("Link_Bai_Bao") or "Technology event")
+    title = " - ".join(title_parts) or str(row.get("Link_Bai_Bao") or "Technology event")
     return {
         "event_id": str(row.get("GlobalEventID") or ""),
         "title": title,
@@ -146,21 +144,32 @@ def main() -> int:
 
     events = [build_event(row) for row in (rows or [])]
     events = [evt for evt in events if evt["source_urls"]]
-    if not events:
-        existing = load_existing(args.output)
-        if existing is not None:
-            print("No fresh tech GDELT events; kept previous valid JSON.")
-            return 0
-        print("No tech GDELT events and no previous JSON to retain.")
-        return 5
-
     payload = {
         "schema_version": TECH_GDELT_SCHEMA,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "query_window_hours": 72,
-        "bq_bytes_billed": int(meta.get("bytes_billed") or 0),
+        "estimated_bytes": int(meta.get("bytes_billed") or 0),
+        "processed_bytes": int(meta.get("bytes_billed") or 0),
+        "ran_successfully": True,
         "events": events,
     }
+    if not events:
+        existing = load_existing(args.output)
+        if existing is not None:
+            existing["estimated_bytes"] = payload["estimated_bytes"]
+            existing["processed_bytes"] = payload["processed_bytes"]
+            existing["generated_at_utc"] = payload["generated_at_utc"]
+            existing["query_window_hours"] = 72
+            existing["ran_successfully"] = True
+            dump_json(args.output, existing)
+            dump_json(args.web_output, existing)
+            print("No fresh tech events; kept previous valid JSON and refreshed run metadata.")
+            return 0
+        dump_json(args.output, payload)
+        dump_json(args.web_output, payload)
+        print("Tech GDELT ran successfully with 0 fresh events.")
+        return 0
+
     dump_json(args.output, payload)
     dump_json(args.web_output, payload)
     print(f"Wrote {len(events)} tech GDELT events -> {args.output}")

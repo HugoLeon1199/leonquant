@@ -28,16 +28,18 @@ def main() -> int:
 
     meta = validation.get("validation_meta") or {}
     stats = publication.get("stats") or {}
+    estimated_bytes = int(events.get("estimated_bytes") or 0)
+    processed_bytes = int(events.get("processed_bytes") or 0)
+    ran_successfully = bool(events.get("ran_successfully"))
     block = (
-        f"\n## {datetime.now(timezone.utc).date()} — Technology & AI 72h live run\n\n"
+        f"\n## {datetime.now(timezone.utc).date()} - Technology & AI 72h live run\n\n"
         f"- {marker}\n"
         "- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.\n"
         "- Schedule: once every 3 days; data window: latest 72 hours.\n"
         f"- Active sources: {meta.get('active_source_count', 0)} / {meta.get('catalog_source_count', 0)}.\n"
         f"- Clean web articles: {len(crawl.get('articles') or [])}.\n"
-        f"- Event candidates: {len(events.get('events') or [])}.\n"
-        f"- Query estimate: {int(events.get('estimated_bytes') or 0):,} bytes; "
-        f"processed: {int(events.get('processed_bytes') or 0):,} bytes; cap: 2,000,000,000 bytes.\n"
+        f"- Event candidates: {len(events.get('events') or [])}; GDELT ran_successfully={ran_successfully}.\n"
+        f"- Query estimate: {estimated_bytes:,} bytes; processed: {processed_bytes:,} bytes; cap: 2,000,000,000 bytes.\n"
         f"- Published stories: {stats.get('story_count', 0)}.\n"
         "- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.\n"
     )

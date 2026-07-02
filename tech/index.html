@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LeonQuant Tech Radar</title>
-  <meta name="description" content="Báo Công nghệ & AI độc lập của LeonQuant.">
+  <title>Cong nghe &amp; AI 72h | LeonQuant</title>
+  <meta name="description" content="Ban tong hop Cong nghe &amp; AI 72h cua LeonQuant.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -125,11 +125,11 @@
   <main class="shell">
     <section class="masthead">
       <div class="kicker">LeonQuant / Tech</div>
-      <h1>Báo Công nghệ &amp; AI</h1>
-      <p class="sub">Một nhánh độc lập với Tin 48h, Kinh tế đầu tư và Thế giới LIVE. Chỉ giữ các câu chuyện có grounding URL rõ ràng, có tín hiệu nguồn đủ mạnh và không tự fill nội dung yếu.</p>
-      <a class="home-link" href="/">Về trang chính</a>
+      <h1>Cong nghe &amp; AI 72h</h1>
+      <p class="sub">Ban tong hop doc lap trong 72 gio qua, uu tien cac cau chuyen co link nguon ro rang va muc do xac nhan phu hop de theo doi nhanh.</p>
+      <a class="home-link" href="/">Ve trang chinh</a>
       <div class="summary" id="summaryBox">
-        <p>Đang tải bản tech publication…</p>
+        <p>Dang tai ban tong hop 72 gio qua...</p>
       </div>
     </section>
     <section class="sections" id="sections"></section>
@@ -137,16 +137,16 @@
   </main>
   <script>
     const SECTION_LABELS = {
-      tong_quan: "Tổng quan",
-      tin_nong: "Tin nóng",
-      model_agent_moi: "Model / agent mới",
-      cach_dung_ai: "Cách dùng AI",
+      tong_quan: "Tong quan",
+      tin_nong: "Tin nong",
+      model_agent_moi: "Model / agent moi",
+      cach_dung_ai: "Cach dung AI",
       open_source_developer_tools: "Open-source / developer tools",
-      chip_ha_tang: "Chip / hạ tầng",
+      chip_ha_tang: "Chip / ha tang",
       robotics: "Robotics",
       cybersecurity: "Cybersecurity",
-      chinh_sach_cuoc_dua_toan_cau: "Chính sách / cuộc đua toàn cầu",
-      radar_khu_vuc: "Radar khu vực",
+      chinh_sach_cuoc_dua_toan_cau: "Chinh sach / cuoc dua toan cau",
+      radar_khu_vuc: "Radar khu vuc",
       watchlist_24_72h: "Watchlist 24-72h",
       source_desk: "Source desk"
     };
@@ -161,9 +161,9 @@
       return `
         <article class="story">
           <div class="meta">
-            <span class="pill${warn ? " warn" : ""}">${warn ? "Chưa được xác nhận rộng" : "Hot"}</span>
-            <span>${esc(story.source_count || 0)} nguồn</span>
-            <span>${esc(story.independent_domain_count || 0)} domain độc lập</span>
+            <span class="pill${warn ? " warn" : ""}">${warn ? "Can theo doi them" : "Hot"}</span>
+            <span>${esc(story.source_count || 0)} nguon</span>
+            <span>${esc(story.independent_domain_count || 0)} domain doc lap</span>
             <span>${esc(story.freshness_hours || 0)}h</span>
           </div>
           <h3>${esc(story.headline || "")}</h3>
@@ -178,13 +178,14 @@
       const sectionsEl = document.getElementById("sections");
       const sections = payload.sections || {};
       const stats = payload.stats || {};
+      const windowHours = payload.window_hours || 72;
       summary.innerHTML = `
         <p>
-          Hiện có ${esc(stats.story_count || 0)} cụm chuyện, ${esc(stats.crawl_cluster_count || 0)} cụm từ crawl riêng
-          và ${esc(stats.gdelt_event_count || 0)} tín hiệu từ GDELT Tech riêng.
+          Hien co ${esc(stats.story_count || 0)} cau chuyen duoc uu tien trong cua so ${esc(windowHours)} gio.
+          Ban nay tap trung vao nhung diem dang chu y nhat de doc nhanh va doi chieu nguon.
         </p>
       `;
-      const order = Object.keys(SECTION_LABELS);
+      const order = Object.keys(SECTION_LABELS).filter((key) => key !== "source_desk");
       sectionsEl.innerHTML = order
         .filter((key) => Array.isArray(sections[key]) && sections[key].length)
         .map((key) => `
@@ -199,15 +200,12 @@
     }
 
     async function fetchTechJson() {
-      const candidates = ["./data/publication.json", "./web/publication.json"];
-      for (const path of candidates) {
-        try {
-          const resp = await fetch(`${path}?ts=${Date.now()}`, { cache: "no-store" });
-          if (!resp.ok) continue;
-          return await resp.json();
-        } catch (_) {}
+      const path = "./data/publication.json";
+      const resp = await fetch(`${path}?ts=${Date.now()}`, { cache: "no-store" });
+      if (!resp.ok) {
+        throw new Error("Khong tai duoc tech/data/publication.json");
       }
-      throw new Error("Không tải được publication.json của tech");
+      return await resp.json();
     }
 
     fetchTechJson()

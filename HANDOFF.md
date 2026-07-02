@@ -216,3 +216,46 @@
 ### Dang do / Viec tiep theo
 - Co ADC BigQuery hop le thi chay lai `tech\gdelt.py` va regenerate publication de co GDELT thuc.
 - Neu muon push, stage chi cac file Tech va worklog; bo qua scratch/unrelated changes o repo root.
+
+## [2026-07-02 00:30] - [Codex]
+
+### Da lam
+- Review hep module Tech publication / validator / frontend / workflow ma khong sua Tin48h, Invest, World hay pages cu.
+- Doi publication sang schema `tech-newsroom-72h-v1`, them `window_hours = 72`, va doi copy public sang huong 72 gio.
+- Viet lai fallback publication de summary va `why_it_matters` la ban tom tat ngan gon bang tieng Viet kieu deterministic, khong cat 600 ky tu raw text.
+- Xoa ngon ngu noi bo khoi text public: khong con nhac pipeline, crawler, GDELT, Gemini, BigQuery trong cac field hien thi.
+- Cap nhat `/tech/` de fetch truc tiep `./data/publication.json`, doi heading thanh `Cong nghe & AI 72h`, va bo render `source_desk` theo dang story thô.
+- Cap nhat `scripts/run_tech_gdelt.py` va `.github/workflows/tech-radar.yml` de workflow bat buoc dung `GCP_SA_JSON` + `GOOGLE_CLOUD_PROJECT`, ghi `estimated_bytes` / `processed_bytes`, va co the luu worklog khi GDELT chay that.
+
+### Quyet dinh quan trong
+- Khong noi long gate GDELT: local van chua co ADC hop le, nen khong duoc coi la DONE.
+- Validator chi soi cac field public hien thi, khong soi `id` hay URL raw; tuy vay `link.title` van bi sanitize de tranh lo tu cam tren frontend.
+
+### File da thay doi
+- `scripts/tech_common.py`
+- `scripts/build_tech_publication.py`
+- `scripts/validate_tech_publication.py`
+- `scripts/run_tech_gdelt.py`
+- `scripts/test_tech_pipeline.py`
+- `tech/index.html`
+- `tech/update_worklog.py`
+- `.github/workflows/tech-radar.yml`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `HANDOFF.md`
+
+### Verify / Test
+- `.\.venv\Scripts\python.exe -m py_compile scripts\build_tech_publication.py scripts\validate_tech_publication.py scripts\run_tech_gdelt.py scripts\test_tech_pipeline.py tech\update_worklog.py tech\publication.py tech\validate_publication.py tech\test_pipeline.py` -> pass
+- `.\.venv\Scripts\python.exe tech\publication.py --gdelt-input <temp empty 72h json>` -> pass
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass
+
+### Trang thai hien tai
+- `tech/data/publication.json` da la schema `tech-newsroom-72h-v1`
+- `window_hours = 72`
+- `gdelt_event_count = 0` trong publication local hien tai vi local chua chay GDELT that
+- Workflow Tech da duoc cap nhat de fail ro rang neu thieu credential GCP
+
+### Dang do / Viec tiep theo
+- Can mot lan chay GDELT that bang secret/Actions de co `tech/data/gdelt_pulse.json` hop le voi `ran_successfully=true` va bytes that.
+- Chua the danh dau DONE theo tieu chi cua user cho toi khi co GDELT run that va `/tech/` duoc xem lai tren Pages sau artifact moi.
