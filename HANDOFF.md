@@ -9,6 +9,49 @@
 
 <!-- Cập nhật block này sau mỗi session -->
 
+## [2026-07-03 07:05] - [Codex]
+
+### Da lam
+- Sua hep module `tech/` de doi publication public sang `ai-frontier-radar-72h-v1`.
+- Viet lai dashboard `tech/index.html` thanh `AI Frontier Radar 72h`, fetch truc tiep `./data/publication.json`, bo render kieu cu va sap xep lai cac khoi theo schema moi.
+- Cap nhat `tech/common.py` de schema chung cua module Tech khop voi artifact moi.
+- Viet lai `tech/test_pipeline.py` thanh bo test standalone cho schema 72h moi, frontend contract va forbidden public terms.
+- Regenerate `tech/data/publication.json` va `tech/web/publication.json` bang publication builder moi.
+- Cap nhat `tech/update_worklog.py` va append `.ai/CURSOR_WORKLOG.md` voi thong ke `must_read`, `full_link_radar` va cac section chinh.
+
+### Quyet dinh quan trong
+- Giu nguyen pham vi: chi sua `tech/**` va 2 script publication/validator; khong dung vao Tin48h / Invest / World / pages cu.
+- Builder smoke test duoc tach khoi artifact-final validation: build tu du lieu toi gian co the it hon 30 radar links, nhung artifact public cuoi van phai dat validator 72h.
+- `tech/data/gdelt_pulse.json` van chua co trong workspace hien tai, nen lan sua nay khong tuyen bo DONE cho GDELT live.
+
+### File da thay doi
+- `scripts/build_tech_publication.py`
+- `scripts/validate_tech_publication.py`
+- `tech/common.py`
+- `tech/index.html`
+- `tech/test_pipeline.py`
+- `tech/update_worklog.py`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Verify / Test
+- `.\.venv\Scripts\python.exe tech\publication.py` -> pass
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass
+- `.\.venv\Scripts\python.exe tech\test_pipeline.py` -> pass
+- `.\.venv\Scripts\python.exe tech\update_worklog.py` -> pass
+
+### Trang thai hien tai
+- `tech/data/publication.json` da la `ai-frontier-radar-72h-v1`
+- `window_hours = 72`
+- `tech/web/publication.json` da dong bo schema moi
+- Frontend `/tech/` da doc dung `tech/data/publication.json` va hien thi label `AI Frontier Radar 72h`
+
+### Dang do / Viec tiep theo
+- Can chay GDELT that de tao `tech/data/gdelt_pulse.json` neu muon chot workflow/publication day du theo tieu chi production.
+- Neu can push, chi stage cac file Tech o tren va bo qua cac thay doi unrelated dang co san trong repo.
+
 ## [2026-07-01 00:00] - [Codex]
 
 ### Da lam

@@ -677,3 +677,17 @@ Validation status snapshot live:
 ### Remaining
 - Can ADC BigQuery hop le neu muon chay GDELT live that va cap nhat publication co event_count > 0.
 - Neu push, chi stage file Tech + worklog; giu scratch/unrelated changes ngoai scope.
+
+## 2026-07-03 - Technology & AI 72h live run
+
+- Tech72h generated_at=2026-07-03T02:57:23.038385+00:00
+- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.
+- Format: AI Frontier Radar 72h.
+- Schedule: once every 3 days; data window: latest 72 hours.
+- Active sources: 7 / 100.
+- Clean web articles: 24.
+- Event candidates: 0; GDELT ran_successfully=False.
+- Query estimate: 0 bytes; processed: 0 bytes; cap: 2,000,000,000 bytes.
+- Published stories: 24; must_read=25; full_link_radar=58.
+- Section counts: local_ai=7, automation=16, open_source=3, knowledge=4, founder_ideas=10.
+- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.

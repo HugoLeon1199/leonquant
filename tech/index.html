@@ -3,90 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cong nghe &amp; AI 72h | LeonQuant</title>
-  <meta name="description" content="Ban tong hop Cong nghe &amp; AI 72h cua LeonQuant.">
+  <title>AI Frontier Radar 72h | LeonQuant</title>
+  <meta name="description" content="AI Frontier Radar 72h cua LeonQuant, tong hop cac tin dang chu y nhat trong 72 gio qua.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f7fa;
-      --surface: rgba(255,255,255,.92);
-      --border: rgba(15,23,42,.10);
+      --bg: #f4f7fb;
+      --surface: rgba(255, 255, 255, 0.94);
+      --surface-strong: #ffffff;
+      --border: rgba(15, 23, 42, 0.1);
       --text: #0f172a;
       --muted: #475569;
-      --teal: #0f766e;
       --blue: #1d4ed8;
+      --teal: #0f766e;
       --amber: #b45309;
-      --shadow: 0 10px 30px rgba(15,23,42,.08);
+      --rose: #be123c;
+      --shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
       --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
       --font-alt: "IBM Plex Sans", system-ui, sans-serif;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: var(--font-sans);
       color: var(--text);
+      font-family: var(--font-sans);
       background:
-        radial-gradient(circle at top left, rgba(29,78,216,.08), transparent 34%),
-        radial-gradient(circle at top right, rgba(15,118,110,.10), transparent 28%),
+        radial-gradient(circle at top left, rgba(29, 78, 216, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 24%),
         linear-gradient(180deg, #f9fbfd, var(--bg));
     }
     a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .shell { width: min(1240px, 94vw); margin: 0 auto; padding: 28px 0 56px; }
-    .masthead {
-      display: grid;
-      gap: 16px;
-      padding: 28px;
+    .shell { width: min(1280px, 94vw); margin: 0 auto; padding: 28px 0 60px; }
+    .hero {
+      border-radius: 28px;
       border: 1px solid var(--border);
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(236,253,245,.9));
+      padding: 28px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(239,246,255,0.92)),
+        linear-gradient(180deg, rgba(15,118,110,0.06), transparent);
       box-shadow: var(--shadow);
     }
-    .kicker { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); font-weight: 800; }
-    h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.02; }
-    .sub { margin: 0; color: var(--muted); max-width: 70ch; }
-    .home-link { font-weight: 700; }
-    .summary {
-      margin-top: 18px;
-      padding: 20px 22px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(15,118,110,.12);
+    .hero-top {
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
-    .summary p { margin: 0; color: var(--muted); line-height: 1.65; }
-    .sections { margin-top: 28px; display: grid; gap: 18px; }
-    .section-card {
-      padding: 22px;
-      border-radius: 22px;
+    .kicker {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--teal);
+      font-weight: 800;
+    }
+    h1 {
+      margin: 10px 0 8px;
+      font-size: clamp(2.1rem, 4.4vw, 3.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+    .sub {
+      margin: 0;
+      max-width: 72ch;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+    .stats-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    .stat-label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--font-alt);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .stat-value {
+      display: block;
+      margin-top: 8px;
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+    .grid {
+      margin-top: 24px;
+      display: grid;
+      gap: 20px;
+    }
+    .panel {
+      border-radius: 24px;
       border: 1px solid var(--border);
       background: var(--surface);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      padding: 24px;
     }
-    .section-title {
+    .panel h2 {
       margin: 0 0 14px;
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -.02em;
+      font-size: 1.28rem;
+      letter-spacing: -0.02em;
     }
-    .story-list { display: grid; gap: 14px; }
-    .story {
+    .summary-list,
+    .idea-list,
+    .knowledge-list,
+    .link-list,
+    .must-read-list {
+      display: grid;
+      gap: 14px;
+    }
+    .story-list {
+      display: grid;
+      gap: 14px;
+    }
+    .summary-item,
+    .story-card,
+    .idea-card,
+    .knowledge-card,
+    .link-card {
       padding: 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,.08);
-      background: #fff;
+      border-radius: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      background: var(--surface-strong);
     }
-    .story h3 { margin: 0 0 8px; font-size: 1rem; line-height: 1.35; }
-    .story p { margin: 0 0 10px; color: var(--muted); line-height: 1.6; }
+    .summary-item p,
+    .story-card p,
+    .idea-card p,
+    .knowledge-card p,
+    .link-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .story-card h3,
+    .idea-card h3,
+    .knowledge-card h3,
+    .link-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.02rem;
+      line-height: 1.4;
+    }
     .meta {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
       margin-bottom: 10px;
       font-family: var(--font-alt);
-      font-size: .78rem;
+      font-size: 0.78rem;
       color: var(--muted);
     }
     .pill {
@@ -94,109 +175,273 @@
       align-items: center;
       padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(29,78,216,.08);
-      border: 1px solid rgba(29,78,216,.12);
+      background: rgba(29, 78, 216, 0.08);
+      border: 1px solid rgba(29, 78, 216, 0.12);
       color: var(--blue);
       font-weight: 700;
     }
     .pill.warn {
       color: var(--amber);
-      background: rgba(180,83,9,.08);
-      border-color: rgba(180,83,9,.12);
+      background: rgba(180, 83, 9, 0.08);
+      border-color: rgba(180, 83, 9, 0.14);
     }
-    .links { margin: 0; padding-left: 18px; color: var(--muted); }
-    .links li { margin-bottom: 6px; }
+    .pill.hot {
+      color: var(--rose);
+      background: rgba(190, 18, 60, 0.08);
+      border-color: rgba(190, 18, 60, 0.14);
+    }
+    .split {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+    .triple {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.08);
+      color: var(--teal);
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
     .error {
       margin-top: 24px;
       padding: 18px;
-      border-radius: 16px;
-      background: rgba(220,38,38,.06);
-      border: 1px solid rgba(220,38,38,.16);
+      border-radius: 18px;
+      background: rgba(220, 38, 38, 0.06);
+      border: 1px solid rgba(220, 38, 38, 0.16);
       color: #991b1b;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 980px) {
+      .stats-grid,
+      .triple,
+      .split {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 760px) {
       .shell { width: min(94vw, 100%); padding-top: 18px; }
-      .masthead, .section-card { padding: 18px; border-radius: 18px; }
-      .story { padding: 14px; }
+      .hero, .panel { padding: 18px; border-radius: 20px; }
+      .stats-grid,
+      .triple,
+      .split {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <main class="shell">
-    <section class="masthead">
-      <div class="kicker">LeonQuant / Tech</div>
-      <h1>Cong nghe &amp; AI 72h</h1>
-      <p class="sub">Ban tong hop doc lap trong 72 gio qua, uu tien cac cau chuyen co link nguon ro rang va muc do xac nhan phu hop de theo doi nhanh.</p>
-      <a class="home-link" href="/">Ve trang chinh</a>
-      <div class="summary" id="summaryBox">
-        <p>Dang tai ban tong hop 72 gio qua...</p>
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="kicker">LeonQuant / AI Frontier Radar 72h</div>
+          <h1>AI Frontier Radar 72h</h1>
+          <p class="sub">Ban tong hop 72 gio qua, uu tien cac tin co gia tri hanh dong, link nguon ro rang va du de doc nhanh thay vi lan trong dong tin tho.</p>
+        </div>
+        <a class="home-link" href="/">Ve trang chinh</a>
       </div>
+      <div class="stats-grid" id="statsGrid"></div>
     </section>
-    <section class="sections" id="sections"></section>
+
+    <section class="grid" id="dashboard"></section>
     <div class="error" id="errorBox" hidden></div>
   </main>
   <script>
     const SECTION_LABELS = {
-      tong_quan: "Tong quan",
-      tin_nong: "Tin nong",
-      model_agent_moi: "Model / agent moi",
-      cach_dung_ai: "Cach dung AI",
-      open_source_developer_tools: "Open-source / developer tools",
-      chip_ha_tang: "Chip / ha tang",
-      robotics: "Robotics",
-      cybersecurity: "Cybersecurity",
-      chinh_sach_cuoc_dua_toan_cau: "Chinh sach / cuoc dua toan cau",
-      radar_khu_vuc: "Radar khu vuc",
-      watchlist_24_72h: "Watchlist 24-72h",
-      source_desk: "Source desk"
+      ai_models: "AI Models",
+      local_ai_china_ai: "Local AI / China AI",
+      ai_tools: "AI Tools",
+      automation_mcp_agents: "Tools & Automation",
+      open_source_hot: "Open Source Hot",
+      ai_business_money: "AI Business & Money",
+      industry_impact: "Industry Impact",
+      ai_knowledge: "AI Knowledge",
+      founder_ideas_for_leon: "Apply Now for Leon",
+      full_link_radar: "Full Link Radar"
     };
 
-    function esc(v) {
-      return String(v ?? "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
     }
 
-    function renderStory(story) {
-      const links = Array.isArray(story.links) ? story.links : [];
-      const warn = story.confirmation_label === "chua_duoc_xac_nhan_rong";
+    function renderTags(tags) {
+      const rows = Array.isArray(tags) ? tags.filter(Boolean).slice(0, 6) : [];
+      if (!rows.length) return "";
+      return `<div class="tag-row">${rows.map((tag) => `<span class="tag">${esc(tag)}</span>`).join("")}</div>`;
+    }
+
+    function renderMeta(parts) {
+      const items = parts.filter(Boolean);
+      if (!items.length) return "";
+      return `<div class="meta">${items.map((part) => `<span>${esc(part)}</span>`).join("")}</div>`;
+    }
+
+    function renderMustReadCard(item) {
+      const importanceClass = item.importance === "high" ? " hot" : "";
       return `
-        <article class="story">
-          <div class="meta">
-            <span class="pill${warn ? " warn" : ""}">${warn ? "Can theo doi them" : "Hot"}</span>
-            <span>${esc(story.source_count || 0)} nguon</span>
-            <span>${esc(story.independent_domain_count || 0)} domain doc lap</span>
-            <span>${esc(story.freshness_hours || 0)}h</span>
-          </div>
-          <h3>${esc(story.headline || "")}</h3>
-          <p>${esc(story.summary || story.deck || "")}</p>
-          ${links.length ? `<ul class="links">${links.map((link) => `<li><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">${esc(link.title || link.url)}</a></li>`).join("")}</ul>` : ""}
+        <article class="story-card">
+          ${renderMeta([
+            item.category,
+            item.source,
+            item.source_count ? `${item.source_count} nguon` : "",
+          ])}
+          <div class="pill${importanceClass}">${esc(item.importance || "watch")}</div>
+          <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
+          <p>${esc(item.why_read)}</p>
+          <p style="margin-top:10px;"><strong>Ap dung ngay:</strong> ${esc(item.apply_now)}</p>
+          ${renderTags(item.tags)}
         </article>
       `;
     }
 
-    function render(payload) {
-      const summary = document.getElementById("summaryBox");
-      const sectionsEl = document.getElementById("sections");
-      const sections = payload.sections || {};
-      const stats = payload.stats || {};
-      const windowHours = payload.window_hours || 72;
-      summary.innerHTML = `
-        <p>
-          Hien co ${esc(stats.story_count || 0)} cau chuyen duoc uu tien trong cua so ${esc(windowHours)} gio.
-          Ban nay tap trung vao nhung diem dang chu y nhat de doc nhanh va doi chieu nguon.
-        </p>
+    function renderIdeaCard(item) {
+      return `
+        <article class="idea-card">
+          <h3>${esc(item.title)}</h3>
+          <p>${esc(item.summary)}</p>
+          <p style="margin-top:10px;"><strong>Buoc tiep:</strong> ${esc(item.next_step || item.use_case || "")}</p>
+        </article>
       `;
-      const order = Object.keys(SECTION_LABELS).filter((key) => key !== "source_desk");
-      sectionsEl.innerHTML = order
-        .filter((key) => Array.isArray(sections[key]) && sections[key].length)
-        .map((key) => `
-          <section class="section-card">
-            <h2 class="section-title">${esc(SECTION_LABELS[key])}</h2>
-            <div class="story-list">
-              ${sections[key].map((story) => renderStory(story)).join("")}
-            </div>
-          </section>
-        `)
-        .join("");
+    }
+
+    function renderKnowledgeCard(item) {
+      return `
+        <article class="knowledge-card">
+          <h3>${esc(item.title)}</h3>
+          <p>${esc(item.summary)}</p>
+          <p style="margin-top:10px;"><strong>Cach dung:</strong> ${esc(item.use_case || item.next_step || "")}</p>
+        </article>
+      `;
+    }
+
+    function renderStoryCard(item) {
+      return `
+        <article class="story-card">
+          ${renderMeta([
+            item.category,
+            item.source,
+            item.published_at ? item.published_at.slice(0, 10) : "",
+            item.source_count ? `${item.source_count} nguon` : "",
+          ])}
+          <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
+          <p>${esc(item.why_read || item.why_interesting || item.summary || "")}</p>
+          <p style="margin-top:10px;"><strong>Gia tri:</strong> ${esc(item.apply_now || item.use_case || "")}</p>
+          ${renderTags(item.tags)}
+        </article>
+      `;
+    }
+
+    function renderLinkCard(item) {
+      return `
+        <article class="link-card">
+          ${renderMeta([
+            item.category,
+            item.source,
+            item.published_at ? item.published_at.slice(0, 10) : "",
+          ])}
+          <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
+          <p>${esc(item.why_interesting)}</p>
+          <p style="margin-top:10px;"><strong>Use case:</strong> ${esc(item.use_case)}</p>
+        </article>
+      `;
+    }
+
+    function renderSection(title, bodyHtml) {
+      return `
+        <section class="panel">
+          <h2>${esc(title)}</h2>
+          ${bodyHtml}
+        </section>
+      `;
+    }
+
+    function render(payload) {
+      const dashboard = document.getElementById("dashboard");
+      const stats = payload.stats || {};
+      const sections = payload.sections || {};
+      const mustRead = Array.isArray(payload.must_read) ? payload.must_read : [];
+      const executiveSummary = Array.isArray(payload.executive_summary) ? payload.executive_summary : [];
+      const windowHours = payload.window_hours || 72;
+
+      document.getElementById("statsGrid").innerHTML = `
+        <div class="stat"><span class="stat-label">Window</span><span class="stat-value">${esc(windowHours)}h</span></div>
+        <div class="stat"><span class="stat-label">Must Read</span><span class="stat-value">${esc(mustRead.length)}</span></div>
+        <div class="stat"><span class="stat-label">Radar Links</span><span class="stat-value">${esc((sections.full_link_radar || []).length)}</span></div>
+        <div class="stat"><span class="stat-label">Tong Story</span><span class="stat-value">${esc(stats.story_count || 0)}</span></div>
+      `;
+
+      const blocks = [];
+
+      blocks.push(renderSection(
+        "Executive Summary",
+        `<div class="summary-list">${executiveSummary.map((item) => `<div class="summary-item"><p>${esc(item)}</p></div>`).join("")}</div>`
+      ));
+
+      blocks.push(renderSection(
+        "Must Read",
+        `<div class="must-read-list">${mustRead.map(renderMustReadCard).join("")}</div>`
+      ));
+
+      blocks.push(renderSection(
+        "Apply Now for Leon",
+        `<div class="idea-list">${(sections.founder_ideas_for_leon || []).map(renderIdeaCard).join("")}</div>`
+      ));
+
+      blocks.push(renderSection(
+        "Local AI / China AI",
+        `<div class="story-list">${(sections.local_ai_china_ai || []).map(renderStoryCard).join("")}</div>`
+      ));
+
+      blocks.push(renderSection(
+        "Tools & Automation",
+        `<div class="split">
+          <div class="story-list">${(sections.ai_tools || []).map(renderStoryCard).join("")}</div>
+          <div class="story-list">${(sections.automation_mcp_agents || []).map(renderStoryCard).join("")}</div>
+        </div>`
+      ));
+
+      blocks.push(renderSection(
+        "Open Source Hot",
+        `<div class="story-list">${(sections.open_source_hot || []).map(renderStoryCard).join("")}</div>`
+      ));
+
+      blocks.push(renderSection(
+        "AI Knowledge",
+        `<div class="knowledge-list">${(sections.ai_knowledge || []).map(renderKnowledgeCard).join("")}</div>`
+      ));
+
+      blocks.push(renderSection(
+        "Industry Impact",
+        `<div class="split">
+          <div class="story-list">${(sections.industry_impact || []).map(renderStoryCard).join("")}</div>
+          <div class="story-list">${(sections.ai_business_money || []).map(renderStoryCard).join("")}</div>
+        </div>`
+      ));
+
+      blocks.push(renderSection(
+        "AI Models",
+        `<div class="story-list">${(sections.ai_models || []).map(renderStoryCard).join("")}</div>`
+      ));
+
+      blocks.push(renderSection(
+        "Full Link Radar",
+        `<div class="link-list">${(sections.full_link_radar || []).map(renderLinkCard).join("")}</div>`
+      ));
+
+      dashboard.innerHTML = blocks.join("");
     }
 
     async function fetchTechJson() {
@@ -205,7 +450,7 @@
       if (!resp.ok) {
         throw new Error("Khong tai duoc tech/data/publication.json");
       }
-      return await resp.json();
+      return resp.json();
     }
 
     fetchTechJson()
