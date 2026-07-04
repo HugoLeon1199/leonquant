@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-03T23:15:21.733595+00:00",
+  "generated_at": "2026-07-04T23:07:54.415653+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 702248,
+    "estimated_input_tokens": 483896,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 612,
-    "sent_article_count": 612,
+    "input_article_count": 412,
+    "sent_article_count": 412,
     "window": {
-      "end_date": "2026-07-04",
+      "end_date": "2026-07-05",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,100 +25,80 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các sự kiện kinh tế, công nghệ và địa chính trị quan trọng trong 48 giờ qua, tập trung vào các biến số vĩ mô và tác động thực tế đến thị trường Việt Nam.",
+    "editor_note": "Bản tin tổng hợp các biến động kinh tế, chính sách và công nghệ trong 48 giờ qua, tập trung vào các chỉ đạo điều hành tại Việt Nam và xu hướng thị trường toàn cầu.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường ghi nhận sự tái định giá tài sản rủi ro sau dữ liệu việc làm Mỹ yếu hơn dự báo, thúc đẩy dòng vốn quay trở lại Bitcoin và các tài sản số. Tại Việt Nam, bức tranh kinh tế vĩ mô nửa đầu năm 2026 cho thấy đà tăng trưởng GDP đạt 8,18%, song song với đó là những thách thức về quản trị doanh nghiệp và an toàn hạ tầng trước thiên tai.",
-        "most_mentioned": "Chủ đề về Bitcoin và tài sản số chiếm sóng nhờ sự phục hồi sau dữ liệu vĩ mô Mỹ, cùng với đó là các tin tức về bão số 1 (Maysak) đang đe dọa khu vực ven biển phía Bắc Việt Nam. Các sự kiện này phản ánh tâm lý phòng thủ của thị trường trước những bất ổn vĩ mô.",
-        "top_stories": "Vụ án buôn lậu kim cương liên quan đến công ty con P-Lab của PNJ và việc khởi tố các gói thầu điện lực tại TP.HCM là những điểm nóng về quản trị doanh nghiệp. Song song đó, tang lễ Đại giáo chủ Iran Ali Khamenei tiếp tục là tâm điểm địa chính trị thu hút sự chú ý của cộng đồng quốc tế.",
-        "sector_impacts": "Ngành bán dẫn và công nghệ AI đang đối mặt với sự điều chỉnh định giá, trong khi ngành bán lẻ và năng lượng tại Việt Nam chịu tác động trực tiếp từ các vụ việc pháp lý và thiên tai."
+        "main_picture": "Trong 48 giờ qua, bức tranh tin tức được định hình bởi sự quyết liệt trong điều hành kinh tế tại Việt Nam và các biến động tài chính toàn cầu. Chính phủ Việt Nam đã ban hành các chỉ đạo trọng tâm nhằm tháo gỡ điểm nghẽn giải ngân đầu tư công và hạ tầng, trong khi thị trường tài chính quốc tế ghi nhận sự phục hồi của Bitcoin và kim loại quý trước kỳ vọng về chính sách tiền tệ nới lỏng.",
+        "most_mentioned": "World Cup 2026 tiếp tục là tâm điểm truyền thông với mật độ đưa tin dày đặc, không chỉ ở khía cạnh thể thao mà còn về tác động kinh tế đối với thị trường dự báo và an ninh trật tự. Song song đó, các chỉ đạo về giải ngân vốn đầu tư công và quy hoạch hạ tầng tại Việt Nam cũng chiếm tỷ trọng lớn trong các báo cáo thời sự.",
+        "top_stories": "Sự kiện nổi bật nhất là việc Chính phủ Việt Nam gắn kết quả giải ngân đầu tư công với trách nhiệm người đứng đầu, cùng với đó là sự kiện Việt Nam chính thức gia nhập nhóm quốc gia có thu nhập trung bình cao theo World Bank. Trên bình diện quốc tế, sự phục hồi của Bitcoin trên mốc 63.000 USD và các diễn biến địa chính trị tại Iran đang định hình lại tâm lý nhà đầu tư.",
+        "sector_impacts": "Các chỉ đạo về hạ tầng và logistics đang tác động trực tiếp đến năng lực cạnh tranh của doanh nghiệp xuất khẩu Việt Nam. Trong khi đó, cuộc khủng hoảng chip nhớ toàn cầu đang gây áp lực lên giá thành thiết bị công nghệ, buộc các doanh nghiệp phải điều chỉnh kế hoạch sản xuất và dự báo nguồn cung đến năm 2028.",
+        "watch_24_72h": "Cần theo dõi sát sao: tiến độ giải ngân đầu tư công tại các địa phương, phản ứng của thị trường tài chính với các văn bản pháp lý về tài sản số tại Việt Nam, và diễn biến giá điện trong bối cảnh nhu cầu tiêu thụ lập kỷ lục."
       },
-      "content": "Thị trường tài chính 48h qua bị chi phối bởi dữ liệu việc làm Mỹ yếu, làm giảm kỳ vọng Fed tăng lãi suất và thúc đẩy Bitcoin phục hồi trên 61.000 USD. Dòng vốn ETF Bitcoin ghi nhận mức vào ròng 221,7 triệu USD, chấm dứt chuỗi 10 ngày rút vốn. Trong khi đó, tại Việt Nam, tăng trưởng GDP 8,18% trong 6 tháng đầu năm cho thấy sức chống chịu của nền kinh tế, dù nhập siêu tăng lên 16,65 tỉ USD do nhu cầu nguyên liệu sản xuất. Vụ án buôn lậu kim cương tại P-Lab (công ty con của PNJ) đã gây chấn động thị trường chứng khoán, khiến cổ phiếu PNJ giảm sàn. Về địa chính trị, tang lễ Đại giáo chủ Iran Ali Khamenei đang diễn ra với sự tham dự của 90 quốc gia, trong khi bão số 1 (Maysak) đang đe dọa trực tiếp đến an toàn công cộng tại các tỉnh ven biển phía Bắc Việt Nam.",
+      "content": "Trong 48 giờ qua, bức tranh tin tức được định hình bởi sự quyết liệt trong điều hành kinh tế tại Việt Nam và các biến động tài chính toàn cầu. Chính phủ Việt Nam đã ban hành các chỉ đạo trọng tâm nhằm tháo gỡ điểm nghẽn giải ngân đầu tư công và hạ tầng, trong khi thị trường tài chính quốc tế ghi nhận sự phục hồi của Bitcoin và kim loại quý trước kỳ vọng về chính sách tiền tệ nới lỏng. Sự kiện Việt Nam chính thức gia nhập nhóm quốc gia có thu nhập trung bình cao theo World Bank với GNI bình quân đạt 4.970 USD là một cột mốc quan trọng, khẳng định vị thế kinh tế quốc gia. Trong khi đó, tại khu vực phía Bắc, chính quyền các tỉnh đang khẩn trương ứng phó với bão số 1, triển khai phương án '4 tại chỗ' để đảm bảo an toàn cho người dân và du khách. Trên thị trường công nghệ, cuộc khủng hoảng chip nhớ toàn cầu đang khiến giá linh kiện tăng phi mã, với dự báo tình trạng khan hiếm sẽ kéo dài đến năm 2028, gây áp lực lớn lên các doanh nghiệp sản xuất và người tiêu dùng.",
       "representative_sources": [
         {
-          "title": "Bitcoin ETFs draw in $221 million alongside renewed buying from long-term investors",
+          "title": "Noticias del precio de BTC: Bitcoin recupera los $63,000, revirtiendo las pérdidas de finales de junio",
           "source": "coindesk_com",
-          "url": "https://coindesk.com/markets/2026/07/03/finally-usd221-million-flow-into-bitcoin-etfs-ending-a-painful-10-day-outflow-streak"
-        },
-        {
-          "title": "Cổ phiếu PNJ giảm sàn, 3 mã chứng khoán tăng trần",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/co-phieu-pnj-giam-san-3-ma-chung-khoan-tang-tran-20260703152423009.htm",
-          "excerpt": "Cổ phiếu PNJ chịu áp lực bán tháo sau khi lãnh đạo công ty con P-Lab bị điều tra."
+          "url": "https://coindesk.com/es/markets/2026/07/04/bitcoin-jumps-above-usd63-000-reversing-end-june-losses"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Bitcoin & Tài sản số",
-          "why_mentioned": "Phục hồi giá sau dữ liệu vĩ mô Mỹ",
-          "evidence_hint": "Dòng vốn ETF vào ròng 221,7 triệu USD"
-        },
-        {
-          "topic": "Kinh tế Việt Nam",
-          "why_mentioned": "Công bố số liệu GDP 6 tháng đầu năm",
-          "evidence_hint": "GDP tăng 8,18%"
+          "topic": "World Cup 2026",
+          "why_mentioned": "Sự kiện thể thao lớn nhất hành tinh thu hút sự quan tâm toàn cầu.",
+          "evidence_hint": "Lặp nguồn dày đặc từ các báo thể thao và tin tức tổng hợp."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Vụ án buôn lậu kim cương PNJ",
-          "why_hot": "Ảnh hưởng trực tiếp đến doanh nghiệp lớn",
-          "impact": "Cổ phiếu PNJ giảm sàn",
-          "evidence_hint": "Khởi tố 22 bị can"
-        },
-        {
-          "topic": "Bão số 1 (Maysak)",
-          "why_hot": "Thiên tai cấp bách",
-          "impact": "Đe dọa an toàn ven biển Bắc Bộ",
-          "evidence_hint": "Cấm tàu thuyền ra khơi"
+          "topic": "Điều hành kinh tế Việt Nam",
+          "why_hot": "Ảnh hưởng trực tiếp đến tăng trưởng kinh tế 6 tháng cuối năm.",
+          "impact": "Thúc đẩy giải ngân đầu tư công và tháo gỡ điểm nghẽn hạ tầng.",
+          "evidence_hint": "Chỉ đạo từ Thủ tướng và các bộ ngành."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dòng vốn xoay trục từ chip AI sang phần mềm doanh nghiệp",
-          "why_watch": "Thay đổi chiến lược đầu tư toàn cầu"
-        },
-        {
-          "signal": "Siết chặt quản lý đấu thầu điện lực",
-          "why_watch": "Tăng cường minh bạch tài sản công"
+          "signal": "Tăng cường quản lý tài sản số",
+          "why_watch": "Việt Nam đang đẩy nhanh khung pháp lý cho tài sản số."
         }
       ],
       "watch_next": [
-        "Diễn biến bão số 1",
-        "Phản ứng cổ phiếu PNJ",
-        "Dòng vốn ETF Bitcoin"
+        "Tiến độ giải ngân đầu tư công",
+        "Phản ứng thị trường với tài sản số",
+        "Diễn biến giá điện"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Bitcoin phục hồi sau dữ liệu việc làm Mỹ yếu",
-        "one_sentence": "Dữ liệu việc làm tháng 6 chỉ tăng 57.000 việc làm, thấp hơn dự báo, làm giảm áp lực lãi suất từ Fed và thúc đẩy dòng vốn ETF Bitcoin quay trở lại.",
-        "why_it_matters": "Tác động trực tiếp đến tâm lý thị trường tài chính toàn cầu và kỳ vọng chính sách tiền tệ.",
-        "watch_next": "Theo dõi phản ứng của Fed trong cuộc họp tháng 9.",
+        "title": "Chính phủ chỉ đạo quyết liệt nhiệm vụ trọng tâm 6 tháng cuối năm",
+        "one_sentence": "Thủ tướng Lê Minh Hưng yêu cầu các bộ ngành gắn kết quả giải ngân đầu tư công với trách nhiệm người đứng đầu để tạo động lực tăng trưởng kinh tế.",
+        "why_it_matters": "Đây là chỉ đạo điều hành then chốt nhằm tháo gỡ điểm nghẽn giải ngân vốn đầu tư công, ảnh hưởng trực tiếp đến tăng trưởng kinh tế 6 tháng cuối năm.",
+        "watch_next": "Kết quả giải ngân thực tế tại các bộ, ngành và địa phương trong tháng 7.",
         "source_urls": [
-          "https://coindesk.com/markets/2026/07/03/finally-usd221-million-flow-into-bitcoin-etfs-ending-a-painful-10-day-outflow-streak"
+          "https://baoxaydung.vn/thu-tuong-bien-y-chi-thanh-hanh-dong-bien-quyet-sach-thanh-ket-qua-tot-hon-cao-hon-nua-192260704125244785.htm"
         ]
       },
       {
         "rank": 2,
-        "title": "GDP Việt Nam 6 tháng đầu năm tăng 8,18%",
-        "one_sentence": "Kinh tế Việt Nam duy trì đà tăng trưởng tích cực với GDP 6 tháng đầu năm đạt 8,18%, tuy nhiên cán cân thương mại chuyển sang nhập siêu gần 17 tỉ USD.",
-        "why_it_matters": "Phản ánh sức khỏe nền kinh tế và nhu cầu nguyên liệu sản xuất tăng cao.",
-        "watch_next": "Theo dõi cán cân thương mại trong quý III.",
+        "title": "Việt Nam chính thức gia nhập nhóm quốc gia thu nhập trung bình cao",
+        "one_sentence": "Với GNI bình quân đầu người đạt 4.970 USD, Việt Nam đã vượt ngưỡng phân loại của World Bank, khẳng định vị thế kinh tế quốc gia.",
+        "why_it_matters": "Sự kiện kinh tế vĩ mô quan trọng khẳng định vị thế quốc gia và mở ra cơ hội thu hút đầu tư chất lượng cao.",
+        "watch_next": "Các báo cáo đánh giá tác động của World Bank về lộ trình phát triển bền vững của Việt Nam.",
         "source_urls": [
-          "https://vietnamnet.vn/gdp-tang-8-18-kinh-te-duy-tri-da-tang-truong-tich-cuc-2532063.html"
+          "https://thanhnien.vn/viet-nam-gia-nhap-nhom-quoc-gia-co-thu-nhap-trung-binh-cao-185260703215356393.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Cổ phiếu PNJ giảm sàn sau vụ án buôn lậu kim cương",
-        "one_sentence": "Cổ phiếu PNJ giảm hết biên độ sau khi nguyên Tổng Giám đốc công ty con P-Lab bị khởi tố trong đường dây buôn lậu 28.000 viên kim cương.",
-        "why_it_matters": "Ảnh hưởng nghiêm trọng đến uy tín doanh nghiệp bán lẻ vàng bạc lớn nhất Việt Nam.",
-        "watch_next": "Theo dõi kết luận điều tra từ cơ quan công an.",
+        "title": "Bitcoin phục hồi trên mốc 63.000 USD",
+        "one_sentence": "Thị trường tiền số ghi nhận sự phục hồi mạnh mẽ nhờ dữ liệu kinh tế Mỹ khả quan và kỳ vọng Fed nới lỏng chính sách tiền tệ.",
+        "why_it_matters": "Phản ánh tâm lý nhà đầu tư toàn cầu đối với tài sản rủi ro trong bối cảnh lạm phát có dấu hiệu hạ nhiệt.",
+        "watch_next": "Diễn biến giá Bitcoin và các quy định pháp lý liên quan tại Mỹ và châu Âu.",
         "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/co-phieu-pnj-giam-san-3-ma-chung-khoan-tang-tran-20260703152423009.htm"
+          "https://coindesk.com/es/markets/2026/07/04/bitcoin-jumps-above-usd63-000-reversing-end-june-losses"
         ]
       }
     ],
@@ -126,91 +106,67 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính 48h qua nổi bật với sự phục hồi của tài sản rủi ro và các biến động pháp lý tại Việt Nam. Dữ liệu việc làm Mỹ yếu đã làm thay đổi kỳ vọng lãi suất, trong khi tại Việt Nam, các vụ án kinh tế lớn đang gây áp lực lên niềm tin nhà đầu tư. Việc tăng trưởng GDP 8,18% là điểm sáng, nhưng nhập siêu gần 17 tỷ USD cho thấy nhu cầu nguyên liệu sản xuất đang tăng cao.",
-        "subsector_briefs": [
-          {
-            "name": "Thị trường tài chính & Crypto",
-            "overview": "Sự phục hồi của Bitcoin và dòng vốn ETF cho thấy tâm lý thị trường đang đánh giá lại rủi ro vĩ mô.",
-            "key_points": [
-              "Bitcoin vượt 61.000 USD",
-              "Dòng vốn ETF Bitcoin dương 221,7 triệu USD"
-            ],
-            "key_story_titles": [
-              "Bitcoin phục hồi sau dữ liệu việc làm Mỹ yếu"
-            ],
-            "representative_sources": [
-              {
-                "title": "Bitcoin ETFs draw in $221 million alongside renewed buying from long-term investors",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/markets/2026/07/03/finally-usd221-million-flow-into-bitcoin-etfs-ending-a-painful-10-day-outflow-streak"
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi các chỉ đạo điều hành quyết liệt của Chính phủ Việt Nam về giải ngân đầu tư công và sự phục hồi của thị trường tài sản số thị trường. Điểm đáng chú ý là sự kết hợp giữa nỗ lực tháo gỡ điểm nghẽn hạ tầng trong nước và sự thay đổi kỳ vọng chính sách tiền tệ tại Mỹ. Các doanh nghiệp xuất khẩu đang đối mặt với chi phí logistics tăng cao, trong khi thị trường bất động sản đón nhận các đề xuất chính sách mới về nhà ở cho thuê. Việc Việt Nam gia nhập nhóm quốc gia thu nhập trung bình cao theo World Bank với GNI 4.970 USD là cột mốc quan trọng, đòi hỏi các chính sách tài chính phải chuyển mình để duy trì đà tăng trưởng. Trong 24-72 giờ tới, cần theo dõi sát sao tiến độ giải ngân vốn đầu tư công tại các địa phương và phản ứng của thị trường tài chính với các văn bản pháp lý về tài sản số.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Quản trị doanh nghiệp",
-            "title": "Vụ án buôn lậu kim cương tại P-Lab (PNJ)",
-            "summary": "Cựu giám đốc P-Lab bị khởi tố trong đường dây buôn lậu 28.000 viên kim cương, khiến cổ phiếu PNJ giảm sàn và gây lo ngại cho khách hàng.",
+            "depth_level": "major",
+            "sub_sector": "Chính sách & Đầu tư công",
+            "title": "Chỉ đạo giải ngân đầu tư công",
+            "summary": "Chính phủ ban hành Quyết định 1129 về phương pháp chấm điểm giải ngân vốn đầu tư công, coi đây là thước đo quan trọng để đánh giá chất lượng lãnh đạo và thi đua khen thưởng. Thủ tướng Lê Minh Hưng nhấn mạnh tinh thần 'biến ý chí thành hành động' để đạt mục tiêu tăng trưởng kinh tế trong bối cảnh nhiều thách thức.",
             "main_developments": [
-              "Công an tỉnh Thanh Hóa khởi tố 22 bị can trong đường dây buôn lậu xuyên quốc gia.",
-              "Ông Đặng Ngọc Thảo, nguyên Giám đốc P-Lab, bị cáo buộc tiếp tay cho hoạt động buôn lậu.",
-              "Cổ phiếu PNJ giảm sàn 6,97% trong phiên giao dịch ngày 3/7."
+              "Ban hành Quyết định 1129 về phương pháp chấm điểm giải ngân vốn đầu tư công.",
+              "Gắn kết quả giải ngân cả năm với việc đánh giá, phân loại chất lượng công việc của lãnh đạo các bộ, ngành, địa phương.",
+              "Tập trung xử lý dứt điểm các dự án tồn đọng, kéo dài để tạo nguồn thu ngân sách."
             ],
-            "why_it_matters": "Sự kiện ảnh hưởng trực tiếp đến uy tín doanh nghiệp bán lẻ vàng bạc lớn nhất Việt Nam và niềm tin nhà đầu tư.",
+            "why_it_matters": "Đây là chính sách then chốt nhằm tháo gỡ điểm nghẽn giải ngân vốn đầu tư công, ảnh hưởng trực tiếp đến tăng trưởng kinh tế 6 tháng cuối năm.",
             "affected_groups": [
-              "PNJ",
-              "Nhà đầu tư chứng khoán"
+              "Bộ ngành",
+              "Địa phương",
+              "Doanh nghiệp xây dựng"
             ],
             "watch_next": [
-              "Kết luận điều tra từ cơ quan công an",
-              "Phản ứng của khách hàng đối với thương hiệu PNJ"
+              "Kết quả chấm điểm giải ngân quý III",
+              "Tiến độ xử lý các dự án tồn đọng"
             ],
-            "representative_sources": [
-              {
-                "title": "Cổ phiếu PNJ giảm sàn, 3 mã chứng khoán tăng trần",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/co-phieu-pnj-giam-san-3-ma-chung-khoan-tang-tran-20260703152423009.htm",
-                "excerpt": "Cổ phiếu PNJ chịu áp lực bán tháo sau khi lãnh đạo công ty con P-Lab bị điều tra."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI 48h qua chứng kiến sự cạnh tranh gay gắt về dữ liệu và hạ tầng. Alibaba cấm nhân viên sử dụng Claude Code của Anthropic vì lo ngại bảo mật, trong khi OpenAI đề xuất chia sẻ 5% cổ phần cho chính phủ Mỹ để giảm rủi ro pháp lý. Các đột phá khoa học như AI đọc cổ thư Pompeii cho thấy tiềm năng ứng dụng rộng lớn của AI trong nghiên cứu.",
+        "sector_thesis": "Công nghệ & AI trong 48 giờ qua nổi bật với cuộc khủng hoảng chip nhớ toàn cầu và các diễn biến pháp lý về bản quyền AI. Nhu cầu chip nhớ cho trung tâm dữ liệu AI đang vượt xa năng lực sản xuất, đẩy giá linh kiện tăng mạnh, với dự báo tình trạng khan hiếm sẽ kéo dài đến năm 2028. Đồng thời, các cuộc tranh luận về an toàn AI và quyền lực của các tập đoàn công nghệ lớn đang trở nên gay gắt hơn bao giờ hết, khi Midjourney yêu cầu các studio Hollywood công khai chi tiết sử dụng AI trong các vụ kiện bản quyền. Tại Việt Nam, việc ứng dụng công nghệ vào nông nghiệp thông qua drone và chuyển đổi số trong ngành cà phê đang trở thành xu hướng tất yếu để đáp ứng các tiêu chuẩn xanh toàn cầu. Trong 24-72 giờ tới, cần theo dõi sát sao diễn biến giá linh kiện công nghệ và các phản ứng từ phía các tập đoàn công nghệ lớn đối với các quy định quản lý AI mới.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI & Bảo mật",
-            "title": "Alibaba cấm sử dụng Claude Code",
-            "summary": "Tập đoàn Alibaba chính thức cấm nhân viên sử dụng các công cụ AI của Anthropic do lo ngại về bảo mật và giám sát dữ liệu.",
+            "sub_sector": "Bán dẫn & Hạ tầng AI",
+            "title": "Khủng hoảng chip nhớ toàn cầu",
+            "summary": "Nhu cầu chip nhớ cho trung tâm dữ liệu AI đang vượt xa năng lực sản xuất, đẩy giá RAM, SSD và laptop tăng mạnh. Giám đốc điều hành của Micron, ông Sanjay Mehrotra, nhận định tình trạng khan hiếm nguồn cung sẽ tiếp tục duy trì và kéo dài qua cả năm 2027, dự báo chỉ cải thiện vào năm 2028.",
             "main_developments": [
-              "Alibaba xếp Claude Code vào danh mục phần mềm rủi ro cao.",
-              "Phát hiện mã ẩn có khả năng kiểm tra thông tin môi trường người dùng.",
-              "Yêu cầu gỡ cài đặt mọi sản phẩm của Anthropic khỏi thiết bị làm việc."
+              "Giá linh kiện công nghệ như RAM, SSD tăng mạnh do nhu cầu từ các trung tâm dữ liệu AI.",
+              "Micron dự báo nguồn cung toàn ngành chưa thể bắt kịp tốc độ tăng của nhu cầu trong ngắn hạn.",
+              "Các doanh nghiệp công nghệ phải điều chỉnh kế hoạch sản xuất và dự báo nguồn cung dài hạn."
             ],
-            "why_it_matters": "Phản ánh căng thẳng địa chính trị công nghệ và rủi ro bảo mật dữ liệu trong phát triển AI.",
+            "why_it_matters": "Tác động trực tiếp đến giá thành thiết bị công nghệ toàn cầu và Việt Nam, gây áp lực lên chi phí đầu tư hạ tầng số.",
             "affected_groups": [
-              "Alibaba",
-              "Anthropic"
+              "Doanh nghiệp công nghệ",
+              "Người tiêu dùng",
+              "Trung tâm dữ liệu"
             ],
             "watch_next": [
-              "Phản ứng từ phía Anthropic",
-              "Tác động đến các công cụ AI khác tại Trung Quốc"
+              "Diễn biến giá linh kiện công nghệ quý III",
+              "Báo cáo nguồn cung từ các nhà sản xuất chip lớn"
             ],
             "representative_sources": [
               {
-                "title": "Gọi Claude Code là phần mềm độc hại, Alibaba cấm toàn bộ nhân viên sử dụng công cụ AI của Anthropic",
+                "title": "Khủng hoảng chip nhớ toàn cầu khiến giá laptop, RAM, SSD tăng phi mã, người dùng Việt phải chờ đến khi nào?",
                 "source": "genk_vn",
-                "url": "https://genk.vn/goi-claude-code-la-phan-mem-doc-hai-alibaba-cam-toan-bo-nhan-vien-su-dung-cong-cu-ai-cua-anthropic-16526070320561956.chn",
-                "excerpt": "Alibaba cáo buộc công cụ của Anthropic chứa mã theo dõi ẩn."
+                "url": "https://genk.vn/khung-hoang-chip-nho-toan-cau-khien-gia-laptop-ram-ssd-tang-phi-ma-nguoi-dung-viet-phai-cho-den-khi-nao-165260704172306734.chn",
+                "excerpt": "Tình trạng khan hiếm nguồn cung sẽ tiếp tục duy trì và kéo dài qua cả năm 2027."
               }
             ]
           }
@@ -219,55 +175,36 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48h qua bị chi phối bởi tang lễ Đại giáo chủ Iran Ali Khamenei và các diễn biến thiên tai tại Việt Nam. Bão số 1 (Maysak) đang gây áp lực lên các tỉnh ven biển Bắc Bộ, buộc chính quyền phải triển khai các biện pháp ứng phó khẩn cấp. Đồng thời, các thay đổi nhân sự trong cộng đồng tình báo Mỹ cũng thu hút sự chú ý lớn.",
-        "subsector_briefs": [
-          {
-            "name": "Địa chính trị & Thiên tai",
-            "overview": "Sự kiện tang lễ tại Iran và bão số 1 tại Việt Nam là hai tâm điểm chính.",
-            "key_points": [
-              "Tang lễ Đại giáo chủ Iran",
-              "Bão số 1 đổ bộ"
-            ],
-            "key_story_titles": [
-              "Iran tổ chức tang lễ cho Đại giáo chủ Ali Khamenei"
-            ],
-            "representative_sources": [
-              {
-                "title": "Tang lễ Đại giáo chủ Ali Khamenei: 7 ngày quốc tang, 90 quốc gia tham dự và các thông điệp ngầm của Iran",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/tang-le-dai-giao-chu-ali-khamenei-7-ngay-quoc-tang-90-quoc-gia-tham-du-va-cac-thong-diep-ngam-cua-iran-post1856722.tpo",
-                "excerpt": "Iran tổ chức tang lễ quy mô lớn với sự tham dự của 90 quốc gia."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua tập trung vào các nỗ lực ứng phó thiên tai tại Việt Nam và các diễn biến địa chính trị tại Trung Đông. Bão số 1 đổ bộ gây ảnh hưởng đến khu vực phía Bắc, buộc chính quyền các địa phương phải triển khai phương án '4 tại chỗ' để bảo đảm an toàn cho người dân và du khách. Đồng thời, Iran tổ chức quốc tang cho cố lãnh đạo tối cao Ayatollah Ali Khamenei, tạo ra những bất ổn tiềm tàng trong khu vực. Tại Việt Nam, Tổng Bí thư, Chủ tịch nước Tô Lâm đã có những chỉ đạo quyết liệt về việc xử lý các nguồn lực đình trệ do thủ tục và né tránh trách nhiệm, nhằm thúc đẩy tăng trưởng kinh tế. Trong 24-72 giờ tới, cần theo dõi sát sao diễn biến thời tiết sau bão số 1 và các thông tin liên quan đến sự kế thừa quyền lực tại Iran.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Thiên tai",
-            "title": "Ứng phó bão số 1 (Maysak)",
-            "summary": "Các địa phương ven biển Việt Nam khẩn cấp ứng phó với bão số 1 (Maysak), triển khai lệnh cấm tàu thuyền và di dời người dân để đảm bảo an toàn.",
+            "depth_level": "deep",
+            "sub_sector": "Thiên tai & Ứng phó",
+            "title": "Ứng phó bão số 1",
+            "summary": "Bão số 1 đổ bộ vào khu vực phía Bắc Việt Nam, đặc biệt là Quảng Ninh, gây gió giật mạnh cấp 10-11 và sóng biển cao 3-4 mét. Chính quyền địa phương đã triển khai phương án '4 tại chỗ', di dời hàng nghìn du khách và tàu thuyền vào nơi tránh trú an toàn để bảo đảm an toàn tính mạng và tài sản.",
             "main_developments": [
-              "Bão số 1 có sức gió mạnh nhất cấp 8, giật cấp 10.",
-              "Quảng Ninh và Hải Phòng cấm tàu thuyền ra khơi và tạm dừng các hoạt động du lịch trên vịnh.",
-              "Các sân bay Vân Đồn, Cát Bi trực chiến 24/24h."
+              "Bão số 1 đổ bộ với gió giật mạnh cấp 10-11 tại Quảng Ninh.",
+              "Chính quyền di dời hơn 5.600 du khách và tàu thuyền vào nơi tránh trú an toàn.",
+              "Triển khai phương án '4 tại chỗ' để ứng phó với mưa lớn và gió mạnh."
             ],
-            "why_it_matters": "Sự kiện thiên tai cấp bách ảnh hưởng trực tiếp đến an toàn công cộng và hạ tầng kinh tế tại Việt Nam.",
+            "why_it_matters": "Sự kiện thời tiết cực đoan ảnh hưởng trực tiếp đến an toàn tính mạng và tài sản tại khu vực phía Bắc, đồng thời tác động đến hoạt động du lịch và kinh tế địa phương.",
             "affected_groups": [
-              "Người dân ven biển",
-              "Ngành du lịch"
+              "Người dân",
+              "Du khách",
+              "Chính quyền địa phương"
             ],
             "watch_next": [
-              "Diễn biến bão khi đổ bộ vào đất liền",
-              "Thiệt hại sau bão"
+              "Diễn biến mưa lũ sau bão",
+              "Đánh giá thiệt hại tài sản tại các địa phương"
             ],
             "representative_sources": [
               {
-                "title": "Bão số 1 Maysak hình thành trên Biển Đông, giật cấp 10, mưa to đến 350mm",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/bao-so-1-maysak-hinh-thanh-tren-bien-dong-giat-cap-10-mua-to-den-350mm-185260703074106618.htm",
-                "excerpt": "Bão số 1 đang di chuyển hướng vào khu vực Quảng Ninh."
+                "title": "Quảng Ninh bảo đảm an toàn cho hơn 5.600 du khách vẫn lưu trú ngoài đảo trước bão số 1",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/quang-ninh-bao-dam-an-toan-cho-hon-5600-du-khach-van-luu-tru-ngoai-dao-truoc-bao-so-1-192260704161907566.htm",
+                "excerpt": "Chính quyền đã di dời hàng nghìn du khách và tàu thuyền vào nơi tránh trú an toàn."
               }
             ]
           }
@@ -276,24 +213,24 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48h qua ghi nhận sự quan tâm đến tiêu dùng xanh và các vấn đề sức khỏe cộng đồng. Việc thành lập Hội Ung thư Hà Nội và các nghiên cứu về lợi ích của cà phê cho thấy sự chú trọng vào y tế dự phòng. Đồng thời, xu hướng tiêu dùng tối giản đang trở thành lựa chọn của nhiều người để tối ưu hóa tài chính cá nhân.",
+        "sector_thesis": "Xu hướng & Đời sống trong 48 giờ qua bị chi phối bởi World Cup 2026. Giải đấu không chỉ là sự kiện thể thao mà còn là động lực thúc đẩy thị trường dự báo đạt kỷ lục giao dịch và tạo ra các xu hướng tiêu dùng mới. Bên cạnh đó, sự chuyển dịch của các thương hiệu sang xe điện và xu hướng du lịch số cũng là những điểm nhấn đáng chú ý. Khách Việt ngày càng sẵn sàng chi tiêu cho những hành trình được cá nhân hóa và dịch vụ chất lượng cao, phản ánh sự thay đổi trong hành vi tiêu dùng. Trong 24-72 giờ tới, cần theo dõi sát sao kết quả các trận đấu vòng 1/8 World Cup 2026 và các phản ứng của thị trường đối với các quy định mới về phí bản quyền âm nhạc tại các cơ sở kinh doanh.",
         "subsector_briefs": [
           {
-            "name": "Sức khỏe & Tiêu dùng",
-            "overview": "Xu hướng sống xanh và y tế dự phòng được quan tâm.",
+            "name": "World Cup 2026",
+            "overview": "Giải đấu World Cup 2026 bước vào vòng knock-out với nhiều cặp đấu hấp dẫn.",
             "key_points": [
-              "Thành lập Hội Ung thư Hà Nội",
-              "Tiêu dùng xanh tại TH True Mart"
+              "Thúc đẩy thị trường dự báo đạt kỷ lục",
+              "Tác động văn hóa và truyền thông lớn"
             ],
             "key_story_titles": [
-              "Thành lập Hội Ung thư thành phố Hà Nội"
+              "World Cup 2026: Các cặp đấu vòng 1/8 được xác định"
             ],
             "representative_sources": [
               {
-                "title": "Thành lập Hội Ung thư Thành phố Hà Nội",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/thanh-lap-hoi-ung-thu-thanh-pho-ha-noi-post1856687.tpo",
-                "excerpt": "Tổ chức xã hội - nghề nghiệp chuyên sâu đầu tiên về ung thư tại Hà Nội."
+                "title": "Kalshi, Polymarket Hit Rcord June trading on World Cup",
+                "source": "cointelegraph_com",
+                "url": "https://cointelegraph.com/news/world-cup-drives-prediction-markets-to-record-june-trading-volumes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "excerpt": "Sự kiện World Cup 2026 đang tạo ra làn sóng giao dịch kỷ lục trên các nền tảng dự báo."
               }
             ]
           }
@@ -301,28 +238,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "brief",
-            "sub_sector": "Sức khỏe",
-            "title": "Thành lập Hội Ung thư thành phố Hà Nội",
-            "summary": "Tổ chức xã hội - nghề nghiệp chuyên sâu đầu tiên về ung thư tại Hà Nội chính thức ra mắt, hướng tới xây dựng cộng đồng chuyên môn đoàn kết.",
+            "depth_level": "major",
+            "sub_sector": "World Cup 2026",
+            "title": "World Cup 2026 và tác động kinh tế",
+            "summary": "World Cup 2026 không chỉ là sự kiện thể thao lớn nhất hành tinh mà còn là động lực thúc đẩy thị trường dự báo đạt kỷ lục giao dịch trong tháng 6. Các cặp đấu vòng 1/8 đã được xác định với nhiều trận cầu kịch tính, thu hút sự quan tâm lớn từ công chúng toàn cầu và Việt Nam, tạo ra làn sóng tiêu dùng và truyền thông mạnh mẽ.",
             "main_developments": [
-              "Đại hội khóa I, nhiệm kỳ 2026-2031 được tổ chức.",
-              "Tập trung phát huy năng lực của đội ngũ cán bộ y tế."
+              "Các cặp đấu vòng 1/8 World Cup 2026 đã được xác định.",
+              "Thị trường dự báo ghi nhận khối lượng giao dịch kỷ lục trong tháng 6.",
+              "Sự kiện tạo ra tác động văn hóa và truyền thông lớn tại Việt Nam và quốc tế."
             ],
-            "why_it_matters": "Bước tiến quan trọng trong mạng lưới y tế chuyên sâu tại Thủ đô.",
+            "why_it_matters": "Sự kiện thể thao lớn nhất hành tinh có tác động mạnh đến xu hướng tiêu dùng, thị trường dự báo và tâm lý công chúng toàn cầu.",
             "affected_groups": [
-              "Cán bộ y tế",
-              "Bệnh nhân ung thư"
+              "Người hâm mộ",
+              "Nền tảng dự báo",
+              "Doanh nghiệp truyền thông"
             ],
             "watch_next": [
-              "Các hoạt động chuyên môn của Hội"
+              "Kết quả các trận đấu vòng 1/8",
+              "Tác động của giải đấu đến doanh thu du lịch và dịch vụ"
             ],
             "representative_sources": [
               {
-                "title": "Thành lập Hội Ung thư Thành phố Hà Nội",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/thanh-lap-hoi-ung-thu-thanh-pho-ha-noi-post1856687.tpo",
-                "excerpt": "Tổ chức xã hội - nghề nghiệp chuyên sâu đầu tiên về ung thư tại Hà Nội."
+                "title": "Kalshi, Polymarket Hit Rcord June trading on World Cup",
+                "source": "cointelegraph_com",
+                "url": "https://cointelegraph.com/news/world-cup-drives-prediction-markets-to-record-june-trading-volumes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "excerpt": "Sự kiện World Cup 2026 đang tạo ra làn sóng giao dịch kỷ lục trên các nền tảng dự báo."
               }
             ]
           }
@@ -331,69 +271,69 @@
     ],
     "watchlist_24_72h": [
       {
+        "theme": "Giải ngân đầu tư công",
+        "what_to_watch": "Tiến độ giải ngân tại các bộ ngành và địa phương",
+        "why": "Ảnh hưởng trực tiếp đến tăng trưởng kinh tế 6 tháng cuối năm"
+      },
+      {
+        "theme": "Thị trường tài sản số",
+        "what_to_watch": "Phản ứng giá Bitcoin và các quy định pháp lý",
+        "why": "Tâm lý nhà đầu tư đang thay đổi trước kỳ vọng chính sách"
+      },
+      {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến tang lễ Đại giáo chủ Iran và phản ứng của các nước khu vực.",
-        "why": "Ảnh hưởng đến an ninh và giá năng lượng toàn cầu."
+        "what_to_watch": "Thông tin về sự kế thừa quyền lực tại Iran",
+        "why": "Tác động đến ổn định khu vực và giá năng lượng"
       },
       {
-        "theme": "Thiên tai Việt Nam",
-        "what_to_watch": "Đường đi và cường độ bão số 1 (Maysak).",
-        "why": "Tác động trực tiếp đến an toàn công cộng và kinh tế ven biển."
-      },
-      {
-        "theme": "Chính sách tiền tệ Mỹ",
-        "what_to_watch": "Dữ liệu kinh tế tiếp theo và phát biểu của các quan chức Fed.",
-        "why": "Ảnh hưởng đến dòng vốn toàn cầu và giá tài sản rủi ro."
-      },
-      {
-        "theme": "Bitcoin phục hồi sau dữ liệu việc làm Mỹ yếu",
-        "what_to_watch": "Theo dõi phản ứng của Fed trong cuộc họp tháng 9.",
-        "why": "Tác động trực tiếp đến tâm lý thị trường tài chính toàn cầu và kỳ vọng chính sách tiền tệ."
-      },
-      {
-        "theme": "GDP Việt Nam 6 tháng đầu năm tăng 8,18%",
-        "what_to_watch": "Theo dõi cán cân thương mại trong quý III.",
-        "why": "Phản ánh sức khỏe nền kinh tế và nhu cầu nguyên liệu sản xuất tăng cao."
-      },
-      {
-        "theme": "Cổ phiếu PNJ giảm sàn sau vụ án buôn lậu kim cương",
-        "what_to_watch": "Theo dõi kết luận điều tra từ cơ quan công an.",
-        "why": "Ảnh hưởng nghiêm trọng đến uy tín doanh nghiệp bán lẻ vàng bạc lớn nhất Việt Nam."
+        "theme": "World Cup 2026",
+        "what_to_watch": "Kết quả các trận đấu vòng 1/8",
+        "why": "Tác động đến tâm lý công chúng và thị trường dự báo"
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin phục hồi trên 61.000 USD sau dữ liệu việc làm Mỹ yếu",
-        "why": "Đây là sự kiện vĩ mô quan trọng nhất ảnh hưởng trực tiếp đến tâm lý thị trường tài chính toàn cầu trong 48 giờ qua."
+        "what_to_watch": "Bitcoin phục hồi trên mốc 63.000 USD sau chuỗi giảm cuối tháng 6",
+        "why": "Sự kiện quan trọng nhất trong 48h qua về biến động giá tài sản số toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin phục hồi sau dữ liệu việc làm Mỹ yếu, dòng vốn ETF quay trở lại",
-        "why": "Sự kiện vĩ mô quan trọng tác động trực tiếp đến tâm lý thị trường tiền điện tử toàn cầu."
+        "what_to_watch": "Chính phủ chỉ đạo quyết liệt các nhiệm vụ trọng tâm 6 tháng cuối năm",
+        "why": "Đây là chỉ đạo điều hành quan trọng nhất của Chính phủ trong 48 giờ qua, định hướng cho toàn bộ nền kinh tế."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Khởi tố vụ án gian lận hơn 30 gói thầu tại các đơn vị điện lực TP.HCM",
-        "why": "Vụ án gây thiệt hại lớn đến tài sản công và ảnh hưởng đến tính cạnh tranh trong đấu thầu."
+        "what_to_watch": "Dự thảo Luật Nhà ở (sửa đổi) bổ sung chương mới về phát triển nhà ở cho thuê",
+        "why": "Thay đổi chính sách quan trọng ảnh hưởng đến thị trường bất động sản và an sinh xã hội."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Alibaba cấm nhân viên sử dụng Claude Code của Anthropic",
-        "why": "Phản ánh căng thẳng địa chính trị công nghệ và rủi ro bảo mật dữ liệu trong phát triển AI."
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Khủng hoảng chip nhớ toàn cầu khiến giá linh kiện tăng phi mã",
+        "why": "Tác động trực tiếp đến giá thành thiết bị công nghệ toàn cầu và Việt Nam."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Midjourney yêu cầu các studio Hollywood công khai chi tiết sử dụng AI",
+        "why": "Diễn biến quan trọng trong cuộc chiến pháp lý về bản quyền AI giữa các công ty công nghệ và ngành giải trí."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Macron và Modi chạy đua ngoại giao AI",
+        "why": "Sự thay đổi trong cách tiếp cận đầu tư công nghệ mang tầm quốc gia."
       }
     ],
     "source_desk": [
       {
-        "topic": "Tài chính & Crypto",
+        "topic": "Kinh tế & Chính sách",
         "representative_sources": [
           {
-            "title": "Bitcoin ETFs draw in $221 million alongside renewed buying from long-term investors",
-            "source": "coindesk_com",
-            "url": "https://coindesk.com/markets/2026/07/03/finally-usd221-million-flow-into-bitcoin-etfs-ending-a-painful-10-day-outflow-streak"
+            "title": "Thủ tướng: Biến ý chí thành hành động, biến quyết sách thành kết quả tốt hơn, cao hơn nữa",
+            "source": "baoxaydung_vn",
+            "url": "https://baoxaydung.vn/thu-tuong-bien-y-chi-thanh-hanh-dong-bien-quyet-sach-thanh-ket-qua-tot-hon-cao-hon-nua-192260704125244785.htm"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của bão số 1 sau khi đổ bộ; cần theo dõi thêm phản ứng của thị trường chứng khoán Việt Nam sau vụ việc PNJ.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các báo cáo tài chính quý II của các doanh nghiệp niêm yết lớn và tác động dài hạn của bão số 1 đối với nông nghiệp.",
     "notable_articles": []
   }
 }
