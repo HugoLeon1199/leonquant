@@ -144,6 +144,9 @@ jobs:
 
       - name: Build + validate tech publication
         if: steps.gate.outputs.run_tech == 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.1-flash-lite' }}
         run: |
           python tech/publication.py
           python tech/validate_publication.py
