@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import re
+import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -406,6 +407,7 @@ def gemini_curate(candidates: list[dict[str, Any]]) -> tuple[dict[str, dict[str,
     _load_env()
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not api_key:
+        print("GEMINI_API_KEY missing; curator fallback will be used.", file=sys.stderr)
         return {}, {"success": 0, "fallback": len(candidates), "failed": len(candidates)}
     genai.configure(api_key=api_key)
     model_name = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite").strip() or "gemini-3.1-flash-lite"
@@ -480,7 +482,11 @@ Candidates:
             items = payload.get("items") if isinstance(payload, dict) else None
             if not isinstance(items, list):
                 raise ValueError("missing items")
-        except Exception:
+        except Exception as exc:  # noqa: BLE001
+            print(
+                f"Gemini curator batch failed: {type(exc).__name__}: {str(exc)[:240]}",
+                file=sys.stderr,
+            )
             failed += len(batch)
             continue
 
@@ -496,6 +502,7 @@ Candidates:
             industry_impact = sanitize_curator_text(str(row.get("industry_impact") or ""), limit=220)
             knowledge_value = sanitize_curator_text(str(row.get("knowledge_value") or ""), limit=220)
             if not (has_accents(why_read) and has_accents(apply_now) and has_accents(industry_impact) and has_accents(knowledge_value)):
+                print(f"Gemini curator item rejected for missing Vietnamese accents: {item_id}", file=sys.stderr)
                 continue
             curated[item_id] = {
                 "translated_title": trim_text(str(row.get("translated_title") or by_id[item_id]["title"]), 220),
@@ -510,6 +517,10 @@ Candidates:
                 "noise_reason": trim_text(str(row.get("noise_reason") or ""), 160),
             }
             success += 1
+    print(
+        f"Gemini curator result: success={success}; fallback={len(candidates) - success}; failed={failed}",
+        file=sys.stderr,
+    )
     return curated, {"success": success, "fallback": len(candidates) - success, "failed": failed}
 
 
