@@ -55,7 +55,7 @@ def run_query(
         use_query_cache=not dry_run,
     )
     job = client.query(sql, job_config=job_config)
-    raw_bytes = getattr(job, "total_bytes_processed", None)
+    raw_bytes = getattr(job, "total_bytes_processed", None) or getattr(job, "total_bytes_billed", None)
     meta = {
         "dry_run": dry_run,
         "bytes_billed": int(raw_bytes) if raw_bytes not in (None, 0) else None,
@@ -63,6 +63,8 @@ def run_query(
     if dry_run:
         return None, meta
     rows = [dict(row.items()) for row in job.result()]
+    raw_bytes = getattr(job, "total_bytes_processed", None) or getattr(job, "total_bytes_billed", None)
+    meta["bytes_billed"] = int(raw_bytes) if raw_bytes not in (None, 0) else None
     return rows, meta
 
 
@@ -106,7 +108,7 @@ def signal_keywords_from_blob(blob: str) -> list[str]:
 
 
 def bytes_status(*values: Any) -> str:
-    return "known" if any(value not in (None, 0, "") for value in values) else "unknown"
+    return "known" if all(value not in (None, 0, "") for value in values) else "unknown"
 
 
 def has_strong_ai_signal(row: dict[str, Any], source_urls: list[str]) -> bool:
