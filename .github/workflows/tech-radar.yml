@@ -43,30 +43,40 @@ jobs:
       - name: Check 72h publish gate
         id: gate
         run: |
-          python - <<'PY' >> "$GITHUB_OUTPUT"
+          python - <<'PY'
           import json
+          import os
           from datetime import datetime, timezone
           from pathlib import Path
 
+          output_path = Path(os.environ["GITHUB_OUTPUT"])
+          def set_output(key: str, value: str) -> None:
+              with output_path.open("a", encoding="utf-8") as fh:
+                  fh.write(f"{key}={value}\n")
+
           path = Path("tech/data/publication.json")
           if not path.is_file():
-              print("run_tech=true")
-              print("age_hours=9999")
+              set_output("run_tech", "true")
+              set_output("age_hours", "9999")
+              print("Missing publication artifact, running tech refresh.")
               raise SystemExit(0)
 
           payload = json.loads(path.read_text(encoding="utf-8"))
           stamp = str(payload.get("generated_at_utc") or payload.get("generated_at") or "").strip()
           if not stamp:
-              print("run_tech=true")
-              print("age_hours=9999")
+              set_output("run_tech", "true")
+              set_output("age_hours", "9999")
+              print("Publication has no timestamp, running tech refresh.")
               raise SystemExit(0)
           dt = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
           if dt.tzinfo is None:
               dt = dt.replace(tzinfo=timezone.utc)
           age_hours = (datetime.now(timezone.utc) - dt.astimezone(timezone.utc)).total_seconds() / 3600.0
-          run_tech = age_hours >= 72.0
-          print(f"run_tech={'true' if run_tech else 'false'}")
-          print(f"age_hours={age_hours:.2f}")
+          manual_dispatch = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+          run_tech = manual_dispatch or age_hours >= 72.0
+          set_output("run_tech", "true" if run_tech else "false")
+          set_output("age_hours", f"{age_hours:.2f}")
+          print(f"Tech publish age {age_hours:.1f}h; manual_dispatch={manual_dispatch}; run_tech={run_tech}.")
           if not run_tech:
               print(f"Tech publish age {age_hours:.1f}h < 72h, skipping tech refresh.")
           PY
