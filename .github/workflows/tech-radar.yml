@@ -140,7 +140,7 @@ jobs:
             exit 1
           fi
           echo "estimated_bytes=$ESTIMATED_BYTES" >> "$GITHUB_OUTPUT"
-          python tech/gdelt.py
+          TECH_GDELT_ESTIMATED_BYTES="$ESTIMATED_BYTES" python tech/gdelt.py
 
       - name: Build + validate tech publication
         if: steps.gate.outputs.run_tech == 'true'

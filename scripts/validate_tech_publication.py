@@ -50,6 +50,11 @@ ACCENT_RE = re.compile(
 COMMUNITY_HINTS = ("discuss.", "forum.", "forums.", "community.", "news.ycombinator.com", "lobste.rs", "stackoverflow.com")
 SUPPORT_NOISE_HINTS = ("coredump", "crc fault", "camera init fail", "driver install", "installation issue", "not usable")
 MAX_TEXT = 320
+STRONG_GDELT_RE = re.compile(
+    r"\b(model|llm|large language model|generative ai|genai|agent|mcp|gpu|semiconductor|robotics|automation|ai startup|openai|anthropic|nvidia|deepmind|mistral|hugging face|qwen|deepseek|llama)\b",
+    re.IGNORECASE,
+)
+THEME_DUMP_RE = re.compile(r"\b(TAX_|WB_|EPU_|CRISISLEX_|SOC_|ENV_|MEDIA_|UNGP_|USPEC_)[A-Z0-9_]+,\d+", re.IGNORECASE)
 
 
 def _load_json(path: Path) -> Any:
@@ -122,7 +127,7 @@ def _load_live_url_pool() -> set[str]:
     return urls
 
 
-def validate(payload: dict) -> list[str]:
+def validate(payload: dict, *, check_external: bool = True) -> list[str]:
     errs: list[str] = []
     if payload.get("schema_version") != SCHEMA_VERSION:
         errs.append(f"schema_version must be {SCHEMA_VERSION}")
@@ -135,10 +140,20 @@ def validate(payload: dict) -> list[str]:
     else:
         for idx, line in enumerate(executive_summary):
             _check_public_text(errs, str(line), f"executive_summary[{idx}]")
+            if "0 bài đáng đọc" in str(line).lower():
+                errs.append("executive_summary must not say 0 bài đáng đọc")
 
     must_read = payload.get("must_read")
     if not isinstance(must_read, list):
         errs.append("must_read must be a list")
+    stats = payload.get("stats") or {}
+    curator_candidate_count = int(stats.get("curator_candidate_count") or 0)
+    main_candidate_count = int(stats.get("main_candidate_count") or 0)
+    must_read_count = len(must_read or [])
+    if curator_candidate_count >= 5 and must_read_count == 0:
+        errs.append("must_read must not be empty when curator_candidate_count >= 5")
+    if main_candidate_count >= 10 and must_read_count < 5:
+        errs.append("must_read must contain at least 5 items when main_candidate_count >= 10")
 
     sections = payload.get("sections")
     if not isinstance(sections, dict):
@@ -181,7 +196,7 @@ def validate(payload: dict) -> list[str]:
             _check_public_text(errs, str(item.get("why_now") or ""), f"sections.founder_ideas_for_leon[{idx}].why_now")
             _check_public_text(errs, str(item.get("apply_now") or ""), f"sections.founder_ideas_for_leon[{idx}].apply_now")
 
-    live_urls = _load_live_url_pool()
+    live_urls = _load_live_url_pool() if check_external else set()
     must_read_community = 0
     domain_counts: Counter[str] = Counter()
     why_prefix_counts: Counter[str] = Counter()
@@ -204,8 +219,16 @@ def validate(payload: dict) -> list[str]:
             errs.append(f"must_read[{idx}].importance must be 1-5")
         if any(hint in str(item.get("title") or "").lower() for hint in SUPPORT_NOISE_HINTS) and importance >= 4:
             errs.append(f"must_read[{idx}] support noise cannot have importance >= 4")
+        for field in ("curation_status", "signal_type", "confidence", "evidence", "time_to_apply", "leon_fit"):
+            if not str(item.get(field) or "").strip():
+                errs.append(f"must_read[{idx}].{field} must be present")
+        if item.get("curation_status") not in {"ai", "fallback"}:
+            errs.append(f"must_read[{idx}].curation_status invalid")
+        if source_type == "community" and str(item.get("evidence") or "") != "community-only":
+            errs.append(f"must_read[{idx}] community item must use evidence=community-only")
         _check_public_text(errs, str(item.get("why_read") or ""), f"must_read[{idx}].why_read")
         _check_public_text(errs, str(item.get("apply_now") or ""), f"must_read[{idx}].apply_now")
+        _check_public_text(errs, str(item.get("leon_fit") or ""), f"must_read[{idx}].leon_fit")
         why_prefix = " ".join(str(item.get("why_read") or "").split()[:6]).lower()
         why_prefix_counts[why_prefix] += 1
         published_at = item.get("published_at")
@@ -217,8 +240,13 @@ def validate(payload: dict) -> list[str]:
         if live_urls and str(item.get("url") or "") not in live_urls:
             errs.append(f"must_read[{idx}] URL is not present in live crawl/GDELT inputs")
 
-    if must_read and must_read_community / max(1, len(must_read)) > 0.30:
+    main_by_source_type = stats.get("main_by_source_type") or {}
+    non_community_main = int(main_by_source_type.get("official") or 0) + int(main_by_source_type.get("independent") or 0)
+    enough_non_community = non_community_main >= max(1, int(max(5, must_read_count) * 0.7))
+    if must_read and enough_non_community and must_read_community / max(1, len(must_read)) > 0.30:
         errs.append("must_read community share must be <= 30%")
+    if must_read and not enough_non_community and must_read_community > 5:
+        errs.append("must_read community fallback must be <= 5 when non-community is insufficient")
     over_domain = [domain for domain, count in domain_counts.items() if domain and count > 3]
     if over_domain:
         errs.append(f"a single domain exceeds 3 must_read items: {', '.join(sorted(over_domain))}")
@@ -263,6 +291,9 @@ def validate(payload: dict) -> list[str]:
                 errs.append(f"sections.{sec_name}[{idx}] URL is not present in live crawl/GDELT inputs")
             if any(hint in str(item.get("title") or "").lower() for hint in SUPPORT_NOISE_HINTS) and importance >= 4:
                 errs.append(f"sections.{sec_name}[{idx}] support noise cannot have importance >= 4")
+            for field in ("curation_status", "signal_type", "confidence", "evidence", "time_to_apply", "leon_fit"):
+                if not str(item.get(field) or "").strip():
+                    errs.append(f"sections.{sec_name}[{idx}].{field} must be present")
 
     full_radar = sections.get("full_link_radar") or []
     if isinstance(full_radar, list):
@@ -278,12 +309,28 @@ def validate(payload: dict) -> list[str]:
             if live_urls and str(item.get("url") or "") not in live_urls:
                 errs.append(f"sections.full_link_radar[{idx}] URL is not present in live crawl/GDELT inputs")
 
-    stats = payload.get("stats") or {}
     render_checks = stats.get("render_checks") or {}
     if render_checks.get("knowledge_fields_ready") is not True:
         errs.append("render_checks.knowledge_fields_ready must be true")
     if render_checks.get("founder_fields_ready") is not True:
         errs.append("render_checks.founder_fields_ready must be true")
+
+    if check_external and TECH_GDELT_OUTPUT.is_file():
+        gdelt = _load_json(TECH_GDELT_OUTPUT)
+        for field in ("raw_event_count", "ai_filtered_event_count", "rejected_non_ai_count", "bytes_status"):
+            if field not in gdelt:
+                errs.append(f"gdelt_pulse missing {field}")
+        for idx, event in enumerate(gdelt.get("events") or []):
+            blob = " ".join(
+                str(part or "")
+                for part in [event.get("title"), event.get("summary"), event.get("primary_url"), " ".join(event.get("source_urls") or [])]
+            )
+            if THEME_DUMP_RE.search(str(event.get("summary") or "")):
+                errs.append(f"gdelt.events[{idx}].summary contains theme dump")
+            if not STRONG_GDELT_RE.search(blob):
+                errs.append(f"gdelt.events[{idx}] lacks strong AI/tech signal")
+            if not event.get("source_urls"):
+                errs.append(f"gdelt.events[{idx}] missing source_urls")
 
     return errs
 

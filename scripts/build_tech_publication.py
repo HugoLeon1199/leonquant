@@ -33,7 +33,7 @@ MAX_FULL_RADAR = 150
 MIN_MUST_READ = 10
 MAX_MUST_READ = 20
 MAX_DOMAIN_PER_MUST_READ = 3
-MAX_COMMUNITY_MUST_READ = 3
+MAX_COMMUNITY_MUST_READ = 5
 GEMINI_BATCH_SIZE = 18
 
 FORBIDDEN_PUBLIC_TERMS = ("pipeline", "crawler", "gdelt", "gemini", "bigquery")
@@ -98,6 +98,8 @@ BUSINESS_HINTS = ("funding", "revenue", "startup", "enterprise", "pricing", "mar
 INDUSTRY_HINTS = ("health", "finance", "robot", "robotics", "cyber", "security", "education", "semiconductor", "gpu", "chip", "cloud")
 KNOWLEDGE_HINTS = ("guide", "best practice", "model card", "benchmark", "architecture", "tutorial", "explainer")
 STRONG_COMMUNITY_HINTS = ("demo", "release", "github", "repo", "open-source", "open source", "model", "tool", "sdk", "framework")
+CURATION_AI = "ai"
+CURATION_FALLBACK = "fallback"
 
 
 def _load_env() -> None:
@@ -530,6 +532,89 @@ def is_strong_community_item(candidate: dict[str, Any], curated: dict[str, Any])
     return strong_hint and curated.get("relevance", 0) >= 0.75
 
 
+def fallback_curated(candidate: dict[str, Any]) -> dict[str, Any]:
+    category = candidate["heuristic_category"]
+    score = int(candidate.get("preliminary_score") or 0)
+    relevance = min(0.72, max(0.50, score / 60.0))
+    hay = f"{candidate['title']} {candidate['excerpt']} {candidate['url']}".lower()
+    community_has_value = any(word in hay for word in STRONG_COMMUNITY_HINTS)
+    importance = 3 if candidate["source_type"] != "community" or community_has_value else 2
+    return {
+        "translated_title": candidate["title"],
+        "category": category,
+        "relevance": relevance,
+        "importance": importance,
+        "why_read": fallback_why_read(candidate),
+        "apply_now": fallback_apply_now(candidate),
+        "industry_impact": fallback_why_read(candidate),
+        "knowledge_value": fallback_apply_now(candidate),
+        "is_noise": bool(candidate["heuristic_noise_reason"]),
+        "noise_reason": candidate["heuristic_noise_reason"],
+    }
+
+
+def signal_type_for(category: str, item: dict[str, Any]) -> str:
+    if category in {"mcp", "agent", "automation"}:
+        return "automation_agent_signal"
+    if category == "model":
+        return "model_signal"
+    if category == "local_ai":
+        return "local_ai_signal"
+    if category == "opensource":
+        return "open_source_signal"
+    if category == "business":
+        return "business_signal"
+    if category == "industry":
+        return "industry_signal"
+    if category == "knowledge":
+        return "knowledge_signal"
+    return "tool_signal"
+
+
+def confidence_for(candidate: dict[str, Any], curated: dict[str, Any], status: str) -> str:
+    relevance = float(curated.get("relevance") or 0)
+    if status == CURATION_AI and relevance >= 0.78 and candidate["source_type"] != "community":
+        return "cao"
+    if relevance >= 0.62 or candidate.get("source_count", 1) >= 2:
+        return "trung_binh"
+    return "thap"
+
+
+def evidence_for(candidate: dict[str, Any], status: str) -> str:
+    if candidate["source_type"] == "community":
+        return "community-only"
+    if status == CURATION_FALLBACK:
+        return "heuristic-live-source"
+    if candidate.get("source_count", 1) >= 2:
+        return "multi-source"
+    return "single-live-source"
+
+
+def time_to_apply_for(category: str) -> str:
+    if category in {"tool", "automation", "mcp", "agent", "opensource", "local_ai"}:
+        return "hom_nay"
+    if category in {"model", "knowledge"}:
+        return "1-3_ngay"
+    return "trong_tuan"
+
+
+def leon_fit_for(category: str, candidate: dict[str, Any]) -> str:
+    title = candidate["title"]
+    templates = {
+        "model": f"Đánh giá của curator: liên quan tới lựa chọn model cho coding, nghiên cứu hoặc tóm tắt tài liệu của Leon qua tín hiệu “{title}”.",
+        "local_ai": f"Đánh giá của curator: có thể dùng để soi hướng chạy riêng tư/local hoặc China AI stack qua tín hiệu “{title}”.",
+        "tool": f"Đánh giá của curator: đáng thử nếu công cụ trong “{title}” cắt được một bước thủ công trong workflow của Leon.",
+        "automation": f"Đánh giá của curator: phù hợp để biến “{title}” thành một thử nghiệm workflow nhỏ trước khi mở rộng.",
+        "mcp": f"Đánh giá của curator: phù hợp để kiểm tra khả năng nối tool/context trong hệ automation của Leon.",
+        "agent": f"Đánh giá của curator: đáng xem nếu agent trong “{title}” có demo hoặc workflow thật, không chỉ là ý tưởng chung.",
+        "opensource": f"Đánh giá của curator: có thể bookmark hoặc fork nếu “{title}” có README, demo và hướng dùng rõ.",
+        "business": f"Đánh giá của curator: giúp Leon đọc nhu cầu thị trường và cách đóng gói dịch vụ nhỏ quanh AI.",
+        "knowledge": f"Đánh giá của curator: phù hợp để rút thành checklist học nhanh hoặc tiêu chí chọn công cụ.",
+        "industry": f"Đánh giá của curator: giúp Leon soi ngành nào đang có điểm chen vào bằng sản phẩm, nội dung hoặc tư vấn.",
+    }
+    return trim_text(templates.get(category, templates["tool"]), 240)
+
+
 def build_full_radar_item(candidate: dict[str, Any], curated: dict[str, Any] | None) -> dict[str, Any]:
     title = curated.get("translated_title") if curated else candidate["title"]
     why_interesting = curated.get("why_read") if curated else fallback_why_read(candidate)
@@ -547,15 +632,20 @@ def build_full_radar_item(candidate: dict[str, Any], curated: dict[str, Any] | N
         "source_count": candidate["source_count"],
         "time_verified": bool(candidate["time_verified"]),
         "tags": [CATEGORY_TO_SECTION.get(category, "ai_tools"), candidate["source_type"]],
+        "curation_status": CURATION_AI if curated else CURATION_FALLBACK,
     }
 
 
-def build_main_item(candidate: dict[str, Any], curated: dict[str, Any]) -> dict[str, Any]:
+def build_main_item(candidate: dict[str, Any], curated: dict[str, Any], curation_status: str) -> dict[str, Any]:
     category = curated["category"]
     section = CATEGORY_TO_SECTION.get(category, "ai_tools")
     importance = curated["importance"]
+    if curation_status == CURATION_FALLBACK and importance > 3:
+        importance = 3
     if candidate["source_type"] == "community" and importance > 3 and not is_strong_community_item(candidate, curated):
         importance = 3
+    confidence = confidence_for(candidate, curated, curation_status)
+    evidence = evidence_for(candidate, curation_status)
     return {
         "title": trim_text(curated["translated_title"] or candidate["title"], 220),
         "url": candidate["url"],
@@ -573,11 +663,24 @@ def build_main_item(candidate: dict[str, Any], curated: dict[str, Any]) -> dict[
         "freshness_hours": candidate["freshness_hours"],
         "tags": [section, candidate["source_type"]],
         "domain": candidate["domain"],
+        "curation_status": curation_status,
+        "signal_type": signal_type_for(category, candidate),
+        "confidence": confidence,
+        "evidence": evidence,
+        "time_to_apply": time_to_apply_for(category),
+        "leon_fit": leon_fit_for(category, candidate),
         "score": round(candidate["preliminary_score"] + curated["relevance"] * 10 + importance * 4, 2),
     }
 
 
 def pick_must_read(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if not items:
+        return []
+    target_min = min(MAX_MUST_READ, len(items))
+    if len(items) >= 10:
+        target_min = max(10, min(MAX_MUST_READ, len(items)))
+    elif len(items) >= 5:
+        target_min = max(5, len(items))
     per_domain: Counter[str] = Counter()
     per_source_type: Counter[str] = Counter()
     chosen: list[dict[str, Any]] = []
@@ -586,7 +689,10 @@ def pick_must_read(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for item in items:
         by_category[item["category"]].append(item)
     non_community_count = sum(1 for item in items if item.get("source_type") != "community")
-    community_limit = min(MAX_COMMUNITY_MUST_READ, max(0, int(non_community_count * 0.42)))
+    if non_community_count >= max(1, int(target_min * 0.7)):
+        community_limit = max(1, int(target_min * 0.3))
+    else:
+        community_limit = min(MAX_COMMUNITY_MUST_READ, max(3, target_min - non_community_count))
 
     def can_take(item: dict[str, Any]) -> bool:
         if item["url"] in chosen_keys:
@@ -597,23 +703,48 @@ def pick_must_read(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             return False
         return True
 
+    def take(item: dict[str, Any]) -> None:
+        chosen.append(item)
+        chosen_keys.add(item["url"])
+        per_domain[item["domain"]] += 1
+        per_source_type[item["source_type"]] += 1
+
     for category in PRIORITY_CATEGORIES:
         for item in by_category.get(category, []):
             if can_take(item):
-                chosen.append(item)
-                chosen_keys.add(item["url"])
-                per_domain[item["domain"]] += 1
-                per_source_type[item["source_type"]] += 1
+                take(item)
                 break
 
     for item in items:
         if len(chosen) >= MAX_MUST_READ:
             break
         if can_take(item):
-            chosen.append(item)
-            chosen_keys.add(item["url"])
-            per_domain[item["domain"]] += 1
-            per_source_type[item["source_type"]] += 1
+            take(item)
+
+    if len(chosen) < target_min:
+        strong_community = [
+            item for item in items
+            if item.get("source_type") == "community"
+            and item["url"] not in chosen_keys
+            and item.get("importance", 0) >= 3
+        ]
+        for item in strong_community:
+            if len(chosen) >= target_min or per_source_type["community"] >= MAX_COMMUNITY_MUST_READ:
+                break
+            if item["url"] in chosen_keys or per_domain[item["domain"]] >= MAX_DOMAIN_PER_MUST_READ:
+                continue
+            item["evidence"] = "community-only"
+            take(item)
+
+    if len(chosen) < target_min:
+        for item in items:
+            if len(chosen) >= target_min:
+                break
+            if item["url"] in chosen_keys or per_domain[item["domain"]] >= MAX_DOMAIN_PER_MUST_READ:
+                continue
+            if item.get("source_type") == "community" and per_source_type["community"] >= MAX_COMMUNITY_MUST_READ:
+                continue
+            take(item)
 
     return chosen[:MAX_MUST_READ]
 
@@ -622,8 +753,13 @@ def build_executive_summary(must_read: list[dict[str, Any]], stats: dict[str, An
     category_counts = Counter(item["category"] for item in must_read)
     source_counts = Counter(item["source_type"] for item in must_read)
     top_categories = ", ".join(category for category, _ in category_counts.most_common(3))
+    first_line = (
+        f"Trong 72 giờ qua, radar giữ lại {len(must_read)} bài đáng đọc nhất từ {stats['candidate_count']} tín hiệu mới sau khi loại {stats['noise_filtered_count']} tín hiệu nhiễu."
+        if must_read
+        else f"Trong 72 giờ qua, radar chưa có đủ tín hiệu đạt chuẩn Must Read từ {stats['candidate_count']} nguồn mới, nên chỉ giữ link trong Full Radar để Leon tự đối chiếu."
+    )
     lines = [
-        f"Trong 72 giờ qua, radar giữ lại {len(must_read)} bài đáng đọc nhất từ {stats['candidate_count']} candidate live sau khi loại {stats['noise_filtered_count']} tín hiệu nhiễu.",
+        first_line,
         f"Nhịp tin nổi bật nhất nằm ở các nhóm {top_categories or 'công cụ, mô hình và automation'}, với ưu tiên rõ cho nguồn official và independent thay vì hỏi đáp cá nhân.",
         f"Cấu trúc nguồn hiện tại gồm official {source_counts.get('official', 0)}, independent {source_counts.get('independent', 0)} và community {source_counts.get('community', 0)} bài trong Must Read.",
         f"Các bài quá hạn cửa sổ 72 giờ đã bị loại khỏi Must Read và section chính; bài thiếu ngày chỉ được giữ ở Full Radar để Leon tự mở link đối chiếu thêm.",
@@ -746,10 +882,15 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
 
     curated_main_items: list[dict[str, Any]] = []
     noise_filtered_count = 0
+    ai_main_count = 0
+    fallback_main_count = 0
     for candidate in eligible_for_curator:
         curated = curated_map.get(candidate["id"])
         if not curated:
-            continue
+            curated = fallback_curated(candidate)
+            curation_status = CURATION_FALLBACK
+        else:
+            curation_status = CURATION_AI
         category = curated["category"]
         if category not in CATEGORY_TO_SECTION:
             category = candidate["heuristic_category"]
@@ -760,7 +901,15 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
         if curated["is_noise"] or curated["relevance"] < 0.45:
             noise_filtered_count += 1
             continue
-        curated_main_items.append(build_main_item(candidate, curated))
+        if curation_status == CURATION_FALLBACK and curated["relevance"] < 0.50:
+            noise_filtered_count += 1
+            continue
+        main_item = build_main_item(candidate, curated, curation_status)
+        curated_main_items.append(main_item)
+        if curation_status == CURATION_AI:
+            ai_main_count += 1
+        else:
+            fallback_main_count += 1
 
     curated_main_items.sort(key=lambda item: (-item["score"], item["freshness_hours"], item["title"]))
     must_read = pick_must_read(curated_main_items)
@@ -780,6 +929,7 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
 
     source_type_counts = Counter(item["source_type"] for item in must_read)
     category_counts = Counter(item["category"] for item in must_read)
+    main_source_type_counts = Counter(item["source_type"] for item in curated_main_items)
     stats = {
         "story_count": len(build_candidates_from_clean(clean_payload)),
         "gdelt_event_count": len(gdelt_payload.get("events") or []),
@@ -791,8 +941,12 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
         "must_read_count": len(must_read),
         "must_read_by_source_type": dict(source_type_counts),
         "must_read_by_category": dict(category_counts),
+        "main_by_source_type": dict(main_source_type_counts),
         "gemini_success_count": gemini_stats["success"],
         "gemini_fallback_count": gemini_stats["fallback"],
+        "ai_curated_main_count": ai_main_count,
+        "fallback_main_count": fallback_main_count,
+        "main_candidate_count": len(curated_main_items),
         "full_link_radar_count": len(full_link_radar),
         "render_checks": {
             "knowledge_fields_ready": True,
@@ -819,6 +973,12 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
                 "source_count": item["source_count"],
                 "source_type": item["source_type"],
                 "published_at": item["published_at"],
+                "curation_status": item["curation_status"],
+                "signal_type": item["signal_type"],
+                "confidence": item["confidence"],
+                "evidence": item["evidence"],
+                "time_to_apply": item["time_to_apply"],
+                "leon_fit": item["leon_fit"],
             }
             for item in must_read
         ],

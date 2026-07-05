@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -23,6 +25,17 @@ from scripts.tech_common import (
 
 ROOT = Path(__file__).resolve().parents[1]
 SQL_PATH = ROOT / "sql" / "gdelt_tech_pulse.sql"
+STRONG_AI_RE = re.compile(
+    r"\b(model|llm|large language model|generative ai|genai|agent|agents|agentic|mcp|"
+    r"gpu|semiconductor|robotics|automation|ai startup|openai|anthropic|deepmind|"
+    r"gemini|claude|chatgpt|nvidia|mistral|hugging face|qwen|deepseek|llama)\b",
+    re.IGNORECASE,
+)
+POLITICS_WAR_RE = re.compile(
+    r"\b(ukraine|russia|war|missile|troops|soldiers|oil terminal|attack|sanction|"
+    r"president|minister|election|border|ceasefire)\b",
+    re.IGNORECASE,
+)
 
 
 def get_client() -> bigquery.Client:
@@ -42,9 +55,10 @@ def run_query(
         use_query_cache=not dry_run,
     )
     job = client.query(sql, job_config=job_config)
+    raw_bytes = getattr(job, "total_bytes_processed", None)
     meta = {
         "dry_run": dry_run,
-        "bytes_billed": int(getattr(job, "total_bytes_processed", 0) or 0),
+        "bytes_billed": int(raw_bytes) if raw_bytes not in (None, 0) else None,
     }
     if dry_run:
         return None, meta
@@ -80,6 +94,29 @@ def companies_from_blob(blob: str) -> list[str]:
     return out[:8]
 
 
+def bytes_status(*values: Any) -> str:
+    return "known" if any(value not in (None, 0, "") for value in values) else "unknown"
+
+
+def has_strong_ai_signal(row: dict[str, Any], source_urls: list[str]) -> bool:
+    blob = " ".join(
+        str(part or "")
+        for part in [
+            row.get("Actor1Name"),
+            row.get("Actor2Name"),
+            row.get("V2Organizations"),
+            row.get("V2Themes"),
+            row.get("Link_Bai_Bao"),
+            " ".join(source_urls),
+        ]
+    )
+    if not STRONG_AI_RE.search(blob):
+        return False
+    if POLITICS_WAR_RE.search(blob) and not re.search(r"\b(ai|llm|model|gpu|semiconductor|robotics|automation|nvidia|openai|anthropic)\b", blob, re.I):
+        return False
+    return True
+
+
 def build_event(row: dict[str, Any]) -> dict[str, Any]:
     source_urls = [u for u in (row.get("SourceURLs") or []) if isinstance(u, str) and u.startswith("http")]
     domains = sorted({canonical_domain(u) for u in source_urls if canonical_domain(u)})
@@ -93,10 +130,18 @@ def build_event(row: dict[str, Any]) -> dict[str, Any]:
     )
     title_parts = [part for part in [actor1, actor2] if part]
     title = " - ".join(title_parts) or str(row.get("Link_Bai_Bao") or "Technology event")
+    summary_parts = []
+    if orgs:
+        summary_parts.append(f"Tín hiệu tổ chức: {orgs[:180]}")
+    if companies_from_blob(blob):
+        summary_parts.append("Công ty liên quan: " + ", ".join(companies_from_blob(blob)))
+    if event_tags(blob):
+        summary_parts.append("Chủ đề: " + ", ".join(event_tags(blob)[:3]))
+    summary = ". ".join(summary_parts) or title
     return {
         "event_id": str(row.get("GlobalEventID") or ""),
         "title": title,
-        "summary": themes or orgs or title,
+        "summary": summary,
         "source_urls": source_urls[:8],
         "source_count": max(int(row.get("source_count") or 0), len(source_urls), 1),
         "independent_domain_count": len(domains),
@@ -139,18 +184,31 @@ def main() -> int:
         maximum_bytes_billed=args.max_bytes_billed,
     )
     if args.dry_run:
-        print(f"tech dry-run estimated_bytes={meta['bytes_billed']}")
+        print(f"tech dry-run estimated_bytes={meta['bytes_billed'] if meta['bytes_billed'] is not None else 'unknown'}")
         return 0
 
-    events = [build_event(row) for row in (rows or [])]
-    events = [evt for evt in events if evt["source_urls"]]
+    raw_rows = rows or []
+    accepted_rows: list[dict[str, Any]] = []
+    for row in raw_rows:
+        urls = [u for u in (row.get("SourceURLs") or []) if isinstance(u, str) and u.startswith("http")]
+        if urls and has_strong_ai_signal(row, urls):
+            accepted_rows.append(row)
+    events = [build_event(row) for row in accepted_rows]
+    events = [evt for evt in events if evt["source_urls"] and evt["title"]]
+    estimated_bytes_env = os.environ.get("TECH_GDELT_ESTIMATED_BYTES", "").strip()
+    estimated_bytes = int(estimated_bytes_env) if estimated_bytes_env.isdigit() else None
+    processed_bytes = meta.get("bytes_billed")
     payload = {
         "schema_version": TECH_GDELT_SCHEMA,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "query_window_hours": 72,
-        "estimated_bytes": int(meta.get("bytes_billed") or 0),
-        "processed_bytes": int(meta.get("bytes_billed") or 0),
+        "estimated_bytes": estimated_bytes,
+        "processed_bytes": processed_bytes,
+        "bytes_status": bytes_status(estimated_bytes, processed_bytes),
         "ran_successfully": True,
+        "raw_event_count": len(raw_rows),
+        "ai_filtered_event_count": len(events),
+        "rejected_non_ai_count": max(0, len(raw_rows) - len(events)),
         "events": events,
     }
     if not events:
@@ -158,9 +216,13 @@ def main() -> int:
         if existing is not None:
             existing["estimated_bytes"] = payload["estimated_bytes"]
             existing["processed_bytes"] = payload["processed_bytes"]
+            existing["bytes_status"] = payload["bytes_status"]
             existing["generated_at_utc"] = payload["generated_at_utc"]
             existing["query_window_hours"] = 72
             existing["ran_successfully"] = True
+            existing["raw_event_count"] = payload["raw_event_count"]
+            existing["ai_filtered_event_count"] = payload["ai_filtered_event_count"]
+            existing["rejected_non_ai_count"] = payload["rejected_non_ai_count"]
             dump_json(args.output, existing)
             dump_json(args.web_output, existing)
             print("No fresh tech events; kept previous valid JSON and refreshed run metadata.")

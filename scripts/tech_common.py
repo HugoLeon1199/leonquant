@@ -40,7 +40,7 @@ TECH_GDELT_WEB_OUTPUT = WEB_DIR / "gdelt_pulse.json"
 TECH_PUBLICATION_OUTPUT = DATA_DIR / "publication.json"
 TECH_PUBLICATION_WEB_OUTPUT = WEB_DIR / "publication.json"
 
-TECH_PUBLICATION_SCHEMA = "tech-newsroom-72h-v1"
+TECH_PUBLICATION_SCHEMA = "ai-frontier-radar-72h-v1"
 TECH_GDELT_SCHEMA = "tech-gdelt-72h-v1"
 
 PASS_STATUSES = {"PASS_RSS", "PASS_SITEMAP", "PASS_HTML", "PASS_FORUM_RSS"}

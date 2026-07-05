@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,25 +54,51 @@ def test_validation_fixture_generation() -> None:
 
 
 def test_publication_build_and_validate() -> None:
+    now = datetime.now(timezone.utc).isoformat()
     crawl = {
         "articles": [
             {
                 "title": "OpenAI launches new coding model",
                 "url": "https://example.com/openai-coding-model",
                 "text": "OpenAI launches a new coding model for developer workflows and agent tooling." * 20,
-                "published_at": "2026-07-01T00:00:00+00:00",
+                "published_at": now,
                 "source": "example.com",
             },
             {
-                "title": "OpenAI launches new coding model",
+                "title": "Anthropic releases agent workflow SDK",
                 "url": "https://another.com/openai-coding-model",
-                "text": "Independent coverage of the same OpenAI coding model launch with extra context." * 20,
-                "published_at": "2026-07-01T01:00:00+00:00",
+                "text": "Anthropic releases an agent workflow SDK with model context protocol support and automation examples." * 20,
+                "published_at": now,
                 "source": "another.com",
+            },
+            {
+                "title": "Qwen adds local multimodal model tools",
+                "url": "https://qbitai.com/qwen-local-model",
+                "text": "Qwen adds local multimodal model tools for private AI workflows and developer experiments." * 20,
+                "published_at": now,
+                "source": "qbitai.com",
+            },
+            {
+                "title": "GitHub trending repo adds MCP automation demo",
+                "url": "https://github.com/example/mcp-demo",
+                "text": "A GitHub repository adds an MCP automation demo with agent tool use and practical developer workflow examples." * 20,
+                "published_at": now,
+                "source": "github.com",
+            },
+            {
+                "title": "NVIDIA GPU inference toolkit update",
+                "url": "https://developer.nvidia.com/blog/gpu-inference-toolkit",
+                "text": "NVIDIA updates a GPU inference toolkit for AI model serving, automation and developer deployment." * 20,
+                "published_at": now,
+                "source": "developer.nvidia.com",
             },
         ]
     }
     gdelt = {
+        "raw_event_count": 1,
+        "ai_filtered_event_count": 1,
+        "rejected_non_ai_count": 0,
+        "bytes_status": "known",
         "events": [
             {
                 "event_id": "123",
@@ -82,7 +109,7 @@ def test_publication_build_and_validate() -> None:
                 "independent_domain_count": 2,
                 "official_source_present": False,
                 "topic_tags": ["chip_ha_tang"],
-                "reported_at": "2026-07-01T02:00:00+00:00",
+                "reported_at": now,
                 "freshness_hours": 72,
             }
         ]
@@ -90,87 +117,65 @@ def test_publication_build_and_validate() -> None:
     publication = build_publication(crawl, gdelt)
     assert_true(publication["schema_version"] == TECH_PUBLICATION_SCHEMA, "schema mismatch")
     assert_true(publication["window_hours"] == 72, "window_hours mismatch")
-    errs = validate_publication(publication)
+    assert_true(len(publication["must_read"]) >= 5, "must_read floor not enforced")
+    errs = validate_publication(publication, check_external=False)
     assert_true(not errs, f"publication validation errors: {errs}")
 
 
-def test_hot_vs_unconfirmed_rule() -> None:
+def test_empty_must_read_guard() -> None:
     publication = {
         "schema_version": TECH_PUBLICATION_SCHEMA,
         "window_hours": 72,
+        "executive_summary": ["Trong 72 giờ qua, radar giữ lại 0 bài đáng đọc nhất."],
+        "must_read": [],
         "sections": {
-            "tong_quan": [],
-            "tin_nong": [
-                {
-                    "id": "a",
-                    "headline": "Single-source story 72 gio",
-                    "summary": "Trong 72 gio qua, day la cau chuyen moi tu mot nguon va can cho them xac nhan cheo.",
-                    "why_it_matters": "Dien bien nay can theo doi them truoc khi xem la xu huong lon.",
-                    "confirmation_label": "chua_duoc_xac_nhan_rong",
-                    "source_count": 1,
-                    "independent_domain_count": 1,
-                    "official_source_present": False,
-                    "freshness_hours": 72,
-                    "links": [{"url": "https://example.com/a"}],
-                }
-            ],
-            "model_agent_moi": [],
-            "cach_dung_ai": [],
-            "open_source_developer_tools": [],
-            "chip_ha_tang": [],
-            "robotics": [],
-            "cybersecurity": [],
-            "chinh_sach_cuoc_dua_toan_cau": [],
-            "radar_khu_vuc": [],
-            "watchlist_24_72h": [],
-            "source_desk": [],
+            "ai_models": [],
+            "local_ai_china_ai": [],
+            "ai_tools": [],
+            "automation_mcp_agents": [],
+            "open_source_hot": [],
+            "ai_business_money": [],
+            "industry_impact": [],
+            "ai_knowledge": [],
+            "founder_ideas_for_leon": [],
+            "full_link_radar": [{"title": "Link AI có dấu", "url": "https://example.com/a", "category": "tool", "why_interesting": "Có tín hiệu công cụ AI mới.", "use_case": "Mở link để kiểm tra nhanh.", "source_type": "independent"}],
         },
+        "stats": {"curator_candidate_count": 5, "main_candidate_count": 10, "render_checks": {"knowledge_fields_ready": True, "founder_fields_ready": True}},
     }
-    errs = validate_publication(publication)
-    assert_true(not errs, f"unexpected errors for unconfirmed single-source story: {errs}")
+    errs = validate_publication(publication, check_external=False)
+    assert_true(any("must_read must not be empty" in err for err in errs), "empty must_read should fail")
+    assert_true(any("0 bài đáng đọc" in err for err in errs), "0 bài summary should fail")
 
 
 def test_mobile_layout_smoke() -> None:
     html = (ROOT / "tech" / "index.html").read_text(encoding="utf-8").lower()
     assert_true('name="viewport"' in html, "missing viewport meta")
-    assert_true("@media (max-width: 700px)" in html, "missing mobile media query")
-    assert_true("cong nghe &amp; ai 72h" in html or "cong nghe & ai 72h" in html, "missing 72h title")
+    assert_true("@media" in html and "max-width" in html, "missing mobile media query")
+    assert_true("ai frontier radar 72h" in html or "công nghệ" in html, "missing 72h title")
 
 
 def test_forbidden_public_terms_blocked() -> None:
     publication = {
         "schema_version": TECH_PUBLICATION_SCHEMA,
         "window_hours": 72,
+        "executive_summary": ["Pipeline tech 24-48h có GDELT và Gemini."],
+        "must_read": [],
         "sections": {
-            "tong_quan": [],
-            "tin_nong": [
-                {
-                    "id": "bad",
-                    "headline": "Pipeline tech 24-48h",
-                    "summary": "Noi dung co nhac toi GDELT va Gemini.",
-                    "why_it_matters": "BigQuery va crawler van lo ra.",
-                    "confirmation_label": "chua_duoc_xac_nhan_rong",
-                    "source_count": 1,
-                    "independent_domain_count": 1,
-                    "official_source_present": False,
-                    "freshness_hours": 72,
-                    "links": [{"url": "https://example.com/bad"}],
-                }
-            ],
-            "model_agent_moi": [],
-            "cach_dung_ai": [],
-            "open_source_developer_tools": [],
-            "chip_ha_tang": [],
-            "robotics": [],
-            "cybersecurity": [],
-            "chinh_sach_cuoc_dua_toan_cau": [],
-            "radar_khu_vuc": [],
-            "watchlist_24_72h": [],
-            "source_desk": [],
+            "ai_models": [],
+            "local_ai_china_ai": [],
+            "ai_tools": [],
+            "automation_mcp_agents": [],
+            "open_source_hot": [],
+            "ai_business_money": [],
+            "industry_impact": [],
+            "ai_knowledge": [],
+            "founder_ideas_for_leon": [],
+            "full_link_radar": [],
         },
+        "stats": {"render_checks": {"knowledge_fields_ready": False, "founder_fields_ready": False}},
     }
-    errs = validate_publication(publication)
-    assert_true(any("forbidden public term found" in err for err in errs), "forbidden terms should fail")
+    errs = validate_publication(publication, check_external=False)
+    assert_true(any("contains forbidden term" in err for err in errs), "forbidden terms should fail")
 
 
 def test_forbidden_diff_guard() -> None:
@@ -190,7 +195,7 @@ def test_forbidden_diff_guard() -> None:
 def main() -> None:
     test_validation_fixture_generation()
     test_publication_build_and_validate()
-    test_hot_vs_unconfirmed_rule()
+    test_empty_must_read_guard()
     test_mobile_layout_smoke()
     test_forbidden_public_terms_blocked()
     test_forbidden_diff_guard()

@@ -29,8 +29,10 @@ def main() -> int:
     meta = validation.get("validation_meta") or {}
     stats = publication.get("stats") or {}
     sections = publication.get("sections") or {}
-    estimated_bytes = int(events.get("estimated_bytes") or 0)
-    processed_bytes = int(events.get("processed_bytes") or 0)
+    estimated_bytes = events.get("estimated_bytes")
+    processed_bytes = events.get("processed_bytes")
+    estimated_label = f"{int(estimated_bytes):,}" if isinstance(estimated_bytes, int) else "unknown"
+    processed_label = f"{int(processed_bytes):,}" if isinstance(processed_bytes, int) else "unknown"
     ran_successfully = bool(events.get("ran_successfully"))
     radar_count = len(sections.get("full_link_radar") or [])
     must_read_count = len(publication.get("must_read") or [])
@@ -44,6 +46,8 @@ def main() -> int:
     expired_removed = int(stats.get("expired_removed_count") or 0)
     gemini_success = int(stats.get("gemini_success_count") or 0)
     gemini_fallback = int(stats.get("gemini_fallback_count") or 0)
+    ai_main = int(stats.get("ai_curated_main_count") or 0)
+    fallback_main = int(stats.get("fallback_main_count") or 0)
     must_read_source_type = stats.get("must_read_by_source_type") or {}
     must_read_category = stats.get("must_read_by_category") or {}
     render_checks = stats.get("render_checks") or {}
@@ -56,12 +60,12 @@ def main() -> int:
         f"- Active sources: {meta.get('active_source_count', 0)} / {meta.get('catalog_source_count', 0)}.\n"
         f"- Clean web articles: {len(crawl.get('articles') or [])}.\n"
         f"- Candidate live: {candidate_count}; noise bi loai: {noise_filtered}; bai qua han 72h bi loai khoi section chinh: {expired_removed}.\n"
-        f"- Event candidates: {len(events.get('events') or [])}; GDELT ran_successfully={ran_successfully}.\n"
-        f"- Query estimate: {estimated_bytes:,} bytes; processed: {processed_bytes:,} bytes; cap: 2,000,000,000 bytes.\n"
+        f"- Event candidates: {len(events.get('events') or [])}; GDELT ran_successfully={ran_successfully}; raw={events.get('raw_event_count', 'unknown')}; ai_filtered={events.get('ai_filtered_event_count', 'unknown')}; rejected_non_ai={events.get('rejected_non_ai_count', 'unknown')}.\n"
+        f"- Query estimate: {estimated_label} bytes; processed: {processed_label} bytes; bytes_status={events.get('bytes_status', 'unknown')}; cap: 2,000,000,000 bytes.\n"
         f"- Published stories: {stats.get('story_count', 0)}; must_read={must_read_count}; full_link_radar={radar_count}.\n"
         f"- Must Read theo source type: {must_read_source_type}.\n"
         f"- Must Read theo category: {must_read_category}.\n"
-        f"- Gemini curator: success={gemini_success}; fallback={gemini_fallback}.\n"
+        f"- Gemini curator: success={gemini_success}; fallback={gemini_fallback}; ai_main={ai_main}; fallback_main={fallback_main}.\n"
         f"- Section counts: local_ai={local_ai_count}, automation={automation_count}, open_source={open_source_count}, knowledge={knowledge_count}, founder_ideas={founder_count}.\n"
         f"- /tech/ render check: knowledge={render_checks.get('knowledge_fields_ready')}; founder_ideas={render_checks.get('founder_fields_ready')}.\n"
         "- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.\n"
