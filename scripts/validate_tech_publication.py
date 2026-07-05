@@ -323,7 +323,15 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
         for idx, event in enumerate(gdelt.get("events") or []):
             blob = " ".join(
                 str(part or "")
-                for part in [event.get("title"), event.get("summary"), event.get("primary_url"), " ".join(event.get("source_urls") or [])]
+                for part in [
+                    event.get("title"),
+                    event.get("summary"),
+                    event.get("primary_url"),
+                    " ".join(event.get("source_urls") or []),
+                    " ".join(event.get("topic_tags") or []),
+                    " ".join(event.get("company_tags") or []),
+                    " ".join(event.get("signal_keywords") or []),
+                ]
             )
             if THEME_DUMP_RE.search(str(event.get("summary") or "")):
                 errs.append(f"gdelt.events[{idx}].summary contains theme dump")

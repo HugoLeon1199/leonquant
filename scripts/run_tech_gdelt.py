@@ -94,6 +94,17 @@ def companies_from_blob(blob: str) -> list[str]:
     return out[:8]
 
 
+def signal_keywords_from_blob(blob: str) -> list[str]:
+    keywords = [
+        "model", "llm", "large language model", "generative ai", "genai", "agent",
+        "mcp", "gpu", "semiconductor", "robotics", "automation", "ai startup",
+        "openai", "anthropic", "deepmind", "gemini", "claude", "chatgpt",
+        "nvidia", "mistral", "hugging face", "qwen", "deepseek", "llama",
+    ]
+    low = blob.lower()
+    return [kw for kw in keywords if kw in low][:8]
+
+
 def bytes_status(*values: Any) -> str:
     return "known" if any(value not in (None, 0, "") for value in values) else "unknown"
 
@@ -148,6 +159,7 @@ def build_event(row: dict[str, Any]) -> dict[str, Any]:
         "official_source_present": official_present,
         "topic_tags": event_tags(blob),
         "company_tags": companies_from_blob(blob),
+        "signal_keywords": signal_keywords_from_blob(blob),
         "reported_at": str(row.get("DATEADDED") or ""),
         "freshness_hours": 72,
         "hot_candidate": len(domains) >= 2 or (official_present and len(domains) >= 2),
