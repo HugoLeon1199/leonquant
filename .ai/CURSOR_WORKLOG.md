@@ -786,3 +786,22 @@ Validation status snapshot live:
 - Section counts: local_ai=1, automation=0, open_source=1, knowledge=2, founder_ideas=6.
 - /tech/ render check: knowledge=True; founder_ideas=True.
 - Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
+
+## 2026-07-05 - Technology & AI 72h live run
+
+- Tech72h generated_at=2026-07-05T06:24:34.693189+00:00
+- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.
+- Format: AI Frontier Radar 72h.
+- Schedule: once every 3 days; data window: latest 72 hours.
+- Active sources: 7 / 100.
+- Clean web articles: 10.
+- Candidate live: 37; noise bi loai: 3; bai qua han 72h bi loai khoi section chinh: 0.
+- Event candidates: 40; GDELT ran_successfully=True; raw=120; ai_filtered=40; rejected_non_ai=80.
+- Query estimate: 1,057,267,222 bytes; processed: 1,057,267,222 bytes; bytes_status=known; cap: 2,000,000,000 bytes.
+- Published stories: 10; must_read=6; full_link_radar=37.
+- Must Read theo source type: {'community': 5, 'independent': 1}.
+- Must Read theo category: {'model': 1, 'local_ai': 1, 'tool': 1, 'opensource': 1, 'business': 1, 'agent': 1}.
+- Gemini curator: success=10; fallback=0; ai_main=7; fallback_main=0.
+- Section counts: local_ai=1, automation=2, open_source=1, knowledge=3, founder_ideas=6.
+- /tech/ render check: knowledge=True; founder_ideas=True.
+- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
