@@ -393,3 +393,47 @@
 ### Dang do / Viec tiep theo
 - Neu Leon muon Must Read luon co 10-20 bai, can them nguon official/independent active tot hon hoac noi quy tac community; hien tai builder dung dung nguyen tac "khong fill noi dung yeu".
 - `tech/data/gdelt_pulse.json` ghi `estimated_bytes=0` / `processed_bytes=0` trong artifact du workflow dry-run log da co `1043157439`; can tinh rieng neu muon field bytes trong JSON phan anh dry-run/run job.
+
+## [2026-07-05 10:29] - [Codex]
+
+### Da lam
+- Sua hep AI Frontier Radar 72h, khong sua Tin48h/Invest/World.
+- P0.1: `pick_must_read()` khong con tra rong khi co main candidate; Must Read co san 5/10, domain cap 3, community fallback toi da 5 khi thieu non-community va gan `evidence=community-only`.
+- P0.2: candidate Gemini fail co fallback tieng Viet, `curation_status=fallback`, importance fallback cap 3; item AI curated co `curation_status=ai`.
+- P0.3: GDELT tech loc lai event bang signal AI manh, bo theme dump trong summary, them `raw_event_count`, `ai_filtered_event_count`, `rejected_non_ai_count`, `signal_keywords`, va bytes status dung.
+- P1: them metadata main item `signal_type`, `confidence`, `evidence`, `time_to_apply`, `leon_fit`.
+- Validator da fail neu Must Read rong khi co candidate, summary noi "0 bai dang doc", GDELT co theme dump/event thieu signal, hoac main item thieu metadata.
+
+### Ket qua GitHub Actions
+- Tech Radar run `28731893603` -> success.
+- Artifact commit moi nhat tren `origin/main`: `5becf5c Update standalone tech radar artifacts.`
+- GDELT dry-run estimated bytes: `1,057,267,222`.
+- GDELT processed bytes: `1,057,267,222`.
+- GDELT clean: raw `120`, ai_filtered `40`, rejected_non_ai `80`, theme_dump=false.
+- Gemini curator: success `10`, fallback `0`, ai_main `7`, fallback_main `0`.
+- Validator: `OK: AI Frontier Radar 72h valid.`
+- Test pipeline: `OK: AI Frontier Radar 72h tests passed`.
+
+### So lieu artifact public
+- Schema: `ai-frontier-radar-72h-v1`; `window_hours=72`.
+- Must Read: `6`; source domains: `4` (`discuss.huggingface.co`, `discuss.pytorch.org`, `forum.langchain.com`, `qbitai.com`).
+- Must Read source type: community `5`, independent `1`.
+- Must Read category: model `1`, local_ai `1`, tool `1`, opensource `1`, business `1`, agent `1`.
+- Executive summary khong con "0 bai dang doc".
+- Knowledge: `3` item, moi item co link; Founder Ideas: `6` item, moi item co `based_on`.
+- Full Link Radar: `37`.
+
+### File da thay doi / commit
+- `.github/workflows/tech-radar.yml`
+- `scripts/build_tech_publication.py`
+- `scripts/run_tech_gdelt.py`
+- `scripts/tech_common.py`
+- `scripts/test_tech_pipeline.py`
+- `scripts/validate_tech_publication.py`
+- `tech/update_worklog.py`
+- `.ai/CURSOR_WORKLOG.md` (cap nhat boi Actions)
+- `tech/data/gdelt_pulse.json`, `tech/web/gdelt_pulse.json`, `tech/data/publication.json`, `tech/web/publication.json` (artifact boi Actions)
+
+### Dang do / Viec tiep theo
+- Source coverage van la `7 / 100`; Must Read dat nguong hien tai nhung con lech ve community vi active sources official/independent qua it.
+- Neu muon giam community share ve <=30% trong thuc te, can chay Phase 0/source recovery them cho official/company, GitHub/Hugging Face, China AI va tool/automation sources.
