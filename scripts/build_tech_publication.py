@@ -585,13 +585,15 @@ def pick_must_read(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     by_category: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for item in items:
         by_category[item["category"]].append(item)
+    non_community_count = sum(1 for item in items if item.get("source_type") != "community")
+    community_limit = min(MAX_COMMUNITY_MUST_READ, max(0, int(non_community_count * 0.42)))
 
     def can_take(item: dict[str, Any]) -> bool:
         if item["url"] in chosen_keys:
             return False
         if per_domain[item["domain"]] >= MAX_DOMAIN_PER_MUST_READ:
             return False
-        if item["source_type"] == "community" and per_source_type["community"] >= MAX_COMMUNITY_MUST_READ:
+        if item["source_type"] == "community" and per_source_type["community"] >= community_limit:
             return False
         return True
 
