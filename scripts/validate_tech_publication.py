@@ -55,6 +55,13 @@ STRONG_GDELT_RE = re.compile(
     re.IGNORECASE,
 )
 THEME_DUMP_RE = re.compile(r"\b(TAX_|WB_|EPU_|CRISISLEX_|SOC_|ENV_|MEDIA_|UNGP_|USPEC_)[A-Z0-9_]+,\d+", re.IGNORECASE)
+STRONG_TOPIC_TAGS = {
+    "model_agent_moi",
+    "chip_ha_tang",
+    "cybersecurity",
+    "robotics",
+    "open_source_developer_tools",
+}
 
 
 def _load_json(path: Path) -> Any:
@@ -335,7 +342,8 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
             )
             if THEME_DUMP_RE.search(str(event.get("summary") or "")):
                 errs.append(f"gdelt.events[{idx}].summary contains theme dump")
-            if not STRONG_GDELT_RE.search(blob):
+            has_metadata_signal = bool(event.get("signal_keywords")) or bool(event.get("company_tags")) or bool(STRONG_TOPIC_TAGS & set(event.get("topic_tags") or []))
+            if not has_metadata_signal and not STRONG_GDELT_RE.search(blob):
                 errs.append(f"gdelt.events[{idx}] lacks strong AI/tech signal")
             if not event.get("source_urls"):
                 errs.append(f"gdelt.events[{idx}] missing source_urls")
