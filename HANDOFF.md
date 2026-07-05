@@ -352,3 +352,44 @@
 ### Dang do / Viec tiep theo
 - Can mot lan chay GDELT that bang secret/Actions de co `tech/data/gdelt_pulse.json` hop le voi `ran_successfully=true` va bytes that.
 - Chua the danh dau DONE theo tieu chi cua user cho toi khi co GDELT run that va `/tech/` duoc xem lai tren Pages sau artifact moi.
+
+## [2026-07-05 09:38] - [Codex]
+
+### Da lam
+- Day va chay that workflow Tech tren GitHub Actions thay vi local de dung secrets repo.
+- Fix `.github/workflows/tech-radar.yml` de manual dispatch khong bi gate 72h chan, va chi ghi `key=value` hop le vao `$GITHUB_OUTPUT`.
+- Fix workflow de truyen `GEMINI_API_KEY` va `GEMINI_MODEL` vao buoc publication; GitHub secret da duoc xac nhan hoat dong.
+- Them log loi Gemini an toan trong `scripts/build_tech_publication.py` de thay ro curator success/fallback tren Actions.
+- Fix quota Must Read de khong vuot ti le community 30%.
+- Trigger Pages deploy thu cong sau khi workflow Tech commit artifact moi; `/tech/data/publication.json` public tra ve HTTP 200 voi schema 72h.
+
+### Ket qua GitHub Actions
+- Tech Radar run `28730744748` -> success.
+- Deploy GitHub Pages run `28730812798` -> success.
+- Artifact commit moi nhat tren `origin/main`: `9f64380 Update standalone tech radar artifacts.`
+- GDELT dry-run log: `estimated_bytes=1043157439`.
+- GDELT output: `ran_successfully=true`, `event_count=119`.
+- Gemini curator log: `success=5`, `fallback=5`, `failed=0`.
+- Validator: `OK: AI Frontier Radar 72h valid.`
+- Test pipeline: `OK: AI Frontier Radar 72h tests passed`.
+
+### So lieu artifact public
+- `tech/data/publication.json`: `schema_version=ai-frontier-radar-72h-v1`, `window_hours=72`.
+- Section items: 102, gom `full_link_radar=94`, `founder_ideas_for_leon=4`, `ai_knowledge=1`, va cac section chinh khac.
+- `must_read=0` do quota chat luong hien tai khong cho lap bang nguon community/forum qua nhieu.
+- Public smoke: `https://hugoleon1199.github.io/leonquant/tech/data/publication.json` -> HTTP 200, schema 72h.
+
+### File da thay doi / commit
+- `.github/workflows/tech-radar.yml`
+- `scripts/build_tech_publication.py`
+- `scripts/test_tech_pipeline.py`
+- `tech/data/gdelt_pulse.json`
+- `tech/data/publication.json`
+- `tech/web/gdelt_pulse.json`
+- `tech/web/publication.json`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Neu Leon muon Must Read luon co 10-20 bai, can them nguon official/independent active tot hon hoac noi quy tac community; hien tai builder dung dung nguyen tac "khong fill noi dung yeu".
+- `tech/data/gdelt_pulse.json` ghi `estimated_bytes=0` / `processed_bytes=0` trong artifact du workflow dry-run log da co `1043157439`; can tinh rieng neu muon field bytes trong JSON phan anh dry-run/run job.
