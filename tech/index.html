@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Frontier Radar 72h | LeonQuant</title>
-  <meta name="description" content="AI Frontier Radar 72h cua LeonQuant, tong hop cac tin dang chu y nhat trong 72 gio qua.">
+  <meta name="description" content="AI Frontier Radar 72h của LeonQuant, tổng hợp các tín hiệu Công nghệ và AI đáng chú ý nhất trong 72 giờ qua.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f4f7fb;
-      --surface: rgba(255, 255, 255, 0.94);
+      --surface: rgba(255, 255, 255, 0.95);
       --surface-strong: #ffffff;
       --border: rgba(15, 23, 42, 0.1);
       --text: #0f172a;
@@ -42,7 +42,7 @@
       border: 1px solid var(--border);
       padding: 28px;
       background:
-        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(239,246,255,0.92)),
+        linear-gradient(135deg, rgba(255,255,255,0.97), rgba(239,246,255,0.92)),
         linear-gradient(180deg, rgba(15,118,110,0.06), transparent);
       box-shadow: var(--shadow);
     }
@@ -87,7 +87,7 @@
     .stat {
       padding: 16px;
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.84);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid rgba(15, 23, 42, 0.08);
     }
     .stat-label {
@@ -122,6 +122,7 @@
       font-size: 1.28rem;
       letter-spacing: -0.02em;
     }
+    .story-list,
     .summary-list,
     .idea-list,
     .knowledge-list,
@@ -130,12 +131,8 @@
       display: grid;
       gap: 14px;
     }
-    .story-list {
-      display: grid;
-      gap: 14px;
-    }
-    .summary-item,
     .story-card,
+    .summary-item,
     .idea-card,
     .knowledge-card,
     .link-card {
@@ -144,8 +141,8 @@
       border: 1px solid rgba(15, 23, 42, 0.08);
       background: var(--surface-strong);
     }
-    .summary-item p,
     .story-card p,
+    .summary-item p,
     .idea-card p,
     .knowledge-card p,
     .link-card p {
@@ -180,24 +177,19 @@
       color: var(--blue);
       font-weight: 700;
     }
-    .pill.warn {
-      color: var(--amber);
-      background: rgba(180, 83, 9, 0.08);
-      border-color: rgba(180, 83, 9, 0.14);
-    }
     .pill.hot {
       color: var(--rose);
       background: rgba(190, 18, 60, 0.08);
       border-color: rgba(190, 18, 60, 0.14);
     }
+    .pill.warn {
+      color: var(--amber);
+      background: rgba(180, 83, 9, 0.08);
+      border-color: rgba(180, 83, 9, 0.14);
+    }
     .split {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
-    }
-    .triple {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
     }
     .tag-row {
@@ -226,7 +218,6 @@
     }
     @media (max-width: 980px) {
       .stats-grid,
-      .triple,
       .split {
         grid-template-columns: 1fr 1fr;
       }
@@ -235,7 +226,6 @@
       .shell { width: min(94vw, 100%); padding-top: 18px; }
       .hero, .panel { padding: 18px; border-radius: 20px; }
       .stats-grid,
-      .triple,
       .split {
         grid-template-columns: 1fr;
       }
@@ -249,9 +239,9 @@
         <div>
           <div class="kicker">LeonQuant / AI Frontier Radar 72h</div>
           <h1>AI Frontier Radar 72h</h1>
-          <p class="sub">Ban tong hop 72 gio qua, uu tien cac tin co gia tri hanh dong, link nguon ro rang va du de doc nhanh thay vi lan trong dong tin tho.</p>
+          <p class="sub">Bản tổng hợp 72 giờ qua, ưu tiên tín hiệu Công nghệ và AI có giá trị hành động, link nguồn rõ ràng và đủ ngữ cảnh để Leon mở đọc tiếp.</p>
         </div>
-        <a class="home-link" href="/">Ve trang chinh</a>
+        <a class="home-link" href="/">Về trang chính</a>
       </div>
       <div class="stats-grid" id="statsGrid"></div>
     </section>
@@ -260,21 +250,12 @@
     <div class="error" id="errorBox" hidden></div>
   </main>
   <script>
-    const SECTION_LABELS = {
-      ai_models: "AI Models",
-      local_ai_china_ai: "Local AI / China AI",
-      ai_tools: "AI Tools",
-      automation_mcp_agents: "Tools & Automation",
-      open_source_hot: "Open Source Hot",
-      ai_business_money: "AI Business & Money",
-      industry_impact: "Industry Impact",
-      ai_knowledge: "AI Knowledge",
-      founder_ideas_for_leon: "Apply Now for Leon",
-      full_link_radar: "Full Link Radar"
-    };
-
     function esc(value) {
       return String(value ?? "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+    }
+
+    function formatSource(source) {
+      return String(source ?? "").replace(/_/g, ".").replace(/\s+/g, " ").trim();
     }
 
     function renderTags(tags) {
@@ -289,19 +270,25 @@
       return `<div class="meta">${items.map((part) => `<span>${esc(part)}</span>`).join("")}</div>`;
     }
 
+    function renderImportance(importance) {
+      const score = Number(importance || 0);
+      const className = score >= 4 ? "pill hot" : (score === 3 ? "pill" : "pill warn");
+      return `<div class="${className}">Mức ${esc(score || 0)}/5</div>`;
+    }
+
     function renderMustReadCard(item) {
-      const importanceClass = item.importance === "high" ? " hot" : "";
       return `
         <article class="story-card">
           ${renderMeta([
             item.category,
-            item.source,
-            item.source_count ? `${item.source_count} nguon` : "",
+            formatSource(item.source),
+            item.source_type ? `nguồn ${item.source_type}` : "",
+            item.source_count ? `${item.source_count} nguồn` : "",
           ])}
-          <div class="pill${importanceClass}">${esc(item.importance || "watch")}</div>
+          ${renderImportance(item.importance)}
           <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
           <p>${esc(item.why_read)}</p>
-          <p style="margin-top:10px;"><strong>Ap dung ngay:</strong> ${esc(item.apply_now)}</p>
+          <p style="margin-top:10px;"><strong>Áp dụng ngay:</strong> ${esc(item.apply_now)}</p>
           ${renderTags(item.tags)}
         </article>
       `;
@@ -310,19 +297,23 @@
     function renderIdeaCard(item) {
       return `
         <article class="idea-card">
-          <h3>${esc(item.title)}</h3>
-          <p>${esc(item.summary)}</p>
-          <p style="margin-top:10px;"><strong>Buoc tiep:</strong> ${esc(item.next_step || item.use_case || "")}</p>
+          <h3>${esc(item.idea)}</h3>
+          <p><strong>Dựa trên:</strong> ${esc(item.based_on || "")}</p>
+          <p style="margin-top:10px;">${esc(item.why_now || "")}</p>
+          <p style="margin-top:10px;"><strong>Làm ngay:</strong> ${esc(item.apply_now || "")}</p>
         </article>
       `;
     }
 
     function renderKnowledgeCard(item) {
+      const links = Array.isArray(item.best_links) ? item.best_links : [];
       return `
         <article class="knowledge-card">
-          <h3>${esc(item.title)}</h3>
-          <p>${esc(item.summary)}</p>
-          <p style="margin-top:10px;"><strong>Cach dung:</strong> ${esc(item.use_case || item.next_step || "")}</p>
+          <h3>${esc(item.concept)}</h3>
+          <p>${esc(item.explain_simple || "")}</p>
+          <p style="margin-top:10px;"><strong>Vì sao lúc này đáng để ý:</strong> ${esc(item.why_now || "")}</p>
+          <p style="margin-top:10px;"><strong>Cách áp dụng:</strong> ${esc(item.how_to_apply || "")}</p>
+          ${links.length ? `<div class="tag-row">${links.map((url, idx) => `<a class="tag" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Link ${idx + 1}</a>`).join("")}</div>` : ""}
         </article>
       `;
     }
@@ -332,13 +323,14 @@
         <article class="story-card">
           ${renderMeta([
             item.category,
-            item.source,
+            formatSource(item.source),
             item.published_at ? item.published_at.slice(0, 10) : "",
-            item.source_count ? `${item.source_count} nguon` : "",
+            item.source_type ? `nguồn ${item.source_type}` : "",
           ])}
+          ${typeof item.importance !== "undefined" ? renderImportance(item.importance) : ""}
           <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
-          <p>${esc(item.why_read || item.why_interesting || item.summary || "")}</p>
-          <p style="margin-top:10px;"><strong>Gia tri:</strong> ${esc(item.apply_now || item.use_case || "")}</p>
+          <p>${esc(item.why_read || item.why_interesting || "")}</p>
+          <p style="margin-top:10px;"><strong>Leon nên làm gì:</strong> ${esc(item.apply_now || item.use_case || "")}</p>
           ${renderTags(item.tags)}
         </article>
       `;
@@ -349,12 +341,13 @@
         <article class="link-card">
           ${renderMeta([
             item.category,
-            item.source,
-            item.published_at ? item.published_at.slice(0, 10) : "",
+            formatSource(item.source),
+            item.published_at ? item.published_at.slice(0, 10) : "Chưa rõ ngày",
+            item.time_verified ? "đã xác minh thời gian" : "chưa xác minh thời gian",
           ])}
           <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
-          <p>${esc(item.why_interesting)}</p>
-          <p style="margin-top:10px;"><strong>Use case:</strong> ${esc(item.use_case)}</p>
+          <p>${esc(item.why_interesting || "")}</p>
+          <p style="margin-top:10px;"><strong>Gợi ý sử dụng:</strong> ${esc(item.use_case || "")}</p>
         </article>
       `;
     }
@@ -377,16 +370,16 @@
       const windowHours = payload.window_hours || 72;
 
       document.getElementById("statsGrid").innerHTML = `
-        <div class="stat"><span class="stat-label">Window</span><span class="stat-value">${esc(windowHours)}h</span></div>
+        <div class="stat"><span class="stat-label">Cửa sổ</span><span class="stat-value">${esc(windowHours)}h</span></div>
         <div class="stat"><span class="stat-label">Must Read</span><span class="stat-value">${esc(mustRead.length)}</span></div>
-        <div class="stat"><span class="stat-label">Radar Links</span><span class="stat-value">${esc((sections.full_link_radar || []).length)}</span></div>
-        <div class="stat"><span class="stat-label">Tong Story</span><span class="stat-value">${esc(stats.story_count || 0)}</span></div>
+        <div class="stat"><span class="stat-label">Full Radar</span><span class="stat-value">${esc((sections.full_link_radar || []).length)}</span></div>
+        <div class="stat"><span class="stat-label">Candidate live</span><span class="stat-value">${esc(stats.candidate_count || 0)}</span></div>
       `;
 
       const blocks = [];
 
       blocks.push(renderSection(
-        "Executive Summary",
+        "Tóm tắt điều hành",
         `<div class="summary-list">${executiveSummary.map((item) => `<div class="summary-item"><p>${esc(item)}</p></div>`).join("")}</div>`
       ));
 
@@ -396,7 +389,7 @@
       ));
 
       blocks.push(renderSection(
-        "Apply Now for Leon",
+        "Ý tưởng có thể làm ngay cho Leon",
         `<div class="idea-list">${(sections.founder_ideas_for_leon || []).map(renderIdeaCard).join("")}</div>`
       ));
 
@@ -406,7 +399,7 @@
       ));
 
       blocks.push(renderSection(
-        "Tools & Automation",
+        "Công cụ và Automation",
         `<div class="split">
           <div class="story-list">${(sections.ai_tools || []).map(renderStoryCard).join("")}</div>
           <div class="story-list">${(sections.automation_mcp_agents || []).map(renderStoryCard).join("")}</div>
@@ -414,17 +407,17 @@
       ));
 
       blocks.push(renderSection(
-        "Open Source Hot",
+        "Open Source đang nóng",
         `<div class="story-list">${(sections.open_source_hot || []).map(renderStoryCard).join("")}</div>`
       ));
 
       blocks.push(renderSection(
-        "AI Knowledge",
+        "Kiến thức AI nên nắm",
         `<div class="knowledge-list">${(sections.ai_knowledge || []).map(renderKnowledgeCard).join("")}</div>`
       ));
 
       blocks.push(renderSection(
-        "Industry Impact",
+        "Tác động theo ngành và kinh doanh",
         `<div class="split">
           <div class="story-list">${(sections.industry_impact || []).map(renderStoryCard).join("")}</div>
           <div class="story-list">${(sections.ai_business_money || []).map(renderStoryCard).join("")}</div>
@@ -432,7 +425,7 @@
       ));
 
       blocks.push(renderSection(
-        "AI Models",
+        "Mô hình AI",
         `<div class="story-list">${(sections.ai_models || []).map(renderStoryCard).join("")}</div>`
       ));
 
@@ -448,7 +441,7 @@
       const path = "./data/publication.json";
       const resp = await fetch(`${path}?ts=${Date.now()}`, { cache: "no-store" });
       if (!resp.ok) {
-        throw new Error("Khong tai duoc tech/data/publication.json");
+        throw new Error("Không tải được tech/data/publication.json");
       }
       return resp.json();
     }

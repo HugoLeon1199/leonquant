@@ -9,6 +9,56 @@
 
 <!-- Cập nhật block này sau mỗi session -->
 
+## [2026-07-05 08:50] - [Codex]
+
+### Da lam
+- Sua chat luong module `tech/` ma khong dung vao Tin48h / Invest / World.
+- Viet lai `scripts/build_tech_publication.py` de publication chi dung du lieu live tu `tech/data/news_for_ai_clean.json` va `tech/data/gdelt_pulse.json` neu co.
+- Loai bo hoan toan validation samples khoi publication; validation sample khong con duoc dung lam tin.
+- Sua `source_type` theo dung uu tien `community` truoc `official`.
+- Them lop AI curator trong builder; local runtime hien tai doc duoc `GEMINI_API_KEY` tu `.env` nhung key tra ve `API_KEY_INVALID`, vi vay publication run that dang roi ve fallback sach cho Full Radar va khong auto day bai vao Must Read.
+- Viet lai `tech/index.html` bang tieng Viet co dau, sua render Knowledge / Founder Ideas dung field schema that, va sua importance theo so 1-5.
+- Cap nhat `scripts/validate_tech_publication.py`, `tech/test_pipeline.py`, `tech/update_worklog.py`.
+- Chay refresh crawl Tech that de lay data 72h moi, sau do rebuild publication va cap nhat worklog.
+
+### Quyet dinh quan trong
+- Giu nguyen scope hep: chi sua `tech/**` va 2 script publication/validator.
+- Khong ep bai fallback vao Must Read khi curator Gemini local that bai; chi giu trong Full Radar de tranh fill noi dung yeu.
+- Validator moi siet cac rule chat luong duoc user neu: forum khong duoc tag official, bai qua han 72h khong duoc vao section chinh, public text phai co dau, support-noise khong duoc importance cao, Knowledge/Founder phai co du field.
+
+### File da thay doi
+- `scripts/build_tech_publication.py`
+- `scripts/validate_tech_publication.py`
+- `tech/common.py`
+- `tech/index.html`
+- `tech/test_pipeline.py`
+- `tech/update_worklog.py`
+- `tech/data/news_output_today.json`
+- `tech/data/news_output_all.json`
+- `tech/data/news_for_ai.json`
+- `tech/data/news_for_ai_clean.json`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Verify / Test
+- `.\.venv\Scripts\python.exe tech\crawl.py --force` -> pass
+- `.\.venv\Scripts\python.exe tech\publication.py` -> pass
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass
+- `.\.venv\Scripts\python.exe tech\test_pipeline.py` -> pass
+- `.\.venv\Scripts\python.exe tech\update_worklog.py` -> pass
+
+### Trang thai hien tai
+- Crawl 72h moi da cho ra `tech/data/news_for_ai_clean.json` voi 10 bai live.
+- `tech/data/publication.json` / `tech/web/publication.json` da rebuild tren data moi.
+- `sections.ai_knowledge` va `sections.founder_ideas_for_leon` da co du field de frontend render.
+- Local Gemini curator hien tai khong thanh cong do `API_KEY_INVALID`, nen publication run nay co `gemini_success_count = 0`, `gemini_fallback_count = 10`, `must_read_count = 0`.
+
+### Dang do / Viec tiep theo
+- Can `GEMINI_API_KEY` hop le neu muon co Must Read va section chinh duoc curator that tay, thay vi fallback-only.
+- Neu muon day web/push, stage dung nhom file Tech + worklog va bo qua cac thay doi unrelated dang co san trong repo.
+
 ## [2026-07-03 07:05] - [Codex]
 
 ### Da lam

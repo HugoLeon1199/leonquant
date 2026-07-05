@@ -39,6 +39,14 @@ def main() -> int:
     open_source_count = len(sections.get("open_source_hot") or [])
     knowledge_count = len(sections.get("ai_knowledge") or [])
     founder_count = len(sections.get("founder_ideas_for_leon") or [])
+    candidate_count = int(stats.get("candidate_count") or 0)
+    noise_filtered = int(stats.get("noise_filtered_count") or 0)
+    expired_removed = int(stats.get("expired_removed_count") or 0)
+    gemini_success = int(stats.get("gemini_success_count") or 0)
+    gemini_fallback = int(stats.get("gemini_fallback_count") or 0)
+    must_read_source_type = stats.get("must_read_by_source_type") or {}
+    must_read_category = stats.get("must_read_by_category") or {}
+    render_checks = stats.get("render_checks") or {}
     block = (
         f"\n## {datetime.now(timezone.utc).date()} - Technology & AI 72h live run\n\n"
         f"- {marker}\n"
@@ -47,10 +55,15 @@ def main() -> int:
         "- Schedule: once every 3 days; data window: latest 72 hours.\n"
         f"- Active sources: {meta.get('active_source_count', 0)} / {meta.get('catalog_source_count', 0)}.\n"
         f"- Clean web articles: {len(crawl.get('articles') or [])}.\n"
+        f"- Candidate live: {candidate_count}; noise bi loai: {noise_filtered}; bai qua han 72h bi loai khoi section chinh: {expired_removed}.\n"
         f"- Event candidates: {len(events.get('events') or [])}; GDELT ran_successfully={ran_successfully}.\n"
         f"- Query estimate: {estimated_bytes:,} bytes; processed: {processed_bytes:,} bytes; cap: 2,000,000,000 bytes.\n"
         f"- Published stories: {stats.get('story_count', 0)}; must_read={must_read_count}; full_link_radar={radar_count}.\n"
+        f"- Must Read theo source type: {must_read_source_type}.\n"
+        f"- Must Read theo category: {must_read_category}.\n"
+        f"- Gemini curator: success={gemini_success}; fallback={gemini_fallback}.\n"
         f"- Section counts: local_ai={local_ai_count}, automation={automation_count}, open_source={open_source_count}, knowledge={knowledge_count}, founder_ideas={founder_count}.\n"
+        f"- /tech/ render check: knowledge={render_checks.get('knowledge_fields_ready')}; founder_ideas={render_checks.get('founder_fields_ready')}.\n"
         "- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.\n"
     )
     WORKLOG.write_text(current + block, encoding="utf-8")

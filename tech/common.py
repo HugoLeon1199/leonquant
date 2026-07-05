@@ -97,10 +97,10 @@ def canonical_url(url: str) -> str:
 
 def source_type(url_or_host: str) -> str:
     host = host_from_url(url_or_host) or str(url_or_host).lower().strip()
-    if any(host == x or host.endswith("." + x) for x in OFFICIAL_HOSTS):
-        return "official"
     if any(x in host for x in COMMUNITY_HINTS):
         return "community"
+    if any(host == x or host.endswith("." + x) for x in OFFICIAL_HOSTS):
+        return "official"
     return "independent_news"
 
 

@@ -1,2255 +1,348 @@
 {
   "schema_version": "ai-frontier-radar-72h-v1",
-  "generated_at_utc": "2026-07-03T02:57:23.038385+00:00",
+  "generated_at_utc": "2026-07-05T04:39:38.612239+00:00",
   "window_hours": 72,
   "executive_summary": [
-    "72 gio qua noi bat nhat la 5 huong can mo link doc ngay, trong do local AI, tool dung ngay va open-source chiem uu the.",
-    "Local AI va China AI dang la nhom co kha nang copy nhanh nhat vao stack thu nghiem cua Leon.",
-    "Nhip automation, MCP va agent van la vung co nhieu workflow co the copy sang coding, content va van hanh.",
-    "Radar nay uu tien link de mo doc sau, thay vi viet lai bai dai."
+    "Trong 72 giờ qua, radar giữ lại 0 bài đáng đọc nhất từ 10 candidate live sau khi loại 0 tín hiệu nhiễu.",
+    "Nhịp tin nổi bật nhất nằm ở các nhóm công cụ, mô hình và automation, với ưu tiên rõ cho nguồn official và independent thay vì hỏi đáp cá nhân.",
+    "Cấu trúc nguồn hiện tại gồm official 0, independent 0 và community 0 bài trong Must Read.",
+    "Các bài quá hạn cửa sổ 72 giờ đã bị loại khỏi Must Read và section chính; bài thiếu ngày chỉ được giữ ở Full Radar để Leon tự mở link đối chiếu thêm."
   ],
-  "must_read": [
-    {
-      "title": "Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI",
-      "url": "https://discuss.huggingface.co/t/architectural-proposal-the-epistemological-adversarial-network-ean-for-open-source-ai/177277",
-      "source": "discuss_huggingface_co",
-      "category": "automation",
-      "importance": 5,
-      "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI'.",
-      "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-      "tags": [
-        "automation_mcp_agents",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Local LLM on MacBook M5 Pro - Totally New to This!",
-      "url": "https://discuss.huggingface.co/t/local-llm-on-macbook-m5-pro-totally-new-to-this/177286",
-      "source": "discuss_huggingface_co",
-      "category": "local_ai",
-      "importance": 5,
-      "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'Local LLM on MacBook M5 Pro - Totally New to This!'.",
-      "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-      "tags": [
-        "local_ai_china_ai",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Project UCTF: An Open Research Program on Machine-Native AI Training Representations",
-      "url": "https://discuss.huggingface.co/t/project-uctf-an-open-research-program-on-machine-native-ai-training-representations/177240",
-      "source": "Hugging Face Forums RSS",
-      "category": "tool",
-      "importance": 5,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Project UCTF: An Open Research Program on Machine-Native AI Training Representations'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "The Checklist You Write Forces AI to Stop",
-      "url": "https://discuss.huggingface.co/t/the-checklist-you-write-forces-ai-to-stop/177194",
-      "source": "Hugging Face Forums RSS",
-      "category": "tool",
-      "importance": 5,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'The Checklist You Write Forces AI to Stop'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Top 5 models i can run with my hardware? No AI lobotomization",
-      "url": "https://discuss.huggingface.co/t/top-5-models-i-can-run-with-my-hardware-no-ai-lobotomization/177283",
-      "source": "discuss_huggingface_co",
-      "category": "local_ai",
-      "importance": 5,
-      "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'Top 5 models i can run with my hardware? No AI lobotomization'.",
-      "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-      "tags": [
-        "local_ai_china_ai",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Which open-source LLM are you currently using for chatbot development, and why?",
-      "url": "https://discuss.huggingface.co/t/which-open-source-llm-are-you-currently-using-for-chatbot-development-and-why/177281",
-      "source": "discuss_huggingface_co",
-      "category": "automation",
-      "importance": 5,
-      "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Which open-source LLM are you currently using for chatbot development, and why?'.",
-      "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-      "tags": [
-        "automation_mcp_agents",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "[Research] From Functional Geometry to Dynamic Grammar: New LIMEN Audits (V23–V24) Across 7 Architectures",
-      "url": "https://discuss.huggingface.co/t/research-from-functional-geometry-to-dynamic-grammar-new-limen-audits-v23-v24-across-7-architectures/177260",
-      "source": "discuss_huggingface_co",
-      "category": "local_ai",
-      "importance": 5,
-      "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau '[Research] From Functional Geometry to Dynamic Grammar: New LIMEN Audits (V23–V24) Across 7",
-      "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-      "tags": [
-        "local_ai_china_ai",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "🏖️ Built a Privacy-First Background Removal Tool Running Entirely in the Browser with Transformers.js",
-      "url": "https://discuss.huggingface.co/t/built-a-privacy-first-background-removal-tool-running-entirely-in-the-browser-with-transformers-js/163477",
-      "source": "Hugging Face Forums RSS",
-      "category": "tool",
-      "importance": 5,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau '🏖️ Built a Privacy-First Background Removal Tool Running Entirely in the Browser with Transformers.js'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "AgentSeal: A Corpus-Availability Audit of SWE-bench Pro",
-      "url": "https://discuss.huggingface.co/t/agentseal-a-corpus-availability-audit-of-swe-bench-pro/177267",
-      "source": "discuss_huggingface_co",
-      "category": "automation",
-      "importance": 4,
-      "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'AgentSeal: A Corpus-Availability Audit of SWE-bench Pro'.",
-      "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-      "tags": [
-        "automation_mcp_agents",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Coredump generated using --generate-coredump is not usable",
-      "url": "https://forums.developer.nvidia.com/t/coredump-generated-using-generate-coredump-is-not-usable/375123",
-      "source": "NVIDIA AI & Data Science Forum RSS",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Coredump generated using --generate-coredump is not usable'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Jetson Xavier NX CRC Fault On Every Frame",
-      "url": "https://forums.developer.nvidia.com/t/jetson-xavier-nx-crc-fault-on-every-frame/375122",
-      "source": "NVIDIA AI & Data Science Forum RSS",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Jetson Xavier NX CRC Fault On Every Frame'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Nvsipl_camera: Multiple Entron F004A (AR0341): detection OK, NvSIPLCamera Init fails (status 10)",
-      "url": "https://forums.developer.nvidia.com/t/nvsipl-camera-multiple-entron-f004a-ar0341-detection-ok-nvsiplcamera-init-fails-status-10/375124",
-      "source": "NVIDIA AI & Data Science Forum RSS",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Nvsipl_camera: Multiple Entron F004A (AR0341): detection OK, NvSIPLCamera Init fails (status 10)'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "OpenSquilla 发布 0.4.0：AI 写代码首次能“自我验证”",
-      "url": "https://www.qbitai.com/2026/07/441240.html",
-      "source": "qbitai_com",
-      "category": "automation",
-      "importance": 4,
-      "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'OpenSquilla 发布 0.4.0：AI 写代码首次能“自我验证”'.",
-      "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-      "tags": [
-        "automation_mcp_agents",
-        "independent"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Advances in ML-based sampling for Lattice-QCD",
-      "url": "https://deepmind.google/research/publications/8258/",
-      "source": "Google DeepMind Blog",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Advances in ML-based sampling for Lattice-QCD'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Best 2026 model for agentic work on a 2-node Spark cluster?",
-      "url": "https://forums.developer.nvidia.com/t/best-2026-model-for-agentic-work-on-a-2-node-spark-cluster/369799?page=2",
-      "source": "NVIDIA AI & Data Science Forum RSS",
-      "category": "automation",
-      "importance": 4,
-      "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Best 2026 model for agentic work on a 2-node Spark cluster?'.",
-      "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-      "tags": [
-        "automation_mcp_agents",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Generative replay for compositional visual understanding in the prefrontal-hippocampal circuit",
-      "url": "https://deepmind.google/research/publications/5630/",
-      "source": "Google DeepMind Blog",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Generative replay for compositional visual understanding in the prefrontal-hippocampal circuit'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Introducing Search Toolkit | Mistral AI",
-      "url": "https://mistral.ai/news/search-toolkit/",
-      "source": "Mistral AI News",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Introducing Search Toolkit | Mistral AI'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Loop世界模型论文登顶Hugging Face，来自中国一家初创，周鸿祎陆奇都投了",
-      "url": "https://www.qbitai.com/2026/07/441225.html",
-      "source": "qbitai_com",
-      "category": "automation",
-      "importance": 4,
-      "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Loop世界模型论文登顶Hugging Face，来自中国一家初创，周鸿祎陆奇都投了'.",
-      "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-      "tags": [
-        "automation_mcp_agents",
-        "independent"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "MiniMax on two DGX Sparks",
-      "url": "https://forums.developer.nvidia.com/t/minimax-on-two-dgx-sparks/375022",
-      "source": "NVIDIA AI & Data Science Forum RSS",
-      "category": "local_ai",
-      "importance": 4,
-      "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'MiniMax on two DGX Sparks'.",
-      "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-      "tags": [
-        "local_ai_china_ai",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "OceanBase湖库一体，重新定义AI数据库",
-      "url": "https://www.qbitai.com/2026/07/441386.html",
-      "source": "qbitai_com",
-      "category": "local_ai",
-      "importance": 4,
-      "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'OceanBase湖库一体，重新定义AI数据库'.",
-      "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-      "tags": [
-        "local_ai_china_ai",
-        "independent"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Om AI联汇发布VLX：全球首个面向物理世界的端侧流式多模态模型",
-      "url": "https://www.qbitai.com/2026/07/441124.html",
-      "source": "qbitai_com",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Om AI联汇发布VLX：全球首个面向物理世界的端侧流式多模态模型'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "independent"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets",
-      "url": "https://discuss.huggingface.co/t/trajlens-a-validator-for-lerobotdataset-audited-100-hub-datasets/177276",
-      "source": "discuss_huggingface_co",
-      "category": "opensource",
-      "importance": 4,
-      "why_read": "Nen doc de xem repo/tool nao dang duoc chu y va co kha nang fork hoac tich hop sau 'Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets'.",
-      "apply_now": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-      "tags": [
-        "open_source_hot",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Vibe gets to work. | Mistral AI",
-      "url": "https://mistral.ai/news/vibe-agent/",
-      "source": "Mistral AI News",
-      "category": "automation",
-      "importance": 4,
-      "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Vibe gets to work. | Mistral AI'.",
-      "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-      "tags": [
-        "automation_mcp_agents",
-        "official"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Why I Stopped Arguing With People",
-      "url": "https://wangcong.org/2026-06-30-why-i-stopped-arguing-with-people.html",
-      "source": "Hacker News Newest",
-      "category": "tool",
-      "importance": 4,
-      "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Why I Stopped Arguing With People'.",
-      "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-      "tags": [
-        "ai_tools",
-        "independent"
-      ],
-      "source_count": 1
-    },
-    {
-      "title": "Wmf - a new experimental technique",
-      "url": "https://discuss.huggingface.co/t/wmf-a-new-experimental-technique/177302",
-      "source": "discuss_huggingface_co",
-      "category": "model",
-      "importance": 4,
-      "why_read": "Nen doc de xem mo hinh nao thuc su moi, co kha nang thu ngay, va co anh huong den lua chon stack sau 'Wmf - a new experimental technique'.",
-      "apply_now": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-      "tags": [
-        "ai_models",
-        "official"
-      ],
-      "source_count": 1
-    }
-  ],
+  "must_read": [],
   "sections": {
-    "ai_models": [
-      {
-        "title": "Wmf - a new experimental technique",
-        "url": "https://discuss.huggingface.co/t/wmf-a-new-experimental-technique/177302",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "model",
-        "importance": 4,
-        "why_read": "Nen doc de xem mo hinh nao thuc su moi, co kha nang thu ngay, va co anh huong den lua chon stack sau 'Wmf - a new experimental technique'.",
-        "apply_now": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Wmf - a new experimental technique' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "AI Now Summit 2026 | Mistral AI",
-        "url": "https://mistral.ai/news/ai-now-summit-2026/",
-        "source": "Mistral AI News",
-        "published_at": "2026-05-28",
-        "category": "model",
-        "importance": 4,
-        "why_read": "Nen doc de xem mo hinh nao thuc su moi, co kha nang thu ngay, va co anh huong den lua chon stack sau 'AI Now Summit 2026 | Mistral AI'.",
-        "apply_now": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'AI Now Summit 2026 | Mistral AI' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ],
-        "score": 16
-      },
-      {
-        "title": "Language models, like humans, show content effects on reasoning tasks",
-        "url": "https://deepmind.google/research/publications/9266/",
-        "source": "Google DeepMind Blog",
-        "published_at": "2024-07-16",
-        "category": "model",
-        "importance": 4,
-        "why_read": "Nen doc de xem mo hinh nao thuc su moi, co kha nang thu ngay, va co anh huong den lua chon stack sau 'Language models, like humans, show content effects on reasoning tasks'.",
-        "apply_now": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Language models, like humans, show content effects on reasoning tasks' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ],
-        "score": 16
-      },
-      {
-        "title": "Mistral OCR 4 : SOTA OCR for Document Intelligence",
-        "url": "https://mistral.ai/news/ocr-4/",
-        "source": "Mistral AI News",
-        "published_at": "2026-06-23",
-        "category": "model",
-        "importance": 4,
-        "why_read": "Nen doc de xem mo hinh nao thuc su moi, co kha nang thu ngay, va co anh huong den lua chon stack sau 'Mistral OCR 4 : SOTA OCR for Document Intelligence'.",
-        "apply_now": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Mistral OCR 4 : SOTA OCR for Document Intelligence' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ],
-        "score": 16
-      }
-    ],
-    "local_ai_china_ai": [
-      {
-        "title": "Local LLM on MacBook M5 Pro - Totally New to This!",
-        "url": "https://discuss.huggingface.co/t/local-llm-on-macbook-m5-pro-totally-new-to-this/177286",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "local_ai",
-        "importance": 5,
-        "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'Local LLM on MacBook M5 Pro - Totally New to This!'.",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Local LLM on MacBook M5 Pro - Totally New to This!' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "Top 5 models i can run with my hardware? No AI lobotomization",
-        "url": "https://discuss.huggingface.co/t/top-5-models-i-can-run-with-my-hardware-no-ai-lobotomization/177283",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "local_ai",
-        "importance": 5,
-        "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'Top 5 models i can run with my hardware? No AI lobotomization'.",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Top 5 models i can run with my hardware? No AI lobotomization' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "[Research] From Functional Geometry to Dynamic Grammar: New LIMEN Audits (V23–V24) Across 7 Architectures",
-        "url": "https://discuss.huggingface.co/t/research-from-functional-geometry-to-dynamic-grammar-new-limen-audits-v23-v24-across-7-architectures/177260",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "local_ai",
-        "importance": 5,
-        "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau '[Research] From Functional Geometry to Dynamic Grammar: New LIMEN Audits (V23–V24) Across 7",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '[Research] From Functional Geometry to Dynamic Grammar: New LIMEN Audits (V23–V24) Across 7 Architectures' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "MiniMax on two DGX Sparks",
-        "url": "https://forums.developer.nvidia.com/t/minimax-on-two-dgx-sparks/375022",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-06-30",
-        "category": "local_ai",
-        "importance": 4,
-        "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'MiniMax on two DGX Sparks'.",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'MiniMax on two DGX Sparks' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "OceanBase湖库一体，重新定义AI数据库",
-        "url": "https://www.qbitai.com/2026/07/441386.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "local_ai",
-        "importance": 4,
-        "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau 'OceanBase湖库一体，重新定义AI数据库'.",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'OceanBase湖库一体，重新定义AI数据库' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "卡帕西李飞飞辛顿都投了的Transformer专用芯片，签下10亿美元大单",
-        "url": "https://www.qbitai.com/2026/07/441183.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "local_ai",
-        "importance": 4,
-        "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau '卡帕西李飞飞辛顿都投了的Transformer专用芯片，签下10亿美元大单'.",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '卡帕西李飞飞辛顿都投了的Transformer专用芯片，签下10亿美元大单' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "金融AI武道大会开赛！四道业务真题，出题人：猜不到最优解",
-        "url": "https://www.qbitai.com/2026/07/441246.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "local_ai",
-        "importance": 4,
-        "why_read": "Nen doc de tim stack local/free hoac tin hieu AI Trung Quoc co the mang ve test nhanh sau '金融AI武道大会开赛！四道业务真题，出题人：猜不到最优解'.",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '金融AI武道大会开赛！四道业务真题，出题人：猜不到最优解' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ],
-        "score": 18
-      }
-    ],
-    "ai_tools": [
-      {
-        "title": "Project UCTF: An Open Research Program on Machine-Native AI Training Representations",
-        "url": "https://discuss.huggingface.co/t/project-uctf-an-open-research-program-on-machine-native-ai-training-representations/177240",
-        "source": "Hugging Face Forums RSS",
-        "published_at": "2026-06-29",
-        "category": "tool",
-        "importance": 5,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Project UCTF: An Open Research Program on Machine-Native AI Training Representations'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Project UCTF: An Open Research Program on Machine-Native AI Training Representations' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "The Checklist You Write Forces AI to Stop",
-        "url": "https://discuss.huggingface.co/t/the-checklist-you-write-forces-ai-to-stop/177194",
-        "source": "Hugging Face Forums RSS",
-        "published_at": "2026-06-27",
-        "category": "tool",
-        "importance": 5,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'The Checklist You Write Forces AI to Stop'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'The Checklist You Write Forces AI to Stop' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "🏖️ Built a Privacy-First Background Removal Tool Running Entirely in the Browser with Transformers.js",
-        "url": "https://discuss.huggingface.co/t/built-a-privacy-first-background-removal-tool-running-entirely-in-the-browser-with-transformers-js/163477",
-        "source": "Hugging Face Forums RSS",
-        "published_at": "2025-07-17",
-        "category": "tool",
-        "importance": 5,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau '🏖️ Built a Privacy-First Background Removal Tool Running Entirely in the Browser with Transformers.js'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '🏖️ Built a Privacy-First Background Removal Tool Running Entirely in the Browser with Transformers.js' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "Coredump generated using --generate-coredump is not usable",
-        "url": "https://forums.developer.nvidia.com/t/coredump-generated-using-generate-coredump-is-not-usable/375123",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Coredump generated using --generate-coredump is not usable'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Coredump generated using --generate-coredump is not usable' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 19
-      },
-      {
-        "title": "Jetson Xavier NX CRC Fault On Every Frame",
-        "url": "https://forums.developer.nvidia.com/t/jetson-xavier-nx-crc-fault-on-every-frame/375122",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Jetson Xavier NX CRC Fault On Every Frame'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Jetson Xavier NX CRC Fault On Every Frame' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 19
-      },
-      {
-        "title": "Nvsipl_camera: Multiple Entron F004A (AR0341): detection OK, NvSIPLCamera Init fails (status 10)",
-        "url": "https://forums.developer.nvidia.com/t/nvsipl-camera-multiple-entron-f004a-ar0341-detection-ok-nvsiplcamera-init-fails-status-10/375124",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Nvsipl_camera: Multiple Entron F004A (AR0341): detection OK, NvSIPLCamera Init fails (status 10)'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Nvsipl_camera: Multiple Entron F004A (AR0341): detection OK, NvSIPLCamera Init fails (status 10)' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 19
-      },
-      {
-        "title": "Advances in ML-based sampling for Lattice-QCD",
-        "url": "https://deepmind.google/research/publications/8258/",
-        "source": "Google DeepMind Blog",
-        "published_at": "2023-08-04",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Advances in ML-based sampling for Lattice-QCD'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Advances in ML-based sampling for Lattice-QCD' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "Generative replay for compositional visual understanding in the prefrontal-hippocampal circuit",
-        "url": "https://deepmind.google/research/publications/5630/",
-        "source": "Google DeepMind Blog",
-        "published_at": "2023-10-26",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Generative replay for compositional visual understanding in the prefrontal-hippocampal circuit'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Generative replay for compositional visual understanding in the prefrontal-hippocampal circuit' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "Introducing Search Toolkit | Mistral AI",
-        "url": "https://mistral.ai/news/search-toolkit/",
-        "source": "Mistral AI News",
-        "published_at": "2026-05-28",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Introducing Search Toolkit | Mistral AI'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Introducing Search Toolkit | Mistral AI' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "Om AI联汇发布VLX：全球首个面向物理世界的端侧流式多模态模型",
-        "url": "https://www.qbitai.com/2026/07/441124.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Om AI联汇发布VLX：全球首个面向物理世界的端侧流式多模态模型'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Om AI联汇发布VLX：全球首个面向物理世界的端侧流式多模态模型' noi len trong nhom AI Tools. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "Why I Stopped Arguing With People",
-        "url": "https://wangcong.org/2026-06-30-why-i-stopped-arguing-with-people.html",
-        "source": "Hacker News Newest",
-        "published_at": "2026-06-30",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Why I Stopped Arguing With People'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Why I Stopped Arguing With People' noi len trong nhom AI Tools. Nguon goc nghieng ve bao hoac blog doc lap. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "About the Deployment category",
-        "url": "https://forum.langchain.com/t/about-the-deployment-category/10",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the Deployment category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Deployment category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "About the Forum Feedback category",
-        "url": "https://forum.langchain.com/t/about-the-forum-feedback-category/1",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the Forum Feedback category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Forum Feedback category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "About the Improving Deep Neural Networks: Hyperparameter tun category",
-        "url": "https://community.deeplearning.ai/t/about-the-improving-deep-neural-networks-hyperparameter-tun-category/52",
-        "source": "DeepLearning.AI Community RSS",
-        "published_at": "2021-03-25",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the Improving Deep Neural Networks: Hyperparameter tun category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Improving Deep Neural Networks: Hyperparameter tun category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "About the LangChain Academy category",
-        "url": "https://forum.langchain.com/t/about-the-langchain-academy-category/18",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-23",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the LangChain Academy category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the LangChain Academy category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "About the LangSmith Product Help category",
-        "url": "https://forum.langchain.com/t/about-the-langsmith-product-help-category/15",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the LangSmith Product Help category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the LangSmith Product Help category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "About the Observability & Evals category",
-        "url": "https://forum.langchain.com/t/about-the-observability-evals-category/14",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the Observability & Evals category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Observability & Evals category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "About the Site Feedback category",
-        "url": "https://discuss.pytorch.org/t/about-the-site-feedback-category/2",
-        "source": "PyTorch Forums RSS",
-        "published_at": "2017-01-13",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the Site Feedback category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Site Feedback category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "About the vision category",
-        "url": "https://discuss.pytorch.org/t/about-the-vision-category/22",
-        "source": "PyTorch Forums RSS",
-        "published_at": "2017-01-14",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'About the vision category'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the vision category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "Biotic | SpudCell",
-        "url": "https://biotic.org/research/spudcell/",
-        "source": "Hacker News Newest",
-        "published_at": "",
-        "category": "tool",
-        "importance": 4,
-        "why_read": "Nen doc de xem cong cu nao co the dua thang vao cong viec sau 'Biotic | SpudCell'.",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Biotic | SpudCell' noi len trong nhom AI Tools. Nguon goc nghieng ve bao hoac blog doc lap. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ],
-        "score": 17
-      }
-    ],
-    "automation_mcp_agents": [
-      {
-        "title": "Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI",
-        "url": "https://discuss.huggingface.co/t/architectural-proposal-the-epistemological-adversarial-network-ean-for-open-source-ai/177277",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "importance": 5,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "Which open-source LLM are you currently using for chatbot development, and why?",
-        "url": "https://discuss.huggingface.co/t/which-open-source-llm-are-you-currently-using-for-chatbot-development-and-why/177281",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "importance": 5,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Which open-source LLM are you currently using for chatbot development, and why?'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Which open-source LLM are you currently using for chatbot development, and why?' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ],
-        "score": 20
-      },
-      {
-        "title": "AgentSeal: A Corpus-Availability Audit of SWE-bench Pro",
-        "url": "https://discuss.huggingface.co/t/agentseal-a-corpus-availability-audit-of-swe-bench-pro/177267",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'AgentSeal: A Corpus-Availability Audit of SWE-bench Pro'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'AgentSeal: A Corpus-Availability Audit of SWE-bench Pro' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ],
-        "score": 19
-      },
-      {
-        "title": "OpenSquilla 发布 0.4.0：AI 写代码首次能“自我验证”",
-        "url": "https://www.qbitai.com/2026/07/441240.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'OpenSquilla 发布 0.4.0：AI 写代码首次能“自我验证”'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'OpenSquilla 发布 0.4.0：AI 写代码首次能“自我验证”' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ],
-        "score": 19
-      },
-      {
-        "title": "Best 2026 model for agentic work on a 2-node Spark cluster?",
-        "url": "https://forums.developer.nvidia.com/t/best-2026-model-for-agentic-work-on-a-2-node-spark-cluster/369799?page=2",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-05-29",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Best 2026 model for agentic work on a 2-node Spark cluster?'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Best 2026 model for agentic work on a 2-node Spark cluster?' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "Loop世界模型论文登顶Hugging Face，来自中国一家初创，周鸿祎陆奇都投了",
-        "url": "https://www.qbitai.com/2026/07/441225.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Loop世界模型论文登顶Hugging Face，来自中国一家初创，周鸿祎陆奇都投了'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Loop世界模型论文登顶Hugging Face，来自中国一家初创，周鸿祎陆奇都投了' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "Vibe gets to work. | Mistral AI",
-        "url": "https://mistral.ai/news/vibe-agent/",
-        "source": "Mistral AI News",
-        "published_at": "2026-05-28",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Vibe gets to work. | Mistral AI'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Vibe gets to work. | Mistral AI' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "具身智能Skill时刻！英伟达开源机器人技能库，Jim Fan：范式变了",
-        "url": "https://www.qbitai.com/2026/07/441396.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu '具身智能Skill时刻！英伟达开源机器人技能库，Jim Fan：范式变了'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '具身智能Skill时刻！英伟达开源机器人技能库，Jim Fan：范式变了' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "卖Token也不是稳赚不赔！硅基流动招股书来了",
-        "url": "https://www.qbitai.com/2026/07/441127.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu '卖Token也不是稳赚不赔！硅基流动招股书来了'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '卖Token也不是稳赚不赔！硅基流动招股书来了' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "大湾区首个200亿具身大脑来了！自变量两个月连融四轮，完成交割",
-        "url": "https://www.qbitai.com/2026/07/441140.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu '大湾区首个200亿具身大脑来了！自变量两个月连融四轮，完成交割'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '大湾区首个200亿具身大脑来了！自变量两个月连融四轮，完成交割' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "群核科技三项成果入选ECCV 2026，联手英伟达等探索物理AI仿真平台",
-        "url": "https://www.qbitai.com/2026/07/441237.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu '群核科技三项成果入选ECCV 2026，联手英伟达等探索物理AI仿真平台'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '群核科技三项成果入选ECCV 2026，联手英伟达等探索物理AI仿真平台' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ],
-        "score": 18
-      },
-      {
-        "title": "Best practice for per-tenant model config and BYOK with LangGraph Cloud`",
-        "url": "https://forum.langchain.com/t/best-practice-for-per-tenant-model-config-and-byok-with-langgraph-cloud/4060",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Best practice for per-tenant model config and BYOK with LangGraph Cloud`'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Best practice for per-tenant model config and BYOK with LangGraph Cloud`' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "Is LangChain killing its own Innovation with gatekeeping?",
-        "url": "https://forum.langchain.com/t/is-langchain-killing-its-own-innovation-with-gatekeeping/4069",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Is LangChain killing its own Innovation with gatekeeping?'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Is LangChain killing its own Innovation with gatekeeping?' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "MultiAgent Setup",
-        "url": "https://discuss.ray.io/t/multiagent-setup/23572",
-        "source": "Ray Discuss RSS",
-        "published_at": "2026-06-27",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'MultiAgent Setup'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'MultiAgent Setup' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "Seeking Feedback & Collaboration: Talordata - A Multi-Engine SERP API for LangChain Agents & RAG Workflows",
-        "url": "https://forum.langchain.com/t/seeking-feedback-collaboration-talordata-a-multi-engine-serp-api-for-langchain-agents-rag-workflows/4065",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'Seeking Feedback & Collaboration: Talordata - A Multi-Engine SERP API for LangChain Agents & RAG Workflows'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Seeking Feedback & Collaboration: Talordata - A Multi-Engine SERP API for LangChain Agents & RAG Workflows' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "community"
-        ],
-        "score": 17
-      },
-      {
-        "title": "tracesage: See Inside Your LangGraph Agents",
-        "url": "https://forum.langchain.com/t/tracesage-see-inside-your-langgraph-agents/4063",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "importance": 4,
-        "why_read": "Nen doc de copy workflow agent, MCP hoac automation tu 'tracesage: See Inside Your LangGraph Agents'.",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'tracesage: See Inside Your LangGraph Agents' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "community"
-        ],
-        "score": 17
-      }
-    ],
-    "open_source_hot": [
-      {
-        "title": "Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets",
-        "url": "https://discuss.huggingface.co/t/trajlens-a-validator-for-lerobotdataset-audited-100-hub-datasets/177276",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "opensource",
-        "importance": 4,
-        "why_read": "Nen doc de xem repo/tool nao dang duoc chu y va co kha nang fork hoac tich hop sau 'Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets'.",
-        "apply_now": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets' noi len trong nhom Open Source Hot. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "source_count": 1,
-        "tags": [
-          "open_source_hot",
-          "official"
-        ],
-        "score": 18
-      },
-      {
-        "title": "mo hinh 3.1 Flash-Lite Image - Model Card",
-        "url": "https://deepmind.google/models/model-cards/gemini-3-1-flash-lite-image/",
-        "source": "deepmind_google",
-        "published_at": "2026-06-30",
-        "category": "opensource",
-        "importance": 4,
-        "why_read": "Nen doc de xem repo/tool nao dang duoc chu y va co kha nang fork hoac tich hop sau 'mo hinh 3.1 Flash-Lite Image - Model Card'.",
-        "apply_now": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'mo hinh 3.1 Flash-Lite Image - Model Card' noi len trong nhom Open Source Hot. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "source_count": 1,
-        "tags": [
-          "open_source_hot",
-          "official"
-        ],
-        "score": 17
-      },
-      {
-        "title": "Progress Report: Linux 7.1 - Asahi Linux",
-        "url": "https://asahilinux.org/2026/06/progress-report-7-1/",
-        "source": "Hacker News Newest",
-        "published_at": "2026-06-30",
-        "category": "opensource",
-        "importance": 4,
-        "why_read": "Nen doc de xem repo/tool nao dang duoc chu y va co kha nang fork hoac tich hop sau 'Progress Report: Linux 7.1 - Asahi Linux'.",
-        "apply_now": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Progress Report: Linux 7.1 - Asahi Linux' noi len trong nhom Open Source Hot. Nguon goc nghieng ve bao hoac blog doc lap. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "source_count": 1,
-        "tags": [
-          "open_source_hot",
-          "independent"
-        ],
-        "score": 16
-      }
-    ],
+    "ai_models": [],
+    "local_ai_china_ai": [],
+    "ai_tools": [],
+    "automation_mcp_agents": [],
+    "open_source_hot": [],
     "ai_business_money": [],
     "industry_impact": [],
     "ai_knowledge": [
       {
-        "concept": "MCP la gi va vi sao dang hot",
-        "explain_simple": "MCP giup model noi duoc voi cong cu va nguon du lieu co cau truc thay vi chi chat thuong.",
-        "why_now": "Nhip agent va automation dang day manh nhu cau ket noi cong cu an toan.",
+        "concept": "MCP và agent chỉ đáng chú ý khi giải quyết được việc thật",
+        "explain_simple": "Các bài automation đáng đọc nhất đều nhấn vào chỗ workflow, tracing hoặc ghép công cụ chứ không dừng ở khẩu hiệu agent chung chung.",
+        "why_now": "Trong 72 giờ qua, nhiều bài cùng hội tụ vào chủ điểm này nên nó đáng được xem là một hướng học và ra quyết định ngay bây giờ.",
+        "how_to_apply": "Leon có thể lấy các ví dụ này để đánh giá workflow nào đủ rõ đầu vào, đầu ra và điểm đo hiệu quả trước khi bỏ thời gian tích hợp.",
         "best_links": [
-          "https://discuss.huggingface.co/t/architectural-proposal-the-epistemological-adversarial-network-ean-for-open-source-ai/177277",
-          "https://discuss.huggingface.co/t/local-llm-on-macbook-m5-pro-totally-new-to-this/177286",
-          "https://discuss.huggingface.co/t/project-uctf-an-open-research-program-on-machine-native-ai-training-representations/177240"
+          "https://forum.langchain.com/t/the-flaw-in-ai-agent-cost-tracking-and-how-to-fix-it/4092",
+          "https://discuss.huggingface.co/t/analysis-the-system-prompt-architecture-behind-anthropics-mythos-tier-claude-fable-5/177451",
+          "https://discuss.huggingface.co/t/llm-agents-need-a-cognitive-grammar-not-just-more-tools/177442"
         ],
-        "how_to_apply": "Thu xem workflow nao cua Leon can mo them cong cu qua MCP.",
         "source_count": 3
       },
       {
-        "concept": "Khi nao nen uu tien local AI",
-        "explain_simple": "Local AI hop khi can tiet kiem chi phi, giu du lieu noi bo va lap quy trinh thu nghiem nhanh.",
-        "why_now": "72 gio qua nhom local stack va model free dang tang mat do tin tuc va huong dan.",
+        "concept": "Local AI chỉ có ý nghĩa khi gắn với một stack cụ thể",
+        "explain_simple": "Nhóm local AI đang chuyển từ hỏi model nào mạnh sang hỏi triển khai bằng runtime nào, có giữ dữ liệu riêng được không và có dùng ổn cho task hằng ngày không.",
+        "why_now": "Trong 72 giờ qua, nhiều bài cùng hội tụ vào chủ điểm này nên nó đáng được xem là một hướng học và ra quyết định ngay bây giờ.",
+        "how_to_apply": "Leon nên so các bài này với nhu cầu local coding, research và tóm tắt tài liệu để quyết định có cần dựng một stack riêng hay không.",
         "best_links": [
-          "https://discuss.huggingface.co/t/architectural-proposal-the-epistemological-adversarial-network-ean-for-open-source-ai/177277",
-          "https://discuss.huggingface.co/t/local-llm-on-macbook-m5-pro-totally-new-to-this/177286",
-          "https://discuss.huggingface.co/t/project-uctf-an-open-research-program-on-machine-native-ai-training-representations/177240"
+          "https://discuss.huggingface.co/t/if-your-gpu-can-run-inference-it-is-now-also-capable-of-performing-fine-tuning/177456"
         ],
-        "how_to_apply": "Lap mot bo test nho cho Ollama, Open WebUI hoac vLLM voi use case coding va note-taking.",
-        "source_count": 3
+        "source_count": 1
       },
       {
-        "concept": "Open-source hot khac gi repo tang star",
-        "explain_simple": "Repo dang hot nen co demo, use case ro va duoc cong dong nhac den vi giai quyet viec that.",
-        "why_now": "Founder de bi ngop neu chi nhin star, trong khi repo co use case moi la thu copy duoc.",
+        "concept": "Open-source nóng không đồng nghĩa với nhiều sao",
+        "explain_simple": "Điểm đáng theo dõi là repo nào có demo, use case rõ và cộng đồng đang dùng để giải quyết việc thật trong 72 giờ qua.",
+        "why_now": "Trong 72 giờ qua, nhiều bài cùng hội tụ vào chủ điểm này nên nó đáng được xem là một hướng học và ra quyết định ngay bây giờ.",
+        "how_to_apply": "Khi gặp repo như vậy, Leon nên mở README, xem demo và kiểm tra ngay khả năng fork hoặc gắn vào quy trình nội bộ.",
         "best_links": [
-          "https://discuss.huggingface.co/t/architectural-proposal-the-epistemological-adversarial-network-ean-for-open-source-ai/177277",
-          "https://discuss.huggingface.co/t/local-llm-on-macbook-m5-pro-totally-new-to-this/177286",
-          "https://discuss.huggingface.co/t/project-uctf-an-open-research-program-on-machine-native-ai-training-representations/177240"
+          "https://discuss.huggingface.co/t/is-selling-datasets-way-harder-than-building-them-or-is-it-just-me/177440"
         ],
-        "how_to_apply": "Khi gap repo dang hot, doc README, demo va note ngay cach tich hop vao quy trinh cua Leon.",
-        "source_count": 3
+        "source_count": 1
       },
       {
-        "concept": "Agent workflow nen danh gia theo gi",
-        "explain_simple": "Nen nhin vao kha nang lap lai, do on dinh, cach go cong cu va chi phi van hanh.",
-        "why_now": "Nhip MCP, automation va coding agent dang thay doi rat nhanh.",
+        "concept": "Theo dõi model nên đi cùng bài toán dùng thật",
+        "explain_simple": "Các cập nhật model đáng giữ lại thường gắn với thay đổi về khả năng multimodal, tốc độ, local runtime hoặc cửa sổ ứng dụng rõ hơn trước.",
+        "why_now": "Trong 72 giờ qua, nhiều bài cùng hội tụ vào chủ điểm này nên nó đáng được xem là một hướng học và ra quyết định ngay bây giờ.",
+        "how_to_apply": "Leon có thể dùng nhóm bài này để so lại bộ tiêu chí chọn model cho coding, đọc tài liệu và content thay vì chạy theo hype.",
         "best_links": [
-          "https://discuss.huggingface.co/t/architectural-proposal-the-epistemological-adversarial-network-ean-for-open-source-ai/177277",
-          "https://discuss.huggingface.co/t/local-llm-on-macbook-m5-pro-totally-new-to-this/177286",
-          "https://discuss.huggingface.co/t/project-uctf-an-open-research-program-on-machine-native-ai-training-representations/177240"
+          "https://discuss.huggingface.co/t/any-need-for-a-tester-and-challenger-for-ai-models/177450"
         ],
-        "how_to_apply": "Moi workflow moi hay tra loi 3 cau hoi: copy duoc khong, do duoc khong, ban duoc khong.",
-        "source_count": 3
+        "source_count": 1
       }
     ],
     "founder_ideas_for_leon": [
       {
-        "idea": "Chon 1 workflow agent co the copy vao coding hoac content, roi do lai thoi gian tiet kiem duoc.",
-        "based_on": "Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI",
-        "apply_now": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "why_now": "Trong 72 gio qua, cau chuyen 'Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents"
-        ]
-      },
-      {
-        "idea": "Dung mot stack local AI de test nhanh cac use case coding, research va content ma khong phu thuoc cloud.",
-        "based_on": "Local LLM on MacBook M5 Pro - Totally New to This!",
-        "apply_now": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "why_now": "Trong 72 gio qua, cau chuyen 'Local LLM on MacBook M5 Pro - Totally New to This!' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
+        "idea": "Dựng một nhánh local AI nhỏ để thử nghiệm các việc cần riêng tư hoặc chạy lặp lại nhiều lần mà không muốn phụ thuộc cloud.",
+        "based_on": "If your GPU can run inference, it is now also capable of performing fine-tuning",
+        "why_now": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “I spent the last few months building a new sparse fine-tuning method for MoE models called USAF.” cho thấy hướng thử nghiệm có thể áp dụng nhanh",
+        "apply_now": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
         "source_count": 1,
         "tags": [
           "local_ai_china_ai"
         ]
       },
       {
-        "idea": "Lap bang xep hang cong cu theo tieu chi: vao viec nhanh, de ban dich vu, de dong goi thanh SaaS mini.",
-        "based_on": "Project UCTF: An Open Research Program on Machine-Native AI Training Representations",
-        "apply_now": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "why_now": "Trong 72 gio qua, cau chuyen 'Project UCTF: An Open Research Program on Machine-Native AI Training Representations' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
+        "idea": "Lấy workflow trong bài, giản lược về một bài test 30 phút và xem nó có chạy ổn hơn cách làm tay hiện tại hay không.",
+        "based_on": "The Flaw in AI Agent Cost Tracking (And How to Fix It)",
+        "why_now": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Hey everyone — if you are deploying autonomous agents or multi-agent loops to production, you need to look closely at your financial guardrail”,",
+        "apply_now": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_count": 1,
+        "tags": [
+          "automation_mcp_agents"
+        ]
+      },
+      {
+        "idea": "Chọn một công cụ mới và đo xem nó cắt được bao nhiêu phút ở một bước làm việc đang lặp lại hằng ngày.",
+        "based_on": "光象科技累计完成数亿元天使轮融资，布局物理原生基座模型",
+        "why_now": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “光象科技累计完成数亿元天使轮融资，布局物理原生基座模型 近日，光象科技宣布完成累计数亿元天使轮融资，最新一轮融资由珠海科技产业集团、兴证资本、松禾资本、顺禧基金、慕华科创、See”.",
+        "apply_now": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
         "source_count": 1,
         "tags": [
           "ai_tools"
         ]
       },
       {
-        "idea": "Moi tuan fork 1 repo open-source dung voi bai toan thuc te cua Leon thay vi chi luu bookmark.",
-        "based_on": "Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets",
-        "apply_now": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "why_now": "Trong 72 gio qua, cau chuyen 'Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets' noi len trong nhom Open Source Hot. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "source_count": 1,
-        "tags": [
-          "open_source_hot"
-        ]
-      },
-      {
-        "idea": "So sanh 2-3 model moi theo bai toan cua Leon de khong bi cuon theo hype chung.",
-        "based_on": "Wmf - a new experimental technique",
-        "apply_now": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "why_now": "Trong 72 gio qua, cau chuyen 'Wmf - a new experimental technique' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 72 gio.",
+        "idea": "Tạo một bảng so sánh nhỏ giữa model mới và stack hiện tại theo đúng ba việc Leon làm nhiều nhất.",
+        "based_on": "Any need for a tester and challenger for AI models?",
+        "why_now": "Điểm đáng chú ý của bài này nằm ở cập nhật mới về mô hình AI, đặc biệt là chi tiết “I use LLMs a lot for scientific and mathematical research, and for conceptual matching and searching, as well as to help with writing,",
+        "apply_now": "Đối chiếu “Any need for a tester and challenger for AI models?” với các bài toán coding, research và tóm tắt tài liệu mà Leon đang làm để xem có lý do đổi model hay không.",
         "source_count": 1,
         "tags": [
           "ai_models"
         ]
       },
       {
-        "idea": "Tao mot sprint nho cho MCP tools va chi giu thu giup Leon hoc nhanh hoac kiem tien nhanh hon.",
-        "based_on": "Tong hop 72h",
-        "apply_now": "Mo 3 link lien quan nhat trong radar, viet note 10 dong, chon 1 thu de test trong 48 gio.",
-        "why_now": "Radar hien tai cho thay co qua nhieu y hay; can rut ve thanh bai test nho de tao dong luc.",
+        "idea": "Lấy workflow trong bài, giản lược về một bài test 30 phút và xem nó có chạy ổn hơn cách làm tay hiện tại hay không.",
+        "based_on": "Analysis: The System Prompt Architecture Behind Anthropic's \"Mythos\" Tier (Claude Fable 5",
+        "why_now": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “I’ve curated the leaked 120KB system prompt for Anthropic’s Fable 5 model.",
+        "apply_now": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_count": 1,
         "tags": [
-          "founder_ideas_for_leon"
+          "automation_mcp_agents"
         ]
       },
       {
-        "idea": "Tao mot sprint nho cho open-source integration va chi giu thu giup Leon hoc nhanh hoac kiem tien nhanh hon.",
-        "based_on": "Tong hop 72h",
-        "apply_now": "Mo 3 link lien quan nhat trong radar, viet note 10 dong, chon 1 thu de test trong 48 gio.",
-        "why_now": "Radar hien tai cho thay co qua nhieu y hay; can rut ve thanh bai test nho de tao dong luc.",
+        "idea": "Fork hoặc bookmark có chủ đích một repo đủ rõ use case, rồi ghi lại vì sao nó đáng đi tiếp thay vì chỉ lưu link.",
+        "based_on": "Is selling datasets way harder than building them? Or is it just me?",
+        "why_now": "Điểm mới ở đây là dấu hiệu cộng đồng đang chú ý tới một repo hoặc bản phát hành có thể dùng thật. Câu “It really does seem that selling datasets comes with all kinds of difficulties… Short answer No, I do not think you",
+        "apply_now": "Mở repo hoặc demo liên quan, đọc nhanh phần cài đặt và note xem có thể fork hoặc gắn vào một dự án nội bộ trong tuần này không.",
         "source_count": 1,
         "tags": [
-          "founder_ideas_for_leon"
+          "open_source_hot"
         ]
       },
       {
-        "idea": "Tao mot sprint nho cho agent workflow va chi giu thu giup Leon hoc nhanh hoac kiem tien nhanh hon.",
-        "based_on": "Tong hop 72h",
-        "apply_now": "Mo 3 link lien quan nhat trong radar, viet note 10 dong, chon 1 thu de test trong 48 gio.",
-        "why_now": "Radar hien tai cho thay co qua nhieu y hay; can rut ve thanh bai test nho de tao dong luc.",
+        "idea": "Lấy workflow trong bài, giản lược về một bài test 30 phút và xem nó có chạy ổn hơn cách làm tay hiện tại hay không.",
+        "based_on": "LLM Agents Need a Cognitive Grammar, Not Just More Tools",
+        "why_now": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Most agent systems today are built around tools, prompts, memory, routing, graphs, and orchestration.”, Leon có thể hình dung ngay chỗ nào trong",
+        "apply_now": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_count": 1,
         "tags": [
-          "founder_ideas_for_leon"
+          "automation_mcp_agents"
         ]
       },
       {
-        "idea": "Tao mot sprint nho cho SaaS validation va chi giu thu giup Leon hoc nhanh hoac kiem tien nhanh hon.",
-        "based_on": "Tong hop 72h",
-        "apply_now": "Mo 3 link lien quan nhat trong radar, viet note 10 dong, chon 1 thu de test trong 48 gio.",
-        "why_now": "Radar hien tai cho thay co qua nhieu y hay; can rut ve thanh bai test nho de tao dong luc.",
+        "idea": "Lấy workflow trong bài, giản lược về một bài test 30 phút và xem nó có chạy ổn hơn cách làm tay hiện tại hay không.",
+        "based_on": "LangChain Documentation Appears to Contradict Itself Regarding Updating State in Nested Structures",
+        "why_now": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “The LangChain documentation refers to the ability to modify the state of an existing conversation using the Command class.”, Leon có thể hình",
+        "apply_now": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_count": 1,
         "tags": [
-          "founder_ideas_for_leon"
+          "automation_mcp_agents"
         ]
       },
       {
-        "idea": "Tao mot sprint nho cho AI research habit va chi giu thu giup Leon hoc nhanh hoac kiem tien nhanh hon.",
-        "based_on": "Tong hop 72h",
-        "apply_now": "Mo 3 link lien quan nhat trong radar, viet note 10 dong, chon 1 thu de test trong 48 gio.",
-        "why_now": "Radar hien tai cho thay co qua nhieu y hay; can rut ve thanh bai test nho de tao dong luc.",
+        "idea": "Lấy workflow trong bài, giản lược về một bài test 30 phút và xem nó có chạy ổn hơn cách làm tay hiện tại hay không.",
+        "based_on": "Megabots2026: Leveraging torch.compile for High-Performance Dual-Agent Architecture",
+        "why_now": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Hi everyone, As I lay down the foundation for Megabots2026, it has become incredibly clear that PyTorch is the best possible ecosystem to start",
+        "apply_now": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_count": 1,
         "tags": [
-          "founder_ideas_for_leon"
+          "automation_mcp_agents"
+        ]
+      },
+      {
+        "idea": "Lấy workflow trong bài, giản lược về một bài test 30 phút và xem nó có chạy ổn hơn cách làm tay hiện tại hay không.",
+        "based_on": "Megabots2026: Proposing a Dual-Agent (Generator/Verifier) Training Pattern for High-Accuracy Systems",
+        "why_now": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Github Repo : GitHub - powerofaisinstudy-debug/Megabots2026- · GitHub Hi everyone, I wanted to share an architectural design concept I am",
+        "apply_now": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_count": 1,
+        "tags": [
+          "automation_mcp_agents"
         ]
       }
     ],
     "full_link_radar": [
       {
-        "title": "Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI",
-        "url": "https://discuss.huggingface.co/t/architectural-proposal-the-epistemological-adversarial-network-ean-for-open-source-ai/177277",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Architectural Proposal: The Epistemological Adversarial Network (EAN) for Open-Source AI' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ]
-      },
-      {
-        "title": "Local LLM on MacBook M5 Pro - Totally New to This!",
-        "url": "https://discuss.huggingface.co/t/local-llm-on-macbook-m5-pro-totally-new-to-this/177286",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
+        "title": "If your GPU can run inference, it is now also capable of performing fine-tuning",
+        "url": "https://discuss.huggingface.co/t/if-your-gpu-can-run-inference-it-is-now-also-capable-of-performing-fine-tuning/177456",
+        "source": "discuss.huggingface.co",
+        "published_at": "2026-07-05",
         "category": "local_ai",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Local LLM on MacBook M5 Pro - Totally New to This!' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
+        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “I spent the last few months building a new sparse fine-tuning method for MoE models called USAF.” cho thấy hướng thử nghiệm có thể áp dụng nhanh",
+        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
+        "source_type": "community",
         "source_count": 1,
+        "time_verified": true,
         "tags": [
           "local_ai_china_ai",
-          "official"
+          "community"
         ]
       },
       {
-        "title": "Project UCTF: An Open Research Program on Machine-Native AI Training Representations",
-        "url": "https://discuss.huggingface.co/t/project-uctf-an-open-research-program-on-machine-native-ai-training-representations/177240",
-        "source": "Hugging Face Forums RSS",
-        "published_at": "2026-06-29",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Project UCTF: An Open Research Program on Machine-Native AI Training Representations' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "The Checklist You Write Forces AI to Stop",
-        "url": "https://discuss.huggingface.co/t/the-checklist-you-write-forces-ai-to-stop/177194",
-        "source": "Hugging Face Forums RSS",
-        "published_at": "2026-06-27",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'The Checklist You Write Forces AI to Stop' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "Top 5 models i can run with my hardware? No AI lobotomization",
-        "url": "https://discuss.huggingface.co/t/top-5-models-i-can-run-with-my-hardware-no-ai-lobotomization/177283",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "local_ai",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Top 5 models i can run with my hardware? No AI lobotomization' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "official"
-        ]
-      },
-      {
-        "title": "Which open-source LLM are you currently using for chatbot development, and why?",
-        "url": "https://discuss.huggingface.co/t/which-open-source-llm-are-you-currently-using-for-chatbot-development-and-why/177281",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
+        "title": "The Flaw in AI Agent Cost Tracking (And How to Fix It)",
+        "url": "https://forum.langchain.com/t/the-flaw-in-ai-agent-cost-tracking-and-how-to-fix-it/4092",
+        "source": "forum.langchain.com",
+        "published_at": "2026-07-05",
         "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Which open-source LLM are you currently using for chatbot development, and why?' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Hey everyone — if you are deploying autonomous agents or multi-agent loops to production, you need to look closely at your financial guardrail”,",
+        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_type": "community",
         "source_count": 1,
+        "time_verified": true,
         "tags": [
           "automation_mcp_agents",
-          "official"
+          "community"
         ]
       },
       {
-        "title": "[Research] From Functional Geometry to Dynamic Grammar: New LIMEN Audits (V23–V24) Across 7 Architectures",
-        "url": "https://discuss.huggingface.co/t/research-from-functional-geometry-to-dynamic-grammar-new-limen-audits-v23-v24-across-7-architectures/177260",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "local_ai",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '[Research] From Functional Geometry to Dynamic Grammar: New LIMEN Audits (V23–V24) Across 7 Architectures' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "official"
-        ]
-      },
-      {
-        "title": "🏖️ Built a Privacy-First Background Removal Tool Running Entirely in the Browser with Transformers.js",
-        "url": "https://discuss.huggingface.co/t/built-a-privacy-first-background-removal-tool-running-entirely-in-the-browser-with-transformers-js/163477",
-        "source": "Hugging Face Forums RSS",
-        "published_at": "2025-07-17",
+        "title": "光象科技累计完成数亿元天使轮融资，布局物理原生基座模型",
+        "url": "https://www.qbitai.com/2026/07/442958.html",
+        "source": "qbitai.com",
+        "published_at": "2026-07-04",
         "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '🏖️ Built a Privacy-First Background Removal Tool Running Entirely in the Browser with Transformers.js' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
+        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “光象科技累计完成数亿元天使轮融资，布局物理原生基座模型 近日，光象科技宣布完成累计数亿元天使轮融资，最新一轮融资由珠海科技产业集团、兴证资本、松禾资本、顺禧基金、慕华科创、See”.",
+        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
+        "source_type": "independent",
         "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "AgentSeal: A Corpus-Availability Audit of SWE-bench Pro",
-        "url": "https://discuss.huggingface.co/t/agentseal-a-corpus-availability-audit-of-swe-bench-pro/177267",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'AgentSeal: A Corpus-Availability Audit of SWE-bench Pro' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ]
-      },
-      {
-        "title": "Coredump generated using --generate-coredump is not usable",
-        "url": "https://forums.developer.nvidia.com/t/coredump-generated-using-generate-coredump-is-not-usable/375123",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Coredump generated using --generate-coredump is not usable' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "Jetson Xavier NX CRC Fault On Every Frame",
-        "url": "https://forums.developer.nvidia.com/t/jetson-xavier-nx-crc-fault-on-every-frame/375122",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Jetson Xavier NX CRC Fault On Every Frame' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "Nvsipl_camera: Multiple Entron F004A (AR0341): detection OK, NvSIPLCamera Init fails (status 10)",
-        "url": "https://forums.developer.nvidia.com/t/nvsipl-camera-multiple-entron-f004a-ar0341-detection-ok-nvsiplcamera-init-fails-status-10/375124",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Nvsipl_camera: Multiple Entron F004A (AR0341): detection OK, NvSIPLCamera Init fails (status 10)' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "OpenSquilla 发布 0.4.0：AI 写代码首次能“自我验证”",
-        "url": "https://www.qbitai.com/2026/07/441240.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'OpenSquilla 发布 0.4.0：AI 写代码首次能“自我验证”' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "Advances in ML-based sampling for Lattice-QCD",
-        "url": "https://deepmind.google/research/publications/8258/",
-        "source": "Google DeepMind Blog",
-        "published_at": "2023-08-04",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Advances in ML-based sampling for Lattice-QCD' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "Best 2026 model for agentic work on a 2-node Spark cluster?",
-        "url": "https://forums.developer.nvidia.com/t/best-2026-model-for-agentic-work-on-a-2-node-spark-cluster/369799?page=2",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-05-29",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Best 2026 model for agentic work on a 2-node Spark cluster?' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ]
-      },
-      {
-        "title": "Generative replay for compositional visual understanding in the prefrontal-hippocampal circuit",
-        "url": "https://deepmind.google/research/publications/5630/",
-        "source": "Google DeepMind Blog",
-        "published_at": "2023-10-26",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Generative replay for compositional visual understanding in the prefrontal-hippocampal circuit' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "Introducing Search Toolkit | Mistral AI",
-        "url": "https://mistral.ai/news/search-toolkit/",
-        "source": "Mistral AI News",
-        "published_at": "2026-05-28",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Introducing Search Toolkit | Mistral AI' noi len trong nhom AI Tools. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "official"
-        ]
-      },
-      {
-        "title": "Loop世界模型论文登顶Hugging Face，来自中国一家初创，周鸿祎陆奇都投了",
-        "url": "https://www.qbitai.com/2026/07/441225.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Loop世界模型论文登顶Hugging Face，来自中国一家初创，周鸿祎陆奇都投了' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "MiniMax on two DGX Sparks",
-        "url": "https://forums.developer.nvidia.com/t/minimax-on-two-dgx-sparks/375022",
-        "source": "NVIDIA AI & Data Science Forum RSS",
-        "published_at": "2026-06-30",
-        "category": "local_ai",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'MiniMax on two DGX Sparks' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "official"
-        ]
-      },
-      {
-        "title": "OceanBase湖库一体，重新定义AI数据库",
-        "url": "https://www.qbitai.com/2026/07/441386.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "local_ai",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'OceanBase湖库一体，重新定义AI数据库' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "Om AI联汇发布VLX：全球首个面向物理世界的端侧流式多模态模型",
-        "url": "https://www.qbitai.com/2026/07/441124.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Om AI联汇发布VLX：全球首个面向物理世界的端侧流式多模态模型' noi len trong nhom AI Tools. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
+        "time_verified": true,
         "tags": [
           "ai_tools",
           "independent"
         ]
       },
       {
-        "title": "Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets",
-        "url": "https://discuss.huggingface.co/t/trajlens-a-validator-for-lerobotdataset-audited-100-hub-datasets/177276",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
+        "title": "Any need for a tester and challenger for AI models?",
+        "url": "https://discuss.huggingface.co/t/any-need-for-a-tester-and-challenger-for-ai-models/177450",
+        "source": "discuss.huggingface.co",
+        "published_at": "2026-07-04",
+        "category": "model",
+        "why_interesting": "Điểm đáng chú ý của bài này nằm ở cập nhật mới về mô hình AI, đặc biệt là chi tiết “I use LLMs a lot for scientific and mathematical research, and for conceptual matching and searching, as well as to help with writing,",
+        "use_case": "Đối chiếu “Any need for a tester and challenger for AI models?” với các bài toán coding, research và tóm tắt tài liệu mà Leon đang làm để xem có lý do đổi model hay không.",
+        "source_type": "community",
+        "source_count": 1,
+        "time_verified": true,
+        "tags": [
+          "ai_models",
+          "community"
+        ]
+      },
+      {
+        "title": "Analysis: The System Prompt Architecture Behind Anthropic's \"Mythos\" Tier (Claude Fable 5",
+        "url": "https://discuss.huggingface.co/t/analysis-the-system-prompt-architecture-behind-anthropics-mythos-tier-claude-fable-5/177451",
+        "source": "discuss.huggingface.co",
+        "published_at": "2026-07-04",
+        "category": "automation",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “I’ve curated the leaked 120KB system prompt for Anthropic’s Fable 5 model.",
+        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_type": "community",
+        "source_count": 1,
+        "time_verified": true,
+        "tags": [
+          "automation_mcp_agents",
+          "community"
+        ]
+      },
+      {
+        "title": "Is selling datasets way harder than building them? Or is it just me?",
+        "url": "https://discuss.huggingface.co/t/is-selling-datasets-way-harder-than-building-them-or-is-it-just-me/177440",
+        "source": "discuss.huggingface.co",
+        "published_at": "2026-07-04",
         "category": "opensource",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Trajlens: a validator for LeRobotDataset, audited 100 Hub datasets' noi len trong nhom Open Source Hot. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
+        "why_interesting": "Điểm mới ở đây là dấu hiệu cộng đồng đang chú ý tới một repo hoặc bản phát hành có thể dùng thật. Câu “It really does seem that selling datasets comes with all kinds of difficulties… Short answer No, I do not think you",
+        "use_case": "Mở repo hoặc demo liên quan, đọc nhanh phần cài đặt và note xem có thể fork hoặc gắn vào một dự án nội bộ trong tuần này không.",
+        "source_type": "community",
         "source_count": 1,
+        "time_verified": true,
         "tags": [
           "open_source_hot",
-          "official"
+          "community"
         ]
       },
       {
-        "title": "Vibe gets to work. | Mistral AI",
-        "url": "https://mistral.ai/news/vibe-agent/",
-        "source": "Mistral AI News",
-        "published_at": "2026-05-28",
+        "title": "LLM Agents Need a Cognitive Grammar, Not Just More Tools",
+        "url": "https://discuss.huggingface.co/t/llm-agents-need-a-cognitive-grammar-not-just-more-tools/177442",
+        "source": "discuss.huggingface.co",
+        "published_at": "2026-07-04",
         "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Vibe gets to work. | Mistral AI' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Most agent systems today are built around tools, prompts, memory, routing, graphs, and orchestration.”, Leon có thể hình dung ngay chỗ nào trong",
+        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_type": "community",
         "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "official"
-        ]
-      },
-      {
-        "title": "Why I Stopped Arguing With People",
-        "url": "https://wangcong.org/2026-06-30-why-i-stopped-arguing-with-people.html",
-        "source": "Hacker News Newest",
-        "published_at": "2026-06-30",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Why I Stopped Arguing With People' noi len trong nhom AI Tools. Nguon goc nghieng ve bao hoac blog doc lap. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "Wmf - a new experimental technique",
-        "url": "https://discuss.huggingface.co/t/wmf-a-new-experimental-technique/177302",
-        "source": "discuss_huggingface_co",
-        "published_at": "2026-06-30",
-        "category": "model",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Wmf - a new experimental technique' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ]
-      },
-      {
-        "title": "具身智能Skill时刻！英伟达开源机器人技能库，Jim Fan：范式变了",
-        "url": "https://www.qbitai.com/2026/07/441396.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '具身智能Skill时刻！英伟达开源机器人技能库，Jim Fan：范式变了' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "卖Token也不是稳赚不赔！硅基流动招股书来了",
-        "url": "https://www.qbitai.com/2026/07/441127.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '卖Token也不是稳赚不赔！硅基流动招股书来了' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "卡帕西李飞飞辛顿都投了的Transformer专用芯片，签下10亿美元大单",
-        "url": "https://www.qbitai.com/2026/07/441183.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "local_ai",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '卡帕西李飞飞辛顿都投了的Transformer专用芯片，签下10亿美元大单' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "大湾区首个200亿具身大脑来了！自变量两个月连融四轮，完成交割",
-        "url": "https://www.qbitai.com/2026/07/441140.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '大湾区首个200亿具身大脑来了！自变量两个月连融四轮，完成交割' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "群核科技三项成果入选ECCV 2026，联手英伟达等探索物理AI仿真平台",
-        "url": "https://www.qbitai.com/2026/07/441237.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '群核科技三项成果入选ECCV 2026，联手英伟达等探索物理AI仿真平台' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "金融AI武道大会开赛！四道业务真题，出题人：猜不到最优解",
-        "url": "https://www.qbitai.com/2026/07/441246.html",
-        "source": "qbitai_com",
-        "published_at": "2026-07-01",
-        "category": "local_ai",
-        "why_interesting": "Trong 72 gio qua, cau chuyen '金融AI武道大会开赛！四道业务真题，出题人：猜不到最优解' noi len trong nhom Local AI / China AI. Nguon goc nghieng ve bao hoac blog doc lap. Nguon goc khong dung tieng Anh nen ban radar uu tien tom gon de Leon mo link va doc sau neu can. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Kiem tra co the chay tren local stack cua Leon khong, co can Ollama, LM Studio hay vLLM khong.",
-        "source_count": 1,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "About the Deployment category",
-        "url": "https://forum.langchain.com/t/about-the-deployment-category/10",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Deployment category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "About the Forum Feedback category",
-        "url": "https://forum.langchain.com/t/about-the-forum-feedback-category/1",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Forum Feedback category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "About the Improving Deep Neural Networks: Hyperparameter tun category",
-        "url": "https://community.deeplearning.ai/t/about-the-improving-deep-neural-networks-hyperparameter-tun-category/52",
-        "source": "DeepLearning.AI Community RSS",
-        "published_at": "2021-03-25",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Improving Deep Neural Networks: Hyperparameter tun category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "About the LangChain Academy category",
-        "url": "https://forum.langchain.com/t/about-the-langchain-academy-category/18",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-23",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the LangChain Academy category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "About the LangSmith Product Help category",
-        "url": "https://forum.langchain.com/t/about-the-langsmith-product-help-category/15",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the LangSmith Product Help category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "About the Observability & Evals category",
-        "url": "https://forum.langchain.com/t/about-the-observability-evals-category/14",
-        "source": "LangChain Forum RSS",
-        "published_at": "2025-04-22",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Observability & Evals category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "About the Site Feedback category",
-        "url": "https://discuss.pytorch.org/t/about-the-site-feedback-category/2",
-        "source": "PyTorch Forums RSS",
-        "published_at": "2017-01-13",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the Site Feedback category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "About the vision category",
-        "url": "https://discuss.pytorch.org/t/about-the-vision-category/22",
-        "source": "PyTorch Forums RSS",
-        "published_at": "2017-01-14",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'About the vision category' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "Best practice for per-tenant model config and BYOK with LangGraph Cloud`",
-        "url": "https://forum.langchain.com/t/best-practice-for-per-tenant-model-config-and-byok-with-langgraph-cloud/4060",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Best practice for per-tenant model config and BYOK with LangGraph Cloud`' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
+        "time_verified": true,
         "tags": [
           "automation_mcp_agents",
           "community"
         ]
       },
       {
-        "title": "Biotic | SpudCell",
-        "url": "https://biotic.org/research/spudcell/",
-        "source": "Hacker News Newest",
-        "published_at": "",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Biotic | SpudCell' noi len trong nhom AI Tools. Nguon goc nghieng ve bao hoac blog doc lap. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "Hello! Intros thread!",
-        "url": "https://forums.fast.ai/t/hello-intros-thread/14",
-        "source": "fast.ai Forums RSS",
-        "published_at": "2016-10-16",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Hello! Intros thread!' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "Installation [Windows]",
-        "url": "https://forums.fast.ai/t/installation-windows/36",
-        "source": "fast.ai Forums RSS",
-        "published_at": "2016-10-22",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Installation [Windows]' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "Is LangChain killing its own Innovation with gatekeeping?",
-        "url": "https://forum.langchain.com/t/is-langchain-killing-its-own-innovation-with-gatekeeping/4069",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
+        "title": "LangChain Documentation Appears to Contradict Itself Regarding Updating State in Nested Structures",
+        "url": "https://forum.langchain.com/t/langchain-documentation-appears-to-contradict-itself-regarding-updating-state-in-nested-structures/4089",
+        "source": "forum.langchain.com",
+        "published_at": "2026-07-04",
         "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Is LangChain killing its own Innovation with gatekeeping?' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “The LangChain documentation refers to the ability to modify the state of an existing conversation using the Command class.”, Leon có thể hình",
+        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_type": "community",
         "source_count": 1,
+        "time_verified": true,
         "tags": [
           "automation_mcp_agents",
           "community"
         ]
       },
       {
-        "title": "MultiAgent Setup",
-        "url": "https://discuss.ray.io/t/multiagent-setup/23572",
-        "source": "Ray Discuss RSS",
-        "published_at": "2026-06-27",
+        "title": "Megabots2026: Leveraging torch.compile for High-Performance Dual-Agent Architecture",
+        "url": "https://discuss.pytorch.org/t/megabots2026-leveraging-torch-compile-for-high-performance-dual-agent-architecture/225146",
+        "source": "discuss.pytorch.org",
+        "published_at": "2026-07-04",
         "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'MultiAgent Setup' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Hi everyone, As I lay down the foundation for Megabots2026, it has become incredibly clear that PyTorch is the best possible ecosystem to start",
+        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_type": "community",
         "source_count": 1,
+        "time_verified": true,
         "tags": [
           "automation_mcp_agents",
           "community"
         ]
       },
       {
-        "title": "Seeking Feedback & Collaboration: Talordata - A Multi-Engine SERP API for LangChain Agents & RAG Workflows",
-        "url": "https://forum.langchain.com/t/seeking-feedback-collaboration-talordata-a-multi-engine-serp-api-for-langchain-agents-rag-workflows/4065",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
+        "title": "Megabots2026: Proposing a Dual-Agent (Generator/Verifier) Training Pattern for High-Accuracy Systems",
+        "url": "https://discuss.pytorch.org/t/megabots2026-proposing-a-dual-agent-generator-verifier-training-pattern-for-high-accuracy-systems/225145",
+        "source": "discuss.pytorch.org",
+        "published_at": "2026-07-04",
         "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Seeking Feedback & Collaboration: Talordata - A Multi-Engine SERP API for LangChain Agents & RAG Workflows' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Github Repo : GitHub - powerofaisinstudy-debug/Megabots2026- · GitHub Hi everyone, I wanted to share an architectural design concept I am",
+        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "source_type": "community",
         "source_count": 1,
+        "time_verified": true,
         "tags": [
           "automation_mcp_agents",
-          "community"
-        ]
-      },
-      {
-        "title": "TorchQuery Update: Focus on Neural Healing and Tensor Integrity",
-        "url": "https://discuss.pytorch.org/t/torchquery-update-focus-on-neural-healing-and-tensor-integrity/225132",
-        "source": "PyTorch Forums RSS",
-        "published_at": "2026-06-28",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'TorchQuery Update: Focus on Neural Healing and Tensor Integrity' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "Welcome to Discourse",
-        "url": "https://discuss.ray.io/t/welcome-to-discourse/7",
-        "source": "Ray Discuss RSS",
-        "published_at": "2020-10-27",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Welcome to Discourse' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "What happened to the fight for the Internet?",
-        "url": "https://dustycloud.org/blog/what-happened-to-the-fight-for-the-internet/",
-        "source": "Lobsters AI",
-        "published_at": "2026-06-30",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'What happened to the fight for the Internet?' noi len trong nhom AI Tools. Nguon goc nghieng ve bao hoac blog doc lap. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "Where is URLs.PETS defined?",
-        "url": "https://forums.fast.ai/t/where-is-urls-pets-defined/77888",
-        "source": "fast.ai Forums RSS",
-        "published_at": "2020-08-31",
-        "category": "tool",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Where is URLs.PETS defined?' noi len trong nhom AI Tools. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Thu xem cong cu nay giai quyet duoc nut that nao trong coding, video, content, marketing hay SQL.",
-        "source_count": 1,
-        "tags": [
-          "ai_tools",
-          "community"
-        ]
-      },
-      {
-        "title": "mo hinh 3.1 Flash-Lite Image - Model Card",
-        "url": "https://deepmind.google/models/model-cards/gemini-3-1-flash-lite-image/",
-        "source": "deepmind_google",
-        "published_at": "2026-06-30",
-        "category": "opensource",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'mo hinh 3.1 Flash-Lite Image - Model Card' noi len trong nhom Open Source Hot. Nguon goc nghieng ve thong bao chinh thuc. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "source_count": 1,
-        "tags": [
-          "open_source_hot",
-          "official"
-        ]
-      },
-      {
-        "title": "tracesage: See Inside Your LangGraph Agents",
-        "url": "https://forum.langchain.com/t/tracesage-see-inside-your-langgraph-agents/4063",
-        "source": "forum_langchain_com",
-        "published_at": "2026-06-30",
-        "category": "automation",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'tracesage: See Inside Your LangGraph Agents' noi len trong nhom Automation / MCP / Agents. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay co nhieu goi y de mo link doc sau va test nhanh.",
-        "use_case": "Xem co workflow nao copy duoc vao Cursor, Claude Code, n8n hay mot repo noi bo ngay tuan nay.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents",
-          "community"
-        ]
-      },
-      {
-        "title": "AI Now Summit 2026 | Mistral AI",
-        "url": "https://mistral.ai/news/ai-now-summit-2026/",
-        "source": "Mistral AI News",
-        "published_at": "2026-05-28",
-        "category": "model",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'AI Now Summit 2026 | Mistral AI' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ]
-      },
-      {
-        "title": "Add Convence/ParseEmbed as an official benchmark on the Hub (If possible)",
-        "url": "https://discuss.huggingface.co/t/add-convence-parseembed-as-an-official-benchmark-on-the-hub-if-possible/176152",
-        "source": "Hugging Face Forums RSS",
-        "published_at": "2026-05-21",
-        "category": "knowledge",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Add Convence/ParseEmbed as an official benchmark on the Hub (If possible)' noi len trong nhom AI Knowledge. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them.",
-        "use_case": "Doc nhanh de rut ra mot khung kien thuc moi va note vao danh sach can hoc.",
-        "source_count": 1,
-        "tags": [
-          "ai_knowledge",
-          "official"
-        ]
-      },
-      {
-        "title": "Language models, like humans, show content effects on reasoning tasks",
-        "url": "https://deepmind.google/research/publications/9266/",
-        "source": "Google DeepMind Blog",
-        "published_at": "2024-07-16",
-        "category": "model",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Language models, like humans, show content effects on reasoning tasks' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ]
-      },
-      {
-        "title": "Mistral OCR 4 : SOTA OCR for Document Intelligence",
-        "url": "https://mistral.ai/news/ocr-4/",
-        "source": "Mistral AI News",
-        "published_at": "2026-06-23",
-        "category": "model",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Mistral OCR 4 : SOTA OCR for Document Intelligence' noi len trong nhom AI Models. Nguon goc nghieng ve thong bao chinh thuc. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Mo link de danh dau model can thu, so sanh voi stack hien tai, va ghi lai use case hop nhat cho Leon.",
-        "source_count": 1,
-        "tags": [
-          "ai_models",
-          "official"
-        ]
-      },
-      {
-        "title": "Progress Report: Linux 7.1 - Asahi Linux",
-        "url": "https://asahilinux.org/2026/06/progress-report-7-1/",
-        "source": "Hacker News Newest",
-        "published_at": "2026-06-30",
-        "category": "opensource",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'Progress Report: Linux 7.1 - Asahi Linux' noi len trong nhom Open Source Hot. Nguon goc nghieng ve bao hoac blog doc lap. Tin nay co nhieu goi y de mo link doc sau va test nhanh. Moc tuoi moi hien o khoang 72 gio.",
-        "use_case": "Danh dau repo can fork, xem demo, doc README va note nhanh cach tich hop.",
-        "source_count": 1,
-        "tags": [
-          "open_source_hot",
-          "independent"
-        ]
-      },
-      {
-        "title": "AWS Bedrock Mantle support",
-        "url": "https://forum.langchain.com/t/aws-bedrock-mantle-support/4070",
-        "source": "forum_langchain_com",
-        "published_at": "2026-07-01",
-        "category": "knowledge",
-        "why_interesting": "Trong 72 gio qua, cau chuyen 'AWS Bedrock Mantle support' noi len trong nhom AI Knowledge. Nguon goc nghieng ve trao doi cong dong va dau hieu su dung thuc te. Tin nay nen duoc doc nhanh de cap nhat trend va quyet dinh uu tien hoc them. Moc tuoi moi hien o khoang 50 gio.",
-        "use_case": "Doc nhanh de rut ra mot khung kien thuc moi va note vao danh sach can hoc.",
-        "source_count": 1,
-        "tags": [
-          "ai_knowledge",
           "community"
         ]
       }
     ]
   },
   "stats": {
-    "story_count": 24,
+    "story_count": 10,
     "gdelt_event_count": 0,
-    "link_radar_count": 58,
-    "must_read_count": 25,
-    "local_ai_china_ai_count": 7,
-    "open_source_hot_count": 3,
-    "automation_mcp_agents_count": 16,
-    "ai_knowledge_count": 4,
-    "founder_ideas_count": 10,
-    "apply_now_count": 6
+    "candidate_count": 10,
+    "curator_candidate_count": 10,
+    "noise_filtered_count": 0,
+    "expired_removed_count": 0,
+    "unknown_time_full_radar_count": 0,
+    "must_read_count": 0,
+    "must_read_by_source_type": {},
+    "must_read_by_category": {},
+    "gemini_success_count": 0,
+    "gemini_fallback_count": 10,
+    "full_link_radar_count": 10,
+    "render_checks": {
+      "knowledge_fields_ready": true,
+      "founder_fields_ready": true
+    }
   }
 }
