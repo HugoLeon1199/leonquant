@@ -1,66 +1,240 @@
 {
   "schema_version": "ai-frontier-radar-72h-v1",
-  "generated_at_utc": "2026-07-05T05:31:05.807570+00:00",
+  "generated_at_utc": "2026-07-05T06:21:11.627937+00:00",
   "window_hours": 72,
   "executive_summary": [
-    "Trong 72 giờ qua, radar giữ lại 0 bài đáng đọc nhất từ 94 candidate live sau khi loại 1 tín hiệu nhiễu.",
-    "Nhịp tin nổi bật nhất nằm ở các nhóm công cụ, mô hình và automation, với ưu tiên rõ cho nguồn official và independent thay vì hỏi đáp cá nhân.",
-    "Cấu trúc nguồn hiện tại gồm official 0, independent 0 và community 0 bài trong Must Read.",
+    "Trong 72 giờ qua, radar giữ lại 6 bài đáng đọc nhất từ 37 tín hiệu mới sau khi loại 3 tín hiệu nhiễu.",
+    "Nhịp tin nổi bật nhất nằm ở các nhóm business, local_ai, tool, với ưu tiên rõ cho nguồn official và independent thay vì hỏi đáp cá nhân.",
+    "Cấu trúc nguồn hiện tại gồm official 0, independent 1 và community 5 bài trong Must Read.",
     "Các bài quá hạn cửa sổ 72 giờ đã bị loại khỏi Must Read và section chính; bài thiếu ngày chỉ được giữ ở Full Radar để Leon tự mở link đối chiếu thêm."
   ],
-  "must_read": [],
+  "must_read": [
+    {
+      "title": "GPU chạy inference giờ đây đã có thể thực hiện fine-tuning",
+      "url": "https://discuss.huggingface.co/t/if-your-gpu-can-run-inference-it-is-now-also-capable-of-performing-fine-tuning/177456",
+      "source": "discuss.huggingface.co",
+      "category": "local_ai",
+      "importance": 1,
+      "why_read": "Giới thiệu phương pháp USAF cho phép fine-tuning các mô hình MoE trên hạ tầng chỉ đủ để chạy inference.",
+      "apply_now": "Cân nhắc tích hợp phương pháp USAF vào quy trình đào tạo mô hình nếu bị hạn chế về tài nguyên GPU.",
+      "tags": [
+        "local_ai_china_ai",
+        "community"
+      ],
+      "source_count": 1,
+      "source_type": "community",
+      "published_at": "2026-07-05",
+      "curation_status": "ai",
+      "signal_type": "local_ai_signal",
+      "confidence": "trung_binh",
+      "evidence": "community-only",
+      "time_to_apply": "hom_nay",
+      "leon_fit": "Đánh giá của curator: có thể dùng để soi hướng chạy riêng tư/local hoặc China AI stack qua tín hiệu “If your GPU can run inference, it is now also capable of performing fine-tuning”."
+    },
+    {
+      "title": "Megabots2026: Ứng dụng torch.compile cho kiến trúc Dual-Agent",
+      "url": "https://discuss.pytorch.org/t/megabots2026-leveraging-torch-compile-for-high-performance-dual-agent-architecture/225146",
+      "source": "discuss.pytorch.org",
+      "category": "tool",
+      "importance": 3,
+      "why_read": "Cách tận dụng torch.compile để tăng tốc kiến trúc dual-agent trong hệ sinh thái PyTorch.",
+      "apply_now": "Sử dụng torch.compile cho các tác vụ agentic cần độ trễ thấp.",
+      "tags": [
+        "ai_tools",
+        "community"
+      ],
+      "source_count": 1,
+      "source_type": "community",
+      "published_at": "2026-07-04",
+      "curation_status": "ai",
+      "signal_type": "tool_signal",
+      "confidence": "trung_binh",
+      "evidence": "community-only",
+      "time_to_apply": "hom_nay",
+      "leon_fit": "Đánh giá của curator: đáng thử nếu công cụ trong “Megabots2026: Leveraging torch.compile for High-Performance Dual-Agent Architecture” cắt được một bước thủ công trong workflow của Leon."
+    },
+    {
+      "title": "Dự án Megabots2026: Mô hình đào tạo Dual-Agent (Generator/Verifier)",
+      "url": "https://discuss.pytorch.org/t/megabots2026-proposing-a-dual-agent-generator-verifier-training-pattern-for-high-accuracy-systems/225145",
+      "source": "discuss.pytorch.org",
+      "category": "opensource",
+      "importance": 3,
+      "why_read": "Đề xuất kiến trúc tách biệt việc thực thi và kiểm chứng (Generator/Verifier) nhằm tăng độ chính xác của hệ thống sâu.",
+      "apply_now": "Tham khảo repo Megabots2026 để thử nghiệm mô hình vòng lặp kép trong dự án PyTorch.",
+      "tags": [
+        "open_source_hot",
+        "community"
+      ],
+      "source_count": 1,
+      "source_type": "community",
+      "published_at": "2026-07-04",
+      "curation_status": "ai",
+      "signal_type": "open_source_signal",
+      "confidence": "trung_binh",
+      "evidence": "community-only",
+      "time_to_apply": "hom_nay",
+      "leon_fit": "Đánh giá của curator: có thể bookmark hoặc fork nếu “Megabots2026: Proposing a Dual-Agent (Generator/Verifier) Training Pattern for High-Accuracy Systems” có README, demo và hướng dùng rõ."
+    },
+    {
+      "title": "Lỗ hổng trong việc theo dõi chi phí AI Agent và cách khắc phục",
+      "url": "https://forum.langchain.com/t/the-flaw-in-ai-agent-cost-tracking-and-how-to-fix-it/4092",
+      "source": "forum.langchain.com",
+      "category": "business",
+      "importance": 2,
+      "why_read": "Cảnh báo về sự thiếu sót của các phương pháp theo dõi chi phí hiện tại như post-execution hoặc client-side callbacks trong hệ thống multi-agent.",
+      "apply_now": "Kiểm tra lại kiến trúc tài chính trong các dự án agent thực tế để đảm bảo kiểm soát chi phí chính xác.",
+      "tags": [
+        "ai_business_money",
+        "community"
+      ],
+      "source_count": 1,
+      "source_type": "community",
+      "published_at": "2026-07-05",
+      "curation_status": "ai",
+      "signal_type": "business_signal",
+      "confidence": "trung_binh",
+      "evidence": "community-only",
+      "time_to_apply": "trong_tuan",
+      "leon_fit": "Đánh giá của curator: giúp Leon đọc nhu cầu thị trường và cách đóng gói dịch vụ nhỏ quanh AI."
+    },
+    {
+      "title": "LLM Agents cần một \"Ngữ pháp nhận thức\" thay vì chỉ thêm công cụ",
+      "url": "https://discuss.huggingface.co/t/llm-agents-need-a-cognitive-grammar-not-just-more-tools/177442",
+      "source": "discuss.huggingface.co",
+      "category": "knowledge",
+      "importance": 3,
+      "why_read": "Góc nhìn lý thuyết về việc xây dựng các agent có khả năng nhận thức thay vì chỉ dựa vào tool-calling đơn thuần.",
+      "apply_now": "Suy ngẫm về kiến trúc hệ thống hiện tại để hướng tới các agent thông minh hơn.",
+      "tags": [
+        "ai_knowledge",
+        "community"
+      ],
+      "source_count": 1,
+      "source_type": "community",
+      "published_at": "2026-07-04",
+      "curation_status": "ai",
+      "signal_type": "knowledge_signal",
+      "confidence": "thap",
+      "evidence": "community-only",
+      "time_to_apply": "1-3_ngay",
+      "leon_fit": "Đánh giá của curator: phù hợp để rút thành checklist học nhanh hoặc tiêu chí chọn công cụ."
+    },
+    {
+      "title": "Light Elephant Technology gọi vốn thành công, tập trung vào mô hình nền tảng vật lý tự nhiên",
+      "url": "https://www.qbitai.com/2026/07/442958.html",
+      "source": "qbitai.com",
+      "category": "business",
+      "importance": 3,
+      "why_read": "Tín hiệu thị trường về xu hướng đầu tư vào mô hình nền tảng (foundation model) kết hợp trí tuệ vật lý và robot.",
+      "apply_now": "Theo dõi lộ trình của Light Elephant nếu đang quan tâm đến lĩnh vực具 thân trí tuệ (embodied AI).",
+      "tags": [
+        "ai_business_money",
+        "independent"
+      ],
+      "source_count": 1,
+      "source_type": "independent",
+      "published_at": "2026-07-04",
+      "curation_status": "ai",
+      "signal_type": "business_signal",
+      "confidence": "thap",
+      "evidence": "single-live-source",
+      "time_to_apply": "trong_tuan",
+      "leon_fit": "Đánh giá của curator: giúp Leon đọc nhu cầu thị trường và cách đóng gói dịch vụ nhỏ quanh AI."
+    }
+  ],
   "sections": {
     "ai_models": [],
     "local_ai_china_ai": [
       {
-        "title": "GPU chạy inference nay đã có thể thực hiện fine-tuning với phương pháp USAF mới",
+        "title": "GPU chạy inference giờ đây đã có thể thực hiện fine-tuning",
         "url": "https://discuss.huggingface.co/t/if-your-gpu-can-run-inference-it-is-now-also-capable-of-performing-fine-tuning/177456",
         "source": "discuss.huggingface.co",
         "published_at": "2026-07-05",
         "category": "local_ai",
-        "importance": 5,
-        "why_read": "Giới thiệu phương pháp USAF cho phép fine-tuning các mô hình MoE trên chính phần cứng vốn chỉ đủ khả năng chạy inference.",
-        "apply_now": "Áp dụng phương pháp USAF để tối ưu hóa tài nguyên phần cứng cho việc tùy chỉnh mô hình.",
-        "why_interesting": "Giảm rào cản chi phí và phần cứng cho các cá nhân, doanh nghiệp nhỏ muốn fine-tuning mô hình phức tạp.",
-        "knowledge_value": "Mở rộng khả năng tận dụng phần cứng hiện có cho các quy trình AI chuyên sâu.",
+        "importance": 1,
+        "why_read": "Giới thiệu phương pháp USAF cho phép fine-tuning các mô hình MoE trên hạ tầng chỉ đủ để chạy inference.",
+        "apply_now": "Cân nhắc tích hợp phương pháp USAF vào quy trình đào tạo mô hình nếu bị hạn chế về tài nguyên GPU.",
+        "why_interesting": "Hạ thấp rào cản tài nguyên cho việc tùy chỉnh các mô hình MoE quy mô lớn.",
+        "knowledge_value": "Cung cấp kỹ thuật fine-tuning thưa (sparse) mới.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
-        "freshness_hours": 5,
+        "freshness_hours": 6,
         "tags": [
           "local_ai_china_ai",
           "community"
         ],
         "domain": "discuss.huggingface.co",
-        "score": 69.0
+        "curation_status": "ai",
+        "signal_type": "local_ai_signal",
+        "confidence": "trung_binh",
+        "evidence": "community-only",
+        "time_to_apply": "hom_nay",
+        "leon_fit": "Đánh giá của curator: có thể dùng để soi hướng chạy riêng tư/local hoặc China AI stack qua tín hiệu “If your GPU can run inference, it is now also capable of performing fine-tuning”.",
+        "score": 52.0
       }
     ],
-    "ai_tools": [],
-    "automation_mcp_agents": [
+    "ai_tools": [
       {
-        "title": "Đề xuất mô hình Dual-Agent (Generator/Verifier) nhằm tăng độ chính xác hệ thống",
-        "url": "https://discuss.pytorch.org/t/megabots2026-proposing-a-dual-agent-generator-verifier-training-pattern-for-high-accuracy-systems/225145",
+        "title": "Megabots2026: Ứng dụng torch.compile cho kiến trúc Dual-Agent",
+        "url": "https://discuss.pytorch.org/t/megabots2026-leveraging-torch-compile-for-high-performance-dual-agent-architecture/225146",
         "source": "discuss.pytorch.org",
         "published_at": "2026-07-04",
-        "category": "agent",
-        "importance": 4,
-        "why_read": "Giới thiệu thiết kế hệ thống tách biệt giữa thực thi (Generator) và kiểm chứng (Verifier) để cải thiện độ chính xác của deep learning.",
-        "apply_now": "Có thể áp dụng tư duy thiết kế dual-agent vào các hệ thống cần độ chính xác cao.",
-        "why_interesting": "Mở ra xu hướng thiết kế hệ thống AI tự kiểm chứng để giảm sai sót trong thực thi tác vụ.",
-        "knowledge_value": "Tư duy kiến trúc hệ thống AI hiệu năng cao với PyTorch.",
+        "category": "tool",
+        "importance": 3,
+        "why_read": "Cách tận dụng torch.compile để tăng tốc kiến trúc dual-agent trong hệ sinh thái PyTorch.",
+        "apply_now": "Sử dụng torch.compile cho các tác vụ agentic cần độ trễ thấp.",
+        "why_interesting": "Cải thiện hiệu năng thực thi cho các hệ thống agent phức tạp.",
+        "knowledge_value": "Kỹ thuật tối ưu hóa PyTorch cho agent.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
-        "freshness_hours": 29,
+        "freshness_hours": 30,
         "tags": [
-          "automation_mcp_agents",
+          "ai_tools",
           "community"
         ],
         "domain": "discuss.pytorch.org",
-        "score": 55.0
+        "curation_status": "ai",
+        "signal_type": "tool_signal",
+        "confidence": "trung_binh",
+        "evidence": "community-only",
+        "time_to_apply": "hom_nay",
+        "leon_fit": "Đánh giá của curator: đáng thử nếu công cụ trong “Megabots2026: Leveraging torch.compile for High-Performance Dual-Agent Architecture” cắt được một bước thủ công trong workflow của Leon.",
+        "score": 49.0
       }
     ],
-    "open_source_hot": [],
+    "automation_mcp_agents": [],
+    "open_source_hot": [
+      {
+        "title": "Dự án Megabots2026: Mô hình đào tạo Dual-Agent (Generator/Verifier)",
+        "url": "https://discuss.pytorch.org/t/megabots2026-proposing-a-dual-agent-generator-verifier-training-pattern-for-high-accuracy-systems/225145",
+        "source": "discuss.pytorch.org",
+        "published_at": "2026-07-04",
+        "category": "opensource",
+        "importance": 3,
+        "why_read": "Đề xuất kiến trúc tách biệt việc thực thi và kiểm chứng (Generator/Verifier) nhằm tăng độ chính xác của hệ thống sâu.",
+        "apply_now": "Tham khảo repo Megabots2026 để thử nghiệm mô hình vòng lặp kép trong dự án PyTorch.",
+        "why_interesting": "Hướng đi mới trong việc tối ưu hóa độ chính xác cho hệ thống tự động.",
+        "knowledge_value": "Kiến trúc đào tạo kết hợp Generator và Verifier.",
+        "source_type": "community",
+        "source_count": 1,
+        "time_verified": true,
+        "freshness_hours": 30,
+        "tags": [
+          "open_source_hot",
+          "community"
+        ],
+        "domain": "discuss.pytorch.org",
+        "curation_status": "ai",
+        "signal_type": "open_source_signal",
+        "confidence": "trung_binh",
+        "evidence": "community-only",
+        "time_to_apply": "hom_nay",
+        "leon_fit": "Đánh giá của curator: có thể bookmark hoặc fork nếu “Megabots2026: Proposing a Dual-Agent (Generator/Verifier) Training Pattern for High-Accuracy Systems” có README, demo và hướng dùng rõ.",
+        "score": 49.5
+      }
+    ],
     "ai_business_money": [
       {
         "title": "Lỗ hổng trong việc theo dõi chi phí AI Agent và cách khắc phục",
@@ -68,21 +242,55 @@
         "source": "forum.langchain.com",
         "published_at": "2026-07-05",
         "category": "business",
-        "importance": 3,
-        "why_read": "Cảnh báo về các phương pháp theo dõi chi phí hiện tại dựa trên runtime callback/post-execution không hiệu quả cho các ứng dụng thực tế.",
-        "apply_now": "Rà soát lại kiến trúc quản trị tài chính của hệ thống agent để tránh thất thoát chi phí.",
-        "why_interesting": "Cải thiện tính bền vững và khả năng kiểm soát tài chính cho các hệ thống agentic quy mô lớn.",
-        "knowledge_value": "Hiểu rõ hạn chế của các cơ chế theo dõi token truyền thống trong production.",
+        "importance": 2,
+        "why_read": "Cảnh báo về sự thiếu sót của các phương pháp theo dõi chi phí hiện tại như post-execution hoặc client-side callbacks trong hệ thống multi-agent.",
+        "apply_now": "Kiểm tra lại kiến trúc tài chính trong các dự án agent thực tế để đảm bảo kiểm soát chi phí chính xác.",
+        "why_interesting": "Thay đổi cách quản lý rủi ro tài chính khi triển khai agent autonomous.",
+        "knowledge_value": "Cảnh báo về kiến trúc guardrail tài chính cho AI.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
-        "freshness_hours": 5,
+        "freshness_hours": 6,
         "tags": [
           "ai_business_money",
           "community"
         ],
         "domain": "forum.langchain.com",
-        "score": 59.0
+        "curation_status": "ai",
+        "signal_type": "business_signal",
+        "confidence": "trung_binh",
+        "evidence": "community-only",
+        "time_to_apply": "trong_tuan",
+        "leon_fit": "Đánh giá của curator: giúp Leon đọc nhu cầu thị trường và cách đóng gói dịch vụ nhỏ quanh AI.",
+        "score": 54.5
+      },
+      {
+        "title": "Light Elephant Technology gọi vốn thành công, tập trung vào mô hình nền tảng vật lý tự nhiên",
+        "url": "https://www.qbitai.com/2026/07/442958.html",
+        "source": "qbitai.com",
+        "published_at": "2026-07-04",
+        "category": "business",
+        "importance": 3,
+        "why_read": "Tín hiệu thị trường về xu hướng đầu tư vào mô hình nền tảng (foundation model) kết hợp trí tuệ vật lý và robot.",
+        "apply_now": "Theo dõi lộ trình của Light Elephant nếu đang quan tâm đến lĩnh vực具 thân trí tuệ (embodied AI).",
+        "why_interesting": "Thúc đẩy phát triển robot thông minh thông qua mô hình vật lý原生.",
+        "knowledge_value": "Thông tin về xu hướng thương mại hóa mô hình AI trong robot.",
+        "source_type": "independent",
+        "source_count": 1,
+        "time_verified": true,
+        "freshness_hours": 30,
+        "tags": [
+          "ai_business_money",
+          "independent"
+        ],
+        "domain": "qbitai.com",
+        "curation_status": "ai",
+        "signal_type": "business_signal",
+        "confidence": "thap",
+        "evidence": "single-live-source",
+        "time_to_apply": "trong_tuan",
+        "leon_fit": "Đánh giá của curator: giúp Leon đọc nhu cầu thị trường và cách đóng gói dịch vụ nhỏ quanh AI.",
+        "score": 50.0
       }
     ],
     "industry_impact": [],
@@ -96,66 +304,97 @@
           "https://discuss.huggingface.co/t/if-your-gpu-can-run-inference-it-is-now-also-capable-of-performing-fine-tuning/177456"
         ],
         "source_count": 1
+      },
+      {
+        "concept": "Open-source nóng không đồng nghĩa với nhiều sao",
+        "explain_simple": "Điểm đáng theo dõi là repo nào có demo, use case rõ và cộng đồng đang dùng để giải quyết việc thật trong 72 giờ qua.",
+        "why_now": "Trong 72 giờ qua, nhiều bài cùng hội tụ vào chủ điểm này nên nó đáng được xem là một hướng học và ra quyết định ngay bây giờ.",
+        "how_to_apply": "Khi gặp repo như vậy, Leon nên mở README, xem demo và kiểm tra ngay khả năng fork hoặc gắn vào quy trình nội bộ.",
+        "best_links": [
+          "https://discuss.pytorch.org/t/megabots2026-proposing-a-dual-agent-generator-verifier-training-pattern-for-high-accuracy-systems/225145"
+        ],
+        "source_count": 1
       }
     ],
     "founder_ideas_for_leon": [
       {
         "idea": "Dựng một nhánh local AI nhỏ để thử nghiệm các việc cần riêng tư hoặc chạy lặp lại nhiều lần mà không muốn phụ thuộc cloud.",
-        "based_on": "GPU chạy inference nay đã có thể thực hiện fine-tuning với phương pháp USAF mới",
-        "why_now": "Giảm rào cản chi phí và phần cứng cho các cá nhân, doanh nghiệp nhỏ muốn fine-tuning mô hình phức tạp.",
-        "apply_now": "Áp dụng phương pháp USAF để tối ưu hóa tài nguyên phần cứng cho việc tùy chỉnh mô hình.",
+        "based_on": "GPU chạy inference giờ đây đã có thể thực hiện fine-tuning",
+        "why_now": "Hạ thấp rào cản tài nguyên cho việc tùy chỉnh các mô hình MoE quy mô lớn.",
+        "apply_now": "Cân nhắc tích hợp phương pháp USAF vào quy trình đào tạo mô hình nếu bị hạn chế về tài nguyên GPU.",
         "source_count": 1,
         "tags": [
           "local_ai_china_ai"
         ]
       },
       {
+        "idea": "Chọn một công cụ mới và đo xem nó cắt được bao nhiêu phút ở một bước làm việc đang lặp lại hằng ngày.",
+        "based_on": "Megabots2026: Ứng dụng torch.compile cho kiến trúc Dual-Agent",
+        "why_now": "Cải thiện hiệu năng thực thi cho các hệ thống agent phức tạp.",
+        "apply_now": "Sử dụng torch.compile cho các tác vụ agentic cần độ trễ thấp.",
+        "source_count": 1,
+        "tags": [
+          "ai_tools"
+        ]
+      },
+      {
+        "idea": "Fork hoặc bookmark có chủ đích một repo đủ rõ use case, rồi ghi lại vì sao nó đáng đi tiếp thay vì chỉ lưu link.",
+        "based_on": "Dự án Megabots2026: Mô hình đào tạo Dual-Agent (Generator/Verifier)",
+        "why_now": "Hướng đi mới trong việc tối ưu hóa độ chính xác cho hệ thống tự động.",
+        "apply_now": "Tham khảo repo Megabots2026 để thử nghiệm mô hình vòng lặp kép trong dự án PyTorch.",
+        "source_count": 1,
+        "tags": [
+          "open_source_hot"
+        ]
+      },
+      {
         "idea": "Đọc bài theo góc nhu cầu thị trường để xem có thể đóng gói thành mini-service, productized service hay SaaS nhỏ hay không.",
         "based_on": "Lỗ hổng trong việc theo dõi chi phí AI Agent và cách khắc phục",
-        "why_now": "Cải thiện tính bền vững và khả năng kiểm soát tài chính cho các hệ thống agentic quy mô lớn.",
-        "apply_now": "Rà soát lại kiến trúc quản trị tài chính của hệ thống agent để tránh thất thoát chi phí.",
+        "why_now": "Thay đổi cách quản lý rủi ro tài chính khi triển khai agent autonomous.",
+        "apply_now": "Kiểm tra lại kiến trúc tài chính trong các dự án agent thực tế để đảm bảo kiểm soát chi phí chính xác.",
         "source_count": 1,
         "tags": [
           "ai_business_money"
         ]
       },
       {
-        "idea": "Rút bài này về một thử nghiệm nhỏ có thể làm ngay trong tuần.",
-        "based_on": "Đề xuất mô hình Dual-Agent (Generator/Verifier) nhằm tăng độ chính xác hệ thống",
-        "why_now": "Mở ra xu hướng thiết kế hệ thống AI tự kiểm chứng để giảm sai sót trong thực thi tác vụ.",
-        "apply_now": "Có thể áp dụng tư duy thiết kế dual-agent vào các hệ thống cần độ chính xác cao.",
-        "source_count": 1,
-        "tags": [
-          "automation_mcp_agents"
-        ]
-      },
-      {
         "idea": "Biến kiến thức mới trong bài thành checklist ra quyết định cho các lần chọn tool, chọn model hoặc đánh giá cơ hội sau này.",
-        "based_on": "Phân tích kiến trúc System Prompt của mô hình Claude Fable 5 từ Anthropic",
-        "why_now": "Cung cấp góc nhìn thực tế về cách các ông lớn ngành AI cấu trúc hệ thống an toàn và thực thi công cụ.",
-        "apply_now": "Học hỏi kỹ thuật xây dựng system prompt phức tạp cho các dự án agent tự xây dựng.",
+        "based_on": "LLM Agents cần một \"Ngữ pháp nhận thức\" thay vì chỉ thêm công cụ",
+        "why_now": "Định hướng phát triển agent trong tương lai.",
+        "apply_now": "Suy ngẫm về kiến trúc hệ thống hiện tại để hướng tới các agent thông minh hơn.",
         "source_count": 1,
         "tags": [
           "ai_knowledge"
+        ]
+      },
+      {
+        "idea": "Đọc bài theo góc nhu cầu thị trường để xem có thể đóng gói thành mini-service, productized service hay SaaS nhỏ hay không.",
+        "based_on": "Light Elephant Technology gọi vốn thành công, tập trung vào mô hình nền tảng vật lý tự nhiên",
+        "why_now": "Thúc đẩy phát triển robot thông minh thông qua mô hình vật lý原生.",
+        "apply_now": "Theo dõi lộ trình của Light Elephant nếu đang quan tâm đến lĩnh vực具 thân trí tuệ (embodied AI).",
+        "source_count": 1,
+        "tags": [
+          "ai_business_money"
         ]
       }
     ],
     "full_link_radar": [
       {
-        "title": "GPU chạy inference nay đã có thể thực hiện fine-tuning với phương pháp USAF mới",
+        "title": "GPU chạy inference giờ đây đã có thể thực hiện fine-tuning",
         "url": "https://discuss.huggingface.co/t/if-your-gpu-can-run-inference-it-is-now-also-capable-of-performing-fine-tuning/177456",
         "source": "discuss.huggingface.co",
         "published_at": "2026-07-05",
         "category": "local_ai",
-        "why_interesting": "Giới thiệu phương pháp USAF cho phép fine-tuning các mô hình MoE trên chính phần cứng vốn chỉ đủ khả năng chạy inference.",
-        "use_case": "Áp dụng phương pháp USAF để tối ưu hóa tài nguyên phần cứng cho việc tùy chỉnh mô hình.",
+        "why_interesting": "Giới thiệu phương pháp USAF cho phép fine-tuning các mô hình MoE trên hạ tầng chỉ đủ để chạy inference.",
+        "use_case": "Cân nhắc tích hợp phương pháp USAF vào quy trình đào tạo mô hình nếu bị hạn chế về tài nguyên GPU.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
           "local_ai_china_ai",
           "community"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
         "title": "Lỗ hổng trong việc theo dõi chi phí AI Agent và cách khắc phục",
@@ -163,255 +402,169 @@
         "source": "forum.langchain.com",
         "published_at": "2026-07-05",
         "category": "business",
-        "why_interesting": "Cảnh báo về các phương pháp theo dõi chi phí hiện tại dựa trên runtime callback/post-execution không hiệu quả cho các ứng dụng thực tế.",
-        "use_case": "Rà soát lại kiến trúc quản trị tài chính của hệ thống agent để tránh thất thoát chi phí.",
+        "why_interesting": "Cảnh báo về sự thiếu sót của các phương pháp theo dõi chi phí hiện tại như post-execution hoặc client-side callbacks trong hệ thống multi-agent.",
+        "use_case": "Kiểm tra lại kiến trúc tài chính trong các dự án agent thực tế để đảm bảo kiểm soát chi phí chính xác.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
           "ai_business_money",
           "community"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
-        "title": "光象科技累计完成数亿元天使轮融资，布局物理原生基座模型",
+        "title": "Light Elephant Technology gọi vốn thành công, tập trung vào mô hình nền tảng vật lý tự nhiên",
         "url": "https://www.qbitai.com/2026/07/442958.html",
         "source": "qbitai.com",
         "published_at": "2026-07-04",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “光象科技累计完成数亿元天使轮融资，布局物理原生基座模型 近日，光象科技宣布完成累计数亿元天使轮融资，最新一轮融资由珠海科技产业集团、兴证资本、松禾资本、顺禧基金、慕华科创、See”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
+        "category": "business",
+        "why_interesting": "Tín hiệu thị trường về xu hướng đầu tư vào mô hình nền tảng (foundation model) kết hợp trí tuệ vật lý và robot.",
+        "use_case": "Theo dõi lộ trình của Light Elephant nếu đang quan tâm đến lĩnh vực具 thân trí tuệ (embodied AI).",
         "source_type": "independent",
         "source_count": 1,
         "time_verified": true,
         "tags": [
-          "ai_tools",
+          "ai_business_money",
           "independent"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
-        "title": "Any need for a tester and challenger for AI models?",
+        "title": "Nhu cầu về bộ kiểm thử và thách thức cho mô hình AI",
         "url": "https://discuss.huggingface.co/t/any-need-for-a-tester-and-challenger-for-ai-models/177450",
         "source": "discuss.huggingface.co",
         "published_at": "2026-07-04",
-        "category": "model",
-        "why_interesting": "Điểm đáng chú ý của bài này nằm ở cập nhật mới về mô hình AI, đặc biệt là chi tiết “I use LLMs a lot for scientific and mathematical research, and for conceptual matching and searching, as well as to help with writing,",
-        "use_case": "Đối chiếu “Any need for a tester and challenger for AI models?” với các bài toán coding, research và tóm tắt tài liệu mà Leon đang làm để xem có lý do đổi model hay không.",
-        "source_type": "community",
-        "source_count": 1,
-        "time_verified": true,
-        "tags": [
-          "ai_models",
-          "community"
-        ]
-      },
-      {
-        "title": "Phân tích kiến trúc System Prompt của mô hình Claude Fable 5 từ Anthropic",
-        "url": "https://discuss.huggingface.co/t/analysis-the-system-prompt-architecture-behind-anthropics-mythos-tier-claude-fable-5/177451",
-        "source": "discuss.huggingface.co",
-        "published_at": "2026-07-04",
         "category": "knowledge",
-        "why_interesting": "Tiết lộ cách Anthropic thiết kế hệ thống prompt 120KB để xử lý điều phối công cụ (tool orchestration) và phân tách an toàn.",
-        "use_case": "Học hỏi kỹ thuật xây dựng system prompt phức tạp cho các dự án agent tự xây dựng.",
+        "why_interesting": "Thảo luận về việc sử dụng các cuộc đối thoại prompting phức tạp để đánh giá và cải thiện hiệu suất mô hình.",
+        "use_case": "Có thể thu thập dữ liệu hội thoại lỗi để làm tập dữ liệu tinh chỉnh.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
           "ai_knowledge",
           "community"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
-        "title": "Is selling datasets way harder than building them? Or is it just me?",
+        "title": "Phân tích cấu trúc System Prompt của mô hình Claude Fable 5 từ Anthropic",
+        "url": "https://discuss.huggingface.co/t/analysis-the-system-prompt-architecture-behind-anthropics-mythos-tier-claude-fable-5/177451",
+        "source": "discuss.huggingface.co",
+        "published_at": "2026-07-04",
+        "category": "knowledge",
+        "why_interesting": "Tiết lộ cách Anthropic thiết kế system prompt và cơ chế điều phối công cụ (tool orchestration) cũng như sử dụng safety classifiers.",
+        "use_case": "Học hỏi cấu trúc orchestration để áp dụng vào phát triển các agentic model nguồn mở.",
+        "source_type": "community",
+        "source_count": 1,
+        "time_verified": true,
+        "tags": [
+          "ai_knowledge",
+          "community"
+        ],
+        "curation_status": "ai"
+      },
+      {
+        "title": "Khó khăn trong việc bán tập dữ liệu AI",
         "url": "https://discuss.huggingface.co/t/is-selling-datasets-way-harder-than-building-them-or-is-it-just-me/177440",
         "source": "discuss.huggingface.co",
         "published_at": "2026-07-04",
-        "category": "opensource",
-        "why_interesting": "Điểm mới ở đây là dấu hiệu cộng đồng đang chú ý tới một repo hoặc bản phát hành có thể dùng thật. Câu “It really does seem that selling datasets comes with all kinds of difficulties… Short answer No, I do not think you",
-        "use_case": "Mở repo hoặc demo liên quan, đọc nhanh phần cài đặt và note xem có thể fork hoặc gắn vào một dự án nội bộ trong tuần này không.",
+        "category": "business",
+        "why_interesting": "Thảo luận về nghịch lý giữa việc minh bạch dữ liệu để bán và bảo vệ giá trị dữ liệu khỏi việc bị sao chép.",
+        "use_case": "Cân nhắc cẩn thận khi thương mại hóa các tập dữ liệu chuyên biệt.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
-          "open_source_hot",
+          "ai_business_money",
           "community"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
-        "title": "LLM Agents Need a Cognitive Grammar, Not Just More Tools",
+        "title": "LLM Agents cần một \"Ngữ pháp nhận thức\" thay vì chỉ thêm công cụ",
         "url": "https://discuss.huggingface.co/t/llm-agents-need-a-cognitive-grammar-not-just-more-tools/177442",
         "source": "discuss.huggingface.co",
         "published_at": "2026-07-04",
-        "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Most agent systems today are built around tools, prompts, memory, routing, graphs, and orchestration.”, Leon có thể hình dung ngay chỗ nào trong",
-        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "category": "knowledge",
+        "why_interesting": "Góc nhìn lý thuyết về việc xây dựng các agent có khả năng nhận thức thay vì chỉ dựa vào tool-calling đơn thuần.",
+        "use_case": "Suy ngẫm về kiến trúc hệ thống hiện tại để hướng tới các agent thông minh hơn.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
-          "automation_mcp_agents",
+          "ai_knowledge",
           "community"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
-        "title": "Mâu thuẫn trong tài liệu hướng dẫn cập nhật trạng thái (State) của LangChain",
+        "title": "Mâu thuẫn trong tài liệu LangChain về cập nhật trạng thái",
         "url": "https://forum.langchain.com/t/langchain-documentation-appears-to-contradict-itself-regarding-updating-state-in-nested-structures/4089",
         "source": "forum.langchain.com",
         "published_at": "2026-07-04",
         "category": "tool",
-        "why_interesting": "Thông tin về lỗi tài liệu kỹ thuật liên quan đến việc cập nhật trạng thái trong cấu trúc lồng nhau.",
-        "use_case": "Kiểm tra kỹ lại mã nguồn nếu đang gặp lỗi liên quan đến quản lý state trong LangChain.",
+        "why_interesting": "Cảnh báo về lỗi tài liệu kỹ thuật trong LangChain khi sử dụng Command class.",
+        "use_case": "Kiểm tra lại code nếu gặp lỗi cập nhật trạng thái nested trong LangChain.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
           "ai_tools",
           "community"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
-        "title": "Megabots2026: Leveraging torch.compile for High-Performance Dual-Agent Architecture",
+        "title": "Megabots2026: Ứng dụng torch.compile cho kiến trúc Dual-Agent",
         "url": "https://discuss.pytorch.org/t/megabots2026-leveraging-torch-compile-for-high-performance-dual-agent-architecture/225146",
         "source": "discuss.pytorch.org",
         "published_at": "2026-07-04",
-        "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Hi everyone, As I lay down the foundation for Megabots2026, it has become incredibly clear that PyTorch is the best possible ecosystem to start",
-        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
+        "category": "tool",
+        "why_interesting": "Cách tận dụng torch.compile để tăng tốc kiến trúc dual-agent trong hệ sinh thái PyTorch.",
+        "use_case": "Sử dụng torch.compile cho các tác vụ agentic cần độ trễ thấp.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
-          "automation_mcp_agents",
+          "ai_tools",
           "community"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
-        "title": "Đề xuất mô hình Dual-Agent (Generator/Verifier) nhằm tăng độ chính xác hệ thống",
+        "title": "Dự án Megabots2026: Mô hình đào tạo Dual-Agent (Generator/Verifier)",
         "url": "https://discuss.pytorch.org/t/megabots2026-proposing-a-dual-agent-generator-verifier-training-pattern-for-high-accuracy-systems/225145",
         "source": "discuss.pytorch.org",
         "published_at": "2026-07-04",
-        "category": "agent",
-        "why_interesting": "Giới thiệu thiết kế hệ thống tách biệt giữa thực thi (Generator) và kiểm chứng (Verifier) để cải thiện độ chính xác của deep learning.",
-        "use_case": "Có thể áp dụng tư duy thiết kế dual-agent vào các hệ thống cần độ chính xác cao.",
+        "category": "opensource",
+        "why_interesting": "Đề xuất kiến trúc tách biệt việc thực thi và kiểm chứng (Generator/Verifier) nhằm tăng độ chính xác của hệ thống sâu.",
+        "use_case": "Tham khảo repo Megabots2026 để thử nghiệm mô hình vòng lặp kép trong dự án PyTorch.",
         "source_type": "community",
         "source_count": 1,
         "time_verified": true,
         "tags": [
-          "automation_mcp_agents",
+          "open_source_hot",
           "community"
-        ]
-      },
-      {
-        "title": "CHINA - PACIFIC COMMUNITY",
-        "url": "http://www.bignewsnetwork.com/news/279164564/1st-ld-writethru-china-to-promote-forging-of-widely-accepted-global-ai-governance-system-vice-president",
-        "source": "bignewsnetwork.com",
-        "published_at": "20260703130000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 9,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "NIGERIAN",
-        "url": "https://thenationonlineng.net/data-breaches-expose-major-gaps-in-nigerias-cybersecurity-expert-warns/",
-        "source": "thenationonlineng.net",
-        "published_at": "20260703004500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 16,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "SCHOOL",
-        "url": "https://www.tecnicadellascuola.it/intelligenza-artificiale-a-scuola-scadenze-ai-act-ad-agosto-cosa-prevede-i-corsi",
-        "source": "tecnicadellascuola.it",
-        "published_at": "20260704060000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 8,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "TAIWAN",
-        "url": "http://www.austinglobe.com/news/279163415/us-diplomat-wants-to-turn-taiwan-into-hornets-nest-of-drones",
-        "source": "austinglobe.com",
-        "published_at": "20260703013000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 14,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "UKRAINE - RUSSIA",
-        "url": "https://www.clickorlando.com/news/world/2026/07/04/ukrainian-drones-hit-st-petersburg-oil-terminal-in-latest-long-range-attack-on-russia/",
-        "source": "clickorlando.com",
-        "published_at": "20260704101500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 66,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "ALBANIA",
-        "url": "https://report-tv.al/lajm/kushtetuesja-rrezon-veliajn-nuk-pranon-padine-e-kryebashkiakut-per-gjykimin-ndaj-dosjes-se-spak",
-        "source": "report-tv.al",
-        "published_at": "20260704120000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 4,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
+        ],
+        "curation_status": "ai"
       },
       {
         "title": "COMPANY",
-        "url": "https://www.pymnts.com/news/artificial-intelligence/2026/companies-trust-ai-advice-not-actions/",
-        "source": "pymnts.com",
-        "published_at": "20260703000000",
+        "url": "https://myhostnews.com/grok-4-5-enters-private-beta-xai-promises-a-model-close-to-claude-opus-and-announces-an-unprecedented-pace/",
+        "source": "myhostnews.com",
+        "published_at": "20260703003000",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Nvidia,929;Spacex,160;Spacex,1543;Spacex,2216;Spacex,2326;Google,2198;Google,4702;Google,4920;Omnicom Advertising South",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
-        "source_count": 7,
+        "source_count": 6,
         "time_verified": false,
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "GOOGLE",
@@ -419,7 +572,7 @@
         "source": "itbrief.co.nz",
         "published_at": "20260703004500",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Google,6;Google,72;Google,1101;Google,1158;Rita El Khoury Android”, Leon có thể hình dung ngay chỗ nào trong quy trình hiện",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 5,
@@ -427,151 +580,8 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
-      },
-      {
-        "title": "PRIME MINISTER",
-        "url": "https://www.newkerala.com/news/a/pm-modi-launch-commercial-production-semiconductor-chips-osat-821.htm",
-        "source": "newkerala.com",
-        "published_at": "20260703181500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 4,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "ESTONIAN - TALLINN",
-        "url": "http://www.russiaherald.com/news/279166144/baltic-states-enabled-ukrainian-drone-attacks-moscow",
-        "source": "russiaherald.com",
-        "published_at": "20260704100000",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “TAX_FNCACT_FOREIGN_MINISTER,271;TAX_FNCACT_FOREIGN_MINISTER,1764;TAX_FNCACT_DEPUTY,254;TAX_FNCACT_AUTHORITIES,966;EPU_POLICY_AUTHORITIES,966;ALLIANCE,”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 9,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "FRENCH - SWISS",
-        "url": "https://www.bienpublic.com/magazine-automobile/2026/07/03/can-am-reunit-26-pays-autour-de-ses-spyder-3-roues",
-        "source": "bienpublic.com",
-        "published_at": "20260703153000",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “APPOINTMENT,463;APPOINTMENT,2921;APPOINTMENT,3553”. Nó hữu ích nếu Leon muốn rút ngắn thời gian làm việc tay trong coding, nội dung hoặc nghiên cứu.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 8,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "INTELLIGENCE",
-        "url": "http://sedaliademocrat.com/stories/data-center-backlash-spills-into-missouri-primaries-as-gop-candidates-demand-action,53262",
-        "source": "sedaliademocrat.com",
-        "published_at": "20260703001500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 3,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "INVESTOR",
-        "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/alibaba-tencent-join-us2-billion-funding-kuaishous-kling-ai",
-        "source": "businesstimes.com.sg",
-        "published_at": "20260703041500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 3,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "MANUFACTURER",
-        "url": "http://www.calcuttanews.net/news/279167283/this-decade-will-be-india-defining-era-for-semiconductor-electronics-sectors-gujarat-cm-patel",
-        "source": "calcuttanews.net",
-        "published_at": "20260705000000",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “SEIZE,6183;TAX_ETHNICITY_THAI,3776;LEADER,195;LEADER,622;LEADER,954;LEADER,1140;LEADER,1334;LEADER,1734;LEADER,1979;LEADER,2374;LEADER,2831;LEADER,328”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 9,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "ALBANIA",
-        "url": "https://telegrafi.com/zulfaj-kosova-nuk-po-rri-ne-vend-pas-aplikimit-ne-be-po-pergatitet-per-pyetesorin-e-komisionit-evropian-2677157684/",
-        "source": "telegrafi.com",
-        "published_at": "20260704123000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "ALBANIA",
-        "url": "https://24-ore.com/zulfaj-kosova-nuk-po-rri-ne-vend-pas-aplikimit-ne-be-po-pergatitet-per-pyetesorin-e-komisionit-evropian/",
-        "source": "24-ore.com",
-        "published_at": "20260703173000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "ALBANIAN",
-        "url": "https://24-ore.com/misteri-i-zhdukjes-se-yu-ting-takimi-i-panjohur-me-dy-shqiptare-nje-oficer-policie-ne-pension-dhe-nje-prift/",
-        "source": "24-ore.com",
-        "published_at": "20260704174500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "CHINA - EMPLOYEE",
@@ -579,7 +589,7 @@
         "source": "techcrunch.com",
         "published_at": "20260704174500",
         "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
+        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “Công ty liên quan: Alibaba. Chủ đề: model_agent_moi, radar_khu_vuc” cho thấy hướng thử nghiệm có thể áp dụng nhanh vào máy local hoặc môi trường",
         "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
         "source_type": "independent",
         "source_count": 2,
@@ -587,151 +597,8 @@
         "tags": [
           "local_ai_china_ai",
           "independent"
-        ]
-      },
-      {
-        "title": "COMPANY",
-        "url": "https://myhostnews.com/grok-4-5-enters-private-beta-xai-promises-a-model-close-to-claude-opus-and-announces-an-unprecedented-pace/",
-        "source": "myhostnews.com",
-        "published_at": "20260703003000",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 6,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "EMPLOYEE - COMPANY",
-        "url": "https://www.asiaone.com/china/alibaba-ban-employees-using-anthropics-coding-tool-source-says",
-        "source": "asiaone.com",
-        "published_at": "20260703130000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "KIEV - MOSCOW",
-        "url": "https://www.bankingnews.gr/diethni/articles/886140/ragdaies-ekselikseis-i-rosia-anaxaitise-oukraniki-epithesi-me-20-pyraylous-kai-500-drones-xtypima-tromeris-klimakas-pou-fernei-antipoina",
-        "source": "bankingnews.gr",
-        "published_at": "20260704153000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "RUSSIAN",
-        "url": "https://abcnews.al/dronet-ukrainas-godasin-terminalin-e-naftes-ne-shen-petersburg/",
-        "source": "abcnews.al",
-        "published_at": "20260704110000",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “DELAY,908;USPEC_UNCERTAINTY1,908;CRISISLEX_T01_CAUTION_ADVICE,134;DISASTER_FIRE,155;TAX_ETHNICITY_RUSSIAN,471;TAX_ETHNICITY_RUSSIAN,606;TAX_ETHNICITY_”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 4,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "RUSSIAN - UKRAINIAN",
-        "url": "https://www.bankingnews.gr/diethni/articles/886146/russia-intercepts-massive-ukrainian-strike-involving-twenty-himars-flamingo-missiles-and-five-hundred-drones-in-shock-escalation%20title=",
-        "source": "bankingnews.gr",
-        "published_at": "20260704153000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "AUTHORITIES",
-        "url": "https://albeu.com/kosove/dy-shtetas-kosovare-ekstradohen-nga-gjermania-ne-kosove-pas-kerkimit-nderkombetar/910625/",
-        "source": "albeu.com",
-        "published_at": "20260704013000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "CALAIS - VOTER",
-        "url": "https://www.guadeloupe.franceantilles.fr/actualite/france/trois-jours-avant-le-jugement-un-dernier-banquet-a-lievin-pour-le-pen-et-bardella-1085043.php",
-        "source": "guadeloupe.franceantilles.fr",
-        "published_at": "20260704021500",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 6,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
-      },
-      {
-        "title": "CHINESE - INDUSTRY",
-        "url": "https://www.zerohedge.com/technology/alibaba-bans-employees-using-anthropics-coding-tool-over-distillation-scandal",
-        "source": "zerohedge.com",
-        "published_at": "20260704051500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "CHINESE - INVESTOR",
-        "url": "https://economictimes.indiatimes.com/tech/funding/alibaba-tencent-back-kuaishous-kling-ai-in-2-8-billion-fundraise/articleshow/132158493.cms",
-        "source": "economictimes.indiatimes.com",
-        "published_at": "20260703111500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “TAX_FNCACT_INVESTOR,269;ECON_WORLDCURRENCIES_YUAN,85;TAX_ETHNICITY_CHINESE,7;TAX_WORLDLANGUAGES_CHINESE,7” cho thấy hướng thử nghiệm có thể áp",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "CHINESE - POLICE",
@@ -739,7 +606,7 @@
         "source": "banklesstimes.com",
         "published_at": "20260703101500",
         "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
+        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “Tín hiệu tổ chức: Ant Group,417;Chinese Communist Party,2162.",
         "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
         "source_type": "independent",
         "source_count": 1,
@@ -747,39 +614,8 @@
         "tags": [
           "local_ai_china_ai",
           "independent"
-        ]
-      },
-      {
-        "title": "CHONGQING - INTELLIGENCE AGENT",
-        "url": "https://www.forbes.com/sites/josipamajic/2026/07/03/hidden-llm-backdoors-could-detonate-at-massive-scale/",
-        "source": "forbes.com",
-        "published_at": "20260703190000",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
-      },
-      {
-        "title": "COMPANIES - INTELLIGENCE",
-        "url": "https://www.bankingnews.gr/diethni/articles/885858/emfylios-stin-texniti-noimosyni-o-ceo-tis-palantir-sfyrokopa-openai-kai-anthropic-ksepouloyn-ta-dedomena-ton-etaireion",
-        "source": "bankingnews.gr",
-        "published_at": "20260703071500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "COMPANY",
@@ -787,7 +623,7 @@
         "source": "siliconangle.com",
         "published_at": "20260703030000",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Reuters,425;Reuters,2118;Meta Platforms Inc,18;Instagram,1259;Facebook,1247;Democratic Party,649.",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 2,
@@ -795,7 +631,8 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "COMPANY - EMPLOYEE",
@@ -803,7 +640,7 @@
         "source": "thenextweb.com",
         "published_at": "20260703221500",
         "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
+        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “Tín hiệu tổ chức: Us Commerce Department,2599;South China Morning Post,908;Us Senate Banking Committee,3099.",
         "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
         "source_type": "independent",
         "source_count": 1,
@@ -811,39 +648,8 @@
         "tags": [
           "local_ai_china_ai",
           "independent"
-        ]
-      },
-      {
-        "title": "DEFENSE MINIST - UKRAINIAN",
-        "url": "https://www.caleaeuropeana.ro/ucraina-a-pierdut-controlul-asupra-a-patru-drone-navale-cu-o-zi-inainte-de-explozia-din-portul-constanta-anunta-mapn-dupa-discutiile-cu-kievul/",
-        "source": "caleaeuropeana.ro",
-        "published_at": "20260703114500",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 5,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
-      },
-      {
-        "title": "EDMONTON",
-        "url": "https://globalnews.ca/news/11950983/greenlight-electricity-centre-pembina-pipeline-artificial-intelligence/",
-        "source": "globalnews.ca",
-        "published_at": "20260703004500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "EMPLOYEE",
@@ -851,7 +657,7 @@
         "source": "economictimes.indiatimes.com",
         "published_at": "20260703024500",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Oberoi Realty,6217;Oberoi Realty,6316;Why India Inc,317;India Inc,20;India Inc,317;India Inc,368;India Inc,2848;India”, Leon",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 2,
@@ -859,23 +665,8 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
-      },
-      {
-        "title": "EUROPEAN COMMISSION - COMPANY",
-        "url": "https://www.index.hr/vijesti/clanak/ai-trosi-toliko-struje-da-europa-hitno-mijenja-vlastita-pravila/2809626.aspx?index_tid=1077154&index_ref=naslovnica_vijesti_najnovije_d",
-        "source": "index.hr",
-        "published_at": "20260704053000",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 22,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "GOVERNMENT",
@@ -883,7 +674,7 @@
         "source": "informationweek.com",
         "published_at": "20260703010000",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Good Global Commission,73;Linthicum Research,2735;European Union,1844;Gartner,1308;Harvard Law School,1809;United”, Leon có",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 2,
@@ -891,15 +682,16 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
-        "title": "INVESTOR - CHINESE",
-        "url": "https://ventureburn.com/kling-ai-raises-2-8-billion-with-alibaba-backing/",
-        "source": "ventureburn.com",
-        "published_at": "20260703183000",
+        "title": "INTELLIGENCE - CHINA",
+        "url": "https://www.bankingnews.gr/diethni/articles/885858/emfylios-stin-texniti-noimosyni-o-ceo-tis-palantir-sfyrokopa-openai-kai-anthropic-ksepouloyn-ta-dedomena-ton-etaireion",
+        "source": "bankingnews.gr",
+        "published_at": "20260703071500",
         "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
+        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “Tín hiệu tổ chức: United States,4665. Công ty liên quan: OpenAI, Anthropic, Intel.” cho thấy hướng thử nghiệm có thể áp dụng nhanh vào máy local",
         "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
         "source_type": "independent",
         "source_count": 1,
@@ -907,7 +699,25 @@
         "tags": [
           "local_ai_china_ai",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
+      },
+      {
+        "title": "MANUFACTURER",
+        "url": "http://www.calcuttanews.net/news/279167283/this-decade-will-be-india-defining-era-for-semiconductor-electronics-sectors-gujarat-cm-patel",
+        "source": "calcuttanews.net",
+        "published_at": "20260705000000",
+        "category": "industry",
+        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Tín hiệu tổ chức: United States,7626;Japan Renesas Electronics,8592;Cg Semi Outsourced Semiconductor Assembly,263;Industrial” cho thấy AI",
+        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
+        "source_type": "independent",
+        "source_count": 9,
+        "time_verified": false,
+        "tags": [
+          "industry_impact",
+          "independent"
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "MEDIA - MINIST",
@@ -915,7 +725,7 @@
         "source": "newkerala.com",
         "published_at": "20260704060000",
         "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
+        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Tín hiệu tổ chức: Monument Authority,2020;Monument Authority,2139;Monument Authority,1995.” cho thấy AI đang chạm vào vận hành chứ không",
         "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
         "source_type": "independent",
         "source_count": 5,
@@ -923,23 +733,8 @@
         "tags": [
           "industry_impact",
           "independent"
-        ]
-      },
-      {
-        "title": "MINISTRY - INTELLIGENCE",
-        "url": "https://www.bankingnews.gr/diethni/articles/886027/synagermos-stis-ipa-pos-i-kina-trypise-ta-adyta-tis-amerikanikis-etaireias-texnitis-noimosynis-anthropic",
-        "source": "bankingnews.gr",
-        "published_at": "20260703191500",
-        "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
-        "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "local_ai_china_ai",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "NVIDIA",
@@ -947,7 +742,7 @@
         "source": "datacenter.news",
         "published_at": "20260703161500",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức:”, Leon có thể hình dung ngay chỗ nào trong quy trình hiện tại đang đáng để tự động hóa.",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 2,
@@ -955,23 +750,8 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
-      },
-      {
-        "title": "ROMANIAN - NAVAL",
-        "url": "https://www.antena3.ro/actualitate/ucraina-a-raspuns-la-cele-14-intrebari-ale-romaniei-despre-drona-explodata-in-portul-constanta-unde-se-indreptau-dronele-sargan-3000-794420.html",
-        "source": "antena3.ro",
-        "published_at": "20260703113000",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 28,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "SENATOR",
@@ -979,7 +759,7 @@
         "source": "propakistani.pk",
         "published_at": "20260704154500",
         "category": "local_ai",
-        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết",
+        "why_interesting": "Bài này đáng xem vì có tín hiệu rõ về local stack hoặc China AI. Chi tiết “Tín hiệu tổ chức: United States,3158;Reuters,732;Reuters,2502.",
         "use_case": "Ghi lại link này vào nhóm thử nghiệm local AI rồi so với stack đang có như Ollama, Open WebUI hoặc vLLM để xem đường triển khai nào gọn nhất.",
         "source_type": "independent",
         "source_count": 1,
@@ -987,47 +767,16 @@
         "tags": [
           "local_ai_china_ai",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
-        "title": "AUSTRALIA",
-        "url": "https://www.inewsgr.com/27/olo-to-schedio-tis-metavasis-Drones-anti-gia---ploia.htm",
-        "source": "inewsgr.com",
-        "published_at": "20260704113000",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 4,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
-      },
-      {
-        "title": "BANK",
-        "url": "https://www.lifo.gr/culture/arxaiologia/pantoy-katastrofi-kai-thanatos-enas-ellinas-reporter-ston-ispaniko-emfylio",
-        "source": "lifo.gr",
-        "published_at": "20260704054500",
-        "category": "opensource",
-        "why_interesting": "Điểm mới ở đây là dấu hiệu cộng đồng đang chú ý tới một repo hoặc bản phát hành có thể dùng thật. Câu",
-        "use_case": "Mở repo hoặc demo liên quan, đọc nhanh phần cài đặt và note xem có thể fork hoặc gắn vào một dự án nội bộ trong tuần này không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "open_source_hot",
-          "independent"
-        ]
-      },
-      {
-        "title": "BUSINESS",
-        "url": "https://www.irishdentist.ie/goodbye-to-old-call-centers-how-artificial-intelligence-rewrites-communication-with-customers/19840/",
-        "source": "irishdentist.ie",
-        "published_at": "20260703233000",
+        "title": "CHONGQING - INTELLIGENCE AGENT",
+        "url": "https://www.forbes.com/sites/josipamajic/2026/07/03/hidden-llm-backdoors-could-detonate-at-massive-scale/",
+        "source": "forbes.com",
+        "published_at": "20260703190000",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Microsoft,3840;Microsoft,4217;Microsoft,6770;Microsoft Research,3849;Ibm,5955.",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 1,
@@ -1035,23 +784,8 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
-      },
-      {
-        "title": "COMPANIES - GOVERNANCE",
-        "url": "https://www.jdsupra.com:443/legalnews/ai-regulation-in-singapore-and-hong-8441594/",
-        "source": "jdsupra.com",
-        "published_at": "20260704090000",
-        "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
-        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "CORPORATION",
@@ -1059,7 +793,7 @@
         "source": "biometricupdate.com",
         "published_at": "20260703004500",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Intelligence Community,10111;Consumer Financial Protection Bureau,10602;Infrastructure Security Agency,10031;Office Of The",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 1,
@@ -1067,87 +801,8 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
-      },
-      {
-        "title": "EMPLOYEE - INTELLIGENCE",
-        "url": "https://www.pymnts.com/news/artificial-intelligence/2026/the-enterprise-gives-ai-models-path-to-consumer-loyalty/",
-        "source": "pymnts.com",
-        "published_at": "20260703094500",
-        "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
-        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "INTELLIGENCE",
-        "url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/ai-hiring-outpaces-overall-it-recruitment-in-india-report/articleshow/132161120.cms",
-        "source": "economictimes.indiatimes.com",
-        "published_at": "20260703131500",
-        "category": "opensource",
-        "why_interesting": "Điểm mới ở đây là dấu hiệu cộng đồng đang chú ý tới một repo hoặc bản phát hành có thể dùng thật. Câu",
-        "use_case": "Mở repo hoặc demo liên quan, đọc nhanh phần cài đặt và note xem có thể fork hoặc gắn vào một dự án nội bộ trong tuần này không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "open_source_hot",
-          "independent"
-        ]
-      },
-      {
-        "title": "MICROSOFT",
-        "url": "https://www.techtimes.com/articles/319706/20260704/microsoft-copilot-merges-one-app-august-feature-cuts-reveal-paid-adoption-crisis.htm",
-        "source": "techtimes.com",
-        "published_at": "20260704170000",
-        "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
-        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "MUMBAI - ACTOR",
-        "url": "https://ianslive.in/jackie-shroff-remembers-legendary-raaj-kumar-saroj-khan-on-their-death-anniversaries-with-heartfelt-tributes--20260703115836",
-        "source": "ianslive.in",
-        "published_at": "20260703074500",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 3,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "MUMBAI - ACTOR",
-        "url": "https://aninews.in/news/entertainment/bollywood/proud-yash-hails-huma-qureshis-performance-in-baby-do-die-do-says-thats-the-kind-of-quiet-courage-worth-admiring20260703203314/",
-        "source": "aninews.in",
-        "published_at": "20260703171500",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “TAX_FNCACT_BABY,132;TAX_FNCACT_BABY,631;TAX_FNCACT_BABY,813;KILL,139;KILL,638;KILL,820;CRISISLEX_T03_DEAD,139;CRISISLEX_T03_DEAD,638;CRISISLEX_T03_DEA”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "PREMIER",
@@ -1155,7 +810,7 @@
         "source": "jcnnewswire.com",
         "published_at": "20260704003000",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “TAX_FNCACT_AGENTS,1718;TAX_FNCACT_PILOTS,865”, Leon có thể hình dung ngay chỗ nào trong quy trình hiện tại đang đáng để tự động hóa.",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Sigmix Inc,6316;Ministry Of Culture,4258;Wakeb Data Company,6281;Sarj Digital Information Technology,6016;Edarat",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 1,
@@ -1163,23 +818,25 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
-        "title": "RUSSIAN - UKRAINE",
-        "url": "https://www.bankingnews.gr/diethni/articles/886129/o-belousov-sygxairei-tis-rosikes-dynameis-gia-tin-katalipsi-tis-kostyantynivka%20title=",
-        "source": "bankingnews.gr",
-        "published_at": "20260704124500",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “TAX_FNCACT_SECRETARY,66;UNGP_FORESTS_RIVERS_OCEANS,489;TAX_ETHNICITY_RUSSIAN,25;TAX_ETHNICITY_RUSSIAN,289;TAX_WORLDLANGUAGES_RUSSIAN,25;TAX_WORLDLANGU”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
+        "title": "PRIME MINISTER",
+        "url": "https://www.newkerala.com/news/a/pm-modi-launch-commercial-production-semiconductor-chips-osat-821.htm",
+        "source": "newkerala.com",
+        "published_at": "20260703181500",
+        "category": "industry",
+        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Tín hiệu tổ chức: Information Technology Ashwini Vaishnaw,1746;Industrial Solutions,549;Technology Department Arjun",
+        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
         "source_type": "independent",
-        "source_count": 2,
+        "source_count": 4,
         "time_verified": false,
         "tags": [
-          "ai_tools",
+          "industry_impact",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "SHAN - BUSINESS",
@@ -1187,7 +844,7 @@
         "source": "businesstimes.com.sg",
         "published_at": "20260703061500",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Mastercard,1028;Visa,1015;Monetary Authority Of Singapore,36.",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 1,
@@ -1195,55 +852,8 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
-      },
-      {
-        "title": "STUDENT",
-        "url": "https://thenorthlines.com/the-algorithmic-renaissance-artificial-intelligence-as-the-harbinger-of-a-new-educational-epoch/",
-        "source": "thenorthlines.com",
-        "published_at": "20260703221500",
-        "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
-        "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "automation_mcp_agents",
-          "independent"
-        ]
-      },
-      {
-        "title": "TRADER",
-        "url": "https://www.ladepeche.fr/2026/07/03/ce-nest-plus-une-simple-canicule-on-parle-dune-urgence-sanitaire-riadh-gerant-de-la-terrasse-propose-aux-agenais-de-venir-les-apres-midi-dans-son-13449525.php",
-        "source": "ladepeche.fr",
-        "published_at": "20260703053000",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “TRADER”. Nó hữu ích nếu Leon muốn rút ngắn thời gian làm việc tay trong coding, nội dung hoặc nghiên cứu.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "UKRAINIAN - COMMANDER",
-        "url": "https://www.bankingnews.gr/diethni/articles/886167/rosos-dioikitis-efialtis-o-entopismos-simeion-ektoksefsis-ton-oukranikon-drones-sti-maxi-gia-tin-kostyantynivka",
-        "source": "bankingnews.gr",
-        "published_at": "20260704191500",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “UKRAINIAN - COMMANDER”. Nó hữu ích nếu Leon muốn rút ngắn thời gian làm việc tay trong coding, nội dung hoặc nghiên cứu.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "YEREVAN - BUSINESS",
@@ -1251,7 +861,7 @@
         "source": "manilatimes.net",
         "published_at": "20260703144500",
         "category": "automation",
-        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết",
+        "why_interesting": "Giá trị chính của bài này là workflow hoặc lớp điều phối mới. Từ chi tiết “Tín hiệu tổ chức: Marketersmedia Yusmp Group,317;Business Center,3191;Terms Of Service,1192;Yusmp Group,11;Yusmp Group,317;Yusmp",
         "use_case": "Đọc link rồi thử phác một workflow nhỏ trên Cursor, Claude Code hoặc n8n để kiểm tra mức tiết kiệm thời gian thực tế.",
         "source_type": "independent",
         "source_count": 1,
@@ -1259,15 +869,16 @@
         "tags": [
           "automation_mcp_agents",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
-        "title": "AMERICAN - INDUSTRY",
-        "url": "https://www.livemint.com/opinion/online-views/ai-deployment-targets-management-fad-ford-meta-amazon-uber-artificial-intelligence-11783058528806.html",
-        "source": "livemint.com",
-        "published_at": "20260703104500",
+        "title": "ADMINISTRATION - INDUSTRY",
+        "url": "https://www.sfexaminer.com/news/technology/end-to-trumps-anthropic-ban-leaves-uncertainty-in-its-wake/article_94667548-d49e-47a7-b88f-535fe11ca8d5.html",
+        "source": "sfexaminer.com",
+        "published_at": "20260703153000",
         "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “TAX_FNCACT_WORKERS,86;LEADER,1260;LEADER,3034;TAX_FNCACT_CEO,8;TAX_FNCACT_CEO,1070;TAX_FNCACT_CEO,2411”.",
+        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “Tín hiệu tổ chức: Harvard Kennedy School,9270;York University,1593;Infrastructure Security Agency,10134;White House,4397;Institute For Law,4629;Tony”.",
         "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1275,7 +886,8 @@
         "tags": [
           "ai_tools",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "EMPLOYEE",
@@ -1283,7 +895,7 @@
         "source": "lemondeinformatique.fr",
         "published_at": "20260703184500",
         "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “SOC_QUARANTINE,1964;TAX_FNCACT_LEADER,2574;TAX_ETHNICITY_FRENCH,101;TAX_ETHNICITY_FRENCH,1270;TAX_ETHNICITY_FRENCH,1748;TAX_WORLDLANGUAGES_FRENCH,101;”.",
+        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “Tín hiệu tổ chức: Office Paris,1053. Công ty liên quan: OpenAI, Anthropic.”.",
         "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1291,55 +903,8 @@
         "tags": [
           "ai_tools",
           "independent"
-        ]
-      },
-      {
-        "title": "FIRST LADY - LAWMAKER",
-        "url": "https://dailycaller.com/2026/07/03/melania-trump-white-house-policy-artificial-intelligence-ukraine-capitol-hill/",
-        "source": "dailycaller.com",
-        "published_at": "20260703170000",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “WB_2433_CONFLICT_AND_VIOLENCE,4208;WB_2432_FRAGILITY_CONFLICT_AND_VIOLENCE,4208;CRISISLEX_T11_UPDATESSYMPATHY,1666;TAX_FNCACT_LEADER,3954;TAX_FNCACT_L”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "LEBANON - PALESTINE",
-        "url": "https://www.sudouest.fr/international/iran/iran-une-foule-compacte-dans-le-centre-de-teheran-pour-un-dernier-adieu-a-khamenei-29795044.php",
-        "source": "sudouest.fr",
-        "published_at": "20260704191500",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “LEBANON - PALESTINE”. Nó hữu ích nếu Leon muốn rút ngắn thời gian làm việc tay trong coding, nội dung hoặc nghiên cứu.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
-      },
-      {
-        "title": "MADURAI - ACTOR",
-        "url": "https://kumudam.com/vishnu-vishal-on-reels-era-jananayagan-marriage-life-katta-kusthi-2",
-        "source": "kumudam.com",
-        "published_at": "20260704171500",
-        "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “TAX_FNCACT_DIRECTOR,65;TAX_FNCACT_WOMEN,612;UNGP_FORESTS_RIVERS_OCEANS,785;TAX_FNCACT_ACTOR,96;TAX_FNCACT_ACTOR,217;TAX_FNCACT_ACTOR,1054”.",
-        "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "ai_tools",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "MINISTRY",
@@ -1347,7 +912,7 @@
         "source": "barandbench.com",
         "published_at": "20260704053000",
         "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “EPU_ECONOMY_HISTORIC,289;IDEOLOGY,980;WB_698_TRADE,306;TAX_ETHNICITY_INDIAN,1455;GENERAL_GOVERNMENT,1364;EPU_POLICY_REGULATORY,1857;WB_831_GOVERNANCE,”.",
+        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “Tín hiệu tổ chức: Department For Promotion Of Industry,289;Ministry Of Electronics,1654;Information Technology,1679. Công ty liên quan: OpenAI, Intel.”.",
         "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1355,15 +920,16 @@
         "tags": [
           "ai_tools",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
-        "title": "PUBLISHER",
-        "url": "https://asianews.network/copyright-and-journalism-the-jakarta-post/",
-        "source": "asianews.network",
-        "published_at": "20260703030000",
+        "title": "MINISTRY - INTELLIGENCE",
+        "url": "https://www.bankingnews.gr/diethni/articles/886027/synagermos-stis-ipa-pos-i-kina-trypise-ta-adyta-tis-amerikanikis-etaireias-texnitis-noimosynis-anthropic",
+        "source": "bankingnews.gr",
+        "published_at": "20260703191500",
         "category": "tool",
-        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “LEADER,1332;LEADER,1364;LEADER,2984;TAX_FNCACT_PRESIDENT,1332;TAX_FNCACT_PRESIDENT,1364;TAX_FNCACT_PRESIDENT,2984;USPEC_POLITICS_GENERAL1,1332;USPEC_P”.",
+        "why_interesting": "Nội dung này nói khá rõ công cụ đang giải quyết việc gì: “Tín hiệu tổ chức: United States,21;United States,143;United States,684;United States,949. Công ty liên quan: Anthropic, Intel.”.",
         "use_case": "Xem công cụ này có cắt được bước thủ công nào trong việc viết code, làm nội dung, dựng video hay xử lý dữ liệu của Leon không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1371,167 +937,8 @@
         "tags": [
           "ai_tools",
           "independent"
-        ]
-      },
-      {
-        "title": "RESIDENTS - RUSSIAN",
-        "url": "https://www.inewsgr.com/27/Axios-pos-i-oukrania-metaferei-ton-polemo-vathia-mesa-sti-rosiki-epikrateia--ta-pligmata-me-drones-kai-pyravlous.htm",
-        "source": "inewsgr.com",
-        "published_at": "20260703211500",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "THE POPE",
-        "url": "https://countercurrents.org/2026/07/the-idea-of-disarming-artificial-intelligence-a-message-from-magnifica-humanitas/",
-        "source": "countercurrents.org",
-        "published_at": "20260704084500",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "UKRAINE - ST PETERSBURG",
-        "url": "https://www.theguardian.com/world/2026/jul/04/ukrainian-drones-hit-st-petersburg-oil-terminal-and-nearby-port",
-        "source": "theguardian.com",
-        "published_at": "20260704194500",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 3,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
-      },
-      {
-        "title": "COMPANY",
-        "url": "https://ru.euronews.com/next/2026/07/03/data-protection-rules-slow-down-the-rollout-of-large-language-models-in-europe-study-finds",
-        "source": "ru.euronews.com",
-        "published_at": "20260703091500",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 2,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
-      },
-      {
-        "title": "POLICE - EMPLOYEE",
-        "url": "https://www.deshbandhu.co.in/karnatka/bengaluru-capgemini-daycare-child-abuse-case-investigation-307845",
-        "source": "deshbandhu.co.in",
-        "published_at": "20260703083000",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "STUDENT",
-        "url": "https://www.vedomosti.ru/press_releases/2026/07/03/inostrannie-vipuskniki-miem-vshe--o-svoem-puti-v-inzhenernie-professii",
-        "source": "vedomosti.ru",
-        "published_at": "20260703091500",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "UNITED STATES",
-        "url": "https://www.mondaq.com:443/unitedstates/export-controls-trade-investment-sanctions/1811254/forced-labor-tariffs-public-comments-due-next-week-for-ustr-section-301-investigation",
-        "source": "mondaq.com",
-        "published_at": "20260703061500",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "UNITED STATES - INTELLIGENCE",
-        "url": "https://tv.rediff.com/news/jodie-foster-believes-brad-pitts-f1-was-made-with-artificial-intelligence/394643",
-        "source": "tv.rediff.com",
-        "published_at": "20260703183000",
-        "category": "business",
-        "why_interesting": "Bài này đáng đọc vì nó gợi ra góc doanh thu hoặc xu hướng chi tiền trong AI. Từ",
-        "use_case": "Đọc theo góc thị trường: ai đang trả tiền, họ mua vì nỗi đau nào, và Leon có thể đóng gói dịch vụ tương tự ở quy mô nhỏ hay không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "ai_business_money",
-          "independent"
-        ]
-      },
-      {
-        "title": "ACADEMICS - WASHINGTON",
-        "url": "https://www.portafolio.co/internacional/intelectuales-cubanos-llaman-a-sus-pares-de-ee-uu-a-rechazar-la-politica-de-sanciones-contra-la-isla-497531",
-        "source": "portafolio.co",
-        "published_at": "20260705001500",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
-      },
-      {
-        "title": "ADMINISTRATION - INDUSTRY",
-        "url": "https://www.sfexaminer.com/news/technology/end-to-trumps-anthropic-ban-leaves-uncertainty-in-its-wake/article_94667548-d49e-47a7-b88f-535fe11ca8d5.html",
-        "source": "sfexaminer.com",
-        "published_at": "20260703153000",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "BUSINESS",
@@ -1539,7 +946,7 @@
         "source": "fool.com",
         "published_at": "20260704170000",
         "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Microsoft,1330;Microsoft,2158;Broadcom,113;Taiwan Semiconductor Manufacturing,152;Nvidia,102;Nvidia,1382;Nvidia,2187;Nebius Group,1472” cho",
+        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Tín hiệu tổ chức: Microsoft,1330;Microsoft,2158;Broadcom,113;Taiwan Semiconductor",
         "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1547,15 +954,16 @@
         "tags": [
           "industry_impact",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
-        "title": "CALAIS - VOTER",
-        "url": "https://www.linternaute.com/actualite/depeches/10864719-trois-jours-avant-le-jugement-un-dernier-banquet-a-lievin-pour-le-pen-et-bardella/",
-        "source": "linternaute.com",
-        "published_at": "20260704034500",
+        "title": "COMPANY - TAIWAN",
+        "url": "https://koran-jakarta.com/2026-07-05/anthropic-gandeng-samsung-kembangkan-chip-ai",
+        "source": "koran-jakarta.com",
+        "published_at": "20260705060000",
         "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
+        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Tín hiệu tổ chức: Taiwan Semiconductor,781. Công ty liên quan: Anthropic.” cho thấy AI đang chạm vào vận hành chứ không chỉ dừng ở ý tưởng.",
         "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1563,7 +971,8 @@
         "tags": [
           "industry_impact",
           "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "COMPANY - TAIWAN",
@@ -1571,7 +980,7 @@
         "source": "antaranews.com",
         "published_at": "20260704071500",
         "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Taiwan Semiconductor,754” cho thấy AI đang chạm vào vận hành chứ không chỉ dừng ở ý tưởng.",
+        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Tín hiệu tổ chức: Taiwan Semiconductor,754. Công ty liên quan: Anthropic.” cho thấy AI đang chạm vào vận hành chứ không chỉ dừng ở ý tưởng.",
         "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1579,39 +988,8 @@
         "tags": [
           "industry_impact",
           "independent"
-        ]
-      },
-      {
-        "title": "INTELLIGENCE",
-        "url": "https://countercurrents.org/2026/07/yesterday-through-the-eyes-of-today-artificial-intelligence-will-it-become-the-final-blow-to-human-pride/",
-        "source": "countercurrents.org",
-        "published_at": "20260703101500",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
-      },
-      {
-        "title": "PROSECUTOR",
-        "url": "https://www.leparisien.fr/finistere-29/le-sexagenaire-schizophrene-menace-de-mort-sa-cousine-persuade-que-sa-soupe-etait-empoisonnee-03-07-2026-KTPXBJVUOREBJARYZDN6WJPSXY.php",
-        "source": "leparisien.fr",
-        "published_at": "20260703123000",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       },
       {
         "title": "SAMSUNG",
@@ -1619,7 +997,7 @@
         "source": "economictimes.indiatimes.com",
         "published_at": "20260703140000",
         "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “SHORTAGE,229” cho thấy AI đang chạm vào vận hành chứ không chỉ dừng ở ý tưởng.",
+        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết “Tín hiệu tổ chức: Microsoft,298;Samsung,111.",
         "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
         "source_type": "independent",
         "source_count": 1,
@@ -1627,40 +1005,41 @@
         "tags": [
           "industry_impact",
           "independent"
-        ]
-      },
-      {
-        "title": "UNITED STATES - LAWYER",
-        "url": "https://exitoina.perfil.com/noticias/escandalo/sobrino-de-diego-maradona-declaro-en-el-juicio-por-su-muerte-si-pasaba-algo-llamaban-al-medico-luque.phtml",
-        "source": "exitoina.perfil.com",
-        "published_at": "20260703013000",
-        "category": "industry",
-        "why_interesting": "Giá trị của bài này nằm ở tác động thực tế lên một nhóm ngành cụ thể. Chi tiết",
-        "use_case": "Kiểm tra ngành chịu tác động trong bài có giao với khách hàng, ngách nội dung hoặc ý tưởng sản phẩm mà Leon đang theo đuổi không.",
-        "source_type": "independent",
-        "source_count": 1,
-        "time_verified": false,
-        "tags": [
-          "industry_impact",
-          "independent"
-        ]
+        ],
+        "curation_status": "fallback"
       }
     ]
   },
   "stats": {
     "story_count": 10,
-    "gdelt_event_count": 119,
-    "candidate_count": 94,
+    "gdelt_event_count": 40,
+    "candidate_count": 37,
     "curator_candidate_count": 10,
-    "noise_filtered_count": 1,
+    "noise_filtered_count": 3,
     "expired_removed_count": 0,
-    "unknown_time_full_radar_count": 84,
-    "must_read_count": 0,
-    "must_read_by_source_type": {},
-    "must_read_by_category": {},
-    "gemini_success_count": 5,
-    "gemini_fallback_count": 5,
-    "full_link_radar_count": 94,
+    "unknown_time_full_radar_count": 27,
+    "must_read_count": 6,
+    "must_read_by_source_type": {
+      "community": 5,
+      "independent": 1
+    },
+    "must_read_by_category": {
+      "local_ai": 1,
+      "tool": 1,
+      "opensource": 1,
+      "business": 2,
+      "knowledge": 1
+    },
+    "main_by_source_type": {
+      "community": 6,
+      "independent": 1
+    },
+    "gemini_success_count": 10,
+    "gemini_fallback_count": 0,
+    "ai_curated_main_count": 7,
+    "fallback_main_count": 0,
+    "main_candidate_count": 7,
+    "full_link_radar_count": 37,
     "render_checks": {
       "knowledge_fields_ready": true,
       "founder_fields_ready": true
