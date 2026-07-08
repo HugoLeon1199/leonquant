@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-08T18:37:03.085392+00:00",
+  "generated_at": "2026-07-08T20:40:19.786595+00:00",
   "purpose": "ai_summarization",
-  "count": 27,
+  "count": 30,
   "window": {
     "end_date": "2026-07-09",
     "timezone": "Asia/Ho_Chi_Minh",
@@ -18,9 +18,23 @@
   ],
   "articles": [
     {
-      "title": "Looking for a Multi-GPU Server to Run DeepSeek-Prover-V2-671B (Can Pay)",
-      "url": "https://discuss.huggingface.co/t/looking-for-a-multi-gpu-server-to-run-deepseek-prover-v2-671b-can-pay/177557",
-      "text": "I’m a PhD researcher working in AI and automated mathematical theorem proving.\nI’m looking for access to a multi-GPU server capable of running DeepSeek-Prover-V2-671B.\nSuitable configurations include:\n- 8× H100 80GB\n- 8× H200\n- 8× B200\n- 16× H100\n- DGX/HGX H100\n- Or any equivalent multi-GPU cluster with enough VRAM to run the model.\nI’m happy to pay for GPU usage.\nIf you have access to such hardware, or know someone who does, please send me a DM\nIf everything goes well, I’d also be interested in long-term collaboration for future research projects.\nThank you!",
+      "title": "Hugging Chat page stuck",
+      "url": "https://discuss.huggingface.co/t/hugging-chat-page-stuck/177591",
+      "text": "Hugging Face Forums\nHugging Chat page stuck\nBeginners\nCathleenTico\nJuly 8, 2026, 8:37pm\n1\nIs anyone else registered for Hugging Chat? I can’t get past the celebration page\nRelated topics\nTopic\nReplies\nViews\nActivity\nHuggingface chat not working\nBeginners\n2\n1073\nDecember 18, 2024\nHuggingChat - Preparing Space message\nBeginners\n3\n570\nJanuary 14, 2024\nHugging Chat pro\nBeginners\n1\n550\nDecember 11, 2025\nIs hugging chat down for anyone else?\nBeginners\n1\n72\nApril 8, 2025\nI have a problem in hugging chat\nBeginners\n0\n216\nApril 2, 2024",
+      "published_at": "2026-07-08",
+      "source": "discuss_huggingface_co"
+    },
+    {
+      "title": "Newbie question about documentation",
+      "url": "https://discuss.huggingface.co/t/newbie-question-about-documentation/177590",
+      "text": "Hi,\nSorry in advance for the newbie question but I am not sure where to start. I am looking to build my own stand alone AI platform on my home PC using llama.cpp. I am looking to learn something about how these systems are actually put together by doing it and hopefully becoming proficient. My interest id personal and not part of any academic or professional endeavour.\nMy system is Arch Linux and i have llama.cpp (stand alone cpu edition) installed. I know that I need a LLM installed next, which leads me to this site. My Linux skill level is intermediate and, although I can code, my skill level is home user and not professional. I can see by touring the site that there is a vast array of documentation available as well as extensive help and support. I am just not sure not sure where to start. Can anyone recommends a starting point? A document I should read first or advise if certain skills such as a certain programming language would be useful.\nMy areas of interest are where AI actually gets it’s information and knowledge base from and how personalities can be created and interacted with. My inspiration comes from those sites where you can design a personality and then interact with it.\nThanks,\nJC",
+      "published_at": "2026-07-08",
+      "source": "discuss_huggingface_co"
+    },
+    {
+      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
+      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
+      "text": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm",
       "published_at": "2026-07-08",
       "source": "discuss_huggingface_co"
     },
@@ -95,11 +109,11 @@
       "source": "discuss_huggingface_co"
     },
     {
-      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
-      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
-      "text": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?",
+      "title": "Any guidance for LangGraph Checkpoint Implementation for HTTP based service?",
+      "url": "https://forum.langchain.com/t/any-guidance-for-langgraph-checkpoint-implementation-for-http-based-service/4121",
+      "text": "Hi,\nWe have an OData API (REST) to manage checkpoints and checkpoint writes and don’t unfortunately have a way to bypass the API layer and directly perform checkpoint operations on the DB layer itself. I see that existing checkpoint such as postgres and others are directly at DB-layer. Any suggestions for checkpoints via API layer.\nBest, Santosh\n             \n            \n           \n          \n            \n            \n              Hi @santosh-nallur\nyes, this can work. LangGraph does not require the checkpointer to talk directly to a DB. Postgres and SQLite savers are just implementations of the BaseCheckpointSaver contract. In your case I’d build a custom saver that maps put/aput, put_writes/aput_writes, get_tuple/aget_tuple, list/alist, and delete_thread/adelete_thread to your OData API.\nThe main thing is to preserve the same semantics: checkpoints should be keyed by thread_id, checkpoint_ns, and checkpoint_id, and writes should be linked to the same checkpoint plus task_id, task_path, and write index. Make sure get_tuple can fetch both the latest checkpoint and a specific checkpoint_id, since replay, time travel, pending writes, and delta-channel reconstruction depend on that.\nI’d also avoid hand-serializing checkpoint data as plain JSON. Use the LangGraph saver serde methods for checkpoints, metadata, and write values, then store the typed blob through your API, for example as binary or base64. Finally, run langgraph-checkpoint-conformance against the custom saver - it will catch most compatability issues early. So overall, an API-layer checkpointer is fine, but the OData service needs to expose the same read/write/indexing behavior LangGraph expects from the DB-backed savers.",
       "published_at": "2026-07-08",
-      "source": "discuss_huggingface_co"
+      "source": "forum_langchain_com"
     },
     {
       "title": "Chapter 1 questions",
@@ -109,18 +123,18 @@
       "source": "discuss_huggingface_co"
     },
     {
-      "title": "Any guidance for LangGraph Checkpoint Implementation for HTTP based service?",
-      "url": "https://forum.langchain.com/t/any-guidance-for-langgraph-checkpoint-implementation-for-http-based-service/4121",
-      "text": "Hi,\nWe have an OData API (REST) to manage checkpoints and checkpoint writes and don’t unfortunately have a way to bypass the API layer and directly perform checkpoint operations on the DB layer itself. I see that existing checkpoint such as postgres and others are directly at DB-layer. Any suggestions for checkpoints via API layer.\nBest, Santosh\n             \n            \n           \n          \n            \n            \n              Hi @santosh-nallur\nyes, this can work. LangGraph does not require the checkpointer to talk directly to a DB. Postgres and SQLite savers are just implementations of the BaseCheckpointSaver contract. In your case I’d build a custom saver that maps put/aput, put_writes/aput_writes, get_tuple/aget_tuple, list/alist, and delete_thread/adelete_thread to your OData API.\nThe main thing is to preserve the same semantics: checkpoints should be keyed by thread_id, checkpoint_ns, and checkpoint_id, and writes should be linked to the same checkpoint plus task_id, task_path, and write index. Make sure get_tuple can fetch both the latest checkpoint and a specific checkpoint_id, since replay, time travel, pending writes, and delta-channel reconstruction depend on that.\nI’d also avoid hand-serializing checkpoint data as plain JSON. Use the LangGraph saver serde methods for checkpoints, metadata, and write values, then store the typed blob through your API, for example as binary or base64. Finally, run langgraph-checkpoint-conformance against the custom saver - it will catch most compatability issues early. So overall, an API-layer checkpointer is fine, but the OData service needs to expose the same read/write/indexing behavior LangGraph expects from the DB-backed savers.",
-      "published_at": "2026-07-08",
-      "source": "forum_langchain_com"
-    },
-    {
       "title": "Should AI agents have working hours like human employees?",
       "url": "https://forum.langchain.com/t/should-ai-agents-have-working-hours-like-human-employees/4123",
       "text": "We expect AI to be available 24/7, but should it always be?\nImagine an AI executive assistant that intentionally batches notifications, delays non-urgent interruptions, and only escalates high-priority issues outside “working hours.”\nCould an AI that knows when not to interrupt you actually make us more productive?\nWhere would you draw the line between responsiveness and respecting focus?",
       "published_at": "2026-07-08",
       "source": "forum_langchain_com"
+    },
+    {
+      "title": "Looking for a Multi-GPU Server to Run DeepSeek-Prover-V2-671B (Can Pay)",
+      "url": "https://discuss.huggingface.co/t/looking-for-a-multi-gpu-server-to-run-deepseek-prover-v2-671b-can-pay/177557",
+      "text": "I’m a PhD researcher working in AI and automated mathematical theorem proving.\nI’m looking for access to a multi-GPU server capable of running DeepSeek-Prover-V2-671B.\nSuitable configurations include:\n- 8× H100 80GB\n- 8× H200\n- 8× B200\n- 16× H100\n- DGX/HGX H100\n- Or any equivalent multi-GPU cluster with enough VRAM to run the model.\nI’m happy to pay for GPU usage.\nIf you have access to such hardware, or know someone who does, please send me a DM\nIf everything goes well, I’d also be interested in long-term collaboration for future research projects.\nThank you!",
+      "published_at": "2026-07-08",
+      "source": "discuss_huggingface_co"
     },
     {
       "title": "What does agent security actually need from a framework?",
@@ -205,6 +219,13 @@
       "text": "DeepSeek秘密造芯！专攻推理，一年前已启动，招聘全程不公开\n已与芯片设计公司、晶圆代工厂和存储器供应商展开接洽\n梦晨 发自 凹非寺\n量子位 | 公众号 QbitAI\nDeepSeek自己造芯片了！\n目标：降低对英伟达的依赖。\n路透社消息，这家凭借模型算法震动硅谷的中国AI公司，正在秘密开发一款自研AI芯片。\n芯片定位是推理而非训练，项目大概在一年前已经启动。\n当前，该项目还处于早期阶段。消息透露，DeepSeek已与芯片设计公司、晶圆代工厂和存储器供应商展开接洽。\n从算法公司到硬件玩家\nDeepSeek一直以来的标签是对算法的极致优化。\n从2025年1月引爆全球的R1推理模型，到后来适配华为昇腾的V4系列，这家公司展示的始终是用更少的算力做更多的事。\n但现在，它要亲自下场做硬件了。\n知情人士透露，DeepSeek近几个月一直在招聘芯片设计工程师，但招聘方式极为低调，没有在任何公开招聘平台发布职位信息。\n模型公司自研芯片并非孤例。\n放眼全球，AI模型公司自研芯片已成趋势。OpenAI上个月刚刚公布了与博通合作开发的首款定制推理芯片Jalapeño，Anthropic也在今年4月被报道正考虑自研AI芯片。\nDeepSeek创始人梁文锋在2024年一次罕见的媒体采访中曾透露，芯片不足对公司构成了挑战。\nR1模型的底座是在英伟达H800上训练的，此后DeepSeek转向华为昇腾，今年4月发布的V4模型已适配昇腾芯片，华为也确认其处理器参与了V4-Flash的部分训练。\n但鸡蛋放在两个篮子里，DeepSeek也觉得不够。\nDeepSeek这款自研芯片专为推理设计。\n随着AI应用大规模铺开，行业算力需求的重心正从训练向推理快速倾斜。训练是一次性投入，而推理是持续性消耗，每一个用户的每一次提问，都需要推理算力来响应。\n针对推理场景定制的专用芯片，能够比通用GPU实现更低的功耗和更低的单位成本，这对于一家正在走向商业化的AI公司来说至关重要。\nDeepSeek在模型设计层面早已为硬件协同做了铺垫。\nDeepSeek-V3.1引入的UE8M0 FP8数据格式，被认为是专门为下一代国产芯片的硬件特性而设计的，算法团队在写模型的时候就在想芯片的事。\n不过挑战同样巨大，设计一款有竞争力的AI芯片通常需要数年时间和巨额资金投入，目前尚无法保证成功。\n510亿融资落袋，算力基建同步铺开\n支撑这一计划的是真金白银。\n2026年6月，DeepSeek完成了成立以来的首轮外部融资，筹集约510亿元人民币（约74亿美元），投后估值在520亿至590亿美元之间。这家公司此前多年一直拒绝外部投资，此次开放融资本身就是重大战略转向。\n资金用途已经明确：扩建以国产芯片为主的算力中心、自研AI芯片、扩充全球顶尖人才团队。\n基础设施层面的动作同样在推进。DeepSeek已发布IDC设计规划工程师的招聘，计划参与从兆瓦级到吉瓦级数据中心的规划与建设，招聘信息中明确提到了内蒙古乌兰察布等建设地点。\nDeepSeek本身依然保持着一贯的低调。三位知情人士均要求匿名，公司层面也未做公开回应。\n但无论如何，这家改变了全球AI竞争节奏的公司，现在要改变的是它脚下的硬件底座。\n参考链接：\n[1]\nhttps://www.reuters.com/world/china/chinas-deepseek-developing-its-own-ai-chip-sources-say-2026-07-07/\n- 钉钉A1录音卡入选Gartner AI可穿戴设备报告2026-07-02\n- 太空算力的国产答案：用光子更高效！马斯克和老黄都太绕了2026-06-29\n- Claude Mythos让梁文锋决定融资2026-06-29\n- AI硬件席卷618，钉钉A1包揽天猫、抖音、京东销量冠军2026-06-22",
       "published_at": "2026-07-08",
       "source": "qbitai_com"
+    },
+    {
+      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
+      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
+      "text": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?",
+      "published_at": "2026-07-08",
+      "source": "discuss_huggingface_co"
     }
   ]
 }

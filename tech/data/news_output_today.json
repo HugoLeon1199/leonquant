@@ -1,8 +1,19 @@
 {
-  "generated_at": "2026-07-08T18:37:02.492075+00:00",
-  "count": 26,
+  "generated_at": "2026-07-08T20:40:19.231762+00:00",
+  "count": 29,
   "source_error_count": 0,
   "articles": [
+    {
+      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
+      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
+      "summary": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
     {
       "title": "DeepSeek秘密造芯！专攻推理，一年前已启动，招聘全程不公开",
       "url": "https://www.qbitai.com/2026/07/445883.html",
@@ -136,6 +147,17 @@
       "macro_score": 1
     },
     {
+      "title": "Looking for a Multi-GPU Server to Run DeepSeek-Prover-V2-671B (Can Pay)",
+      "url": "https://discuss.huggingface.co/t/looking-for-a-multi-gpu-server-to-run-deepseek-prover-v2-671b-can-pay/177557",
+      "summary": "I’m a PhD researcher working in AI and automated mathematical theorem proving.\nI’m looking for access to a multi-GPU server capable of running DeepSeek-Prover-V2-671B.\nSuitable configurations include:\n- 8× H100 80GB\n- 8× H200\n- 8× B200\n- 16× H100\n- DGX/HGX H100\n- Or any equivalent multi-GPU cluster with enough VRAM to run the model.\nI’m happy to pay for GPU usage.\nIf you have access to such hardware, or know someone who does, please send me a DM\nIf everything goes well, I’d also be interested in long-term collaboration for future research projects.\nThank you!",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Should AI agents have working hours like human employees?",
       "url": "https://forum.langchain.com/t/should-ai-agents-have-working-hours-like-human-employees/4123",
       "summary": "We expect AI to be available 24/7, but should it always be?\nImagine an AI executive assistant that intentionally batches notifications, delays non-urgent interruptions, and only escalates high-priority issues outside “working hours.”\nCould an AI that knows when not to interrupt you actually make us more productive?\nWhere would you draw the line between responsiveness and respecting focus?",
@@ -152,17 +174,6 @@
       "summary": "Hi,\nWe have an OData API (REST) to manage checkpoints and checkpoint writes and don’t unfortunately have a way to bypass the API layer and directly perform checkpoint operations on the DB layer itself. I see that existing checkpoint such as postgres and others are directly at DB-layer. Any suggestions for checkpoints via API layer.\nBest, Santosh\n             \n            \n           \n          \n            \n            \n              Hi @santosh-nallur\nyes, this can work. LangGraph does not require the checkpointer to talk directly to a DB. Postgres and SQLite savers are just implementations of the BaseCheckpointSaver contract. In your case I’d build a custom saver that maps put/aput, put_writes/aput_writes, get_tuple/aget_tuple, list/alist, and delete_thread/adelete_thread to your OData API.\nThe main thing is to preserve the same semantics: checkpoints should be keyed by thread_id, checkpoint_ns, and checkpoint_id, and writes should be linked to the same checkpoint plus task_id, task_path, and write index. Make sure get_tuple can fetch both the latest checkpoint and a specific checkpoint_id, since replay, time travel, pending writes, and delta-channel reconstruction depend on that.\nI’d also avoid hand-serializing checkpoint data as plain JSON. Use the LangGraph saver serde methods for checkpoints, metadata, and write values, then store the typed blob through your API, for example as binary or base64. Finally, run langgraph-checkpoint-conformance against the custom saver - it…",
       "published_at": "2026-07-08",
       "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
-      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
-      "summary": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -279,9 +290,31 @@
       "macro_score": 0
     },
     {
-      "title": "Looking for a Multi-GPU Server to Run DeepSeek-Prover-V2-671B (Can Pay)",
-      "url": "https://discuss.huggingface.co/t/looking-for-a-multi-gpu-server-to-run-deepseek-prover-v2-671b-can-pay/177557",
-      "summary": "I’m a PhD researcher working in AI and automated mathematical theorem proving.\nI’m looking for access to a multi-GPU server capable of running DeepSeek-Prover-V2-671B.\nSuitable configurations include:\n- 8× H100 80GB\n- 8× H200\n- 8× B200\n- 16× H100\n- DGX/HGX H100\n- Or any equivalent multi-GPU cluster with enough VRAM to run the model.\nI’m happy to pay for GPU usage.\nIf you have access to such hardware, or know someone who does, please send me a DM\nIf everything goes well, I’d also be interested in long-term collaboration for future research projects.\nThank you!",
+      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
+      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
+      "summary": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Newbie question about documentation",
+      "url": "https://discuss.huggingface.co/t/newbie-question-about-documentation/177590",
+      "summary": "Hi,\nSorry in advance for the newbie question but I am not sure where to start. I am looking to build my own stand alone AI platform on my home PC using llama.cpp. I am looking to learn something about how these systems are actually put together by doing it and hopefully becoming proficient. My interest id personal and not part of any academic or professional endeavour.\nMy system is Arch Linux and i have llama.cpp (stand alone cpu edition) installed. I know that I need a LLM installed next, which leads me to this site. My Linux skill level is intermediate and, although I can code, my skill level is home user and not professional. I can see by touring the site that there is a vast array of documentation available as well as extensive help and support. I am just not sure not sure where to start. Can anyone recommends a starting point? A document I should read first or advise if certain skills such as a certain programming language would be useful.\nMy areas of interest are where AI actually gets it’s information and knowledge base from and how personalities can be created and interacted with. My inspiration comes from those sites where you can design a personality and then interact with it.\nThanks,\nJC",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Hugging Chat page stuck",
+      "url": "https://discuss.huggingface.co/t/hugging-chat-page-stuck/177591",
+      "summary": "Hugging Face Forums\nHugging Chat page stuck\nBeginners\nCathleenTico\nJuly 8, 2026, 8:37pm\n1\nIs anyone else registered for Hugging Chat? I can’t get past the celebration page\nRelated topics\nTopic\nReplies\nViews\nActivity\nHuggingface chat not working\nBeginners\n2\n1073\nDecember 18, 2024\nHuggingChat - Preparing Space message\nBeginners\n3\n570\nJanuary 14, 2024\nHugging Chat pro\nBeginners\n1\n550\nDecember 11, 2025\nIs hugging chat down for anyone else?\nBeginners\n1\n72\nApril 8, 2025\nI have a problem in hugging chat\nBeginners\n0\n216\nApril 2, 2024",
       "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",

@@ -1,8 +1,8 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-07-08T18:37:47.318001+00:00",
+  "generated_at_utc": "2026-07-08T20:40:29.460485+00:00",
   "checked": 26,
-  "hit_count": 53,
+  "hit_count": 62,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
@@ -37,7 +37,7 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 7,
       "top_links": [
         {
           "title": "Qwen/Alibaba: GitHub release or repository signal",
@@ -60,9 +60,9 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Qwen cập nhật local multimodal stack cho nhà phát triển",
-          "url": "https://example.org/qwen-local-stack",
-          "source_lane": "normal_web"
+          "title": "CHINA - EMPLOYEE",
+          "url": "https://www.bankinfosecurity.com/alibaba-bans-claude-code-over-spy-like-tracking-code-a-32162",
+          "source_lane": "gdelt"
         }
       ],
       "no_signal_reason": ""
@@ -71,7 +71,7 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "DeepSeek: GitHub release or repository signal",
@@ -87,6 +87,16 @@
           "title": "DeepSeek: Hugging Face model or org signal",
           "url": "https://huggingface.co/deepseek-ai",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "DeepSeek秘密造芯！专攻推理，一年前已启动，招聘全程不公开",
+          "url": "https://www.qbitai.com/2026/07/445883.html",
+          "source_lane": "normal_web"
+        },
+        {
+          "title": "翁荔新博客提出「自进化先从Harness开始」，DeepSeek崔添翼转发附议",
+          "url": "https://www.qbitai.com/2026/07/446076.html",
+          "source_lane": "normal_web"
         }
       ],
       "no_signal_reason": ""
@@ -323,12 +333,17 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 2,
       "top_links": [
         {
           "title": "Veo: image/video workflow signal",
           "url": "https://deepmind.google/technologies/veo/",
           "source_lane": "image_video_workflow"
+        },
+        {
+          "title": "Lstm in c++/training tips",
+          "url": "https://discuss.huggingface.co/t/lstm-in-c-training-tips/177581",
+          "source_lane": "community"
         }
       ],
       "no_signal_reason": ""
@@ -384,12 +399,17 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 2,
       "top_links": [
         {
           "title": "fal.ai: image/video workflow signal",
           "url": "https://fal.ai/models",
           "source_lane": "image_video_workflow"
+        },
+        {
+          "title": "REUTERS",
+          "url": "https://www.moneycontrol.com/technology/before-meta-ai-chief-alexander-wang-s-big-ai-announcement-google-sent-meta-a-message-on-gemini-capacity-here-s-why-article-13968631.html",
+          "source_lane": "gdelt"
         }
       ],
       "no_signal_reason": ""
@@ -411,9 +431,9 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "Repo mới giúp theo dõi LangGraph và MCP tốt hơn",
-          "url": "https://github.com/example/mcp-observe",
-          "source_lane": "normal_web"
+          "title": "REUTERS - SERVER",
+          "url": "http://www.editorandpublisher.com/stories/reuters-launches-model-context-protocol-server-to-bring-trusted-news-directly-into-customers-ai,262502",
+          "source_lane": "gdelt"
         }
       ],
       "no_signal_reason": ""
@@ -422,7 +442,7 @@
       "entity": "LangGraph",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "LangGraph: GitHub release or repository signal",
@@ -433,6 +453,11 @@
           "title": "LangGraph: LangGraph source signal",
           "url": "https://www.langchain.com/langgraph",
           "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Any guidance for LangGraph Checkpoint Implementation for HTTP based service?",
+          "url": "https://forum.langchain.com/t/any-guidance-for-langgraph-checkpoint-implementation-for-http-based-service/4121",
+          "source_lane": "community"
         }
       ],
       "no_signal_reason": ""
@@ -468,7 +493,7 @@
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "Claude Code: GitHub release or repository signal",
@@ -479,6 +504,11 @@
           "title": "Claude Code: Claude Code source signal",
           "url": "https://docs.anthropic.com/en/docs/claude-code",
           "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "BANK - JAPAN",
+          "url": "https://www.waterstechnology.com/emerging-technologies/7953162/mufg-builds-internally-compliant-version-of-anthropics-claude-code",
+          "source_lane": "gdelt"
         }
       ],
       "no_signal_reason": ""
