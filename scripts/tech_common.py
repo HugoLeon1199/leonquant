@@ -39,6 +39,10 @@ TECH_GDELT_OUTPUT = DATA_DIR / "gdelt_pulse.json"
 TECH_GDELT_WEB_OUTPUT = WEB_DIR / "gdelt_pulse.json"
 TECH_PUBLICATION_OUTPUT = DATA_DIR / "publication.json"
 TECH_PUBLICATION_WEB_OUTPUT = WEB_DIR / "publication.json"
+TECH_FRONTIER_WATCHLIST = CONFIG_DIR / "frontier_watchlist.json"
+TECH_ROLLING_CANDIDATES = DATA_DIR / "candidates_rolling.json"
+TECH_WATCHLIST_STATUS = DATA_DIR / "watchlist_status.json"
+TECH_SOURCE_COVERAGE_MATRIX = REPORTS_DIR / "source_coverage_matrix.md"
 
 TECH_PUBLICATION_SCHEMA = "ai-frontier-radar-72h-v1"
 TECH_GDELT_SCHEMA = "tech-gdelt-72h-v1"
@@ -84,6 +88,10 @@ OFFICIAL_HOST_HINTS = {
     "mistral.ai",
     "cohere.com",
     "stability.ai",
+    "z.ai",
+    "docs.z.ai",
+    "bigmodel.cn",
+    "docs.bigmodel.cn",
     "riscv.org",
     "redhat.com",
     "docker.com",

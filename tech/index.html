@@ -330,7 +330,7 @@
           ${typeof item.importance !== "undefined" ? renderImportance(item.importance) : ""}
           <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
           <p>${esc(item.why_read || item.why_interesting || "")}</p>
-          <p style="margin-top:10px;"><strong>Leon nên làm gì:</strong> ${esc(item.apply_now || item.use_case || "")}</p>
+          <p style="margin-top:10px;"><strong>Ứng dụng khả dĩ:</strong> ${esc((item.possible_applications || [])[0] || item.apply_now || item.use_case || "")}</p>
           ${renderTags(item.tags)}
         </article>
       `;
@@ -347,7 +347,30 @@
           ])}
           <h3><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a></h3>
           <p>${esc(item.why_interesting || "")}</p>
-          <p style="margin-top:10px;"><strong>Gợi ý sử dụng:</strong> ${esc(item.use_case || "")}</p>
+          <p style="margin-top:10px;"><strong>Lý do giữ link:</strong> ${esc(item.one_line_reason || item.use_case || "")}</p>
+        </article>
+      `;
+    }
+
+    function renderClusterCard(cluster) {
+      const links = Array.isArray(cluster.links) ? cluster.links : [];
+      const apps = Array.isArray(cluster.possible_applications) ? cluster.possible_applications : [];
+      return `
+        <article class="story-card">
+          ${renderMeta([
+            cluster.signal_type || "signal",
+            cluster.confidence ? `confidence ${cluster.confidence}` : "",
+            (cluster.affected_ecosystem || []).slice(0, 2).join(" / "),
+          ])}
+          ${typeof cluster.importance !== "undefined" ? renderImportance(cluster.importance) : ""}
+          <h3>${esc(cluster.cluster_title || "")}</h3>
+          <p><strong>What happened:</strong> ${esc(cluster.takeaway || "")}</p>
+          <p><strong>What changed:</strong> ${esc(cluster.what_changed || "")}</p>
+          <p><strong>Why it matters:</strong> ${esc(cluster.why_it_matters || "")}</p>
+          <p><strong>Possible applications:</strong> ${esc(apps[0] || "")}</p>
+          <div class="link-list" style="margin-top:12px;">
+            ${links.map((link) => `<a class="mini-link" href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">${esc(link.title || link.url)}</a>`).join("")}
+          </div>
         </article>
       `;
     }
@@ -366,12 +389,13 @@
       const stats = payload.stats || {};
       const sections = payload.sections || {};
       const mustRead = Array.isArray(payload.must_read) ? payload.must_read : [];
+      const clusters = Array.isArray(payload.top_signal_clusters) ? payload.top_signal_clusters : [];
       const executiveSummary = Array.isArray(payload.executive_summary) ? payload.executive_summary : [];
       const windowHours = payload.window_hours || 72;
 
       document.getElementById("statsGrid").innerHTML = `
         <div class="stat"><span class="stat-label">Cửa sổ</span><span class="stat-value">${esc(windowHours)}h</span></div>
-        <div class="stat"><span class="stat-label">Must Read</span><span class="stat-value">${esc(mustRead.length)}</span></div>
+        <div class="stat"><span class="stat-label">Top Signals</span><span class="stat-value">${esc(clusters.length)}</span></div>
         <div class="stat"><span class="stat-label">Full Radar</span><span class="stat-value">${esc((sections.full_link_radar || []).length)}</span></div>
         <div class="stat"><span class="stat-label">Candidate live</span><span class="stat-value">${esc(stats.candidate_count || 0)}</span></div>
       `;
@@ -384,12 +408,12 @@
       ));
 
       blocks.push(renderSection(
-        "Must Read",
-        `<div class="must-read-list">${mustRead.map(renderMustReadCard).join("")}</div>`
+        "Top Signal Clusters",
+        `<div class="must-read-list">${clusters.map(renderClusterCard).join("")}</div>`
       ));
 
       blocks.push(renderSection(
-        "Ý tưởng có thể làm ngay cho Leon",
+        "Optional Applications",
         `<div class="idea-list">${(sections.founder_ideas_for_leon || []).map(renderIdeaCard).join("")}</div>`
       ));
 

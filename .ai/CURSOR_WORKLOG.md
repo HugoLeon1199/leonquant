@@ -805,3 +805,54 @@ Validation status snapshot live:
 - Section counts: local_ai=1, automation=2, open_source=1, knowledge=3, founder_ideas=6.
 - /tech/ render check: knowledge=True; founder_ideas=True.
 - Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
+
+## 2026-07-06 - Tech Frontier Watchlist and Must Read source-quality fix
+
+- Scope: standalone `tech/` + Pages workflow trigger only; Tin48h, Invest and World LIVE logic unchanged.
+- Added `tech/config/frontier_watchlist.json` with 11 China/frontier AI entities: Zhipu/Z.ai, Qwen/Alibaba, Kimi/Moonshot, MiniMax, DeepSeek, Doubao/ByteDance, Hunyuan/Tencent, StepFun, InternLM, SenseTime, Baichuan.
+- Added official/direct source metadata for Zhipu/GLM: Z.ai blog, Z.ai docs, BigModel docs/release notes, Hugging Face `zai-org`, GitHub `zai-org`.
+- Added watchlist acquisition before curator: candidates can carry `matched_entity`, `matched_alias`, `source_type`, `signal_type`, `trend_status`, and watchlist evidence.
+- GLM-5.2 fixture detected: yes. Fixture expects Z.ai/Zhipu/GLM-5.2 to appear as a candidate, category `model` or `local_ai`, matched_entity `Zhipu/Z.ai`, main section inclusion, and Must Read consideration when official/independent.
+- Current local artifact data still has GLM-5.2 detected: no, because existing 72h crawl/GDELT artifact does not include GLM/Zhipu/Z.ai signal.
+- Temp rebuild from current local data after source-quality fix: watchlist entities=11; candidates_from_watchlist=3; Must Read source type `{'community': 1, 'independent': 1}`; main candidates official=0, independent=1, community=8.
+- Must Read ranking now prefers official/independent and does not fill above 50% community when non-community candidates exist; importance=1 requires `evidence=exploratory`.
+- Validator now fails Must Read community share >50% when any non-community main candidate exists, and requires `stats.must_read_quality_warning` if such an artifact is produced.
+- Pages workflow includes Tech Radar: yes (`.github/workflows/pages.yml` workflow_run now includes `Tech Radar`).
+- Tests: `python -m py_compile ...` pass; `python scripts/test_tech_pipeline.py` pass; temp `tech/publication.py` + `tech/validate_publication.py --input <temp>` pass. Existing committed `tech/data/publication.json` was not regenerated locally because local run is offline/fallback and current data lacks GLM-5.2.
+
+## 2026-07-08 - AI Frontier Radar cluster/lane hardening
+
+- Scope: standalone `tech/`, Tech workflow, Tech GDELT SQL/Python filter, Tech frontend only. Tin48h, Invest and World LIVE logic unchanged.
+- Goal: move AI Frontier Radar 72h toward an objective signal radar: what happened, what changed, why it matters, affected ecosystem, evidence links, and neutral possible applications.
+- Data refresh split: `.github/workflows/tech-radar.yml` now runs crawl + GDELT acquisition on every scheduled/manual Tech run; only `tech/data/publication.json` / `tech/web/publication.json` are gated by 72h publish age. When publish is skipped, builder writes temp publication only to refresh rolling/status/matrix artifacts.
+- `tech/crawl.py` no longer skips by publication age by default; `--respect-publish-gate` is now opt-in.
+- Expanded `tech/config/frontier_watchlist.json` to 26 entities: China AI, Flux/BFL, ComfyUI, Runway, Kling, Veo, Sora, HunyuanVideo, OpenRouter, Replicate, fal.ai, MCP, LangGraph, LlamaIndex, Cursor, Claude Code, OpenHands.
+- Candidate contract now includes `source_lane`, `matched_entity`, `matched_alias`, `published_at`, `discovered_at`, `time_verified`, `evidence`, `url`, `title`.
+- Added lanes beyond normal_web/GDELT: `frontier_watchlist`, `model_hub`, `github_release`, `huggingface_model`, `image_video_workflow`, `community`.
+- Added rolling 7-day candidate artifact: `tech/data/candidates_rolling.json`.
+- Added watchlist run artifact: `tech/data/watchlist_status.json`.
+- Added coverage report: `tech/reports/source_coverage_matrix.md`.
+- Added `top_signal_clusters` to publication and made `/tech/` prefer Top Signal Clusters over article-level Must Read; legacy Must Read remains for backward compatibility.
+- Full Link Radar is compact and includes `title`, `url`, `source`, `category`, `cluster_id`, `one_line_reason`, `source_lane`, `published_at`, while keeping old fields for compatibility.
+- GDELT hardening: expanded SQL/Python entity keywords for GLM/Z.ai/Zhipu, Flux, ComfyUI, video AI, OpenRouter/Replicate/fal.ai, MCP/LangGraph/LlamaIndex/Cursor/Claude Code/OpenHands; previous-event reuse now marks `reused_previous_events`, `fresh_event_count`, and `previous_events_age_hours`.
+- Validator now checks watchlist/status presence, checked entities, top clusters, lane counts, model_hub/image_video candidates, compact Full Radar, GDELT reuse labeling, and over-personalized clusters.
+
+### Local artifact stats
+- generated_at_utc: `2026-07-08T18:20:21.311015+00:00`
+- active sources: 7
+- candidates by lane: `github_release=12`, `frontier_watchlist=21`, `huggingface_model=6`, `model_hub=4`, `image_video_workflow=8`, `gdelt=27`, `normal_web=1`, `community=9`
+- watchlist checked/hit: `26 / 55`
+- GDELT fresh/reused: `fresh_event_count=40`, `reused_previous_events=False`
+- top_signal_clusters: 10
+- full_link_radar: 88
+- must_read: 20, source mix `official=20`
+
+### Tests
+- `.\.venv\Scripts\python.exe -m py_compile tech\crawl.py scripts\build_tech_publication.py scripts\validate_tech_publication.py scripts\run_tech_gdelt.py scripts\test_tech_pipeline.py scripts\tech_common.py` -> pass
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass
+- `.\.venv\Scripts\python.exe tech\publication.py` with `LEON_TECH_OFFLINE_TEST=1` -> pass
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass
+
+### Remaining risks
+- Local rebuild used offline curator mode; production Actions should be run with real Gemini/GDELT credentials for editorial copy quality.
+- Active sources remain low (`7 / 100`), so source coverage is structurally weak even though watchlist/hub lanes now prevent 72h gate from hiding hot signals.

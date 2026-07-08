@@ -56,7 +56,7 @@ jobs:
 
           path = Path("tech/data/publication.json")
           if not path.is_file():
-              set_output("run_tech", "true")
+              set_output("run_publish", "true")
               set_output("age_hours", "9999")
               print("Missing publication artifact, running tech refresh.")
               raise SystemExit(0)
@@ -64,7 +64,7 @@ jobs:
           payload = json.loads(path.read_text(encoding="utf-8"))
           stamp = str(payload.get("generated_at_utc") or payload.get("generated_at") or "").strip()
           if not stamp:
-              set_output("run_tech", "true")
+              set_output("run_publish", "true")
               set_output("age_hours", "9999")
               print("Publication has no timestamp, running tech refresh.")
               raise SystemExit(0)
@@ -73,12 +73,12 @@ jobs:
               dt = dt.replace(tzinfo=timezone.utc)
           age_hours = (datetime.now(timezone.utc) - dt.astimezone(timezone.utc)).total_seconds() / 3600.0
           manual_dispatch = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
-          run_tech = manual_dispatch or age_hours >= 72.0
-          set_output("run_tech", "true" if run_tech else "false")
+          run_publish = manual_dispatch or age_hours >= 72.0
+          set_output("run_publish", "true" if run_publish else "false")
           set_output("age_hours", f"{age_hours:.2f}")
-          print(f"Tech publish age {age_hours:.1f}h; manual_dispatch={manual_dispatch}; run_tech={run_tech}.")
-          if not run_tech:
-              print(f"Tech publish age {age_hours:.1f}h < 72h, skipping tech refresh.")
+          print(f"Tech publish age {age_hours:.1f}h; manual_dispatch={manual_dispatch}; run_publish={run_publish}.")
+          if not run_publish:
+              print(f"Tech publish age {age_hours:.1f}h < 72h, refreshing data only.")
           PY
 
       - name: Install crawl + GDELT deps
@@ -88,17 +88,15 @@ jobs:
           pip install -r requirements-gdelt.txt
 
       - name: Restore tech DuckDB cache
-        if: steps.gate.outputs.run_tech == 'true'
         uses: actions/cache@v4
         id: cache-tech-db
         with:
           path: tech/data/web_intel_tech.duckdb
-          key: intel-tech-db-v1-${{ hashFiles('tech/data/web_intel_tech.duckdb.gz', 'tech/config/sources_active.txt', 'tech/config/tech_tiers/*.txt', 'tech/reports/source_validation.json') }}
+          key: intel-tech-db-v1-${{ hashFiles('tech/data/web_intel_tech.duckdb.gz', 'tech/config/sources_active.txt', 'tech/config/frontier_watchlist.json', 'tech/config/tech_tiers/*.txt', 'tech/reports/source_validation.json') }}
           restore-keys: |
             intel-tech-db-v1-
 
       - name: Bootstrap tech DuckDB
-        if: steps.gate.outputs.run_tech == 'true'
         run: |
           mkdir -p tech/data
           if [ ! -f tech/data/web_intel_tech.duckdb ] && [ -f tech/data/web_intel_tech.duckdb.gz ]; then
@@ -106,12 +104,10 @@ jobs:
           fi
 
       - name: Crawl validated tech sources
-        if: steps.gate.outputs.run_tech == 'true'
         run: |
           python tech/crawl.py
 
       - name: Write GCP credentials
-        if: steps.gate.outputs.run_tech == 'true'
         env:
           GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
         run: |
@@ -122,7 +118,6 @@ jobs:
           printf '%s' "$GCP_SA_JSON" > credentials.json
 
       - name: Run tech GDELT pulse
-        if: steps.gate.outputs.run_tech == 'true'
         id: gdelt
         env:
           GOOGLE_APPLICATION_CREDENTIALS: credentials.json
@@ -143,7 +138,7 @@ jobs:
           TECH_GDELT_ESTIMATED_BYTES="$ESTIMATED_BYTES" python tech/gdelt.py
 
       - name: Build + validate tech publication
-        if: steps.gate.outputs.run_tech == 'true'
+        if: steps.gate.outputs.run_publish == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.1-flash-lite' }}
@@ -152,17 +147,26 @@ jobs:
           python tech/validate_publication.py
           python tech/test_pipeline.py
 
+      - name: Refresh rolling tech candidates
+        if: steps.gate.outputs.run_publish != 'true'
+        env:
+          LEON_TECH_OFFLINE_TEST: "1"
+        run: |
+          python tech/publication.py --output .tmp_tech_publication.json --web-output .tmp_tech_publication_web.json
+          rm -f .tmp_tech_publication.json .tmp_tech_publication_web.json
+
       - name: Update tech worklog
-        if: steps.gate.outputs.run_tech == 'true'
         run: |
           python tech/update_worklog.py
 
       - name: Commit tech artifacts
-        if: steps.gate.outputs.run_tech == 'true'
         run: |
           git config user.name "tech-radar-bot"
           git config user.email "tech-radar-bot@users.noreply.github.com"
-          git add .ai/CURSOR_WORKLOG.md tech/config/sources_active.txt tech/config/sources_disabled.txt tech/config/tech_tiers/*.txt tech/config/tech_tiers_manifest.json tech/reports/source_validation.json tech/reports/source_validation.md tech/data/news_output_today.json tech/data/news_output_all.json tech/data/news_for_ai.json tech/data/news_for_ai_clean.json tech/data/gdelt_pulse.json tech/web/gdelt_pulse.json tech/data/publication.json tech/web/publication.json
+          git add .ai/CURSOR_WORKLOG.md tech/config/frontier_watchlist.json tech/config/sources_active.txt tech/config/sources_disabled.txt tech/config/tech_tiers/*.txt tech/config/tech_tiers_manifest.json tech/reports/source_validation.json tech/reports/source_validation.md tech/reports/source_coverage_matrix.md tech/data/candidates_rolling.json tech/data/watchlist_status.json tech/data/news_output_today.json tech/data/news_output_all.json tech/data/news_for_ai.json tech/data/news_for_ai_clean.json tech/data/gdelt_pulse.json tech/web/gdelt_pulse.json
+          if [ "${{ steps.gate.outputs.run_publish }}" = "true" ]; then
+            git add tech/data/publication.json tech/web/publication.json
+          fi
           if git diff --staged --quiet; then
             echo "No tech artifact changes"
             exit 0
@@ -179,8 +183,8 @@ jobs:
           exit 1
 
       - name: Save tech DuckDB cache
-        if: steps.gate.outputs.run_tech == 'true' && success()
+        if: success()
         uses: actions/cache/save@v4
         with:
           path: tech/data/web_intel_tech.duckdb
-          key: intel-tech-db-v1-${{ hashFiles('tech/data/web_intel_tech.duckdb.gz', 'tech/config/sources_active.txt', 'tech/config/tech_tiers/*.txt', 'tech/reports/source_validation.json') }}
+          key: intel-tech-db-v1-${{ hashFiles('tech/data/web_intel_tech.duckdb.gz', 'tech/config/sources_active.txt', 'tech/config/frontier_watchlist.json', 'tech/config/tech_tiers/*.txt', 'tech/reports/source_validation.json') }}

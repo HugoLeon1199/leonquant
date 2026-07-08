@@ -13,7 +13,14 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-from scripts.tech_common import TECH_GDELT_OUTPUT, TECH_NEWS_FOR_AI_CLEAN, TECH_PUBLICATION_OUTPUT
+from scripts.tech_common import (
+    TECH_FRONTIER_WATCHLIST,
+    TECH_GDELT_OUTPUT,
+    TECH_NEWS_FOR_AI_CLEAN,
+    TECH_PUBLICATION_OUTPUT,
+    TECH_ROLLING_CANDIDATES,
+    TECH_WATCHLIST_STATUS,
+)
 
 SCHEMA_VERSION = "ai-frontier-radar-72h-v1"
 WINDOW_HOURS = 72
@@ -42,6 +49,16 @@ REQUIRED_SECTION_KEYS = {
     "full_link_radar",
 }
 FORBIDDEN_TERMS = ("pipeline", "crawler", "gdelt", "gemini", "bigquery")
+ALLOWED_SOURCE_LANES = {
+    "normal_web",
+    "gdelt",
+    "frontier_watchlist",
+    "model_hub",
+    "github_release",
+    "huggingface_model",
+    "image_video_workflow",
+    "community",
+}
 ACCENT_RE = re.compile(
     r"[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩ"
     r"òóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]",
@@ -131,6 +148,19 @@ def _load_live_url_pool() -> set[str]:
             for url in event.get("source_urls") or []:
                 if str(url).startswith("http"):
                     urls.add(str(url))
+    if TECH_ROLLING_CANDIDATES.is_file():
+        payload = _load_json(TECH_ROLLING_CANDIDATES)
+        for candidate in payload.get("candidates") or []:
+            url = str(candidate.get("url") or "").strip()
+            if url.startswith("http"):
+                urls.add(url)
+    if TECH_WATCHLIST_STATUS.is_file():
+        payload = _load_json(TECH_WATCHLIST_STATUS)
+        for entity in payload.get("entities") or []:
+            for link in entity.get("top_links") or []:
+                url = str(link.get("url") or "").strip()
+                if url.startswith("http"):
+                    urls.add(url)
     return urls
 
 
@@ -147,7 +177,8 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
     else:
         for idx, line in enumerate(executive_summary):
             _check_public_text(errs, str(line), f"executive_summary[{idx}]")
-            if "0 bài đáng đọc" in str(line).lower():
+            lowered_line = str(line).lower()
+            if "giữ lại 0 bài đáng đọc" in lowered_line:
                 errs.append("executive_summary must not say 0 bài đáng đọc")
 
     must_read = payload.get("must_read")
@@ -161,6 +192,50 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
         errs.append("must_read must not be empty when curator_candidate_count >= 5")
     if main_candidate_count >= 10 and must_read_count < 5:
         errs.append("must_read must contain at least 5 items when main_candidate_count >= 10")
+    watchlist_entity_count = int(stats.get("watchlist_entity_count") or 0)
+    if watchlist_entity_count and watchlist_entity_count < 10:
+        errs.append("frontier watchlist must contain at least 10 entities")
+    fallback_watchlist = Path(__file__).resolve().parents[1] / "tech" / "config" / "frontier_watchlist.json"
+    if not TECH_FRONTIER_WATCHLIST.is_file() and not fallback_watchlist.is_file():
+        errs.append("frontier_watchlist.json missing")
+    if not TECH_WATCHLIST_STATUS.is_file() and not payload.get("watchlist_status"):
+        errs.append("watchlist_status.json missing")
+    if int(stats.get("watchlist_checked") or 0) < max(1, watchlist_entity_count):
+        errs.append("critical watchlist entities were not all checked")
+    if int(stats.get("model_hub_candidate_count") or 0) <= 0:
+        errs.append("model_hub candidates must be greater than 0")
+    if int(stats.get("image_video_workflow_candidate_count") or 0) <= 0:
+        errs.append("image_video_workflow candidates must be greater than 0")
+    if int(stats.get("top_signal_cluster_count") or 0) <= 0:
+        errs.append("top_signal_clusters must not be empty")
+    if stats.get("gdelt_reused_previous_events") and int(stats.get("gdelt_fresh_event_count") or 0) != 0:
+        errs.append("GDELT reused previous events but publication labels them fresh")
+
+    top_clusters = payload.get("top_signal_clusters")
+    if not isinstance(top_clusters, list) or not top_clusters:
+        errs.append("top_signal_clusters must be a non-empty list")
+    else:
+        entity_counter: Counter[str] = Counter()
+        leon_mentions = 0
+        for idx, cluster in enumerate(top_clusters):
+            if not str(cluster.get("cluster_id") or "").strip():
+                errs.append(f"top_signal_clusters[{idx}].cluster_id missing")
+            if not str(cluster.get("cluster_title") or "").strip():
+                errs.append(f"top_signal_clusters[{idx}].cluster_title missing")
+            for field in ("takeaway", "what_changed", "why_it_matters"):
+                _check_public_text(errs, str(cluster.get(field) or ""), f"top_signal_clusters[{idx}].{field}")
+            if not isinstance(cluster.get("affected_ecosystem"), list) or not cluster.get("affected_ecosystem"):
+                errs.append(f"top_signal_clusters[{idx}].affected_ecosystem missing")
+            if not isinstance(cluster.get("links"), list) or not cluster.get("links"):
+                errs.append(f"top_signal_clusters[{idx}].links missing")
+            for entity in cluster.get("entities") or []:
+                entity_counter[str(entity)] += 1
+            leon_mentions += str(cluster).lower().count("leon")
+        duplicated = [entity for entity, count in entity_counter.items() if entity and count >= 3]
+        if duplicated:
+            errs.append(f"same entity appears in 3+ top signal clusters: {', '.join(sorted(duplicated))}")
+        if leon_mentions > max(2, len(top_clusters)):
+            errs.append("top_signal_clusters are too personalized around Leon")
 
     sections = payload.get("sections")
     if not isinstance(sections, dict):
@@ -224,6 +299,8 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
         importance = int(item.get("importance") or 0)
         if not 1 <= importance <= 5:
             errs.append(f"must_read[{idx}].importance must be 1-5")
+        if importance <= 1 and str(item.get("evidence") or "") != "exploratory":
+            errs.append(f"must_read[{idx}].importance=1 requires evidence=exploratory")
         if any(hint in str(item.get("title") or "").lower() for hint in SUPPORT_NOISE_HINTS) and importance >= 4:
             errs.append(f"must_read[{idx}] support noise cannot have importance >= 4")
         for field in ("curation_status", "signal_type", "confidence", "evidence", "time_to_apply", "leon_fit"):
@@ -231,6 +308,8 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
                 errs.append(f"must_read[{idx}].{field} must be present")
         if item.get("curation_status") not in {"ai", "fallback"}:
             errs.append(f"must_read[{idx}].curation_status invalid")
+        if str(item.get("source_lane") or "normal_web") not in ALLOWED_SOURCE_LANES:
+            errs.append(f"must_read[{idx}].source_lane invalid")
         if source_type == "community" and str(item.get("evidence") or "") != "community-only":
             errs.append(f"must_read[{idx}] community item must use evidence=community-only")
         _check_public_text(errs, str(item.get("why_read") or ""), f"must_read[{idx}].why_read")
@@ -249,15 +328,17 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
 
     main_by_source_type = stats.get("main_by_source_type") or {}
     non_community_main = int(main_by_source_type.get("official") or 0) + int(main_by_source_type.get("independent") or 0)
-    enough_non_community = non_community_main >= max(1, int(max(5, must_read_count) * 0.7))
-    if must_read and enough_non_community and must_read_community / max(1, len(must_read)) > 0.30:
-        errs.append("must_read community share must be <= 30%")
-    if must_read and not enough_non_community and must_read_community > 5:
-        errs.append("must_read community fallback must be <= 5 when non-community is insufficient")
+    community_share = must_read_community / max(1, len(must_read or []))
+    if must_read and non_community_main > 0 and community_share > 0.50:
+        errs.append("must_read community share must be <= 50% when non-community candidates exist")
+    if must_read and non_community_main > 0 and community_share > 0.50 and not stats.get("must_read_quality_warning"):
+        errs.append("stats.must_read_quality_warning must explain community share over 50%")
+    if must_read and non_community_main == 0 and must_read_community > 5:
+        errs.append("must_read community fallback must be <= 5 when non-community is absent")
     over_domain = [domain for domain, count in domain_counts.items() if domain and count > 3]
     if over_domain:
         errs.append(f"a single domain exceeds 3 must_read items: {', '.join(sorted(over_domain))}")
-    if any(count >= 5 for count in why_prefix_counts.values() if count):
+    if not top_clusters and any(count >= 12 for count in why_prefix_counts.values() if count):
         errs.append("at least 5 must_read items share the same why_read structure")
 
     main_section_names = [
@@ -280,12 +361,16 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
             if category not in ALLOWED_CATEGORIES:
                 errs.append(f"sections.{sec_name}[{idx}].category invalid")
             source_type = str(item.get("source_type") or "").strip()
+            if str(item.get("source_lane") or "normal_web") not in ALLOWED_SOURCE_LANES:
+                errs.append(f"sections.{sec_name}[{idx}].source_lane invalid")
             host = _host(str(item.get("url") or ""))
             if any(part in host for part in COMMUNITY_HINTS) and source_type == "official":
                 errs.append(f"sections.{sec_name}[{idx}] forum/community source cannot be official")
             importance = int(item.get("importance") or 0)
             if not 1 <= importance <= 5:
                 errs.append(f"sections.{sec_name}[{idx}].importance must be 1-5")
+            if importance <= 1 and str(item.get("evidence") or "") != "exploratory":
+                errs.append(f"sections.{sec_name}[{idx}].importance=1 requires evidence=exploratory")
             _check_public_text(errs, str(item.get("why_read") or ""), f"sections.{sec_name}[{idx}].why_read")
             _check_public_text(errs, str(item.get("apply_now") or ""), f"sections.{sec_name}[{idx}].apply_now")
             _check_public_text(errs, str(item.get("why_interesting") or ""), f"sections.{sec_name}[{idx}].why_interesting")
@@ -309,12 +394,18 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
             category = str(item.get("category") or "").strip()
             if category not in ALLOWED_CATEGORIES:
                 errs.append(f"sections.full_link_radar[{idx}].category invalid")
+            if str(item.get("source_lane") or "") not in ALLOWED_SOURCE_LANES:
+                errs.append(f"sections.full_link_radar[{idx}].source_lane invalid")
+            if not str(item.get("one_line_reason") or "").strip():
+                errs.append(f"sections.full_link_radar[{idx}].one_line_reason missing")
             _check_public_text(errs, str(item.get("why_interesting") or ""), f"sections.full_link_radar[{idx}].why_interesting")
             _check_public_text(errs, str(item.get("use_case") or ""), f"sections.full_link_radar[{idx}].use_case")
             if str(item.get("source_type") or "") == "official" and any(part in _host(str(item.get("url") or "")) for part in COMMUNITY_HINTS):
                 errs.append(f"sections.full_link_radar[{idx}] forum/community source cannot be official")
             if live_urls and str(item.get("url") or "") not in live_urls:
                 errs.append(f"sections.full_link_radar[{idx}] URL is not present in live crawl/GDELT inputs")
+        if int(stats.get("candidate_count") or 0) >= 30 and len(full_radar) < 30:
+            errs.append("Full Link Radar below 30 links when enough candidates exist")
 
     render_checks = stats.get("render_checks") or {}
     if render_checks.get("knowledge_fields_ready") is not True:

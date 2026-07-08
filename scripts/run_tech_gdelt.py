@@ -28,7 +28,11 @@ SQL_PATH = ROOT / "sql" / "gdelt_tech_pulse.sql"
 STRONG_AI_RE = re.compile(
     r"\b(model|llm|large language model|generative ai|genai|agent|agents|agentic|mcp|"
     r"gpu|semiconductor|robotics|automation|ai startup|openai|anthropic|deepmind|"
-    r"gemini|claude|chatgpt|nvidia|mistral|hugging face|qwen|deepseek|llama)\b",
+    r"gemini|claude|chatgpt|nvidia|mistral|hugging face|qwen|deepseek|llama|"
+    r"glm|z\.ai|zhipu|bigmodel|kimi|moonshot|minimax|doubao|hunyuan|flux|"
+    r"black forest labs|comfyui|stable diffusion|lora|controlnet|sdxl|runway|"
+    r"kling|veo|sora|hunyuanvideo|openrouter|replicate|fal\.ai|vllm|sglang|"
+    r"langgraph|llamaindex|cursor|claude code|openhands)\b",
     re.IGNORECASE,
 )
 POLITICS_WAR_RE = re.compile(
@@ -91,8 +95,17 @@ def companies_from_blob(blob: str) -> list[str]:
         "OpenAI", "Anthropic", "Google", "DeepMind", "Meta", "Microsoft", "NVIDIA",
         "xAI", "Mistral", "Cohere", "Hugging Face", "Databricks", "TSMC", "AMD",
         "Intel", "Broadcom", "ASML", "Alibaba", "Baidu", "Tencent", "Huawei",
+        "Z.ai", "Zhipu", "BigModel", "Qwen", "DeepSeek", "Kimi", "Moonshot",
+        "MiniMax", "Doubao", "Hunyuan", "Black Forest Labs", "ComfyUI",
+        "Runway", "Kling", "Veo", "Sora", "OpenRouter", "Replicate",
+        "fal.ai", "LangGraph", "LlamaIndex", "Cursor", "Claude Code", "OpenHands",
     ]
-    out = [name for name in names if name.lower() in blob.lower()]
+    aliases = {"智谱": "Zhipu", "混元": "Hunyuan", "豆包": "Doubao"}
+    low = blob.lower()
+    out = [name for name in names if name.lower() in low]
+    for alias, canonical in aliases.items():
+        if alias in blob and canonical not in out:
+            out.append(canonical)
     return out[:8]
 
 
@@ -102,6 +115,11 @@ def signal_keywords_from_blob(blob: str) -> list[str]:
         "mcp", "gpu", "semiconductor", "robotics", "automation", "ai startup",
         "openai", "anthropic", "deepmind", "gemini", "claude", "chatgpt",
         "nvidia", "mistral", "hugging face", "qwen", "deepseek", "llama",
+        "glm", "z.ai", "zhipu", "智谱", "bigmodel", "kimi", "moonshot",
+        "minimax", "doubao", "hunyuan", "flux", "black forest labs", "comfyui",
+        "stable diffusion", "lora", "controlnet", "sdxl", "runway", "kling",
+        "veo", "sora", "hunyuanvideo", "openrouter", "replicate", "fal.ai",
+        "vllm", "sglang", "langgraph", "llamaindex", "cursor", "claude code", "openhands",
     ]
     low = blob.lower()
     return [kw for kw in keywords if kw in low][:8]
@@ -220,6 +238,9 @@ def main() -> int:
         "processed_bytes": processed_bytes,
         "bytes_status": bytes_status(estimated_bytes, processed_bytes),
         "ran_successfully": True,
+        "reused_previous_events": False,
+        "fresh_event_count": len(events),
+        "previous_events_age_hours": 0,
         "raw_event_count": len(raw_rows),
         "ai_filtered_event_count": len(events),
         "rejected_non_ai_count": max(0, len(raw_rows) - len(events)),
@@ -228,12 +249,25 @@ def main() -> int:
     if not events:
         existing = load_existing(args.output)
         if existing is not None:
+            previous_generated = str(existing.get("generated_at_utc") or "").strip()
+            previous_age_hours = 0.0
+            if previous_generated:
+                try:
+                    previous_dt = datetime.fromisoformat(previous_generated.replace("Z", "+00:00"))
+                    if previous_dt.tzinfo is None:
+                        previous_dt = previous_dt.replace(tzinfo=timezone.utc)
+                    previous_age_hours = max(0.0, (datetime.now(timezone.utc) - previous_dt.astimezone(timezone.utc)).total_seconds() / 3600.0)
+                except ValueError:
+                    previous_age_hours = 0.0
             existing["estimated_bytes"] = payload["estimated_bytes"]
             existing["processed_bytes"] = payload["processed_bytes"]
             existing["bytes_status"] = payload["bytes_status"]
             existing["generated_at_utc"] = payload["generated_at_utc"]
             existing["query_window_hours"] = 72
             existing["ran_successfully"] = True
+            existing["reused_previous_events"] = True
+            existing["fresh_event_count"] = 0
+            existing["previous_events_age_hours"] = round(previous_age_hours, 2)
             existing["raw_event_count"] = payload["raw_event_count"]
             existing["ai_filtered_event_count"] = payload["ai_filtered_event_count"]
             existing["rejected_non_ai_count"] = payload["rejected_non_ai_count"]

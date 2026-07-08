@@ -1,0 +1,267 @@
+{
+  "schema_version": "frontier-watchlist-v2",
+  "updated_at_utc": "2026-07-08T00:00:00+00:00",
+  "description": "Durable acquisition watchlist for frontier AI, China AI, model hubs, image/video workflows, coding agents, and automation frameworks.",
+  "entities": [
+    {
+      "entity": "Zhipu/Z.ai",
+      "aliases": ["Z.ai", "Zhipu AI", "Zhipu", "智谱AI", "智谱", "BigModel", "GLM", "ChatGLM", "GLM-5", "GLM-5.2"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "critical",
+      "official_sources": ["https://z.ai/blog/glm-5.2", "https://z.ai/blog/glm-5", "https://docs.z.ai/guides/llm/glm-5.2", "https://docs.bigmodel.cn/cn/update/new-releases"],
+      "hub_sources": ["https://huggingface.co/zai-org", "https://huggingface.co/zai-org/GLM-5.2", "https://github.com/zai-org"],
+      "query_terms": ["Z.ai GLM-5.2 release", "Zhipu AI GLM-5.2 benchmark", "BigModel GLM-5.2 docs", "zai-org GLM-5.2 Hugging Face GitHub"]
+    },
+    {
+      "entity": "Qwen/Alibaba",
+      "aliases": ["Qwen", "Alibaba", "Alibaba Cloud", "Tongyi Qianwen", "通义千问"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "critical",
+      "official_sources": ["https://qwenlm.github.io/", "https://www.alibabacloud.com/en/solutions/generative-ai/qwen"],
+      "hub_sources": ["https://github.com/QwenLM", "https://huggingface.co/Qwen"],
+      "query_terms": ["Qwen latest model release", "Qwen benchmark Alibaba", "Qwen Hugging Face model"]
+    },
+    {
+      "entity": "DeepSeek",
+      "aliases": ["DeepSeek", "DeepSeek AI", "DeepSeek-V", "DeepSeek-R", "深度求索"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "critical",
+      "official_sources": ["https://www.deepseek.com/"],
+      "hub_sources": ["https://github.com/deepseek-ai", "https://huggingface.co/deepseek-ai"],
+      "query_terms": ["DeepSeek model release", "DeepSeek benchmark", "DeepSeek GitHub Hugging Face"]
+    },
+    {
+      "entity": "Kimi/Moonshot",
+      "aliases": ["Kimi", "Moonshot", "Moonshot AI", "Kimi K2", "月之暗面"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "critical",
+      "official_sources": ["https://www.moonshot.cn/"],
+      "hub_sources": ["https://github.com/MoonshotAI"],
+      "query_terms": ["Kimi Moonshot AI model release", "Moonshot AI benchmark", "Kimi K2"]
+    },
+    {
+      "entity": "MiniMax",
+      "aliases": ["MiniMax", "MiniMax AI", "abab", "海螺AI"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "high",
+      "official_sources": ["https://www.minimax.io/", "https://platform.minimaxi.com/"],
+      "hub_sources": [],
+      "query_terms": ["MiniMax AI model release", "MiniMax benchmark"]
+    },
+    {
+      "entity": "Doubao/ByteDance",
+      "aliases": ["Doubao", "ByteDance", "Volcengine", "豆包", "火山引擎"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "high",
+      "official_sources": ["https://www.doubao.com/", "https://www.volcengine.com/product/doubao"],
+      "hub_sources": [],
+      "query_terms": ["Doubao ByteDance model release", "Volcengine Doubao benchmark"]
+    },
+    {
+      "entity": "Hunyuan/Tencent",
+      "aliases": ["Hunyuan", "Tencent", "Tencent Hunyuan", "混元", "HunyuanVideo"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "high",
+      "official_sources": ["https://hunyuan.tencent.com/"],
+      "hub_sources": ["https://github.com/Tencent-Hunyuan", "https://huggingface.co/tencent"],
+      "query_terms": ["Tencent Hunyuan model release", "HunyuanVideo", "Hunyuan benchmark"]
+    },
+    {
+      "entity": "StepFun",
+      "aliases": ["StepFun", "Step-2", "Step-1", "阶跃星辰"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "high",
+      "official_sources": ["https://www.stepfun.com/", "https://platform.stepfun.com/"],
+      "hub_sources": [],
+      "query_terms": ["StepFun model release", "StepFun benchmark"]
+    },
+    {
+      "entity": "InternLM",
+      "aliases": ["InternLM", "InternVL", "书生浦语"],
+      "category": "opensource",
+      "category_hint": "opensource",
+      "priority": "normal",
+      "official_sources": ["https://internlm.intern-ai.org.cn/"],
+      "hub_sources": ["https://github.com/InternLM", "https://huggingface.co/internlm"],
+      "query_terms": ["InternLM model release", "InternVL benchmark"]
+    },
+    {
+      "entity": "SenseTime",
+      "aliases": ["SenseTime", "SenseNova", "商汤", "日日新"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "normal",
+      "official_sources": ["https://www.sensetime.com/"],
+      "hub_sources": [],
+      "query_terms": ["SenseTime SenseNova model release", "SenseNova benchmark"]
+    },
+    {
+      "entity": "Baichuan",
+      "aliases": ["Baichuan", "Baichuan AI", "百川智能"],
+      "category": "model",
+      "category_hint": "model",
+      "priority": "normal",
+      "official_sources": ["https://www.baichuan-ai.com/"],
+      "hub_sources": ["https://github.com/baichuan-inc", "https://huggingface.co/baichuan-inc"],
+      "query_terms": ["Baichuan AI model release", "Baichuan benchmark"]
+    },
+    {
+      "entity": "Flux/Black Forest Labs",
+      "aliases": ["Flux", "FLUX.1", "FLUX.2", "Black Forest Labs", "BFL"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "critical",
+      "official_sources": ["https://blackforestlabs.ai/"],
+      "hub_sources": ["https://huggingface.co/black-forest-labs"],
+      "query_terms": ["Black Forest Labs Flux release", "FLUX image model Hugging Face"]
+    },
+    {
+      "entity": "ComfyUI",
+      "aliases": ["ComfyUI", "ComfyUI node", "ComfyUI workflow"],
+      "category": "automation",
+      "category_hint": "automation",
+      "priority": "critical",
+      "official_sources": ["https://www.comfy.org/"],
+      "hub_sources": ["https://github.com/comfyanonymous/ComfyUI"],
+      "query_terms": ["ComfyUI node release", "ComfyUI workflow"]
+    },
+    {
+      "entity": "Runway",
+      "aliases": ["Runway", "RunwayML", "Gen-3", "Gen-4"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "high",
+      "official_sources": ["https://runwayml.com/"],
+      "hub_sources": [],
+      "query_terms": ["Runway video AI release", "Runway Gen model"]
+    },
+    {
+      "entity": "Kling",
+      "aliases": ["Kling", "Kling AI", "Kuaishou Kling"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "high",
+      "official_sources": ["https://klingai.com/"],
+      "hub_sources": [],
+      "query_terms": ["Kling AI video model release"]
+    },
+    {
+      "entity": "Veo",
+      "aliases": ["Veo", "Google Veo", "Veo 2", "Veo 3"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "high",
+      "official_sources": ["https://deepmind.google/technologies/veo/"],
+      "hub_sources": [],
+      "query_terms": ["Google Veo video model release"]
+    },
+    {
+      "entity": "Sora",
+      "aliases": ["Sora", "OpenAI Sora"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "high",
+      "official_sources": ["https://openai.com/sora/"],
+      "hub_sources": [],
+      "query_terms": ["OpenAI Sora release"]
+    },
+    {
+      "entity": "OpenRouter",
+      "aliases": ["OpenRouter", "OpenRouter model"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "high",
+      "official_sources": ["https://openrouter.ai/models"],
+      "hub_sources": [],
+      "query_terms": ["OpenRouter new model listing"]
+    },
+    {
+      "entity": "Replicate",
+      "aliases": ["Replicate", "Replicate model"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "normal",
+      "official_sources": ["https://replicate.com/"],
+      "hub_sources": [],
+      "query_terms": ["Replicate AI model release"]
+    },
+    {
+      "entity": "fal.ai",
+      "aliases": ["fal.ai", "fal", "fal model"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "normal",
+      "official_sources": ["https://fal.ai/models"],
+      "hub_sources": [],
+      "query_terms": ["fal.ai model release"]
+    },
+    {
+      "entity": "MCP",
+      "aliases": ["MCP", "Model Context Protocol"],
+      "category": "automation",
+      "category_hint": "automation",
+      "priority": "critical",
+      "official_sources": ["https://modelcontextprotocol.io/"],
+      "hub_sources": ["https://github.com/modelcontextprotocol"],
+      "query_terms": ["Model Context Protocol release", "MCP server GitHub"]
+    },
+    {
+      "entity": "LangGraph",
+      "aliases": ["LangGraph", "LangChain LangGraph"],
+      "category": "automation",
+      "category_hint": "automation",
+      "priority": "high",
+      "official_sources": ["https://www.langchain.com/langgraph"],
+      "hub_sources": ["https://github.com/langchain-ai/langgraph"],
+      "query_terms": ["LangGraph release", "LangGraph agents"]
+    },
+    {
+      "entity": "LlamaIndex",
+      "aliases": ["LlamaIndex", "LlamaCloud"],
+      "category": "automation",
+      "category_hint": "automation",
+      "priority": "normal",
+      "official_sources": ["https://www.llamaindex.ai/"],
+      "hub_sources": ["https://github.com/run-llama/llama_index"],
+      "query_terms": ["LlamaIndex release", "LlamaIndex agent workflow"]
+    },
+    {
+      "entity": "Cursor",
+      "aliases": ["Cursor", "Cursor AI", "Cursor editor"],
+      "category": "tool",
+      "category_hint": "tool",
+      "priority": "high",
+      "official_sources": ["https://www.cursor.com/changelog"],
+      "hub_sources": [],
+      "query_terms": ["Cursor AI changelog", "Cursor coding agent"]
+    },
+    {
+      "entity": "Claude Code",
+      "aliases": ["Claude Code", "Anthropic Claude Code"],
+      "category": "automation",
+      "category_hint": "automation",
+      "priority": "high",
+      "official_sources": ["https://docs.anthropic.com/en/docs/claude-code"],
+      "hub_sources": ["https://github.com/anthropics/claude-code"],
+      "query_terms": ["Claude Code release", "Claude Code GitHub"]
+    },
+    {
+      "entity": "OpenHands",
+      "aliases": ["OpenHands", "OpenDevin"],
+      "category": "automation",
+      "category_hint": "automation",
+      "priority": "normal",
+      "official_sources": ["https://docs.all-hands.dev/"],
+      "hub_sources": ["https://github.com/All-Hands-AI/OpenHands"],
+      "query_terms": ["OpenHands release", "OpenHands coding agent"]
+    }
+  ]
+}

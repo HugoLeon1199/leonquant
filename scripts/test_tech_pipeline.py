@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -54,6 +55,8 @@ def test_validation_fixture_generation() -> None:
 
 
 def test_publication_build_and_validate() -> None:
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ["LEON_TECH_OFFLINE_TEST"] = "1"
     now = datetime.now(timezone.utc).isoformat()
     crawl = {
         "articles": [
@@ -120,6 +123,146 @@ def test_publication_build_and_validate() -> None:
     assert_true(len(publication["must_read"]) >= 5, "must_read floor not enforced")
     errs = validate_publication(publication, check_external=False)
     assert_true(not errs, f"publication validation errors: {errs}")
+
+
+def test_frontier_watchlist_glm_5_2_fixture() -> None:
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ["LEON_TECH_OFFLINE_TEST"] = "1"
+    now = datetime.now(timezone.utc).isoformat()
+    crawl = {
+        "articles": [
+            {
+                "title": "Z.ai introduces GLM-5.2 for long-horizon coding tasks",
+                "url": "https://z.ai/blog/glm-5.2",
+                "text": "Z.ai, also known as Zhipu AI, introduces GLM-5.2 with long-horizon coding and agentic engineering capabilities." * 16,
+                "published_at": now,
+                "source": "z.ai",
+            },
+            {
+                "title": "Zhipu GLM-5.2 developer documentation updated",
+                "url": "https://docs.z.ai/guides/llm/glm-5.2",
+                "text": "The Z.ai developer documentation describes GLM-5.2 model positioning, long context and coding workflows." * 16,
+                "published_at": now,
+                "source": "docs.z.ai",
+            },
+            {
+                "title": "GLM-5.2 model card appears under zai-org",
+                "url": "https://huggingface.co/zai-org/GLM-5.2",
+                "text": "The Hugging Face model page for zai-org GLM-5.2 references Zhipu AI, model weights and developer usage." * 16,
+                "published_at": now,
+                "source": "huggingface.co",
+            },
+            {
+                "title": "DeepMind releases model research notes",
+                "url": "https://deepmind.google/blog/model-research-notes",
+                "text": "DeepMind publishes model research notes about AI agents, evaluation, reasoning and developer workflows." * 16,
+                "published_at": now,
+                "source": "deepmind.google",
+            },
+            {
+                "title": "Mistral AI updates developer model platform",
+                "url": "https://mistral.ai/news/developer-model-platform",
+                "text": "Mistral AI updates its developer platform for model deployment, tooling, inference and enterprise workflows." * 16,
+                "published_at": now,
+                "source": "mistral.ai",
+            },
+        ]
+    }
+    publication = build_publication(crawl, {"events": []})
+    stats = publication["stats"]
+    assert_true(stats["watchlist_entity_count"] >= 10, "frontier watchlist entity count missing")
+    assert_true(stats["watchlist_candidate_count"] >= 3, "GLM watchlist candidates not detected")
+    assert_true(stats["glm_5_2_detected"] is True, "GLM-5.2 should be detected")
+
+    main_items = []
+    for section_name in ("ai_models", "local_ai_china_ai"):
+        main_items.extend(publication["sections"].get(section_name) or [])
+    glm_items = [
+        item for item in main_items
+        if item.get("matched_entity") == "Zhipu/Z.ai" and str(item.get("matched_alias") or "").lower() in {"z.ai", "zhipu ai", "glm-5.2", "glm"}
+    ]
+    assert_true(glm_items, "GLM-5.2 must appear in model/local_ai main section")
+    assert_true(glm_items[0]["category"] in {"model", "local_ai"}, "GLM-5.2 category must be model/local_ai")
+    assert_true(glm_items[0]["source_type"] in {"official", "independent"}, "GLM official/independent source expected")
+
+    must_read = publication["must_read"]
+    assert_true(any(item.get("matched_entity") == "Zhipu/Z.ai" for item in must_read), "GLM-5.2 should be considered for Must Read")
+    errs = validate_publication(publication, check_external=False)
+    assert_true(not errs, f"GLM fixture validation errors: {errs}")
+
+
+def test_multilane_frontier_fixtures_clustered() -> None:
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ["LEON_TECH_OFFLINE_TEST"] = "1"
+    now = datetime.now(timezone.utc).isoformat()
+    crawl = {
+        "articles": [
+            {
+                "title": "Black Forest Labs updates FLUX image model workflow",
+                "url": "https://huggingface.co/black-forest-labs/FLUX.2",
+                "text": "Flux and Black Forest Labs publish model card details for image generation workflows and inference." * 16,
+                "published_at": now,
+                "source": "huggingface.co",
+            },
+            {
+                "title": "ComfyUI node release improves video workflow routing",
+                "url": "https://github.com/comfyanonymous/ComfyUI/releases/tag/v1.0",
+                "text": "ComfyUI releases a node and workflow update for image video automation and graph execution." * 16,
+                "published_at": now,
+                "source": "github.com",
+            },
+            {
+                "title": "Runway and Kling video model tools gain new production options",
+                "url": "https://runwayml.com/research/video-model-update",
+                "text": "Runway and Kling style video AI workflows add production controls for creative teams and model evaluation." * 16,
+                "published_at": now,
+                "source": "runwayml.com",
+            },
+            {
+                "title": "OpenRouter lists new frontier model routing options",
+                "url": "https://openrouter.ai/models",
+                "text": "OpenRouter model listings show new routing options for frontier LLMs and developer applications." * 16,
+                "published_at": now,
+                "source": "openrouter.ai",
+            },
+            {
+                "title": "MCP LangGraph LlamaIndex agent stack release",
+                "url": "https://github.com/modelcontextprotocol/servers/releases/tag/test",
+                "text": "MCP, LangGraph and LlamaIndex agent tooling updates connect models, tools, data and workflow automation." * 16,
+                "published_at": now,
+                "source": "github.com",
+            },
+            {
+                "title": "Cursor Claude Code and OpenHands coding agents update",
+                "url": "https://www.cursor.com/changelog",
+                "text": "Cursor, Claude Code and OpenHands signal faster coding agent workflows and repository automation." * 16,
+                "published_at": now,
+                "source": "cursor.com",
+            },
+        ]
+    }
+    publication = build_publication(crawl, {"events": []})
+    stats = publication["stats"]
+    lanes = stats.get("candidates_by_lane") or {}
+    assert_true(stats["model_hub_candidate_count"] > 0, "model hub lane should produce candidates")
+    assert_true(stats["image_video_workflow_candidate_count"] > 0, "image/video lane should produce candidates")
+    assert_true(int(lanes.get("github_release") or 0) > 0, "GitHub release lane should produce candidates")
+    assert_true(int(lanes.get("huggingface_model") or 0) > 0, "Hugging Face lane should produce candidates")
+    assert_true(publication.get("top_signal_clusters"), "top signal clusters should be built")
+    cluster_entities = [
+        entity
+        for cluster in publication["top_signal_clusters"]
+        for entity in (cluster.get("entities") or [])
+    ]
+    assert_true(any("Flux" in entity or "Black Forest" in entity for entity in cluster_entities), "Flux/BFL should be clustered")
+    assert_true(any("ComfyUI" in entity for entity in cluster_entities), "ComfyUI should be clustered")
+    entity_counts = {entity: cluster_entities.count(entity) for entity in set(cluster_entities)}
+    assert_true(all(count < 3 for count in entity_counts.values()), "Top Signals should not split one entity into 3+ clusters")
+    full_radar = publication["sections"]["full_link_radar"]
+    assert_true(any(item.get("source_lane") == "huggingface_model" for item in full_radar), "Full Radar should keep HF link")
+    assert_true(any(item.get("source_lane") == "github_release" for item in full_radar), "Full Radar should keep GitHub link")
+    errs = validate_publication(publication, check_external=False)
+    assert_true(not errs, f"multilane fixture validation errors: {errs}")
 
 
 def test_empty_must_read_guard() -> None:
@@ -195,6 +338,8 @@ def test_forbidden_diff_guard() -> None:
 def main() -> None:
     test_validation_fixture_generation()
     test_publication_build_and_validate()
+    test_frontier_watchlist_glm_5_2_fixture()
+    test_multilane_frontier_fixtures_clustered()
     test_empty_must_read_guard()
     test_mobile_layout_smoke()
     test_forbidden_public_terms_blocked()

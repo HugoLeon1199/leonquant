@@ -9,6 +9,146 @@
 
 <!-- Cập nhật block này sau mỗi session -->
 
+## [2026-07-08 18:25] - [Codex]
+
+### Da lam
+- Doc `CLAUDE.md`, `HANDOFF.md`, va `.ai/CURSOR_WORKLOG.md` truoc khi sua.
+- Giu scope hep trong standalone `tech/`, Tech workflow, Tech GDELT SQL/Python filter, va `tech/index.html`; khong dung Tin48h/Invest/World.
+- Mo rong `tech/config/frontier_watchlist.json` len 26 entity gom China AI, Flux/BFL, ComfyUI, Runway/Kling/Veo/Sora, HunyuanVideo, OpenRouter/Replicate/fal.ai, MCP/LangGraph/LlamaIndex, Cursor/Claude Code/OpenHands.
+- Them candidate lanes va contract moi: `source_lane`, `matched_entity`, `matched_alias`, `published_at`, `discovered_at`, `time_verified`, `evidence`, `url`, `title`.
+- Them artifact moi: `tech/data/candidates_rolling.json`, `tech/data/watchlist_status.json`, `tech/reports/source_coverage_matrix.md`.
+- Tach acquisition khoi publish gate: Tech workflow crawl + GDELT moi run; publication JSON chinh chi update khi gate 72h pass/manual. Khi chua publish, build temp de refresh rolling/status/matrix.
+- Sua `tech/crawl.py` de crawl mac dinh khong bi gate 72h; `--respect-publish-gate` la opt-in.
+- Them `top_signal_clusters` va UI `/tech/` uu tien Top Signal Clusters; Must Read cu giu backward-compatible.
+- Compact Full Link Radar them `cluster_id`, `one_line_reason`, `source_lane`, `published_at`.
+- GDELT hardening: mo rong keyword/entity va danh dau reuse event cu bang `reused_previous_events`, `fresh_event_count`, `previous_events_age_hours`.
+- Validator them check watchlist/status, top clusters, source lanes, model_hub/image_video candidates, Full Radar compact, GDELT reuse label, va muc do ca nhan hoa quanh Leon.
+- Them fixture tests cho GLM-5.2, Flux/BFL, ComfyUI, GitHub release, Hugging Face model card, OpenRouter, MCP/LangGraph/LlamaIndex, Cursor/Claude Code/OpenHands.
+- Cap nhat `.ai/CURSOR_WORKLOG.md` voi so lieu that.
+
+### Ket qua / Test
+- `.\.venv\Scripts\python.exe -m py_compile tech\crawl.py scripts\build_tech_publication.py scripts\validate_tech_publication.py scripts\run_tech_gdelt.py scripts\test_tech_pipeline.py scripts\tech_common.py` -> pass.
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass.
+- `LEON_TECH_OFFLINE_TEST=1` + `.\.venv\Scripts\python.exe tech\publication.py` -> pass.
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass.
+
+### Trang thai hien tai
+- Local artifact generated_at_utc=`2026-07-08T18:20:21.311015+00:00`.
+- Active sources: 7.
+- Candidates by lane: `github_release=12`, `frontier_watchlist=21`, `huggingface_model=6`, `model_hub=4`, `image_video_workflow=8`, `gdelt=27`, `normal_web=1`, `community=9`.
+- Watchlist checked/hit: `26 / 55`.
+- GDELT fresh/reused: `fresh_event_count=40`, `reused_previous_events=False`.
+- Top signal clusters: 10; Full Link Radar: 88; Must Read: 20, source mix `official=20`.
+- Local rebuild dung offline curator mode, nen production Actions/Gemini can chay lai de co editorial copy that.
+
+### File da thay doi
+- `.github/workflows/tech-radar.yml`
+- `scripts/build_tech_publication.py`
+- `scripts/run_tech_gdelt.py`
+- `scripts/tech_common.py`
+- `scripts/test_tech_pipeline.py`
+- `scripts/validate_tech_publication.py`
+- `sql/gdelt_tech_pulse.sql`
+- `tech/crawl.py`
+- `tech/index.html`
+- `tech/config/frontier_watchlist.json`
+- `tech/data/candidates_rolling.json`
+- `tech/data/watchlist_status.json`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `tech/reports/source_coverage_matrix.md`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Chay manual dispatch `Tech Radar` tren GitHub Actions de rebuild production bang secrets/GDELT/Gemini that.
+- Source coverage van yeu (`7 / 100` active); nen tiep tuc recover official/independent sources neu muon radar bot phu thuoc vao watchlist synthetic lanes hon.
+
+## [2026-07-08 00:00] - [Codex]
+
+### Da lam
+- Doc `CLAUDE.md` va `HANDOFF.md` truoc khi kiem tra repo.
+- Xac nhan co `tech/config/frontier_watchlist.json`.
+- Doc nhanh file watchlist va doi chieu usage: builder Tech load/apply watchlist trong `scripts/build_tech_publication.py`, validator/test/workflow cung co check/stage file nay.
+
+### Ket qua / Test
+- Khong chay test vi session chi kiem tra file/cau hinh.
+
+### File da thay doi
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Neu can sua watchlist, nen tiep tuc trong scope Tech Radar va chay `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` sau khi sua.
+
+## [2026-07-06 18:05] - [Codex]
+
+### Da lam
+- Doc `.ai/CURSOR_WORKLOG.md`, `CLAUDE.md`, `HANDOFF.md` truoc khi sua.
+- Them `Tech Radar` vao `.github/workflows/pages.yml` `workflow_run` de Tech workflow success se kich Pages deploy.
+- Tao `tech/config/frontier_watchlist.json` voi 11 entity China/frontier AI va alias bat buoc, gom Z.ai/Zhipu/BigModel/GLM/ChatGLM/GLM-5/GLM-5.2.
+- Them nguon truc tiep cho Zhipu/GLM qua Z.ai blog/docs, BigModel docs/release notes, Hugging Face `zai-org`, GitHub `zai-org`.
+- Noi watchlist acquisition vao `scripts/build_tech_publication.py`: candidate match alias co `matched_entity`, `matched_alias`, `trend_status`, evidence, source_type/signal metadata va stats.
+- Sua Must Read ranking de uu tien official/independent, khong fill >50% community khi co non-community candidate, va chan importance=1 tru khi `evidence=exploratory`.
+- Cap nhat validator de fail community share >50% khi co non-community, fail importance=1 thieu exploratory, va check watchlist count.
+- Them GLM-5.2 fixture trong `scripts/test_tech_pipeline.py`.
+- Cap nhat `tech/update_worklog.py` va `.ai/CURSOR_WORKLOG.md` voi watchlist/page/test/source-mix fields.
+
+### Ket qua / Test
+- `.\.venv\Scripts\python.exe -m py_compile scripts\build_tech_publication.py scripts\validate_tech_publication.py scripts\test_tech_pipeline.py tech\update_worklog.py` -> pass.
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass.
+- Temp rebuild bang `LEON_TECH_OFFLINE_TEST=1` + `tech\publication.py --output <temp>` va `tech\validate_publication.py --input <temp>` -> pass.
+
+### Trang thai hien tai
+- Fixture GLM-5.2 detected: yes.
+- Current local 72h artifact data GLM-5.2 detected: no, vi crawl/GDELT hien co chua co GLM/Zhipu/Z.ai signal.
+- Temp rebuild tu data hien tai co watchlist entities=11, candidates_from_watchlist=3, Must Read source type `community=1`, `independent=1`; main candidates official=0, independent=1, community=8.
+- Khong regenerate `tech/data/publication.json` local vi local dang offline/fallback va du lieu hien tai chua co GLM-5.2; de Actions/Gemini/GDELT run that sinh artifact moi.
+
+### File da thay doi
+- `.github/workflows/pages.yml`
+- `.github/workflows/tech-radar.yml`
+- `scripts/build_tech_publication.py`
+- `scripts/tech_common.py`
+- `scripts/test_tech_pipeline.py`
+- `scripts/validate_tech_publication.py`
+- `tech/config/frontier_watchlist.json`
+- `tech/update_worklog.py`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Chay manual dispatch `Tech Radar` tren GitHub Actions neu muon lay artifact production moi ngay, dung secrets/GDELT/Gemini that.
+- Sau run that, doi chieu `stats.glm_5_2_detected`, `watchlist_candidate_count`, `must_read_by_source_type`, va Pages auto deploy.
+
+## [2026-07-06 17:14] - [Codex]
+
+### Da lam
+- Kiem tra web public hien tai cho `leonquant.com` va GitHub Pages mirror.
+- Xac nhan `https://leonquant.com/`, `/content.json`, `/tech/`, `/tech/data/publication.json`, `market_pulse.json`, `invest_world_pulse.json`, va `invest_vn_brief.json` deu tra HTTP 200.
+- Doi chieu workflow GitHub Actions gan nhat: daily digest, LIVE pulse, Tech Radar, Pages deploy.
+- Chay validator remote `content.json` bang `validate_content.py --content-input` va pass.
+
+### Ket qua chinh
+- Web chinh dang moi: `content.json generatedAt=2026-07-05T23:08:25.247281+00:00`, `briefMode=newsroom-brief`, `frontPage=3`, `sectorDeepBriefs=4`, `digestSectors=4`.
+- Daily workflow `Tin Viet Nam 48h digest` run `28757461680` da success luc `2026-07-05T23:09:03Z`.
+- LIVE pulse public: `market_pulse.json generated_at_utc=2026-07-06T01:33:01.009694+00:00`, `total_events=5`; workflow `LIVE pulse 12h` run `28762133732` success.
+- Invest world public: `invest_world_pulse.json generated_at_utc=2026-07-05T22:46:49.739374+00:00`, `topics=2`, `events=4`.
+- Invest VN public: `invest_vn_brief.json generated_at_utc=2026-07-05T23:08:55.592051+00:00`.
+- Tech public artifact van la ban `generated_at_utc=2026-07-05T06:24:34.693189+00:00`, schema `ai-frontier-radar-72h-v1`, `must_read_count=6`, `full_link_radar_count=37`, `gemini_success_count=10`.
+
+### Quyet dinh / Ghi chu
+- Khong sua code trong session nay.
+- Hai run Tech Radar ngay `2026-07-06` success nhung skip crawl/GDELT/build do gate 72h: run moi nhat ghi `Tech publish age 29.3h < 72h, skipping tech refresh.`
+- Pages deploy gan nhat success run `28762223635` luc `2026-07-06T01:33:59Z`; co hai Pages run failure truoc do nhung public web hien tai van tra 200 va artifact main dang dung.
+- Validator Tech chay truc tiep tren remote JSON bang local validator bi fail cross-check URL vi validator doi input crawl/GDELT local tuong ung, khong phai bang chung artifact public hong.
+
+### File da thay doi
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Neu muon Tech refresh ngay, chay manual dispatch `Tech Radar` de bypass gate 72h.
+- Neu muon soi UI bang mat/screenshot, mo browser check visual cho `/` va `/tech/`.
+
 ## [2026-07-05 08:50] - [Codex]
 
 ### Da lam

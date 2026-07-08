@@ -58,12 +58,13 @@ def has_profiles(db_path: Path) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Standalone Tech crawl wrapper")
-    parser.add_argument("--force", action="store_true", help="Ignore the 72h publish gate")
+    parser.add_argument("--force", action="store_true", help="Deprecated: crawl now refreshes data by default")
+    parser.add_argument("--respect-publish-gate", action="store_true", help="Skip crawl when publication is newer than 72h")
     args, passthrough = parser.parse_known_args()
 
     publish_path = TECH_ROOT / "data" / "publication.json"
     age = publication_age_hours(publish_path)
-    if not args.force and age is not None and age < HOURS_LIMIT:
+    if args.respect_publish_gate and not args.force and age is not None and age < HOURS_LIMIT:
         print(f"Tech publish age {age:.1f}h < {HOURS_LIMIT}h; skipping crawl/export.")
         return 0
 
