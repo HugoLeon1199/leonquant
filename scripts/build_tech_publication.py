@@ -1018,6 +1018,8 @@ def build_main_item(candidate: dict[str, Any], curated: dict[str, Any], curation
             if candidate["source_type"] == "community"
             else (candidate.get("watchlist_evidence") or {}).get("evidence", evidence)
         )
+        if importance <= 1:
+            watchlist_item_evidence = "exploratory"
         item.update(
             {
                 "matched_entity": candidate["matched_entity"],
