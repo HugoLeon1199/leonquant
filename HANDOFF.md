@@ -41,6 +41,15 @@
 - Top signal clusters: 10; Full Link Radar: 88; Must Read: 20, source mix `official=20`.
 - Local rebuild dung offline curator mode, nen production Actions/Gemini can chay lai de co editorial copy that.
 
+### Ket qua GitHub production
+- Source/config pushed to `main`: `9440c5f`, plus validator/test fixes `de8640c`, `02cb0f1`, `26a7996`.
+- Manual dispatch `Tech Radar` run `28966599863` -> success.
+- Bot artifact commit tren `main`: `1640484`.
+- Pages deploy run `28966793748` -> success.
+- Public JSON `https://hugoleon1199.github.io/leonquant/tech/data/publication.json` da cap nhat `generated_at_utc=2026-07-08T18:37:32.827967+00:00`.
+- Production stats: `top_signal_clusters=10`, `full_link_radar=109`, `watchlist_checked=26`, `watchlist_hit_count=62`, `gdelt_fresh_event_count=50`, `gdelt_reused_previous_events=False`.
+- Production candidates by lane: `github_release=12`, `frontier_watchlist=21`, `huggingface_model=6`, `model_hub=4`, `image_video_workflow=8`, `normal_web=10`, `community=12`, `gdelt=36`.
+
 ### File da thay doi
 - `.github/workflows/tech-radar.yml`
 - `scripts/build_tech_publication.py`
