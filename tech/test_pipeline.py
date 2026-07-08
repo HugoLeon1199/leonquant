@@ -75,7 +75,7 @@ def test_frontend_contract() -> None:
     html = (ROOT / "tech" / "index.html").read_text(encoding="utf-8").lower()
     assert_true('name="viewport"' in html, "missing viewport meta")
     assert_true("kiến thức ai nên nắm" in html, "missing vietnamese knowledge label")
-    assert_true("ý tưởng có thể làm ngay cho leon" in html, "missing founder ideas label")
+    assert_true("optional applications" in html, "missing optional applications label")
     assert_true("item.concept" in html, "frontend must read concept")
     assert_true("item.explain_simple" in html, "frontend must read explain_simple")
     assert_true("item.why_now" in html, "frontend must read why_now")
