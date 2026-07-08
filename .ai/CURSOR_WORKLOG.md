@@ -856,3 +856,22 @@ Validation status snapshot live:
 ### Remaining risks
 - Local rebuild used offline curator mode; production Actions should be run with real Gemini/GDELT credentials for editorial copy quality.
 - Active sources remain low (`7 / 100`), so source coverage is structurally weak even though watchlist/hub lanes now prevent 72h gate from hiding hot signals.
+
+## 2026-07-08 - Technology & AI 72h live run
+
+- Tech72h generated_at=2026-07-08T18:37:32.827967+00:00
+- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.
+- Format: AI Frontier Radar 72h.
+- Schedule: once every 3 days; data window: latest 72 hours.
+- Active sources: 7 / 100.
+- Clean web articles: 22.
+- Candidate live: 109; noise bi loai: 3; bai qua han 72h bi loai khoi section chinh: 0.
+- Event candidates: 50; GDELT ran_successfully=True; raw=120; ai_filtered=50; rejected_non_ai=70.
+- Query estimate: 1,819,200,210 bytes; processed: 1,819,200,210 bytes; bytes_status=known; cap: 2,000,000,000 bytes.
+- Published stories: 22; must_read=20; full_link_radar=109.
+- Must Read theo source type: {'independent': 3, 'official': 17}.
+- Must Read theo category: {'model': 12, 'local_ai': 1, 'tool': 2, 'automation': 2, 'opensource': 1, 'business': 1, 'mcp': 1}.
+- Gemini curator: success=20; fallback=53; ai_main=18; fallback_main=52.
+- Section counts: local_ai=4, automation=11, open_source=8, knowledge=4, founder_ideas=10.
+- /tech/ render check: knowledge=True; founder_ideas=True.
+- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
