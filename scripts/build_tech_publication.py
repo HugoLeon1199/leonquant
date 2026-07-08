@@ -973,6 +973,8 @@ def build_main_item(candidate: dict[str, Any], curated: dict[str, Any], curation
         importance = 3
     confidence = confidence_for(candidate, curated, curation_status)
     evidence = evidence_for(candidate, curation_status)
+    if importance <= 1:
+        evidence = "exploratory"
     score = candidate["preliminary_score"] + curated["relevance"] * 10 + importance * 4
     if candidate.get("source_type") == "official":
         score += 12
