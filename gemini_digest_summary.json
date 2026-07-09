@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-08T23:18:08.595898+00:00",
+  "generated_at": "2026-07-09T23:26:11.126786+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 720785,
+    "estimated_input_tokens": 827192,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 1,
+    "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 626,
-    "sent_article_count": 626,
+    "input_article_count": 722,
+    "sent_article_count": 722,
     "window": {
-      "end_date": "2026-07-09",
+      "end_date": "2026-07-10",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,84 +24,109 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động địa chính trị, chính sách kinh tế và xu hướng công nghệ trong 48 giờ qua.",
+    "reading_time_minutes": "15",
+    "editor_note": "Bản tin tổng hợp các biến động địa chính trị, dòng vốn công nghệ và chính sách kinh tế trọng điểm trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường toàn cầu chịu cú sốc địa chính trị khi Tổng thống Mỹ Donald Trump tuyên bố chấm dứt thỏa thuận ngừng bắn với Iran, dẫn đến các đợt không kích quân sự tại eo biển Hormuz. Sự kiện này đẩy giá dầu Brent và WTI tăng vọt hơn 5%, buộc các nhà đầu tư phải định giá lại rủi ro lạm phát và chính sách tiền tệ của Cục Dự trữ Liên bang Mỹ (Fed).",
-        "most_mentioned": "Căng thẳng Mỹ-Iran là chủ đề chi phối mọi luồng tin quốc tế, từ an ninh năng lượng đến phản ứng của NATO. Tại Việt Nam, trọng tâm là các chỉ đạo quyết liệt của Tổng Bí thư, Chủ tịch nước Tô Lâm về việc giải phóng nguồn lực 'đóng băng' để đạt mục tiêu tăng trưởng GRDP hai con số.",
-        "top_stories": "Sự kiện Mỹ không kích Iran và những biến động trên thị trường năng lượng đã làm lu mờ các tin tức khác. Song song đó, sự phục hồi của cổ phiếu PNJ sau vụ án kim cương và các bước tiến trong hạ tầng AI của OpenAI và Meta cho thấy sự phân hóa rõ rệt giữa các nhóm tài sản rủi ro và công nghệ.",
-        "sector_impacts": "Ngành năng lượng và tài chính toàn cầu đang đối mặt với áp lực từ giá dầu tăng. Tại Việt Nam, các dự án hạ tầng giao thông như cao tốc Pháp Vân - Cầu Giẽ và nâng cấp Nhà máy Lọc dầu Dung Quất trở thành điểm tựa cho tăng trưởng kinh tế nửa cuối năm."
+        "main_picture": "Bức tranh 48 giờ qua bị chi phối bởi sự leo thang quân sự tại eo biển Hormuz, nơi các cuộc không kích của Mỹ vào Iran đã làm gián đoạn chuỗi cung ứng năng lượng thị trường, đẩy giá dầu Brent tăng hơn 5%. Sự bất ổn địa chính trị này buộc các nhà đầu tư tổ chức phải tái định vị danh mục, rút vốn khỏi các quỹ Bitcoin ETF và tín dụng tư nhân để đổ vào các đợt IPO hạ tầng AI quy mô lớn, đánh dấu sự chuyển dịch từ tài sản đầu cơ sang các lĩnh vực có nền tảng tăng trưởng thực tế.",
+        "most_mentioned": "Chủ đề AI và hạ tầng dữ liệu chiếm ưu thế tuyệt đối với sự ra mắt của dòng mô hình GPT-5.6 từ OpenAI và các tranh chấp pháp lý về bản quyền dữ liệu giữa các tập đoàn truyền thông Mỹ và OpenAI. Tại Việt Nam, các từ khóa về giải ngân đầu tư công, dự án cải tạo sông Nhuệ 75.000 tỷ đồng và mục tiêu xuất khẩu nông sản 100 tỷ USD đang là tâm điểm của các diễn đàn kinh tế.",
+        "top_stories": "Sự kiện địa chính trị tại eo biển Hormuz và các đợt IPO hạ tầng AI lớn là hai câu chuyện quyết định tâm lý thị trường. Trong khi xung đột Mỹ-Iran đe dọa an ninh năng lượng, thì làn sóng IPO của các công ty như SK Hynix và CXMT đang hút cạn thanh khoản từ thị trường tiền số, tạo ra một cuộc đua hạ tầng phần cứng AI khốc liệt.",
+        "sector_impacts": "Ngành tài chính đang đối mặt với áp lực từ kỳ vọng lãi suất cao hơn của Fed, trong khi ngành công nghệ hưởng lợi từ làn sóng đầu tư vào hạ tầng bán dẫn. Các doanh nghiệp Việt Nam trong lĩnh vực nông nghiệp và hạ tầng đang nhận được sự hỗ trợ mạnh mẽ từ các chính sách giải ngân vốn đầu tư công và các gói ưu đãi lãi suất từ các ngân hàng thương mại như HDBank.",
+        "watch_24_72h": "Trong 24–72 giờ tới, cần theo dõi sát sao: diễn biến giá dầu Brent sau các cuộc không kích tại Trung Đông; phản ứng của thị trường tài chính đối với các đợt IPO hạ tầng AI; và các văn bản hướng dẫn cụ thể về quản lý tài sản số tại Việt Nam."
       },
-      "content": "Bức tranh 48 giờ qua được định hình bởi sự bất ổn địa chính trị tại Trung Đông và nỗ lực tăng tốc kinh tế nội tại của Việt Nam. Việc Mỹ tuyên bố chấm dứt thỏa thuận ngừng bắn với Iran đã kích hoạt làn sóng tăng giá năng lượng, buộc các nhà đầu tư toàn cầu phải thận trọng hơn với các tài sản rủi ro. Tại Việt Nam, Chính phủ đang tập trung vào việc giải phóng các nguồn lực 'đóng băng' để hiện thực hóa mục tiêu tăng trưởng hai con số, với sự chú trọng đặc biệt vào hạ tầng giao thông và cải cách thể chế. Trong lĩnh vực công nghệ, AI tiếp tục là động lực tăng trưởng chính với các bước tiến về hạ tầng dữ liệu và ứng dụng thực tế, bất chấp những lo ngại về an ninh và quyền riêng tư.",
+      "content": "Bức tranh 48 giờ qua được định hình bởi sự giao thoa giữa địa chính trị và công nghệ. Căng thẳng Mỹ-Iran tại eo biển Hormuz đã đẩy giá dầu Brent tăng vọt lên 78,02 USD/thùng, tạo ra rủi ro lạm phát mới cho kinh tế thị trường. Trong khi đó, lĩnh vực công nghệ ghi nhận sự bùng nổ của các mô hình AI thế hệ mới như GPT-5.6 Sol, kéo theo nhu cầu khổng lồ về hạ tầng bán dẫn và trung tâm dữ liệu. Dòng vốn đầu tư đang có xu hướng rời bỏ các tài sản đầu cơ để tìm kiếm cơ hội tại các doanh nghiệp hạ tầng AI, với các đợt IPO lớn từ SK Hynix và CXMT. Tại Việt Nam, Chính phủ đang đẩy mạnh chiến lược xuất khẩu nông sản 100 tỷ USD và quyết liệt tháo gỡ vướng mắc trong giải ngân đầu tư công, đặc biệt là các dự án hạ tầng trọng điểm tại Hà Nội với dự án cải tạo sông Nhuệ 75.000 tỷ đồng và nỗ lực giải ngân 20.000 tỷ đồng tại Cần Thơ. Đồng thời, các ngân hàng như HDBank đang triển khai loạt ưu đãi lãi suất cho doanh nghiệp nông lâm thủy sản nhằm tối ưu chi phí tài chính trong bối cảnh vĩ mô biến động.",
       "representative_sources": [
         {
-          "title": "Giá vàng tụt 1%, chứng khoán Mỹ chìm trong sắc đỏ, giá dầu tăng dựng đứng khi ông Trump tuyên bố ‘chấm dứt’ thỏa thuận ngừng bắn với Iran",
-          "source": "cafef_vn",
-          "url": "https://cafef.vn/gia-vang-tut-1-chung-khoan-my-chim-trong-sac-do-gia-dau-tang-dung-dung-khi-ong-trump-tuyen-bo-cham-dut-thoa-thuan-ngung-ban-voi-iran-18826070821303718.chn",
-          "excerpt": "Giá dầu Brent tăng 7,6% sau khi Mỹ thu hồi lệnh miễn trừ trừng phạt dầu Iran và thực hiện các cuộc không kích."
+          "title": "Căng thẳng Mỹ-Iran leo thang tại eo biển Hormuz",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/07/09/iran-strait-hormuz-oil-tanker-traffic-gulf-trump.html"
+        },
+        {
+          "title": "OpenAI ra mắt dòng mô hình GPT-5.6",
+          "source": "techcrunch_com",
+          "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6"
+        },
+        {
+          "title": "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ",
+          "source": "coindesk_com",
+          "url": "https://coindesk.com/markets/2026/07/09/billions-flowing-out-of-bitcoin-etfs-and-private-credit-funds-suggest-rising-market-risks"
+        },
+        {
+          "title": "OpenAI launches its new family of models with GPT-5.6 | TechCrunch",
+          "source": "techcrunch_com",
+          "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Căng thẳng Mỹ-Iran",
-          "why_mentioned": "Tác động trực tiếp đến giá năng lượng và tâm lý thị trường toàn cầu.",
-          "evidence_hint": "Lặp lại dày đặc trên các nguồn tin quốc tế và tài chính."
+          "topic": "Căng thẳng địa chính trị Trung Đông",
+          "why_mentioned": "Tác động trực tiếp đến giá năng lượng và an ninh hàng hải toàn cầu.",
+          "evidence_hint": "Lặp lại trên nhiều nguồn tin quốc tế về xung đột Mỹ-Iran."
         },
         {
-          "topic": "Tăng trưởng kinh tế Việt Nam",
-          "why_mentioned": "Trọng tâm điều hành chính sách của Chính phủ trong nửa cuối năm 2026.",
-          "evidence_hint": "Nội dung chủ đạo trên các báo lớn tại Việt Nam."
+          "topic": "Bùng nổ AI & Hạ tầng dữ liệu",
+          "why_mentioned": "Sự ra mắt đồng loạt của các mô hình AI mới và nhu cầu đầu tư hạ tầng.",
+          "evidence_hint": "Sự xuất hiện của GPT-5.6 và các đợt IPO hạ tầng AI."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Giá dầu và năng lượng",
-          "why_hot": "Tăng hơn 5% trong 48 giờ do rủi ro địa chính trị.",
-          "impact": "Gây áp lực lên lạm phát và chi phí vận tải toàn cầu.",
-          "evidence_hint": "Dữ liệu từ EIA và các báo cáo thị trường."
+          "topic": "Xung đột Mỹ-Iran tại eo biển Hormuz",
+          "why_hot": "Ảnh hưởng trực tiếp đến giá dầu và tâm lý thị trường tài chính.",
+          "impact": "Gây áp lực lạm phát và chi phí vận tải toàn cầu.",
+          "evidence_hint": "Giá dầu Brent tăng 5,2%."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dịch chuyển dòng vốn sang hạ tầng AI",
-          "why_watch": "Các quỹ đầu tư lớn đang tái định vị danh mục từ tài sản số sang hạ tầng AI và bán dẫn."
+          "signal": "Dịch chuyển dòng vốn từ Crypto sang hạ tầng AI",
+          "why_watch": "Nhà đầu tư tổ chức đang ưu tiên các tài sản có nền tảng tăng trưởng thực tế."
         }
       ],
       "watch_next": [
-        "Diễn biến giá dầu Brent và WTI",
-        "Phản ứng của thị trường chứng khoán Mỹ",
-        "Tiến độ giải ngân đầu tư công tại Việt Nam"
+        "Diễn biến giá dầu Brent",
+        "Tiến độ giải ngân đầu tư công tại Việt Nam",
+        "Phản ứng của thị trường tài chính đối với các đợt IPO hạ tầng AI"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Căng thẳng Mỹ-Iran leo thang: Giá dầu tăng vọt và rủi ro lạm phát",
-        "one_sentence": "Giá dầu Brent và WTI tăng hơn 5% sau khi Mỹ tuyên bố chấm dứt thỏa thuận ngừng bắn với Iran, gây áp lực trực tiếp lên kỳ vọng lạm phát toàn cầu.",
-        "why_it_matters": "Sự kiện địa chính trị quan trọng nhất ảnh hưởng trực tiếp đến giá năng lượng và thị trường tài chính toàn cầu.",
-        "watch_next": "Diễn biến giá dầu và phản ứng của Fed trong biên bản cuộc họp tháng 6.",
+        "title": "Căng thẳng Mỹ-Iran leo thang tại eo biển Hormuz",
+        "one_sentence": "Xung đột quân sự tại eo biển Hormuz khiến lưu lượng tàu chở dầu giảm mạnh, đẩy giá dầu Brent tăng hơn 5% và gây áp lực lên chuỗi cung ứng năng lượng toàn cầu.",
+        "why_it_matters": "Tác động trực tiếp đến lạm phát toàn cầu và chi phí vận tải biển.",
+        "watch_next": "Phản ứng của thị trường dầu mỏ trong 24 giờ tới.",
         "source_urls": [
-          "https://cafef.vn/gia-vang-tut-1-chung-khoan-my-chim-trong-sac-do-gia-dau-tang-dung-dung-khi-ong-trump-tuyen-bo-cham-dut-thoa-thuan-ngung-ban-voi-iran-18826070821303718.chn"
+          "https://cnbc.com/2026/07/09/iran-strait-hormuz-oil-tanker-traffic-gulf-trump.html"
         ]
       },
       {
         "rank": 2,
-        "title": "Hà Nội đẩy mạnh giải phóng nguồn lực để đạt mục tiêu tăng trưởng 11%",
-        "one_sentence": "Tổng Bí thư, Chủ tịch nước Tô Lâm chỉ đạo Hà Nội rà soát quỹ đất và tài sản công để tháo gỡ các dự án 'đóng băng', hiện thực hóa mục tiêu tăng trưởng hai con số.",
-        "why_it_matters": "Chỉ đạo cấp cao nhất về định hướng tăng trưởng kinh tế của thủ đô, ảnh hưởng đến dòng vốn đầu tư công.",
-        "watch_next": "Tiến độ giải ngân vốn đầu tư công tại các dự án trọng điểm của Hà Nội.",
-        "source_urls": []
+        "title": "OpenAI ra mắt dòng mô hình GPT-5.6",
+        "one_sentence": "OpenAI giới thiệu GPT-5.6 Sol, Terra và Luna, tập trung vào hiệu suất lập trình và bảo mật, đánh dấu bước ngoặt trong chiến lược thương mại hóa AI cho doanh nghiệp.",
+        "why_it_matters": "Thay đổi vị thế cạnh tranh của các Big Tech trong lĩnh vực AI agent.",
+        "watch_next": "Phản ứng từ các đối thủ như Anthropic và Meta.",
+        "source_urls": [
+          "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6"
+        ]
       },
       {
         "rank": 3,
-        "title": "OpenAI phát hành công khai các mô hình GPT-5.6",
-        "one_sentence": "OpenAI chính thức ra mắt các mô hình GPT-5.6 Sol, Luna và Terra sau khi hoàn tất các đánh giá an toàn theo yêu cầu của chính phủ Mỹ.",
-        "why_it_matters": "Bước tiến quan trọng trong khả năng tương tác và xử lý thời gian thực của AI thương mại.",
-        "watch_next": "Phản ứng của thị trường và các đối thủ cạnh tranh như Anthropic.",
+        "title": "Hà Nội đầu tư 75.000 tỷ đồng cải tạo sông Nhuệ",
+        "one_sentence": "Dự án cải tạo sông Nhuệ quy mô 75.115 tỷ đồng theo hình thức PPP nhằm giải quyết ô nhiễm và ngập úng, là dự án đầu tư công trọng điểm của Thủ đô giai đoạn 2026-2030.",
+        "why_it_matters": "Thúc đẩy hạ tầng đô thị và tăng trưởng kinh tế địa phương.",
+        "watch_next": "Tiến độ phê duyệt dự án và công tác giải phóng mặt bằng.",
+        "source_urls": []
+      },
+      {
+        "rank": 4,
+        "title": "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ",
+        "one_sentence": "",
+        "why_it_matters": "Phân tích sâu về rủi ro thanh khoản trên thị trường tài chính.",
+        "watch_next": "",
         "source_urls": [
-          "https://cnbc.com/2026/07/08/openai-expanding-gpt-5point6-ai-model-release-ending-government-limits.html"
+          "https://coindesk.com/markets/2026/07/09/billions-flowing-out-of-bitcoin-etfs-and-private-credit-funds-suggest-rising-market-risks"
         ]
       }
     ],
@@ -109,71 +134,66 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua bị chi phối bởi sự bất ổn địa chính trị và nỗ lực điều hành tăng trưởng trong nước. Giá dầu tăng vọt do căng thẳng Mỹ-Iran đã tạo ra áp lực lạm phát mới, trong khi tại Việt Nam, các chỉ đạo về giải ngân đầu tư công và tháo gỡ điểm nghẽn bất động sản đang trở thành trọng tâm. Thị trường chứng khoán Việt Nam ghi nhận sự phân hóa mạnh mẽ, với các cổ phiếu lớn như PNJ phục hồi nhờ thông tin minh bạch hóa, trong khi dòng vốn vẫn tìm kiếm các cơ hội từ hạ tầng và xuất khẩu nông sản.",
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh của các tài sản rủi ro và nỗ lực thúc đẩy tăng trưởng thông qua đầu tư công tại Việt Nam. Dòng vốn đang có xu hướng dịch chuyển từ các quỹ Bitcoin ETF sang hạ tầng AI, phản ánh sự thay đổi trong khẩu vị rủi ro của nhà đầu tư tổ chức. Tại Việt Nam, các chính sách tài chính đang bước vào giai đoạn cụ thể hóa, với trọng tâm là giải ngân đầu tư công và hoàn thiện khung pháp lý cho tài sản số. Các dự án hạ tầng lớn như cải tạo sông Nhuệ 75.000 tỷ đồng và nỗ lực giải ngân 20.000 tỷ đồng tại Cần Thơ cho thấy quyết tâm của Chính phủ trong việc khơi thông nguồn lực quốc gia.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Thị trường chứng khoán",
-            "title": "PNJ phục hồi mạnh mẽ sau cú sốc pháp lý",
-            "summary": "Cổ phiếu PNJ ghi nhận thanh khoản kỷ lục hơn 1.300 tỷ đồng sau khi lãnh đạo khẳng định vụ án kim cương không ảnh hưởng đến hoạt động kinh doanh cốt lõi. Sự phục hồi này phản ánh niềm tin của nhà đầu tư vào sự minh bạch của doanh nghiệp bán lẻ trang sức lớn nhất Việt Nam.",
+            "sub_sector": "Đầu tư công & Hạ tầng",
+            "title": "Hà Nội và Cần Thơ tăng tốc giải ngân đầu tư công",
+            "summary": "Các địa phương trọng điểm như Hà Nội và Cần Thơ đang triển khai các dự án hạ tầng quy mô lớn với tổng vốn đầu tư hàng chục nghìn tỷ đồng nhằm thúc đẩy tăng trưởng kinh tế và giải quyết các vấn đề môi trường, đô thị.",
             "main_developments": [
-              "Hơn 25,6 triệu cổ phiếu PNJ được sang tay trong phiên 8/7.",
-              "Chủ tịch Cao Thị Ngọc Dung khẳng định không có giao dịch với P-Lab.",
-              "Công ty công bố kế hoạch mua lại cổ phiếu quỹ để ổn định giá."
+              "Hà Nội đề xuất dự án cải tạo sông Nhuệ với tổng mức đầu tư 75.115 tỷ đồng theo hình thức PPP.",
+              "Cần Thơ phát động đợt thi đua 90 ngày để giải ngân 10.000-12.000 tỷ đồng vốn đầu tư công trong quý III.",
+              "Nhiều địa phương đồng loạt khởi công các dự án nhà ở cho thuê quy mô lớn."
             ],
-            "why_it_matters": "Sự kiện ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và uy tín của doanh nghiệp bán lẻ trang sức lớn nhất Việt Nam.",
+            "why_it_matters": "Việc đẩy mạnh đầu tư công là động lực chính để đạt mục tiêu tăng trưởng GDP năm 2026 và cải thiện hạ tầng xã hội.",
             "affected_groups": [
-              "Nhà đầu tư cá nhân",
-              "Ngành bán lẻ trang sức"
+              "Ngành xây dựng",
+              "Địa phương",
+              "Người thu nhập thấp"
             ],
             "watch_next": [
-              "Diễn biến giá cổ phiếu PNJ trong các phiên tới",
-              "Thông tin chính thức từ cơ quan điều tra"
+              "Tiến độ giải phóng mặt bằng",
+              "Tỷ lệ giải ngân thực tế cuối quý III"
             ],
-            "representative_sources": [
-              {
-                "title": "PNJ đảo chiều tăng giá, nhà đầu tư sang tay kỷ lục hơn 1.300 tỉ đồng",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/pnj-dao-chieu-tang-gia-nha-dau-tu-sang-tay-ky-luc-hon-1300-ti-dong-100260708153430989.htm",
-                "excerpt": "Cổ phiếu PNJ phục hồi mạnh mẽ với thanh khoản kỷ lục sau khi lãnh đạo khẳng định vụ án tại công ty con không ảnh hưởng đến hoạt động kinh doanh cốt lõi."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua nổi bật với sự bùng nổ của các mô hình AI mới và hạ tầng phần cứng. OpenAI chính thức phát hành GPT-5.6, trong khi các Big Tech như Meta và Microsoft tiếp tục đầu tư mạnh mẽ vào trung tâm dữ liệu để đáp ứng nhu cầu tính toán. Tại Việt Nam, các doanh nghiệp công nghệ đang chuyển mình từ gia công sang đồng kiến tạo giá trị, với sự hỗ trợ từ hạ tầng của NVIDIA, cho thấy tiềm năng lớn trong việc xây dựng năng lực AI quốc gia.",
+        "sector_thesis": "Công nghệ & AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện mô hình AI mới mà còn ở hạ tầng dữ liệu và bán dẫn. Các tập đoàn công nghệ lớn đang đẩy mạnh đầu tư vào hạ tầng AI, từ chip bán dẫn đến trung tâm dữ liệu, nhằm đáp ứng nhu cầu ngày càng tăng của các ứng dụng AI. Tại Việt Nam, sự hợp tác giữa doanh nghiệp nội địa và các tập đoàn công nghệ quốc tế như Samsung đang mở ra cơ hội tham gia sâu hơn vào chuỗi cung ứng toàn cầu. Sự kiện OpenAI ra mắt GPT-5.6 Sol và các tranh chấp bản quyền dữ liệu đang định hình lại cách thức vận hành của ngành AI toàn cầu.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI Models",
-            "title": "OpenAI phát hành công khai các mô hình GPT-5.6",
-            "summary": "OpenAI chính thức phát hành công khai các mô hình GPT-5.6 Sol, Luna và Terra sau khi hoàn tất các đánh giá an toàn theo yêu cầu của chính phủ Mỹ. Đây là bước tiến quan trọng trong khả năng tương tác và xử lý thời gian thực của AI thương mại, đánh dấu sự kết thúc của giai đoạn thử nghiệm giới hạn.",
+            "sub_sector": "AI & Hạ tầng phần cứng",
+            "title": "OpenAI ra mắt dòng mô hình GPT-5.6",
+            "summary": "OpenAI chính thức giới thiệu dòng mô hình GPT-5.6 bao gồm ba biến thể Sol, Terra và Luna, tập trung vào hiệu suất lập trình và bảo mật, đánh dấu bước tiến mới trong việc thương mại hóa AI cho doanh nghiệp.",
             "main_developments": [
-              "Ba biến thể Sol, Luna và Terra được phát hành công khai vào ngày 9/7.",
-              "GPT-Live-1 hỗ trợ xử lý đồng thời đầu vào và đầu ra giọng nói.",
-              "Các mô hình đã vượt qua đánh giá an toàn của chính phủ Mỹ."
+              "GPT-5.6 Sol được đánh giá là mô hình flagship với hiệu suất lập trình vượt trội.",
+              "ChatGPT Work được tích hợp các plugin cho phép tạo tài liệu và ứng dụng web.",
+              "Các tập đoàn công nghệ đang đẩy mạnh đầu tư vào hạ tầng AI để cạnh tranh."
             ],
-            "why_it_matters": "Sự kiện quan trọng trong phát triển mô hình AI thương mại, mở rộng khả năng ứng dụng thực tế của AI.",
+            "why_it_matters": "Sự ra mắt của GPT-5.6 thay đổi vị thế cạnh tranh của các Big Tech và thúc đẩy nhu cầu về hạ tầng phần cứng AI.",
             "affected_groups": [
-              "Nhà phát triển ứng dụng",
-              "Người dùng doanh nghiệp"
+              "Big Tech",
+              "Doanh nghiệp công nghệ",
+              "Nhà phát triển"
             ],
             "watch_next": [
-              "Phản ứng của thị trường",
-              "Khả năng cạnh tranh với các mô hình của Anthropic và Google"
+              "Phản ứng từ Anthropic và Meta",
+              "Tác động đến thị trường phần cứng AI"
             ],
             "representative_sources": [
               {
-                "title": "OpenAI to publicly release GPT-5.6, rolls out conversational AI models",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/07/08/openai-expanding-gpt-5point6-ai-model-release-ending-government-limits.html"
+                "title": "OpenAI launches its new family of models with GPT-5.6 | TechCrunch",
+                "source": "techcrunch_com",
+                "url": "https://techcrunch.com/2026/07/09/openai-launches-its-new-family-of-models-with-gpt-5-6"
               }
             ]
           }
@@ -182,94 +202,58 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và Chính trị 48 giờ qua tập trung vào các diễn biến địa chính trị tại Trung Đông và các chỉ đạo chiến lược của Chính phủ Việt Nam. Việc Mỹ không kích Iran và tuyên bố chấm dứt thỏa thuận ngừng bắn đã làm thay đổi cục diện an ninh khu vực. Tại Việt Nam, Chính phủ tập trung vào việc hoàn thiện khung pháp lý cho phát triển đô thị và đẩy mạnh các chiến dịch tìm kiếm hài cốt liệt sĩ, thể hiện sự kết hợp giữa phát triển kinh tế và thực hiện đạo lý dân tộc.",
+        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua bị chi phối bởi căng thẳng địa chính trị tại Trung Đông và tầm ảnh hưởng của Mỹ trong các vấn đề an ninh toàn cầu. Xung đột Mỹ-Iran tại eo biển Hormuz đã trở thành tâm điểm, gây lo ngại về an ninh năng lượng và ổn định khu vực. Tại Việt Nam, các sự kiện giáo dục và an ninh trật tự cũng thu hút sự quan tâm lớn của dư luận, đặc biệt là các sai phạm trong kỳ thi tốt nghiệp THPT tại Tuyên Quang.",
         "subsector_briefs": [
           {
-            "name": "Địa chính trị & Chính sách",
-            "overview": "Căng thẳng Mỹ-Iran leo thang và các thay đổi trong chính sách đô thị tại Việt Nam là những điểm nóng chính.",
+            "name": "Địa chính trị Trung Đông",
+            "overview": "Xung đột Mỹ-Iran leo thang tại eo biển Hormuz gây áp lực lên giá dầu và an ninh hàng hải.",
             "key_points": [
-              "Mỹ không kích Iran",
-              "Đổi tên dự án Luật Đô thị đặc biệt",
-              "Chiến dịch tìm kiếm hài cốt liệt sĩ"
+              "Mỹ không kích các mục tiêu tại Iran",
+              "Giá dầu Brent tăng vọt"
             ],
             "key_story_titles": [
-              "Đổi tên dự án Luật Đô thị đặc biệt thành Luật Phát triển đô thị"
+              "Căng thẳng Mỹ-Iran leo thang tại Trung Đông"
             ],
             "representative_sources": [
               {
-                "title": "US says conducting new wave of strikes on Iran as ceasefire falters",
-                "source": "aljazeera_com",
-                "url": "https://aljazeera.com/news/2026/7/8/us-says-conducting-new-wave-of-strikes-on-iran-as-ceasefire-falters-2?traffic_source=rss"
+                "title": "Nhiều tiếng nổ vang lên tại Iran sau tuyên bố kết thúc tấn công của Mỹ",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/nhieu-tieng-no-vang-len-tai-iran-sau-tuyen-bo-ket-thuc-tan-cong-cua-my-post1858365.tpo",
+                "excerpt": "Các cuộc không kích của Mỹ vào Iran làm gia tăng căng thẳng tại khu vực."
               }
             ]
           }
         ],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Chính sách Việt Nam",
-            "title": "Đổi tên dự án Luật Đô thị đặc biệt thành Luật Phát triển đô thị",
-            "summary": "Chính phủ Việt Nam đã thống nhất đổi tên dự án 'Luật Đô thị đặc biệt' thành 'Luật Phát triển đô thị' nhằm tạo cơ chế đột phá cho các thành phố trực thuộc trung ương và khu kinh tế đặc biệt. Việc điều chỉnh này giúp phản ánh đầy đủ nội dung và mở rộng phạm vi áp dụng, hỗ trợ quá trình quy hoạch và phát triển bền vững.",
-            "main_developments": [
-              "Chính phủ yêu cầu không vì lợi ích cục bộ mà ảnh hưởng đến phát triển chung.",
-              "Phạm vi áp dụng được mở rộng cho các khu kinh tế đặc biệt.",
-              "Thủ tướng Lê Minh Hưng chỉ đạo hoàn thiện dự thảo luật."
-            ],
-            "why_it_matters": "Thay đổi chính sách quan trọng ảnh hưởng đến quy hoạch và phát triển đô thị tại Việt Nam, tạo tiền đề cho các cơ chế đột phá.",
-            "affected_groups": [
-              "Chính quyền địa phương",
-              "Nhà đầu tư bất động sản"
-            ],
-            "watch_next": [
-              "Tiến độ trình dự thảo luật lên Quốc hội",
-              "Phản ứng từ các địa phương"
-            ],
-            "representative_sources": [
-              {
-                "title": "Đổi tên dự án \"Luật Đô thị đặc biệt\" thành \"Luật Phát triển đô thị\"",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/doi-ten-du-an-luat-do-thi-dac-biet-thanh-luat-phat-trien-do-thi-188260708200421317.chn",
-                "excerpt": "Chính phủ thống nhất đổi tên dự án nhằm tạo cơ chế đột phá cho các thành phố trực thuộc trung ương và khu kinh tế đặc biệt."
-              }
-            ]
-          }
-        ]
+        "story_dossiers": []
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và Đời sống 48 giờ qua ghi nhận sự thay đổi trong văn hóa đọc và hành vi tiêu dùng của người Việt. Sự suy giảm của văn hóa đọc trong kỷ nguyên số đang trở thành chủ đề tranh luận lớn, trong khi người tiêu dùng Việt Nam đang dịch chuyển niềm tin sang các kênh bán lẻ hiện đại sau các vụ mất an toàn thực phẩm. Các sự kiện thể thao như World Cup 2026 vẫn là tâm điểm văn hóa, thu hút sự quan tâm lớn của công chúng.",
+        "sector_thesis": "Xu hướng & Đời sống trong 48 giờ qua nổi bật với các vấn đề về quyền riêng tư kỹ thuật số, y tế cộng đồng và chuyển đổi xanh trong giao thông đô thị. Người dùng ngày càng lo ngại về việc dữ liệu cá nhân bị sử dụng cho AI, trong khi các thành phố đang đẩy mạnh các giải pháp bền vững để ứng phó với biến đổi khí hậu. Tại Việt Nam, xu hướng điện hóa xe buýt công cộng tại TP.HCM đang đạt được những kết quả tích cực, hướng tới mục tiêu giao thông xanh.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Thể thao",
-            "title": "Messi dẫn đầu cuộc đua Vua phá lưới World Cup 2026",
-            "summary": "Siêu sao Lionel Messi đang tỏa sáng rực rỡ tại World Cup 2026, giúp đội tuyển Argentina tiến vào tứ kết và vươn lên dẫn đầu danh sách ghi bàn. Với 8 bàn thắng sau các trận đấu vòng bảng và vòng 1/8, Messi đang thể hiện phong độ đỉnh cao, trở thành tâm điểm của sự kiện thể thao lớn nhất hành tinh.",
+            "sub_sector": "Giao thông xanh & Đô thị",
+            "title": "TP.HCM đẩy mạnh điện hóa xe buýt công cộng",
+            "summary": "TP.HCM đang thực hiện cuộc chuyển đổi mạnh mẽ sang xe buýt điện, với hơn 60% tuyến xe buýt hiện nay sử dụng năng lượng sạch, hướng tới mục tiêu 100% xe buýt nội tỉnh sử dụng điện vào năm 2029.",
             "main_developments": [
-              "Messi nâng tổng số bàn thắng lên 8 sau trận đấu với Ai Cập.",
-              "Argentina chính thức giành vé vào tứ kết World Cup 2026.",
-              "Messi vượt qua Kylian Mbappe và Erling Haaland trong danh sách ghi bàn."
+              "Hiện có 1.416 xe buýt điện trên tổng số 2.453 xe buýt tại thành phố.",
+              "Thành phố đặt mục tiêu 100% xe buýt nội tỉnh sử dụng điện vào cuối năm 2026.",
+              "Chuyển đổi xanh là ưu tiên hàng đầu trong quy hoạch giao thông đô thị."
             ],
-            "why_it_matters": "Sự kiện thể thao có sức ảnh hưởng văn hóa lớn, thu hút sự quan tâm của hàng triệu người hâm mộ trên toàn cầu.",
+            "why_it_matters": "Việc điện hóa xe buýt giúp giảm phát thải khí nhà kính và cải thiện chất lượng không khí đô thị.",
             "affected_groups": [
-              "Người hâm mộ bóng đá",
-              "Ngành truyền thông thể thao"
+              "Người dân đô thị",
+              "Ngành giao thông",
+              "Môi trường"
             ],
             "watch_next": [
-              "Trận tứ kết của Argentina",
-              "Khả năng giành chức vô địch của Argentina"
+              "Tiến độ thay thế xe buýt cũ",
+              "Phản ứng của người dân"
             ],
-            "representative_sources": [
-              {
-                "title": "Nóng bỏng cuộc đua Vua phá lưới World Cup 2026: Messi vượt mặt Mbappe và Haaland",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/nong-bong-cuoc-dua-vua-pha-luoi-world-cup-2026-messi-vuot-mat-mbappe-va-haaland-192260708143207027.htm",
-                "excerpt": "Siêu sao Lionel Messi tỏa sáng giúp Argentina vào tứ kết và vươn lên dẫn đầu danh sách ghi bàn."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       }
@@ -277,57 +261,68 @@
     "watchlist_24_72h": [
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến quân sự tại eo biển Hormuz và phản ứng của giá dầu Brent.",
-        "why": "Ảnh hưởng trực tiếp đến lạm phát và thị trường tài chính toàn cầu."
+        "what_to_watch": "Diễn biến xung đột Mỹ-Iran và giá dầu Brent",
+        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng toàn cầu."
       },
       {
-        "theme": "Chính sách kinh tế Việt Nam",
-        "what_to_watch": "Tiến độ giải ngân đầu tư công và các văn bản hướng dẫn luật mới.",
-        "why": "Quyết định mục tiêu tăng trưởng kinh tế nửa cuối năm 2026."
+        "theme": "Hạ tầng AI",
+        "what_to_watch": "Phản ứng thị trường đối với các đợt IPO hạ tầng AI",
+        "why": "Dòng vốn dịch chuyển từ tài sản rủi ro sang hạ tầng AI."
       },
       {
-        "theme": "Thị trường tài sản số",
-        "what_to_watch": "Các quy định pháp lý mới từ EU và Mỹ.",
-        "why": "Ảnh hưởng đến thanh khoản và hoạt động của các sàn giao dịch."
+        "theme": "Đầu tư công Việt Nam",
+        "what_to_watch": "Tiến độ giải ngân tại Hà Nội và Cần Thơ",
+        "why": "Động lực chính cho tăng trưởng GDP năm 2026."
       },
       {
-        "theme": "Căng thẳng Mỹ-Iran leo thang: Giá dầu tăng vọt và rủi ro lạm phát",
-        "what_to_watch": "Diễn biến giá dầu và phản ứng của Fed trong biên bản cuộc họp tháng 6.",
-        "why": "Sự kiện địa chính trị quan trọng nhất ảnh hưởng trực tiếp đến giá năng lượng và thị trường tài chính toàn cầu."
+        "theme": "Căng thẳng Mỹ-Iran leo thang tại eo biển Hormuz",
+        "what_to_watch": "Phản ứng của thị trường dầu mỏ trong 24 giờ tới.",
+        "why": "Tác động trực tiếp đến lạm phát toàn cầu và chi phí vận tải biển."
       },
       {
-        "theme": "Hà Nội đẩy mạnh giải phóng nguồn lực để đạt mục tiêu tăng trưởng 11%",
-        "what_to_watch": "Tiến độ giải ngân vốn đầu tư công tại các dự án trọng điểm của Hà Nội.",
-        "why": "Chỉ đạo cấp cao nhất về định hướng tăng trưởng kinh tế của thủ đô, ảnh hưởng đến dòng vốn đầu tư công."
+        "theme": "OpenAI ra mắt dòng mô hình GPT-5.6",
+        "what_to_watch": "Phản ứng từ các đối thủ như Anthropic và Meta.",
+        "why": "Thay đổi vị thế cạnh tranh của các Big Tech trong lĩnh vực AI agent."
       },
       {
-        "theme": "OpenAI phát hành công khai các mô hình GPT-5.6",
-        "what_to_watch": "Phản ứng của thị trường và các đối thủ cạnh tranh như Anthropic.",
-        "why": "Bước tiến quan trọng trong khả năng tương tác và xử lý thời gian thực của AI thương mại."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Tổng Bí thư, Chủ tịch nước Tô Lâm chỉ đạo Hà Nội giải phóng nguồn lực 'đóng băng' để tăng trưởng",
-        "why": "Chỉ đạo cấp cao nhất về định hướng tăng trưởng kinh tế của thủ đô."
+        "theme": "Hà Nội đầu tư 75.000 tỷ đồng cải tạo sông Nhuệ",
+        "what_to_watch": "Tiến độ phê duyệt dự án và công tác giải phóng mặt bằng.",
+        "why": "Thúc đẩy hạ tầng đô thị và tăng trưởng kinh tế địa phương."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Nút thắt chính sách trong phát triển nhà ở xã hội cho thuê",
-        "why": "Phản ánh thực trạng khó khăn của doanh nghiệp BĐS trong việc cân đối tài chính cho phân khúc an sinh."
+        "what_to_watch": "xu hướng tài sản: Nhà đầu tư rút khỏi Bitcoin ETF và tín dụng tư nhân để đổ vào hạ tầng AI",
+        "why": "Phản ánh xu hướng dịch chuyển dòng vốn quan trọng nhất trong 48 giờ qua."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Cổ phiếu PNJ đảo chiều ngoạn mục sau cú sốc vụ án kim cương",
-        "why": "Sự kiện ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và uy tín của doanh nghiệp bán lẻ trang sức lớn nhất Việt Nam."
+        "what_to_watch": "Hà Nội chuẩn bị đầu tư hơn 75.000 tỷ đồng cải tạo toàn diện sông Nhuệ",
+        "why": "Dự án đầu tư công quy mô lớn có tác động trực tiếp đến hạ tầng và môi trường Thủ đô."
       },
       {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "BNB Chain phát triển hạ tầng Layer-1 cho AI và giao dịch tần suất cao",
-        "why": "Bước đi chiến lược của BNB Chain nhằm đón đầu làn sóng AI agent và nhu cầu hạ tầng hiệu năng cao."
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Cần Thơ tăng tốc giải ngân gần 20.000 tỷ đồng vốn đầu tư công",
+        "why": "Phản ánh nỗ lực thúc đẩy tăng trưởng kinh tế thông qua đầu tư công tại địa phương trọng điểm."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Đẩy mạnh phát triển nhà ở cho thuê tại các địa phương",
+        "why": "Đây là chính sách trọng tâm của Chính phủ nhằm giải quyết nhu cầu nhà ở cho người thu nhập thấp và công nhân."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng ngoại giao cụ thể từ các nước ASEAN đối với căng thẳng Mỹ-Iran.",
+    "source_desk": [
+      {
+        "topic": "Địa chính trị & Năng lượng",
+        "representative_sources": [
+          {
+            "title": "Nhiều tiếng nổ vang lên tại Iran sau tuyên bố kết thúc tấn công của Mỹ",
+            "source": "tienphong_vn",
+            "url": "https://tienphong.vn/nhieu-tieng-no-vang-len-tai-iran-sau-tuyen-bo-ket-thuc-tan-cong-cua-my-post1858365.tpo"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng của các ngân hàng trung ương ngoài Fed đối với biến động giá dầu.",
     "notable_articles": []
   }
 }
