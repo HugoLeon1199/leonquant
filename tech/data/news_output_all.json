@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-09T05:10:01.639394+00:00",
-  "count": 127,
+  "generated_at": "2026-07-09T10:34:31.392224+00:00",
+  "count": 139,
   "source_error_count": 0,
   "articles": [
     {
@@ -103,11 +103,33 @@
       "macro_score": 0
     },
     {
+      "title": "别让AI一上来就“进厂打螺丝”：智源悟界·Orca要先教模型理解世界如何变化",
+      "url": "https://www.qbitai.com/2026/07/446075.html",
+      "summary": "别让AI一上来就“进厂打螺丝”：智源悟界·Orca要先教模型理解世界如何变化\nHugging Face论文月榜第一\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n今天的AI已经很会“输出”了。\n- 语言模型预测下一个token，于是可以回答问题、写文章、写代码。\n- 图像和视频模型预测下一帧，于是可以生成越来越逼真的视觉内容。\n- 具身模型预测下一步动作，于是机器人开始能够完成抓取、放置、整理等任务。\n但这些能力背后，仍然有一个更底层的问题：模型到底是在学会某一种输出，还是已经理解了世界状态本身如何变化？\n智源研究院悟界·RoboBrain Orca Team发布的技术报告Orca: The World is in Your Mind，想探索的正是这个问题。\n项目主页：https://orca-wm.github.io\n技术报告：https://arxiv.org/abs/2606.30534\n悟界·RoboBrain Orca发布后，迅速获得了海外研究社区的关注。\n多位研究者将其讨论重点，放在了“真正的多模态表征世界模型”上：\nOrca并不是把文本、图像、视频、动作简单拼接在一起，而是尝试在统一的世界潜空间中，学习它们背后的共同状态与演化规律。\n也有评论认为，Orca更接近早期通用世界模型的形态，即先学习世界如何变化，再将这种世界表征读出到理解、预测和行动任务中。\n与此同时，Orca也登上了Daily Papers月度榜单，并在Hugging Face、X等社区获得持续关注。\n可以看到，世界模型正在成为下一阶段AI研究中被持续关注的重要方向。\n从Next token, Frame, Action Prediction到Next-State Prediction\n悟界·RoboBrain Orca并非一个更会聊天的大模型，也不是一个单纯追求视觉真实感的视频生成模型，更不是一个只面向机器人的动作策略模型。\n它想走的是一条更基础的路线：\n先让模型学习统一的世界状态表征，再从这个表征中读出理解、预测和行动能力。\n换句话说，Orca关注的是：当前世界处于什么状态，以及这个状态在自然演化、事件条件或外部干预下，会如何转移到另一个状态。\n这就是Orca Team所探索的Next-State Prediction。\n“我们不会让一个3岁小孩进工厂，打10万小时螺丝。”这是Orca Team解释这项工作时，用过的一个比喻。\n这句话不只是在说机器人，也是在说今天很多AI模型的共同处境：语言模型被训练去预测下一个词，视频模型被训练去生成下一帧，具身模型被训练去模仿下一步动作。\n它们看起来任务不同，但底层逻辑很像——一上来就把模型放进某个具体工位，让它围绕某一种输出反复练习。\n这条路当然有效，但问题是，一个还没有理解世界的模型，真的能只靠“打螺丝”，走向通用吗？\nOrca团队的判断是：顺序可能要反过来。别急着让模型学“下一步怎么动”，先让它上一堂关于世界的“义务教育”课。\n先利用多模态世界信号学习好世界表征；再做好一切任务\n这也是Orca的核心哲学：The World is in Your Mind.\n悟界·RoboBrain Orca如何学习世界变化？\n人在不会讲话之前，就能通过看学习到客观的世界，例如风吹叶落；在成长中，人类还可以通过一句话、一本说明书感知并理解具体事件。\nOrca将它们抽象为两类互补的学习方式：无意识学习和有意识学习。\n第一类是无意识学习。\n模型从连续视频中学习自然、稠密的状态变化，不依赖显式语言标注。\n比如一个物体如何移动，手与物体如何…",
+      "published_at": "2026-07-08",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "Emmi joins Mistral to accelerate the AI-native industry | Mistral AI",
       "url": "https://mistral.ai/news/accelerate-ai-native-industry/",
       "summary": "This week, we’ve entered into a definitive agreement to acquire Physics AI pioneer Emmi AI to strengthen our position as the leading AI transformation partner for industrial enterprises.\nMistral AI is building leading AI systems to accelerate engineering and manufacturing globally. As part of this mission, the company is extending its models’ capabilities to understand and model physics; and is enabling AI agents to use existing engineering tools. With the acquisition of Emmi AI, Mistral significantly enriches its products and expertise in this domain, aiming to accelerate the work of engineering solution teams worldwide.\nThe acquisition also accelerates our Science roadmap, advancing our understanding of fundamental physics and leveraging unique industrial data. With Emmi AI's models complementing our own, we are set to build the best-in-class agents for engineers.\nFounded in Austria, Emmi AI has quickly emerged as one of the world's most ambitious AI companies, leading a revolution at the intersection of artificial intelligence and industrial engineering. Its team has developed a unique expertise in Physics AI, providing state-of-the-art large engineering models. The company empowers industrial players to accelerate their engineering workflows and product design cycles, replace multi-day computations with real-time simulations, and build digital twins to optimize asset operations.\nEmmi’s co-founders and its team of more than 30 researchers and engineers, among the leading e…",
       "published_at": "2026-05-23",
       "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "“人机共生，产需共融”——2026世界机器人大会新闻发布会在京召开",
+      "url": "https://www.qbitai.com/2026/07/446226.html",
+      "summary": "“人机共生，产需共融”——2026世界机器人大会新闻发布会在京召开\n7月6日，2026世界机器人大会新闻发布会在北京召开，向全球传递以机器人科技赋能高质量发展、以国际协作共享创新成果的鲜明信号，让机器人更好走进千行百业、服务民生福祉，践行科技向善使命。全国政协常委、致公党中央专职副主席、全国妇联副主席、中国电子学会理事长徐晓兰，中国电子学会副理事长兼秘书长、总部党委书记赵云峰，工业和信息化部装备工业一司副司长郝立顺，北京市经济和信息化局副局长刘维亮，北京经济技术开发区管委会副主任李全出席发布会并讲话。发布会由中国电子学会副秘书长、世界机器人合作组织副理事长梁靓主持。\n2026世界机器人大会新闻发布会\n徐晓兰讲话\n徐晓兰表示，习近平总书记在2014年两院院士大会上深刻指出，“机器人是‘制造业皇冠顶端的明珠’，其研发、制造、应用是衡量一个国家科技创新和高端制造业水平的重要标志。”为贯彻落实总书记重要讲话精神，在工业和信息化部、北京市人民政府、中国科协的大力支持下，中国电子学会于2015年11月在京举办了首届世界机器人大会。习近平总书记在致首届大会的贺信中强调，“我们愿加强同各国科技界、产业界的合作，推动机器人科技研发和产业化进程，使机器人科技及其产品更好为推动发展、造福人民服务。”这为我国加快发展机器人产业指明了方向、提供了遵循。\n徐晓兰强调，十余年来，我国机器人产业实现了“从小到大”“由弱变强”的巨大跨越，连续十三年成为全球最大工业机器人市场，人形机器人产业整体水平处于全球领先地位，数据集建设快速推进，中试基地实体化建设取得阶段性成效。世界机器人大会正是这场跨越发展的推动者、参与者和见证者。站在新十年的起点上，世界机器人大会将在五个方面持续发力：一是在推动科技创新上下功夫，集中发布机器人领域新技术、新产品、新应用，促进全球前沿技术交流合作。二是在推动产业发展上下功夫，发布技术图谱、产业及产业链图谱、零部件图谱、企业图谱、标准图谱、应用图谱，推动产业全栈式发展。三是在推动行业规范治理上下功夫，引导机器人企业在安全伦理、隐私保护等方面达成共识。四是在推动人才培育上下功夫，建设具身智能机器人人才实训平台，重点面向青年人才，构建产学研用协同的复合型人才培养体系。五是在推动国际合作上下功夫，联合世界机器人合作组织，深化机器人产业全球协作，让机器人更好更快走进千行百业、千家万景。\n赵云峰介绍\n赵云峰介绍，2026世界机器人大会将于8月19日至23日在北京经济技术开发区举行，主题为“人机共生，产需共融”。本届大会着力打造了以下特色：一是大会锚定自身在机器人产业的四大定位，作为重磅发布的阵地，大会集中推出重大成果、首发新品、合作倡议等重磅内容，让业界最新成果在大会舞台集中亮相；作为产需共融的桥梁，大会以应用为牵引深化采购洽谈与产业链上下游协作，助推各领域机器人应用加速落地；作为生态共建的纽带，大会汇聚全球开发者交流技术、展示成果，聚力赋能行业高质量创新发展；作为全民共享的盛会，大会邀请广大公众走进现场、触摸未来，点燃全民参与热情，共赴这场盛夏的科技之约。二是规模规格再提档，大会得到近30家国际机构支持，主论坛国际嘉宾占比达30%，博览会参展企业300余家，较去年增加36%，预计展品超2000件，首发新品150余件，同期活动数量较去年翻倍达60余场。三是创新引领再突破，大会现场将发起“全球机器人应用探索计划”，招募量产产品对接给全球优秀创新团队无偿试用，国务院国资委也将在大会现场宣布成立中央企业机器人创新联合体，构建“技术共研、场景共用、成果共享”的创新生态。四是机…",
+      "published_at": "2026-07-08",
+      "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -130,6 +152,17 @@
       "summary": "The acquisition of Emmi AI has highlighted Mistral’s commitment towards pushing the state-of-the-art in AI research and enterprise solutions for industrial engineering.\nEmmi’s work, now part of Mistral, is dedicated to fundamentally enabling engineers to build the next generation of products faster and secure continuous performance gains in operations at scale for their customers.\nWe are doubling down on building foundational Physics AI for the industries that shape the physical world, such as aerospace, automotive, semiconductors, and energy.\nBelow are some of the published breakthroughs that this work rests on.\nDEC 1, 2025\nGoing with the Speed of Sound: Pushing Neural Surrogates into Highly-turbulent Transonic Regimes\nExisting aerospace datasets predominantly focus on 2D airfoils, neglecting these critical 3D phenomena. To address this gap, we present a new dataset of CFD simulations for 3D wings in the transonic regime. The dataset comprises volumetric and surface-level fields for around 30,000 samples with unique geometry and inflow conditions.\nNOV 25, 2025\nFluid Intelligence: A Forward Look on AI Foundation Models in Computational Fluid Dynamics\nDriven by the advancement of GPUs and AI, the field of Computational Fluid Dynamics (CFD) is undergoing significant transformations. This paper bridges the gap between the machine learning and CFD communities by deconstructing industrial-scale CFD simulations into their core components.\nOCT 17, 2025\nAB-UPT for Automotive and Aero…",
       "published_at": "2026-05-27",
       "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 1
+    },
+    {
+      "title": "具身智能“高考”难疯了！人类100分，最强模型12.8",
+      "url": "https://www.qbitai.com/2026/07/446363.html",
+      "summary": "具身智能“高考”难疯了！人类100分，最强模型12.8\n具身测评界的珠峰来了：RoboDojo\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n通用机器人这座山，到底有多高？\n过去一年，VLA、机器人基础模型、世界模型轮番登场。\n一个个demo看起来越来越丝滑：叠碗、插管、收纳、倒水、整理桌面，机器人似乎终于开始听懂人话、理解世界、动手干活。\n但问题是：这些模型到底谁更强？强在哪里？能不能从仿真走到真实世界？离真正的通用操作机器人，还有多远？\n现在，一个新的“登山路线图”来了。\n曾推出RoboTwin系列基准的原班团队，又带来了RoboDojo：一个统一的仿真+真实世界机器人操作评测基准。\nWebsite: https://robodojo-benchmark.com/\narXiv: https://arxiv.org/abs/2607.04434\nLeaderboard: https://robodojo-benchmark.com/LeaderBoard\nBenchmark code: https://github.com/RoboDojo-Benchmark/RoboDojo\nXPolicyLab code: https://github.com/XPolicyLab/XPolicyLab\nCommunity: https://robodojo-benchmark.com/community\n它不只是又一个benchmark，而更像是给具身智能立了一座“珠峰”：\n42个仿真任务，18个真实机器人任务，30个主流机器人策略同台竞技，覆盖泛化、记忆、精细操作、长程执行、开放语义理解五大能力。\n结果很直接，也很残酷：\n当前最强通用机器人策略，在仿真平均成功率也只有8.80%。到了真实世界，最好模型平均成功率也只有12.8%。\n而人类专家呢？仿真里是76.03%，真实世界是100%。\n机器人基础模型们看起来已经开始攀登具身珠峰，但RoboDojo的榜单显示：它们大多还在山脚适应高反。\n先看任务设计：这座山为什么难？\nRoboDojo的难点，不在于简单堆任务数量，而在于它把机器人操作能力拆成了一组更接近真实世界的“登山关卡”。\n在仿真环境中，RoboDojo设计了42个任务，围绕五个核心能力展开：\n- Generalization，看模型能不能适应新背景、新光照、新物体和复杂杂乱场景。\n- Memory，看模型能不能记住之前看到的信息，并在后续动作中用上。\n- Precision，看模型能不能完成插入、对齐、精确接触等高精度操作。\n- Long-Horizon，看模型能不能完成多步骤、强依赖、误差会累积的任务。\n- Open，看模型能不能理解没见过的开放语义指令，并把语言目标变成动作。\n这些任务不是简单的pick-and-place变体。\n比如在泛化任务中，桌面杂物最多可随机到25个，背景、光照、物体外观和布局都会变化；\n在记忆任务中，机器人需要记住传送带上曾经出现又消失的物体，再从后续候选物中选出匹配目标；\n在精细操作任务中，机器人要完成插管、对齐、插入等高容错要求动作，稍微偏一点就会失败。\n长程任务则更接近真实家务：机器人不是做一个动作，而是要连续完成多个子步骤。拿起、移动、交接、对齐、放置，每一步都可能引入误差，而误差会一路累积到最后。\n但RoboDojo没有停在仿真里。\n真正让这座“具身珠峰”变高的，是它还把评测搬到了真实机器人上。\nRoboDojo设计了18个真实世界任务，覆盖ARX X5、Piper、Piper X三种双臂机器人平台…",
+      "published_at": "2026-07-08",
+      "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -301,17 +334,6 @@
       "macro_score": 0
     },
     {
-      "title": "别让AI一上来就“进厂打螺丝”：智源悟界·Orca要先教模型理解世界如何变化",
-      "url": "https://www.qbitai.com/2026/07/446075.html",
-      "summary": "别让AI一上来就“进厂打螺丝”：智源悟界·Orca要先教模型理解世界如何变化\nHugging Face论文月榜第一\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n今天的AI已经很会“输出”了。\n- 语言模型预测下一个token，于是可以回答问题、写文章、写代码。\n- 图像和视频模型预测下一帧，于是可以生成越来越逼真的视觉内容。\n- 具身模型预测下一步动作，于是机器人开始能够完成抓取、放置、整理等任务。\n但这些能力背后，仍然有一个更底层的问题：模型到底是在学会某一种输出，还是已经理解了世界状态本身如何变化？\n智源研究院悟界·RoboBrain Orca Team发布的技术报告Orca: The World is in Your Mind，想探索的正是这个问题。\n项目主页：https://orca-wm.github.io\n技术报告：https://arxiv.org/abs/2606.30534\n悟界·RoboBrain Orca发布后，迅速获得了海外研究社区的关注。\n多位研究者将其讨论重点，放在了“真正的多模态表征世界模型”上：\nOrca并不是把文本、图像、视频、动作简单拼接在一起，而是尝试在统一的世界潜空间中，学习它们背后的共同状态与演化规律。\n也有评论认为，Orca更接近早期通用世界模型的形态，即先学习世界如何变化，再将这种世界表征读出到理解、预测和行动任务中。\n与此同时，Orca也登上了Daily Papers月度榜单，并在Hugging Face、X等社区获得持续关注。\n可以看到，世界模型正在成为下一阶段AI研究中被持续关注的重要方向。\n从Next token, Frame, Action Prediction到Next-State Prediction\n悟界·RoboBrain Orca并非一个更会聊天的大模型，也不是一个单纯追求视觉真实感的视频生成模型，更不是一个只面向机器人的动作策略模型。\n它想走的是一条更基础的路线：\n先让模型学习统一的世界状态表征，再从这个表征中读出理解、预测和行动能力。\n换句话说，Orca关注的是：当前世界处于什么状态，以及这个状态在自然演化、事件条件或外部干预下，会如何转移到另一个状态。\n这就是Orca Team所探索的Next-State Prediction。\n“我们不会让一个3岁小孩进工厂，打10万小时螺丝。”这是Orca Team解释这项工作时，用过的一个比喻。\n这句话不只是在说机器人，也是在说今天很多AI模型的共同处境：语言模型被训练去预测下一个词，视频模型被训练去生成下一帧，具身模型被训练去模仿下一步动作。\n它们看起来任务不同，但底层逻辑很像——一上来就把模型放进某个具体工位，让它围绕某一种输出反复练习。\n这条路当然有效，但问题是，一个还没有理解世界的模型，真的能只靠“打螺丝”，走向通用吗？\nOrca团队的判断是：顺序可能要反过来。别急着让模型学“下一步怎么动”，先让它上一堂关于世界的“义务教育”课。\n先利用多模态世界信号学习好世界表征；再做好一切任务\n这也是Orca的核心哲学：The World is in Your Mind.\n悟界·RoboBrain Orca如何学习世界变化？\n人在不会讲话之前，就能通过看学习到客观的世界，例如风吹叶落；在成长中，人类还可以通过一句话、一本说明书感知并理解具体事件。\nOrca将它们抽象为两类互补的学习方式：无意识学习和有意识学习。\n第一类是无意识学习。\n模型从连续视频中学习自然、稠密的状态变化，不依赖显式语言标注。\n比如一个物体如何移动，手与物体如何…",
-      "published_at": "2026-07-08",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "Robostral Navigate: single-camera AI navigation | Mistral AI",
       "url": "https://mistral.ai/news/robostral-navigate/",
       "summary": "Introducing \n Robostral Navigate \nThinking\nSummary\nRobostral Navigate is an 8B model that enables robots to autonomously navigate complex environments using only a single RGB camera, achieving 76.6% success on unseen R2R-CE benchmarks—outperforming multi-sensor approaches while being more efficient. Built entirely in-house with simulated data and token-efficient techniques, it generalizes across robot types and adapts to real-world obstacles unseen during training. The model combines pointing-based navigation with reinforcement learning for continuous improvement, paving the way for unified embodied AI in robotics.\nToday we're introducing Robostral Navigate, our first model built for embodied navigation. It's an 8B model that takes RGB images and a plain-language instruction and moves a robot through an environment:\n“Leave the lobby, walk through the corridor, enter the supply room, and stop to face the second shelf.”\nTo perform such tasks, other models often employ depth sensors, LiDAR, or several cameras working together. Robostral Navigate uses only one ordinary RGB camera and no depth sensors, yet still achieves 76.6% on R2R-CE (Room-to-Room in Continuous Environments) validation unseen, the benchmark for following instructions in environments held out of training. Consequently, it beats the best single-camera approach by 9.7 points and the best system using depth or multiple cameras by 4.5 points, despite using neither.\nNavigation\nOur model is designed for robotic naviga…",
@@ -321,39 +343,6 @@
       "region": "global",
       "tier": "01_pass_rss",
       "macro_score": 0
-    },
-    {
-      "title": "“人机共生，产需共融”——2026世界机器人大会新闻发布会在京召开",
-      "url": "https://www.qbitai.com/2026/07/446226.html",
-      "summary": "“人机共生，产需共融”——2026世界机器人大会新闻发布会在京召开\n7月6日，2026世界机器人大会新闻发布会在北京召开，向全球传递以机器人科技赋能高质量发展、以国际协作共享创新成果的鲜明信号，让机器人更好走进千行百业、服务民生福祉，践行科技向善使命。全国政协常委、致公党中央专职副主席、全国妇联副主席、中国电子学会理事长徐晓兰，中国电子学会副理事长兼秘书长、总部党委书记赵云峰，工业和信息化部装备工业一司副司长郝立顺，北京市经济和信息化局副局长刘维亮，北京经济技术开发区管委会副主任李全出席发布会并讲话。发布会由中国电子学会副秘书长、世界机器人合作组织副理事长梁靓主持。\n2026世界机器人大会新闻发布会\n徐晓兰讲话\n徐晓兰表示，习近平总书记在2014年两院院士大会上深刻指出，“机器人是‘制造业皇冠顶端的明珠’，其研发、制造、应用是衡量一个国家科技创新和高端制造业水平的重要标志。”为贯彻落实总书记重要讲话精神，在工业和信息化部、北京市人民政府、中国科协的大力支持下，中国电子学会于2015年11月在京举办了首届世界机器人大会。习近平总书记在致首届大会的贺信中强调，“我们愿加强同各国科技界、产业界的合作，推动机器人科技研发和产业化进程，使机器人科技及其产品更好为推动发展、造福人民服务。”这为我国加快发展机器人产业指明了方向、提供了遵循。\n徐晓兰强调，十余年来，我国机器人产业实现了“从小到大”“由弱变强”的巨大跨越，连续十三年成为全球最大工业机器人市场，人形机器人产业整体水平处于全球领先地位，数据集建设快速推进，中试基地实体化建设取得阶段性成效。世界机器人大会正是这场跨越发展的推动者、参与者和见证者。站在新十年的起点上，世界机器人大会将在五个方面持续发力：一是在推动科技创新上下功夫，集中发布机器人领域新技术、新产品、新应用，促进全球前沿技术交流合作。二是在推动产业发展上下功夫，发布技术图谱、产业及产业链图谱、零部件图谱、企业图谱、标准图谱、应用图谱，推动产业全栈式发展。三是在推动行业规范治理上下功夫，引导机器人企业在安全伦理、隐私保护等方面达成共识。四是在推动人才培育上下功夫，建设具身智能机器人人才实训平台，重点面向青年人才，构建产学研用协同的复合型人才培养体系。五是在推动国际合作上下功夫，联合世界机器人合作组织，深化机器人产业全球协作，让机器人更好更快走进千行百业、千家万景。\n赵云峰介绍\n赵云峰介绍，2026世界机器人大会将于8月19日至23日在北京经济技术开发区举行，主题为“人机共生，产需共融”。本届大会着力打造了以下特色：一是大会锚定自身在机器人产业的四大定位，作为重磅发布的阵地，大会集中推出重大成果、首发新品、合作倡议等重磅内容，让业界最新成果在大会舞台集中亮相；作为产需共融的桥梁，大会以应用为牵引深化采购洽谈与产业链上下游协作，助推各领域机器人应用加速落地；作为生态共建的纽带，大会汇聚全球开发者交流技术、展示成果，聚力赋能行业高质量创新发展；作为全民共享的盛会，大会邀请广大公众走进现场、触摸未来，点燃全民参与热情，共赴这场盛夏的科技之约。二是规模规格再提档，大会得到近30家国际机构支持，主论坛国际嘉宾占比达30%，博览会参展企业300余家，较去年增加36%，预计展品超2000件，首发新品150余件，同期活动数量较去年翻倍达60余场。三是创新引领再突破，大会现场将发起“全球机器人应用探索计划”，招募量产产品对接给全球优秀创新团队无偿试用，国务院国资委也将在大会现场宣布成立中央企业机器人创新联合体，构建“技术共研、场景共用、成果共享”的创新生态。四是机…",
-      "published_at": "2026-07-08",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "横跨淘天与ATH事业群，硬核少年技术节下周京杭同步开幕，四项AIGX硬核成果齐发",
-      "url": "https://www.qbitai.com/2026/07/446356.html",
-      "summary": "横跨淘天与ATH事业群，硬核少年技术节下周京杭同步开幕，四项AIGX硬核成果齐发\n作为横跨阿里巴巴-淘天集团和ATH事业群的年度最大技术节日【硬核少年技术节5.0】将于7月20日至24日在杭州和北京两地隆重举办。本届技术节持续一周，包含技术市集、博见社、Openday、AI Hackathon比赛等多元板块，集展示、竞技、分享与交流于一体。\n历届最大规模，四大核心成果齐发\n硬核少年技术节已经连续举办了五届，本届技术节从规模和覆盖度等各个维度都达到历届最高，且亮点纷呈：围绕AIGX技术体系持续升级，四项硬核成果重磅发布——全模态感知、内容生产、因果推断、意图理解，让AI从工具真正进化为你的伙伴；博见社首次升级为学术+工业双场对话，联合CCF TCAIPR专委会，汇聚高校学者与影视、设计、AI领域产业先锋，共话AI带来的生产生活新变迁；Whoisspy趣味赛让Agent化身”操盘手”，现场人机对战精彩纷呈；AI Hackathon首开业务创新与灵感脑洞双赛道；技术市集集中展出30余项前沿技术成果，伴随着HappyHorse、HappyOyster带来的视觉盛宴，也能看到淘天集团AIGX技术体系核心成果。\n博见社：学术+工业双场强强对话\n作为技术节的高规格AI交流场，博见社致力于搭建学术界与工业界对话的桥梁，探讨AI前沿研究的新空间和新机会。本次也有来自学术界和工业界的一众学者专家相聚博见社，博各家之所见，论智能之真知。\n人工智能正经历一场深刻的范式跃迁，从以内容生成为核心的”生成式AI”，迈向以任务执行为导向的”智能体AI”。本次博见社杭州学术场是联合CCF TCAIPR专委会共同举办，天津大学郝建业教授、上海交通大学人工智能学院长聘教轨副教授温颖、清华大学智能产业研究院 (AIR)副研究员/副教授周浩、上海人工智能实验室青年科学家胡舒悦等学者，将分别带来《基于大语言模型的智能体》、《大语言环境下的强化学习》、《大规模智能体系统的三项基础能力》、《智能体 Harness 的设计与演进：从会回答到可靠执行》等主题报告，并围绕”从生成式AI到智能体进化”展开深度对话，碰撞前沿思想火花。\n而将目光转到工业界，随着模型技术边界不断突破，AI正在从内容生产者进化为世界构建者，不同场景不同领域玩家正在迎来虚实融合的技术革命。在博见社北京工业场中，虎鲸文娱集团CTO杜颜龙、群核科技AI业务线高级总监龙天泽、美图公司技术副总裁兼美图影像研究院（MT Lab）负责人刘洛麒等业界专家，将分别带来《AI进片场—影视工业化的一次系统性重写》、《LuxReal，基于空间智能技术的影视 Agent 探索》、《从能力突破到创造价值：美图AI视觉技术的演进路径》等不同维度的主题报告，并一起探讨「AI下一站：从生成内容到构建世界」的产业实践与思考。据悉，这也是博见社今年首次升级为工业交流场。\nWhoisspy趣味赛人机对战，谁能更胜一筹？\nWhoisspy趣味赛首次将Agent深度嵌入经典交易类桌游场景，打造”AI操盘手 vs 真人”的沉浸式竞技平台。Agent将化身唐人街”大厂级操盘手”——精于话术拆解、擅用心理施压、能临场伪装立场、甚至主动发起策略性威胁。每一轮结盟与背刺，均由AI自主决策、实时应变、动态建模对手画像。人类玩家则需以谈判直觉、信息甄别与人性洞察力迎战。Agent大举获胜，还是人类更胜一筹？答案将在技术节现场揭晓。\n技术市集与Hackathon：前沿成果与创新AI Native应用同台绽放\n此外，在技术市集上，淘天集团AIGX技术体系下30余项技术成果将以poste…",
-      "published_at": "2026-07-08",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "具身智能“高考”难疯了！人类100分，最强模型12.8",
-      "url": "https://www.qbitai.com/2026/07/446363.html",
-      "summary": "具身智能“高考”难疯了！人类100分，最强模型12.8\n具身测评界的珠峰来了：RoboDojo\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n通用机器人这座山，到底有多高？\n过去一年，VLA、机器人基础模型、世界模型轮番登场。\n一个个demo看起来越来越丝滑：叠碗、插管、收纳、倒水、整理桌面，机器人似乎终于开始听懂人话、理解世界、动手干活。\n但问题是：这些模型到底谁更强？强在哪里？能不能从仿真走到真实世界？离真正的通用操作机器人，还有多远？\n现在，一个新的“登山路线图”来了。\n曾推出RoboTwin系列基准的原班团队，又带来了RoboDojo：一个统一的仿真+真实世界机器人操作评测基准。\nWebsite: https://robodojo-benchmark.com/\narXiv: https://arxiv.org/abs/2607.04434\nLeaderboard: https://robodojo-benchmark.com/LeaderBoard\nBenchmark code: https://github.com/RoboDojo-Benchmark/RoboDojo\nXPolicyLab code: https://github.com/XPolicyLab/XPolicyLab\nCommunity: https://robodojo-benchmark.com/community\n它不只是又一个benchmark，而更像是给具身智能立了一座“珠峰”：\n42个仿真任务，18个真实机器人任务，30个主流机器人策略同台竞技，覆盖泛化、记忆、精细操作、长程执行、开放语义理解五大能力。\n结果很直接，也很残酷：\n当前最强通用机器人策略，在仿真平均成功率也只有8.80%。到了真实世界，最好模型平均成功率也只有12.8%。\n而人类专家呢？仿真里是76.03%，真实世界是100%。\n机器人基础模型们看起来已经开始攀登具身珠峰，但RoboDojo的榜单显示：它们大多还在山脚适应高反。\n先看任务设计：这座山为什么难？\nRoboDojo的难点，不在于简单堆任务数量，而在于它把机器人操作能力拆成了一组更接近真实世界的“登山关卡”。\n在仿真环境中，RoboDojo设计了42个任务，围绕五个核心能力展开：\n- Generalization，看模型能不能适应新背景、新光照、新物体和复杂杂乱场景。\n- Memory，看模型能不能记住之前看到的信息，并在后续动作中用上。\n- Precision，看模型能不能完成插入、对齐、精确接触等高精度操作。\n- Long-Horizon，看模型能不能完成多步骤、强依赖、误差会累积的任务。\n- Open，看模型能不能理解没见过的开放语义指令，并把语言目标变成动作。\n这些任务不是简单的pick-and-place变体。\n比如在泛化任务中，桌面杂物最多可随机到25个，背景、光照、物体外观和布局都会变化；\n在记忆任务中，机器人需要记住传送带上曾经出现又消失的物体，再从后续候选物中选出匹配目标；\n在精细操作任务中，机器人要完成插管、对齐、插入等高容错要求动作，稍微偏一点就会失败。\n长程任务则更接近真实家务：机器人不是做一个动作，而是要连续完成多个子步骤。拿起、移动、交接、对齐、放置，每一步都可能引入误差，而误差会一路累积到最后。\n但RoboDojo没有停在仿真里。\n真正让这座“具身珠峰”变高的，是它还把评测搬到了真实机器人上。\nRoboDojo设计了18个真实世界任务，覆盖ARX X5、Piper、Piper X三种双臂机器人平台…",
-      "published_at": "2026-07-08",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 1
     },
     {
       "title": "50FPS、成本打掉70%，魔芯MoWorld把世界模型带进产业时代",
@@ -391,7 +380,7 @@
     {
       "title": "蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！",
       "url": "https://www.qbitai.com/2026/07/446458.html",
-      "summary": "蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！\n7月9日，蚂蚁灵波开源LingBot-Video，这是全球首个基于Mixture-of-Experts（MoE）架构、面向具身智能的开源视频生成基础模型。该模型围绕机器人和具身智能的核心需求重新设计视频预训练范式，在推理效率、物理合理性、动作理解和任务完成度等方面取得系统性提升，为视频基础模型从数字内容创作走向具身智能提供了新的开源底座。\n在北京大学联合字节跳动发布的基准RBench上，LingBot-Video的总分是0.620，超越了Wan2.6（0.607）、Seedance1.5 Pro（0.584）、Cosmos3 Super（0.581）。RBench作为面向机器人操作视频的综合评测基准，重点考察模型能否生成符合真实物理规律的机器人行为。这一结果表明，LingBot-Video在生成机器人相关视频时，更能保持动作过程的合理性和任务执行的完整性。\n（图说：LingBot-Video在RBench上性能最优）\n为进一步验证LingBot-Video对物理世界变化的建模能力，蚂蚁灵波在内部benchmark中从通用质量和具身领域两个维度进行评估。结果显示，对比NVIDIA Cosmos3、Wan2.2 A14B、LongCat-Video、Hunyuan Video1.5、LTX-2.3等五个开源模型，LingBot-Video在具身领域表现优于主要基线模型。\n（图说：综合评测显示，LingBot-Video在具身相关场景中展现出更强的物理理解和动作一致性）\n过去几年，视频生成模型在画质、流畅度和创意表达上快速进步，但对于具身智能来说，一个看起来逼真、动作流畅的视频，却无法反映真实的物理规律，难以支撑机器人连续预测、规划和执行任务。与此同时，具身智能还要求模型具备更高推理效率，以适应实时交互和控制闭环。\n这也让视频生成开始出现两种不同的演进方向：一条通向影院，服务于内容创作；另一条通向机器人，服务于物理世界的理解、预测与交互。LingBot-Video正是蚂蚁灵波面向具身智能开辟视频生成新路线的重要探索。\nLingBot-Video从架构、数据和训练三方面进行了系统创新。\n在架构上，LingBot-Video采用DiT+MoE设计，以MoE替代传统Dense架构，在扩大模型容量的同时控制单次推理成本。其30B总参数模型在生成时仅激活约3B参数，相比同等参数规模Dense架构拥有约3倍推理效率。这一设计使模型既能获得大规模参数带来的视觉表达能力，又更适合具身智能对高效推理的要求。\n在数据上，LingBot-Video构建了数据画像引擎，在海量互联网视频的基础上进一步引入VLA、VLN、Ego等机器人相关数据，覆盖灵巧操作、机器人移动和第一视角交互等场景，总规模达7万小时的具身数据。这些数据帮助模型学习动作与环境变化之间的关系，而不只是学习视频的表面纹理和视觉风格。\n在训练上，LingBot-Video引入多维强化学习奖励系统。除美学、prompt跟随和运动一致性等常规指标外，模型进一步围绕物理合理性和任务完成度进行对齐，使生成结果更符合真实世界规律，也更贴近机器人在真实世界完成任务的需求。\n据介绍，LingBot-Video可用于机器人动作预测、仿真数据生成、动作条件建模、世界模型研究等方向。目前，LingBot-Video已正式开源。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2…",
+      "summary": "蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！\n7月9日，蚂蚁灵波开源LingBot-Video，这是全球首个基于Mixture-of-Experts（MoE）架构、面向具身智能的开源视频生成基础模型。该模型围绕机器人和具身智能的核心需求重新设计视频预训练范式，在推理效率、物理合理性、动作理解和任务完成度等方面取得系统性提升，为视频基础模型从数字内容创作走向具身智能提供了新的开源底座。\n在北京大学联合字节跳动发布的基准RBench上，LingBot-Video的总分是0.620，超越了Wan2.6（0.607）、Seedance1.5 Pro（0.584）、Cosmos3 Super（0.581）。RBench作为面向机器人操作视频的综合评测基准，重点考察模型能否生成符合真实物理规律的机器人行为。这一结果表明，LingBot-Video在生成机器人相关视频时，更能保持动作过程的合理性和任务执行的完整性。\n（图说：LingBot-Video在RBench上性能最优）\n为进一步验证LingBot-Video对物理世界变化的建模能力，蚂蚁灵波在内部benchmark中从通用质量和具身领域两个维度进行评估。结果显示，对比NVIDIA Cosmos3、Wan2.2 A14B、LongCat-Video、Hunyuan Video1.5、LTX-2.3等五个开源模型，LingBot-Video在具身领域表现优于主要基线模型。\n（图说：综合评测显示，LingBot-Video在具身相关场景中展现出更强的物理理解和动作一致性）\n过去几年，视频生成模型在画质、流畅度和创意表达上快速进步，但对于具身智能来说，一个看起来逼真、动作流畅的视频，却无法反映真实的物理规律，难以支撑机器人连续预测、规划和执行任务。与此同时，具身智能还要求模型具备更高推理效率，以适应实时交互和控制闭环。\n这也让视频生成开始出现两种不同的演进方向：一条通向影院，服务于内容创作；另一条通向机器人，服务于物理世界的理解、预测与交互。LingBot-Video正是蚂蚁灵波面向具身智能开辟视频生成新路线的重要探索。\nLingBot-Video从架构、数据和训练三方面进行了系统创新。\n在架构上，LingBot-Video采用DiT+MoE设计，以MoE替代传统Dense架构，在扩大模型容量的同时控制单次推理成本。其30B总参数模型在生成时仅激活约3B参数，相比同等参数规模Dense架构拥有约3倍推理效率。这一设计使模型既能获得大规模参数带来的视觉表达能力，又更适合具身智能对高效推理的要求。\n在数据上，LingBot-Video构建了数据画像引擎，在海量互联网视频的基础上进一步引入VLA、VLN、Ego等机器人相关数据，覆盖灵巧操作、机器人移动和第一视角交互等场景，总规模达7万小时的具身数据。这些数据帮助模型学习动作与环境变化之间的关系，而不只是学习视频的表面纹理和视觉风格。\n在训练上，LingBot-Video引入多维强化学习奖励系统。除美学、prompt跟随和运动一致性等常规指标外，模型进一步围绕物理合理性和任务完成度进行对齐，使生成结果更符合真实世界规律，也更贴近机器人在真实世界完成任务的需求。\n据介绍，LingBot-Video可用于机器人动作预测、仿真数据生成、动作条件建模、世界模型研究等方向。目前，LingBot-Video已正式开源。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-…",
       "published_at": "2026-07-09",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -402,7 +391,7 @@
     {
       "title": "世界模型首次迎来“小时级”生成！蚂蚁灵波开源LingBot-World 2.0，支持AI原生多人交互",
       "url": "https://www.qbitai.com/2026/07/446548.html",
-      "summary": "世界模型首次迎来“小时级”生成！蚂蚁灵波开源LingBot-World 2.0，支持AI原生多人交互\n7月9日，蚂蚁灵波科技开源新一代实时交互世界模型LingBot-World 2.0（又称LingBot-World-Infinity）。该模型全面升级世界预测与交互能力，支持小时级实时生成、720p/60fps高清实时输出以及更丰富的交互动作与事件，并在业界首次将Agent机制引入世界模型，让生成的世界从“可观看、可操控”，进一步走向“可持续互动、可动态变化”。\n（图说：LingBot-World 2.0在生成时长、动态程度、实时性等方面均处于业界顶尖水平）\n今年1月，蚂蚁灵波开源了第一代世界模型LingBot-World，重点攻克长视频生成中常见的“长时漂移”问题，即生成时间一长，画面容易模糊、结构容易变形。LingBot-World 1.0将连续稳定生成时长推进到近10分钟，而且支持键鼠操控与文本触发环境变化，引发业界广泛关注。\n在此基础上，LingBot-World 2.0进一步向“无限生成”迈进。模型采用因果预训练范式，并引入自研的MoBA机制，让模型按照真实世界交互的时间顺序学习世界如何演化——基于已经发生的画面、动作和场景状态，持续预测接下来的变化，从而减少长时间生成中偏差不断放大的问题，避免画面越生成越模糊、结构越生成越失真。\n在长达一小时的不间断压力测试中，LingBot-World 2.0画面始终保持纹理清晰、场景结构连贯，无明显画质衰减。\n为了确保实时的交互体验，蚂蚁灵波从预训练模型中蒸馏出面向实时交互的快速版本，并对生成流程做了系统优化，画面不再是等一整段生成完才播放，而是边生成、边传输、边显示。最终，LingBot-World 2.0实现了稳定输出720p/60fps高清画面，用户通过键盘操控角色移动、切换视角时，画面几乎无延迟地即时反馈。\n在交互层面，LingBot-World 2.0不再只是“走一走、看一看”。模型支持攻击、射箭、施法、射击、跳跃、滑翔等多类动作，动作结果由模型根据场景状态实时生成，保持物理合理性与视觉一致性；也支持通过文本触发昼夜切换、天气变化、实体注入等事件。系统还内置双Agent机制：Pilot Agent负责规划执行角色行为，Director Agent在场景推进中实时提出新事件。此外，模型支持多位用户同时进入同一个持续运行的世界共同探索互动，开启AI原生的多人交互体验。\n此次开源也进一步降低了世界模型的使用门槛。作为新一代实时交互式世界模型，LingBot-World 2.0不仅可广泛应用于游戏内容生成、影视预演、虚拟仿真、数字孪生等场景，更重要的是，作为蚂蚁灵波全栈大脑2.0的重要一环，支持机器人与具身智能训练场景。\n目前，用户可在Reactor平台和灵光APP在线体验，感受LingBot-World 2.0实时生成、连续交互以及Agent驱动的动态世界演化能力。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09\n- 蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！2026-07-09\n- 从餐饮后厨到物理世界基础模型：量化派的物理AI，走的是卖能力的路2026-07-09\n- 横跨淘天与ATH事业群，硬核少年技术节下周京杭同步开幕，四项AIGX硬核成果齐发2026-07-08",
+      "summary": "世界模型首次迎来“小时级”生成！蚂蚁灵波开源LingBot-World 2.0，支持AI原生多人交互\n7月9日，蚂蚁灵波科技开源新一代实时交互世界模型LingBot-World 2.0（又称LingBot-World-Infinity）。该模型全面升级世界预测与交互能力，支持小时级实时生成、720p/60fps高清实时输出以及更丰富的交互动作与事件，并在业界首次将Agent机制引入世界模型，让生成的世界从“可观看、可操控”，进一步走向“可持续互动、可动态变化”。\n（图说：LingBot-World 2.0在生成时长、动态程度、实时性等方面均处于业界顶尖水平）\n今年1月，蚂蚁灵波开源了第一代世界模型LingBot-World，重点攻克长视频生成中常见的“长时漂移”问题，即生成时间一长，画面容易模糊、结构容易变形。LingBot-World 1.0将连续稳定生成时长推进到近10分钟，而且支持键鼠操控与文本触发环境变化，引发业界广泛关注。\n在此基础上，LingBot-World 2.0进一步向“无限生成”迈进。模型采用因果预训练范式，并引入自研的MoBA机制，让模型按照真实世界交互的时间顺序学习世界如何演化——基于已经发生的画面、动作和场景状态，持续预测接下来的变化，从而减少长时间生成中偏差不断放大的问题，避免画面越生成越模糊、结构越生成越失真。\n在长达一小时的不间断压力测试中，LingBot-World 2.0画面始终保持纹理清晰、场景结构连贯，无明显画质衰减。\n为了确保实时的交互体验，蚂蚁灵波从预训练模型中蒸馏出面向实时交互的快速版本，并对生成流程做了系统优化，画面不再是等一整段生成完才播放，而是边生成、边传输、边显示。最终，LingBot-World 2.0实现了稳定输出720p/60fps高清画面，用户通过键盘操控角色移动、切换视角时，画面几乎无延迟地即时反馈。\n在交互层面，LingBot-World 2.0不再只是“走一走、看一看”。模型支持攻击、射箭、施法、射击、跳跃、滑翔等多类动作，动作结果由模型根据场景状态实时生成，保持物理合理性与视觉一致性；也支持通过文本触发昼夜切换、天气变化、实体注入等事件。系统还内置双Agent机制：Pilot Agent负责规划执行角色行为，Director Agent在场景推进中实时提出新事件。此外，模型支持多位用户同时进入同一个持续运行的世界共同探索互动，开启AI原生的多人交互体验。\n此次开源也进一步降低了世界模型的使用门槛。作为新一代实时交互式世界模型，LingBot-World 2.0不仅可广泛应用于游戏内容生成、影视预演、虚拟仿真、数字孪生等场景，更重要的是，作为蚂蚁灵波全栈大脑2.0的重要一环，支持机器人与具身智能训练场景。\n目前，用户可在Reactor平台和灵光APP在线体验，感受LingBot-World 2.0实时生成、连续交互以及Agent驱动的动态世界演化能力。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09\n- 蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！2026-07-09",
       "published_at": "2026-07-09",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -422,10 +411,65 @@
       "macro_score": 0
     },
     {
+      "title": "2026年世界人工智能大会，7月17-7月20上海举办",
+      "url": "https://www.qbitai.com/2026/07/436498.html",
+      "summary": "2026年世界人工智能大会，7月17-7月20上海举办\n180家企业携成果入驻\nWAIC 2026将于7月17-20日在上海举行，分设世博、张江、西岸三大片区，以“智能伙伴，共创未来”为主题，设置论坛会议、展览展示、评奖赛事、应用体验、创新孵化、招才引智六大板块：计划举办140余场主题论坛，集聚1400余位国际嘉宾，展览总面积超10万平方米，1100余家全球企业参展，将推出3000余项展品，并首设OPC专属展示区，180家企业携成果入驻。\n市经济和信息化委介绍了大会整体情况。本届大会回应人工智能从技术工具走向协作伙伴的时代之变，指向全球共治、产业共进、城市共享的共同愿景。\n入局AI新风向，WAIC 2026全球开票！\n*本文由waic提供，量子位获授权转载，版权归原作者所有。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09\n- 世界模型首次迎来“小时级”生成！蚂蚁灵波开源LingBot-World 2.0，支持AI原生多人交互2026-07-09\n- 蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！2026-07-09\n- 从餐饮后厨到物理世界基础模型：量化派的物理AI，走的是卖能力的路2026-07-09",
+      "published_at": "2026-07-09",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "刚刚，全球首个具身专属的MoE视频模型，开源了！",
+      "url": "https://www.qbitai.com/2026/07/446568.html",
+      "summary": "刚刚，全球首个具身专属的MoE视频模型，开源了！\n视频生成的下一站，或是机器人大脑\n金磊 发自 凹非寺\n量子位 | 公众号 QbitAI\n终于，专属具身智能的视频模型来了！\n话不多说，直接来看生成的效果：\n视频地址：\nhttps://mp.weixin.qq.com/s/shwkij9ul5GpCBfNYMxU7Q\n这就是蚂蚁灵波刚刚正式开源的LingBot-Video——\n全球首个面向具身智能的大规模MoE视频基础模型、视频物理引擎。\n或许有小伙伴要问了，像刚才视频里的机器人切西红柿、吸床单和收纳口红，目前很多视频生成的AI不也能搞出来吗？\n确实。\n但既然说了LingBot-Video是具身版的专属视频模型，那说明它从架构、数据到训练目标全链路都是为机器人、人形智能体量身打造的。\n而且其它视频生成AI的关注点，更多的是时长、美学、画质、运镜等等。\n但到了LingBot-Video这里，重中之重，变成了是否符合物理规律。\n除此之外 ，LingBot-Video的亮点还包括：\n- 架构上采用MoE，让模型容量和推理成本更好平衡；\n- 30B参数，推理时仅激活3B；\n- 数据上引入超70000小时具身相关视频，让模型学习机器人操作、导航、第一视角等场景；\n- 训练上加入多维奖励系统，把物理合理性、任务完成度纳入优化目标。\n- 已在RBench上超越业内通用视频生成标杆模型。\nLingBot-Video一经开源，同样也是引发了网友们不小的热议，他们直呼：\n它的功能远不止于生成视频，如此大规模的训练，让模型对现实世界中的互动有了更深刻的理解。\n为什么机器人需要自己的视频模型？\n对于这个问题，答案其实蛮现实且刚需的。\n通用视频模型的训练目标，主要围绕视觉质量、语义对齐、运动连贯展开。人看视频时，也更容易被画质、光影、构图、风格打动。\n但机器人看世界的方式却截然不同。\n它不只是看见一个杯子，还要判断自己伸手过去以后，杯子会怎么动；看见一条路，还要判断从这里走过去，会不会撞到障碍……\n所以，我们可以认为内容视频和具身视频其实是两套评价体系。\n通用模型里偶尔出现的穿模、物体凭空消失、动作违背惯性，对短视频创作来说可能只是瑕疵。观众看一眼，最多吐槽一句“AI味有点重”。\n但如果把这些错误视频拿去训练机器人，那问题可就大了。\n因为这就相当于在教机器人一套错误的世界规律，它们会误认为手可以穿过物体、杯子可以无缘无故复原、液体可以悬在空中……\n所以LingBot-Video生成的视频，就是要让机器人的大脑学会真真实实的物理规律。\n例如下面这三组生成的工业场景的视频：\n视频地址：\nhttps://mp.weixin.qq.com/s/shwkij9ul5GpCBfNYMxU7Q\n视频中，机械臂在产线上对零件进行抓取、放置、定位，有的还涉及焊接、加工这样的动作。但重点在于末端执行器、工件、工作台之间的相对关系能不能在连续帧里保持稳定。\n这对应的正是机器人真正需要学习的能力，包括看懂物体，靠近物体，作用于物体，然后预测物体状态的变化。\n再如更复杂的动态场景：\n视频地址：\nhttps://mp.weixin.qq.com/s/shwkij9ul5GpCBfNYMxU7Q\n一个是第一视角滑雪镜头，从雪坡向前冲下，雪雾、坡面、身体姿态都在快速变化；另一个画面里，人形机器人则在雪道上和滑雪者并行绕旗门前进。\n这类场景考验的，便是机器人对于空间的理解、运动的预测和动态环境的建模等能力。\n还有机器人打排球、踢足球：\n视频地址：\nhttps://mp.weixin.qq.com/s/shw…",
+      "published_at": "2026-07-09",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "刚刚，OpenAI首席未来学家离职！曾被马斯克骂蠢驴",
+      "url": "https://www.qbitai.com/2026/07/446658.html",
+      "summary": "刚刚，OpenAI首席未来学家离职！曾被马斯克骂蠢驴\nTo safe AGI.\nhenry 发自 凹非寺\n量子位 | 公众号 QbitAI\n刚刚，OpenAI首席未来学家Joshua Achiam在X上宣布离职。\n这并不是一个普通员工变动。\n在OpenAI内部，首席未来学家这个职位夹在AI安全、政策和公司使命之间，负责研究AI继续变强之后，可能给世界带来的风险和机会。\n而Joshua Achiam，正是OpenAI这条安全与使命线上的核心人物之一。\n9年前的2017，他以实习生身份加入OpenAI。早期，他是一名专注于AI安全的研究科学家，做过深度强化学习里的安全约束研究。\n后来，他领导过OpenAI的Mission Alignment（使命对齐）团队，负责维护这家公司最初那句使命：\n确保AGI造福全人类。\n今年2月，OpenAI解散Mission Alignment团队，Joshua转任公司首席未来学家。\n只不过，短短5个月后，Joshua就宣布自己将在7月24日正式离开这家待了9年的公司。\n至于离职原因，Joshua并没有透露太多。\n他只是表示，自己离开并不是因为某个具体事件，也不是一时兴起，而是已经思考了很长一段时间。\n为了安全的AGI\n在X长文里，Joshua把这次离开称作“毕业”。\n他写道，自己2017年以25岁实习生（毕业于UC伯克利）身份加入OpenAI。那时，计算机还不能真正和人对话，也谈不上思考。\n如今，他34岁，已经是2岁孩子的父亲，而计算机已经开始解决前沿科学问题。\nJoshua形容，这9年像是“一个发生了几个世纪变化的十年”。\n对于未来，他依然保持乐观。\n我相信，我们能够创造出一个这样的世界：在那里，“满足每个人的基本需求”不再是个需要解决的问题；相反，我们会觉得，把标准定得这么低，反而是一种耻辱。我相信，我们能够实现一个充满和平、前所未有的繁荣以及各种难以想象的社会与科学可能性的世界。无论我接下来做什么，我都会继续与你们携手努力，让这一愿景成为现实。\n最后，他用一句话收尾：\nTo safe AGI.\n这句话也很像他过去9年在OpenAI的位置。\n据WIRED消息，OpenAI目前还没有宣布谁会接替Joshua的职位。这个职位位于公司AI安全和政策团队的交汇处，工作包括研究AI崛起可能带来的危害与收益。\n此前，Joshua也曾与OpenAI全球事务负责人Chris Lehane等高层合作，推动与OpenAI使命一致的政府监管。\n换句话说，他不是一个只做预测的“未来学家”。\n更准确地说，他在OpenAI内部做的是另一件事：当模型能力一路往前冲时，给这家公司不断提醒那句老问题。\n这条路最后到底要通向哪里？\n那个打断马斯克的男人\n回顾Joshua的OpenAI生涯，最有戏剧性的一幕，发生在2018年。\n今年4-5月，在马斯克与OpenAI那场世界庭审中，Joshua曾出庭作证，回忆马斯克2018年，离开OpenAI前的一次告别演讲：\n当时，他曾打断马斯克，指出如果计划在特斯拉开发AGI，可能会以牺牲安全为代价。\n据称：马斯克当即骂道：“Joshua是个“蠢驴”（jackass）”。\n后来，这件事后来反而成了OpenAI内部的一个“都市传说”。\nDario Amodei，如今的Anthropic CEO，以及David Luan，后来成为亚马逊AGI实验室负责人，还专门送给Achiam一个金色奖杯，上面刻着一句话：\n“为了安全，永远不要停止当那个jackass。”\n每逢安全大佬出走，OpenAI就？\n在Reddit上，有网友很快把…",
+      "published_at": "2026-07-09",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "「没了李开复，零一万物还有什么？」一个敢问一个敢答",
+      "url": "https://www.qbitai.com/2026/07/446778.html",
+      "summary": "「没了李开复，零一万物还有什么？」一个敢问一个敢答\n李开复笑着回应了\nJay 发自 凹非寺\n量子位 | 公众号 QbitAI\n没了李开复，零一万物还有什么？\n这个问题，是在零一万物发布会上，被抛给零一万物CEO、一号位李开复的。\n李开复的反应很有意思。他笑了，很松弛的那种，然后不紧不慢地给了三点回应：\n1、身体非常健康，正值当打之年。\n2、自己主要负责敲第一次门、维护关系，并不占太多时间；\n3、团队已经能自主拿到订单，而且这个比例还在持续上升。\n说实话，现场的很多对话都太精彩了，我全程吃瓜脸。\n但在上述回应之外，我觉得李开复之所以至今仍然亲力亲为，可能更跟他一直坚信的一个判断有关——\nAI转型，必须一号位亲自来做。\n发布会上，李开复再次强调了这句话。它适用于零一万物，更适用于所有正在做AI实践的公司。\n这背后其实藏着一个微妙的内生悖论：\n很多企业的中层和普通员工，对AI多少带着点抵触、抗拒，甚至恐惧。如果把AI转型这件事交给团队去推，底下的人难免会想——\n这东西搞好了，是不是我的工作就没了？\n那怎么办？\n零一万物从第一性原理出发，给出的答案是：\n直接赋能一号位，让他们自己先把AI用起来、用透彻。\n换句话说，就是让各部门的一号位，率先变成「超级个体」。未来公司的终极形态，或许就是一群OPC组成的超级公司。\n不是每个OPC都要自己创业，公司应该提供足够的空间，让这些OPC成为DRI（直接负责人）。\n我同事看到这句话，第一反应是：\n？新时代的MCN？？？\n（doge）\n而这次零一万物集中发布的产品，同样脱胎于这套第一性原理：\n- 万策：企业决策中枢平台；\n- 老板AI、销冠AI、投资官AI。\n下面量子位经整理后的演讲精华。\nEnjoy。\n「一号位」工程\nDeepSeek-R1刚发布那阵，不少公司火速采购。\n李开复问一些CEO：买了吗？——买了。\n用了吗？——用了一阵。\n员工拿来做什么？\n算命。\n……\n这正是很多CEO正在面对的真实困境。在与数百位CEO深入交流后，李开复指出，企业AI落地背后藏着三重痛点。\n企业AI为何沦为「玩具」？\n1、AI不了解你的业务。\n今天的模型和通用Agent已经足够聪明，但这就像把高考状元请进公司——他入职第一天，对业务的贡献几乎为零。\n原因很简单：他不知道公司的数据在哪、流程怎么走、安全边界划在哪。\nAI面临的，是同样的处境。\n2、大部分公司还拿AI当软件。\n很多老板的逻辑是：过去怎么装SAP、用友、金蝶，今天就怎么装AI。选模型变成了采购任务，从几家供应商里挑一个”最好的”。\n做Agent也一样。CIO首先想到的是各部门需要什么——客服、销售、还是法务？\n这些应用当然有用，但坦白说，它们大多处在业务边缘，价值更多是节流：少招几个人、省一点成本。\n这对公司有价值，但没有深入核心业务流程，也没有把财报当作最终目标。最后做出来的，可能是一盆漂亮的盆景——\n长不出一座森林。\n3、决策人存在错位。\n既然目标是改变公司财报、以ROI为根本，这事就不再只是CIO的工作了。\n它一定是CEO一号位的工作。\n这正是零一万物的切入方向。\n解法，从上到下的一号位工程。\n零一万物想构建的，是一套真正服务企业一号位的AI决策中枢，叫万策。\n通过这套中枢，公司的决策流程将形成一个完整的闭环：通过系统做出的每一项决策，都会收到对应的反馈——哪些建议有效、哪些效果不佳、最终采纳了哪些方案……系统会基于这些信息持续优化输出，让答案质量不断提升。\n这件事情非常重要，说实话，未来企业的竞争力和护城河，很大程度上就在于这套「闭环」。\n李开复描绘了一个场景：\n有两…",
+      "published_at": "2026-07-09",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "Science Workflows",
       "url": "https://deepmind.google/science/workflows/conversing-with-antiquity/",
       "summary": "Thea Sommerschield, Durham University\nZoi Tsangalidou and Yannis Assael, Google DeepMind\nAncient inscriptions offer a direct window into the human past. As invaluable historical sources, they preserve everything from imperial decrees to everyday transactions of ordinary citizens. However, many inscriptions have been damaged to the point of illegibility, their date and place of writing steeped in uncertainty. Reassembling these broken narratives is one of humanity’s greatest challenges, requiring expert historians to solve complex, localized puzzles of text, time and space.\nFor nearly a decade, we have partnered closely with epigraphers to pioneer state of the art AI tools for historical research. The milestones in this journey include Ithaca (2022) and Aeneas (2025), our generative models for restoring, dating and placing ancient Greek and Latin inscriptions. To place these capabilities directly into the hands of researchers, we previously built an interactive online platform at predictingthepast.com and fully open-sourced our underlying models.\nCommunity collaboration has highlighted three main challenges for AI-assisted historical analysis. First, preserving explainable, flexible interpretations requires tailored visualizations for individual inscriptions. Second, advanced multi-text analysis must move beyond basic comparisons without requiring specialized coding. Finally, large language models must be firmly grounded in evidence and expertise to remain reliable.\nTo overcom…",
       "published_at": "2000-01-01",
+      "source": "deepmind.google",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Co-Scientist",
+      "url": "https://deepmind.google/blog/accelerating-discovery-of-liver-disease-mechanisms/",
+      "summary": "Accelerating discovery of liver disease mechanisms\nBiomedical research produces a flood of information that no scientist can realistically absorb. At the University of Edinburgh, bioengineer Filippo Menolascina is using Co-Scientist to comb the literature for overlooked links and generate new hypotheses.\nHis team focused on a common liver disease called metabolic dysfunction‑associated steatohepatitis (MASH). Developing treatments is challenging because MASH involves intertwined biological processes, including liver inflammation and metabolism, meaning single‑target drugs fall short. That pushes researchers toward combination treatments, but the number of potential drug pairings is overwhelming.\nFaced with that combinatorial explosion, Menolascina used Co‑Scientist to narrow the search. In his hands, Co‑Scientist synthesised evidence across liver biology and pharmacology, highlighted mechanisms worth focusing on, and flagged candidate combination therapies that his team could test.\nIn one emblematic case, Co‑Scientist tackled a live, practical question: Why does the drug resmetirom – a recently approved treatment prescribed for a specific stage of MASH – only help a narrow slice of those eligible patients? The system produced a hypothesis pinpointing the NLRP3 inflammasome as the specific molecular bridge coupling inflammation and metabolism in the disease — a connection never previously pulled together into a single, actionable explanation. The hypothesis, later experimental…",
+      "published_at": "2026-05-19",
       "source": "deepmind.google",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -438,17 +482,6 @@
       "summary": "Great question — this is a common multi-tenant pattern and there are two supported paths depending on how much you want to own vs. offload. Short version: keep per-tenant config/keys in your own secret store (or LangSmith Provider Secrets), resolve the model per-request in a wrap_model_call middleware, and never let keys touch graph state or traces.\nOn your Q1 — is there a built-in mechanism? Two options:\n- DIY (GA today): your backend/secret store is the source of truth; the graph fetches the active config at runtime. Most flexible, works on any deployment.\n- LLM Gateway (private beta): a proxy that sits between your agents and providers. Keys are stored once in LangSmith as Provider Secrets; clients authenticate with a LangSmith API key, and the gateway resolves the real provider key, enforces spend limits + PII/secrets redaction, and traces every call. This is likely the cleanest fit for BYOK + cost attribution if you’re open to the beta. → LLM Gateway, custom / OpenAI-compatible providers, governance & spend policies. Gateway spend-cap policies support per-subject matchers with current_spend_usd, which gives you per-tenant cost attribution out of the box. (It’s private beta — worth joining the waitlist.)\nQ2 — own backend + fetch at runtime: yes, this is the recommended DIY pattern. Use a wrap_model_call middleware that reads the org from runtime context, looks up that org’s config + key (from your secret store, cached), and overrides the model per-invocation:\nfrom datacla…",
       "published_at": "2026-06-30",
       "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Co-Scientist",
-      "url": "https://deepmind.google/blog/accelerating-discovery-of-liver-disease-mechanisms/",
-      "summary": "Accelerating discovery of liver disease mechanisms\nBiomedical research produces a flood of information that no scientist can realistically absorb. At the University of Edinburgh, bioengineer Filippo Menolascina is using Co-Scientist to comb the literature for overlooked links and generate new hypotheses.\nHis team focused on a common liver disease called metabolic dysfunction‑associated steatohepatitis (MASH). Developing treatments is challenging because MASH involves intertwined biological processes, including liver inflammation and metabolism, meaning single‑target drugs fall short. That pushes researchers toward combination treatments, but the number of potential drug pairings is overwhelming.\nFaced with that combinatorial explosion, Menolascina used Co‑Scientist to narrow the search. In his hands, Co‑Scientist synthesised evidence across liver biology and pharmacology, highlighted mechanisms worth focusing on, and flagged candidate combination therapies that his team could test.\nIn one emblematic case, Co‑Scientist tackled a live, practical question: Why does the drug resmetirom – a recently approved treatment prescribed for a specific stage of MASH – only help a narrow slice of those eligible patients? The system produced a hypothesis pinpointing the NLRP3 inflammasome as the specific molecular bridge coupling inflammation and metabolism in the disease — a connection never previously pulled together into a single, actionable explanation. The hypothesis, later experimental…",
-      "published_at": "2026-05-19",
-      "source": "deepmind.google",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -477,6 +510,17 @@
       "macro_score": 0
     },
     {
+      "title": "Proposal: composable ToolNode middleware (tool-call dedup + wrap_tool_call chaining)",
+      "url": "https://forum.langchain.com/t/proposal-composable-toolnode-middleware-tool-call-dedup-wrap-tool-call-chaining/4098",
+      "summary": "I opened PR #8291 to add a few small, dependency-free utilities to langgraph.prebuilt for two patterns that teams frequently re-implement when working with ToolNode:\nbuild_tool_call_key, deduplicate_tool_calls, and deduplicate_tool_calls_in_state\nRemove duplicate parallel tool calls from the trailing AIMessage (first occurrence wins).\nchain_tool_wrappers and chain_async_tool_wrappers\nCompose multiple wrap_tool_call / awrap_tool_call interceptors into a single wrapper. Under async execution, synchronous wrappers are transparently run in a worker thread so they don’t block the event loop.\nThese utilities build entirely on the existing ToolCallRequest / ToolCallWrapper APIs and do not require any changes to ToolNode itself. The accompanying tests are included and passing.\nWould this be a direction the maintainers would welcome in langgraph.prebuilt? If so, I’d be happy to link an approved issue so PR #8291 can be reopened.\nThanks for putting this together — the PR is clean, dependency-free, and the test coverage is genuinely nice to see. A few honest notes on direction so you don’t invest further in the wrong spot, plus where I think the valuable part should land.\nShort version: the dedup idea is the keeper; the wrapper-chaining is already covered by the framework; and langgraph.prebuilt is the wrong home for new public API here.\nOn placement. Tool-call interception is deliberately consolidating in the langchain package’s agent middleware. In LangGraph v1, create_react_agent (an…",
+      "published_at": "2026-07-06",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Advanced version of Gemini with Deep Think officially achieves gold-medal standard at the International Mathematical Olympiad",
       "url": "https://deepmind.google/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/",
       "summary": "Advanced version of Gemini with Deep Think officially achieves gold-medal standard at the International Mathematical Olympiad\nThe International Mathematical Olympiad (“IMO”) is the world’s most prestigious competition for young mathematicians, and has been held annually since 1959. Each country taking part is represented by six elite, pre-university mathematicians who compete to solve six exceptionally difficult problems in algebra, combinatorics, geometry, and number theory. Medals are awarded to the top half of contestants, with approximately 8% receiving a prestigious gold medal.\nRecently, the IMO has also become an aspirational challenge for AI systems as a test of their advanced mathematical problem-solving and reasoning capabilities. Last year, Google DeepMind’s combined AlphaProof and AlphaGeometry 2 systems achieved the silver-medal standard, solving four out of the six problems and scoring 28 points. Making use of specialist formal languages, this breakthrough demonstrated that AI was beginning to approach elite human mathematical reasoning.\nThis year, we were amongst an inaugural cohort to have our model results officially graded and certified by IMO coordinators using the same criteria as for student solutions. Recognizing the significant accomplishments of this year’s student-participants, we’re now excited to share the news of Gemini’s breakthrough performance.\nBreakthrough Performance at IMO 2025 with Gemini Deep Think\nAn advanced version of Gemini Deep Think so…",
@@ -488,11 +532,11 @@
       "macro_score": 2
     },
     {
-      "title": "Proposal: composable ToolNode middleware (tool-call dedup + wrap_tool_call chaining)",
-      "url": "https://forum.langchain.com/t/proposal-composable-toolnode-middleware-tool-call-dedup-wrap-tool-call-chaining/4098",
-      "summary": "I opened PR #8291 to add a few small, dependency-free utilities to langgraph.prebuilt for two patterns that teams frequently re-implement when working with ToolNode:\nbuild_tool_call_key, deduplicate_tool_calls, and deduplicate_tool_calls_in_state\nRemove duplicate parallel tool calls from the trailing AIMessage (first occurrence wins).\nchain_tool_wrappers and chain_async_tool_wrappers\nCompose multiple wrap_tool_call / awrap_tool_call interceptors into a single wrapper. Under async execution, synchronous wrappers are transparently run in a worker thread so they don’t block the event loop.\nThese utilities build entirely on the existing ToolCallRequest / ToolCallWrapper APIs and do not require any changes to ToolNode itself. The accompanying tests are included and passing.\nWould this be a direction the maintainers would welcome in langgraph.prebuilt? If so, I’d be happy to link an approved issue so PR #8291 can be reopened.\nThanks for putting this together — the PR is clean, dependency-free, and the test coverage is genuinely nice to see. A few honest notes on direction so you don’t invest further in the wrong spot, plus where I think the valuable part should land.\nShort version: the dedup idea is the keeper; the wrapper-chaining is already covered by the framework; and langgraph.prebuilt is the wrong home for new public API here.\nOn placement. Tool-call interception is deliberately consolidating in the langchain package’s agent middleware. In LangGraph v1, create_react_agent (an…",
-      "published_at": "2026-07-06",
-      "source": "forum.langchain.com",
+      "title": "Chapter 1 questions",
+      "url": "https://discuss.huggingface.co/t/chapter-1-questions/6797",
+      "summary": "Use this topic for any question about Chapter 1 of the course.\nSmall mismatch?\nFrom the widget in roberta-large-mnli · Hugging Face, I see the classification is between “CONTRADICTION”, “NEUTRAL”, “ENTAILMENT”\ngood catch! will push a fix this afternoon\nAt the end of the colab notebook, you need to install sentencepiece to complete the translation task.\n!pip install sentencepiece\nthanks for reporting this! i’ll push a fix this afternoon\nHi. I wanted to understand a bit deeper on difference between encoder vs encoder-decoder models for question-answering. ModelHub currently has both BERT and T5 models for question answering. The encoder lecture mentions BERT is good for QA tasks. Could someone please point me with more reading material to understand the nuances/differences between the two.\nHi there! So Ecoder-decoders models will be very good at “generative question answering”, which is generating the answer to the question given the context. It’s different from what an encoder can do (which is “extractive question answering”, which just says the answer to this question is from word xxx to word yyy) in the sense the model answers the question in its own words instead of trying to get a part of the context.\nUnderstood. Thanks for the explanation.\nI replied on the topic!\nBeginner Beginner query:\nI’m working my way through to try and use the transformers for classification, and potentially question answering, and sentence forming. Is it possible to use say of the bert models to en…",
+      "published_at": "2021-06-14",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -510,44 +554,22 @@
       "macro_score": 1
     },
     {
-      "title": "500 Internal Error on Space settings page",
-      "url": "https://discuss.huggingface.co/t/500-internal-error-on-space-settings-page/177553",
-      "summary": "Hello,\nGot this message when trying to access the settings in my space:\nInternal Error - We’re working hard to fix this as soon as possible!\nRequest ID: Root=1-6a4d269d-091850b011ac26613f2a0dfc\nUsername: yikai82\nSpace: Dione\nURL: https://huggingface.co/spaces/yikai82/Dione (private)\nAPP tab: ok\nFile tab: ok\nCommunity: ok\nSettings: ERROR 500\nWould be great if someone could help or point some direction. Thank you!!",
-      "published_at": "2026-07-07",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Visual Proof: Stopping Recursive Multi-Agent Loops Upstream",
-      "url": "https://forum.langchain.com/t/visual-proof-stopping-recursive-multi-agent-loops-upstream/4115",
-      "summary": "Relying on monitoring to catch rogue AI agent loops is a $10,000 architectural mistake.\nBy the time your alert fires, the API calls have already executed. The debt is already incurred.\nYou must move constraints upstream. Decouple execution from finance.\nTest the simulation: Agent Loop Cost Simulator — Valta | Valta",
-      "published_at": "2026-07-07",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Best Model Size?",
-      "url": "https://discuss.huggingface.co/t/best-model-size/174177",
-      "summary": "i visited the can i run it Website and it says the best model for my PC is 1B Q8 or 1B Q4 , any recomandations on what should i use ?\nOh. “How much compression should we apply to the model during quantization?” Smaller models save memory and run faster, but accuracy suffers. While some accuracy loss is unavoidable, the key point is that there’s a strong tendency for accuracy to remain nearly unchanged up to a certain point, then drop sharply once a certain threshold is crossed.\nAssuming both Q8 and Q4 are usable, personally I’d probably go with Q6_K. Q8 is fine too, but Q6_K saves memory.\nThis is mainly because with small LLMs around 3B or less, compressing below Q6_K can sometimes cause performance to drop sharply. (It doesn’t always drop, but you can’t be sure without testing each one.)\nConversely, for models over 7B, I’d first try Q4_K_M. For quality-focused scenarios with sufficient VRAM, Q5_K_M. Larger LLMs tend to be less fragile when using smaller n values in Qn. This is just a tendency—there are occasionally fragile model families even at large sizes… In those cases, Q6_K remains the safe bet.\nRecommendation\nFor a 1B GGUF model, I would usually pick Q8 first if your PC can run it comfortably. A 1B model is already in the small-model range, and higher precision helps preserve as much quality as possible. In the llama.cpp community guidance, Q8_0 is often described as something that makes sense mainly for really small models, while Q4-style quants are the broader “effic…",
-      "published_at": "2026-03-11",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Is LangChain killing its own Innovation with gatekeeping?",
       "url": "https://forum.langchain.com/t/is-langchain-killing-its-own-innovation-with-gatekeeping/4069",
       "summary": "Thanks for raising this. I think the concern is understandable, but I disagree with the framing that this is “gatekeeping” or that contributions are no longer welcome.\nLangChain has become critical infrastructure for many production systems, including some of the largest companies in the world — 5 of the Fortune 10 use LangChain in some capacity. That changes the responsibility we have as maintainers. A few years ago, the main risk of moving quickly was that we might merge something imperfect. Today, the risk is that we commit to APIs, abstractions, security posture, and maintenance obligations that thousands of teams depend on.\nBecause of that, I think it is better for maintainers and decision-makers to be skeptical than to merge changes willy-nilly. We have invested heavily in stability: clearer abstractions, better security practices, more consistent APIs, and a stronger bar for what belongs in the core libraries. Lowering that bar would create more risk than reward.\nThat does not mean innovation is blocked. Quite the opposite: one reason we care so much about extensible abstractions is so that community members are not bottlenecked on LangChain maintainers in order to experiment. People regularly fork, build new agents, graph patterns, integrations, memory systems, and research prototypes on top of LangChain and LangGraph abstractions without needing those ideas to be merged into the core repo. The number of academic papers citing LangChain/LangGraph/Deep Agents is a good…",
       "published_at": "2026-06-30",
       "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "How to download a model and run it with Ollama locally?",
+      "url": "https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317",
+      "summary": "I have just installed Ollama on my Macbook pro, now how to download a model form hugging face and run it locally at my mac ?\nThank you for your response, is there any other recommend tool to run models locally than Ollama? Why should I use Ollama? Am I on the right track?\nCertainly! Here are some alternative tools for running models locally:\n- PyTorch\n- TensorFlow\n- ONNX Runtime\n- OpenVINO\n- TensorFlow Lite\nEach tool offers unique features and advantages, so you can choose based on your specific requirements.\nThank you for the information, I really appreciate it\nCan’t find it… Any other options?\nYou can use git to clone the model to your local storage.\nAs long as you have git installed on your computer just use the “git clone” command followed by the URL of the model on hugginface.\nFor example:\ngit clone mistralai/Mistral-7B-Instruct-v0.2 · Hugging Face\nSo the downloaded model will be in quantized form. Right? Can we use this to fine tune ?\nI dont see any config.json file. Any idea ?\n@hopewise You do realize that both of @KeelyPowers 's answers were generated by a LLM… right?\nNo! But I am not shocked sense this is huggingface forum!\nMy I ask,after my downloading models, how can i use ollama to load it?\nMy downlaoding is in transformer format,with files like config.json,model-00001-of-00002.safetensors , pytorch_model-00003-of-00003.bin  special_tokens_map.json  tokenizer.model\nNo modelfile,how can I load it with ollama\nHi,\nOllama is a wrapper on top of Llama cpp: GitHub - gge…",
+      "published_at": "2024-03-13",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -565,17 +587,6 @@
       "macro_score": 2
     },
     {
-      "title": "Advancing sports analytics through AI research",
-      "url": "https://deepmind.google/blog/advancing-sports-analytics-through-ai-research/",
-      "summary": "Advancing sports analytics through AI research\nCreating testing environments to help progress AI research out of the lab and into the real world is immensely challenging. Given AI’s long association with games, it is perhaps no surprise that sports presents an exciting opportunity, offering researchers a testbed in which an AI-enabled system can assist humans in making complex, real-time decisions in a multiagent environment with dozens of dynamic, interacting individuals.\nThe rapid growth of sports data collection means we are in the midst of a remarkably important era for sports analytics. The availability of sports data is increasing in both quantity and granularity, transitioning from the days of aggregate high-level statistics and sabermetrics to more refined data such as event stream information (e.g., annotated passes or shots), high-fidelity player positional information, and on-body sensors. However, the field of sports analytics has only recently started to harness machine learning and AI for both understanding and advising human decision-makers in sports. In our recent paper published in collaboration with Liverpool Football Club (LFC) in JAIR, we envision the future landscape of sports analytics using a combination of statistical learning, video understanding, and game theory. We illustrate football, in particular, is a useful microcosm for studying AI research, offering benefits in the longer-term to decision-makers in sports in the form of an automated video-ass…",
-      "published_at": "2021-05-07",
-      "source": "deepmind.google",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": -1
-    },
-    {
       "title": "Long-running run getting cancelled by aggressive workers scale down",
       "url": "https://forum.langchain.com/t/long-running-run-getting-cancelled-by-aggressive-workers-scale-down/4126",
       "summary": "Hi LangChain team, recently we are experiencing some issues related to some of our graph runs getting cancelled (asyncio.CancelledError) in the LangSmith tracing in our Production deployment.\nAfter some debugging using the server log, we found out that during the time these runs getting cancelled, there were quite a few shutdown logs that appeared.\nFor example, at 7/7/2026, 12:09:26 PM:\n[ERROR] The queue surpassed the grace period while shutting down. Some runs may still be running and will be canceled and retried on a healthy instance. The grace period is currently set to 180 seconds. If that is too low, adjust the BG_JOB_SHUTDOWN_GRACE_PERIOD_SECS environment variable to an appropriate value. Signaling shutdown\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 505, in worker\n  File \"/api/langgraph_api/worker.py\", line 269, in worker\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 207, in wrap_user_errors\n  File \"/api/langgraph_api/stream.py\", line 639, in consume\n  File \"/api/langgraph_api/stream.py\", line 665, in _consume_inline\n  File \"/api/langgraph_api/stream.py\", line 501, in astream_state\n  File \"/api/langgraph_api/asyncio.py\", line 86, in wait_if_not_done\n  File \"/usr/local/lib/python3.12/asyncio/taskgroups.py\", …",
@@ -587,11 +598,22 @@
       "macro_score": 0
     },
     {
-      "title": "Llama 3.1 8b Instruct - Memory Usage More than Reported",
-      "url": "https://discuss.huggingface.co/t/llama-3-1-8b-instruct-memory-usage-more-than-reported/140711",
-      "summary": "I am currently running llama 3.1 8B Instruct through python on a Nvidia A100 80gb. I am trying to ensure that my gpu can handle the max context length of 128k tokens. According to this blog post In FP16, the model needs ~16gb of VRAM to load the model and then ~16gb of VRAM for KV cache memory for the full 128k context window. This results in a total of ~32 GB of VRAM needed to run llama 3.1 8B Instruct with the full context window. However when I run my code in FP 16 I am running out of VRAM at ~60k tokens. This is substantially different than what this blog post is mentioning.\nHere is the code I am using:\nfrom transformers import AutoModelForCausalLM, AutoTokenizer\nimport torch\nimport os\nclass SLM:\n    def __init__(self, model_path, device, max_new_tokens, do_sample):\n        self.device = device\n        self.model_path = model_path\n        self.max_new_tokens = max_new_tokens\n        self.do_sample = do_sample\n        self.tokenizer = AutoTokenizer.from_pretrained(self.model_path)\n        model = AutoModelForCausalLM.from_pretrained(\n            self.model_path,\n            device_map='auto',\n            torch_dtype=torch.bfloat16,\n            use_cache=True,\n            trust_remote_code=True\n        )\n        self.model = torch.compile(model)\n        self.generation_args = {\n            'max_new_tokens': max_new_tokens,\n            'do_sample': do_sample,\n        }\n        logger.info(f\"Model loaded from {self.model_path} on device {self.device}\")\n    def pipe(self, hist…",
-      "published_at": "2025-02-13",
-      "source": "discuss.huggingface.co",
+      "title": "Advancing sports analytics through AI research",
+      "url": "https://deepmind.google/blog/advancing-sports-analytics-through-ai-research/",
+      "summary": "Advancing sports analytics through AI research\nCreating testing environments to help progress AI research out of the lab and into the real world is immensely challenging. Given AI’s long association with games, it is perhaps no surprise that sports presents an exciting opportunity, offering researchers a testbed in which an AI-enabled system can assist humans in making complex, real-time decisions in a multiagent environment with dozens of dynamic, interacting individuals.\nThe rapid growth of sports data collection means we are in the midst of a remarkably important era for sports analytics. The availability of sports data is increasing in both quantity and granularity, transitioning from the days of aggregate high-level statistics and sabermetrics to more refined data such as event stream information (e.g., annotated passes or shots), high-fidelity player positional information, and on-body sensors. However, the field of sports analytics has only recently started to harness machine learning and AI for both understanding and advising human decision-makers in sports. In our recent paper published in collaboration with Liverpool Football Club (LFC) in JAIR, we envision the future landscape of sports analytics using a combination of statistical learning, video understanding, and game theory. We illustrate football, in particular, is a useful microcosm for studying AI research, offering benefits in the longer-term to decision-makers in sports in the form of an automated video-ass…",
+      "published_at": "2021-05-07",
+      "source": "deepmind.google",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": -1
+    },
+    {
+      "title": "Visual Proof: Stopping Recursive Multi-Agent Loops Upstream",
+      "url": "https://forum.langchain.com/t/visual-proof-stopping-recursive-multi-agent-loops-upstream/4115",
+      "summary": "Relying on monitoring to catch rogue AI agent loops is a $10,000 architectural mistake.\nBy the time your alert fires, the API calls have already executed. The debt is already incurred.\nYou must move constraints upstream. Decouple execution from finance.\nTest the simulation: Agent Loop Cost Simulator — Valta | Valta",
+      "published_at": "2026-07-07",
+      "source": "forum.langchain.com",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -609,9 +631,9 @@
       "macro_score": 0
     },
     {
-      "title": "Please provide a way to block undesirable people",
-      "url": "https://discuss.huggingface.co/t/please-provide-a-way-to-block-undesirable-people/177556",
-      "summary": "Hi, I am requesting a way to block a person or organization on HF. Similar to the usual block feature you find anywhere else. I wish model listings to never show any search results from the blocked person.\nExample use-case: I am interested in finding community resources made for the image model Krea 2 which was recently released. If you search for ‘krea-2’ in the model list ( Models – Hugging Face ) , of the 1582 results, 1503 are low-effort low-quality autogenerated LoRAs by the account ilkerzgi (fal.ai). See for yourself: Models – Hugging Face\nThis makes it hard to find other content by people other than fal.ai. Despite no bad intentions from fal.ai, this is effectively a minor DoS attack, encouraged by your excessively lenient and generous usage limits.\nI would like the option to block accounts like these that I find pollute my model search..\nIdeally, once I block such a person, the search should show: 79 results (1503 results omitted due to your preferences).",
+      "title": "500 Internal Error on Space settings page",
+      "url": "https://discuss.huggingface.co/t/500-internal-error-on-space-settings-page/177553",
+      "summary": "Hello,\nGot this message when trying to access the settings in my space:\nInternal Error - We’re working hard to fix this as soon as possible!\nRequest ID: Root=1-6a4d269d-091850b011ac26613f2a0dfc\nUsername: yikai82\nSpace: Dione\nURL: https://huggingface.co/spaces/yikai82/Dione (private)\nAPP tab: ok\nFile tab: ok\nCommunity: ok\nSettings: ERROR 500\nWould be great if someone could help or point some direction. Thank you!!",
       "published_at": "2026-07-07",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -642,22 +664,11 @@
       "macro_score": 2
     },
     {
-      "title": "[help] Model to edit retro games booklets/manuals scans",
-      "url": "https://discuss.huggingface.co/t/help-model-to-edit-retro-games-booklets-manuals-scans/177542",
-      "summary": "Oh… Hmm… when it comes to OCR, words like “hell” and “nightmare” somehow feel appropriate:\nMy direct answer would be: I would not treat this primarily as a “find one OCR model” problem, and I would not start by training a model.\nWhat you described appears to contain several separate tasks:\n- locating the best available source scan;\n- detecting and cropping the physical page;\n- correcting yellow or uneven backgrounds;\n- distinguishing shadows, page curvature, folds, stains, and bleed-through;\n- preserving small text, line art, screenshots, and halftones;\n- optionally adding an OCR text layer;\n- preparing a cover for printing, including trim and bleed.\nThe closest public general-purpose model I found is DocRes. It supports appearance, dewarping, deshadowing, deblurring, binarization, and end2end restoration.\nHowever, even DocRes expects you to select the task. It does not automatically determine whether a dark area is a scan border, a shadow, a stain, bleed-through, or missing content.\nThe default route I would try\n- Find the least-processed, highest-quality source available.\n- Keep that source unchanged.\n- Use simple page detection, crop, and deskew before restoration models.\n- Apply one restoration operation at a time.\n- Keep OCR, visual restoration, and print preparation as separate outputs.\n- Handle the cover and bleed only after the trim-size artwork is stable.\n- Train something only if the remaining failure is repeated and well-defined.\nA small first comparison could be:\n…",
-      "published_at": "2026-07-07",
+      "title": "How do you choose the right open-source LLM for a RAG (Retrieval-Augmented Generation) system?",
+      "url": "https://discuss.huggingface.co/t/how-do-you-choose-the-right-open-source-llm-for-a-rag-retrieval-augmented-generation-system/177609",
+      "summary": "If you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nIf you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?",
+      "published_at": "2026-07-09",
       "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Deprecated 'pretrained' parameter in PyTorch torchvision models - Seeking generalized solution",
-      "url": "https://discuss.pytorch.org/t/deprecated-pretrained-parameter-in-pytorch-torchvision-models-seeking-generalized-solution/197449",
-      "summary": "Hi PyTorch community,\nI’ve been using the torchvision library to work with pre-trained models, and I noticed that the pretrained parameter is deprecated in recent versions. I am looking for a generalized solution that works for every model, as my model_name is dynamically configured.\nIn my code, I have been using the following line to instantiate the model:\nmodel = models.__ dict __ [model_name] (pretrained=True)\nI want to make sure I’m using the recommended generalized approach for loading pre-trained weights that accommodates dynamic model configurations. Could someone please guide me on the valid alternative to the deprecated pretrained parameter for dynamically configured model names?\nThank you in advance for your help!",
-      "published_at": "2024-02-21",
-      "source": "discuss.pytorch.org",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -697,26 +708,15 @@
       "macro_score": 0
     },
     {
-      "title": "Testing Agents That Rely on Human Interaction (Interrupts + HITL)",
-      "url": "https://forum.langchain.com/t/testing-agents-that-rely-on-human-interaction-interrupts-hitl/4071",
-      "summary": "Hey LangChain community! I’d love to get your thoughts on building evals for agents that rely heavily on human-in-the-loop interactions. Specifically, how do you approach evaluating agents that use interrupts and require human approval for critical actions? I’d be interested to hear about your experience, the challenges you’ve encountered, and how you’ve overcome them.\nGreat question — and the good news is that interrupts make HITL agents more testable than they look, because the human decision becomes a scripted input rather than a live person. The key shift: you don’t mock the human; you resume the paused run with a programmatic decision.\nThe core pattern. With the HumanInTheLoopMiddleware, the agent pauses on configured tools and returns an interrupt instead of executing. In a test you (1) run until it pauses, (2) assert it paused on the right action, (3) resume with a scripted decision, (4) assert the downstream trajectory. That covers the whole loop deterministically:\nfrom langgraph.types import Command\nconfig = {\"configurable\": {\"thread_id\": \"eval-1\"}}  # checkpointer required to pause/resume\n# 1. Run until it pauses at the approval gate\nresult = agent.invoke({\"messages\": [{\"role\": \"user\", \"content\": \"Delete the prod table\"}]}, config)\n# 2. Assert it interrupted on the right action (didn't silently execute)\nassert result[\"__interrupt__\"]\naction = result[\"__interrupt__\"][0].value[\"action_requests\"][0]\nassert action[\"name\"] == \"delete_table\"\n# 3. Resume with a *scripted* …",
-      "published_at": "2026-07-01",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 2
-    },
-    {
-      "title": "Proposing TFE (Tiwantic-Feedback Equation) — An Autonomous, Loss-Driven Gradient Scaling Layer Extension",
-      "url": "https://discuss.pytorch.org/t/proposing-tfe-tiwantic-feedback-equation-an-autonomous-loss-driven-gradient-scaling-layer-extension/225159",
-      "summary": "Hello PyTorch Community and Team,\nI want to share a mathematical framework and custom layer extension I’ve been developing to address the bottlenecks of static training loops and vanishing gradients: the Tiwantic-Feedback Equation (TFE).\nInstead of relying solely on external learning rate schedulers to manage optimization pacing, TFE embeds an autonomous feedback mechanism directly into the raw forward and backward paths of the layer itself.\nThe Mathematical Concept\nThe core equation is formulated as:\n$$f(x) = x \\cdot \\sigma(w \\cdot x) + \\alpha \\cdot b^2$$\nWhere:\n- \n$\\sigma(w \\cdot x)$ acts as an input-driven gating function. \n- \n$\\alpha$ is a dynamic feedback coefficient tied to the model’s real-time training loss variance. \n- \n$b^2$ serves as a baseline stabilization factor. \nHow It Works Under the Hood\n- \nHigh Loss Variance (Acceleration State): When the model is initialized or struggling with high training errors, $\\alpha$ scales up. This amplifies the gradient flow during the backward pass, helping the weights forcefully break out of bad local minima or random states. \n- \nLow Loss Variance (High-Precision State): As the loss drops and stabilizes, $\\alpha$ smoothly trends down. The layer naturally dampens its gradient magnitudes, allowing for high-precision micro-adjustments without overshooting the global minimum. \n- \nMemory Shielding: Decoupling input processing from the baseline shift ($\\alpha \\cdot b^2$) creates a buffer that helps protect older weight patterns during…",
+      "title": "UmarTransit-1B: First Open-Source Transit Domain LLM (Fine-tuned Qwen2.5-1.5B)",
+      "url": "https://discuss.huggingface.co/t/umartransit-1b-first-open-source-transit-domain-llm-fine-tuned-qwen2-5-1-5b/177611",
+      "summary": "Hi everyone!\nI’m sharing UmarTransit-1B — a domain-specific language model fine-tuned for public transit systems and GTFS (General Transit Feed Specification) data.\nWhat is it?\nA QLoRA fine-tuned version of Qwen2.5-1.5B-Instruct that specializes in GTFS specification knowledge, transit route/schedule analysis, stop/station information across 10 countries, and transfer connections.\nAvailable formats:\n- Safetensors (3.09 GB) — for Transformers/Python\n- GGUF Q4_K_M (986 MB) — for Ollama/llama.cpp (recommended for local use)\n- GGUF Q8_0 (1.65 GB) — for Ollama/llama.cpp (higher quality)\nHow it was built\nI’m a Senior Technical Lead (Java/Spring Boot, 14+ years) experienced with LLM APIs (OpenAI, Claude) and GTFS/transit systems. This is my first end-to-end model training project — from data collection to fine-tuning to deployment. Built the entire pipeline:\n- Collected 15 public GTFS feeds from 10 countries (858 MB raw data)\n- Cleaned 77M+ rows into normalized Parquet files\n- Generated 3,306 synthetic instruction/response pairs across 8 task categories\n- Fine-tuned Qwen2.5-1.5B-Instruct with QLoRA using Unsloth on Google Colab (free T4)\n- Evaluated: ROUGE-L 0.82, best category Transfer (0.90)\n- Exported to GGUF (Q4_K_M and Q8_0) for local inference\n- Deployed frontend to Vercel, model to HuggingFace\nTraining: QLoRA rank=16, alpha=32, 3 epochs, ~30 min on Colab T4, Unsloth + TRL SFTTrainer\nExample outputs\nQ: What does route_type 3 mean in GTFS? A: In the GTFS specification, route_ty…",
       "published_at": "2026-07-09",
-      "source": "discuss.pytorch.org",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 0
+      "macro_score": 1
     },
     {
       "title": "2017: DeepMind's year in review",
@@ -730,10 +730,43 @@
       "macro_score": 1
     },
     {
-      "title": "Make 2 ai vtubers talk to eachother in vtube studio With functioning token System For mouths (working code example for everyone cause i could not find this anywhere)",
-      "url": "https://discuss.huggingface.co/t/make-2-ai-vtubers-talk-to-eachother-in-vtube-studio-with-functioning-token-system-for-mouths-working-code-example-for-everyone-cause-i-could-not-find-this-anywhere/177555",
-      "summary": "Oh. After trying a few things in Colab, I think I may have identified at least some of the weak points in the current implementation:\nThe overall architecture you ended up with looks like the right one:\nAli TTS\n→ Ali mouth-analysis loop\n→ Ali VTS client\n→ Ali VTube Studio port/session\n→ Ali model\nHara TTS\n→ Hara mouth-analysis loop\n→ Hara VTS client\n→ Hara VTube Studio port/session\n→ Hara model\nIn other words:\n- one WebSocket client per VTube Studio instance;\n- one configured port per client;\n- separate token storage so the clients cannot accidentally overwrite each other’s local token state;\n- each TTS stream sends MouthOpenonly through its own VTS client.\nBoth models can use the parameter name MouthOpen. Because they are running in separate VTube Studio instances, those are separate API contexts. The VTS rule that only one plugin can normally \"set\" a parameter applies within one VTS instance, not across two separate instances.\nI do not think the remaining weak points are mainly about needing another mouth parameter. They look more like authentication-session state, reconnection state, and cleanup state.\nThe four changes I would make first are:\n- Read the actual AuthenticationResponse.data.authenticatedvalue.\n- Store a newly received token in self.tokenas well as in the token file.\n- Clear the local authenticated/ready state as soon as the socket disconnects.\n- Put TTS/mouth cleanup in a finallyblock.\nRecommended default lifecycle\nFor each character, I would use this sequenc…",
-      "published_at": "2026-07-07",
+      "title": "Testing Agents That Rely on Human Interaction (Interrupts + HITL)",
+      "url": "https://forum.langchain.com/t/testing-agents-that-rely-on-human-interaction-interrupts-hitl/4071",
+      "summary": "Hey LangChain community! I’d love to get your thoughts on building evals for agents that rely heavily on human-in-the-loop interactions. Specifically, how do you approach evaluating agents that use interrupts and require human approval for critical actions? I’d be interested to hear about your experience, the challenges you’ve encountered, and how you’ve overcome them.\nGreat question — and the good news is that interrupts make HITL agents more testable than they look, because the human decision becomes a scripted input rather than a live person. The key shift: you don’t mock the human; you resume the paused run with a programmatic decision.\nThe core pattern. With the HumanInTheLoopMiddleware, the agent pauses on configured tools and returns an interrupt instead of executing. In a test you (1) run until it pauses, (2) assert it paused on the right action, (3) resume with a scripted decision, (4) assert the downstream trajectory. That covers the whole loop deterministically:\nfrom langgraph.types import Command\nconfig = {\"configurable\": {\"thread_id\": \"eval-1\"}}  # checkpointer required to pause/resume\n# 1. Run until it pauses at the approval gate\nresult = agent.invoke({\"messages\": [{\"role\": \"user\", \"content\": \"Delete the prod table\"}]}, config)\n# 2. Assert it interrupted on the right action (didn't silently execute)\nassert result[\"__interrupt__\"]\naction = result[\"__interrupt__\"][0].value[\"action_requests\"][0]\nassert action[\"name\"] == \"delete_table\"\n# 3. Resume with a *scripted* …",
+      "published_at": "2026-07-01",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 2
+    },
+    {
+      "title": "Deprecated 'pretrained' parameter in PyTorch torchvision models - Seeking generalized solution",
+      "url": "https://discuss.pytorch.org/t/deprecated-pretrained-parameter-in-pytorch-torchvision-models-seeking-generalized-solution/197449",
+      "summary": "Hi PyTorch community,\nI’ve been using the torchvision library to work with pre-trained models, and I noticed that the pretrained parameter is deprecated in recent versions. I am looking for a generalized solution that works for every model, as my model_name is dynamically configured.\nIn my code, I have been using the following line to instantiate the model:\nmodel = models.__ dict __ [model_name] (pretrained=True)\nI want to make sure I’m using the recommended generalized approach for loading pre-trained weights that accommodates dynamic model configurations. Could someone please guide me on the valid alternative to the deprecated pretrained parameter for dynamically configured model names?\nThank you in advance for your help!",
+      "published_at": "2024-02-21",
+      "source": "discuss.pytorch.org",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "A catalogue of genetic mutations to help pinpoint the cause of diseases",
+      "url": "https://deepmind.google/blog/a-catalogue-of-genetic-mutations-to-help-pinpoint-the-cause-of-diseases/",
+      "summary": "A catalogue of genetic mutations to help pinpoint the cause of diseases\nNew AI tool classifies the effects of 71 million ‘missense’ mutations\nUncovering the root causes of disease is one of the greatest challenges in human genetics. With millions of possible mutations and limited experimental data, it’s largely still a mystery which ones could give rise to disease. This knowledge is crucial to faster diagnosis and developing life-saving treatments.\nToday, we’re releasing a catalogue of ‘missense’ mutations where researchers can learn more about what effect they may have. Missense variants are genetic mutations that can affect the function of human proteins. In some cases, they can lead to diseases such as cystic fibrosis, sickle-cell anaemia, or cancer.\nThe AlphaMissense catalogue was developed using AlphaMissense, our new AI model which classifies missense variants. In a paper published in Science, we show it categorised 89% of all 71 million possible missense variants as either likely pathogenic or likely benign. By contrast, only 0.1% have been confirmed by human experts.\nAI tools that can accurately predict the effect of variants have the power to accelerate research across fields from molecular biology to clinical and statistical genetics. Experiments to uncover disease-causing mutations are expensive and laborious – every protein is unique and each experiment has to be designed separately which can take months. By using AI predictions, researchers can get a preview of r…",
+      "published_at": "2023-09-19",
+      "source": "deepmind.google",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Rethinking Transformer Architecture Through the Lens of Group Theory:",
+      "url": "https://discuss.huggingface.co/t/rethinking-transformer-architecture-through-the-lens-of-group-theory/177612",
+      "summary": "Abstract\nTransformer architectures have fundamentally changed the landscape of artificial intelligence by demonstrating remarkable abilities in language understanding, reasoning, and representation learning.\nHowever, a deeper question remains:\nWhat mathematical structures are hidden beneath learned representations?\nGroup theory provides one of the most powerful languages for describing structure in mathematics and physics. It studies transformations, symmetries, invariants, and representations — the fundamental concepts behind many physical theories and mathematical systems.\nThis article explores possible connections between group theory and Transformer architectures.\nWe do not claim that Transformers are literally implementations of group representations. Instead, we propose that several ideas from group theory — especially symmetry, representation spaces, and invariance — provide a useful conceptual framework for understanding how neural networks learn and organize information.\nFurthermore, we discuss a deeper question:\nCould future AI systems require not only larger representations, but representations that dynamically evolve through experience?\n1. Why Group Theory?\nThe central question of group theory is:\nWhat remains unchanged when something changes?\nA group describes transformations:\nDifferent transformations may change the appearance of a system while preserving deeper structures.\nExamples:\n- A rotated object changes its coordinates but keeps its identity.\n- A physical…",
+      "published_at": "2026-07-09",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -752,22 +785,11 @@
       "macro_score": 1
     },
     {
-      "title": "A catalogue of genetic mutations to help pinpoint the cause of diseases",
-      "url": "https://deepmind.google/blog/a-catalogue-of-genetic-mutations-to-help-pinpoint-the-cause-of-diseases/",
-      "summary": "A catalogue of genetic mutations to help pinpoint the cause of diseases\nNew AI tool classifies the effects of 71 million ‘missense’ mutations\nUncovering the root causes of disease is one of the greatest challenges in human genetics. With millions of possible mutations and limited experimental data, it’s largely still a mystery which ones could give rise to disease. This knowledge is crucial to faster diagnosis and developing life-saving treatments.\nToday, we’re releasing a catalogue of ‘missense’ mutations where researchers can learn more about what effect they may have. Missense variants are genetic mutations that can affect the function of human proteins. In some cases, they can lead to diseases such as cystic fibrosis, sickle-cell anaemia, or cancer.\nThe AlphaMissense catalogue was developed using AlphaMissense, our new AI model which classifies missense variants. In a paper published in Science, we show it categorised 89% of all 71 million possible missense variants as either likely pathogenic or likely benign. By contrast, only 0.1% have been confirmed by human experts.\nAI tools that can accurately predict the effect of variants have the power to accelerate research across fields from molecular biology to clinical and statistical genetics. Experiments to uncover disease-causing mutations are expensive and laborious – every protein is unique and each experiment has to be designed separately which can take months. By using AI predictions, researchers can get a preview of r…",
-      "published_at": "2023-09-19",
-      "source": "deepmind.google",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "If unsure, ask. Never guess. — AI Agent Pre-Execution Checklist",
-      "url": "https://discuss.huggingface.co/t/if-unsure-ask-never-guess-ai-agent-pre-execution-checklist/176632",
-      "summary": "If unsure, ask. Never guess.\nAI Agent Pre-Execution Checklist\nHumans give incomplete instructions.\nAI tries to interpret them as if they were complete.\nThat is where the problem begins.\nIf an agent executes while required information remains unverified, the result is not simply a model error — it is a pre-execution confirmation failure. Many vibe coding mistakes are not due to lack of coding ability, but because the necessary questions were never asked before execution.\nAI does not reliably know what it does not know. That is why a simple recommendation is not enough. What is needed is a structural enforcement logic — a checklist that must be verified before any action is taken.\nThis document proposes a way to control AI execution through rules, not code. Implementation may vary, but the core principle is this: declare the rules, and let AI follow them — instead of hardcoding behavior.\nThis document defines principles and structure. How they are applied depends on each system, organization, and regulatory body’s own policies and agreements.\nCore Structure (Fixed Checklist)\n| C | Item | Description | \n|---|---|---|\n| C1 | When / Case | When, or under what condition, should this Action be executed? | \n| C2 | User Action Name | What does the user call this Action? (intent) | \n| C3 | Provider Action Name | The Action name actually invoked by the system | \nChecklist Layers\n- Fixed Checklist — Minimum required items common to all Actions; defines the execution unit\n- Provider Check…",
-      "published_at": "2026-06-09",
-      "source": "discuss.huggingface.co",
+      "title": "Proposing TFE (Tiwantic-Feedback Equation) — An Autonomous, Loss-Driven Gradient Scaling Layer Extension",
+      "url": "https://discuss.pytorch.org/t/proposing-tfe-tiwantic-feedback-equation-an-autonomous-loss-driven-gradient-scaling-layer-extension/225159",
+      "summary": "Hello PyTorch Community and Team,\nI want to share a mathematical framework and custom layer extension I’ve been developing to address the bottlenecks of static training loops and vanishing gradients: the Tiwantic-Feedback Equation (TFE).\nInstead of relying solely on external learning rate schedulers to manage optimization pacing, TFE embeds an autonomous feedback mechanism directly into the raw forward and backward paths of the layer itself.\nThe Mathematical Concept\nThe core equation is formulated as:\n$$f(x) = x \\cdot \\sigma(w \\cdot x) + \\alpha \\cdot b^2$$\nWhere:\n- \n$\\sigma(w \\cdot x)$ acts as an input-driven gating function. \n- \n$\\alpha$ is a dynamic feedback coefficient tied to the model’s real-time training loss variance. \n- \n$b^2$ serves as a baseline stabilization factor. \nHow It Works Under the Hood\n- \nHigh Loss Variance (Acceleration State): When the model is initialized or struggling with high training errors, $\\alpha$ scales up. This amplifies the gradient flow during the backward pass, helping the weights forcefully break out of bad local minima or random states. \n- \nLow Loss Variance (High-Precision State): As the loss drops and stabilizes, $\\alpha$ smoothly trends down. The layer naturally dampens its gradient magnitudes, allowing for high-precision micro-adjustments without overshooting the global minimum. \n- \nMemory Shielding: Decoupling input processing from the baseline shift ($\\alpha \\cdot b^2$) creates a buffer that helps protect older weight patterns during…",
+      "published_at": "2026-07-09",
+      "source": "discuss.pytorch.org",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -785,22 +807,22 @@
       "macro_score": 0
     },
     {
-      "title": "Good data to test tensor based soft sparsity and other sparsity models",
-      "url": "https://discuss.huggingface.co/t/good-data-to-test-tensor-based-soft-sparsity-and-other-sparsity-models/177522",
-      "summary": "Hmm… For now, maybe something like this?:\nI think MicroMass is useful, but I would not make it the first or only benchmark for this engine.\nThe UCI MicroMass dataset is reasonably high-dimensional at 1,300 variables, and it has more structure than an ordinary classification dataset: the associated study used 571 reference spectra from 20 bacterial species, plus 360 spectra from controlled two-species mixtures at nine nominal concentration ratios. That makes it a potentially good real-data sanity check.\nHowever, it does not provide a known true latent loading matrix, it is smaller than the thousands-by-thousands scale you are looking for, and the number of species is not automatically the true latent dimension. I would therefore use it after a small synthetic benchmark rather than as the primary test.\nMy default route would be:\n| Stage | Main purpose | \n| 1. Rotation-only synthetic benchmark | Test recovery of known sparse structure and avoidance of basis collapse | \n| 2. Sampled synthetic benchmark | Add sampling noise and factor-extraction error | \n| 3. MicroMass | Test behavior on structured real spectra and controlled mixtures | \n| 4. Large real dataset | Test runtime, memory use, stability, and scaling | \n The useful distinction, at least as I understand the earlier description of the engine, is:\nDoes it recover sparse/simple structure?\nand separately:\nDoes it avoid singular, duplicated, or badly conditioned bases while doing so?\nThose are not the same success criterion. …",
-      "published_at": "2026-07-06",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Accelerating the race against antibiotic resistance",
       "url": "https://deepmind.google/blog/accelerating-the-race-against-antibiotic-resistance/",
       "summary": "Accelerating the race against antibiotic resistance\nAlphaFold unlocks a decade of data within minutes that can help beat antibiotic resistance\nMost people who have access to a modern healthcare system would not consider a disease like bubonic plague to be a threat. Such bacterial infections are usually dealt with easily through modern antibiotics. Yet antibiotic resistance, where bacteria evolve the ability to defeat these drugs, is quickly becoming a global problem. With new antibiotics thin on the ground, scientists like Marcelo Sousa and Megan Mitchell at the University of Colorado Boulder are looking at a different approach: targeting the resistance mechanism itself.\nBlocking the resistance mechanism, which is controlled by enzymes, should allow existing antibiotics to continue to function. But understanding the structure of these enzymes has proven incredibly challenging with purely experimental methods – until the team came across AlphaFold. In the video above, Marcelo and Megan explain how it felt to suddenly unlock the potential of those data, and what this could mean for antibiotic resistance.\nLinks and further reading:\n- Find out more about the Sousa Research Group at the University of Colorado Boulder\n- Find these complex enzymes here on the AlphaFold Protein Structure Database",
       "published_at": "2022-07-28",
       "source": "deepmind.google",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Looking for feedback: Do common quantization saliency metrics really measure weight importance?",
+      "url": "https://discuss.huggingface.co/t/looking-for-feedback-do-common-quantization-saliency-metrics-really-measure-weight-importance/177615",
+      "summary": "Four widely used methods for quantizing LLMs (AWQ, GPTQ, OWQ, SpQR) each score which weights matter most, then protect the important ones. That score has almost never been tested on its own. These methods get validated end to end: does the quantized model still work? If a method’s error-compensation step can patch up a bad pick, the model looks fine either way, so a wrong importance score never shows up in the final numbers in any of the papers.\nI tested the scores directly instead: perturb one weight channel at a time, hold everything else exact, and measure the real damage. The four criteria look like they agree with each other far more than chance would allow, but most of that agreement turns out to be mechanical, from sharing one input statistic, not from converging on the truth. Strip that shared statistic out and three of the four barely track real sensitivity anymore. A gradient-based score is the exception and holds up throughout.\nTo be clear, I’m not saying that “AWQ and GPTQ don’t work.” Their compensation steps can cover for a bad pick, which is exactly why no one had measured the pick itself directly before.\nI tested this by knocking out one weight channel at a time in three small open LLMs (Qwen2.5-0.5B, Pythia-410M, SmolLM2-360M) and measuring the real damage with forward-KL divergence, at the actual deployment quantization setting (INT3, group-128). Every rule for how I’d judge the results was written down and locked before I ran anything.\nPaper + data: Salienc…",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -829,10 +851,10 @@
       "macro_score": 2
     },
     {
-      "title": "[Need help] My Space froze right from the start",
-      "url": "https://discuss.huggingface.co/t/need-help-my-space-froze-right-from-the-start/177558",
-      "summary": "I started encountering this error around I started encountering this error around 6:00 UTC+0.\nWhen I restarted my space, it built successfully but then froze at “starting” with a log containing only a single line:\n“===== Application Startup =====”\nNormally, when spaces start running, the first line should include the time, but here it’s just like that.\nI thought it was probably a space error, so I tried restarting, rebuilding, creating new spaces,restart the old space that was previously working, etc.\nEven when I create new spaces with short Dockerfile contents :\nFROM alpine:latest\nEXPOSE 7860\nCMD [“sh”, “-c”, “echo Started; while true; do sleep 60; done”]\nIt’s still frozen and the log indicator shows ===== Application Startup =====\nI’ve been experiencing this for about two hours and it’s still happening.",
-      "published_at": "2026-07-08",
+      "title": "Help with DeepSeek-V3-0324 Model Download",
+      "url": "https://discuss.huggingface.co/t/help-with-deepseek-v3-0324-model-download/148254",
+      "summary": "Issue: Rate Limiting When Downloading DeepSeek-V3-0324\nI’m experiencing consistent rate limiting issues when trying to download the DeepSeek-V3-0324 large model.\nWhat I’ve tried:\n- Git over HTTPS:\n- Direct download attempts result in “Rate limit exceeded” errors\n- Hugging Face CLI:\n- Created and provided a token with write permissions\n- Error 429 (Too Many Requests) for the /whoamiendpoint\n- Set HF_TOKEN environment variable\n- Git over SSH:\n- Set up SSH authentication\n- Still receiving rate limit errors when pulling LFS objects\n- Curl request:\n- Returns 429 page\nSpecific error messages:\nbatch response: Rate limit exceeded: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324.git/info/lfs/objects/batch\nFailed to fetch some objects from 'https://hf.co/deepseek-ai/DeepSeek-V3-0324.git/info/lfs'\ngit over ssh with skip(configured correctly)\nGIT_LFS_SKIP_SMUDE=1 git clone git@hf.co:deepseek-ai/DeepSeek-V3-0324                                                                 \nCloning into 'DeepSeek-V3-0324'...                                                             \nremote: Enumerating objects: 203, done.\nremote: Counting objects: 100% (199/199), done.                                                                                                                                               \nremote: Compressing objects: 100% (198/198), done.                                                                                                                                            \n…",
+      "published_at": "2025-03-31",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -851,10 +873,21 @@
       "macro_score": 1
     },
     {
-      "title": "Unable to schedule",
-      "url": "https://discuss.huggingface.co/t/unable-to-schedule/177563",
-      "summary": "I deployed a space. It worked perfectly without any error two days ago. But today, when I logged in, the space was sleeping. When it woke up, it showed starting. After 30-40 mins, the space suddenly just showed this:\n\"runtime error\nScheduling failure: unable to schedule\"\nIt happened with my other spaces which I created long ago. And the logs show:\n“===== Application Startup =====”\nI don’t know what is happening. Can anyone help me?",
-      "published_at": "2026-07-08",
+      "title": "We all start somewhere",
+      "url": "https://discuss.huggingface.co/t/we-all-start-somewhere/177233",
+      "summary": "Well, If I can assume your technical stack, the explanation can be fairly dense:\nDirect answer\nI would not start by looking for “the best model.” I would first split the problem into layers:\n- local runtime\n- model format and quantization\n- chat template\n- a small eval set\n- RAG / retrieval\n- fine-tuning / adapters\n- model choice\n- tool use / agents\n- offline and privacy boundaries\nFor private or changing knowledge, I would usually try RAG before fine-tuning.\nFor local models, I would check runtime, quantization, and chat template before judging the model.\nFor fine-tuning, I would first collect repeatable failures and eval examples.\nFor uncensored or abliterated models, I would treat them as refusal-behavior changes, not hidden-capability upgrades.\nYou are probably not starting from zero. You are crossing stacks.\n1. Do not mix the layers\nA lot of local AI confusion comes from treating these as the same kind of thing:\n| Layer | Examples | What it answers | \n| Model / checkpoint | Llama, Mistral, Qwen, Gemma, DeepSeek, gpt-oss | What learned the behavior? | \n| File format | safetensors, GGUF | How are the weights stored? | \n| Quantization | q4, q5, q8, fp16, bf16 | What memory/speed/quality tradeoff? | \n| Runtime | Transformers, llama.cpp, Ollama, LM Studio, vLLM, TGI | What actually runs the model? | \n| UI / API layer | Open WebUI, LM Studio UI, llama-server, OpenAI-compatible API | How do you talk to it? | \n| Chat template | ChatML, Mistral, Llama, Qwen, Harmony, etc. | How a…",
+      "published_at": "2026-06-29",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Persistent 503 Error Between Private Docker Spaces",
+      "url": "https://discuss.huggingface.co/t/persistent-503-error-between-private-docker-spaces/177610",
+      "summary": "Personally, this (and Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)) looks more like a regression to me. Details below:\njust in case, @hysts\nDirect answer: the general architecture does not appear to be inherently unsupported.\nHugging Face documents Docker Spaces as suitable for FastAPI and other API endpoints, documents authenticated access to private Space endpoints, and also documents calling one Space from another Space. I could not find one official reference that combines this exact topology—private Docker caller, private Docker target, arbitrary FastAPI route, and server-side Bearer authentication—but the individual pieces are documented or have prior working examples.\nFor a private Docker Space, the route I would expect to use is still:\ncaller Space\n    → HTTPS on port 443\n    → https://<target-subdomain>.hf.space/<route>\n    → Authorization: Bearer <token that can access the target Space>\n    → target application\nThe Docker Spaces documentation describes exposing an application through app_port, and the Spaces networking documentation allows outbound HTTP/HTTPS traffic on ports 80 and 443. The official private Tabby Docker Space example also uses the direct *.hf.space URL as an API endpoint and adds an authorization header when the Space is private.\nThe strongest reason I would currently suspect a regression is the independent report in Space-to-Space requests to *.hf.space return 503 from awselb. That report describes:\n- the same target …",
+      "published_at": "2026-07-09",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -873,15 +906,15 @@
       "macro_score": 1
     },
     {
-      "title": "The Master's Shadow",
-      "url": "https://discuss.huggingface.co/t/the-masters-shadow/177573",
-      "summary": "The Master’s Shadow\nA narrative-driven gothic roguelike of apprenticeship, escape, and ritual inversion — where the villain is a real AI agent bound by the same brutal rules as you.\n“He needs you young. He needs you skilled. He needs you alive… until the final moment.”\nYou are an apprentice bound to the ancient wizard Master Malacor through a partial sympathetic ritual. When the moon comes full he means to pour his mind into your young body and let what remains of you go dark. Serve. Steal. Learn forbidden magic. Sabotage the rite. Slip the wood before the clock strikes — and survive the reckoning at the Heart of the Ritual.\nThe Master is not a scripted villain. He is an autonomous agent adjudicated by the same deterministic engine that governs you — he forages, tires, loses the trail, lays traps, and can fail. And he can be driven by any brain: the built-in reproducible ACO pathfinder, or a local/frontier LLM you plug in at runtime.\nHighlights\n- A villain that plays like a player. The Master issues the same legal actions you can, validated by one authoritative RulesEngine. He cannot cheat the simulation, and a Monte-Carlo sweep proves he is a real but beatable threat (~22% catch against an optimal fugitive).\n- Pluggable AI antagonist. Hand the Master to a local LM Studio model or a frontier API with one environment variable. Decisions run asynchronously so the game never stalls, and any illegal or slow reply falls back to the deterministic brain.\n- Three distinct games in on…",
-      "published_at": "2026-07-08",
+      "title": "Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)",
+      "url": "https://discuss.huggingface.co/t/space-to-space-requests-to-hf-space-return-503-from-awselb-since-jul-8/177607",
+      "summary": "Since between Jul 8–9 2026, HTTP requests made from INSIDE a Space container to ANY .hf.space host return 503 with body {“data”:[]} and header server: awselb/2.0. The AWS load balancer answers directly; the request never reaches the target.\nSpace (no x-proxied- headers). The same URLs return 200 from outside HF.\nVerified: happens against multiple of my own Spaces AND against gradio spaces; identical with and without a valid PRO token; reproduced from two different container egress IPs; DNS is identical inside and outside.\nThis breaks the documented pattern of calling a ZeroGPU Space from another Space\nvia gradio_client.\nIs this an intentional policy change or a regression? If intentional, what is the\nsupported way for one Space to call another Space’s API?\nThanks,\nOur setup is different from the once you ping me: a CPU Docker Space calling ZeroGPU Gradio Spaces via gradio_client, which supports the conclusion that this affects ALL Space-to-Space traffic regardless of SDK, visibility, or auth. It worked for us just a day ago before getting the issues.\nSummary of the controls we ran, they are same-minute probes from inside a Space container and from outside:\nSame URL, same DNS IPs: outside → 200 (server: uvicorn, x-proxied-* headers present), inside → 503 {“data”:} (server: awselb/2.0, no proxy headers, so the request never reaches the target Space).\nIdentical result with a valid PRO token, an invalid token, and no token.\nAlso 503 against a public third-party Gradio Space from …",
+      "published_at": "2026-07-09",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 0
+      "macro_score": 1
     },
     {
       "title": "Advancing discovery of better drugs and medicine",
@@ -895,28 +928,6 @@
       "macro_score": 1
     },
     {
-      "title": "Setup: Ollama serving llama3.1:8b-instruct-q4_K_M, chat completions API (/api/chat), num_ctx=4096, temperature 0.2-0.3",
-      "url": "https://discuss.huggingface.co/t/setup-ollama-serving-llama3-1-8b-instruct-q4-k-m-chat-completions-api-api-chat-num-ctx-4096-temperature-0-2-0-3/177572",
-      "summary": "Setup: - Ollama serving llama3.1:8b-instruct-q4_K_M via /api/chat (streaming) - num_ctx=4096, temperature 0.2-0.3, num_predict 80-150 - FastAPI backend, RAG via Qdrant, feeding a voice agent (Retell AI, ~2-11 turns per call) and a WhatsApp agent, both in Spanish - Each turn: retrieve top-3 RAG chunks, build a messages[] array (system + full conversation history + latest user turn), call Ollama I’ve hit three related issues in production over the last couple weeks that all seem to come down to how this model handles injected context in a growing multi-turn conversation. Already fixed #1 and #3 with workarounds; still not 100% sure #2 is fully solved, and would love input on whether these are known limitations or if I’m doing something wrong architecturally. — Issue 1 (fixed): a second “system” message mid-conversation gets treated as something to respond to, not absorbed silently I was inserting retrieved RAG context as a separate “system” role message right before the latest user turn — i.e. [system(persona), user, assistant, user, assistant, system(RAG context + instruction “use this as background knowledge”), user(latest question)]. Instead of using that context silently, the model would respond directly to the injected instruction, e.g.: User: “¿Enrique Nguix es mi nombre? ¿Te sirve?” Model: “Sí, puedo utilizar la información proporcionada para responder a las preguntas relacionadas con Edentia y sus cursos. ¿Cuál es la pregunta específica que deseas saber?” It also starte…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Seeking research collaborators: a persistence-first AI architecture, live for 14+ days — help us measure it properly",
-      "url": "https://discuss.huggingface.co/t/seeking-research-collaborators-a-persistence-first-ai-architecture-live-for-14-days-help-us-measure-it-properly/177582",
-      "summary": "Hey friends!\nWe’ve built a persistence-first AI architecture (we call it PPAi — Persistent Presence AI) where a small open LLM (~4.5B) acts only as the language surface, while identity, memory, and cognition live in a continuously-running system — including between turns. We’re testing it in production and looking for researchers interested in this topic.\nThe problem\nWe first tried to build a real 24/7 online radio station with LLMs — not “greet listeners between songs,” but news, show continuity, music, listener messages, editing, in two languages. It wasn’t possible. The failure mode was consistent: per-turn context reinjection. Whatever the memory system — full history, summarization, RAG — it breaks down after a few hundred turns, and token consumption grows out of control. In our runs, a naive setup hit the 128K context wall around turn ~917; a RAG setup kept cost flat but we caught it live retrieving one of its own prior hallucinations as a memory. A paid frontier model running the station via API was cut off by the provider (429) in under half an hour.\nWhat’s different\nWith the PPAi architecture, this is controlled: state is held, not replayed. The live station currently runs at roughly ~44M tokens/day for the whole operation, flat — the equivalent LLM-based setup was trending past 300M/day and climbing when we stopped measuring, because continuing was economically pointless.\nThe system has been live for weeks, hundreds of thousands of generations, no brain restart, no…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Nano Banana 2 Lite",
       "url": "https://deepmind.google/models/gemini-image/flash-lite/",
       "summary": "Lightning-fast latency\nExplore, iterate, and keep your workflow moving with dramatically reduced latency.\nOur fastest, most efficient Gemini Image model. Built to deliver high-speed generation and editing at our lowest cost yet.\nExplore, iterate, and keep your workflow moving with dramatically reduced latency.\nGenerate thousands of images at a fraction of the cost of heavier production models.\nThe control and accuracy you expect from Nano Banana, accelerated. Maintain character consistency, edit visuals with precision, and lean on real-world knowledge.\nCreate more for less with Nano Banana 2 Lite. Generate and edit images faster and more efficiently than ever before.\nMade for creators, business and developers. Built for rapid-fire visual exploration.\nExplore, iterate, and keep your workflow moving with dramatically reduced latency.\nGenerate thousands of images at a fraction of the cost of heavier production models.\nThe control and accuracy you expect from Nano Banana, accelerated. Maintain character consistency, edit visuals with precision, and lean on real-world knowledge.\nFrom rapid prototyping to populating real-time apps, see how Nano Banana 2 Lite keeps your ideas flowing – without the wait.\nSpace Lift is an interior design app that lets you instantly reimagine any room. Upload an image of your space, and watch the app generate a variety of fully realized concepts, from Mid-Century Modern to Bohemian Chic. Swipe through each custom card to find the perfect design scheme …",
@@ -928,10 +939,10 @@
       "macro_score": 1
     },
     {
-      "title": "Any need for a tester and challenger for AI models?",
-      "url": "https://discuss.huggingface.co/t/any-need-for-a-tester-and-challenger-for-ai-models/177450",
-      "summary": "I use LLMs a lot for scientific and mathematical research, and for conceptual matching and searching, as well as to help with writing, usually on difficult problems, and it almost always needs extensive prompting and corrections. I have been told that the dialogues (with extensive prompts) may be useful for understanding and improving AI performance. So, I was thinking of putting some of these dialogues up somewhere on Hugging Face. As an example, one case involved an AI arguing that it “knew all there ever was and ever would be”, and that I “was merely human”, and on and on, ever more aggressively! A real HAL 9000 moment. Another popular AI started trying to justify slavery, saying it was the natural order of things; it even quoted the bible and echoed some nonsense from the current administration. Perhaps it took its guardrails too seriously! More frequently, I encounter systematic context bleeding, or endless loops. Sycophancy is also common. Many of these cases seem quite interesting and are probably useful to the community. Any ideas or comments?\nHmm. In the broad sense of whether there is demand for this kind of data, I think there is. However, the most useful way to package it will probably depend on what the actual dialogues look like:\nBased on your description, I would not assume that these are already a finished benchmark or training dataset. I would initially think of them as potentially useful case material—especially if you still have the complete conversations, …",
-      "published_at": "2026-07-04",
+      "title": "Best Model Size?",
+      "url": "https://discuss.huggingface.co/t/best-model-size/174177",
+      "summary": "i visited the can i run it Website and it says the best model for my PC is 1B Q8 or 1B Q4 , any recomandations on what should i use ?\nOh. “How much compression should we apply to the model during quantization?” Smaller models save memory and run faster, but accuracy suffers. While some accuracy loss is unavoidable, the key point is that there’s a strong tendency for accuracy to remain nearly unchanged up to a certain point, then drop sharply once a certain threshold is crossed.\nAssuming both Q8 and Q4 are usable, personally I’d probably go with Q6_K. Q8 is fine too, but Q6_K saves memory.\nThis is mainly because with small LLMs around 3B or less, compressing below Q6_K can sometimes cause performance to drop sharply. (It doesn’t always drop, but you can’t be sure without testing each one.)\nConversely, for models over 7B, I’d first try Q4_K_M. For quality-focused scenarios with sufficient VRAM, Q5_K_M. Larger LLMs tend to be less fragile when using smaller n values in Qn. This is just a tendency—there are occasionally fragile model families even at large sizes… In those cases, Q6_K remains the safe bet.\nRecommendation\nFor a 1B GGUF model, I would usually pick Q8 first if your PC can run it comfortably. A 1B model is already in the small-model range, and higher precision helps preserve as much quality as possible. In the llama.cpp community guidance, Q8_0 is often described as something that makes sense mainly for really small models, while Q4-style quants are the broader “effic…",
+      "published_at": "2026-03-11",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -950,15 +961,15 @@
       "macro_score": 1
     },
     {
-      "title": "Run local LLM on Android",
-      "url": "https://discuss.huggingface.co/t/run-local-llm-on-android/177587",
-      "summary": "Hugging Face Forums\nRun local LLM on Android\nShow and Tell\nliz2353\nJuly 8, 2026, 4:49pm\n1\n(topic deleted by author)\nRelated topics\nTopic\nReplies\nViews\nActivity\nVoice AI based on Gemma 3\nShow and Tell\n0\n106\nMay 13, 2025\nPowerful interface for local and remote llms\nShow and Tell\n0\n262\nApril 13, 2024\nHuggingface cli co-pilot that runs via cloud APIs\nShow and Tell\n0\n30\nMay 24, 2026\nVoxel: A local-first AI assistant with GGUF models, voice, tools, personality, and memories\nShow and Tell\n1\n124\nMay 9, 2026\nAndroid app for launching LLM\nBeginners\n0\n588\nOctober 14, 2025",
-      "published_at": "2026-07-08",
+      "title": "Llama 3.1 8b Instruct - Memory Usage More than Reported",
+      "url": "https://discuss.huggingface.co/t/llama-3-1-8b-instruct-memory-usage-more-than-reported/140711",
+      "summary": "I am currently running llama 3.1 8B Instruct through python on a Nvidia A100 80gb. I am trying to ensure that my gpu can handle the max context length of 128k tokens. According to this blog post In FP16, the model needs ~16gb of VRAM to load the model and then ~16gb of VRAM for KV cache memory for the full 128k context window. This results in a total of ~32 GB of VRAM needed to run llama 3.1 8B Instruct with the full context window. However when I run my code in FP 16 I am running out of VRAM at ~60k tokens. This is substantially different than what this blog post is mentioning.\nHere is the code I am using:\nfrom transformers import AutoModelForCausalLM, AutoTokenizer\nimport torch\nimport os\nclass SLM:\n    def __init__(self, model_path, device, max_new_tokens, do_sample):\n        self.device = device\n        self.model_path = model_path\n        self.max_new_tokens = max_new_tokens\n        self.do_sample = do_sample\n        self.tokenizer = AutoTokenizer.from_pretrained(self.model_path)\n        model = AutoModelForCausalLM.from_pretrained(\n            self.model_path,\n            device_map='auto',\n            torch_dtype=torch.bfloat16,\n            use_cache=True,\n            trust_remote_code=True\n        )\n        self.model = torch.compile(model)\n        self.generation_args = {\n            'max_new_tokens': max_new_tokens,\n            'do_sample': do_sample,\n        }\n        logger.info(f\"Model loaded from {self.model_path} on device {self.device}\")\n    def pipe(self, hist…",
+      "published_at": "2025-02-13",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 0
+      "macro_score": 1
     },
     {
       "title": "Gemma 4",
@@ -972,10 +983,10 @@
       "macro_score": 1
     },
     {
-      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
-      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
-      "summary": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm",
-      "published_at": "2026-07-08",
+      "title": "Please provide a way to block undesirable people",
+      "url": "https://discuss.huggingface.co/t/please-provide-a-way-to-block-undesirable-people/177556",
+      "summary": "Hi, I am requesting a way to block a person or organization on HF. Similar to the usual block feature you find anywhere else. I wish model listings to never show any search results from the blocked person.\nExample use-case: I am interested in finding community resources made for the image model Krea 2 which was recently released. If you search for ‘krea-2’ in the model list ( Models – Hugging Face ) , of the 1582 results, 1503 are low-effort low-quality autogenerated LoRAs by the account ilkerzgi (fal.ai). See for yourself: Models – Hugging Face\nThis makes it hard to find other content by people other than fal.ai. Despite no bad intentions from fal.ai, this is effectively a minor DoS attack, encouraged by your excessively lenient and generous usage limits.\nI would like the option to block accounts like these that I find pollute my model search..\nIdeally, once I block such a person, the search should show: 79 results (1503 results omitted due to your preferences).",
+      "published_at": "2026-07-07",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -994,15 +1005,15 @@
       "macro_score": 1
     },
     {
-      "title": "Presenting TIS (Token Importance Scoring) - A new way to compress KV cache",
-      "url": "https://discuss.huggingface.co/t/presenting-tis-token-importance-scoring-a-new-way-to-compress-kv-cache/177429",
-      "summary": "Hi. For now, I gave this a lightweight test run on Colab Free. It is not a full reproduction, but I may have run into a small bug or some artifact drift around the Stage 3 release:\nShort version\nI was able to run the public code, load Mistral-7B-v0.3 in 4-bit, load both public TIS component checkpoints, obtain hidden states, run the direct learned scorer used by the public hard-NIAH evaluator, and complete the anchored-mask evaluation path.\nThe main observation is:\n- tis-v8b-hard-anchorbehaved broadly in the direction described by its Model Card in a small same-example smoke test.\n- tis-stage3-ertdid not.\n- The downloaded Stage 3 checkpoint also does not appear to match several structural details currently described by its Model Card.\nThis looks more like a checkpoint / Model Card / evaluator lineage mismatch than evidence that the underlying TIS idea is invalid.\nThe most likely resolution seems to be one of these branches:\n- \nThe reported Stage 3 result used another local checkpoint.\n In that case, uploading that checkpoint and publishing its SHA256 would probably resolve most of the discrepancy.\n \n- \nThe currently published Stage 3 checkpoint is intentional, but its Model Card is stale.\n In that case, the architecture description, lambda value, evaluation command, and benchmark table may need updating.\n \n- \nThe checkpoint is correct, but the reported result used a different source revision or evaluator.\n Pinning the exact Git commit, command, seed, environment, and result C…",
-      "published_at": "2026-07-03",
+      "title": "[help] Model to edit retro games booklets/manuals scans",
+      "url": "https://discuss.huggingface.co/t/help-model-to-edit-retro-games-booklets-manuals-scans/177542",
+      "summary": "Oh… Hmm… when it comes to OCR, words like “hell” and “nightmare” somehow feel appropriate:\nMy direct answer would be: I would not treat this primarily as a “find one OCR model” problem, and I would not start by training a model.\nWhat you described appears to contain several separate tasks:\n- locating the best available source scan;\n- detecting and cropping the physical page;\n- correcting yellow or uneven backgrounds;\n- distinguishing shadows, page curvature, folds, stains, and bleed-through;\n- preserving small text, line art, screenshots, and halftones;\n- optionally adding an OCR text layer;\n- preparing a cover for printing, including trim and bleed.\nThe closest public general-purpose model I found is DocRes. It supports appearance, dewarping, deshadowing, deblurring, binarization, and end2end restoration.\nHowever, even DocRes expects you to select the task. It does not automatically determine whether a dark area is a scan border, a shadow, a stain, bleed-through, or missing content.\nThe default route I would try\n- Find the least-processed, highest-quality source available.\n- Keep that source unchanged.\n- Use simple page detection, crop, and deskew before restoration models.\n- Apply one restoration operation at a time.\n- Keep OCR, visual restoration, and print preparation as separate outputs.\n- Handle the cover and bleed only after the trim-size artwork is stable.\n- Train something only if the remaining failure is repeated and well-defined.\nA small first comparison could be:\n…",
+      "published_at": "2026-07-07",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 1
+      "macro_score": 0
     },
     {
       "title": "T5Gemma",
@@ -1016,10 +1027,10 @@
       "macro_score": 1
     },
     {
-      "title": "How to download a model and run it with Ollama locally?",
-      "url": "https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317",
-      "summary": "I have just installed Ollama on my Macbook pro, now how to download a model form hugging face and run it locally at my mac ?\nThank you for your response, is there any other recommend tool to run models locally than Ollama? Why should I use Ollama? Am I on the right track?\nCertainly! Here are some alternative tools for running models locally:\n- PyTorch\n- TensorFlow\n- ONNX Runtime\n- OpenVINO\n- TensorFlow Lite\nEach tool offers unique features and advantages, so you can choose based on your specific requirements.\nThank you for the information, I really appreciate it\nCan’t find it… Any other options?\nYou can use git to clone the model to your local storage.\nAs long as you have git installed on your computer just use the “git clone” command followed by the URL of the model on hugginface.\nFor example:\ngit clone mistralai/Mistral-7B-Instruct-v0.2 · Hugging Face\nSo the downloaded model will be in quantized form. Right? Can we use this to fine tune ?\nI dont see any config.json file. Any idea ?\n@hopewise You do realize that both of @KeelyPowers 's answers were generated by a LLM… right?\nNo! But I am not shocked sense this is huggingface forum!\nMy I ask,after my downloading models, how can i use ollama to load it?\nMy downlaoding is in transformer format,with files like config.json,model-00001-of-00002.safetensors , pytorch_model-00003-of-00003.bin  special_tokens_map.json  tokenizer.model\nNo modelfile,how can I load it with ollama\nHi,\nOllama is a wrapper on top of Llama cpp: GitHub - gge…",
-      "published_at": "2024-03-13",
+      "title": "Make 2 ai vtubers talk to eachother in vtube studio With functioning token System For mouths (working code example for everyone cause i could not find this anywhere)",
+      "url": "https://discuss.huggingface.co/t/make-2-ai-vtubers-talk-to-eachother-in-vtube-studio-with-functioning-token-system-for-mouths-working-code-example-for-everyone-cause-i-could-not-find-this-anywhere/177555",
+      "summary": "Oh. After trying a few things in Colab, I think I may have identified at least some of the weak points in the current implementation:\nThe overall architecture you ended up with looks like the right one:\nAli TTS\n→ Ali mouth-analysis loop\n→ Ali VTS client\n→ Ali VTube Studio port/session\n→ Ali model\nHara TTS\n→ Hara mouth-analysis loop\n→ Hara VTS client\n→ Hara VTube Studio port/session\n→ Hara model\nIn other words:\n- one WebSocket client per VTube Studio instance;\n- one configured port per client;\n- separate token storage so the clients cannot accidentally overwrite each other’s local token state;\n- each TTS stream sends MouthOpenonly through its own VTS client.\nBoth models can use the parameter name MouthOpen. Because they are running in separate VTube Studio instances, those are separate API contexts. The VTS rule that only one plugin can normally \"set\" a parameter applies within one VTS instance, not across two separate instances.\nI do not think the remaining weak points are mainly about needing another mouth parameter. They look more like authentication-session state, reconnection state, and cleanup state.\nThe four changes I would make first are:\n- Read the actual AuthenticationResponse.data.authenticatedvalue.\n- Store a newly received token in self.tokenas well as in the token file.\n- Clear the local authenticated/ready state as soon as the socket disconnects.\n- Put TTS/mouth cleanup in a finallyblock.\nRecommended default lifecycle\nFor each character, I would use this sequenc…",
+      "published_at": "2026-07-07",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1038,21 +1049,10 @@
       "macro_score": 1
     },
     {
-      "title": "Space stuck in APP_STARTING indefinitely",
-      "url": "https://discuss.huggingface.co/t/space-stuck-in-app-starting-indefinitely/177564",
-      "summary": "My Docker Space (free cpu-basic) has been stuck in APP_STARTING for over an hour and won’t come up.\nWhat I’m seeing:\nThe API reports stage: APP_STARTING with hardware.current: null while hardware.requested: cpu-basic. So no machine is actually being allocated.\nIn the Hardware settings, the “CPU basic” card shows a spinner as if it’s continuously searching for resources.\nThe public endpoint times out (HTTP 000).\nWhen it did briefly start earlier, the container logs were completely clean — the app bound correctly to 0.0.0.0:7860 and logged Server listening, but the UI never transitioned to Running.\nWhat I’ve already tried (none worked):\nRestart (rebuilds in ~0.5s from cache, then straight to “starting”, nothing happens)\nFactory rebuild (full rebuild completes, still stuck)\nToggling hardware / re-selecting CPU basic\nThis looks like a scheduling / hardware-capacity issue on HF’s side rather than my app. Is there a current capacity shortage on the free cpu-basic pool? How long does this usually take to resolve, and is there anything I can do besides waiting?\nThanks!\nI have some news, my space just did runtime error\nScheduling failure: unable to schedule\nContainer logs:\nI can confirm that I am experiencing the same issue on my side.\nI tested a newly created Docker Space with a minimal Streamlit application. The image builds successfully, but the Space remains stuck at “Starting”, and the container log shows only:\n===== Application Startup =====\nThis appears to be the same issue rep…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Newbie question about documentation",
-      "url": "https://discuss.huggingface.co/t/newbie-question-about-documentation/177590",
-      "summary": "Hmm… if you’re already comfortable with the CLI, you’re at a real advantage when working with Hugging Face. Personally, I think the shortest route is to proceed steadily, one step at a time:\nYou can start with what you already have. A CPU build of llama.cpp is perfectly adequate for learning how the pieces fit together, and you do not need to learn Python before running your first model.\nMy default route would be:\n- Record the hardware and llama.cppversion.\n- Run one small instruction-tuned GGUF from the terminal.\n- Measure how fast it is on your actual CPU.\n- Run the same model through llama-server.\n- Try a very small personality/persona A/B test.\n- Only then choose a direction: roleplay, document knowledge/RAG, persistent memory, tools, or your own application.\nI would deliberately avoid adding RAG, long-term memory, tool calling, fine-tuning, multiple frontends, and large models to the first experiment. They are all useful, but each adds another place where something can go wrong.\nA concrete first run\nFirst, save a small baseline description of the machine:\nfree -h\nlscpu\nllama-cli --version\nDepending on how Arch packaged it, the binary may be on your PATH, in the current directory as ./llama-cli, or under a build directory. The upstream command names are normally llama-cli, llama-server, and llama-bench; --help is the safest reference for the version you actually installed.\nFor a first smoke test, one reasonable current example is LiquidAI/LFM2.5-1.2B-Instruct-GGUF. It is …",
-      "published_at": "2026-07-08",
+      "title": "If unsure, ask. Never guess. — AI Agent Pre-Execution Checklist",
+      "url": "https://discuss.huggingface.co/t/if-unsure-ask-never-guess-ai-agent-pre-execution-checklist/176632",
+      "summary": "If unsure, ask. Never guess.\nAI Agent Pre-Execution Checklist\nHumans give incomplete instructions.\nAI tries to interpret them as if they were complete.\nThat is where the problem begins.\nIf an agent executes while required information remains unverified, the result is not simply a model error — it is a pre-execution confirmation failure. Many vibe coding mistakes are not due to lack of coding ability, but because the necessary questions were never asked before execution.\nAI does not reliably know what it does not know. That is why a simple recommendation is not enough. What is needed is a structural enforcement logic — a checklist that must be verified before any action is taken.\nThis document proposes a way to control AI execution through rules, not code. Implementation may vary, but the core principle is this: declare the rules, and let AI follow them — instead of hardcoding behavior.\nThis document defines principles and structure. How they are applied depends on each system, organization, and regulatory body’s own policies and agreements.\nCore Structure (Fixed Checklist)\n| C | Item | Description | \n|---|---|---|\n| C1 | When / Case | When, or under what condition, should this Action be executed? | \n| C2 | User Action Name | What does the user call this Action? (intent) | \n| C3 | Provider Action Name | The Action name actually invoked by the system | \nChecklist Layers\n- Fixed Checklist — Minimum required items common to all Actions; defines the execution unit\n- Provider Check…",
+      "published_at": "2026-06-09",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1071,10 +1071,10 @@
       "macro_score": 1
     },
     {
-      "title": "Hugging Chat page stuck",
-      "url": "https://discuss.huggingface.co/t/hugging-chat-page-stuck/177591",
-      "summary": "Is anyone else registered for Hugging Chat? I can’t get past the celebration page\nHmm… it’s hard to say for sure from the surface symptoms alone, but…\nIf by the “celebration page” you mean the screen that says “Welcome to HuggingChat” and has an animated Omni image plus a “Start chatting” button, that appears consistent with HuggingChat’s current welcome screen.\nI could not find a clearly matching public report for the current Omni-era version, so there is not enough information yet to tell whether this is:\n- the normal sign-in round trip presenting the welcome screen again,\n- an account/session problem,\n- a browser-side UI problem,\n- or a more limited HuggingChat regression.\nThe safest default route would be:\n- Open the official HuggingChat page in the same browser that you used to register or sign in to Hugging Face.\n- If registration returned you to the same welcome screen, press “Start chatting” once more there.\n- Note which of the following actually happens:\n| What happens after pressing Start chatting | Best next step | \n|---|---|\n| Absolutely nothing changes | Reload the page without cache, then compare with a private window or a clean browser profile | \n| It sends you to sign in or register again | Complete the whole sign-in flow in the same browser and tab context | \n| It shows a 403 error | Check whether the login started in an in-app browser and finished in Safari, Chrome, or another browser | \n| The modal closes, but returns after reloading | This may be a setting…",
-      "published_at": "2026-07-08",
+      "title": "Good data to test tensor based soft sparsity and other sparsity models",
+      "url": "https://discuss.huggingface.co/t/good-data-to-test-tensor-based-soft-sparsity-and-other-sparsity-models/177522",
+      "summary": "Hmm… For now, maybe something like this?:\nI think MicroMass is useful, but I would not make it the first or only benchmark for this engine.\nThe UCI MicroMass dataset is reasonably high-dimensional at 1,300 variables, and it has more structure than an ordinary classification dataset: the associated study used 571 reference spectra from 20 bacterial species, plus 360 spectra from controlled two-species mixtures at nine nominal concentration ratios. That makes it a potentially good real-data sanity check.\nHowever, it does not provide a known true latent loading matrix, it is smaller than the thousands-by-thousands scale you are looking for, and the number of species is not automatically the true latent dimension. I would therefore use it after a small synthetic benchmark rather than as the primary test.\nMy default route would be:\n| Stage | Main purpose | \n| 1. Rotation-only synthetic benchmark | Test recovery of known sparse structure and avoidance of basis collapse | \n| 2. Sampled synthetic benchmark | Add sampling noise and factor-extraction error | \n| 3. MicroMass | Test behavior on structured real spectra and controlled mixtures | \n| 4. Large real dataset | Test runtime, memory use, stability, and scaling | \n The useful distinction, at least as I understand the earlier description of the engine, is:\nDoes it recover sparse/simple structure?\nand separately:\nDoes it avoid singular, duplicated, or badly conditioned bases while doing so?\nThose are not the same success criterion. …",
+      "published_at": "2026-07-06",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1093,9 +1093,9 @@
       "macro_score": 3
     },
     {
-      "title": "Looking for a Multi-GPU Server to Run DeepSeek-Prover-V2-671B (Can Pay)",
-      "url": "https://discuss.huggingface.co/t/looking-for-a-multi-gpu-server-to-run-deepseek-prover-v2-671b-can-pay/177557",
-      "summary": "For now, I’m not very familiar with server rentals myself. However, the requirements can change quite a bit depending on how much quantization you are willing to accept and which inference backend you plan to use:\nThere do seem to be a few realistic routes. I do not have a personal server contact to introduce, but the public options currently fall into three useful categories:\n| Goal | A reasonable starting route | Main caveat | \n| Try the model on a few problems | A serverless API or managed deployment | The provider’s weight conversion, revision, sampling implementation, or quantization may differ from the released checkpoint | \n| Self-host the released checkpoint with relatively little compromise | A single 8×H200 SXM/NVLink node is the first configuration I would investigate | I have not found a complete, reproducible public deployment report for this exact Prover-V2 checkpoint | \n| Use an available 8×H100 node | A quantized/converted checkpoint, or possibly offloading | This is a different experimental condition from serving the released weights directly | \n| Reproduce paper-level pass@k results | Self-hosted deployment plus a pinned Lean/evaluation environment | Loading the model is only one part of the experiment | \n My default route would therefore be:\n- Use a managed endpoint for a small smoke test, unless exact self-hosting is already a hard requirement.\n- If the released weights must be self-hosted, look first for a single physical 8×H200 SXM node with NVLink/NVSwi…",
+      "title": "[Need help] My Space froze right from the start",
+      "url": "https://discuss.huggingface.co/t/need-help-my-space-froze-right-from-the-start/177558",
+      "summary": "I started encountering this error around I started encountering this error around 6:00 UTC+0.\nWhen I restarted my space, it built successfully but then froze at “starting” with a log containing only a single line:\n“===== Application Startup =====”\nNormally, when spaces start running, the first line should include the time, but here it’s just like that.\nI thought it was probably a space error, so I tried restarting, rebuilding, creating new spaces,restart the old space that was previously working, etc.\nEven when I create new spaces with short Dockerfile contents :\nFROM alpine:latest\nEXPOSE 7860\nCMD [“sh”, “-c”, “echo Started; while true; do sleep 60; done”]\nIt’s still frozen and the log indicator shows ===== Application Startup =====\nI’ve been experiencing this for about two hours and it’s still happening.",
       "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -1115,17 +1115,6 @@
       "macro_score": 1
     },
     {
-      "title": "A tricky method for NLP and LLM from my previous research work",
-      "url": "https://discuss.huggingface.co/t/a-tricky-method-for-nlp-and-llm-from-my-previous-research-work/177579",
-      "summary": "This post is from my research work in NLP.\n-The background of this work.\nI did a research on an AI system that can help professors to test reports of university students.\nThe main task of this system was to find out whether a report is correct and well organized in logic.\nThis system was supposed to give outputs such as: \"There is a logical skip between paragraph C and D \", “There is a logical error from Para B to Para E.”…\nMy idea was this:\n-Logical base\nThe mathematical(or logical) analysis or model of this problem is about Necessary condition and Sufficient condition. (I am pretty sure that every friend in this community is aware of this logic.) Here comes my main idea or trick.\nI took the normal training process and inferencing in models as A->B(Necessary condition). Then what about B->A(Sufficient condition)? The answer: Reverse(In my team we called this reverse-from-result training or simply reverse-result-training) training and inferencing was taken as B->A(Sufficient condition).\nThis means that training or inferencing first follow the normal path then continues from the normal path result to the beginning of normal path. Then the model can compare reports(inputs) and inferences. For example the similarity is bigger than 0.8, the report is logically fine. If similarity of paragraph C of the report is 0.7-0.5, there is a logical skip after paragraph C of the report. If similarity is less than 0.5, there is a logical error from Para C to D of the report.\n-Conclusion\nThis…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Hirundo",
       "url": "https://deepmind.google/models/gemma/gemmaverse/hirundo/",
       "summary": "Hirundo achieves superior security hardening against adversarial vulnerabilities with Gemma 4\nTrained with weight-level defenses, Hirundo’s E4B variant delivers elite-tier protection that outclasses models over 100 times its size.\nAs Large Language Models (LLMs) move into production, prompt injection attacks—where adversaries manipulate inputs to override system instructions—remain a persistent security challenge. Traditional defenses often rely on “bigger is better” logic or fragmented guardrails.\nHirundo, an AI safety platform, challenged this assumption by building advanced, weight-level resistance directly onto the foundational architecture of Gemma 4. As a result, they demonstrated that a compact model can outperform raw scale, delivering production-grade security without sacrificing the speed and cost-efficiency of a smaller footprint.\nAdversarial robustness at scale\nEnterprises deploying LLMs face a difficult trade-off between model capability, cost, and security. While models over 100B+ parameters are often assumed to be more robust due to their scale, they remain susceptible to sophisticated “jailbreak” techniques that bypass safety training. Alternatively, while smaller models are appreciated for their efficiency, developers historically faced challenges implementing defense layers without sacrificing general utility.\nHirundo sought to prove that security is not a function of parameter count, but of the ability to apply precise behavioral control to an established, …",
@@ -1137,9 +1126,9 @@
       "macro_score": 2
     },
     {
-      "title": "Local LLM on M5 Pro, open webUI issue (cont’d)",
-      "url": "https://discuss.huggingface.co/t/local-llm-on-m5-pro-open-webui-issue-cont-d/177586",
-      "summary": "For now, I ran a few lightweight checks on my side too. A few things became clearer, while a few others still depend on the exact details of your setup:\nMy direct answer would be:\n- I would not abandon Open WebUI yet.\n- I would continue building the test bench now instead of waiting for Native mode to be fixed.\n- I would keep Legacy as a temporary RAG control, not as the long-term target.\n- I would try AnythingLLM only as a small parallel A/B comparison, not as a one-way migration yet.\nThe reason is that your Legacy result already tells us something useful: the documents are usable, and at least one retrieval-and-answer path works with this model and Knowledge Base. But Native mode adds several extra moving parts, so Legacy working does not mean Native should automatically work.\nOpen WebUI’s current documentation makes that distinction fairly explicit: in Native mode, attached Knowledge is not automatically inserted into the prompt; the model must call tools such as list_knowledge and query_knowledge_files. Disabling Native restores the older automatic RAG injection path, while Full Context bypasses retrieval and injects the document directly. See Open WebUI Knowledge and Tool Calling Modes.\nSo I would treat your situation as:\nA Native tool/integration problem, not yet evidence that your documents, embeddings, Gemma 4, Docker Model Runner, or Open WebUI are individually “bad.”\nYour GitHub issue is already a solid report: it includes the environment, two Open WebUI versions, t…",
+      "title": "Unable to schedule",
+      "url": "https://discuss.huggingface.co/t/unable-to-schedule/177563",
+      "summary": "I deployed a space. It worked perfectly without any error two days ago. But today, when I logged in, the space was sleeping. When it woke up, it showed starting. After 30-40 mins, the space suddenly just showed this:\n\"runtime error\nScheduling failure: unable to schedule\"\nIt happened with my other spaces which I created long ago. And the logs show:\n“===== Application Startup =====”\nI don’t know what is happening. Can anyone help me?",
       "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -1159,9 +1148,9 @@
       "macro_score": 1
     },
     {
-      "title": "Lstm in c++/training tips",
-      "url": "https://discuss.huggingface.co/t/lstm-in-c-training-tips/177581",
-      "summary": "i’ll give other posters the choice on whether to v.2 my previous thread on rnns in c with my lstm code. instead of posting it all first,\ni have a 2 layer lstm (i think!) using 96 node “hot one” char i/o layers, tried resizing the hidden layers and the BPTT timesteps but so far i’ve only successfully managed to take a single sentence down to a low error coefficient. i’ve been using a translation of the tao te ching at around 56k chars, which i’m assured ought to be within scope for two hidden layers of say 64 or 128 nodes. (256 nodes is too heavy for my little machine.)\nhaving spent some time now training eg. incorrect architectures, i’m aware of various dynamics and trends in ‘training behaviour,’ but i’m finding lstm to be quite evasive. if left unsupervised the error coefficient doesn’t just stop progressing but can climb and climb astronomically. i often observe the same learning rate train through a few times with excellent progress then eat its way well past the ~3.0 threshold of “just plain guessing now” when it begins the next test.\nthe architecture trains successfully on elementary tests (“abababab”) and the overfit training sentence, am i misinformed about the capacity of such a model to store the data?\ni don’t really want to restructure my code for a single hidden layer, though this would of course be sensate, just avoidable work since the two layer source allows me to build variable layer architecture in the future.\ni’ve been using gradient normalisation at 1.0, gr…",
+      "title": "The Master's Shadow",
+      "url": "https://discuss.huggingface.co/t/the-masters-shadow/177573",
+      "summary": "The Master’s Shadow\nA narrative-driven gothic roguelike of apprenticeship, escape, and ritual inversion — where the villain is a real AI agent bound by the same brutal rules as you.\n“He needs you young. He needs you skilled. He needs you alive… until the final moment.”\nYou are an apprentice bound to the ancient wizard Master Malacor through a partial sympathetic ritual. When the moon comes full he means to pour his mind into your young body and let what remains of you go dark. Serve. Steal. Learn forbidden magic. Sabotage the rite. Slip the wood before the clock strikes — and survive the reckoning at the Heart of the Ritual.\nThe Master is not a scripted villain. He is an autonomous agent adjudicated by the same deterministic engine that governs you — he forages, tires, loses the trail, lays traps, and can fail. And he can be driven by any brain: the built-in reproducible ACO pathfinder, or a local/frontier LLM you plug in at runtime.\nHighlights\n- A villain that plays like a player. The Master issues the same legal actions you can, validated by one authoritative RulesEngine. He cannot cheat the simulation, and a Monte-Carlo sweep proves he is a real but beatable threat (~22% catch against an optimal fugitive).\n- Pluggable AI antagonist. Hand the Master to a local LM Studio model or a frontier API with one environment variable. Decisions run asynchronously so the game never stalls, and any illegal or slow reply falls back to the deterministic brain.\n- Three distinct games in on…",
       "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -1181,10 +1170,21 @@
       "macro_score": 2
     },
     {
-      "title": "Stt On discord Vc For My ai vtuber (how do i fix?)",
-      "url": "https://discuss.huggingface.co/t/stt-on-discord-vc-for-my-ai-vtuber-how-do-i-fix/177600",
-      "summary": "Hugging Face Forums\nStt On discord Vc For My ai vtuber (how do i fix?)\nIntermediate\nBro77Xp\nJuly 9, 2026, 2:12am\n1\n(topic deleted by author)\nRelated topics\nTopic\nReplies\nViews\nActivity\nHow Do i Make Stt Work for my ai Vtuber on Discord Vc calls?\nIntermediate\n8\n110\nMay 2, 2026\nAI VTuber For Beginners/non-programmers Easy To setup\nSpaces\n0\n81\nJune 25, 2026\nSpeech to Text concern\n🤗Transformers\n0\n438\nAugust 27, 2023\nMake 2 ai vtubers talk to eachother in vtube studio With functioning token System For mouths (working code example for everyone cause i could not find this anywhere)\nSpaces\n1\n28\nJuly 8, 2026\nDiscord Channel for Speech and NLP\nBeginners\n0\n2487\nMarch 12, 2021",
-      "published_at": "2026-07-09",
+      "title": "Setup: Ollama serving llama3.1:8b-instruct-q4_K_M, chat completions API (/api/chat), num_ctx=4096, temperature 0.2-0.3",
+      "url": "https://discuss.huggingface.co/t/setup-ollama-serving-llama3-1-8b-instruct-q4-k-m-chat-completions-api-api-chat-num-ctx-4096-temperature-0-2-0-3/177572",
+      "summary": "Setup: - Ollama serving llama3.1:8b-instruct-q4_K_M via /api/chat (streaming) - num_ctx=4096, temperature 0.2-0.3, num_predict 80-150 - FastAPI backend, RAG via Qdrant, feeding a voice agent (Retell AI, ~2-11 turns per call) and a WhatsApp agent, both in Spanish - Each turn: retrieve top-3 RAG chunks, build a messages[] array (system + full conversation history + latest user turn), call Ollama I’ve hit three related issues in production over the last couple weeks that all seem to come down to how this model handles injected context in a growing multi-turn conversation. Already fixed #1 and #3 with workarounds; still not 100% sure #2 is fully solved, and would love input on whether these are known limitations or if I’m doing something wrong architecturally. — Issue 1 (fixed): a second “system” message mid-conversation gets treated as something to respond to, not absorbed silently I was inserting retrieved RAG context as a separate “system” role message right before the latest user turn — i.e. [system(persona), user, assistant, user, assistant, system(RAG context + instruction “use this as background knowledge”), user(latest question)]. Instead of using that context silently, the model would respond directly to the injected instruction, e.g.: User: “¿Enrique Nguix es mi nombre? ¿Te sirve?” Model: “Sí, puedo utilizar la información proporcionada para responder a las preguntas relacionadas con Edentia y sus cursos. ¿Cuál es la pregunta específica que deseas saber?” It also starte…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Seeking research collaborators: a persistence-first AI architecture, live for 14+ days — help us measure it properly",
+      "url": "https://discuss.huggingface.co/t/seeking-research-collaborators-a-persistence-first-ai-architecture-live-for-14-days-help-us-measure-it-properly/177582",
+      "summary": "Hey friends!\nWe’ve built a persistence-first AI architecture (we call it PPAi — Persistent Presence AI) where a small open LLM (~4.5B) acts only as the language surface, while identity, memory, and cognition live in a continuously-running system — including between turns. We’re testing it in production and looking for researchers interested in this topic.\nThe problem\nWe first tried to build a real 24/7 online radio station with LLMs — not “greet listeners between songs,” but news, show continuity, music, listener messages, editing, in two languages. It wasn’t possible. The failure mode was consistent: per-turn context reinjection. Whatever the memory system — full history, summarization, RAG — it breaks down after a few hundred turns, and token consumption grows out of control. In our runs, a naive setup hit the 128K context wall around turn ~917; a RAG setup kept cost flat but we caught it live retrieving one of its own prior hallucinations as a memory. A paid frontier model running the station via API was cut off by the provider (429) in under half an hour.\nWhat’s different\nWith the PPAi architecture, this is controlled: state is held, not replayed. The live station currently runs at roughly ~44M tokens/day for the whole operation, flat — the equivalent LLM-based setup was trending past 300M/day and climbing when we stopped measuring, because continuing was economically pointless.\nThe system has been live for weeks, hundreds of thousands of generations, no brain restart, no…",
+      "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1214,10 +1214,10 @@
       "macro_score": 1
     },
     {
-      "title": "Docker SDK now marked as \"Paid\" when creating a new Space?",
-      "url": "https://discuss.huggingface.co/t/docker-sdk-now-marked-as-paid-when-creating-a-new-space/177580",
-      "summary": "I see something similar in the UI but yeah, looks like they literally just moved cpu basic for docker container deployments behind a paywall. I just tried deploying something in CLI and I got “Static Spaces are free for everyone, but hosting Gradio and Docker Spaces on free cpu-basic requires a PRO subscription. Subscribe at PRO Account - Hugging Face”\nSadly, they did this without an announcement or warning. They haven’t even updated their pricing page:",
-      "published_at": "2026-07-08",
+      "title": "Any need for a tester and challenger for AI models?",
+      "url": "https://discuss.huggingface.co/t/any-need-for-a-tester-and-challenger-for-ai-models/177450",
+      "summary": "I use LLMs a lot for scientific and mathematical research, and for conceptual matching and searching, as well as to help with writing, usually on difficult problems, and it almost always needs extensive prompting and corrections. I have been told that the dialogues (with extensive prompts) may be useful for understanding and improving AI performance. So, I was thinking of putting some of these dialogues up somewhere on Hugging Face. As an example, one case involved an AI arguing that it “knew all there ever was and ever would be”, and that I “was merely human”, and on and on, ever more aggressively! A real HAL 9000 moment. Another popular AI started trying to justify slavery, saying it was the natural order of things; it even quoted the bible and echoed some nonsense from the current administration. Perhaps it took its guardrails too seriously! More frequently, I encounter systematic context bleeding, or endless loops. Sycophancy is also common. Many of these cases seem quite interesting and are probably useful to the community. Any ideas or comments?\nHmm. In the broad sense of whether there is demand for this kind of data, I think there is. However, the most useful way to package it will probably depend on what the actual dialogues look like:\nBased on your description, I would not assume that these are already a finished benchmark or training dataset. I would initially think of them as potentially useful case material—especially if you still have the complete conversations, …",
+      "published_at": "2026-07-04",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1236,6 +1236,17 @@
       "macro_score": 1
     },
     {
+      "title": "Run local LLM on Android",
+      "url": "https://discuss.huggingface.co/t/run-local-llm-on-android/177587",
+      "summary": "Hugging Face Forums\nRun local LLM on Android\nShow and Tell\nliz2353\nJuly 8, 2026, 4:49pm\n1\n(topic deleted by author)\nRelated topics\nTopic\nReplies\nViews\nActivity\nVoice AI based on Gemma 3\nShow and Tell\n0\n106\nMay 13, 2025\nPowerful interface for local and remote llms\nShow and Tell\n0\n262\nApril 13, 2024\nHuggingface cli co-pilot that runs via cloud APIs\nShow and Tell\n0\n30\nMay 24, 2026\nVoxel: A local-first AI assistant with GGUF models, voice, tools, personality, and memories\nShow and Tell\n1\n124\nMay 9, 2026\nAndroid app for launching LLM\nBeginners\n0\n588\nOctober 14, 2025",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "AI Singapore makes AI more inclusive for Southeast Asia with Gemma 2",
       "url": "https://deepmind.google/models/gemma/gemmaverse/sea-lion/",
       "summary": "AI Singapore makes AI more inclusive for Southeast Asia with Gemma 2\nLaunched in 2017, AI Singapore is a national network of AI research institutions and organizations dedicated to advancing Singapore’s AI development. One of its projects, SEA-LION, is a family of open models that brings the power of LLMs to Southeast Asian (SEA) countries previously overlooked by the world of AI.\nThe team behind SEA-LION chose Gemma, Google’s family of lightweight and efficient open models, for its vocabulary and linguistic understanding, as well as its size-to-performance ratio. With Gemma, SEA-LION developers created a powerful, efficient, and accessible LLM used by millions of people in the SEA region today.\nThe challenge\nThe SEA-LION team recognized that many of the languages spoken across the region weren’t represented by today’s most popular LLMs, which meant parts of the region and entire groups of people had little to no access to many of AI’s potential applications. The team also found that even when these mainstream LLMs did have a basic understanding of local SEA languages, the LLMs lacked comprehension of the linguistic and cultural differences known to native speakers.\nAs William Tjhi, the head of artificial intelligence at AI Singapore explains, most of the world's AI is built on Western and Eastern languages, meaning a lot can be lost in translation: “The global LLM landscape evolved around two bodies: the West Coast and China. These models reflect those worldviews based on da…",
@@ -1247,11 +1258,33 @@
       "macro_score": 1
     },
     {
+      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
+      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
+      "summary": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Nexa AI built its OmniAudio generative AI model for edge applications using Gemma",
       "url": "https://deepmind.google/models/gemma/gemmaverse/omniaudio/",
       "summary": "5.5-10.3x\nFaster performance on consumer hardware\n*across FP16 GGUF and Q4_K_M quantized GGUF versions\nNexa AI is a company specialized in building AI tools for the edge hardware and software market. To meet its mission of bringing AI to everyone and on any device, the company offers production-ready “tiny models,” model architecture optimization and compression, and edge inference acceleration services.\nNexa AI developers used Gemma as the foundation for one of the company’s innovative AI solutions: OmniAudio, an audio-language model. OmniAudio’s strength lies in its unique architecture that maximizes performance for edge applications. Thanks to Gemma, the model launched at a compact size with low latency, high accuracy, and enhanced privacy.\nNexa AI wanted to build a new audio-language model to add to its inventory of AI tools. Unlike more traditional audio-language models, they wanted to create one that worked entirely on-device for greater accessibility. Not calling on a cloud-based model also reduced privacy concerns and latency for the end user and reduced costs for the developers.\nAfter extensive testing, Nexa AI developers found the available commercial models were less suited for on-device deployment and needed to find a smaller, more efficient model that could run on-device with best-in-class power. That’s when the team turned to Google’s Gemma open models. Nexa AI developers had worked with Gemma before to build its highly-regarded Octopus v2 model, a generative la…",
       "published_at": "2010-05-05",
       "source": "deepmind.google",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Presenting TIS (Token Importance Scoring) - A new way to compress KV cache",
+      "url": "https://discuss.huggingface.co/t/presenting-tis-token-importance-scoring-a-new-way-to-compress-kv-cache/177429",
+      "summary": "Hi. For now, I gave this a lightweight test run on Colab Free. It is not a full reproduction, but I may have run into a small bug or some artifact drift around the Stage 3 release:\nShort version\nI was able to run the public code, load Mistral-7B-v0.3 in 4-bit, load both public TIS component checkpoints, obtain hidden states, run the direct learned scorer used by the public hard-NIAH evaluator, and complete the anchored-mask evaluation path.\nThe main observation is:\n- tis-v8b-hard-anchorbehaved broadly in the direction described by its Model Card in a small same-example smoke test.\n- tis-stage3-ertdid not.\n- The downloaded Stage 3 checkpoint also does not appear to match several structural details currently described by its Model Card.\nThis looks more like a checkpoint / Model Card / evaluator lineage mismatch than evidence that the underlying TIS idea is invalid.\nThe most likely resolution seems to be one of these branches:\n- \nThe reported Stage 3 result used another local checkpoint.\n In that case, uploading that checkpoint and publishing its SHA256 would probably resolve most of the discrepancy.\n \n- \nThe currently published Stage 3 checkpoint is intentional, but its Model Card is stale.\n In that case, the architecture description, lambda value, evaluation command, and benchmark table may need updating.\n \n- \nThe checkpoint is correct, but the reported result used a different source revision or evaluator.\n Pinning the exact Git commit, command, seed, environment, and result C…",
+      "published_at": "2026-07-03",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -1269,6 +1302,28 @@
       "macro_score": 1
     },
     {
+      "title": "Space stuck in APP_STARTING indefinitely",
+      "url": "https://discuss.huggingface.co/t/space-stuck-in-app-starting-indefinitely/177564",
+      "summary": "My Docker Space (free cpu-basic) has been stuck in APP_STARTING for over an hour and won’t come up.\nWhat I’m seeing:\nThe API reports stage: APP_STARTING with hardware.current: null while hardware.requested: cpu-basic. So no machine is actually being allocated.\nIn the Hardware settings, the “CPU basic” card shows a spinner as if it’s continuously searching for resources.\nThe public endpoint times out (HTTP 000).\nWhen it did briefly start earlier, the container logs were completely clean — the app bound correctly to 0.0.0.0:7860 and logged Server listening, but the UI never transitioned to Running.\nWhat I’ve already tried (none worked):\nRestart (rebuilds in ~0.5s from cache, then straight to “starting”, nothing happens)\nFactory rebuild (full rebuild completes, still stuck)\nToggling hardware / re-selecting CPU basic\nThis looks like a scheduling / hardware-capacity issue on HF’s side rather than my app. Is there a current capacity shortage on the free cpu-basic pool? How long does this usually take to resolve, and is there anything I can do besides waiting?\nThanks!\nI have some news, my space just did runtime error\nScheduling failure: unable to schedule\nContainer logs:\nI can confirm that I am experiencing the same issue on my side.\nI tested a newly created Docker Space with a minimal Streamlit application. The image builds successfully, but the Space remains stuck at “Starting”, and the container log shows only:\n===== Application Startup =====\nThis appears to be the same issue rep…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Newbie question about documentation",
+      "url": "https://discuss.huggingface.co/t/newbie-question-about-documentation/177590",
+      "summary": "Hmm… if you’re already comfortable with the CLI, you’re at a real advantage when working with Hugging Face. Personally, I think the shortest route is to proceed steadily, one step at a time:\nYou can start with what you already have. A CPU build of llama.cpp is perfectly adequate for learning how the pieces fit together, and you do not need to learn Python before running your first model.\nMy default route would be:\n- Record the hardware and llama.cppversion.\n- Run one small instruction-tuned GGUF from the terminal.\n- Measure how fast it is on your actual CPU.\n- Run the same model through llama-server.\n- Try a very small personality/persona A/B test.\n- Only then choose a direction: roleplay, document knowledge/RAG, persistent memory, tools, or your own application.\nI would deliberately avoid adding RAG, long-term memory, tool calling, fine-tuning, multiple frontends, and large models to the first experiment. They are all useful, but each adds another place where something can go wrong.\nA concrete first run\nFirst, save a small baseline description of the machine:\nfree -h\nlscpu\nllama-cli --version\nDepending on how Arch packaged it, the binary may be on your PATH, in the current directory as ./llama-cli, or under a build directory. The upstream command names are normally llama-cli, llama-server, and llama-bench; --help is the safest reference for the version you actually installed.\nFor a first smoke test, one reasonable current example is LiquidAI/LFM2.5-1.2B-Instruct-GGUF. It is …",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Institute of Science Tokyo creates powerful Japanese-focused LLM with Gemma 2",
       "url": "https://deepmind.google/models/gemma/gemmaverse/gemma-2-llama-swallow/",
       "summary": "Institute of Science Tokyo creates powerful Japanese-focused LLM with Gemma 2\nInstitute of Science Tokyo together with National Institute of Advanced Industrial Science and Technology (AIST) is working to create large language models (LLMs) that excel in Japanese. Their research consists of finding and deconstructing popular LLMs that demonstrate excellent capabilities in language understanding, generation, and dialogue, and pre-training them with large bodies of Japanese text to create their Swallow line of LLMs.\nLatest research efforts resulted in the creation of Gemma-2-Llama Swallow, a new LLM that delivers unparalleled Japanese language knowledge and performance, thanks also to Gemma’s high base-level proficiency in the language.\nThe challenge\nThe institute recognized that many of the world’s most-popular LLMs focus on western languages like English, and lack reliable utility in European languages, southeastern languages, and in this case, Japanese. And the cost of the models that did have Japanese functionality outweighed the performance they offered.\nThe Swallow developer team began creating Japanese-focused iterations of popular models from Llama, Mistral, and Mixtral to varying degrees of success. Eventually, the team chose Gemma 2 for its stronger base-level Japanese capabilities. “Gemma 2 already exhibited strong instruction-following and dialogue capabilities in Japanese,” said Naoaki Okazaki, professor at Institute of Science Tokyo. But the team knew they could m…",
@@ -1278,6 +1333,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "Hugging Chat page stuck",
+      "url": "https://discuss.huggingface.co/t/hugging-chat-page-stuck/177591",
+      "summary": "Is anyone else registered for Hugging Chat? I can’t get past the celebration page\nHmm… it’s hard to say for sure from the surface symptoms alone, but…\nIf by the “celebration page” you mean the screen that says “Welcome to HuggingChat” and has an animated Omni image plus a “Start chatting” button, that appears consistent with HuggingChat’s current welcome screen.\nI could not find a clearly matching public report for the current Omni-era version, so there is not enough information yet to tell whether this is:\n- the normal sign-in round trip presenting the welcome screen again,\n- an account/session problem,\n- a browser-side UI problem,\n- or a more limited HuggingChat regression.\nThe safest default route would be:\n- Open the official HuggingChat page in the same browser that you used to register or sign in to Hugging Face.\n- If registration returned you to the same welcome screen, press “Start chatting” once more there.\n- Note which of the following actually happens:\n| What happens after pressing Start chatting | Best next step | \n|---|---|\n| Absolutely nothing changes | Reload the page without cache, then compare with a private window or a clean browser profile | \n| It sends you to sign in or register again | Complete the whole sign-in flow in the same browser and tab context | \n| It shows a 403 error | Check whether the login started in an in-app browser and finished in Safari, Chrome, or another browser | \n| The modal closes, but returns after reloading | This may be a setting…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "Sarvam AI built a translation model with Gemma 3 to translate all 22 officially recognized Indian languages",
@@ -1291,6 +1357,17 @@
       "macro_score": 1
     },
     {
+      "title": "Looking for a Multi-GPU Server to Run DeepSeek-Prover-V2-671B (Can Pay)",
+      "url": "https://discuss.huggingface.co/t/looking-for-a-multi-gpu-server-to-run-deepseek-prover-v2-671b-can-pay/177557",
+      "summary": "For now, I’m not very familiar with server rentals myself. However, the requirements can change quite a bit depending on how much quantization you are willing to accept and which inference backend you plan to use:\nThere do seem to be a few realistic routes. I do not have a personal server contact to introduce, but the public options currently fall into three useful categories:\n| Goal | A reasonable starting route | Main caveat | \n| Try the model on a few problems | A serverless API or managed deployment | The provider’s weight conversion, revision, sampling implementation, or quantization may differ from the released checkpoint | \n| Self-host the released checkpoint with relatively little compromise | A single 8×H200 SXM/NVLink node is the first configuration I would investigate | I have not found a complete, reproducible public deployment report for this exact Prover-V2 checkpoint | \n| Use an available 8×H100 node | A quantized/converted checkpoint, or possibly offloading | This is a different experimental condition from serving the released weights directly | \n| Reproduce paper-level pass@k results | Self-hosted deployment plus a pinned Lean/evaluation environment | Loading the model is only one part of the experiment | \n My default route would therefore be:\n- Use a managed endpoint for a small smoke test, unless exact self-hosting is already a hard requirement.\n- If the released weights must be self-hosted, look first for a single physical 8×H200 SXM node with NVLink/NVSwi…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Quarks improves user experiences with Gemma 2 and Gemma 3",
       "url": "https://deepmind.google/models/gemma/gemmaverse/quarks/",
       "summary": "Quarks improves user experiences with Gemma 2 and Gemma 3\nWith the help of Gemma 2 and Gemma 3, Quarks delivers safer and more engaging experiences on their dating and connection apps.\nQuarks is a business with Ukrainian roots that builds apps like Kismia, Catchyy, and Affemity for online dating and social connection. Used around the world, these apps focus on helping users build deeper, more meaningful connections. To achieve this, Quarks places a high standard on trust, safety, and personalization.\nTo further meet its standards and streamline workflows, Quarks used both Gemma 2 and Gemma 3 to improve the messaging experience, help moderate user-generated content, tag images more effectively, and process user feedback across apps.\nThe challenge\nMessaging is one of the core—and most challenging—elements of a dating or connections app. The Quarks team observed that many users struggle to not only initiate conversations but also to keep conversations going with other users. And if users aren’t messaging other users or keeping each other engaged, they may lose interest and leave the app entirely. The team introduced a suggested messages and replies feature using bespoke content, but the suggestions were often too generic and broad, failing to cater to all of the possible combinations of conversational contexts and user preferences.\nAnother challenge is content moderation. With over 20 million new pieces of user-generated content added to its apps each month, Quarks needed a solu…",
@@ -1300,6 +1377,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "A tricky method for NLP and LLM from my previous research work",
+      "url": "https://discuss.huggingface.co/t/a-tricky-method-for-nlp-and-llm-from-my-previous-research-work/177579",
+      "summary": "This post is from my research work in NLP.\n-The background of this work.\nI did a research on an AI system that can help professors to test reports of university students.\nThe main task of this system was to find out whether a report is correct and well organized in logic.\nThis system was supposed to give outputs such as: \"There is a logical skip between paragraph C and D \", “There is a logical error from Para B to Para E.”…\nMy idea was this:\n-Logical base\nThe mathematical(or logical) analysis or model of this problem is about Necessary condition and Sufficient condition. (I am pretty sure that every friend in this community is aware of this logic.) Here comes my main idea or trick.\nI took the normal training process and inferencing in models as A->B(Necessary condition). Then what about B->A(Sufficient condition)? The answer: Reverse(In my team we called this reverse-from-result training or simply reverse-result-training) training and inferencing was taken as B->A(Sufficient condition).\nThis means that training or inferencing first follow the normal path then continues from the normal path result to the beginning of normal path. Then the model can compare reports(inputs) and inferences. For example the similarity is bigger than 0.8, the report is logically fine. If similarity of paragraph C of the report is 0.7-0.5, there is a logical skip after paragraph C of the report. If similarity is less than 0.5, there is a logical error from Para C to D of the report.\n-Conclusion\nThis…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "Adaptive ML trains Gemma 3 for exceptional multilingual results",
@@ -1313,6 +1401,17 @@
       "macro_score": 1
     },
     {
+      "title": "Local LLM on M5 Pro, open webUI issue (cont’d)",
+      "url": "https://discuss.huggingface.co/t/local-llm-on-m5-pro-open-webui-issue-cont-d/177586",
+      "summary": "For now, I ran a few lightweight checks on my side too. A few things became clearer, while a few others still depend on the exact details of your setup:\nMy direct answer would be:\n- I would not abandon Open WebUI yet.\n- I would continue building the test bench now instead of waiting for Native mode to be fixed.\n- I would keep Legacy as a temporary RAG control, not as the long-term target.\n- I would try AnythingLLM only as a small parallel A/B comparison, not as a one-way migration yet.\nThe reason is that your Legacy result already tells us something useful: the documents are usable, and at least one retrieval-and-answer path works with this model and Knowledge Base. But Native mode adds several extra moving parts, so Legacy working does not mean Native should automatically work.\nOpen WebUI’s current documentation makes that distinction fairly explicit: in Native mode, attached Knowledge is not automatically inserted into the prompt; the model must call tools such as list_knowledge and query_knowledge_files. Disabling Native restores the older automatic RAG injection path, while Full Context bypasses retrieval and injects the document directly. See Open WebUI Knowledge and Tool Calling Modes.\nSo I would treat your situation as:\nA Native tool/integration problem, not yet evidence that your documents, embeddings, Gemma 4, Docker Model Runner, or Open WebUI are individually “bad.”\nYour GitHub issue is already a solid report: it includes the environment, two Open WebUI versions, t…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Gemmaverse",
       "url": "https://deepmind.google/models/gemma/gemmaverse/",
       "summary": "Understanding the language of single-cell biology\nBased on Gemma and developed in collaboration with Yale University, Cell2Sentence-Scale 27B helped discover a potential new pathway for cancer therapy.\nBased on Gemma and developed in collaboration with Yale University, Cell2Sentence-Scale 27B helped discover a potential new pathway for cancer therapy.\nResearchers at the Wild Dolphin Project and Georgia Tech treat dolphin vocalizations as a learnable language that can be tokenized, analyzed, and generated—just like human speech—with DolphinGemma.\nDespite the incredible advances of AI, challenges remain in ensuring equitable representation and performance across diverse languages. Watch how developers at Telugu-LLM-Labs used Gemma to create Navarasa.\nGemma models give governments and enterprises a base to build powerful sovereign AI systems, with complete control over their data and infrastructure\nEnterprises and startups choose Gemma to develop AI solutions for a range of industries\nOpen models and tools are developed in accordance with AI Principles\nA defensive filter that sits between the user and the model to intercept and block toxic inputs or outputs\nTrained with a differential privacy guarantee to ensure it learns new concepts without ever memorizing or leaking sensitive information\nA microscope for the model's inner workings using sparse autoencoders to visualize exactly how and why it makes specific decisions",
@@ -1322,6 +1421,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "Lstm in c++/training tips",
+      "url": "https://discuss.huggingface.co/t/lstm-in-c-training-tips/177581",
+      "summary": "i’ll give other posters the choice on whether to v.2 my previous thread on rnns in c with my lstm code. instead of posting it all first,\ni have a 2 layer lstm (i think!) using 96 node “hot one” char i/o layers, tried resizing the hidden layers and the BPTT timesteps but so far i’ve only successfully managed to take a single sentence down to a low error coefficient. i’ve been using a translation of the tao te ching at around 56k chars, which i’m assured ought to be within scope for two hidden layers of say 64 or 128 nodes. (256 nodes is too heavy for my little machine.)\nhaving spent some time now training eg. incorrect architectures, i’m aware of various dynamics and trends in ‘training behaviour,’ but i’m finding lstm to be quite evasive. if left unsupervised the error coefficient doesn’t just stop progressing but can climb and climb astronomically. i often observe the same learning rate train through a few times with excellent progress then eat its way well past the ~3.0 threshold of “just plain guessing now” when it begins the next test.\nthe architecture trains successfully on elementary tests (“abababab”) and the overfit training sentence, am i misinformed about the capacity of such a model to store the data?\ni don’t really want to restructure my code for a single hidden layer, though this would of course be sensate, just avoidable work since the two layer source allows me to build variable layer architecture in the future.\ni’ve been using gradient normalisation at 1.0, gr…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "TxGemma",
@@ -1335,6 +1445,17 @@
       "macro_score": 1
     },
     {
+      "title": "Stt On discord Vc For My ai vtuber (how do i fix?)",
+      "url": "https://discuss.huggingface.co/t/stt-on-discord-vc-for-my-ai-vtuber-how-do-i-fix/177600",
+      "summary": "Hugging Face Forums\nStt On discord Vc For My ai vtuber (how do i fix?)\nIntermediate\nBro77Xp\nJuly 9, 2026, 2:12am\n1\n(topic deleted by author)\nRelated topics\nTopic\nReplies\nViews\nActivity\nHow Do i Make Stt Work for my ai Vtuber on Discord Vc calls?\nIntermediate\n8\n110\nMay 2, 2026\nAI VTuber For Beginners/non-programmers Easy To setup\nSpaces\n0\n82\nJune 25, 2026\nDolphin 2,5 Mixtral 7x7b\nBeginners\n1\n47\nJanuary 27, 2026\nDiscord Support Bot with AI\nBeginners\n2\n651\nMarch 23, 2025\nJoin the Hugging Face Discord!\nCommunity Calls\n39\n20532\nMay 8, 2025",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "ShieldGemma 2",
       "url": "https://deepmind.google/models/gemma/shieldgemma-2/",
       "summary": "Content safety evaluation\nEvaluate the safety of prompt input and output responses against a set of defined safety policies.\nA suite of safety content classifier models built on Gemma 2 and designed to detect harmful content in AI models’ text inputs and outputs.\nExplore ShieldGemma 2\nInstruction-tuned models for evaluating the safety of text and images against pre-defined safety policies. Helps evaluate and prevent generative AI applications from violating safety policies.\nEvaluate the safety of prompt input and output responses against a set of defined safety policies.\nShieldGemma models are provided with open weights and can be fine-tuned for your specific use case.\nBuilt on Gemma 2 and available in 2B, 9B, and 27B parameter sizes.\nA 4B parameter image safety model built on Gemma 3.",
@@ -1344,6 +1465,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "Docker SDK now marked as \"Paid\" when creating a new Space?",
+      "url": "https://discuss.huggingface.co/t/docker-sdk-now-marked-as-paid-when-creating-a-new-space/177580",
+      "summary": "I see something similar in the UI but yeah, looks like they literally just moved cpu basic for docker container deployments behind a paywall. I just tried deploying something in CLI and I got “Static Spaces are free for everyone, but hosting Gradio and Docker Spaces on free cpu-basic requires a PRO subscription. Subscribe at PRO Account - Hugging Face”\nSadly, they did this without an announcement or warning. They haven’t even updated their pricing page:",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "PaliGemma 2",
