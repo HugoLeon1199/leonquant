@@ -38,6 +38,18 @@
 - Coverage matrix: `active_url_sources=7`, `active_watchlist_entities=26`, `active_api_sources=15`, `active_rss_sources=3`, `active_sitemap_sources=1`, `metadata_only_sources=19`.
 - `tech/data/publication.json` / `tech/web/publication.json` da rebuild local voi `LEON_TECH_OFFLINE_TEST=1`, nen Gemini curator khong duoc goi (`success=0`, `fallback=87`).
 
+### Ket qua GitHub production
+- Pushed source commit `8454671` to `main`.
+- Manual dispatch `Tech Radar` run `29066733110` -> success.
+- Bot artifact commit tren `main`: `d053289`.
+- Actions acquisition: `tech/acquire_api_sources.py` wrote 75 API candidates.
+- GDELT true run: dry-run estimated bytes `1,440,497,558`; wrote 52 tech GDELT events.
+- Gemini curator log: `success=36`, `fallback=64`, `failed=0`; validator and tech tests passed.
+- Pages deploy run `29066862025` -> success for head `d053289`.
+- Public JSON `https://hugoleon1199.github.io/leonquant/tech/data/publication.json` -> HTTP 200, `generated_at_utc=2026-07-10T03:26:04.845729+00:00`.
+- Public stats: `api_candidate_count=75`, `active_api_sources=15`, `active_url_sources=7`, `full_link_radar_count=150`, `top_signal_cluster_count=10`, `gemini_success_count=36`, `gdelt_fresh_event_count=52`.
+- Note: `tech/data/api_candidates.json` is committed as repo artifact but is not currently copied to GitHub Pages public path (`/tech/data/api_candidates.json` returned 404).
+
 ### File da thay doi
 - `.github/workflows/tech-radar.yml`
 - `scripts/build_tech_publication.py`
