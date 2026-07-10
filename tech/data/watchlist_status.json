@@ -1,14 +1,14 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-07-10T03:11:35.955246+00:00",
+  "generated_at_utc": "2026-07-10T03:26:28.022873+00:00",
   "checked": 26,
-  "hit_count": 99,
+  "hit_count": 114,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 11,
+      "hit_count": 13,
       "top_links": [
         {
           "title": "Zhipu/Z.ai: Z.ai source signal",
@@ -31,8 +31,8 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "Hugging Face model updated: mateogrgic/GLM-5.2-colibri-int4-with-int8-mtp",
-          "url": "https://huggingface.co/mateogrgic/GLM-5.2-colibri-int4-with-int8-mtp",
+          "title": "Hugging Face model updated: kevincuicsx/GLM-5.2-GPTQ-NVFP4",
+          "url": "https://huggingface.co/kevincuicsx/GLM-5.2-GPTQ-NVFP4",
           "source_lane": "huggingface_model"
         }
       ],
@@ -65,8 +65,8 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Hugging Face model updated: aristizabal24/qwen3-14b-ihy-dualharden-v2",
-          "url": "https://huggingface.co/aristizabal24/qwen3-14b-ihy-dualharden-v2",
+          "title": "Hugging Face model updated: Moore2877/Qwen-Fixed-Chat-Templates-llamacpp",
+          "url": "https://huggingface.co/Moore2877/Qwen-Fixed-Chat-Templates-llamacpp",
           "source_lane": "huggingface_model"
         }
       ],
@@ -99,8 +99,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSpec",
-          "url": "https://github.com/deepseek-ai/DeepSpec",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-R1",
+          "url": "https://github.com/deepseek-ai/DeepSeek-R1",
           "source_lane": "github_release"
         }
       ],
@@ -110,7 +110,7 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 4,
       "top_links": [
         {
           "title": "Kimi/Moonshot: GitHub release or repository signal",
@@ -126,6 +126,11 @@
           "title": "Hugging Face model updated: KimiTool/MyAwesomeModel-TestRepo",
           "url": "https://huggingface.co/KimiTool/MyAwesomeModel-TestRepo",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: dshive/Kimi-K2.6",
+          "url": "https://huggingface.co/dshive/Kimi-K2.6",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -134,7 +139,7 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "MiniMax: MiniMax source signal",
@@ -152,8 +157,13 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "vllm-project/vllm release: v0.24.0",
-          "url": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
+          "title": "Hugging Face model updated: flashrt/MiniMaxAI-msa-blackwell",
+          "url": "https://huggingface.co/flashrt/MiniMaxAI-msa-blackwell",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "vllm-project/vllm release: v0.23.0",
+          "url": "https://github.com/vllm-project/vllm/releases/tag/v0.23.0",
           "source_lane": "github_release"
         }
       ],
@@ -182,7 +192,7 @@
       "entity": "Hunyuan/Tencent",
       "priority": "high",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 8,
       "top_links": [
         {
           "title": "Hunyuan/Tencent: GitHub release or repository signal",
@@ -216,7 +226,7 @@
       "entity": "StepFun",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "StepFun: StepFun source signal",
@@ -227,6 +237,11 @@
           "title": "StepFun: StepFun source signal",
           "url": "https://platform.stepfun.com/",
           "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "sgl-project/sglang release: v0.5.13",
+          "url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.13",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -243,6 +258,11 @@
           "source_lane": "github_release"
         },
         {
+          "title": "GitHub repo updated: InternLM/WildClawBench",
+          "url": "https://github.com/InternLM/WildClawBench",
+          "source_lane": "github_release"
+        },
+        {
           "title": "InternLM: Hugging Face model or org signal",
           "url": "https://huggingface.co/internlm",
           "source_lane": "huggingface_model"
@@ -255,11 +275,6 @@
         {
           "title": "GitHub repo updated: InternLM/InternLM-XComposer",
           "url": "https://github.com/InternLM/InternLM-XComposer",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         }
       ],
@@ -307,7 +322,7 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "Flux/Black Forest Labs: Hugging Face model or org signal",
@@ -325,8 +340,13 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: black-forest-labs/FLUX.2-small-decoder",
-          "url": "https://huggingface.co/black-forest-labs/FLUX.2-small-decoder",
+          "title": "Hugging Face model updated: litert-community/FLUX.2-klein-4B-LiteRT",
+          "url": "https://huggingface.co/litert-community/FLUX.2-klein-4B-LiteRT",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: black-forest-labs/FLUX.2-klein-9b-kv",
+          "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-kv",
           "source_lane": "huggingface_model"
         }
       ],
@@ -336,7 +356,7 @@
       "entity": "ComfyUI",
       "priority": "critical",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 5,
       "top_links": [
         {
           "title": "ComfyUI: GitHub release or repository signal",
@@ -349,9 +369,19 @@
           "source_lane": "image_video_workflow"
         },
         {
+          "title": "Hugging Face model updated: realrebelai/LingBot_ComfyUI",
+          "url": "https://huggingface.co/realrebelai/LingBot_ComfyUI",
+          "source_lane": "huggingface_model"
+        },
+        {
           "title": "Hugging Face model updated: artokun/gemma4-comfyui-mcp",
           "url": "https://huggingface.co/artokun/gemma4-comfyui-mcp",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "comfyanonymous/ComfyUI release: v0.26.0",
+          "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.26.0",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -360,7 +390,7 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "Runway: image/video workflow signal",
@@ -370,6 +400,11 @@
         {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
           "url": "https://huggingface.co/runwayclub/granite-8b-cvefixes-gguf",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: LeeeeeeX/LCM-runwayml-stable-diffusion-v1-5",
+          "url": "https://huggingface.co/LeeeeeeX/LCM-runwayml-stable-diffusion-v1-5",
           "source_lane": "huggingface_model"
         }
       ],
@@ -393,17 +428,12 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 1,
       "top_links": [
         {
           "title": "Veo: image/video workflow signal",
           "url": "https://deepmind.google/technologies/veo/",
           "source_lane": "image_video_workflow"
-        },
-        {
-          "title": "BUSINESS",
-          "url": "https://www.fool.com/investing/2026/07/04/missed-the-first-wave-of-artificial-intelligence/?source=iedfolrf0000001",
-          "source_lane": "gdelt"
         }
       ],
       "no_signal_reason": ""
@@ -493,7 +523,7 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "MCP: GitHub release or repository signal",
@@ -527,7 +557,7 @@
       "entity": "LangGraph",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 4,
       "top_links": [
         {
           "title": "LangGraph: GitHub release or repository signal",
@@ -543,6 +573,11 @@
           "title": "LangGraph: LangGraph source signal",
           "url": "https://www.langchain.com/langgraph",
           "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "langchain-ai/langgraph release: langgraph==1.2.8",
+          "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.8",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -551,7 +586,7 @@
       "entity": "LlamaIndex",
       "priority": "normal",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 4,
       "top_links": [
         {
           "title": "LlamaIndex: GitHub release or repository signal",
@@ -562,6 +597,11 @@
           "title": "LlamaIndex: LlamaIndex source signal",
           "url": "https://www.llamaindex.ai/",
           "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "run-llama/llama_index release: v0.14.22",
+          "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.22",
+          "source_lane": "github_release"
         },
         {
           "title": "run-llama/llama_index release: v0.14.23",
@@ -602,11 +642,16 @@
       "entity": "OpenHands",
       "priority": "normal",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 4,
       "top_links": [
         {
           "title": "All-Hands-AI/OpenHands release: 1.11.0",
           "url": "https://github.com/OpenHands/OpenHands/releases/tag/1.11.0",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "All-Hands-AI/OpenHands release: cloud: 1.45.1",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/cloud-1.45.1",
           "source_lane": "github_release"
         },
         {
