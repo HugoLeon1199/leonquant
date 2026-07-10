@@ -711,6 +711,34 @@ Validation status snapshot live:
 - /tech/ render check: knowledge=True; founder_ideas=True.
 - Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
 
+## 2026-07-10 - Technology & AI input coverage hardening
+
+- Tech72h generated_at=2026-07-10T03:11:35.967630+00:00
+- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.
+- Local rebuild note: publication/matrix regenerated with `LEON_TECH_OFFLINE_TEST=1`; API/GitHub/HF/OpenRouter acquisition ran live locally, arXiv live returned HTTP 429, Gemini curator was not called.
+- Added `tech/config/source_profiles.json` with explicit source profile fields: lane, method, url, priority, enabled, extract_mode, expected_fields, fallback.
+- Added `tech/acquire_api_sources.py` for API-first acquisition: Hugging Face model metadata, GitHub releases/repo metadata, arXiv Atom fixtures/API, OpenRouter model list.
+- Candidate contract now keeps `content_quality` and `raw_source_method`; metadata-only candidates are retained.
+- Coverage matrix now separates `active_url_sources`, `active_watchlist_entities`, `active_api_sources`, `active_rss_sources`, `active_sitemap_sources`, and `metadata_only_sources`.
+- Active sources: 7 / 100.
+- Clean web articles: 10.
+- Candidate live: 134; noise bi loai: 0; bai qua han 72h bi loai khoi section chinh: 20.
+- Event candidates: 40; GDELT ran_successfully=True; raw=120; ai_filtered=40; rejected_non_ai=80.
+- Query estimate: 1,057,267,222 bytes; processed: 1,057,267,222 bytes; bytes_status=known; cap: 2,000,000,000 bytes.
+- Published stories: 10; must_read=20; full_link_radar=134.
+- Must Read theo source type: {'official': 20}.
+- Must Read theo category: {'model': 14, 'tool': 2, 'automation': 3, 'opensource': 1}.
+- Frontier Watchlist entities: 26; candidates_from_watchlist=99; GLM-5.2 detected=yes.
+- Data coverage: active_url_sources=7; active_api_sources=15; active_rss_sources=3; active_sitemap_sources=1; active_watchlist_entities=26; metadata_only_sources=19.
+- API candidates: total=46; by_method={'hf_api': 14, 'github_api': 24, 'arxiv_api': 0, 'api': 8}; notes=["hf_api unavailable: No module named 'huggingface_hub'", 'arxiv_api: HTTP Error 429: Unknown Error'].
+- candidates_by_method={'manual_signal': 51, 'github_api': 24, 'hf_api': 14, 'api': 8, 'gdelt': 27, 'html': 10}; content_quality_mix={'metadata_only': 91, 'summary_only': 33, 'full_text': 10}; remaining CAPTCHA/paywall/JS-only sources=1.
+- Source mix main candidates: official=87, independent=0, community=0.
+- Pages workflow includes Tech Radar: yes.
+- Gemini curator: success=0; fallback=87; ai_main=0; fallback_main=87.
+- Section counts: local_ai=0, automation=12, open_source=6, knowledge=3, founder_ideas=10.
+- /tech/ render check: knowledge=True; founder_ideas=True.
+- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
+
 ## 2026-07-05 - Technology & AI 72h live run
 
 - Tech72h generated_at=2026-07-05T05:22:31.926546+00:00

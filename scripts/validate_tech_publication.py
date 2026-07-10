@@ -57,8 +57,11 @@ ALLOWED_SOURCE_LANES = {
     "github_release",
     "huggingface_model",
     "image_video_workflow",
+    "research_papers",
     "community",
 }
+ALLOWED_CONTENT_QUALITY = {"full_text", "summary_only", "metadata_only"}
+ALLOWED_RAW_SOURCE_METHODS = {"api", "rss", "sitemap", "html", "gdelt", "github_api", "hf_api", "arxiv_api", "manual_signal", "static_html", "json_ld"}
 ACCENT_RE = re.compile(
     r"[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩ"
     r"òóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]",
@@ -206,6 +209,9 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
         errs.append("model_hub candidates must be greater than 0")
     if int(stats.get("image_video_workflow_candidate_count") or 0) <= 0:
         errs.append("image_video_workflow candidates must be greater than 0")
+    if "active_url_sources" in stats and "active_watchlist_entities" in stats:
+        if int(stats.get("active_url_sources") or 0) == int(stats.get("active_watchlist_entities") or 0) and int(stats.get("active_watchlist_entities") or 0) >= 10:
+            errs.append("coverage stats appear to mix watchlist entities with active URL sources")
     if int(stats.get("top_signal_cluster_count") or 0) <= 0:
         errs.append("top_signal_clusters must not be empty")
     if stats.get("gdelt_reused_previous_events") and int(stats.get("gdelt_fresh_event_count") or 0) != 0:
@@ -396,6 +402,12 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
                 errs.append(f"sections.full_link_radar[{idx}].category invalid")
             if str(item.get("source_lane") or "") not in ALLOWED_SOURCE_LANES:
                 errs.append(f"sections.full_link_radar[{idx}].source_lane invalid")
+            quality = str(item.get("content_quality") or "metadata_only")
+            if quality not in ALLOWED_CONTENT_QUALITY:
+                errs.append(f"sections.full_link_radar[{idx}].content_quality invalid")
+            method = str(item.get("raw_source_method") or "")
+            if method and method not in ALLOWED_RAW_SOURCE_METHODS:
+                errs.append(f"sections.full_link_radar[{idx}].raw_source_method invalid")
             if not str(item.get("one_line_reason") or "").strip():
                 errs.append(f"sections.full_link_radar[{idx}].one_line_reason missing")
             _check_public_text(errs, str(item.get("why_interesting") or ""), f"sections.full_link_radar[{idx}].why_interesting")

@@ -25,6 +25,7 @@ VALIDATION_DB = REPORTS_DIR / "source_validation.duckdb"
 NEWS_RAW = DATA_DIR / "news_for_ai.json"
 NEWS_CLEAN = DATA_DIR / "news_for_ai_clean.json"
 GDELT_JSON = DATA_DIR / "gdelt_pulse.json"
+API_CANDIDATES_JSON = DATA_DIR / "api_candidates.json"
 PUBLICATION_JSON = DATA_DIR / "publication.json"
 WINDOW_HOURS = 72
 PUBLICATION_SCHEMA = "ai-frontier-radar-72h-v1"

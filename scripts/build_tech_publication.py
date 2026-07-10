@@ -17,6 +17,7 @@ from urllib.parse import urlparse
 import google.generativeai as genai
 
 from scripts.tech_common import (
+    TECH_API_CANDIDATES,
     TECH_FRONTIER_WATCHLIST,
     TECH_GDELT_OUTPUT,
     TECH_NEWS_FOR_AI_CLEAN,
@@ -24,6 +25,7 @@ from scripts.tech_common import (
     TECH_PUBLICATION_WEB_OUTPUT,
     TECH_ROLLING_CANDIDATES,
     TECH_SOURCE_COVERAGE_MATRIX,
+    TECH_SOURCE_PROFILES,
     TECH_WATCHLIST_STATUS,
     TECH_ACTIVE,
     TECH_VALIDATION_JSON,
@@ -122,6 +124,7 @@ SOURCE_LANES = {
     "github_release",
     "huggingface_model",
     "image_video_workflow",
+    "research_papers",
     "community",
 }
 FULL_RADAR_GROUPS = {
@@ -510,6 +513,8 @@ def build_candidate(
     matched_entity: str = "",
     matched_alias: str = "",
     evidence: str = "",
+    content_quality: str = "",
+    raw_source_method: str = "",
 ) -> dict[str, Any] | None:
     clean_url = str(url or "").strip()
     clean_title = trim_text(title, 220)
@@ -520,6 +525,15 @@ def build_candidate(
     lane = source_lane or ("gdelt" if origin == "gdelt" else "normal_web")
     if lane not in SOURCE_LANES:
         lane = "normal_web"
+    if not raw_source_method:
+        raw_source_method = "gdelt" if lane == "gdelt" else ("api" if origin == "api" else "html")
+    if not content_quality:
+        if lane == "gdelt":
+            content_quality = "summary_only"
+        elif origin in {"watchlist", "api"}:
+            content_quality = "metadata_only"
+        else:
+            content_quality = "full_text"
     discovered_at = datetime.now(timezone.utc).isoformat()
     return {
         "id": f"{origin}:{canonical_domain(clean_url)}:{abs(hash(clean_url))}",
@@ -544,6 +558,9 @@ def build_candidate(
         "trend_status": "",
         "watchlist_evidence": {},
         "evidence": evidence,
+        "summary": extract_excerpt(excerpt),
+        "content_quality": content_quality,
+        "raw_source_method": raw_source_method,
     }
 
 
@@ -560,6 +577,8 @@ def build_candidates_from_clean(clean_payload: dict[str, Any]) -> list[dict[str,
             source_count=1,
             source_lane="community" if source_type(str(article.get("source") or ""), str(article.get("url") or "")) == "community" else "normal_web",
             evidence="normal_web",
+            content_quality="full_text" if str(article.get("text") or "").strip() else "metadata_only",
+            raw_source_method="html",
         )
         if candidate is None:
             continue
@@ -591,6 +610,8 @@ def build_candidates_from_gdelt(gdelt_payload: dict[str, Any]) -> list[dict[str,
             source_count=max(1, int(event.get("source_count") or 1)),
             source_lane="gdelt",
             evidence="gdelt_event",
+            content_quality="summary_only" if str(event.get("summary") or "").strip() else "metadata_only",
+            raw_source_method="gdelt",
         )
         if candidate is None:
             continue
@@ -644,6 +665,8 @@ def build_candidates_from_watchlist(watchlist: dict[str, Any]) -> list[dict[str,
                 matched_entity=entity_name,
                 matched_alias=primary_alias,
                 evidence="watchlist_configured_source",
+                content_quality="metadata_only",
+                raw_source_method="manual_signal",
             )
             if candidate is None:
                 continue
@@ -669,6 +692,38 @@ def build_candidates_from_watchlist(watchlist: dict[str, Any]) -> list[dict[str,
             candidates.append(candidate)
             if len(candidates) >= WATCHLIST_ONLY_LANE_LIMIT:
                 return candidates
+    return candidates
+
+
+def build_candidates_from_api_payload(api_payload: dict[str, Any]) -> list[dict[str, Any]]:
+    candidates: list[dict[str, Any]] = []
+    for row in api_payload.get("candidates") or []:
+        summary = str(row.get("summary") or row.get("evidence") or "")
+        candidate = build_candidate(
+            origin="api",
+            title=str(row.get("title") or ""),
+            url=str(row.get("url") or ""),
+            source=str(row.get("source") or ""),
+            excerpt=summary,
+            published_at=row.get("published_at"),
+            source_count=1,
+            source_lane=str(row.get("source_lane") or "model_hub"),
+            matched_entity=str(row.get("matched_entity") or ""),
+            matched_alias=str(row.get("matched_alias") or ""),
+            evidence=str(row.get("evidence") or row.get("raw_source_method") or "api_source"),
+            content_quality=str(row.get("content_quality") or "metadata_only"),
+            raw_source_method=str(row.get("raw_source_method") or "api"),
+        )
+        if candidate is None:
+            continue
+        candidate["preliminary_score"] = preliminary_score(
+            candidate["heuristic_category"],
+            candidate["source_type"],
+            candidate["published_at"],
+            candidate["title"],
+            candidate["source_count"],
+        ) + (6 if candidate.get("raw_source_method") in {"github_api", "hf_api", "arxiv_api"} else 3)
+        candidates.append(candidate)
     return candidates
 
 
@@ -943,6 +998,8 @@ def build_full_radar_item(candidate: dict[str, Any], curated: dict[str, Any] | N
         "source_lane": candidate.get("source_lane") or "normal_web",
         "source_count": candidate["source_count"],
         "time_verified": bool(candidate["time_verified"]),
+        "content_quality": candidate.get("content_quality") or "metadata_only",
+        "raw_source_method": candidate.get("raw_source_method") or "",
         "tags": [CATEGORY_TO_SECTION.get(category, "ai_tools"), candidate["source_type"]],
         "curation_status": CURATION_AI if curated else CURATION_FALLBACK,
     }
@@ -996,8 +1053,11 @@ def build_main_item(candidate: dict[str, Any], curated: dict[str, Any], curation
         "why_interesting": trim_text(curated["industry_impact"], 220),
         "knowledge_value": trim_text(curated["knowledge_value"], 220),
         "source_type": candidate["source_type"],
+        "source_lane": candidate.get("source_lane") or "normal_web",
         "source_count": candidate["source_count"],
         "time_verified": True,
+        "content_quality": candidate.get("content_quality") or "metadata_only",
+        "raw_source_method": candidate.get("raw_source_method") or "",
         "freshness_hours": candidate["freshness_hours"],
         "tags": [section, candidate["source_type"]],
         "domain": candidate["domain"],
@@ -1271,6 +1331,8 @@ def build_top_signal_clusters(items: list[dict[str, Any]], full_radar: list[dict
                 "url": item["url"],
                 "source": item["source"],
                 "source_lane": item.get("source_lane") or "normal_web",
+                "content_quality": item.get("content_quality") or "metadata_only",
+                "raw_source_method": item.get("raw_source_method") or "",
                 "published_at": item.get("published_at") or "",
             }
             for item in group[:6]
@@ -1316,8 +1378,8 @@ def build_top_signal_clusters(items: list[dict[str, Any]], full_radar: list[dict
                     "signal_type": item.get("category") or "tool",
                     "importance": 3,
                     "confidence": "medium",
-                    "evidence_mix": {"source_lane": {item.get("source_lane") or "normal_web": 1}, "link_count": 1},
-                    "links": [{"title": item["title"], "url": item["url"], "source": item["source"], "source_lane": item.get("source_lane") or "normal_web", "published_at": item.get("published_at") or ""}],
+                "evidence_mix": {"source_lane": {item.get("source_lane") or "normal_web": 1}, "link_count": 1},
+                    "links": [{"title": item["title"], "url": item["url"], "source": item["source"], "source_lane": item.get("source_lane") or "normal_web", "content_quality": item.get("content_quality") or "metadata_only", "raw_source_method": item.get("raw_source_method") or "", "published_at": item.get("published_at") or ""}],
                     "possible_applications": [item.get("use_case") or ""],
                 }
             )
@@ -1385,6 +1447,8 @@ def persist_rolling_candidates(candidates: list[dict[str, Any]]) -> None:
             "title": row.get("title") or "",
             "source": row.get("source") or "",
             "category": row.get("heuristic_category") or row.get("category") or "",
+            "content_quality": row.get("content_quality") or "metadata_only",
+            "raw_source_method": row.get("raw_source_method") or "",
         }
     payload = {
         "schema_version": "tech-candidates-rolling-v1",
@@ -1397,7 +1461,102 @@ def persist_rolling_candidates(candidates: list[dict[str, Any]]) -> None:
     dump_json(TECH_ROLLING_CANDIDATES, payload)
 
 
-def write_source_coverage_matrix(candidates: list[dict[str, Any]], watchlist_status: dict[str, Any]) -> None:
+def load_api_candidates_payload(path: Path = TECH_API_CANDIDATES) -> dict[str, Any]:
+    if not path.is_file():
+        return {"candidates": []}
+    try:
+        payload = load_json(path)
+    except Exception:
+        return {"candidates": []}
+    return payload if isinstance(payload, dict) else {"candidates": []}
+
+
+def load_source_profiles(path: Path = TECH_SOURCE_PROFILES) -> list[dict[str, Any]]:
+    if not path.is_file():
+        return []
+    try:
+        payload = load_json(path)
+    except Exception:
+        return []
+    return [row for row in (payload.get("sources") or []) if isinstance(row, dict)]
+
+
+def active_url_source_count() -> int:
+    if not TECH_ACTIVE.is_file():
+        return 0
+    return sum(1 for line in TECH_ACTIVE.read_text(encoding="utf-8").splitlines() if line.strip() and not line.strip().startswith("#"))
+
+
+def source_coverage_stats(candidates: list[dict[str, Any]], watchlist_status: dict[str, Any], api_payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    profiles = load_source_profiles()
+    enabled_profiles = [row for row in profiles if row.get("enabled") is True]
+    disabled_profiles = [row for row in profiles if row.get("enabled") is False]
+    method_counts = Counter(str(row.get("method") or "") for row in enabled_profiles)
+    content_quality_mix = Counter(str(row.get("content_quality") or "metadata_only") for row in candidates)
+    raw_method_mix = Counter(str(row.get("raw_source_method") or "") for row in candidates)
+    active_api_sources = sum(1 for row in enabled_profiles if str(row.get("method") or "") in {"api", "github_api", "hf_api", "arxiv_api", "gdelt"})
+    metadata_only_sources = sum(1 for row in enabled_profiles if str(row.get("fallback") or "") == "metadata_only" or str(row.get("method") or "") in {"manual_signal", "gdelt"})
+    needs_manual = [
+        {
+            "name": row.get("name") or "",
+            "url": row.get("url") or "",
+            "disabled_reason": row.get("disabled_reason") or "disabled source needs manual source strategy",
+        }
+        for row in disabled_profiles
+        if any(token in str(row.get("disabled_reason") or "").upper() for token in ("CAPTCHA", "PAYWALL", "JS"))
+    ]
+    stats = {
+        "active_url_sources": active_url_source_count(),
+        "active_watchlist_entities": int(watchlist_status.get("checked") or 0),
+        "active_api_sources": active_api_sources,
+        "active_rss_sources": int(method_counts.get("rss") or 0),
+        "active_sitemap_sources": int(method_counts.get("sitemap") or 0),
+        "metadata_only_sources": metadata_only_sources,
+        "candidates_by_method": dict(raw_method_mix),
+        "content_quality_mix": dict(content_quality_mix),
+        "needs_manual_source_strategy": needs_manual,
+        "needs_manual_source_strategy_count": len(needs_manual),
+    }
+    if api_payload:
+        stats["api_candidate_count"] = int(api_payload.get("candidate_count") or len(api_payload.get("candidates") or []))
+        stats["api_profile_method_counts"] = api_payload.get("profile_method_counts") or {}
+    return stats
+
+
+def report_lanes_for_candidate(candidate: dict[str, Any]) -> set[str]:
+    lanes: set[str] = set()
+    lane = str(candidate.get("source_lane") or "normal_web")
+    cat = str(candidate.get("heuristic_category") or "")
+    if lane == "gdelt":
+        lanes.add("gdelt")
+    if lane == "github_release":
+        lanes.add("github_releases")
+    if lane in {"huggingface_model", "model_hub"}:
+        lanes.add("model_hubs")
+    if lane == "research_papers":
+        lanes.add("research_papers")
+    if lane == "image_video_workflow" or cat == "tool":
+        lanes.add("image_video_ai")
+    if cat in {"automation", "mcp", "agent"}:
+        lanes.add("automation_agents")
+    if candidate.get("source_type") == "community":
+        lanes.add("community_forums")
+    if candidate.get("source_type") == "official":
+        lanes.add("official_ai_labs")
+    if candidate.get("source_type") == "independent":
+        lanes.add("independent_ai_news")
+    if any(name in str(candidate.get("matched_entity") or "").lower() for name in ("zhipu", "qwen", "deepseek", "kimi", "minimax", "doubao", "hunyuan", "stepfun", "internlm", "sensetime", "baichuan")):
+        lanes.add("china_ai")
+    if cat == "business":
+        lanes.add("business_funding")
+    if cat == "industry":
+        lanes.add("chips_infra")
+    if cat == "knowledge":
+        lanes.add("research_papers")
+    return lanes
+
+
+def write_source_coverage_matrix(candidates: list[dict[str, Any]], watchlist_status: dict[str, Any], api_payload: dict[str, Any] | None = None) -> None:
     lanes = [
         "official_ai_labs",
         "independent_ai_news",
@@ -1414,65 +1573,68 @@ def write_source_coverage_matrix(candidates: list[dict[str, Any]], watchlist_sta
         "gdelt",
     ]
     candidate_counts = Counter()
+    source_kind_counts: dict[str, Counter[str]] = defaultdict(Counter)
     for candidate in candidates:
-        lane = str(candidate.get("source_lane") or "normal_web")
-        cat = str(candidate.get("heuristic_category") or "")
-        if lane == "gdelt":
-            candidate_counts["gdelt"] += 1
-        if lane == "github_release":
-            candidate_counts["github_releases"] += 1
-        if lane in {"huggingface_model", "model_hub"}:
-            candidate_counts["model_hubs"] += 1
-        if lane == "image_video_workflow" or cat == "tool":
-            candidate_counts["image_video_ai"] += 1
-        if cat in {"automation", "mcp", "agent"}:
-            candidate_counts["automation_agents"] += 1
-        if candidate.get("source_type") == "community":
-            candidate_counts["community_forums"] += 1
-        if candidate.get("source_type") == "official":
-            candidate_counts["official_ai_labs"] += 1
-        if candidate.get("source_type") == "independent":
-            candidate_counts["independent_ai_news"] += 1
-        if any(name in str(candidate.get("matched_entity") or "").lower() for name in ("zhipu", "qwen", "deepseek", "kimi", "minimax", "doubao", "hunyuan", "stepfun", "internlm", "sensetime", "baichuan")):
-            candidate_counts["china_ai"] += 1
-        if cat == "business":
-            candidate_counts["business_funding"] += 1
-        if cat == "industry":
-            candidate_counts["chips_infra"] += 1
-        if cat == "knowledge":
-            candidate_counts["research_papers"] += 1
-    active_sources = 0
-    if TECH_ACTIVE.is_file():
-        active_sources = sum(1 for line in TECH_ACTIVE.read_text(encoding="utf-8").splitlines() if line.strip() and not line.strip().startswith("#"))
+        method = str(candidate.get("raw_source_method") or "")
+        quality = str(candidate.get("content_quality") or "metadata_only")
+        for report_lane in report_lanes_for_candidate(candidate):
+            candidate_counts[report_lane] += 1
+            if method:
+                source_kind_counts[report_lane]["method:" + method] += 1
+            source_kind_counts[report_lane]["quality:" + quality] += 1
+    coverage = source_coverage_stats(candidates, watchlist_status, api_payload)
+    active_url_sources = int(coverage["active_url_sources"])
+    active_watchlist_entities = int(coverage["active_watchlist_entities"])
     lines = [
         "# Tech Source Coverage Matrix",
         "",
         f"- generated_at_utc: {datetime.now(timezone.utc).isoformat()}",
-        f"- active_sources: {active_sources}",
+        f"- active_url_sources: {coverage['active_url_sources']}",
+        f"- active_watchlist_entities: {coverage['active_watchlist_entities']}",
+        f"- active_api_sources: {coverage['active_api_sources']}",
+        f"- active_rss_sources: {coverage['active_rss_sources']}",
+        f"- active_sitemap_sources: {coverage['active_sitemap_sources']}",
+        f"- metadata_only_sources: {coverage['metadata_only_sources']}",
         f"- watchlist_checked: {watchlist_status.get('checked', 0)}",
         f"- watchlist_hit_count: {watchlist_status.get('hit_count', 0)}",
+        f"- candidates_by_method: {coverage['candidates_by_method']}",
+        f"- content_quality_mix: {coverage['content_quality_mix']}",
+        f"- needs_manual_source_strategy_count: {coverage['needs_manual_source_strategy_count']}",
         "",
-        "| lane | total configured | active | candidates collected | blockers | priority fix |",
-        "|---|---:|---:|---:|---|---|",
+        "| lane | configured_url_sources | watchlist_entities | api_sources | rss_sources | sitemap_sources | candidates collected | content quality / method | blockers | priority fix |",
+        "|---|---:|---:|---:|---:|---:|---:|---|---|---|",
     ]
+    profiles = load_source_profiles()
     for lane in lanes:
-        configured = active_sources if lane in {"independent_ai_news", "community_forums"} else 0
-        if lane in {"china_ai", "model_hubs", "image_video_ai", "automation_agents", "github_releases", "official_ai_labs"}:
-            configured = int(watchlist_status.get("checked") or 0)
-        active = active_sources if lane in {"independent_ai_news", "community_forums"} else configured
+        lane_profiles = [row for row in profiles if row.get("enabled") is True and row.get("lane") == lane]
+        configured_url = sum(1 for row in lane_profiles if str(row.get("method") or "") in {"rss", "sitemap", "static_html", "json_ld"})
+        lane_api = sum(1 for row in lane_profiles if str(row.get("method") or "") in {"api", "github_api", "hf_api", "arxiv_api", "gdelt"})
+        lane_rss = sum(1 for row in lane_profiles if row.get("method") == "rss")
+        lane_sitemap = sum(1 for row in lane_profiles if row.get("method") == "sitemap")
+        watchlist_entities = active_watchlist_entities if lane in {"china_ai", "model_hubs", "image_video_ai", "automation_agents", "github_releases", "official_ai_labs"} else 0
         count = candidate_counts.get(lane, 0)
-        blocker = "low active source count" if active_sources < 10 and lane in {"official_ai_labs", "independent_ai_news"} else ""
-        fix = "recover more direct sources" if blocker else "monitor"
-        lines.append(f"| {lane} | {configured} | {active} | {count} | {blocker or '-'} | {fix} |")
+        blocker = "low active URL crawl count" if active_url_sources < 10 and lane in {"official_ai_labs", "independent_ai_news"} else ""
+        if lane == "official_ai_labs" and watchlist_entities and configured_url < watchlist_entities:
+            blocker = (blocker + "; " if blocker else "") + "watchlist entities are not URL crawl sources"
+        fix = "add RSS/API/direct metadata strategy" if blocker else "monitor"
+        quality_bits = ", ".join(f"{k}={v}" for k, v in sorted(source_kind_counts.get(lane, {}).items())) or "-"
+        lines.append(f"| {lane} | {configured_url} | {watchlist_entities} | {lane_api} | {lane_rss} | {lane_sitemap} | {count} | {quality_bits} | {blocker or '-'} | {fix} |")
+    if coverage["needs_manual_source_strategy"]:
+        lines.extend(["", "## Needs Manual Source Strategy", ""])
+        for row in coverage["needs_manual_source_strategy"]:
+            lines.append(f"- {row['name']}: {row['disabled_reason']} ({row['url']})")
     TECH_SOURCE_COVERAGE_MATRIX.parent.mkdir(parents=True, exist_ok=True)
     TECH_SOURCE_COVERAGE_MATRIX.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, Any]) -> dict[str, Any]:
     watchlist = load_frontier_watchlist()
+    api_payload = load_api_candidates_payload()
+    api_candidates = build_candidates_from_api_payload(api_payload)
     candidates = dedupe_candidates(
         build_candidates_from_clean(clean_payload)
         + build_candidates_from_gdelt(gdelt_payload)
+        + api_candidates
         + build_candidates_from_watchlist(watchlist)
     )
     candidates, watchlist_stats = apply_frontier_watchlist(candidates, watchlist)
@@ -1543,10 +1705,9 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
         radar_item["cluster_id"] = cluster_by_url.get(radar_item["url"], "")
     watchlist_status = build_watchlist_status(watchlist, candidates)
     dump_json(TECH_WATCHLIST_STATUS, watchlist_status)
-    write_source_coverage_matrix(candidates, watchlist_status)
-    active_source_count = 0
-    if TECH_ACTIVE.is_file():
-        active_source_count = sum(1 for line in TECH_ACTIVE.read_text(encoding="utf-8").splitlines() if line.strip() and not line.strip().startswith("#"))
+    write_source_coverage_matrix(candidates, watchlist_status, api_payload)
+    coverage_stats = source_coverage_stats(candidates, watchlist_status, api_payload)
+    active_source_count = int(coverage_stats.get("active_url_sources") or 0)
 
     source_type_counts = Counter(item["source_type"] for item in must_read)
     category_counts = Counter(item["category"] for item in must_read)
@@ -1564,6 +1725,7 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
     )
     stats = {
         "story_count": len(build_candidates_from_clean(clean_payload)),
+        "api_candidate_count": len(api_candidates),
         "gdelt_event_count": len(gdelt_payload.get("events") or []),
         "candidate_count": len(candidates),
         "curator_candidate_count": len(eligible_for_curator),
@@ -1594,7 +1756,16 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
         "gdelt_reused_previous_events": bool(gdelt_payload.get("reused_previous_events")),
         "gdelt_fresh_event_count": int(gdelt_payload.get("fresh_event_count") or len(gdelt_payload.get("events") or [])),
         "active_source_count": active_source_count,
-        "source_coverage_warning": "active_sources_below_10" if active_source_count and active_source_count < 10 else "",
+        "active_url_sources": active_source_count,
+        "active_api_sources": coverage_stats.get("active_api_sources", 0),
+        "active_rss_sources": coverage_stats.get("active_rss_sources", 0),
+        "active_sitemap_sources": coverage_stats.get("active_sitemap_sources", 0),
+        "active_watchlist_entities": coverage_stats.get("active_watchlist_entities", 0),
+        "metadata_only_sources": coverage_stats.get("metadata_only_sources", 0),
+        "candidates_by_method": coverage_stats.get("candidates_by_method", {}),
+        "content_quality_mix": coverage_stats.get("content_quality_mix", {}),
+        "needs_manual_source_strategy_count": coverage_stats.get("needs_manual_source_strategy_count", 0),
+        "source_coverage_warning": "active_url_sources_below_10" if active_source_count and active_source_count < 10 else "",
         "render_checks": {
             "knowledge_fields_ready": True,
             "founder_fields_ready": True,
@@ -1641,6 +1812,8 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
                 "matched_alias": item.get("matched_alias", ""),
                 "trend_status": item.get("trend_status", ""),
                 "source_lane": item.get("source_lane", "normal_web"),
+                "content_quality": item.get("content_quality", "metadata_only"),
+                "raw_source_method": item.get("raw_source_method", ""),
             }
             for item in must_read
         ],

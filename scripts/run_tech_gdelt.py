@@ -101,12 +101,27 @@ def companies_from_blob(blob: str) -> list[str]:
         "fal.ai", "LangGraph", "LlamaIndex", "Cursor", "Claude Code", "OpenHands",
     ]
     aliases = {"智谱": "Zhipu", "混元": "Hunyuan", "豆包": "Doubao"}
+    extra_names = [
+        "Flux", "Stable Diffusion", "LoRA", "ControlNet", "HunyuanVideo",
+        "SGLang", "MCP",
+    ]
+    extra_aliases = {
+        "智谱": "Zhipu",
+        "智谱AI": "Zhipu",
+        "混元": "Hunyuan",
+        "豆包": "Doubao",
+        "FLUX": "Flux",
+        "Black Forest Labs": "Flux",
+        "Hunyuan Video": "HunyuanVideo",
+        "Model Context Protocol": "MCP",
+    }
+    aliases.update(extra_aliases)
     low = blob.lower()
-    out = [name for name in names if name.lower() in low]
+    out = [name for name in [*names, *extra_names] if name.lower() in low]
     for alias, canonical in aliases.items():
         if alias in blob and canonical not in out:
             out.append(canonical)
-    return out[:8]
+    return out[:32]
 
 
 def signal_keywords_from_blob(blob: str) -> list[str]:

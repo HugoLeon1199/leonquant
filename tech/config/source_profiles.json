@@ -1,0 +1,227 @@
+{
+  "schema_version": "tech-source-profiles-v1",
+  "updated_at_utc": "2026-07-10T00:00:00+00:00",
+  "sources": [
+    {
+      "name": "Google DeepMind Blog",
+      "lane": "official_ai_labs",
+      "method": "sitemap",
+      "url": "https://deepmind.google/blog/",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "sitemap_then_json_ld",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "Mistral AI News",
+      "lane": "official_ai_labs",
+      "method": "rss",
+      "url": "https://mistral.ai/news",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "rss_then_json_ld",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "QbitAI China",
+      "lane": "china_ai",
+      "method": "rss",
+      "url": "https://www.qbitai.com/",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "rss_then_summary",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "Hugging Face Models",
+      "lane": "model_hubs",
+      "method": "hf_api",
+      "url": "https://huggingface.co/models",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "api_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub QwenLM",
+      "lane": "github_releases",
+      "method": "github_api",
+      "url": "https://github.com/QwenLM",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub DeepSeek AI",
+      "lane": "github_releases",
+      "method": "github_api",
+      "url": "https://github.com/deepseek-ai",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub zai-org",
+      "lane": "github_releases",
+      "method": "github_api",
+      "url": "https://github.com/zai-org",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub Tencent Hunyuan",
+      "lane": "github_releases",
+      "method": "github_api",
+      "url": "https://github.com/Tencent-Hunyuan",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub InternLM",
+      "lane": "github_releases",
+      "method": "github_api",
+      "url": "https://github.com/InternLM",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub ComfyUI",
+      "lane": "github_releases",
+      "method": "github_api",
+      "url": "https://github.com/comfyanonymous/ComfyUI",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub LangGraph",
+      "lane": "automation_agents",
+      "method": "github_api",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub LlamaIndex",
+      "lane": "automation_agents",
+      "method": "github_api",
+      "url": "https://github.com/run-llama/llama_index",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub OpenHands",
+      "lane": "automation_agents",
+      "method": "github_api",
+      "url": "https://github.com/All-Hands-AI/OpenHands",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub vLLM",
+      "lane": "model_hubs",
+      "method": "github_api",
+      "url": "https://github.com/vllm-project/vllm",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub SGLang",
+      "lane": "model_hubs",
+      "method": "github_api",
+      "url": "https://github.com/sgl-project/sglang",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "GitHub Model Context Protocol",
+      "lane": "automation_agents",
+      "method": "github_api",
+      "url": "https://github.com/modelcontextprotocol",
+      "priority": "p0",
+      "enabled": true,
+      "extract_mode": "releases_then_repo_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "arXiv AI Papers",
+      "lane": "research_papers",
+      "method": "arxiv_api",
+      "url": "https://export.arxiv.org/api/query",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "atom_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "OpenRouter Models",
+      "lane": "model_hubs",
+      "method": "api",
+      "url": "https://openrouter.ai/api/v1/models",
+      "priority": "p1",
+      "enabled": true,
+      "extract_mode": "json_metadata",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "Hugging Face Forums RSS",
+      "lane": "community_forums",
+      "method": "rss",
+      "url": "https://discuss.huggingface.co/latest.rss",
+      "priority": "p2",
+      "enabled": true,
+      "extract_mode": "rss_summary",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only"
+    },
+    {
+      "name": "TechCrunch AI",
+      "lane": "independent_ai_news",
+      "method": "rss",
+      "url": "https://techcrunch.com/category/artificial-intelligence/",
+      "priority": "p2",
+      "enabled": false,
+      "extract_mode": "rss_then_article_extract",
+      "expected_fields": ["title", "url", "published_at", "summary"],
+      "fallback": "metadata_only",
+      "disabled_reason": "CAPTCHA/paywall in validation; needs RSS-only/manual strategy"
+    }
+  ]
+}

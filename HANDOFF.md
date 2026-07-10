@@ -9,6 +9,59 @@
 
 <!-- Cập nhật block này sau mỗi session -->
 
+## [2026-07-10 07:15] - [Codex]
+
+### Da lam
+- Doc `.ai/CURSOR_WORKLOG.md`, `CLAUDE.md`, `HANDOFF.md` truoc khi sua.
+- Harden dau vao AI Frontier Radar trong scope standalone `tech/`; khong polish UI/output va khong dung Tin48h/Invest/World.
+- Them `tech/config/source_profiles.json` de khai bao ro lane/method/priority/fallback cho URL crawl, RSS/sitemap, API, HF/GitHub/arXiv/OpenRouter va metadata-only.
+- Them `tech/acquire_api_sources.py`: API-first acquisition cho Hugging Face model metadata, GitHub releases/repo metadata, arXiv Atom, OpenRouter model list; candidate contract co `content_quality` va `raw_source_method`.
+- Noi `tech/data/api_candidates.json` vao `scripts/build_tech_publication.py`; metadata-only candidates duoc giu lai va vao rolling/full radar neu hop le.
+- Sua coverage matrix de tach ro `active_url_sources`, `active_watchlist_entities`, `active_api_sources`, `active_rss_sources`, `active_sitemap_sources`, `metadata_only_sources`; khong con bao mo ho `official_ai_labs active=26` nhu URL crawl song.
+- Them `research_papers` vao source lane hop le va validator.
+- Them tests fixture cho HF Qwen/DeepSeek/Flux, GitHub ComfyUI/LangGraph/OpenHands, arXiv, RSS, sitemap, metadata-only retention, va coverage matrix khong nham watchlist entity voi URL source active.
+- Cap nhat workflow `Tech Radar` de install `huggingface_hub`, chay `tech/acquire_api_sources.py`, commit `tech/data/api_candidates.json` va `tech/config/source_profiles.json`.
+- Cap nhat `tech/update_worklog.py` va `.ai/CURSOR_WORKLOG.md` voi data coverage fields user yeu cau.
+
+### Ket qua / Test
+- `.\.venv\Scripts\python.exe -m py_compile tech\acquire_api_sources.py scripts\build_tech_publication.py scripts\validate_tech_publication.py scripts\test_tech_pipeline.py scripts\tech_common.py` -> pass.
+- `.\.venv\Scripts\python.exe tech\acquire_api_sources.py --hf-limit 1 --github-releases 1 --arxiv-results 3` -> wrote 46 API candidates.
+- `LEON_TECH_OFFLINE_TEST=1` + `.\.venv\Scripts\python.exe tech\publication.py` -> pass.
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass.
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass.
+- `.\.venv\Scripts\python.exe -m py_compile tech\update_worklog.py tech\common.py` -> pass.
+
+### Trang thai artifact local
+- `tech/data/api_candidates.json`: total=46; by_method `hf_api=14`, `github_api=24`, `arxiv_api=0`, `api=8`; quality `metadata_only=40`, `summary_only=6`.
+- Local HF dung REST fallback vi `.venv` chua co `huggingface_hub`; workflow se cai package va dung `HfApi` truoc.
+- Local arXiv live bi `HTTP 429`; arXiv fixture pass va source profile/research lane da co.
+- Coverage matrix: `active_url_sources=7`, `active_watchlist_entities=26`, `active_api_sources=15`, `active_rss_sources=3`, `active_sitemap_sources=1`, `metadata_only_sources=19`.
+- `tech/data/publication.json` / `tech/web/publication.json` da rebuild local voi `LEON_TECH_OFFLINE_TEST=1`, nen Gemini curator khong duoc goi (`success=0`, `fallback=87`).
+
+### File da thay doi
+- `.github/workflows/tech-radar.yml`
+- `scripts/build_tech_publication.py`
+- `scripts/tech_common.py`
+- `scripts/test_tech_pipeline.py`
+- `scripts/validate_tech_publication.py`
+- `tech/acquire_api_sources.py`
+- `tech/common.py`
+- `tech/update_worklog.py`
+- `tech/config/source_profiles.json`
+- `tech/data/api_candidates.json`
+- `tech/data/candidates_rolling.json`
+- `tech/data/watchlist_status.json`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `tech/reports/source_coverage_matrix.md`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Neu muon xac minh production path, dispatch `Tech Radar` tren GitHub Actions de chay voi `huggingface_hub`, secrets GDELT/Gemini va cap nhat artifact public.
+- arXiv live local dang bi 429; nen retry sau hoac giam tan suat/query neu Actions cung gap 429.
+- Source coverage URL crawl song van yeu (`7/100`); phase nay da tach ro signal/API/entity voi URL crawl that, chua co gang recover 100 website kho.
+
 ## [2026-07-08 18:25] - [Codex]
 
 ### Da lam
