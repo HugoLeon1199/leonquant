@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-10T15:41:57.586815+00:00",
-  "count": 164,
+  "generated_at": "2026-07-10T20:46:07.609964+00:00",
+  "count": 150,
   "source_error_count": 0,
   "articles": [
     {
@@ -59,28 +59,6 @@
       "macro_score": 0
     },
     {
-      "title": "Introducing Forge | Mistral AI",
-      "url": "https://mistral.ai/news/forge/",
-      "summary": "Today, we’re introducing Forge, a system for enterprises to build frontier-grade AI models grounded in their proprietary knowledge.\nMost AI models available today are trained primarily on publicly available data. They are designed to perform well across a broad range of tasks. But enterprises operate using internal knowledge: engineering standards, compliance policies, codebases, operational processes, and years of institutional decisions.\nForge bridges the gap between generic AI and enterprise-specific needs. Instead of relying on broad, public data, organizations can train models that understand their internal context embedded within systems, workflows, and policies, aligning AI with their unique operations.\nMistral AI has already partnered with world-leading organizations, like ASML, DSO National Laboratories Singapore, Ericsson, European Space Agency, Home Team Science and Technology Agency (HTX) Singapore, and Reply to train models on the proprietary data that powers their most complex systems and future-defining technologies.\nTraining models on institutional knowledge.\nForge enables enterprises to build models that internalize their domain knowledge. Organizations can train models on large volumes of internal documentation, codebases, structured data, and operational records. During training, the model learns the vocabulary, reasoning patterns, and constraints that define that environment.\nThis allows teams to develop models and agents that reason using internal termino…",
-      "published_at": "2026-03-17",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Workflows for work that runs the business | Mistral AI",
-      "url": "https://mistral.ai/news/workflows/",
-      "summary": "Today, we're releasing Workflows in public preview. Workflows is the orchestration layer for enterprise AI. It brings the durability, observability, and fault tolerance required to move AI-powered processes from proof of concept to production reliably. Organizations like ASML, ABANCA, CMA-CGM, France Travail, La Banque Postale, Moeve, and many more are already running Workflows to automate critical processes.\nEnterprise teams today have access to capable models. What they lack is a way to run them reliably in production. We see this across every industry we work with. The failure modes are consistent: pipelines that run in a notebook but fail silently in production with no trace, long-running processes that can't survive a network timeout, multi-step operations that need human approval mid-execution but have no mechanism to pause and resume, and systems that offer no way to verify they're still doing what they're supposed to after deployment.\nBuilding all of the capabilities to address these challenges is months of complex work for enterprises: the orchestration layer has to be stitched together from scratch, and the components it connects, inference, agents, connectors, observability, each come from different tools with their own interfaces and formats.\nWorkflows is part of Studio, so the orchestration layer and the components it orchestrates are built to work together. Once a business process is identified, developers write the workflow in Python. Every workflow can then be…",
-      "published_at": "2026-04-27",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "翁荔新博客提出「自进化先从Harness开始」，DeepSeek崔添翼转发附议",
       "url": "https://www.qbitai.com/2026/07/446076.html",
       "summary": "翁荔新博客提出「自进化先从Harness开始」，DeepSeek崔添翼转发附议\n崔添翼：这个方向很容易出成果\n听雨 发自 凹非寺量子位 | 公众号 QbitAI\n前OpenAI安全副总裁、Thinking Machines Lab联创翁荔，又发新博客了。\n这回讨论的是AI自进化，她提出了一条现实路径：\n不一定从模型直接改写自己的权重开始，而是先从Harness开始。\n这篇博客题为《Harness Engineering for Self-Improvement》。\n其中，Harness可以简单理解为模型外部的运行系统，决定模型如何调用工具、管理上下文、读写文件、拆分任务、调用子Agent、验证结果，以及从失败中复盘。\nDeepSeek研究员崔添翼也第一时间转发了，还画了重点：\nHarness方向的自进化，和模型方向的自进化一样，都是非常可能出成果的方向。\n他还提出，Skill就是Harness自进化中比较初级的一种形式：从 prompt层面进行自进化。\n博客原文信息量巨巨巨大，请各位看官做好心理准备~\n自进化可能先发生在Harness层\n翁荔这篇博客讨论的核心概念，是RSI（Recursive Self-Improvement），递归自我改进。\n这个概念最早带有很强的AGI色彩，指的是一个智能系统能够改进产生自身智能的机制，从而产生更强的后继系统。\n但翁荔在这篇博客里，把这个问题拆得更工程化。\n在今天的AI系统里，自我改进未必只意味着模型直接改写自己的权重。\n它也可能意味着，模型改进训练流程、研究流程和部署系统，进而帮助下一代系统在真实任务中表现得更好。\n△AI生成\n而Harness，就是部署系统里最关键的一层。\n过去谈Agent，常见说法是「LLM+记忆+工具+规划+行动」。\n但在翁荔看来，Harness已经不只是早期Agent框架里的几个模块，而是更接近运行时和软件系统设计。\n它决定模型如何观察环境、如何行动、如何管理上下文、如何保存状态、如何评估结果，也决定模型能不能在一个长任务里持续迭代。\n所以她的判断是：近期更可行的自进化路径，可能并非模型直接重写自己的大脑，而是模型开始优化自己获得答案的方式。\n从Context Engineering到Self-Harness，优化层层递进\n翁荔梳理了最近一批相关研究，可以看到一个很清楚的趋势：\n优化对象正在从上下文、工作流，一步步深入到Harness本身。\n递进链条是：prompt→structured context→workflow→harness code→optimizer code。\n随着模型越来越强，能被优化的对象也在变得更抽象、更通用。\n第一层是Context Engineering。\n最基础的问题是：Agent做长任务时，上下文塞得越来越多，很快就会失控。\n翁荔在这里提到两个代表性工作：ACE和MCE。\nACE（Agentic Context Engineering），把上下文当成一本会持续更新的「操作手册」，而不是一段越堆越长的提示词。\n它靠三个角色配合：Generator负责生成任务轨迹，Reflector从成功和失败的轨迹里提炼要点，Curator把这些要点整理成结构化的条目、增量更新进手册里。\nMCE（Meta Context Engineering），则更进一步。\n它把「怎么管理上下文」和「上下文里具体放什么」拆成两层优化：外层进化管理上下文的技能，内层再用这个技能去优化具体任务的上下文。\n翁荔认为，相比ACE还需要人工设计更新规则，MCE朝「自我管理的记忆」又迈进了一步。…",
@@ -92,33 +70,11 @@
       "macro_score": 0
     },
     {
-      "title": "Connect the dots: Build with built-in and custom MCPs in Studio | Mistral AI",
-      "url": "https://mistral.ai/news/connectors/",
-      "summary": "Today we are releasing Connectors in Studio to unblock developers building highly customised AI applications grounded in enterprise data. All built-in connectors, as well as custom MCPs, are now available via API/SDK to be used with all model and agent calls.\nWe are also introducing direct tool calling, giving developers precise control over how and when tools are invoked, without authentication barriers getting in the way of testing and iterating. In addition, you can now implement human-in-the-loop approval flows, allowing secure review and confirmation before tool execution, ensuring both flexibility and governance.\n- Programmatic access for creating, modifying, listing and deleting your connectors but also listing their tools and directly running them. \n- All connectors are centrally registered making them available across Mistral apps: LeChat and AI Studio (with Vibe coming soon). \n- Usage via Conversation API, Completions API, and Agent SDK can now facilitate complex workflows and integration with enterprise systems like CRMs, knowledgebases & productivity tools. \nIntegrations that live in the platform, not in your code\nBuilding enterprise AI agents is getting easier. The harder part is everything around them: tracking down the right API docs, writing and maintaining tool functions, building integrations, setting up OAuth, handling token refresh, and debugging edge cases like broken pagination.\nBecause of this, teams keep rebuilding the same integration layer. Even with…",
-      "published_at": "2026-05-22",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "别让AI一上来就“进厂打螺丝”：智源悟界·Orca要先教模型理解世界如何变化",
       "url": "https://www.qbitai.com/2026/07/446075.html",
       "summary": "别让AI一上来就“进厂打螺丝”：智源悟界·Orca要先教模型理解世界如何变化\nHugging Face论文月榜第一\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n今天的AI已经很会“输出”了。\n- 语言模型预测下一个token，于是可以回答问题、写文章、写代码。\n- 图像和视频模型预测下一帧，于是可以生成越来越逼真的视觉内容。\n- 具身模型预测下一步动作，于是机器人开始能够完成抓取、放置、整理等任务。\n但这些能力背后，仍然有一个更底层的问题：模型到底是在学会某一种输出，还是已经理解了世界状态本身如何变化？\n智源研究院悟界·RoboBrain Orca Team发布的技术报告Orca: The World is in Your Mind，想探索的正是这个问题。\n项目主页：https://orca-wm.github.io\n技术报告：https://arxiv.org/abs/2606.30534\n悟界·RoboBrain Orca发布后，迅速获得了海外研究社区的关注。\n多位研究者将其讨论重点，放在了“真正的多模态表征世界模型”上：\nOrca并不是把文本、图像、视频、动作简单拼接在一起，而是尝试在统一的世界潜空间中，学习它们背后的共同状态与演化规律。\n也有评论认为，Orca更接近早期通用世界模型的形态，即先学习世界如何变化，再将这种世界表征读出到理解、预测和行动任务中。\n与此同时，Orca也登上了Daily Papers月度榜单，并在Hugging Face、X等社区获得持续关注。\n可以看到，世界模型正在成为下一阶段AI研究中被持续关注的重要方向。\n从Next token, Frame, Action Prediction到Next-State Prediction\n悟界·RoboBrain Orca并非一个更会聊天的大模型，也不是一个单纯追求视觉真实感的视频生成模型，更不是一个只面向机器人的动作策略模型。\n它想走的是一条更基础的路线：\n先让模型学习统一的世界状态表征，再从这个表征中读出理解、预测和行动能力。\n换句话说，Orca关注的是：当前世界处于什么状态，以及这个状态在自然演化、事件条件或外部干预下，会如何转移到另一个状态。\n这就是Orca Team所探索的Next-State Prediction。\n“我们不会让一个3岁小孩进工厂，打10万小时螺丝。”这是Orca Team解释这项工作时，用过的一个比喻。\n这句话不只是在说机器人，也是在说今天很多AI模型的共同处境：语言模型被训练去预测下一个词，视频模型被训练去生成下一帧，具身模型被训练去模仿下一步动作。\n它们看起来任务不同，但底层逻辑很像——一上来就把模型放进某个具体工位，让它围绕某一种输出反复练习。\n这条路当然有效，但问题是，一个还没有理解世界的模型，真的能只靠“打螺丝”，走向通用吗？\nOrca团队的判断是：顺序可能要反过来。别急着让模型学“下一步怎么动”，先让它上一堂关于世界的“义务教育”课。\n先利用多模态世界信号学习好世界表征；再做好一切任务\n这也是Orca的核心哲学：The World is in Your Mind.\n悟界·RoboBrain Orca如何学习世界变化？\n人在不会讲话之前，就能通过看学习到客观的世界，例如风吹叶落；在成长中，人类还可以通过一句话、一本说明书感知并理解具体事件。\nOrca将它们抽象为两类互补的学习方式：无意识学习和有意识学习。\n第一类是无意识学习。\n模型从连续视频中学习自然、稠密的状态变化，不依赖显式语言标注。\n比如一个物体如何移动，手与物体如何…",
       "published_at": "2026-07-08",
       "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Emmi joins Mistral to accelerate the AI-native industry | Mistral AI",
-      "url": "https://mistral.ai/news/accelerate-ai-native-industry/",
-      "summary": "This week, we’ve entered into a definitive agreement to acquire Physics AI pioneer Emmi AI to strengthen our position as the leading AI transformation partner for industrial enterprises.\nMistral AI is building leading AI systems to accelerate engineering and manufacturing globally. As part of this mission, the company is extending its models’ capabilities to understand and model physics; and is enabling AI agents to use existing engineering tools. With the acquisition of Emmi AI, Mistral significantly enriches its products and expertise in this domain, aiming to accelerate the work of engineering solution teams worldwide.\nThe acquisition also accelerates our Science roadmap, advancing our understanding of fundamental physics and leveraging unique industrial data. With Emmi AI's models complementing our own, we are set to build the best-in-class agents for engineers.\nFounded in Austria, Emmi AI has quickly emerged as one of the world's most ambitious AI companies, leading a revolution at the intersection of artificial intelligence and industrial engineering. Its team has developed a unique expertise in Physics AI, providing state-of-the-art large engineering models. The company empowers industrial players to accelerate their engineering workflows and product design cycles, replace multi-day computations with real-time simulations, and build digital twins to optimize asset operations.\nEmmi’s co-founders and its team of more than 30 researchers and engineers, among the leading e…",
-      "published_at": "2026-05-23",
-      "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -147,17 +103,6 @@
       "macro_score": 0
     },
     {
-      "title": "Physics AI research that’s shaping the industry. | Mistral AI",
-      "url": "https://mistral.ai/news/physics-ai-research/",
-      "summary": "The acquisition of Emmi AI has highlighted Mistral’s commitment towards pushing the state-of-the-art in AI research and enterprise solutions for industrial engineering.\nEmmi’s work, now part of Mistral, is dedicated to fundamentally enabling engineers to build the next generation of products faster and secure continuous performance gains in operations at scale for their customers.\nWe are doubling down on building foundational Physics AI for the industries that shape the physical world, such as aerospace, automotive, semiconductors, and energy.\nBelow are some of the published breakthroughs that this work rests on.\nDEC 1, 2025\nGoing with the Speed of Sound: Pushing Neural Surrogates into Highly-turbulent Transonic Regimes\nExisting aerospace datasets predominantly focus on 2D airfoils, neglecting these critical 3D phenomena. To address this gap, we present a new dataset of CFD simulations for 3D wings in the transonic regime. The dataset comprises volumetric and surface-level fields for around 30,000 samples with unique geometry and inflow conditions.\nNOV 25, 2025\nFluid Intelligence: A Forward Look on AI Foundation Models in Computational Fluid Dynamics\nDriven by the advancement of GPUs and AI, the field of Computational Fluid Dynamics (CFD) is undergoing significant transformations. This paper bridges the gap between the machine learning and CFD communities by deconstructing industrial-scale CFD simulations into their core components.\nOCT 17, 2025\nAB-UPT for Automotive and Aero…",
-      "published_at": "2026-05-27",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 1
-    },
-    {
       "title": "具身智能“高考”难疯了！人类100分，最强模型12.8",
       "url": "https://www.qbitai.com/2026/07/446363.html",
       "summary": "具身智能“高考”难疯了！人类100分，最强模型12.8\n具身测评界的珠峰来了：RoboDojo\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n通用机器人这座山，到底有多高？\n过去一年，VLA、机器人基础模型、世界模型轮番登场。\n一个个demo看起来越来越丝滑：叠碗、插管、收纳、倒水、整理桌面，机器人似乎终于开始听懂人话、理解世界、动手干活。\n但问题是：这些模型到底谁更强？强在哪里？能不能从仿真走到真实世界？离真正的通用操作机器人，还有多远？\n现在，一个新的“登山路线图”来了。\n曾推出RoboTwin系列基准的原班团队，又带来了RoboDojo：一个统一的仿真+真实世界机器人操作评测基准。\nWebsite: https://robodojo-benchmark.com/\narXiv: https://arxiv.org/abs/2607.04434\nLeaderboard: https://robodojo-benchmark.com/LeaderBoard\nBenchmark code: https://github.com/RoboDojo-Benchmark/RoboDojo\nXPolicyLab code: https://github.com/XPolicyLab/XPolicyLab\nCommunity: https://robodojo-benchmark.com/community\n它不只是又一个benchmark，而更像是给具身智能立了一座“珠峰”：\n42个仿真任务，18个真实机器人任务，30个主流机器人策略同台竞技，覆盖泛化、记忆、精细操作、长程执行、开放语义理解五大能力。\n结果很直接，也很残酷：\n当前最强通用机器人策略，在仿真平均成功率也只有8.80%。到了真实世界，最好模型平均成功率也只有12.8%。\n而人类专家呢？仿真里是76.03%，真实世界是100%。\n机器人基础模型们看起来已经开始攀登具身珠峰，但RoboDojo的榜单显示：它们大多还在山脚适应高反。\n先看任务设计：这座山为什么难？\nRoboDojo的难点，不在于简单堆任务数量，而在于它把机器人操作能力拆成了一组更接近真实世界的“登山关卡”。\n在仿真环境中，RoboDojo设计了42个任务，围绕五个核心能力展开：\n- Generalization，看模型能不能适应新背景、新光照、新物体和复杂杂乱场景。\n- Memory，看模型能不能记住之前看到的信息，并在后续动作中用上。\n- Precision，看模型能不能完成插入、对齐、精确接触等高精度操作。\n- Long-Horizon，看模型能不能完成多步骤、强依赖、误差会累积的任务。\n- Open，看模型能不能理解没见过的开放语义指令，并把语言目标变成动作。\n这些任务不是简单的pick-and-place变体。\n比如在泛化任务中，桌面杂物最多可随机到25个，背景、光照、物体外观和布局都会变化；\n在记忆任务中，机器人需要记住传送带上曾经出现又消失的物体，再从后续候选物中选出匹配目标；\n在精细操作任务中，机器人要完成插管、对齐、插入等高容错要求动作，稍微偏一点就会失败。\n长程任务则更接近真实家务：机器人不是做一个动作，而是要连续完成多个子步骤。拿起、移动、交接、对齐、放置，每一步都可能引入误差，而误差会一路累积到最后。\n但RoboDojo没有停在仿真里。\n真正让这座“具身珠峰”变高的，是它还把评测搬到了真实机器人上。\nRoboDojo设计了18个真实世界任务，覆盖ARX X5、Piper、Piper X三种双臂机器人平台…",
@@ -167,17 +112,6 @@
       "region": "global",
       "tier": "01_pass_rss",
       "macro_score": 1
-    },
-    {
-      "title": "Introducing physics AI at Mistral: the foundation for engineering acceleration. | Mistral AI",
-      "url": "https://mistral.ai/news/introducing-physics-ai-at-mistral/",
-      "summary": "Engineering ambition has rarely been greater than it is today. Defense readiness, the energy transition, the push towards sustainable aviation, the need to scale AI data centers, and next-generation chips: every one of these developments depends on engineering teams shipping more capable hardware, faster—with thinner margins for error.\nAnd yet physics analysis remains stuck at the front of the product lifecycle, tied to solver methods that haven't fundamentally changed in decades. Engineers still evaluate a handful of variants when they should be exploring thousands. And once a product is in operation, engineers lose the physics insight they had at design time, because the solvers behind it are too slow to keep up with live data.\nWe believe physics deserves its own frontier AI models. That's why we've brought Emmi AI into Mistral. In this post, we share what physics AI is, why it matters now, and what it makes possible for our partners like ASML, Airbus, Safran, and Siemens Energy.\nWe are building out a new foundational capability inside Mistral's enterprise solutions for AI-native industrial engineering—alongside our existing models, our tools for building and operationalizing agentic workflows, and the secure deployment and integration enterprises require.\nTogether they form a single stack spanning the engineering lifecycle: deployed where the customer needs it, integrated with their environment, fully under their control. Find out more about our AI for manufacturing offeri…",
-      "published_at": "2026-05-27",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
     },
     {
       "title": "50FPS、成本打掉70%，魔芯MoWorld把世界模型带进产业时代",
@@ -191,98 +125,10 @@
       "macro_score": 0
     },
     {
-      "title": "Vibe gets to work. | Mistral AI",
-      "url": "https://mistral.ai/news/vibe-agent/",
-      "summary": "Thinking\nSummary\nVibe is Mistral’s unified AI agent for both work and coding, capable of handling long-running tasks like inbox management, research, and document drafting, as well as coding workflows from feature development to pull requests. It offers Work Mode for multi-step tasks across enterprise tools and Code Mode for remote coding sessions, with integrations like VS Code and CLI for seamless collaboration. Available in free, Pro, Team, and Enterprise plans, Vibe streamlines workflows with visible reasoning, reusable skills, and secure, scalable deployments.\nVibe is now one agent for long-running, multi-step work. It catches up across your inbox and calendar, runs deep research, drafts deliverables, and orchestrates the recurring processes that run your day-to-day.\nIt also takes coding work from request to merged change, across the web app, your editor, and your terminal. The agent builds features, fixes bugs, refactors code, and ships reviewable pull requests.\nVibe runs on flagship Mistral models optimized for reasoning, agentic tasks, tool calls, and coding.\nHighlights.\n- Le Chat is now Vibe—one agent and one licence across work and code, with every conversation, setting, and plan carried over. \n- Work Mode, available on web and mobile, is a powerful agent for long-range tasks that picks the right tools, streams progress, and completes complex work to finish. \n- Code Mode launches remote coding agents from a dedicated web surface. \n- A new Mistral Vibe extension for …",
-      "published_at": "2026-05-28",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "AI Now Summit 2026 | Mistral AI",
-      "url": "https://mistral.ai/news/ai-now-summit-2026/",
-      "summary": "Thinking\nSummary\nMistral unveiled a new AI stack for industrial engineering, partnering with Airbus, BMW, and ASML to optimize design, simulation, and production while ensuring data security. Their agentic AI tool, Vibe, now handles long-horizon tasks like coding and research, while a new 10 MW data center in France will enhance compute control and security by 2026. These advancements reinforce Mistral’s focus on secure, high-impact AI solutions for critical enterprise workflows.\nMistral for Industrial Engineering.\nAn integrated AI stack combining advanced physics models, engineering expertise, and robotics to transform mission-critical industrial operations. The solution enables industrial engineers to accelerate design, eliminate simulation bottlenecks, and optimize asset performance; while maintaining full control over proprietary data, IP, and production environments.\nWith Airbus, we are implementing advanced AI at the core of the company's operations and processes, from initial design to on-board capabilities. Our partnership will expand across Airbus' commercial aircraft, helicopter, defence, and space activities. It will support the next decade of innovation, contribute to improve flight safety, and maintain full control of critical data; all while adhering to strict security requirements.\nFor BMW Group, we are a central partner for their “Large Industry Model” (LIM) initiative. The collaboration unifies engineering knowledge and AI expertise to build multimodal reason…",
-      "published_at": "2026-05-28",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Bringing more control over your connectors | Mistral AI",
-      "url": "https://mistral.ai/news/more-control-over-connectors/",
-      "summary": "Thinking\nSummary\nNew admin controls let you manage connector access per workspace or org, while API keys with scoped permissions and multi-account connectors enhance security for automated AI workloads. The Connectors Debugger provides detailed root cause analysis for broken connections, and integrations in Workflows and Vibe Code ensure seamless, governed access to enterprise tools. Over 60 pre-built connectors are available, with custom MCP options for additional platforms.\nGovern which tools run where, connect more than one account to a single connector, and trace any connection that breaks.\nToday, we are introducing several new capabilities in Connectors for a more secure experience integrating to external enterprise platforms. Starting now, you can use:\n- Enriched admin controls (GA) to set connector access per workspace and switch individual tools on or off across an org or workspace \n- API keys with connector scopes (GA) to prevent impersonation in automated AI workloads that integrate with 3rd-party systems \n- Multi-account connectors (GA) allowing users to authenticate to a single connector with multiple accounts \n- Connectors Debugger (Public Preview) for end-to-end root cause analysis for MCP connectors \n- Connectors in Vibe Code (GA) to reuse your connectors in developer interfaces \n- Connectors in Workflows (Public Preview) allow for uninterrupted long-running tasks powered by all the tools you need \nAsync agents are moving into everyday work. For an agent to be …",
-      "published_at": "2026-06-24",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Leanstral 1.5: Proof Abundance for All",
-      "url": "https://mistral.ai/news/leanstral-1-5/",
-      "summary": "Thinking\nSummary\nLeanstral 1.5, a free Apache-2.0 licensed model with 6B active parameters, delivers a major performance upgrade in formal verification, saturating miniF2F, solving 587/672 PutnamBench problems, and achieving state-of-the-art results on FATE-H (87%) and FATE-X (34%). Trained through mid-training, supervised fine-tuning, and reinforcement learning with CISPO, it excels in agentic proof engineering and real-world code verification, uncovering 5 previously unknown bugs across 57 repositories tested. Fully open-sourced and available via Hugging Face and a free API, Leanstral 1.5 is now accessible for practical proof engineering in Lean 4.\nSince its launch, Leanstral has offered an open, practical approach to proof engineering in Lean 4. Today, we are releasing Leanstral 1.5, a free Apache-2.0 licensed model with 119B total and only 6B active parameters, delivering a performance upgrade that makes formal verification more powerful and accessible than ever.\nLeanstral 1.5 saturates miniF2F, solves 587/672 PutnamBench problems, and achieves a new state-of-the-art of %87 on FATE-H and 34% on FATE-X. Beyond benchmarks, it verifies complex code properties and uncovers previously unknown bugs in open-source repositories—proving that rigorous formal methods can be both effective and practical for real-world use.\nTraining Leanstral\nLeanstral 1.5 goes through a three-stage process: mid-training, supervised fine-tuning, and reinforcement learning with CISPO. Leanstral 1.5 lev…",
-      "published_at": "2026-07-02",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "Robostral Navigate: single-camera AI navigation | Mistral AI",
       "url": "https://mistral.ai/news/robostral-navigate/",
       "summary": "Introducing \n Robostral Navigate \nThinking\nSummary\nRobostral Navigate is an 8B model that enables robots to autonomously navigate complex environments using only a single RGB camera, achieving 76.6% success on unseen R2R-CE benchmarks—outperforming multi-sensor approaches while being more efficient. Built entirely in-house with simulation-trained data and token-efficient techniques, it generalizes across robot types and adapts to real-world obstacles unseen during training. The model combines pointing-based navigation with reinforcement learning for continuous improvement, paving the way for unified embodied AI in robotics.\nToday we're introducing Robostral Navigate, our first model built for embodied navigation. It's an 8B model that takes RGB images and a plain-language instruction and moves a robot through an environment:\n“Leave the lobby, walk through the corridor, enter the supply room, and stop to face the second shelf.”\nTo perform such tasks, other models often employ depth sensors, LiDAR, or several cameras working together. Robostral Navigate uses only one ordinary RGB camera and no depth sensors, yet still achieves 76.6% on R2R-CE (Room-to-Room in Continuous Environments) validation unseen, the benchmark for following instructions in environments held out of training. Consequently, it beats the best single-camera approach by 9.7 points and the best system using depth or multiple cameras by 4.5 points, despite using neither.\nNavigation\nOur model is designed for robot…",
       "published_at": "2026-01-01",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Speaking of Voxtral | Mistral AI",
-      "url": "https://mistral.ai/news/voxtral-tts/",
-      "summary": "Thinking\nSummary\nMistral AI has launched Voxtral TTS, a 4B-parameter text-to-speech model delivering state-of-the-art multilingual voice generation with realistic, emotionally expressive speech in 9 languages, low latency, and easy voice adaptation. The model excels in contextual understanding, speaker modeling, and zero-shot cross-lingual voice adaptation, making it ideal for enterprise voice workflows and scalable AI agents. Available via API and Mistral Studio, it offers cost-effective, high-quality voice generation starting at $0.016 per 1k characters.\nToday we’re releasing Voxtral TTS, our first text-to-speech model with state-of-the-art performance in multilingual voice generation. The model is lightweight at 4B parameters, making Voxtral-powered agents natural, reliable, and cost-effective at scale.\nHighlights.\n- Realistic, emotionally expressive speech in 9 popular languages with support for diverse dialects. \n- Very low latency for time-to-first-audio. \n- Easily adaptable to new voices. \n- Available to test out in Mistral Studio. \n- Enterprise-grade text-to-speech, powering critical voice agent workflows. \nA natural voice generation hinges on the model’s ability to not only recite but interpret a text accurately. Contextual understanding - like neutral, happy, sarcastic, etc. - determines whether the listener considers the generation accurate or robotic. Our model excels at both contextual understanding and speaker modeling: capturing how a specific person naturally …",
-      "published_at": "2026-03-23",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Introducing Mistral Small 4 | Mistral AI",
-      "url": "https://mistral.ai/news/mistral-small-4/",
-      "summary": "Today, we are announcing Mistral Small 4. This model is the next major release in the Mistral Small family. Mistral Small 4 is the first Mistral model to unify the capabilities of our flagship models, Magistral for reasoning, Pixtral for multimodal, and Devstral for agentic coding, into a single, versatile model. With Small 4, users no longer need to choose between a fast instruct model, a powerful reasoning engine, or a multimodal assistant: one model now delivers all three, with configurable reasoning effort and best-in-class efficiency.\nMistral Small 4 is released under the Apache 2.0 license, continuing our commitment to open, accessible, and customizable AI.\nA new standard for multimodal, reasoning-optimized models\nMistral Small 4 is a hybrid model optimized for general chat, coding, agentic tasks, and complex reasoning. Its architecture supports both text and image inputs, making it versatile for a wide range of applications. With Mistral Small 4, we reaffirm our commitment to open-source models and are proud to join the NVIDIA Nemotron Coalition as a founding member, advancing collaboration and innovation in AI development.\nKey architectural details\n- Mixture of Experts (MoE): 128 experts, with 4 active per token, enabling efficient scaling and specialization. \n- 119B total parameters, with 6B active parameters per token (8B including embedding and output layers). \n- 256k context window, supporting long-form interactions and document analysis. \n- Configurable reasoning…",
-      "published_at": "2026-03-16",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Remote agents in Vibe. Powered by Mistral Medium 3.5. | Mistral AI",
-      "url": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/",
-      "summary": "Thinking\nSummary\nMistral has moved coding agents to the cloud, enabling parallel, asynchronous task execution via Mistral Medium 3.5—a new 128B open-weight model optimized for long-horizon coding and productivity work. The update introduces remote agents in Mistral Vibe and Le Chat, along with a new Work mode for multi-step tasks like research and cross-tool workflows, all while maintaining human oversight for sensitive actions. Available today on Pro, Team, and Enterprise plans, Mistral Medium 3.5 is priced at $1.5 per million input tokens and $7.5 per million output tokens.\nCoding agents have mostly lived on your laptop. Today we're moving them to the cloud, where they run on their own, in parallel, and notify you when they're done. You can start them from the Mistral Vibe CLI or directly in Le Chat, offloading a coding task without leaving the conversation.\nPowering this is Mistral Medium 3.5 in public preview, our new default model in Mistral Vibe and Le Chat, built to run for long stretches on coding and productivity work. The new Work mode in Le Chat (Preview) extends this with a powerful agent for complex, multi-step tasks like research, analysis, and cross-tool actions.\nHighlights.\n- Mistral Medium 3.5, a new flagship model that merges instruction-following, reasoning, and coding into a single 128B dense model. Released as open weights, under a modified MIT license. \n- Strong real-world performance at a size that runs self-hosted on as few as four GPUs. \n- Mistral Vib…",
-      "published_at": "2026-05-22",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Mistral OCR 4 : SOTA OCR for Document Intelligence",
-      "url": "https://mistral.ai/news/ocr-4/",
-      "summary": "Title\nSubtitle\nText\nImage\nTable\nThinking\nSummary\nMistral OCR 4 introduces breakthrough document parsing with bounding boxes, block classification, and inline confidence scores, supporting 170 languages and running in a single container for self-hosted deployments. It outperforms leading OCR systems in human evaluations and benchmarks while offering cost-efficient, high-throughput processing for enterprise search, RAG, and agentic workflows. Available via API or Document AI, it provides structured outputs for custom pipelines or no-code applications, with self-hosting options for data privacy.\nToday, we're releasing Mistral OCR 4, featuring bounding boxes, block classification, and inline confidence scores alongside extracted text. The model supports 170 languages across 10 language groups, runs in a single container for fully self-hosted deployments, and serves as an ingestion component for enterprise search, RAG, and domain-specific retrieval pipelines. OCR 4 is a small, focused model, and this post covers what's new, how it performs on public and internal benchmarks, the known limitations of those benchmarks, and guidance on when to use the model API versus Document AI.\nHighlights\n- Breakthrough performance. Independent annotators prefer OCR 4 over every leading OCR and document-AI system tested, with win rates averaging 72%, alongside the top overall score on OlmOCRBench (85.20). See Benchmarks below for methodology and known scoring limitations. \n- Segmentation, not just …",
-      "published_at": "2026-06-23",
       "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
@@ -400,6 +246,17 @@
       "macro_score": 0
     },
     {
+      "title": "Any guidance for LangGraph Checkpoint Implementation for HTTP based service?",
+      "url": "https://forum.langchain.com/t/any-guidance-for-langgraph-checkpoint-implementation-for-http-based-service/4121",
+      "summary": "Hi,\nWe have an OData API (REST) to manage checkpoints and checkpoint writes and don’t unfortunately have a way to bypass the API layer and directly perform checkpoint operations on the DB layer itself. I see that existing checkpoint such as postgres and others are directly at DB-layer. Any suggestions for checkpoints via API layer.\nBest, Santosh\n             \n            \n           \n          \n            \n            \n              Hi @santosh-nallur\nyes, this can work. LangGraph does not require the checkpointer to talk directly to a DB. Postgres and SQLite savers are just implementations of the BaseCheckpointSaver contract. In your case I’d build a custom saver that maps put/aput, put_writes/aput_writes, get_tuple/aget_tuple, list/alist, and delete_thread/adelete_thread to your OData API.\nThe main thing is to preserve the same semantics: checkpoints should be keyed by thread_id, checkpoint_ns, and checkpoint_id, and writes should be linked to the same checkpoint plus task_id, task_path, and write index. Make sure get_tuple can fetch both the latest checkpoint and a specific checkpoint_id, since replay, time travel, pending writes, and delta-channel reconstruction depend on that.\nI’d also avoid hand-serializing checkpoint data as plain JSON. Use the LangGraph saver serde methods for checkpoints, metadata, and write values, then store the typed blob through your API, for example as binary or base64. Finally, run langgraph-checkpoint-conformance against the custom saver - it…",
+      "published_at": "2026-07-08",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Make 2 ai vtubers talk to eachother in vtube studio With functioning token System For mouths (working code example for everyone cause i could not find this anywhere)",
       "url": "https://discuss.huggingface.co/t/make-2-ai-vtubers-talk-to-eachother-in-vtube-studio-with-functioning-token-system-for-mouths-working-code-example-for-everyone-cause-i-could-not-find-this-anywhere/177555",
       "summary": "Oh. After trying a few things in Colab, I think I may have identified at least some of the weak points in the current implementation:\nThe overall architecture you ended up with looks like the right one:\nAli TTS\n→ Ali mouth-analysis loop\n→ Ali VTS client\n→ Ali VTube Studio port/session\n→ Ali model\nHara TTS\n→ Hara mouth-analysis loop\n→ Hara VTS client\n→ Hara VTube Studio port/session\n→ Hara model\nIn other words:\n- one WebSocket client per VTube Studio instance;\n- one configured port per client;\n- separate token storage so the clients cannot accidentally overwrite each other’s local token state;\n- each TTS stream sends MouthOpenonly through its own VTS client.\nBoth models can use the parameter name MouthOpen. Because they are running in separate VTube Studio instances, those are separate API contexts. The VTS rule that only one plugin can normally \"set\" a parameter applies within one VTS instance, not across two separate instances.\nI do not think the remaining weak points are mainly about needing another mouth parameter. They look more like authentication-session state, reconnection state, and cleanup state.\nThe four changes I would make first are:\n- Read the actual AuthenticationResponse.data.authenticatedvalue.\n- Store a newly received token in self.tokenas well as in the token file.\n- Clear the local authenticated/ready state as soon as the socket disconnects.\n- Put TTS/mouth cleanup in a finallyblock.\nRecommended default lifecycle\nFor each character, I would use this sequenc…",
@@ -504,6 +361,17 @@
       "summary": "I opened PR #8291 to add a few small, dependency-free utilities to langgraph.prebuilt for two patterns that teams frequently re-implement when working with ToolNode:\nbuild_tool_call_key, deduplicate_tool_calls, and deduplicate_tool_calls_in_state\nRemove duplicate parallel tool calls from the trailing AIMessage (first occurrence wins).\nchain_tool_wrappers and chain_async_tool_wrappers\nCompose multiple wrap_tool_call / awrap_tool_call interceptors into a single wrapper. Under async execution, synchronous wrappers are transparently run in a worker thread so they don’t block the event loop.\nThese utilities build entirely on the existing ToolCallRequest / ToolCallWrapper APIs and do not require any changes to ToolNode itself. The accompanying tests are included and passing.\nWould this be a direction the maintainers would welcome in langgraph.prebuilt? If so, I’d be happy to link an approved issue so PR #8291 can be reopened.\nThanks for putting this together — the PR is clean, dependency-free, and the test coverage is genuinely nice to see. A few honest notes on direction so you don’t invest further in the wrong spot, plus where I think the valuable part should land.\nShort version: the dedup idea is the keeper; the wrapper-chaining is already covered by the framework; and langgraph.prebuilt is the wrong home for new public API here.\nOn placement. Tool-call interception is deliberately consolidating in the langchain package’s agent middleware. In LangGraph v1, create_react_agent (an…",
       "published_at": "2026-07-06",
       "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "If unsure, ask. Never guess. — AI Agent Pre-Execution Checklist",
+      "url": "https://discuss.huggingface.co/t/if-unsure-ask-never-guess-ai-agent-pre-execution-checklist/176632",
+      "summary": "If unsure, ask. Never guess.\nAI Agent Pre-Execution Checklist\nHumans give incomplete instructions.\nAI tries to interpret them as if they were complete.\nThat is where the problem begins.\nIf an agent executes while required information remains unverified, the result is not simply a model error — it is a pre-execution confirmation failure. Many vibe coding mistakes are not due to lack of coding ability, but because the necessary questions were never asked before execution.\nAI does not reliably know what it does not know. That is why a simple recommendation is not enough. What is needed is a structural enforcement logic — a checklist that must be verified before any action is taken.\nThis document proposes a way to control AI execution through rules, not code. Implementation may vary, but the core principle is this: declare the rules, and let AI follow them — instead of hardcoding behavior.\nThis document defines principles and structure. How they are applied depends on each system, organization, and regulatory body’s own policies and agreements.\nCore Structure (Fixed Checklist)\n| C | Item | Description | \n|---|---|---|\n| C1 | When / Case | When, or under what condition, should this Action be executed? | \n| C2 | User Action Name | What does the user call this Action? (intent) | \n| C3 | Provider Action Name | The Action name actually invoked by the system | \nChecklist Layers\n- Fixed Checklist — Minimum required items common to all Actions; defines the execution unit\n- Provider Check…",
+      "published_at": "2026-06-09",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -695,6 +563,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "Space stuck in APP_STARTING indefinitely",
+      "url": "https://discuss.huggingface.co/t/space-stuck-in-app-starting-indefinitely/177564",
+      "summary": "My Docker Space (free cpu-basic) has been stuck in APP_STARTING for over an hour and won’t come up.\nWhat I’m seeing:\nThe API reports stage: APP_STARTING with hardware.current: null while hardware.requested: cpu-basic. So no machine is actually being allocated.\nIn the Hardware settings, the “CPU basic” card shows a spinner as if it’s continuously searching for resources.\nThe public endpoint times out (HTTP 000).\nWhen it did briefly start earlier, the container logs were completely clean — the app bound correctly to 0.0.0.0:7860 and logged Server listening, but the UI never transitioned to Running.\nWhat I’ve already tried (none worked):\nRestart (rebuilds in ~0.5s from cache, then straight to “starting”, nothing happens)\nFactory rebuild (full rebuild completes, still stuck)\nToggling hardware / re-selecting CPU basic\nThis looks like a scheduling / hardware-capacity issue on HF’s side rather than my app. Is there a current capacity shortage on the free cpu-basic pool? How long does this usually take to resolve, and is there anything I can do besides waiting?\nThanks!\nI have some news, my space just did runtime error\nScheduling failure: unable to schedule\nContainer logs:\nI can confirm that I am experiencing the same issue on my side.\nI tested a newly created Docker Space with a minimal Streamlit application. The image builds successfully, but the Space remains stuck at “Starting”, and the container log shows only:\n===== Application Startup =====\nThis appears to be the same issue rep…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "DiffusionGemma",
@@ -1093,28 +972,6 @@
       "macro_score": 1
     },
     {
-      "title": "Version control for prompts & skills in Studio | Mistral",
-      "url": "https://mistral.ai/news/manage-prompts-and-skills-in-studio/",
-      "summary": "Thinking\nSummary\nMost enterprises struggle with unmanaged, scattered AI prompts and skills, leading to inconsistent behavior and untraceable issues. Studio provides a centralized system of record for versioning, ownership, and traceability, enabling fast iteration and controlled deployment while maintaining compliance. By treating prompts as production assets with immutable versions, clear ownership, and audit logs, Studio ensures AI behavior is governed, discoverable, and aligned with business policies.\nMost enterprises can't say which version of a prompt is running in their AI right now. The instructions that decide how that AI behaves get scattered the moment more than one team touches them, leading to an inconsistent experience for users and an untraceable problem for teams.\nAs of today, Studio gives your Prompts and Skills a system of record: a single place where each one is versioned, owned, and traceable.\nPrompts and skills outgrew the way they're managed\nPrompts and Skills are production assets. They hold the business logic, the tone, and the policy your AI follows when it answers a customer or makes a call. What your AI does in front of a customer comes down to the prompts and skills in use. When that behaviour is wrong, the fix has to ship as fast as any production incident, not wait for the next code release.\nAnd in most enterprises, they're managed like scratch notes. Prompts started as quick experiments, then they shipped. Now they sit in code repos, notebooks, a…",
-      "published_at": "2026-07-09",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 1
-    },
-    {
-      "title": "第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元",
-      "url": "https://www.qbitai.com/2026/07/446843.html",
-      "summary": "第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元\n中国航空创新创业大赛CAIEC是专注航空全产业链的全国性双创赛事，由中国航空学会、商务部投资促进事务局于2016年共同发起主办。\n2026 年是十五五规划开局之年，航空航天产业从政策培育期迈入规模落地期，迎来历史性发展机遇。为深入贯彻落实全国两会精神，大力发展新质生产力，加快构建现代化航空产业体系，推动低空经济、商业航天等战略性新兴产业高质量发展，第十一届大赛全面升级，领域赛与全国总决赛将在首届中国空天科技博览会现场同期举办，活动形式更丰富。\n大赛立足前瞻创新、开放权威，持续汇聚海内外空天创新力量，以赛聚链、以创赋能，为每一位空天科技创业者提供成长支撑与发展助力，携手共筑空天产业新生态，全力推动我国航空科技实现高水平自立自强。\n中国航空学会\n中国航空工业集团有限公司\n中国航空发动机集团有限公司\n中国商用飞机有限责任公司\n中国国新控股有限责任公司\n中国科协创新融合学会联合体\n聚焦航空航天先进材料、新型智能制造工艺、机载关键设备、飞机设计与数字化能力建设相关的技术、产品、服务与供应链。 重点包括：\n先进材料\n高性能金属材料、有机高分子材料、先进复合材料、隐身/功能材料、超材料及其高性能结构材料。\n新型工艺\n智能加工制造工艺、增材制造（3D 打印）、精密成型、表面工程与功能涂层、先进连接与装配技术。\n动力系统\n新型高温合金、金属间化合物、陶瓷基复合材料 （CMC）、热障涂层及先进冷却系统。\n设计制造能力\n基于模型系统工程（MBSE）、数字孪生、工艺仿真、信息化能力建设及先进检测技术。\n聚焦新型飞行器整机研发、核心零部件及支撑性保障体系。 重点包括：\n飞行器制造\n各类任务导向的新型无人机、城市空中交通、 自动驾驶飞行器整机制造。\n核心系统\n高集成飞控与数据链系统、环境感知与避障、先进电机电控、分布式推进系统、混合动力系统、专用任务载荷。\n能源与保障\n氢能源动力、高能量密度电池与热管理、含能燃料及推进剂。\n基础设施与服务\n低空智联网、通信导航监视、起降场（机巢）建设、低空监管平台、维修服务及适航安全保障体系。\n聚焦国产大飞机供应链关键技术及智慧民航运行生态。重点包括：\n机载与核心系统\n民用航空电子系统、机载传感器、航空级芯片、新一代通信与网络安全、飞行管理系统、飞机电气与环境内饰系统、起落架系统。\n绿色与动力\n清洁能源动力、大涵道比商用航空发动机、可持续航空燃料及其高效燃烧技术。\n智慧运行\n航空器全生命周期健康管理、空管全域协同技术、 机场智慧运行与管理、智慧维修、多式联运、民航数字化平台及大数据分析。\n聚焦临近空间、先进空天装备及颠覆性未来技术。重点包括：\n先进空天装备\n临近空间无人机、空天飞机、可重复使用运载器、高超声速飞行器、商业航天器。\n空间基础设施\n卫星互联网与通信、高通量通信卫星、遥感卫星、北斗卫星导航增强系统、在轨服务与空间碎片清除技术。\n跨界与前沿应用\n空海跨域作业装备、航空搜救探测系统、行星探测与资源利用技术。\n颠覆性技术\n量子通信技术、6G网络设备、核动力推进、通用人工智能、空间机器人与智能自主系统。\n评选分为项目初审、领域赛和全国总决赛三个阶段。各阶段评审工作均按照“公平、公正、公开”的原则进行评审，各领域赛均由 20 名以上航空技术、风投、管理的权威专家，从“技术与产品创新性”、“市场前景与重要性”、“团队研发与生产经营实力”、“商业模式与盈利能力”等方面进行评审。全国总决赛将由60名权威评委现场评审。\n初审阶段为了让早报名的项目更早地知道在评委眼中参赛资料是否有明显的内容缺…",
-      "published_at": "2026-07-09",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "Zero-Shot提升31%！原力灵机DM0.5登场，15万小时数据喂出",
       "url": "https://www.qbitai.com/2026/07/447508.html",
       "summary": "Zero-Shot提升31%！原力灵机DM0.5登场，15万小时数据喂出\n“已经出现泛化涌现”\n衡宇 发自 凹非寺\n量子位 | 公众号 QbitAI\n具身智能这个行业里吧，几乎没什么共识。\n不过有一点大家共同认可：数据飞轮转不起来，是行业最大的阻碍之一。\n如果遵循Scaling Law，具身智能同样需要更大的数据规模、更高质量的数据闭环，以及更强的算力。\n算力问题的解决路径相对清晰；但数据这边，想追求百万小时级的数据，靠纯人工采集真的很费时费力，咱真的等不起。\n要求严一点，要数据又多又具备真实任务价值，用脚后跟想想都知道更更更更难了。\n比较理想的状态就是把采具身数据这件事，从被动“采集型数据”，变成真实业务里持续产生的“场景型数据”，以此推动和加速数据飞轮转起来。\n这方面具身智能明星创业公司原力灵机做得有点说法，挺有代表性。\n其核心创始团队出自旷视科技，具备大规模AI模型训练、机器人落地和高可靠硬件量产经验；公司最近又和物流机器人公司Atomix完成合并，补上了真实场景侧的关键拼图。\n经验和场景在手肯定也不能说稳赢，毕竟如果把一个半吊子模型扔到场景里，它也吃不进or消化不好数据。\n今天的原力灵机开发者大会上，这家公司就把新一代具身基础模型DM0.5端上了桌。\n往前，它能接住数据飞轮；往后，它连着开发者平台与真实场景，可以说是后续一切落地动作的底座。\n15万小时数据，DM0.5的硬核底座\n原力灵机给DM0.5赋予的关键词是“更大、更强、更实用”。\n它被定位为“面向开放世界的通用具身基础模型”，参数规模为4B，相比上一代DM0参数规模翻倍。\n相比上一代基础模型，DM0.5的数据量则增加了400%。\n这些数据由三类高质量数据共同构成。\n第一类是真机数据。\nDM0.5使用了5万小时高精度操作数据，覆盖100多种丰富动作，并实现秒级精细指令动作对齐。\n这类数据主要负责解决机器人如何在真实物理世界里完成操作的相关问题。\n第二类是Egocentric数据，也就是第一视角数据。\n10万小时Ego数据，让模型能够从类似人类视角理解环境，并支持毫米级高精度3D Landmark生成。\n第三类是场景重建数据。\n团队通过100万平方米空间数据建模复杂室内环境，帮助模型降低Sim2Real Gap（仿真环境和现实世界之间的差距）。\n高质量数据之外，DM0.5还在模型架构上做了三项关键创新。\n1、上下文抽象层\n现实场景里具身智能面对的任务，多是数分钟甚至更久的长周期作业，必须加强对前序步骤和状态的记忆。\n经过高效上下文压缩，DM0.5原生支持最长60秒记忆能力（平均水平在30秒上下）。\n模型能更精准地提取并保留关键的历史上下文，理解更长时间范围内发生的动作和环境变化，减少在长周期连贯作业中的断片情况。\n2、具身思维链任务\n原力灵机的具身模型主要走的还是VLA路线，但VLA模型其实更多关注视觉输入到动作输出之间的映射，在理解和执行能力上目前的技术还是差点意思，遇到复杂场景容易盲目试错甚至卡壳。\nDM0.5引入了任务规划、目标定位、未来状态预测等推理任务，让模型学到“先谋后动”这一招。\n面对复杂指令时，它会在内部将大目标拆解为多个子任务，规划好先后顺序与动作逻辑再下手，大幅降低无效动作和失败率。\n3、轨迹对齐层\n理想中的状态是咱们用嘴说句话支使机器人干活，但从它听到话到机械臂各个关节毫米级转动，中间的鸿沟也就比马里亚纳海沟浅一点点。\n轨迹对齐层在模型中起到专八级别的翻译官式的作用，让动作学习从传统“对点”走向“对齐”，帮助模型理解运动过程中的规律。\n以上提到的数据和架构上的升级…",
@@ -1128,7 +985,7 @@
     {
       "title": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0",
       "url": "https://www.qbitai.com/2026/07/447597.html",
-      "summary": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0\n7月10日，蚂蚁灵波发布业界首个具身原生世界动作模型LingBot-VA 2.0。该模型的发布，标志着机器人基础模型正式从“基于数字世界模型构建”到“面向物理世界原生设计”的关键转变。它代表了具身智能发展的一种关键路线选择：机器人“大脑”不再依托数字世界模型能力的“嫁接”，而是从动态建模、因果预测、实时执行等与环境交互的原始需求出发，进行原生设计。\n得益于具身原生架构，LingBot-VA 2.0在真机测试中表现出了出色的执行速度和泛化能力。以下面这个视频为例，在不依赖任何外部拍摄设备的情况下，机器人就可以完成与人类的多轮随机对打。\n今年以来，世界模型与具身智能怎么融合一直是各方关注的焦点。以终为始，从物理世界的“控制执行”需求出发，就需要持续符合因果规律的“预测能力”。机器人要面对的是一个连续变化的真实世界，不仅要针对当前情况作出反应，还要理解一个动作会引发怎样的环境变化，并据此决定下一步动作。当前行业主流路线大多依托面向数字内容创作的视频生成模型，再通过微调的方式适配机器人控制任务。\n然而内容创作和机器人控制有着不同的出发点，内容创作更在意画质和创意，机器人控制则更在意执行效率和预测的合理性。上述这些不同导致数字世界的视频模型和物理世界的视频动作模型在设计之初就有各自的能力侧重点，强行‘微调’把前者适配成后者会带来知识遗忘、泛化性下降等副作用。\nLingBot-VA 2.0选择直面问题，探索一条更艰难的路——基于自回归架构从头开始预训练，通过四大核心设计构建原生基模。\n首先，模型引入语义视觉-动作分词器（Tokenizer）作为全新的视觉编码器，在视觉压缩过程中加入了语义与动作信息的对齐，使模型在后续的训练中更容易把“理解指令”转化为“完成动作”，有助于指令跟随与提升动作精度。其次，模型采用严格的因果预训练范式，让模型从训练一开始就使用自回归架构，确保视觉预测和动作生成完全遵循单向时间顺序。第三，引入MoE架构，在不牺牲推理效率的前提下有效扩大了模型容量，在性能和效率之间取得平衡。最后，通过增强的异步推理机制实现实时闭环控制，在机器人执行动作的同时预测未来状态，并利用最新真实观测不断校正下一步决策。基于这些设计，在行业普遍面临的具身世界模型执行效率低这一问题上，LingBot-VA 2.0给出了单卡150Hz实时推理效率的答卷。\n从“干活”的角度出发，机器人需要“看的更清楚”“想的更明白”“干的更利索”。本周，蚂蚁灵波已经连续发布和开源了多款模型，包括：面向空间感知的LingBot-Vision和LingBot-Depth 2.0、面向“一脑多机”的动作模型LingBot-VLA 2.0、面向实时交互的LingBot-World 2.0和面向更高推理效率的视频生成基模LingBot-Video。上述模型代表着蚂蚁灵波在持续探索具身原生需要的细分方向能力，而LingBot-VA 2.0作为集大成者扮演了收官之作的角色，也正式开启了具身原生新阶段。\n蚂蚁灵波CEO朱兴表示，一方面灵波将持续探索具身智能新上限，另一方面也将加速构建开放的技术生态和场景生态，助力机器人加速走向产业场景。\n据悉，蚂蚁灵波将于7月17日至20日在2026世界人工智能大会（WAIC）期间，全面展示全栈大脑2.0落地场景的能力。观众可前往上海世博展览馆（H3-B302、H1-C701展位）进行现场体验。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- AI聪明够了，行动呢？WAIC首夜，…",
+      "summary": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0\n7月10日，蚂蚁灵波发布业界首个具身原生世界动作模型LingBot-VA 2.0。该模型的发布，标志着机器人基础模型正式从“基于数字世界模型构建”到“面向物理世界原生设计”的关键转变。它代表了具身智能发展的一种关键路线选择：机器人“大脑”不再依托数字世界模型能力的“嫁接”，而是从动态建模、因果预测、实时执行等与环境交互的原始需求出发，进行原生设计。\n得益于具身原生架构，LingBot-VA 2.0在真机测试中表现出了出色的执行速度和泛化能力。以下面这个视频为例，在不依赖任何外部拍摄设备的情况下，机器人就可以完成与人类的多轮随机对打。\n今年以来，世界模型与具身智能怎么融合一直是各方关注的焦点。以终为始，从物理世界的“控制执行”需求出发，就需要持续符合因果规律的“预测能力”。机器人要面对的是一个连续变化的真实世界，不仅要针对当前情况作出反应，还要理解一个动作会引发怎样的环境变化，并据此决定下一步动作。当前行业主流路线大多依托面向数字内容创作的视频生成模型，再通过微调的方式适配机器人控制任务。\n然而内容创作和机器人控制有着不同的出发点，内容创作更在意画质和创意，机器人控制则更在意执行效率和预测的合理性。上述这些不同导致数字世界的视频模型和物理世界的视频动作模型在设计之初就有各自的能力侧重点，强行‘微调’把前者适配成后者会带来知识遗忘、泛化性下降等副作用。\nLingBot-VA 2.0选择直面问题，探索一条更艰难的路——基于自回归架构从头开始预训练，通过四大核心设计构建原生基模。\n首先，模型引入语义视觉-动作分词器（Tokenizer）作为全新的视觉编码器，在视觉压缩过程中加入了语义与动作信息的对齐，使模型在后续的训练中更容易把“理解指令”转化为“完成动作”，有助于指令跟随与提升动作精度。其次，模型采用严格的因果预训练范式，让模型从训练一开始就使用自回归架构，确保视觉预测和动作生成完全遵循单向时间顺序。第三，引入MoE架构，在不牺牲推理效率的前提下有效扩大了模型容量，在性能和效率之间取得平衡。最后，通过增强的异步推理机制实现实时闭环控制，在机器人执行动作的同时预测未来状态，并利用最新真实观测不断校正下一步决策。基于这些设计，在行业普遍面临的具身世界模型执行效率低这一问题上，LingBot-VA 2.0给出了单卡150Hz实时推理效率的答卷。\n从“干活”的角度出发，机器人需要“看的更清楚”“想的更明白”“干的更利索”。本周，蚂蚁灵波已经连续发布和开源了多款模型，包括：面向空间感知的LingBot-Vision和LingBot-Depth 2.0、面向“一脑多机”的动作模型LingBot-VLA 2.0、面向实时交互的LingBot-World 2.0和面向更高推理效率的视频生成基模LingBot-Video。上述模型代表着蚂蚁灵波在持续探索具身原生需要的细分方向能力，而LingBot-VA 2.0作为集大成者扮演了收官之作的角色，也正式开启了具身原生新阶段。\n蚂蚁灵波CEO朱兴表示，一方面灵波将持续探索具身智能新上限，另一方面也将加速构建开放的技术生态和场景生态，助力机器人加速走向产业场景。\n据悉，蚂蚁灵波将于7月17日至20日在2026世界人工智能大会（WAIC）期间，全面展示全栈大脑2.0落地场景的能力。观众可前往上海世博展览馆（H3-B302、H1-C701展位）进行现场体验。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 2026年世界人工智能大会，7月17…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1148,11 +1005,33 @@
       "macro_score": 0
     },
     {
+      "title": "Introducing Forge | Mistral AI",
+      "url": "https://mistral.ai/news/forge/",
+      "summary": "Today, we’re introducing Forge, a system for enterprises to build frontier-grade AI models grounded in their proprietary knowledge.\nMost AI models available today are trained primarily on publicly available data. They are designed to perform well across a broad range of tasks. But enterprises operate using internal knowledge: engineering standards, compliance policies, codebases, operational processes, and years of institutional decisions.\nForge bridges the gap between generic AI and enterprise-specific needs. Instead of relying on broad, public data, organizations can train models that understand their internal context embedded within systems, workflows, and policies, aligning AI with their unique operations.\nMistral AI has already partnered with world-leading organizations, like ASML, DSO National Laboratories Singapore, Ericsson, European Space Agency, Home Team Science and Technology Agency (HTX) Singapore, and Reply to train models on the proprietary data that powers their most complex systems and future-defining technologies.\nTraining models on institutional knowledge.\nForge enables enterprises to build models that internalize their domain knowledge. Organizations can train models on large volumes of internal documentation, codebases, structured data, and operational records. During training, the model learns the vocabulary, reasoning patterns, and constraints that define that environment.\nThis allows teams to develop models and agents that reason using internal termino…",
+      "published_at": "2026-03-17",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！",
       "url": "https://www.qbitai.com/2026/07/447627.html",
       "summary": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！\n开源第四弹：LingBot-VA 2.0\n金磊 发自 凹非寺\n量子位 | 公众号 QbitAI\n终于，那句用来教育年轻人的经典嗑，也是用到机器人身上了：\n你们啊，\n眼光得放长远点~~[看]\n为啥？\n因为一个靠谱的机器人啊，它不能只是看到什么就做什么，现在还得学会预判未来——\n眼睛是看到了当下的这一帧，但脑子应该在盘算几步之后的画面了。\n这个事儿在具身智能圈有个专门的名字，叫做VA（Video-Action）模型。\n咱们先来感受一下这个feel：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n从视频中我们不难看出，桌上的冰球不仅速度快，轨迹还在不断变化，如果机器人只靠”看到哪打到哪”的反应式操作，大概率要被KO掉的。\n正确的解法，应该是模型一边盯着球的运动轨迹，一边提前预判几步之后球会跑到哪，然后提前调整身位、伸拍。\n这就是“预判式控制”和“反应式控制”的本质区别。\n不过啊，就在今天，VA这件事儿本身也要变了。\n因为从现在起，VA模型不仅要“眼光放长远”，还得从娘胎里就是具身的！\n这就是蚂蚁灵波刚刚发布的LingBot-VA 2.0，全球第一个具身原生的预训练VA基座模型。\n从架构，到数据，再到训练目标，第一天起就是为机器人量身定制的。\n除此之外，其它亮点还包括：\n- 双臂任务成功率93.6%\n- 单GPU推理150Hz\n- 因果DiT+稀疏MoE主干\n和前几天蚂蚁灵波三连弹开源+发布一样，LingBot-VA 2.0一经发布，同样引发了不小的热议，网友们纷纷表示：\n机器人技术正在迈入一个新时代。\n天生“预言家”的机器人\n看完上面这段冰球对战之后，有小伙伴可能会好奇了：LingBot-VA 2.0的这种预判能力，扛不扛得住更复杂的真实任务？\n巧了。\n研究团队在真实机器人身上还做了几组不同维度的测试，可以看出VA模型会先在脑子里做预判，把动作建立在对物理动态的预测之上。\n任务一：整理桌面\n面对一张东西摆得乱七八糟的桌子，机器人要先看懂桌上有哪些物体，哪些应该被移动，移动到哪里。\n我们来看下LingBot-VA 2.0的表现：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这项任务背后考验的，是模型对长时间跨度任务的状态维持能力；若是记性不好的话，机器人很可能收拾到一半就忘了自己刚刚收拾到了哪一步。\nLingBot-VA 2.0的高维planner面对任务会首先做一个任务拆解，比如左臂负责收拾垃圾归位，右臂把笔和鼠标等文具复位，双臂并行推进还要避免空间冲突。\n视频预测分支天然携带时序状态记忆，每一步操作后的桌面新状态都在模型预测范围内，不会出现“断片”返工。\n语义视觉-动作分词器让视觉latent同时对齐语义信息，物体类别与目标位置的理解在长序列中保持稳定。\n从最终效果看，机器人顺利完成了全桌面整理，说明LingBot-VA 2.0完全可以应对更接近真实生活的长程操作。\n任务二：传送带抓取\n这次任务的场景更接近工厂、仓储里的真实作业。\n物体在传送带上持续移动，机器人要抓的不是一个静止的目标，而是一个正在移动的目标。\n这就要求动作的时间节奏必须和物体的运动节奏严丝合缝地对上，早一点或晚一点，抓取动作都可能扑空。\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这个任务考验的是机器人对连续运动场景…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Workflows for work that runs the business | Mistral AI",
+      "url": "https://mistral.ai/news/workflows/",
+      "summary": "Today, we're releasing Workflows in public preview. Workflows is the orchestration layer for enterprise AI. It brings the durability, observability, and fault tolerance required to move AI-powered processes from proof of concept to production reliably. Organizations like ASML, ABANCA, CMA-CGM, France Travail, La Banque Postale, Moeve, and many more are already running Workflows to automate critical processes.\nEnterprise teams today have access to capable models. What they lack is a way to run them reliably in production. We see this across every industry we work with. The failure modes are consistent: pipelines that run in a notebook but fail silently in production with no trace, long-running processes that can't survive a network timeout, multi-step operations that need human approval mid-execution but have no mechanism to pause and resume, and systems that offer no way to verify they're still doing what they're supposed to after deployment.\nBuilding all of the capabilities to address these challenges is months of complex work for enterprises: the orchestration layer has to be stitched together from scratch, and the components it connects, inference, agents, connectors, observability, each come from different tools with their own interfaces and formats.\nWorkflows is part of Studio, so the orchestration layer and the components it orchestrates are built to work together. Once a business process is identified, developers write the workflow in Python. Every workflow can then be…",
+      "published_at": "2026-04-27",
+      "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1170,11 +1049,33 @@
       "macro_score": 0
     },
     {
+      "title": "Connect the dots: Build with built-in and custom MCPs in Studio | Mistral AI",
+      "url": "https://mistral.ai/news/connectors/",
+      "summary": "Today we are releasing Connectors in Studio to unblock developers building highly customised AI applications grounded in enterprise data. All built-in connectors, as well as custom MCPs, are now available via API/SDK to be used with all model and agent calls.\nWe are also introducing direct tool calling, giving developers precise control over how and when tools are invoked, without authentication barriers getting in the way of testing and iterating. In addition, you can now implement human-in-the-loop approval flows, allowing secure review and confirmation before tool execution, ensuring both flexibility and governance.\n- Programmatic access for creating, modifying, listing and deleting your connectors but also listing their tools and directly running them. \n- All connectors are centrally registered making them available across Mistral apps: LeChat and AI Studio (with Vibe coming soon). \n- Usage via Conversation API, Completions API, and Agent SDK can now facilitate complex workflows and integration with enterprise systems like CRMs, knowledgebases & productivity tools. \nIntegrations that live in the platform, not in your code\nBuilding enterprise AI agents is getting easier. The harder part is everything around them: tracking down the right API docs, writing and maintaining tool functions, building integrations, setting up OAuth, handling token refresh, and debugging edge cases like broken pagination.\nBecause of this, teams keep rebuilding the same integration layer. Even with…",
+      "published_at": "2026-05-22",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名",
       "url": "https://www.qbitai.com/2026/07/447682.html",
-      "summary": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名\n就在下周，世界人工智能大会就要在上海启动了。\n每年这种重磅的AI大会，量子位自然不会缺席。今年量子位的报道团，也会来到线下，为大家带来一手的科技大会讯息。\n但在展台之外，我们想办一场“真话局”。\nWAIC的展台会告诉你AI有多聪明：更强的模型、更炫的Demo、更多的人形机器人。\n但我们想要追问一个问题：\nAI聪明够了，行动呢？\nAgent在Demo里调用工具行云流水，但有多少进了客户的核心流程？世界模型把仿真精度推到再高，机器人第一次进工厂时，剩下的发生了什么？\n从“会回答”到“能完成”，从“预测”到“执行”，这是今年WAIC背后的现实考题。\n7月17日19:30，上海浦东。让我们一起关掉PPT、跳出展台，来与Builder、Researcher、Investor一起，提前理解AI的下一步。\n活动议程\n19:30 – 20:00\n签到 & 交个朋友\n20:00 – 20:30\n主题：Agent从聊天框到正式上岗了吗？\n分享嘉宾：\n张昊然，Evomap 创始人&CEO\n李志宇，记忆张量 CTO\n20:30 – 21:00\n主题：模型能从Github到与世界交互了吗？\n分享嘉宾：\n梁鼎，VAST CTO\n陆弘远，脸谱心智创始人\n21:00 – 21:30\n自由交流\n报名方式\n- 7月17日 晚19:30\n- 上海浦东·咖啡馆\n报名链接：https://hdxu.cn/1KEE3\n7月17日19:30，关掉PPT、跳出展台。\n让我们一起提前理解AI的下一步。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
+      "summary": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名\n就在下周，世界人工智能大会就要在上海启动了。\n每年这种重磅的AI大会，量子位自然不会缺席。今年量子位的报道团，也会来到线下，为大家带来一手的科技大会讯息。\n但在展台之外，我们想办一场“真话局”。\nWAIC的展台会告诉你AI有多聪明：更强的模型、更炫的Demo、更多的人形机器人。\n但我们想要追问一个问题：\nAI聪明够了，行动呢？\nAgent在Demo里调用工具行云流水，但有多少进了客户的核心流程？世界模型把仿真精度推到再高，机器人第一次进工厂时，剩下的发生了什么？\n从“会回答”到“能完成”，从“预测”到“执行”，这是今年WAIC背后的现实考题。\n7月17日19:30，上海浦东。让我们一起关掉PPT、跳出展台，来与Builder、Researcher、Investor一起，提前理解AI的下一步。\n活动议程\n19:30 – 20:00\n签到 & 交个朋友\n20:00 – 20:30\n主题：Agent从聊天框到正式上岗了吗？\n分享嘉宾：\n张昊然，Evomap 创始人&CEO\n李志宇，记忆张量 CTO\n20:30 – 21:00\n主题：模型能从Github到与世界交互了吗？\n分享嘉宾：\n梁鼎，VAST CTO\n陆弘远，脸谱心智创始人\n21:00 – 21:30\n自由交流\n报名方式\n- 7月17日 晚19:30\n- 上海浦东·咖啡馆\n报名链接：https://hdxu.cn/1KEE3\n7月17日19:30，关掉PPT、跳出展台。\n让我们一起提前理解AI的下一步。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Emmi joins Mistral to accelerate the AI-native industry | Mistral AI",
+      "url": "https://mistral.ai/news/accelerate-ai-native-industry/",
+      "summary": "This week, we’ve entered into a definitive agreement to acquire Physics AI pioneer Emmi AI to strengthen our position as the leading AI transformation partner for industrial enterprises.\nMistral AI is building leading AI systems to accelerate engineering and manufacturing globally. As part of this mission, the company is extending its models’ capabilities to understand and model physics; and is enabling AI agents to use existing engineering tools. With the acquisition of Emmi AI, Mistral significantly enriches its products and expertise in this domain, aiming to accelerate the work of engineering solution teams worldwide.\nThe acquisition also accelerates our Science roadmap, advancing our understanding of fundamental physics and leveraging unique industrial data. With Emmi AI's models complementing our own, we are set to build the best-in-class agents for engineers.\nFounded in Austria, Emmi AI has quickly emerged as one of the world's most ambitious AI companies, leading a revolution at the intersection of artificial intelligence and industrial engineering. Its team has developed a unique expertise in Physics AI, providing state-of-the-art large engineering models. The company empowers industrial players to accelerate their engineering workflows and product design cycles, replace multi-day computations with real-time simulations, and build digital twins to optimize asset operations.\nEmmi’s co-founders and its team of more than 30 researchers and engineers, among the leading e…",
+      "published_at": "2026-05-23",
+      "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1192,6 +1093,17 @@
       "macro_score": 0
     },
     {
+      "title": "Physics AI research that’s shaping the industry. | Mistral AI",
+      "url": "https://mistral.ai/news/physics-ai-research/",
+      "summary": "The acquisition of Emmi AI has highlighted Mistral’s commitment towards pushing the state-of-the-art in AI research and enterprise solutions for industrial engineering.\nEmmi’s work, now part of Mistral, is dedicated to fundamentally enabling engineers to build the next generation of products faster and secure continuous performance gains in operations at scale for their customers.\nWe are doubling down on building foundational Physics AI for the industries that shape the physical world, such as aerospace, automotive, semiconductors, and energy.\nBelow are some of the published breakthroughs that this work rests on.\nDEC 1, 2025\nGoing with the Speed of Sound: Pushing Neural Surrogates into Highly-turbulent Transonic Regimes\nExisting aerospace datasets predominantly focus on 2D airfoils, neglecting these critical 3D phenomena. To address this gap, we present a new dataset of CFD simulations for 3D wings in the transonic regime. The dataset comprises volumetric and surface-level fields for around 30,000 samples with unique geometry and inflow conditions.\nNOV 25, 2025\nFluid Intelligence: A Forward Look on AI Foundation Models in Computational Fluid Dynamics\nDriven by the advancement of GPUs and AI, the field of Computational Fluid Dynamics (CFD) is undergoing significant transformations. This paper bridges the gap between the machine learning and CFD communities by deconstructing industrial-scale CFD simulations into their core components.\nOCT 17, 2025\nAB-UPT for Automotive and Aero…",
+      "published_at": "2026-05-27",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 1
+    },
+    {
       "title": "一群做自动驾驶的人，盯上了睡眠这件事",
       "url": "https://www.qbitai.com/2026/07/447796.html",
       "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
@@ -1203,11 +1115,143 @@
       "macro_score": 0
     },
     {
+      "title": "Introducing physics AI at Mistral: the foundation for engineering acceleration. | Mistral AI",
+      "url": "https://mistral.ai/news/introducing-physics-ai-at-mistral/",
+      "summary": "Engineering ambition has rarely been greater than it is today. Defense readiness, the energy transition, the push towards sustainable aviation, the need to scale AI data centers, and next-generation chips: every one of these developments depends on engineering teams shipping more capable hardware, faster—with thinner margins for error.\nAnd yet physics analysis remains stuck at the front of the product lifecycle, tied to solver methods that haven't fundamentally changed in decades. Engineers still evaluate a handful of variants when they should be exploring thousands. And once a product is in operation, engineers lose the physics insight they had at design time, because the solvers behind it are too slow to keep up with live data.\nWe believe physics deserves its own frontier AI models. That's why we've brought Emmi AI into Mistral. In this post, we share what physics AI is, why it matters now, and what it makes possible for our partners like ASML, Airbus, Safran, and Siemens Energy.\nWe are building out a new foundational capability inside Mistral's enterprise solutions for AI-native industrial engineering—alongside our existing models, our tools for building and operationalizing agentic workflows, and the secure deployment and integration enterprises require.\nTogether they form a single stack spanning the engineering lifecycle: deployed where the customer needs it, integrated with their environment, fully under their control. Find out more about our AI for manufacturing offeri…",
+      "published_at": "2026-05-27",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放",
       "url": "https://www.qbitai.com/2026/07/447832.html",
       "summary": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放\nAI变为研发流程的“组织者”\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\nAI生物研发，正在迎来它的“Windows时刻”。\n过去，AI是帮科学家做结构预测、抗体设计的“单点工具”；而现在，它正演变为统领全局的“操作系统”。\n7月2日，在2026上海国投前沿论坛上，分子之心创始人许锦波教授正式面向产业界开放其自研的AI原生生物经济操作系统——MoleculeOS（MOS）。\n这不仅是一个系统的发布，更释放出一个明确的信号：\n生物领域的研发基础设施，正在被重新定义。\n在这里，AI的角色从生物规律的“预测者”，蜕变为研发流程的“组织者”。\n传统的“筛选试错”式的分子发现正步入历史，一个更具确定性的“分子创造”时代，正由这款AI原生操作系统正式开启。\n试用入口：https://mos.moleculemind.com/login\n从工具智能到系统智能：重构AI制药与生物制造的研发模式\n过去几年，AI在蛋白质结构预测、抗体设计、分子生成和功能优化等方向不断突破，证明了算法理解生命科学的巨大潜力。\n但在真实产业场景中，模型突破并不等于研发效率跃迁。\n一个典型的大分子研发任务，往往涉及靶点分析、序列建模、结构预测、结合界面判断、突变设计、亲和力评估、稳定性评估、可开发性分析和实验验证等众多环节。\n过去，这些环节分散在不同工具和团队之间，研发人员需要手动调度流程，结果也难以统一沉淀。\n传统“工具栈+人工调度”模式，正成为AI技术向产业价值转化的核心瓶颈。\nMoleculeOS是一个面向生物研发的AI操作系统。\n它基于分子之心自研的AI模型体系，以项目目标为入口，AI通过自主理解使用者的生物学意图，自动拆解任务、统一调度系列模型、执行结构预测、分子设计等任务，经过多维度科学评估给出决策建议，并沉淀可追踪、可复盘的研发链路。\n试用入口：https://mos.moleculemind.com/login\nMoleculeOS的核心变化，是把“研发意图”作为系统入口。\n研究人员不再只是上传一个序列或结构文件执行单一预测任务，而是直接提出目标：例如提升抗体亲和力、或针对特定靶点生成候选分子。\n系统会围绕目标自动拆解任务，在统一的生物物理上下文中调度模型，完成从结构预测到推荐候选分子及下一步决策建议的系统性任务。\n这意味着，AI不再只是执行单步计算，而是开始组织完整研发流程。\n过去高度依赖个人经验的判断过程，也可以被系统记录为可追踪、可复盘、可复用的研发资产。\n对于企业而言，这种变化不仅是效率提升，更意味着研发体系开始具备更强的标准化、协同化和可扩展能力。\n更重要的是，MoleculeOS将每一次从研发意图到最终结论的完整链路，自动沉淀为结构化研发资产。\n当团队启动下一个项目时，历史项目的计算参数、筛选逻辑和决策依据都可以被调用——\n研发不再是从零开始的重复劳动，而是在一套持续积累的体系中加速。\n这正是操作系统区别于工具集的根本所在。\n自研模型集群构筑底层能力：从理解生命规律到设计功能分子\nMoleculeOS的底层能力，来自分子之心在蛋白质基础大模型、蛋白质结构预测和分子设计方向的长期积累。\n围绕“序列—结构—功能—进化—相互作用—生成设计”，分子之心团队构建了覆盖全流程的自研模型体系，包括：\n- 多模态蛋白质基础大模型NewOrigin（达尔文）\n- 全原子大分子复合物结构预测模型（MMFold）\n- 面向纳米抗体、酶和功能蛋白的生成式设计模型（MMDesign）\n在结构预测方向，分…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审",
+      "url": "https://www.qbitai.com/2026/07/447846.html",
+      "summary": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审\n四大方向，奖金直给\n鹭羽 发自 凹非寺\n量子位 | 公众号 QbitAI\n这可能是我今年见过最「实诚」的科研奖项了！\n不设赛题，也不用刷分，这一次蚂蚁真金白银纯发福利：\nAI时代大浪淘沙，那个一直在科研深水区里啃着硬骨头的你，将有机会收获蚂蚁关注，以及一笔实打实的资金支持。\n只要你是做AGI、具身智能、数字医学、数据处理与安全隐私这四个方向的青年学者或在读博士生，都能来试一试。\n要求只有一点，你现在正在做的工作够硬、够新、够深。咱们一切拿作品说话，是金子就能发光。\n奖项名为「2026蚂蚁InTech奖」，目前已经开放提名与申报，倒计时还剩最后一周！\n这也是蚂蚁举办的第三届，过去两届先后吸引上百位学界泰斗参与推荐，部分成果如今也已跑进产业最前沿。\n比如首届获奖者王鹤将三维视觉技术落地通用机器人赛道；上届获奖者顾煜贤深耕大模型高效推理，其轻量化大模型框架已在多家AI厂商落地应用。\n且看本届含金量更是拉满，坐在评委席上的，清一色业界顶尖学者，两院院士云集，还有图灵奖得主压阵。\n让这样一群人来评、来选，这个奖想托举的是谁，其实一目了然：下一群Transformer八子。\n说得再直白点，蚂蚁在找AI的未来。\n第三届蚂蚁InTech奖\n今年蚂蚁InTech奖依旧分为两条线。\n一条是蚂蚁InTech科技奖，面向已经做出成果的青年学者；另一条是蚂蚁InTech奖学金，面向还在读的博士生们。\n这个风向其实相当敏锐。\n我们不妨回看那篇影响世界的《Attention Is All You Need》。\n论文署名的八个人，彼时都还名不见经传，他们中有的还是学生，有的也才刚入行没多久，有的虽然经验丰富但也只在小圈子里为人熟知，但如今Transformer已经是这一代大模型的核心支柱。\n可见科研突破往往始于萌芽，敢于深耕的多是这批青年科研人才。他们有想法有闯劲，却也缺一份实实在在的支持。\n蚂蚁想要接住他们，无论是刚独立起步的学生，还是一股劲往上冲的研究学者，蚂蚁都看到了。\n大家关心的奖金也给得很干脆。科技奖每人20万元，奖学金每人5万元，且每类每年评选最多10人。\n不过想报名，还需要满足参选门槛：\n- 蚂蚁InTech科技奖：\n一是要求候选人当前得在全球高校或科研院所中全职从事科研工作，并且已经拿到博士学位；\n二是从获得博士学位到参评当年，不能超过10年，具体以评审当年的1月1日（含当天）起算。比如2026年想参选，博士学位得是2016年1月1日之后拿到的。\n三是研究领域需要涉及前面所提及的四大方向。\n- 蚂蚁InTech奖学金：\n仅要求候选人参评当年（2026年）具备全球高校或科研院所的在读博士身份以及研究方向契合。\n此外，除了现金奖励，奖项还会另外评出10位InTech科技奖-Future和10位InTech奖学金-Future，以鼓励更多有潜力但还没被看到的年轻人。\n我们再把这四大方向单独拎出来说：通用人工智能（AGI）、具身智能、数字医学、数据处理与安全隐私。\n这四个可不是随随便便圈定的，放到整个计算机科学里看，它们都是最前沿的研究方向，当然也最难突破。这一点蚂蚁也是深有体会，这就是蚂蚁自己的技术底座。\n从守住数据，到炼出模型，再落进医疗、伸向物理世界，四个方向环环相扣，组成一条从底层能力到行业应用的完整技术链路。\n也正因为天天在这四道最难的关口上撞，蚂蚁才清楚，能凿开这些技术的突破在于人，尤其是愿意挖掘难点的青年科研人。\n图灵奖得主和两院院士都来了\n负责把关的评委阵容，也是2026蚂蚁InTech…",
+      "published_at": "2026-07-01",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Vibe gets to work. | Mistral AI",
+      "url": "https://mistral.ai/news/vibe-agent/",
+      "summary": "Thinking\nSummary\nVibe is Mistral’s unified AI agent for both work and coding, capable of handling long-running tasks like inbox management, research, and document drafting, as well as coding workflows from feature development to pull requests. It offers Work Mode for multi-step tasks across enterprise tools and Code Mode for remote coding sessions, with integrations like VS Code and CLI for seamless collaboration. Available in free, Pro, Team, and Enterprise plans, Vibe streamlines workflows with visible reasoning, reusable skills, and secure, scalable deployments.\nVibe is now one agent for long-running, multi-step work. It catches up across your inbox and calendar, runs deep research, drafts deliverables, and orchestrates the recurring processes that run your day-to-day.\nIt also takes coding work from request to merged change, across the web app, your editor, and your terminal. The agent builds features, fixes bugs, refactors code, and ships reviewable pull requests.\nVibe runs on flagship Mistral models optimized for reasoning, agentic tasks, tool calls, and coding.\nHighlights.\n- Le Chat is now Vibe—one agent and one licence across work and code, with every conversation, setting, and plan carried over. \n- Work Mode, available on web and mobile, is a powerful agent for long-range tasks that picks the right tools, streams progress, and completes complex work to finish. \n- Code Mode launches remote coding agents from a dedicated web surface. \n- A new Mistral Vibe extension for …",
+      "published_at": "2026-05-28",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "AI Now Summit 2026 | Mistral AI",
+      "url": "https://mistral.ai/news/ai-now-summit-2026/",
+      "summary": "Thinking\nSummary\nMistral unveiled a new AI stack for industrial engineering, partnering with Airbus, BMW, and ASML to optimize design, simulation, and production while ensuring data security. Their agentic AI tool, Vibe, now handles long-horizon tasks like coding and research, while a new 10 MW data center in France will enhance compute control and security by 2026. These advancements reinforce Mistral’s focus on secure, high-impact AI solutions for critical enterprise workflows.\nMistral for Industrial Engineering.\nAn integrated AI stack combining advanced physics models, engineering expertise, and robotics to transform mission-critical industrial operations. The solution enables industrial engineers to accelerate design, eliminate simulation bottlenecks, and optimize asset performance; while maintaining full control over proprietary data, IP, and production environments.\nWith Airbus, we are implementing advanced AI at the core of the company's operations and processes, from initial design to on-board capabilities. Our partnership will expand across Airbus' commercial aircraft, helicopter, defence, and space activities. It will support the next decade of innovation, contribute to improve flight safety, and maintain full control of critical data; all while adhering to strict security requirements.\nFor BMW Group, we are a central partner for their “Large Industry Model” (LIM) initiative. The collaboration unifies engineering knowledge and AI expertise to build multimodal reason…",
+      "published_at": "2026-05-28",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Bringing more control over your connectors | Mistral AI",
+      "url": "https://mistral.ai/news/more-control-over-connectors/",
+      "summary": "Thinking\nSummary\nNew admin controls let you manage connector access per workspace or org, while API keys with scoped permissions and multi-account connectors enhance security for automated AI workloads. The Connectors Debugger provides detailed root cause analysis for broken connections, and integrations in Workflows and Vibe Code ensure seamless, governed access to enterprise tools. Over 60 pre-built connectors are available, with custom MCP options for additional platforms.\nGovern which tools run where, connect more than one account to a single connector, and trace any connection that breaks.\nToday, we are introducing several new capabilities in Connectors for a more secure experience integrating to external enterprise platforms. Starting now, you can use:\n- Enriched admin controls (GA) to set connector access per workspace and switch individual tools on or off across an org or workspace \n- API keys with connector scopes (GA) to prevent impersonation in automated AI workloads that integrate with 3rd-party systems \n- Multi-account connectors (GA) allowing users to authenticate to a single connector with multiple accounts \n- Connectors Debugger (Public Preview) for end-to-end root cause analysis for MCP connectors \n- Connectors in Vibe Code (GA) to reuse your connectors in developer interfaces \n- Connectors in Workflows (Public Preview) allow for uninterrupted long-running tasks powered by all the tools you need \nAsync agents are moving into everyday work. For an agent to be …",
+      "published_at": "2026-06-24",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Leanstral 1.5: Proof Abundance for All",
+      "url": "https://mistral.ai/news/leanstral-1-5/",
+      "summary": "Thinking\nSummary\nLeanstral 1.5, a free Apache-2.0 licensed model with 6B active parameters, delivers a major performance upgrade in formal verification, saturating miniF2F, solving 587/672 PutnamBench problems, and achieving state-of-the-art results on FATE-H (87%) and FATE-X (34%). Trained through mid-training, supervised fine-tuning, and reinforcement learning with CISPO, it excels in agentic proof engineering and real-world code verification, uncovering 5 previously unknown bugs across 57 repositories tested. Fully open-sourced and available via Hugging Face and a free API, Leanstral 1.5 is now accessible for practical proof engineering in Lean 4.\nSince its launch, Leanstral has offered an open, practical approach to proof engineering in Lean 4. Today, we are releasing Leanstral 1.5, a free Apache-2.0 licensed model with 119B total and only 6B active parameters, delivering a performance upgrade that makes formal verification more powerful and accessible than ever.\nLeanstral 1.5 saturates miniF2F, solves 587/672 PutnamBench problems, and achieves a new state-of-the-art of %87 on FATE-H and 34% on FATE-X. Beyond benchmarks, it verifies complex code properties and uncovers previously unknown bugs in open-source repositories—proving that rigorous formal methods can be both effective and practical for real-world use.\nTraining Leanstral\nLeanstral 1.5 goes through a three-stage process: mid-training, supervised fine-tuning, and reinforcement learning with CISPO. Leanstral 1.5 lev…",
+      "published_at": "2026-07-02",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Version control for prompts & skills in Studio | Mistral",
+      "url": "https://mistral.ai/news/manage-prompts-and-skills-in-studio/",
+      "summary": "Thinking\nSummary\nMost enterprises struggle with unmanaged, scattered AI prompts and skills, leading to inconsistent behavior and untraceable issues. Studio provides a centralized system of record for versioning, ownership, and traceability, enabling fast iteration and controlled deployment while maintaining compliance. By treating prompts as production assets with immutable versions, clear ownership, and audit logs, Studio ensures AI behavior is governed, discoverable, and aligned with business policies.\nMost enterprises can't say which version of a prompt is running in their AI right now. The instructions that decide how that AI behaves get scattered the moment more than one team touches them, leading to an inconsistent experience for users and an untraceable problem for teams.\nAs of today, Studio gives your Prompts and Skills a system of record: a single place where each one is versioned, owned, and traceable.\nPrompts and skills outgrew the way they're managed\nPrompts and Skills are production assets. They hold the business logic, the tone, and the policy your AI follows when it answers a customer or makes a call. What your AI does in front of a customer comes down to the prompts and skills in use. When that behaviour is wrong, the fix has to ship as fast as any production incident, not wait for the next code release.\nAnd in most enterprises, they're managed like scratch notes. Prompts started as quick experiments, then they shipped. Now they sit in code repos, notebooks, a…",
+      "published_at": "2026-07-09",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 1
+    },
+    {
+      "title": "Robostral Navigate: single-camera AI navigation | Mistral AI",
+      "url": "https://mistral.ai/news/robostral-navigate/",
+      "summary": "Introducing \n Robostral Navigate \nThinking\nSummary\nRobostral Navigate is an 8B model that enables robots to autonomously navigate complex environments using only a single RGB camera, achieving 76.6% success on unseen R2R-CE benchmarks—outperforming multi-sensor approaches while being more efficient. Built entirely in-house with simulated data and token-efficient techniques, it generalizes across robot types and adapts to real-world obstacles unseen during training. The model combines pointing-based navigation with reinforcement learning for continuous improvement, paving the way for unified embodied AI in robotics.\nToday we're introducing Robostral Navigate, our first model built for embodied navigation. It's an 8B model that takes RGB images and a plain-language instruction and moves a robot through an environment:\n“Leave the lobby, walk through the corridor, enter the supply room, and stop to face the second shelf.”\nTo perform such tasks, other models often employ depth sensors, LiDAR, or several cameras working together. Robostral Navigate uses only one ordinary RGB camera and no depth sensors, yet still achieves 76.6% on R2R-CE (Room-to-Room in Continuous Environments) validation unseen, the benchmark for following instructions in environments held out of training. Consequently, it beats the best single-camera approach by 9.7 points and the best system using depth or multiple cameras by 4.5 points, despite using neither.\nNavigation\nOur model is designed for robotic naviga…",
+      "published_at": "2026-01-01",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Speaking of Voxtral | Mistral AI",
+      "url": "https://mistral.ai/news/voxtral-tts/",
+      "summary": "Thinking\nSummary\nMistral AI has launched Voxtral TTS, a 4B-parameter text-to-speech model delivering state-of-the-art multilingual voice generation with realistic, emotionally expressive speech in 9 languages, low latency, and easy voice adaptation. The model excels in contextual understanding, speaker modeling, and zero-shot cross-lingual voice adaptation, making it ideal for enterprise voice workflows and scalable AI agents. Available via API and Mistral Studio, it offers cost-effective, high-quality voice generation starting at $0.016 per 1k characters.\nToday we’re releasing Voxtral TTS, our first text-to-speech model with state-of-the-art performance in multilingual voice generation. The model is lightweight at 4B parameters, making Voxtral-powered agents natural, reliable, and cost-effective at scale.\nHighlights.\n- Realistic, emotionally expressive speech in 9 popular languages with support for diverse dialects. \n- Very low latency for time-to-first-audio. \n- Easily adaptable to new voices. \n- Available to test out in Mistral Studio. \n- Enterprise-grade text-to-speech, powering critical voice agent workflows. \nA natural voice generation hinges on the model’s ability to not only recite but interpret a text accurately. Contextual understanding - like neutral, happy, sarcastic, etc. - determines whether the listener considers the generation accurate or robotic. Our model excels at both contextual understanding and speaker modeling: capturing how a specific person naturally …",
+      "published_at": "2026-03-23",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Introducing Mistral Small 4 | Mistral AI",
+      "url": "https://mistral.ai/news/mistral-small-4/",
+      "summary": "Today, we are announcing Mistral Small 4. This model is the next major release in the Mistral Small family. Mistral Small 4 is the first Mistral model to unify the capabilities of our flagship models, Magistral for reasoning, Pixtral for multimodal, and Devstral for agentic coding, into a single, versatile model. With Small 4, users no longer need to choose between a fast instruct model, a powerful reasoning engine, or a multimodal assistant: one model now delivers all three, with configurable reasoning effort and best-in-class efficiency.\nMistral Small 4 is released under the Apache 2.0 license, continuing our commitment to open, accessible, and customizable AI.\nA new standard for multimodal, reasoning-optimized models\nMistral Small 4 is a hybrid model optimized for general chat, coding, agentic tasks, and complex reasoning. Its architecture supports both text and image inputs, making it versatile for a wide range of applications. With Mistral Small 4, we reaffirm our commitment to open-source models and are proud to join the NVIDIA Nemotron Coalition as a founding member, advancing collaboration and innovation in AI development.\nKey architectural details\n- Mixture of Experts (MoE): 128 experts, with 4 active per token, enabling efficient scaling and specialization. \n- 119B total parameters, with 6B active parameters per token (8B including embedding and output layers). \n- 256k context window, supporting long-form interactions and document analysis. \n- Configurable reasoning…",
+      "published_at": "2026-03-16",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Remote agents in Vibe. Powered by Mistral Medium 3.5. | Mistral AI",
+      "url": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/",
+      "summary": "Thinking\nSummary\nMistral has moved coding agents to the cloud, enabling parallel, asynchronous task execution via Mistral Medium 3.5—a new 128B open-weight model optimized for long-horizon coding and productivity work. The update introduces remote agents in Mistral Vibe and Le Chat, along with a new Work mode for multi-step tasks like research and cross-tool workflows, all while maintaining human oversight for sensitive actions. Available today on Pro, Team, and Enterprise plans, Mistral Medium 3.5 is priced at $1.5 per million input tokens and $7.5 per million output tokens.\nCoding agents have mostly lived on your laptop. Today we're moving them to the cloud, where they run on their own, in parallel, and notify you when they're done. You can start them from the Mistral Vibe CLI or directly in Le Chat, offloading a coding task without leaving the conversation.\nPowering this is Mistral Medium 3.5 in public preview, our new default model in Mistral Vibe and Le Chat, built to run for long stretches on coding and productivity work. The new Work mode in Le Chat (Preview) extends this with a powerful agent for complex, multi-step tasks like research, analysis, and cross-tool actions.\nHighlights.\n- Mistral Medium 3.5, a new flagship model that merges instruction-following, reasoning, and coding into a single 128B dense model. Released as open weights, under a modified MIT license. \n- Strong real-world performance at a size that runs self-hosted on as few as four GPUs. \n- Mistral Vib…",
+      "published_at": "2026-05-22",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Mistral OCR 4 : SOTA OCR for Document Intelligence",
+      "url": "https://mistral.ai/news/ocr-4/",
+      "summary": "Title\nSubtitle\nText\nImage\nTable\nThinking\nSummary\nMistral OCR 4 introduces breakthrough document parsing with bounding boxes, block classification, and inline confidence scores, supporting 170 languages and running in a single container for self-hosted deployments. It outperforms leading OCR systems in human evaluations and benchmarks while offering cost-efficient, high-throughput processing for enterprise search, RAG, and agentic workflows. Available via API or Document AI, it provides structured outputs for custom pipelines or no-code applications, with self-hosting options for data privacy.\nToday, we're releasing Mistral OCR 4, featuring bounding boxes, block classification, and inline confidence scores alongside extracted text. The model supports 170 languages across 10 language groups, runs in a single container for fully self-hosted deployments, and serves as an ingestion component for enterprise search, RAG, and domain-specific retrieval pipelines. OCR 4 is a small, focused model, and this post covers what's new, how it performs on public and internal benchmarks, the known limitations of those benchmarks, and guidance on when to use the model API versus Document AI.\nHighlights\n- Breakthrough performance. Independent annotators prefer OCR 4 over every leading OCR and document-AI system tested, with win rates averaging 72%, alongside the top overall score on OlmOCRBench (85.20). See Benchmarks below for methodology and known scoring limitations. \n- Segmentation, not just …",
+      "published_at": "2026-06-23",
+      "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1236,10 +1280,10 @@
       "macro_score": 1
     },
     {
-      "title": "Any guidance for LangGraph Checkpoint Implementation for HTTP based service?",
-      "url": "https://forum.langchain.com/t/any-guidance-for-langgraph-checkpoint-implementation-for-http-based-service/4121",
-      "summary": "Hi,\nWe have an OData API (REST) to manage checkpoints and checkpoint writes and don’t unfortunately have a way to bypass the API layer and directly perform checkpoint operations on the DB layer itself. I see that existing checkpoint such as postgres and others are directly at DB-layer. Any suggestions for checkpoints via API layer.\nBest, Santosh\n             \n            \n           \n          \n            \n            \n              Hi @santosh-nallur\nyes, this can work. LangGraph does not require the checkpointer to talk directly to a DB. Postgres and SQLite savers are just implementations of the BaseCheckpointSaver contract. In your case I’d build a custom saver that maps put/aput, put_writes/aput_writes, get_tuple/aget_tuple, list/alist, and delete_thread/adelete_thread to your OData API.\nThe main thing is to preserve the same semantics: checkpoints should be keyed by thread_id, checkpoint_ns, and checkpoint_id, and writes should be linked to the same checkpoint plus task_id, task_path, and write index. Make sure get_tuple can fetch both the latest checkpoint and a specific checkpoint_id, since replay, time travel, pending writes, and delta-channel reconstruction depend on that.\nI’d also avoid hand-serializing checkpoint data as plain JSON. Use the LangGraph saver serde methods for checkpoints, metadata, and write values, then store the typed blob through your API, for example as binary or base64. Finally, run langgraph-checkpoint-conformance against the custom saver - it…",
-      "published_at": "2026-07-08",
+      "title": "Make a llm.with_structured_output call a tool",
+      "url": "https://forum.langchain.com/t/make-a-llm-with-structured-output-call-a-tool/622",
+      "summary": "The issue:\nWhen the LLM tries to call a tool, it mistakenly uses fields from the structured output class (A_given_class) as tool arguments—instead of using the correct arguments expected by the tool.\nHow can I ensure the LLM uses the proper tool input schema rather than mixing it with the structured output class?\nHey Ignacio! Its best not to combine structured output and tool calling simultaneously.\nSo combining bind_tools() and with_structured_output() creates schema confusion - the LLM sees multiple competing function schemas and gets confused about which one to use for which purpose. The best approach would be to use separate nodes - one with llm.with_structured_output(A_given_class) for structured data, another with llm.bind_tools(tools) for tool calling, connected via conditional edges.\nSequential processing in one node would also work (which I feel is what you’re aiming for), first call llm.with_structured_output(), then conditionally call llm.bind_tools() based on the structured result but this would still require two LLM calls to achieve reliable results.\nHey niilooy,\nIt’s actually the other way around, I have a node that first conditionally calls a tools, and then that data needs to be passed to the next node in a structured format. The red arrow below depicts where the structure output is expected.\nThis is a common challenge when combining structured output with tool calling in LangGraph. The issue is that with_structured_output() constrains the LLM’s output schema,…",
+      "published_at": "2025-07-22",
       "source": "forum.langchain.com",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1247,10 +1291,21 @@
       "macro_score": 0
     },
     {
-      "title": "Is LangChain killing its own Innovation with gatekeeping?",
-      "url": "https://forum.langchain.com/t/is-langchain-killing-its-own-innovation-with-gatekeeping/4069",
-      "summary": "Thanks for raising this. I think the concern is understandable, but I disagree with the framing that this is “gatekeeping” or that contributions are no longer welcome.\nLangChain has become critical infrastructure for many production systems, including some of the largest companies in the world — 5 of the Fortune 10 use LangChain in some capacity. That changes the responsibility we have as maintainers. A few years ago, the main risk of moving quickly was that we might merge something imperfect. Today, the risk is that we commit to APIs, abstractions, security posture, and maintenance obligations that thousands of teams depend on.\nBecause of that, I think it is better for maintainers and decision-makers to be skeptical than to merge changes willy-nilly. We have invested heavily in stability: clearer abstractions, better security practices, more consistent APIs, and a stronger bar for what belongs in the core libraries. Lowering that bar would create more risk than reward.\nThat does not mean innovation is blocked. Quite the opposite: one reason we care so much about extensible abstractions is so that community members are not bottlenecked on LangChain maintainers in order to experiment. People regularly fork, build new agents, graph patterns, integrations, memory systems, and research prototypes on top of LangChain and LangGraph abstractions without needing those ideas to be merged into the core repo. The number of academic papers citing LangChain/LangGraph/Deep Agents is a good…",
-      "published_at": "2026-06-30",
+      "title": "Should AI agents expose their reasoning process before taking action?",
+      "url": "https://forum.langchain.com/t/should-ai-agents-expose-their-reasoning-process-before-taking-action/4131",
+      "summary": "Humans build trust by explaining why they made a decision.\nWhat if AI agents briefly summarized their plan before executing?\nFor example:\n“I found three scheduling conflicts. I’ll resolve the first automatically, ask you about the second, and postpone the third until Friday.”\nWould this make AI more trustworthy?\nOr just slower?\n             \n            \n           \n          \n            \n            \n              hi @Saiganesh\nYes, I think exposing the plan increases trust, but there is an important distinction. Users dont really need the raw reasoning, they need the plan. Raw chain of thought is verbose and research shows its often not even faithful to what the model actually did, so showing it can create false confidence. A short structured plan like your example is diferent, its verifiable and gives the user a chance to object before anything happens.\nThe key thing tho is that transparency alone doesnt build trust, control does. A plan you can read but cant veto is just theater. Thats why I’d pair it with human in the loop on the risky actions. In LangChain you get this basically for free, create_agent with HumanInTheLoopMiddleware lets you mark which tools need approval, and the user can approve, edit or reject the proposed action. Deep agents even ship the planning part by default, the write_todos tool externalizes the plan into state and the UI can render it live. Claude Code and Cursor converged on the same todo pattern independently, which tells you something, it a…",
+      "published_at": "2026-07-09",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 2
+    },
+    {
+      "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
+      "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
+      "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
+      "published_at": "2026-07-10",
       "source": "forum.langchain.com",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1269,28 +1324,6 @@
       "macro_score": 0
     },
     {
-      "title": "[Architecture] Preventing RAG \"Context Rot\" : A Deterministic Temporal Decay Proxy for LangChain Agents",
-      "url": "https://forum.langchain.com/t/architecture-preventing-rag-context-rot-a-deterministic-temporal-decay-proxy-for-langchain-agents/4128",
-      "summary": "Hey everyone,\nI wanted to share an architectural pattern we’ve been using to solve a critical failure mode in enterprise LangChain agents: “Context Rot.”\nStandard vector stores retrieve perfectly on semantic similarity, but they are blind to temporal validity. If a compliance rule or API spec is updated, the old chunk might still have a 0.92 cosine similarity. The retriever pulls it, stuffs it into the LangChain agent’s context window, and the agent confidently hallucinates.\nTo stop this without writing brittle post-retrieval filters for every chain, I built KU-Gateway.\nIt’s an open-source edge proxy that sits between your vector DB and LangChain. It physically intercepts the retrieved payload and runs a mathematical temporal decay function ($e^{-\\lambda t}$).\nIf a document has decayed past the acceptable threshold, the proxy hard-gates it and drops it before it hits the LLM.\nInstead of failing silently, it outputs a 5-step Ops Runbook trace directly into the terminal (including the expected recovery action and routing queue), turning an agent failure into a structured data engineering ticket.\nValidation:\nWe ran this proxy architecture through a private staging evaluation with a Tier-1 Cloud Provider’s managed AI team. Their internal testing validated that deterministic edge-gating cut token burn by ~50% and functionally eliminated temporally-induced hallucinations in their agent loops.\nThe Ask for the Community:\nThe core proxy is running on Uvicorn and works natively as a mi…",
-      "published_at": "2026-07-09",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "How to download a model and run it with Ollama locally?",
-      "url": "https://discuss.huggingface.co/t/how-to-download-a-model-and-run-it-with-ollama-locally/77317",
-      "summary": "I have just installed Ollama on my Macbook pro, now how to download a model form hugging face and run it locally at my mac ?\nThank you for your response, is there any other recommend tool to run models locally than Ollama? Why should I use Ollama? Am I on the right track?\nCertainly! Here are some alternative tools for running models locally:\n- PyTorch\n- TensorFlow\n- ONNX Runtime\n- OpenVINO\n- TensorFlow Lite\nEach tool offers unique features and advantages, so you can choose based on your specific requirements.\nThank you for the information, I really appreciate it\nCan’t find it… Any other options?\nYou can use git to clone the model to your local storage.\nAs long as you have git installed on your computer just use the “git clone” command followed by the URL of the model on hugginface.\nFor example:\ngit clone mistralai/Mistral-7B-Instruct-v0.2 · Hugging Face\nSo the downloaded model will be in quantized form. Right? Can we use this to fine tune ?\nI dont see any config.json file. Any idea ?\n@hopewise You do realize that both of @KeelyPowers 's answers were generated by a LLM… right?\nNo! But I am not shocked sense this is huggingface forum!\nMy I ask,after my downloading models, how can i use ollama to load it?\nMy downlaoding is in transformer format,with files like config.json,model-00001-of-00002.safetensors , pytorch_model-00003-of-00003.bin  special_tokens_map.json  tokenizer.model\nNo modelfile,how can I load it with ollama\nHi,\nOllama is a wrapper on top of Llama cpp: GitHub - gge…",
-      "published_at": "2024-03-13",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Long-running run getting cancelled by aggressive workers scale down",
       "url": "https://forum.langchain.com/t/long-running-run-getting-cancelled-by-aggressive-workers-scale-down/4126",
       "summary": "Hi LangChain team, recently we are experiencing some issues related to some of our graph runs getting cancelled (asyncio.CancelledError) in the LangSmith tracing in our Production deployment.\nAfter some debugging using the server log, we found out that during the time these runs getting cancelled, there were quite a few shutdown logs that appeared.\nFor example, at 7/7/2026, 12:09:26 PM:\n[ERROR] The queue surpassed the grace period while shutting down. Some runs may still be running and will be canceled and retried on a healthy instance. The grace period is currently set to 180 seconds. If that is too low, adjust the BG_JOB_SHUTDOWN_GRACE_PERIOD_SECS environment variable to an appropriate value. Signaling shutdown\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 505, in worker\n  File \"/api/langgraph_api/worker.py\", line 269, in worker\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 207, in wrap_user_errors\n  File \"/api/langgraph_api/stream.py\", line 639, in consume\n  File \"/api/langgraph_api/stream.py\", line 665, in _consume_inline\n  File \"/api/langgraph_api/stream.py\", line 501, in astream_state\n  File \"/api/langgraph_api/asyncio.py\", line 86, in wait_if_not_done\n  File \"/usr/local/lib/python3.12/asyncio/taskgroups.py\", …",
@@ -1302,9 +1335,31 @@
       "macro_score": 0
     },
     {
-      "title": "What are the biggest challenges you've faced while building autonomous AI agents?",
-      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-youve-faced-while-building-autonomous-ai-agents/177559",
-      "summary": "What problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm\nWhat problems or difficulties have you encountered while building AI agents that can work independently without constant human input?\npersistence.\nreal stable continous pesistence it is imposible in the stateless model llm",
+      "title": "SKYNET800 (alfa) Killing AI hallucinations with resonance",
+      "url": "https://discuss.huggingface.co/t/skynet800-alfa-killing-ai-hallucinations-with-resonance/177630",
+      "summary": "This code predicts the exact time and price of a future price point, and can also construct a curve of future prices. It can be used to decipher any process that has a graph—for example, a graph of mutual understanding between artificial intelligence and a human. Notably, DeepSeek’s computing power is not used for the prediction; the data is processed on an ordinary computer. The system fully replicates Nikola Tesla’s resonator in the form of code. If we represent the operation of the Random Number Generator (RNG) as a time-series graph, the system can be applied to decrypt the bitcoin seed-phrase. The code has made the collective mind controllable and predictable - there’s no need to use social media platforms like TikTok to observe or generate mass trends immediately - everything follows a simple mathematical formula.",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Should AI agents have working hours like human employees?",
+      "url": "https://forum.langchain.com/t/should-ai-agents-have-working-hours-like-human-employees/4123",
+      "summary": "We expect AI to be available 24/7, but should it always be?\nImagine an AI executive assistant that intentionally batches notifications, delays non-urgent interruptions, and only escalates high-priority issues outside “working hours.”\nCould an AI that knows when not to interrupt you actually make us more productive?\nWhere would you draw the line between responsiveness and respecting focus?\n             \n            \n           \n          \n            \n            \n              Yes, but not as a hard “offline” switch. The better model is availability tiers, not human-style working hours.\nThe case for it: An always-on agent can feel productive while quietly hurting focus. Batching low-priority updates, deferring non-urgent work, and only interrupting for true escalations often beats 24/7 responsiveness.\nWhere to draw the line:\n- Always on: safety-critical, production incidents, explicit user requests\n- Queued / batched: summaries, digests, routine follow-ups\n- Deferred: research, planning, non-urgent notifications\nPractical rule: The agent should be available 24/7, interruptive only when it matters. Working hours become a user preference for when the agent may break focus, not when the agent stops thinking.\nThat’s especially useful for executive-assistant-style agents: work in the background all the time, but respect focus windows unless urgency crosses a threshold.\nSo the answer isn’t “should agents have working hours?”,  it’s should agents have interruption policies? Usually …",
+      "published_at": "2026-07-08",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Unable to schedule",
+      "url": "https://discuss.huggingface.co/t/unable-to-schedule/177563",
+      "summary": "I deployed a space. It worked perfectly without any error two days ago. But today, when I logged in, the space was sleeping. When it woke up, it showed starting. After 30-40 mins, the space suddenly just showed this:\n\"runtime error\nScheduling failure: unable to schedule\"\nIt happened with my other spaces which I created long ago. And the logs show:\n“===== Application Startup =====”\nI don’t know what is happening. Can anyone help me?",
       "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -1324,54 +1379,10 @@
       "macro_score": 1
     },
     {
-      "title": "Make a llm.with_structured_output call a tool",
-      "url": "https://forum.langchain.com/t/make-a-llm-with-structured-output-call-a-tool/622",
-      "summary": "The issue:\nWhen the LLM tries to call a tool, it mistakenly uses fields from the structured output class (A_given_class) as tool arguments—instead of using the correct arguments expected by the tool.\nHow can I ensure the LLM uses the proper tool input schema rather than mixing it with the structured output class?\nHey Ignacio! Its best not to combine structured output and tool calling simultaneously.\nSo combining bind_tools() and with_structured_output() creates schema confusion - the LLM sees multiple competing function schemas and gets confused about which one to use for which purpose. The best approach would be to use separate nodes - one with llm.with_structured_output(A_given_class) for structured data, another with llm.bind_tools(tools) for tool calling, connected via conditional edges.\nSequential processing in one node would also work (which I feel is what you’re aiming for), first call llm.with_structured_output(), then conditionally call llm.bind_tools() based on the structured result but this would still require two LLM calls to achieve reliable results.\nHey niilooy,\nIt’s actually the other way around, I have a node that first conditionally calls a tools, and then that data needs to be passed to the next node in a structured format. The red arrow below depicts where the structure output is expected.\nThis is a common challenge when combining structured output with tool calling in LangGraph. The issue is that with_structured_output() constrains the LLM’s output schema,…",
-      "published_at": "2025-07-22",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Presenting TIS (Token Importance Scoring) - A new way to compress KV cache",
-      "url": "https://discuss.huggingface.co/t/presenting-tis-token-importance-scoring-a-new-way-to-compress-kv-cache/177429",
-      "summary": "Hi. For now, I gave this a lightweight test run on Colab Free. It is not a full reproduction, but I may have run into a small bug or some artifact drift around the Stage 3 release:\nShort version\nI was able to run the public code, load Mistral-7B-v0.3 in 4-bit, load both public TIS component checkpoints, obtain hidden states, run the direct learned scorer used by the public hard-NIAH evaluator, and complete the anchored-mask evaluation path.\nThe main observation is:\n- tis-v8b-hard-anchorbehaved broadly in the direction described by its Model Card in a small same-example smoke test.\n- tis-stage3-ertdid not.\n- The downloaded Stage 3 checkpoint also does not appear to match several structural details currently described by its Model Card.\nThis looks more like a checkpoint / Model Card / evaluator lineage mismatch than evidence that the underlying TIS idea is invalid.\nThe most likely resolution seems to be one of these branches:\n- \nThe reported Stage 3 result used another local checkpoint.\n In that case, uploading that checkpoint and publishing its SHA256 would probably resolve most of the discrepancy.\n \n- \nThe currently published Stage 3 checkpoint is intentional, but its Model Card is stale.\n In that case, the architecture description, lambda value, evaluation command, and benchmark table may need updating.\n \n- \nThe checkpoint is correct, but the reported result used a different source revision or evaluator.\n Pinning the exact Git commit, command, seed, environment, and result C…",
-      "published_at": "2026-07-03",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Proposing TFE (Tiwantic-Feedback Equation) — An Autonomous, Loss-Driven Gradient Scaling Layer Extension",
-      "url": "https://discuss.pytorch.org/t/proposing-tfe-tiwantic-feedback-equation-an-autonomous-loss-driven-gradient-scaling-layer-extension/225159",
-      "summary": "Hello PyTorch Community and Team,\nI want to share a mathematical framework and custom layer extension I’ve been developing to address the bottlenecks of static training loops and vanishing gradients: the Tiwantic-Feedback Equation (TFE).\nInstead of relying solely on external learning rate schedulers to manage optimization pacing, TFE embeds an autonomous feedback mechanism directly into the raw forward and backward paths of the layer itself.\nThe Mathematical Concept\nThe core equation is formulated as:\n$$f(x) = x \\cdot \\sigma(w \\cdot x) + \\alpha \\cdot b^2$$\nWhere:\n- \n$\\sigma(w \\cdot x)$ acts as an input-driven gating function. \n- \n$\\alpha$ is a dynamic feedback coefficient tied to the model’s real-time training loss variance. \n- \n$b^2$ serves as a baseline stabilization factor. \nHow It Works Under the Hood\n- \nHigh Loss Variance (Acceleration State): When the model is initialized or struggling with high training errors, $\\alpha$ scales up. This amplifies the gradient flow during the backward pass, helping the weights forcefully break out of bad local minima or random states. \n- \nLow Loss Variance (High-Precision State): As the loss drops and stabilizes, $\\alpha$ smoothly trends down. The layer naturally dampens its gradient magnitudes, allowing for high-precision micro-adjustments without overshooting the global minimum. \n- \nMemory Shielding: Decoupling input processing from the baseline shift ($\\alpha \\cdot b^2$) creates a buffer that helps protect older weight patterns during…",
+      "title": "New free accounts cannot create CPU Basic Gradio Spaces (only ZeroGPU available?)",
+      "url": "https://discuss.huggingface.co/t/new-free-accounts-cannot-create-cpu-basic-gradio-spaces-only-zerogpu-available/177629",
+      "summary": "I’m trying to create a new Gradio Space on a free account.\nThe only available runtime is ZeroGPU.\n- Docker is marked as Paid.\n- CPU Basic cannot be selected during creation.\n- After creating the Space on ZeroGPU, the hardware downgrade dialog requires PRO to switch to CPU Basic.\n- I reproduced this on a brand-new account.\nIs this an intentional change to the free tier, or is this a bug/rollout issue?",
       "published_at": "2026-07-09",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Should AI agents expose their reasoning process before taking action?",
-      "url": "https://forum.langchain.com/t/should-ai-agents-expose-their-reasoning-process-before-taking-action/4131",
-      "summary": "Humans build trust by explaining why they made a decision.\nWhat if AI agents briefly summarized their plan before executing?\nFor example:\n“I found three scheduling conflicts. I’ll resolve the first automatically, ask you about the second, and postpone the third until Friday.”\nWould this make AI more trustworthy?\nOr just slower?\n             \n            \n           \n          \n            \n            \n              hi @Saiganesh\nYes, I think exposing the plan increases trust, but there is an important distinction. Users dont really need the raw reasoning, they need the plan. Raw chain of thought is verbose and research shows its often not even faithful to what the model actually did, so showing it can create false confidence. A short structured plan like your example is diferent, its verifiable and gives the user a chance to object before anything happens.\nThe key thing tho is that transparency alone doesnt build trust, control does. A plan you can read but cant veto is just theater. Thats why I’d pair it with human in the loop on the risky actions. In LangChain you get this basically for free, create_agent with HumanInTheLoopMiddleware lets you mark which tools need approval, and the user can approve, edit or reject the proposed action. Deep agents even ship the planning part by default, the write_todos tool externalizes the plan into state and the UI can render it live. Claude Code and Cursor converged on the same todo pattern independently, which tells you something, it a…",
-      "published_at": "2026-07-09",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 2
-    },
-    {
-      "title": "Space stuck in APP_STARTING indefinitely",
-      "url": "https://discuss.huggingface.co/t/space-stuck-in-app-starting-indefinitely/177564",
-      "summary": "My Docker Space (free cpu-basic) has been stuck in APP_STARTING for over an hour and won’t come up.\nWhat I’m seeing:\nThe API reports stage: APP_STARTING with hardware.current: null while hardware.requested: cpu-basic. So no machine is actually being allocated.\nIn the Hardware settings, the “CPU basic” card shows a spinner as if it’s continuously searching for resources.\nThe public endpoint times out (HTTP 000).\nWhen it did briefly start earlier, the container logs were completely clean — the app bound correctly to 0.0.0.0:7860 and logged Server listening, but the UI never transitioned to Running.\nWhat I’ve already tried (none worked):\nRestart (rebuilds in ~0.5s from cache, then straight to “starting”, nothing happens)\nFactory rebuild (full rebuild completes, still stuck)\nToggling hardware / re-selecting CPU basic\nThis looks like a scheduling / hardware-capacity issue on HF’s side rather than my app. Is there a current capacity shortage on the free cpu-basic pool? How long does this usually take to resolve, and is there anything I can do besides waiting?\nThanks!\nI have some news, my space just did runtime error\nScheduling failure: unable to schedule\nContainer logs:\nI can confirm that I am experiencing the same issue on my side.\nI tested a newly created Docker Space with a minimal Streamlit application. The image builds successfully, but the Space remains stuck at “Starting”, and the container log shows only:\n===== Application Startup =====\nThis appears to be the same issue rep…",
-      "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1379,54 +1390,10 @@
       "macro_score": 0
     },
     {
-      "title": "Clarification regarding (truncated) backpropagation through time",
-      "url": "https://discuss.pytorch.org/t/clarification-regarding-truncated-backpropagation-through-time/225131",
-      "summary": "Hi, I am unsure how the backpropagation works/the gradient is computed in a scenario with truncated backpropagation through time. Currently, I do something akin to\noutputs = []\nfor t in range(max_steps):\n     y_t, hidden  = custom_rnn(x[t], hidden.detach())\n     outputs.append(y_t)\ny = torch.stack(outputs)\nmy_loss = criterion(y,x)\nreturn y, my_loss\nIn this code, when the derivative of hidden with respect to the rnn’s parameters are computed ends at every time step, because due to the .detach() it acts as a constant in every time step.\nNow, what about this:\noutputs = []\nfor t in range(max_steps):\n     y_t, hidden  = custom_rnn(x[t], hidden)\n     if t % 10 == 0 and t > 0:\n          hidden = hidden.detach()\n     outputs.append(y_t)\ny = torch.stack(outputs)\nmy_loss = criterion(y,x)\nreturn y, my_loss\nWhen the derivative of the loss is computed with respect to the rnn’s parameters, are only the last <= 10 time steps relevant for the chain-rule derivative of hidden (with respect to the rnn’s parameters)? Or is the derivative somehow restarted inbetween?\nIf it is the former (only the last <= 10 time steps are relevant), what about this:\noutputs = []\nsegments = []\nsegments.append(torch.tensor(0, requires_grad=False))\nfor t in range(max_steps):\n     y_t, hidden  = custom_rnn(x[t], hidden)\n     if t % 10 == 0 and t > 0:\n          hidden = hidden.detach()\n          segments.append(t)\n     outputs.append(y_t)\ny = torch.stack(outputs)\ntotal_loss = 0.0\nfor t in segments:\n     total_loss += …",
-      "published_at": "2026-06-26",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
-      "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
-      "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
-      "published_at": "2026-07-10",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Hugging Chat page stuck",
-      "url": "https://discuss.huggingface.co/t/hugging-chat-page-stuck/177591",
-      "summary": "Is anyone else registered for Hugging Chat? I can’t get past the celebration page\nHmm… it’s hard to say for sure from the surface symptoms alone, but…\nIf by the “celebration page” you mean the screen that says “Welcome to HuggingChat” and has an animated Omni image plus a “Start chatting” button, that appears consistent with HuggingChat’s current welcome screen.\nI could not find a clearly matching public report for the current Omni-era version, so there is not enough information yet to tell whether this is:\n- the normal sign-in round trip presenting the welcome screen again,\n- an account/session problem,\n- a browser-side UI problem,\n- or a more limited HuggingChat regression.\nThe safest default route would be:\n- Open the official HuggingChat page in the same browser that you used to register or sign in to Hugging Face.\n- If registration returned you to the same welcome screen, press “Start chatting” once more there.\n- Note which of the following actually happens:\n| What happens after pressing Start chatting | Best next step | \n|---|---|\n| Absolutely nothing changes | Reload the page without cache, then compare with a private window or a clean browser profile | \n| It sends you to sign in or register again | Complete the whole sign-in flow in the same browser and tab context | \n| It shows a 403 error | Check whether the login started in an in-app browser and finished in Safari, Chrome, or another browser | \n| The modal closes, but returns after reloading | This may be a setting…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Weights dont sychronise in multi GPU training",
-      "url": "https://discuss.pytorch.org/t/weights-dont-sychronise-in-multi-gpu-training/225141",
-      "summary": "Hi all,\nI have been trying to train a GNN in multiple gpus. I use the standard python libraries, PyG and DDP. I can see the data distributed in the GPUs, and each of them training a model. However the weights are not sychronized. Before the training all the weights are exactly the same, but after one epoch they are different. I feel that the problem comes from :\n“[rank0]: RuntimeError: Expected to mark a variable ready only once. This error is caused by one of the following reasons: 1) Use of a module parameter outside the forward function. Please make sure model parameters are not shared across multiple concurrent forward-backward passes. or try to use _set_static_graph() as a workaround if this module graph does not change during training loop.2) Reused parameters in multiple reentrant backward passes. For example, if you use multiple checkpoint functions to wrap the same part of your model, it would result in the same set of parameters been used by different reentrant backward passes multiple times, and hence marking a variable ready multiple times. DDP does not support such use cases in default. You can try to use _set_static_graph() as a workaround if your module graph does not change over iterations.”\nwhich i masked/bypassed (?) by setting set_static_graph(). Does anyone have any ideas what is the problem and what I should do?\nthank you, Panagiotis",
-      "published_at": "2026-07-02",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Looking for a Multi-GPU Server to Run DeepSeek-Prover-V2-671B (Can Pay)",
-      "url": "https://discuss.huggingface.co/t/looking-for-a-multi-gpu-server-to-run-deepseek-prover-v2-671b-can-pay/177557",
-      "summary": "For now, I’m not very familiar with server rentals myself. However, the requirements can change quite a bit depending on how much quantization you are willing to accept and which inference backend you plan to use:\nThere do seem to be a few realistic routes. I do not have a personal server contact to introduce, but the public options currently fall into three useful categories:\n| Goal | A reasonable starting route | Main caveat | \n| Try the model on a few problems | A serverless API or managed deployment | The provider’s weight conversion, revision, sampling implementation, or quantization may differ from the released checkpoint | \n| Self-host the released checkpoint with relatively little compromise | A single 8×H200 SXM/NVLink node is the first configuration I would investigate | I have not found a complete, reproducible public deployment report for this exact Prover-V2 checkpoint | \n| Use an available 8×H100 node | A quantized/converted checkpoint, or possibly offloading | This is a different experimental condition from serving the released weights directly | \n| Reproduce paper-level pass@k results | Self-hosted deployment plus a pinned Lean/evaluation environment | Loading the model is only one part of the experiment | \n My default route would therefore be:\n- Use a managed endpoint for a small smoke test, unless exact self-hosting is already a hard requirement.\n- If the released weights must be self-hosted, look first for a single physical 8×H200 SXM node with NVLink/NVSwi…",
-      "published_at": "2026-07-08",
+      "title": "Reinforement Structure Analysis",
+      "url": "https://discuss.huggingface.co/t/reinforement-structure-analysis/176541",
+      "summary": "Oh. If RGB-D is acceptable, I think this can be made much more concrete:\nYour latest constraints clarify the problem a lot.\nSince you need:\n- number of horizontal bars,\n- number of vertical bars,\n- horizontal spacing,\n- vertical spacing,\n- horizontal/vertical bar length,\n- multiple cage shapes,\n- no manual cropping,\n- short video capture,\n- RGB-D/stereo acceptable in the field,\n- training on a larger GPU but deployment on a smaller GPU,\nI would now treat this less as a “rebar counting from images” problem and more as a geometry-aware rebar measurement system.\nMy direct answer would be:\nIf RGB-D is acceptable, I would make RGB-D / point cloud geometry the main measurement path. Use RGB for detecting rebars, keypoints, crosspoints, faces, or candidate regions; use depth/point cloud geometry for face/layer assignment, metric spacing, and length measurement.\nIn other words:\nRGB:\n  what is rebar?\n  where are the visible bars/keypoints/crosspoints?\nDepth / point cloud:\n  which face/layer do they belong to?\n  what is the metric distance/length?\n  is this measurement geometrically plausible?\nThat is much more concrete than trying to solve everything with monocular depth or a pure 2D detector.\n1. The problem has changed from “counting” to “measurement”\nYour latest requirements are broader than a count-only task.\n| Requirement | What it implies | \n| Count horizontal and vertical bars | detection / segmentation / row-column grouping | \n| Measure spacing | metric scale is needed | \n| Mea…",
+      "published_at": "2026-06-04",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1445,17 +1412,6 @@
       "macro_score": 1
     },
     {
-      "title": "A tricky method for NLP and LLM from my previous research work",
-      "url": "https://discuss.huggingface.co/t/a-tricky-method-for-nlp-and-llm-from-my-previous-research-work/177579",
-      "summary": "This post is from my research work in NLP.\n-The background of this work.\nI did a research on an AI system that can help professors to test reports of university students.\nThe main task of this system was to find out whether a report is correct and well organized in logic.\nThis system was supposed to give outputs such as: \"There is a logical skip between paragraph C and D \", “There is a logical error from Para B to Para E.”…\nMy idea was this:\n-Logical base\nThe mathematical(or logical) analysis or model of this problem is about Necessary condition and Sufficient condition. (I am pretty sure that every friend in this community is aware of this logic.) Here comes my main idea or trick.\nI took the normal training process and inferencing in models as A->B(Necessary condition). Then what about B->A(Sufficient condition)? The answer: Reverse(In my team we called this reverse-from-result training or simply reverse-result-training) training and inferencing was taken as B->A(Sufficient condition).\nThis means that training or inferencing first follow the normal path then continues from the normal path result to the beginning of normal path. Then the model can compare reports(inputs) and inferences. For example the similarity is bigger than 0.8, the report is logically fine. If similarity of paragraph C of the report is 0.7-0.5, there is a logical skip after paragraph C of the report. If similarity is less than 0.5, there is a logical error from Para C to D of the report.\n-Conclusion\nThis…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Created TorchCTS, a conformance test suite for testing backends",
       "url": "https://discuss.pytorch.org/t/created-torchcts-a-conformance-test-suite-for-testing-backends/225161",
       "summary": "While developing a PrivateUse1 backend I found the need to have much heavier testing than what is included. To solve this problem I created TorchCTS, a conformance test suite with > 19k tests, some auto generated, some hand spun for specific hard cases. It has semantic levels and multiple other ways to segment and control what tests you run. I’m looking for feedback from backend developers on areas I need to cover better. Note that it’s beta still and there are multiple hardware vendors I do not have access to and cannot do tests for. https://torchcts.ai\n                  \n                  \n                1 Like",
@@ -1472,182 +1428,6 @@
       "summary": "Hello all,\nI’m hoping to use captum for feature attribution on a basic 1-D linear regression model (see below), but all the examples I’ve seen use 2D models (usually for machine vision applications). Is there a good tutorial out there for using captum with simpler models?\nThanks!\nclass Regression(nn.Module):\n  def __init__(self):\n    super().__init__()\n    self.layers = nn.Sequential(\n      nn.Linear(7490, 64),\n      nn.ReLU(),\n      nn.Linear(64, 32),\n      nn.ReLU(),\n      nn.Linear(32, 1)\n    )\n  def forward(self, x):\n    '''\n      Forward pass\n    '''\n    return self.layers(x)\ndef training_loop(n_epochs, train_loader):\n# training loop\n    for epoch in range(n_epochs):\n        # Set current loss value\n        current_loss = 0.0\n        # Iterate over the DataLoader for training data\n        for i, data in enumerate(train_loader, 0):\n          # Get and prepare inputs\n          inputs, targets = data\n          inputs, targets = inputs.float(), targets.float()\n          targets = targets.reshape((targets.shape[0],1))\n            # Zero the gradients\n          optimizer.zero_grad()\n          # Perform forward pass\n          outputs = model(inputs)\n          # Compute loss\n          loss = loss_function(outputs, targets)\n          # Perform backward pass\n          loss.backward()\n          # Perform optimization\n          optimizer.step()\n    return model",
       "published_at": "2026-07-09",
       "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Local LLM on M5 Pro, open webUI issue (cont’d)",
-      "url": "https://discuss.huggingface.co/t/local-llm-on-m5-pro-open-webui-issue-cont-d/177586",
-      "summary": "For now, I ran a few lightweight checks on my side too. A few things became clearer, while a few others still depend on the exact details of your setup:\nMy direct answer would be:\n- I would not abandon Open WebUI yet.\n- I would continue building the test bench now instead of waiting for Native mode to be fixed.\n- I would keep Legacy as a temporary RAG control, not as the long-term target.\n- I would try AnythingLLM only as a small parallel A/B comparison, not as a one-way migration yet.\nThe reason is that your Legacy result already tells us something useful: the documents are usable, and at least one retrieval-and-answer path works with this model and Knowledge Base. But Native mode adds several extra moving parts, so Legacy working does not mean Native should automatically work.\nOpen WebUI’s current documentation makes that distinction fairly explicit: in Native mode, attached Knowledge is not automatically inserted into the prompt; the model must call tools such as list_knowledge and query_knowledge_files. Disabling Native restores the older automatic RAG injection path, while Full Context bypasses retrieval and injects the document directly. See Open WebUI Knowledge and Tool Calling Modes.\nSo I would treat your situation as:\nA Native tool/integration problem, not yet evidence that your documents, embeddings, Gemma 4, Docker Model Runner, or Open WebUI are individually “bad.”\nYour GitHub issue is already a solid report: it includes the environment, two Open WebUI versions, t…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Lstm in c++/training tips",
-      "url": "https://discuss.huggingface.co/t/lstm-in-c-training-tips/177581",
-      "summary": "i’ll give other posters the choice on whether to v.2 my previous thread on rnns in c with my lstm code. instead of posting it all first,\ni have a 2 layer lstm (i think!) using 96 node “hot one” char i/o layers, tried resizing the hidden layers and the BPTT timesteps but so far i’ve only successfully managed to take a single sentence down to a low error coefficient. i’ve been using a translation of the tao te ching at around 56k chars, which i’m assured ought to be within scope for two hidden layers of say 64 or 128 nodes. (256 nodes is too heavy for my little machine.)\nhaving spent some time now training eg. incorrect architectures, i’m aware of various dynamics and trends in ‘training behaviour,’ but i’m finding lstm to be quite evasive. if left unsupervised the error coefficient doesn’t just stop progressing but can climb and climb astronomically. i often observe the same learning rate train through a few times with excellent progress then eat its way well past the ~3.0 threshold of “just plain guessing now” when it begins the next test.\nthe architecture trains successfully on elementary tests (“abababab”) and the overfit training sentence, am i misinformed about the capacity of such a model to store the data?\ni don’t really want to restructure my code for a single hidden layer, though this would of course be sensate, just avoidable work since the two layer source allows me to build variable layer architecture in the future.\ni’ve been using gradient normalisation at 1.0, gr…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "If unsure, ask. Never guess. — AI Agent Pre-Execution Checklist",
-      "url": "https://discuss.huggingface.co/t/if-unsure-ask-never-guess-ai-agent-pre-execution-checklist/176632",
-      "summary": "If unsure, ask. Never guess.\nAI Agent Pre-Execution Checklist\nHumans give incomplete instructions.\nAI tries to interpret them as if they were complete.\nThat is where the problem begins.\nIf an agent executes while required information remains unverified, the result is not simply a model error — it is a pre-execution confirmation failure. Many vibe coding mistakes are not due to lack of coding ability, but because the necessary questions were never asked before execution.\nAI does not reliably know what it does not know. That is why a simple recommendation is not enough. What is needed is a structural enforcement logic — a checklist that must be verified before any action is taken.\nThis document proposes a way to control AI execution through rules, not code. Implementation may vary, but the core principle is this: declare the rules, and let AI follow them — instead of hardcoding behavior.\nThis document defines principles and structure. How they are applied depends on each system, organization, and regulatory body’s own policies and agreements.\nCore Structure (Fixed Checklist)\n| C | Item | Description | \n|---|---|---|\n| C1 | When / Case | When, or under what condition, should this Action be executed? | \n| C2 | User Action Name | What does the user call this Action? (intent) | \n| C3 | Provider Action Name | The Action name actually invoked by the system | \nChecklist Layers\n- Fixed Checklist — Minimum required items common to all Actions; defines the execution unit\n- Provider Check…",
-      "published_at": "2026-06-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "How do you choose the right open-source LLM for a RAG (Retrieval-Augmented Generation) system?",
-      "url": "https://discuss.huggingface.co/t/how-do-you-choose-the-right-open-source-llm-for-a-rag-retrieval-augmented-generation-system/177609",
-      "summary": "If you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nIf you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "UmarTransit-1B: First Open-Source Transit Domain LLM (Fine-tuned Qwen2.5-1.5B)",
-      "url": "https://discuss.huggingface.co/t/umartransit-1b-first-open-source-transit-domain-llm-fine-tuned-qwen2-5-1-5b/177611",
-      "summary": "Hi everyone!\nI’m sharing UmarTransit-1B — a domain-specific language model fine-tuned for public transit systems and GTFS (General Transit Feed Specification) data.\nWhat is it?\nA QLoRA fine-tuned version of Qwen2.5-1.5B-Instruct that specializes in GTFS specification knowledge, transit route/schedule analysis, stop/station information across 10 countries, and transfer connections.\nAvailable formats:\n- Safetensors (3.09 GB) — for Transformers/Python\n- GGUF Q4_K_M (986 MB) — for Ollama/llama.cpp (recommended for local use)\n- GGUF Q8_0 (1.65 GB) — for Ollama/llama.cpp (higher quality)\nHow it was built\nI’m a Senior Technical Lead (Java/Spring Boot, 14+ years) experienced with LLM APIs (OpenAI, Claude) and GTFS/transit systems. This is my first end-to-end model training project — from data collection to fine-tuning to deployment. Built the entire pipeline:\n- Collected 15 public GTFS feeds from 10 countries (858 MB raw data)\n- Cleaned 77M+ rows into normalized Parquet files\n- Generated 3,306 synthetic instruction/response pairs across 8 task categories\n- Fine-tuned Qwen2.5-1.5B-Instruct with QLoRA using Unsloth on Google Colab (free T4)\n- Evaluated: ROUGE-L 0.82, best category Transfer (0.90)\n- Exported to GGUF (Q4_K_M and Q8_0) for local inference\n- Deployed frontend to Vercel, model to HuggingFace\nTraining: QLoRA rank=16, alpha=32, 3 epochs, ~30 min on Colab T4, Unsloth + TRL SFTTrainer\nExample outputs\nQ: What does route_type 3 mean in GTFS? A: In the GTFS specification, route_ty…",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Help with DeepSeek-V3-0324 Model Download",
-      "url": "https://discuss.huggingface.co/t/help-with-deepseek-v3-0324-model-download/148254",
-      "summary": "Issue: Rate Limiting When Downloading DeepSeek-V3-0324\nI’m experiencing consistent rate limiting issues when trying to download the DeepSeek-V3-0324 large model.\nWhat I’ve tried:\n- Git over HTTPS:\n- Direct download attempts result in “Rate limit exceeded” errors\n- Hugging Face CLI:\n- Created and provided a token with write permissions\n- Error 429 (Too Many Requests) for the /whoamiendpoint\n- Set HF_TOKEN environment variable\n- Git over SSH:\n- Set up SSH authentication\n- Still receiving rate limit errors when pulling LFS objects\n- Curl request:\n- Returns 429 page\nSpecific error messages:\nbatch response: Rate limit exceeded: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324.git/info/lfs/objects/batch\nFailed to fetch some objects from 'https://hf.co/deepseek-ai/DeepSeek-V3-0324.git/info/lfs'\ngit over ssh with skip(configured correctly)\nGIT_LFS_SKIP_SMUDE=1 git clone git@hf.co:deepseek-ai/DeepSeek-V3-0324                                                                 \nCloning into 'DeepSeek-V3-0324'...                                                             \nremote: Enumerating objects: 203, done.\nremote: Counting objects: 100% (199/199), done.                                                                                                                                               \nremote: Compressing objects: 100% (198/198), done.                                                                                                                                            \n…",
-      "published_at": "2025-03-31",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "LLM \"curving\" via prompting",
-      "url": "https://discuss.huggingface.co/t/llm-curving-via-prompting/177166",
-      "summary": "Hmm… this is difficult, but based on what I could find so far, maybe it looks something like this:\nShort answer\nI would not treat this as a yes/no question yet.\nAt the output level, the safest first interpretation is that the prompt is creating a strong style / ontology / behavioral regime shift. The prompt gives the model a very explicit vocabulary: “field,” “gravity well,” “self-organization,” “manifold,” “density,” “hidden dynamics,” etc. So it is not surprising that the model starts speaking and visualizing in that ontology.\nBut I would not yet call it evidence that the model’s internal manifold has literally been “curved,” unless the visualization is based on something like token scores/logprobs, hidden states, or causal interventions, rather than generated text or model self-description.\nMy tentative answer to the three questions would be:\n- \nManifold perturbation or stylistic variation?\n Maybe more than ordinary style variation, but “manifold perturbation” is too strong until the measurement layer is specified. A safer current label might be prompt-induced regime shift or prompt steerability.\n \n- \nHas anyone tried similar “field condition” prompting?\n Yes, there are nearby prompt-only experiments on this forum using “field,” “attractor,” “semantic tension,” or “global regulator” language. I would treat those as related observations, not evidence of the same internal mechanism.\n \n- \nHow to distinguish rhetorical self-organization from something stronger?\n I would not lo…",
-      "published_at": "2026-06-25",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Newbie question about documentation",
-      "url": "https://discuss.huggingface.co/t/newbie-question-about-documentation/177590",
-      "summary": "Hmm… if you’re already comfortable with the CLI, you’re at a real advantage when working with Hugging Face. Personally, I think the shortest route is to proceed steadily, one step at a time:\nYou can start with what you already have. A CPU build of llama.cpp is perfectly adequate for learning how the pieces fit together, and you do not need to learn Python before running your first model.\nMy default route would be:\n- Record the hardware and llama.cppversion.\n- Run one small instruction-tuned GGUF from the terminal.\n- Measure how fast it is on your actual CPU.\n- Run the same model through llama-server.\n- Try a very small personality/persona A/B test.\n- Only then choose a direction: roleplay, document knowledge/RAG, persistent memory, tools, or your own application.\nI would deliberately avoid adding RAG, long-term memory, tool calling, fine-tuning, multiple frontends, and large models to the first experiment. They are all useful, but each adds another place where something can go wrong.\nA concrete first run\nFirst, save a small baseline description of the machine:\nfree -h\nlscpu\nllama-cli --version\nDepending on how Arch packaged it, the binary may be on your PATH, in the current directory as ./llama-cli, or under a build directory. The upstream command names are normally llama-cli, llama-server, and llama-bench; --help is the safest reference for the version you actually installed.\nFor a first smoke test, one reasonable current example is LiquidAI/LFM2.5-1.2B-Instruct-GGUF. It is …",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "For All AI Researchers, Developers",
-      "url": "https://discuss.huggingface.co/t/for-all-ai-researchers-developers/177621",
-      "summary": "Hugging Face Forums\nFor All AI Researchers, Developers\nResearch\nLoris0514\nJuly 9, 2026, 3:25pm\n1\n(topic deleted by author)\nRelated topics\nTopic\nReplies\nViews\nActivity\nNew AI research development project\nResearch\n0\n57\nMay 5, 2025\nJoin AI Research Survey and Stand a Chance to Win a Gift Card by Polytechnique Montreal's SWAT Lab\n🤗Transformers\n4\n508\nJuly 14, 2023\nLooking for researchers and members of AI development teams\nResearch\n0\n123\nAugust 19, 2024\nStudy with AI developers and Researchers\nBeginners\n0\n43\nAugust 25, 2024\nAwesome EU AI Act: curated tools, official sources, templates, and OSS resources\nShow and Tell\n0\n31\nApril 16, 2026",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Docker SDK now marked as \"Paid\" when creating a new Space?",
-      "url": "https://discuss.huggingface.co/t/docker-sdk-now-marked-as-paid-when-creating-a-new-space/177580",
-      "summary": "I see something similar in the UI but yeah, looks like they literally just moved cpu basic for docker container deployments behind a paywall. I just tried deploying something in CLI and I got “Static Spaces are free for everyone, but hosting Gradio and Docker Spaces on free cpu-basic requires a PRO subscription. Subscribe at PRO Account - Hugging Face”\nSadly, they did this without an announcement or warning. They haven’t even updated their pricing page:",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Agentic Coding Harness - July - Daily Driver < 120GB VRAM",
-      "url": "https://discuss.huggingface.co/t/agentic-coding-harness-july-daily-driver-120gb-vram/177625",
-      "summary": "What is your daily Driver?\nFor me, I’m running (nvidia/Qwen3.6-27B-NVFP4 · Hugging Face)\nI found this to be VERY Stable on my DGX Spark:\n--host 0.0.0.0\n–port 8006\n–served-model-name qwen3.6\n–trust-remote-code\n–quantization compressed-tensors\n–dtype auto\n–kv-cache-dtype fp8\n–language-model-only\n–gpu-memory-utilization 0.80\n–max-model-len 131072\n–max-num-seqs 6\n–max-num-batched-tokens 16384\n–enable-prefix-caching\n–enable-chunked-prefill\n–enable-auto-tool-choice\n–tool-call-parser qwen3_xml\n–reasoning-parser qwen3\n–speculative-config ‘{“method”:“mtp”,“num_speculative_tokens”:3,“moe_backend”:“triton”}’",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "We all start somewhere",
-      "url": "https://discuss.huggingface.co/t/we-all-start-somewhere/177233",
-      "summary": "Well, If I can assume your technical stack, the explanation can be fairly dense:\nDirect answer\nI would not start by looking for “the best model.” I would first split the problem into layers:\n- local runtime\n- model format and quantization\n- chat template\n- a small eval set\n- RAG / retrieval\n- fine-tuning / adapters\n- model choice\n- tool use / agents\n- offline and privacy boundaries\nFor private or changing knowledge, I would usually try RAG before fine-tuning.\nFor local models, I would check runtime, quantization, and chat template before judging the model.\nFor fine-tuning, I would first collect repeatable failures and eval examples.\nFor uncensored or abliterated models, I would treat them as refusal-behavior changes, not hidden-capability upgrades.\nYou are probably not starting from zero. You are crossing stacks.\n1. Do not mix the layers\nA lot of local AI confusion comes from treating these as the same kind of thing:\n| Layer | Examples | What it answers | \n| Model / checkpoint | Llama, Mistral, Qwen, Gemma, DeepSeek, gpt-oss | What learned the behavior? | \n| File format | safetensors, GGUF | How are the weights stored? | \n| Quantization | q4, q5, q8, fp16, bf16 | What memory/speed/quality tradeoff? | \n| Runtime | Transformers, llama.cpp, Ollama, LM Studio, vLLM, TGI | What actually runs the model? | \n| UI / API layer | Open WebUI, LM Studio UI, llama-server, OpenAI-compatible API | How do you talk to it? | \n| Chat template | ChatML, Mistral, Llama, Qwen, Harmony, etc. | How a…",
-      "published_at": "2026-06-29",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Unable to schedule",
-      "url": "https://discuss.huggingface.co/t/unable-to-schedule/177563",
-      "summary": "I deployed a space. It worked perfectly without any error two days ago. But today, when I logged in, the space was sleeping. When it woke up, it showed starting. After 30-40 mins, the space suddenly just showed this:\n\"runtime error\nScheduling failure: unable to schedule\"\nIt happened with my other spaces which I created long ago. And the logs show:\n“===== Application Startup =====”\nI don’t know what is happening. Can anyone help me?",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Looking for feedback: Do common quantization saliency metrics really measure weight importance?",
-      "url": "https://discuss.huggingface.co/t/looking-for-feedback-do-common-quantization-saliency-metrics-really-measure-weight-importance/177615",
-      "summary": "Hmm… for now, maybe something along these lines (I’m not entirely confident about the content, so please take this just as a reference…):\nMy direct answer would be: yes, this looks like a useful audit of channel-level quantization proxies, but I would narrow the interpretation from “weight importance in general” to “isolated, quantizer-specific channel susceptibility under this intervention.”\nThe one-at-a-time design is valuable because it separates a static score from the rest of a quantization pipeline. The results therefore say something concrete about whether each audited score predicts the forward-KL damage produced when one channel is quantized while everything else is held fixed.\nI would not yet read that as a general verdict on the native AWQ, GPTQ, OWQ, or SpQR algorithms. Those methods use their statistics for different actions—scaling, sequential compensation, mixed precision, or weight-level outlier isolation—and this audit maps those different objects into a common static channel ranking. That is a useful benchmark, but it is not identical to asking whether each full method makes good deployment decisions.\nI also see two different result regimes:\n- For global continuous ranking, the loss-aware unified score appears substantially stronger.\n- For fixed-budget selection within a linear, the picture is more mixed; corrected OWQ residual and simpler proxies appear competitive or stronger on some top-k measures.\nThat distinction may be more useful than naming one overa…",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 2
-    },
-    {
-      "title": "New free accounts cannot create CPU Basic Gradio Spaces (only ZeroGPU available?)",
-      "url": "https://discuss.huggingface.co/t/new-free-accounts-cannot-create-cpu-basic-gradio-spaces-only-zerogpu-available/177629",
-      "summary": "I’m trying to create a new Gradio Space on a free account.\nThe only available runtime is ZeroGPU.\n- Docker is marked as Paid.\n- CPU Basic cannot be selected during creation.\n- After creating the Space on ZeroGPU, the hardware downgrade dialog requires PRO to switch to CPU Basic.\n- I reproduced this on a brand-new account.\nIs this an intentional change to the free tier, or is this a bug/rollout issue?",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Reinforement Structure Analysis",
-      "url": "https://discuss.huggingface.co/t/reinforement-structure-analysis/176541",
-      "summary": "Oh. If RGB-D is acceptable, I think this can be made much more concrete:\nYour latest constraints clarify the problem a lot.\nSince you need:\n- number of horizontal bars,\n- number of vertical bars,\n- horizontal spacing,\n- vertical spacing,\n- horizontal/vertical bar length,\n- multiple cage shapes,\n- no manual cropping,\n- short video capture,\n- RGB-D/stereo acceptable in the field,\n- training on a larger GPU but deployment on a smaller GPU,\nI would now treat this less as a “rebar counting from images” problem and more as a geometry-aware rebar measurement system.\nMy direct answer would be:\nIf RGB-D is acceptable, I would make RGB-D / point cloud geometry the main measurement path. Use RGB for detecting rebars, keypoints, crosspoints, faces, or candidate regions; use depth/point cloud geometry for face/layer assignment, metric spacing, and length measurement.\nIn other words:\nRGB:\n  what is rebar?\n  where are the visible bars/keypoints/crosspoints?\nDepth / point cloud:\n  which face/layer do they belong to?\n  what is the metric distance/length?\n  is this measurement geometrically plausible?\nThat is much more concrete than trying to solve everything with monocular depth or a pure 2D detector.\n1. The problem has changed from “counting” to “measurement”\nYour latest requirements are broader than a count-only task.\n| Requirement | What it implies | \n| Count horizontal and vertical bars | detection / segmentation / row-column grouping | \n| Measure spacing | metric scale is needed | \n| Mea…",
-      "published_at": "2026-06-04",
-      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -1698,17 +1478,6 @@
       "macro_score": 1
     },
     {
-      "title": "Persistent 503 Error Between Private Docker Spaces",
-      "url": "https://discuss.huggingface.co/t/persistent-503-error-between-private-docker-spaces/177610",
-      "summary": "Personally, this (and Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)) looks more like a regression to me. Details below:\njust in case, @hysts\nDirect answer: the general architecture does not appear to be inherently unsupported.\nHugging Face documents Docker Spaces as suitable for FastAPI and other API endpoints, documents authenticated access to private Space endpoints, and also documents calling one Space from another Space. I could not find one official reference that combines this exact topology—private Docker caller, private Docker target, arbitrary FastAPI route, and server-side Bearer authentication—but the individual pieces are documented or have prior working examples.\nFor a private Docker Space, the route I would expect to use is still:\ncaller Space\n    → HTTPS on port 443\n    → https://<target-subdomain>.hf.space/<route>\n    → Authorization: Bearer <token that can access the target Space>\n    → target application\nThe Docker Spaces documentation describes exposing an application through app_port, and the Spaces networking documentation allows outbound HTTP/HTTPS traffic on ports 80 and 443. The official private Tabby Docker Space example also uses the direct *.hf.space URL as an API endpoint and adds an authorization header when the Space is private.\nThe strongest reason I would currently suspect a regression is the independent report in Space-to-Space requests to *.hf.space return 503 from awselb. That report describes:\n- the same target …",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Seeking research collaborators: a persistence-first AI architecture, live for 14+ days — help us measure it properly",
       "url": "https://discuss.huggingface.co/t/seeking-research-collaborators-a-persistence-first-ai-architecture-live-for-14-days-help-us-measure-it-properly/177582",
       "summary": "Hey friends!\nWe’ve built a persistence-first AI architecture (we call it PPAi — Persistent Presence AI) where a small open LLM (~4.5B) acts only as the language surface, while identity, memory, and cognition live in a continuously-running system — including between turns. We’re testing it in production and looking for researchers interested in this topic.\nThe problem\nWe first tried to build a real 24/7 online radio station with LLMs — not “greet listeners between songs,” but news, show continuity, music, listener messages, editing, in two languages. It wasn’t possible. The failure mode was consistent: per-turn context reinjection. Whatever the memory system — full history, summarization, RAG — it breaks down after a few hundred turns, and token consumption grows out of control. In our runs, a naive setup hit the 128K context wall around turn ~917; a RAG setup kept cost flat but we caught it live retrieving one of its own prior hallucinations as a memory. A paid frontier model running the station via API was cut off by the provider (429) in under half an hour.\nWhat’s different\nWith the PPAi architecture, this is controlled: state is held, not replayed. The live station currently runs at roughly ~44M tokens/day for the whole operation, flat — the equivalent LLM-based setup was trending past 300M/day and climbing when we stopped measuring, because continuing was economically pointless.\nThe system has been live for weeks, hundreds of thousands of generations, no brain restart, no…",
@@ -1731,10 +1500,10 @@
       "macro_score": 1
     },
     {
-      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
-      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
-      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
-      "published_at": "2026-07-10",
+      "title": "Persistent 503 Error Between Private Docker Spaces",
+      "url": "https://discuss.huggingface.co/t/persistent-503-error-between-private-docker-spaces/177610",
+      "summary": "Personally, this (and Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)) looks more like a regression to me. Details below:\njust in case, @hysts\nDirect answer: the general architecture does not appear to be inherently unsupported.\nHugging Face documents Docker Spaces as suitable for FastAPI and other API endpoints, documents authenticated access to private Space endpoints, and also documents calling one Space from another Space. I could not find one official reference that combines this exact topology—private Docker caller, private Docker target, arbitrary FastAPI route, and server-side Bearer authentication—but the individual pieces are documented or have prior working examples.\nFor a private Docker Space, the route I would expect to use is still:\ncaller Space\n    → HTTPS on port 443\n    → https://<target-subdomain>.hf.space/<route>\n    → Authorization: Bearer <token that can access the target Space>\n    → target application\nThe Docker Spaces documentation describes exposing an application through app_port, and the Spaces networking documentation allows outbound HTTP/HTTPS traffic on ports 80 and 443. The official private Tabby Docker Space example also uses the direct *.hf.space URL as an API endpoint and adds an authorization header when the Space is private.\nThe strongest reason I would currently suspect a regression is the independent report in Space-to-Space requests to *.hf.space return 503 from awselb. That report describes:\n- the same target …",
+      "published_at": "2026-07-09",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1751,6 +1520,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
+    },
+    {
+      "title": "Looking for feedback: Do common quantization saliency metrics really measure weight importance?",
+      "url": "https://discuss.huggingface.co/t/looking-for-feedback-do-common-quantization-saliency-metrics-really-measure-weight-importance/177615",
+      "summary": "Hmm… for now, maybe something along these lines (I’m not entirely confident about the content, so please take this just as a reference…):\nMy direct answer would be: yes, this looks like a useful audit of channel-level quantization proxies, but I would narrow the interpretation from “weight importance in general” to “isolated, quantizer-specific channel susceptibility under this intervention.”\nThe one-at-a-time design is valuable because it separates a static score from the rest of a quantization pipeline. The results therefore say something concrete about whether each audited score predicts the forward-KL damage produced when one channel is quantized while everything else is held fixed.\nI would not yet read that as a general verdict on the native AWQ, GPTQ, OWQ, or SpQR algorithms. Those methods use their statistics for different actions—scaling, sequential compensation, mixed precision, or weight-level outlier isolation—and this audit maps those different objects into a common static channel ranking. That is a useful benchmark, but it is not identical to asking whether each full method makes good deployment decisions.\nI also see two different result regimes:\n- For global continuous ranking, the loss-aware unified score appears substantially stronger.\n- For fixed-budget selection within a linear, the picture is more mixed; corrected OWQ residual and simpler proxies appear competitive or stronger on some top-k measures.\nThat distinction may be more useful than naming one overa…",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 2
     },
     {
       "title": "Building a Centralized Vector Database Pipeline for Multi-Project RAG",
@@ -1786,6 +1566,28 @@
       "macro_score": 0
     },
     {
+      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
+      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
+      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "We all start somewhere",
+      "url": "https://discuss.huggingface.co/t/we-all-start-somewhere/177233",
+      "summary": "Well, If I can assume your technical stack, the explanation can be fairly dense:\nDirect answer\nI would not start by looking for “the best model.” I would first split the problem into layers:\n- local runtime\n- model format and quantization\n- chat template\n- a small eval set\n- RAG / retrieval\n- fine-tuning / adapters\n- model choice\n- tool use / agents\n- offline and privacy boundaries\nFor private or changing knowledge, I would usually try RAG before fine-tuning.\nFor local models, I would check runtime, quantization, and chat template before judging the model.\nFor fine-tuning, I would first collect repeatable failures and eval examples.\nFor uncensored or abliterated models, I would treat them as refusal-behavior changes, not hidden-capability upgrades.\nYou are probably not starting from zero. You are crossing stacks.\n1. Do not mix the layers\nA lot of local AI confusion comes from treating these as the same kind of thing:\n| Layer | Examples | What it answers | \n| Model / checkpoint | Llama, Mistral, Qwen, Gemma, DeepSeek, gpt-oss | What learned the behavior? | \n| File format | safetensors, GGUF | How are the weights stored? | \n| Quantization | q4, q5, q8, fp16, bf16 | What memory/speed/quality tradeoff? | \n| Runtime | Transformers, llama.cpp, Ollama, LM Studio, vLLM, TGI | What actually runs the model? | \n| UI / API layer | Open WebUI, LM Studio UI, llama-server, OpenAI-compatible API | How do you talk to it? | \n| Chat template | ChatML, Mistral, Llama, Qwen, Harmony, etc. | How a…",
+      "published_at": "2026-06-29",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
       "title": "Call for Review: Interpretable and Explainable Models for Breast Cancer Recurrence Prediction — Systematic Review Protocol",
       "url": "https://discuss.huggingface.co/t/call-for-review-interpretable-and-explainable-models-for-breast-cancer-recurrence-prediction-systematic-review-protocol/177469",
       "summary": "We are conducting a systematic review comparing intrinsically interpretable statistical models, such as logistic regression and Cox proportional hazards models, with explainable artificial intelligence (XAI) approaches, including machine learning and deep learning models supported by SHAP, LIME, attention mechanisms, or other explanation methods, for predicting breast cancer recurrence after primary treatment.\nThe review is registered in PROSPERO: CRD420251145602; https://www.crd.york.ac.uk/PROSPERO/view/CRD420251145602\nOur goal is to critically appraise published models across the black-box, grey-box, and white-box spectrum, identify current methodological and reporting gaps, and outline future directions for trustworthy, clinically usable prognostic models in oncology.\nWe are currently completing data extraction and would welcome feedback from colleagues working in breast cancer prognosis, prediction modelling, oncology, or explainable/interpretable AI before we move to risk-of-bias assessment and evidence synthesis.\nThe full protocol, including the eligibility criteria, search strategy, and data extraction/appraisal plan, is attached to this post.\nWe would be grateful for comments on:\n• the review question and eligibility criteria (PICO); • the search strategy across PubMed, Scopus, IEEE Xplore, Google Scholar, and Research4Life; • the planned data extraction and risk-of-bias/quality appraisal tools, including CHARMS, PROBAST+AI, and TRIPOD+AI.\nPlease share any comments un…",
@@ -1801,6 +1603,50 @@
       "url": "https://discuss.huggingface.co/t/zero-gpu-limit-reached-even-through-failed-attempts/177659",
       "summary": "Hi, I’m new here. I wanted to try some image/video generation/edits online and I know the limits here are very strict, but I’m confused that even failed attempts through errors/bugged generators seems to count to this notorious “Zero GPU” limits. So it wasted valuable GPU time and I still did not get a result at the end… that is not fair. It is like driving blindfolded with tied hands not knowing where you go. Is there not a more clever way to distinguish bugged/failed image/video generation from successful generation? Why is this mixed all together with the rough sledgehammer method? Now I have to wait 24h for nothing, depressing.",
       "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "A new kind of AI that isn't an LLM — where does it belong on the Hub?",
+      "url": "https://discuss.huggingface.co/t/a-new-kind-of-ai-that-isnt-an-llm-where-does-it-belong-on-the-hub/177423",
+      "summary": "Hmm… For now, first of all, there is no problem with it not being an LLM. I think the practical approach is to imagine who you want to find the model or project, work backward from there, and make the best use you can of the Hub’s different building blocks:\nThe first thing I would separate is what “category” means here, because several different questions are being mixed together:\n- \nWhat kind of repository or service should contain each artifact?\n Model, Dataset, Space, Storage Bucket, GitHub, etc.\n \n- \nWhich Hub task or pipeline_tagshould be used?\n For example,text-generation,image-text-to-text, or another input/output task.\n \n- \nWhich descriptive tags should help people find it?\n For example,persistent-ai,stateful-agent, orcross-session-memory.\n \n- \nHow should the complete project be presented?\n As a chatbot, companion, autonomous service, research project, radio application, agent runtime, and so on.\n \nThose do not need to have the same answer.\nThe Hub’s formal task categories are not intended to be a complete ontology of every kind of AI system. They primarily describe the “shape” of a model API—its inputs and outputs—and help select search filters, inference handling, and widgets. The documentation explicitly describes the taxonomy as relatively coarse-grained and recommends ordinary tags for finer distinctions.\nSo the fact that “Chatbots” does not fully describe persistence, identity, memory, or continuous operation is understandable, but it does not necessarily mean t…",
+      "published_at": "2026-07-03",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Are We Benchmarking the Wrong Thing? A Humor Leaderboard for LLMs",
+      "url": "https://discuss.huggingface.co/t/are-we-benchmarking-the-wrong-thing-a-humor-leaderboard-for-llms/177479",
+      "summary": "Hmm. When it comes to scoring, there probably isn’t such a thing as the wrong target. Personally, I think evaluation becomes more valuable as the variety of scores increases. At the same time, my intuition is that underused metrics are often overlooked not only because people fail to notice them, but because they are difficult to measure in practice—which probably makes operating a leaderboard like this rather unusual:\nYes, I think this is worth measuring\nMy direct answer is yes.\nBased on the earlier description of the project, the current task appears to be approximately:\nGiven a question and a fixed set of candidate answers, which LLM most reliably predicts the answer that a sampled group of humans will judge as funniest?\nThat is not the whole of humor, but it is still a meaningful capability. A model that can reliably predict human humor choices may be useful for response reranking, writing assistance, content selection, advertising, roleplay, conversational systems, and other applications where estimating audience reaction matters.\nI would therefore frame the current score as something close to:\n- human humor preference prediction, or\n- population-level humor-choice alignment.\nThat wording avoids requiring the benchmark to prove that a model has the same internal cognitive process as a human. For practical purposes, reproducible behavior on unseen examples can be valuable even when the internal mechanism is unknown.\nThe most useful immediate distinction may be:\n| Layer | …",
+      "published_at": "2026-07-05",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Local LLM on M5 Pro, open webUI issue (cont’d)",
+      "url": "https://discuss.huggingface.co/t/local-llm-on-m5-pro-open-webui-issue-cont-d/177586",
+      "summary": "For now, I ran a few lightweight checks on my side too. A few things became clearer, while a few others still depend on the exact details of your setup:\nMy direct answer would be:\n- I would not abandon Open WebUI yet.\n- I would continue building the test bench now instead of waiting for Native mode to be fixed.\n- I would keep Legacy as a temporary RAG control, not as the long-term target.\n- I would try AnythingLLM only as a small parallel A/B comparison, not as a one-way migration yet.\nThe reason is that your Legacy result already tells us something useful: the documents are usable, and at least one retrieval-and-answer path works with this model and Knowledge Base. But Native mode adds several extra moving parts, so Legacy working does not mean Native should automatically work.\nOpen WebUI’s current documentation makes that distinction fairly explicit: in Native mode, attached Knowledge is not automatically inserted into the prompt; the model must call tools such as list_knowledge and query_knowledge_files. Disabling Native restores the older automatic RAG injection path, while Full Context bypasses retrieval and injects the document directly. See Open WebUI Knowledge and Tool Calling Modes.\nSo I would treat your situation as:\nA Native tool/integration problem, not yet evidence that your documents, embeddings, Gemma 4, Docker Model Runner, or Open WebUI are individually “bad.”\nYour GitHub issue is already a solid report: it includes the environment, two Open WebUI versions, t…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Lstm in c++/training tips",
+      "url": "https://discuss.huggingface.co/t/lstm-in-c-training-tips/177581",
+      "summary": "i’ll give other posters the choice on whether to v.2 my previous thread on rnns in c with my lstm code. instead of posting it all first,\ni have a 2 layer lstm (i think!) using 96 node “hot one” char i/o layers, tried resizing the hidden layers and the BPTT timesteps but so far i’ve only successfully managed to take a single sentence down to a low error coefficient. i’ve been using a translation of the tao te ching at around 56k chars, which i’m assured ought to be within scope for two hidden layers of say 64 or 128 nodes. (256 nodes is too heavy for my little machine.)\nhaving spent some time now training eg. incorrect architectures, i’m aware of various dynamics and trends in ‘training behaviour,’ but i’m finding lstm to be quite evasive. if left unsupervised the error coefficient doesn’t just stop progressing but can climb and climb astronomically. i often observe the same learning rate train through a few times with excellent progress then eat its way well past the ~3.0 threshold of “just plain guessing now” when it begins the next test.\nthe architecture trains successfully on elementary tests (“abababab”) and the overfit training sentence, am i misinformed about the capacity of such a model to store the data?\ni don’t really want to restructure my code for a single hidden layer, though this would of course be sensate, just avoidable work since the two layer source allows me to build variable layer architecture in the future.\ni’ve been using gradient normalisation at 1.0, gr…",
+      "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
