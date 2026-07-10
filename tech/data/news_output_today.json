@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-10T05:11:25.618754+00:00",
-  "count": 29,
+  "generated_at": "2026-07-10T10:31:53.643561+00:00",
+  "count": 33,
   "source_error_count": 0,
   "articles": [
     {
@@ -13,72 +13,6 @@
       "region": "global",
       "tier": "01_pass_rss",
       "macro_score": 1
-    },
-    {
-      "title": "蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！",
-      "url": "https://www.qbitai.com/2026/07/446458.html",
-      "summary": "蚂蚁灵波开源LingBot-Video，全球首个面向具身的视频基模来了！\n7月9日，蚂蚁灵波开源LingBot-Video，这是全球首个基于Mixture-of-Experts（MoE）架构、面向具身智能的开源视频生成基础模型。该模型围绕机器人和具身智能的核心需求重新设计视频预训练范式，在推理效率、物理合理性、动作理解和任务完成度等方面取得系统性提升，为视频基础模型从数字内容创作走向具身智能提供了新的开源底座。\n在北京大学联合字节跳动发布的基准RBench上，LingBot-Video的总分是0.620，超越了Wan2.6（0.607）、Seedance1.5 Pro（0.584）、Cosmos3 Super（0.581）。RBench作为面向机器人操作视频的综合评测基准，重点考察模型能否生成符合真实物理规律的机器人行为。这一结果表明，LingBot-Video在生成机器人相关视频时，更能保持动作过程的合理性和任务执行的完整性。\n（图说：LingBot-Video在RBench上性能最优）\n为进一步验证LingBot-Video对物理世界变化的建模能力，蚂蚁灵波在内部benchmark中从通用质量和具身领域两个维度进行评估。结果显示，对比NVIDIA Cosmos3、Wan2.2 A14B、LongCat-Video、Hunyuan Video1.5、LTX-2.3等五个开源模型，LingBot-Video在具身领域表现优于主要基线模型。\n（图说：综合评测显示，LingBot-Video在具身相关场景中展现出更强的物理理解和动作一致性）\n过去几年，视频生成模型在画质、流畅度和创意表达上快速进步，但对于具身智能来说，一个看起来逼真、动作流畅的视频，却无法反映真实的物理规律，难以支撑机器人连续预测、规划和执行任务。与此同时，具身智能还要求模型具备更高推理效率，以适应实时交互和控制闭环。\n这也让视频生成开始出现两种不同的演进方向：一条通向影院，服务于内容创作；另一条通向机器人，服务于物理世界的理解、预测与交互。LingBot-Video正是蚂蚁灵波面向具身智能开辟视频生成新路线的重要探索。\nLingBot-Video从架构、数据和训练三方面进行了系统创新。\n在架构上，LingBot-Video采用DiT+MoE设计，以MoE替代传统Dense架构，在扩大模型容量的同时控制单次推理成本。其30B总参数模型在生成时仅激活约3B参数，相比同等参数规模Dense架构拥有约3倍推理效率。这一设计使模型既能获得大规模参数带来的视觉表达能力，又更适合具身智能对高效推理的要求。\n在数据上，LingBot-Video构建了数据画像引擎，在海量互联网视频的基础上进一步引入VLA、VLN、Ego等机器人相关数据，覆盖灵巧操作、机器人移动和第一视角交互等场景，总规模达7万小时的具身数据。这些数据帮助模型学习动作与环境变化之间的关系，而不只是学习视频的表面纹理和视觉风格。\n在训练上，LingBot-Video引入多维强化学习奖励系统。除美学、prompt跟随和运动一致性等常规指标外，模型进一步围绕物理合理性和任务完成度进行对齐，使生成结果更符合真实世界规律，也更贴近机器人在真实世界完成任务的需求。\n据介绍，LingBot-Video可用于机器人动作预测、仿真数据生成、动作条件建模、世界模型研究等方向。目前，LingBot-Video已正式开源。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.…",
-      "published_at": "2026-07-09",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "世界模型首次迎来“小时级”生成！蚂蚁灵波开源LingBot-World 2.0，支持AI原生多人交互",
-      "url": "https://www.qbitai.com/2026/07/446548.html",
-      "summary": "世界模型首次迎来“小时级”生成！蚂蚁灵波开源LingBot-World 2.0，支持AI原生多人交互\n7月9日，蚂蚁灵波科技开源新一代实时交互世界模型LingBot-World 2.0（又称LingBot-World-Infinity）。该模型全面升级世界预测与交互能力，支持小时级实时生成、720p/60fps高清实时输出以及更丰富的交互动作与事件，并在业界首次将Agent机制引入世界模型，让生成的世界从“可观看、可操控”，进一步走向“可持续互动、可动态变化”。\n（图说：LingBot-World 2.0在生成时长、动态程度、实时性等方面均处于业界顶尖水平）\n今年1月，蚂蚁灵波开源了第一代世界模型LingBot-World，重点攻克长视频生成中常见的“长时漂移”问题，即生成时间一长，画面容易模糊、结构容易变形。LingBot-World 1.0将连续稳定生成时长推进到近10分钟，而且支持键鼠操控与文本触发环境变化，引发业界广泛关注。\n在此基础上，LingBot-World 2.0进一步向“无限生成”迈进。模型采用因果预训练范式，并引入自研的MoBA机制，让模型按照真实世界交互的时间顺序学习世界如何演化——基于已经发生的画面、动作和场景状态，持续预测接下来的变化，从而减少长时间生成中偏差不断放大的问题，避免画面越生成越模糊、结构越生成越失真。\n在长达一小时的不间断压力测试中，LingBot-World 2.0画面始终保持纹理清晰、场景结构连贯，无明显画质衰减。\n为了确保实时的交互体验，蚂蚁灵波从预训练模型中蒸馏出面向实时交互的快速版本，并对生成流程做了系统优化，画面不再是等一整段生成完才播放，而是边生成、边传输、边显示。最终，LingBot-World 2.0实现了稳定输出720p/60fps高清画面，用户通过键盘操控角色移动、切换视角时，画面几乎无延迟地即时反馈。\n在交互层面，LingBot-World 2.0不再只是“走一走、看一看”。模型支持攻击、射箭、施法、射击、跳跃、滑翔等多类动作，动作结果由模型根据场景状态实时生成，保持物理合理性与视觉一致性；也支持通过文本触发昼夜切换、天气变化、实体注入等事件。系统还内置双Agent机制：Pilot Agent负责规划执行角色行为，Director Agent在场景推进中实时提出新事件。此外，模型支持多位用户同时进入同一个持续运行的世界共同探索互动，开启AI原生的多人交互体验。\n此次开源也进一步降低了世界模型的使用门槛。作为新一代实时交互式世界模型，LingBot-World 2.0不仅可广泛应用于游戏内容生成、影视预演、虚拟仿真、数字孪生等场景，更重要的是，作为蚂蚁灵波全栈大脑2.0的重要一环，支持机器人与具身智能训练场景。\n目前，用户可在Reactor平台和灵光APP在线体验，感受LingBot-World 2.0实时生成、连续交互以及Agent驱动的动态世界演化能力。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
-      "published_at": "2026-07-09",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good",
-      "url": "https://www.qbitai.com/2026/07/446562.html",
-      "summary": "获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good\n“一生一案”书写优质教育\n北京时间7月7日，联合国机构国际电信联盟（ITU）2026年“人工智能向善”全球峰会（AI for Good Global Summit）在瑞士日内瓦举办，公布了年度“AI for Good创新影响力案例集”。天立国际旗下智慧教育公司启鸣达人（以下简称“天立启鸣”）自主研发的“天立学科大脑：AI驱动的个性化公平学习路径”入选“Generative Al for Creativity, Education and Public Services”（用于创造力、教育和公共服务的生成式人工智能）类别案例集。\n“天立学科大脑：AI驱动的个性化公平学习路径”入选案例集\n“人工智能向善”全球峰会是全球人工智能领域交流对话的重要平台之一，由国际电信联盟（ITU）与联合国工业发展组织、联合国教科文组织等联合国专门机构合作举办。“AI for Good创新影响力案例集”每年从海量申报案例中遴选出最具社会价值与落地成效的AI应用。在2026年周期中，年度全球应用案例征集的规模达到了迄今为止的最高水平：涵盖了来自国际电联五个区域的40个国家和经济体的267个用例。\n天立启鸣此次的入选案例凭借创新的技术范式、育人模式与可验证的规模化落地成效脱颖而出，代表中国K12教育领域AI创新获得重要认可，为全球推进SDG4（优质教育）贡献了可复制的“中国方案”。\n弥合“质量差距”：让每个孩子公平享有优质资源\n全球教育正经历从保障基础入学机会，迈向确保高质量、个性化的优质教育的历史性转变，但结构性矛盾依然突出。据联合国教科文组织《全球教师报告》数据显示，到2030年全球中小学教师缺口将达4400万；据世界银行和联合国教科文组织共同开发的数据库估算，低收入和中等收入国家中有53%的儿童到小学毕业时还不能阅读和理解一个简单故事，贫困国家中这一比例更达80%；据经合组织和中国教育部统计公报2022-2023年期间的数据统计显示，我国农村学生PISA数学成绩落后城市同龄人2~3年，数千万留守儿童与特殊教育学生的个性化需求长期被“一刀切”教学模式忽视。\n天立启鸣针对这一系列全球性难题，打造了这套AI+教育解决方案。以认知引擎及复杂系统理论为支撑，其融合了神经符号技术，将人类教育心理学先验知识与大模型推理能力深度对齐，构建了具备稳定情感底座与逻辑底座的类脑架构，破解当前教育大模型“有知识没逻辑、有输出没记忆”等痛点。\n其核心创新在于构建了全国首个在校园教学中实现规模化应用的AI大模型——“天立启鸣AI学伴”。依托天立24年办学经验沉淀的“特级教师领衔的名师授课视频、教案及教研成果；十亿级全周期学生成长数据；全学科知识图谱与能力模型；覆盖全考点的自研优质题库；60余所学校的本地化教学适配经验”五大原生资产，模型打通了从精准教学、学情追踪到多维评价的闭环：\nAI学伴\n大模型“多维评价”资产\n数据驱动的个性教学：通过作业数据与认知模型，精准诊断学生学情，生成专属成长方案，实现“一生一案”，推动教学模式从“经验教学”迈向“精准教学”；\n实时响应的学情追踪：通过轻量级时序网络构建学科知识图谱，实时追踪学生知识掌握度，推送针对性学习资源，捕捉学生的学习进展与知识漏洞；\n三位一体的多维评价：将德育培养嵌入教学流程，构建包含心理健康与道德素养的多维成长模型，实现“AI+教师+德育”三位一体的人机协同互补模式，由AI承担资源供给与数据分析，教师得以从重复性工作中解放，将更多精力投入学生个性发展、情感指导和品格塑造，护…",
-      "published_at": "2026-07-09",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "2026年世界人工智能大会，7月17-7月20上海举办",
-      "url": "https://www.qbitai.com/2026/07/436498.html",
-      "summary": "2026年世界人工智能大会，7月17-7月20上海举办\n180家企业携成果入驻\nWAIC 2026将于7月17-20日在上海举行，分设世博、张江、西岸三大片区，以“智能伙伴，共创未来”为主题，设置论坛会议、展览展示、评奖赛事、应用体验、创新孵化、招才引智六大板块：计划举办140余场主题论坛，集聚1400余位国际嘉宾，展览总面积超10万平方米，1100余家全球企业参展，将推出3000余项展品，并首设OPC专属展示区，180家企业携成果入驻。\n市经济和信息化委介绍了大会整体情况。本届大会回应人工智能从技术工具走向协作伙伴的时代之变，指向全球共治、产业共进、城市共享的共同愿景。\n入局AI新风向，WAIC 2026全球开票！\n*本文由waic提供，量子位获授权转载，版权归原作者所有。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09\n- 世界模型首次迎来“小时级”生成！蚂蚁灵波开源LingBot-World 2.0，支持AI原生多人交互2026-07-09",
-      "published_at": "2026-07-09",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "刚刚，全球首个具身专属的MoE视频模型，开源了！",
-      "url": "https://www.qbitai.com/2026/07/446568.html",
-      "summary": "刚刚，全球首个具身专属的MoE视频模型，开源了！\n视频生成的下一站，或是机器人大脑\n金磊 发自 凹非寺\n量子位 | 公众号 QbitAI\n终于，专属具身智能的视频模型来了！\n话不多说，直接来看生成的效果：\n视频地址：\nhttps://mp.weixin.qq.com/s/shwkij9ul5GpCBfNYMxU7Q\n这就是蚂蚁灵波刚刚正式开源的LingBot-Video——\n全球首个面向具身智能的大规模MoE视频基础模型、视频物理引擎。\n或许有小伙伴要问了，像刚才视频里的机器人切西红柿、吸床单和收纳口红，目前很多视频生成的AI不也能搞出来吗？\n确实。\n但既然说了LingBot-Video是具身版的专属视频模型，那说明它从架构、数据到训练目标全链路都是为机器人、人形智能体量身打造的。\n而且其它视频生成AI的关注点，更多的是时长、美学、画质、运镜等等。\n但到了LingBot-Video这里，重中之重，变成了是否符合物理规律。\n除此之外 ，LingBot-Video的亮点还包括：\n- 架构上采用MoE，让模型容量和推理成本更好平衡；\n- 30B参数，推理时仅激活3B；\n- 数据上引入超70000小时具身相关视频，让模型学习机器人操作、导航、第一视角等场景；\n- 训练上加入多维奖励系统，把物理合理性、任务完成度纳入优化目标。\n- 已在RBench上超越业内通用视频生成标杆模型。\nLingBot-Video一经开源，同样也是引发了网友们不小的热议，他们直呼：\n它的功能远不止于生成视频，如此大规模的训练，让模型对现实世界中的互动有了更深刻的理解。\n为什么机器人需要自己的视频模型？\n对于这个问题，答案其实蛮现实且刚需的。\n通用视频模型的训练目标，主要围绕视觉质量、语义对齐、运动连贯展开。人看视频时，也更容易被画质、光影、构图、风格打动。\n但机器人看世界的方式却截然不同。\n它不只是看见一个杯子，还要判断自己伸手过去以后，杯子会怎么动；看见一条路，还要判断从这里走过去，会不会撞到障碍……\n所以，我们可以认为内容视频和具身视频其实是两套评价体系。\n通用模型里偶尔出现的穿模、物体凭空消失、动作违背惯性，对短视频创作来说可能只是瑕疵。观众看一眼，最多吐槽一句“AI味有点重”。\n但如果把这些错误视频拿去训练机器人，那问题可就大了。\n因为这就相当于在教机器人一套错误的世界规律，它们会误认为手可以穿过物体、杯子可以无缘无故复原、液体可以悬在空中……\n所以LingBot-Video生成的视频，就是要让机器人的大脑学会真真实实的物理规律。\n例如下面这三组生成的工业场景的视频：\n视频地址：\nhttps://mp.weixin.qq.com/s/shwkij9ul5GpCBfNYMxU7Q\n视频中，机械臂在产线上对零件进行抓取、放置、定位，有的还涉及焊接、加工这样的动作。但重点在于末端执行器、工件、工作台之间的相对关系能不能在连续帧里保持稳定。\n这对应的正是机器人真正需要学习的能力，包括看懂物体，靠近物体，作用于物体，然后预测物体状态的变化。\n再如更复杂的动态场景：\n视频地址：\nhttps://mp.weixin.qq.com/s/shwkij9ul5GpCBfNYMxU7Q\n一个是第一视角滑雪镜头，从雪坡向前冲下，雪雾、坡面、身体姿态都在快速变化；另一个画面里，人形机器人则在雪道上和滑雪者并行绕旗门前进。\n这类场景考验的，便是机器人对于空间的理解、运动的预测和动态环境的建模等能力。\n还有机器人打排球、踢足球：\n视频地址：\nhttps://mp.weixin.qq.com/s/shw…",
-      "published_at": "2026-07-09",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "刚刚，OpenAI首席未来学家离职！曾被马斯克骂蠢驴",
-      "url": "https://www.qbitai.com/2026/07/446658.html",
-      "summary": "刚刚，OpenAI首席未来学家离职！曾被马斯克骂蠢驴\nTo safe AGI.\nhenry 发自 凹非寺\n量子位 | 公众号 QbitAI\n刚刚，OpenAI首席未来学家Joshua Achiam在X上宣布离职。\n这并不是一个普通员工变动。\n在OpenAI内部，首席未来学家这个职位夹在AI安全、政策和公司使命之间，负责研究AI继续变强之后，可能给世界带来的风险和机会。\n而Joshua Achiam，正是OpenAI这条安全与使命线上的核心人物之一。\n9年前的2017，他以实习生身份加入OpenAI。早期，他是一名专注于AI安全的研究科学家，做过深度强化学习里的安全约束研究。\n后来，他领导过OpenAI的Mission Alignment（使命对齐）团队，负责维护这家公司最初那句使命：\n确保AGI造福全人类。\n今年2月，OpenAI解散Mission Alignment团队，Joshua转任公司首席未来学家。\n只不过，短短5个月后，Joshua就宣布自己将在7月24日正式离开这家待了9年的公司。\n至于离职原因，Joshua并没有透露太多。\n他只是表示，自己离开并不是因为某个具体事件，也不是一时兴起，而是已经思考了很长一段时间。\n为了安全的AGI\n在X长文里，Joshua把这次离开称作“毕业”。\n他写道，自己2017年以25岁实习生（毕业于UC伯克利）身份加入OpenAI。那时，计算机还不能真正和人对话，也谈不上思考。\n如今，他34岁，已经是2岁孩子的父亲，而计算机已经开始解决前沿科学问题。\nJoshua形容，这9年像是“一个发生了几个世纪变化的十年”。\n对于未来，他依然保持乐观。\n我相信，我们能够创造出一个这样的世界：在那里，“满足每个人的基本需求”不再是个需要解决的问题；相反，我们会觉得，把标准定得这么低，反而是一种耻辱。我相信，我们能够实现一个充满和平、前所未有的繁荣以及各种难以想象的社会与科学可能性的世界。无论我接下来做什么，我都会继续与你们携手努力，让这一愿景成为现实。\n最后，他用一句话收尾：\nTo safe AGI.\n这句话也很像他过去9年在OpenAI的位置。\n据WIRED消息，OpenAI目前还没有宣布谁会接替Joshua的职位。这个职位位于公司AI安全和政策团队的交汇处，工作包括研究AI崛起可能带来的危害与收益。\n此前，Joshua也曾与OpenAI全球事务负责人Chris Lehane等高层合作，推动与OpenAI使命一致的政府监管。\n换句话说，他不是一个只做预测的“未来学家”。\n更准确地说，他在OpenAI内部做的是另一件事：当模型能力一路往前冲时，给这家公司不断提醒那句老问题。\n这条路最后到底要通向哪里？\n那个打断马斯克的男人\n回顾Joshua的OpenAI生涯，最有戏剧性的一幕，发生在2018年。\n今年4-5月，在马斯克与OpenAI那场世界庭审中，Joshua曾出庭作证，回忆马斯克2018年，离开OpenAI前的一次告别演讲：\n当时，他曾打断马斯克，指出如果计划在特斯拉开发AGI，可能会以牺牲安全为代价。\n据称：马斯克当即骂道：“Joshua是个“蠢驴”（jackass）”。\n后来，这件事后来反而成了OpenAI内部的一个“都市传说”。\nDario Amodei，如今的Anthropic CEO，以及David Luan，后来成为亚马逊AGI实验室负责人，还专门送给Achiam一个金色奖杯，上面刻着一句话：\n“为了安全，永远不要停止当那个jackass。”\n每逢安全大佬出走，OpenAI就？\n在Reddit上，有网友很快把…",
-      "published_at": "2026-07-09",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
     },
     {
       "title": "「没了李开复，零一万物还有什么？」一个敢问一个敢答",
@@ -116,7 +50,73 @@
     {
       "title": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0",
       "url": "https://www.qbitai.com/2026/07/447597.html",
-      "summary": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0\n7月10日，蚂蚁灵波发布业界首个具身原生世界动作模型LingBot-VA 2.0。该模型的发布，标志着机器人基础模型正式从“基于数字世界模型构建”到“面向物理世界原生设计”的关键转变。它代表了具身智能发展的一种关键路线选择：机器人“大脑”不再依托数字世界模型能力的“嫁接”，而是从动态建模、因果预测、实时执行等与环境交互的原始需求出发，进行原生设计。\n得益于具身原生架构，LingBot-VA 2.0在真机测试中表现出了出色的执行速度和泛化能力。以下面这个视频为例，在不依赖任何外部拍摄设备的情况下，机器人就可以完成与人类的多轮随机对打。\n今年以来，世界模型与具身智能怎么融合一直是各方关注的焦点。以终为始，从物理世界的“控制执行”需求出发，就需要持续符合因果规律的“预测能力”。机器人要面对的是一个连续变化的真实世界，不仅要针对当前情况作出反应，还要理解一个动作会引发怎样的环境变化，并据此决定下一步动作。当前行业主流路线大多依托面向数字内容创作的视频生成模型，再通过微调的方式适配机器人控制任务。\n然而内容创作和机器人控制有着不同的出发点，内容创作更在意画质和创意，机器人控制则更在意执行效率和预测的合理性。上述这些不同导致数字世界的视频模型和物理世界的视频动作模型在设计之初就有各自的能力侧重点，强行‘微调’把前者适配成后者会带来知识遗忘、泛化性下降等副作用。\nLingBot-VA 2.0选择直面问题，探索一条更艰难的路——基于自回归架构从头开始预训练，通过四大核心设计构建原生基模。\n首先，模型引入语义视觉-动作分词器（Tokenizer）作为全新的视觉编码器，在视觉压缩过程中加入了语义与动作信息的对齐，使模型在后续的训练中更容易把“理解指令”转化为“完成动作”，有助于指令跟随与提升动作精度。其次，模型采用严格的因果预训练范式，让模型从训练一开始就使用自回归架构，确保视觉预测和动作生成完全遵循单向时间顺序。第三，引入MoE架构，在不牺牲推理效率的前提下有效扩大了模型容量，在性能和效率之间取得平衡。最后，通过增强的异步推理机制实现实时闭环控制，在机器人执行动作的同时预测未来状态，并利用最新真实观测不断校正下一步决策。基于这些设计，在行业普遍面临的具身世界模型执行效率低这一问题上，LingBot-VA 2.0给出了单卡150Hz实时推理效率的答卷。\n从“干活”的角度出发，机器人需要“看的更清楚”“想的更明白”“干的更利索”。本周，蚂蚁灵波已经连续发布和开源了多款模型，包括：面向空间感知的LingBot-Vision和LingBot-Depth 2.0、面向“一脑多机”的动作模型LingBot-VLA 2.0、面向实时交互的LingBot-World 2.0和面向更高推理效率的视频生成基模LingBot-Video。上述模型代表着蚂蚁灵波在持续探索具身原生需要的细分方向能力，而LingBot-VA 2.0作为集大成者扮演了收官之作的角色，也正式开启了具身原生新阶段。\n蚂蚁灵波CEO朱兴表示，一方面灵波将持续探索具身智能新上限，另一方面也将加速构建开放的技术生态和场景生态，助力机器人加速走向产业场景。\n据悉，蚂蚁灵波将于7月17日至20日在2026世界人工智能大会（WAIC）期间，全面展示全栈大脑2.0落地场景的能力。观众可前往上海世博展览馆（H3-B302、H1-C701展位）进行现场体验。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 第十一届中国航空创新创业大赛报名开启…",
+      "summary": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0\n7月10日，蚂蚁灵波发布业界首个具身原生世界动作模型LingBot-VA 2.0。该模型的发布，标志着机器人基础模型正式从“基于数字世界模型构建”到“面向物理世界原生设计”的关键转变。它代表了具身智能发展的一种关键路线选择：机器人“大脑”不再依托数字世界模型能力的“嫁接”，而是从动态建模、因果预测、实时执行等与环境交互的原始需求出发，进行原生设计。\n得益于具身原生架构，LingBot-VA 2.0在真机测试中表现出了出色的执行速度和泛化能力。以下面这个视频为例，在不依赖任何外部拍摄设备的情况下，机器人就可以完成与人类的多轮随机对打。\n今年以来，世界模型与具身智能怎么融合一直是各方关注的焦点。以终为始，从物理世界的“控制执行”需求出发，就需要持续符合因果规律的“预测能力”。机器人要面对的是一个连续变化的真实世界，不仅要针对当前情况作出反应，还要理解一个动作会引发怎样的环境变化，并据此决定下一步动作。当前行业主流路线大多依托面向数字内容创作的视频生成模型，再通过微调的方式适配机器人控制任务。\n然而内容创作和机器人控制有着不同的出发点，内容创作更在意画质和创意，机器人控制则更在意执行效率和预测的合理性。上述这些不同导致数字世界的视频模型和物理世界的视频动作模型在设计之初就有各自的能力侧重点，强行‘微调’把前者适配成后者会带来知识遗忘、泛化性下降等副作用。\nLingBot-VA 2.0选择直面问题，探索一条更艰难的路——基于自回归架构从头开始预训练，通过四大核心设计构建原生基模。\n首先，模型引入语义视觉-动作分词器（Tokenizer）作为全新的视觉编码器，在视觉压缩过程中加入了语义与动作信息的对齐，使模型在后续的训练中更容易把“理解指令”转化为“完成动作”，有助于指令跟随与提升动作精度。其次，模型采用严格的因果预训练范式，让模型从训练一开始就使用自回归架构，确保视觉预测和动作生成完全遵循单向时间顺序。第三，引入MoE架构，在不牺牲推理效率的前提下有效扩大了模型容量，在性能和效率之间取得平衡。最后，通过增强的异步推理机制实现实时闭环控制，在机器人执行动作的同时预测未来状态，并利用最新真实观测不断校正下一步决策。基于这些设计，在行业普遍面临的具身世界模型执行效率低这一问题上，LingBot-VA 2.0给出了单卡150Hz实时推理效率的答卷。\n从“干活”的角度出发，机器人需要“看的更清楚”“想的更明白”“干的更利索”。本周，蚂蚁灵波已经连续发布和开源了多款模型，包括：面向空间感知的LingBot-Vision和LingBot-Depth 2.0、面向“一脑多机”的动作模型LingBot-VLA 2.0、面向实时交互的LingBot-World 2.0和面向更高推理效率的视频生成基模LingBot-Video。上述模型代表着蚂蚁灵波在持续探索具身原生需要的细分方向能力，而LingBot-VA 2.0作为集大成者扮演了收官之作的角色，也正式开启了具身原生新阶段。\n蚂蚁灵波CEO朱兴表示，一方面灵波将持续探索具身智能新上限，另一方面也将加速构建开放的技术生态和场景生态，助力机器人加速走向产业场景。\n据悉，蚂蚁灵波将于7月17日至20日在2026世界人工智能大会（WAIC）期间，全面展示全栈大脑2.0落地场景的能力。观众可前往上海世博展览馆（H3-B302、H1-C701展位）进行现场体验。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- AI聪明够了，行动呢？WAIC首夜，…",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "AI华语歌，终于能听了！从零预训练十亿参数，告别「人机味」",
+      "url": "https://www.qbitai.com/2026/07/447602.html",
+      "summary": "AI华语歌，终于能听了！从零预训练十亿参数，告别「人机味」\n字节也入局了\nJay 发自 凹非寺\n量子位 | 公众号 QbitAI\nAI华语音乐，终于能听了。\n母语羞耻、咬字飘忽、人机味……\n没有。\n全都没有。\n这首歌，是我让它以一首我特别喜欢的Jazz Hiphop为灵感，给定歌词，zero-shot生成的。\n命名为——《关于小羊》（doge）。\n说实话，太灵了。\n特别是verse第四句歌词开头那个「塞」的咬字，我很少听到AI国语音乐注意到这个细节，像s、c这种舌尖前音，其实是特别适合用带停顿的短促发音来制造律动的。\n还有Pre-Hook前bridge结尾那个转音，我反复拉了无数遍进度条……\n当然，最让我惊喜的还是最后一遍Hook。我歌词里明明没写，结果——\n它自己即兴发挥加了段哼唱？？\n这首《Coco》的结尾也用了这种手法。\n另一个版本的《关于小羊》我也蛮满意的，大家可以边读文章边当bgm挂着。\n上面这些音频丢给身边几位音乐发烧友听了下，得到的评价大多三个字：\n很清爽。\n说实话，我已经很久没有用「清爽」这个词来形容任何一首AI歌曲了。\n这个清爽的模型，叫歌歌AI。\n他们只做一件事——\n让AI音乐，听起来像中国人写的歌。\n重做AI音乐模型\n听起来挺简单对吧。\n但为了这一句话，他们从零预训练了一个十亿参数的模型。\n端到端那种，用户输入歌词、风格情绪描述与指定歌手，模型一次性直接生成长达3分钟、人声与伴奏俱全的完整立体声歌曲，还能同步输出独立的人声分轨与伴奏分轨。\n我猜你看到「预训练」这三个字的第一反应，应该和我最开始一样：\n哈？为啥不直接微调？？\n这事吧，得先从一个更本质的问题聊起——\n为什么以前的AI唱不好中文歌？\n现在市面上的主流AI音乐模型，从出生的第一天起就是为英语准备的。\n但汉语的演唱逻辑完全不同。\n1、固定声调。\n中文每个字本身带音高走势，四声之别，「妈」和「骂」就是完全不同的两个字。\n2、音节边界。\n英语里一个词可能有多个音节，而且弱读、连读、吞音很多，比如I wanna know，唱起来可以糊成一串，也能听懂。\n但中文是一个字一个音节，边界很清楚，一旦连得太厉害，基本听不懂。\n这也是为什么，YouTube英文播客基本无自带字幕，但在中文社区，内嵌字幕是必备的。\n3、字音对齐逻辑。\n简单来说就是，模型得知道哪个字落在哪个拍子上，哪个字可以拖，哪个字不能乱拖。\n英语是重音计时型语言，一个音节可以拉多长都行，无所谓；中文歌词和旋律、节拍之间的对应关系会更难把握。比如爱可以拖成「爱～～」，但如果把「的」「了」「着」这种轻声助词拖得特别长，会巨奇怪。\n总而言之就是，基于英语AI音乐模型做本土化，无异于强行让外国人唱京剧。\n结果就是——\n人声机械生硬、情感表达空洞干瘪，对国风、华语流行、民谣等国民主流曲风适配度极低。\n问题根本不在参数上。\n在架构。\n这也是为什么歌歌AI选择从零开始，为华语音乐重新设计一套技术栈。\n主要有三层——\n双流独立生成架构\n一首AI音乐，人声和伴奏是怎么组合起来的？\n传统AI音乐的做法是「事后对拍」。人声和伴奏各自生成完毕，再像两个图层一样硬叠在一起。\n拆开做当然技术难度更低，但总会觉得人声和伴奏之间隔了一层什么东西。各唱各的，没有呼吸感。\n真人歌手在录音棚里是什么状态？\n他听着伴奏的律动，感受着鼓点的推进，然后决定——这个气口落在哪里，这个音要怎么咬，这段尾音该收还是该放。\n这是一个和伴奏「对话」的心流过程。\n歌歌AI做的事情，正是把种「心流」，搬进了模型里。\n原生双流设计——人声一条通路，伴奏一条通路，各走各的生成链…",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！",
+      "url": "https://www.qbitai.com/2026/07/447627.html",
+      "summary": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！\n开源第四弹：LingBot-VA 2.0\n金磊 发自 凹非寺\n量子位 | 公众号 QbitAI\n终于，那句用来教育年轻人的经典嗑，也是用到机器人身上了：\n你们啊，\n眼光得放长远点~~[看]\n为啥？\n因为一个靠谱的机器人啊，它不能只是看到什么就做什么，现在还得学会预判未来——\n眼睛是看到了当下的这一帧，但脑子应该在盘算几步之后的画面了。\n这个事儿在具身智能圈有个专门的名字，叫做VA（Video-Action）模型。\n咱们先来感受一下这个feel：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n从视频中我们不难看出，桌上的冰球不仅速度快，轨迹还在不断变化，如果机器人只靠”看到哪打到哪”的反应式操作，大概率要被KO掉的。\n正确的解法，应该是模型一边盯着球的运动轨迹，一边提前预判几步之后球会跑到哪，然后提前调整身位、伸拍。\n这就是“预判式控制”和“反应式控制”的本质区别。\n不过啊，就在今天，VA这件事儿本身也要变了。\n因为从现在起，VA模型不仅要“眼光放长远”，还得从娘胎里就是具身的！\n这就是蚂蚁灵波刚刚发布的LingBot-VA 2.0，全球第一个具身原生的预训练VA基座模型。\n从架构，到数据，再到训练目标，第一天起就是为机器人量身定制的。\n除此之外，其它亮点还包括：\n- 双臂任务成功率93.6%\n- 单GPU推理150Hz\n- 因果DiT+稀疏MoE主干\n和前几天蚂蚁灵波三连弹开源+发布一样，LingBot-VA 2.0一经发布，同样引发了不小的热议，网友们纷纷表示：\n机器人技术正在迈入一个新时代。\n天生“预言家”的机器人\n看完上面这段冰球对战之后，有小伙伴可能会好奇了：LingBot-VA 2.0的这种预判能力，扛不扛得住更复杂的真实任务？\n巧了。\n研究团队在真实机器人身上还做了几组不同维度的测试，可以看出VA模型会先在脑子里做预判，把动作建立在对物理动态的预测之上。\n任务一：整理桌面\n面对一张东西摆得乱七八糟的桌子，机器人要先看懂桌上有哪些物体，哪些应该被移动，移动到哪里。\n我们来看下LingBot-VA 2.0的表现：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这项任务背后考验的，是模型对长时间跨度任务的状态维持能力；若是记性不好的话，机器人很可能收拾到一半就忘了自己刚刚收拾到了哪一步。\nLingBot-VA 2.0的高维planner面对任务会首先做一个任务拆解，比如左臂负责收拾垃圾归位，右臂把笔和鼠标等文具复位，双臂并行推进还要避免空间冲突。\n视频预测分支天然携带时序状态记忆，每一步操作后的桌面新状态都在模型预测范围内，不会出现“断片”返工。\n语义视觉-动作分词器让视觉latent同时对齐语义信息，物体类别与目标位置的理解在长序列中保持稳定。\n从最终效果看，机器人顺利完成了全桌面整理，说明LingBot-VA 2.0完全可以应对更接近真实生活的长程操作。\n任务二：传送带抓取\n这次任务的场景更接近工厂、仓储里的真实作业。\n物体在传送带上持续移动，机器人要抓的不是一个静止的目标，而是一个正在移动的目标。\n这就要求动作的时间节奏必须和物体的运动节奏严丝合缝地对上，早一点或晚一点，抓取动作都可能扑空。\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这个任务考验的是机器人对连续运动场景…",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布",
+      "url": "https://www.qbitai.com/2026/07/447681.html",
+      "summary": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布\nagent时代来了\n7月10日，从百度AIDAY上获悉，百度旗下通用智能体百度搭子自上线以来，日均提问次数暴增20倍，为用户在办公、创作、信息处理等场景提供全方位智能助力，成为增速最快的通用智能体。当天，百度搭子个人版也重磅升级智能路由、多端共享记忆、浏览器调用、PPT生成等多项能力，并发布行业首个自媒体专业套件，进一步提升干活能力。同时，百度搭子企业版也正式发布，通过叠加团队协作、资产沉淀、流程打通和安全治理等能力，全面支持企业场景落地。\n百度集团执行副总裁、百度智能云事业群总裁沈抖在现场表示，未来90%的工作，都可能有智能体深度参与、协助完成，百度搭子要做的，就是深入办公场景真干活、真办事儿；用户只要把目标说清楚，它就能理解需求、拆解任务、调用工具，完成跨应用、跨文件的复杂工作，最后交付真正可用的结果，而真正有用的智能体，表面是一个产品，背后是一整套全栈AI能力，百度长期积累的芯片、云、模型、数据、工程和产业落地能力，正在支撑百度搭子持续进化。\n在个人版能力升级上，百度搭子此次重点提升复杂办公任务的执行效率、跨端连续性和成果交付质量。面对资料检索、竞品调研、网页信息整理等任务，百度搭子可以像人一样进入网页、点击、跳转、检索和整理信息，用户也能看到AI在网页上的执行过程；如果任务需要更高算力、更低延迟或更强数据安全，百度搭子会通过智能路由自动选择云端沙箱、本地沙箱或Chat模式，平均任务耗时降低20%，Token利用率提升25%。同时，多端共享记忆让手机和电脑之间的任务上下文连续承接，用户在电脑上处理到一半的方案、报告或资料整理任务，可以在手机端继续追问、修改或下载结果。\n办公场景是此次升级的重点落点。围绕方案汇报、项目复盘、研究报告等高频任务，百度搭子强化了PPT生成能力，从模板库、配图模型、智能排版、图表可视化到大纲编排进行优化，输出结果更接近可编辑、可修改、可交付的办公成品。面向内容创作者和新媒体运营，百度搭子还发布行业首个自媒体专业套件，覆盖选题规划、热点洞察、图文创作、短视频脚本、分镜口播、内容发布辅助和运营复盘等环节，把原本分散在多个平台和工具中的内容工作流压缩进一个对话流。与此同时，百度搭子继续扩展Skill生态，覆盖搜索研究、生活服务、内容创作、办公协作等场景，并通过全自动化Skill上线流程，对能力上架前的开发标准、管理平台、安全评估、效果评估和市场化运营进行统一管理。\n企业版则把百度搭子的能力从个人办公延展到团队协作和企业工作流。企业版面向团队协作、资产沉淀、流程打通和安全治理等企业需求，支持将员工产生的方案、数据、技能和项目成果沉淀为组织资产，并对成员权限、资源用量、Skill上下架和执行过程进行管理。同时，企业版发布企业级Skill接入标准，面向企业和ISV伙伴共建行业解决方案。\n同日发布的搭子联盟，面向渠道伙伴、商机伙伴、产品伙伴、交付保障伙伴等开放合作。中国联通、创维等伙伴参与共建，推动百度搭子进入更多企业服务和产业应用场景。\n发布会之外，百度搭子当天还在成都举办搭子市集，吸引了上千市民围观。现场由Rapper用百度搭子辅助创作的Rap开场，工作搭子、世界杯搭子、搭子棋牌室、福利搭子和伙伴展台等体验区同步开放。观众可以现场体验百度搭子辅助完成资料整理、PPT制作、网页操作、内容创作等任务，也可以参与世界杯主题打卡、AI棋牌互动和福利兑换。市集中的PPT搭子大赛则把办公任务做成现场挑战，参赛者抽取任务卡后，用百度搭子完成PPT、方案、报告或内容策划，作品…",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名",
+      "url": "https://www.qbitai.com/2026/07/447682.html",
+      "summary": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名\n就在下周，世界人工智能大会就要在上海启动了。\n每年这种重磅的AI大会，量子位自然不会缺席。今年量子位的报道团，也会来到线下，为大家带来一手的科技大会讯息。\n但在展台之外，我们想办一场“真话局”。\nWAIC的展台会告诉你AI有多聪明：更强的模型、更炫的Demo、更多的人形机器人。\n但我们想要追问一个问题：\nAI聪明够了，行动呢？\nAgent在Demo里调用工具行云流水，但有多少进了客户的核心流程？世界模型把仿真精度推到再高，机器人第一次进工厂时，剩下的发生了什么？\n从“会回答”到“能完成”，从“预测”到“执行”，这是今年WAIC背后的现实考题。\n7月17日19:30，上海浦东。让我们一起关掉PPT、跳出展台，来与Builder、Researcher、Investor一起，提前理解AI的下一步。\n活动议程\n19:30 – 20:00\n签到 & 交个朋友\n20:00 – 20:30\n主题：Agent从聊天框到正式上岗了吗？\n分享嘉宾：\n张昊然，Evomap 创始人&CEO\n李志宇，记忆张量 CTO\n20:30 – 21:00\n主题：模型能从Github到与世界交互了吗？\n分享嘉宾：\n梁鼎，VAST CTO\n陆弘远，脸谱心智创始人\n21:00 – 21:30\n自由交流\n报名方式\n- 7月17日 晚19:30\n- 上海浦东·咖啡馆\n报名链接：https://hdxu.cn/1KEE3\n7月17日19:30，关掉PPT、跳出展台。\n让我们一起提前理解AI的下一步。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
+      "url": "https://www.qbitai.com/2026/07/447691.html",
+      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "一群做自动驾驶的人，盯上了睡眠这件事",
+      "url": "https://www.qbitai.com/2026/07/447796.html",
+      "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -167,6 +167,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 2
+    },
+    {
+      "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
+      "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
+      "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
+      "published_at": "2026-07-10",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "Created TorchCTS, a conformance test suite for testing backends",
@@ -315,6 +326,39 @@
       "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
       "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
       "summary": "I have a small Gradio app and using a docker space because I would like to send static files that are generated to Cloudflare Pages.\nHowever, it seems that I’m not able to connect to the Cloudflare API with Wrangler CLI. Under the hood, wrangler is using Node fetch, and even node fetch calls to Cloudflare are timing out.\nThis is the error from wrangler:\n ⛅️ wrangler 4.110.0\n────────────────────\nGetting User settings...\nIf you think this is a bug then please create an issue at https://github.com/cloudflare/workers-sdk/issues/new/choose\n▲ [WARNING] A fetch request failed, likely due to a connectivity issue.\n  \n  Common causes:\n    - No internet connection or network connectivity problems\n    - Firewall or VPN blocking the request\n    - Network proxy configuration issues\n  \n  Please check your network connection and try again.\n✘ [ERROR] fetch failed\nIf I try making a node fetch call to Cloudflare, I see this:\n[node] connecting to Cloudflare account.\nTypeError: fetch failed\nat Object.processResponse (node:internal/deps/undici/undici:13017:20)\nat node:internal/deps/undici/undici:13405:23\nat process.processTicksAndRejections (node:internal/process/task_queues:104:5)\nat node:internal/deps/undici/undici:17694:7\nat process.processTicksAndRejections (node:internal/process/task_queues:104:5) {\n[cause]: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 104.19.192.175:443, timeout: 10000ms)\nat onConnectTimeout (node:internal/deps/undici/undici:1991:23)\nat Immediate._onImmed…",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Hardware quota limit reached during Agents Course despite only 0 active Spaces",
+      "url": "https://discuss.huggingface.co/t/hardware-quota-limit-reached-during-agents-course-despite-only-0-active-spaces/177649",
+      "summary": "I’m doing the free Agents Course and getting ‘Space Paused — You’ve reached your hardware quota limit across all your Spaces!’ despite only having 1 active Space. I’ve paused all other Spaces. This seems like a quota accounting bug. Can someone check my account?",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Epistemic Stress Test — Muse Spark 1.1 validated by MarCognity-AI",
+      "url": "https://discuss.huggingface.co/t/epistemic-stress-test-muse-spark-1-1-validated-by-marcognity-ai/177655",
+      "summary": "I ran responses generated by the model and passed them through\nMarCognity-AI’s Skeptical Agent.\nNot to judge the models.\nNot to compare outputs.\nBut to make visible what usually stays hidden: the gap between how confident a text sounds and how verifiable it actually is.\nEven technically correct answers contain claims that cannot be traced back to any source.\nThat gap has a name: Epistemic Fracture.\nGithub: https://github.com/elly99-AI/MarCognity-AI.git\nZenodo: https://doi.org/10.5281/zenodo.20509721",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Building a Centralized Vector Database Pipeline for Multi-Project RAG",
+      "url": "https://discuss.huggingface.co/t/building-a-centralized-vector-database-pipeline-for-multi-project-rag/177657",
+      "summary": "How I built a single, admin-controlled service that lets every project in my organization embed and retrieve data from its own isolated vector store\nIf you’ve worked on more than one Retrieval-Augmented Generation (RAG) project, you’ve probably run into the same annoying pattern: every project ends up with its own little vector store, its own embedding logic, its own duplicate code for chunking files, and its own inconsistent way of tracking what’s actually been indexed.\nI got tired of that, so I built a centralized vector database service that every project in my organization can plug into. One backend, one embedding model, one clean set of endpoints — and every project gets its own isolated, admin-controlled storage space.\nHere’s how it works.\nThe Problem\nWhen you’re running multiple RAG-powered projects at once, a few pain points show up fast:\n- Every team reinvents chunking and embedding logic\n- There’s no single place to see what data lives where\n- Deleting or updating stored documents becomes a manual, error-prone process\n- Nobody has a clear picture of which files are indexed in which project\nI wanted one system that solves this once, for everyone.\nThe Idea: One Service, Many Isolated Databases\nInstead of giving each project its own standalone vector database, I built a shared service where:\n- Each project gets its own named storage directory\n- All directories live under one base storage path\n- An admin layer controls the full lifecycle — create, insert, update, delete…",
       "published_at": "2026-07-10",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
