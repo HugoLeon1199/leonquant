@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-10T23:12:39.724230+00:00",
+  "generated_at": "2026-07-11T23:00:59.040189+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 791565,
+    "estimated_input_tokens": 558885,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 696,
-    "sent_article_count": 696,
+    "input_article_count": 460,
+    "sent_article_count": 460,
     "window": {
-      "end_date": "2026-07-11",
+      "end_date": "2026-07-12",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,94 +25,105 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động địa chính trị, tài chính và công nghệ trong 48 giờ qua, tập trung vào các tác động thực tế đến thị trường và chính sách.",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và thời sự trọng điểm trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh toàn cầu bị chi phối bởi sự leo thang quân sự tại eo biển Hormuz, đẩy giá dầu Brent vượt mốc 76 USD/thùng và làm dấy lên lo ngại về lạm phát. Song song đó, cuộc đua AI đã chuyển dịch từ phát triển mô hình sang cuộc chiến giành giật hạ tầng tính toán (compute) và nguyên liệu bán dẫn, với việc Trung Quốc cấm xuất khẩu heli như một đòn đáp trả chiến lược. Tại Việt Nam, chính sách điều hành đang đi vào chiều sâu, từ việc siết chặt quản lý thuế hộ kinh doanh đến việc thúc đẩy các dự án hạ tầng trọng điểm, cho thấy sự quyết liệt trong việc tái cấu trúc nền kinh tế.",
-        "most_mentioned": "Các chủ đề về biến động giá vàng, căng thẳng địa chính trị Mỹ-Iran và các bước tiến trong hạ tầng AI là những nội dung được nhắc lại dày đặc nhất. Sự quan tâm của giới đầu tư đang tập trung vào khả năng thích ứng của các doanh nghiệp trước áp lực lãi suất và các quy định mới về thuế, ESG.",
-        "top_stories": "Vụ kiện giữa Apple và OpenAI về bí mật thương mại phần cứng cùng với việc Trung Quốc cấm xuất khẩu heli là những sự kiện định hình lại cuộc đua bán dẫn toàn cầu. Tại Việt Nam, các dự án hạ tầng quy mô lớn như tổ hợp lấn biển tại Cần Thơ và sự hiện diện của ngân hàng tại Trung tâm Tài chính quốc tế (VIFC-HCMC) cho thấy nỗ lực cụ thể hóa các mục tiêu phát triển kinh tế dài hạn.",
-        "sector_impacts": "Ngành công nghệ đang đối mặt với thách thức về nguồn cung nguyên liệu và hạ tầng tính toán, trong khi ngành tài chính ngân hàng tại Việt Nam đang chịu áp lực lớn về cân đối vốn và quản trị rủi ro. Các doanh nghiệp xuất khẩu nông sản, đặc biệt là sầu riêng, đang phải thích ứng nhanh với các quy định kiểm soát khắt khe từ thị trường Trung Quốc."
+        "main_picture": "Thị trường 48 giờ qua ghi nhận sự dịch chuyển dòng vốn mạnh mẽ từ các tài sản đầu cơ sang hạ tầng AI và năng lượng, trong khi tại Việt Nam, các chính sách quản lý thị trường và hạ tầng giao thông đang được đẩy mạnh thực thi. Sự phân hóa rõ rệt giữa các kênh đầu tư truyền thống như vàng, bất động sản và xu hướng gửi tiết kiệm cho thấy tâm lý thận trọng của nhà đầu tư trước những biến động vĩ mô.",
+        "most_mentioned": "AI và hạ tầng công nghệ là chủ đề chi phối, từ việc ứng dụng AI trong giao dịch tài chính của Robinhood, các đột phá vật liệu siêu dẫn, đến việc các tập đoàn FDI như Suntory PepsiCo mở rộng sản xuất tại Việt Nam. Sự kiện Apple kiện OpenAI về bí mật phần cứng cũng đánh dấu bước leo thang trong cuộc đua thiết bị AI.",
+        "top_stories": "Vụ lật ca nô nghiêm trọng tại Phú Quốc khiến 15 người tử vong là tâm điểm thời sự, kéo theo chỉ đạo khẩn cấp từ Thủ tướng về an toàn đường thủy. Song song đó, cuộc thanh tra diện rộng thị trường xăng dầu và việc VinaCapital thoái vốn khỏi PNJ đang tạo ra những tác động trực tiếp đến tâm lý thị trường tài chính trong nước.",
+        "sector_impacts": "Dòng vốn FDI vào Việt Nam tiếp tục ghi nhận tín hiệu tích cực với các dự án lớn, khẳng định vị thế trong chuỗi cung ứng thị trường. Ngược lại, thị trường tài chính cá nhân đang có xu hướng dịch chuyển từ vàng và bất động sản sang tiền gửi ngân hàng do lãi suất huy động neo cao."
       },
-      "content": "Bức tranh 48 giờ qua cho thấy sự đan xen phức tạp giữa rủi ro địa chính trị và cơ hội từ hạ tầng công nghệ. Căng thẳng tại eo biển Hormuz không chỉ đẩy giá dầu Brent vượt mốc 76 USD/thùng mà còn làm dấy lên lo ngại về lạm phát toàn cầu. Trong khi đó, cuộc đua AI đã chuyển từ giai đoạn phát triển mô hình sang cuộc chiến giành giật hạ tầng tính toán (compute) và nguyên liệu bán dẫn, với việc Trung Quốc cấm xuất khẩu heli như một đòn đáp trả chiến lược. Tại Việt Nam, các chính sách điều hành đang đi vào chiều sâu, từ việc siết chặt quản lý thuế hộ kinh doanh đến việc thúc đẩy các dự án hạ tầng trọng điểm, cho thấy sự quyết liệt trong việc tái cấu trúc nền kinh tế.",
+      "content": "Thị trường 48 giờ qua là sự giao thoa giữa các đột phá công nghệ và rủi ro địa chính trị. Trong khi AI trở thành động lực chính thu hút dòng vốn, các tập đoàn công nghệ lớn đang tái cấu trúc nhân sự để tối ưu hóa hiệu suất, tạo ra làn sóng sa thải đáng chú ý. Tại Việt Nam, chính sách đang chuyển dịch mạnh mẽ từ định hướng sang thực thi, điển hình là việc thanh tra xăng dầu và siết chặt quản lý SIM điện thoại qua VNeID. Người đọc cần lưu ý sự phân hóa trong thị trường bất động sản đấu giá và sự thận trọng của nhà đầu tư ngoại đối với các doanh nghiệp đang đối mặt với rủi ro pháp lý. Các dự án hạ tầng trọng điểm như Vành đai 3 TP.HCM đang được thúc đẩy để tạo động lực tăng trưởng dài hạn, trong khi các doanh nghiệp như Vietbank đang nỗ lực nâng cao năng lực tài chính thông qua tăng vốn điều lệ.",
       "representative_sources": [
         {
-          "title": "Apple kiện OpenAI vì cáo buộc đánh cắp bí mật thương mại phần cứng",
-          "source": "decrypt_co",
-          "url": "https://decrypt.co/373339/apple-sues-openai-claims-former-employees-stole-trade-secrets"
-        },
-        {
-          "title": "Trung Quốc bất ngờ ban lệnh cấm xuất khẩu heli",
+          "title": "Vụ lật ca nô đặc biệt nghiêm trọng tại Phú Quốc",
           "source": "tienphong_vn",
-          "url": "https://tienphong.vn/trung-quoc-bat-ngo-ban-lenh-cam-xuat-khau-heli-post1858665.tpo"
+          "url": "https://tienphong.vn/vu-lat-ca-no-lam-chet-15-nguoi-o-phu-quoc-mot-trong-hai-du-khach-nguy-kich-da-tinh-tao-lai-post1858937.tpo"
         },
         {
-          "title": "Lãi suất ngân hàng tăng trở lại lên 9%/năm",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/lai-suat-ngan-hang-tang-tro-lai-len-9nam-20260708152518837.htm",
-          "excerpt": "Hệ số LDR của toàn hệ thống hiện dao động khoảng 112-117%, gây áp lực lớn lên cân đối nguồn vốn."
+          "title": "Giá vàng neo mức cao kỷ lục, thị trường chờ đợi tín hiệu từ Fed",
+          "source": "vietnamnet_vn",
+          "url": "https://vietnamnet.vn/gia-vang-hom-nay-11-7-2026-vang-the-gioi-giam-sjc-ap-sat-150-trieu-dong-luong-2534665.html"
         },
         {
-          "title": "Apple Sues OpenAI, Claims Former Employees Stole Trade Secrets - Decrypt",
-          "source": "decrypt_co",
-          "url": "https://decrypt.co/373339/apple-sues-openai-claims-former-employees-stole-trade-secrets",
-          "excerpt": "Apple đã đệ đơn kiện OpenAI và hai cựu nhân viên, cáo buộc họ đánh cắp các tệp tin phần cứng bí mật."
+          "title": "Apple kiện OpenAI về hành vi đánh cắp thiết kế phần cứng",
+          "source": "thenextweb_com",
+          "url": "https://thenextweb.com/news/apple-sues-openai-trade-secrets-theft-hardware"
+        },
+        {
+          "title": "Bitcoin treasury company Empery Digital sold about half of BTC stack",
+          "source": "coindesk_com",
+          "url": "https://coindesk.com/markets/2026/07/11/bitcoin-treasury-company-empery-digital-sold-about-half-of-btc-stack"
+        },
+        {
+          "title": "Apple sues OpenAI for stealing hardware designs, alleging employees brought prototypes to",
+          "source": "thenextweb_com",
+          "url": "https://thenextweb.com/news/apple-sues-openai-trade-secrets-theft-hardware",
+          "excerpt": "Apple cáo buộc OpenAI sử dụng nhân viên cũ để đánh cắp bí mật thương mại phần cứng nhằm phục vụ tham vọng thiết bị AI."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Căng thẳng địa chính trị eo biển Hormuz",
-          "why_mentioned": "Ảnh hưởng trực tiếp đến giá năng lượng và chuỗi cung ứng toàn cầu.",
-          "evidence_hint": "Lặp lại trên CNBC, OilPrice và các báo chính thống."
+          "topic": "AI và Hạ tầng công nghệ",
+          "why_mentioned": "Sự bùng nổ các tin tức về ứng dụng AI, bán dẫn và đầu tư trung tâm dữ liệu.",
+          "evidence_hint": "Các bài viết về Nvidia, OpenAI, và hạ tầng năng lượng cho AI."
+        },
+        {
+          "topic": "Địa chính trị Trung Đông",
+          "why_mentioned": "Căng thẳng Mỹ-Iran leo thang tại eo biển Hormuz ảnh hưởng đến giá năng lượng.",
+          "evidence_hint": "Các cảnh báo từ Tổng thống Mỹ Donald Trump và diễn biến tại eo biển Hormuz."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Cuộc chiến pháp lý Apple - OpenAI",
-          "why_hot": "Ảnh hưởng đến lộ trình phát triển phần cứng AI của hai gã khổng lồ.",
-          "impact": "Tác động đến chiến lược đầu tư vào hạ tầng AI toàn cầu.",
-          "evidence_hint": "Được đưa tin bởi Wired, TechCrunch, The Verge."
+          "topic": "Vụ lật ca nô tại Phú Quốc",
+          "why_hot": "Sự kiện thời sự đặc biệt nghiêm trọng gây thiệt hại lớn về người.",
+          "impact": "Ảnh hưởng đến an toàn du lịch và quản lý nhà nước tại các địa phương trọng điểm.",
+          "evidence_hint": "Thông tin từ Thủ tướng Chính phủ và các cơ quan chức năng."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Trung Quốc cấm xuất khẩu heli",
-          "why_watch": "Tác động trực tiếp đến sản xuất chip bán dẫn và thiết bị y tế toàn cầu."
+          "signal": "Dịch chuyển dòng vốn cá nhân sang tiền gửi ngân hàng",
+          "why_watch": "Phản ánh tâm lý thận trọng của người dân trước biến động của vàng và bất động sản."
         }
       ],
       "watch_next": [
-        "Diễn biến giá dầu Brent",
-        "Phản ứng thị trường với các tin tức pháp lý doanh nghiệp",
-        "Tiến độ văn bản hướng dẫn tài sản số tại Việt Nam"
+        "Diễn biến giá vàng và phản ứng của Fed",
+        "Tiến độ điều tra vụ tai nạn tại Phú Quốc",
+        "Các văn bản pháp lý về tài sản số tại Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Căng thẳng eo biển Hormuz đẩy giá dầu và rủi ro chuỗi cung ứng toàn cầu",
-        "one_sentence": "Xung đột quân sự Mỹ-Iran tại eo biển Hormuz khiến giá dầu Brent vượt mốc 76 USD/thùng, đe dọa trực tiếp đến an ninh năng lượng và chi phí vận tải toàn cầu.",
-        "why_it_matters": "Sự kiện địa chính trị quan trọng nhất ảnh hưởng trực tiếp đến giá năng lượng và lạm phát toàn cầu.",
-        "watch_next": "Diễn biến giá dầu Brent và các đòn đáp trả quân sự tiếp theo.",
-        "source_urls": []
+        "title": "Vụ lật ca nô đặc biệt nghiêm trọng tại Phú Quốc",
+        "one_sentence": "Tai nạn khiến 15 người tử vong, Thủ tướng yêu cầu khẩn trương điều tra nguyên nhân và tăng cường quản lý an toàn đường thủy.",
+        "why_it_matters": "Sự kiện ảnh hưởng trực tiếp đến uy tín du lịch và công tác quản lý an toàn giao thông tại các đặc khu kinh tế.",
+        "watch_next": "Kết quả điều tra nguyên nhân và các biện pháp siết chặt quản lý vận tải đường thủy.",
+        "source_urls": [
+          "https://tienphong.vn/vu-lat-ca-no-lam-chet-15-nguoi-o-phu-quoc-mot-trong-hai-du-khach-nguy-kich-da-tinh-tao-lai-post1858937.tpo"
+        ]
       },
       {
         "rank": 2,
-        "title": "Apple kiện OpenAI vì cáo buộc đánh cắp bí mật thương mại phần cứng",
-        "one_sentence": "Apple khởi kiện OpenAI và các cựu nhân viên vì cáo buộc chiếm đoạt dữ liệu kỹ thuật và bí mật thiết kế phần cứng, làm nóng cuộc đua hạ tầng AI.",
-        "why_it_matters": "Vụ kiện lớn giữa hai gã khổng lồ công nghệ, ảnh hưởng đến chiến lược phần cứng của OpenAI.",
-        "watch_next": "Phản ứng từ phía OpenAI và các diễn biến pháp lý tiếp theo.",
+        "title": "Giá vàng neo mức cao kỷ lục, thị trường chờ đợi tín hiệu từ Fed",
+        "one_sentence": "Giá vàng miếng SJC áp sát 150 triệu đồng/lượng trong bối cảnh rủi ro địa chính trị và kỳ vọng chính sách tiền tệ từ Fed.",
+        "why_it_matters": "Tác động trực tiếp đến tâm lý nhà đầu tư và áp lực lạm phát trong nước.",
+        "watch_next": "Các số liệu kinh tế Mỹ và phản ứng của Fed trong kỳ họp tới.",
         "source_urls": [
-          "https://decrypt.co/373339/apple-sues-openai-claims-former-employees-stole-trade-secrets"
+          "https://vietnamnet.vn/gia-vang-hom-nay-11-7-2026-vang-the-gioi-giam-sjc-ap-sat-150-trieu-dong-luong-2534665.html"
         ]
       },
       {
         "rank": 3,
-        "title": "Trung Quốc bất ngờ ban lệnh cấm xuất khẩu heli",
-        "one_sentence": "Trung Quốc áp đặt lệnh cấm xuất khẩu heli, nguyên liệu thiết yếu cho sản xuất chip bán dẫn và thiết bị y tế, gây áp lực lên chuỗi cung ứng toàn cầu.",
-        "why_it_matters": "Tác động trực tiếp đến chuỗi cung ứng bán dẫn toàn cầu.",
-        "watch_next": "Phản ứng từ các nhà sản xuất chip toàn cầu và giá heli trên thị trường.",
+        "title": "Apple kiện OpenAI về hành vi đánh cắp thiết kế phần cứng",
+        "one_sentence": "Apple cáo buộc OpenAI sử dụng nhân viên cũ để đánh cắp bí mật thương mại phần cứng nhằm phục vụ tham vọng thiết bị AI cạnh tranh.",
+        "why_it_matters": "Xung đột pháp lý lớn giữa hai gã khổng lồ công nghệ có thể làm thay đổi cục diện ngành thiết bị AI.",
+        "watch_next": "Phản ứng từ phía OpenAI và các diễn biến tại tòa án liên bang California.",
         "source_urls": [
-          "https://tienphong.vn/trung-quoc-bat-ngo-ban-lenh-cam-xuat-khau-heli-post1858665.tpo"
+          "https://thenextweb.com/news/apple-sues-openai-trade-secrets-theft-hardware"
         ]
       }
     ],
@@ -120,24 +131,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự phân hóa dòng vốn và áp lực quản trị rủi ro. Trong khi tài sản số như Bitcoin chịu áp lực điều chỉnh, các dự án hạ tầng quy mô lớn tại Việt Nam vẫn thu hút sự quan tâm của dòng vốn FDI. Điểm đáng chú ý là sự chuyển dịch trong chiến lược dự trữ của các ngân hàng trung ương và nỗ lực hiện thực hóa các trung tâm tài chính quốc tế tại Việt Nam. Các ngân hàng thương mại đang đẩy lãi suất huy động lên tới 9%/năm để cân đối thanh khoản, trong khi các doanh nghiệp bán lẻ lớn như PNJ đối mặt với biến động vốn hóa do các vấn đề pháp lý liên quan đến lãnh đạo cũ.",
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự phân hóa dòng vốn và các chính sách quản lý mới. Trong khi Bitcoin đối mặt với áp lực thanh khoản do sự cạnh tranh từ hạ tầng AI, thị trường bất động sản du lịch tại Quảng Ninh lại ghi nhận tín hiệu phục hồi tích cực. Đồng thời, sự kiện thoái vốn của VinaCapital tại PNJ và cuộc thanh tra xăng dầu diện rộng cho thấy sự thận trọng của nhà đầu tư và nỗ lực minh bạch hóa thị trường của cơ quan quản lý. Dòng vốn cá nhân đang dịch chuyển mạnh sang tiền gửi ngân hàng, phản ánh tâm lý phòng thủ trước biến động vĩ mô.",
         "subsector_briefs": [
           {
-            "name": "Tài chính & Ngân hàng",
-            "overview": "Hệ thống ngân hàng Việt Nam đang đối mặt với áp lực thanh khoản khi tăng trưởng tín dụng vượt xa huy động vốn.",
+            "name": "Thị trường tài sản và đầu tư",
+            "overview": "Dòng vốn đang có sự dịch chuyển rõ rệt từ các tài sản rủi ro sang các kênh an toàn hơn hoặc các lĩnh vực có câu chuyện tăng trưởng thực tế như hạ tầng AI.",
             "key_points": [
-              "Lãi suất huy động tăng lên 9%/năm",
-              "HDBank huy động thành công 721 triệu USD từ quốc tế"
+              "Bitcoin chịu áp lực thanh khoản",
+              "Tiền gửi ngân hàng tăng trưởng",
+              "Thoái vốn tại các doanh nghiệp đầu ngành"
             ],
             "key_story_titles": [
-              "Lãi suất huy động ngân hàng tăng trở lại"
+              "Bitcoin đối mặt áp lực thanh khoản khi dòng vốn dịch chuyển sang hạ tầng AI"
             ],
             "representative_sources": [
               {
-                "title": "Lãi suất ngân hàng tăng trở lại lên 9%/năm",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/lai-suat-ngan-hang-tang-tro-lai-len-9nam-20260708152518837.htm",
-                "excerpt": "Các ngân hàng thương mại đẩy lãi suất thực tế lên tới 9%/năm để thu hút vốn trong bối cảnh tăng trưởng tín dụng vượt xa huy động."
+                "title": "Bitcoin treasury company Empery Digital sold about half of BTC stack",
+                "source": "coindesk_com",
+                "url": "https://coindesk.com/markets/2026/07/11/bitcoin-treasury-company-empery-digital-sold-about-half-of-btc-stack"
               }
             ]
           }
@@ -146,30 +157,28 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Tài chính & Ngân hàng",
-            "title": "Lãi suất huy động ngân hàng tăng trở lại",
-            "summary": "Các ngân hàng thương mại Việt Nam đang đẩy lãi suất huy động lên tới 9%/năm để thu hút vốn trong bối cảnh tăng trưởng tín dụng vượt xa huy động. Tình trạng này phản ánh áp lực thanh khoản và nhu cầu cân đối nguồn vốn của hệ thống ngân hàng.",
+            "sub_sector": "Thị trường tài sản",
+            "title": "Bitcoin đối mặt áp lực thanh khoản khi xu hướng tài sản sang hạ tầng AI",
+            "summary": "Các công ty nắm giữ Bitcoin như Empery Digital đang bán tài sản để đầu tư vào trung tâm dữ liệu AI, phản ánh sự thay đổi ưu tiên của dòng vốn tổ chức từ tài sản số sang hạ tầng công nghệ.",
             "main_developments": [
-              "Tăng trưởng tín dụng đạt 6,38% trong khi huy động vốn chỉ tăng 4,3%.",
-              "Hệ số LDR toàn hệ thống dao động từ 112-117%.",
-              "Các ngân hàng tung ưu đãi tín dụng để hỗ trợ doanh nghiệp."
+              "Empery Digital bán 1.400 BTC để thu về 87,1 triệu USD.",
+              "Dòng vốn tổ chức đang ưu tiên các tài sản có dòng tiền dự báo ổn định như hạ tầng AI.",
+              "Sự cạnh tranh về thanh khoản giữa thị trường crypto và hạ tầng AI ngày càng gay gắt."
             ],
-            "why_it_matters": "Áp lực lãi suất cao ảnh hưởng trực tiếp đến chi phí vốn của doanh nghiệp và khả năng tiếp cận tín dụng của người dân.",
+            "why_it_matters": "Sự dịch chuyển này cho thấy thị trường đang đánh giá lại giá trị của Bitcoin trong bối cảnh các cơ hội đầu tư vào AI trở nên hấp dẫn hơn.",
             "affected_groups": [
-              "Doanh nghiệp",
-              "Người gửi tiền",
-              "Hệ thống ngân hàng"
+              "Nhà đầu tư tiền điện tử",
+              "Công ty hạ tầng AI"
             ],
             "watch_next": [
-              "Diễn biến lãi suất trong quý III",
-              "Khả năng điều chỉnh chính sách tiền tệ của Ngân hàng Nhà nước"
+              "Biến động giá Bitcoin trong ngắn hạn",
+              "Xu hướng đầu tư của các quỹ vào hạ tầng AI"
             ],
             "representative_sources": [
               {
-                "title": "Lãi suất ngân hàng tăng trở lại lên 9%/năm",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/lai-suat-ngan-hang-tang-tro-lai-len-9nam-20260708152518837.htm",
-                "excerpt": "Hệ số LDR của toàn hệ thống hiện dao động khoảng 112-117%, gây áp lực lớn lên cân đối nguồn vốn."
+                "title": "Bitcoin treasury company Empery Digital sold about half of BTC stack",
+                "source": "coindesk_com",
+                "url": "https://coindesk.com/markets/2026/07/11/bitcoin-treasury-company-empery-digital-sold-about-half-of-btc-stack"
               }
             ]
           }
@@ -178,21 +187,21 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI 48h qua nổi bật ở hạ tầng dữ liệu và bán dẫn. Các gã khổng lồ công nghệ đang đẩy mạnh đầu tư vào chip tự thiết kế để giảm phụ thuộc vào Nvidia, trong khi cuộc chiến pháp lý về bí mật thương mại phần cứng đang làm nóng mối quan hệ giữa Apple và OpenAI. Sự khan hiếm hạ tầng tính toán đang trở thành nút thắt cổ chai lớn nhất cho sự phát triển của AI. Trung Quốc cũng đang có những bước đi chiến lược trong việc kiểm soát nguyên liệu bán dẫn và phát triển công nghệ vũ trụ.",
+        "sector_thesis": "Công nghệ & AI 48h qua nổi bật ở hạ tầng dữ liệu và các xung đột pháp lý giữa những gã khổng lồ. Việc Apple kiện OpenAI về bí mật phần cứng cho thấy sự cạnh tranh gay gắt trong tham vọng thiết bị AI. Song song đó, các đột phá trong công nghệ pin solid-state và chip silicon tổng hợp DNA đang mở ra những hướng đi mới cho năng lượng sạch và công nghệ sinh học. Các tập đoàn FDI tiếp tục rót vốn lớn vào Việt Nam, khẳng định vị thế của quốc gia trong chuỗi cung ứng sản xuất tiêu dùng hiện đại.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Bán dẫn & Hạ tầng AI",
-            "title": "Apple kiện OpenAI về bí mật thương mại phần cứng",
-            "summary": "Apple đã đệ đơn kiện OpenAI và các cựu nhân viên với cáo buộc đánh cắp bí mật thương mại phần cứng và quy trình sản xuất. Vụ kiện này phản ánh sự cạnh tranh gay gắt trong lĩnh vực phần cứng AI giữa hai gã khổng lồ công nghệ.",
+            "sub_sector": "Pháp lý công nghệ",
+            "title": "Apple kiện OpenAI về bí mật phần cứng",
+            "summary": "Apple đã đệ đơn kiện OpenAI tại tòa án liên bang California, cáo buộc công ty này tuyển dụng nhân sự cũ để đánh cắp bí mật thiết kế phần cứng iPhone nhằm phát triển thiết bị AI cạnh tranh.",
             "main_developments": [
-              "Các nhân viên cũ của Apple bị cáo buộc truy cập trái phép vào hệ thống nội bộ.",
-              "Apple yêu cầu bồi thường thiệt hại và ngăn chặn việc sử dụng các thiết kế bí mật.",
-              "Vụ kiện ảnh hưởng trực tiếp đến lộ trình phát triển phần cứng của OpenAI."
+              "Apple cáo buộc giám đốc phần cứng Tang Tan và kỹ sư Chang Liu đánh cắp thiết kế.",
+              "Vụ kiện tập trung vào tham vọng của OpenAI trong việc phát triển thiết bị AI cạnh tranh với Apple.",
+              "Mối quan hệ đối tác giữa hai bên đang đứng trước nguy cơ đổ vỡ hoàn toàn."
             ],
-            "why_it_matters": "Vụ kiện làm thay đổi mối quan hệ giữa hai ông lớn công nghệ và ảnh hưởng đến chiến lược phát triển phần cứng AI toàn cầu.",
+            "why_it_matters": "Vụ kiện này đánh dấu sự leo thang trong cuộc chiến giành ưu thế về phần cứng AI giữa các gã khổng lồ công nghệ.",
             "affected_groups": [
               "Apple",
               "OpenAI",
@@ -200,14 +209,14 @@
             ],
             "watch_next": [
               "Phản ứng từ phía OpenAI",
-              "Các diễn biến pháp lý tiếp theo tại tòa án"
+              "Các diễn biến tại tòa án liên bang California"
             ],
             "representative_sources": [
               {
-                "title": "Apple Sues OpenAI, Claims Former Employees Stole Trade Secrets - Decrypt",
-                "source": "decrypt_co",
-                "url": "https://decrypt.co/373339/apple-sues-openai-claims-former-employees-stole-trade-secrets",
-                "excerpt": "Apple đã đệ đơn kiện OpenAI và hai cựu nhân viên, cáo buộc họ đánh cắp các tệp tin phần cứng bí mật."
+                "title": "Apple sues OpenAI for stealing hardware designs, alleging employees brought prototypes to",
+                "source": "thenextweb_com",
+                "url": "https://thenextweb.com/news/apple-sues-openai-trade-secrets-theft-hardware",
+                "excerpt": "Apple cáo buộc OpenAI sử dụng nhân viên cũ để đánh cắp bí mật thương mại phần cứng nhằm phục vụ tham vọng thiết bị AI."
               }
             ]
           }
@@ -216,114 +225,194 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48h qua tập trung vào các diễn biến địa chính trị tại Trung Đông và các quyết định chính sách quan trọng tại Mỹ. Tại Việt Nam, các hoạt động nhân văn và quy hoạch hạ tầng đô thị là những điểm nhấn chính. Sự ổn định chính trị và minh bạch trong bầu cử tại Mỹ đang trở thành tâm điểm chú ý của dư luận quốc tế. Các vụ việc liên quan đến quản lý bầu cử và chính sách nhà ở tại Mỹ đang tạo ra những tranh cãi lớn trong nội bộ chính trị nước này.",
+        "sector_thesis": "Thời sự & Chính trị 48h qua tập trung vào các vấn đề an toàn công cộng và địa chính trị. Vụ lật ca nô tại Phú Quốc là sự kiện nghiêm trọng nhất, đòi hỏi sự vào cuộc quyết liệt của Chính phủ. Đồng thời, căng thẳng Mỹ-Iran tại eo biển Hormuz và các chính sách mới về quản lý viên chức tại Việt Nam cho thấy sự phức tạp trong cả bối cảnh quốc tế và nội tại. Việc siết chặt quản lý SIM điện thoại qua VNeID cũng là một bước đi quan trọng trong công tác quản lý hành chính nhà nước.",
         "subsector_briefs": [
           {
-            "name": "Địa chính trị & Chính sách",
-            "overview": "Căng thẳng tại Trung Đông và các biến động chính trị tại Mỹ đang định hình lại bức tranh thời sự toàn cầu.",
+            "name": "An ninh và Chính sách",
+            "overview": "Các vấn đề về an toàn công cộng và quản lý hành chính đang được Chính phủ ưu tiên hàng đầu.",
             "key_points": [
-              "Căng thẳng Mỹ-Iran tại eo biển Hormuz",
-              "Trump sa thải thành viên Ủy ban Hỗ trợ Bầu cử"
+              "Điều tra vụ lật ca nô tại Phú Quốc",
+              "Siết chặt quản lý SIM điện thoại",
+              "Căng thẳng Mỹ-Iran"
             ],
             "key_story_titles": [
-              "Căng thẳng Mỹ - Iran leo thang"
+              "Vụ lật ca nô tại Phú Quốc khiến 15 người tử vong"
             ],
             "representative_sources": [
               {
-                "title": "How the Iran War Worsens the Climate Crisis",
-                "source": "time_com",
-                "url": "https://time.com/article/2026/07/10/iran-war-middle-east-water-scarcity-climate-crisis"
+                "title": "Thủ tướng yêu cầu điều tra nguyên nhân vụ lật ca nô ở Phú Quốc",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/thu-tuong-yeu-cau-dieu-tra-nguyen-nhan-vu-lat-ca-no-o-phu-quoc-post1858904.tpo",
+                "excerpt": "Chính phủ yêu cầu khẩn trương khắc phục hậu quả và làm rõ nguyên nhân vụ tai nạn giao thông đường thủy đặc biệt nghiêm trọng tại Phú Quốc."
               }
             ]
           }
         ],
-        "story_dossiers": []
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "major",
+            "sub_sector": "An toàn công cộng",
+            "title": "Vụ lật ca nô tại Phú Quốc",
+            "summary": "Vụ tai nạn nghiêm trọng xảy ra với ca nô chở du khách Ấn Độ tại Phú Quốc khiến 15 người tử vong, Thủ tướng đã chỉ đạo khẩn trương khắc phục hậu quả và điều tra nguyên nhân.",
+            "main_developments": [
+              "Ca nô Ocean Pearl Island bị lật khi di chuyển từ Hòn Mây Rút về cảng An Thới.",
+              "15 người tử vong trong tổng số 32 du khách và 4 thuyền viên/hướng dẫn viên.",
+              "Thủ tướng yêu cầu các cơ quan chức năng làm rõ nguyên nhân và tăng cường quản lý an toàn đường thủy."
+            ],
+            "why_it_matters": "Sự kiện này gây chấn động dư luận và đặt ra yêu cầu cấp bách về việc siết chặt quản lý an toàn du lịch đường thủy tại các đặc khu kinh tế.",
+            "affected_groups": [
+              "Du khách",
+              "Công ty du lịch",
+              "Cơ quan quản lý nhà nước"
+            ],
+            "watch_next": [
+              "Kết quả điều tra nguyên nhân vụ tai nạn",
+              "Các biện pháp siết chặt quản lý vận tải đường thủy"
+            ],
+            "representative_sources": [
+              {
+                "title": "Vụ lật ca nô làm chết 15 người ở Phú Quốc: Một trong hai du khách nguy kịch đã tỉnh táo lại",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/vu-lat-ca-no-lam-chet-15-nguoi-o-phu-quoc-mot-trong-hai-du-khach-nguy-kich-da-tinh-tao-lai-post1858937.tpo",
+                "excerpt": "Tai nạn nghiêm trọng xảy ra với ca nô chở du khách Ấn Độ tại Phú Quốc, chính quyền đang khẩn trương khắc phục hậu quả và điều tra nguyên nhân."
+              }
+            ]
+          }
+        ]
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48h qua phản ánh sự quan tâm đến sức khỏe cộng đồng, giáo dục và các giá trị nhân văn. Các nghiên cứu về lối sống, xu hướng tiêu dùng giải trí và các hoạt động tri ân lịch sử đang thu hút sự chú ý của độc giả. Đồng thời, áp lực về tiêu chuẩn xanh trong bất động sản thương mại cũng đang trở thành một xu hướng tất yếu. Các hoạt động xã hội như tìm kiếm hài cốt liệt sĩ tại TP.HCM cũng nhận được sự quan tâm sâu sắc từ dư luận.",
-        "subsector_briefs": [],
+        "sector_thesis": "Xu hướng & Đời sống 48h qua nổi bật với các thành tích giáo dục xuất sắc và sự thay đổi trong thói quen tiêu dùng của giới trẻ. Việc Việt Nam giành 4 Huy chương Vàng tại Olympic Vật lý quốc tế và xu hướng mua xe máy điện của học sinh cho thấy sự chuyển dịch tích cực trong giáo dục và lối sống bền vững. Các trào lưu sức khỏe như nhịn ăn gián đoạn cũng đang được cộng đồng quan tâm như một lựa chọn bền vững hơn so với các phương pháp truyền thống.",
+        "subsector_briefs": [
+          {
+            "name": "Giáo dục và Lối sống",
+            "overview": "Thành tích giáo dục quốc tế và xu hướng tiêu dùng xanh đang định hình lối sống của giới trẻ Việt Nam.",
+            "key_points": [
+              "Việt Nam giành 4 Huy chương Vàng IPhO",
+              "Xu hướng mua xe máy điện",
+              "Trào lưu nhịn ăn gián đoạn"
+            ],
+            "key_story_titles": [
+              "Việt Nam lập kỷ lục tại Olympic Vật lý quốc tế 2026"
+            ],
+            "representative_sources": [
+              {
+                "title": "Việt Nam lập kỷ lục với 4 Huy chương Vàng tại Olympic Vật lý quốc tế",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/viet-nam-lap-ky-luc-voi-4-huy-chuong-vang-tai-olympic-vat-ly-quoc-te-192260711144713034.htm",
+                "excerpt": "Đội tuyển Việt Nam giành thành tích tốt nhất trong lịch sử tham dự IPhO với 4 Huy chương Vàng."
+              }
+            ]
+          }
+        ],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Văn hóa & Xã hội",
-            "title": "Tìm kiếm hài cốt liệt sĩ tại Công viên Lê Thị Riêng",
-            "summary": "Lực lượng chức năng TP.HCM đã phát hiện thêm 13 bộ hài cốt liệt sĩ cùng nhiều di vật tại Công viên Lê Thị Riêng, nâng tổng số lên 29 bộ. Đây là hoạt động tìm kiếm và quy tập hài cốt liệt sĩ hy sinh trong cuộc Tổng tiến công Xuân Mậu Thân 1968, có ý nghĩa nhân văn sâu sắc.",
+            "depth_level": "brief",
+            "sub_sector": "Giáo dục",
+            "title": "Việt Nam lập kỷ lục tại Olympic Vật lý quốc tế 2026",
+            "summary": "Đội tuyển Việt Nam giành 4 Huy chương Vàng tại IPhO 2026, đánh dấu thành tích tốt nhất trong lịch sử tham dự với hai học sinh đạt điểm tuyệt đối.",
             "main_developments": [
-              "Phát hiện nhiều di vật như nhẫn vàng, bút, lọ dầu gió.",
-              "Công tác tìm kiếm diễn ra trong bối cảnh hướng tới kỷ niệm 80 năm Ngày Thương binh - Liệt sĩ.",
-              "Sự kiện thu hút sự quan tâm lớn của dư luận và chính quyền địa phương."
+              "Việt Nam giành 4 Huy chương Vàng và 1 Huy chương Bạc.",
+              "Lần đầu tiên có hai học sinh đạt điểm tuyệt đối 30/30 ở bài thi lý thuyết."
             ],
-            "why_it_matters": "Sự kiện lịch sử có ý nghĩa nhân văn sâu sắc, thể hiện đạo lý 'Uống nước nhớ nguồn' của dân tộc.",
+            "why_it_matters": "Khẳng định vị thế và chất lượng giáo dục mũi nhọn của Việt Nam trên đấu trường quốc tế.",
             "affected_groups": [
-              "Thân nhân liệt sĩ",
-              "Cộng đồng xã hội"
+              "Học sinh",
+              "Ngành giáo dục"
             ],
             "watch_next": [
-              "Tiến độ tìm kiếm và quy tập hài cốt",
-              "Các hoạt động tri ân tiếp theo"
+              "Các chính sách hỗ trợ học sinh tài năng"
             ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "Việt Nam lập kỷ lục với 4 Huy chương Vàng tại Olympic Vật lý quốc tế",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/viet-nam-lap-ky-luc-voi-4-huy-chuong-vang-tai-olympic-vat-ly-quoc-te-192260711144713034.htm",
+                "excerpt": "Đội tuyển Việt Nam giành thành tích tốt nhất trong lịch sử tham dự IPhO với 4 Huy chương Vàng."
+              }
+            ]
           }
         ]
       }
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến quân sự tại eo biển Hormuz và phản ứng giá dầu Brent.",
-        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng và lạm phát toàn cầu."
+        "theme": "Chính sách tiền tệ",
+        "what_to_watch": "Tín hiệu từ Fed và diễn biến giá vàng",
+        "why": "Ảnh hưởng trực tiếp đến thị trường tài chính toàn cầu và tâm lý nhà đầu tư trong nước."
       },
       {
-        "theme": "Thị trường bán dẫn",
-        "what_to_watch": "Nguồn cung heli và các động thái từ các nhà sản xuất chip.",
-        "why": "Tác động đến chuỗi cung ứng công nghệ toàn cầu."
+        "theme": "An toàn giao thông",
+        "what_to_watch": "Kết quả điều tra vụ lật ca nô tại Phú Quốc",
+        "why": "Sự kiện nghiêm trọng ảnh hưởng đến uy tín du lịch và công tác quản lý an toàn."
       },
       {
-        "theme": "Chính sách tài chính Việt Nam",
-        "what_to_watch": "Văn bản hướng dẫn tài sản số và lãi suất ngân hàng.",
-        "why": "Ảnh hưởng đến thanh khoản và niềm tin nhà đầu tư."
+        "theme": "Địa chính trị",
+        "what_to_watch": "Căng thẳng tại eo biển Hormuz",
+        "why": "Tác động trực tiếp đến giá năng lượng và an ninh hàng hải quốc tế."
       },
       {
-        "theme": "Apple kiện OpenAI vì cáo buộc đánh cắp bí mật thương mại phần cứng",
-        "what_to_watch": "Phản ứng từ phía OpenAI và các diễn biến pháp lý tiếp theo.",
-        "why": "Vụ kiện lớn giữa hai gã khổng lồ công nghệ, ảnh hưởng đến chiến lược phần cứng của OpenAI."
-      },
-      {
-        "theme": "Trung Quốc bất ngờ ban lệnh cấm xuất khẩu heli",
-        "what_to_watch": "Phản ứng từ các nhà sản xuất chip toàn cầu và giá heli trên thị trường.",
-        "why": "Tác động trực tiếp đến chuỗi cung ứng bán dẫn toàn cầu."
+        "theme": "Pháp lý công nghệ",
+        "what_to_watch": "Diễn biến vụ kiện Apple - OpenAI",
+        "why": "Ảnh hưởng đến cục diện cạnh tranh trong ngành thiết bị AI."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Circle nhận phê duyệt cuối cùng từ OCC để thành lập ngân hàng fiduciaries quốc gia",
-        "why": "Sự kiện quan trọng về mặt pháp lý, củng cố vị thế của USDC trong hệ thống ngân hàng truyền thống."
+        "what_to_watch": "Bất động sản nghỉ dưỡng Quảng Ninh đón nhịp tăng trưởng mới với dự án Prima Bay",
+        "why": "Phản ánh xu hướng phục hồi của thị trường bất động sản du lịch tại các địa phương trọng điểm."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "JPMorgan cảnh báo về hạ tầng blockchain riêng biệt của Phố Wall",
-        "why": "Phân tích chiến lược về sự cạnh tranh giữa hạ tầng tài chính truyền thống và tài sản số."
+        "what_to_watch": "Thị trường thuốc giảm cân: Orforglipron vượt trội hơn semaglutide trong thử nghiệm lâm sàng",
+        "why": "Tác động trực tiếp đến thị trường dược phẩm và xu hướng điều trị béo phì toàn cầu."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Nhiều vụ án lừa đảo chiếm đoạt tài sản liên quan đến nhân viên ngân hàng bị khởi tố",
-        "why": "Phản ánh rủi ro trong quản trị rủi ro tại các tổ chức tài chính và hành vi lừa đảo chiếm đoạt tài sản đang gia tăng."
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Robinhood tích hợp AI Agent vào giao dịch tiền điện tử",
+        "why": "Đánh dấu bước tiến mới trong việc ứng dụng AI vào giao dịch tài chính cá nhân."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Cần Thơ đề xuất cơ chế cho tổ hợp lấn biển 390.000 tỷ đồng",
-        "why": "Dự án hạ tầng có quy mô vốn đặc biệt lớn, ảnh hưởng đến chiến lược phát triển kinh tế vùng ĐBSCL."
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Đột phá trong công nghệ pin solid-state giải quyết vấn đề dendrite",
+        "why": "Giải quyết nút thắt kỹ thuật quan trọng cho tương lai xe điện và thiết bị di động."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Cổ phiếu PNJ lao dốc mạnh sau thông tin pháp lý liên quan đến lãnh đạo cũ",
-        "why": "Sự kiện ảnh hưởng trực tiếp đến niềm tin nhà đầu tư và biến động vốn hóa của một doanh nghiệp bán lẻ lớn tại Việt Nam."
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Chip silicon chuyển đổi thành máy viết DNA bằng enzyme",
+        "why": "Bước tiến quan trọng trong công nghệ sinh học và lưu trữ dữ liệu DNA."
+      },
+      {
+        "theme": "Thời sự & Chính trị",
+        "what_to_watch": "Vụ lật ca nô tại Phú Quốc khiến 15 người tử vong",
+        "why": "Sự kiện thời sự đặc biệt nghiêm trọng tại Việt Nam."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các tác động cụ thể của căng thẳng tại eo biển Hormuz đối với chuỗi cung ứng hàng hóa tại Việt Nam.",
+    "source_desk": [
+      {
+        "topic": "Tài chính & Đầu tư",
+        "representative_sources": [
+          {
+            "title": "Bitcoin treasury company Empery Digital sold about half of BTC stack",
+            "source": "coindesk_com",
+            "url": "https://coindesk.com/markets/2026/07/11/bitcoin-treasury-company-empery-digital-sold-about-half-of-btc-stack"
+          }
+        ]
+      },
+      {
+        "topic": "Thời sự & Chính trị",
+        "representative_sources": [
+          {
+            "title": "Thủ tướng yêu cầu điều tra nguyên nhân vụ lật ca nô ở Phú Quốc",
+            "source": "tienphong_vn",
+            "url": "https://tienphong.vn/thu-tuong-yeu-cau-dieu-tra-nguyen-nhan-vu-lat-ca-no-o-phu-quoc-post1858904.tpo"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng chính thức từ phía các tổ chức quốc tế đối với các sự kiện địa chính trị mới nhất.",
     "notable_articles": []
   }
 }
