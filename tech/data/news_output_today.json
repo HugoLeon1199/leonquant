@@ -1,19 +1,8 @@
 {
-  "generated_at": "2026-07-11T04:32:25.840099+00:00",
-  "count": 20,
+  "generated_at": "2026-07-11T09:01:57.470529+00:00",
+  "count": 25,
   "source_error_count": 0,
   "articles": [
-    {
-      "title": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0",
-      "url": "https://www.qbitai.com/2026/07/447597.html",
-      "summary": "行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.0\n7月10日，蚂蚁灵波发布业界首个具身原生世界动作模型LingBot-VA 2.0。该模型的发布，标志着机器人基础模型正式从“基于数字世界模型构建”到“面向物理世界原生设计”的关键转变。它代表了具身智能发展的一种关键路线选择：机器人“大脑”不再依托数字世界模型能力的“嫁接”，而是从动态建模、因果预测、实时执行等与环境交互的原始需求出发，进行原生设计。\n得益于具身原生架构，LingBot-VA 2.0在真机测试中表现出了出色的执行速度和泛化能力。以下面这个视频为例，在不依赖任何外部拍摄设备的情况下，机器人就可以完成与人类的多轮随机对打。\n今年以来，世界模型与具身智能怎么融合一直是各方关注的焦点。以终为始，从物理世界的“控制执行”需求出发，就需要持续符合因果规律的“预测能力”。机器人要面对的是一个连续变化的真实世界，不仅要针对当前情况作出反应，还要理解一个动作会引发怎样的环境变化，并据此决定下一步动作。当前行业主流路线大多依托面向数字内容创作的视频生成模型，再通过微调的方式适配机器人控制任务。\n然而内容创作和机器人控制有着不同的出发点，内容创作更在意画质和创意，机器人控制则更在意执行效率和预测的合理性。上述这些不同导致数字世界的视频模型和物理世界的视频动作模型在设计之初就有各自的能力侧重点，强行‘微调’把前者适配成后者会带来知识遗忘、泛化性下降等副作用。\nLingBot-VA 2.0选择直面问题，探索一条更艰难的路——基于自回归架构从头开始预训练，通过四大核心设计构建原生基模。\n首先，模型引入语义视觉-动作分词器（Tokenizer）作为全新的视觉编码器，在视觉压缩过程中加入了语义与动作信息的对齐，使模型在后续的训练中更容易把“理解指令”转化为“完成动作”，有助于指令跟随与提升动作精度。其次，模型采用严格的因果预训练范式，让模型从训练一开始就使用自回归架构，确保视觉预测和动作生成完全遵循单向时间顺序。第三，引入MoE架构，在不牺牲推理效率的前提下有效扩大了模型容量，在性能和效率之间取得平衡。最后，通过增强的异步推理机制实现实时闭环控制，在机器人执行动作的同时预测未来状态，并利用最新真实观测不断校正下一步决策。基于这些设计，在行业普遍面临的具身世界模型执行效率低这一问题上，LingBot-VA 2.0给出了单卡150Hz实时推理效率的答卷。\n从“干活”的角度出发，机器人需要“看的更清楚”“想的更明白”“干的更利索”。本周，蚂蚁灵波已经连续发布和开源了多款模型，包括：面向空间感知的LingBot-Vision和LingBot-Depth 2.0、面向“一脑多机”的动作模型LingBot-VLA 2.0、面向实时交互的LingBot-World 2.0和面向更高推理效率的视频生成基模LingBot-Video。上述模型代表着蚂蚁灵波在持续探索具身原生需要的细分方向能力，而LingBot-VA 2.0作为集大成者扮演了收官之作的角色，也正式开启了具身原生新阶段。\n蚂蚁灵波CEO朱兴表示，一方面灵波将持续探索具身智能新上限，另一方面也将加速构建开放的技术生态和场景生态，助力机器人加速走向产业场景。\n据悉，蚂蚁灵波将于7月17日至20日在2026世界人工智能大会（WAIC）期间，全面展示全栈大脑2.0落地场景的能力。观众可前往上海世博展览馆（H3-B302、H1-C701展位）进行现场体验。\n本文由蚂蚁灵波提供，量子位获授权转载，观点归原作者所有。\n- 2026年世界人工智能大会，7月17…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
     {
       "title": "AI华语歌，终于能听了！从零预训练十亿参数，告别「人机味」",
       "url": "https://www.qbitai.com/2026/07/447602.html",
@@ -103,6 +92,28 @@
       "macro_score": 0
     },
     {
+      "title": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent",
+      "url": "https://www.qbitai.com/2026/07/447873.html",
+      "summary": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent\n神话级大模型驾驭宝典\nhenry 发自 凹非寺\n量子位 | 公众号 QbitAI\n我看呐，只要以后笔记本半开着，就没有人的事儿了。\n刚刚，OpenAI研究院Ethan Knight宣布：\n昨儿刚出的GPT-5.6，用不到一小时，就完成了一道存在了半个世纪的图论猜想证明。\n而这道题呢，来头也还真不小，就是大名鼎鼎的循环双覆盖猜想（Cycle Double Cover Conjecture）。\n为解决这道题，研究员把现在最顶的GPT-5.6 Sol蹬到Ultra；GPT呢，又自己蹬了64个子agent。\n最后，硬是写出了一份三页的pdf，证明完毕，Over。\n发布后，还在韩国开ICML的Noam Brown（o1核心贡献者）也隔着太平洋第一时间赶来捧场。\n他表示，这次和此前的Erdős单位距离问题不同，不靠什么内部特供模型，靠公开能用的GPT-5.6 Sol Ultra就把活儿干了。\n而且，GPT-5.6 Sol Ultra把测试时计算并行大幅铺开，原本可能要磨上一整天的证明，如今被64个子agent压进了一个小时。\n可以说，在数学这块，前沿模型的天花板还在拉高。而多agent，也能极快地加速任务的处理时间。\n当然，你可能会问，那咋了？AI不老证明数学题吗？\n但这次还真不太一样，OpenAI这次顺手放出了完整prompt，而这里面就有驾驭GPT-5.6这类神话级模型的保姆级技巧：\n- 不替模型规定解法，只把验收标准钉死。\n- 定义、范围、边界情况，提前一次说清，适当重复目标，防止上下文漂移。\n- 不只说要什么答案，还写清什么不算答案。\n- 复杂任务不要固定分工，而要动态搜索，并设置独立审查。\n接下来，我们一起来看。\n一小时秒杀的，究竟是什么题\n先说这个题本身。\n循环双覆盖猜想，通常被追溯到Tutte、Itai 与 Rodeh、George Szekeres、Paul Seymour等数学家在上世纪陆续提出，长期被视为图论中最重要的开放问题之一。\n它问的是：\n给你一张由点和线组成的图，能不能找出一批首尾相接的“圈”，让图上的每一条边，都刚好被这些圈经过两次？\n咱们以上图为例：白圈是路口，彩线是道路，A到J是十个顶点。\n最外面的绿色路线从A出发，依次经过B、C、D、E，最后重新回到A，这就是一个圈。\n但只有绿色这一圈还不够，因为它只经过了图最外侧的几条边，而且每条边目前只被覆盖了一次。\n要满足圈双覆盖，还需要继续加入更多能够绕回起点的路线。\n比如蓝色路线也经过了A到B，随后拐进图的内部，最后重新回到A。\n这样一来，A到B这条边就被覆盖了两次：绿色一次，蓝色一次。\n其他边也要用类似的方法补齐。最终，无论挑出图中的哪一条边，都应该恰好有两个圈经过它。\n这些圈可以互相重叠，也可以共享很多条边；它们不需要是图中最短、最外侧或最规整的圈。唯一的要求就是：\n每一条边，在所有圈中出现的总次数必须恰好等于二。\n此外，这里还要补充一个关键条件：这张图必须是无桥图。\n所谓“桥”，就是一条一旦被删除，整张图就会被断开的边。\n比如我们把上面的A—F删掉，路线仍然可以沿着A—B—G—I—F，从另一条路到达F，整张图不会因此断开。\n乍看之下，这个猜想似乎很自然。\n一张图只要没有桥，那么每一条边至少都属于某个圈。既然每条边都能塞进一个圈，把这些圈收集起来，不就完成了吗？\n可问题在于，圈双覆盖要求的不是“至少覆盖一次”，而是每一条边恰好覆盖两次。\n你为了补上一条只出现过一次的边，加入一个新圈，可能会顺便…",
+      "published_at": "2026-07-11",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
+      "url": "https://www.qbitai.com/2026/07/447891.html",
+      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n从FP64到INT8，全精度覆盖。\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光800…",
+      "published_at": "2026-07-11",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
       "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
       "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
@@ -125,15 +136,15 @@
       "macro_score": 1
     },
     {
-      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
-      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
-      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
+      "title": "A LangGraph checkpointer with provable thread deletion (signed erasure receipts) — feedback welcome",
+      "url": "https://forum.langchain.com/t/a-langgraph-checkpointer-with-provable-thread-deletion-signed-erasure-receipts-feedback-welcome/4137",
+      "summary": "Hey all — sharing something I built for my own agents and finally cleaned up enough to put out there. I’d genuinely value feedback from anyone running stateful LangGraph in production.\nThe problem that started it. My agent persists user threads with a checkpointer: great. Then a user invokes their right to be forgotten (GDPR/CCPA), I call delete_thread(…), the rows vanish, and… I realized I had no way to prove it happened. If compliance or an auditor asks “show me user X’s thread was actually deleted,” the standard savers (Memory / SQLite / Postgres) sign nothing and attest nothing. Deletion is a side effect with no evidence.\nSo I wrote langgraph-checkpoint-grafomem — a drop-in checkpointer that wraps the saver you already use and adds two things: every checkpoint is Ed25519-signed (tamper-evident), and delete_thread emits a signed erasure receipt.\nUsage — it wraps your existing saver, nothing else about how you build changes:\nimport sqlite3\nfrom langgraph.checkpoint.sqlite import SqliteSaver\nfrom grafomem_checkpoint import GrafomemSerializer, GrafomemCheckpointSaver\nconn = sqlite3.connect(“memory.db”, check_same_thread=False)\ninner = SqliteSaver(conn, serde=GrafomemSerializer(private_key, key_id=key_id, trusted_keys=trusted_keys))\nsaver = GrafomemCheckpointSaver(inner)\ngraph = builder.compile(checkpointer=saver)\n#right to be forgotten, with proof:\nsaver.delete_thread(“user-123”)\nreceipt = saver.last_receipt(“user-123”)\nassert receipt.verify(public_key)   # signed proof of th…",
+      "published_at": "2026-07-11",
+      "source": "forum.langchain.com",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 0
+      "macro_score": 3
     },
     {
       "title": "Epistemic Stress Test — Muse Spark 1.1 validated by MarCognity-AI",
@@ -161,17 +172,6 @@
       "title": "Hardware quota limit reached during Agents Course despite only 0 active Spaces",
       "url": "https://discuss.huggingface.co/t/hardware-quota-limit-reached-during-agents-course-despite-only-0-active-spaces/177649",
       "summary": "I’m doing the free Agents Course and getting ‘Space Paused — You’ve reached your hardware quota limit across all your Spaces!’ despite only having 1 active Space. I’ve paused all other Spaces. This seems like a quota accounting bug. Can someone check my account?\nMaybe not account issue… See Docker SDK now marked as \"Paid\" when creating a new Space? - #5 by nurssssky",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Unexpected Link header injected into Space responses",
-      "url": "https://discuss.huggingface.co/t/unexpected-link-header-injected-into-space-responses/177658",
-      "summary": "Hi Hugging Face team,\nI’m using a Docker-based Hugging Face Space as an API endpoint.\nI’ve noticed that every HTTP response from my Space includes an additional Link header that my application does not set. It appears to be injected somewhere by the Hugging Face infrastructure.\nI’m trying to understand:\n- \nIs the Linkheader intentionally added by Hugging Face?\n- \nWhat is its purpose? \n- \nIs there any way to disable or customize it? \n- \nIs this expected behavior for all Spaces (including Docker Spaces)? \nThe reason I’m asking is that I would like my API responses to contain only the headers generated by my application, and this additional header is causing issues with my current setup.\nI’ve already checked that my application does not generate this header, so it seems to be added by the Hugging Face proxy or infrastructure.\nCould someone from the Hugging Face team clarify whether this is expected and whether there’s any supported way to prevent it?\nThanks!",
       "published_at": "2026-07-10",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -216,6 +216,61 @@
       "title": "How many images to parameters?",
       "url": "https://discuss.huggingface.co/t/how-many-images-to-parameters/177672",
       "summary": "I’m training a latent diffusion model and wondering what the scaling laws were, I couldnt find much info online. My current is around 430M parameters training on around 2 Million images. I’m thinking of possibly scaling the parameters up a bit to increase the quality. Is this a good idea or should I scale down my images or parameters? Based on SD, they seemed to use billions for their models which were at 860M, half of mine\nHmm… for now, I don’t think the number of images per parameter alone gives us enough information to decide:\nI would not reduce the number of useful images just to make an images-per-parameter ratio look more similar to Stable Diffusion. I also would not assume that increasing 430M to 860M will automatically improve quality.\nThe main reason is that “430M parameters / 2M images” combines several different constraints:\n- what the 430M parameters belong to;\n- whether this is training from scratch or continued pretraining;\n- how many times the images are actually presented;\n- the semantic, caption, resolution, and aspect-ratio distribution of those images;\n- the training compute available;\n- and what kind of “quality” is currently missing.\nThere is an unusually close reference point: Bigger is not Always Better: Scaling Properties of Latent Diffusion Models includes an exact 430M-parameter denoising UNet in a controlled family ranging from 39M to 5B parameters. That at least shows that 430M is a perfectly plausible model size rather than an obviously undersized…",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
+      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
+      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I",
+      "url": "https://discuss.huggingface.co/t/i-recently-again-documented-in-10-different-chats-that-chatgpt-again-switched-to-opposition-mode-whenever-i-ask-something-whenever-i-provide-my-md-whenever-i-conduct-research-whenever-i-share-my-insights-whenever-i-ask-it-to-develop-artifact-or-whenever-i/177679",
+      "summary": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I Use Python Code It Starts Giving Opposition To Me Or Challenges Me And Most Of The Time It Did Counter Balancing With No Reason And Like A Salesman It Asks Unwanted Recommendations Or Offers To Me In The Chat How To Solve This I Have Been Already Trying Drift Prompts And Opposition Workarounds But Nothing Is Helping The Prompt Works For Only 5 Messages And ChatGPT Drifts The Task To A Debate And Never Finishes My First Task Instead It Creates A Meta-Task Which I Never Asked It To Do Can Somebody Help In This Or Provide Workarounds",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Can not HF Hub upload to static Space - Payment needed",
+      "url": "https://discuss.huggingface.co/t/can-not-hf-hub-upload-to-static-space-payment-needed/177680",
+      "summary": "Space is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?\nSpace is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Unexpected Link header injected into Space responses",
+      "url": "https://discuss.huggingface.co/t/unexpected-link-header-injected-into-space-responses/177658",
+      "summary": "I also did a little testing on my side, in case it helps narrow down the issue: (I’ll leave the rest to HF. @hysts )\nAssuming the added field is of this form:\nLink: <https://huggingface.co/spaces/OWNER/SPACE>; rel=\"canonical\"\nmy current reading would be:\n- \nIt does appear to be added after the application response somewhere in the public Spaces serving path. In a small controlled public Docker Space, the application emitted no Linkfield over an internal loopback request, while the corresponding public.hf.spaceresponse contained the Hub Space page asrel=\"canonical\".\n \n- \nThe header itself does not appear to be new. I found public response captures containing the same form as far back as October 2024. \n- \nIts likely role is URL canonicalization between the direct .hf.spacedeployment and the Hub Space page, but that purpose is an inference from the value and the standard meaning ofrel=\"canonical\". Only Hugging Face can confirm the actual intent and whether this is a supported contract or an implementation detail.\n \n- \nI could not find a documented Space setting that removes or overrides it. The current custom_headersdocumentation only allows COEP, COOP, and CORP headers. That is not proof that no support-side or internal option exists, only that there does not seem to be a documented public one.\n \n- \nI would not yet generalize this to every Space configuration. It is now directly reproducible on one public Docker Space, and similar fields have appeared in several older Gradio-re…",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "How To Solve ChatGPT Opposition Bias?",
+      "url": "https://discuss.huggingface.co/t/how-to-solve-chatgpt-opposition-bias/177678",
+      "summary": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I Use Python Code It Starts Giving Opposition To Me Or Challenges Me And Most Of The Time It Did Counter Balancing With No Reason And Like A Salesman It Asks Unwanted Recommendations Or Offers To Me In The Chat How To Solve This I Have Been Already Trying Drift Prompts And Opposition Workarounds But Nothing Is Helping The Prompt Works For Only 5 Messages And ChatGPT Drifts The Task To A Debate And Never Finishes My First Task Instead It Creates A Meta-Task Which I Never Asked It To Do Can Somebody Help In This Or Provide Workarounds\nHmm… at least one thing seems clear: what you’re running into is a real problem:\nThe behavior you describe is plausible as an observable failure pattern, and there are other public reports and research findings that overlap with parts of it.\nHowever, I would not yet treat “opposition bias” as one established feature, one official bug, or one confirmed root cause. Your description appears to combine several behaviors that can look like one mode from the user side:\n- unsolicited counterbalancing or “the other side” arguments;\n- reopening premises that were already accepted for the task;\n- replacing your question with a different, easier-to-oppose question;\n- turning an execution task into a discussio…",
       "published_at": "2026-07-11",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",

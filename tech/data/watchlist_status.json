@@ -1,8 +1,8 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-07-11T04:32:39.273905+00:00",
+  "generated_at_utc": "2026-07-11T09:02:12.338486+00:00",
   "checked": 26,
-  "hit_count": 120,
+  "hit_count": 121,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
@@ -31,9 +31,9 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "sgl-project/sglang release: v0.5.15",
-          "url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.15",
-          "source_lane": "github_release"
+          "title": "Hugging Face model updated: ORCASTRA/GLM-5.2",
+          "url": "https://huggingface.co/ORCASTRA/GLM-5.2",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -42,7 +42,7 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 12,
       "top_links": [
         {
           "title": "Qwen/Alibaba: GitHub release or repository signal",
@@ -65,8 +65,8 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Hugging Face model updated: ReliquaryForge/qwen3.5-2b-reliquary",
-          "url": "https://huggingface.co/ReliquaryForge/qwen3.5-2b-reliquary",
+          "title": "Hugging Face model updated: koilee/qwen-0.5b-brain-v5",
+          "url": "https://huggingface.co/koilee/qwen-0.5b-brain-v5",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,7 +76,7 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "DeepSeek: GitHub release or repository signal",
@@ -94,14 +94,14 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: gguk2on/deepseek_llama-rlcr_g8_b384_math",
-          "url": "https://huggingface.co/gguk2on/deepseek_llama-rlcr_g8_b384_math",
-          "source_lane": "huggingface_model"
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-R1",
+          "url": "https://github.com/deepseek-ai/DeepSeek-R1",
+          "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: gguk2on/deepseek_llama-rlvr_g8_b384_math",
-          "url": "https://huggingface.co/gguk2on/deepseek_llama-rlvr_g8_b384_math",
-          "source_lane": "huggingface_model"
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-V3",
+          "url": "https://github.com/deepseek-ai/DeepSeek-V3",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -123,13 +123,13 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Hugging Face model updated: ckoh04/Kimi-K2.6-pruned-8experts",
-          "url": "https://huggingface.co/ckoh04/Kimi-K2.6-pruned-8experts",
+          "title": "Hugging Face model updated: gamansai/asteria-kimi-k27-brain-sparse",
+          "url": "https://huggingface.co/gamansai/asteria-kimi-k27-brain-sparse",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: 88plug/Kimi-VL-A3B-Thinking-2506-W4A16",
-          "url": "https://huggingface.co/88plug/Kimi-VL-A3B-Thinking-2506-W4A16",
+          "title": "Hugging Face model updated: ckoh04/Kimi-K2.6-pruned-8experts",
+          "url": "https://huggingface.co/ckoh04/Kimi-K2.6-pruned-8experts",
           "source_lane": "huggingface_model"
         }
       ],
@@ -141,6 +141,11 @@
       "checked": true,
       "hit_count": 6,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: aquaman164/MiniMax-M3-VQ-2.4bit",
+          "url": "https://huggingface.co/aquaman164/MiniMax-M3-VQ-2.4bit",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "MiniMax: MiniMax source signal",
           "url": "https://www.minimax.io/",
@@ -154,11 +159,6 @@
         {
           "title": "Hugging Face model updated: Sciguy429/MiniMax-M3-MSA-GGUF",
           "url": "https://huggingface.co/Sciguy429/MiniMax-M3-MSA-GGUF",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: TeichAI/Minimax-M2.7-Opus-4.6-Distill-Lora",
-          "url": "https://huggingface.co/TeichAI/Minimax-M2.7-Opus-4.6-Distill-Lora",
           "source_lane": "huggingface_model"
         },
         {
@@ -200,11 +200,6 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: Tokarak/MinerU-HTML-v1.1-hunyuan0.5B-compact-GGUF",
-          "url": "https://huggingface.co/Tokarak/MinerU-HTML-v1.1-hunyuan0.5B-compact-GGUF",
-          "source_lane": "huggingface_model"
-        },
-        {
           "title": "Hunyuan/Tencent: Hugging Face model or org signal",
           "url": "https://huggingface.co/tencent",
           "source_lane": "huggingface_model"
@@ -215,8 +210,13 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+          "title": "Hugging Face model updated: Tokarak/MinerU-HTML-v1.1-hunyuan0.5B-compact-GGUF",
+          "url": "https://huggingface.co/Tokarak/MinerU-HTML-v1.1-hunyuan0.5B-compact-GGUF",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         }
       ],
@@ -253,6 +253,11 @@
           "source_lane": "github_release"
         },
         {
+          "title": "GitHub repo updated: InternLM/Intern-S1",
+          "url": "https://github.com/InternLM/Intern-S1",
+          "source_lane": "github_release"
+        },
+        {
           "title": "GitHub repo updated: InternLM/InternLM",
           "url": "https://github.com/InternLM/InternLM",
           "source_lane": "github_release"
@@ -260,11 +265,6 @@
         {
           "title": "GitHub repo updated: InternLM/lmdeploy",
           "url": "https://github.com/InternLM/lmdeploy",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: InternLM/MindSearch",
-          "url": "https://github.com/InternLM/MindSearch",
           "source_lane": "github_release"
         },
         {
@@ -335,8 +335,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: litert-community/FLUX.2-klein-4B-LiteRT",
-          "url": "https://huggingface.co/litert-community/FLUX.2-klein-4B-LiteRT",
+          "title": "Hugging Face model updated: Gege24/flux-lora-86322997",
+          "url": "https://huggingface.co/Gege24/flux-lora-86322997",
           "source_lane": "huggingface_model"
         },
         {
@@ -364,8 +364,8 @@
           "source_lane": "image_video_workflow"
         },
         {
-          "title": "Hugging Face model updated: artokun/gemma4-comfyui-mcp",
-          "url": "https://huggingface.co/artokun/gemma4-comfyui-mcp",
+          "title": "Hugging Face model updated: dumpy50222/ComfyUI_LTX_Wan_Models",
+          "url": "https://huggingface.co/dumpy50222/ComfyUI_LTX_Wan_Models",
           "source_lane": "huggingface_model"
         },
         {
@@ -546,13 +546,13 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/ext-apps",
-          "url": "https://github.com/modelcontextprotocol/ext-apps",
+          "title": "GitHub repo updated: modelcontextprotocol/inspector",
+          "url": "https://github.com/modelcontextprotocol/inspector",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
-          "url": "https://github.com/modelcontextprotocol/rust-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/registry",
+          "url": "https://github.com/modelcontextprotocol/registry",
           "source_lane": "github_release"
         },
         {
@@ -567,16 +567,11 @@
       "entity": "LangGraph",
       "priority": "high",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "LangGraph: GitHub release or repository signal",
           "url": "https://github.com/langchain-ai/langgraph",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "langchain-ai/langgraph release: langgraph-cli==0.4.31",
-          "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.31",
           "source_lane": "github_release"
         },
         {
@@ -585,13 +580,18 @@
           "source_lane": "frontier_watchlist"
         },
         {
+          "title": "langchain-ai/langgraph release: langgraph-cli==0.4.31",
+          "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.31",
+          "source_lane": "github_release"
+        },
+        {
           "title": "langchain-ai/langgraph release: langgraph==1.2.9",
           "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.9",
           "source_lane": "github_release"
         },
         {
-          "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
-          "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
+          "title": "A LangGraph checkpointer with provable thread deletion (signed erasure receipts) — feedback welcome",
+          "url": "https://forum.langchain.com/t/a-langgraph-checkpointer-with-provable-thread-deletion-signed-erasure-receipts-feedback-welcome/4137",
           "source_lane": "community"
         }
       ],
@@ -666,13 +666,13 @@
       "hit_count": 4,
       "top_links": [
         {
-          "title": "All-Hands-AI/OpenHands release: cloud: 1.46.0",
-          "url": "https://github.com/OpenHands/OpenHands/releases/tag/cloud-1.46.0",
+          "title": "OpenHands: GitHub release or repository signal",
+          "url": "https://github.com/All-Hands-AI/OpenHands",
           "source_lane": "github_release"
         },
         {
-          "title": "OpenHands: GitHub release or repository signal",
-          "url": "https://github.com/All-Hands-AI/OpenHands",
+          "title": "All-Hands-AI/OpenHands release: cloud: 1.46.0",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/cloud-1.46.0",
           "source_lane": "github_release"
         },
         {
