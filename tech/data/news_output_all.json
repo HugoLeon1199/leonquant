@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-10T20:46:07.609964+00:00",
-  "count": 150,
+  "generated_at": "2026-07-11T04:32:25.860942+00:00",
+  "count": 157,
   "source_error_count": 0,
   "articles": [
     {
@@ -620,6 +620,17 @@
       "macro_score": 1
     },
     {
+      "title": "Lstm in c++/training tips",
+      "url": "https://discuss.huggingface.co/t/lstm-in-c-training-tips/177581",
+      "summary": "i’ll give other posters the choice on whether to v.2 my previous thread on rnns in c with my lstm code. instead of posting it all first,\ni have a 2 layer lstm (i think!) using 96 node “hot one” char i/o layers, tried resizing the hidden layers and the BPTT timesteps but so far i’ve only successfully managed to take a single sentence down to a low error coefficient. i’ve been using a translation of the tao te ching at around 56k chars, which i’m assured ought to be within scope for two hidden layers of say 64 or 128 nodes. (256 nodes is too heavy for my little machine.)\nhaving spent some time now training eg. incorrect architectures, i’m aware of various dynamics and trends in ‘training behaviour,’ but i’m finding lstm to be quite evasive. if left unsupervised the error coefficient doesn’t just stop progressing but can climb and climb astronomically. i often observe the same learning rate train through a few times with excellent progress then eat its way well past the ~3.0 threshold of “just plain guessing now” when it begins the next test.\nthe architecture trains successfully on elementary tests (“abababab”) and the overfit training sentence, am i misinformed about the capacity of such a model to store the data?\ni don’t really want to restructure my code for a single hidden layer, though this would of course be sensate, just avoidable work since the two layer source allows me to build variable layer architecture in the future.\ni’ve been using gradient normalisation at 1.0, gr…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "T5Gemma",
       "url": "https://deepmind.google/models/gemma/t5gemma/",
       "summary": "T5Gemma 2 ties the embeddings between the encoder and decoder and merges decoder self- and cross-attention, saving model parameters. This enables more active capabilities—including multimodal processing, multilingual support, and a 128k token context window—with the same memory footprint as Gemma 3.\nModels are available in pre-trained versions ideal for rapid experimentation and deployment in on-device applications.",
@@ -1082,17 +1093,6 @@
       "macro_score": 0
     },
     {
-      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
-      "url": "https://www.qbitai.com/2026/07/447691.html",
-      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "Physics AI research that’s shaping the industry. | Mistral AI",
       "url": "https://mistral.ai/news/physics-ai-research/",
       "summary": "The acquisition of Emmi AI has highlighted Mistral’s commitment towards pushing the state-of-the-art in AI research and enterprise solutions for industrial engineering.\nEmmi’s work, now part of Mistral, is dedicated to fundamentally enabling engineers to build the next generation of products faster and secure continuous performance gains in operations at scale for their customers.\nWe are doubling down on building foundational Physics AI for the industries that shape the physical world, such as aerospace, automotive, semiconductors, and energy.\nBelow are some of the published breakthroughs that this work rests on.\nDEC 1, 2025\nGoing with the Speed of Sound: Pushing Neural Surrogates into Highly-turbulent Transonic Regimes\nExisting aerospace datasets predominantly focus on 2D airfoils, neglecting these critical 3D phenomena. To address this gap, we present a new dataset of CFD simulations for 3D wings in the transonic regime. The dataset comprises volumetric and surface-level fields for around 30,000 samples with unique geometry and inflow conditions.\nNOV 25, 2025\nFluid Intelligence: A Forward Look on AI Foundation Models in Computational Fluid Dynamics\nDriven by the advancement of GPUs and AI, the field of Computational Fluid Dynamics (CFD) is undergoing significant transformations. This paper bridges the gap between the machine learning and CFD communities by deconstructing industrial-scale CFD simulations into their core components.\nOCT 17, 2025\nAB-UPT for Automotive and Aero…",
@@ -1104,9 +1104,9 @@
       "macro_score": 1
     },
     {
-      "title": "一群做自动驾驶的人，盯上了睡眠这件事",
-      "url": "https://www.qbitai.com/2026/07/447796.html",
-      "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
+      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
+      "url": "https://www.qbitai.com/2026/07/447691.html",
+      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1126,21 +1126,10 @@
       "macro_score": 0
     },
     {
-      "title": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放",
-      "url": "https://www.qbitai.com/2026/07/447832.html",
-      "summary": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放\nAI变为研发流程的“组织者”\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\nAI生物研发，正在迎来它的“Windows时刻”。\n过去，AI是帮科学家做结构预测、抗体设计的“单点工具”；而现在，它正演变为统领全局的“操作系统”。\n7月2日，在2026上海国投前沿论坛上，分子之心创始人许锦波教授正式面向产业界开放其自研的AI原生生物经济操作系统——MoleculeOS（MOS）。\n这不仅是一个系统的发布，更释放出一个明确的信号：\n生物领域的研发基础设施，正在被重新定义。\n在这里，AI的角色从生物规律的“预测者”，蜕变为研发流程的“组织者”。\n传统的“筛选试错”式的分子发现正步入历史，一个更具确定性的“分子创造”时代，正由这款AI原生操作系统正式开启。\n试用入口：https://mos.moleculemind.com/login\n从工具智能到系统智能：重构AI制药与生物制造的研发模式\n过去几年，AI在蛋白质结构预测、抗体设计、分子生成和功能优化等方向不断突破，证明了算法理解生命科学的巨大潜力。\n但在真实产业场景中，模型突破并不等于研发效率跃迁。\n一个典型的大分子研发任务，往往涉及靶点分析、序列建模、结构预测、结合界面判断、突变设计、亲和力评估、稳定性评估、可开发性分析和实验验证等众多环节。\n过去，这些环节分散在不同工具和团队之间，研发人员需要手动调度流程，结果也难以统一沉淀。\n传统“工具栈+人工调度”模式，正成为AI技术向产业价值转化的核心瓶颈。\nMoleculeOS是一个面向生物研发的AI操作系统。\n它基于分子之心自研的AI模型体系，以项目目标为入口，AI通过自主理解使用者的生物学意图，自动拆解任务、统一调度系列模型、执行结构预测、分子设计等任务，经过多维度科学评估给出决策建议，并沉淀可追踪、可复盘的研发链路。\n试用入口：https://mos.moleculemind.com/login\nMoleculeOS的核心变化，是把“研发意图”作为系统入口。\n研究人员不再只是上传一个序列或结构文件执行单一预测任务，而是直接提出目标：例如提升抗体亲和力、或针对特定靶点生成候选分子。\n系统会围绕目标自动拆解任务，在统一的生物物理上下文中调度模型，完成从结构预测到推荐候选分子及下一步决策建议的系统性任务。\n这意味着，AI不再只是执行单步计算，而是开始组织完整研发流程。\n过去高度依赖个人经验的判断过程，也可以被系统记录为可追踪、可复盘、可复用的研发资产。\n对于企业而言，这种变化不仅是效率提升，更意味着研发体系开始具备更强的标准化、协同化和可扩展能力。\n更重要的是，MoleculeOS将每一次从研发意图到最终结论的完整链路，自动沉淀为结构化研发资产。\n当团队启动下一个项目时，历史项目的计算参数、筛选逻辑和决策依据都可以被调用——\n研发不再是从零开始的重复劳动，而是在一套持续积累的体系中加速。\n这正是操作系统区别于工具集的根本所在。\n自研模型集群构筑底层能力：从理解生命规律到设计功能分子\nMoleculeOS的底层能力，来自分子之心在蛋白质基础大模型、蛋白质结构预测和分子设计方向的长期积累。\n围绕“序列—结构—功能—进化—相互作用—生成设计”，分子之心团队构建了覆盖全流程的自研模型体系，包括：\n- 多模态蛋白质基础大模型NewOrigin（达尔文）\n- 全原子大分子复合物结构预测模型（MMFold）\n- 面向纳米抗体、酶和功能蛋白的生成式设计模型（MMDesign）\n在结构预测方向，分…",
+      "title": "一群做自动驾驶的人，盯上了睡眠这件事",
+      "url": "https://www.qbitai.com/2026/07/447796.html",
+      "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
       "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审",
-      "url": "https://www.qbitai.com/2026/07/447846.html",
-      "summary": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审\n四大方向，奖金直给\n鹭羽 发自 凹非寺\n量子位 | 公众号 QbitAI\n这可能是我今年见过最「实诚」的科研奖项了！\n不设赛题，也不用刷分，这一次蚂蚁真金白银纯发福利：\nAI时代大浪淘沙，那个一直在科研深水区里啃着硬骨头的你，将有机会收获蚂蚁关注，以及一笔实打实的资金支持。\n只要你是做AGI、具身智能、数字医学、数据处理与安全隐私这四个方向的青年学者或在读博士生，都能来试一试。\n要求只有一点，你现在正在做的工作够硬、够新、够深。咱们一切拿作品说话，是金子就能发光。\n奖项名为「2026蚂蚁InTech奖」，目前已经开放提名与申报，倒计时还剩最后一周！\n这也是蚂蚁举办的第三届，过去两届先后吸引上百位学界泰斗参与推荐，部分成果如今也已跑进产业最前沿。\n比如首届获奖者王鹤将三维视觉技术落地通用机器人赛道；上届获奖者顾煜贤深耕大模型高效推理，其轻量化大模型框架已在多家AI厂商落地应用。\n且看本届含金量更是拉满，坐在评委席上的，清一色业界顶尖学者，两院院士云集，还有图灵奖得主压阵。\n让这样一群人来评、来选，这个奖想托举的是谁，其实一目了然：下一群Transformer八子。\n说得再直白点，蚂蚁在找AI的未来。\n第三届蚂蚁InTech奖\n今年蚂蚁InTech奖依旧分为两条线。\n一条是蚂蚁InTech科技奖，面向已经做出成果的青年学者；另一条是蚂蚁InTech奖学金，面向还在读的博士生们。\n这个风向其实相当敏锐。\n我们不妨回看那篇影响世界的《Attention Is All You Need》。\n论文署名的八个人，彼时都还名不见经传，他们中有的还是学生，有的也才刚入行没多久，有的虽然经验丰富但也只在小圈子里为人熟知，但如今Transformer已经是这一代大模型的核心支柱。\n可见科研突破往往始于萌芽，敢于深耕的多是这批青年科研人才。他们有想法有闯劲，却也缺一份实实在在的支持。\n蚂蚁想要接住他们，无论是刚独立起步的学生，还是一股劲往上冲的研究学者，蚂蚁都看到了。\n大家关心的奖金也给得很干脆。科技奖每人20万元，奖学金每人5万元，且每类每年评选最多10人。\n不过想报名，还需要满足参选门槛：\n- 蚂蚁InTech科技奖：\n一是要求候选人当前得在全球高校或科研院所中全职从事科研工作，并且已经拿到博士学位；\n二是从获得博士学位到参评当年，不能超过10年，具体以评审当年的1月1日（含当天）起算。比如2026年想参选，博士学位得是2016年1月1日之后拿到的。\n三是研究领域需要涉及前面所提及的四大方向。\n- 蚂蚁InTech奖学金：\n仅要求候选人参评当年（2026年）具备全球高校或科研院所的在读博士身份以及研究方向契合。\n此外，除了现金奖励，奖项还会另外评出10位InTech科技奖-Future和10位InTech奖学金-Future，以鼓励更多有潜力但还没被看到的年轻人。\n我们再把这四大方向单独拎出来说：通用人工智能（AGI）、具身智能、数字医学、数据处理与安全隐私。\n这四个可不是随随便便圈定的，放到整个计算机科学里看，它们都是最前沿的研究方向，当然也最难突破。这一点蚂蚁也是深有体会，这就是蚂蚁自己的技术底座。\n从守住数据，到炼出模型，再落进医疗、伸向物理世界，四个方向环环相扣，组成一条从底层能力到行业应用的完整技术链路。\n也正因为天天在这四道最难的关口上撞，蚂蚁才清楚，能凿开这些技术的突破在于人，尤其是愿意挖掘难点的青年科研人。\n图灵奖得主和两院院士都来了\n负责把关的评委阵容，也是2026蚂蚁InTech…",
-      "published_at": "2026-07-01",
       "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
@@ -1159,11 +1148,33 @@
       "macro_score": 0
     },
     {
+      "title": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放",
+      "url": "https://www.qbitai.com/2026/07/447832.html",
+      "summary": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放\nAI变为研发流程的“组织者”\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\nAI生物研发，正在迎来它的“Windows时刻”。\n过去，AI是帮科学家做结构预测、抗体设计的“单点工具”；而现在，它正演变为统领全局的“操作系统”。\n7月2日，在2026上海国投前沿论坛上，分子之心创始人许锦波教授正式面向产业界开放其自研的AI原生生物经济操作系统——MoleculeOS（MOS）。\n这不仅是一个系统的发布，更释放出一个明确的信号：\n生物领域的研发基础设施，正在被重新定义。\n在这里，AI的角色从生物规律的“预测者”，蜕变为研发流程的“组织者”。\n传统的“筛选试错”式的分子发现正步入历史，一个更具确定性的“分子创造”时代，正由这款AI原生操作系统正式开启。\n试用入口：https://mos.moleculemind.com/login\n从工具智能到系统智能：重构AI制药与生物制造的研发模式\n过去几年，AI在蛋白质结构预测、抗体设计、分子生成和功能优化等方向不断突破，证明了算法理解生命科学的巨大潜力。\n但在真实产业场景中，模型突破并不等于研发效率跃迁。\n一个典型的大分子研发任务，往往涉及靶点分析、序列建模、结构预测、结合界面判断、突变设计、亲和力评估、稳定性评估、可开发性分析和实验验证等众多环节。\n过去，这些环节分散在不同工具和团队之间，研发人员需要手动调度流程，结果也难以统一沉淀。\n传统“工具栈+人工调度”模式，正成为AI技术向产业价值转化的核心瓶颈。\nMoleculeOS是一个面向生物研发的AI操作系统。\n它基于分子之心自研的AI模型体系，以项目目标为入口，AI通过自主理解使用者的生物学意图，自动拆解任务、统一调度系列模型、执行结构预测、分子设计等任务，经过多维度科学评估给出决策建议，并沉淀可追踪、可复盘的研发链路。\n试用入口：https://mos.moleculemind.com/login\nMoleculeOS的核心变化，是把“研发意图”作为系统入口。\n研究人员不再只是上传一个序列或结构文件执行单一预测任务，而是直接提出目标：例如提升抗体亲和力、或针对特定靶点生成候选分子。\n系统会围绕目标自动拆解任务，在统一的生物物理上下文中调度模型，完成从结构预测到推荐候选分子及下一步决策建议的系统性任务。\n这意味着，AI不再只是执行单步计算，而是开始组织完整研发流程。\n过去高度依赖个人经验的判断过程，也可以被系统记录为可追踪、可复盘、可复用的研发资产。\n对于企业而言，这种变化不仅是效率提升，更意味着研发体系开始具备更强的标准化、协同化和可扩展能力。\n更重要的是，MoleculeOS将每一次从研发意图到最终结论的完整链路，自动沉淀为结构化研发资产。\n当团队启动下一个项目时，历史项目的计算参数、筛选逻辑和决策依据都可以被调用——\n研发不再是从零开始的重复劳动，而是在一套持续积累的体系中加速。\n这正是操作系统区别于工具集的根本所在。\n自研模型集群构筑底层能力：从理解生命规律到设计功能分子\nMoleculeOS的底层能力，来自分子之心在蛋白质基础大模型、蛋白质结构预测和分子设计方向的长期积累。\n围绕“序列—结构—功能—进化—相互作用—生成设计”，分子之心团队构建了覆盖全流程的自研模型体系，包括：\n- 多模态蛋白质基础大模型NewOrigin（达尔文）\n- 全原子大分子复合物结构预测模型（MMFold）\n- 面向纳米抗体、酶和功能蛋白的生成式设计模型（MMDesign）\n在结构预测方向，分…",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "AI Now Summit 2026 | Mistral AI",
       "url": "https://mistral.ai/news/ai-now-summit-2026/",
       "summary": "Thinking\nSummary\nMistral unveiled a new AI stack for industrial engineering, partnering with Airbus, BMW, and ASML to optimize design, simulation, and production while ensuring data security. Their agentic AI tool, Vibe, now handles long-horizon tasks like coding and research, while a new 10 MW data center in France will enhance compute control and security by 2026. These advancements reinforce Mistral’s focus on secure, high-impact AI solutions for critical enterprise workflows.\nMistral for Industrial Engineering.\nAn integrated AI stack combining advanced physics models, engineering expertise, and robotics to transform mission-critical industrial operations. The solution enables industrial engineers to accelerate design, eliminate simulation bottlenecks, and optimize asset performance; while maintaining full control over proprietary data, IP, and production environments.\nWith Airbus, we are implementing advanced AI at the core of the company's operations and processes, from initial design to on-board capabilities. Our partnership will expand across Airbus' commercial aircraft, helicopter, defence, and space activities. It will support the next decade of innovation, contribute to improve flight safety, and maintain full control of critical data; all while adhering to strict security requirements.\nFor BMW Group, we are a central partner for their “Large Industry Model” (LIM) initiative. The collaboration unifies engineering knowledge and AI expertise to build multimodal reason…",
       "published_at": "2026-05-28",
       "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审",
+      "url": "https://www.qbitai.com/2026/07/447846.html",
+      "summary": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审\n四大方向，奖金直给\n鹭羽 发自 凹非寺\n量子位 | 公众号 QbitAI\n这可能是我今年见过最「实诚」的科研奖项了！\n不设赛题，也不用刷分，这一次蚂蚁真金白银纯发福利：\nAI时代大浪淘沙，那个一直在科研深水区里啃着硬骨头的你，将有机会收获蚂蚁关注，以及一笔实打实的资金支持。\n只要你是做AGI、具身智能、数字医学、数据处理与安全隐私这四个方向的青年学者或在读博士生，都能来试一试。\n要求只有一点，你现在正在做的工作够硬、够新、够深。咱们一切拿作品说话，是金子就能发光。\n奖项名为「2026蚂蚁InTech奖」，目前已经开放提名与申报，倒计时还剩最后一周！\n这也是蚂蚁举办的第三届，过去两届先后吸引上百位学界泰斗参与推荐，部分成果如今也已跑进产业最前沿。\n比如首届获奖者王鹤将三维视觉技术落地通用机器人赛道；上届获奖者顾煜贤深耕大模型高效推理，其轻量化大模型框架已在多家AI厂商落地应用。\n且看本届含金量更是拉满，坐在评委席上的，清一色业界顶尖学者，两院院士云集，还有图灵奖得主压阵。\n让这样一群人来评、来选，这个奖想托举的是谁，其实一目了然：下一群Transformer八子。\n说得再直白点，蚂蚁在找AI的未来。\n第三届蚂蚁InTech奖\n今年蚂蚁InTech奖依旧分为两条线。\n一条是蚂蚁InTech科技奖，面向已经做出成果的青年学者；另一条是蚂蚁InTech奖学金，面向还在读的博士生们。\n这个风向其实相当敏锐。\n我们不妨回看那篇影响世界的《Attention Is All You Need》。\n论文署名的八个人，彼时都还名不见经传，他们中有的还是学生，有的也才刚入行没多久，有的虽然经验丰富但也只在小圈子里为人熟知，但如今Transformer已经是这一代大模型的核心支柱。\n可见科研突破往往始于萌芽，敢于深耕的多是这批青年科研人才。他们有想法有闯劲，却也缺一份实实在在的支持。\n蚂蚁想要接住他们，无论是刚独立起步的学生，还是一股劲往上冲的研究学者，蚂蚁都看到了。\n大家关心的奖金也给得很干脆。科技奖每人20万元，奖学金每人5万元，且每类每年评选最多10人。\n不过想报名，还需要满足参选门槛：\n- 蚂蚁InTech科技奖：\n一是要求候选人当前得在全球高校或科研院所中全职从事科研工作，并且已经拿到博士学位；\n二是从获得博士学位到参评当年，不能超过10年，具体以评审当年的1月1日（含当天）起算。比如2026年想参选，博士学位得是2016年1月1日之后拿到的。\n三是研究领域需要涉及前面所提及的四大方向。\n- 蚂蚁InTech奖学金：\n仅要求候选人参评当年（2026年）具备全球高校或科研院所的在读博士身份以及研究方向契合。\n此外，除了现金奖励，奖项还会另外评出10位InTech科技奖-Future和10位InTech奖学金-Future，以鼓励更多有潜力但还没被看到的年轻人。\n我们再把这四大方向单独拎出来说：通用人工智能（AGI）、具身智能、数字医学、数据处理与安全隐私。\n这四个可不是随随便便圈定的，放到整个计算机科学里看，它们都是最前沿的研究方向，当然也最难突破。这一点蚂蚁也是深有体会，这就是蚂蚁自己的技术底座。\n从守住数据，到炼出模型，再落进医疗、伸向物理世界，四个方向环环相扣，组成一条从底层能力到行业应用的完整技术链路。\n也正因为天天在这四道最难的关口上撞，蚂蚁才清楚，能凿开这些技术的突破在于人，尤其是愿意挖掘难点的青年科研人。\n图灵奖得主和两院院士都来了\n负责把关的评委阵容，也是2026蚂蚁InTech…",
+      "published_at": "2026-07-11",
+      "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1291,21 +1302,32 @@
       "macro_score": 0
     },
     {
-      "title": "Should AI agents expose their reasoning process before taking action?",
-      "url": "https://forum.langchain.com/t/should-ai-agents-expose-their-reasoning-process-before-taking-action/4131",
-      "summary": "Humans build trust by explaining why they made a decision.\nWhat if AI agents briefly summarized their plan before executing?\nFor example:\n“I found three scheduling conflicts. I’ll resolve the first automatically, ask you about the second, and postpone the third until Friday.”\nWould this make AI more trustworthy?\nOr just slower?\n             \n            \n           \n          \n            \n            \n              hi @Saiganesh\nYes, I think exposing the plan increases trust, but there is an important distinction. Users dont really need the raw reasoning, they need the plan. Raw chain of thought is verbose and research shows its often not even faithful to what the model actually did, so showing it can create false confidence. A short structured plan like your example is diferent, its verifiable and gives the user a chance to object before anything happens.\nThe key thing tho is that transparency alone doesnt build trust, control does. A plan you can read but cant veto is just theater. Thats why I’d pair it with human in the loop on the risky actions. In LangChain you get this basically for free, create_agent with HumanInTheLoopMiddleware lets you mark which tools need approval, and the user can approve, edit or reject the proposed action. Deep agents even ship the planning part by default, the write_todos tool externalizes the plan into state and the UI can render it live. Claude Code and Cursor converged on the same todo pattern independently, which tells you something, it a…",
+      "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
+      "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
+      "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
+      "published_at": "2026-07-10",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Long-running run getting cancelled by aggressive workers scale down",
+      "url": "https://forum.langchain.com/t/long-running-run-getting-cancelled-by-aggressive-workers-scale-down/4126",
+      "summary": "Hi LangChain team, recently we are experiencing some issues related to some of our graph runs getting cancelled (asyncio.CancelledError) in the LangSmith tracing in our Production deployment.\nAfter some debugging using the server log, we found out that during the time these runs getting cancelled, there were quite a few shutdown logs that appeared.\nFor example, at 7/7/2026, 12:09:26 PM:\n[ERROR] The queue surpassed the grace period while shutting down. Some runs may still be running and will be canceled and retried on a healthy instance. The grace period is currently set to 180 seconds. If that is too low, adjust the BG_JOB_SHUTDOWN_GRACE_PERIOD_SECS environment variable to an appropriate value. Signaling shutdown\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 505, in worker\n  File \"/api/langgraph_api/worker.py\", line 269, in worker\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 207, in wrap_user_errors\n  File \"/api/langgraph_api/stream.py\", line 639, in consume\n  File \"/api/langgraph_api/stream.py\", line 665, in _consume_inline\n  File \"/api/langgraph_api/stream.py\", line 501, in astream_state\n  File \"/api/langgraph_api/asyncio.py\", line 86, in wait_if_not_done\n  File \"/usr/local/lib/python3.12/asyncio/taskgroups.py\", …",
       "published_at": "2026-07-09",
       "source": "forum.langchain.com",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 2
+      "macro_score": 0
     },
     {
-      "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
-      "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
-      "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
-      "published_at": "2026-07-10",
+      "title": "Should AI agents have working hours like human employees?",
+      "url": "https://forum.langchain.com/t/should-ai-agents-have-working-hours-like-human-employees/4123",
+      "summary": "We expect AI to be available 24/7, but should it always be?\nImagine an AI executive assistant that intentionally batches notifications, delays non-urgent interruptions, and only escalates high-priority issues outside “working hours.”\nCould an AI that knows when not to interrupt you actually make us more productive?\nWhere would you draw the line between responsiveness and respecting focus?\n             \n            \n           \n          \n            \n            \n              Yes, but not as a hard “offline” switch. The better model is availability tiers, not human-style working hours.\nThe case for it: An always-on agent can feel productive while quietly hurting focus. Batching low-priority updates, deferring non-urgent work, and only interrupting for true escalations often beats 24/7 responsiveness.\nWhere to draw the line:\n- Always on: safety-critical, production incidents, explicit user requests\n- Queued / batched: summaries, digests, routine follow-ups\n- Deferred: research, planning, non-urgent notifications\nPractical rule: The agent should be available 24/7, interruptive only when it matters. Working hours become a user preference for when the agent may break focus, not when the agent stops thinking.\nThat’s especially useful for executive-assistant-style agents: work in the background all the time, but respect focus windows unless urgency crosses a threshold.\nSo the answer isn’t “should agents have working hours?”,  it’s should agents have interruption policies? Usually …",
+      "published_at": "2026-07-08",
       "source": "forum.langchain.com",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1324,37 +1346,26 @@
       "macro_score": 0
     },
     {
-      "title": "Long-running run getting cancelled by aggressive workers scale down",
-      "url": "https://forum.langchain.com/t/long-running-run-getting-cancelled-by-aggressive-workers-scale-down/4126",
-      "summary": "Hi LangChain team, recently we are experiencing some issues related to some of our graph runs getting cancelled (asyncio.CancelledError) in the LangSmith tracing in our Production deployment.\nAfter some debugging using the server log, we found out that during the time these runs getting cancelled, there were quite a few shutdown logs that appeared.\nFor example, at 7/7/2026, 12:09:26 PM:\n[ERROR] The queue surpassed the grace period while shutting down. Some runs may still be running and will be canceled and retried on a healthy instance. The grace period is currently set to 180 seconds. If that is too low, adjust the BG_JOB_SHUTDOWN_GRACE_PERIOD_SECS environment variable to an appropriate value. Signaling shutdown\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 505, in worker\n  File \"/api/langgraph_api/worker.py\", line 269, in worker\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 207, in wrap_user_errors\n  File \"/api/langgraph_api/stream.py\", line 639, in consume\n  File \"/api/langgraph_api/stream.py\", line 665, in _consume_inline\n  File \"/api/langgraph_api/stream.py\", line 501, in astream_state\n  File \"/api/langgraph_api/asyncio.py\", line 86, in wait_if_not_done\n  File \"/usr/local/lib/python3.12/asyncio/taskgroups.py\", …",
+      "title": "Help Needed: MongoDB Checkpoints Collection Growing Too Large",
+      "url": "https://forum.langchain.com/t/help-needed-mongodb-checkpoints-collection-growing-too-large/2121",
+      "summary": "Problem Description\nI’m experiencing significant storage issues with the LangGraph MongoDB checkpointer. The checkpoints collection is growing far beyond expected size and consuming excessive storage.\nCurrent Situation\n- Thread IDs: 16,000 conversations\n- Total Messages: 36,542 messages across all conversations\n- Checkpoint Records: 282,758 records\n- Storage Used: ~30 GB\n- Average Checkpoints per Thread: ~17.7 checkpoints per conversation\n- Average Checkpoints per Message: ~7.7 checkpoint records per message\nThis means instead of maintaining a reasonable number of checkpoints per conversation, the system is saving multiple checkpoints per conversation (and per message), leading to exponential growth.\nEnvironment\nDependencies:\n\"@langchain/core\": \"^0.3.77\"\n\"@langchain/langgraph\": \"^0.4.9\"\n\"@langchain/langgraph-checkpoint-mongodb\": \"^0.1.1\"\n\"@langchain/openai\": \"^0.6.16\"\nDatabase: Azure Cosmos DB for MongoDB (RU-based account)\nNote: Using Cosmos DB RU account means storage costs scale with data size, making this 30GB checkpoint collection a significant cost concern beyond just performance.\nQuestions\n- \nIs this expected behavior? Should LangGraph be creating ~18 checkpoints per conversation on average? \n- \nCheckpoint Retention: Is there a built-in mechanism to limit the number of checkpoints per thread, or do I need to implement manual cleanup? \n- \nBest Practices: What’s the recommended approach for managing checkpoint growth in production environments with high conversation volu…",
+      "published_at": "2025-11-06",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Should AI agents expose their reasoning process before taking action?",
+      "url": "https://forum.langchain.com/t/should-ai-agents-expose-their-reasoning-process-before-taking-action/4131",
+      "summary": "Humans build trust by explaining why they made a decision.\nWhat if AI agents briefly summarized their plan before executing?\nFor example:\n“I found three scheduling conflicts. I’ll resolve the first automatically, ask you about the second, and postpone the third until Friday.”\nWould this make AI more trustworthy?\nOr just slower?\n             \n            \n           \n          \n            \n            \n              hi @Saiganesh\nYes, I think exposing the plan increases trust, but there is an important distinction. Users dont really need the raw reasoning, they need the plan. Raw chain of thought is verbose and research shows its often not even faithful to what the model actually did, so showing it can create false confidence. A short structured plan like your example is diferent, its verifiable and gives the user a chance to object before anything happens.\nThe key thing tho is that transparency alone doesnt build trust, control does. A plan you can read but cant veto is just theater. Thats why I’d pair it with human in the loop on the risky actions. In LangChain you get this basically for free, create_agent with HumanInTheLoopMiddleware lets you mark which tools need approval, and the user can approve, edit or reject the proposed action. Deep agents even ship the planning part by default, the write_todos tool externalizes the plan into state and the UI can render it live. Claude Code and Cursor converged on the same todo pattern independently, which tells you something, it a…",
       "published_at": "2026-07-09",
       "source": "forum.langchain.com",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "SKYNET800 (alfa) Killing AI hallucinations with resonance",
-      "url": "https://discuss.huggingface.co/t/skynet800-alfa-killing-ai-hallucinations-with-resonance/177630",
-      "summary": "This code predicts the exact time and price of a future price point, and can also construct a curve of future prices. It can be used to decipher any process that has a graph—for example, a graph of mutual understanding between artificial intelligence and a human. Notably, DeepSeek’s computing power is not used for the prediction; the data is processed on an ordinary computer. The system fully replicates Nikola Tesla’s resonator in the form of code. If we represent the operation of the Random Number Generator (RNG) as a time-series graph, the system can be applied to decrypt the bitcoin seed-phrase. The code has made the collective mind controllable and predictable - there’s no need to use social media platforms like TikTok to observe or generate mass trends immediately - everything follows a simple mathematical formula.",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Should AI agents have working hours like human employees?",
-      "url": "https://forum.langchain.com/t/should-ai-agents-have-working-hours-like-human-employees/4123",
-      "summary": "We expect AI to be available 24/7, but should it always be?\nImagine an AI executive assistant that intentionally batches notifications, delays non-urgent interruptions, and only escalates high-priority issues outside “working hours.”\nCould an AI that knows when not to interrupt you actually make us more productive?\nWhere would you draw the line between responsiveness and respecting focus?\n             \n            \n           \n          \n            \n            \n              Yes, but not as a hard “offline” switch. The better model is availability tiers, not human-style working hours.\nThe case for it: An always-on agent can feel productive while quietly hurting focus. Batching low-priority updates, deferring non-urgent work, and only interrupting for true escalations often beats 24/7 responsiveness.\nWhere to draw the line:\n- Always on: safety-critical, production incidents, explicit user requests\n- Queued / batched: summaries, digests, routine follow-ups\n- Deferred: research, planning, non-urgent notifications\nPractical rule: The agent should be available 24/7, interruptive only when it matters. Working hours become a user preference for when the agent may break focus, not when the agent stops thinking.\nThat’s especially useful for executive-assistant-style agents: work in the background all the time, but respect focus windows unless urgency crosses a threshold.\nSo the answer isn’t “should agents have working hours?”,  it’s should agents have interruption policies? Usually …",
-      "published_at": "2026-07-08",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
+      "macro_score": 2
     },
     {
       "title": "Unable to schedule",
@@ -1368,11 +1379,44 @@
       "macro_score": 0
     },
     {
-      "title": "Help Needed: MongoDB Checkpoints Collection Growing Too Large",
-      "url": "https://forum.langchain.com/t/help-needed-mongodb-checkpoints-collection-growing-too-large/2121",
-      "summary": "Problem Description\nI’m experiencing significant storage issues with the LangGraph MongoDB checkpointer. The checkpoints collection is growing far beyond expected size and consuming excessive storage.\nCurrent Situation\n- Thread IDs: 16,000 conversations\n- Total Messages: 36,542 messages across all conversations\n- Checkpoint Records: 282,758 records\n- Storage Used: ~30 GB\n- Average Checkpoints per Thread: ~17.7 checkpoints per conversation\n- Average Checkpoints per Message: ~7.7 checkpoint records per message\nThis means instead of maintaining a reasonable number of checkpoints per conversation, the system is saving multiple checkpoints per conversation (and per message), leading to exponential growth.\nEnvironment\nDependencies:\n\"@langchain/core\": \"^0.3.77\"\n\"@langchain/langgraph\": \"^0.4.9\"\n\"@langchain/langgraph-checkpoint-mongodb\": \"^0.1.1\"\n\"@langchain/openai\": \"^0.6.16\"\nDatabase: Azure Cosmos DB for MongoDB (RU-based account)\nNote: Using Cosmos DB RU account means storage costs scale with data size, making this 30GB checkpoint collection a significant cost concern beyond just performance.\nQuestions\n- \nIs this expected behavior? Should LangGraph be creating ~18 checkpoints per conversation on average? \n- \nCheckpoint Retention: Is there a built-in mechanism to limit the number of checkpoints per thread, or do I need to implement manual cleanup? \n- \nBest Practices: What’s the recommended approach for managing checkpoint growth in production environments with high conversation volu…",
-      "published_at": "2025-11-06",
+      "title": "We all start somewhere",
+      "url": "https://discuss.huggingface.co/t/we-all-start-somewhere/177233",
+      "summary": "Well, If I can assume your technical stack, the explanation can be fairly dense:\nDirect answer\nI would not start by looking for “the best model.” I would first split the problem into layers:\n- local runtime\n- model format and quantization\n- chat template\n- a small eval set\n- RAG / retrieval\n- fine-tuning / adapters\n- model choice\n- tool use / agents\n- offline and privacy boundaries\nFor private or changing knowledge, I would usually try RAG before fine-tuning.\nFor local models, I would check runtime, quantization, and chat template before judging the model.\nFor fine-tuning, I would first collect repeatable failures and eval examples.\nFor uncensored or abliterated models, I would treat them as refusal-behavior changes, not hidden-capability upgrades.\nYou are probably not starting from zero. You are crossing stacks.\n1. Do not mix the layers\nA lot of local AI confusion comes from treating these as the same kind of thing:\n| Layer | Examples | What it answers | \n| Model / checkpoint | Llama, Mistral, Qwen, Gemma, DeepSeek, gpt-oss | What learned the behavior? | \n| File format | safetensors, GGUF | How are the weights stored? | \n| Quantization | q4, q5, q8, fp16, bf16 | What memory/speed/quality tradeoff? | \n| Runtime | Transformers, llama.cpp, Ollama, LM Studio, vLLM, TGI | What actually runs the model? | \n| UI / API layer | Open WebUI, LM Studio UI, llama-server, OpenAI-compatible API | How do you talk to it? | \n| Chat template | ChatML, Mistral, Llama, Qwen, Harmony, etc. | How a…",
+      "published_at": "2026-06-29",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Architectural Pattern: Synchronous Pre-Call Spend Gates in Stateful GraphsBody:",
+      "url": "https://forum.langchain.com/t/architectural-pattern-synchronous-pre-call-spend-gates-in-stateful-graphsbody/4136",
+      "summary": "Hey everyone,\nI wanted to outline an architectural pattern for enforcing financial compliance and hard budget caps within stateful workflows, specifically designed to bypass the limitations of reactive cost-tracking or post-execution callbacks (which catch loop exceptions only after money has been spent).\nWhen an agent gets stuck in a recursive node loop or tool-parsing exception, it can exhaust API budgets rapidly. Enforcing budget checks globally can corrupt thread boundaries or add immense overhead.\nTo resolve this, I’ve been experimenting with an upstream middleware pattern that executes synchronously right before an external tool or LLM network call fires, tracking decisions via an isolated, append-only cryptographic ledger to preserve tamper-evidence:\n[Node Workflow Execution] ──► (Sync checkSpend Request) ──► [Pre-Call Spend Gate]\n                                                                    │\n                            ┌────────────────────────────────────────┴─────┐\n                            ▼ (if Approved)                                ▼ (if Denied)\n                 [Write Approved Ledger Entry]                  [Write Denied Ledger Entry]\n                            │                                              │\n                            ▼                                              ▼\n               [Execute External API / Tool]                     [Halt Graph Execution]\nCryptographic State Boundary Definition:\nTo ensure historical decisions cannot b…",
+      "published_at": "2026-07-11",
       "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Looking for feedback: Do common quantization saliency metrics really measure weight importance?",
+      "url": "https://discuss.huggingface.co/t/looking-for-feedback-do-common-quantization-saliency-metrics-really-measure-weight-importance/177615",
+      "summary": "Hmm… for now, maybe something along these lines (I’m not entirely confident about the content, so please take this just as a reference…):\nMy direct answer would be: yes, this looks like a useful audit of channel-level quantization proxies, but I would narrow the interpretation from “weight importance in general” to “isolated, quantizer-specific channel susceptibility under this intervention.”\nThe one-at-a-time design is valuable because it separates a static score from the rest of a quantization pipeline. The results therefore say something concrete about whether each audited score predicts the forward-KL damage produced when one channel is quantized while everything else is held fixed.\nI would not yet read that as a general verdict on the native AWQ, GPTQ, OWQ, or SpQR algorithms. Those methods use their statistics for different actions—scaling, sequential compensation, mixed precision, or weight-level outlier isolation—and this audit maps those different objects into a common static channel ranking. That is a useful benchmark, but it is not identical to asking whether each full method makes good deployment decisions.\nI also see two different result regimes:\n- For global continuous ranking, the loss-aware unified score appears substantially stronger.\n- For fixed-budget selection within a linear, the picture is more mixed; corrected OWQ residual and simpler proxies appear competitive or stronger on some top-k measures.\nThat distinction may be more useful than naming one overa…",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 2
+    },
+    {
+      "title": "Alternative to TorchScript that supports control flow and autograd",
+      "url": "https://discuss.pytorch.org/t/alternative-to-torchscript-that-supports-control-flow-and-autograd/212391",
+      "summary": "I’m currently relying on torchscript for many models, since I need to execute them from C++. I recently learned however that there are no plans to keep developing JIT.\nFrom the documentation I gather the alternatives are torch.compile, if running in python, and torch.export if running in a python-less environment.\nI believe that neither of these are fit for my use case, since I need to call autograd for inference, and my model requieres some control flow. Even if worked to fully get rid of the control flow (unlikely to be possible) the lack of autograd is a dealbreaker.\nI wanted to know what are my options moving forward. Is TorchScript essentially deprecated? Will it break or be removed in the future or am I ok to keep relying on it? The only alternative to torchscript I see is to rewrite my code directly using the C++ API, but since I have users that rely on the python code, that would mean duplicating all of the codebase\n             \n            \n           \n          \n            \n            \n              AFAIK the new thing is AOTInductor:\nI am not 100% clear on the usage of autograd here, but I would expect to work in a similar fashion there.\nThere is AOT Autograd - How to use and optimize? — functorch nightly documentation\nAnd as I understand it, that’s already being called by the export function so it might already work.\n             \n            \n           \n          \n            \n            \n              torch.export doesn’t seem to be able to export graphs wi…",
+      "published_at": "2024-11-01",
+      "source": "discuss.pytorch.org",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -1388,28 +1432,6 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
-    },
-    {
-      "title": "Reinforement Structure Analysis",
-      "url": "https://discuss.huggingface.co/t/reinforement-structure-analysis/176541",
-      "summary": "Oh. If RGB-D is acceptable, I think this can be made much more concrete:\nYour latest constraints clarify the problem a lot.\nSince you need:\n- number of horizontal bars,\n- number of vertical bars,\n- horizontal spacing,\n- vertical spacing,\n- horizontal/vertical bar length,\n- multiple cage shapes,\n- no manual cropping,\n- short video capture,\n- RGB-D/stereo acceptable in the field,\n- training on a larger GPU but deployment on a smaller GPU,\nI would now treat this less as a “rebar counting from images” problem and more as a geometry-aware rebar measurement system.\nMy direct answer would be:\nIf RGB-D is acceptable, I would make RGB-D / point cloud geometry the main measurement path. Use RGB for detecting rebars, keypoints, crosspoints, faces, or candidate regions; use depth/point cloud geometry for face/layer assignment, metric spacing, and length measurement.\nIn other words:\nRGB:\n  what is rebar?\n  where are the visible bars/keypoints/crosspoints?\nDepth / point cloud:\n  which face/layer do they belong to?\n  what is the metric distance/length?\n  is this measurement geometrically plausible?\nThat is much more concrete than trying to solve everything with monocular depth or a pure 2D detector.\n1. The problem has changed from “counting” to “measurement”\nYour latest requirements are broader than a count-only task.\n| Requirement | What it implies | \n| Count horizontal and vertical bars | detection / segmentation / row-column grouping | \n| Measure spacing | metric scale is needed | \n| Mea…",
-      "published_at": "2026-06-04",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Alternative to TorchScript that supports control flow and autograd",
-      "url": "https://discuss.pytorch.org/t/alternative-to-torchscript-that-supports-control-flow-and-autograd/212391",
-      "summary": "I’m currently relying on torchscript for many models, since I need to execute them from C++. I recently learned however that there are no plans to keep developing JIT.\nFrom the documentation I gather the alternatives are torch.compile, if running in python, and torch.export if running in a python-less environment.\nI believe that neither of these are fit for my use case, since I need to call autograd for inference, and my model requieres some control flow. Even if worked to fully get rid of the control flow (unlikely to be possible) the lack of autograd is a dealbreaker.\nI wanted to know what are my options moving forward. Is TorchScript essentially deprecated? Will it break or be removed in the future or am I ok to keep relying on it? The only alternative to torchscript I see is to rewrite my code directly using the C++ API, but since I have users that rely on the python code, that would mean duplicating all of the codebase\n             \n            \n           \n          \n            \n            \n              AFAIK the new thing is AOTInductor:\nI am not 100% clear on the usage of autograd here, but I would expect to work in a similar fashion there.\nThere is AOT Autograd - How to use and optimize? — functorch nightly documentation\nAnd as I understand it, that’s already being called by the export function so it might already work.\n             \n            \n           \n          \n            \n            \n              torch.export doesn’t seem to be able to export graphs wi…",
-      "published_at": "2024-11-01",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
     },
     {
       "title": "Created TorchCTS, a conformance test suite for testing backends",
@@ -1428,6 +1450,17 @@
       "summary": "Hello all,\nI’m hoping to use captum for feature attribution on a basic 1-D linear regression model (see below), but all the examples I’ve seen use 2D models (usually for machine vision applications). Is there a good tutorial out there for using captum with simpler models?\nThanks!\nclass Regression(nn.Module):\n  def __init__(self):\n    super().__init__()\n    self.layers = nn.Sequential(\n      nn.Linear(7490, 64),\n      nn.ReLU(),\n      nn.Linear(64, 32),\n      nn.ReLU(),\n      nn.Linear(32, 1)\n    )\n  def forward(self, x):\n    '''\n      Forward pass\n    '''\n    return self.layers(x)\ndef training_loop(n_epochs, train_loader):\n# training loop\n    for epoch in range(n_epochs):\n        # Set current loss value\n        current_loss = 0.0\n        # Iterate over the DataLoader for training data\n        for i, data in enumerate(train_loader, 0):\n          # Get and prepare inputs\n          inputs, targets = data\n          inputs, targets = inputs.float(), targets.float()\n          targets = targets.reshape((targets.shape[0],1))\n            # Zero the gradients\n          optimizer.zero_grad()\n          # Perform forward pass\n          outputs = model(inputs)\n          # Compute loss\n          loss = loss_function(outputs, targets)\n          # Perform backward pass\n          loss.backward()\n          # Perform optimization\n          optimizer.step()\n    return model",
       "published_at": "2026-07-09",
       "source": "discuss.pytorch.org",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Reinforement Structure Analysis",
+      "url": "https://discuss.huggingface.co/t/reinforement-structure-analysis/176541",
+      "summary": "Oh. If RGB-D is acceptable, I think this can be made much more concrete:\nYour latest constraints clarify the problem a lot.\nSince you need:\n- number of horizontal bars,\n- number of vertical bars,\n- horizontal spacing,\n- vertical spacing,\n- horizontal/vertical bar length,\n- multiple cage shapes,\n- no manual cropping,\n- short video capture,\n- RGB-D/stereo acceptable in the field,\n- training on a larger GPU but deployment on a smaller GPU,\nI would now treat this less as a “rebar counting from images” problem and more as a geometry-aware rebar measurement system.\nMy direct answer would be:\nIf RGB-D is acceptable, I would make RGB-D / point cloud geometry the main measurement path. Use RGB for detecting rebars, keypoints, crosspoints, faces, or candidate regions; use depth/point cloud geometry for face/layer assignment, metric spacing, and length measurement.\nIn other words:\nRGB:\n  what is rebar?\n  where are the visible bars/keypoints/crosspoints?\nDepth / point cloud:\n  which face/layer do they belong to?\n  what is the metric distance/length?\n  is this measurement geometrically plausible?\nThat is much more concrete than trying to solve everything with monocular depth or a pure 2D detector.\n1. The problem has changed from “counting” to “measurement”\nYour latest requirements are broader than a count-only task.\n| Requirement | What it implies | \n| Count horizontal and vertical bars | detection / segmentation / row-column grouping | \n| Measure spacing | metric scale is needed | \n| Mea…",
+      "published_at": "2026-06-04",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -1478,6 +1511,17 @@
       "macro_score": 1
     },
     {
+      "title": "Persistent 503 Error Between Private Docker Spaces",
+      "url": "https://discuss.huggingface.co/t/persistent-503-error-between-private-docker-spaces/177610",
+      "summary": "Personally, this (and Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)) looks more like a regression to me. Details below:\njust in case, @hysts\nDirect answer: the general architecture does not appear to be inherently unsupported.\nHugging Face documents Docker Spaces as suitable for FastAPI and other API endpoints, documents authenticated access to private Space endpoints, and also documents calling one Space from another Space. I could not find one official reference that combines this exact topology—private Docker caller, private Docker target, arbitrary FastAPI route, and server-side Bearer authentication—but the individual pieces are documented or have prior working examples.\nFor a private Docker Space, the route I would expect to use is still:\ncaller Space\n    → HTTPS on port 443\n    → https://<target-subdomain>.hf.space/<route>\n    → Authorization: Bearer <token that can access the target Space>\n    → target application\nThe Docker Spaces documentation describes exposing an application through app_port, and the Spaces networking documentation allows outbound HTTP/HTTPS traffic on ports 80 and 443. The official private Tabby Docker Space example also uses the direct *.hf.space URL as an API endpoint and adds an authorization header when the Space is private.\nThe strongest reason I would currently suspect a regression is the independent report in Space-to-Space requests to *.hf.space return 503 from awselb. That report describes:\n- the same target …",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Seeking research collaborators: a persistence-first AI architecture, live for 14+ days — help us measure it properly",
       "url": "https://discuss.huggingface.co/t/seeking-research-collaborators-a-persistence-first-ai-architecture-live-for-14-days-help-us-measure-it-properly/177582",
       "summary": "Hey friends!\nWe’ve built a persistence-first AI architecture (we call it PPAi — Persistent Presence AI) where a small open LLM (~4.5B) acts only as the language surface, while identity, memory, and cognition live in a continuously-running system — including between turns. We’re testing it in production and looking for researchers interested in this topic.\nThe problem\nWe first tried to build a real 24/7 online radio station with LLMs — not “greet listeners between songs,” but news, show continuity, music, listener messages, editing, in two languages. It wasn’t possible. The failure mode was consistent: per-turn context reinjection. Whatever the memory system — full history, summarization, RAG — it breaks down after a few hundred turns, and token consumption grows out of control. In our runs, a naive setup hit the 128K context wall around turn ~917; a RAG setup kept cost flat but we caught it live retrieving one of its own prior hallucinations as a memory. A paid frontier model running the station via API was cut off by the provider (429) in under half an hour.\nWhat’s different\nWith the PPAi architecture, this is controlled: state is held, not replayed. The live station currently runs at roughly ~44M tokens/day for the whole operation, flat — the equivalent LLM-based setup was trending past 300M/day and climbing when we stopped measuring, because continuing was economically pointless.\nThe system has been live for weeks, hundreds of thousands of generations, no brain restart, no…",
@@ -1500,10 +1544,10 @@
       "macro_score": 1
     },
     {
-      "title": "Persistent 503 Error Between Private Docker Spaces",
-      "url": "https://discuss.huggingface.co/t/persistent-503-error-between-private-docker-spaces/177610",
-      "summary": "Personally, this (and Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)) looks more like a regression to me. Details below:\njust in case, @hysts\nDirect answer: the general architecture does not appear to be inherently unsupported.\nHugging Face documents Docker Spaces as suitable for FastAPI and other API endpoints, documents authenticated access to private Space endpoints, and also documents calling one Space from another Space. I could not find one official reference that combines this exact topology—private Docker caller, private Docker target, arbitrary FastAPI route, and server-side Bearer authentication—but the individual pieces are documented or have prior working examples.\nFor a private Docker Space, the route I would expect to use is still:\ncaller Space\n    → HTTPS on port 443\n    → https://<target-subdomain>.hf.space/<route>\n    → Authorization: Bearer <token that can access the target Space>\n    → target application\nThe Docker Spaces documentation describes exposing an application through app_port, and the Spaces networking documentation allows outbound HTTP/HTTPS traffic on ports 80 and 443. The official private Tabby Docker Space example also uses the direct *.hf.space URL as an API endpoint and adds an authorization header when the Space is private.\nThe strongest reason I would currently suspect a regression is the independent report in Space-to-Space requests to *.hf.space return 503 from awselb. That report describes:\n- the same target …",
-      "published_at": "2026-07-09",
+      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
+      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
+      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
+      "published_at": "2026-07-10",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1520,17 +1564,6 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
-    },
-    {
-      "title": "Looking for feedback: Do common quantization saliency metrics really measure weight importance?",
-      "url": "https://discuss.huggingface.co/t/looking-for-feedback-do-common-quantization-saliency-metrics-really-measure-weight-importance/177615",
-      "summary": "Hmm… for now, maybe something along these lines (I’m not entirely confident about the content, so please take this just as a reference…):\nMy direct answer would be: yes, this looks like a useful audit of channel-level quantization proxies, but I would narrow the interpretation from “weight importance in general” to “isolated, quantizer-specific channel susceptibility under this intervention.”\nThe one-at-a-time design is valuable because it separates a static score from the rest of a quantization pipeline. The results therefore say something concrete about whether each audited score predicts the forward-KL damage produced when one channel is quantized while everything else is held fixed.\nI would not yet read that as a general verdict on the native AWQ, GPTQ, OWQ, or SpQR algorithms. Those methods use their statistics for different actions—scaling, sequential compensation, mixed precision, or weight-level outlier isolation—and this audit maps those different objects into a common static channel ranking. That is a useful benchmark, but it is not identical to asking whether each full method makes good deployment decisions.\nI also see two different result regimes:\n- For global continuous ranking, the loss-aware unified score appears substantially stronger.\n- For fixed-budget selection within a linear, the picture is more mixed; corrected OWQ residual and simpler proxies appear competitive or stronger on some top-k measures.\nThat distinction may be more useful than naming one overa…",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 2
     },
     {
       "title": "Building a Centralized Vector Database Pipeline for Multi-Project RAG",
@@ -1566,43 +1599,10 @@
       "macro_score": 0
     },
     {
-      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
-      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
-      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "We all start somewhere",
-      "url": "https://discuss.huggingface.co/t/we-all-start-somewhere/177233",
-      "summary": "Well, If I can assume your technical stack, the explanation can be fairly dense:\nDirect answer\nI would not start by looking for “the best model.” I would first split the problem into layers:\n- local runtime\n- model format and quantization\n- chat template\n- a small eval set\n- RAG / retrieval\n- fine-tuning / adapters\n- model choice\n- tool use / agents\n- offline and privacy boundaries\nFor private or changing knowledge, I would usually try RAG before fine-tuning.\nFor local models, I would check runtime, quantization, and chat template before judging the model.\nFor fine-tuning, I would first collect repeatable failures and eval examples.\nFor uncensored or abliterated models, I would treat them as refusal-behavior changes, not hidden-capability upgrades.\nYou are probably not starting from zero. You are crossing stacks.\n1. Do not mix the layers\nA lot of local AI confusion comes from treating these as the same kind of thing:\n| Layer | Examples | What it answers | \n| Model / checkpoint | Llama, Mistral, Qwen, Gemma, DeepSeek, gpt-oss | What learned the behavior? | \n| File format | safetensors, GGUF | How are the weights stored? | \n| Quantization | q4, q5, q8, fp16, bf16 | What memory/speed/quality tradeoff? | \n| Runtime | Transformers, llama.cpp, Ollama, LM Studio, vLLM, TGI | What actually runs the model? | \n| UI / API layer | Open WebUI, LM Studio UI, llama-server, OpenAI-compatible API | How do you talk to it? | \n| Chat template | ChatML, Mistral, Llama, Qwen, Harmony, etc. | How a…",
-      "published_at": "2026-06-29",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
       "title": "Call for Review: Interpretable and Explainable Models for Breast Cancer Recurrence Prediction — Systematic Review Protocol",
       "url": "https://discuss.huggingface.co/t/call-for-review-interpretable-and-explainable-models-for-breast-cancer-recurrence-prediction-systematic-review-protocol/177469",
       "summary": "We are conducting a systematic review comparing intrinsically interpretable statistical models, such as logistic regression and Cox proportional hazards models, with explainable artificial intelligence (XAI) approaches, including machine learning and deep learning models supported by SHAP, LIME, attention mechanisms, or other explanation methods, for predicting breast cancer recurrence after primary treatment.\nThe review is registered in PROSPERO: CRD420251145602; https://www.crd.york.ac.uk/PROSPERO/view/CRD420251145602\nOur goal is to critically appraise published models across the black-box, grey-box, and white-box spectrum, identify current methodological and reporting gaps, and outline future directions for trustworthy, clinically usable prognostic models in oncology.\nWe are currently completing data extraction and would welcome feedback from colleagues working in breast cancer prognosis, prediction modelling, oncology, or explainable/interpretable AI before we move to risk-of-bias assessment and evidence synthesis.\nThe full protocol, including the eligibility criteria, search strategy, and data extraction/appraisal plan, is attached to this post.\nWe would be grateful for comments on:\n• the review question and eligibility criteria (PICO); • the search strategy across PubMed, Scopus, IEEE Xplore, Google Scholar, and Research4Life; • the planned data extraction and risk-of-bias/quality appraisal tools, including CHARMS, PROBAST+AI, and TRIPOD+AI.\nPlease share any comments un…",
       "published_at": "2026-07-05",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "\"Zero GPU\" limit reached even through FAILED attempts?",
-      "url": "https://discuss.huggingface.co/t/zero-gpu-limit-reached-even-through-failed-attempts/177659",
-      "summary": "Hi, I’m new here. I wanted to try some image/video generation/edits online and I know the limits here are very strict, but I’m confused that even failed attempts through errors/bugged generators seems to count to this notorious “Zero GPU” limits. So it wasted valuable GPU time and I still did not get a result at the end… that is not fair. It is like driving blindfolded with tied hands not knowing where you go. Is there not a more clever way to distinguish bugged/failed image/video generation from successful generation? Why is this mixed all together with the rough sledgehammer method? Now I have to wait 24h for nothing, depressing.",
-      "published_at": "2026-07-10",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1643,10 +1643,87 @@
       "macro_score": 0
     },
     {
+      "title": "MosAIc: a reconfigurable surface where an LLM emits a layout, not just text",
+      "url": "https://discuss.huggingface.co/t/mosaic-a-reconfigurable-surface-where-an-llm-emits-a-layout-not-just-text/177021",
+      "summary": "Hmm… maybe something like this?:\nMy concise take: I would keep JSON, but I would frame the model output less as “layout JSON” and more as a small, versioned, schema-validated patch protocol over a typed surface.\nThe interesting part of MosAIc, to me, is not simply that the LLM emits UI. A lot of projects are already exploring “generative UI” in that broad sense. The more distinctive framing might be:\nbounded generative UI over a typed work/knowledge surface, where the model proposes auditable patches and the renderer remains the authority.\nThat framing also gives a fairly practical answer to the wire-format question.\nDirect recommendation\nI would separate document format from runtime patch format:\n| Layer | Suggested format | \n| portable knowledge/document bundle | Markdown + YAML frontmatter, e.g. OKF | \n| LLM runtime output | JSON constrained by JSON Schema / structured outputs | \n| surface mutation | JSON Patch-inspired operation list, or a small domain-specific patch protocol | \n| human-readable tile content | Markdown | \n| provenance / source metadata | host/loader-owned metadata, not free-form model claims | \n So my answer would be:\nUse Markdown/YAML for knowledge documents, but use JSON Schema-constrained JSON for live model output. Then make that JSON an explicit patch proposal rather than an arbitrary layout blob.\nThis preserves the nice simplicity of the current overlay idea, while making the system easier to validate, preview, debug, undo, and secure.\nWhy not “just…",
+      "published_at": "2026-06-21",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "NetworkError when attempting to fetch resource",
+      "url": "https://discuss.huggingface.co/t/networkerror-when-attempting-to-fetch-resource/177669",
+      "summary": "I’m trying to deploy an app to Hugging Face Spaces. I used AI to help me develop this app based on a Gradio app that I made that worked. I’m using a Static SDK with a Blank Template. This app requires a Hugging Face token. The app renders well, but after inputting a Read or Write Hugging Face token and trying to run the app, I get the following error:\nNetworkError when attempting to fetch resource.\nI’ve spent a day making the app and now another day trying to deploy it to Hugging Face! Any help would be appreciated.\nThanks!",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Lstm in c++/training tips",
       "url": "https://discuss.huggingface.co/t/lstm-in-c-training-tips/177581",
-      "summary": "i’ll give other posters the choice on whether to v.2 my previous thread on rnns in c with my lstm code. instead of posting it all first,\ni have a 2 layer lstm (i think!) using 96 node “hot one” char i/o layers, tried resizing the hidden layers and the BPTT timesteps but so far i’ve only successfully managed to take a single sentence down to a low error coefficient. i’ve been using a translation of the tao te ching at around 56k chars, which i’m assured ought to be within scope for two hidden layers of say 64 or 128 nodes. (256 nodes is too heavy for my little machine.)\nhaving spent some time now training eg. incorrect architectures, i’m aware of various dynamics and trends in ‘training behaviour,’ but i’m finding lstm to be quite evasive. if left unsupervised the error coefficient doesn’t just stop progressing but can climb and climb astronomically. i often observe the same learning rate train through a few times with excellent progress then eat its way well past the ~3.0 threshold of “just plain guessing now” when it begins the next test.\nthe architecture trains successfully on elementary tests (“abababab”) and the overfit training sentence, am i misinformed about the capacity of such a model to store the data?\ni don’t really want to restructure my code for a single hidden layer, though this would of course be sensate, just avoidable work since the two layer source allows me to build variable layer architecture in the future.\ni’ve been using gradient normalisation at 1.0, gr…",
+      "summary": "i think this is as far as i go with ML programming,\nHmm, I do think that knowing how to use C (though I suppose this is a skill only if someone can “actually use it properly”, I imagine this is hard for people who only use modern programming languages to understand…) is an advantage. A lot of current AI/ML libraries use Python as the glue around performance-critical C++, C, or Rust code, so performance constraints are hardly unique to this project… Anyway, now that the code is visible, I can be a little more specific:\nThis looks less like a capacity problem and more like a few local bookkeeping paths in the current rnn-lstm.h.\nThe first one I would change is the bias accumulation inside BPTT.\nThe current code has:\nhfbias[i] += df_raw;\nhibias[i] += di_raw;\nhmbias[i] += dm_raw;\nhobias[i] += do_raw;\nBut the code already has separate bias-gradient buffers:\ndhfbias\ndhibias\ndhmbias\ndhobias\nThose are the arrays included in gradient normalization/clipping and later consumed by SGD/Adam, so I suspect the intended code was:\ndhfbias[i] += df_raw;\ndhibias[i] += di_raw;\ndhmbias[i] += dm_raw;\ndhobias[i] += do_raw;\nand likewise for the first layer:\ndh0fbias[i] += df_raw;\ndh0ibias[i] += di_raw;\ndh0mbias[i] += dm_raw;\ndh0obias[i] += do_raw;\nAs written, the model biases are modified directly during BPTT, before the learning rate, clipping and Adam are applied. They are also changed with +=, while the later optimizer update subtracts the gradient. That could plausibly produce the sudden runaway…",
       "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "\"Zero GPU\" limit reached even through FAILED attempts?",
+      "url": "https://discuss.huggingface.co/t/zero-gpu-limit-reached-even-through-failed-attempts/177659",
+      "summary": "Hi, I’m new here. I wanted to try some image/video generation/edits online and I know the limits here are very strict, but I’m confused that even failed attempts through errors/bugged generators seems to count to this notorious “Zero GPU” limits. So it wasted valuable GPU time and I still did not get a result at the end… that is not fair. It is like driving blindfolded with tied hands not knowing where you go. Is there not a more clever way to distinguish bugged/failed image/video generation from successful generation? Why is this mixed all together with the rough sledgehammer method? Now I have to wait 24h for nothing, depressing.\nOh. Basically, ZeroGPU quota is consumed on a reservation basis. Unless the author of that ZeroGPU Space explicitly sets another value in code, each call requests the default 60-second reservation. A failed generation, or one whose actual inference finishes much faster, does not retroactively change the size of that reservation. This follows from the core way ZeroGPU works and is one of the structural trade-offs behind making this class of GPU access affordable, so applying a purely mechanical refund to every failed attempt would be much harder than it sounds.\nThat said, I think your frustration is completely understandable from the user side.\nYou interact with an image/video generator, so it is natural to think that the quota is paying for a successfully generated image or video. If the page returns an error and gives you nothing, it feels as thou…",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "The sorrowfuljoy flip (inversion of a concept)",
+      "url": "https://discuss.huggingface.co/t/the-sorrowfuljoy-flip-inversion-of-a-concept/177125",
+      "summary": "Hmm. For now, I managed to reproduce the expected behavior (at least partly) in Colab:\nShort version: I would frame this first as activation steering / representation engineering, and treat “ontological inversion” as a proposed interpretation of one observed steering behavior, not as a settled term yet.\nThat framing does not make the observation less interesting. To me, the interesting claim is narrower and testable:\nWith a negative concept direction, the model sometimes appears to move toward an antipode-like semantic region, instead of merely erasing the original concept or collapsing.\nIn my small Colab/T4-style smoke test, Glub-Tub was the clean case. grief was qualitatively interesting but not decisive. wolf did not support the stronger claim in that tiny run.\nSo I would not lead with “general ontological inversion” yet. I would lead with:\n“Here is an activation-steering setup where negative steering sometimes produces an antipode-like shift. Glub-Tub is the cleanest current example. Now let’s separate that from suppression, generic perturbation, and collapse.”\nMy current reading\n| Part | Current status | \n| Standard vocabulary | Closest to activation steering / activation engineering / representation engineering | \n| Strongest example | Glub-Tub | \n| Weak / mixed examples | grief, wolf | \n| Most important black box | the 128-d Nomic → 896-d Qwen adapter | \n| Main risk | over-reading proxy metrics as semantic proof | \n| Best next step | controls: random, naive, contrastiv…",
+      "published_at": "2026-06-24",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "Severe Throttling/Instability downloading GGUF via Telmex ISP in Northwest Mexico",
+      "url": "https://discuss.huggingface.co/t/severe-throttling-instability-downloading-gguf-via-telmex-isp-in-northwest-mexico/177677",
+      "summary": "Hello Hugging Face Team,\nI am experiencing severe network instability and bandwidth throttling when downloading large GGUF files (over 20GB) directly from your CDN. The connection exhibits a constant “sawtooth” behavior, dropping to 0 MB/s and forcing aggressive retries via curl -L -C -.\nHere are my network diagnostics to help your infra team isolate the routing issue:\n- Location: Mazatlan, Sinaloa, Mexico.\n- ISP: Telmex (Fiber Optic, 250 Mbps plan).\n- Ping to huggingface.co: Excellent (22ms stable, 0% packet loss).\n- DNS: Tested with both Google (8.8.8.8) and Cloudflare (1.1.1.1).\n- Cross-provider test: Downloads from GitHub CDN (Fastly) run at a completely flat 300 Mbps without a single drop. This isolates the bottleneck entirely to the Hugging Face / Cloudflare routing path assigned for Telmex users in northwest Mexico.\nIt seems like the edge node or gateway serving this specific region is throttling connections upon reaching maximum packet throughput on massive binary files. Could you please review the routing matrix or CDN peering agreements for Telmex MX?\nThank you!",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "SKYNET800 (alfa) Killing AI hallucinations with resonance",
+      "url": "https://discuss.huggingface.co/t/skynet800-alfa-killing-ai-hallucinations-with-resonance/177630",
+      "summary": "This code predicts the exact time and price of a future price point, and can also construct a curve of future prices. It can be used to decipher any process that has a graph—for example, a graph of mutual understanding between artificial intelligence and a human. Notably, DeepSeek’s computing power is not used for the prediction; the data is processed on an ordinary computer. The system fully replicates Nikola Tesla’s resonator in the form of code. If we represent the operation of the Random Number Generator (RNG) as a time-series graph, the system can be applied to decrypt the bitcoin seed-phrase. The code has made the collective mind controllable and predictable - there’s no need to use social media platforms like TikTok to observe or generate mass trends immediately - everything follows a simple mathematical formula.\nI think the chatbot you’re using is taking you for a ride.\nHmm… For now, after reading through the code and trying to organize what I found, I think it looks something like this:\nMy current reading of the project\nI may be interpreting some parts differently from how you intend them, but I currently see four connected tracks inside one project:\n| Track | What appears to exist publicly now | A natural way to expose it | \n|---|---|---|\n| SKYNET-800 application | A Windows/Python application for BTC/USDT data, ClickHouse storage, DCM calculations, calibration, news processing, charts, and visualization | Runnable application, screenshots, short architecture map | …",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
+    },
+    {
+      "title": "How many images to parameters?",
+      "url": "https://discuss.huggingface.co/t/how-many-images-to-parameters/177672",
+      "summary": "I’m training a latent diffusion model and wondering what the scaling laws were, I couldnt find much info online. My current is around 430M parameters training on around 2 Million images. I’m thinking of possibly scaling the parameters up a bit to increase the quality. Is this a good idea or should I scale down my images or parameters? Based on SD, they seemed to use billions for their models which were at 860M, half of mine\nHmm… for now, I don’t think the number of images per parameter alone gives us enough information to decide:\nI would not reduce the number of useful images just to make an images-per-parameter ratio look more similar to Stable Diffusion. I also would not assume that increasing 430M to 860M will automatically improve quality.\nThe main reason is that “430M parameters / 2M images” combines several different constraints:\n- what the 430M parameters belong to;\n- whether this is training from scratch or continued pretraining;\n- how many times the images are actually presented;\n- the semantic, caption, resolution, and aspect-ratio distribution of those images;\n- the training compute available;\n- and what kind of “quality” is currently missing.\nThere is an unusually close reference point: Bigger is not Always Better: Scaling Properties of Latent Diffusion Models includes an exact 430M-parameter denoising UNet in a controlled family ranging from 39M to 5B parameters. That at least shows that 430M is a perfectly plausible model size rather than an obviously undersized…",
+      "published_at": "2026-07-11",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
