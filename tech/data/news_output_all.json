@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-11T14:34:59.181702+00:00",
-  "count": 168,
+  "generated_at": "2026-07-11T20:12:50.863896+00:00",
+  "count": 147,
   "source_error_count": 0,
   "articles": [
     {
@@ -488,6 +488,17 @@
       "macro_score": 2
     },
     {
+      "title": "Unable to schedule",
+      "url": "https://discuss.huggingface.co/t/unable-to-schedule/177563",
+      "summary": "I deployed a space. It worked perfectly without any error two days ago. But today, when I logged in, the space was sleeping. When it woke up, it showed starting. After 30-40 mins, the space suddenly just showed this:\n\"runtime error\nScheduling failure: unable to schedule\"\nIt happened with my other spaces which I created long ago. And the logs show:\n“===== Application Startup =====”\nI don’t know what is happening. Can anyone help me?",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Advancing Gemini's security safeguards",
       "url": "https://deepmind.google/blog/advancing-geminis-security-safeguards/",
       "summary": "Advancing Gemini's security safeguards\nWe’re publishing a new white paper outlining how we’ve made Gemini 2.5 our most secure model family to date.\nImagine asking your AI agent to summarize your latest emails — a seemingly straightforward task. Gemini and other large language models (LLMs) are consistently improving at performing such tasks, by accessing information like our documents, calendars, or external websites. But what if one of those emails contains hidden, malicious instructions, designed to trick the AI into sharing private data or misusing its permissions?\nIndirect prompt injection presents a real cybersecurity challenge where AI models sometimes struggle to differentiate between genuine user instructions and manipulative commands embedded within the data they retrieve. Our new white paper, Lessons from Defending Gemini Against Indirect Prompt Injections, lays out our strategic blueprint for tackling indirect prompt injections that make agentic AI tools, supported by advanced large language models, targets for such attacks.\nOur commitment to build not just capable, but secure AI agents, means we’re continually working to understand how Gemini might respond to indirect prompt injections and make it more resilient against them.\nEvaluating baseline defense strategies\nIndirect prompt injection attacks are complex and require constant vigilance and multiple layers of defense. Google DeepMind’s Security and Privacy Research team specialises in protecting our AI models f…",
@@ -640,6 +651,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "Seeking research collaborators: a persistence-first AI architecture, live for 14+ days — help us measure it properly",
+      "url": "https://discuss.huggingface.co/t/seeking-research-collaborators-a-persistence-first-ai-architecture-live-for-14-days-help-us-measure-it-properly/177582",
+      "summary": "Hey friends!\nWe’ve built a persistence-first AI architecture (we call it PPAi — Persistent Presence AI) where a small open LLM (~4.5B) acts only as the language surface, while identity, memory, and cognition live in a continuously-running system — including between turns. We’re testing it in production and looking for researchers interested in this topic.\nThe problem\nWe first tried to build a real 24/7 online radio station with LLMs — not “greet listeners between songs,” but news, show continuity, music, listener messages, editing, in two languages. It wasn’t possible. The failure mode was consistent: per-turn context reinjection. Whatever the memory system — full history, summarization, RAG — it breaks down after a few hundred turns, and token consumption grows out of control. In our runs, a naive setup hit the 128K context wall around turn ~917; a RAG setup kept cost flat but we caught it live retrieving one of its own prior hallucinations as a memory. A paid frontier model running the station via API was cut off by the provider (429) in under half an hour.\nWhat’s different\nWith the PPAi architecture, this is controlled: state is held, not replayed. The live station currently runs at roughly ~44M tokens/day for the whole operation, flat — the equivalent LLM-based setup was trending past 300M/day and climbing when we stopped measuring, because continuing was economically pointless.\nThe system has been live for weeks, hundreds of thousands of generations, no brain restart, no…",
+      "published_at": "2026-07-08",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "Any need for a tester and challenger for AI models?",
@@ -994,22 +1016,33 @@
       "macro_score": 0
     },
     {
-      "title": "Introducing Forge | Mistral AI",
-      "url": "https://mistral.ai/news/forge/",
-      "summary": "Today, we’re introducing Forge, a system for enterprises to build frontier-grade AI models grounded in their proprietary knowledge.\nMost AI models available today are trained primarily on publicly available data. They are designed to perform well across a broad range of tasks. But enterprises operate using internal knowledge: engineering standards, compliance policies, codebases, operational processes, and years of institutional decisions.\nForge bridges the gap between generic AI and enterprise-specific needs. Instead of relying on broad, public data, organizations can train models that understand their internal context embedded within systems, workflows, and policies, aligning AI with their unique operations.\nMistral AI has already partnered with world-leading organizations, like ASML, DSO National Laboratories Singapore, Ericsson, European Space Agency, Home Team Science and Technology Agency (HTX) Singapore, and Reply to train models on the proprietary data that powers their most complex systems and future-defining technologies.\nTraining models on institutional knowledge.\nForge enables enterprises to build models that internalize their domain knowledge. Organizations can train models on large volumes of internal documentation, codebases, structured data, and operational records. During training, the model learns the vocabulary, reasoning patterns, and constraints that define that environment.\nThis allows teams to develop models and agents that reason using internal termino…",
-      "published_at": "2026-03-17",
-      "source": "mistral.ai",
+      "title": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布",
+      "url": "https://www.qbitai.com/2026/07/447681.html",
+      "summary": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布\nagent时代来了\n7月10日，从百度AIDAY上获悉，百度旗下通用智能体百度搭子自上线以来，日均提问次数暴增20倍，为用户在办公、创作、信息处理等场景提供全方位智能助力，成为增速最快的通用智能体。当天，百度搭子个人版也重磅升级智能路由、多端共享记忆、浏览器调用、PPT生成等多项能力，并发布行业首个自媒体专业套件，进一步提升干活能力。同时，百度搭子企业版也正式发布，通过叠加团队协作、资产沉淀、流程打通和安全治理等能力，全面支持企业场景落地。\n百度集团执行副总裁、百度智能云事业群总裁沈抖在现场表示，未来90%的工作，都可能有智能体深度参与、协助完成，百度搭子要做的，就是深入办公场景真干活、真办事儿；用户只要把目标说清楚，它就能理解需求、拆解任务、调用工具，完成跨应用、跨文件的复杂工作，最后交付真正可用的结果，而真正有用的智能体，表面是一个产品，背后是一整套全栈AI能力，百度长期积累的芯片、云、模型、数据、工程和产业落地能力，正在支撑百度搭子持续进化。\n在个人版能力升级上，百度搭子此次重点提升复杂办公任务的执行效率、跨端连续性和成果交付质量。面对资料检索、竞品调研、网页信息整理等任务，百度搭子可以像人一样进入网页、点击、跳转、检索和整理信息，用户也能看到AI在网页上的执行过程；如果任务需要更高算力、更低延迟或更强数据安全，百度搭子会通过智能路由自动选择云端沙箱、本地沙箱或Chat模式，平均任务耗时降低20%，Token利用率提升25%。同时，多端共享记忆让手机和电脑之间的任务上下文连续承接，用户在电脑上处理到一半的方案、报告或资料整理任务，可以在手机端继续追问、修改或下载结果。\n办公场景是此次升级的重点落点。围绕方案汇报、项目复盘、研究报告等高频任务，百度搭子强化了PPT生成能力，从模板库、配图模型、智能排版、图表可视化到大纲编排进行优化，输出结果更接近可编辑、可修改、可交付的办公成品。面向内容创作者和新媒体运营，百度搭子还发布行业首个自媒体专业套件，覆盖选题规划、热点洞察、图文创作、短视频脚本、分镜口播、内容发布辅助和运营复盘等环节，把原本分散在多个平台和工具中的内容工作流压缩进一个对话流。与此同时，百度搭子继续扩展Skill生态，覆盖搜索研究、生活服务、内容创作、办公协作等场景，并通过全自动化Skill上线流程，对能力上架前的开发标准、管理平台、安全评估、效果评估和市场化运营进行统一管理。\n企业版则把百度搭子的能力从个人办公延展到团队协作和企业工作流。企业版面向团队协作、资产沉淀、流程打通和安全治理等企业需求，支持将员工产生的方案、数据、技能和项目成果沉淀为组织资产，并对成员权限、资源用量、Skill上下架和执行过程进行管理。同时，企业版发布企业级Skill接入标准，面向企业和ISV伙伴共建行业解决方案。\n同日发布的搭子联盟，面向渠道伙伴、商机伙伴、产品伙伴、交付保障伙伴等开放合作。中国联通、创维等伙伴参与共建，推动百度搭子进入更多企业服务和产业应用场景。\n发布会之外，百度搭子当天还在成都举办搭子市集，吸引了上千市民围观。现场由Rapper用百度搭子辅助创作的Rap开场，工作搭子、世界杯搭子、搭子棋牌室、福利搭子和伙伴展台等体验区同步开放。观众可以现场体验百度搭子辅助完成资料整理、PPT制作、网页操作、内容创作等任务，也可以参与世界杯主题打卡、AI棋牌互动和福利兑换。市集中的PPT搭子大赛则把办公任务做成现场挑战，参赛者抽取任务卡后，用百度搭子完成PPT、方案、报告或内容策划，作品…",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
       "macro_score": 0
     },
     {
-      "title": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布",
-      "url": "https://www.qbitai.com/2026/07/447681.html",
-      "summary": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布\nagent时代来了\n7月10日，从百度AIDAY上获悉，百度旗下通用智能体百度搭子自上线以来，日均提问次数暴增20倍，为用户在办公、创作、信息处理等场景提供全方位智能助力，成为增速最快的通用智能体。当天，百度搭子个人版也重磅升级智能路由、多端共享记忆、浏览器调用、PPT生成等多项能力，并发布行业首个自媒体专业套件，进一步提升干活能力。同时，百度搭子企业版也正式发布，通过叠加团队协作、资产沉淀、流程打通和安全治理等能力，全面支持企业场景落地。\n百度集团执行副总裁、百度智能云事业群总裁沈抖在现场表示，未来90%的工作，都可能有智能体深度参与、协助完成，百度搭子要做的，就是深入办公场景真干活、真办事儿；用户只要把目标说清楚，它就能理解需求、拆解任务、调用工具，完成跨应用、跨文件的复杂工作，最后交付真正可用的结果，而真正有用的智能体，表面是一个产品，背后是一整套全栈AI能力，百度长期积累的芯片、云、模型、数据、工程和产业落地能力，正在支撑百度搭子持续进化。\n在个人版能力升级上，百度搭子此次重点提升复杂办公任务的执行效率、跨端连续性和成果交付质量。面对资料检索、竞品调研、网页信息整理等任务，百度搭子可以像人一样进入网页、点击、跳转、检索和整理信息，用户也能看到AI在网页上的执行过程；如果任务需要更高算力、更低延迟或更强数据安全，百度搭子会通过智能路由自动选择云端沙箱、本地沙箱或Chat模式，平均任务耗时降低20%，Token利用率提升25%。同时，多端共享记忆让手机和电脑之间的任务上下文连续承接，用户在电脑上处理到一半的方案、报告或资料整理任务，可以在手机端继续追问、修改或下载结果。\n办公场景是此次升级的重点落点。围绕方案汇报、项目复盘、研究报告等高频任务，百度搭子强化了PPT生成能力，从模板库、配图模型、智能排版、图表可视化到大纲编排进行优化，输出结果更接近可编辑、可修改、可交付的办公成品。面向内容创作者和新媒体运营，百度搭子还发布行业首个自媒体专业套件，覆盖选题规划、热点洞察、图文创作、短视频脚本、分镜口播、内容发布辅助和运营复盘等环节，把原本分散在多个平台和工具中的内容工作流压缩进一个对话流。与此同时，百度搭子继续扩展Skill生态，覆盖搜索研究、生活服务、内容创作、办公协作等场景，并通过全自动化Skill上线流程，对能力上架前的开发标准、管理平台、安全评估、效果评估和市场化运营进行统一管理。\n企业版则把百度搭子的能力从个人办公延展到团队协作和企业工作流。企业版面向团队协作、资产沉淀、流程打通和安全治理等企业需求，支持将员工产生的方案、数据、技能和项目成果沉淀为组织资产，并对成员权限、资源用量、Skill上下架和执行过程进行管理。同时，企业版发布企业级Skill接入标准，面向企业和ISV伙伴共建行业解决方案。\n同日发布的搭子联盟，面向渠道伙伴、商机伙伴、产品伙伴、交付保障伙伴等开放合作。中国联通、创维等伙伴参与共建，推动百度搭子进入更多企业服务和产业应用场景。\n发布会之外，百度搭子当天还在成都举办搭子市集，吸引了上千市民围观。现场由Rapper用百度搭子辅助创作的Rap开场，工作搭子、世界杯搭子、搭子棋牌室、福利搭子和伙伴展台等体验区同步开放。观众可以现场体验百度搭子辅助完成资料整理、PPT制作、网页操作、内容创作等任务，也可以参与世界杯主题打卡、AI棋牌互动和福利兑换。市集中的PPT搭子大赛则把办公任务做成现场挑战，参赛者抽取任务卡后，用百度搭子完成PPT、方案、报告或内容策划，作品…",
+      "title": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名",
+      "url": "https://www.qbitai.com/2026/07/447682.html",
+      "summary": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名\n就在下周，世界人工智能大会就要在上海启动了。\n每年这种重磅的AI大会，量子位自然不会缺席。今年量子位的报道团，也会来到线下，为大家带来一手的科技大会讯息。\n但在展台之外，我们想办一场“真话局”。\nWAIC的展台会告诉你AI有多聪明：更强的模型、更炫的Demo、更多的人形机器人。\n但我们想要追问一个问题：\nAI聪明够了，行动呢？\nAgent在Demo里调用工具行云流水，但有多少进了客户的核心流程？世界模型把仿真精度推到再高，机器人第一次进工厂时，剩下的发生了什么？\n从“会回答”到“能完成”，从“预测”到“执行”，这是今年WAIC背后的现实考题。\n7月17日19:30，上海浦东。让我们一起关掉PPT、跳出展台，来与Builder、Researcher、Investor一起，提前理解AI的下一步。\n活动议程\n19:30 – 20:00\n签到 & 交个朋友\n20:00 – 20:30\n主题：Agent从聊天框到正式上岗了吗？\n分享嘉宾：\n张昊然，Evomap 创始人&CEO\n李志宇，记忆张量 CTO\n20:30 – 21:00\n主题：模型能从Github到与世界交互了吗？\n分享嘉宾：\n梁鼎，VAST CTO\n陆弘远，脸谱心智创始人\n21:00 – 21:30\n自由交流\n报名方式\n- 7月17日 晚19:30\n- 上海浦东·咖啡馆\n报名链接：https://hdxu.cn/1KEE3\n7月17日19:30，关掉PPT、跳出展台。\n让我们一起提前理解AI的下一步。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Introducing Forge | Mistral AI",
+      "url": "https://mistral.ai/news/forge/",
+      "summary": "Today, we’re introducing Forge, a system for enterprises to build frontier-grade AI models grounded in their proprietary knowledge.\nMost AI models available today are trained primarily on publicly available data. They are designed to perform well across a broad range of tasks. But enterprises operate using internal knowledge: engineering standards, compliance policies, codebases, operational processes, and years of institutional decisions.\nForge bridges the gap between generic AI and enterprise-specific needs. Instead of relying on broad, public data, organizations can train models that understand their internal context embedded within systems, workflows, and policies, aligning AI with their unique operations.\nMistral AI has already partnered with world-leading organizations, like ASML, DSO National Laboratories Singapore, Ericsson, European Space Agency, Home Team Science and Technology Agency (HTX) Singapore, and Reply to train models on the proprietary data that powers their most complex systems and future-defining technologies.\nTraining models on institutional knowledge.\nForge enables enterprises to build models that internalize their domain knowledge. Organizations can train models on large volumes of internal documentation, codebases, structured data, and operational records. During training, the model learns the vocabulary, reasoning patterns, and constraints that define that environment.\nThis allows teams to develop models and agents that reason using internal termino…",
+      "published_at": "2026-03-17",
+      "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1027,9 +1060,9 @@
       "macro_score": 0
     },
     {
-      "title": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名",
-      "url": "https://www.qbitai.com/2026/07/447682.html",
-      "summary": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名\n就在下周，世界人工智能大会就要在上海启动了。\n每年这种重磅的AI大会，量子位自然不会缺席。今年量子位的报道团，也会来到线下，为大家带来一手的科技大会讯息。\n但在展台之外，我们想办一场“真话局”。\nWAIC的展台会告诉你AI有多聪明：更强的模型、更炫的Demo、更多的人形机器人。\n但我们想要追问一个问题：\nAI聪明够了，行动呢？\nAgent在Demo里调用工具行云流水，但有多少进了客户的核心流程？世界模型把仿真精度推到再高，机器人第一次进工厂时，剩下的发生了什么？\n从“会回答”到“能完成”，从“预测”到“执行”，这是今年WAIC背后的现实考题。\n7月17日19:30，上海浦东。让我们一起关掉PPT、跳出展台，来与Builder、Researcher、Investor一起，提前理解AI的下一步。\n活动议程\n19:30 – 20:00\n签到 & 交个朋友\n20:00 – 20:30\n主题：Agent从聊天框到正式上岗了吗？\n分享嘉宾：\n张昊然，Evomap 创始人&CEO\n李志宇，记忆张量 CTO\n20:30 – 21:00\n主题：模型能从Github到与世界交互了吗？\n分享嘉宾：\n梁鼎，VAST CTO\n陆弘远，脸谱心智创始人\n21:00 – 21:30\n自由交流\n报名方式\n- 7月17日 晚19:30\n- 上海浦东·咖啡馆\n报名链接：https://hdxu.cn/1KEE3\n7月17日19:30，关掉PPT、跳出展台。\n让我们一起提前理解AI的下一步。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
+      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
+      "url": "https://www.qbitai.com/2026/07/447691.html",
+      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1049,9 +1082,9 @@
       "macro_score": 0
     },
     {
-      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
-      "url": "https://www.qbitai.com/2026/07/447691.html",
-      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
+      "title": "一群做自动驾驶的人，盯上了睡眠这件事",
+      "url": "https://www.qbitai.com/2026/07/447796.html",
+      "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1071,9 +1104,9 @@
       "macro_score": 0
     },
     {
-      "title": "一群做自动驾驶的人，盯上了睡眠这件事",
-      "url": "https://www.qbitai.com/2026/07/447796.html",
-      "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
+      "title": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放",
+      "url": "https://www.qbitai.com/2026/07/447832.html",
+      "summary": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放\nAI变为研发流程的“组织者”\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\nAI生物研发，正在迎来它的“Windows时刻”。\n过去，AI是帮科学家做结构预测、抗体设计的“单点工具”；而现在，它正演变为统领全局的“操作系统”。\n7月2日，在2026上海国投前沿论坛上，分子之心创始人许锦波教授正式面向产业界开放其自研的AI原生生物经济操作系统——MoleculeOS（MOS）。\n这不仅是一个系统的发布，更释放出一个明确的信号：\n生物领域的研发基础设施，正在被重新定义。\n在这里，AI的角色从生物规律的“预测者”，蜕变为研发流程的“组织者”。\n传统的“筛选试错”式的分子发现正步入历史，一个更具确定性的“分子创造”时代，正由这款AI原生操作系统正式开启。\n试用入口：https://mos.moleculemind.com/login\n从工具智能到系统智能：重构AI制药与生物制造的研发模式\n过去几年，AI在蛋白质结构预测、抗体设计、分子生成和功能优化等方向不断突破，证明了算法理解生命科学的巨大潜力。\n但在真实产业场景中，模型突破并不等于研发效率跃迁。\n一个典型的大分子研发任务，往往涉及靶点分析、序列建模、结构预测、结合界面判断、突变设计、亲和力评估、稳定性评估、可开发性分析和实验验证等众多环节。\n过去，这些环节分散在不同工具和团队之间，研发人员需要手动调度流程，结果也难以统一沉淀。\n传统“工具栈+人工调度”模式，正成为AI技术向产业价值转化的核心瓶颈。\nMoleculeOS是一个面向生物研发的AI操作系统。\n它基于分子之心自研的AI模型体系，以项目目标为入口，AI通过自主理解使用者的生物学意图，自动拆解任务、统一调度系列模型、执行结构预测、分子设计等任务，经过多维度科学评估给出决策建议，并沉淀可追踪、可复盘的研发链路。\n试用入口：https://mos.moleculemind.com/login\nMoleculeOS的核心变化，是把“研发意图”作为系统入口。\n研究人员不再只是上传一个序列或结构文件执行单一预测任务，而是直接提出目标：例如提升抗体亲和力、或针对特定靶点生成候选分子。\n系统会围绕目标自动拆解任务，在统一的生物物理上下文中调度模型，完成从结构预测到推荐候选分子及下一步决策建议的系统性任务。\n这意味着，AI不再只是执行单步计算，而是开始组织完整研发流程。\n过去高度依赖个人经验的判断过程，也可以被系统记录为可追踪、可复盘、可复用的研发资产。\n对于企业而言，这种变化不仅是效率提升，更意味着研发体系开始具备更强的标准化、协同化和可扩展能力。\n更重要的是，MoleculeOS将每一次从研发意图到最终结论的完整链路，自动沉淀为结构化研发资产。\n当团队启动下一个项目时，历史项目的计算参数、筛选逻辑和决策依据都可以被调用——\n研发不再是从零开始的重复劳动，而是在一套持续积累的体系中加速。\n这正是操作系统区别于工具集的根本所在。\n自研模型集群构筑底层能力：从理解生命规律到设计功能分子\nMoleculeOS的底层能力，来自分子之心在蛋白质基础大模型、蛋白质结构预测和分子设计方向的长期积累。\n围绕“序列—结构—功能—进化—相互作用—生成设计”，分子之心团队构建了覆盖全流程的自研模型体系，包括：\n- 多模态蛋白质基础大模型NewOrigin（达尔文）\n- 全原子大分子复合物结构预测模型（MMFold）\n- 面向纳米抗体、酶和功能蛋白的生成式设计模型（MMDesign）\n在结构预测方向，分…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1093,6 +1126,17 @@
       "macro_score": 1
     },
     {
+      "title": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审",
+      "url": "https://www.qbitai.com/2026/07/447846.html",
+      "summary": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审\n四大方向，奖金直给\n鹭羽 发自 凹非寺\n量子位 | 公众号 QbitAI\n这可能是我今年见过最「实诚」的科研奖项了！\n不设赛题，也不用刷分，这一次蚂蚁真金白银纯发福利：\nAI时代大浪淘沙，那个一直在科研深水区里啃着硬骨头的你，将有机会收获蚂蚁关注，以及一笔实打实的资金支持。\n只要你是做AGI、具身智能、数字医学、数据处理与安全隐私这四个方向的青年学者或在读博士生，都能来试一试。\n要求只有一点，你现在正在做的工作够硬、够新、够深。咱们一切拿作品说话，是金子就能发光。\n奖项名为「2026蚂蚁InTech奖」，目前已经开放提名与申报，倒计时还剩最后一周！\n这也是蚂蚁举办的第三届，过去两届先后吸引上百位学界泰斗参与推荐，部分成果如今也已跑进产业最前沿。\n比如首届获奖者王鹤将三维视觉技术落地通用机器人赛道；上届获奖者顾煜贤深耕大模型高效推理，其轻量化大模型框架已在多家AI厂商落地应用。\n且看本届含金量更是拉满，坐在评委席上的，清一色业界顶尖学者，两院院士云集，还有图灵奖得主压阵。\n让这样一群人来评、来选，这个奖想托举的是谁，其实一目了然：下一群Transformer八子。\n说得再直白点，蚂蚁在找AI的未来。\n第三届蚂蚁InTech奖\n今年蚂蚁InTech奖依旧分为两条线。\n一条是蚂蚁InTech科技奖，面向已经做出成果的青年学者；另一条是蚂蚁InTech奖学金，面向还在读的博士生们。\n这个风向其实相当敏锐。\n我们不妨回看那篇影响世界的《Attention Is All You Need》。\n论文署名的八个人，彼时都还名不见经传，他们中有的还是学生，有的也才刚入行没多久，有的虽然经验丰富但也只在小圈子里为人熟知，但如今Transformer已经是这一代大模型的核心支柱。\n可见科研突破往往始于萌芽，敢于深耕的多是这批青年科研人才。他们有想法有闯劲，却也缺一份实实在在的支持。\n蚂蚁想要接住他们，无论是刚独立起步的学生，还是一股劲往上冲的研究学者，蚂蚁都看到了。\n大家关心的奖金也给得很干脆。科技奖每人20万元，奖学金每人5万元，且每类每年评选最多10人。\n不过想报名，还需要满足参选门槛：\n- 蚂蚁InTech科技奖：\n一是要求候选人当前得在全球高校或科研院所中全职从事科研工作，并且已经拿到博士学位；\n二是从获得博士学位到参评当年，不能超过10年，具体以评审当年的1月1日（含当天）起算。比如2026年想参选，博士学位得是2016年1月1日之后拿到的。\n三是研究领域需要涉及前面所提及的四大方向。\n- 蚂蚁InTech奖学金：\n仅要求候选人参评当年（2026年）具备全球高校或科研院所的在读博士身份以及研究方向契合。\n此外，除了现金奖励，奖项还会另外评出10位InTech科技奖-Future和10位InTech奖学金-Future，以鼓励更多有潜力但还没被看到的年轻人。\n我们再把这四大方向单独拎出来说：通用人工智能（AGI）、具身智能、数字医学、数据处理与安全隐私。\n这四个可不是随随便便圈定的，放到整个计算机科学里看，它们都是最前沿的研究方向，当然也最难突破。这一点蚂蚁也是深有体会，这就是蚂蚁自己的技术底座。\n从守住数据，到炼出模型，再落进医疗、伸向物理世界，四个方向环环相扣，组成一条从底层能力到行业应用的完整技术链路。\n也正因为天天在这四道最难的关口上撞，蚂蚁才清楚，能凿开这些技术的突破在于人，尤其是愿意挖掘难点的青年科研人。\n图灵奖得主和两院院士都来了\n负责把关的评委阵容，也是2026蚂蚁InTech…",
+      "published_at": "2026-07-11",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
       "title": "Introducing physics AI at Mistral: the foundation for engineering acceleration. | Mistral AI",
       "url": "https://mistral.ai/news/introducing-physics-ai-at-mistral/",
       "summary": "Engineering ambition has rarely been greater than it is today. Defense readiness, the energy transition, the push towards sustainable aviation, the need to scale AI data centers, and next-generation chips: every one of these developments depends on engineering teams shipping more capable hardware, faster—with thinner margins for error.\nAnd yet physics analysis remains stuck at the front of the product lifecycle, tied to solver methods that haven't fundamentally changed in decades. Engineers still evaluate a handful of variants when they should be exploring thousands. And once a product is in operation, engineers lose the physics insight they had at design time, because the solvers behind it are too slow to keep up with live data.\nWe believe physics deserves its own frontier AI models. That's why we've brought Emmi AI into Mistral. In this post, we share what physics AI is, why it matters now, and what it makes possible for our partners like ASML, Airbus, Safran, and Siemens Energy.\nWe are building out a new foundational capability inside Mistral's enterprise solutions for AI-native industrial engineering—alongside our existing models, our tools for building and operationalizing agentic workflows, and the secure deployment and integration enterprises require.\nTogether they form a single stack spanning the engineering lifecycle: deployed where the customer needs it, integrated with their environment, fully under their control. Find out more about our AI for manufacturing offeri…",
@@ -1104,10 +1148,10 @@
       "macro_score": 0
     },
     {
-      "title": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放",
-      "url": "https://www.qbitai.com/2026/07/447832.html",
-      "summary": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放\nAI变为研发流程的“组织者”\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\nAI生物研发，正在迎来它的“Windows时刻”。\n过去，AI是帮科学家做结构预测、抗体设计的“单点工具”；而现在，它正演变为统领全局的“操作系统”。\n7月2日，在2026上海国投前沿论坛上，分子之心创始人许锦波教授正式面向产业界开放其自研的AI原生生物经济操作系统——MoleculeOS（MOS）。\n这不仅是一个系统的发布，更释放出一个明确的信号：\n生物领域的研发基础设施，正在被重新定义。\n在这里，AI的角色从生物规律的“预测者”，蜕变为研发流程的“组织者”。\n传统的“筛选试错”式的分子发现正步入历史，一个更具确定性的“分子创造”时代，正由这款AI原生操作系统正式开启。\n试用入口：https://mos.moleculemind.com/login\n从工具智能到系统智能：重构AI制药与生物制造的研发模式\n过去几年，AI在蛋白质结构预测、抗体设计、分子生成和功能优化等方向不断突破，证明了算法理解生命科学的巨大潜力。\n但在真实产业场景中，模型突破并不等于研发效率跃迁。\n一个典型的大分子研发任务，往往涉及靶点分析、序列建模、结构预测、结合界面判断、突变设计、亲和力评估、稳定性评估、可开发性分析和实验验证等众多环节。\n过去，这些环节分散在不同工具和团队之间，研发人员需要手动调度流程，结果也难以统一沉淀。\n传统“工具栈+人工调度”模式，正成为AI技术向产业价值转化的核心瓶颈。\nMoleculeOS是一个面向生物研发的AI操作系统。\n它基于分子之心自研的AI模型体系，以项目目标为入口，AI通过自主理解使用者的生物学意图，自动拆解任务、统一调度系列模型、执行结构预测、分子设计等任务，经过多维度科学评估给出决策建议，并沉淀可追踪、可复盘的研发链路。\n试用入口：https://mos.moleculemind.com/login\nMoleculeOS的核心变化，是把“研发意图”作为系统入口。\n研究人员不再只是上传一个序列或结构文件执行单一预测任务，而是直接提出目标：例如提升抗体亲和力、或针对特定靶点生成候选分子。\n系统会围绕目标自动拆解任务，在统一的生物物理上下文中调度模型，完成从结构预测到推荐候选分子及下一步决策建议的系统性任务。\n这意味着，AI不再只是执行单步计算，而是开始组织完整研发流程。\n过去高度依赖个人经验的判断过程，也可以被系统记录为可追踪、可复盘、可复用的研发资产。\n对于企业而言，这种变化不仅是效率提升，更意味着研发体系开始具备更强的标准化、协同化和可扩展能力。\n更重要的是，MoleculeOS将每一次从研发意图到最终结论的完整链路，自动沉淀为结构化研发资产。\n当团队启动下一个项目时，历史项目的计算参数、筛选逻辑和决策依据都可以被调用——\n研发不再是从零开始的重复劳动，而是在一套持续积累的体系中加速。\n这正是操作系统区别于工具集的根本所在。\n自研模型集群构筑底层能力：从理解生命规律到设计功能分子\nMoleculeOS的底层能力，来自分子之心在蛋白质基础大模型、蛋白质结构预测和分子设计方向的长期积累。\n围绕“序列—结构—功能—进化—相互作用—生成设计”，分子之心团队构建了覆盖全流程的自研模型体系，包括：\n- 多模态蛋白质基础大模型NewOrigin（达尔文）\n- 全原子大分子复合物结构预测模型（MMFold）\n- 面向纳米抗体、酶和功能蛋白的生成式设计模型（MMDesign）\n在结构预测方向，分…",
-      "published_at": "2026-07-10",
+      "title": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent",
+      "url": "https://www.qbitai.com/2026/07/447873.html",
+      "summary": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent\n神话级大模型驾驭宝典\nhenry 发自 凹非寺\n量子位 | 公众号 QbitAI\n我看呐，只要以后笔记本半开着，就没有人的事儿了。\n刚刚，OpenAI研究院Ethan Knight宣布：\n昨儿刚出的GPT-5.6，用不到一小时，就完成了一道存在了半个世纪的图论猜想证明。\n而这道题呢，来头也还真不小，就是大名鼎鼎的循环双覆盖猜想（Cycle Double Cover Conjecture）。\n为解决这道题，研究员把现在最顶的GPT-5.6 Sol蹬到Ultra；GPT呢，又自己蹬了64个子agent。\n最后，硬是写出了一份三页的pdf，证明完毕，Over。\n发布后，还在韩国开ICML的Noam Brown（o1核心贡献者）也隔着太平洋第一时间赶来捧场。\n他表示，这次和此前的Erdős单位距离问题不同，不靠什么内部特供模型，靠公开能用的GPT-5.6 Sol Ultra就把活儿干了。\n而且，GPT-5.6 Sol Ultra把测试时计算并行大幅铺开，原本可能要磨上一整天的证明，如今被64个子agent压进了一个小时。\n可以说，在数学这块，前沿模型的天花板还在拉高。而多agent，也能极快地加速任务的处理时间。\n当然，你可能会问，那咋了？AI不老证明数学题吗？\n但这次还真不太一样，OpenAI这次顺手放出了完整prompt，而这里面就有驾驭GPT-5.6这类神话级模型的保姆级技巧：\n- 不替模型规定解法，只把验收标准钉死。\n- 定义、范围、边界情况，提前一次说清，适当重复目标，防止上下文漂移。\n- 不只说要什么答案，还写清什么不算答案。\n- 复杂任务不要固定分工，而要动态搜索，并设置独立审查。\n接下来，我们一起来看。\n一小时秒杀的，究竟是什么题\n先说这个题本身。\n循环双覆盖猜想，通常被追溯到Tutte、Itai 与 Rodeh、George Szekeres、Paul Seymour等数学家在上世纪陆续提出，长期被视为图论中最重要的开放问题之一。\n它问的是：\n给你一张由点和线组成的图，能不能找出一批首尾相接的“圈”，让图上的每一条边，都刚好被这些圈经过两次？\n咱们以上图为例：白圈是路口，彩线是道路，A到J是十个顶点。\n最外面的绿色路线从A出发，依次经过B、C、D、E，最后重新回到A，这就是一个圈。\n但只有绿色这一圈还不够，因为它只经过了图最外侧的几条边，而且每条边目前只被覆盖了一次。\n要满足圈双覆盖，还需要继续加入更多能够绕回起点的路线。\n比如蓝色路线也经过了A到B，随后拐进图的内部，最后重新回到A。\n这样一来，A到B这条边就被覆盖了两次：绿色一次，蓝色一次。\n其他边也要用类似的方法补齐。最终，无论挑出图中的哪一条边，都应该恰好有两个圈经过它。\n这些圈可以互相重叠，也可以共享很多条边；它们不需要是图中最短、最外侧或最规整的圈。唯一的要求就是：\n每一条边，在所有圈中出现的总次数必须恰好等于二。\n此外，这里还要补充一个关键条件：这张图必须是无桥图。\n所谓“桥”，就是一条一旦被删除，整张图就会被断开的边。\n比如我们把上面的A—F删掉，路线仍然可以沿着A—B—G—I—F，从另一条路到达F，整张图不会因此断开。\n乍看之下，这个猜想似乎很自然。\n一张图只要没有桥，那么每一条边至少都属于某个圈。既然每条边都能塞进一个圈，把这些圈收集起来，不就完成了吗？\n可问题在于，圈双覆盖要求的不是“至少覆盖一次”，而是每一条边恰好覆盖两次。\n你为了补上一条只出现过一次的边，加入一个新圈，可能会顺便…",
+      "published_at": "2026-07-11",
       "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
@@ -1126,9 +1170,9 @@
       "macro_score": 0
     },
     {
-      "title": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审",
-      "url": "https://www.qbitai.com/2026/07/447846.html",
-      "summary": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审\n四大方向，奖金直给\n鹭羽 发自 凹非寺\n量子位 | 公众号 QbitAI\n这可能是我今年见过最「实诚」的科研奖项了！\n不设赛题，也不用刷分，这一次蚂蚁真金白银纯发福利：\nAI时代大浪淘沙，那个一直在科研深水区里啃着硬骨头的你，将有机会收获蚂蚁关注，以及一笔实打实的资金支持。\n只要你是做AGI、具身智能、数字医学、数据处理与安全隐私这四个方向的青年学者或在读博士生，都能来试一试。\n要求只有一点，你现在正在做的工作够硬、够新、够深。咱们一切拿作品说话，是金子就能发光。\n奖项名为「2026蚂蚁InTech奖」，目前已经开放提名与申报，倒计时还剩最后一周！\n这也是蚂蚁举办的第三届，过去两届先后吸引上百位学界泰斗参与推荐，部分成果如今也已跑进产业最前沿。\n比如首届获奖者王鹤将三维视觉技术落地通用机器人赛道；上届获奖者顾煜贤深耕大模型高效推理，其轻量化大模型框架已在多家AI厂商落地应用。\n且看本届含金量更是拉满，坐在评委席上的，清一色业界顶尖学者，两院院士云集，还有图灵奖得主压阵。\n让这样一群人来评、来选，这个奖想托举的是谁，其实一目了然：下一群Transformer八子。\n说得再直白点，蚂蚁在找AI的未来。\n第三届蚂蚁InTech奖\n今年蚂蚁InTech奖依旧分为两条线。\n一条是蚂蚁InTech科技奖，面向已经做出成果的青年学者；另一条是蚂蚁InTech奖学金，面向还在读的博士生们。\n这个风向其实相当敏锐。\n我们不妨回看那篇影响世界的《Attention Is All You Need》。\n论文署名的八个人，彼时都还名不见经传，他们中有的还是学生，有的也才刚入行没多久，有的虽然经验丰富但也只在小圈子里为人熟知，但如今Transformer已经是这一代大模型的核心支柱。\n可见科研突破往往始于萌芽，敢于深耕的多是这批青年科研人才。他们有想法有闯劲，却也缺一份实实在在的支持。\n蚂蚁想要接住他们，无论是刚独立起步的学生，还是一股劲往上冲的研究学者，蚂蚁都看到了。\n大家关心的奖金也给得很干脆。科技奖每人20万元，奖学金每人5万元，且每类每年评选最多10人。\n不过想报名，还需要满足参选门槛：\n- 蚂蚁InTech科技奖：\n一是要求候选人当前得在全球高校或科研院所中全职从事科研工作，并且已经拿到博士学位；\n二是从获得博士学位到参评当年，不能超过10年，具体以评审当年的1月1日（含当天）起算。比如2026年想参选，博士学位得是2016年1月1日之后拿到的。\n三是研究领域需要涉及前面所提及的四大方向。\n- 蚂蚁InTech奖学金：\n仅要求候选人参评当年（2026年）具备全球高校或科研院所的在读博士身份以及研究方向契合。\n此外，除了现金奖励，奖项还会另外评出10位InTech科技奖-Future和10位InTech奖学金-Future，以鼓励更多有潜力但还没被看到的年轻人。\n我们再把这四大方向单独拎出来说：通用人工智能（AGI）、具身智能、数字医学、数据处理与安全隐私。\n这四个可不是随随便便圈定的，放到整个计算机科学里看，它们都是最前沿的研究方向，当然也最难突破。这一点蚂蚁也是深有体会，这就是蚂蚁自己的技术底座。\n从守住数据，到炼出模型，再落进医疗、伸向物理世界，四个方向环环相扣，组成一条从底层能力到行业应用的完整技术链路。\n也正因为天天在这四道最难的关口上撞，蚂蚁才清楚，能凿开这些技术的突破在于人，尤其是愿意挖掘难点的青年科研人。\n图灵奖得主和两院院士都来了\n负责把关的评委阵容，也是2026蚂蚁InTech…",
+      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
+      "url": "https://www.qbitai.com/2026/07/447891.html",
+      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n从FP64到INT8，全精度覆盖。\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光800…",
       "published_at": "2026-07-11",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1148,9 +1192,9 @@
       "macro_score": 0
     },
     {
-      "title": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent",
-      "url": "https://www.qbitai.com/2026/07/447873.html",
-      "summary": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent\n神话级大模型驾驭宝典\nhenry 发自 凹非寺\n量子位 | 公众号 QbitAI\n我看呐，只要以后笔记本半开着，就没有人的事儿了。\n刚刚，OpenAI研究院Ethan Knight宣布：\n昨儿刚出的GPT-5.6，用不到一小时，就完成了一道存在了半个世纪的图论猜想证明。\n而这道题呢，来头也还真不小，就是大名鼎鼎的循环双覆盖猜想（Cycle Double Cover Conjecture）。\n为解决这道题，研究员把现在最顶的GPT-5.6 Sol蹬到Ultra；GPT呢，又自己蹬了64个子agent。\n最后，硬是写出了一份三页的pdf，证明完毕，Over。\n发布后，还在韩国开ICML的Noam Brown（o1核心贡献者）也隔着太平洋第一时间赶来捧场。\n他表示，这次和此前的Erdős单位距离问题不同，不靠什么内部特供模型，靠公开能用的GPT-5.6 Sol Ultra就把活儿干了。\n而且，GPT-5.6 Sol Ultra把测试时计算并行大幅铺开，原本可能要磨上一整天的证明，如今被64个子agent压进了一个小时。\n可以说，在数学这块，前沿模型的天花板还在拉高。而多agent，也能极快地加速任务的处理时间。\n当然，你可能会问，那咋了？AI不老证明数学题吗？\n但这次还真不太一样，OpenAI这次顺手放出了完整prompt，而这里面就有驾驭GPT-5.6这类神话级模型的保姆级技巧：\n- 不替模型规定解法，只把验收标准钉死。\n- 定义、范围、边界情况，提前一次说清，适当重复目标，防止上下文漂移。\n- 不只说要什么答案，还写清什么不算答案。\n- 复杂任务不要固定分工，而要动态搜索，并设置独立审查。\n接下来，我们一起来看。\n一小时秒杀的，究竟是什么题\n先说这个题本身。\n循环双覆盖猜想，通常被追溯到Tutte、Itai 与 Rodeh、George Szekeres、Paul Seymour等数学家在上世纪陆续提出，长期被视为图论中最重要的开放问题之一。\n它问的是：\n给你一张由点和线组成的图，能不能找出一批首尾相接的“圈”，让图上的每一条边，都刚好被这些圈经过两次？\n咱们以上图为例：白圈是路口，彩线是道路，A到J是十个顶点。\n最外面的绿色路线从A出发，依次经过B、C、D、E，最后重新回到A，这就是一个圈。\n但只有绿色这一圈还不够，因为它只经过了图最外侧的几条边，而且每条边目前只被覆盖了一次。\n要满足圈双覆盖，还需要继续加入更多能够绕回起点的路线。\n比如蓝色路线也经过了A到B，随后拐进图的内部，最后重新回到A。\n这样一来，A到B这条边就被覆盖了两次：绿色一次，蓝色一次。\n其他边也要用类似的方法补齐。最终，无论挑出图中的哪一条边，都应该恰好有两个圈经过它。\n这些圈可以互相重叠，也可以共享很多条边；它们不需要是图中最短、最外侧或最规整的圈。唯一的要求就是：\n每一条边，在所有圈中出现的总次数必须恰好等于二。\n此外，这里还要补充一个关键条件：这张图必须是无桥图。\n所谓“桥”，就是一条一旦被删除，整张图就会被断开的边。\n比如我们把上面的A—F删掉，路线仍然可以沿着A—B—G—I—F，从另一条路到达F，整张图不会因此断开。\n乍看之下，这个猜想似乎很自然。\n一张图只要没有桥，那么每一条边至少都属于某个圈。既然每条边都能塞进一个圈，把这些圈收集起来，不就完成了吗？\n可问题在于，圈双覆盖要求的不是“至少覆盖一次”，而是每一条边恰好覆盖两次。\n你为了补上一条只出现过一次的边，加入一个新圈，可能会顺便…",
+      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
+      "url": "https://www.qbitai.com/2026/07/447902.html",
+      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n已跑通300余项应用\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光8000采用了AI计…",
       "published_at": "2026-07-11",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1170,33 +1214,11 @@
       "macro_score": 0
     },
     {
-      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
-      "url": "https://www.qbitai.com/2026/07/447891.html",
-      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n从FP64到INT8，全精度覆盖。\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光800…",
-      "published_at": "2026-07-11",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "Leanstral 1.5: Proof Abundance for All",
       "url": "https://mistral.ai/news/leanstral-1-5/",
       "summary": "Thinking\nSummary\nLeanstral 1.5, a free Apache-2.0 licensed model with 6B active parameters, delivers a major performance upgrade in formal verification, saturating miniF2F, solving 587/672 PutnamBench problems, and achieving state-of-the-art results on FATE-H (87%) and FATE-X (34%). Trained through mid-training, supervised fine-tuning, and reinforcement learning with CISPO, it excels in agentic proof engineering and real-world code verification, uncovering 5 previously unknown bugs across 57 repositories tested. Fully open-sourced and available via Hugging Face and a free API, Leanstral 1.5 is now accessible for practical proof engineering in Lean 4.\nSince its launch, Leanstral has offered an open, practical approach to proof engineering in Lean 4. Today, we are releasing Leanstral 1.5, a free Apache-2.0 licensed model with 119B total and only 6B active parameters, delivering a performance upgrade that makes formal verification more powerful and accessible than ever.\nLeanstral 1.5 saturates miniF2F, solves 587/672 PutnamBench problems, and achieves a new state-of-the-art of %87 on FATE-H and 34% on FATE-X. Beyond benchmarks, it verifies complex code properties and uncovers previously unknown bugs in open-source repositories—proving that rigorous formal methods can be both effective and practical for real-world use.\nTraining Leanstral\nLeanstral 1.5 goes through a three-stage process: mid-training, supervised fine-tuning, and reinforcement learning with CISPO. Leanstral 1.5 lev…",
       "published_at": "2026-07-02",
       "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
-      "url": "https://www.qbitai.com/2026/07/447902.html",
-      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n已跑通300余项应用\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光8000采用了AI计…",
-      "published_at": "2026-07-11",
-      "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1269,105 +1291,6 @@
       "macro_score": 0
     },
     {
-      "title": "Science",
-      "url": "https://deepmind.google/science/",
-      "summary": "Unlocking a new era of discovery with AI\nIntroducing Gemini for Science\nCo-Scientist: A collaborative AI research partner\nAlphaEvolve: How our Gemini-powered coding agent is scaling impact across fields\nEnabling a new model for healthcare with AI co-clinician\nEngineering more resilient crops for a warming climate\nAlphaFold: Five years of impact\nA national mission to accelerate innovation and scientific discovery\nAI for Science\nScientific discovery is the engine of human progress. But society’s most pressing challenges are more vast and complex than ever before.\nThey’re combinatorial puzzles – problems with so many possible answers that they’re practically impossible for traditional science to solve.\nWe believe AI is the right tool to decode these mysteries, and solve the root node challenges holding back entire fields of scientific knowledge.\nOur blueprint is AlphaFold. In 2020, AlphaFold solved the protein-folding problem. Today, it’s used by over 3 million researchers, tackling problems like malaria and climate resistance.\nThis is just the beginning.\nWe’re now applying that same rigor to explore challenges from curing disease to achieving infinite clean energy.\nWith AI, scientists have a superpower to generate and test hypotheses at previously unimaginable scale and speed. With AI, nature becomes an informational system, where discoveries are made through a systematic, accelerated approach.\nWe don’t do it alone: we’re proud to work in deep collaboration with scientists arou…",
-      "published_at": "2000-01-01",
-      "source": "deepmind.google",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "AlphaEvolve: Gemini-powered coding agent scaling impact across fields",
-      "url": "https://deepmind.google/blog/alphaevolve-impact/",
-      "summary": "Improving AI infrastructure\nAlphaEvolve has graduated from pilot testing to becoming a core component of our infrastructure. AlphaEvolve has been used as a regular tool to optimize the design of the next generation of TPUs. It also helped discover more efficient cache replacement policies, achieving in two days what previously required a concerted, human-intensive effort spanning months.\n“AlphaEvolve began optimizing the lowest levels of hardware powering our AI stacks. It proposed a circuit design so counterintuitive yet efficient that it was integrated directly into the silicon of our next-generation TPUs. This is the latest example of TPU brains helping design next-generation TPU bodies.” — Jeff Dean, Chief Scientist, Google DeepMind and Google Research\nAlphaEvolve improved the efficiency of Google Spanner by refining its Log-Structured Merge-tree compaction heuristics. This optimization reduced 'write amplification'—the ratio of data written to storage versus the original request—by 20%. It also provided insights for new compiler optimization strategies that reduced the storage footprint of software by nearly 9%.\nScaling commercial applications\nTogether with Google Cloud, we are now bringing the power of AlphaEvolve to a variety of commercial enterprises across industries.\n- In financial services, Klarna used the system to optimize one of its largest transformer models — doubling its training speed whilst improving model quality.\n- In semiconductor manufacturing, Substrat…",
-      "published_at": "2026-05-07",
-      "source": "deepmind.google",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Make a llm.with_structured_output call a tool",
-      "url": "https://forum.langchain.com/t/make-a-llm-with-structured-output-call-a-tool/622",
-      "summary": "The issue:\nWhen the LLM tries to call a tool, it mistakenly uses fields from the structured output class (A_given_class) as tool arguments—instead of using the correct arguments expected by the tool.\nHow can I ensure the LLM uses the proper tool input schema rather than mixing it with the structured output class?\nHey Ignacio! Its best not to combine structured output and tool calling simultaneously.\nSo combining bind_tools() and with_structured_output() creates schema confusion - the LLM sees multiple competing function schemas and gets confused about which one to use for which purpose. The best approach would be to use separate nodes - one with llm.with_structured_output(A_given_class) for structured data, another with llm.bind_tools(tools) for tool calling, connected via conditional edges.\nSequential processing in one node would also work (which I feel is what you’re aiming for), first call llm.with_structured_output(), then conditionally call llm.bind_tools() based on the structured result but this would still require two LLM calls to achieve reliable results.\nHey niilooy,\nIt’s actually the other way around, I have a node that first conditionally calls a tools, and then that data needs to be passed to the next node in a structured format. The red arrow below depicts where the structure output is expected.\nThis is a common challenge when combining structured output with tool calling in LangGraph. The issue is that with_structured_output() constrains the LLM’s output schema,…",
-      "published_at": "2025-07-22",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
-      "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
-      "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
-      "published_at": "2026-07-10",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Long-running run getting cancelled by aggressive workers scale down",
-      "url": "https://forum.langchain.com/t/long-running-run-getting-cancelled-by-aggressive-workers-scale-down/4126",
-      "summary": "Hi LangChain team, recently we are experiencing some issues related to some of our graph runs getting cancelled (asyncio.CancelledError) in the LangSmith tracing in our Production deployment.\nAfter some debugging using the server log, we found out that during the time these runs getting cancelled, there were quite a few shutdown logs that appeared.\nFor example, at 7/7/2026, 12:09:26 PM:\n[ERROR] The queue surpassed the grace period while shutting down. Some runs may still be running and will be canceled and retried on a healthy instance. The grace period is currently set to 180 seconds. If that is too low, adjust the BG_JOB_SHUTDOWN_GRACE_PERIOD_SECS environment variable to an appropriate value. Signaling shutdown\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 505, in worker\n  File \"/api/langgraph_api/worker.py\", line 269, in worker\n  File \"/usr/local/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/api/langgraph_api/worker.py\", line 207, in wrap_user_errors\n  File \"/api/langgraph_api/stream.py\", line 639, in consume\n  File \"/api/langgraph_api/stream.py\", line 665, in _consume_inline\n  File \"/api/langgraph_api/stream.py\", line 501, in astream_state\n  File \"/api/langgraph_api/asyncio.py\", line 86, in wait_if_not_done\n  File \"/usr/local/lib/python3.12/asyncio/taskgroups.py\", …",
-      "published_at": "2026-07-09",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Should AI agents have working hours like human employees?",
-      "url": "https://forum.langchain.com/t/should-ai-agents-have-working-hours-like-human-employees/4123",
-      "summary": "We expect AI to be available 24/7, but should it always be?\nImagine an AI executive assistant that intentionally batches notifications, delays non-urgent interruptions, and only escalates high-priority issues outside “working hours.”\nCould an AI that knows when not to interrupt you actually make us more productive?\nWhere would you draw the line between responsiveness and respecting focus?\n             \n            \n           \n          \n            \n            \n              Yes, but not as a hard “offline” switch. The better model is availability tiers, not human-style working hours.\nThe case for it: An always-on agent can feel productive while quietly hurting focus. Batching low-priority updates, deferring non-urgent work, and only interrupting for true escalations often beats 24/7 responsiveness.\nWhere to draw the line:\n- Always on: safety-critical, production incidents, explicit user requests\n- Queued / batched: summaries, digests, routine follow-ups\n- Deferred: research, planning, non-urgent notifications\nPractical rule: The agent should be available 24/7, interruptive only when it matters. Working hours become a user preference for when the agent may break focus, not when the agent stops thinking.\nThat’s especially useful for executive-assistant-style agents: work in the background all the time, but respect focus windows unless urgency crosses a threshold.\nSo the answer isn’t “should agents have working hours?”,  it’s should agents have interruption policies? Usually …",
-      "published_at": "2026-07-08",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Chapter 1 questions",
-      "url": "https://discuss.huggingface.co/t/chapter-1-questions/6797",
-      "summary": "Use this topic for any question about Chapter 1 of the course.\nSmall mismatch?\nFrom the widget in roberta-large-mnli · Hugging Face, I see the classification is between “CONTRADICTION”, “NEUTRAL”, “ENTAILMENT”\ngood catch! will push a fix this afternoon\nAt the end of the colab notebook, you need to install sentencepiece to complete the translation task.\n!pip install sentencepiece\nthanks for reporting this! i’ll push a fix this afternoon\nHi. I wanted to understand a bit deeper on difference between encoder vs encoder-decoder models for question-answering. ModelHub currently has both BERT and T5 models for question answering. The encoder lecture mentions BERT is good for QA tasks. Could someone please point me with more reading material to understand the nuances/differences between the two.\nHi there! So Ecoder-decoders models will be very good at “generative question answering”, which is generating the answer to the question given the context. It’s different from what an encoder can do (which is “extractive question answering”, which just says the answer to this question is from word xxx to word yyy) in the sense the model answers the question in its own words instead of trying to get a part of the context.\nUnderstood. Thanks for the explanation.\nI replied on the topic!\nBeginner Beginner query:\nI’m working my way through to try and use the transformers for classification, and potentially question answering, and sentence forming. Is it possible to use say of the bert models to en…",
-      "published_at": "2021-06-14",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Help Needed: MongoDB Checkpoints Collection Growing Too Large",
-      "url": "https://forum.langchain.com/t/help-needed-mongodb-checkpoints-collection-growing-too-large/2121",
-      "summary": "Problem Description\nI’m experiencing significant storage issues with the LangGraph MongoDB checkpointer. The checkpoints collection is growing far beyond expected size and consuming excessive storage.\nCurrent Situation\n- Thread IDs: 16,000 conversations\n- Total Messages: 36,542 messages across all conversations\n- Checkpoint Records: 282,758 records\n- Storage Used: ~30 GB\n- Average Checkpoints per Thread: ~17.7 checkpoints per conversation\n- Average Checkpoints per Message: ~7.7 checkpoint records per message\nThis means instead of maintaining a reasonable number of checkpoints per conversation, the system is saving multiple checkpoints per conversation (and per message), leading to exponential growth.\nEnvironment\nDependencies:\n\"@langchain/core\": \"^0.3.77\"\n\"@langchain/langgraph\": \"^0.4.9\"\n\"@langchain/langgraph-checkpoint-mongodb\": \"^0.1.1\"\n\"@langchain/openai\": \"^0.6.16\"\nDatabase: Azure Cosmos DB for MongoDB (RU-based account)\nNote: Using Cosmos DB RU account means storage costs scale with data size, making this 30GB checkpoint collection a significant cost concern beyond just performance.\nQuestions\n- \nIs this expected behavior? Should LangGraph be creating ~18 checkpoints per conversation on average? \n- \nCheckpoint Retention: Is there a built-in mechanism to limit the number of checkpoints per thread, or do I need to implement manual cleanup? \n- \nBest Practices: What’s the recommended approach for managing checkpoint growth in production environments with high conversation volu…",
-      "published_at": "2025-11-06",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Unable to schedule",
-      "url": "https://discuss.huggingface.co/t/unable-to-schedule/177563",
-      "summary": "I deployed a space. It worked perfectly without any error two days ago. But today, when I logged in, the space was sleeping. When it woke up, it showed starting. After 30-40 mins, the space suddenly just showed this:\n\"runtime error\nScheduling failure: unable to schedule\"\nIt happened with my other spaces which I created long ago. And the logs show:\n“===== Application Startup =====”\nI don’t know what is happening. Can anyone help me?",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Should AI agents expose their reasoning process before taking action?",
       "url": "https://forum.langchain.com/t/should-ai-agents-expose-their-reasoning-process-before-taking-action/4131",
       "summary": "Humans build trust by explaining why they made a decision.\nWhat if AI agents briefly summarized their plan before executing?\nFor example:\n“I found three scheduling conflicts. I’ll resolve the first automatically, ask you about the second, and postpone the third until Friday.”\nWould this make AI more trustworthy?\nOr just slower?\n             \n            \n           \n          \n            \n            \n              hi @Saiganesh\nYes, I think exposing the plan increases trust, but there is an important distinction. Users dont really need the raw reasoning, they need the plan. Raw chain of thought is verbose and research shows its often not even faithful to what the model actually did, so showing it can create false confidence. A short structured plan like your example is diferent, its verifiable and gives the user a chance to object before anything happens.\nThe key thing tho is that transparency alone doesnt build trust, control does. A plan you can read but cant veto is just theater. Thats why I’d pair it with human in the loop on the risky actions. In LangChain you get this basically for free, create_agent with HumanInTheLoopMiddleware lets you mark which tools need approval, and the user can approve, edit or reject the proposed action. Deep agents even ship the planning part by default, the write_todos tool externalizes the plan into state and the UI can render it live. Claude Code and Cursor converged on the same todo pattern independently, which tells you something, it a…",
@@ -1377,17 +1300,6 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 2
-    },
-    {
-      "title": "New free accounts cannot create CPU Basic Gradio Spaces (only ZeroGPU available?)",
-      "url": "https://discuss.huggingface.co/t/new-free-accounts-cannot-create-cpu-basic-gradio-spaces-only-zerogpu-available/177629",
-      "summary": "I’m trying to create a new Gradio Space on a free account.\nThe only available runtime is ZeroGPU.\n- Docker is marked as Paid.\n- CPU Basic cannot be selected during creation.\n- After creating the Space on ZeroGPU, the hardware downgrade dialog requires PRO to switch to CPU Basic.\n- I reproduced this on a brand-new account.\nIs this an intentional change to the free tier, or is this a bug/rollout issue?",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
     },
     {
       "title": "Architectural Pattern: Synchronous Pre-Call Spend Gates in Stateful GraphsBody:",
@@ -1401,17 +1313,6 @@
       "macro_score": 1
     },
     {
-      "title": "Reinforement Structure Analysis",
-      "url": "https://discuss.huggingface.co/t/reinforement-structure-analysis/176541",
-      "summary": "Oh. If RGB-D is acceptable, I think this can be made much more concrete:\nYour latest constraints clarify the problem a lot.\nSince you need:\n- number of horizontal bars,\n- number of vertical bars,\n- horizontal spacing,\n- vertical spacing,\n- horizontal/vertical bar length,\n- multiple cage shapes,\n- no manual cropping,\n- short video capture,\n- RGB-D/stereo acceptable in the field,\n- training on a larger GPU but deployment on a smaller GPU,\nI would now treat this less as a “rebar counting from images” problem and more as a geometry-aware rebar measurement system.\nMy direct answer would be:\nIf RGB-D is acceptable, I would make RGB-D / point cloud geometry the main measurement path. Use RGB for detecting rebars, keypoints, crosspoints, faces, or candidate regions; use depth/point cloud geometry for face/layer assignment, metric spacing, and length measurement.\nIn other words:\nRGB:\n  what is rebar?\n  where are the visible bars/keypoints/crosspoints?\nDepth / point cloud:\n  which face/layer do they belong to?\n  what is the metric distance/length?\n  is this measurement geometrically plausible?\nThat is much more concrete than trying to solve everything with monocular depth or a pure 2D detector.\n1. The problem has changed from “counting” to “measurement”\nYour latest requirements are broader than a count-only task.\n| Requirement | What it implies | \n| Count horizontal and vertical bars | detection / segmentation / row-column grouping | \n| Measure spacing | metric scale is needed | \n| Mea…",
-      "published_at": "2026-06-04",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "How are you handling runaway agent costs?",
       "url": "https://forum.langchain.com/t/how-are-you-handling-runaway-agent-costs/3913",
       "summary": "The retrieval angle is the one most teams miss. Agents amplify whatever’s in the retrieved context, including the noise. If your vector store has stale chunks, fragments, duplicates, or low-quality content, the agent will retrieve them, reason over them, and either generate a bad answer or loop trying to compensate. Either way you pay token costs on bad inputs.\nSome specific patterns that have helped me cut agent token costs without losing capability:\nTighten what gets retrieved before the agent sees it. If your default k is 10, ask whether you actually need 10 chunks per agent step. In my experience, well-curated corpora can drop to k=3-5 with minimal accuracy loss because the chunks that remain are the ones that actually contain the answer. Reducing retrieved context is the single largest cost lever in most agent pipelines.\nAudit chunk quality, not just retrieval metrics. Pull a sample of chunks the agent has been retrieving over the last week. Read them. If a meaningful portion are fragments, boilerplate, or near-duplicates, your agent is paying input token costs on noise. Cleaning the corpus at ingestion typically saves more than tuning the retriever after the fact.\nCheck for stale documents that pull the agent into unnecessary loops. This is the failure mode the parent post is pointing at. If your agent retrieves a chunk that’s relevant-looking but contains outdated information, it may generate a partial answer, recognise the gap, retrieve again, and loop. Each loop cost…",
@@ -1423,17 +1324,6 @@
       "macro_score": 1
     },
     {
-      "title": "Rethinking Transformer Architecture Through the Lens of Group Theory:",
-      "url": "https://discuss.huggingface.co/t/rethinking-transformer-architecture-through-the-lens-of-group-theory/177612",
-      "summary": "Abstract\nTransformer architectures have fundamentally changed the landscape of artificial intelligence by demonstrating remarkable abilities in language understanding, reasoning, and representation learning.\nHowever, a deeper question remains:\nWhat mathematical structures are hidden beneath learned representations?\nGroup theory provides one of the most powerful languages for describing structure in mathematics and physics. It studies transformations, symmetries, invariants, and representations — the fundamental concepts behind many physical theories and mathematical systems.\nThis article explores possible connections between group theory and Transformer architectures.\nWe do not claim that Transformers are literally implementations of group representations. Instead, we propose that several ideas from group theory — especially symmetry, representation spaces, and invariance — provide a useful conceptual framework for understanding how neural networks learn and organize information.\nFurthermore, we discuss a deeper question:\nCould future AI systems require not only larger representations, but representations that dynamically evolve through experience?\n1. Why Group Theory?\nThe central question of group theory is:\nWhat remains unchanged when something changes?\nA group describes transformations:\nDifferent transformations may change the appearance of a system while preserving deeper structures.\nExamples:\n- A rotated object changes its coordinates but keeps its identity.\n- A physical…",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "A LangGraph checkpointer with provable thread deletion (signed erasure receipts) — feedback welcome",
       "url": "https://forum.langchain.com/t/a-langgraph-checkpointer-with-provable-thread-deletion-signed-erasure-receipts-feedback-welcome/4137",
       "summary": "Hey all — sharing something I built for my own agents and finally cleaned up enough to put out there. I’d genuinely value feedback from anyone running stateful LangGraph in production.\nThe problem that started it. My agent persists user threads with a checkpointer: great. Then a user invokes their right to be forgotten (GDPR/CCPA), I call delete_thread(…), the rows vanish, and… I realized I had no way to prove it happened. If compliance or an auditor asks “show me user X’s thread was actually deleted,” the standard savers (Memory / SQLite / Postgres) sign nothing and attest nothing. Deletion is a side effect with no evidence.\nSo I wrote langgraph-checkpoint-grafomem — a drop-in checkpointer that wraps the saver you already use and adds two things: every checkpoint is Ed25519-signed (tamper-evident), and delete_thread emits a signed erasure receipt.\nUsage — it wraps your existing saver, nothing else about how you build changes:\nimport sqlite3\nfrom langgraph.checkpoint.sqlite import SqliteSaver\nfrom grafomem_checkpoint import GrafomemSerializer, GrafomemCheckpointSaver\nconn = sqlite3.connect(“memory.db”, check_same_thread=False)\ninner = SqliteSaver(conn, serde=GrafomemSerializer(private_key, key_id=key_id, trusted_keys=trusted_keys))\nsaver = GrafomemCheckpointSaver(inner)\ngraph = builder.compile(checkpointer=saver)\n#right to be forgotten, with proof:\nsaver.delete_thread(“user-123”)\nreceipt = saver.last_receipt(“user-123”)\nassert receipt.verify(public_key)   # signed proof of th…",
@@ -1443,215 +1333,6 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 3
-    },
-    {
-      "title": "Alternative to TorchScript that supports control flow and autograd",
-      "url": "https://discuss.pytorch.org/t/alternative-to-torchscript-that-supports-control-flow-and-autograd/212391",
-      "summary": "I’m currently relying on torchscript for many models, since I need to execute them from C++. I recently learned however that there are no plans to keep developing JIT.\nFrom the documentation I gather the alternatives are torch.compile, if running in python, and torch.export if running in a python-less environment.\nI believe that neither of these are fit for my use case, since I need to call autograd for inference, and my model requieres some control flow. Even if worked to fully get rid of the control flow (unlikely to be possible) the lack of autograd is a dealbreaker.\nI wanted to know what are my options moving forward. Is TorchScript essentially deprecated? Will it break or be removed in the future or am I ok to keep relying on it? The only alternative to torchscript I see is to rewrite my code directly using the C++ API, but since I have users that rely on the python code, that would mean duplicating all of the codebase\n             \n            \n           \n          \n            \n            \n              AFAIK the new thing is AOTInductor:\nI am not 100% clear on the usage of autograd here, but I would expect to work in a similar fashion there.\nThere is AOT Autograd - How to use and optimize? — functorch nightly documentation\nAnd as I understand it, that’s already being called by the export function so it might already work.\n             \n            \n           \n          \n            \n            \n              torch.export doesn’t seem to be able to export graphs wi…",
-      "published_at": "2024-11-01",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "What are the biggest challenges in AI agent development today?",
-      "url": "https://discuss.huggingface.co/t/what-are-the-biggest-challenges-in-ai-agent-development-today/176948",
-      "summary": "What are the biggest challenges in AI agent development today?\nI’m still learning… even what exactly an agent is. The learning curve is steep and I’m kind of a techie.\nWhat are the biggest challenges in AI agent development today?\nI’m still learning… even what exactly an agent is. The learning curve is steep and I’m kind of a techie.",
-      "published_at": "2026-06-18",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Created TorchCTS, a conformance test suite for testing backends",
-      "url": "https://discuss.pytorch.org/t/created-torchcts-a-conformance-test-suite-for-testing-backends/225161",
-      "summary": "While developing a PrivateUse1 backend I found the need to have much heavier testing than what is included. To solve this problem I created TorchCTS, a conformance test suite with > 19k tests, some auto generated, some hand spun for specific hard cases. It has semantic levels and multiple other ways to segment and control what tests you run. I’m looking for feedback from backend developers on areas I need to cover better. Note that it’s beta still and there are multiple hardware vendors I do not have access to and cannot do tests for. https://torchcts.ai\n                  \n                  \n                1 Like",
-      "published_at": "2026-07-09",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Distinguish between thinking and responding during generation",
-      "url": "https://discuss.huggingface.co/t/distinguish-between-thinking-and-responding-during-generation/177628",
-      "summary": "Hi, I am building a custom logits processor that forces the generation of models to exactly follow the input text, plus classify parts of the text using special inline tags for precise text classification using generative models.\nI successfully implemented the processor for models that generate the output directly without any chain of thought, deep reasoning, or thinking.\nNow I would like to follow up on this by doing a two-phase generation, where I let the model reason however it wants, and then start the verbatim generation of the input text plus the classified spans. However, I am now thinking about how to divide this generation, first I thought about checking for the end-of-thinking token during generation, but it seems naive, as Ollama api or vLLM divide these, and you can simply pick the info you need from the data structure.\nI need the possibility to access the logits during generation, which Ollama does not allow, and vLLM added this after I created my processor to fit HF, so I was wondering if there is a way to divide the two phases using only the HF library.\nso I was wondering if there is a way to divide the two phases using only the HF library.\nYeah. That approach seems feasible:\nYes — I think this should be possible with Hugging Face Transformers alone, without giving up access to the logits.\nThe most direct route is probably a phase-aware wrapper around your existing LogitsProcessor:\n| Generation phase | Wrapper behavior | \n|---|---|\n| Reasoning | Return the scor…",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Tutorials/examples of captum with 1D data?",
-      "url": "https://discuss.pytorch.org/t/tutorials-examples-of-captum-with-1d-data/225162",
-      "summary": "Hello all,\nI’m hoping to use captum for feature attribution on a basic 1-D linear regression model (see below), but all the examples I’ve seen use 2D models (usually for machine vision applications). Is there a good tutorial out there for using captum with simpler models?\nThanks!\nclass Regression(nn.Module):\n  def __init__(self):\n    super().__init__()\n    self.layers = nn.Sequential(\n      nn.Linear(7490, 64),\n      nn.ReLU(),\n      nn.Linear(64, 32),\n      nn.ReLU(),\n      nn.Linear(32, 1)\n    )\n  def forward(self, x):\n    '''\n      Forward pass\n    '''\n    return self.layers(x)\ndef training_loop(n_epochs, train_loader):\n# training loop\n    for epoch in range(n_epochs):\n        # Set current loss value\n        current_loss = 0.0\n        # Iterate over the DataLoader for training data\n        for i, data in enumerate(train_loader, 0):\n          # Get and prepare inputs\n          inputs, targets = data\n          inputs, targets = inputs.float(), targets.float()\n          targets = targets.reshape((targets.shape[0],1))\n            # Zero the gradients\n          optimizer.zero_grad()\n          # Perform forward pass\n          outputs = model(inputs)\n          # Compute loss\n          loss = loss_function(outputs, targets)\n          # Perform backward pass\n          loss.backward()\n          # Perform optimization\n          optimizer.step()\n    return model",
-      "published_at": "2026-07-09",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)",
-      "url": "https://discuss.huggingface.co/t/space-to-space-requests-to-hf-space-return-503-from-awselb-since-jul-8/177607",
-      "summary": "Since between Jul 8–9 2026, HTTP requests made from INSIDE a Space container to ANY .hf.space host return 503 with body {“data”:[]} and header server: awselb/2.0. The AWS load balancer answers directly; the request never reaches the target.\nSpace (no x-proxied- headers). The same URLs return 200 from outside HF.\nVerified: happens against multiple of my own Spaces AND against gradio spaces; identical with and without a valid PRO token; reproduced from two different container egress IPs; DNS is identical inside and outside.\nThis breaks the documented pattern of calling a ZeroGPU Space from another Space\nvia gradio_client.\nIs this an intentional policy change or a regression? If intentional, what is the\nsupported way for one Space to call another Space’s API?\nThanks,\nOur setup is different from the once you ping me: a CPU Docker Space calling ZeroGPU Gradio Spaces via gradio_client, which supports the conclusion that this affects ALL Space-to-Space traffic regardless of SDK, visibility, or auth. It worked for us just a day ago before getting the issues.\nSummary of the controls we ran, they are same-minute probes from inside a Space container and from outside:\nSame URL, same DNS IPs: outside → 200 (server: uvicorn, x-proxied-* headers present), inside → 503 {“data”:} (server: awselb/2.0, no proxy headers, so the request never reaches the target Space).\nIdentical result with a valid PRO token, an invalid token, and no token.\nAlso 503 against a public third-party Gradio Space from …",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Seeking research collaborators: a persistence-first AI architecture, live for 14+ days — help us measure it properly",
-      "url": "https://discuss.huggingface.co/t/seeking-research-collaborators-a-persistence-first-ai-architecture-live-for-14-days-help-us-measure-it-properly/177582",
-      "summary": "Hey friends!\nWe’ve built a persistence-first AI architecture (we call it PPAi — Persistent Presence AI) where a small open LLM (~4.5B) acts only as the language surface, while identity, memory, and cognition live in a continuously-running system — including between turns. We’re testing it in production and looking for researchers interested in this topic.\nThe problem\nWe first tried to build a real 24/7 online radio station with LLMs — not “greet listeners between songs,” but news, show continuity, music, listener messages, editing, in two languages. It wasn’t possible. The failure mode was consistent: per-turn context reinjection. Whatever the memory system — full history, summarization, RAG — it breaks down after a few hundred turns, and token consumption grows out of control. In our runs, a naive setup hit the 128K context wall around turn ~917; a RAG setup kept cost flat but we caught it live retrieving one of its own prior hallucinations as a memory. A paid frontier model running the station via API was cut off by the provider (429) in under half an hour.\nWhat’s different\nWith the PPAi architecture, this is controlled: state is held, not replayed. The live station currently runs at roughly ~44M tokens/day for the whole operation, flat — the equivalent LLM-based setup was trending past 300M/day and climbing when we stopped measuring, because continuing was economically pointless.\nThe system has been live for weeks, hundreds of thousands of generations, no brain restart, no…",
-      "published_at": "2026-07-08",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Fix gradient accumulation for DDP with static graph and no sync",
-      "url": "https://discuss.pytorch.org/t/fix-gradient-accumulation-for-ddp-with-static-graph-and-no-sync/225166",
-      "summary": "Hi all,\nI have a PR to fix a bug when DDP gradient accumulation is used with static_graph=True and no_sync. Can I get anyone to take a look at [DDP] Fix static_graph=True + no_sync() gradient accumulation regression by kasper0406 · Pull Request #187732 · pytorch/pytorch · GitHub ?\nI hit the bug executing some pytorch code on my workstation.",
-      "published_at": "2026-07-11",
-      "source": "discuss.pytorch.org",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Gradio SDK now marked as “Paid” when creating a new Space",
-      "url": "https://discuss.huggingface.co/t/gradio-sdk-now-marked-as-paid-when-creating-a-new-space/177619",
-      "summary": "Hi all, posting here in case any HF staff can weigh in, and to flag this for other educators who might be hitting the same wall.\nWe run a nonprofit that teaches free technical education to teen scholars (13-18) across the US and internationally. Our AI/ML curriculum has scholars build a simple CPU-based Gradio chatbot and host it on their own Hugging Face Space as part of a live summer camp lesson.\nAs of this week, we noticed that new free-tier accounts can no longer select Gradio as an SDK when creating a Space. We tested this on a freshly created account to confirm it wasn’t account-specific. This is a significant change for classroom/education use cases where scholars are running lightweight demo apps, not production workloads, and can’t reasonably be asked to individually purchase PRO.\nA few questions for the community and HF team:\n- Can anyone confirm whether this is an intentional, permanent policy change or a rollout in progress?\n- Is there an education/nonprofit path for free Gradio Space hosting?\n- Is there a better channel to reach the team directly for something time-sensitive like this (we have scholars in a live cohort right now)?\nHappy to share more detail about our program if useful. Thanks for any pointers!",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Models page: filters, sort, and \"Add filters\" button completely unresponsive",
-      "url": "https://discuss.huggingface.co/t/models-page-filters-sort-and-add-filters-button-completely-unresponsive/176046",
-      "summary": "The interactive UI on Models – Hugging Face is broken — “Add filters” does nothing on click, the “Sort: Trending” dropdown doesn’t open, and none of the search customization buttons respond. The page loads and renders fine visually, but no interactive elements work.\nI’ve tested across all of the following with the same result:\nChrome (latest), Edge Chromium, Arc, and Comet on desktop (Windows)\niPhone Safari on cellular data (not logged in, guest session)\nWith and without extensions (only LastPass installed)\nOn home Wi-Fi and mobile cellular — same behavior on both\nThe browser console shows this error, which fires during page load and prevents SvelteKit hydration from completing:\nTypeError: Class extends value undefined is not a constructor or null\nat Types-CMurc9rh.js:7:176177\nat chunk-DHoe5Mw4.js:1:214\nat Types-CMurc9rh.js:7:178532\nat chunk-DHoe5Mw4.js:1:214\nat Types-CMurc9rh.js:7:200109\nat chunk-DHoe5Mw4.js:1:214\nat Types-CMurc9rh.js:14:618442\nat chunk-DHoe5Mw4.js:1:214\nat Types-CMurc9rh.js:14:641864\nat chunk-DHoe5Mw4.js:1:214\nLooks like a broken dependency chain in the bundled JS — a class inheritance is referencing something undefined, which kills the entire module before the UI can hydrate. Possibly a bad build cached on a specific CDN edge node (I’m in upstate New York).\nURL-based filtering (e.g. ?pipeline_tag=text-generation&sort=downloads) still works fine since it bypasses the client-side JS.\nFilter sidebar broken on /models page — JS error in Types-CMurc9rh.js\nThe f…",
-      "published_at": "2026-05-15",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Persistent 503 Error Between Private Docker Spaces",
-      "url": "https://discuss.huggingface.co/t/persistent-503-error-between-private-docker-spaces/177610",
-      "summary": "Personally, this (and Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8)) looks more like a regression to me. Details below:\njust in case, @hysts\nDirect answer: the general architecture does not appear to be inherently unsupported.\nHugging Face documents Docker Spaces as suitable for FastAPI and other API endpoints, documents authenticated access to private Space endpoints, and also documents calling one Space from another Space. I could not find one official reference that combines this exact topology—private Docker caller, private Docker target, arbitrary FastAPI route, and server-side Bearer authentication—but the individual pieces are documented or have prior working examples.\nFor a private Docker Space, the route I would expect to use is still:\ncaller Space\n    → HTTPS on port 443\n    → https://<target-subdomain>.hf.space/<route>\n    → Authorization: Bearer <token that can access the target Space>\n    → target application\nThe Docker Spaces documentation describes exposing an application through app_port, and the Spaces networking documentation allows outbound HTTP/HTTPS traffic on ports 80 and 443. The official private Tabby Docker Space example also uses the direct *.hf.space URL as an API endpoint and adds an authorization header when the Space is private.\nThe strongest reason I would currently suspect a regression is the independent report in Space-to-Space requests to *.hf.space return 503 from awselb. That report describes:\n- the same target …",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Epistemic Stress Test — Muse Spark 1.1 validated by MarCognity-AI",
-      "url": "https://discuss.huggingface.co/t/epistemic-stress-test-muse-spark-1-1-validated-by-marcognity-ai/177655",
-      "summary": "I ran responses generated by the model and passed them through\nMarCognity-AI’s Skeptical Agent.\nNot to judge the models.\nNot to compare outputs.\nBut to make visible what usually stays hidden: the gap between how confident a text sounds and how verifiable it actually is.\nEven technically correct answers contain claims that cannot be traced back to any source.\nThat gap has a name: Epistemic Fracture.\nGithub: https://github.com/elly99-AI/MarCognity-AI.git\nZenodo: https://doi.org/10.5281/zenodo.20509721",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Looking for feedback: Do common quantization saliency metrics really measure weight importance?",
-      "url": "https://discuss.huggingface.co/t/looking-for-feedback-do-common-quantization-saliency-metrics-really-measure-weight-importance/177615",
-      "summary": "Hmm… for now, maybe something along these lines (I’m not entirely confident about the content, so please take this just as a reference…):\nMy direct answer would be: yes, this looks like a useful audit of channel-level quantization proxies, but I would narrow the interpretation from “weight importance in general” to “isolated, quantizer-specific channel susceptibility under this intervention.”\nThe one-at-a-time design is valuable because it separates a static score from the rest of a quantization pipeline. The results therefore say something concrete about whether each audited score predicts the forward-KL damage produced when one channel is quantized while everything else is held fixed.\nI would not yet read that as a general verdict on the native AWQ, GPTQ, OWQ, or SpQR algorithms. Those methods use their statistics for different actions—scaling, sequential compensation, mixed precision, or weight-level outlier isolation—and this audit maps those different objects into a common static channel ranking. That is a useful benchmark, but it is not identical to asking whether each full method makes good deployment decisions.\nI also see two different result regimes:\n- For global continuous ranking, the loss-aware unified score appears substantially stronger.\n- For fixed-budget selection within a linear, the picture is more mixed; corrected OWQ residual and simpler proxies appear competitive or stronger on some top-k measures.\nThat distinction may be more useful than naming one overa…",
-      "published_at": "2026-07-09",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 2
-    },
-    {
-      "title": "Building a Centralized Vector Database Pipeline for Multi-Project RAG",
-      "url": "https://discuss.huggingface.co/t/building-a-centralized-vector-database-pipeline-for-multi-project-rag/177657",
-      "summary": "How I built a single, admin-controlled service that lets every project in my organization embed and retrieve data from its own isolated vector store\nIf you’ve worked on more than one Retrieval-Augmented Generation (RAG) project, you’ve probably run into the same annoying pattern: every project ends up with its own little vector store, its own embedding logic, its own duplicate code for chunking files, and its own inconsistent way of tracking what’s actually been indexed.\nI got tired of that, so I built a centralized vector database service that every project in my organization can plug into. One backend, one embedding model, one clean set of endpoints — and every project gets its own isolated, admin-controlled storage space.\nHere’s how it works.\nThe Problem\nWhen you’re running multiple RAG-powered projects at once, a few pain points show up fast:\n- Every team reinvents chunking and embedding logic\n- There’s no single place to see what data lives where\n- Deleting or updating stored documents becomes a manual, error-prone process\n- Nobody has a clear picture of which files are indexed in which project\nI wanted one system that solves this once, for everyone.\nThe Idea: One Service, Many Isolated Databases\nInstead of giving each project its own standalone vector database, I built a shared service where:\n- Each project gets its own named storage directory\n- All directories live under one base storage path\n- An admin layer controls the full lifecycle — create, insert, update, delete…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Hardware quota limit reached during Agents Course despite only 0 active Spaces",
-      "url": "https://discuss.huggingface.co/t/hardware-quota-limit-reached-during-agents-course-despite-only-0-active-spaces/177649",
-      "summary": "I’m doing the free Agents Course and getting ‘Space Paused — You’ve reached your hardware quota limit across all your Spaces!’ despite only having 1 active Space. I’ve paused all other Spaces. This seems like a quota accounting bug. Can someone check my account?\nMaybe not account issue… See Docker SDK now marked as \"Paid\" when creating a new Space? - #5 by nurssssky",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Unexpected Link header injected into Space responses",
-      "url": "https://discuss.huggingface.co/t/unexpected-link-header-injected-into-space-responses/177658",
-      "summary": "I also did a little testing on my side, in case it helps narrow down the issue: (I’ll leave the rest to HF. @hysts )\nAssuming the added field is of this form:\nLink: <https://huggingface.co/spaces/OWNER/SPACE>; rel=\"canonical\"\nmy current reading would be:\n- \nIt does appear to be added after the application response somewhere in the public Spaces serving path. In a small controlled public Docker Space, the application emitted no Linkfield over an internal loopback request, while the corresponding public.hf.spaceresponse contained the Hub Space page asrel=\"canonical\".\n \n- \nThe header itself does not appear to be new. I found public response captures containing the same form as far back as October 2024. \n- \nIts likely role is URL canonicalization between the direct .hf.spacedeployment and the Hub Space page, but that purpose is an inference from the value and the standard meaning ofrel=\"canonical\". Only Hugging Face can confirm the actual intent and whether this is a supported contract or an implementation detail.\n \n- \nI could not find a documented Space setting that removes or overrides it. The current custom_headersdocumentation only allows COEP, COOP, and CORP headers. That is not proof that no support-side or internal option exists, only that there does not seem to be a documented public one.\n \n- \nI would not yet generalize this to every Space configuration. It is now directly reproducible on one public Docker Space, and similar fields have appeared in several older Gradio-re…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
-      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
-      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "We all start somewhere",
-      "url": "https://discuss.huggingface.co/t/we-all-start-somewhere/177233",
-      "summary": "Well, If I can assume your technical stack, the explanation can be fairly dense:\nDirect answer\nI would not start by looking for “the best model.” I would first split the problem into layers:\n- local runtime\n- model format and quantization\n- chat template\n- a small eval set\n- RAG / retrieval\n- fine-tuning / adapters\n- model choice\n- tool use / agents\n- offline and privacy boundaries\nFor private or changing knowledge, I would usually try RAG before fine-tuning.\nFor local models, I would check runtime, quantization, and chat template before judging the model.\nFor fine-tuning, I would first collect repeatable failures and eval examples.\nFor uncensored or abliterated models, I would treat them as refusal-behavior changes, not hidden-capability upgrades.\nYou are probably not starting from zero. You are crossing stacks.\n1. Do not mix the layers\nA lot of local AI confusion comes from treating these as the same kind of thing:\n| Layer | Examples | What it answers | \n| Model / checkpoint | Llama, Mistral, Qwen, Gemma, DeepSeek, gpt-oss | What learned the behavior? | \n| File format | safetensors, GGUF | How are the weights stored? | \n| Quantization | q4, q5, q8, fp16, bf16 | What memory/speed/quality tradeoff? | \n| Runtime | Transformers, llama.cpp, Ollama, LM Studio, vLLM, TGI | What actually runs the model? | \n| UI / API layer | Open WebUI, LM Studio UI, llama-server, OpenAI-compatible API | How do you talk to it? | \n| Chat template | ChatML, Mistral, Llama, Qwen, Harmony, etc. | How a…",
-      "published_at": "2026-06-29",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
-      "title": "Call for Review: Interpretable and Explainable Models for Breast Cancer Recurrence Prediction — Systematic Review Protocol",
-      "url": "https://discuss.huggingface.co/t/call-for-review-interpretable-and-explainable-models-for-breast-cancer-recurrence-prediction-systematic-review-protocol/177469",
-      "summary": "We are conducting a systematic review comparing intrinsically interpretable statistical models, such as logistic regression and Cox proportional hazards models, with explainable artificial intelligence (XAI) approaches, including machine learning and deep learning models supported by SHAP, LIME, attention mechanisms, or other explanation methods, for predicting breast cancer recurrence after primary treatment.\nThe review is registered in PROSPERO: CRD420251145602; https://www.crd.york.ac.uk/PROSPERO/view/CRD420251145602\nOur goal is to critically appraise published models across the black-box, grey-box, and white-box spectrum, identify current methodological and reporting gaps, and outline future directions for trustworthy, clinically usable prognostic models in oncology.\nWe are currently completing data extraction and would welcome feedback from colleagues working in breast cancer prognosis, prediction modelling, oncology, or explainable/interpretable AI before we move to risk-of-bias assessment and evidence synthesis.\nThe full protocol, including the eligibility criteria, search strategy, and data extraction/appraisal plan, is attached to this post.\nWe would be grateful for comments on:\n• the review question and eligibility criteria (PICO); • the search strategy across PubMed, Scopus, IEEE Xplore, Google Scholar, and Research4Life; • the planned data extraction and risk-of-bias/quality appraisal tools, including CHARMS, PROBAST+AI, and TRIPOD+AI.\nPlease share any comments un…",
-      "published_at": "2026-07-05",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
     },
     {
       "title": "A new kind of AI that isn't an LLM — where does it belong on the Hub?",
@@ -1698,11 +1379,33 @@
       "macro_score": 0
     },
     {
+      "title": "Tutorials/examples of captum with 1D data?",
+      "url": "https://discuss.pytorch.org/t/tutorials-examples-of-captum-with-1d-data/225162",
+      "summary": "Hello all,\nI’m hoping to use captum for feature attribution on a basic 1-D linear regression model (see below), but all the examples I’ve seen use 2D models (usually for machine vision applications). Is there a good tutorial out there for using captum with simpler models?\nThanks!\nclass Regression(nn.Module):\n  def __init__(self):\n    super().__init__()\n    self.layers = nn.Sequential(\n      nn.Linear(7490, 64),\n      nn.ReLU(),\n      nn.Linear(64, 32),\n      nn.ReLU(),\n      nn.Linear(32, 1)\n    )\n  def forward(self, x):\n    '''\n      Forward pass\n    '''\n    return self.layers(x)\ndef training_loop(n_epochs, train_loader):\n# training loop\n    for epoch in range(n_epochs):\n        # Set current loss value\n        current_loss = 0.0\n        # Iterate over the DataLoader for training data\n        for i, data in enumerate(train_loader, 0):\n          # Get and prepare inputs\n          inputs, targets = data\n          inputs, targets = inputs.float(), targets.float()\n          targets = targets.reshape((targets.shape[0],1))\n            # Zero the gradients\n          optimizer.zero_grad()\n          # Perform forward pass\n          outputs = model(inputs)\n          # Compute loss\n          loss = loss_function(outputs, targets)\n          # Perform backward pass\n          loss.backward()\n          # Perform optimization\n          optimizer.step()\n    return model",
+      "published_at": "2026-07-09",
+      "source": "discuss.pytorch.org",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "NetworkError when attempting to fetch resource",
       "url": "https://discuss.huggingface.co/t/networkerror-when-attempting-to-fetch-resource/177669",
       "summary": "I’m trying to deploy an app to Hugging Face Spaces. I used AI to help me develop this app based on a Gradio app that I made that worked. I’m using a Static SDK with a Blank Template. This app requires a Hugging Face token. The app renders well, but after inputting a Read or Write Hugging Face token and trying to run the app, I get the following error:\nNetworkError when attempting to fetch resource.\nI’ve spent a day making the app and now another day trying to deploy it to Hugging Face! Any help would be appreciated.\nThanks!",
       "published_at": "2026-07-10",
       "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Fix gradient accumulation for DDP with static graph and no sync",
+      "url": "https://discuss.pytorch.org/t/fix-gradient-accumulation-for-ddp-with-static-graph-and-no-sync/225166",
+      "summary": "Hi all,\nI have a PR to fix a bug when DDP gradient accumulation is used with static_graph=True and no_sync. Can I get anyone to take a look at [DDP] Fix static_graph=True + no_sync() gradient accumulation regression by kasper0406 · Pull Request #187732 · pytorch/pytorch · GitHub ?\nI hit the bug executing some pytorch code on my workstation.",
+      "published_at": "2026-07-11",
+      "source": "discuss.pytorch.org",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -1797,6 +1500,17 @@
       "macro_score": 1
     },
     {
+      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
+      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
+      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I",
       "url": "https://discuss.huggingface.co/t/i-recently-again-documented-in-10-different-chats-that-chatgpt-again-switched-to-opposition-mode-whenever-i-ask-something-whenever-i-provide-my-md-whenever-i-conduct-research-whenever-i-share-my-insights-whenever-i-ask-it-to-develop-artifact-or-whenever-i/177679",
       "summary": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I Use Python Code It Starts Giving Opposition To Me Or Challenges Me And Most Of The Time It Did Counter Balancing With No Reason And Like A Salesman It Asks Unwanted Recommendations Or Offers To Me In The Chat How To Solve This I Have Been Already Trying Drift Prompts And Opposition Workarounds But Nothing Is Helping The Prompt Works For Only 5 Messages And ChatGPT Drifts The Task To A Debate And Never Finishes My First Task Instead It Creates A Meta-Task Which I Never Asked It To Do Can Somebody Help In This Or Provide Workarounds",
@@ -1812,6 +1526,17 @@
       "url": "https://discuss.huggingface.co/t/can-not-hf-hub-upload-to-static-space-payment-needed/177680",
       "summary": "Space is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?\nSpace is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?",
       "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Unexpected Link header injected into Space responses",
+      "url": "https://discuss.huggingface.co/t/unexpected-link-header-injected-into-space-responses/177658",
+      "summary": "I also did a little testing on my side, in case it helps narrow down the issue: (I’ll leave the rest to HF. @hysts )\nAssuming the added field is of this form:\nLink: <https://huggingface.co/spaces/OWNER/SPACE>; rel=\"canonical\"\nmy current reading would be:\n- \nIt does appear to be added after the application response somewhere in the public Spaces serving path. In a small controlled public Docker Space, the application emitted no Linkfield over an internal loopback request, while the corresponding public.hf.spaceresponse contained the Hub Space page asrel=\"canonical\".\n \n- \nThe header itself does not appear to be new. I found public response captures containing the same form as far back as October 2024. \n- \nIts likely role is URL canonicalization between the direct .hf.spacedeployment and the Hub Space page, but that purpose is an inference from the value and the standard meaning ofrel=\"canonical\". Only Hugging Face can confirm the actual intent and whether this is a supported contract or an implementation detail.\n \n- \nI could not find a documented Space setting that removes or overrides it. The current custom_headersdocumentation only allows COEP, COOP, and CORP headers. That is not proof that no support-side or internal option exists, only that there does not seem to be a documented public one.\n \n- \nI would not yet generalize this to every Space configuration. It is now directly reproducible on one public Docker Space, and similar fields have appeared in several older Gradio-re…",
+      "published_at": "2026-07-10",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1841,10 +1566,54 @@
       "macro_score": 1
     },
     {
+      "title": "Rethinking Transformer Architecture Through the Lens of Group Theory:",
+      "url": "https://discuss.huggingface.co/t/rethinking-transformer-architecture-through-the-lens-of-group-theory/177612",
+      "summary": "Abstract\nTransformer architectures have fundamentally changed the landscape of artificial intelligence by demonstrating remarkable abilities in language understanding, reasoning, and representation learning.\nHowever, a deeper question remains:\nWhat mathematical structures are hidden beneath learned representations?\nGroup theory provides one of the most powerful languages for describing structure in mathematics and physics. It studies transformations, symmetries, invariants, and representations — the fundamental concepts behind many physical theories and mathematical systems.\nThis article explores possible connections between group theory and Transformer architectures.\nWe do not claim that Transformers are literally implementations of group representations. Instead, we propose that several ideas from group theory — especially symmetry, representation spaces, and invariance — provide a useful conceptual framework for understanding how neural networks learn and organize information.\nFurthermore, we discuss a deeper question:\nCould future AI systems require not only larger representations, but representations that dynamically evolve through experience?\n1. Why Group Theory?\nThe central question of group theory is:\nWhat remains unchanged when something changes?\nA group describes transformations:\nDifferent transformations may change the appearance of a system while preserving deeper structures.\nExamples:\n- A rotated object changes its coordinates but keeps its identity.\n- A physical…",
+      "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Hugging Face Spaces proxy suddenly stripping Access-Control-Allow-Credentials header on OPTIONS preflight?",
       "url": "https://discuss.huggingface.co/t/hugging-face-spaces-proxy-suddenly-stripping-access-control-allow-credentials-header-on-options-preflight/177064",
       "summary": "Hmm… the symptom itself feels like an HF-side glitch, but I wonder if this series of glitches may be connected somehow:\njust in case, @hysts\nI cannot prove that this shares a root cause with other recent Spaces issues, so I would treat this only as a hypothesis.\nBut your specific CORS symptom looks suspicious in a useful way: the OPTIONS preflight response is not missing all CORS headers. It seems to include several CORS headers, but Access-Control-Allow-Credentials: true is missing even though your Express app is configured to return it.\nThat makes me wonder whether this particular OPTIONS path is being answered, normalized, cached, or rewritten before it reaches your container.\nThe first thing I would try to establish is:\n- does OPTIONS /user/loginshow up in your container logs?\n- if yes, does your container actually return Access-Control-Allow-Credentials: true?\n- if no, Spaces Proxy / edge logic may be answering the preflight itself\n- if yes but the browser/curl response does not receive it, something between the container and browser may be stripping or rewriting the header\nA direct preflight check would be useful:\ncurl -i -X OPTIONS \"https://<space-subdomain>.hf.space/user/login\" \\\n  -H \"Origin: https://<frontend-origin>\" \\\n  -H \"Access-Control-Request-Method: POST\" \\\n  -H \"Access-Control-Request-Headers: content-type\"\nFor credentialed CORS, I would expect the response to include something like:\nAccess-Control-Allow-Origin: https://<frontend-origin>\nAccess-Control-Allow…",
       "published_at": "2026-06-22",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Testing PPAI for mail service - research open for testers",
+      "url": "https://discuss.huggingface.co/t/testing-ppai-for-mail-service-research-open-for-testers/177515",
+      "summary": "Hi everyone \nI’m working on agent architectures for email workflows and I’d love to learn from people actually dealing with this in production (or trying to).\nIf you’re using agents to manage email — spam filtering, summarizing threads, drafting replies, keeping sales conversations alive, registering new customers into a CRM — what’s failing for you?\nCommon issues I keep hearing about:\n- Agents losing context across long threads\n- Hallucinated replies that damage customer trust\n- No persistent memory between sessions\n- Costs that scale badly with volume\nWe’ve been building PPAI, an architecture that handles these tasks with persistent state, and I’d genuinely like to test it against real problems — not demos. If you have a use case that’s breaking, tell me about it. Happy to run a pilot with someone who’s actively working on this.\nWhat are you using today, and where does it fall short?\n             \n            \n           \n          \n            \n            \n              To be honest, I’m not really sure I follow your point. What exactly is the goal here? You mentioned problems you’ve heard about, but not ones you’ve actually run into yourself. Also, is hallucination really an issue in sales conversations?\n             \n            \n           \n          \n            \n            \n              \"If you’re using agents to manage email — spam filtering, summarizing threads, drafting replies, keeping sales conversations alive, registering new customers into a CRM — what’s fai…",
+      "published_at": "2026-07-06",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Question about rerankers in knowledge graphs",
+      "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
+      "summary": "I was just thinking about trying out a new RAG approach that works similarly to LightRAG, but I can’t find anything about it online.\nThe documents or text sections are stored as nodes in a knowledge graph. A reranker is then used to retrieve documents based on a query. Subsequently, the query itself becomes a new node that immediately establishes a connection with the most similar nodes identified by the reranker.\nThis might offer the advantage that rerankers are more precise than, for instance, contextual RAG. In contrast, LLMs used for node extraction can only generate specific labels or keywords for nodes, which might be too coarse-grained.",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "How do you choose the right open-source LLM for a RAG (Retrieval-Augmented Generation) system?",
+      "url": "https://discuss.huggingface.co/t/how-do-you-choose-the-right-open-source-llm-for-a-rag-retrieval-augmented-generation-system/177609",
+      "summary": "If you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nChoose model that works good on long context.\nIf you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nChoose model that works good on long context.",
+      "published_at": "2026-07-09",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",

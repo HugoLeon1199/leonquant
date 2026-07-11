@@ -1,74 +1,8 @@
 {
-  "generated_at": "2026-07-11T14:34:59.159304+00:00",
-  "count": 27,
+  "generated_at": "2026-07-11T20:12:50.843973+00:00",
+  "count": 14,
   "source_error_count": 0,
   "articles": [
-    {
-      "title": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！",
-      "url": "https://www.qbitai.com/2026/07/447627.html",
-      "summary": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！\n开源第四弹：LingBot-VA 2.0\n金磊 发自 凹非寺\n量子位 | 公众号 QbitAI\n终于，那句用来教育年轻人的经典嗑，也是用到机器人身上了：\n你们啊，\n眼光得放长远点~~[看]\n为啥？\n因为一个靠谱的机器人啊，它不能只是看到什么就做什么，现在还得学会预判未来——\n眼睛是看到了当下的这一帧，但脑子应该在盘算几步之后的画面了。\n这个事儿在具身智能圈有个专门的名字，叫做VA（Video-Action）模型。\n咱们先来感受一下这个feel：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n从视频中我们不难看出，桌上的冰球不仅速度快，轨迹还在不断变化，如果机器人只靠”看到哪打到哪”的反应式操作，大概率要被KO掉的。\n正确的解法，应该是模型一边盯着球的运动轨迹，一边提前预判几步之后球会跑到哪，然后提前调整身位、伸拍。\n这就是“预判式控制”和“反应式控制”的本质区别。\n不过啊，就在今天，VA这件事儿本身也要变了。\n因为从现在起，VA模型不仅要“眼光放长远”，还得从娘胎里就是具身的！\n这就是蚂蚁灵波刚刚发布的LingBot-VA 2.0，全球第一个具身原生的预训练VA基座模型。\n从架构，到数据，再到训练目标，第一天起就是为机器人量身定制的。\n除此之外，其它亮点还包括：\n- 双臂任务成功率93.6%\n- 单GPU推理150Hz\n- 因果DiT+稀疏MoE主干\n和前几天蚂蚁灵波三连弹开源+发布一样，LingBot-VA 2.0一经发布，同样引发了不小的热议，网友们纷纷表示：\n机器人技术正在迈入一个新时代。\n天生“预言家”的机器人\n看完上面这段冰球对战之后，有小伙伴可能会好奇了：LingBot-VA 2.0的这种预判能力，扛不扛得住更复杂的真实任务？\n巧了。\n研究团队在真实机器人身上还做了几组不同维度的测试，可以看出VA模型会先在脑子里做预判，把动作建立在对物理动态的预测之上。\n任务一：整理桌面\n面对一张东西摆得乱七八糟的桌子，机器人要先看懂桌上有哪些物体，哪些应该被移动，移动到哪里。\n我们来看下LingBot-VA 2.0的表现：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这项任务背后考验的，是模型对长时间跨度任务的状态维持能力；若是记性不好的话，机器人很可能收拾到一半就忘了自己刚刚收拾到了哪一步。\nLingBot-VA 2.0的高维planner面对任务会首先做一个任务拆解，比如左臂负责收拾垃圾归位，右臂把笔和鼠标等文具复位，双臂并行推进还要避免空间冲突。\n视频预测分支天然携带时序状态记忆，每一步操作后的桌面新状态都在模型预测范围内，不会出现“断片”返工。\n语义视觉-动作分词器让视觉latent同时对齐语义信息，物体类别与目标位置的理解在长序列中保持稳定。\n从最终效果看，机器人顺利完成了全桌面整理，说明LingBot-VA 2.0完全可以应对更接近真实生活的长程操作。\n任务二：传送带抓取\n这次任务的场景更接近工厂、仓储里的真实作业。\n物体在传送带上持续移动，机器人要抓的不是一个静止的目标，而是一个正在移动的目标。\n这就要求动作的时间节奏必须和物体的运动节奏严丝合缝地对上，早一点或晚一点，抓取动作都可能扑空。\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这个任务考验的是机器人对连续运动场景…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布",
-      "url": "https://www.qbitai.com/2026/07/447681.html",
-      "summary": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布\nagent时代来了\n7月10日，从百度AIDAY上获悉，百度旗下通用智能体百度搭子自上线以来，日均提问次数暴增20倍，为用户在办公、创作、信息处理等场景提供全方位智能助力，成为增速最快的通用智能体。当天，百度搭子个人版也重磅升级智能路由、多端共享记忆、浏览器调用、PPT生成等多项能力，并发布行业首个自媒体专业套件，进一步提升干活能力。同时，百度搭子企业版也正式发布，通过叠加团队协作、资产沉淀、流程打通和安全治理等能力，全面支持企业场景落地。\n百度集团执行副总裁、百度智能云事业群总裁沈抖在现场表示，未来90%的工作，都可能有智能体深度参与、协助完成，百度搭子要做的，就是深入办公场景真干活、真办事儿；用户只要把目标说清楚，它就能理解需求、拆解任务、调用工具，完成跨应用、跨文件的复杂工作，最后交付真正可用的结果，而真正有用的智能体，表面是一个产品，背后是一整套全栈AI能力，百度长期积累的芯片、云、模型、数据、工程和产业落地能力，正在支撑百度搭子持续进化。\n在个人版能力升级上，百度搭子此次重点提升复杂办公任务的执行效率、跨端连续性和成果交付质量。面对资料检索、竞品调研、网页信息整理等任务，百度搭子可以像人一样进入网页、点击、跳转、检索和整理信息，用户也能看到AI在网页上的执行过程；如果任务需要更高算力、更低延迟或更强数据安全，百度搭子会通过智能路由自动选择云端沙箱、本地沙箱或Chat模式，平均任务耗时降低20%，Token利用率提升25%。同时，多端共享记忆让手机和电脑之间的任务上下文连续承接，用户在电脑上处理到一半的方案、报告或资料整理任务，可以在手机端继续追问、修改或下载结果。\n办公场景是此次升级的重点落点。围绕方案汇报、项目复盘、研究报告等高频任务，百度搭子强化了PPT生成能力，从模板库、配图模型、智能排版、图表可视化到大纲编排进行优化，输出结果更接近可编辑、可修改、可交付的办公成品。面向内容创作者和新媒体运营，百度搭子还发布行业首个自媒体专业套件，覆盖选题规划、热点洞察、图文创作、短视频脚本、分镜口播、内容发布辅助和运营复盘等环节，把原本分散在多个平台和工具中的内容工作流压缩进一个对话流。与此同时，百度搭子继续扩展Skill生态，覆盖搜索研究、生活服务、内容创作、办公协作等场景，并通过全自动化Skill上线流程，对能力上架前的开发标准、管理平台、安全评估、效果评估和市场化运营进行统一管理。\n企业版则把百度搭子的能力从个人办公延展到团队协作和企业工作流。企业版面向团队协作、资产沉淀、流程打通和安全治理等企业需求，支持将员工产生的方案、数据、技能和项目成果沉淀为组织资产，并对成员权限、资源用量、Skill上下架和执行过程进行管理。同时，企业版发布企业级Skill接入标准，面向企业和ISV伙伴共建行业解决方案。\n同日发布的搭子联盟，面向渠道伙伴、商机伙伴、产品伙伴、交付保障伙伴等开放合作。中国联通、创维等伙伴参与共建，推动百度搭子进入更多企业服务和产业应用场景。\n发布会之外，百度搭子当天还在成都举办搭子市集，吸引了上千市民围观。现场由Rapper用百度搭子辅助创作的Rap开场，工作搭子、世界杯搭子、搭子棋牌室、福利搭子和伙伴展台等体验区同步开放。观众可以现场体验百度搭子辅助完成资料整理、PPT制作、网页操作、内容创作等任务，也可以参与世界杯主题打卡、AI棋牌互动和福利兑换。市集中的PPT搭子大赛则把办公任务做成现场挑战，参赛者抽取任务卡后，用百度搭子完成PPT、方案、报告或内容策划，作品…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名",
-      "url": "https://www.qbitai.com/2026/07/447682.html",
-      "summary": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名\n就在下周，世界人工智能大会就要在上海启动了。\n每年这种重磅的AI大会，量子位自然不会缺席。今年量子位的报道团，也会来到线下，为大家带来一手的科技大会讯息。\n但在展台之外，我们想办一场“真话局”。\nWAIC的展台会告诉你AI有多聪明：更强的模型、更炫的Demo、更多的人形机器人。\n但我们想要追问一个问题：\nAI聪明够了，行动呢？\nAgent在Demo里调用工具行云流水，但有多少进了客户的核心流程？世界模型把仿真精度推到再高，机器人第一次进工厂时，剩下的发生了什么？\n从“会回答”到“能完成”，从“预测”到“执行”，这是今年WAIC背后的现实考题。\n7月17日19:30，上海浦东。让我们一起关掉PPT、跳出展台，来与Builder、Researcher、Investor一起，提前理解AI的下一步。\n活动议程\n19:30 – 20:00\n签到 & 交个朋友\n20:00 – 20:30\n主题：Agent从聊天框到正式上岗了吗？\n分享嘉宾：\n张昊然，Evomap 创始人&CEO\n李志宇，记忆张量 CTO\n20:30 – 21:00\n主题：模型能从Github到与世界交互了吗？\n分享嘉宾：\n梁鼎，VAST CTO\n陆弘远，脸谱心智创始人\n21:00 – 21:30\n自由交流\n报名方式\n- 7月17日 晚19:30\n- 上海浦东·咖啡馆\n报名链接：https://hdxu.cn/1KEE3\n7月17日19:30，关掉PPT、跳出展台。\n让我们一起提前理解AI的下一步。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
-      "url": "https://www.qbitai.com/2026/07/447691.html",
-      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "一群做自动驾驶的人，盯上了睡眠这件事",
-      "url": "https://www.qbitai.com/2026/07/447796.html",
-      "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放",
-      "url": "https://www.qbitai.com/2026/07/447832.html",
-      "summary": "AI生物研发进入“操作系统时代”，许锦波团队MoleculeOS正式开放\nAI变为研发流程的“组织者”\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\nAI生物研发，正在迎来它的“Windows时刻”。\n过去，AI是帮科学家做结构预测、抗体设计的“单点工具”；而现在，它正演变为统领全局的“操作系统”。\n7月2日，在2026上海国投前沿论坛上，分子之心创始人许锦波教授正式面向产业界开放其自研的AI原生生物经济操作系统——MoleculeOS（MOS）。\n这不仅是一个系统的发布，更释放出一个明确的信号：\n生物领域的研发基础设施，正在被重新定义。\n在这里，AI的角色从生物规律的“预测者”，蜕变为研发流程的“组织者”。\n传统的“筛选试错”式的分子发现正步入历史，一个更具确定性的“分子创造”时代，正由这款AI原生操作系统正式开启。\n试用入口：https://mos.moleculemind.com/login\n从工具智能到系统智能：重构AI制药与生物制造的研发模式\n过去几年，AI在蛋白质结构预测、抗体设计、分子生成和功能优化等方向不断突破，证明了算法理解生命科学的巨大潜力。\n但在真实产业场景中，模型突破并不等于研发效率跃迁。\n一个典型的大分子研发任务，往往涉及靶点分析、序列建模、结构预测、结合界面判断、突变设计、亲和力评估、稳定性评估、可开发性分析和实验验证等众多环节。\n过去，这些环节分散在不同工具和团队之间，研发人员需要手动调度流程，结果也难以统一沉淀。\n传统“工具栈+人工调度”模式，正成为AI技术向产业价值转化的核心瓶颈。\nMoleculeOS是一个面向生物研发的AI操作系统。\n它基于分子之心自研的AI模型体系，以项目目标为入口，AI通过自主理解使用者的生物学意图，自动拆解任务、统一调度系列模型、执行结构预测、分子设计等任务，经过多维度科学评估给出决策建议，并沉淀可追踪、可复盘的研发链路。\n试用入口：https://mos.moleculemind.com/login\nMoleculeOS的核心变化，是把“研发意图”作为系统入口。\n研究人员不再只是上传一个序列或结构文件执行单一预测任务，而是直接提出目标：例如提升抗体亲和力、或针对特定靶点生成候选分子。\n系统会围绕目标自动拆解任务，在统一的生物物理上下文中调度模型，完成从结构预测到推荐候选分子及下一步决策建议的系统性任务。\n这意味着，AI不再只是执行单步计算，而是开始组织完整研发流程。\n过去高度依赖个人经验的判断过程，也可以被系统记录为可追踪、可复盘、可复用的研发资产。\n对于企业而言，这种变化不仅是效率提升，更意味着研发体系开始具备更强的标准化、协同化和可扩展能力。\n更重要的是，MoleculeOS将每一次从研发意图到最终结论的完整链路，自动沉淀为结构化研发资产。\n当团队启动下一个项目时，历史项目的计算参数、筛选逻辑和决策依据都可以被调用——\n研发不再是从零开始的重复劳动，而是在一套持续积累的体系中加速。\n这正是操作系统区别于工具集的根本所在。\n自研模型集群构筑底层能力：从理解生命规律到设计功能分子\nMoleculeOS的底层能力，来自分子之心在蛋白质基础大模型、蛋白质结构预测和分子设计方向的长期积累。\n围绕“序列—结构—功能—进化—相互作用—生成设计”，分子之心团队构建了覆盖全流程的自研模型体系，包括：\n- 多模态蛋白质基础大模型NewOrigin（达尔文）\n- 全原子大分子复合物结构预测模型（MMFold）\n- 面向纳米抗体、酶和功能蛋白的生成式设计模型（MMDesign）\n在结构预测方向，分…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
     {
       "title": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审",
       "url": "https://www.qbitai.com/2026/07/447846.html",
@@ -114,17 +48,6 @@
       "macro_score": 0
     },
     {
-      "title": "Adding an end-to-end example: from locally-served model to agentic flow orchestration",
-      "url": "https://forum.langchain.com/t/adding-an-end-to-end-example-from-locally-served-model-to-agentic-flow-orchestration/4132",
-      "summary": "Hi community,\nSpeaking as an agentic-application developer myself: I keep meeting people who want to adopt LangGraph with their own self-served local models and custom services, and they can’t see how the layers relate. I often see questions like “how can I run LangGraph on CUDA?”, “does Intel GPU support LangGraph?”, or “how can I use my own models served by vLLM/SGLang for a LangGraph app?”\nWe all know LangGraph is an agent-graph / state-management framework and doesn’t sit at the serving or hardware layers, but newcomers often don’t get how these connect.\nI think it would help to have one notebook example showing the full end-to-end pipeline (serve a local model + custom tool/service + tool-calling agent + LangGraph ochestration), to give newcomers clear context and encourage adoption. If one already exists and I missed it, I’d appreciate a pointer. If not, I’m happy to contribute one.\nHappy to hear your thoughts!",
-      "published_at": "2026-07-10",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Architectural Pattern: Synchronous Pre-Call Spend Gates in Stateful GraphsBody:",
       "url": "https://forum.langchain.com/t/architectural-pattern-synchronous-pre-call-spend-gates-in-stateful-graphsbody/4136",
       "summary": "Hey everyone,\nI wanted to outline an architectural pattern for enforcing financial compliance and hard budget caps within stateful workflows, specifically designed to bypass the limitations of reactive cost-tracking or post-execution callbacks (which catch loop exceptions only after money has been spent).\nWhen an agent gets stuck in a recursive node loop or tool-parsing exception, it can exhaust API budgets rapidly. Enforcing budget checks globally can corrupt thread boundaries or add immense overhead.\nTo resolve this, I’ve been experimenting with an upstream middleware pattern that executes synchronously right before an external tool or LLM network call fires, tracking decisions via an isolated, append-only cryptographic ledger to preserve tamper-evidence:\n[Node Workflow Execution] ──► (Sync checkSpend Request) ──► [Pre-Call Spend Gate]\n                                                                    │\n                            ┌────────────────────────────────────────┴─────┐\n                            ▼ (if Approved)                                ▼ (if Denied)\n                 [Write Approved Ledger Entry]                  [Write Denied Ledger Entry]\n                            │                                              │\n                            ▼                                              ▼\n               [Execute External API / Tool]                     [Halt Graph Execution]\nCryptographic State Boundary Definition:\nTo ensure historical decisions cannot b…",
@@ -156,83 +79,6 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
-    },
-    {
-      "title": "Epistemic Stress Test — Muse Spark 1.1 validated by MarCognity-AI",
-      "url": "https://discuss.huggingface.co/t/epistemic-stress-test-muse-spark-1-1-validated-by-marcognity-ai/177655",
-      "summary": "I ran responses generated by the model and passed them through\nMarCognity-AI’s Skeptical Agent.\nNot to judge the models.\nNot to compare outputs.\nBut to make visible what usually stays hidden: the gap between how confident a text sounds and how verifiable it actually is.\nEven technically correct answers contain claims that cannot be traced back to any source.\nThat gap has a name: Epistemic Fracture.\nGithub: https://github.com/elly99-AI/MarCognity-AI.git\nZenodo: https://doi.org/10.5281/zenodo.20509721",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Building a Centralized Vector Database Pipeline for Multi-Project RAG",
-      "url": "https://discuss.huggingface.co/t/building-a-centralized-vector-database-pipeline-for-multi-project-rag/177657",
-      "summary": "How I built a single, admin-controlled service that lets every project in my organization embed and retrieve data from its own isolated vector store\nIf you’ve worked on more than one Retrieval-Augmented Generation (RAG) project, you’ve probably run into the same annoying pattern: every project ends up with its own little vector store, its own embedding logic, its own duplicate code for chunking files, and its own inconsistent way of tracking what’s actually been indexed.\nI got tired of that, so I built a centralized vector database service that every project in my organization can plug into. One backend, one embedding model, one clean set of endpoints — and every project gets its own isolated, admin-controlled storage space.\nHere’s how it works.\nThe Problem\nWhen you’re running multiple RAG-powered projects at once, a few pain points show up fast:\n- Every team reinvents chunking and embedding logic\n- There’s no single place to see what data lives where\n- Deleting or updating stored documents becomes a manual, error-prone process\n- Nobody has a clear picture of which files are indexed in which project\nI wanted one system that solves this once, for everyone.\nThe Idea: One Service, Many Isolated Databases\nInstead of giving each project its own standalone vector database, I built a shared service where:\n- Each project gets its own named storage directory\n- All directories live under one base storage path\n- An admin layer controls the full lifecycle — create, insert, update, delete…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Hardware quota limit reached during Agents Course despite only 0 active Spaces",
-      "url": "https://discuss.huggingface.co/t/hardware-quota-limit-reached-during-agents-course-despite-only-0-active-spaces/177649",
-      "summary": "I’m doing the free Agents Course and getting ‘Space Paused — You’ve reached your hardware quota limit across all your Spaces!’ despite only having 1 active Space. I’ve paused all other Spaces. This seems like a quota accounting bug. Can someone check my account?\nMaybe not account issue… See Docker SDK now marked as \"Paid\" when creating a new Space? - #5 by nurssssky",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Unexpected Link header injected into Space responses",
-      "url": "https://discuss.huggingface.co/t/unexpected-link-header-injected-into-space-responses/177658",
-      "summary": "I also did a little testing on my side, in case it helps narrow down the issue: (I’ll leave the rest to HF. @hysts )\nAssuming the added field is of this form:\nLink: <https://huggingface.co/spaces/OWNER/SPACE>; rel=\"canonical\"\nmy current reading would be:\n- \nIt does appear to be added after the application response somewhere in the public Spaces serving path. In a small controlled public Docker Space, the application emitted no Linkfield over an internal loopback request, while the corresponding public.hf.spaceresponse contained the Hub Space page asrel=\"canonical\".\n \n- \nThe header itself does not appear to be new. I found public response captures containing the same form as far back as October 2024. \n- \nIts likely role is URL canonicalization between the direct .hf.spacedeployment and the Hub Space page, but that purpose is an inference from the value and the standard meaning ofrel=\"canonical\". Only Hugging Face can confirm the actual intent and whether this is a supported contract or an implementation detail.\n \n- \nI could not find a documented Space setting that removes or overrides it. The current custom_headersdocumentation only allows COEP, COOP, and CORP headers. That is not proof that no support-side or internal option exists, only that there does not seem to be a documented public one.\n \n- \nI would not yet generalize this to every Space configuration. It is now directly reproducible on one public Docker Space, and similar fields have appeared in several older Gradio-re…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "Calling Wrangler from Docker Space fails to connect, Same with Node fetch to Cloudflare",
-      "url": "https://discuss.huggingface.co/t/calling-wrangler-from-docker-space-fails-to-connect-same-with-node-fetch-to-cloudflare/177643",
-      "summary": "Weird… For now, I also ran a small experiment in a private Space:\nI do not see a documented Docker-Space-specific build step that should be required here. Hugging Face documents outbound requests over standard HTTP/HTTPS ports 80 and 443, and Cloudflare documents Pages Direct Upload as a workflow for uploading prebuilt assets from an external build platform using Wrangler. See HF Spaces networking and Cloudflare Pages Direct Upload.\nAt the same time, the current evidence is not enough to say that Hugging Face is intentionally blocking Cloudflare.\nWhat I observed in a separate private Docker Space makes this look less like a Wrangler, API-token, or Pages-project configuration problem, and more like a destination/path-specific connectivity problem somewhere between the Space egress and Cloudflare:\n- A public GitHub HTTPS control returned HTTP 200.\n- Both api.cloudflare.comandwww.cloudflare.comfailed.\n- The failure was not limited to Wrangler or Node fetch(): Node, Python, curl, OpenSSL, and direct socket/TLS checks all showed the same general Cloudflare-specific problem.\n- DNS resolution worked.\n- For the Cloudflare IPv4 addresses sampled by the direct socket tests, the raw TCP connection completed within a few milliseconds, but the TLS handshake did not complete.\n- No HTTP response was received from Cloudflare, so the API token, account ID, Pages permissions, and project name had not yet been evaluated.\n- Proxy environment variables were not set, and there was no 10-second-sca…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "NetworkError when attempting to fetch resource",
-      "url": "https://discuss.huggingface.co/t/networkerror-when-attempting-to-fetch-resource/177669",
-      "summary": "I’m trying to deploy an app to Hugging Face Spaces. I used AI to help me develop this app based on a Gradio app that I made that worked. I’m using a Static SDK with a Blank Template. This app requires a Hugging Face token. The app renders well, but after inputting a Read or Write Hugging Face token and trying to run the app, I get the following error:\nNetworkError when attempting to fetch resource.\nI’ve spent a day making the app and now another day trying to deploy it to Hugging Face! Any help would be appreciated.\nThanks!",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "\"Zero GPU\" limit reached even through FAILED attempts?",
-      "url": "https://discuss.huggingface.co/t/zero-gpu-limit-reached-even-through-failed-attempts/177659",
-      "summary": "Hi, I’m new here. I wanted to try some image/video generation/edits online and I know the limits here are very strict, but I’m confused that even failed attempts through errors/bugged generators seems to count to this notorious “Zero GPU” limits. So it wasted valuable GPU time and I still did not get a result at the end… that is not fair. It is like driving blindfolded with tied hands not knowing where you go. Is there not a more clever way to distinguish bugged/failed image/video generation from successful generation? Why is this mixed all together with the rough sledgehammer method? Now I have to wait 24h for nothing, depressing.\nOh. Basically, ZeroGPU quota is consumed on a reservation basis. Unless the author of that ZeroGPU Space explicitly sets another value in code, each call requests the default 60-second reservation. A failed generation, or one whose actual inference finishes much faster, does not retroactively change the size of that reservation. This follows from the core way ZeroGPU works and is one of the structural trade-offs behind making this class of GPU access affordable, so applying a purely mechanical refund to every failed attempt would be much harder than it sounds.\nThat said, I think your frustration is completely understandable from the user side.\nYou interact with an image/video generator, so it is natural to think that the quota is paying for a successfully generated image or video. If the page returns an error and gives you nothing, it feels as thou…",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
     },
     {
       "title": "Severe Throttling/Instability downloading GGUF via Telmex ISP in Northwest Mexico",
@@ -299,6 +145,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
+    },
+    {
+      "title": "Question about rerankers in knowledge graphs",
+      "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
+      "summary": "I was just thinking about trying out a new RAG approach that works similarly to LightRAG, but I can’t find anything about it online.\nThe documents or text sections are stored as nodes in a knowledge graph. A reranker is then used to retrieve documents based on a query. Subsequently, the query itself becomes a new node that immediately establishes a connection with the most similar nodes identified by the reranker.\nThis might offer the advantage that rerankers are more precise than, for instance, contextual RAG. In contrast, LLMs used for node extraction can only generate specific labels or keywords for nodes, which might be too coarse-grained.",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     }
   ],
   "errors": [],
@@ -306,7 +163,7 @@
     "kind": "leon_web_intel_scrapy",
     "db": "/home/runner/work/leonquant/leonquant/tech/data/web_intel_tech.duckdb",
     "export": "today",
-    "date": "2026-07-11",
+    "date": "2026-07-12",
     "timezone": "Asia/Ho_Chi_Minh",
     "recent_calendar_days": 2
   }
