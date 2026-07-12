@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-11T20:12:50.863896+00:00",
-  "count": 147,
+  "generated_at": "2026-07-12T04:44:05.342250+00:00",
+  "count": 148,
   "source_error_count": 0,
   "articles": [
     {
@@ -1005,31 +1005,20 @@
       "macro_score": 1
     },
     {
-      "title": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！",
-      "url": "https://www.qbitai.com/2026/07/447627.html",
-      "summary": "全球首个「具身原生」预训练模型发布，从物理世界出发为机器人造大脑！\n开源第四弹：LingBot-VA 2.0\n金磊 发自 凹非寺\n量子位 | 公众号 QbitAI\n终于，那句用来教育年轻人的经典嗑，也是用到机器人身上了：\n你们啊，\n眼光得放长远点~~[看]\n为啥？\n因为一个靠谱的机器人啊，它不能只是看到什么就做什么，现在还得学会预判未来——\n眼睛是看到了当下的这一帧，但脑子应该在盘算几步之后的画面了。\n这个事儿在具身智能圈有个专门的名字，叫做VA（Video-Action）模型。\n咱们先来感受一下这个feel：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n从视频中我们不难看出，桌上的冰球不仅速度快，轨迹还在不断变化，如果机器人只靠”看到哪打到哪”的反应式操作，大概率要被KO掉的。\n正确的解法，应该是模型一边盯着球的运动轨迹，一边提前预判几步之后球会跑到哪，然后提前调整身位、伸拍。\n这就是“预判式控制”和“反应式控制”的本质区别。\n不过啊，就在今天，VA这件事儿本身也要变了。\n因为从现在起，VA模型不仅要“眼光放长远”，还得从娘胎里就是具身的！\n这就是蚂蚁灵波刚刚发布的LingBot-VA 2.0，全球第一个具身原生的预训练VA基座模型。\n从架构，到数据，再到训练目标，第一天起就是为机器人量身定制的。\n除此之外，其它亮点还包括：\n- 双臂任务成功率93.6%\n- 单GPU推理150Hz\n- 因果DiT+稀疏MoE主干\n和前几天蚂蚁灵波三连弹开源+发布一样，LingBot-VA 2.0一经发布，同样引发了不小的热议，网友们纷纷表示：\n机器人技术正在迈入一个新时代。\n天生“预言家”的机器人\n看完上面这段冰球对战之后，有小伙伴可能会好奇了：LingBot-VA 2.0的这种预判能力，扛不扛得住更复杂的真实任务？\n巧了。\n研究团队在真实机器人身上还做了几组不同维度的测试，可以看出VA模型会先在脑子里做预判，把动作建立在对物理动态的预测之上。\n任务一：整理桌面\n面对一张东西摆得乱七八糟的桌子，机器人要先看懂桌上有哪些物体，哪些应该被移动，移动到哪里。\n我们来看下LingBot-VA 2.0的表现：\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这项任务背后考验的，是模型对长时间跨度任务的状态维持能力；若是记性不好的话，机器人很可能收拾到一半就忘了自己刚刚收拾到了哪一步。\nLingBot-VA 2.0的高维planner面对任务会首先做一个任务拆解，比如左臂负责收拾垃圾归位，右臂把笔和鼠标等文具复位，双臂并行推进还要避免空间冲突。\n视频预测分支天然携带时序状态记忆，每一步操作后的桌面新状态都在模型预测范围内，不会出现“断片”返工。\n语义视觉-动作分词器让视觉latent同时对齐语义信息，物体类别与目标位置的理解在长序列中保持稳定。\n从最终效果看，机器人顺利完成了全桌面整理，说明LingBot-VA 2.0完全可以应对更接近真实生活的长程操作。\n任务二：传送带抓取\n这次任务的场景更接近工厂、仓储里的真实作业。\n物体在传送带上持续移动，机器人要抓的不是一个静止的目标，而是一个正在移动的目标。\n这就要求动作的时间节奏必须和物体的运动节奏严丝合缝地对上，早一点或晚一点，抓取动作都可能扑空。\n视频地址：\nhttps://mp.weixin.qq.com/s/BbgMERwM08nKqwv2ydcxHA\n这个任务考验的是机器人对连续运动场景…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布",
-      "url": "https://www.qbitai.com/2026/07/447681.html",
-      "summary": "日均提问次数暴增 20 倍！百度搭子宣布重磅升级，企业版同步发布\nagent时代来了\n7月10日，从百度AIDAY上获悉，百度旗下通用智能体百度搭子自上线以来，日均提问次数暴增20倍，为用户在办公、创作、信息处理等场景提供全方位智能助力，成为增速最快的通用智能体。当天，百度搭子个人版也重磅升级智能路由、多端共享记忆、浏览器调用、PPT生成等多项能力，并发布行业首个自媒体专业套件，进一步提升干活能力。同时，百度搭子企业版也正式发布，通过叠加团队协作、资产沉淀、流程打通和安全治理等能力，全面支持企业场景落地。\n百度集团执行副总裁、百度智能云事业群总裁沈抖在现场表示，未来90%的工作，都可能有智能体深度参与、协助完成，百度搭子要做的，就是深入办公场景真干活、真办事儿；用户只要把目标说清楚，它就能理解需求、拆解任务、调用工具，完成跨应用、跨文件的复杂工作，最后交付真正可用的结果，而真正有用的智能体，表面是一个产品，背后是一整套全栈AI能力，百度长期积累的芯片、云、模型、数据、工程和产业落地能力，正在支撑百度搭子持续进化。\n在个人版能力升级上，百度搭子此次重点提升复杂办公任务的执行效率、跨端连续性和成果交付质量。面对资料检索、竞品调研、网页信息整理等任务，百度搭子可以像人一样进入网页、点击、跳转、检索和整理信息，用户也能看到AI在网页上的执行过程；如果任务需要更高算力、更低延迟或更强数据安全，百度搭子会通过智能路由自动选择云端沙箱、本地沙箱或Chat模式，平均任务耗时降低20%，Token利用率提升25%。同时，多端共享记忆让手机和电脑之间的任务上下文连续承接，用户在电脑上处理到一半的方案、报告或资料整理任务，可以在手机端继续追问、修改或下载结果。\n办公场景是此次升级的重点落点。围绕方案汇报、项目复盘、研究报告等高频任务，百度搭子强化了PPT生成能力，从模板库、配图模型、智能排版、图表可视化到大纲编排进行优化，输出结果更接近可编辑、可修改、可交付的办公成品。面向内容创作者和新媒体运营，百度搭子还发布行业首个自媒体专业套件，覆盖选题规划、热点洞察、图文创作、短视频脚本、分镜口播、内容发布辅助和运营复盘等环节，把原本分散在多个平台和工具中的内容工作流压缩进一个对话流。与此同时，百度搭子继续扩展Skill生态，覆盖搜索研究、生活服务、内容创作、办公协作等场景，并通过全自动化Skill上线流程，对能力上架前的开发标准、管理平台、安全评估、效果评估和市场化运营进行统一管理。\n企业版则把百度搭子的能力从个人办公延展到团队协作和企业工作流。企业版面向团队协作、资产沉淀、流程打通和安全治理等企业需求，支持将员工产生的方案、数据、技能和项目成果沉淀为组织资产，并对成员权限、资源用量、Skill上下架和执行过程进行管理。同时，企业版发布企业级Skill接入标准，面向企业和ISV伙伴共建行业解决方案。\n同日发布的搭子联盟，面向渠道伙伴、商机伙伴、产品伙伴、交付保障伙伴等开放合作。中国联通、创维等伙伴参与共建，推动百度搭子进入更多企业服务和产业应用场景。\n发布会之外，百度搭子当天还在成都举办搭子市集，吸引了上千市民围观。现场由Rapper用百度搭子辅助创作的Rap开场，工作搭子、世界杯搭子、搭子棋牌室、福利搭子和伙伴展台等体验区同步开放。观众可以现场体验百度搭子辅助完成资料整理、PPT制作、网页操作、内容创作等任务，也可以参与世界杯主题打卡、AI棋牌互动和福利兑换。市集中的PPT搭子大赛则把办公任务做成现场挑战，参赛者抽取任务卡后，用百度搭子完成PPT、方案、报告或内容策划，作品…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名",
       "url": "https://www.qbitai.com/2026/07/447682.html",
       "summary": "AI聪明够了，行动呢？WAIC首夜，来聊点下一步的真实判断｜活动报名\n就在下周，世界人工智能大会就要在上海启动了。\n每年这种重磅的AI大会，量子位自然不会缺席。今年量子位的报道团，也会来到线下，为大家带来一手的科技大会讯息。\n但在展台之外，我们想办一场“真话局”。\nWAIC的展台会告诉你AI有多聪明：更强的模型、更炫的Demo、更多的人形机器人。\n但我们想要追问一个问题：\nAI聪明够了，行动呢？\nAgent在Demo里调用工具行云流水，但有多少进了客户的核心流程？世界模型把仿真精度推到再高，机器人第一次进工厂时，剩下的发生了什么？\n从“会回答”到“能完成”，从“预测”到“执行”，这是今年WAIC背后的现实考题。\n7月17日19:30，上海浦东。让我们一起关掉PPT、跳出展台，来与Builder、Researcher、Investor一起，提前理解AI的下一步。\n活动议程\n19:30 – 20:00\n签到 & 交个朋友\n20:00 – 20:30\n主题：Agent从聊天框到正式上岗了吗？\n分享嘉宾：\n张昊然，Evomap 创始人&CEO\n李志宇，记忆张量 CTO\n20:30 – 21:00\n主题：模型能从Github到与世界交互了吗？\n分享嘉宾：\n梁鼎，VAST CTO\n陆弘远，脸谱心智创始人\n21:00 – 21:30\n自由交流\n报名方式\n- 7月17日 晚19:30\n- 上海浦东·咖啡馆\n报名链接：https://hdxu.cn/1KEE3\n7月17日19:30，关掉PPT、跳出展台。\n让我们一起提前理解AI的下一步。\n版权所有，未经授权不得以任何形式转载及使用，违者必究。\n            - 2026年世界人工智能大会，7月17-7月20上海举办2026-07-09\n- 行业首个具身原生世界动作模型来了！蚂蚁灵波发布LingBot-VA 2.02026-07-10\n- 第十一届中国航空创新创业大赛报名开启｜熵跃苍穹 无界新元2026-07-09\n- 获联合国机构点赞！天立启鸣“AI+教育”方案入选AI for Good2026-07-09",
+      "published_at": "2026-07-10",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
+      "url": "https://www.qbitai.com/2026/07/447691.html",
+      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
       "published_at": "2026-07-10",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1049,39 +1038,6 @@
       "macro_score": 0
     },
     {
-      "title": "Workflows for work that runs the business | Mistral AI",
-      "url": "https://mistral.ai/news/workflows/",
-      "summary": "Today, we're releasing Workflows in public preview. Workflows is the orchestration layer for enterprise AI. It brings the durability, observability, and fault tolerance required to move AI-powered processes from proof of concept to production reliably. Organizations like ASML, ABANCA, CMA-CGM, France Travail, La Banque Postale, Moeve, and many more are already running Workflows to automate critical processes.\nEnterprise teams today have access to capable models. What they lack is a way to run them reliably in production. We see this across every industry we work with. The failure modes are consistent: pipelines that run in a notebook but fail silently in production with no trace, long-running processes that can't survive a network timeout, multi-step operations that need human approval mid-execution but have no mechanism to pause and resume, and systems that offer no way to verify they're still doing what they're supposed to after deployment.\nBuilding all of the capabilities to address these challenges is months of complex work for enterprises: the orchestration layer has to be stitched together from scratch, and the components it connects, inference, agents, connectors, observability, each come from different tools with their own interfaces and formats.\nWorkflows is part of Studio, so the orchestration layer and the components it orchestrates are built to work together. Once a business process is identified, developers write the workflow in Python. Every workflow can then be…",
-      "published_at": "2026-04-27",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了",
-      "url": "https://www.qbitai.com/2026/07/447691.html",
-      "summary": "GPT-5.6一发布，Claude终于舍得重置Fable 5额度了\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nOpenAI诚不欺我…今天凌晨，GPT-5.6正式来了！\n奥特曼表示：这是OpenAI迄今最强模型，GPT-5.6的技术博客也可能是他们写过最好的blog之一。\n好家伙，模型要SOTA，连blog也要SOTA呗（\n目前ChatGPT、Codex以及API，哪哪都可以使用了。\nCodex已经被夺舍了…甚至你不强行挽留的话，显示的都不是Codex的标（doge）。\n原有的Codex桌面应用直接升级成了新的ChatGPT桌面应用，老版ChatGPT桌面应用则更名为 “ChatGPT Classic”。\n社区也开始疯狂整活。Matt Shumer让GPT-5.6-Sol一口气搓了个“方块版曼哈顿”：\n高楼、街区、道路，全是voxel风格，GPT-5.6-Sol自主运行了一周，搭了个纽约乐高城。\n他还表示：照这个趋势，明年这个时候模型可能已经可以one-shot生成GTA级别的游戏了。\n数学研究者nasqret则分享，GPT-5.6帮助他推进了一个关于代数几何中K3曲面的问题。\nGPT-5.6-Sol被喂进大量技术文档后，在Codex里一路查资料、找方法、写程序，最后挖出了一条分式线性规划的思路。\n模型把计算方案实现出来，去跑他们整理的K3曲面家族，直接突破了原先猜想。\n此外，这次还同步发布了ChatGPT Work。\n由Codex和GPT-5.6驱动，可以跨应用和文件行动，必要时持续数小时，把目标变成完成品。\n但也有网友吐槽：GPT-5.6太烧token了！！！\nultra模式在15分钟内就烧完Pro会员5小时限额的程度。\nGPT-5.6正式上线\nGPT-5.6家族分三档：\n- \nSol：旗舰模型，主打最高能力；\n- \nTerra：平衡款，面向日常工作；\n- \nLuna：最快、最便宜，主打高性价比。\n命名分别对应太阳、地球、月亮。\n官方说法是，GPT-5.6 Sol在编码、知识工作、网络安全、科学任务上达到SOTA，同时用更少token、更低估算成本完成任务。\n这次GPT-5.6还带来了一个很关键的新模式：ultra。\n如果说max是让模型在一个任务上投入更多推理时间，那么ultra就更进一步，直接把任务交给多个agent并行处理。\n按照OpenAI的说法，ultra默认会协调4个agent同时工作，可扩展至16个。\nGPT-5.6还带来一项工程侧的新能力：Programmatic Tool Calling（程序化工具调用）。\n简单说，模型可以自己写一段轻量程序来协调多个工具调用、处理中间结果、监控进度并决定下一步动作。\n不需要开发者把每一步都写死脚本，也不用把每次工具返回结果都塞回模型里过一遍。\n这让“工具密集型”任务能用更少的token、更少的模型往返次数完成。\n那么，GPT-5.6相比Fable 5如何呢？\nOpenAI表示，在 Agents’ Last Exam（覆盖55个专业领域的长周期工作流测试）上，Sol以53.6分刷新纪录，比 Fable 5 高出13.1分。\n即便调低到中等推理强度，仍能以大约四分之一的成本领先11.4分。\n这种效率优势同样体现在小尺寸模型上——Terra和Luna分别以约十六分之一的成本反超 Fable 5。\n代码能力上，官方称GPT-5.6 Sol是OpenAI目前最强代码模型。\n在Artificial Analysis Intelligence Index上，Sol（最高推理强度）与 Fable…",
-      "published_at": "2026-07-10",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
-      "title": "Connect the dots: Build with built-in and custom MCPs in Studio | Mistral AI",
-      "url": "https://mistral.ai/news/connectors/",
-      "summary": "Today we are releasing Connectors in Studio to unblock developers building highly customised AI applications grounded in enterprise data. All built-in connectors, as well as custom MCPs, are now available via API/SDK to be used with all model and agent calls.\nWe are also introducing direct tool calling, giving developers precise control over how and when tools are invoked, without authentication barriers getting in the way of testing and iterating. In addition, you can now implement human-in-the-loop approval flows, allowing secure review and confirmation before tool execution, ensuring both flexibility and governance.\n- Programmatic access for creating, modifying, listing and deleting your connectors but also listing their tools and directly running them. \n- All connectors are centrally registered making them available across Mistral apps: LeChat and AI Studio (with Vibe coming soon). \n- Usage via Conversation API, Completions API, and Agent SDK can now facilitate complex workflows and integration with enterprise systems like CRMs, knowledgebases & productivity tools. \nIntegrations that live in the platform, not in your code\nBuilding enterprise AI agents is getting easier. The harder part is everything around them: tracking down the right API docs, writing and maintaining tool functions, building integrations, setting up OAuth, handling token refresh, and debugging edge cases like broken pagination.\nBecause of this, teams keep rebuilding the same integration layer. Even with…",
-      "published_at": "2026-05-22",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "一群做自动驾驶的人，盯上了睡眠这件事",
       "url": "https://www.qbitai.com/2026/07/447796.html",
       "summary": "一群做自动驾驶的人，盯上了睡眠这件事\n把数据闭环搬进卧室\n听雨 发自 凹非寺 量子位 | 公众号 QbitAI\nAI+睡眠赛道，又来了一位智驾老兵。\n杜宇，前头部新造车智驾团队负责人，离开汽车行业后，拉上一批老同事、老朋友，做了一家私人健康机器人公司——智梦可。\n他们的第一款产品，是一张能铺在原有床垫上的AI睡眠超充垫。目前已经在京东首发上市。\n这是一套可以直接升级现有睡眠环境的AI睡眠系统。\n它一边无感监测人体睡眠状态和卧室环境，一边动态调节温度，试图把“盖被热、掀被冷”“半夜被热醒/冷醒”这些老问题交给AI处理。\n过去一年来，AI+睡眠正在变成一个越来越拥挤的方向。\n在不少新玩家密集进入之前，智梦可已经在2024年底启动相关产品研发。\n到今年，今日宜休、格物科技等玩家相继进入公众视野，AI+睡眠也开始变成一个越来越热闹的方向。\n越来越多科技公司背景的创业者开始相信：睡眠这个长期存在、但一直没有被充分解决的需求，值得用AI重新做一遍。\n问题是，当一群做自动驾驶的人开始认真研究睡眠，他们会造出什么？\n四位一体，解决睡眠里的温度问题\n杜宇做AI+睡眠，最早的原因非常朴素：他自己也需要好好睡一觉。\n在智驾行业十多年，长期高强度工作后，他试过找一些睡眠产品来恢复精力。结果看了一圈，发现市面上的方案都不尽如人意。\n一类产品偏传统，调软硬、调角度；另一类产品则更像记录员或建议者，比如手环、App等等。它们能告诉用户睡得怎么样，也能给建议，但还是需要用户自己调节睡眠。\n在杜宇看来，一个已经工作一天、身心疲惫的人，很难再靠额外投入精力和高度自律来换取优质睡眠。\n真正能够帮助用户解决问题的产品，一定要起到主动干预作用，而不仅仅是告知用户，或者让用户去被动适应。\n这便是智梦可的思路：让产品在睡眠过程中真正主动参与进去。人在休息，系统继续工作，根据人体状态和环境变化，持续调整睡眠微环境。\n智梦可团队选中了温度这个关键变量。\n人的睡眠温度并非固定值。入睡、深睡、浅睡、清醒前，不同阶段对温度的需求会变。压力、饮酒、季节、房间环境、个体差异，也都会影响身体真正需要的温度。\n传统温控产品更多调的是环境或局部冷暖，很难根据人的状态连续变化；而智梦可的做法，则是把温度变成一个可以被感知、决策和干预的变量。\n他们的首款产品——AI睡眠超充垫，采用了四位一体的设计。\n超充垫贴近人体，采集心冲击图心率、呼吸谱、体动等生理信号，并通过水循环调节温度。\n智控主机负责制冷、制热，以及部分端侧数据的处理。\n小可机器人放在床头柜附近，承担环境感知、语音交互和健康智能体入口。\nApp承接移动场景服务，让小可的私人健康管家能力延伸到卧室之外。比如睡眠之外，目前它可以提供日间精力管理建议，未来还会加入更多健康场景能力。\n杜宇介绍，AI睡眠超充垫采用TopLay模块化设计，厚度约1.7cm，可以直接铺在原有寝具上。内部采用水循环控温，配合食品级硅胶水路和三层水电分离架构。\n具体到体验上，超充垫也有很多贴心的设计：\n比如一键备床，用户躺下前，系统会提前把床面调到适合入睡的温度。\n再比如，温感唤醒。在合适睡眠阶段缓慢升温，减少被闹钟强行叫醒后的昏沉感。\n还有同床异温，双人睡眠场景下实现左右温区独立调节。一个人怕冷，一个人怕热，也不用再靠抢被子或者反复调空调解决。\n杜宇还提到，海外同类产品传统水箱式set up大约需要40到60分钟，智梦可做了一键吸水，把初始化设置的时间压缩到1分钟以内。\n此外，还有除螨烘被、可拆洗面层等等设计细节，也非常符合中国家庭的使用习惯。\n从车到床，搬来的是一套数据闭环\n如果只讲温…",
@@ -1093,10 +1049,10 @@
       "macro_score": 0
     },
     {
-      "title": "Emmi joins Mistral to accelerate the AI-native industry | Mistral AI",
-      "url": "https://mistral.ai/news/accelerate-ai-native-industry/",
-      "summary": "This week, we’ve entered into a definitive agreement to acquire Physics AI pioneer Emmi AI to strengthen our position as the leading AI transformation partner for industrial enterprises.\nMistral AI is building leading AI systems to accelerate engineering and manufacturing globally. As part of this mission, the company is extending its models’ capabilities to understand and model physics; and is enabling AI agents to use existing engineering tools. With the acquisition of Emmi AI, Mistral significantly enriches its products and expertise in this domain, aiming to accelerate the work of engineering solution teams worldwide.\nThe acquisition also accelerates our Science roadmap, advancing our understanding of fundamental physics and leveraging unique industrial data. With Emmi AI's models complementing our own, we are set to build the best-in-class agents for engineers.\nFounded in Austria, Emmi AI has quickly emerged as one of the world's most ambitious AI companies, leading a revolution at the intersection of artificial intelligence and industrial engineering. Its team has developed a unique expertise in Physics AI, providing state-of-the-art large engineering models. The company empowers industrial players to accelerate their engineering workflows and product design cycles, replace multi-day computations with real-time simulations, and build digital twins to optimize asset operations.\nEmmi’s co-founders and its team of more than 30 researchers and engineers, among the leading e…",
-      "published_at": "2026-05-23",
+      "title": "Workflows for work that runs the business | Mistral AI",
+      "url": "https://mistral.ai/news/workflows/",
+      "summary": "Today, we're releasing Workflows in public preview. Workflows is the orchestration layer for enterprise AI. It brings the durability, observability, and fault tolerance required to move AI-powered processes from proof of concept to production reliably. Organizations like ASML, ABANCA, CMA-CGM, France Travail, La Banque Postale, Moeve, and many more are already running Workflows to automate critical processes.\nEnterprise teams today have access to capable models. What they lack is a way to run them reliably in production. We see this across every industry we work with. The failure modes are consistent: pipelines that run in a notebook but fail silently in production with no trace, long-running processes that can't survive a network timeout, multi-step operations that need human approval mid-execution but have no mechanism to pause and resume, and systems that offer no way to verify they're still doing what they're supposed to after deployment.\nBuilding all of the capabilities to address these challenges is months of complex work for enterprises: the orchestration layer has to be stitched together from scratch, and the components it connects, inference, agents, connectors, observability, each come from different tools with their own interfaces and formats.\nWorkflows is part of Studio, so the orchestration layer and the components it orchestrates are built to work together. Once a business process is identified, developers write the workflow in Python. Every workflow can then be…",
+      "published_at": "2026-04-27",
       "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
@@ -1115,17 +1071,6 @@
       "macro_score": 0
     },
     {
-      "title": "Physics AI research that’s shaping the industry. | Mistral AI",
-      "url": "https://mistral.ai/news/physics-ai-research/",
-      "summary": "The acquisition of Emmi AI has highlighted Mistral’s commitment towards pushing the state-of-the-art in AI research and enterprise solutions for industrial engineering.\nEmmi’s work, now part of Mistral, is dedicated to fundamentally enabling engineers to build the next generation of products faster and secure continuous performance gains in operations at scale for their customers.\nWe are doubling down on building foundational Physics AI for the industries that shape the physical world, such as aerospace, automotive, semiconductors, and energy.\nBelow are some of the published breakthroughs that this work rests on.\nDEC 1, 2025\nGoing with the Speed of Sound: Pushing Neural Surrogates into Highly-turbulent Transonic Regimes\nExisting aerospace datasets predominantly focus on 2D airfoils, neglecting these critical 3D phenomena. To address this gap, we present a new dataset of CFD simulations for 3D wings in the transonic regime. The dataset comprises volumetric and surface-level fields for around 30,000 samples with unique geometry and inflow conditions.\nNOV 25, 2025\nFluid Intelligence: A Forward Look on AI Foundation Models in Computational Fluid Dynamics\nDriven by the advancement of GPUs and AI, the field of Computational Fluid Dynamics (CFD) is undergoing significant transformations. This paper bridges the gap between the machine learning and CFD communities by deconstructing industrial-scale CFD simulations into their core components.\nOCT 17, 2025\nAB-UPT for Automotive and Aero…",
-      "published_at": "2026-05-27",
-      "source": "mistral.ai",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 1
-    },
-    {
       "title": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审",
       "url": "https://www.qbitai.com/2026/07/447846.html",
       "summary": "只剩7天！第三届蚂蚁InTech奖申报即将截止，图灵奖得主坐镇评审\n四大方向，奖金直给\n鹭羽 发自 凹非寺\n量子位 | 公众号 QbitAI\n这可能是我今年见过最「实诚」的科研奖项了！\n不设赛题，也不用刷分，这一次蚂蚁真金白银纯发福利：\nAI时代大浪淘沙，那个一直在科研深水区里啃着硬骨头的你，将有机会收获蚂蚁关注，以及一笔实打实的资金支持。\n只要你是做AGI、具身智能、数字医学、数据处理与安全隐私这四个方向的青年学者或在读博士生，都能来试一试。\n要求只有一点，你现在正在做的工作够硬、够新、够深。咱们一切拿作品说话，是金子就能发光。\n奖项名为「2026蚂蚁InTech奖」，目前已经开放提名与申报，倒计时还剩最后一周！\n这也是蚂蚁举办的第三届，过去两届先后吸引上百位学界泰斗参与推荐，部分成果如今也已跑进产业最前沿。\n比如首届获奖者王鹤将三维视觉技术落地通用机器人赛道；上届获奖者顾煜贤深耕大模型高效推理，其轻量化大模型框架已在多家AI厂商落地应用。\n且看本届含金量更是拉满，坐在评委席上的，清一色业界顶尖学者，两院院士云集，还有图灵奖得主压阵。\n让这样一群人来评、来选，这个奖想托举的是谁，其实一目了然：下一群Transformer八子。\n说得再直白点，蚂蚁在找AI的未来。\n第三届蚂蚁InTech奖\n今年蚂蚁InTech奖依旧分为两条线。\n一条是蚂蚁InTech科技奖，面向已经做出成果的青年学者；另一条是蚂蚁InTech奖学金，面向还在读的博士生们。\n这个风向其实相当敏锐。\n我们不妨回看那篇影响世界的《Attention Is All You Need》。\n论文署名的八个人，彼时都还名不见经传，他们中有的还是学生，有的也才刚入行没多久，有的虽然经验丰富但也只在小圈子里为人熟知，但如今Transformer已经是这一代大模型的核心支柱。\n可见科研突破往往始于萌芽，敢于深耕的多是这批青年科研人才。他们有想法有闯劲，却也缺一份实实在在的支持。\n蚂蚁想要接住他们，无论是刚独立起步的学生，还是一股劲往上冲的研究学者，蚂蚁都看到了。\n大家关心的奖金也给得很干脆。科技奖每人20万元，奖学金每人5万元，且每类每年评选最多10人。\n不过想报名，还需要满足参选门槛：\n- 蚂蚁InTech科技奖：\n一是要求候选人当前得在全球高校或科研院所中全职从事科研工作，并且已经拿到博士学位；\n二是从获得博士学位到参评当年，不能超过10年，具体以评审当年的1月1日（含当天）起算。比如2026年想参选，博士学位得是2016年1月1日之后拿到的。\n三是研究领域需要涉及前面所提及的四大方向。\n- 蚂蚁InTech奖学金：\n仅要求候选人参评当年（2026年）具备全球高校或科研院所的在读博士身份以及研究方向契合。\n此外，除了现金奖励，奖项还会另外评出10位InTech科技奖-Future和10位InTech奖学金-Future，以鼓励更多有潜力但还没被看到的年轻人。\n我们再把这四大方向单独拎出来说：通用人工智能（AGI）、具身智能、数字医学、数据处理与安全隐私。\n这四个可不是随随便便圈定的，放到整个计算机科学里看，它们都是最前沿的研究方向，当然也最难突破。这一点蚂蚁也是深有体会，这就是蚂蚁自己的技术底座。\n从守住数据，到炼出模型，再落进医疗、伸向物理世界，四个方向环环相扣，组成一条从底层能力到行业应用的完整技术链路。\n也正因为天天在这四道最难的关口上撞，蚂蚁才清楚，能凿开这些技术的突破在于人，尤其是愿意挖掘难点的青年科研人。\n图灵奖得主和两院院士都来了\n负责把关的评委阵容，也是2026蚂蚁InTech…",
@@ -1137,10 +1082,10 @@
       "macro_score": 0
     },
     {
-      "title": "Introducing physics AI at Mistral: the foundation for engineering acceleration. | Mistral AI",
-      "url": "https://mistral.ai/news/introducing-physics-ai-at-mistral/",
-      "summary": "Engineering ambition has rarely been greater than it is today. Defense readiness, the energy transition, the push towards sustainable aviation, the need to scale AI data centers, and next-generation chips: every one of these developments depends on engineering teams shipping more capable hardware, faster—with thinner margins for error.\nAnd yet physics analysis remains stuck at the front of the product lifecycle, tied to solver methods that haven't fundamentally changed in decades. Engineers still evaluate a handful of variants when they should be exploring thousands. And once a product is in operation, engineers lose the physics insight they had at design time, because the solvers behind it are too slow to keep up with live data.\nWe believe physics deserves its own frontier AI models. That's why we've brought Emmi AI into Mistral. In this post, we share what physics AI is, why it matters now, and what it makes possible for our partners like ASML, Airbus, Safran, and Siemens Energy.\nWe are building out a new foundational capability inside Mistral's enterprise solutions for AI-native industrial engineering—alongside our existing models, our tools for building and operationalizing agentic workflows, and the secure deployment and integration enterprises require.\nTogether they form a single stack spanning the engineering lifecycle: deployed where the customer needs it, integrated with their environment, fully under their control. Find out more about our AI for manufacturing offeri…",
-      "published_at": "2026-05-27",
+      "title": "Connect the dots: Build with built-in and custom MCPs in Studio | Mistral AI",
+      "url": "https://mistral.ai/news/connectors/",
+      "summary": "Today we are releasing Connectors in Studio to unblock developers building highly customised AI applications grounded in enterprise data. All built-in connectors, as well as custom MCPs, are now available via API/SDK to be used with all model and agent calls.\nWe are also introducing direct tool calling, giving developers precise control over how and when tools are invoked, without authentication barriers getting in the way of testing and iterating. In addition, you can now implement human-in-the-loop approval flows, allowing secure review and confirmation before tool execution, ensuring both flexibility and governance.\n- Programmatic access for creating, modifying, listing and deleting your connectors but also listing their tools and directly running them. \n- All connectors are centrally registered making them available across Mistral apps: LeChat and AI Studio (with Vibe coming soon). \n- Usage via Conversation API, Completions API, and Agent SDK can now facilitate complex workflows and integration with enterprise systems like CRMs, knowledgebases & productivity tools. \nIntegrations that live in the platform, not in your code\nBuilding enterprise AI agents is getting easier. The harder part is everything around them: tracking down the right API docs, writing and maintaining tool functions, building integrations, setting up OAuth, handling token refresh, and debugging edge cases like broken pagination.\nBecause of this, teams keep rebuilding the same integration layer. Even with…",
+      "published_at": "2026-05-22",
       "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
@@ -1159,10 +1104,10 @@
       "macro_score": 0
     },
     {
-      "title": "Vibe gets to work. | Mistral AI",
-      "url": "https://mistral.ai/news/vibe-agent/",
-      "summary": "Thinking\nSummary\nVibe is Mistral’s unified AI agent for both work and coding, capable of handling long-running tasks like inbox management, research, and document drafting, as well as coding workflows from feature development to pull requests. It offers Work Mode for multi-step tasks across enterprise tools and Code Mode for remote coding sessions, with integrations like VS Code and CLI for seamless collaboration. Available in free, Pro, Team, and Enterprise plans, Vibe streamlines workflows with visible reasoning, reusable skills, and secure, scalable deployments.\nVibe is now one agent for long-running, multi-step work. It catches up across your inbox and calendar, runs deep research, drafts deliverables, and orchestrates the recurring processes that run your day-to-day.\nIt also takes coding work from request to merged change, across the web app, your editor, and your terminal. The agent builds features, fixes bugs, refactors code, and ships reviewable pull requests.\nVibe runs on flagship Mistral models optimized for reasoning, agentic tasks, tool calls, and coding.\nHighlights.\n- Le Chat is now Vibe—one agent and one licence across work and code, with every conversation, setting, and plan carried over. \n- Work Mode, available on web and mobile, is a powerful agent for long-range tasks that picks the right tools, streams progress, and completes complex work to finish. \n- Code Mode launches remote coding agents from a dedicated web surface. \n- A new Mistral Vibe extension for …",
-      "published_at": "2026-05-28",
+      "title": "Emmi joins Mistral to accelerate the AI-native industry | Mistral AI",
+      "url": "https://mistral.ai/news/accelerate-ai-native-industry/",
+      "summary": "This week, we’ve entered into a definitive agreement to acquire Physics AI pioneer Emmi AI to strengthen our position as the leading AI transformation partner for industrial enterprises.\nMistral AI is building leading AI systems to accelerate engineering and manufacturing globally. As part of this mission, the company is extending its models’ capabilities to understand and model physics; and is enabling AI agents to use existing engineering tools. With the acquisition of Emmi AI, Mistral significantly enriches its products and expertise in this domain, aiming to accelerate the work of engineering solution teams worldwide.\nThe acquisition also accelerates our Science roadmap, advancing our understanding of fundamental physics and leveraging unique industrial data. With Emmi AI's models complementing our own, we are set to build the best-in-class agents for engineers.\nFounded in Austria, Emmi AI has quickly emerged as one of the world's most ambitious AI companies, leading a revolution at the intersection of artificial intelligence and industrial engineering. Its team has developed a unique expertise in Physics AI, providing state-of-the-art large engineering models. The company empowers industrial players to accelerate their engineering workflows and product design cycles, replace multi-day computations with real-time simulations, and build digital twins to optimize asset operations.\nEmmi’s co-founders and its team of more than 30 researchers and engineers, among the leading e…",
+      "published_at": "2026-05-23",
       "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
@@ -1181,9 +1126,64 @@
       "macro_score": 0
     },
     {
-      "title": "AI Now Summit 2026 | Mistral AI",
-      "url": "https://mistral.ai/news/ai-now-summit-2026/",
-      "summary": "Thinking\nSummary\nMistral unveiled a new AI stack for industrial engineering, partnering with Airbus, BMW, and ASML to optimize design, simulation, and production while ensuring data security. Their agentic AI tool, Vibe, now handles long-horizon tasks like coding and research, while a new 10 MW data center in France will enhance compute control and security by 2026. These advancements reinforce Mistral’s focus on secure, high-impact AI solutions for critical enterprise workflows.\nMistral for Industrial Engineering.\nAn integrated AI stack combining advanced physics models, engineering expertise, and robotics to transform mission-critical industrial operations. The solution enables industrial engineers to accelerate design, eliminate simulation bottlenecks, and optimize asset performance; while maintaining full control over proprietary data, IP, and production environments.\nWith Airbus, we are implementing advanced AI at the core of the company's operations and processes, from initial design to on-board capabilities. Our partnership will expand across Airbus' commercial aircraft, helicopter, defence, and space activities. It will support the next decade of innovation, contribute to improve flight safety, and maintain full control of critical data; all while adhering to strict security requirements.\nFor BMW Group, we are a central partner for their “Large Industry Model” (LIM) initiative. The collaboration unifies engineering knowledge and AI expertise to build multimodal reason…",
+      "title": "Physics AI research that’s shaping the industry. | Mistral AI",
+      "url": "https://mistral.ai/news/physics-ai-research/",
+      "summary": "The acquisition of Emmi AI has highlighted Mistral’s commitment towards pushing the state-of-the-art in AI research and enterprise solutions for industrial engineering.\nEmmi’s work, now part of Mistral, is dedicated to fundamentally enabling engineers to build the next generation of products faster and secure continuous performance gains in operations at scale for their customers.\nWe are doubling down on building foundational Physics AI for the industries that shape the physical world, such as aerospace, automotive, semiconductors, and energy.\nBelow are some of the published breakthroughs that this work rests on.\nDEC 1, 2025\nGoing with the Speed of Sound: Pushing Neural Surrogates into Highly-turbulent Transonic Regimes\nExisting aerospace datasets predominantly focus on 2D airfoils, neglecting these critical 3D phenomena. To address this gap, we present a new dataset of CFD simulations for 3D wings in the transonic regime. The dataset comprises volumetric and surface-level fields for around 30,000 samples with unique geometry and inflow conditions.\nNOV 25, 2025\nFluid Intelligence: A Forward Look on AI Foundation Models in Computational Fluid Dynamics\nDriven by the advancement of GPUs and AI, the field of Computational Fluid Dynamics (CFD) is undergoing significant transformations. This paper bridges the gap between the machine learning and CFD communities by deconstructing industrial-scale CFD simulations into their core components.\nOCT 17, 2025\nAB-UPT for Automotive and Aero…",
+      "published_at": "2026-05-27",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 1
+    },
+    {
+      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
+      "url": "https://www.qbitai.com/2026/07/447902.html",
+      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n已跑通300余项应用\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光8000采用了AI计…",
+      "published_at": "2026-07-11",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "近百名玩家涌入具身数据：一年融资44.7亿，谁能真靠“卖数据”赚钱？",
+      "url": "https://www.qbitai.com/2026/07/447914.html",
+      "summary": "近百名玩家涌入具身数据：一年融资44.7亿，谁能真靠“卖数据”赚钱？\n为了帮你看清具身数据行业，我们总结了以下十个行业现状\n林方舟 发自 凹非寺\n量子位 | 公众号 QbitAI\n在湖南郴州，一家中国移动营业厅挂牌“具身数据采集5S店”，普通顾客领一套夹爪、手套和头戴相机，经过简单培训，就能边做家务，边采集机器人训练数据。\n首期投放的1000套设备，满产状态下每年能采集100万小时数据。我仿佛听到了商家心里打的小算盘：既采了数据，又赚了眼球，4A广告公司都应该来学学。（doge）\n具身数采类似的“花活”还有不少：有的为了采数据免费上门保洁（欢迎来我家），有的把数采做成VR游戏，还有的把机器人接入互联网，采集员不用跑到数采工厂，远程就能“云操控”。\n不过，以上案例看完笑一笑就好了，真要采到符合要求的数据其实并不简单。之所以“花活”层出不穷，都是因为机器人实在是太缺数据了。\n眼下大家都在牟足了劲采数据，但还少有人全面梳理过这个行业的图谱。\n量子位不完全统计了97家国内具身数据玩家的情况，其中70家做数据采集，27家做数据infra。\n过去一年（2025年7月1日至2026年7月1日），15家「不做本体、不做模型、只做数据的独立具身数据服务商」，共融资约44.7亿元。\n在资本对具身智能“猛猛上头”的当下，这个数字其实并不算多。量子位此前统计，今年上半年，具身“大脑派”公司半年就融了223亿元。\n为了帮你看清具身数据行业，我们总结了以下十个行业现状。\n数据怎么采？\n现状1：数据采集技术路线分为四大类，跨路线采集赛道最拥挤\n目前主流具身数据采集的技术路线可以分为四大类：\n- 真机遥操：人类操控真实机器人执行任务，同步采集动作、状态及传感器数据。\n- 无本体采集：人直接完成示范，通过动捕、夹爪映射、第一视角相机等设备采集动作，无需机器人参与。\n- 仿真合成：在虚拟环境中批量生成机器人交互数据，用于模型训练。\n- 互联网视频蒸馏：从互联网视频中提取人类动作知识，转化为具身模型可学习的数据。\n量子位不完全统计的70家数采公司/平台中，有30家同时走多条采集路线，占43%，例如：真机遥操+无本体、真机遥操+仿真、无本体+仿真、全路线等。\n走跨路线采集方案的玩家，比单独押注任何一条路线的玩家都要多。\n行业常用数据金字塔来形容机器人训练所需的数据结构。目前没有任何一种数据采集方式能够独自满足机器人的训练需求。\n△70家数采公司技术路线分布\n现状2：单独押注真机遥操路线的玩家最多\n依次分析每条技术路线。\n单独押注真机遥操路线的最多，有22家，占31%。\n这22个玩家中，13家是国资数据平台，7家是机器人公司（生产机器人硬件或开发具身大模型的公司），还有1家从AI数据标注行业转型，1家从工业装备制造领域跨界。\n机器人公司有硬件优势和真实需求，做真机遥操采集是自然而然的选择。\n而国资数据平台的优势则是“不怕重”。遥操是重资产路线，需要买本体、租场地、雇操作员，这些恰好都是国资平台容易调动的资源。\n单独押注无本体采集路线的公司有15家，占21%。\n这条赛道的公司最年轻，绝大多数都成立于2024年9月之后。\n无本体采集路线的技术也最丰富，子类包括：Ego视角、UMI、动作捕捉、sEMG肌电、触觉采集……\n而单独押注仿真合成的玩家有2家：松应科技和谋先飞（Motphys）。\n仿真赛道曾经的知名玩家，如今都选择把鸡蛋放在多个篮子里。\n比如，曾以仿真数据为核心的光轮智能，也开始采集人类数据；曾是最坚定的仿真派之一的银河通用，今年6月发布了全身遥操作系统，拥有了遥操数据采集能力。\n原因…",
+      "published_at": "2026-07-12",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Introducing physics AI at Mistral: the foundation for engineering acceleration. | Mistral AI",
+      "url": "https://mistral.ai/news/introducing-physics-ai-at-mistral/",
+      "summary": "Engineering ambition has rarely been greater than it is today. Defense readiness, the energy transition, the push towards sustainable aviation, the need to scale AI data centers, and next-generation chips: every one of these developments depends on engineering teams shipping more capable hardware, faster—with thinner margins for error.\nAnd yet physics analysis remains stuck at the front of the product lifecycle, tied to solver methods that haven't fundamentally changed in decades. Engineers still evaluate a handful of variants when they should be exploring thousands. And once a product is in operation, engineers lose the physics insight they had at design time, because the solvers behind it are too slow to keep up with live data.\nWe believe physics deserves its own frontier AI models. That's why we've brought Emmi AI into Mistral. In this post, we share what physics AI is, why it matters now, and what it makes possible for our partners like ASML, Airbus, Safran, and Siemens Energy.\nWe are building out a new foundational capability inside Mistral's enterprise solutions for AI-native industrial engineering—alongside our existing models, our tools for building and operationalizing agentic workflows, and the secure deployment and integration enterprises require.\nTogether they form a single stack spanning the engineering lifecycle: deployed where the customer needs it, integrated with their environment, fully under their control. Find out more about our AI for manufacturing offeri…",
+      "published_at": "2026-05-27",
+      "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "老黄RTX Spark真机现身Bilibili World！CPU和GPU直接焊在一起，笔记本跑120B大模型",
+      "url": "https://www.qbitai.com/2026/07/447981.html",
+      "summary": "老黄RTX Spark真机现身Bilibili World！CPU和GPU直接焊在一起，笔记本跑120B大模型\n老黄在ComputeX发布的“超级芯片”，已经在真机中落地了\n克雷西 发自 上海\n量子位 | 公众号 QbitAI\n老黄在ComputeX发布的“超级芯片”，已经在真机中落地了。\n就在这届Bilibili World上，英伟达首次面向大众玩家展示了搭载RTX Spark超级芯片的笔记本电脑。\n这款芯片专为个人智能体打造，不仅搭载了Blackwell RTX GPU，连CPU也是出自英伟达的Grace CPU。\n而且“双芯合体”，两颗芯片直接通过NVLink – C2C“焊”在了一起。\n两颗超强芯片，加上高速互联和128GB统一内存，不管是拿来打游戏还是搞AI创作，都十分丝滑。\n游戏创作，我全都要\nRTX Spark的核心是英伟达的Blackwell GPU，加上一颗英伟达与联发科合作研发的20核Grace CPU。\n这两颗芯片没有走传统的PCI-e通信，而是靠NVLink-C2C技术直接互联，相当于把GPU和CPU焊在了一起。\nRTX Spark的算力堆到了1Petaflop，内存给到了128GB，而且是统一内存，GPU和CPU能共用同一块内存，数据不用在两颗芯片之间来回搬运。\n这个配置之下，英伟达给RTX Spark的定位是“专为本地个人智能体打造”。\n先说Agent的大脑，也就是大模型这块，RTX Spark能在本地跑起参数量120B的大模型，上下文长度可以拉到100万token。\n这意味着用户不用把长文档、长对话历史切碎了分批喂给模型，一次性全部塞进去就行，模型也不会中途忘记前面说过什么。\n再来是像OpenClaw、Hermes这样的智能体本身，它们一直都在面对一个问题，那就是用户日常使用的电脑，没办法安全、私密地把智能体跑起来。\n英伟达这次拿出的方案是OpenShell运行时，让用户能自己设定智能体可以执行哪些操作，还能把请求按隐私策略分流，敏感信息留在本地模型处理，只把脱敏后的内容发给云端模型。\nOpenClaw和Hermes Agent已经把这套安全层集成进了自己的新版Windows应用，用户可以用它们在Windows里执行任务、跨应用推理、生成图像视频、写插件写应用，还能对本地文件做语义搜索。\n还有创作这块，128GB的统一内存也立了大功。\n渲染一个重型3D场景，体积能动辄就是大几十GB，这个体量放在一般的笔记本电脑上早就爆内存了，但RTX Spark靠这块统一内存不仅能扛住，还跑得十分流畅。\nBW展台现场，英伟达的技术人员也为我们展示了在虚幻引擎 5中渲染曼哈顿3D场景的效果。\n工程文件超过了90GB，但不论怎么移动，插电还是不插电，画面都没出现卡顿。\n视频剪辑这边，Blackwell自带的第五代视频解码器能直接处理12K分辨率、4:2:2色度采样的素材。\n这个规格已经超出大多数专业剪辑工作站的日常需求，在笔记本电脑上跑起来就更是少有了。\n当然作为一款消费级PC芯片，游戏也得安排上。\nRTX Spark支持开启光线追踪、DLSS和Reflex，在1440p分辨率下能把3A游戏的帧率稳定在100FPS以上，这是消费级独显游戏本才有的配置。\n不过RTX Spark用的是Arm架构，可能有人会担心游戏能不能很好适配。\n但实际上，游戏厂商这边，KRAFTON、网易、Remedy Entertainment、Riot Games和XBOX都已经表态支持这块芯片了，推出原生Arm游戏。\n当时网易雷火事业部高级副总裁程龙就提到，玩家在…",
+      "published_at": "2026-07-12",
+      "source": "qbitai.com",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "Vibe gets to work. | Mistral AI",
+      "url": "https://mistral.ai/news/vibe-agent/",
+      "summary": "Thinking\nSummary\nVibe is Mistral’s unified AI agent for both work and coding, capable of handling long-running tasks like inbox management, research, and document drafting, as well as coding workflows from feature development to pull requests. It offers Work Mode for multi-step tasks across enterprise tools and Code Mode for remote coding sessions, with integrations like VS Code and CLI for seamless collaboration. Available in free, Pro, Team, and Enterprise plans, Vibe streamlines workflows with visible reasoning, reusable skills, and secure, scalable deployments.\nVibe is now one agent for long-running, multi-step work. It catches up across your inbox and calendar, runs deep research, drafts deliverables, and orchestrates the recurring processes that run your day-to-day.\nIt also takes coding work from request to merged change, across the web app, your editor, and your terminal. The agent builds features, fixes bugs, refactors code, and ships reviewable pull requests.\nVibe runs on flagship Mistral models optimized for reasoning, agentic tasks, tool calls, and coding.\nHighlights.\n- Le Chat is now Vibe—one agent and one licence across work and code, with every conversation, setting, and plan carried over. \n- Work Mode, available on web and mobile, is a powerful agent for long-range tasks that picks the right tools, streams progress, and completes complex work to finish. \n- Code Mode launches remote coding agents from a dedicated web surface. \n- A new Mistral Vibe extension for …",
       "published_at": "2026-05-28",
       "source": "mistral.ai",
       "category": "01_pass_rss",
@@ -1192,11 +1192,11 @@
       "macro_score": 0
     },
     {
-      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
-      "url": "https://www.qbitai.com/2026/07/447902.html",
-      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n已跑通300余项应用\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光8000采用了AI计…",
-      "published_at": "2026-07-11",
-      "source": "qbitai.com",
+      "title": "AI Now Summit 2026 | Mistral AI",
+      "url": "https://mistral.ai/news/ai-now-summit-2026/",
+      "summary": "Thinking\nSummary\nMistral unveiled a new AI stack for industrial engineering, partnering with Airbus, BMW, and ASML to optimize design, simulation, and production while ensuring data security. Their agentic AI tool, Vibe, now handles long-horizon tasks like coding and research, while a new 10 MW data center in France will enhance compute control and security by 2026. These advancements reinforce Mistral’s focus on secure, high-impact AI solutions for critical enterprise workflows.\nMistral for Industrial Engineering.\nAn integrated AI stack combining advanced physics models, engineering expertise, and robotics to transform mission-critical industrial operations. The solution enables industrial engineers to accelerate design, eliminate simulation bottlenecks, and optimize asset performance; while maintaining full control over proprietary data, IP, and production environments.\nWith Airbus, we are implementing advanced AI at the core of the company's operations and processes, from initial design to on-board capabilities. Our partnership will expand across Airbus' commercial aircraft, helicopter, defence, and space activities. It will support the next decade of innovation, contribute to improve flight safety, and maintain full control of critical data; all while adhering to strict security requirements.\nFor BMW Group, we are a central partner for their “Large Industry Model” (LIM) initiative. The collaboration unifies engineering knowledge and AI expertise to build multimodal reason…",
+      "published_at": "2026-05-28",
+      "source": "mistral.ai",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1291,17 +1291,6 @@
       "macro_score": 0
     },
     {
-      "title": "Should AI agents expose their reasoning process before taking action?",
-      "url": "https://forum.langchain.com/t/should-ai-agents-expose-their-reasoning-process-before-taking-action/4131",
-      "summary": "Humans build trust by explaining why they made a decision.\nWhat if AI agents briefly summarized their plan before executing?\nFor example:\n“I found three scheduling conflicts. I’ll resolve the first automatically, ask you about the second, and postpone the third until Friday.”\nWould this make AI more trustworthy?\nOr just slower?\n             \n            \n           \n          \n            \n            \n              hi @Saiganesh\nYes, I think exposing the plan increases trust, but there is an important distinction. Users dont really need the raw reasoning, they need the plan. Raw chain of thought is verbose and research shows its often not even faithful to what the model actually did, so showing it can create false confidence. A short structured plan like your example is diferent, its verifiable and gives the user a chance to object before anything happens.\nThe key thing tho is that transparency alone doesnt build trust, control does. A plan you can read but cant veto is just theater. Thats why I’d pair it with human in the loop on the risky actions. In LangChain you get this basically for free, create_agent with HumanInTheLoopMiddleware lets you mark which tools need approval, and the user can approve, edit or reject the proposed action. Deep agents even ship the planning part by default, the write_todos tool externalizes the plan into state and the UI can render it live. Claude Code and Cursor converged on the same todo pattern independently, which tells you something, it a…",
-      "published_at": "2026-07-09",
-      "source": "forum.langchain.com",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 2
-    },
-    {
       "title": "Architectural Pattern: Synchronous Pre-Call Spend Gates in Stateful GraphsBody:",
       "url": "https://forum.langchain.com/t/architectural-pattern-synchronous-pre-call-spend-gates-in-stateful-graphsbody/4136",
       "summary": "Hey everyone,\nI wanted to outline an architectural pattern for enforcing financial compliance and hard budget caps within stateful workflows, specifically designed to bypass the limitations of reactive cost-tracking or post-execution callbacks (which catch loop exceptions only after money has been spent).\nWhen an agent gets stuck in a recursive node loop or tool-parsing exception, it can exhaust API budgets rapidly. Enforcing budget checks globally can corrupt thread boundaries or add immense overhead.\nTo resolve this, I’ve been experimenting with an upstream middleware pattern that executes synchronously right before an external tool or LLM network call fires, tracking decisions via an isolated, append-only cryptographic ledger to preserve tamper-evidence:\n[Node Workflow Execution] ──► (Sync checkSpend Request) ──► [Pre-Call Spend Gate]\n                                                                    │\n                            ┌────────────────────────────────────────┴─────┐\n                            ▼ (if Approved)                                ▼ (if Denied)\n                 [Write Approved Ledger Entry]                  [Write Denied Ledger Entry]\n                            │                                              │\n                            ▼                                              ▼\n               [Execute External API / Tool]                     [Halt Graph Execution]\nCryptographic State Boundary Definition:\nTo ensure historical decisions cannot b…",
@@ -1311,6 +1300,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "Should AI agents expose their reasoning process before taking action?",
+      "url": "https://forum.langchain.com/t/should-ai-agents-expose-their-reasoning-process-before-taking-action/4131",
+      "summary": "Humans build trust by explaining why they made a decision.\nWhat if AI agents briefly summarized their plan before executing?\nFor example:\n“I found three scheduling conflicts. I’ll resolve the first automatically, ask you about the second, and postpone the third until Friday.”\nWould this make AI more trustworthy?\nOr just slower?\n             \n            \n           \n          \n            \n            \n              hi @Saiganesh\nYes, I think exposing the plan increases trust, but there is an important distinction. Users dont really need the raw reasoning, they need the plan. Raw chain of thought is verbose and research shows its often not even faithful to what the model actually did, so showing it can create false confidence. A short structured plan like your example is diferent, its verifiable and gives the user a chance to object before anything happens.\nThe key thing tho is that transparency alone doesnt build trust, control does. A plan you can read but cant veto is just theater. Thats why I’d pair it with human in the loop on the risky actions. In LangChain you get this basically for free, create_agent with HumanInTheLoopMiddleware lets you mark which tools need approval, and the user can approve, edit or reject the proposed action. Deep agents even ship the planning part by default, the write_todos tool externalizes the plan into state and the UI can render it live. Claude Code and Cursor converged on the same todo pattern independently, which tells you something, it a…",
+      "published_at": "2026-07-09",
+      "source": "forum.langchain.com",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 2
     },
     {
       "title": "How are you handling runaway agent costs?",
@@ -1390,22 +1390,22 @@
       "macro_score": 0
     },
     {
-      "title": "NetworkError when attempting to fetch resource",
-      "url": "https://discuss.huggingface.co/t/networkerror-when-attempting-to-fetch-resource/177669",
-      "summary": "I’m trying to deploy an app to Hugging Face Spaces. I used AI to help me develop this app based on a Gradio app that I made that worked. I’m using a Static SDK with a Blank Template. This app requires a Hugging Face token. The app renders well, but after inputting a Read or Write Hugging Face token and trying to run the app, I get the following error:\nNetworkError when attempting to fetch resource.\nI’ve spent a day making the app and now another day trying to deploy it to Hugging Face! Any help would be appreciated.\nThanks!",
-      "published_at": "2026-07-10",
-      "source": "discuss.huggingface.co",
+      "title": "Fix gradient accumulation for DDP with static graph and no sync",
+      "url": "https://discuss.pytorch.org/t/fix-gradient-accumulation-for-ddp-with-static-graph-and-no-sync/225166",
+      "summary": "Hi all,\nI have a PR to fix a bug when DDP gradient accumulation is used with static_graph=True and no_sync. Can I get anyone to take a look at [DDP] Fix static_graph=True + no_sync() gradient accumulation regression by kasper0406 · Pull Request #187732 · pytorch/pytorch · GitHub ?\nI hit the bug executing some pytorch code on my workstation.",
+      "published_at": "2026-07-11",
+      "source": "discuss.pytorch.org",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
     },
     {
-      "title": "Fix gradient accumulation for DDP with static graph and no sync",
-      "url": "https://discuss.pytorch.org/t/fix-gradient-accumulation-for-ddp-with-static-graph-and-no-sync/225166",
-      "summary": "Hi all,\nI have a PR to fix a bug when DDP gradient accumulation is used with static_graph=True and no_sync. Can I get anyone to take a look at [DDP] Fix static_graph=True + no_sync() gradient accumulation regression by kasper0406 · Pull Request #187732 · pytorch/pytorch · GitHub ?\nI hit the bug executing some pytorch code on my workstation.",
-      "published_at": "2026-07-11",
-      "source": "discuss.pytorch.org",
+      "title": "NetworkError when attempting to fetch resource",
+      "url": "https://discuss.huggingface.co/t/networkerror-when-attempting-to-fetch-resource/177669",
+      "summary": "I’m trying to deploy an app to Hugging Face Spaces. I used AI to help me develop this app based on a Gradio app that I made that worked. I’m using a Static SDK with a Blank Template. This app requires a Hugging Face token. The app renders well, but after inputting a Read or Write Hugging Face token and trying to run the app, I get the following error:\nNetworkError when attempting to fetch resource.\nI’ve spent a day making the app and now another day trying to deploy it to Hugging Face! Any help would be appreciated.\nThanks!",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
@@ -1469,7 +1469,7 @@
     {
       "title": "Attachements not available on https://agents-course-unit4-scoring.hf.space/docs#",
       "url": "https://discuss.huggingface.co/t/attachements-not-available-on-https-agents-course-unit4-scoring-hf-space-docs/171219",
-      "summary": "For now, I’ve organized the current situation (what’s happening in the code and the proposed fixes).\nShort answer:\n- The Space broke because GAIA changed how it ships data, but the Space still assumes an old layout.\n- GAIA now stores file_pathas a repo-relative path and no longer provides a loader script that materializes local files for you.(Hugging Face)\n- The Space checks os.path.exists(file_path)directly, so it never finds any file, never fillstask_file_paths, and/files/{task_id}always returns 404.(Hugging Face)\n- The minimal fix: in load_questions(), replace theos.path.existslogic with a smallhf_hub_download(...)call that turns the GAIAfile_pathinto a real local path under/app/.cache.\nBelow is the explanation step by step, plus a concrete small patch.\n1. What the Space is supposed to do\nThe scoring Space has three public endpoints (as described in the course materials and forum reply).(Hugging Face Forums)\n- \nGET /questions\n \n- Loads GAIA (gaia-benchmark/GAIA, config2023_level1, splitvalidation).\n- Filters down to “simple enough” tasks by annotator metadata.\n- Exposes a list of questions: task_id,question,Level, and (optionally)file_name.\n \n- \nGET /files/{task_id}\n \n- Uses an internal map task_id → local_file_path(task_file_paths).\n- Serves the file (image/audio/xlsx/py/etc.) with proper MIME type.\n \n- \nPOST /submit\n \n- Checks your answers against Final answer.\n- Records your score in agents-course/unit4-students-scores.\n \nAll of this is wired in main.py of agents-course…",
+      "summary": "Ah…  I only just realized that there was no PR open for this, so I opened one. If you need to unblock yourself immediately, the quickest route is probably to duplicate the scoring Space and apply the same fix. Otherwise, the next option is to wait for HF to review and merge the PR:\nI still do not see a public confirmation or ETA from an HF maintainer. At the time of writing, the public Unit4_scoring Space still uses the old attachment-path logic, so the official /files/{task_id} endpoint remains affected.\nHowever, there is now a minimal Space PR: Fix GAIA attachment downloads. The same failure is also tracked in agents-course issue #624 and issue #647.\n| Item | Current status | \n| HF maintainer confirmation / ETA | I have not seen one publicly | \n| Fix PR | Open; currently shown as ready to merge | \n| Official scoring Space | Fix not yet applied | \n| Private duplicate with the patch | Tested successfully | \n| Referenced attachments | 5/5 returned HTTP 200 | \n What appears to be failing\nThe current GAIA dataset documentation describes attachment file_path values as paths relative to the dataset repository root, for example:\n2023/validation/<task-id>.xlsx\nThe current public Unit4_scoring/main.py, however, checks those values directly with os.path.exists() as though the files had already been materialized on the Space filesystem.\nThe resulting flow is approximately:\nGAIA returns a repository-relative file_path\n    ↓\nthe scoring Space checks it as an existing local path\n    ↓\nos.…",
       "published_at": "2025-12-06",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -1524,7 +1524,7 @@
     {
       "title": "Can not HF Hub upload to static Space - Payment needed",
       "url": "https://discuss.huggingface.co/t/can-not-hf-hub-upload-to-static-space-payment-needed/177680",
-      "summary": "Space is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?\nSpace is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?",
+      "summary": "Space is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?\n                  \n                  \n                1 Like\n              \n            \n          Space is a simple HTML with JS. Can not upload using HF Hub since a few days. Its static but HF Hub says its Docker or Gradio which needs Pro Sub. Whats going on?",
       "published_at": "2026-07-11",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -1588,17 +1588,6 @@
       "macro_score": 0
     },
     {
-      "title": "Testing PPAI for mail service - research open for testers",
-      "url": "https://discuss.huggingface.co/t/testing-ppai-for-mail-service-research-open-for-testers/177515",
-      "summary": "Hi everyone \nI’m working on agent architectures for email workflows and I’d love to learn from people actually dealing with this in production (or trying to).\nIf you’re using agents to manage email — spam filtering, summarizing threads, drafting replies, keeping sales conversations alive, registering new customers into a CRM — what’s failing for you?\nCommon issues I keep hearing about:\n- Agents losing context across long threads\n- Hallucinated replies that damage customer trust\n- No persistent memory between sessions\n- Costs that scale badly with volume\nWe’ve been building PPAI, an architecture that handles these tasks with persistent state, and I’d genuinely like to test it against real problems — not demos. If you have a use case that’s breaking, tell me about it. Happy to run a pilot with someone who’s actively working on this.\nWhat are you using today, and where does it fall short?\n             \n            \n           \n          \n            \n            \n              To be honest, I’m not really sure I follow your point. What exactly is the goal here? You mentioned problems you’ve heard about, but not ones you’ve actually run into yourself. Also, is hallucination really an issue in sales conversations?\n             \n            \n           \n          \n            \n            \n              \"If you’re using agents to manage email — spam filtering, summarizing threads, drafting replies, keeping sales conversations alive, registering new customers into a CRM — what’s fai…",
-      "published_at": "2026-07-06",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Question about rerankers in knowledge graphs",
       "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
       "summary": "I was just thinking about trying out a new RAG approach that works similarly to LightRAG, but I can’t find anything about it online.\nThe documents or text sections are stored as nodes in a knowledge graph. A reranker is then used to retrieve documents based on a query. Subsequently, the query itself becomes a new node that immediately establishes a connection with the most similar nodes identified by the reranker.\nThis might offer the advantage that rerankers are more precise than, for instance, contextual RAG. In contrast, LLMs used for node extraction can only generate specific labels or keywords for nodes, which might be too coarse-grained.",
@@ -1614,6 +1603,28 @@
       "url": "https://discuss.huggingface.co/t/how-do-you-choose-the-right-open-source-llm-for-a-rag-retrieval-augmented-generation-system/177609",
       "summary": "If you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nChoose model that works good on long context.\nIf you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nChoose model that works good on long context.",
       "published_at": "2026-07-09",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Epistemic Stress Test — Muse Spark 1.1 validated by MarCognity-AI",
+      "url": "https://discuss.huggingface.co/t/epistemic-stress-test-muse-spark-1-1-validated-by-marcognity-ai/177655",
+      "summary": "Thanks for sharing this experiment. I re-analysed the published material at claim level using DESi and then subjected the DESi analysis itself to a rule-guided Doktores self-audit.\nThe purpose was not to judge the legal correctness of the Muse Spark response, but to examine the epistemic structure and traceability of the claimed validation.\nThe main findings were:\n23 curated claims were extracted, typed and anchored.\nOnly 4 of 23 had domain-admissible evidence in the supplied material.\n18 of 23 had no concrete evidence passage attached.\nOne genuine contradiction was found between the stated method and the printed prompt: the method says that no verification, source or stage instructions were given, while the prompt explicitly requests references, direct quotations, citation checking and six named phases.\nTwo additional issues were classified more cautiously: one as a pipeline inconsistency — VERIFIED without citable evidence — and one as an unsubstantiated claim of validator independence.\nThe final “Epistemic Boundary” conclusion appears self-sealing as presented: both validator success and validator failure are interpreted as confirmation, while no explicit falsification condition is specified.\nThe analysis also recognises genuine strengths in MarCognity-AI, including claim decomposition, multi-source retrieval and an explicit skeptical pass. The central problem is not the idea, but source-domain gating, provenance and the absence of concrete claim-to-evidence bindings.\nThe …",
+      "published_at": "2026-07-10",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Testing PPAI for mail service - research open for testers",
+      "url": "https://discuss.huggingface.co/t/testing-ppai-for-mail-service-research-open-for-testers/177515",
+      "summary": "Hi everyone \nI’m working on agent architectures for email workflows and I’d love to learn from people actually dealing with this in production (or trying to).\nIf you’re using agents to manage email — spam filtering, summarizing threads, drafting replies, keeping sales conversations alive, registering new customers into a CRM — what’s failing for you?\nCommon issues I keep hearing about:\n- Agents losing context across long threads\n- Hallucinated replies that damage customer trust\n- No persistent memory between sessions\n- Costs that scale badly with volume\nWe’ve been building PPAI, an architecture that handles these tasks with persistent state, and I’d genuinely like to test it against real problems — not demos. If you have a use case that’s breaking, tell me about it. Happy to run a pilot with someone who’s actively working on this.\nWhat are you using today, and where does it fall short?\n             \n            \n           \n          \n            \n            \n              To be honest, I’m not really sure I follow your point. What exactly is the goal here? You mentioned problems you’ve heard about, but not ones you’ve actually run into yourself. Also, is hallucination really an issue in sales conversations in your project ?\n             \n            \n           \n          \n            \n            \n              \"If you’re using agents to manage email — spam filtering, summarizing threads, drafting replies, keeping sales conversations alive, registering new customers into a…",
+      "published_at": "2026-07-06",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
