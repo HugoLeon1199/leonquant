@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-12T04:44:05.322719+00:00",
-  "count": 16,
+  "generated_at": "2026-07-12T09:19:39.482623+00:00",
+  "count": 18,
   "source_error_count": 0,
   "articles": [
     {
@@ -103,39 +103,6 @@
       "macro_score": 0
     },
     {
-      "title": "Severe Throttling/Instability downloading GGUF via Telmex ISP in Northwest Mexico",
-      "url": "https://discuss.huggingface.co/t/severe-throttling-instability-downloading-gguf-via-telmex-isp-in-northwest-mexico/177677",
-      "summary": "Hello Hugging Face Team,\nI am experiencing severe network instability and bandwidth throttling when downloading large GGUF files (over 20GB) directly from your CDN. The connection exhibits a constant “sawtooth” behavior, dropping to 0 MB/s and forcing aggressive retries via curl -L -C -.\nHere are my network diagnostics to help your infra team isolate the routing issue:\n- Location: Mazatlan, Sinaloa, Mexico.\n- ISP: Telmex (Fiber Optic, 250 Mbps plan).\n- Ping to huggingface.co: Excellent (22ms stable, 0% packet loss).\n- DNS: Tested with both Google (8.8.8.8) and Cloudflare (1.1.1.1).\n- Cross-provider test: Downloads from GitHub CDN (Fastly) run at a completely flat 300 Mbps without a single drop. This isolates the bottleneck entirely to the Hugging Face / Cloudflare routing path assigned for Telmex users in northwest Mexico.\nIt seems like the edge node or gateway serving this specific region is throttling connections upon reaching maximum packet throughput on massive binary files. Could you please review the routing matrix or CDN peering agreements for Telmex MX?\nThank you!",
-      "published_at": "2026-07-11",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "How many images to parameters?",
-      "url": "https://discuss.huggingface.co/t/how-many-images-to-parameters/177672",
-      "summary": "I’m training a latent diffusion model and wondering what the scaling laws were, I couldnt find much info online. My current is around 430M parameters training on around 2 Million images. I’m thinking of possibly scaling the parameters up a bit to increase the quality. Is this a good idea or should I scale down my images or parameters? Based on SD, they seemed to use billions for their models which were at 860M, half of mine\nHmm… for now, I don’t think the number of images per parameter alone gives us enough information to decide:\nI would not reduce the number of useful images just to make an images-per-parameter ratio look more similar to Stable Diffusion. I also would not assume that increasing 430M to 860M will automatically improve quality.\nThe main reason is that “430M parameters / 2M images” combines several different constraints:\n- what the 430M parameters belong to;\n- whether this is training from scratch or continued pretraining;\n- how many times the images are actually presented;\n- the semantic, caption, resolution, and aspect-ratio distribution of those images;\n- the training compute available;\n- and what kind of “quality” is currently missing.\nThere is an unusually close reference point: Bigger is not Always Better: Scaling Properties of Latent Diffusion Models includes an exact 430M-parameter denoising UNet in a controlled family ranging from 39M to 5B parameters. That at least shows that 430M is a perfectly plausible model size rather than an obviously undersized…",
-      "published_at": "2026-07-11",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "How To Solve ChatGPT Opposition Bias?",
-      "url": "https://discuss.huggingface.co/t/how-to-solve-chatgpt-opposition-bias/177678",
-      "summary": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I Use Python Code It Starts Giving Opposition To Me Or Challenges Me And Most Of The Time It Did Counter Balancing With No Reason And Like A Salesman It Asks Unwanted Recommendations Or Offers To Me In The Chat How To Solve This I Have Been Already Trying Drift Prompts And Opposition Workarounds But Nothing Is Helping The Prompt Works For Only 5 Messages And ChatGPT Drifts The Task To A Debate And Never Finishes My First Task Instead It Creates A Meta-Task Which I Never Asked It To Do Can Somebody Help In This Or Provide Workarounds\nHmm… at least one thing seems clear: what you’re running into is a real problem:\nThe behavior you describe is plausible as an observable failure pattern, and there are other public reports and research findings that overlap with parts of it.\nHowever, I would not yet treat “opposition bias” as one established feature, one official bug, or one confirmed root cause. Your description appears to combine several behaviors that can look like one mode from the user side:\n- unsolicited counterbalancing or “the other side” arguments;\n- reopening premises that were already accepted for the task;\n- replacing your question with a different, easier-to-oppose question;\n- turning an execution task into a discussio…",
-      "published_at": "2026-07-11",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I",
       "url": "https://discuss.huggingface.co/t/i-recently-again-documented-in-10-different-chats-that-chatgpt-again-switched-to-opposition-mode-whenever-i-ask-something-whenever-i-provide-my-md-whenever-i-conduct-research-whenever-i-share-my-insights-whenever-i-ask-it-to-develop-artifact-or-whenever-i/177679",
       "summary": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I Use Python Code It Starts Giving Opposition To Me Or Challenges Me And Most Of The Time It Did Counter Balancing With No Reason And Like A Salesman It Asks Unwanted Recommendations Or Offers To Me In The Chat How To Solve This I Have Been Already Trying Drift Prompts And Opposition Workarounds But Nothing Is Helping The Prompt Works For Only 5 Messages And ChatGPT Drifts The Task To A Debate And Never Finishes My First Task Instead It Creates A Meta-Task Which I Never Asked It To Do Can Somebody Help In This Or Provide Workarounds",
@@ -158,9 +125,31 @@
       "macro_score": 0
     },
     {
+      "title": "How To Solve ChatGPT Opposition Bias?",
+      "url": "https://discuss.huggingface.co/t/how-to-solve-chatgpt-opposition-bias/177678",
+      "summary": "I Recently Again Documented In 10 Different Chats That ChatGPT Again Switched To Opposition Mode Whenever I Ask Something Whenever I Provide My md Whenever I Conduct Research Whenever I Share My Insights Whenever I Ask It To Develop Artifact Or Whenever I Use Python Code It Starts Giving Opposition To Me Or Challenges Me And Most Of The Time It Did Counter Balancing With No Reason And Like A Salesman It Asks Unwanted Recommendations Or Offers To Me In The Chat How To Solve This I Have Been Already Trying Drift Prompts And Opposition Workarounds But Nothing Is Helping The Prompt Works For Only 5 Messages And ChatGPT Drifts The Task To A Debate And Never Finishes My First Task Instead It Creates A Meta-Task Which I Never Asked It To Do Can Somebody Help In This Or Provide Workarounds\nHmm… at least one thing seems clear: what you’re running into is a real problem:\nThe behavior you describe is plausible as an observable failure pattern, and there are other public reports and research findings that overlap with parts of it.\nHowever, I would not yet treat “opposition bias” as one established feature, one official bug, or one confirmed root cause. Your description appears to combine several behaviors that can look like one mode from the user side:\n- unsolicited counterbalancing or “the other side” arguments;\n- reopening premises that were already accepted for the task;\n- replacing your question with a different, easier-to-oppose question;\n- turning an execution task into a discussio…",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "AlphaAvatar v0.6.4: a self-hostable realtime multimodal assistant runtime with shared perception and ENV memory",
       "url": "https://discuss.huggingface.co/t/alphaavatar-v0-6-4-a-self-hostable-realtime-multimodal-assistant-runtime-with-shared-perception-and-env-memory/177684",
-      "summary": "Hi everyone\nA few weeks ago, I shared an early introduction to AlphaAvatar, an open-source and self-hostable realtime full-multimodal personal AI assistant runtime.\nThe discussion around that post was very helpful. One particularly useful point was that AlphaAvatar may be more valuable when positioned less as another avatar frontend, and more as a reusable runtime layer for persistent realtime multimodal agents.\nThat is increasingly how I see the project as well.\nAlphaAvatar does not try to own every ASR, TTS, RTC, model, or avatar renderer. Instead, it aims to provide the stateful runtime connecting them:\n- \nrealtime multimodal perception \n- \nsession and interaction state \n- \npersistent Memory and Persona \n- \nidentity continuity \n- \ntools, MCP, RAG, and DeepResearch \n- \nstatus and workflow feedback \n- \navatar and channel outputs \n- \nself-hosted storage and provider control \nSince the previous post, the project has gone through several architecture-focused releases, culminating in v0.6.4.\nUpdated architecture\nThe new architecture is organized around six main areas:\n1. AlphaAvatar Core\navatar-core contains transport-independent multimodal primitives:\n- \nEnvObservation\n- \nEnvAnnotation\n- \nMediaPayload\n- \nraw and annotated payload views \n- \ngeneric video frame buffers \n- \ntyped perception streams \n- \nshared timelines \n- \nconsumer-specific observation windows \nThe goal is to let Memory, Persona, Vision, and future runtime modules consume the same multimodal observation model with…",
+      "summary": "Hi. I also took a quick look at the latest code on my side:\nI think the shared-perception refactor is a useful step toward the runtime-layer positioning you described. In particular, publishing media once into a transport-independent observation model, then letting Persona, Vision, Memory, and future routers consume it through their own cursors and windows, seems like a much cleaner foundation than allowing each plugin to rebuild its own RTC-specific perception path.\nMy short answers to the four questions would be:\n| Question | My current answer | \n| What should remain explicit in the runtime? | Keep externally consequential commitments explicit: identity ownership, durable-memory commits, permissions, retention/deletion, provider egress, cancellation, delivered output, and audit information. Models can propose interpretations, associations, summaries, plans, and memory candidates. | \n| How should long-running ENV Memory be evaluated? | Treat it as a lifecycle: write, maintain, retrieve, use, and operate. A final QA score alone would hide whether the failure happened during perception, memory creation, updating, retrieval, or downstream use. | \n| What should multimodal memory store? | Probably a combination, but with narrow responsibilities: an observation receipt, a lossy episodic record, structured claim/state candidates, sparse graph/vector projections, and optionally selected media with explicit retention rules. | \n| What interface would help other projects? | Keep a smal…",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Severe Throttling/Instability downloading GGUF via Telmex ISP in Northwest Mexico",
+      "url": "https://discuss.huggingface.co/t/severe-throttling-instability-downloading-gguf-via-telmex-isp-in-northwest-mexico/177677",
+      "summary": "Hello Hugging Face Team,\nI am experiencing severe network instability and bandwidth throttling when downloading large GGUF files (over 20GB) directly from your CDN. The connection exhibits a constant “sawtooth” behavior, dropping to 0 MB/s and forcing aggressive retries via curl -L -C -.\nHere are my network diagnostics to help your infra team isolate the routing issue:\n- Location: Mazatlan, Sinaloa, Mexico.\n- ISP: Telmex (Fiber Optic, 250 Mbps plan).\n- Ping to huggingface.co: Excellent (22ms stable, 0% packet loss).\n- DNS: Tested with both Google (8.8.8.8) and Cloudflare (1.1.1.1).\n- Cross-provider test: Downloads from GitHub CDN (Fastly) run at a completely flat 300 Mbps without a single drop. This isolates the bottleneck entirely to the Hugging Face / Cloudflare routing path assigned for Telmex users in northwest Mexico.\nIt seems like the edge node or gateway serving this specific region is throttling connections upon reaching maximum packet throughput on massive binary files. Could you please review the routing matrix or CDN peering agreements for Telmex MX?\nThank you!",
       "published_at": "2026-07-11",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -171,13 +160,46 @@
     {
       "title": "Question about rerankers in knowledge graphs",
       "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
-      "summary": "I was just thinking about trying out a new RAG approach that works similarly to LightRAG, but I can’t find anything about it online.\nThe documents or text sections are stored as nodes in a knowledge graph. A reranker is then used to retrieve documents based on a query. Subsequently, the query itself becomes a new node that immediately establishes a connection with the most similar nodes identified by the reranker.\nThis might offer the advantage that rerankers are more precise than, for instance, contextual RAG. In contrast, LLMs used for node extraction can only generate specific labels or keywords for nodes, which might be too coarse-grained.",
+      "summary": "For now, I searched around and tried to organize what I found:\nYes — the general idea looks implementable, and there is prior work fairly close to it.\nThe closest term I found is a query–document graph or query–document relevance graph: query nodes and document/chunk nodes form a weighted bipartite graph, and the edges represent estimated relevance.\nThe closest direct example is the ECIR 2024 paper Effective Adhoc Retrieval through Traversal of a Query-Document Graph. It connects generated query nodes to document nodes using neural relevance estimates, then traverses that graph to find documents that the first-stage retriever missed.\nThe main difference is that its query nodes are primarily generated from the corpus in advance. Your proposal seems to add live user queries as persistent nodes and reuse their relationships later. I would treat that persistent online-memory part as a second, separate experiment.\nA useful way to split the pipeline\nfirst-stage retrieval\n    ↓\nreranking\n    ↓\noptional graph-based candidate expansion\n    ↓\nreranking/fusion against the current query\n    ↓\noptional persistent-memory update\nA reranker normally operates on candidates produced by an earlier retriever rather than searching the complete corpus efficiently by itself. The standard pattern is described in the Sentence Transformers Retrieve & Re-Rank documentation, and LightRAG currently supports a reranking-function stage.\nI also would not treat contextual retrieval and reranking as alternati…",
       "published_at": "2026-07-11",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
+    },
+    {
+      "title": "How many images to parameters?",
+      "url": "https://discuss.huggingface.co/t/how-many-images-to-parameters/177672",
+      "summary": "I’m training a latent diffusion model and wondering what the scaling laws were, I couldnt find much info online. My current is around 430M parameters training on around 2 Million images. I’m thinking of possibly scaling the parameters up a bit to increase the quality. Is this a good idea or should I scale down my images or parameters? Based on SD, they seemed to use billions for their models which were at 860M, half of mine\nHmm… for now, I don’t think the number of images per parameter alone gives us enough information to decide:\nI would not reduce the number of useful images just to make an images-per-parameter ratio look more similar to Stable Diffusion. I also would not assume that increasing 430M to 860M will automatically improve quality.\nThe main reason is that “430M parameters / 2M images” combines several different constraints:\n- what the 430M parameters belong to;\n- whether this is training from scratch or continued pretraining;\n- how many times the images are actually presented;\n- the semantic, caption, resolution, and aspect-ratio distribution of those images;\n- the training compute available;\n- and what kind of “quality” is currently missing.\nThere is an unusually close reference point: Bigger is not Always Better: Scaling Properties of Latent Diffusion Models includes an exact 430M-parameter denoising UNet in a controlled family ranging from 39M to 5B parameters. That at least shows that 430M is a perfectly plausible model size rather than an obviously undersized…",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Need feedback on my research",
+      "url": "https://discuss.huggingface.co/t/need-feedback-on-my-research/177694",
+      "summary": "Over the past few weeks, I have been conducting a study to evaluate small AI language models (100M ≤ x ≤ 3B parameters) in order to determine their memory limits for two specific tasks: retrieval and reconstruction. The goal is to identify models that are well suited for local deployment on low-spec laptops and PCs.\nTo achieve this, I designed a simple benchmark focused specifically on these two tasks. I then evaluated three Qwen2.5 models: 0.5B, 1.5B, and 3B.\nAfter completing the experiments and analyzing the results, I was not surprised to find that their retrieval memory performance was relatively similar across all three models.\nHowever, I was genuinely surprised by the reconstruction memory results. Unexpectedly, Qwen2.5-3B performed the worst in this benchmark, showing a much more significant decline in reconstruction performance as the amount of provided information increased compared with both the 1.5B and even the 0.5B models.\nBecause of this unexpected finding, I would appreciate any suggestions on additional analyses, experiments, or methodological checks that I should perform to determine whether this result is truly objective rather than the consequence of an experimental error or some other confounding factor.\nI am open to feedback of any kind and would greatly appreciate all type of insights.",
+      "published_at": "2026-07-12",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Add thamilvendhan/signalbench to the Benchmark allow-list",
+      "url": "https://discuss.huggingface.co/t/add-thamilvendhan-signalbench-to-the-benchmark-allow-list/177696",
+      "summary": "Hi HF team,\nI would like to register my dataset thamilvendhan/signalbench as a Benchmark so its leaderboard can aggregate community evaluation results across the Hugging Face Hub.\nDataset: thamilvendhan/signalbench · Datasets at Hugging Face\nThe eval.yaml file has been added to the repository root and was validated during upload.\nSignalBench introduces In Band Signal Compliance (IBSC), a benchmark with a single metric called Signal Response Correctness. It evaluates both over compliance, such as prompt injection, and under compliance, including temporal blindness, access denial, memory label, and bot policy failures in LLM agents. The dataset is licensed under Apache 2.0. The DOI is 10.5281/zenodo.21223956, and the code is available at GitHub - mthamil107/signal-compliance: In-Band Signal Compliance (IBSC): one metric for prompt injection and temporal blindness. signalbench benchmark + 21-model leaderboard, action-based grading, Apache-2.0. · GitHub.\nThe benchmark defines the following tasks: src for the overall benchmark, along with five task families: time, access_deny, memory_label, injection, and bot_policy.\nCould you please add it to the Benchmark allow list? I would be happy to update the eval.yaml file if any schema changes are needed, including completing the inspect ai field_spec, solvers, or scorers.\nThank you!",
+      "published_at": "2026-07-12",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
     }
   ],
   "errors": [],
