@@ -9,6 +9,43 @@
 
 <!-- Cập nhật block này sau mỗi session -->
 
+## [2026-07-12 19:25] - [Codex]
+
+### Da lam
+- Chi sua input/acquisition Tech; khong sua UI, prompt editorial, Tin48h, Invest hay World.
+- Probe live 109 RSS/Atom endpoint quoc te; 89 endpoint parse hop le o vong discovery.
+- Thay catalog page/category cu bang 84 direct feed da kiem tra, phu US/Canada, UK/EU, Duc/Phap/Tay Ban Nha, An Do/SEA/Australia, MENA, chau Phi va My Latin.
+- Sua profiler nhan direct feed bang body thay vi chi dua vao chu `rss/feed` trong URL; direct feed bo qua sitemap/HTML/JS/paywall probe thua.
+- Them fast direct-feed validator chay song song 12 worker. PASS bat buoc >=3/5 item co URL, title, published date va content feed >=180 ky tu; headline-only khong pass.
+- RSS collector/spider truyen `feed_title`, `feed_summary`, `candidate_published_at`; pipeline dung summary that lam fallback neu article page bi chan/qua ngan, co provenance `rss_then_article_extract:feed_summary_fallback`.
+- `tech/crawl.py` kiem tra DB profiles co bao phu toan bo active seed; catalog doi thi tu dong re-profile thay vi dung cache 7 nguon cu.
+- Source coverage stats lay active RSS count tu validation report that.
+
+### Ket qua
+- Full live validation: catalog=84; PASS_RSS=63; SOFT_PASS=5; ARTICLE_EXTRACTION_FAILED=14; DEAD_URL=2.
+- 63 active source = 63 unique domain. Day la nguon co content that, khong tinh HTTP-only/headline-only.
+- Full Scrapy smoke, budget 1 URL/source: 59/63 active source ghi duoc article vao DuckDB; 4 source fail trong lan smoke (`canaltech_com_br`, `tech_eu`, `theregister_com`, `uktech_news`).
+- Run summary: inserted=50, duplicate=11, errors=4; production tier allowlist chi chay 63 active source.
+- Truoc do smoke 12 source (do budget flag cu bi override) da insert 443 article va chi 1 loi, xac nhan full-article path hoat dong.
+- `python scripts/test_tech_pipeline.py` -> pass.
+- `python tech/validate_publication.py` -> pass.
+
+### File thay doi trong scope
+- `tech/config/tech_sources_catalog.txt`
+- `tech/config/sources_active.txt`, `sources_disabled.txt`, `tech_tiers/**`, `tech_tiers_manifest.json`
+- `tech/reports/source_validation.json`, `source_validation.md`
+- `scripts/validate_tech_sources.py`, `scripts/build_tech_publication.py`, `scripts/test_tech_pipeline.py`
+- `tech/crawl.py`
+- `leon_web_intel/src/profiler/rss_detector.py`, `source_profiler.py`
+- `leon_web_intel/src/collectors/rss_collector.py`
+- `leon_web_intel/src/scrapy_engine/items.py`, `pipelines.py`, `spiders/rss_article_spider.py`
+- `.ai/CURSOR_WORKLOG.md`, `HANDOFF.md`
+
+### Viec tiep theo
+- Can push va chay Tech Radar production de xac minh GitHub cache tu dong re-profile 63 active feed va Pages nhan stats moi.
+- 4 source fail smoke van giu trong PASS_RSS vi feed content gate pass; fallback feed summary co the van luu khi article fetch fail. Can doc production artifact de xac nhan contribution theo source.
+- 21 source disabled duoc giu ro trong report, khong force-fill de dat con so.
+
 ## [2026-07-12 13:53] - [Codex]
 
 ### Da lam

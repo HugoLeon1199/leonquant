@@ -50,6 +50,14 @@ def discover_rss_urls(
             seen.add(u)
             candidates.append(u)
 
+    # A catalog entry may already be a direct RSS/Atom endpoint. Probe it
+    # before guessing conventional paths from the domain homepage. Previously
+    # these inputs were normalized to the site root and valid feeds were often
+    # misclassified as JS/paywall/sitemap sources.
+    input_lower = str(norm.input_url or "").lower()
+    if any(token in input_lower for token in (".rss", ".xml", "/rss", "/feed", "atom", "feeds/")):
+        add(norm.input_url)
+
     # Method 2: link tags from homepage
     soup = BeautifulSoup(homepage_html, "lxml")
     for link in soup.find_all("link"):

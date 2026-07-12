@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import hashlib
 from pathlib import Path
 
 import scrapy
@@ -127,6 +128,70 @@ class WebIntelArticlePipeline:
         except Exception as exc:  # noqa: BLE001
             logger.exception("crawl_errors insert failed: %s", exc)
 
+    def _persist_feed_fallback(
+        self,
+        adapter: ItemAdapter,
+        *,
+        source_id: str,
+        url: str,
+        strategy: str,
+        source_active: bool,
+    ) -> bool:
+        """Persist a real RSS/Atom summary when the linked page blocks extraction."""
+        assert self.db is not None
+        content = " ".join(str(adapter.get("feed_summary") or "").split())
+        title = " ".join(str(adapter.get("feed_title") or "").split())
+        if len(content) < 180 or not title or not url:
+            return False
+        content_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()
+        if content_hash in self.seen_hashes:
+            self._bump_duplicates()
+            self.db.mark_frontier_skipped(
+                url=url,
+                reason_type="DuplicateFeedSummary",
+                reason_message="feed summary content_hash already exists",
+            )
+            return True
+        published_at = str(adapter.get("candidate_published_at") or "").strip() or None
+        score = compute_quality_score(
+            title=title,
+            content_length=len(content),
+            published_at=published_at,
+            source_active=source_active,
+            content_hash=content_hash,
+            url=url,
+            strategy=strategy,
+            raw_path="",
+            extract_ok=True,
+            paywall_triplet=(False, False, False),
+            existing_hashes=self.seen_hashes,
+        )
+        try:
+            self.db.insert_article(
+                {
+                    "id": new_id(),
+                    "source_id": source_id,
+                    "url": url,
+                    "title": title,
+                    "published_at": published_at,
+                    "content": content,
+                    "content_length": len(content),
+                    "content_hash": content_hash,
+                    "language": "",
+                    "crawl_strategy_used": f"{strategy}:feed_summary_fallback",
+                    "raw_path": "",
+                    "extracted_at": utc_now(),
+                    "quality_score": score,
+                }
+            )
+            self.db.mark_frontier_crawled(url=url, content_hash=content_hash)
+            self.seen_hashes.add(content_hash)
+            self._bump_articles()
+            return True
+        except Exception as exc:  # noqa: BLE001
+            logger.exception("feed summary fallback insert failed %s: %s", url, exc)
+            return False
+
     def process_item(self, item: ArticleItem, spider: scrapy.Spider) -> ArticleItem:
         self._bump_pipeline_items()
         assert self.db is not None and self.rules is not None and self.raw_store is not None
@@ -149,6 +214,11 @@ class WebIntelArticlePipeline:
 
         status = adapter.get("response_status")
         if status is not None and int(status) >= 400:
+            if self._persist_feed_fallback(
+                adapter, source_id=source_id, url=url, strategy=strategy, source_active=source_active
+            ):
+                adapter.pop("html_body", None)
+                return item
             self._log_error(
                 source_id=source_id,
                 url=url,
@@ -159,6 +229,11 @@ class WebIntelArticlePipeline:
             return item
 
         if err_type:
+            if self._persist_feed_fallback(
+                adapter, source_id=source_id, url=url, strategy=strategy, source_active=source_active
+            ):
+                adapter.pop("html_body", None)
+                return item
             self._log_error(
                 source_id=source_id,
                 url=url,
@@ -172,6 +247,10 @@ class WebIntelArticlePipeline:
 
         html = adapter.get("html_body")
         if not html:
+            if self._persist_feed_fallback(
+                adapter, source_id=source_id, url=url, strategy=strategy, source_active=source_active
+            ):
+                return item
             self._log_error(
                 source_id=source_id,
                 url=url,
@@ -210,6 +289,11 @@ class WebIntelArticlePipeline:
             and (paywall or login)
         )
         if (paywall or login or captcha) and not access_relaxed_keep:
+            if self._persist_feed_fallback(
+                adapter, source_id=source_id, url=url, strategy=strategy, source_active=source_active
+            ):
+                adapter.pop("html_body", None)
+                return item
             self._log_error(
                 source_id=source_id,
                 url=url,
@@ -226,6 +310,11 @@ class WebIntelArticlePipeline:
         except Exception as exc:  # noqa: BLE001
             logger.debug("raw_store.save_html failed {}: {}", url, exc)
         if content_length < min_len:
+            if self._persist_feed_fallback(
+                adapter, source_id=source_id, url=url, strategy=strategy, source_active=source_active
+            ):
+                adapter.pop("html_body", None)
+                return item
             self._log_error(
                 source_id=source_id,
                 url=url,

@@ -17,6 +17,7 @@ from scripts.build_tech_publication import build_publication  # noqa: E402
 from scripts.run_tech_gdelt import companies_from_blob  # noqa: E402
 from scripts.tech_common import PASS_STATUSES, TECH_PUBLICATION_SCHEMA, TECH_SOURCE_COVERAGE_MATRIX, TECH_WATCHLIST_CONFIGURED_SOURCES  # noqa: E402
 from scripts.validate_tech_publication import validate as validate_publication  # noqa: E402
+from scripts import validate_tech_sources as source_validation  # noqa: E402
 from tech.acquire_api_sources import arxiv_entry_candidate, candidate as api_candidate, github_release_candidate, github_repo_candidate, hf_model_candidate  # noqa: E402
 
 FORBIDDEN_DIFF_PATHS = {
@@ -54,6 +55,34 @@ def test_validation_fixture_generation() -> None:
     disabled = len(sources) - active
     assert_true(active == 1, "fixture active count mismatch")
     assert_true(disabled == 1, "fixture disabled count mismatch")
+
+
+def test_direct_feed_validation_uses_real_summary_content() -> None:
+    item_xml = "".join(
+        f"<item><title>AI model release {idx}</title><link>https://example.com/{idx}</link>"
+        f"<pubDate>Sat, 11 Jul 2026 10:0{idx}:00 GMT</pubDate>"
+        f"<description>{'AI infrastructure and developer tooling update. ' * 8}</description></item>"
+        for idx in range(5)
+    )
+    body = f"<?xml version='1.0'?><rss version='2.0'><channel><title>Feed</title>{item_xml}</channel></rss>".encode()
+
+    class FakeResponse:
+        status_code = 200
+        url = "https://example.com/feed.xml"
+        headers = {"content-type": "application/rss+xml"}
+        content = body
+
+    original_get = source_validation.httpx.get
+    source_validation.httpx.get = lambda *args, **kwargs: FakeResponse()
+    try:
+        result = source_validation.validate_direct_feed_source(
+            {"name": "[Test] Direct Feed", "url": "https://example.com/feed.xml"},
+            rules=type("Rules", (), {"user_agent": "test", "request_timeout_seconds": 5})(),
+        )
+    finally:
+        source_validation.httpx.get = original_get
+    assert_true(result["validation_status"] == "PASS_RSS", "content-rich direct feed should pass")
+    assert_true(all(row["feed_summary_fallback"] for row in result["article_samples"]), "feed content provenance missing")
 
 
 def test_gdelt_companies_from_blob_expanded_entities() -> None:
@@ -725,6 +754,7 @@ def test_forbidden_diff_guard() -> None:
 
 def main() -> None:
     test_validation_fixture_generation()
+    test_direct_feed_validation_uses_real_summary_content()
     test_api_acquisition_candidate_fixtures()
     test_publication_build_and_validate()
     test_watchlist_configured_sources_are_debug_only()

@@ -1605,6 +1605,16 @@ def source_coverage_stats(candidates: list[dict[str, Any]], watchlist_status: di
     enabled_profiles = [row for row in profiles if row.get("enabled") is True]
     disabled_profiles = [row for row in profiles if row.get("enabled") is False]
     method_counts = Counter(str(row.get("method") or "") for row in enabled_profiles)
+    validated_sources: list[dict[str, Any]] = []
+    if TECH_VALIDATION_JSON.is_file():
+        try:
+            validation_payload = load_json(TECH_VALIDATION_JSON)
+            validated_sources = [
+                row for row in (validation_payload.get("sources") or [])
+                if isinstance(row, dict) and row.get("production_ready") is True
+            ]
+        except Exception:
+            validated_sources = []
     content_quality_mix = Counter(str(row.get("content_quality") or "metadata_only") for row in candidates)
     raw_method_mix = Counter(str(row.get("raw_source_method") or "") for row in candidates)
     manual_signal_count = sum(1 for row in candidates if not is_real_publication_candidate(row))
@@ -1633,8 +1643,8 @@ def source_coverage_stats(candidates: list[dict[str, Any]], watchlist_status: di
         "active_url_sources": active_url_source_count(),
         "active_watchlist_entities": int(watchlist_status.get("checked") or 0),
         "active_api_sources": active_api_sources,
-        "active_rss_sources": int(method_counts.get("rss") or 0),
-        "active_sitemap_sources": int(method_counts.get("sitemap") or 0),
+        "active_rss_sources": sum(1 for row in validated_sources if row.get("has_rss")) or int(method_counts.get("rss") or 0),
+        "active_sitemap_sources": sum(1 for row in validated_sources if row.get("has_sitemap")) or int(method_counts.get("sitemap") or 0),
         "metadata_only_sources": metadata_only_sources,
         "candidates_by_method": dict(raw_method_mix),
         "content_quality_mix": dict(content_quality_mix),

@@ -980,3 +980,13 @@ Validation status snapshot live:
 - Section counts: local_ai=3, automation=10, open_source=1, knowledge=4, founder_ideas=10.
 - /tech/ render check: knowledge=True; founder_ideas=True.
 - Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
+## 2026-07-12 - Tech direct-feed source expansion
+
+- Scope: input/acquisition only; no UI/editorial changes.
+- Replaced the legacy page/category catalog (7 production-ready) with 84 live-probed direct RSS/Atom endpoints across North America, Europe, Asia-Pacific, MENA, Africa, and Latin America.
+- Direct-feed validation requires at least 3 of 5 entries with URL, title, published date, and feed content >=180 characters. HTTP 200 or headline-only feeds do not pass.
+- Live report: catalog=84, PASS_RSS=63, SOFT_PASS=5, ARTICLE_EXTRACTION_FAILED=14, DEAD_URL=2; 63 active unique domains.
+- Profiler detects feeds by parsed body, including endpoints without rss/feed in the URL, and skips unnecessary sitemap/HTML/JS/paywall probes.
+- RSS spider/pipeline carries feed title, published time, and summary; blocked/short article extraction can persist a real feed summary with `:feed_summary_fallback` provenance.
+- Full one-URL-per-source Scrapy smoke: 59/63 active source ids wrote content; 4 failed in this run (`canaltech_com_br`, `tech_eu`, `theregister_com`, `uktech_news`).
+- Tests: `python scripts/test_tech_pipeline.py` pass; `python tech/validate_publication.py` pass.

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from html import unescape
+import re
 from typing import Any, NamedTuple
 from urllib.parse import urljoin, urlparse
 
@@ -23,6 +25,8 @@ class _TodayEntry(NamedTuple):
     sort_key: float
     link: str
     cand_raw: str | None
+    title: str | None
+    summary: str | None
 
 
 class RssArticleSpider(scrapy.Spider):
@@ -62,6 +66,17 @@ class RssArticleSpider(scrapy.Spider):
         if self.summary:
             with self.summary.lock:
                 self.summary.requests_scheduled += n
+
+    @staticmethod
+    def _entry_summary(entry: Any) -> str:
+        parts = entry.get("content") or []
+        rich = " ".join(
+            str(part.get("value") or "")
+            for part in parts
+            if isinstance(part, dict)
+        )
+        raw = rich or entry.get("summary") or entry.get("description") or ""
+        return re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", " ", str(raw)))).strip()
 
     def _cap_for_source(self, sid: str) -> int:
         if self.today_only:
@@ -168,7 +183,13 @@ class RssArticleSpider(scrapy.Spider):
                     cand_raw = str(entry.get("updated"))
 
                 sk = cand_dt.timestamp() if cand_dt else float("-inf")
-                row = _TodayEntry(sk, link, cand_raw)
+                row = _TodayEntry(
+                    sk,
+                    link,
+                    cand_raw,
+                    str(entry.get("title") or "").strip() or None,
+                    self._entry_summary(entry) or None,
+                )
                 if cand_dt and is_datetime_in_range(cand_dt, start_utc, end_utc):
                     on_day.append(row)
                 elif is_url_likely_recent_calendar_days(link, target_d, self.recent_calendar_days):
@@ -191,6 +212,8 @@ class RssArticleSpider(scrapy.Spider):
                         "source_id": sid,
                         "source_active": active,
                         "candidate_published_at": row.cand_raw,
+                        "feed_title": row.title,
+                        "feed_summary": row.summary,
                     },
                     dont_filter=False,
                 )
@@ -234,6 +257,8 @@ class RssArticleSpider(scrapy.Spider):
                     "source_id": sid,
                     "source_active": active,
                     "candidate_published_at": cand_raw,
+                    "feed_title": str(entry.get("title") or "").strip() or None,
+                    "feed_summary": self._entry_summary(entry) or None,
                 },
                 dont_filter=False,
             )
@@ -305,6 +330,8 @@ class RssArticleSpider(scrapy.Spider):
             response_status=response.status,
             source_active=response.meta.get("source_active", True),
             candidate_published_at=response.meta.get("candidate_published_at"),
+            feed_title=response.meta.get("feed_title"),
+            feed_summary=response.meta.get("feed_summary"),
             discovery_source="rss_homepage" if response.meta.get("homepage_fallback") else "rss",
             target_date=td,
             is_today_candidate=bool(self.today_only),
@@ -323,4 +350,7 @@ class RssArticleSpider(scrapy.Spider):
             error_message=repr(failure.value),
             response_status=status,
             source_active=req.meta.get("source_active", True),
+            candidate_published_at=req.meta.get("candidate_published_at"),
+            feed_title=req.meta.get("feed_title"),
+            feed_summary=req.meta.get("feed_summary"),
         )

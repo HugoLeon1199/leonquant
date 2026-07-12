@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import re
+from html import unescape
 from typing import Any
 
 import feedparser
@@ -12,16 +14,28 @@ from storage.raw_store import RawStore
 from utils.hashing import sha256_text
 
 
-def iter_feed_article_urls(feed_body: str, limit: int) -> list[tuple[str, str | None, str | None]]:
+def _clean_feed_text(value: Any) -> str:
+    text = re.sub(r"<[^>]+>", " ", str(value or ""))
+    return re.sub(r"\s+", " ", unescape(text)).strip()
+
+
+def iter_feed_article_urls(feed_body: str, limit: int) -> list[tuple[str, str | None, str | None, str | None]]:
     parsed = feedparser.parse(feed_body)
-    out: list[tuple[str, str | None, str | None]] = []
+    out: list[tuple[str, str | None, str | None, str | None]] = []
     for entry in getattr(parsed, "entries", []) or []:
         link = (entry.get("link") or "").strip()
         title = (entry.get("title") or "").strip() or None
         pub = entry.get("published") or entry.get("updated")
         pub_s = str(pub) if pub else None
+        content_parts = entry.get("content") or []
+        content_value = " ".join(
+            str(part.get("value") or "")
+            for part in content_parts
+            if isinstance(part, dict)
+        )
+        summary = _clean_feed_text(content_value or entry.get("summary") or entry.get("description")) or None
         if link:
-            out.append((link, title, pub_s))
+            out.append((link, title, pub_s, summary))
         if len(out) >= limit:
             break
     return out
@@ -42,7 +56,7 @@ def discover_from_rss(
     raw_store.save_rss(source_id, body.encode("utf-8"))
     urls = iter_feed_article_urls(body, max_items)
     rows: list[dict[str, Any]] = []
-    for link, title, pub in urls:
+    for link, title, pub, summary in urls:
         row = {
             "id": new_id(),
             "source_id": source_id,
@@ -50,7 +64,7 @@ def discover_from_rss(
             "discovery_method": "rss_feed",
             "title": title,
             "published_at": pub,
-            "raw_metadata": json.dumps({"rss_url": rss_url}),
+            "raw_metadata": json.dumps({"rss_url": rss_url, "feed_summary": summary or ""}),
             "discovered_at": utc_now(),
             "url_hash": sha256_text(link),
         }

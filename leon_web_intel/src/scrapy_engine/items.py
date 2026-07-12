@@ -6,6 +6,8 @@ class ArticleItem(scrapy.Item):
     url = scrapy.Field()
     discovered_at = scrapy.Field()
     candidate_published_at = scrapy.Field()
+    feed_title = scrapy.Field()
+    feed_summary = scrapy.Field()
     discovery_source = scrapy.Field()
     target_date = scrapy.Field()
     is_today_candidate = scrapy.Field()

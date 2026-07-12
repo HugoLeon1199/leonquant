@@ -41,15 +41,27 @@ def publication_age_hours(path: Path) -> float | None:
         return None
 
 
-def has_profiles(db_path: Path) -> bool:
+def profiles_cover_seed(db_path: Path, seed_path: Path) -> bool:
     if not db_path.is_file():
         return False
     try:
         import duckdb
 
+        required_urls = {
+            line.strip()
+            for line in seed_path.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        }
+        if not required_urls:
+            return False
         con = duckdb.connect(str(db_path), read_only=True)
         try:
-            return int(con.execute("SELECT COUNT(*) FROM source_profiles").fetchone()[0]) > 0
+            profiled_urls = {
+                str(row[0]).strip()
+                for row in con.execute("SELECT input_url FROM source_profiles").fetchall()
+                if row and str(row[0]).strip()
+            }
+            return required_urls.issubset(profiled_urls)
         finally:
             con.close()
     except Exception:
@@ -72,13 +84,14 @@ def main() -> int:
     from scripts import run_tech_intel_pipeline as impl  # noqa: WPS433
 
     db_path = TECH_ROOT / "data" / "web_intel_tech.duckdb"
+    seed_path = TECH_ROOT / "config" / "sources_active.txt"
     db_path.parent.mkdir(parents=True, exist_ok=True)
-    if not has_profiles(db_path):
+    if not profiles_cover_seed(db_path, seed_path):
         profile_cmd = [
             sys.executable,
             str(ROOT / "leon_web_intel" / "run_profile.py"),
             "--input",
-            str(TECH_ROOT / "config" / "sources_active.txt"),
+            str(seed_path),
             "--profile-only",
             "--db",
             str(db_path),

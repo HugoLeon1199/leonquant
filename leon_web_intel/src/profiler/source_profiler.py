@@ -18,7 +18,7 @@ from profiler.js_detector import detect_js_heavy
 from profiler.normalize import NormalizedSource, dedupe_sources, normalize_url
 from profiler.paywall_detector import detect_paywall_signals
 from profiler.robots_checker import check_robots
-from profiler.rss_detector import discover_rss_urls
+from profiler.rss_detector import discover_rss_urls, validate_feed_body
 from profiler.sitemap_detector import discover_sitemap_urls
 from settings import CrawlRules
 from storage.db import WebIntelDB, new_id, utc_now
@@ -215,6 +215,26 @@ class SourceProfiler:
             profile.scheme = norm.scheme
             profile.homepage_url = norm.homepage_url
 
+            # Detect direct RSS/Atom inputs from their body, not only from URL
+            # naming conventions. Many valid feeds end in /index, backend.xml,
+            # an API query, or a FeedBurner route with no "rss" token.
+            try:
+                direct_status, direct_body = self._fetch_text(norm.input_url)
+            except Exception:
+                direct_status, direct_body = 0, ""
+            if direct_status < 400 and validate_feed_body(direct_body, norm.input_url):
+                profile.has_rss = True
+                profile.rss_urls = [norm.input_url]
+                profile.rss_valid_count = 1
+                profile = decide_best_strategy(profile, self.rules)
+                self.db.upsert_source_profile(profile_to_db_row(profile))
+                logger.info(
+                    "[PROFILE] {} | direct_rss_body=true | strategy={}",
+                    profile.source_id,
+                    profile.best_strategy,
+                )
+                return profile
+
             parsed = urlparse(norm.normalized_url)
             netloc_with_host = parsed.netloc.lower()
 
@@ -250,6 +270,19 @@ class SourceProfiler:
             profile.rss_urls = rss_urls
             profile.rss_valid_count = rss_valid
             profile.has_rss = rss_valid > 0
+
+            if profile.has_rss and norm.input_url in rss_urls:
+                # Direct feed catalogs already provide the acquisition
+                # endpoint. Do not spend additional requests probing sitemap,
+                # HTML, JS and paywall signals for the site homepage.
+                profile = decide_best_strategy(profile, self.rules)
+                self.db.upsert_source_profile(profile_to_db_row(profile))
+                logger.info(
+                    "[PROFILE] {} | direct_rss=true | strategy={}",
+                    profile.source_id,
+                    profile.best_strategy,
+                )
+                return profile
 
             sm_urls, sm_count = discover_sitemap_urls(
                 norm,
