@@ -43,7 +43,11 @@
 - `HANDOFF.md`
 
 ### Dang do / Viec tiep theo
-- Chua push/chua dispatch GitHub Actions; public Pages van la artifact cu cho toi khi publish.
+- Da push source commit `73343d1` va CI follow-up `86c8352` len `main`.
+- Tech Radar run dau `29188423517` bi validator chan vi lane image/video rong; fix validator khong force-fill lane rong bang metadata-only. Run lai `29188518647` -> success; artifact commit `bceabb4`; Pages `29188597393` -> success.
+- Tech production/public: generated `2026-07-12T10:06:32Z`; active URL sources=7, active API profiles=15, real API candidates=75, real candidates=114, manual_signal=0, main candidates=28, Must Read=14, Top Signal=10. Full Radar co 25 domain that; 23 domain co summary/full_text publishable.
+- Daily run `29188422512` -> success; artifact commit `2c7650f`; Pages `29189154399` -> success.
+- Main public: generated `2026-07-12T10:27:00Z`; 560 articles tu 31 domain, 340 article tu 14 domain co summary evidence; 3 notable URL duy nhat; 4/4 sector co evidence link.
 - Build van canh bao mot so newsroom claim/entity chua duoc grounded va mot so dossier thieu representative_sources; can sua o digest authorship/prompt/input stage tiep theo, khong nen che bang UI.
 - Full `scripts/test_newsroom_digest.py` dang fail o test front-page fixture ton tai truoc gate nay; targeted build + content validator da pass.
 - Khi publish, chi stage file dung scope va bao toan cac thay doi unrelated dang co san trong dirty worktree.
