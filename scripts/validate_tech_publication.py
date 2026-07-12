@@ -206,11 +206,12 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
         errs.append("watchlist_status.json missing")
     if int(stats.get("watchlist_checked") or 0) < max(1, watchlist_entity_count):
         errs.append("critical watchlist entities were not all checked")
-    has_real_api_candidates = int(stats.get("real_api_candidate_count") or stats.get("api_candidate_count") or 0) > 0
-    if has_real_api_candidates and int(stats.get("model_hub_candidate_count") or 0) <= 0:
-        errs.append("model_hub candidates must be greater than 0")
-    if has_real_api_candidates and int(stats.get("image_video_workflow_candidate_count") or 0) <= 0:
-        errs.append("image_video_workflow candidates must be greater than 0")
+    # A 72h window may legitimately have no publishable event in a configured
+    # lane. Coverage is reported in stats, but validators must not force-fill
+    # model/image-video sections with metadata-only watchlist entries.
+    for lane_field in ("model_hub_candidate_count", "image_video_workflow_candidate_count"):
+        if lane_field in stats and int(stats.get(lane_field) or 0) < 0:
+            errs.append(f"{lane_field} must not be negative")
     if "active_url_sources" in stats and "active_watchlist_entities" in stats:
         if int(stats.get("active_url_sources") or 0) == int(stats.get("active_watchlist_entities") or 0) and int(stats.get("active_watchlist_entities") or 0) >= 10:
             errs.append("coverage stats appear to mix watchlist entities with active URL sources")
