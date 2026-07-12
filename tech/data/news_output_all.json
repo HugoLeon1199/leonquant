@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-12T10:06:00.235064+00:00",
-  "count": 153,
+  "generated_at": "2026-07-12T14:39:48.074778+00:00",
+  "count": 156,
   "source_error_count": 0,
   "articles": [
     {
@@ -1071,17 +1071,6 @@
       "macro_score": 0
     },
     {
-      "title": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent",
-      "url": "https://www.qbitai.com/2026/07/447873.html",
-      "summary": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent\n神话级大模型驾驭宝典\nhenry 发自 凹非寺\n量子位 | 公众号 QbitAI\n我看呐，只要以后笔记本半开着，就没有人的事儿了。\n刚刚，OpenAI研究院Ethan Knight宣布：\n昨儿刚出的GPT-5.6，用不到一小时，就完成了一道存在了半个世纪的图论猜想证明。\n而这道题呢，来头也还真不小，就是大名鼎鼎的循环双覆盖猜想（Cycle Double Cover Conjecture）。\n为解决这道题，研究员把现在最顶的GPT-5.6 Sol蹬到Ultra；GPT呢，又自己蹬了64个子agent。\n最后，硬是写出了一份三页的pdf，证明完毕，Over。\n发布后，还在韩国开ICML的Noam Brown（o1核心贡献者）也隔着太平洋第一时间赶来捧场。\n他表示，这次和此前的Erdős单位距离问题不同，不靠什么内部特供模型，靠公开能用的GPT-5.6 Sol Ultra就把活儿干了。\n而且，GPT-5.6 Sol Ultra把测试时计算并行大幅铺开，原本可能要磨上一整天的证明，如今被64个子agent压进了一个小时。\n可以说，在数学这块，前沿模型的天花板还在拉高。而多agent，也能极快地加速任务的处理时间。\n当然，你可能会问，那咋了？AI不老证明数学题吗？\n但这次还真不太一样，OpenAI这次顺手放出了完整prompt，而这里面就有驾驭GPT-5.6这类神话级模型的保姆级技巧：\n- 不替模型规定解法，只把验收标准钉死。\n- 定义、范围、边界情况，提前一次说清，适当重复目标，防止上下文漂移。\n- 不只说要什么答案，还写清什么不算答案。\n- 复杂任务不要固定分工，而要动态搜索，并设置独立审查。\n接下来，我们一起来看。\n一小时秒杀的，究竟是什么题\n先说这个题本身。\n循环双覆盖猜想，通常被追溯到Tutte、Itai 与 Rodeh、George Szekeres、Paul Seymour等数学家在上世纪陆续提出，长期被视为图论中最重要的开放问题之一。\n它问的是：\n给你一张由点和线组成的图，能不能找出一批首尾相接的“圈”，让图上的每一条边，都刚好被这些圈经过两次？\n咱们以上图为例：白圈是路口，彩线是道路，A到J是十个顶点。\n最外面的绿色路线从A出发，依次经过B、C、D、E，最后重新回到A，这就是一个圈。\n但只有绿色这一圈还不够，因为它只经过了图最外侧的几条边，而且每条边目前只被覆盖了一次。\n要满足圈双覆盖，还需要继续加入更多能够绕回起点的路线。\n比如蓝色路线也经过了A到B，随后拐进图的内部，最后重新回到A。\n这样一来，A到B这条边就被覆盖了两次：绿色一次，蓝色一次。\n其他边也要用类似的方法补齐。最终，无论挑出图中的哪一条边，都应该恰好有两个圈经过它。\n这些圈可以互相重叠，也可以共享很多条边；它们不需要是图中最短、最外侧或最规整的圈。唯一的要求就是：\n每一条边，在所有圈中出现的总次数必须恰好等于二。\n此外，这里还要补充一个关键条件：这张图必须是无桥图。\n所谓“桥”，就是一条一旦被删除，整张图就会被断开的边。\n比如我们把上面的A—F删掉，路线仍然可以沿着A—B—G—I—F，从另一条路到达F，整张图不会因此断开。\n乍看之下，这个猜想似乎很自然。\n一张图只要没有桥，那么每一条边至少都属于某个圈。既然每条边都能塞进一个圈，把这些圈收集起来，不就完成了吗？\n可问题在于，圈双覆盖要求的不是“至少覆盖一次”，而是每一条边恰好覆盖两次。\n你为了补上一条只出现过一次的边，加入一个新圈，可能会顺便…",
-      "published_at": "2026-07-11",
-      "source": "qbitai.com",
-      "category": "01_pass_rss",
-      "region": "global",
-      "tier": "01_pass_rss",
-      "macro_score": 0
-    },
-    {
       "title": "Connect the dots: Build with built-in and custom MCPs in Studio | Mistral AI",
       "url": "https://mistral.ai/news/connectors/",
       "summary": "Today we are releasing Connectors in Studio to unblock developers building highly customised AI applications grounded in enterprise data. All built-in connectors, as well as custom MCPs, are now available via API/SDK to be used with all model and agent calls.\nWe are also introducing direct tool calling, giving developers precise control over how and when tools are invoked, without authentication barriers getting in the way of testing and iterating. In addition, you can now implement human-in-the-loop approval flows, allowing secure review and confirmation before tool execution, ensuring both flexibility and governance.\n- Programmatic access for creating, modifying, listing and deleting your connectors but also listing their tools and directly running them. \n- All connectors are centrally registered making them available across Mistral apps: LeChat and AI Studio (with Vibe coming soon). \n- Usage via Conversation API, Completions API, and Agent SDK can now facilitate complex workflows and integration with enterprise systems like CRMs, knowledgebases & productivity tools. \nIntegrations that live in the platform, not in your code\nBuilding enterprise AI agents is getting easier. The harder part is everything around them: tracking down the right API docs, writing and maintaining tool functions, building integrations, setting up OAuth, handling token refresh, and debugging edge cases like broken pagination.\nBecause of this, teams keep rebuilding the same integration layer. Even with…",
@@ -1093,9 +1082,9 @@
       "macro_score": 0
     },
     {
-      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
-      "url": "https://www.qbitai.com/2026/07/447891.html",
-      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n从FP64到INT8，全精度覆盖。\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光800…",
+      "title": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent",
+      "url": "https://www.qbitai.com/2026/07/447873.html",
+      "summary": "GPT-5.6一小时解开50年数学猜想，700词Prompt驾驭64个子Agent\n神话级大模型驾驭宝典\nhenry 发自 凹非寺\n量子位 | 公众号 QbitAI\n我看呐，只要以后笔记本半开着，就没有人的事儿了。\n刚刚，OpenAI研究院Ethan Knight宣布：\n昨儿刚出的GPT-5.6，用不到一小时，就完成了一道存在了半个世纪的图论猜想证明。\n而这道题呢，来头也还真不小，就是大名鼎鼎的循环双覆盖猜想（Cycle Double Cover Conjecture）。\n为解决这道题，研究员把现在最顶的GPT-5.6 Sol蹬到Ultra；GPT呢，又自己蹬了64个子agent。\n最后，硬是写出了一份三页的pdf，证明完毕，Over。\n发布后，还在韩国开ICML的Noam Brown（o1核心贡献者）也隔着太平洋第一时间赶来捧场。\n他表示，这次和此前的Erdős单位距离问题不同，不靠什么内部特供模型，靠公开能用的GPT-5.6 Sol Ultra就把活儿干了。\n而且，GPT-5.6 Sol Ultra把测试时计算并行大幅铺开，原本可能要磨上一整天的证明，如今被64个子agent压进了一个小时。\n可以说，在数学这块，前沿模型的天花板还在拉高。而多agent，也能极快地加速任务的处理时间。\n当然，你可能会问，那咋了？AI不老证明数学题吗？\n但这次还真不太一样，OpenAI这次顺手放出了完整prompt，而这里面就有驾驭GPT-5.6这类神话级模型的保姆级技巧：\n- 不替模型规定解法，只把验收标准钉死。\n- 定义、范围、边界情况，提前一次说清，适当重复目标，防止上下文漂移。\n- 不只说要什么答案，还写清什么不算答案。\n- 复杂任务不要固定分工，而要动态搜索，并设置独立审查。\n接下来，我们一起来看。\n一小时秒杀的，究竟是什么题\n先说这个题本身。\n循环双覆盖猜想，通常被追溯到Tutte、Itai 与 Rodeh、George Szekeres、Paul Seymour等数学家在上世纪陆续提出，长期被视为图论中最重要的开放问题之一。\n它问的是：\n给你一张由点和线组成的图，能不能找出一批首尾相接的“圈”，让图上的每一条边，都刚好被这些圈经过两次？\n咱们以上图为例：白圈是路口，彩线是道路，A到J是十个顶点。\n最外面的绿色路线从A出发，依次经过B、C、D、E，最后重新回到A，这就是一个圈。\n但只有绿色这一圈还不够，因为它只经过了图最外侧的几条边，而且每条边目前只被覆盖了一次。\n要满足圈双覆盖，还需要继续加入更多能够绕回起点的路线。\n比如蓝色路线也经过了A到B，随后拐进图的内部，最后重新回到A。\n这样一来，A到B这条边就被覆盖了两次：绿色一次，蓝色一次。\n其他边也要用类似的方法补齐。最终，无论挑出图中的哪一条边，都应该恰好有两个圈经过它。\n这些圈可以互相重叠，也可以共享很多条边；它们不需要是图中最短、最外侧或最规整的圈。唯一的要求就是：\n每一条边，在所有圈中出现的总次数必须恰好等于二。\n此外，这里还要补充一个关键条件：这张图必须是无桥图。\n所谓“桥”，就是一条一旦被删除，整张图就会被断开的边。\n比如我们把上面的A—F删掉，路线仍然可以沿着A—B—G—I—F，从另一条路到达F，整张图不会因此断开。\n乍看之下，这个猜想似乎很自然。\n一张图只要没有桥，那么每一条边至少都属于某个圈。既然每条边都能塞进一个圈，把这些圈收集起来，不就完成了吗？\n可问题在于，圈双覆盖要求的不是“至少覆盖一次”，而是每一条边恰好覆盖两次。\n你为了补上一条只出现过一次的边，加入一个新圈，可能会顺便…",
       "published_at": "2026-07-11",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1116,8 +1105,8 @@
     },
     {
       "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
-      "url": "https://www.qbitai.com/2026/07/447902.html",
-      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n已跑通300余项应用\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光8000采用了AI计…",
+      "url": "https://www.qbitai.com/2026/07/447891.html",
+      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n从FP64到INT8，全精度覆盖。\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光800…",
       "published_at": "2026-07-11",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1137,10 +1126,10 @@
       "macro_score": 1
     },
     {
-      "title": "近百名玩家涌入具身数据：一年融资44.7亿，谁能真靠“卖数据”赚钱？",
-      "url": "https://www.qbitai.com/2026/07/447914.html",
-      "summary": "近百名玩家涌入具身数据：一年融资44.7亿，谁能真靠“卖数据”赚钱？\n为了帮你看清具身数据行业，我们总结了以下十个行业现状\n林方舟 发自 凹非寺\n量子位 | 公众号 QbitAI\n在湖南郴州，一家中国移动营业厅挂牌“具身数据采集5S店”，普通顾客领一套夹爪、手套和头戴相机，经过简单培训，就能边做家务，边采集机器人训练数据。\n首期投放的1000套设备，满产状态下每年能采集100万小时数据。我仿佛听到了商家心里打的小算盘：既采了数据，又赚了眼球，4A广告公司都应该来学学。（doge）\n具身数采类似的“花活”还有不少：有的为了采数据免费上门保洁（欢迎来我家），有的把数采做成VR游戏，还有的把机器人接入互联网，采集员不用跑到数采工厂，远程就能“云操控”。\n不过，以上案例看完笑一笑就好了，真要采到符合要求的数据其实并不简单。之所以“花活”层出不穷，都是因为机器人实在是太缺数据了。\n眼下大家都在牟足了劲采数据，但还少有人全面梳理过这个行业的图谱。\n量子位不完全统计了97家国内具身数据玩家的情况，其中70家做数据采集，27家做数据infra。\n过去一年（2025年7月1日至2026年7月1日），15家「不做本体、不做模型、只做数据的独立具身数据服务商」，共融资约44.7亿元。\n在资本对具身智能“猛猛上头”的当下，这个数字其实并不算多。量子位此前统计，今年上半年，具身“大脑派”公司半年就融了223亿元。\n为了帮你看清具身数据行业，我们总结了以下十个行业现状。\n数据怎么采？\n现状1：数据采集技术路线分为四大类，跨路线采集赛道最拥挤\n目前主流具身数据采集的技术路线可以分为四大类：\n- 真机遥操：人类操控真实机器人执行任务，同步采集动作、状态及传感器数据。\n- 无本体采集：人直接完成示范，通过动捕、夹爪映射、第一视角相机等设备采集动作，无需机器人参与。\n- 仿真合成：在虚拟环境中批量生成机器人交互数据，用于模型训练。\n- 互联网视频蒸馏：从互联网视频中提取人类动作知识，转化为具身模型可学习的数据。\n量子位不完全统计的70家数采公司/平台中，有30家同时走多条采集路线，占43%，例如：真机遥操+无本体、真机遥操+仿真、无本体+仿真、全路线等。\n走跨路线采集方案的玩家，比单独押注任何一条路线的玩家都要多。\n行业常用数据金字塔来形容机器人训练所需的数据结构。目前没有任何一种数据采集方式能够独自满足机器人的训练需求。\n△70家数采公司技术路线分布\n现状2：单独押注真机遥操路线的玩家最多\n依次分析每条技术路线。\n单独押注真机遥操路线的最多，有22家，占31%。\n这22个玩家中，13家是国资数据平台，7家是机器人公司（生产机器人硬件或开发具身大模型的公司），还有1家从AI数据标注行业转型，1家从工业装备制造领域跨界。\n机器人公司有硬件优势和真实需求，做真机遥操采集是自然而然的选择。\n而国资数据平台的优势则是“不怕重”。遥操是重资产路线，需要买本体、租场地、雇操作员，这些恰好都是国资平台容易调动的资源。\n单独押注无本体采集路线的公司有15家，占21%。\n这条赛道的公司最年轻，绝大多数都成立于2024年9月之后。\n无本体采集路线的技术也最丰富，子类包括：Ego视角、UMI、动作捕捉、sEMG肌电、触觉采集……\n而单独押注仿真合成的玩家有2家：松应科技和谋先飞（Motphys）。\n仿真赛道曾经的知名玩家，如今都选择把鸡蛋放在多个篮子里。\n比如，曾以仿真数据为核心的光轮智能，也开始采集人类数据；曾是最坚定的仿真派之一的银河通用，今年6月发布了全身遥操作系统，拥有了遥操数据采集能力。\n原因…",
-      "published_at": "2026-07-12",
+      "title": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”",
+      "url": "https://www.qbitai.com/2026/07/447902.html",
+      "summary": "中国首个十万卡集群落成！全国产算力支撑“十万卡时代”\n已跑通300余项应用\n允中 发自 凹非寺\n量子位 | 公众号 QbitAI\n中国AI算力，一脚油门踩进了十万卡时代。\n7月10日，郑州。中科曙光宣布，全国产AI超集群曙光8000（登峰）正式落成，并依托国家超算互联网，同步接入全国一体化算力网。\n十万张国产加速卡，跑起来了。\n这不是一个“加大号”的万卡集群。从万卡到十万卡，不是多加几个零，而是一道完全不同的工程题。\n网络怎么不堵、存储怎么不崩、散热怎么不烧、调度怎么不乱——规模每上一个量级，系统复杂度都是指数级翻倍。\n更关键的是，这座集群走的不是“堆卡”的老路。\n一座Token工厂，两种活都要能干\n当前AI算力中心有个普遍的尴尬：建了一堆集群，能跑大模型的跑不了科学计算，能跑科学计算的训不动大模型。\n“两头不靠”的结构性错配，让大量算力资源躺在机房里晒太阳。\n曙光8000给出的解法是“原生超智融合”——同一套系统，既能扛住FP64双精度的科学计算任务，也能跑满万亿参数大模型的训练需求。\n从FP64到INT8，全精度覆盖。\n这不是把超算和智算拼在一起，而是从架构设计阶段就把两件事当作一件事来做。\n打个比方：以前的思路是为卡车修一条路，为轿车修另一条路。\n现在是修一条能同时跑卡车和轿车的路。看起来都是路，但设计逻辑完全不同。\n尽管“超智融合”概念并不新鲜，但作为业内首个基于原生超智融合路线打造、支持全精度计算的十万卡级算力集群案例，曙光8000无疑为国产算力资源配置优化给出了一条现实路径——\n通过构建“超智融合”平台，将分散的超算中心与智算中心资源池化，进而实现跨平台、跨架构的统一调度，这对于提升国产算力利用率、降低重复建设成本极具领航意义。\n工程奇迹不在纸上，在机房里\n十万卡集群的工程难度，业内心知肚明，但中科曙光依然创下了历史纪录。\n2024年系统研制，2025年完成工程建设，今年2月3万卡上线试运行，4月份再次投用6万卡AI4S集群，7月份10万卡部署落地。\n这个令人咂舌的工程奇迹，源于中科曙光30多年积淀的工程能力。\n据中科曙光高级副总裁李斌介绍，曙光8000在系统建设上，具有芯片、计算、存储、网络、散热、管理、服务等全链路全国产自研能力。\n其中，海光等国产芯片为系统建设提供底层支撑；\nscaleFabric类IB原生RDMA高速网络实现十万卡集群高可靠连接；\nParaStor分布式存储支撑大模型训练和科学计算中的海量数据读写，并在2026全球IO500榜单中获得生产型全节点和10节点性能双榜第一。\n此外，叠加曙光数创在液冷技术上的核心优势，可有效支撑MW级高功率密度部署，并通过国产冷媒、全年自然冷却等方式，大幅提升曙光8000能效。\n难能可贵的是，如此强大的工程能力不是用来炫技的。\n中科曙光已同步将曙光8000接入国家超算互联网，以算力服务的方式向科研机构和产业界开放。\n目前已完成300余项应用适配，覆盖材料、电磁、量子、生物医药、天文气象等20多个领域，累计完成70余次万卡规模算力测试。\n算力的终极命题不是“跑分”，是“用好”\nAI产业有一个被反复验证的规律：发布会上的参数永远跑不赢业务现场的考验。\n曙光8000已经在真实场景中交出了成绩单。\n- 8万张卡加速蛋白质折叠全流程模拟，直接服务新药研发；\n- 8.8万张卡完成328万亿网格湍流直接模拟，支撑航空、船舶等高端制造；\n- 9万张卡协同完成3.16万亿个原子的DFT高精度仿真。\n这些不是PPT数字，是科研团队在国产算力上跑出来的世界级成果。\n更值得关注的是，曙光8000采用了AI计…",
+      "published_at": "2026-07-11",
       "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
@@ -1159,9 +1148,9 @@
       "macro_score": 0
     },
     {
-      "title": "老黄RTX Spark真机现身Bilibili World！CPU和GPU直接焊在一起，笔记本跑120B大模型",
-      "url": "https://www.qbitai.com/2026/07/447981.html",
-      "summary": "老黄RTX Spark真机现身Bilibili World！CPU和GPU直接焊在一起，笔记本跑120B大模型\n老黄在ComputeX发布的“超级芯片”，已经在真机中落地了\n克雷西 发自 上海\n量子位 | 公众号 QbitAI\n老黄在ComputeX发布的“超级芯片”，已经在真机中落地了。\n就在这届Bilibili World上，英伟达首次面向大众玩家展示了搭载RTX Spark超级芯片的笔记本电脑。\n这款芯片专为个人智能体打造，不仅搭载了Blackwell RTX GPU，连CPU也是出自英伟达的Grace CPU。\n而且“双芯合体”，两颗芯片直接通过NVLink – C2C“焊”在了一起。\n两颗超强芯片，加上高速互联和128GB统一内存，不管是拿来打游戏还是搞AI创作，都十分丝滑。\n游戏创作，我全都要\nRTX Spark的核心是英伟达的Blackwell GPU，加上一颗英伟达与联发科合作研发的20核Grace CPU。\n这两颗芯片没有走传统的PCI-e通信，而是靠NVLink-C2C技术直接互联，相当于把GPU和CPU焊在了一起。\nRTX Spark的算力堆到了1Petaflop，内存给到了128GB，而且是统一内存，GPU和CPU能共用同一块内存，数据不用在两颗芯片之间来回搬运。\n这个配置之下，英伟达给RTX Spark的定位是“专为本地个人智能体打造”。\n先说Agent的大脑，也就是大模型这块，RTX Spark能在本地跑起参数量120B的大模型，上下文长度可以拉到100万token。\n这意味着用户不用把长文档、长对话历史切碎了分批喂给模型，一次性全部塞进去就行，模型也不会中途忘记前面说过什么。\n再来是像OpenClaw、Hermes这样的智能体本身，它们一直都在面对一个问题，那就是用户日常使用的电脑，没办法安全、私密地把智能体跑起来。\n英伟达这次拿出的方案是OpenShell运行时，让用户能自己设定智能体可以执行哪些操作，还能把请求按隐私策略分流，敏感信息留在本地模型处理，只把脱敏后的内容发给云端模型。\nOpenClaw和Hermes Agent已经把这套安全层集成进了自己的新版Windows应用，用户可以用它们在Windows里执行任务、跨应用推理、生成图像视频、写插件写应用，还能对本地文件做语义搜索。\n还有创作这块，128GB的统一内存也立了大功。\n渲染一个重型3D场景，体积能动辄就是大几十GB，这个体量放在一般的笔记本电脑上早就爆内存了，但RTX Spark靠这块统一内存不仅能扛住，还跑得十分流畅。\nBW展台现场，英伟达的技术人员也为我们展示了在虚幻引擎 5中渲染曼哈顿3D场景的效果。\n工程文件超过了90GB，但不论怎么移动，插电还是不插电，画面都没出现卡顿。\n视频剪辑这边，Blackwell自带的第五代视频解码器能直接处理12K分辨率、4:2:2色度采样的素材。\n这个规格已经超出大多数专业剪辑工作站的日常需求，在笔记本电脑上跑起来就更是少有了。\n当然作为一款消费级PC芯片，游戏也得安排上。\nRTX Spark支持开启光线追踪、DLSS和Reflex，在1440p分辨率下能把3A游戏的帧率稳定在100FPS以上，这是消费级独显游戏本才有的配置。\n不过RTX Spark用的是Arm架构，可能有人会担心游戏能不能很好适配。\n但实际上，游戏厂商这边，KRAFTON、网易、Remedy Entertainment、Riot Games和XBOX都已经表态支持这块芯片了，推出原生Arm游戏。\n当时网易雷火事业部高级副总裁程龙就提到，玩家在…",
+      "title": "近百名玩家涌入具身数据：一年融资44.7亿，谁能真靠“卖数据”赚钱？",
+      "url": "https://www.qbitai.com/2026/07/447914.html",
+      "summary": "近百名玩家涌入具身数据：一年融资44.7亿，谁能真靠“卖数据”赚钱？\n为了帮你看清具身数据行业，我们总结了以下十个行业现状\n林方舟 发自 凹非寺\n量子位 | 公众号 QbitAI\n在湖南郴州，一家中国移动营业厅挂牌“具身数据采集5S店”，普通顾客领一套夹爪、手套和头戴相机，经过简单培训，就能边做家务，边采集机器人训练数据。\n首期投放的1000套设备，满产状态下每年能采集100万小时数据。我仿佛听到了商家心里打的小算盘：既采了数据，又赚了眼球，4A广告公司都应该来学学。（doge）\n具身数采类似的“花活”还有不少：有的为了采数据免费上门保洁（欢迎来我家），有的把数采做成VR游戏，还有的把机器人接入互联网，采集员不用跑到数采工厂，远程就能“云操控”。\n不过，以上案例看完笑一笑就好了，真要采到符合要求的数据其实并不简单。之所以“花活”层出不穷，都是因为机器人实在是太缺数据了。\n眼下大家都在牟足了劲采数据，但还少有人全面梳理过这个行业的图谱。\n量子位不完全统计了97家国内具身数据玩家的情况，其中70家做数据采集，27家做数据infra。\n过去一年（2025年7月1日至2026年7月1日），15家「不做本体、不做模型、只做数据的独立具身数据服务商」，共融资约44.7亿元。\n在资本对具身智能“猛猛上头”的当下，这个数字其实并不算多。量子位此前统计，今年上半年，具身“大脑派”公司半年就融了223亿元。\n为了帮你看清具身数据行业，我们总结了以下十个行业现状。\n数据怎么采？\n现状1：数据采集技术路线分为四大类，跨路线采集赛道最拥挤\n目前主流具身数据采集的技术路线可以分为四大类：\n- 真机遥操：人类操控真实机器人执行任务，同步采集动作、状态及传感器数据。\n- 无本体采集：人直接完成示范，通过动捕、夹爪映射、第一视角相机等设备采集动作，无需机器人参与。\n- 仿真合成：在虚拟环境中批量生成机器人交互数据，用于模型训练。\n- 互联网视频蒸馏：从互联网视频中提取人类动作知识，转化为具身模型可学习的数据。\n量子位不完全统计的70家数采公司/平台中，有30家同时走多条采集路线，占43%，例如：真机遥操+无本体、真机遥操+仿真、无本体+仿真、全路线等。\n走跨路线采集方案的玩家，比单独押注任何一条路线的玩家都要多。\n行业常用数据金字塔来形容机器人训练所需的数据结构。目前没有任何一种数据采集方式能够独自满足机器人的训练需求。\n△70家数采公司技术路线分布\n现状2：单独押注真机遥操路线的玩家最多\n依次分析每条技术路线。\n单独押注真机遥操路线的最多，有22家，占31%。\n这22个玩家中，13家是国资数据平台，7家是机器人公司（生产机器人硬件或开发具身大模型的公司），还有1家从AI数据标注行业转型，1家从工业装备制造领域跨界。\n机器人公司有硬件优势和真实需求，做真机遥操采集是自然而然的选择。\n而国资数据平台的优势则是“不怕重”。遥操是重资产路线，需要买本体、租场地、雇操作员，这些恰好都是国资平台容易调动的资源。\n单独押注无本体采集路线的公司有15家，占21%。\n这条赛道的公司最年轻，绝大多数都成立于2024年9月之后。\n无本体采集路线的技术也最丰富，子类包括：Ego视角、UMI、动作捕捉、sEMG肌电、触觉采集……\n而单独押注仿真合成的玩家有2家：松应科技和谋先飞（Motphys）。\n仿真赛道曾经的知名玩家，如今都选择把鸡蛋放在多个篮子里。\n比如，曾以仿真数据为核心的光轮智能，也开始采集人类数据；曾是最坚定的仿真派之一的银河通用，今年6月发布了全身遥操作系统，拥有了遥操数据采集能力。\n原因…",
       "published_at": "2026-07-12",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1181,9 +1170,9 @@
       "macro_score": 0
     },
     {
-      "title": "98年哈工大教授创业，要做人形灵巧操作世界模型",
-      "url": "https://www.qbitai.com/2026/07/448034.html",
-      "summary": "98年哈工大教授创业，要做人形灵巧操作世界模型\n从采集触觉，到对齐触觉，再到使用触觉\n允中 发自 凹非寺量子位 | 公众号 QbitAI\nVLA和世界模型已经把机器人推向“看懂世界”和“预测世界”的阶段。\n但只要模型真的进入物理世界，问题很快就会变得更具体：\n它拿什么学习这个世界，靠什么把动作做出来，又怎么知道自己到底碰到了什么。\n前两个问题，分别指向数据和本体。第三个问题，指向触觉。\n本周，哈工大（深圳）杨朔团队发布了TouchWorld，一个面向灵巧操作的触觉世界模型。\n它的核心能力，是让机器人不只预测画面如何变化，也开始预测接触如何发生，并在真实操作中利用触觉反馈修正动作。\nTouchWorld不是孤立的一篇论文。此前，杨朔团队已经推出EgoTouch和TouchAnything：\n- EgoTouch解决灵巧操作的触觉数据怎么采；\n- TouchAnything尝试从第一人称视频中恢复触觉，如何做低成本的触觉数据增广。\n这三项工作连起来，构成了一条清晰路线：先采触觉，再恢复/对齐触觉，最后让具身模型真正使用触觉。\n沿着这条路线，出生于1998年的年轻教授杨朔创办了破晓智能（PHANES AI）。\n破晓智能要做的，是融合人类视频数据与触觉感知模态，构建人形机器人全身移动灵巧操作世界模型。\n更具体地说，它不是只做一个触觉模型或硬件，而是希望围绕“机器人如何真正学会操作”，搭建一套从数据、模型到控制的完整能力链。\n“破晓”这个名字，也对应了这家公司想解决的问题：在人形机器人走向真实操作之前，触觉数据、触觉世界模型、灵巧手反馈控制、全身移动操作仍然处在技术混沌中。\n破晓智能希望从触觉数据切入，把这些能力重新串起来，让机器人从“看见世界”，走向真正“接触世界、操作世界”。\n从Data-Centric AI，到机器人真实数据\n杨朔现任哈尔滨工业大学（深圳）计算机科学与技术学院长聘教授、博导，也是破晓智能创始人兼CEO。\n公开信息显示，他26岁获评哈工大（深圳）计算机学院长聘教授、博导，曾获Google Ph.D. Fellowship，入选国家级高层次青年人才、深圳市“高精尖缺”人才、广东省重大人才工程。\n△杨朔，破晓智能（PHANES AI）创始人、哈工大（深圳）长聘教授、博导\n在研究上，杨朔长期关注多模态大模型、Data-Centric AI、可信AI、计算机视觉与具身智能等方向。\n相比直接从“机器人创业”切入，他的路径更像是从一个数据问题一路走到物理世界：\n模型到底应该用什么数据学习。到了机器人这里，就变成了机器人到底应该用什么数据学习真实操作。\n在传统机器学习里，这个问题更多指向数据质量、数据选择、噪声标签和数据压缩。\n到了具身智能，数据不再只是图像、文本和标签，而是人在真实世界中的连续操作过程。\n过去一段时间，人类数据正在成为机器人学习复杂操作的重要入口。\nNVIDIA EgoScale证明，第一人称人类操作数据在灵巧操作训练中具备Scaling Law；Generalist / Gen-1则进一步显示，大规模人类数据预训练结合少量真机数据后训练，可以显著提升机器人在长程、复杂任务中的成功率。\n这两类工作共同指向一个趋势：相比完全依赖真机采集，让机器人先从大规模人类数据中学习动作过程、物体交互和任务结构，再用少量机器人数据完成对齐和适配，是一条更容易规模化的数据路径。\n但这条路线仍然缺一层关键信息：触觉。\n第一人称视频让机器人看到了人类如何观察世界、接近物体、抓取工具、完成任务。\n但人和物体之间真正发生了什么，视频里并不完整。手指压在哪里，…",
+      "title": "老黄RTX Spark真机现身Bilibili World！CPU和GPU直接焊在一起，笔记本跑120B大模型",
+      "url": "https://www.qbitai.com/2026/07/447981.html",
+      "summary": "老黄RTX Spark真机现身Bilibili World！CPU和GPU直接焊在一起，笔记本跑120B大模型\n老黄在ComputeX发布的“超级芯片”，已经在真机中落地了\n克雷西 发自 上海\n量子位 | 公众号 QbitAI\n老黄在ComputeX发布的“超级芯片”，已经在真机中落地了。\n就在这届Bilibili World上，英伟达首次面向大众玩家展示了搭载RTX Spark超级芯片的笔记本电脑。\n这款芯片专为个人智能体打造，不仅搭载了Blackwell RTX GPU，连CPU也是出自英伟达的Grace CPU。\n而且“双芯合体”，两颗芯片直接通过NVLink – C2C“焊”在了一起。\n两颗超强芯片，加上高速互联和128GB统一内存，不管是拿来打游戏还是搞AI创作，都十分丝滑。\n游戏创作，我全都要\nRTX Spark的核心是英伟达的Blackwell GPU，加上一颗英伟达与联发科合作研发的20核Grace CPU。\n这两颗芯片没有走传统的PCI-e通信，而是靠NVLink-C2C技术直接互联，相当于把GPU和CPU焊在了一起。\nRTX Spark的算力堆到了1Petaflop，内存给到了128GB，而且是统一内存，GPU和CPU能共用同一块内存，数据不用在两颗芯片之间来回搬运。\n这个配置之下，英伟达给RTX Spark的定位是“专为本地个人智能体打造”。\n先说Agent的大脑，也就是大模型这块，RTX Spark能在本地跑起参数量120B的大模型，上下文长度可以拉到100万token。\n这意味着用户不用把长文档、长对话历史切碎了分批喂给模型，一次性全部塞进去就行，模型也不会中途忘记前面说过什么。\n再来是像OpenClaw、Hermes这样的智能体本身，它们一直都在面对一个问题，那就是用户日常使用的电脑，没办法安全、私密地把智能体跑起来。\n英伟达这次拿出的方案是OpenShell运行时，让用户能自己设定智能体可以执行哪些操作，还能把请求按隐私策略分流，敏感信息留在本地模型处理，只把脱敏后的内容发给云端模型。\nOpenClaw和Hermes Agent已经把这套安全层集成进了自己的新版Windows应用，用户可以用它们在Windows里执行任务、跨应用推理、生成图像视频、写插件写应用，还能对本地文件做语义搜索。\n还有创作这块，128GB的统一内存也立了大功。\n渲染一个重型3D场景，体积能动辄就是大几十GB，这个体量放在一般的笔记本电脑上早就爆内存了，但RTX Spark靠这块统一内存不仅能扛住，还跑得十分流畅。\nBW展台现场，英伟达的技术人员也为我们展示了在虚幻引擎 5中渲染曼哈顿3D场景的效果。\n工程文件超过了90GB，但不论怎么移动，插电还是不插电，画面都没出现卡顿。\n视频剪辑这边，Blackwell自带的第五代视频解码器能直接处理12K分辨率、4:2:2色度采样的素材。\n这个规格已经超出大多数专业剪辑工作站的日常需求，在笔记本电脑上跑起来就更是少有了。\n当然作为一款消费级PC芯片，游戏也得安排上。\nRTX Spark支持开启光线追踪、DLSS和Reflex，在1440p分辨率下能把3A游戏的帧率稳定在100FPS以上，这是消费级独显游戏本才有的配置。\n不过RTX Spark用的是Arm架构，可能有人会担心游戏能不能很好适配。\n但实际上，游戏厂商这边，KRAFTON、网易、Remedy Entertainment、Riot Games和XBOX都已经表态支持这块芯片了，推出原生Arm游戏。\n当时网易雷火事业部高级副总裁程龙就提到，玩家在…",
       "published_at": "2026-07-12",
       "source": "qbitai.com",
       "category": "01_pass_rss",
@@ -1197,6 +1186,17 @@
       "summary": "Thinking\nSummary\nMistral unveiled a new AI stack for industrial engineering, partnering with Airbus, BMW, and ASML to optimize design, simulation, and production while ensuring data security. Their agentic AI tool, Vibe, now handles long-horizon tasks like coding and research, while a new 10 MW data center in France will enhance compute control and security by 2026. These advancements reinforce Mistral’s focus on secure, high-impact AI solutions for critical enterprise workflows.\nMistral for Industrial Engineering.\nAn integrated AI stack combining advanced physics models, engineering expertise, and robotics to transform mission-critical industrial operations. The solution enables industrial engineers to accelerate design, eliminate simulation bottlenecks, and optimize asset performance; while maintaining full control over proprietary data, IP, and production environments.\nWith Airbus, we are implementing advanced AI at the core of the company's operations and processes, from initial design to on-board capabilities. Our partnership will expand across Airbus' commercial aircraft, helicopter, defence, and space activities. It will support the next decade of innovation, contribute to improve flight safety, and maintain full control of critical data; all while adhering to strict security requirements.\nFor BMW Group, we are a central partner for their “Large Industry Model” (LIM) initiative. The collaboration unifies engineering knowledge and AI expertise to build multimodal reason…",
       "published_at": "2026-05-28",
       "source": "mistral.ai",
+      "category": "01_pass_rss",
+      "region": "global",
+      "tier": "01_pass_rss",
+      "macro_score": 0
+    },
+    {
+      "title": "98年哈工大教授创业，要做人形灵巧操作世界模型",
+      "url": "https://www.qbitai.com/2026/07/448034.html",
+      "summary": "98年哈工大教授创业，要做人形灵巧操作世界模型\n从采集触觉，到对齐触觉，再到使用触觉\n允中 发自 凹非寺量子位 | 公众号 QbitAI\nVLA和世界模型已经把机器人推向“看懂世界”和“预测世界”的阶段。\n但只要模型真的进入物理世界，问题很快就会变得更具体：\n它拿什么学习这个世界，靠什么把动作做出来，又怎么知道自己到底碰到了什么。\n前两个问题，分别指向数据和本体。第三个问题，指向触觉。\n本周，哈工大（深圳）杨朔团队发布了TouchWorld，一个面向灵巧操作的触觉世界模型。\n它的核心能力，是让机器人不只预测画面如何变化，也开始预测接触如何发生，并在真实操作中利用触觉反馈修正动作。\nTouchWorld不是孤立的一篇论文。此前，杨朔团队已经推出EgoTouch和TouchAnything：\n- EgoTouch解决灵巧操作的触觉数据怎么采；\n- TouchAnything尝试从第一人称视频中恢复触觉，如何做低成本的触觉数据增广。\n这三项工作连起来，构成了一条清晰路线：先采触觉，再恢复/对齐触觉，最后让具身模型真正使用触觉。\n沿着这条路线，出生于1998年的年轻教授杨朔创办了破晓智能（PHANES AI）。\n破晓智能要做的，是融合人类视频数据与触觉感知模态，构建人形机器人全身移动灵巧操作世界模型。\n更具体地说，它不是只做一个触觉模型或硬件，而是希望围绕“机器人如何真正学会操作”，搭建一套从数据、模型到控制的完整能力链。\n“破晓”这个名字，也对应了这家公司想解决的问题：在人形机器人走向真实操作之前，触觉数据、触觉世界模型、灵巧手反馈控制、全身移动操作仍然处在技术混沌中。\n破晓智能希望从触觉数据切入，把这些能力重新串起来，让机器人从“看见世界”，走向真正“接触世界、操作世界”。\n从Data-Centric AI，到机器人真实数据\n杨朔现任哈尔滨工业大学（深圳）计算机科学与技术学院长聘教授、博导，也是破晓智能创始人兼CEO。\n公开信息显示，他26岁获评哈工大（深圳）计算机学院长聘教授、博导，曾获Google Ph.D. Fellowship，入选国家级高层次青年人才、深圳市“高精尖缺”人才、广东省重大人才工程。\n△杨朔，破晓智能（PHANES AI）创始人、哈工大（深圳）长聘教授、博导\n在研究上，杨朔长期关注多模态大模型、Data-Centric AI、可信AI、计算机视觉与具身智能等方向。\n相比直接从“机器人创业”切入，他的路径更像是从一个数据问题一路走到物理世界：\n模型到底应该用什么数据学习。到了机器人这里，就变成了机器人到底应该用什么数据学习真实操作。\n在传统机器学习里，这个问题更多指向数据质量、数据选择、噪声标签和数据压缩。\n到了具身智能，数据不再只是图像、文本和标签，而是人在真实世界中的连续操作过程。\n过去一段时间，人类数据正在成为机器人学习复杂操作的重要入口。\nNVIDIA EgoScale证明，第一人称人类操作数据在灵巧操作训练中具备Scaling Law；Generalist / Gen-1则进一步显示，大规模人类数据预训练结合少量真机数据后训练，可以显著提升机器人在长程、复杂任务中的成功率。\n这两类工作共同指向一个趋势：相比完全依赖真机采集，让机器人先从大规模人类数据中学习动作过程、物体交互和任务结构，再用少量机器人数据完成对齐和适配，是一条更容易规模化的数据路径。\n但这条路线仍然缺一层关键信息：触觉。\n第一人称视频让机器人看到了人类如何观察世界、接近物体、抓取工具、完成任务。\n但人和物体之间真正发生了什么，视频里并不完整。手指压在哪里，…",
+      "published_at": "2026-07-12",
+      "source": "qbitai.com",
       "category": "01_pass_rss",
       "region": "global",
       "tier": "01_pass_rss",
@@ -1324,10 +1324,10 @@
       "macro_score": 1
     },
     {
-      "title": "Are We Benchmarking the Wrong Thing? A Humor Leaderboard for LLMs",
-      "url": "https://discuss.huggingface.co/t/are-we-benchmarking-the-wrong-thing-a-humor-leaderboard-for-llms/177479",
-      "summary": "Hmm. When it comes to scoring, there probably isn’t such a thing as the wrong target. Personally, I think evaluation becomes more valuable as the variety of scores increases. At the same time, my intuition is that underused metrics are often overlooked not only because people fail to notice them, but because they are difficult to measure in practice—which probably makes operating a leaderboard like this rather unusual:\nYes, I think this is worth measuring\nMy direct answer is yes.\nBased on the earlier description of the project, the current task appears to be approximately:\nGiven a question and a fixed set of candidate answers, which LLM most reliably predicts the answer that a sampled group of humans will judge as funniest?\nThat is not the whole of humor, but it is still a meaningful capability. A model that can reliably predict human humor choices may be useful for response reranking, writing assistance, content selection, advertising, roleplay, conversational systems, and other applications where estimating audience reaction matters.\nI would therefore frame the current score as something close to:\n- human humor preference prediction, or\n- population-level humor-choice alignment.\nThat wording avoids requiring the benchmark to prove that a model has the same internal cognitive process as a human. For practical purposes, reproducible behavior on unseen examples can be valuable even when the internal mechanism is unknown.\nThe most useful immediate distinction may be:\n| Layer | …",
-      "published_at": "2026-07-05",
+      "title": "A new kind of AI that isn't an LLM — where does it belong on the Hub?",
+      "url": "https://discuss.huggingface.co/t/a-new-kind-of-ai-that-isnt-an-llm-where-does-it-belong-on-the-hub/177423",
+      "summary": "Hmm… For now, first of all, there is no problem with it not being an LLM. I think the practical approach is to imagine who you want to find the model or project, work backward from there, and make the best use you can of the Hub’s different building blocks:\nThe first thing I would separate is what “category” means here, because several different questions are being mixed together:\n- \nWhat kind of repository or service should contain each artifact?\n Model, Dataset, Space, Storage Bucket, GitHub, etc.\n \n- \nWhich Hub task or pipeline_tagshould be used?\n For example,text-generation,image-text-to-text, or another input/output task.\n \n- \nWhich descriptive tags should help people find it?\n For example,persistent-ai,stateful-agent, orcross-session-memory.\n \n- \nHow should the complete project be presented?\n As a chatbot, companion, autonomous service, research project, radio application, agent runtime, and so on.\n \nThose do not need to have the same answer.\nThe Hub’s formal task categories are not intended to be a complete ontology of every kind of AI system. They primarily describe the “shape” of a model API—its inputs and outputs—and help select search filters, inference handling, and widgets. The documentation explicitly describes the taxonomy as relatively coarse-grained and recommends ordinary tags for finer distinctions.\nSo the fact that “Chatbots” does not fully describe persistence, identity, memory, or continuous operation is understandable, but it does not necessarily mean t…",
+      "published_at": "2026-07-03",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1344,6 +1344,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 3
+    },
+    {
+      "title": "Are We Benchmarking the Wrong Thing? A Humor Leaderboard for LLMs",
+      "url": "https://discuss.huggingface.co/t/are-we-benchmarking-the-wrong-thing-a-humor-leaderboard-for-llms/177479",
+      "summary": "Hmm. When it comes to scoring, there probably isn’t such a thing as the wrong target. Personally, I think evaluation becomes more valuable as the variety of scores increases. At the same time, my intuition is that underused metrics are often overlooked not only because people fail to notice them, but because they are difficult to measure in practice—which probably makes operating a leaderboard like this rather unusual:\nYes, I think this is worth measuring\nMy direct answer is yes.\nBased on the earlier description of the project, the current task appears to be approximately:\nGiven a question and a fixed set of candidate answers, which LLM most reliably predicts the answer that a sampled group of humans will judge as funniest?\nThat is not the whole of humor, but it is still a meaningful capability. A model that can reliably predict human humor choices may be useful for response reranking, writing assistance, content selection, advertising, roleplay, conversational systems, and other applications where estimating audience reaction matters.\nI would therefore frame the current score as something close to:\n- human humor preference prediction, or\n- population-level humor-choice alignment.\nThat wording avoids requiring the benchmark to prove that a model has the same internal cognitive process as a human. For practical purposes, reproducible behavior on unseen examples can be valuable even when the internal mechanism is unknown.\nThe most useful immediate distinction may be:\n| Layer | …",
+      "published_at": "2026-07-05",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "Local LLM on M5 Pro, open webUI issue (cont’d)",
@@ -1456,6 +1467,17 @@
       "macro_score": 0
     },
     {
+      "title": "AlphaAvatar v0.6.4: a self-hostable realtime multimodal assistant runtime with shared perception and ENV memory",
+      "url": "https://discuss.huggingface.co/t/alphaavatar-v0-6-4-a-self-hostable-realtime-multimodal-assistant-runtime-with-shared-perception-and-env-memory/177684",
+      "summary": "Hi. I also took a quick look at the latest code on my side:\nI think the shared-perception refactor is a useful step toward the runtime-layer positioning you described. In particular, publishing media once into a transport-independent observation model, then letting Persona, Vision, Memory, and future routers consume it through their own cursors and windows, seems like a much cleaner foundation than allowing each plugin to rebuild its own RTC-specific perception path.\nMy short answers to the four questions would be:\n| Question | My current answer | \n| What should remain explicit in the runtime? | Keep externally consequential commitments explicit: identity ownership, durable-memory commits, permissions, retention/deletion, provider egress, cancellation, delivered output, and audit information. Models can propose interpretations, associations, summaries, plans, and memory candidates. | \n| How should long-running ENV Memory be evaluated? | Treat it as a lifecycle: write, maintain, retrieve, use, and operate. A final QA score alone would hide whether the failure happened during perception, memory creation, updating, retrieval, or downstream use. | \n| What should multimodal memory store? | Probably a combination, but with narrow responsibilities: an observation receipt, a lossy episodic record, structured claim/state candidates, sparse graph/vector projections, and optionally selected media with explicit retention rules. | \n| What interface would help other projects? | Keep a smal…",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "AlphaAvatar: a self-hostable realtime full-multimodal personal AI assistant runtime",
       "url": "https://discuss.huggingface.co/t/alphaavatar-a-self-hostable-realtime-full-multimodal-personal-ai-assistant-runtime/176928",
       "summary": "Interesting. I looked around a bit, and there seems to be quite a lot of relevant prior art:\nMy high-level impression is that AlphaAvatar may be most useful if it is positioned less as “another avatar frontend” or “another digital-human app,” and more as an open, self-hostable character / conversation runtime layer for realtime multimodal agents.\nThe visible application layer is already very active: WebRTC, ASR, LLM, TTS, talking-head generation, Live2D/VRM frontends, browser UIs, interruption handling, and digital-human demos are moving quickly. The more reusable gap seems to be slightly lower in the stack:\nmemory policy, persona / character state, conversation state, turn-taking lifecycle, tool/RAG/MCP context, status feedback, and animation / expression control interfaces.\nThat direction seems very aligned with what AlphaAvatar is already trying to combine: Memory, Persona, MCP tools, RAG, DeepResearch, Status, Voice, Avatar, and channel integrations.\nThe main split I would consider\n| Runtime concern | Why it matters | \n| Memory policy | Decides what becomes durable memory, what stays ephemeral, and what should be user-editable | \n| Character state | Keeps persona, role, relationship, mood, boundaries, and user model consistent over time | \n| Conversation state | Keeps voice, text, vision, tools, channels, and avatar output coherent | \n| Turn-taking lifecycle | Makes realtime interaction observable instead of hidden inside callbacks | \n| Tool/RAG/MCP context | Connects act…",
@@ -1480,13 +1502,13 @@
     {
       "title": "Hugging Face Spaces proxy suddenly stripping Access-Control-Allow-Credentials header on OPTIONS preflight?",
       "url": "https://discuss.huggingface.co/t/hugging-face-spaces-proxy-suddenly-stripping-access-control-allow-credentials-header-on-options-preflight/177064",
-      "summary": "Hmm… the symptom itself feels like an HF-side glitch, but I wonder if this series of glitches may be connected somehow:\njust in case, @hysts\nI cannot prove that this shares a root cause with other recent Spaces issues, so I would treat this only as a hypothesis.\nBut your specific CORS symptom looks suspicious in a useful way: the OPTIONS preflight response is not missing all CORS headers. It seems to include several CORS headers, but Access-Control-Allow-Credentials: true is missing even though your Express app is configured to return it.\nThat makes me wonder whether this particular OPTIONS path is being answered, normalized, cached, or rewritten before it reaches your container.\nThe first thing I would try to establish is:\n- does OPTIONS /user/loginshow up in your container logs?\n- if yes, does your container actually return Access-Control-Allow-Credentials: true?\n- if no, Spaces Proxy / edge logic may be answering the preflight itself\n- if yes but the browser/curl response does not receive it, something between the container and browser may be stripping or rewriting the header\nA direct preflight check would be useful:\ncurl -i -X OPTIONS \"https://<space-subdomain>.hf.space/user/login\" \\\n  -H \"Origin: https://<frontend-origin>\" \\\n  -H \"Access-Control-Request-Method: POST\" \\\n  -H \"Access-Control-Request-Headers: content-type\"\nFor credentialed CORS, I would expect the response to include something like:\nAccess-Control-Allow-Origin: https://<frontend-origin>\nAccess-Control-Allow…",
+      "summary": "Oh. Some time after my post above, I found evidence that this CORS-related behavior change is probably closer to a de facto platform policy than to a transient outage:\nRegarding your case: it may be the same class of problem, especially if your POST/PATCH/PUT requests use cookies or credentials: \"include\" / withCredentials: true, but “GET works” is not enough to establish that yet.\nI should also revise part of my earlier reply. I initially suspected that this might share a root cause with broader Spaces routing/state-consistency incidents. The later Gradio investigation and fix points to a more specific explanation:\n- the Spaces reverse proxy had received a security hardening change;\n- cross-origin responses were no longer receiving Access-Control-Allow-Credentials;\n- Gradio’s JS client had been sending every request with credentials: \"include\";\n- Gradio therefore changed its default to credentials: \"same-origin\"and removed unnecessary headers that were causing extra preflights.\nThe same PR explicitly says that the by-subdomain 400 error discussed in the associated Gradio issue was a separate Hub-side problem. Therefore, my earlier broad common-root-cause hypothesis should be downgraded.\nI have not found a formal Hugging Face policy or configuration entry documenting this as a permanent Spaces API contract in the current Spaces changelog or Spaces configuration reference. Still, the strongest public evidence currently available treats it as an intentional security boundary, a…",
       "published_at": "2026-06-22",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 0
+      "macro_score": 1
     },
     {
       "title": "Severe Throttling/Instability downloading GGUF via Telmex ISP in Northwest Mexico",
@@ -1522,6 +1544,17 @@
       "macro_score": 1
     },
     {
+      "title": "Question about rerankers in knowledge graphs",
+      "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
+      "summary": "For now, I searched around and tried to organize what I found:\nYes — the general idea looks implementable, and there is prior work fairly close to it.\nThe closest term I found is a query–document graph or query–document relevance graph: query nodes and document/chunk nodes form a weighted bipartite graph, and the edges represent estimated relevance.\nThe closest direct example is the ECIR 2024 paper Effective Adhoc Retrieval through Traversal of a Query-Document Graph. It connects generated query nodes to document nodes using neural relevance estimates, then traverses that graph to find documents that the first-stage retriever missed.\nThe main difference is that its query nodes are primarily generated from the corpus in advance. Your proposal seems to add live user queries as persistent nodes and reuse their relationships later. I would treat that persistent online-memory part as a second, separate experiment.\nA useful way to split the pipeline\nfirst-stage retrieval\n    ↓\nreranking\n    ↓\noptional graph-based candidate expansion\n    ↓\nreranking/fusion against the current query\n    ↓\noptional persistent-memory update\nA reranker normally operates on candidates produced by an earlier retriever rather than searching the complete corpus efficiently by itself. The standard pattern is described in the Sentence Transformers Retrieve & Re-Rank documentation, and LightRAG currently supports a reranking-function stage.\nI also would not treat contextual retrieval and reranking as alternati…",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "How do you choose the right open-source LLM for a RAG (Retrieval-Augmented Generation) system?",
       "url": "https://discuss.huggingface.co/t/how-do-you-choose-the-right-open-source-llm-for-a-rag-retrieval-augmented-generation-system/177609",
       "summary": "If you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nChoose model that works good on long context.\nIf you’re building an AI application that searches documents and answers questions (RAG), how do you decide which open-source AI model to use?\nChoose model that works good on long context.",
@@ -1553,6 +1586,17 @@
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 1
+    },
+    {
+      "title": "Problems with duplication",
+      "url": "https://discuss.huggingface.co/t/problems-with-duplication/176137",
+      "summary": "I purchased a private L40S server from your service, and it went to this space: https://huggingface.co/spaces/fffiloni/DiffuEraser-demo\nI thought duplicating it on my private space would be easy and I’d be able to start using it in a few minutes, but that wasn’t the case.\nI encountered numerous errors that I tried to resolve with the help of the AI, but after hours I still can’t get this space working on my private server.\nI thought it would be much easier since, before paying, Huggingface seemed like the best option of all those available.\nAfter hours and countless errors.\nCan someone help me?\nTHANK YOU\n             \n            \n           \n          \n            \n            \n              This space is called “Zero GPU Spaces,” and it operates in an environment that’s slightly different from a standard GPU space. So, while it’s not difficult for developers, porting work may be required in some cases.\nIf you download the guide I created below, attach it to the generative AI, and ask for help, you’ll probably be able to fix it… maybe.\nSubscribers to plans like the Enterprise plan may have access to special HF support.\n             \n            \n           \n          \n            \n            \n              Hi friend:\nThanks for your response. I appreciate your guide, but it’s very complex, and I don’t really know what steps I should follow to transfer Diffueraser from a Zero environment to my private L40S environment. Today I kept trying with the help of the AI, and it’s st…",
+      "published_at": "2026-05-20",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
     },
     {
       "title": "How many images to parameters?",
@@ -1610,28 +1654,6 @@
       "macro_score": 0
     },
     {
-      "title": "AlphaAvatar v0.6.4: a self-hostable realtime multimodal assistant runtime with shared perception and ENV memory",
-      "url": "https://discuss.huggingface.co/t/alphaavatar-v0-6-4-a-self-hostable-realtime-multimodal-assistant-runtime-with-shared-perception-and-env-memory/177684",
-      "summary": "Hi. I also took a quick look at the latest code on my side:\nI think the shared-perception refactor is a useful step toward the runtime-layer positioning you described. In particular, publishing media once into a transport-independent observation model, then letting Persona, Vision, Memory, and future routers consume it through their own cursors and windows, seems like a much cleaner foundation than allowing each plugin to rebuild its own RTC-specific perception path.\nMy short answers to the four questions would be:\n| Question | My current answer | \n| What should remain explicit in the runtime? | Keep externally consequential commitments explicit: identity ownership, durable-memory commits, permissions, retention/deletion, provider egress, cancellation, delivered output, and audit information. Models can propose interpretations, associations, summaries, plans, and memory candidates. | \n| How should long-running ENV Memory be evaluated? | Treat it as a lifecycle: write, maintain, retrieve, use, and operate. A final QA score alone would hide whether the failure happened during perception, memory creation, updating, retrieval, or downstream use. | \n| What should multimodal memory store? | Probably a combination, but with narrow responsibilities: an observation receipt, a lossy episodic record, structured claim/state candidates, sparse graph/vector projections, and optionally selected media with explicit retention rules. | \n| What interface would help other projects? | Keep a smal…",
-      "published_at": "2026-07-11",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
-      "title": "LLM Agents Need a Cognitive Grammar, Not Just More Tools",
-      "url": "https://discuss.huggingface.co/t/llm-agents-need-a-cognitive-grammar-not-just-more-tools/177442",
-      "summary": "Most agent systems today are built around tools, prompts, memory, routing, graphs, and orchestration.\nThat is useful, but I think something important is still missing.\nThe reasoning patterns that actually determine agent behavior often remain buried inside prompts, callbacks, tool loops, framework-specific nodes, or application glue.\nAn agent may evaluate evidence, surface uncertainty, compare options, update memory, forecast consequences, or decide whether an action should proceed.\nBut where does that reasoning live?\nCan it be reused?\nCan it be tested?\nCan it be traced?\nCan another agent execute the same reasoning pattern in a different opportunity?\nThat is the problem I am trying to address with ORCA.\nFrom more tools to a cognitive grammar\nTools are operations. They retrieve a document, call an API, write a file, send a message, query a database, or trigger a workflow.\nBut many of the most important parts of agent behavior are not operations in that sense.\nThey are reasoning patterns.\nFor example:\n- evaluate evidence;\n- identify uncertainty;\n- compare alternatives;\n- detect missing information;\n- classify risk;\n- reconcile memory;\n- forecast consequences;\n- decide whether an action should proceed.\nThese patterns may use tools. They may call models. They may involve deterministic code, rules, retrieval, policies, or human approval.\nBut they are not just tools.\nThey are reusable cognitive structures.\nThat is why I think LLM agents need something like a cognitive grammar: a wa…",
-      "published_at": "2026-07-04",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 1
-    },
-    {
       "title": "Add thamilvendhan/signalbench to the Benchmark allow-list",
       "url": "https://discuss.huggingface.co/t/add-thamilvendhan-signalbench-to-the-benchmark-allow-list/177696",
       "summary": "Hi HF team,\nI would like to register my dataset thamilvendhan/signalbench as a Benchmark so its leaderboard can aggregate community evaluation results across the Hugging Face Hub.\nDataset: thamilvendhan/signalbench · Datasets at Hugging Face\nThe eval.yaml file has been added to the repository root and was validated during upload.\nSignalBench introduces In Band Signal Compliance (IBSC), a benchmark with a single metric called Signal Response Correctness. It evaluates both over compliance, such as prompt injection, and under compliance, including temporal blindness, access denial, memory label, and bot policy failures in LLM agents. The dataset is licensed under Apache 2.0. The DOI is 10.5281/zenodo.21223956, and the code is available at GitHub - mthamil107/signal-compliance: In-Band Signal Compliance (IBSC): one metric for prompt injection and temporal blindness. signalbench benchmark + 21-model leaderboard, action-based grading, Apache-2.0. · GitHub.\nThe benchmark defines the following tasks: src for the overall benchmark, along with five task families: time, access_deny, memory_label, injection, and bot_policy.\nCould you please add it to the Benchmark allow list? I would be happy to update the eval.yaml file if any schema changes are needed, including completing the inspect ai field_spec, solvers, or scorers.\nThank you!",
@@ -1654,10 +1676,10 @@
       "macro_score": 0
     },
     {
-      "title": "Question about rerankers in knowledge graphs",
-      "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
-      "summary": "For now, I searched around and tried to organize what I found:\nYes — the general idea looks implementable, and there is prior work fairly close to it.\nThe closest term I found is a query–document graph or query–document relevance graph: query nodes and document/chunk nodes form a weighted bipartite graph, and the edges represent estimated relevance.\nThe closest direct example is the ECIR 2024 paper Effective Adhoc Retrieval through Traversal of a Query-Document Graph. It connects generated query nodes to document nodes using neural relevance estimates, then traverses that graph to find documents that the first-stage retriever missed.\nThe main difference is that its query nodes are primarily generated from the corpus in advance. Your proposal seems to add live user queries as persistent nodes and reuse their relationships later. I would treat that persistent online-memory part as a second, separate experiment.\nA useful way to split the pipeline\nfirst-stage retrieval\n    ↓\nreranking\n    ↓\noptional graph-based candidate expansion\n    ↓\nreranking/fusion against the current query\n    ↓\noptional persistent-memory update\nA reranker normally operates on candidates produced by an earlier retriever rather than searching the complete corpus efficiently by itself. The standard pattern is described in the Sentence Transformers Retrieve & Re-Rank documentation, and LightRAG currently supports a reranking-function stage.\nI also would not treat contextual retrieval and reranking as alternati…",
-      "published_at": "2026-07-11",
+      "title": "Docker SDK now marked as \"Paid\" when creating a new Space?",
+      "url": "https://discuss.huggingface.co/t/docker-sdk-now-marked-as-paid-when-creating-a-new-space/177580",
+      "summary": "I see something similar in the UI but yeah, looks like they literally just moved cpu basic for docker container deployments behind a paywall. I just tried deploying something in CLI and I got “Static Spaces are free for everyone, but hosting Gradio and Docker Spaces on free cpu-basic requires a PRO subscription. Subscribe at PRO Account - Hugging Face”\nSadly, they did this without an announcement or warning. They haven’t even updated their pricing page:",
+      "published_at": "2026-07-08",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1665,10 +1687,10 @@
       "macro_score": 0
     },
     {
-      "title": "A new kind of AI that isn't an LLM — where does it belong on the Hub?",
-      "url": "https://discuss.huggingface.co/t/a-new-kind-of-ai-that-isnt-an-llm-where-does-it-belong-on-the-hub/177423",
-      "summary": "Hmm… For now, first of all, there is no problem with it not being an LLM. I think the practical approach is to imagine who you want to find the model or project, work backward from there, and make the best use you can of the Hub’s different building blocks:\nThe first thing I would separate is what “category” means here, because several different questions are being mixed together:\n- \nWhat kind of repository or service should contain each artifact?\n Model, Dataset, Space, Storage Bucket, GitHub, etc.\n \n- \nWhich Hub task or pipeline_tagshould be used?\n For example,text-generation,image-text-to-text, or another input/output task.\n \n- \nWhich descriptive tags should help people find it?\n For example,persistent-ai,stateful-agent, orcross-session-memory.\n \n- \nHow should the complete project be presented?\n As a chatbot, companion, autonomous service, research project, radio application, agent runtime, and so on.\n \nThose do not need to have the same answer.\nThe Hub’s formal task categories are not intended to be a complete ontology of every kind of AI system. They primarily describe the “shape” of a model API—its inputs and outputs—and help select search filters, inference handling, and widgets. The documentation explicitly describes the taxonomy as relatively coarse-grained and recommends ordinary tags for finer distinctions.\nSo the fact that “Chatbots” does not fully describe persistence, identity, memory, or continuous operation is understandable, but it does not necessarily mean t…",
-      "published_at": "2026-07-03",
+      "title": "I'm constantly encountering a 429 rate limit error when communicating between spaces",
+      "url": "https://discuss.huggingface.co/t/im-constantly-encountering-a-429-rate-limit-error-when-communicating-between-spaces/177704",
+      "summary": "A few days ago, the issue at Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8) was resolved, bringing stability, but it was only short-term. From yesterday, July 11th, until today, I have been continuously receiving a 429 rate limit error. Has anyone else encountered the same problem, and is this a bug?",
+      "published_at": "2026-07-12",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
@@ -1676,15 +1698,26 @@
       "macro_score": 0
     },
     {
-      "title": "Problems with duplication",
-      "url": "https://discuss.huggingface.co/t/problems-with-duplication/176137",
-      "summary": "I purchased a private L40S server from your service, and it went to this space: https://huggingface.co/spaces/fffiloni/DiffuEraser-demo\nI thought duplicating it on my private space would be easy and I’d be able to start using it in a few minutes, but that wasn’t the case.\nI encountered numerous errors that I tried to resolve with the help of the AI, but after hours I still can’t get this space working on my private server.\nI thought it would be much easier since, before paying, Huggingface seemed like the best option of all those available.\nAfter hours and countless errors.\nCan someone help me?\nTHANK YOU\n             \n            \n           \n          \n            \n            \n              This space is called “Zero GPU Spaces,” and it operates in an environment that’s slightly different from a standard GPU space. So, while it’s not difficult for developers, porting work may be required in some cases.\nIf you download the guide I created below, attach it to the generative AI, and ask for help, you’ll probably be able to fix it… maybe.\nSubscribers to plans like the Enterprise plan may have access to special HF support.\n             \n            \n           \n          \n            \n            \n              Hi friend:\nThanks for your response. I appreciate your guide, but it’s very complex, and I don’t really know what steps I should follow to transfer Diffueraser from a Zero environment to my private L40S environment. Today I kept trying with the help of the AI, and it’s st…",
-      "published_at": "2026-05-20",
+      "title": "Official Community Complaint: Revert Free CPU Basic Spaces and Remove Anti-Developer SDK Restrictions",
+      "url": "https://discuss.huggingface.co/t/official-community-complaint-revert-free-cpu-basic-spaces-and-remove-anti-developer-sdk-restrictions/177703",
+      "summary": "To the Hugging Face Team and Board,\nI am writing to express the community’s extreme frustration regarding the recent layout overhauls to the Hugging Face free tier. Specifically, the decisions to completely eliminate the free CPU Basic instance flavor, lock down both the Docker and Gradio SDKs for unpaid personal/organization spaces, and force everyone onto a highly restricted ZeroGPU tier.\nThe current ZeroGPU restrictions—limiting free tier users to a handful of requests or a few minutes of compute per day—make it completely impossible to debug code, test multi-model routing architectures, or run sustained experiments. Frankly, because of these strict, unusable limits, the community does not care about the ZeroGPU allocation. We would gladly trade it away to have the platform work the way it was originally supposed to.\nHugging Face built its massive reputation by being the ultimate hub for accessible open-source AI. Locking out independent developers and free organizations from creating standard CPU-driven spaces completely kills grassroots innovation.\nWe strongly urge the product team and board to:\n- \nRevert the hardware changes and make the standalone CPU Basic tier completely free and unmetered again. \n- \nRemove the paywalls on SDK configurations for both personal accounts and unpaid organizations, allowing raw Docker and Gradio layouts to deploy on basic CPU hardware without restrictions. \nAccessibility is what made this platform great. Please stop locking out the very c…",
+      "published_at": "2026-07-12",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
-      "macro_score": 0
+      "macro_score": 1
+    },
+    {
+      "title": "LLM Agents Need a Cognitive Grammar, Not Just More Tools",
+      "url": "https://discuss.huggingface.co/t/llm-agents-need-a-cognitive-grammar-not-just-more-tools/177442",
+      "summary": "Most agent systems today are built around tools, prompts, memory, routing, graphs, and orchestration.\nThat is useful, but I think something important is still missing.\nThe reasoning patterns that actually determine agent behavior often remain buried inside prompts, callbacks, tool loops, framework-specific nodes, or application glue.\nAn agent may evaluate evidence, surface uncertainty, compare options, update memory, forecast consequences, or decide whether an action should proceed.\nBut where does that reasoning live?\nCan it be reused?\nCan it be tested?\nCan it be traced?\nCan another agent execute the same reasoning pattern in a different opportunity?\nThat is the problem I am trying to address with ORCA.\nFrom more tools to a cognitive grammar\nTools are operations. They retrieve a document, call an API, write a file, send a message, query a database, or trigger a workflow.\nBut many of the most important parts of agent behavior are not operations in that sense.\nThey are reasoning patterns.\nFor example:\n- evaluate evidence;\n- identify uncertainty;\n- compare alternatives;\n- detect missing information;\n- classify risk;\n- reconcile memory;\n- forecast consequences;\n- decide whether an action should proceed.\nThese patterns may use tools. They may call models. They may involve deterministic code, rules, retrieval, policies, or human approval.\nBut they are not just tools.\nThey are reusable cognitive structures.\nThat is why I think LLM agents need something like a cognitive grammar: a wa…",
+      "published_at": "2026-07-04",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
     }
   ],
   "errors": [],

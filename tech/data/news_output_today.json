@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-12T10:06:00.216199+00:00",
-  "count": 19,
+  "generated_at": "2026-07-12T14:39:48.054952+00:00",
+  "count": 21,
   "source_error_count": 0,
   "articles": [
     {
@@ -147,9 +147,31 @@
       "macro_score": 0
     },
     {
+      "title": "AlphaAvatar v0.6.4: a self-hostable realtime multimodal assistant runtime with shared perception and ENV memory",
+      "url": "https://discuss.huggingface.co/t/alphaavatar-v0-6-4-a-self-hostable-realtime-multimodal-assistant-runtime-with-shared-perception-and-env-memory/177684",
+      "summary": "Hi. I also took a quick look at the latest code on my side:\nI think the shared-perception refactor is a useful step toward the runtime-layer positioning you described. In particular, publishing media once into a transport-independent observation model, then letting Persona, Vision, Memory, and future routers consume it through their own cursors and windows, seems like a much cleaner foundation than allowing each plugin to rebuild its own RTC-specific perception path.\nMy short answers to the four questions would be:\n| Question | My current answer | \n| What should remain explicit in the runtime? | Keep externally consequential commitments explicit: identity ownership, durable-memory commits, permissions, retention/deletion, provider egress, cancellation, delivered output, and audit information. Models can propose interpretations, associations, summaries, plans, and memory candidates. | \n| How should long-running ENV Memory be evaluated? | Treat it as a lifecycle: write, maintain, retrieve, use, and operate. A final QA score alone would hide whether the failure happened during perception, memory creation, updating, retrieval, or downstream use. | \n| What should multimodal memory store? | Probably a combination, but with narrow responsibilities: an observation receipt, a lossy episodic record, structured claim/state candidates, sparse graph/vector projections, and optionally selected media with explicit retention rules. | \n| What interface would help other projects? | Keep a smal…",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
       "title": "Severe Throttling/Instability downloading GGUF via Telmex ISP in Northwest Mexico",
       "url": "https://discuss.huggingface.co/t/severe-throttling-instability-downloading-gguf-via-telmex-isp-in-northwest-mexico/177677",
       "summary": "Hello Hugging Face Team,\nI am experiencing severe network instability and bandwidth throttling when downloading large GGUF files (over 20GB) directly from your CDN. The connection exhibits a constant “sawtooth” behavior, dropping to 0 MB/s and forcing aggressive retries via curl -L -C -.\nHere are my network diagnostics to help your infra team isolate the routing issue:\n- Location: Mazatlan, Sinaloa, Mexico.\n- ISP: Telmex (Fiber Optic, 250 Mbps plan).\n- Ping to huggingface.co: Excellent (22ms stable, 0% packet loss).\n- DNS: Tested with both Google (8.8.8.8) and Cloudflare (1.1.1.1).\n- Cross-provider test: Downloads from GitHub CDN (Fastly) run at a completely flat 300 Mbps without a single drop. This isolates the bottleneck entirely to the Hugging Face / Cloudflare routing path assigned for Telmex users in northwest Mexico.\nIt seems like the edge node or gateway serving this specific region is throttling connections upon reaching maximum packet throughput on massive binary files. Could you please review the routing matrix or CDN peering agreements for Telmex MX?\nThank you!",
+      "published_at": "2026-07-11",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 0
+    },
+    {
+      "title": "Question about rerankers in knowledge graphs",
+      "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
+      "summary": "For now, I searched around and tried to organize what I found:\nYes — the general idea looks implementable, and there is prior work fairly close to it.\nThe closest term I found is a query–document graph or query–document relevance graph: query nodes and document/chunk nodes form a weighted bipartite graph, and the edges represent estimated relevance.\nThe closest direct example is the ECIR 2024 paper Effective Adhoc Retrieval through Traversal of a Query-Document Graph. It connects generated query nodes to document nodes using neural relevance estimates, then traverses that graph to find documents that the first-stage retriever missed.\nThe main difference is that its query nodes are primarily generated from the corpus in advance. Your proposal seems to add live user queries as persistent nodes and reuse their relationships later. I would treat that persistent online-memory part as a second, separate experiment.\nA useful way to split the pipeline\nfirst-stage retrieval\n    ↓\nreranking\n    ↓\noptional graph-based candidate expansion\n    ↓\nreranking/fusion against the current query\n    ↓\noptional persistent-memory update\nA reranker normally operates on candidates produced by an earlier retriever rather than searching the complete corpus efficiently by itself. The standard pattern is described in the Sentence Transformers Retrieve & Re-Rank documentation, and LightRAG currently supports a reranking-function stage.\nI also would not treat contextual retrieval and reranking as alternati…",
       "published_at": "2026-07-11",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
@@ -180,17 +202,6 @@
       "macro_score": 0
     },
     {
-      "title": "AlphaAvatar v0.6.4: a self-hostable realtime multimodal assistant runtime with shared perception and ENV memory",
-      "url": "https://discuss.huggingface.co/t/alphaavatar-v0-6-4-a-self-hostable-realtime-multimodal-assistant-runtime-with-shared-perception-and-env-memory/177684",
-      "summary": "Hi. I also took a quick look at the latest code on my side:\nI think the shared-perception refactor is a useful step toward the runtime-layer positioning you described. In particular, publishing media once into a transport-independent observation model, then letting Persona, Vision, Memory, and future routers consume it through their own cursors and windows, seems like a much cleaner foundation than allowing each plugin to rebuild its own RTC-specific perception path.\nMy short answers to the four questions would be:\n| Question | My current answer | \n| What should remain explicit in the runtime? | Keep externally consequential commitments explicit: identity ownership, durable-memory commits, permissions, retention/deletion, provider egress, cancellation, delivered output, and audit information. Models can propose interpretations, associations, summaries, plans, and memory candidates. | \n| How should long-running ENV Memory be evaluated? | Treat it as a lifecycle: write, maintain, retrieve, use, and operate. A final QA score alone would hide whether the failure happened during perception, memory creation, updating, retrieval, or downstream use. | \n| What should multimodal memory store? | Probably a combination, but with narrow responsibilities: an observation receipt, a lossy episodic record, structured claim/state candidates, sparse graph/vector projections, and optionally selected media with explicit retention rules. | \n| What interface would help other projects? | Keep a smal…",
-      "published_at": "2026-07-11",
-      "source": "discuss.huggingface.co",
-      "category": "02_pass_sitemap",
-      "region": "global",
-      "tier": "02_pass_sitemap",
-      "macro_score": 0
-    },
-    {
       "title": "Add thamilvendhan/signalbench to the Benchmark allow-list",
       "url": "https://discuss.huggingface.co/t/add-thamilvendhan-signalbench-to-the-benchmark-allow-list/177696",
       "summary": "Hi HF team,\nI would like to register my dataset thamilvendhan/signalbench as a Benchmark so its leaderboard can aggregate community evaluation results across the Hugging Face Hub.\nDataset: thamilvendhan/signalbench · Datasets at Hugging Face\nThe eval.yaml file has been added to the repository root and was validated during upload.\nSignalBench introduces In Band Signal Compliance (IBSC), a benchmark with a single metric called Signal Response Correctness. It evaluates both over compliance, such as prompt injection, and under compliance, including temporal blindness, access denial, memory label, and bot policy failures in LLM agents. The dataset is licensed under Apache 2.0. The DOI is 10.5281/zenodo.21223956, and the code is available at GitHub - mthamil107/signal-compliance: In-Band Signal Compliance (IBSC): one metric for prompt injection and temporal blindness. signalbench benchmark + 21-model leaderboard, action-based grading, Apache-2.0. · GitHub.\nThe benchmark defines the following tasks: src for the overall benchmark, along with five task families: time, access_deny, memory_label, injection, and bot_policy.\nCould you please add it to the Benchmark allow list? I would be happy to update the eval.yaml file if any schema changes are needed, including completing the inspect ai field_spec, solvers, or scorers.\nThank you!",
@@ -202,15 +213,26 @@
       "macro_score": 1
     },
     {
-      "title": "Question about rerankers in knowledge graphs",
-      "url": "https://discuss.huggingface.co/t/question-about-rerankers-in-knowledge-graphs/177685",
-      "summary": "For now, I searched around and tried to organize what I found:\nYes — the general idea looks implementable, and there is prior work fairly close to it.\nThe closest term I found is a query–document graph or query–document relevance graph: query nodes and document/chunk nodes form a weighted bipartite graph, and the edges represent estimated relevance.\nThe closest direct example is the ECIR 2024 paper Effective Adhoc Retrieval through Traversal of a Query-Document Graph. It connects generated query nodes to document nodes using neural relevance estimates, then traverses that graph to find documents that the first-stage retriever missed.\nThe main difference is that its query nodes are primarily generated from the corpus in advance. Your proposal seems to add live user queries as persistent nodes and reuse their relationships later. I would treat that persistent online-memory part as a second, separate experiment.\nA useful way to split the pipeline\nfirst-stage retrieval\n    ↓\nreranking\n    ↓\noptional graph-based candidate expansion\n    ↓\nreranking/fusion against the current query\n    ↓\noptional persistent-memory update\nA reranker normally operates on candidates produced by an earlier retriever rather than searching the complete corpus efficiently by itself. The standard pattern is described in the Sentence Transformers Retrieve & Re-Rank documentation, and LightRAG currently supports a reranking-function stage.\nI also would not treat contextual retrieval and reranking as alternati…",
-      "published_at": "2026-07-11",
+      "title": "I'm constantly encountering a 429 rate limit error when communicating between spaces",
+      "url": "https://discuss.huggingface.co/t/im-constantly-encountering-a-429-rate-limit-error-when-communicating-between-spaces/177704",
+      "summary": "A few days ago, the issue at Space-to-Space requests to *.hf.space return 503 from awselb (since Jul 8) was resolved, bringing stability, but it was only short-term. From yesterday, July 11th, until today, I have been continuously receiving a 429 rate limit error. Has anyone else encountered the same problem, and is this a bug?",
+      "published_at": "2026-07-12",
       "source": "discuss.huggingface.co",
       "category": "02_pass_sitemap",
       "region": "global",
       "tier": "02_pass_sitemap",
       "macro_score": 0
+    },
+    {
+      "title": "Official Community Complaint: Revert Free CPU Basic Spaces and Remove Anti-Developer SDK Restrictions",
+      "url": "https://discuss.huggingface.co/t/official-community-complaint-revert-free-cpu-basic-spaces-and-remove-anti-developer-sdk-restrictions/177703",
+      "summary": "To the Hugging Face Team and Board,\nI am writing to express the community’s extreme frustration regarding the recent layout overhauls to the Hugging Face free tier. Specifically, the decisions to completely eliminate the free CPU Basic instance flavor, lock down both the Docker and Gradio SDKs for unpaid personal/organization spaces, and force everyone onto a highly restricted ZeroGPU tier.\nThe current ZeroGPU restrictions—limiting free tier users to a handful of requests or a few minutes of compute per day—make it completely impossible to debug code, test multi-model routing architectures, or run sustained experiments. Frankly, because of these strict, unusable limits, the community does not care about the ZeroGPU allocation. We would gladly trade it away to have the platform work the way it was originally supposed to.\nHugging Face built its massive reputation by being the ultimate hub for accessible open-source AI. Locking out independent developers and free organizations from creating standard CPU-driven spaces completely kills grassroots innovation.\nWe strongly urge the product team and board to:\n- \nRevert the hardware changes and make the standalone CPU Basic tier completely free and unmetered again. \n- \nRemove the paywalls on SDK configurations for both personal accounts and unpaid organizations, allowing raw Docker and Gradio layouts to deploy on basic CPU hardware without restrictions. \nAccessibility is what made this platform great. Please stop locking out the very c…",
+      "published_at": "2026-07-12",
+      "source": "discuss.huggingface.co",
+      "category": "02_pass_sitemap",
+      "region": "global",
+      "tier": "02_pass_sitemap",
+      "macro_score": 1
     }
   ],
   "errors": [],
