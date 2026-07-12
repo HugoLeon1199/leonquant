@@ -15,9 +15,9 @@ if str(ROOT) not in sys.path:
 
 from scripts.build_tech_publication import build_publication  # noqa: E402
 from scripts.run_tech_gdelt import companies_from_blob  # noqa: E402
-from scripts.tech_common import PASS_STATUSES, TECH_PUBLICATION_SCHEMA, TECH_SOURCE_COVERAGE_MATRIX  # noqa: E402
+from scripts.tech_common import PASS_STATUSES, TECH_PUBLICATION_SCHEMA, TECH_SOURCE_COVERAGE_MATRIX, TECH_WATCHLIST_CONFIGURED_SOURCES  # noqa: E402
 from scripts.validate_tech_publication import validate as validate_publication  # noqa: E402
-from tech.acquire_api_sources import arxiv_entry_candidate, candidate as api_candidate, github_release_candidate, hf_model_candidate  # noqa: E402
+from tech.acquire_api_sources import arxiv_entry_candidate, candidate as api_candidate, github_release_candidate, github_repo_candidate, hf_model_candidate  # noqa: E402
 
 FORBIDDEN_DIFF_PATHS = {
     "config/sources_seed.txt",
@@ -81,6 +81,7 @@ def test_api_acquisition_candidate_fixtures() -> None:
         {"entity": "ComfyUI", "alias": "ComfyUI"},
         {"entity": "LangGraph", "alias": "LangGraph"},
         {"entity": "OpenHands", "alias": "OpenHands"},
+        {"entity": "Zhipu/Z.ai", "alias": "GLM-5.2"},
     ]
     hf_qwen = hf_model_candidate(
         {"modelId": "Qwen/Qwen3-Coder", "lastModified": "2026-07-10T00:00:00Z", "tags": ["text-generation"], "pipeline_tag": "text-generation"},
@@ -102,6 +103,8 @@ def test_api_acquisition_candidate_fixtures() -> None:
         assert_true(item["source_lane"] == "huggingface_model", "HF candidate lane mismatch")
         assert_true(item["content_quality"] == "metadata_only", "HF should keep metadata-only candidate")
         assert_true(item["raw_source_method"] == "hf_api", "HF raw method mismatch")
+        assert_true(item["match_strength"] in {"strong", "medium"}, "official HF fixtures should not be weak")
+        assert_true(item["is_test_repo"] is False, "official HF fixtures should not be test repos")
 
     gh_comfy = github_release_candidate(
         "comfyanonymous/ComfyUI",
@@ -122,6 +125,34 @@ def test_api_acquisition_candidate_fixtures() -> None:
         assert_true(item is not None, "GitHub fixture should create candidate")
         assert_true(item["source_lane"] == "github_release", "GitHub candidate lane mismatch")
         assert_true(item["raw_source_method"] == "github_api", "GitHub raw method mismatch")
+
+    hf_personal_test = hf_model_candidate(
+        {"modelId": "KimiTool/MyAwesomeModel-TestRepo", "lastModified": "2026-07-10T00:00:00Z", "tags": ["text-generation", "base_model:moonshotai/Kimi"], "pipeline_tag": "text-generation"},
+        "Kimi",
+        [{"entity": "Kimi/Moonshot", "alias": "Kimi"}],
+    )
+    assert_true(hf_personal_test is not None, "HF personal test repo fixture should be classified")
+    assert_true(hf_personal_test["is_test_repo"] is True, "HF personal test repo should be marked test")
+    assert_true(hf_personal_test["match_strength"] == "weak", "HF personal test repo should be weak confidence")
+    assert_true(hf_personal_test["evidence"] == "weak_metadata_match", "HF personal test repo should use weak evidence")
+
+    hf_zai = hf_model_candidate(
+        {"modelId": "zai-org/GLM-5.2", "lastModified": "2026-07-10T00:00:00Z", "tags": ["text-generation"], "pipeline_tag": "text-generation"},
+        "GLM-5.2",
+        aliases,
+    )
+    assert_true(hf_zai is not None, "HF official Z.ai GLM-5.2 should be kept")
+    assert_true(hf_zai["matched_entity"] == "Zhipu/Z.ai", "HF official GLM should match Zhipu/Z.ai")
+    assert_true(hf_zai["official_entity_source"] is True, "HF official GLM should mark official org")
+    assert_true(hf_zai["match_strength"] in {"strong", "medium"}, "HF official GLM should not be weak")
+
+    deepseek_with_qwen_tag = hf_model_candidate(
+        {"modelId": "deepseek-ai/DeepSeek-R2", "lastModified": "2026-07-10T00:00:00Z", "tags": ["base_model:Qwen/Qwen3"], "pipeline_tag": "text-generation", "cardData": {"base_model": "Qwen/Qwen3"}},
+        "Qwen",
+        [{"entity": "Qwen/Alibaba", "alias": "Qwen"}, {"entity": "DeepSeek", "alias": "DeepSeek"}],
+    )
+    assert_true(deepseek_with_qwen_tag is not None, "DeepSeek fixture should create candidate")
+    assert_true(deepseek_with_qwen_tag["matched_entity"] == "DeepSeek", "DeepSeek repo must not be matched as Qwen from base_model tag")
 
     atom = """<entry xmlns="http://www.w3.org/2005/Atom">
       <title>Reasoning model agents for multimodal tool use</title>
@@ -235,8 +266,111 @@ def test_publication_build_and_validate() -> None:
     matrix = TECH_SOURCE_COVERAGE_MATRIX.read_text(encoding="utf-8")
     assert_true("active_url_sources:" in matrix, "coverage matrix must report active_url_sources")
     assert_true("active_watchlist_entities:" in matrix, "coverage matrix must report active_watchlist_entities")
+    assert_true("real_candidate_count:" in matrix, "coverage matrix must report real_candidate_count")
+    assert_true("manual_signal_count:" in matrix, "coverage matrix must report manual_signal_count")
+    assert_true("weak_metadata_match_count:" in matrix, "coverage matrix must report weak_metadata_match_count")
     assert_true("| official_ai_labs | 26 | 26 |" not in matrix, "coverage matrix must not present watchlist entities as active URL sources")
     assert_true("watchlist entities are not URL crawl sources" in matrix, "coverage matrix should explain watchlist/entity distinction")
+
+
+def test_watchlist_configured_sources_are_debug_only() -> None:
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ["LEON_TECH_OFFLINE_TEST"] = "1"
+    os.environ["LEON_TECH_DISABLE_API_CANDIDATES"] = "1"
+    try:
+        publication = build_publication({"articles": []}, {"events": []})
+    finally:
+        os.environ.pop("LEON_TECH_DISABLE_API_CANDIDATES", None)
+    assert_true(publication["stats"]["candidate_count"] == 0, "configured watchlist URLs must not create publication candidates")
+    assert_true(publication["stats"]["manual_signal_count"] == 0, "manual_signal must not be in candidate pool")
+    assert_true(not publication["sections"]["full_link_radar"], "manual watchlist URLs must not enter Full Radar")
+    assert_true(TECH_WATCHLIST_CONFIGURED_SOURCES.is_file(), "watchlist configured sources debug artifact missing")
+
+
+def test_manual_signal_validator_guard() -> None:
+    now = datetime.now(timezone.utc).isoformat()
+    publication = {
+        "schema_version": TECH_PUBLICATION_SCHEMA,
+        "window_hours": 72,
+        "executive_summary": ["Trong 72 giờ qua, radar có tín hiệu AI mới cần kiểm tra."],
+        "top_signal_clusters": [
+            {
+                "cluster_id": "cluster-01",
+                "cluster_title": "Configured source should not publish",
+                "takeaway": "Tín hiệu cấu hình không được xuất bản như tin mới.",
+                "what_changed": "Không có fetched item thật.",
+                "why_it_matters": "Tránh bơm nguồn configured vào radar.",
+                "affected_ecosystem": ["model providers"],
+                "entities": ["Zhipu/Z.ai"],
+                "links": [
+                    {
+                        "title": "Configured source",
+                        "url": "https://z.ai/blog",
+                        "source": "z.ai",
+                        "source_lane": "huggingface_model",
+                        "content_quality": "metadata_only",
+                        "raw_source_method": "manual_signal",
+                        "evidence": "watchlist_configured_source",
+                        "published_at": now,
+                    }
+                ],
+            }
+        ],
+        "must_read": [
+            {
+                "title": "Configured source",
+                "url": "https://z.ai/blog",
+                "source": "z.ai",
+                "category": "model",
+                "importance": 3,
+                "why_read": "Nguồn cấu hình không phải bài mới thật.",
+                "apply_now": "Không dùng làm Must Read.",
+                "tags": ["ai_models", "official"],
+                "source_count": 1,
+                "source_type": "official",
+                "published_at": now,
+                "curation_status": "fallback",
+                "signal_type": "new_release",
+                "confidence": "medium",
+                "evidence": "watchlist_configured_source",
+                "time_to_apply": "this_week",
+                "leon_fit": "Chỉ là kiểm thử validator.",
+                "source_lane": "huggingface_model",
+                "content_quality": "metadata_only",
+                "raw_source_method": "manual_signal",
+            }
+        ],
+        "sections": {
+            "ai_models": [],
+            "local_ai_china_ai": [],
+            "ai_tools": [],
+            "automation_mcp_agents": [],
+            "open_source_hot": [],
+            "ai_business_money": [],
+            "industry_impact": [],
+            "ai_knowledge": [{"concept": "Manual signal guard", "explain_simple": "Không xuất bản nguồn cấu hình.", "why_now": "Cần chặn lỗi nguồn.", "how_to_apply": "Dùng validator.", "best_links": ["https://z.ai/blog"]}],
+            "founder_ideas_for_leon": [{"idea": "Không dùng manual source", "based_on": "Configured source", "why_now": "Giữ chất lượng nguồn.", "apply_now": "Chặn bằng validator."}],
+            "full_link_radar": [
+                {
+                    "title": "Configured source",
+                    "url": "https://z.ai/blog",
+                    "category": "model",
+                    "source_lane": "huggingface_model",
+                    "content_quality": "metadata_only",
+                    "raw_source_method": "manual_signal",
+                    "one_line_reason": "Nguồn cấu hình.",
+                    "why_interesting": "Không phải fetched item.",
+                    "use_case": "Không dùng.",
+                    "source_type": "official",
+                }
+            ],
+        },
+        "stats": {"curator_candidate_count": 1, "main_candidate_count": 1, "candidate_count": 1, "manual_signal_count": 1, "manual_signal_share": 1.0, "render_checks": {"knowledge_fields_ready": True, "founder_fields_ready": True}},
+    }
+    errs = validate_publication(publication, check_external=False)
+    assert_true(any("must_read[0] manual_signal" in err for err in errs), "validator should reject manual_signal in Must Read")
+    assert_true(any("top_signal_clusters[0].links[0] manual_signal" in err for err in errs), "validator should reject manual_signal in Top Signal links")
+    assert_true(any("manual_signal share" in err for err in errs), "validator should reject manual_signal share above threshold")
 
 
 def test_frontier_watchlist_glm_5_2_fixture() -> None:
@@ -593,6 +727,8 @@ def main() -> None:
     test_validation_fixture_generation()
     test_api_acquisition_candidate_fixtures()
     test_publication_build_and_validate()
+    test_watchlist_configured_sources_are_debug_only()
+    test_manual_signal_validator_guard()
     test_frontier_watchlist_glm_5_2_fixture()
     test_multilane_frontier_fixtures_clustered()
     test_empty_must_read_guard()

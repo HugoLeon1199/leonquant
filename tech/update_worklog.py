@@ -56,6 +56,10 @@ def main() -> int:
     glm_detected = bool(stats.get("glm_5_2_detected"))
     candidates_by_method = stats.get("candidates_by_method") or api_candidates.get("candidates_by_method") or {}
     content_quality_mix = stats.get("content_quality_mix") or api_candidates.get("content_quality_mix") or {}
+    real_candidate_count = int(stats.get("real_candidate_count") or 0)
+    manual_signal_count = int(stats.get("manual_signal_count") or 0)
+    weak_metadata_match_count = int(stats.get("weak_metadata_match_count") or 0)
+    official_org_candidate_count = int(stats.get("official_org_candidate_count") or 0)
     pages_workflow = ROOT / ".github" / "workflows" / "pages.yml"
     pages_has_tech = "Tech Radar" in pages_workflow.read_text(encoding="utf-8") if pages_workflow.is_file() else False
     render_checks = stats.get("render_checks") or {}
@@ -76,6 +80,7 @@ def main() -> int:
         f"- Frontier Watchlist entities: {watchlist_entity_count}; candidates_from_watchlist={watchlist_candidate_count}; GLM-5.2 detected={'yes' if glm_detected else 'no'}.\n"
         f"- Data coverage: active_url_sources={stats.get('active_url_sources', stats.get('active_source_count', 0))}; active_api_sources={stats.get('active_api_sources', api_candidates.get('active_api_sources', 0))}; active_rss_sources={stats.get('active_rss_sources', 0)}; active_sitemap_sources={stats.get('active_sitemap_sources', 0)}; active_watchlist_entities={stats.get('active_watchlist_entities', watchlist_entity_count)}; metadata_only_sources={stats.get('metadata_only_sources', 0)}.\n"
         f"- API candidates: total={api_candidates.get('candidate_count', stats.get('api_candidate_count', 0))}; by_method={api_candidates.get('candidates_by_method', {})}; notes={api_candidates.get('notes', [])[:3]}.\n"
+        f"- Input quality: real_candidate_count={real_candidate_count}; manual_signal_count={manual_signal_count}; weak_metadata_match_count={weak_metadata_match_count}; official_org_candidate_count={official_org_candidate_count}.\n"
         f"- candidates_by_method={candidates_by_method}; content_quality_mix={content_quality_mix}; remaining CAPTCHA/paywall/JS-only sources={stats.get('needs_manual_source_strategy_count', 0)}.\n"
         f"- Source mix main candidates: official={stats.get('official_candidate_count', 0)}, independent={stats.get('independent_candidate_count', 0)}, community={stats.get('community_candidate_count', 0)}.\n"
         f"- Pages workflow includes Tech Radar: {'yes' if pages_has_tech else 'no'}.\n"

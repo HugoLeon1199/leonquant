@@ -44,6 +44,7 @@ TECH_FRONTIER_WATCHLIST = CONFIG_DIR / "frontier_watchlist.json"
 TECH_SOURCE_PROFILES = CONFIG_DIR / "source_profiles.json"
 TECH_ROLLING_CANDIDATES = DATA_DIR / "candidates_rolling.json"
 TECH_WATCHLIST_STATUS = DATA_DIR / "watchlist_status.json"
+TECH_WATCHLIST_CONFIGURED_SOURCES = DATA_DIR / "watchlist_configured_sources.json"
 TECH_SOURCE_COVERAGE_MATRIX = REPORTS_DIR / "source_coverage_matrix.md"
 
 TECH_PUBLICATION_SCHEMA = "ai-frontier-radar-72h-v1"

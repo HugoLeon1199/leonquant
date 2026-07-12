@@ -928,3 +928,29 @@ Validation status snapshot live:
 - Section counts: local_ai=2, automation=12, open_source=7, knowledge=4, founder_ideas=10.
 - /tech/ render check: knowledge=True; founder_ideas=True.
 - Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
+
+## 2026-07-10 - Technology & AI 72h live run
+
+- Tech72h generated_at=2026-07-10T07:12:55.275915+00:00
+- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.
+- Format: AI Frontier Radar 72h.
+- Schedule: once every 3 days; data window: latest 72 hours.
+- Active sources: 7 / 100.
+- Clean web articles: 27.
+- Candidate live: 113; noise bi loai: 3; bai qua han 72h bi loai khoi section chinh: 10.
+- Event candidates: 52; GDELT ran_successfully=True; raw=120; ai_filtered=52; rejected_non_ai=68.
+- Query estimate: 1,440,497,558 bytes; processed: 1,440,497,558 bytes; bytes_status=known; cap: 2,000,000,000 bytes.
+- Published stories: 27; must_read=19; full_link_radar=113.
+- Must Read theo source type: {'official': 8, 'independent': 6, 'community': 5}.
+- Must Read theo category: {'model': 5, 'local_ai': 3, 'tool': 5, 'automation': 3, 'opensource': 3}.
+- Frontier Watchlist entities: 26; candidates_from_watchlist=52; GLM-5.2 detected=yes.
+- Data coverage: active_url_sources=7; active_api_sources=15; active_rss_sources=3; active_sitemap_sources=1; active_watchlist_entities=26; metadata_only_sources=19.
+- API candidates: total=49; by_method={'hf_api': 14, 'github_api': 24, 'arxiv_api': 3, 'api': 8}; notes=["hf_api unavailable: No module named 'huggingface_hub'"].
+- Input quality: real_candidate_count=113; manual_signal_count=0; weak_metadata_match_count=3; official_org_candidate_count=23.
+- candidates_by_method={'github_api': 24, 'hf_api': 14, 'api': 8, 'arxiv_api': 3, 'html': 27, 'gdelt': 37}; content_quality_mix={'summary_only': 46, 'metadata_only': 40, 'full_text': 27}; remaining CAPTCHA/paywall/JS-only sources=1.
+- Source mix main candidates: official=30, independent=13, community=13.
+- Pages workflow includes Tech Radar: yes.
+- Gemini curator: success=0; fallback=59; ai_main=0; fallback_main=56.
+- Section counts: local_ai=7, automation=11, open_source=5, knowledge=4, founder_ideas=10.
+- /tech/ render check: knowledge=True; founder_ideas=True.
+- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.

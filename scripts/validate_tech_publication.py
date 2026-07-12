@@ -62,6 +62,7 @@ ALLOWED_SOURCE_LANES = {
 }
 ALLOWED_CONTENT_QUALITY = {"full_text", "summary_only", "metadata_only"}
 ALLOWED_RAW_SOURCE_METHODS = {"api", "rss", "sitemap", "html", "gdelt", "github_api", "hf_api", "arxiv_api", "manual_signal", "static_html", "json_ld"}
+ALLOWED_MATCH_STRENGTH = {"strong", "medium", "weak"}
 ACCENT_RE = re.compile(
     r"[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩ"
     r"òóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]",
@@ -205,9 +206,10 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
         errs.append("watchlist_status.json missing")
     if int(stats.get("watchlist_checked") or 0) < max(1, watchlist_entity_count):
         errs.append("critical watchlist entities were not all checked")
-    if int(stats.get("model_hub_candidate_count") or 0) <= 0:
+    has_real_api_candidates = int(stats.get("real_api_candidate_count") or stats.get("api_candidate_count") or 0) > 0
+    if has_real_api_candidates and int(stats.get("model_hub_candidate_count") or 0) <= 0:
         errs.append("model_hub candidates must be greater than 0")
-    if int(stats.get("image_video_workflow_candidate_count") or 0) <= 0:
+    if has_real_api_candidates and int(stats.get("image_video_workflow_candidate_count") or 0) <= 0:
         errs.append("image_video_workflow candidates must be greater than 0")
     if "active_url_sources" in stats and "active_watchlist_entities" in stats:
         if int(stats.get("active_url_sources") or 0) == int(stats.get("active_watchlist_entities") or 0) and int(stats.get("active_watchlist_entities") or 0) >= 10:
@@ -234,6 +236,19 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
                 errs.append(f"top_signal_clusters[{idx}].affected_ecosystem missing")
             if not isinstance(cluster.get("links"), list) or not cluster.get("links"):
                 errs.append(f"top_signal_clusters[{idx}].links missing")
+            event_evidence_count = 0
+            for link_idx, link in enumerate(cluster.get("links") or []):
+                if str(link.get("raw_source_method") or "") == "manual_signal":
+                    errs.append(f"top_signal_clusters[{idx}].links[{link_idx}] manual_signal is not allowed")
+                if str(link.get("evidence") or "") == "watchlist_configured_source":
+                    errs.append(f"top_signal_clusters[{idx}].links[{link_idx}] watchlist_configured_source is not allowed")
+                if str(link.get("content_quality") or "metadata_only") != "metadata_only":
+                    event_evidence_count += 1
+                strength = str(link.get("match_strength") or "medium")
+                if strength not in ALLOWED_MATCH_STRENGTH:
+                    errs.append(f"top_signal_clusters[{idx}].links[{link_idx}].match_strength invalid")
+            if cluster.get("links") and event_evidence_count == 0:
+                errs.append(f"top_signal_clusters[{idx}] must contain at least 1 non-metadata event source")
             for entity in cluster.get("entities") or []:
                 entity_counter[str(entity)] += 1
             leon_mentions += str(cluster).lower().count("leon")
@@ -316,6 +331,17 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
             errs.append(f"must_read[{idx}].curation_status invalid")
         if str(item.get("source_lane") or "normal_web") not in ALLOWED_SOURCE_LANES:
             errs.append(f"must_read[{idx}].source_lane invalid")
+        if str(item.get("raw_source_method") or "") == "manual_signal":
+            errs.append(f"must_read[{idx}] manual_signal is not allowed")
+        if str(item.get("content_quality") or "metadata_only") == "metadata_only":
+            errs.append(f"must_read[{idx}] metadata_only is not publishable event evidence")
+        if str(item.get("evidence") or "") == "watchlist_configured_source":
+            errs.append(f"must_read[{idx}] watchlist_configured_source is not allowed")
+        if str(item.get("match_strength") or "medium") not in ALLOWED_MATCH_STRENGTH:
+            errs.append(f"must_read[{idx}].match_strength invalid")
+        for bool_field in ("official_entity_source", "is_personal_finetune", "is_test_repo"):
+            if bool_field in item and not isinstance(item.get(bool_field), bool):
+                errs.append(f"must_read[{idx}].{bool_field} must be boolean")
         if source_type == "community" and str(item.get("evidence") or "") != "community-only":
             errs.append(f"must_read[{idx}] community item must use evidence=community-only")
         _check_public_text(errs, str(item.get("why_read") or ""), f"must_read[{idx}].why_read")
@@ -369,6 +395,14 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
             source_type = str(item.get("source_type") or "").strip()
             if str(item.get("source_lane") or "normal_web") not in ALLOWED_SOURCE_LANES:
                 errs.append(f"sections.{sec_name}[{idx}].source_lane invalid")
+            if str(item.get("raw_source_method") or "") == "manual_signal":
+                errs.append(f"sections.{sec_name}[{idx}] manual_signal is not allowed")
+            if str(item.get("content_quality") or "metadata_only") == "metadata_only":
+                errs.append(f"sections.{sec_name}[{idx}] metadata_only is not publishable event evidence")
+            if str(item.get("evidence") or "") == "watchlist_configured_source":
+                errs.append(f"sections.{sec_name}[{idx}] watchlist_configured_source is not allowed")
+            if str(item.get("match_strength") or "medium") not in ALLOWED_MATCH_STRENGTH:
+                errs.append(f"sections.{sec_name}[{idx}].match_strength invalid")
             host = _host(str(item.get("url") or ""))
             if any(part in host for part in COMMUNITY_HINTS) and source_type == "official":
                 errs.append(f"sections.{sec_name}[{idx}] forum/community source cannot be official")
@@ -395,6 +429,7 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
 
     full_radar = sections.get("full_link_radar") or []
     if isinstance(full_radar, list):
+        manual_full_radar = 0
         for idx, item in enumerate(full_radar):
             _check_url(errs, item.get("url"), f"sections.full_link_radar[{idx}].url")
             category = str(item.get("category") or "").strip()
@@ -408,6 +443,13 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
             method = str(item.get("raw_source_method") or "")
             if method and method not in ALLOWED_RAW_SOURCE_METHODS:
                 errs.append(f"sections.full_link_radar[{idx}].raw_source_method invalid")
+            if method == "manual_signal":
+                manual_full_radar += 1
+            if str(item.get("match_strength") or "medium") not in ALLOWED_MATCH_STRENGTH:
+                errs.append(f"sections.full_link_radar[{idx}].match_strength invalid")
+            for bool_field in ("official_entity_source", "is_personal_finetune", "is_test_repo"):
+                if bool_field in item and not isinstance(item.get(bool_field), bool):
+                    errs.append(f"sections.full_link_radar[{idx}].{bool_field} must be boolean")
             if not str(item.get("one_line_reason") or "").strip():
                 errs.append(f"sections.full_link_radar[{idx}].one_line_reason missing")
             _check_public_text(errs, str(item.get("why_interesting") or ""), f"sections.full_link_radar[{idx}].why_interesting")
@@ -418,6 +460,10 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
                 errs.append(f"sections.full_link_radar[{idx}] URL is not present in live crawl/GDELT inputs")
         if int(stats.get("candidate_count") or 0) >= 30 and len(full_radar) < 30:
             errs.append("Full Link Radar below 30 links when enough candidates exist")
+        if full_radar and manual_full_radar / max(1, len(full_radar)) > 0.10:
+            errs.append("manual_signal share in Full Link Radar must be <= 10%")
+    if int(stats.get("manual_signal_count") or 0) > 0 and float(stats.get("manual_signal_share") or 0) > 0.10:
+        errs.append("manual_signal share in candidate pool must be <= 10%")
 
     render_checks = stats.get("render_checks") or {}
     if render_checks.get("knowledge_fields_ready") is not True:

@@ -70,6 +70,28 @@ ARXIV_QUERY = (
     'OR "text-to-image" OR ComfyUI OR MCP OR "reasoning model")'
 )
 API_METHODS = {"api", "github_api", "hf_api", "arxiv_api", "gdelt"}
+WEAK_MATCH_EVIDENCE = "weak_metadata_match"
+NOISY_REPO_RE = re.compile(r"(?:^|[-_/])(test|demo-test|random|myawesomemodel)(?:$|[-_/])|uncensored|abliterated", re.I)
+PERSONAL_FINETUNE_RE = re.compile(r"\b(finetune|fine-tune|lora|adapter|merge|merged|gguf|quantized|quantization|rp|roleplay)\b", re.I)
+OFFICIAL_ENTITY_ORGS = {
+    "Zhipu/Z.ai": {"zai-org", "zhipuai", "bigmodel"},
+    "Qwen/Alibaba": {"qwen", "qwenlm", "alibaba", "alibaba-pai"},
+    "Kimi/Moonshot": {"moonshotai", "moonshot-ai", "kimi"},
+    "MiniMax": {"minimax-ai", "minimaxir", "minimax"},
+    "DeepSeek": {"deepseek-ai", "deepseek"},
+    "Doubao/ByteDance": {"bytedance", "doubao-seed", "volcengine"},
+    "Hunyuan/Tencent": {"tencent-hunyuan", "tencent", "hunyuan"},
+    "StepFun": {"stepfun-ai", "stepfun"},
+    "InternLM": {"internlm"},
+    "SenseTime": {"sensetime", "senseauto"},
+    "Baichuan": {"baichuan-inc", "baichuan"},
+    "Flux/Black Forest Labs": {"black-forest-labs"},
+    "ComfyUI": {"comfyanonymous", "comfy-org"},
+    "LangGraph": {"langchain-ai"},
+    "LlamaIndex": {"run-llama"},
+    "OpenHands": {"all-hands-ai"},
+    "MCP": {"modelcontextprotocol"},
+}
 
 
 def utc_now() -> str:
@@ -129,6 +151,49 @@ def match_entity_alias(text: str, aliases: list[dict[str, str]]) -> tuple[str, s
     return "", ""
 
 
+def repo_namespace(repo_id: str) -> str:
+    return str(repo_id or "").split("/", 1)[0].strip().lower()
+
+
+def is_official_entity_namespace(entity: str, repo_id: str) -> bool:
+    namespace = repo_namespace(repo_id)
+    if not namespace:
+        return False
+    official = OFFICIAL_ENTITY_ORGS.get(entity, set())
+    return namespace in {org.lower() for org in official}
+
+
+def is_test_repo_name(name: str) -> bool:
+    return bool(NOISY_REPO_RE.search(str(name or "").lower()))
+
+
+def is_personal_finetune_name(name: str, tags: list[Any] | None = None) -> bool:
+    blob = " ".join([str(name or ""), *[str(tag) for tag in (tags or [])]])
+    return bool(PERSONAL_FINETUNE_RE.search(blob.lower()))
+
+
+def match_with_strength(
+    *,
+    strong_text: str,
+    weak_text: str,
+    repo_id: str,
+    aliases: list[dict[str, str]],
+) -> tuple[str, str, str, bool, str]:
+    entity, alias = match_entity_alias(strong_text, aliases)
+    if entity:
+        return entity, alias, "strong", is_official_entity_namespace(entity, repo_id), ""
+    weak_entity, weak_alias = match_entity_alias(weak_text, aliases)
+    if weak_entity and is_official_entity_namespace(weak_entity, repo_id):
+        return weak_entity, weak_alias, "medium", True, ""
+    if weak_entity:
+        return weak_entity, weak_alias, "weak", False, WEAK_MATCH_EVIDENCE
+    for row in aliases:
+        entity_name = row["entity"]
+        if is_official_entity_namespace(entity_name, repo_id):
+            return entity_name, row["alias"], "medium", True, ""
+    return "", "", "medium", False, ""
+
+
 def candidate(
     *,
     title: str,
@@ -143,6 +208,10 @@ def candidate(
     matched_alias: str = "",
     evidence: str = "",
     authors: list[str] | None = None,
+    match_strength: str = "medium",
+    official_entity_source: bool = False,
+    is_personal_finetune: bool = False,
+    is_test_repo: bool = False,
 ) -> dict[str, Any] | None:
     clean_url = str(url or "").strip()
     clean_title = trim(title, 220)
@@ -163,6 +232,10 @@ def candidate(
         "content_quality": content_quality,
         "raw_source_method": raw_source_method,
         "authors": authors or [],
+        "match_strength": match_strength if match_strength in {"strong", "medium", "weak"} else "medium",
+        "official_entity_source": bool(official_entity_source),
+        "is_personal_finetune": bool(is_personal_finetune),
+        "is_test_repo": bool(is_test_repo),
     }
 
 
@@ -204,11 +277,24 @@ def hf_model_candidate(model: Any, alias: str, aliases: list[dict[str, str]]) ->
     pipeline_tag = str(getattr(model, "pipeline_tag", "") or (model.get("pipeline_tag") if isinstance(model, dict) else "") or "")
     card_data = getattr(model, "cardData", None) or (model.get("cardData") if isinstance(model, dict) else None) or {}
     card_summary = ""
+    base_model_text = ""
     if isinstance(card_data, dict):
         card_summary = " ".join(str(x) for x in (card_data.get("language"), card_data.get("license"), card_data.get("library_name")) if x)
+        base_model_text = " ".join(str(x) for x in (card_data.get("base_model"), card_data.get("base_model_relation")) if x)
     title = f"Hugging Face model updated: {repo_id}"
-    summary = trim(f"alias={alias}; pipeline={pipeline_tag}; tags={', '.join(map(str, tags[:8]))}; {card_summary}", 500)
-    matched_entity, matched_alias = match_entity_alias(f"{repo_id} {alias} {summary}", aliases)
+    summary = trim(f"alias={alias}; pipeline={pipeline_tag}; tags={', '.join(map(str, tags[:8]))}; base_model={base_model_text}; {card_summary}", 500)
+    matched_entity, matched_alias, match_strength, official_entity_source, weak_evidence = match_with_strength(
+        strong_text=f"{repo_id}",
+        weak_text=f"{alias} {pipeline_tag} {' '.join(map(str, tags))} {base_model_text} {card_summary}",
+        repo_id=repo_id,
+        aliases=aliases,
+    )
+    test_repo = is_test_repo_name(repo_id)
+    personal_finetune = is_personal_finetune_name(repo_id, tags)
+    evidence = weak_evidence or "hf_model_metadata"
+    if test_repo:
+        match_strength = "weak"
+        evidence = WEAK_MATCH_EVIDENCE
     return candidate(
         title=title,
         url=f"https://huggingface.co/{repo_id}",
@@ -220,7 +306,11 @@ def hf_model_candidate(model: Any, alias: str, aliases: list[dict[str, str]]) ->
         content_quality="metadata_only",
         matched_entity=matched_entity,
         matched_alias=matched_alias or alias,
-        evidence="hf_model_metadata",
+        evidence=evidence,
+        match_strength=match_strength,
+        official_entity_source=official_entity_source,
+        is_personal_finetune=personal_finetune,
+        is_test_repo=test_repo,
     )
 
 
@@ -276,9 +366,18 @@ def github_release_candidate(repo: str, release: dict[str, Any], aliases: list[d
     url = str(release.get("html_url") or f"https://github.com/{repo}/releases").strip()
     published = release.get("published_at") or release.get("created_at")
     body = str(release.get("body") or "")
-    matched_entity, matched_alias = match_entity_alias(f"{repo} {name}", aliases)
-    if not matched_entity:
-        matched_entity, matched_alias = match_entity_alias(body, aliases)
+    matched_entity, matched_alias, match_strength, official_entity_source, weak_evidence = match_with_strength(
+        strong_text=f"{repo} {name}",
+        weak_text=body,
+        repo_id=repo,
+        aliases=aliases,
+    )
+    test_repo = is_test_repo_name(repo)
+    personal_finetune = is_personal_finetune_name(f"{repo} {name} {body}")
+    evidence = weak_evidence or "github_release"
+    if test_repo:
+        match_strength = "weak"
+        evidence = WEAK_MATCH_EVIDENCE
     return candidate(
         title=f"{repo} release: {name}",
         url=url,
@@ -290,7 +389,11 @@ def github_release_candidate(repo: str, release: dict[str, Any], aliases: list[d
         content_quality="summary_only" if body else "metadata_only",
         matched_entity=matched_entity,
         matched_alias=matched_alias,
-        evidence="github_release",
+        evidence=evidence,
+        match_strength=match_strength,
+        official_entity_source=official_entity_source,
+        is_personal_finetune=personal_finetune,
+        is_test_repo=test_repo,
     )
 
 
@@ -298,7 +401,18 @@ def github_repo_candidate(repo: str, repo_payload: dict[str, Any], aliases: list
     updated = repo_payload.get("updated_at") or repo_payload.get("pushed_at")
     description = str(repo_payload.get("description") or "")
     url = str(repo_payload.get("html_url") or f"https://github.com/{repo}")
-    matched_entity, matched_alias = match_entity_alias(f"{repo} {description}", aliases)
+    matched_entity, matched_alias, match_strength, official_entity_source, weak_evidence = match_with_strength(
+        strong_text=f"{repo}",
+        weak_text=description,
+        repo_id=repo,
+        aliases=aliases,
+    )
+    test_repo = is_test_repo_name(repo)
+    personal_finetune = is_personal_finetune_name(f"{repo} {description}")
+    evidence = weak_evidence or "github_repo_metadata"
+    if test_repo:
+        match_strength = "weak"
+        evidence = WEAK_MATCH_EVIDENCE
     return candidate(
         title=f"GitHub repo updated: {repo}",
         url=url,
@@ -310,7 +424,11 @@ def github_repo_candidate(repo: str, repo_payload: dict[str, Any], aliases: list
         content_quality="metadata_only",
         matched_entity=matched_entity,
         matched_alias=matched_alias,
-        evidence="github_repo_metadata",
+        evidence=evidence,
+        match_strength=match_strength,
+        official_entity_source=official_entity_source,
+        is_personal_finetune=personal_finetune,
+        is_test_repo=test_repo,
     )
 
 

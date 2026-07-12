@@ -9,6 +9,7 @@ from difflib import SequenceMatcher
 from datetime import datetime, timezone
 from html import unescape
 from html.parser import HTMLParser
+from http.client import IncompleteRead
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -720,9 +721,23 @@ class MetadataExtractor(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.image_url = ""
         self.description = ""
+        self.title = ""
+        self._in_title = False
+
+    def handle_data(self, data: str) -> None:
+        if self._in_title and not self.title:
+            self.title = clean_text(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "title":
+            self._in_title = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attr_map = {key.lower(): value or "" for key, value in attrs}
+
+        if tag == "title":
+            self._in_title = True
+            return
 
         if tag == "meta":
             prop = attr_map.get("property", "").lower()
@@ -730,6 +745,14 @@ class MetadataExtractor(HTMLParser):
             content = attr_map.get("content", "")
             itemprop = attr_map.get("itemprop", "").lower()
             if not content:
+                return
+
+            if (
+                prop in {"og:title", "twitter:title"}
+                or name in {"twitter:title"}
+                or itemprop == "headline"
+            ) and not self.title:
+                self.title = clean_text(content)
                 return
 
             image_props = (
@@ -789,7 +812,13 @@ def fetch_metadata(url: str, timeout: int) -> dict[str, str]:
             },
         )
         with urlopen(request, timeout=timeout) as response:
-            raw = response.read(FETCH_HTML_MAX_BYTES)
+            try:
+                raw = response.read(FETCH_HTML_MAX_BYTES)
+            except IncompleteRead as error:
+                # Some news CDNs close chunked responses early. The partial
+                # HTML normally still contains og:title/og:image metadata and
+                # is safer to use than aborting the entire site build.
+                raw = error.partial
             charset = response.headers.get_content_charset() or "utf-8"
         html = raw.decode(charset, errors="replace")
         extractor = MetadataExtractor()
@@ -803,12 +832,14 @@ def fetch_metadata(url: str, timeout: int) -> dict[str, str]:
         return {
             "image_url": image_url,
             "description": extractor.description,
+            "title": extractor.title,
             "metadata_status": "ok",
         }
     except (HTTPError, URLError, TimeoutError, UnicodeError, ValueError) as error:
         return {
             "image_url": "",
             "description": "",
+            "title": "",
             "metadata_status": f"error: {error}",
         }
 
@@ -1493,7 +1524,9 @@ def _is_plausible_article_url(url: str) -> bool:
     from scripts.newsroom_main_quality import is_bad_main_editorial_url
 
     u = str(url or "").strip()
-    if is_bad_main_editorial_url(u):
+    # This helper validates URL shape only; pass a non-empty sentinel because
+    # is_bad_main_editorial_url also validates editorial titles when supplied.
+    if is_bad_main_editorial_url(u, title="url-shape-check"):
         return False
     if not _is_http_url(u):
         return False
@@ -1724,7 +1757,7 @@ def _enrich_notable_articles_for_public(
         if u and u not in by_url:
             by_url[u] = art
     boost = _digest_boost_urls(raw_summary)
-    image_cache: dict[str, str] = {}
+    metadata_cache: dict[str, dict[str, str]] = {}
     out: list[dict[str, str]] = []
     for a in notable:
         if not isinstance(a, dict):
@@ -1749,14 +1782,35 @@ def _enrich_notable_articles_for_public(
             if resolved:
                 u = resolved
                 art = by_url.get(u)
+        # Never keep a Gemini-provided URL when it points at a different story.
+        # Resolve again from the crawl corpus; if no defensible match exists,
+        # omit the notable instead of publishing a mismatched title/link pair.
+        if art and _score_headline_to_article(title, art) < _URL_MATCH_MIN_SCORE:
+            resolved = _resolve_url_for_headline(
+                title,
+                by_url=by_url,
+                boost_urls=boost,
+            )
+            if not resolved:
+                continue
+            u = resolved
+            art = by_url.get(u)
+        if not art or _score_headline_to_article(title, art) < _URL_MATCH_MIN_SCORE:
+            continue
+        if not str(art.get("content_for_ai") or art.get("text") or art.get("summary") or art.get("description") or "").strip():
+            continue
         img = str(art.get("image_url") or "").strip() if art else ""
-        if not img and fetch_images and u and _is_http_url(u):
-            if u not in image_cache:
-                meta = fetch_metadata(u, metadata_timeout)
-                image_cache[u] = str(meta.get("image_url") or "").strip()
-                if image_cache[u]:
-                    print(f"Notable image: {_url_hostname(u)}", file=sys.stderr)
-            img = image_cache.get(u) or ""
+        if fetch_images and u and _is_http_url(u):
+            if u not in metadata_cache:
+                metadata_cache[u] = fetch_metadata(u, metadata_timeout)
+            meta = metadata_cache[u]
+            live_title = str(meta.get("title") or "").strip()
+            if live_title and _score_headline_to_article(title, {"title": live_title}) < _URL_MATCH_MIN_SCORE:
+                continue
+            fetched_image = str(meta.get("image_url") or "").strip()
+            if fetched_image:
+                img = fetched_image
+                print(f"Notable image: {_url_hostname(u)}", file=sys.stderr)
         if not img and art:
             blob = str(art.get("summary") or art.get("content_for_ai") or "")
             img = extract_image_from_plaintext(blob)
@@ -1791,7 +1845,16 @@ def _enrich_notable_articles_for_public(
         for r in out
     ]
     clustered = dedupe_rows_by_story_cluster(dedupe_rows, extra_keys=("why_notable",))
-    return [row["_orig"] for row in clustered][:DIGEST_MAX_NOTABLE_ARTICLES]
+    result: list[dict[str, str]] = []
+    seen_urls: set[str] = set()
+    for row in clustered:
+        original = row["_orig"]
+        url = str(original.get("url") or "").strip()
+        if not url or url in seen_urls:
+            continue
+        seen_urls.add(url)
+        result.append(original)
+    return result[:DIGEST_MAX_NOTABLE_ARTICLES]
 
 
 def _resolve_url_for_headline(
@@ -1839,7 +1902,7 @@ def _links_from_urls(
     max_links: int = 1,
 ) -> list[dict[str, str]]:
     out: list[dict[str, str]] = []
-    for u in urls[: max(1, max_links)]:
+    for u in urls:
         u = str(u or "").strip()
         if not u or not _is_plausible_article_url(u):
             continue
@@ -1857,6 +1920,8 @@ def _links_from_urls(
                 "publishedAt": _link_published_at(art=art),
             }
         )
+        if len(out) >= max(1, max_links):
+            break
     return out
 
 
@@ -2032,6 +2097,11 @@ def _normalize_digest_sectors_four(
         deduped: list[dict[str, Any]] = []
         for it in b["items"]:
             links = it.get("links") if isinstance(it.get("links"), list) else []
+            # A sector assertion without a traceable source must not reach the
+            # public digest. Keep the sector summary, but drop unsupported
+            # headline rows instead of rendering evidence-free claims.
+            if not links:
+                continue
             u = str((links[0] or {}).get("url") or "").strip() if links else ""
             if u:
                 if u in seen_u:
@@ -2045,13 +2115,33 @@ def _normalize_digest_sectors_four(
             for p in (b.get("keyPoints") or [])
             if str(p).strip()
         ]
+        sector_links = [
+            link
+            for item in deduped
+            for link in (item.get("links") or [])[:1]
+        ]
+        if not sector_links:
+            fallback_urls = [
+                str(article.get("url") or "").strip()
+                for article in articles
+                if _infer_article_sector_code(article) == code
+                and str(article.get("url") or "").strip()
+                and str(article.get("content_for_ai") or article.get("text") or article.get("summary") or article.get("description") or "").strip()
+            ]
+            sector_links = _links_from_urls(
+                fallback_urls,
+                by_url=by_url,
+                sector_name=b["name"] or label,
+                add_link=add_link,
+                max_links=3,
+            )
         out.append(
             {
                 "name": b["name"] or label,
                 "summary": str(b.get("summary") or "").strip(),
                 "items": deduped,
                 "keyPoints": [it["headline"] for it in deduped] or points_legacy,
-                "links": [],
+                "links": sector_links,
             }
         )
     return out

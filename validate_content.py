@@ -8,6 +8,7 @@ import json
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
 PROJECT_DIR = Path(__file__).resolve().parent
 DEFAULT_CONTENT = PROJECT_DIR / "content.json"
@@ -43,8 +44,69 @@ def _english_heavy(text: Any) -> bool:
         return False
 
 
+def _canonical_url(value: Any) -> str:
+    raw = str(value or "").strip()
+    try:
+        parsed = urlsplit(raw)
+    except ValueError:
+        return ""
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return ""
+    host = parsed.netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    path = parsed.path.rstrip("/") or "/"
+    return urlunsplit((parsed.scheme.lower(), host, path, parsed.query, ""))
+
+
+def _validate_public_input_quality(c: dict[str, Any]) -> list[str]:
+    err: list[str] = []
+    notables = c.get("digestNotableArticles")
+    if isinstance(notables, list):
+        seen_urls: set[str] = set()
+        seen_titles: set[str] = set()
+        article_by_url = {
+            _canonical_url(row.get("url")): row
+            for row in (c.get("allArticles") or [])
+            if isinstance(row, dict) and _canonical_url(row.get("url"))
+        }
+        for i, row in enumerate(notables):
+            if not isinstance(row, dict):
+                err.append(f"digestNotableArticles[{i}]: must be object")
+                continue
+            url = _canonical_url(row.get("url"))
+            title = _norm_text(row.get("title"))
+            if not url:
+                err.append(f"digestNotableArticles[{i}]: valid URL required")
+            elif url in seen_urls:
+                err.append(f"digestNotableArticles[{i}]: duplicate URL")
+            if title and title in seen_titles:
+                err.append(f"digestNotableArticles[{i}]: duplicate title")
+            seen_urls.add(url)
+            seen_titles.add(title)
+            source_article = article_by_url.get(url)
+            if not source_article:
+                err.append(f"digestNotableArticles[{i}]: URL missing from allArticles")
+            elif not str(source_article.get("summary") or row.get("whyNotable") or "").strip():
+                err.append(f"digestNotableArticles[{i}]: source article has no summary evidence")
+
+    sectors = c.get("digestSectors")
+    if isinstance(sectors, list):
+        for i, sector in enumerate(sectors):
+            if not isinstance(sector, dict):
+                continue
+            if str(sector.get("summary") or "").strip() and not (sector.get("links") or []):
+                err.append(f"digestSectors[{i}]: summary requires evidence links")
+            items = sector.get("items") or []
+            for j, item in enumerate(items):
+                if not isinstance(item, dict) or not item.get("links"):
+                    err.append(f"digestSectors[{i}].items[{j}]: at least 1 evidence link required")
+    return err
+
+
 def _validate_digest_content(c: dict[str, Any]) -> list[str]:
     err: list[str] = []
+    err.extend(_validate_public_input_quality(c))
     mode = c.get("briefMode")
     if mode not in ("multisector-digest", "newsroom-brief"):
         err.append('content.json: briefMode must be "multisector-digest" or "newsroom-brief"')
@@ -151,6 +213,8 @@ def _validate_digest_content(c: dict[str, Any]) -> list[str]:
                 continue
             if not str(s.get("name") or "").strip():
                 err.append(f"digestSectors[{i}]: missing name")
+            if str(s.get("summary") or "").strip() and not (s.get("links") or []):
+                err.append(f"digestSectors[{i}]: summary requires evidence links")
     mt = c.get("mainThesis")
     if not isinstance(mt, dict) or not str(mt.get("thesis") or "").strip():
         err.append("content.json: mainThesis.thesis required")

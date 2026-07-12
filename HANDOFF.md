@@ -9,6 +9,94 @@
 
 <!-- Cập nhật block này sau mỗi session -->
 
+## [2026-07-12 13:53] - [Codex]
+
+### Da lam
+- Doc `CLAUDE.md`, `HANDOFF.md`, `.ai/CURSOR_WORKLOG.md` truoc khi sua.
+- Kiem tra truc tiep `content.json` va Tech publication public; xac nhan title/URL mismatch, notable trung, sector item khong co evidence link, va Tech public cu con metadata/manual watchlist signal.
+- Sua `build_website_content.py` de notable chi duoc publish khi title khop crawl article va `og:title`/HTML title cua trang dich; URL sai bai bi loai.
+- Dedupe notable theo URL sau story clustering; notable bat buoc co article text/summary evidence.
+- Sua bug `_is_plausible_article_url()` truyen title rong vao main URL validator lam moi article URL bi xem la xau.
+- Sector item khong co link bi loai; moi sector summary duoc fallback toi 3 link article that cung sector.
+- `fetch_metadata()` chap nhan partial HTML khi CDN dong chunked response som, tranh lam ca site build crash.
+- Them `validate_content.py` gates cho notable URL hop le/khong trung/co trong `allArticles`, evidence bat buoc, sector summary/item phai co source link.
+- Tech main eligibility khong con cho `metadata_only` vao Must Read/main sections/Top Signal; metadata-only chi giu trong Full Link Radar va diagnostics.
+- Tech validator fail neu Must Read/section co metadata-only hoac Top Signal cluster khong co it nhat mot non-metadata event source.
+- Rebuild `content.json`, `tech/data/publication.json`, `tech/web/publication.json` tu artifact local hien co.
+
+### Ket qua / Test
+- `python -m py_compile build_website_content.py validate_content.py scripts/build_tech_publication.py scripts/validate_tech_publication.py` -> pass.
+- `python validate_content.py` -> pass; 4 sector, newsroom-brief.
+- Main rebuilt: 4 notable, 4/4 sector co evidence links, 14 digest links; title/URL sai va duplicate notable da bi loai.
+- Tech functional tests (tru `test_forbidden_diff_guard` vi session co chu dich sua main builder) -> pass.
+- `LEON_TECH_OFFLINE_TEST=1` + `python tech/publication.py` + `python tech/validate_publication.py` -> pass.
+- Tech rebuilt: candidate=113, real=113, manual_signal=0, Must Read=5 va metadata_only=0, Top Signal=4 va moi cluster co non-metadata evidence.
+
+### File sua trong session nay
+- `build_website_content.py`
+- `validate_content.py`
+- `content.json`
+- `scripts/build_tech_publication.py`
+- `scripts/validate_tech_publication.py`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Chua push/chua dispatch GitHub Actions; public Pages van la artifact cu cho toi khi publish.
+- Build van canh bao mot so newsroom claim/entity chua duoc grounded va mot so dossier thieu representative_sources; can sua o digest authorship/prompt/input stage tiep theo, khong nen che bang UI.
+- Full `scripts/test_newsroom_digest.py` dang fail o test front-page fixture ton tai truoc gate nay; targeted build + content validator da pass.
+- Khi publish, chi stage file dung scope va bao toan cac thay doi unrelated dang co san trong dirty worktree.
+
+## [2026-07-10 07:25] - [Codex]
+
+### Da lam
+- Doc `.ai/CURSOR_WORKLOG.md`, `CLAUDE.md`, `HANDOFF.md` truoc khi sua.
+- Sua hep input quality cho standalone `tech/`; khong polish UI va khong dung Tin48h/Invest/World.
+- Cat `build_candidates_from_watchlist(watchlist)` khoi publication candidate pool; configured watchlist URL chi con dung cho enrich real candidates, `watchlist_status`, va debug artifact `tech/data/watchlist_configured_sources.json`.
+- Them confidence fields cho API/HF/GitHub candidates: `match_strength`, `official_entity_source`, `is_personal_finetune`, `is_test_repo`.
+- Them HF/GitHub noise filter: repo test/demo/random/uncensored/abliterated hoac personal finetune bi weak/loai khoi main; alias chi nam trong tags/base_model -> `weak_metadata_match`; official org nhu `zai-org/GLM-5.2` van giu.
+- Validator fail neu `manual_signal`/`watchlist_configured_source` vao Must Read hoac Top Signal links, va fail neu manual chiem >10% Full Radar/candidate pool.
+- Coverage matrix them `real_candidate_count`, `manual_signal_count`, `manual_signal_share`, `real_api_candidate_count`, `official_org_candidate_count`, `weak_metadata_match_count`, va canh bao RED neu manual con trong pool.
+- Workflow Tech commit them `tech/data/watchlist_configured_sources.json`.
+- Cap nhat `.ai/CURSOR_WORKLOG.md` voi input quality stats moi.
+
+### Ket qua / Test
+- `.\.venv\Scripts\python.exe -m py_compile tech\acquire_api_sources.py scripts\build_tech_publication.py scripts\validate_tech_publication.py scripts\test_tech_pipeline.py scripts\tech_common.py tech\update_worklog.py` -> pass.
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass.
+- `.\.venv\Scripts\python.exe tech\acquire_api_sources.py --hf-limit 1 --github-releases 1 --arxiv-results 3` -> wrote 49 API candidates.
+- `LEON_TECH_OFFLINE_TEST=1` + `.\.venv\Scripts\python.exe tech\publication.py` -> pass.
+- `.\.venv\Scripts\python.exe tech\validate_publication.py` -> pass.
+
+### Trang thai artifact local
+- Publication stats: `candidate_count=113`, `real_candidate_count=113`, `manual_signal_count=0`, `manual_signal_share=0.0`.
+- Real API candidates: `49`; by method `hf_api=14`, `github_api=24`, `arxiv_api=3`, `api=8`.
+- `official_org_candidate_count=23`; `weak_metadata_match_count=3`; `GLM-5.2 detected=yes`.
+- Must Read/Top Signal/Full Radar khong con `manual_signal`; Full Radar manual count `0`.
+- `tech/data/watchlist_configured_sources.json` duoc ghi nhu debug-only artifact.
+
+### File da thay doi
+- `.github/workflows/tech-radar.yml`
+- `scripts/build_tech_publication.py`
+- `scripts/tech_common.py`
+- `scripts/test_tech_pipeline.py`
+- `scripts/validate_tech_publication.py`
+- `tech/acquire_api_sources.py`
+- `tech/update_worklog.py`
+- `tech/data/api_candidates.json`
+- `tech/data/candidates_rolling.json`
+- `tech/data/watchlist_status.json`
+- `tech/data/watchlist_configured_sources.json`
+- `tech/data/publication.json`
+- `tech/web/publication.json`
+- `tech/reports/source_coverage_matrix.md`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- Chua dispatch production Actions trong session nay; neu muon xac minh production path, chay manual `Tech Radar` de dung secrets/GDELT/Gemini va cap nhat Pages.
+- Source URL crawl song van yeu (`7/100`), nhung phase nay da chan synthetic configured URL khoi publication pool.
+
 ## [2026-07-10 07:15] - [Codex]
 
 ### Da lam
