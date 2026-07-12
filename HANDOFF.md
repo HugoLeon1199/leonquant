@@ -42,8 +42,12 @@
 - `.ai/CURSOR_WORKLOG.md`, `HANDOFF.md`
 
 ### Viec tiep theo
-- Can push va chay Tech Radar production de xac minh GitHub cache tu dong re-profile 63 active feed va Pages nhan stats moi.
-- 4 source fail smoke van giu trong PASS_RSS vi feed content gate pass; fallback feed summary co the van luu khi article fetch fail. Can doc production artifact de xac nhan contribution theo source.
+- Da push source commit `124a7b8`; Tech Radar production `29198221957` -> success; bot artifact commit `ab8f164`; Pages `29198332176` -> success.
+- Production precheck doc `active_sources=63`; crawler loaded 62 profile trong active lanes va insert 629 article.
+- `tech/data/news_for_ai_clean.json`: 377 clean article tu 30 domain thuc te trong cua so run.
+- Public Tech stats: active_url_sources=63, active_rss_sources=63, active_api_sources=15, candidate=472, real_candidate=472, manual_signal=0, main_candidate=82, Must Read=20, Top Signal=10.
+- Public artifact verified `generated_at_utc=2026-07-12T15:30:38.783224+00:00`.
+- 4 source fail local one-URL smoke van giu trong PASS_RSS vi feed content gate pass; production da co feed-summary fallback va tong 629 article insert.
 - 21 source disabled duoc giu ro trong report, khong force-fill de dat con so.
 
 ## [2026-07-12 13:53] - [Codex]
