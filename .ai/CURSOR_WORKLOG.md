@@ -990,3 +990,29 @@ Validation status snapshot live:
 - RSS spider/pipeline carries feed title, published time, and summary; blocked/short article extraction can persist a real feed summary with `:feed_summary_fallback` provenance.
 - Full one-URL-per-source Scrapy smoke: 59/63 active source ids wrote content; 4 failed in this run (`canaltech_com_br`, `tech_eu`, `theregister_com`, `uktech_news`).
 - Tests: `python scripts/test_tech_pipeline.py` pass; `python tech/validate_publication.py` pass.
+
+## 2026-07-12 - Technology & AI 72h live run
+
+- Tech72h generated_at=2026-07-12T15:30:38.783224+00:00
+- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.
+- Format: AI Frontier Radar 72h.
+- Schedule: once every 3 days; data window: latest 72 hours.
+- Active sources: 63 / 84.
+- Clean web articles: 377.
+- Candidate live: 472; noise bi loai: 18; bai qua han 72h bi loai khoi section chinh: 17.
+- Event candidates: 28; GDELT ran_successfully=True; raw=120; ai_filtered=28; rejected_non_ai=92.
+- Query estimate: 1,251,321,846 bytes; processed: 1,251,321,846 bytes; bytes_status=known; cap: 2,000,000,000 bytes.
+- Published stories: 377; must_read=20; full_link_radar=150.
+- Must Read theo source type: {'independent': 18, 'official': 2}.
+- Must Read theo category: {'model': 4, 'local_ai': 5, 'tool': 6, 'automation': 1, 'opensource': 1, 'business': 1, 'industry': 1, 'agent': 1}.
+- Frontier Watchlist entities: 26; candidates_from_watchlist=81; GLM-5.2 detected=yes.
+- Data coverage: active_url_sources=63; active_api_sources=15; active_rss_sources=63; active_sitemap_sources=1; active_watchlist_entities=26; metadata_only_sources=19.
+- API candidates: total=75; by_method={'hf_api': 27, 'github_api': 30, 'arxiv_api': 10, 'api': 8}; notes=[].
+- Input quality: real_candidate_count=472; manual_signal_count=0; weak_metadata_match_count=8; official_org_candidate_count=27.
+- candidates_by_method={'github_api': 30, 'hf_api': 27, 'api': 8, 'html': 377, 'gdelt': 20, 'arxiv_api': 10}; content_quality_mix={'metadata_only': 53, 'summary_only': 42, 'full_text': 377}; remaining CAPTCHA/paywall/JS-only sources=1.
+- Source mix main candidates: official=5, independent=77, community=0.
+- Pages workflow includes Tech Radar: yes.
+- Gemini curator: success=29; fallback=71; ai_main=19; fallback_main=63.
+- Section counts: local_ai=12, automation=7, open_source=12, knowledge=4, founder_ideas=10.
+- /tech/ render check: knowledge=True; founder_ideas=True.
+- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
