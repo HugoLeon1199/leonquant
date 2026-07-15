@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-14T23:09:43.289385+00:00",
+  "generated_at": "2026-07-15T23:10:58.111683+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 795047,
+    "estimated_input_tokens": 732761,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 685,
-    "sent_article_count": 685,
+    "input_article_count": 640,
+    "sent_article_count": 640,
     "window": {
-      "end_date": "2026-07-15",
+      "end_date": "2026-07-16",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,154 +24,173 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "15",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, địa chính trị và công nghệ trong 48 giờ qua, tập trung vào tác động thực tế đến thị trường và chính sách.",
+    "reading_time_minutes": "auto",
+    "editor_note": "Bản tin tổng hợp các chuyển động kinh tế, công nghệ và địa chính trị quan trọng trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Bức tranh 48 giờ qua được định hình bởi sự giằng co giữa kỳ vọng nới lỏng tiền tệ và rủi ro địa chính trị. Dữ liệu CPI Mỹ giảm 0,4% trong tháng 6 là tín hiệu tích cực cho thấy lạm phát đang hạ nhiệt, tuy nhiên, sự leo thang xung đột tại eo biển Hormuz đã đẩy giá dầu Brent vượt mốc 85 USD/thùng, đe dọa làm đảo ngược xu hướng này. Điều này buộc các nhà đầu tư phải đánh giá lại rủi ro đối với các tài sản như vàng và Bitcoin.",
-        "most_mentioned": "Chủ đề lạm phát và lãi suất Fed được nhắc đến nhiều nhất, gắn liền với dữ liệu CPI tháng 6 và các phát biểu về chính sách tiền tệ. Bên cạnh đó, các vụ việc pháp lý liên quan đến buôn lậu kim cương tại TP.HCM và sự phát triển của hạ tầng AI cũng là tâm điểm thu hút sự chú ý của giới đầu tư và dư luận.",
-        "top_stories": "Câu chuyện nổi bật nhất là sự phân hóa của dòng vốn: rời bỏ các tài sản đầu cơ cao để tìm đến hạ tầng AI và năng lượng. Việc Mỹ và Anh công bố lộ trình 10 điểm về tài chính token hóa cho thấy nỗ lực chuẩn hóa khung pháp lý, trong khi tại Việt Nam, các chính sách nhà ở xã hội và phát triển công nghiệp hàng hải đang được đẩy mạnh để tạo động lực tăng trưởng dài hạn.",
-        "sector_impacts": "Ngành công nghệ đang đối mặt với sự thay đổi lớn trong chi tiêu, khi các doanh nghiệp chuyển ngân sách từ phần mềm sang hạ tầng trung tâm dữ liệu và AI. Ngành tài chính Việt Nam đang chịu áp lực từ chi phí vốn cao, trong khi ngành bất động sản bắt đầu có những điều chỉnh chính sách quan trọng để tháo gỡ khó khăn.",
-        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi sát sao: diễn biến giá dầu Brent và phản ứng của thị trường tài chính trước căng thẳng tại eo biển Hormuz; các văn bản pháp lý mới về tài sản số tại Việt Nam; và tiến độ các dự án hạ tầng trọng điểm."
+        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường phản ứng tích cực với dữ liệu lạm phát Mỹ hạ nhiệt, thúc đẩy dòng vốn quay lại các tài sản rủi ro như Bitcoin. Tuy nhiên, sự phân hóa dòng tiền đang diễn ra rõ rệt khi nhà đầu tư chuyển dịch từ các cổ phiếu công nghệ định giá cao sang các lĩnh vực có nền tảng thực tế hơn. Tại Việt Nam, trọng tâm chính sách đang dồn vào việc hoàn thiện hành lang pháp lý cho tài sản số, đẩy mạnh giải ngân đầu tư công và xử lý nghiêm các sai phạm trong giáo dục và quản trị doanh nghiệp.",
+        "most_mentioned": "Chủ đề AI và hạ tầng dữ liệu tiếp tục thống trị với các cột mốc mới: từ việc NVIDIA thắt chặt chuỗi cung ứng chip AI, tiêu chuẩn thanh toán tự động x402 được các ông lớn tài chính ủng hộ, đến việc Apple Intelligence được phê duyệt tại Trung Quốc. AI không còn là câu chuyện phần mềm đơn thuần mà đang trở thành động lực chính thúc đẩy nhu cầu năng lượng và hạ tầng bán dẫn toàn cầu.",
+        "top_stories": "Căng thẳng địa chính trị tại eo biển Hormuz giữa Mỹ và Iran đang tạo ra rủi ro tiềm ẩn cho giá năng lượng, trong khi tại Việt Nam, các vụ án kinh tế liên quan đến lãnh đạo doanh nghiệp và sai phạm trong giáo dục đang làm thay đổi tâm lý nhà đầu tư trên thị trường chứng khoán, dẫn đến áp lực bán tháo diện rộng.",
+        "sector_impacts": "Nhóm cổ phiếu công nghệ và bất động sản Việt Nam chịu áp lực bán mạnh, trong khi nhóm ngân hàng quốc doanh như Vietcombank, BIDV và VietinBank tạo điểm tựa nhờ kế hoạch chi trả cổ tức tiền mặt hơn 10.500 tỷ đồng, phản ánh sự phân hóa trong chiến lược dòng tiền của nhà đầu tư."
       },
-      "content": "Bức tranh 48 giờ qua được định hình bởi sự giằng co giữa kỳ vọng nới lỏng tiền tệ và rủi ro địa chính trị. Dữ liệu CPI Mỹ giảm 0,4% trong tháng 6 là tín hiệu tích cực cho thấy lạm phát đang hạ nhiệt, tuy nhiên, sự leo thang xung đột tại eo biển Hormuz đã đẩy giá dầu Brent vượt mốc 85 USD/thùng, đe dọa làm đảo ngược xu hướng này. Điều này buộc các nhà đầu tư phải đánh giá lại rủi ro đối với các tài sản như vàng và Bitcoin.\n\nTại Việt Nam, các sự kiện pháp lý lớn như vụ khởi tố liên quan đến buôn lậu kim cương tại TP.HCM đã tác động mạnh đến tâm lý thị trường chứng khoán, đặc biệt là cổ phiếu nhóm ngành bán lẻ vàng bạc như PNJ. Đồng thời, Chính phủ đang đẩy mạnh các chương trình phát triển nhà ở xã hội với mục tiêu 300.000 căn hộ giai đoạn 2026-2030 và công nghiệp hàng hải, cho thấy sự quyết tâm trong việc củng cố nền tảng kinh tế nội địa trước những biến động từ bên ngoài.\n\nTrong lĩnh vực công nghệ, làn sóng đầu tư vào hạ tầng AI đang làm thay đổi cấu trúc chi tiêu của các tập đoàn lớn. Việc các công ty khai thác Bitcoin như CleanSpark chuyển dịch sang hạ tầng trung tâm dữ liệu và các lệnh cấm xây dựng trung tâm dữ liệu tại New York là những tín hiệu cho thấy hạ tầng năng lượng và dữ liệu đang trở thành biến số chiến lược trong cuộc đua AI toàn cầu. Các doanh nghiệp công nghệ Việt Nam cũng đang tích cực ứng dụng AI, với việc Việt Nam dẫn đầu Đông Nam Á về tần suất sử dụng Gemini trong học thuật.",
+      "content": "Thị trường tài chính toàn cầu đang trải qua giai đoạn định giá lại rủi ro sau khi dữ liệu CPI tháng 6 của Mỹ cho thấy lạm phát hạ nhiệt nhanh hơn dự kiến. Điều này làm giảm kỳ vọng tăng lãi suất của Cục Dự trữ Liên bang Mỹ (Fed), tạo đà cho Bitcoin vượt ngưỡng 64.000 USD. Tuy nhiên, rủi ro địa chính trị tại Trung Đông vẫn là biến số khó lường, khi căng thẳng Mỹ-Iran tại eo biển Hormuz tiếp tục leo thang, đe dọa chuỗi cung ứng năng lượng toàn cầu.\n\nTại Việt Nam, thị trường chứng khoán ghi nhận sự thận trọng cao độ. VN-Index mất gần 30 điểm trong phiên 15/7, với áp lực bán mạnh tập trung vào nhóm công nghệ và bất động sản, đặc biệt là cổ phiếu FPT. Dù vậy, các ngân hàng lớn như Vietcombank, BIDV và VietinBank vẫn duy trì cam kết chi trả cổ tức tiền mặt, cho thấy sức khỏe tài chính của nhóm ngân hàng quốc doanh vẫn là điểm tựa cho thị trường. Chính phủ cũng đang quyết liệt đẩy nhanh giải ngân đầu tư công và yêu cầu thay thế cán bộ không đáp ứng yêu cầu, nhằm tạo động lực tăng trưởng cho nửa cuối năm 2026.",
       "representative_sources": [
         {
-          "title": "Phú Thọ: Khởi tố 5 bị can trong vụ xâm phạm bản quyền phần mềm Microsoft",
-          "source": "baoxaydung_vn",
-          "url": "https://baoxaydung.vn/phu-tho-khoi-to-5-bi-can-trong-vu-xam-pham-ban-quyen-phan-mem-microsoft-19226071420572948.htm"
+          "title": "BTC, ETH, SOL price news: Bitcoin nears $65,000 as Fed rate-hike expectations drop",
+          "source": "coindesk_com",
+          "url": "https://coindesk.com/markets/2026/07/15/bitcoin-tops-usd64-000-as-cooling-u-s-inflation-guts-the-fed-rate-hike-trade"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Lạm phát và lãi suất Fed",
-          "why_mentioned": "Dữ liệu CPI Mỹ tháng 6 thấp hơn dự báo làm thay đổi kỳ vọng về chính sách tiền tệ.",
-          "evidence_hint": "Xuất hiện trên hầu hết các nguồn tin tài chính lớn."
+          "topic": "Lạm phát Mỹ và chính sách lãi suất",
+          "why_mentioned": "Yếu tố then chốt định hình tâm lý thị trường toàn cầu.",
+          "evidence_hint": "Dữ liệu CPI tháng 6 thấp hơn dự báo."
+        },
+        {
+          "topic": "Căng thẳng Mỹ-Iran",
+          "why_mentioned": "Rủi ro địa chính trị ảnh hưởng đến giá năng lượng.",
+          "evidence_hint": "Các cuộc không kích và phong tỏa eo biển Hormuz."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Địa chính trị eo biển Hormuz",
-          "why_hot": "Tác động trực tiếp đến giá dầu và chi phí vận tải toàn cầu.",
-          "impact": "Đẩy giá dầu Brent vượt 85 USD/thùng, gây áp lực lên lạm phát.",
-          "evidence_hint": "Được đưa tin bởi nhiều nguồn tin quốc tế và Việt Nam."
+          "topic": "Sự kiện pháp lý tại Việt Nam",
+          "why_hot": "Ảnh hưởng trực tiếp đến niềm tin nhà đầu tư và thị trường chứng khoán.",
+          "impact": "Gây áp lực bán tháo trên diện rộng.",
+          "evidence_hint": "Các vụ án kinh tế và vi phạm quy chế thi."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch từ khai thác Bitcoin sang hạ tầng AI",
-          "why_watch": "Các công ty khai thác Bitcoin đang tận dụng hạ tầng điện năng sẵn có để cho thuê trung tâm dữ liệu AI."
+          "signal": "Tiêu chuẩn thanh toán AI x402",
+          "why_watch": "Bước tiến quan trọng trong nền kinh tế máy-với-máy."
         }
       ],
       "watch_next": [
-        "Diễn biến giá dầu Brent",
-        "Phản ứng của Fed trước dữ liệu lạm phát mới",
-        "Tiến độ các dự án nhà ở xã hội tại Hà Nội"
+        "Phản ứng của thị trường tài chính với các vụ án kinh tế tại Việt Nam",
+        "Diễn biến giá dầu Brent tại eo biển Hormuz",
+        "Tiến độ giải ngân đầu tư công tại các dự án trọng điểm"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "CPI Mỹ tháng 6 giảm 0,4%, làm dịu áp lực lãi suất",
-        "one_sentence": "Dữ liệu lạm phát thấp hơn dự báo giúp giảm bớt kỳ vọng tăng lãi suất của Fed trong cuộc họp tháng 7, tạo tâm lý tích cực cho thị trường tài chính.",
-        "why_it_matters": "Đây là chỉ số vĩ mô quan trọng nhất quyết định định hướng chính sách tiền tệ toàn cầu trong ngắn hạn.",
-        "watch_next": "Phản ứng của thị trường trái phiếu và các phát biểu tiếp theo từ các quan chức Fed.",
+        "title": "Lạm phát Mỹ hạ nhiệt thúc đẩy tài sản rủi ro",
+        "one_sentence": "Dữ liệu CPI tháng 6 giảm mạnh xuống 3,5% giúp Bitcoin vượt mốc 64.000 USD và giảm kỳ vọng Fed tăng lãi suất.",
+        "why_it_matters": "Đây là chỉ báo then chốt định hình dòng chú ý thị trường và chính sách tiền tệ của Fed trong nửa cuối năm 2026.",
+        "watch_next": "Biến động lãi suất trái phiếu chính phủ Mỹ và phản ứng của thị trường chứng khoán.",
         "source_urls": [
-          "https://coindesk.com/markets/2026/07/14/u-s-june-cpi-fell-0-4-likely-cooling-move-toward-fed-rate-hikes"
+          "https://coindesk.com/markets/2026/07/15/bitcoin-tops-usd64-000-as-cooling-u-s-inflation-guts-the-fed-rate-hike-trade"
         ]
       },
       {
         "rank": 2,
-        "title": "Căng thẳng eo biển Hormuz đẩy giá dầu Brent vượt 85 USD",
-        "one_sentence": "Xung đột quân sự Mỹ-Iran tại eo biển Hormuz khiến giá dầu tăng mạnh, đe dọa làm đảo ngược xu hướng hạ nhiệt lạm phát toàn cầu.",
-        "why_it_matters": "Giá năng lượng tăng cao trực tiếp làm tăng chi phí vận tải và áp lực lạm phát lên các nền kinh tế nhập khẩu.",
-        "watch_next": "Diễn biến quân sự tại eo biển Hormuz và phản ứng của các quốc gia vùng Vịnh.",
+        "title": "Căng thẳng Mỹ-Iran leo thang tại vùng Vịnh",
+        "one_sentence": "Mỹ tái phong tỏa eo biển Hormuz sau khi lệnh ngừng bắn đổ vỡ, gây rủi ro lớn cho nguồn cung dầu toàn cầu.",
+        "why_it_matters": "Eo biển Hormuz là tuyến đường huyết mạch của năng lượng thế giới, bất kỳ sự gián đoạn nào cũng đẩy giá dầu tăng vọt.",
+        "watch_next": "Diễn biến giá dầu Brent và các tuyên bố chính thức từ Tehran.",
         "source_urls": [
-          "https://tuoitre.vn/gia-dau-lai-tang-soc-vi-chien-su-se-con-tang-den-muc-nao-100260714114001281.htm"
+          "https://dantri.com.vn/kinh-doanh/my-tai-phong-toa-hormuz-dieu-gi-se-xay-ra-tiep-theo-voi-thi-truong-dau-20260714205654146.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Hà Nội đặt mục tiêu xây dựng 300.000 căn nhà ở xã hội",
-        "one_sentence": "Thủ đô điều chỉnh chương trình phát triển nhà ở giai đoạn 2026-2030, tập trung quỹ đất và cơ chế đặc thù để giải quyết nhu cầu an sinh cho người thu nhập thấp.",
-        "why_it_matters": "Đây là trọng tâm chính sách an sinh và phát triển đô thị của Hà Nội, ảnh hưởng trực tiếp đến thị trường bất động sản phân khúc bình dân.",
-        "watch_next": "Tiến độ giải phóng mặt bằng và các cơ chế ưu đãi cho nhà đầu tư tham gia dự án.",
-        "source_urls": []
+        "title": "Thủ tướng chỉ đạo xử lý nghiêm sai phạm giáo dục",
+        "one_sentence": "Thủ tướng yêu cầu điều tra toàn diện vụ vi phạm quy chế thi tại Tuyên Quang để đảm bảo công bằng xã hội.",
+        "why_it_matters": "Sự kiện này ảnh hưởng trực tiếp đến uy tín của hệ thống giáo dục quốc gia và tâm lý xã hội.",
+        "watch_next": "Kết quả điều tra và các biện pháp kỷ luật đối với các cá nhân liên quan.",
+        "source_urls": [
+          "https://tienphong.vn/thu-tuong-le-minh-hung-dieu-tra-khach-quan-toan-dien-vu-vi-pham-quy-che-thi-tot-nghiep-thpt-tai-tuyen-quang-post1859994.tpo"
+        ]
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48 giờ qua chứng kiến sự phân hóa mạnh mẽ giữa các tài sản trú ẩn và tài sản rủi ro. Trong khi dữ liệu CPI Mỹ hạ nhiệt làm giảm áp lực lãi suất, căng thẳng tại eo biển Hormuz lại đẩy giá dầu Brent lên trên 85 USD/thùng, tạo ra rủi ro lạm phát mới. Tại Việt Nam, thị trường chứng khoán phản ứng trái chiều trước các sự kiện pháp lý doanh nghiệp, trong khi chính sách nhà ở xã hội và trái phiếu Thủ đô đang được đẩy mạnh nhằm tạo nguồn vốn cho đầu tư công.\n\nSự kiện khởi tố thêm nhân sự tại PNJ-Lab liên quan đến vụ buôn lậu kim cương đã gây áp lực lên cổ phiếu PNJ, dù cổ phiếu này có phiên hồi phục kỹ thuật. Đồng thời, áp lực chi phí vốn vẫn là bài toán lớn cho doanh nghiệp Việt Nam khi lãi suất cho vay phổ biến ở mức 11-15%/năm. Các nhà đầu tư cần theo dõi sát sao sự điều chỉnh của giá vàng và các văn bản pháp lý về tài sản số trong thời gian tới.",
+        "sector_thesis": "Ngành tài chính 48 giờ qua chứng kiến sự phân hóa mạnh mẽ giữa các tài sản rủi ro và tài sản trú ẩn. Dữ liệu lạm phát Mỹ hạ nhiệt đã thúc đẩy Bitcoin và các tài sản rủi ro phục hồi, trong khi thị trường Việt Nam đối mặt với áp lực bán tháo do các sự kiện pháp lý liên quan đến lãnh đạo doanh nghiệp. Dòng tiền đang có xu hướng tìm kiếm sự an toàn thông qua cổ tức tiền mặt từ các ngân hàng quốc doanh như Vietcombank, BIDV và VietinBank, đồng thời thận trọng với các doanh nghiệp công nghệ đang gặp vấn đề về quản trị như FPT.\n\nSự kiện DTCC triển khai giao dịch chứng khoán token hóa thực tế đánh dấu bước ngoặt cho hạ tầng tài chính truyền thống, trong khi thương vụ Stripe và Advent đề nghị mua lại PayPal với giá 53 tỷ USD cho thấy sự cạnh tranh gay gắt trong lĩnh vực thanh toán số. Tại Việt Nam, việc thu phí 5 đoạn cao tốc Bắc - Nam từ Bãi Vọt đến Cam Lộ là bước tiến quan trọng trong quản lý hạ tầng giao thông và đầu tư công.\n\nTrong 24-72 giờ tới, nhà đầu tư cần theo dõi sát sao diễn biến tỷ giá USD/VND, tiến độ giải ngân đầu tư công và các văn bản hướng dẫn về tài sản số tại Việt Nam để điều chỉnh danh mục đầu tư phù hợp.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Pháp lý doanh nghiệp",
-            "title": "Vụ án buôn lậu kim cương và tác động đến thị trường vàng",
-            "summary": "Cơ quan điều tra khởi tố thêm nhân sự tại PNJ-Lab liên quan đến đường dây buôn lậu hơn 28.000 viên kim cương, gây chấn động thị trường vàng bạc đá quý Việt Nam.",
+            "depth_level": "deep",
+            "sub_sector": "Thị trường chứng khoán",
+            "title": "Sự phân hóa trên thị trường chứng khoán Việt Nam",
+            "summary": "Thị trường chứng khoán Việt Nam chịu áp lực bán tháo diện rộng, đặc biệt là nhóm công nghệ và bất động sản, trong khi các ngân hàng quốc doanh vẫn duy trì sức hút nhờ cổ tức tiền mặt.",
             "main_developments": [
-              "Khởi tố chủ các tiệm vàng Kim Lý, Ngọc Tâm và Ngọc Châu Âu.",
-              "Đường dây thực hiện 141 chuyến vận chuyển trái phép kim cương qua đường hàng không.",
-              "Cổ phiếu PNJ biến động mạnh sau thông tin khởi tố nhân sự kiểm định."
+              "VN-Index giảm 24,51 điểm xuống 1.782,12 điểm",
+              "Cổ phiếu FPT giảm mạnh xuống mức thấp nhất trong 32 tháng",
+              "Ba ngân hàng quốc doanh chi hơn 10.500 tỷ đồng cổ tức tiền mặt"
             ],
-            "why_it_matters": "Sự kiện ảnh hưởng trực tiếp đến niềm tin nhà đầu tư vào các doanh nghiệp bán lẻ vàng bạc lớn và thắt chặt quản lý thị trường kim loại quý.",
+            "why_it_matters": "Sự kiện này phản ánh tâm lý thận trọng và xu hướng rút vốn của nhà đầu tư trước các rủi ro pháp lý và quản trị doanh nghiệp.",
             "affected_groups": [
-              "PNJ",
-              "Thị trường vàng bạc đá quý",
-              "Nhà đầu tư chứng khoán"
+              "Nhà đầu tư cá nhân",
+              "Nhóm cổ phiếu ngân hàng",
+              "Nhóm cổ phiếu công nghệ"
             ],
             "watch_next": [
-              "Kết luận điều tra cuối cùng",
-              "Phản ứng của thị trường đối với cổ phiếu ngành bán lẻ vàng"
+              "Phản ứng của thị trường sau các vụ án kinh tế",
+              "Dòng tiền khối ngoại trong các phiên tới"
             ],
-            "representative_sources": [
-              {
-                "title": "Tiệm vàng Kim Lý, Ngọc Tâm đồng loạt đóng cửa",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/tiem-vang-kim-ly-ngoc-tam-dong-loat-dong-cua-100260714162613856.htm",
-                "excerpt": "Công an tỉnh Thanh Hóa khởi tố chủ các tiệm vàng lớn liên quan đến đường dây buôn lậu kim cương xuyên quốc gia."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua nổi bật ở sự chuyển dịch mạnh mẽ sang hạ tầng dữ liệu và bán dẫn. Các doanh nghiệp khai thác Bitcoin đang tận dụng hạ tầng điện năng sẵn có để cho thuê trung tâm dữ liệu AI, minh chứng qua hợp đồng 6,6 tỷ USD của CleanSpark. Tuy nhiên, sự phát triển này cũng đối mặt với rào cản pháp lý, điển hình là lệnh cấm xây dựng trung tâm dữ liệu mới tại New York do lo ngại về áp lực lưới điện.\n\nBên cạnh đó, cuộc đua AI Agentic đang nóng lên với việc ra mắt smartphone tích hợp AI tự thực hiện tác vụ phức tạp. Các vụ kiện bản quyền và bí mật thương mại giữa Apple, OpenAI và các nhà xuất bản lớn đang định hình lại khung pháp lý cho tương lai của AI. Tại Việt Nam, việc dẫn đầu Đông Nam Á về ứng dụng Gemini trong học thuật cho thấy tiềm năng lớn trong việc chuyển đổi số và ứng dụng AI vào đời sống, dù vẫn cần giải quyết các thách thức về an ninh mạng và đạo đức AI.",
-        "subsector_briefs": [],
-        "story_dossiers": [
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ là câu chuyện về phần mềm mà đã chuyển sang giai đoạn chuẩn hóa hạ tầng và quản lý chuỗi cung ứng. Việc NVIDIA thắt chặt kiểm soát chip AI và các tiêu chuẩn thanh toán tự động (x402) cho thấy AI đang dần đi vào thực tế vận hành của các định chế tài chính và công nghiệp thị trường. Sự kiện ông chủ DeepSeek trở thành nhà sáng lập AI giàu nhất thế giới với tài sản 36 tỷ USD sau vòng gọi vốn 7,4 tỷ USD đã định hình lại bản đồ AI toàn cầu.\n\nTại Việt Nam, Bộ Giáo dục và Đào tạo đã ban hành Thông tư 54/2026, yêu cầu năng lực số và kiến thức AI là chuẩn đầu ra bắt buộc cho sinh viên đại học. Đồng thời, Samsung HCMC CE Complex đã vận hành siêu hệ thống 45.000 tấm pin điện mặt trời, khẳng định xu hướng chuyển đổi xanh trong sản xuất. Các ngân hàng như Techcombank và SHB cũng đang đẩy mạnh đầu tư vào dữ liệu và AI để cá nhân hóa trải nghiệm khách hàng.\n\nTrong 24-72 giờ tới, cần theo dõi các diễn biến về tranh chấp sở hữu trí tuệ giữa Apple và OpenAI, cũng như tác động của việc thiếu hụt chip nhớ đến giá thành các thiết bị điện tử tiêu dùng toàn cầu.",
+        "subsector_briefs": [
           {
-            "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Pháp lý AI",
-            "title": "Các vụ kiện bản quyền và bí mật thương mại định hình tương lai AI",
-            "summary": "OpenAI đang đối mặt với các vụ kiện từ Apple về bí mật thương mại và từ các nhà xuất bản lớn về việc sử dụng tác phẩm có bản quyền để huấn luyện mô hình Gemini.",
-            "main_developments": [
-              "Apple cáo buộc OpenAI sử dụng thông tin mật để phát triển phần cứng cạnh tranh.",
-              "Các nhà xuất bản như Hachette, Cengage và Elsevier kiện Google về bản quyền.",
-              "OpenAI đẩy mạnh phản đối các cáo buộc pháp lý từ Apple."
+            "name": "Hạ tầng AI và Bán dẫn",
+            "overview": "Nhu cầu AI đẩy giá chip nhớ lên cao, gây áp lực lên lợi nhuận các mảng kinh doanh tiêu dùng, trong khi NVIDIA thắt chặt kiểm soát chuỗi cung ứng chip.",
+            "key_points": [
+              "NVIDIA thắt chặt kiểm soát khách hàng",
+              "Samsung cảnh báo thiếu hụt chip nhớ"
             ],
-            "why_it_matters": "Kết quả các vụ kiện này sẽ thiết lập tiền lệ pháp lý quan trọng cho việc sử dụng dữ liệu huấn luyện AI và bảo vệ quyền sở hữu trí tuệ trong kỷ nguyên số.",
-            "affected_groups": [
-              "OpenAI",
-              "Google",
-              "Apple",
-              "Ngành xuất bản"
-            ],
-            "watch_next": [
-              "Phán quyết của tòa án về quyền sử dụng dữ liệu huấn luyện",
-              "Các thỏa thuận cấp phép dữ liệu mới giữa AI và nhà xuất bản"
+            "key_story_titles": [
+              "Chip AI vẫn tuồn vào Trung Quốc suốt nhiều năm, NVIDIA quyết dùng cách này để chặn lại"
             ],
             "representative_sources": [
               {
-                "title": "OpenAI pushes back on Apple trade secret lawsuit | TechCrunch",
-                "source": "techcrunch_com",
-                "url": "https://techcrunch.com/2026/07/14/openai-pushes-back-on-apple-trade-secret-lawsuit"
+                "title": "Chip AI vẫn tuồn vào Trung Quốc suốt nhiều năm, NVIDIA quyết dùng cách này để chặn lại",
+                "source": "genk_vn",
+                "url": "https://genk.vn/chip-ai-van-tuon-vao-trung-quoc-suot-nhieu-nam-nvidia-quyet-dung-cach-nay-de-chan-lai-165260715194831079.chn",
+                "excerpt": "NVIDIA thắt chặt quy trình thẩm định khách hàng tại châu Á để ngăn chặn chip AI lọt vào thị trường Trung Quốc."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "AI toàn cầu",
+            "title": "Sự bùng nổ của DeepSeek và bản đồ AI toàn cầu",
+            "summary": "Định giá DeepSeek tăng vọt lên 50 tỷ USD sau vòng gọi vốn 7,4 tỷ USD, đưa ông Lương Văn Phong trở thành nhà sáng lập AI giàu nhất thế giới.",
+            "main_developments": [
+              "DeepSeek hoàn tất vòng gọi vốn 7,4 tỷ USD",
+              "Tài sản ròng của ông Lương Văn Phong đạt 36 tỷ USD",
+              "DeepSeek trở thành đối thủ cạnh tranh trực tiếp với các ông lớn AI"
+            ],
+            "why_it_matters": "Sự kiện này định hình lại bản đồ AI thị trường và cho thấy dòng vốn khổng lồ đang đổ vào các startup AI tiềm năng.",
+            "affected_groups": [
+              "Nhà đầu tư công nghệ",
+              "Các startup AI",
+              "Các ông lớn công nghệ"
+            ],
+            "watch_next": [
+              "Chiến lược phát triển sản phẩm của DeepSeek",
+              "Phản ứng của các đối thủ cạnh tranh"
+            ],
+            "representative_sources": [
+              {
+                "title": "Ông chủ DeepSeek trở thành nhà sáng lập AI giàu nhất thế giới",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/ong-chu-deepseek-tro-thanh-nha-sang-lap-ai-giau-nhat-the-gioi-100260715145208147.htm",
+                "excerpt": "Tài sản ròng của ông Lương Văn Phong tăng lên khoảng 36 tỷ USD sau khi DeepSeek hoàn tất vòng gọi vốn 7,4 tỷ USD."
               }
             ]
           }
@@ -180,23 +199,24 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và chính trị 48 giờ qua tập trung vào căng thẳng địa chính trị tại eo biển Hormuz và các thay đổi trong cấu trúc quản trị tại Mỹ. Việc Mỹ tái áp đặt phong tỏa hải quân tại eo biển Hormuz sau các đợt tấn công mới đã đẩy giá dầu Brent tăng sốc, đe dọa an ninh năng lượng toàn cầu. Tại Mỹ, phán quyết của Tòa án Tối cao cho phép Tổng thống sa thải thành viên các cơ quan độc lập đang gây lo ngại về sự chính trị hóa bộ máy công vụ.\n\nTại Việt Nam, các hoạt động đền ơn đáp nghĩa như tìm kiếm hài cốt liệt sĩ tại Công viên Lê Thị Riêng và chỉ đạo phát triển công nghiệp hàng hải của Tổng Bí thư, Chủ tịch nước Tô Lâm là những điểm nhấn quan trọng. Bên cạnh đó, vấn đề ngộ độc thực phẩm đang được Chính phủ đặc biệt quan tâm, với yêu cầu siết chặt quản lý bếp ăn trường học sau khi số vụ vi phạm tăng mạnh. Các sự kiện này phản ánh sự ưu tiên của Chính phủ trong việc củng cố an sinh xã hội và phát triển kinh tế biển bền vững.",
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua xoay quanh hai trục chính: căng thẳng địa chính trị tại Trung Đông và các nỗ lực làm sạch bộ máy hành chính tại Việt Nam. Sự kiện tại eo biển Hormuz đang gây áp lực lên giá năng lượng toàn cầu, trong khi các chỉ đạo quyết liệt của Thủ tướng về giải ngân đầu tư công và xử lý vi phạm quy chế thi cho thấy quyết tâm ổn định xã hội và thúc đẩy tăng trưởng kinh tế.\n\nNhật Bản đã phân loại tiền điện tử là tài sản tài chính, mở đường cho các quỹ ETF Bitcoin trong tương lai, trong khi Mỹ tiếp tục phong tỏa tài sản số liên quan đến Iran. Tại Việt Nam, Thủ tướng Lê Minh Hưng đã chỉ đạo điều tra nghiêm minh vụ vi phạm quy chế thi tại Tuyên Quang, khẳng định quyết tâm đảm bảo công bằng và uy tín của kỳ thi tốt nghiệp THPT.\n\nTrong 24-72 giờ tới, cần theo dõi sát sao các diễn biến tại eo biển Hormuz, kết quả điều tra các vụ án kinh tế tại Việt Nam và các động thái chính sách mới từ Chính phủ nhằm ổn định thị trường tài chính và thúc đẩy tăng trưởng kinh tế.",
         "subsector_briefs": [
           {
-            "name": "Địa chính trị toàn cầu",
-            "overview": "Căng thẳng Mỹ-Iran tại eo biển Hormuz và tác động đến giá năng lượng.",
+            "name": "Địa chính trị Trung Đông",
+            "overview": "Căng thẳng Mỹ-Iran tại eo biển Hormuz leo thang, gây rủi ro cho chuỗi cung ứng năng lượng toàn cầu và ngân sách quốc phòng Mỹ.",
             "key_points": [
-              "Mỹ tái áp đặt phong tỏa hải quân tại eo biển Hormuz",
-              "Giá dầu Brent tăng mạnh"
+              "Mỹ tái phong tỏa eo biển Hormuz",
+              "Chi phí quân sự Mỹ dự kiến vượt 100 tỷ USD"
             ],
             "key_story_titles": [
-              "Căng thẳng Mỹ - Iran leo thang tại eo biển Hormuz"
+              "Căng thẳng Mỹ-Iran tại eo biển Hormuz leo thang"
             ],
             "representative_sources": [
               {
-                "title": "U.S.-Iran escalation weighs on bitcoin (BTC) price, stocks as oil climbs: Crypto Daily",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/daybook-us/2026/07/14/u-s-iran-escalation-weighs-on-bitcoin-stocks-as-oil-climbs"
+                "title": "U.S. Strikes Iran Again as Brent Slips Despite Escalating Conflict | OilPrice.com",
+                "source": "oilprice_com",
+                "url": "https://oilprice.com/Latest-Energy-News/World-News/US-Strikes-Iran-Again-as-Brent-Slips-Despite-Escalating-Conflict.html",
+                "excerpt": "Mỹ tiếp tục các cuộc không kích vào các mục tiêu quân sự của Iran sau khi Tehran đe dọa các tuyến đường vận tải năng lượng."
               }
             ]
           }
@@ -204,31 +224,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Quản trị quốc gia",
-            "title": "Quyền lực hành pháp của Tổng thống Mỹ sau phán quyết Tòa án Tối cao",
-            "summary": "Tòa án Tối cao Mỹ ra phán quyết 6-3 tăng cường quyền hạn của Tổng thống đối với các cơ quan liên bang độc lập, cho phép sa thải thành viên các cơ quan này mà không cần lý do đặc biệt.",
+            "depth_level": "deep",
+            "sub_sector": "Chính trị Việt Nam",
+            "title": "Quyết tâm làm sạch bộ máy hành chính và giáo dục",
+            "summary": "Thủ tướng chỉ đạo điều tra nghiêm minh vụ vi phạm quy chế thi tại Tuyên Quang và yêu cầu đẩy nhanh giải ngân đầu tư công, thay thế cán bộ không đáp ứng yêu cầu.",
             "main_developments": [
-              "Phán quyết cho phép Tổng thống sa thải các quan chức cấp cao trong cơ quan độc lập.",
-              "Các quan chức liên bang lo ngại về hệ thống bảo trợ chính trị.",
-              "Sự độc lập của các cơ quan quản lý như Fed hay SEC có thể bị đe dọa."
+              "26 người bị xác định có hành vi vi phạm pháp luật trong vụ án thi tại Tuyên Quang",
+              "Thủ tướng yêu cầu giải ngân 100% vốn đầu tư công đến cuối năm 2026",
+              "Thay thế ngay cán bộ không đáp ứng yêu cầu công việc"
             ],
-            "why_it_matters": "Phán quyết này làm thay đổi cấu trúc quản trị quốc gia của Mỹ, có thể dẫn đến sự chính trị hóa bộ máy công vụ và ảnh hưởng đến tính độc lập của các cơ quan quản lý tài chính.",
+            "why_it_matters": "Các chỉ đạo này khẳng định quyết tâm của Chính phủ trong việc ổn định xã hội, đảm bảo công bằng và thúc đẩy tăng trưởng kinh tế.",
             "affected_groups": [
-              "Chính phủ Mỹ",
-              "Các cơ quan liên bang độc lập",
-              "Thị trường tài chính"
+              "Cán bộ công chức",
+              "Học sinh và phụ huynh",
+              "Doanh nghiệp đầu tư công"
             ],
             "watch_next": [
-              "Các đợt sa thải nhân sự cấp cao trong các cơ quan độc lập",
-              "Phản ứng của Quốc hội Mỹ đối với phán quyết"
+              "Kết quả điều tra vụ án tại Tuyên Quang",
+              "Tiến độ giải ngân vốn đầu tư công tại các địa phương"
             ],
             "representative_sources": [
               {
-                "title": "Victims of Trump purge call supreme court ruling a ‘dagger’ at heart of civil service",
-                "source": "theguardian_com",
-                "url": "https://theguardian.com/us-news/2026/jul/14/federal-officials-fired-by-trump-supreme-court-ruling",
-                "excerpt": "Tòa án Tối cao Mỹ ra phán quyết tăng cường quyền hạn của Tổng thống đối với các cơ quan liên bang độc lập."
+                "title": "Thủ tướng Lê Minh Hưng: Điều tra khách quan, toàn diện vụ vi phạm quy chế thi tốt nghiệp THPT tại Tuyên Quang",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/thu-tuong-le-minh-hung-dieu-tra-khach-quan-toan-dien-vu-vi-pham-quy-che-thi-tot-nghiep-thpt-tai-tuyen-quang-post1859994.tpo",
+                "excerpt": "Thủ tướng yêu cầu làm rõ trách nhiệm các cá nhân, tổ chức liên quan, đảm bảo công bằng và uy tín của kỳ thi tốt nghiệp THPT."
               }
             ]
           }
@@ -237,58 +257,31 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và đời sống 48 giờ qua ghi nhận sự quan tâm lớn đến sức khỏe dài hạn và các trào lưu giải trí mới. Các nghiên cứu về thuốc giảm cân như Ozempic và Wegovy cho thấy tiềm năng làm chậm quá trình lão hóa sinh học, mở ra hướng đi mới cho y học dự phòng. Đồng thời, sự bùng nổ của du lịch âm nhạc, điển hình là concert của Big Bang tại Hà Nội, đang trở thành động lực tăng trưởng mới cho ngành du lịch Việt Nam.\n\nBên cạnh đó, các trào lưu xã hội như phong trào 'Summer of Ludd' của Gen Z tại New York hay xu hướng ăn uống tối giản của giới trẻ Trung Quốc phản ánh sự thay đổi trong hành vi tiêu dùng và lối sống dưới áp lực công nghệ và công việc. Tại Việt Nam, kết quả khảo sát giáo dục tiểu học SEA-PLM 2024 cho thấy chất lượng giáo dục nền tảng đạt thứ hạng cao, khẳng định tiềm năng nguồn nhân lực. Các xu hướng này cùng cho thấy một xã hội đang vừa tìm kiếm sự cân bằng giữa công nghệ và cuộc sống, vừa chú trọng hơn đến sức khỏe và giáo dục.",
-        "subsector_briefs": [
-          {
-            "name": "Sức khỏe và Lối sống",
-            "overview": "Tiềm năng của thuốc giảm cân trong việc làm chậm lão hóa và các trào lưu sống tối giản.",
-            "key_points": [
-              "Thuốc giảm cân có thể làm chậm lão hóa sinh học",
-              "Gen Z tìm về cuộc sống không màn hình"
-            ],
-            "key_story_titles": [
-              "Popular weight-loss drugs Ozempic and Wegovy may slow biological aging"
-            ],
-            "representative_sources": [
-              {
-                "title": "Popular weight-loss drugs Ozempic and Wegovy may slow biological aging",
-                "source": "sciencedaily_com",
-                "url": "https://sciencedaily.com/releases/2026/07/260713084907.htm",
-                "excerpt": "Nghiên cứu cho thấy semaglutide có thể làm chậm quá trình lão hóa sinh học thông qua giảm viêm."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua nổi bật với sự kiện thể thao toàn cầu World Cup 2026 và các cảnh báo về y tế cộng đồng. Trận bán kết giữa Anh và Argentina đang trở thành tâm điểm truyền thông toàn cầu, trong khi các cảnh báo về ký sinh trùng gây tiêu chảy tại Mỹ và các thủ đoạn lừa đảo trực tuyến mới tại Việt Nam là những vấn đề xã hội được người dân đặc biệt quan tâm.\n\nViệt Nam đang dẫn đầu Đông Nam Á về ứng dụng AI trong học thuật, với 17% tổng số câu lệnh Gemini liên quan đến hoạt động này. Bên cạnh đó, các chính sách an sinh xã hội như hỗ trợ bữa ăn bán trú tại Hà Nội và xu hướng tiêu dùng xanh của Saigon Co.op sau 30 năm thành lập cho thấy sự chuyển dịch tích cực trong đời sống người dân.\n\nTrong 24-72 giờ tới, cần theo dõi kết quả trận bán kết World Cup 2026, các cảnh báo y tế mới nhất và các thủ đoạn lừa đảo trực tuyến để bảo vệ tài sản cá nhân.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Du lịch và Giải trí",
-            "title": "Sự bùng nổ của du lịch âm nhạc tại Việt Nam",
-            "summary": "Các sự kiện âm nhạc lớn như concert của Big Bang tại Hà Nội đã trở thành động lực tăng trưởng mạnh mẽ cho ngành du lịch, với lượng tìm kiếm tăng gấp 4 lần.",
+            "depth_level": "deep",
+            "sub_sector": "Y tế và An sinh",
+            "title": "Cảnh báo y tế và an sinh xã hội",
+            "summary": "Các cảnh báo về ký sinh trùng gây tiêu chảy tại Mỹ và các thủ đoạn lừa đảo trực tuyến mới tại Việt Nam đang là những vấn đề xã hội cấp thiết.",
             "main_developments": [
-              "Concert của Big Bang tại Hà Nội thu hút lượng lớn khách du lịch.",
-              "Lượng tìm kiếm du lịch nội địa tăng hơn 4 lần so với bình thường.",
-              "Du lịch âm nhạc trở thành xu hướng mới thúc đẩy kinh tế địa phương."
+              "1.645 ca nhiễm ký sinh trùng Cyclospora tại Mỹ",
+              "Thủ đoạn lừa đảo mạo danh cổ vật tại Việt Nam",
+              "Hà Nội nâng mức hỗ trợ bữa ăn bán trú lên 40.000 đồng/học sinh/ngày"
             ],
-            "why_it_matters": "Du lịch âm nhạc không chỉ thúc đẩy doanh thu ngành du lịch mà còn nâng cao vị thế của Việt Nam như một điểm đến giải trí quốc tế.",
+            "why_it_matters": "Việc nắm bắt các cảnh báo y tế và thủ đoạn lừa đảo giúp người dân bảo vệ sức khỏe và tài sản cá nhân.",
             "affected_groups": [
-              "Ngành du lịch",
-              "Ngành giải trí",
-              "Kinh tế địa phương"
+              "Người tiêu dùng",
+              "Học sinh và phụ huynh",
+              "Người dân"
             ],
             "watch_next": [
-              "Các sự kiện âm nhạc quốc tế tiếp theo tại Việt Nam",
-              "Tác động của du lịch âm nhạc đến doanh thu dịch vụ"
+              "Các báo cáo y tế địa phương",
+              "Các cảnh báo lừa đảo mới từ cơ quan chức năng"
             ],
-            "representative_sources": [
-              {
-                "title": "Lượng tìm kiếm Hà Nội tăng gấp 4 lần",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/luong-tim-kiem-ha-noi-tang-gap-4-lan-post1859666.tpo",
-                "excerpt": "Concert của Big Bang tại Hà Nội khiến lượng tìm kiếm du lịch nội địa tăng hơn bốn lần."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       }
@@ -296,53 +289,53 @@
     "watchlist_24_72h": [
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến quân sự tại eo biển Hormuz và phản ứng giá dầu Brent.",
-        "why": "Tác động trực tiếp đến lạm phát và chi phí năng lượng toàn cầu."
+        "what_to_watch": "Diễn biến tại eo biển Hormuz và phản ứng giá dầu Brent",
+        "why": "Rủi ro gián đoạn nguồn cung năng lượng toàn cầu."
       },
       {
-        "theme": "Chính sách tiền tệ Fed",
-        "what_to_watch": "Các phát biểu của quan chức Fed sau dữ liệu CPI tháng 6.",
-        "why": "Quyết định kỳ vọng lãi suất trong cuộc họp tháng 7."
+        "theme": "Thị trường chứng khoán Việt Nam",
+        "what_to_watch": "Phản ứng của nhà đầu tư sau các vụ án kinh tế",
+        "why": "Tâm lý thị trường đang chịu áp lực bán tháo diện rộng."
       },
       {
-        "theme": "Pháp lý tài sản số",
-        "what_to_watch": "Các văn bản pháp lý mới về tài sản số tại Việt Nam.",
-        "why": "Ảnh hưởng đến khung pháp lý cho thị trường tài chính số."
+        "theme": "Chính sách tài chính Việt Nam",
+        "what_to_watch": "Văn bản hướng dẫn về tài sản số",
+        "why": "Ảnh hưởng trực tiếp đến khung pháp lý cho tài sản số."
       },
       {
-        "theme": "Hạ tầng AI",
-        "what_to_watch": "Tiến độ các dự án trung tâm dữ liệu và phản ứng pháp lý tại Mỹ.",
-        "why": "Biến số chiến lược trong cuộc đua AI toàn cầu."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "CPI Mỹ tháng 6 giảm 0,4%, làm dịu kỳ vọng tăng lãi suất của Fed",
-        "why": "Đây là sự kiện vĩ mô quan trọng nhất ảnh hưởng trực tiếp đến chính sách tiền tệ và tâm lý thị trường tài chính toàn cầu."
+        "theme": "Công nghệ toàn cầu",
+        "what_to_watch": "Tranh chấp sở hữu trí tuệ giữa Apple và OpenAI",
+        "why": "Ảnh hưởng đến sự phát triển của các thiết bị phần cứng AI."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Hà Nội đặt mục tiêu xây dựng 300.000 căn nhà ở xã hội giai đoạn 2026-2030",
-        "why": "Chính sách nhà ở xã hội là trọng tâm an sinh và phát triển đô thị của Thủ đô."
+        "what_to_watch": "Lạm phát Mỹ hạ nhiệt thúc đẩy Bitcoin và tài sản rủi ro",
+        "why": "Tác động trực tiếp đến tâm lý thị trường và dòng vốn vào tài sản số."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Hà Nội đề xuất phát hành trái phiếu đa dạng kỳ hạn để thu hút tiền nhàn rỗi",
-        "why": "Đây là giải pháp tài chính quan trọng cho kế hoạch giải ngân vốn đầu tư công của Hà Nội trong bối cảnh áp lực ngân sách cuối năm."
+        "what_to_watch": "Lạm phát Mỹ hạ nhiệt thúc đẩy tài sản rủi ro, Bitcoin vượt ngưỡng kháng cự",
+        "why": "Tác động trực tiếp của chính sách tiền tệ Mỹ đến tâm lý thị trường tài chính toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thị trường smartphone toàn cầu suy giảm mạnh nhất 13 năm do khủng hoảng chip nhớ",
-        "why": "Phản ánh tác động trực tiếp của chuỗi cung ứng linh kiện lên ngành công nghệ tiêu dùng toàn cầu."
+        "what_to_watch": "Thị trường vốn cần đóng vai trò chủ đạo trong huy động vốn cho nền kinh tế",
+        "why": "Phản ánh chiến lược huy động vốn quốc gia và sự chuyển dịch kênh dẫn vốn."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Phát hiện liên kết giữa serotonin và bệnh van tim",
+        "why": "Tác động trực tiếp đến y tế cộng đồng và quản lý điều trị bệnh tim mạch."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Vàng bước vào cuộc chơi mới: Nhà đầu tư có thể kiếm tiền cả khi giá lên lẫn xuống",
+        "why": "Phản ánh xu hướng số hóa và đa dạng hóa công cụ tài chính cho tài sản trú ẩn truyền thống."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "CleanSpark ký hợp đồng thuê trung tâm dữ liệu 6,6 tỷ USD tại Georgia",
-        "why": "Minh chứng rõ nét cho chiến lược chuyển dịch của các công ty khai thác Bitcoin sang hạ tầng AI."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "CEO DeepMind: AGI sẽ có tác động lớn hơn cả điện hay lửa",
-        "why": "Tầm nhìn chiến lược về tương lai AI từ lãnh đạo Google DeepMind."
+        "what_to_watch": "Tiêu chuẩn thanh toán x402 được các ông lớn công nghệ và tài chính ủng hộ",
+        "why": "Đánh dấu bước tiến quan trọng trong nền kinh tế máy-với-máy (M2M)."
       }
     ],
     "source_desk": [
@@ -350,14 +343,14 @@
         "topic": "Công nghệ & AI",
         "representative_sources": [
           {
-            "title": "CleanSpark Signs $6.6B Data Center Lease in Georgia",
-            "source": "cointelegraph_com",
-            "url": "https://cointelegraph.com/news/cleanspark-shares-jump-after-georgia-data-center-lease"
+            "title": "Chip AI vẫn tuồn vào Trung Quốc suốt nhiều năm, NVIDIA quyết dùng cách này để chặn lại",
+            "source": "genk_vn",
+            "url": "https://genk.vn/chip-ai-van-tuon-vao-trung-quoc-suot-nhieu-nam-nvidia-quyet-dung-cach-nay-de-chan-lai-165260715194831079.chn"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động dài hạn của các lệnh cấm xây dựng trung tâm dữ liệu tại New York đối với chuỗi cung ứng AI toàn cầu.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các tác động dài hạn của chính sách thuế mới đối với doanh nghiệp bán lẻ tại Việt Nam.",
     "notable_articles": []
   }
 }
