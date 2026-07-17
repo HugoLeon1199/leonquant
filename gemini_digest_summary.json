@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-16T23:10:30.614572+00:00",
+  "generated_at": "2026-07-17T23:02:55.335059+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 744440,
+    "estimated_input_tokens": 702989,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 1,
+    "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 659,
-    "sent_article_count": 659,
+    "input_article_count": 620,
+    "sent_article_count": 620,
     "window": {
-      "end_date": "2026-07-17",
+      "end_date": "2026-07-18",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,96 +25,80 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, địa chính trị và làn sóng công nghệ trong 48 giờ qua, tập trung vào các tác động thực tế đến thị trường và chính sách tại Việt Nam.",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và chính sách quan trọng trong 48 giờ qua, tập trung vào các sự kiện có tác động thực tế đến thị trường và đời sống.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường tài chính và công nghệ 48 giờ qua ghi nhận sự dịch chuyển dòng vốn mạnh mẽ từ các tài sản đầu cơ sang hạ tầng thực tế. Căng thẳng địa chính trị Mỹ - Iran leo thang tại eo biển Hormuz và Bab el-Mandeb đang trở thành biến số chi phối giá năng lượng toàn cầu, buộc các quốc gia phải tái cấu trúc chuỗi cung ứng. Song song đó, tại Việt Nam, chính sách đang chuyển dịch từ định hướng sang cụ thể hóa luật chơi, từ việc nâng hạn mức bảo hiểm tiền gửi lên 350 triệu đồng đến việc đẩy nhanh các dự án hạ tầng cao tốc trọng điểm.",
-        "most_mentioned": "AI và hạ tầng công nghệ là chủ đề dẫn dắt với các thương vụ M&A và sự ra đời của các mô hình mã nguồn mở. Việc Mira Murati phát hành mô hình Inkling, cùng đề xuất xây dựng nhà máy AI 100 triệu USD của AWS tại Đà Nẵng, cho thấy AI đang chuyển mình từ công cụ phần mềm sang hạ tầng sản xuất công nghiệp.",
-        "top_stories": "Sự kiện Apple kiện OpenAI về bí mật thương mại phần cứng và việc Tether đóng băng 131 triệu USD liên quan đến Iran là hai điểm nhấn cho thấy sự va chạm giữa Big Tech và địa chính trị. Tại Việt Nam, vụ án kim cương khiến PNJ phải thuê kiểm định quốc tế đang tạo ra làn sóng tái cấu trúc niềm tin trong ngành trang sức cao cấp.",
-        "sector_impacts": "Dòng vốn FDI vào Việt Nam đang chuyển dịch mạnh sang bán dẫn và trung tâm dữ liệu, với các dự án quy mô lớn từ Samsung và các đối tác công nghệ. Điều này tạo ra áp lực đòi hỏi hạ tầng năng lượng và nhân lực chất lượng cao phải đáp ứng kịp thời.",
-        "watch_24_72h": "000 tỷ đồng cho cao tốc TP.HCM - Trung Lương - Mỹ Thuận; phản ứng của thị trường chứng khoán với các vụ án kinh tế; và các văn bản pháp lý mới về tài sản số tại Việt Nam."
+        "main_picture": "Thị trường tài chính toàn cầu 48 giờ qua ghi nhận sự thận trọng cao độ khi tâm lý 'risk-off' lan rộng. Bitcoin và cổ phiếu công nghệ chịu áp lực bán tháo mạnh do căng thẳng địa chính trị tại Trung Đông và lo ngại về hiệu quả chi phí của các mô hình AI. Trong khi đó, tại Việt Nam, trọng tâm tin tức xoay quanh các nỗ lực minh bạch hóa thị trường tài chính, quản lý tài sản mã hóa và các sự cố dân sinh nghiêm trọng.",
+        "most_mentioned": "Chủ đề về sự sụt giảm của Bitcoin và cổ phiếu công nghệ được nhắc đến nhiều nhất, phản ánh sự tương quan chặt chẽ giữa tài sản số và thị trường chứng khoán truyền thống trong bối cảnh bất ổn. Các sự kiện liên quan đến quản lý kim cương và bất động sản tại Việt Nam cũng chiếm sóng dày đặc trên các phương tiện truyền thông nội địa.",
+        "top_stories": "Sự kiện nổi bật nhất là việc Việt Nam chính thức ban hành Nghị định 284 về quản lý tài sản mã hóa, đánh dấu bước ngoặt pháp lý quan trọng. Song song đó, sự kiện Apple vượt Nvidia về vốn hóa cho thấy nhà đầu tư đang ưu tiên các doanh nghiệp có khả năng kiếm tiền bền vững từ AI thay vì chỉ kỳ vọng vào phần cứng.",
+        "sector_impacts": "Căng thẳng tại eo biển Hormuz đang trực tiếp đẩy giá dầu Brent lên cao, gây áp lực lên chi phí năng lượng toàn cầu. Tại Việt Nam, các vụ tai nạn giao thông nghiêm trọng và sự cố tại các tiệm kim cương đang đặt ra thách thức lớn về quản lý an toàn hạ tầng và minh bạch thị trường bán lẻ.",
+        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi sát sao phản ứng của thị trường với Bitcoin tại ngưỡng 63.000 USD, diễn biến giá dầu Brent, tiến độ xử lý các vụ án kim cương tại TP.HCM và các văn bản hướng dẫn thi hành Nghị định 284."
       },
-      "content": "Trong 48 giờ qua, dòng tin nổi bật không nằm ở một sự kiện đơn lẻ, mà ở sự dịch chuyển đồng thời của ba trục lớn: thị trường tài sản rủi ro thận trọng hơn, công nghệ AI tiếp tục hút vốn, và chính sách tại Việt Nam bước vào giai đoạn cụ thể hóa mạnh hơn. Crypto, vàng, AI, bán dẫn, tài sản số, hạ tầng và năng lượng cùng xuất hiện dày đặc, cho thấy thị trường đang vừa phòng thủ trước biến động ngắn hạn, vừa tìm kiếm các câu chuyện tăng trưởng có nền tảng dài hạn.\n\nỞ lớp thị trường, Bitcoin và nhóm tài sản số được nhắc nhiều vì đang chịu áp lực điều chỉnh sau giai đoạn tăng mạnh. Điều đáng chú ý không chỉ là giá giảm, mà là cách dòng tiền đang được tái định vị: rời khỏi các tài sản mang tính đầu cơ cao và hướng sang những lĩnh vực có câu chuyện thực hơn như AI, bán dẫn, trung tâm dữ liệu và hạ tầng năng lượng. Đây là tín hiệu cho thấy khẩu vị rủi ro đang thay đổi.\n\nTại Việt Nam, nhóm tin quan trọng xoay quanh việc hoàn thiện hành lang pháp lý cho tài sản số, siết tiêu chí doanh nghiệp tham gia thị trường tài sản mã hóa, thúc đẩy trung tâm tài chính quốc tế, tháo gỡ điểm nghẽn bất động sản và đẩy nhanh hạ tầng. Các tin này cùng cho thấy chính sách đang chuyển từ giai đoạn định hướng sang giai đoạn thiết kế luật chơi.\n\nTrong công nghệ, AI không còn chỉ là câu chuyện ứng dụng phần mềm. Các bài viết nổi bật cho thấy AI đang kéo theo nhu cầu về bán dẫn, dữ liệu, trung tâm dữ liệu, năng lực lưu trữ và khả năng triển khai trong ngân hàng, tài chính, sản xuất và dịch vụ.",
+      "content": "Thị trường tài chính 48 giờ qua chứng kiến sự dịch chuyển dòng vốn rõ rệt. Bitcoin giảm dưới 63.000 USD khi nhà đầu tư dài hạn thực hiện cắt lỗ, trong khi cổ phiếu công nghệ chịu áp lực từ lo ngại về chi tiêu AI. Tại Việt Nam, Chính phủ đã ban hành Nghị định 284 về quản lý tài sản mã hóa, tạo khung pháp lý cho thị trường vốn số. Đồng thời, sự kiện PNJ thuê đơn vị kiểm định quốc tế sau bê bối kim cương cho thấy nỗ lực minh bạch hóa của các doanh nghiệp lớn. Trong lĩnh vực công nghệ, sự ra mắt của mô hình Kimi K3 từ Trung Quốc đang tạo ra áp lực cạnh tranh mới đối với các đối thủ Mỹ.",
       "representative_sources": [
         {
-          "title": "Vốn công nghệ chảy vào Việt Nam",
-          "source": "thanhnien_vn",
-          "url": "https://thanhnien.vn/von-cong-nghe-chay-vao-viet-nam-185260715220131442.htm",
-          "excerpt": "Việt Nam đón làn sóng FDI thế hệ mới với các dự án bán dẫn, AI và trung tâm dữ liệu quy mô lớn."
+          "title": "Bitcoin (BTC) price falls below $63,00 as AI fatigue, Middle East tensions drag crypto, tech stocks lower",
+          "source": "coindesk_com",
+          "url": "https://coindesk.com/markets/2026/07/17/risk-off-wave-drags-bitcoin-below-usd63-000-as-ai-selloff-spreads-from-stocks-to-crypto"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Địa chính trị Trung Đông",
-          "why_mentioned": "Ảnh hưởng trực tiếp đến giá dầu và an ninh năng lượng toàn cầu.",
-          "evidence_hint": "Lặp lại ở nhiều nguồn tin quốc tế về xung đột Mỹ-Iran."
-        },
-        {
-          "topic": "AI và Hạ tầng dữ liệu",
-          "why_mentioned": "Sự bùng nổ các thương vụ M&A và đầu tư hạ tầng công nghệ.",
-          "evidence_hint": "Sự kiện Mira Murati, AWS tại Đà Nẵng và các mô hình AI mới."
+          "topic": "Biến động tài sản rủi ro",
+          "why_mentioned": "Sự sụt giảm đồng loạt của Bitcoin và cổ phiếu công nghệ.",
+          "evidence_hint": "Dữ liệu từ Coindesk và CNBC."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Căng thẳng Mỹ - Iran",
-          "why_hot": "Rủi ro gián đoạn eo biển Hormuz và Bab el-Mandeb.",
-          "impact": "Giá dầu Brent neo cao, gây áp lực lên lạm phát toàn cầu.",
-          "evidence_hint": "Thông tin từ CNBC và OilPrice về các cuộc tấn công hạ tầng."
+          "topic": "Nghị định 284 về tài sản mã hóa",
+          "why_hot": "Bước ngoặt pháp lý cho thị trường số tại Việt Nam.",
+          "impact": "Ảnh hưởng trực tiếp đến nhà đầu tư và các đơn vị cung cấp dịch vụ.",
+          "evidence_hint": "Thông tin từ Báo Chính phủ."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch sang AI trên thiết bị (Edge AI)",
-          "why_watch": "Các startup Trung Quốc và Nvidia đang ưu tiên mô hình AI nhẹ, chạy trực tiếp trên thiết bị để tăng quyền riêng tư và giảm chi phí."
+          "signal": "Dịch chuyển dòng vốn sang hạ tầng AI",
+          "why_watch": "Nhà đầu tư ưu tiên các doanh nghiệp có khả năng kiếm tiền bền vững từ AI."
         }
       ],
       "watch_next": [
+        "Phản ứng của thị trường với Bitcoin tại ngưỡng 63.000 USD",
         "Diễn biến giá dầu Brent",
-        "Tiến độ dự án cao tốc ĐBSCL",
-        "Phản ứng của thị trường chứng khoán Việt Nam"
+        "Tiến độ xử lý các vụ án kim cương tại TP.HCM"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Căng thẳng Mỹ-Iran leo thang đe dọa tuyến đường năng lượng",
-        "one_sentence": "Xung đột quân sự tại Trung Đông gây rủi ro cho nguồn cung dầu toàn cầu và đẩy giá dầu Brent lên cao quanh mức 85 USD/thùng.",
-        "why_it_matters": "Tác động trực tiếp đến chi phí vận tải và giá cả hàng hóa tiêu dùng trong nước.",
-        "watch_next": "Xác nhận chính thức thỏa thuận Mỹ-Iran và phản ứng giá dầu Brent.",
+        "title": "Việt Nam ban hành Nghị định 284 về quản lý tài sản mã hóa",
+        "one_sentence": "Nghị định 284 thiết lập khung xử phạt hành chính lên tới 200 triệu đồng cho các vi phạm giao dịch tài sản mã hóa, bắt đầu có hiệu lực từ ngày 1/9.",
+        "why_it_matters": "Đây là bước ngoặt pháp lý quan trọng trong quản lý tài sản số tại Việt Nam, ảnh hưởng trực tiếp đến nhà đầu tư và các đơn vị cung cấp dịch vụ.",
+        "watch_next": "Các văn bản hướng dẫn thi hành cụ thể từ Ngân hàng Nhà nước.",
         "source_urls": [
-          "https://oilprice.com/Latest-Energy-News/World-News/Iran-Instructs-Houthis-to-Prepare-Red-Sea-Shipping-Attacks.html"
+          "https://dantri.com.vn/kinh-doanh/tu-19-vi-pham-giao-dich-tai-san-ma-hoa-co-the-bi-phat-toi-200-trieu-dong-20260717195559195.htm"
         ]
       },
       {
         "rank": 2,
-        "title": "Ngân hàng Nhà nước nâng hạn mức bảo hiểm tiền gửi lên 350 triệu đồng",
-        "one_sentence": "Thông tư 05/2026/TT-NHNN chính thức tăng hạn mức chi trả bảo hiểm tiền gửi lên 350 triệu đồng, tăng 180% so với mức cũ nhằm củng cố an toàn hệ thống.",
-        "why_it_matters": "Thay đổi chính sách quan trọng ảnh hưởng trực tiếp đến quyền lợi người gửi tiền và an toàn hệ thống ngân hàng.",
-        "watch_next": "Tác động của chính sách đến dòng tiền gửi tại các ngân hàng thương mại.",
+        "title": "Giá vàng thế giới và trong nước lao dốc mạnh",
+        "one_sentence": "Giá vàng thế giới lùi về mốc 3.965 USD/ounce do áp lực chốt lời và kỳ vọng lãi suất từ Fed, kéo giá vàng miếng SJC giảm 1,6 triệu đồng/lượng.",
+        "why_it_matters": "Tác động trực tiếp đến tâm lý nhà đầu tư và thị trường tài sản trú ẩn tại Việt Nam.",
+        "watch_next": "Biến động giá vàng trong nước so với thế giới trong các phiên tới.",
         "source_urls": [
-          "https://vietnamnet.vn/chinh-thuc-nang-han-muc-bao-hiem-tien-gui-len-350-trieu-dong-2536268.html"
+          "https://vietnamnet.vn/gia-vang-hom-nay-17-7-2026-quay-dau-giam-manh-sjc-roi-xuong-day-moi-2536437.html"
         ]
       },
       {
         "rank": 3,
-        "title": "Apple kiện OpenAI về bí mật thương mại phần cứng",
-        "one_sentence": "Apple nộp đơn kiện OpenAI và các cựu nhân viên với cáo buộc tổ chức chiến dịch đánh cắp bí mật công nghệ phần cứng AI.",
-        "why_it_matters": "Sự kiện pháp lý lớn giữa hai gã khổng lồ công nghệ, ảnh hưởng đến lộ trình phát triển phần cứng AI.",
-        "watch_next": "Phản ứng từ phía OpenAI và các diễn biến tại tòa án liên bang California.",
+        "title": "Căng thẳng địa chính trị đẩy giá dầu Brent tăng mạnh",
+        "one_sentence": "Xung đột Mỹ-Iran tại eo biển Hormuz gây gián đoạn chuỗi cung ứng năng lượng, đẩy giá dầu Brent lên mức 88,10 USD/thùng.",
+        "why_it_matters": "Tác động trực tiếp đến giá năng lượng toàn cầu và tâm lý thị trường tài chính.",
+        "watch_next": "Diễn biến xung đột tại eo biển Hormuz và phản ứng của thị trường năng lượng.",
         "source_urls": [
-          "https://genk.vn/openai-ra-mat-phan-cung-dau-tien-giua-luc-bi-apple-kien-danh-cap-bi-mat-165260716181018776.chn"
-        ]
-      },
-      {
-        "rank": 4,
-        "title": "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ",
-        "one_sentence": "",
-        "why_it_matters": "Thương vụ đầu tư lớn từ một định chế tài chính truyền thống vào sàn giao dịch crypto.",
-        "watch_next": "",
-        "source_urls": [
-          "https://coindesk.com/business/2026/07/16/citadel-securities-invests-usd400-million-in-crypto-com-valuing-exchange-at-usd20-billion"
+          "https://cnbc.com/2026/07/17/oil-price-today-brent-wti.html"
         ]
       }
     ],
@@ -122,55 +106,33 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48 giờ qua nổi bật với sự điều chỉnh của các tài sản rủi ro và nỗ lực minh bạch hóa thị trường tại Việt Nam. Dòng vốn đang có xu hướng rời khỏi các tài sản đầu cơ để tìm đến các lĩnh vực có nền tảng thực tế. Việc nâng hạn mức bảo hiểm tiền gửi lên 350 triệu đồng và các dự án hạ tầng lớn như cao tốc TP.HCM - Trung Lương - Mỹ Thuận cho thấy chính sách đang tập trung vào việc củng cố niềm tin và khơi thông nguồn lực kinh tế. Các vụ án kinh tế liên quan đến kim cương cũng đang buộc các doanh nghiệp niêm yết như PNJ phải tái cấu trúc quy trình kiểm định để bảo vệ uy tín.",
-        "subsector_briefs": [
-          {
-            "name": "Thị trường tài sản số và hạ tầng thanh toán",
-            "overview": "Sự tham gia của các định chế lớn như Citadel Securities và Visa vào hạ tầng crypto cho thấy sự chuyển dịch từ đầu cơ sang tích hợp tài chính.",
-            "key_points": [
-              "Citadel Securities đầu tư 400 triệu USD vào Crypto.com",
-              "Visa ra mắt nền tảng Stablecoin cho ngân hàng"
-            ],
-            "key_story_titles": [
-              "Citadel Securities đầu tư 400 triệu USD vào Crypto.com"
-            ],
-            "representative_sources": [
-              {
-                "title": "Crypto.com recibe una inversión de 400 millones de dólares por parte de Citadel Securities con una valoración de 20 mil millones de dólares",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/es/business/2026/07/16/citadel-securities-invests-usd400-million-in-crypto-com-valuing-exchange-at-usd20-billion"
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh của các tài sản rủi ro và các bước tiến pháp lý quan trọng tại Việt Nam. Thị trường đang đánh giá lại rủi ro trong bối cảnh căng thẳng địa chính trị gia tăng. Việc ban hành Nghị định 284 về tài sản mã hóa là điểm nhấn chính, cho thấy nỗ lực của Chính phủ trong việc đưa thị trường số vào khuôn khổ. Đồng thời, các doanh nghiệp lớn như PNJ và VPBank đang chủ động minh bạch hóa thông tin và huy động vốn quốc tế, phản ánh sức khỏe của nhóm doanh nghiệp đầu ngành.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
             "sub_sector": "Thị trường tài sản số",
-            "title": "Sự tham gia của các định chế tài chính truyền thống vào Crypto",
-            "summary": "Các nhà tạo lập thị trường như Citadel Securities và hạ tầng thanh toán như Visa đang tích cực tích hợp tài sản số vào hệ thống ngân hàng truyền thống, đánh dấu bước tiến quan trọng trong việc chính thống hóa tài sản số.",
+            "title": "Bitcoin đối mặt áp lực bán tháo",
+            "summary": "Bitcoin giảm dưới 63.000 USD khi nhà đầu tư dài hạn thực hiện cắt lỗ trong bối cảnh thị trường rủi ro suy yếu.",
             "main_developments": [
-              "Citadel Securities đầu tư 400 triệu USD vào Crypto.com với định giá 20 tỷ USD.",
-              "Visa triển khai nền tảng Visa Stablecoin Platform (VSP) cho ngân hàng và Fintech.",
-              "T. Rowe Price ra mắt ETF tiền điện tử đa token chủ động đầu tiên."
+              "Bitcoin giảm 1,7% trong ngày",
+              "Hơn 65% số coin chảy vào sàn đến từ nhà đầu tư dài hạn"
             ],
-            "why_it_matters": "Việc các định chế lớn tham gia giúp giảm rủi ro pháp lý và tăng tính thanh khoản cho thị trường tài sản số.",
+            "why_it_matters": "Phản ánh tâm lý thị trường và áp lực bán kỹ thuật từ nhóm holder dài hạn.",
             "affected_groups": [
-              "Nhà đầu tư tổ chức",
-              "Ngân hàng",
-              "Fintech"
+              "Nhà đầu tư tiền mã hóa",
+              "Sàn giao dịch"
             ],
             "watch_next": [
-              "Quy định pháp lý về tài sản số tại Việt Nam",
-              "Khối lượng giao dịch của các ETF tiền điện tử mới"
+              "Phản ứng của thị trường tại ngưỡng 63.000 USD"
             ],
             "representative_sources": [
               {
-                "title": "Visa Unveils Stablecoin Platform for Banks and Fintech Companies - Decrypt",
+                "title": "Bitcoin Tests $63K as Long-Term Holders Keep Selling at a Loss - Decrypt",
                 "source": "decrypt_co",
-                "url": "https://decrypt.co/373668/visa-stablecoin-platform-banks-fintech-open-usd",
-                "excerpt": "Visa tích hợp minting và quản lý ví stablecoin vào hạ tầng ngân hàng hiện hữu."
+                "url": "https://decrypt.co/373696/bitcoin-tests-63k-as-long-term-holders-keep-selling-at-a-loss",
+                "excerpt": "Dữ liệu Glassnode cho thấy hơn 65% số coin chảy vào các sàn giao dịch đến từ những nhà đầu tư dài hạn đang thực hiện cắt lỗ."
               }
             ]
           }
@@ -179,89 +141,52 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu, mà còn ở hạ tầng dữ liệu, bán dẫn và ứng dụng AI trong thực tế. Các thương vụ đầu tư lớn và sự ra đời của các mô hình AI mã nguồn mở cho thấy AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế trong vận hành doanh nghiệp. Việc AWS đề xuất nhà máy AI tại Đà Nẵng và các dự án bán dẫn của Samsung tại Việt Nam cho thấy sự chuyển dịch từ gia công sang công nghệ cao, đòi hỏi hạ tầng năng lượng và dữ liệu phải đáp ứng kịp thời.",
-        "subsector_briefs": [
-          {
-            "name": "Hạ tầng AI và Bán dẫn",
-            "overview": "Sự bùng nổ của các mô hình AI mới và nhu cầu về hạ tầng tính toán đang thúc đẩy làn sóng đầu tư vào trung tâm dữ liệu và chip.",
-            "key_points": [
-              "Mira Murati ra mắt mô hình Inkling",
-              "AWS đề xuất nhà máy AI tại Đà Nẵng"
-            ],
-            "key_story_titles": [
-              "Mira Murati ra mắt mô hình AI mã nguồn mở Inkling"
-            ],
-            "representative_sources": [
-              {
-                "title": "Mira Murati Drops Her First AI Model After Leaving OpenAI—And It's Fully Open Source - Decrypt",
-                "source": "decrypt_co",
-                "url": "https://decrypt.co/373671/mira-murati-inkling-ai-model-openai-open-source",
-                "excerpt": "Mô hình Inkling với 975 tỷ tham số tập trung vào khả năng sử dụng công cụ agentic."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Công nghệ & AI trong 48 giờ qua chứng kiến sự cạnh tranh gay gắt giữa các mô hình AI thị trường và sự dịch chuyển chuỗi cung ứng tại Việt Nam. Sự ra mắt của Kimi K3 từ Trung Quốc đã thách thức vị thế của các mô hình Mỹ, trong khi Apple lấy lại ngôi vương vốn hóa nhờ chiến lược AI bền vững. Tại Việt Nam, Foxconn tiếp tục mở rộng sản xuất trạm sạc xe điện, cho thấy tiềm năng của hạ tầng công nghệ cao trong nước.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Hạ tầng AI",
-            "title": "Cuộc đua hạ tầng AI và sự chuyển dịch tại Việt Nam",
-            "summary": "Các gã khổng lồ công nghệ đang đẩy mạnh đầu tư vào hạ tầng AI toàn cầu, trong khi Việt Nam đang trở thành điểm đến mới cho các dự án bán dẫn và trung tâm dữ liệu quy mô lớn.",
+            "sub_sector": "AI và Bán dẫn",
+            "title": "Sự trỗi dậy của AI Trung Quốc",
+            "summary": "Mô hình AI Kimi K3 của Moonshot AI vượt qua các benchmark lập trình, thách thức vị thế của các đối thủ Mỹ.",
             "main_developments": [
-              "Mira Murati phát hành mô hình Inkling 975 tỷ tham số.",
-              "AWS đề xuất dự án nhà máy AI 100 triệu USD tại Đà Nẵng.",
-              "Nvidia mở rộng hệ sinh thái AI vật lý tại Nhật Bản."
+              "Kimi K3 đạt 1.679 điểm trên Frontend Code Arena",
+              "Vượt qua Claude Fable 5 của Anthropic"
             ],
-            "why_it_matters": "Hạ tầng AI đang trở thành yếu tố quyết định năng lực cạnh tranh quốc gia và doanh nghiệp trong kỷ nguyên số.",
+            "why_it_matters": "Đánh dấu bước tiến quan trọng của công nghệ AI Trung Quốc trong bối cảnh cạnh tranh địa chính trị.",
             "affected_groups": [
-              "Doanh nghiệp công nghệ",
-              "Chính phủ",
-              "Nhà đầu tư"
+              "Các công ty AI Mỹ",
+              "Nhà đầu tư bán dẫn"
             ],
             "watch_next": [
-              "Tiến độ phê duyệt dự án AWS tại Đà Nẵng",
-              "Tác động của AI đến thị trường lao động Việt Nam"
+              "Phản ứng của các đối thủ Mỹ trước sự cạnh tranh từ Kimi K3"
             ],
-            "representative_sources": [
-              {
-                "title": "Công ty thuộc Tập đoàn Amazon Hoa Kỳ muốn mở nhà máy AI đầu tiên ở Đà Nẵng",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/cong-ty-thuoc-tap-doan-amazon-hoa-ky-muon-mo-nha-may-ai-dau-tien-o-da-nang-100260716155256872.htm",
-                "excerpt": "Dự án 100 triệu USD tập trung vào AI và thương mại điện tử xuyên biên giới."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và chính trị 48 giờ qua bị chi phối bởi căng thẳng địa chính trị tại Trung Đông và các nỗ lực điều hành kinh tế tại Việt Nam. Các sự kiện như việc Mỹ trừng phạt ví tiền điện tử của Iran và các nỗ lực thông quan nông sản cho thấy sự giao thoa giữa chính sách đối ngoại và kinh tế trong bối cảnh toàn cầu đầy biến động. Chính phủ Việt Nam cũng đang đẩy mạnh các dự án năng lượng trọng điểm như điện hạt nhân Ninh Thuận để đảm bảo an ninh năng lượng dài hạn.",
-        "subsector_briefs": [],
-        "story_dossiers": []
-      },
-      {
-        "code": "trends",
-        "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và đời sống 48 giờ qua phản ánh sự chuyển dịch trong hành vi tiêu dùng và nhận thức xã hội. Từ việc ưu tiên xây dựng bền vững tại Việt Nam đến xu hướng sưu tầm đĩa CD của giới trẻ, các dữ liệu cho thấy người tiêu dùng đang tìm kiếm những giá trị bền vững và trải nghiệm cá nhân hóa trong một thế giới số hóa. Đồng thời, các cảnh báo y tế về thuốc cấm trên mạng xã hội cũng cho thấy tầm quan trọng của việc nâng cao nhận thức cộng đồng trong kỷ nguyên thông tin.",
+        "sector_thesis": "Thời sự & Chính trị 48 giờ qua tập trung vào các vấn đề an ninh quốc gia và ngoại giao kinh tế. Vụ tai nạn giao thông nghiêm trọng trên cao tốc Pháp Vân - Cầu Giẽ đã trở thành tâm điểm dư luận, trong khi các hoạt động ngoại giao của lãnh đạo cấp cao Việt Nam khẳng định cam kết cải thiện môi trường đầu tư. Địa chính trị toàn cầu cũng ghi nhận những biến động lớn với căng thẳng Mỹ-Iran và các cáo buộc can thiệp bầu cử tại Mỹ.",
         "subsector_briefs": [
           {
-            "name": "Tiêu dùng bền vững",
-            "overview": "Việt Nam đang dẫn đầu châu Á về xu hướng xây dựng bền vững, với nhận thức cao về giá trị dài hạn của công trình xanh.",
+            "name": "An ninh và Ngoại giao",
+            "overview": "Các vấn đề an ninh giao thông và ngoại giao kinh tế đang là trọng tâm tại Việt Nam.",
             "key_points": [
-              "Việt Nam dẫn đầu châu Á về xây dựng bền vững",
-              "Xu hướng sưu tầm đĩa CD tăng trưởng"
+              "Tai nạn giao thông nghiêm trọng",
+              "Ngoại giao kinh tế với Hoa Kỳ"
             ],
             "key_story_titles": [
-              "Việt Nam dẫn đầu châu Á về xu hướng xây dựng bền vững"
+              "Thủ tướng chỉ đạo điều tra vụ tai nạn giao thông"
             ],
             "representative_sources": [
               {
-                "title": "Công trình xanh và khu công nghiệp sinh thái thúc đẩy phát triển bền vững năm 2026",
+                "title": "Khẩn trương điều tra, làm rõ nguyên nhân vụ tai nạn trên cao tốc Pháp Vân - Cầu Giẽ",
                 "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/cong-trinh-xanh-va-khu-cong-nghiep-sinh-thai-chia-khoa-tang-truong-tuong-lai-192260716140714891.htm",
-                "excerpt": "Việt Nam vượt trội về nhận thức giá trị xây dựng bền vững so với các nước trong khu vực."
+                "url": "https://baoxaydung.vn/khan-truong-dieu-tra-lam-ro-nguyen-nhan-vu-tai-nan-tren-cao-toc-phap-van-cau-gie-192260717170945326.htm",
+                "excerpt": "Thủ tướng yêu cầu các cơ quan chức năng làm rõ nguyên nhân vụ tai nạn trên cao tốc Pháp Vân - Cầu Giẽ."
               }
             ]
           }
@@ -270,29 +195,81 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Tiêu dùng",
-            "title": "Sự thay đổi trong hành vi tiêu dùng và lối sống",
-            "summary": "Người tiêu dùng đang chuyển dịch sang các giá trị bền vững và trải nghiệm cá nhân hóa, từ việc ưu tiên công trình xanh đến sưu tầm các vật phẩm văn hóa vật lý như đĩa CD.",
+            "sub_sector": "An ninh và Ngoại giao",
+            "title": "Tai nạn giao thông nghiêm trọng trên cao tốc",
+            "summary": "Vụ tai nạn xe khách trên cao tốc Pháp Vân - Cầu Giẽ khiến 4 người tử vong, Thủ tướng yêu cầu điều tra khẩn cấp.",
             "main_developments": [
-              "Việt Nam dẫn đầu châu Á về xu hướng xây dựng bền vững.",
-              "Doanh số đĩa CD tăng 16% tại Mỹ nhờ xu hướng sưu tầm của Gen Z.",
-              "Nam giới Việt Nam chi mạnh cho mỹ phẩm và nước hoa."
+              "Tai nạn xảy ra lúc 0h20 ngày 17/7",
+              "Thủ tướng chỉ đạo UBND Hà Nội khắc phục hậu quả"
             ],
-            "why_it_matters": "Sự thay đổi này phản ánh nhu cầu tìm kiếm ý nghĩa và sự kết nối thực tế trong một thế giới ngày càng số hóa.",
+            "why_it_matters": "Sự kiện thời sự nghiêm trọng gây ảnh hưởng lớn đến dư luận.",
             "affected_groups": [
-              "Doanh nghiệp bán lẻ",
-              "Người tiêu dùng",
-              "Nhà đầu tư"
+              "Người tham gia giao thông",
+              "Cơ quan quản lý hạ tầng"
             ],
             "watch_next": [
-              "Xu hướng tiêu dùng xanh tại Việt Nam",
-              "Sự phát triển của thị trường hàng hóa sưu tầm"
+              "Kết quả điều tra nguyên nhân vụ tai nạn"
             ],
             "representative_sources": [
               {
-                "title": "Why are people buying so many CDs?",
-                "source": "theverge_com",
-                "url": "https://theverge.com/entertainment/966726/cd-sales-vinyl-physical-media-luminate"
+                "title": "Khẩn trương điều tra, làm rõ nguyên nhân vụ tai nạn trên cao tốc Pháp Vân - Cầu Giẽ",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/khan-truong-dieu-tra-lam-ro-nguyen-nhan-vu-tai-nan-tren-cao-toc-phap-van-cau-gie-192260717170945326.htm",
+                "excerpt": "Thủ tướng yêu cầu các cơ quan chức năng làm rõ nguyên nhân vụ tai nạn trên cao tốc Pháp Vân - Cầu Giẽ."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "trends",
+        "name": "Xu hướng & Đời sống",
+        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua bị chi phối bởi các sự kiện thể thao toàn cầu và các vấn đề dân sinh tại Việt Nam. Giá vé chung kết World Cup 2026 chạm ngưỡng kỷ lục, phản ánh sức hút của sự kiện thể thao lớn nhất hành tinh. Tại Việt Nam, sự cố tại các tiệm kim cương và làn sóng đóng cửa phòng tập thể hình cho thấy sự thay đổi trong hành vi tiêu dùng và áp lực chi phí vận hành trong ngành dịch vụ.",
+        "subsector_briefs": [
+          {
+            "name": "Thể thao và Tiêu dùng",
+            "overview": "World Cup 2026 đang trở thành tâm điểm truyền thông và tiêu dùng toàn cầu.",
+            "key_points": [
+              "Giá vé World Cup kỷ lục",
+              "Sự cố thị trường kim cương"
+            ],
+            "key_story_titles": [
+              "Giá vé chung kết World Cup 2026 chạm ngưỡng kỷ lục"
+            ],
+            "representative_sources": [
+              {
+                "title": "Giá vé xem chung kết World Cup 2026 lên mốc cao nhất lịch sử thể thao, chạm ngưỡng... 2 triệu USD",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/gia-ve-xem-chung-ket-world-cup-2026-len-moc-cao-nhat-lich-su-the-thao-cham-nguong-2-trieu-usd-post1860568.tpo",
+                "excerpt": "Giá vé xem trận chung kết World Cup 2026 chạm ngưỡng kỷ lục, với một số vé bán lại được rao giá lên tới 2 triệu USD."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "Thể thao và Tiêu dùng",
+            "title": "Sức hút World Cup 2026",
+            "summary": "Trận chung kết World Cup 2026 giữa Argentina và Tây Ban Nha trở thành sự kiện thể thao đắt đỏ nhất lịch sử.",
+            "main_developments": [
+              "Giá vé trung bình 11.327 USD",
+              "Sự tham gia của nhiều ngôi sao giải trí"
+            ],
+            "why_it_matters": "Sự kiện thể thao có tác động kinh tế và văn hóa lớn.",
+            "affected_groups": [
+              "Người hâm mộ thể thao",
+              "Ngành du lịch và dịch vụ"
+            ],
+            "watch_next": [
+              "Diễn biến trận chung kết"
+            ],
+            "representative_sources": [
+              {
+                "title": "Giá vé xem chung kết World Cup 2026 lên mốc cao nhất lịch sử thể thao, chạm ngưỡng... 2 triệu USD",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/gia-ve-xem-chung-ket-world-cup-2026-len-moc-cao-nhat-lich-su-the-thao-cham-nguong-2-trieu-usd-post1860568.tpo"
               }
             ]
           }
@@ -301,58 +278,58 @@
     ],
     "watchlist_24_72h": [
       {
+        "theme": "Thị trường Crypto",
+        "what_to_watch": "Phản ứng của Bitcoin tại ngưỡng 63.000 USD",
+        "why": "Đánh giá tâm lý nhà đầu tư và áp lực bán kỹ thuật."
+      },
+      {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Xác nhận chính thức thỏa thuận Mỹ-Iran và phản ứng giá dầu Brent",
-        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng và lạm phát toàn cầu."
+        "what_to_watch": "Diễn biến tại eo biển Hormuz và giá dầu Brent",
+        "why": "Tác động trực tiếp đến an ninh năng lượng toàn cầu."
       },
       {
-        "theme": "Hạ tầng giao thông Việt Nam",
-        "what_to_watch": "Tiến độ giải ngân dự án cao tốc TP.HCM - Trung Lương - Mỹ Thuận",
-        "why": "Dự án trọng điểm tác động đến logistics vùng ĐBSCL."
+        "theme": "Minh bạch thị trường Việt Nam",
+        "what_to_watch": "Tiến độ xử lý các vụ án kim cương tại TP.HCM",
+        "why": "Ảnh hưởng đến niềm tin người tiêu dùng và thị trường bán lẻ."
       },
       {
-        "theme": "Thị trường tài sản số",
-        "what_to_watch": "Các văn bản pháp lý mới về tài sản số tại Việt Nam",
-        "why": "Ảnh hưởng đến khung pháp lý cho các doanh nghiệp Fintech."
-      },
-      {
-        "theme": "Căng thẳng Mỹ-Iran leo thang đe dọa tuyến đường năng lượng",
-        "what_to_watch": "Xác nhận chính thức thỏa thuận Mỹ-Iran và phản ứng giá dầu Brent.",
-        "why": "Tác động trực tiếp đến chi phí vận tải và giá cả hàng hóa tiêu dùng trong nước."
-      },
-      {
-        "theme": "Ngân hàng Nhà nước nâng hạn mức bảo hiểm tiền gửi lên 350 triệu đồng",
-        "what_to_watch": "Tác động của chính sách đến dòng tiền gửi tại các ngân hàng thương mại.",
-        "why": "Thay đổi chính sách quan trọng ảnh hưởng trực tiếp đến quyền lợi người gửi tiền và an toàn hệ thống ngân hàng."
-      },
-      {
-        "theme": "Apple kiện OpenAI về bí mật thương mại phần cứng",
-        "what_to_watch": "Phản ứng từ phía OpenAI và các diễn biến tại tòa án liên bang California.",
-        "why": "Sự kiện pháp lý lớn giữa hai gã khổng lồ công nghệ, ảnh hưởng đến lộ trình phát triển phần cứng AI."
+        "theme": "Chính sách tài chính Việt Nam",
+        "what_to_watch": "Các văn bản hướng dẫn Nghị định 284",
+        "why": "Tác động đến nhà đầu tư và đơn vị cung cấp dịch vụ tài sản số."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Citadel Securities đầu tư 400 triệu USD vào Crypto.com với định giá 20 tỷ USD",
-        "why": "Đánh dấu sự tham gia sâu hơn của các nhà tạo lập thị trường truyền thống vào hạ tầng crypto."
+        "what_to_watch": "Bitcoin đối mặt áp lực bán từ nhà đầu tư dài hạn trong bối cảnh thị trường rủi ro suy yếu",
+        "why": "Phản ánh tâm lý thị trường và áp lực bán kỹ thuật từ nhóm holder dài hạn."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Visa ra mắt nền tảng Stablecoin cho ngân hàng và Fintech",
-        "why": "Đánh dấu bước tiến quan trọng của hạ tầng thanh toán truyền thống trong việc tích hợp tài sản số."
+        "what_to_watch": "Cổ phiếu PNJ biến động mạnh sau bê bối kim cương",
+        "why": "Sự kiện ảnh hưởng trực tiếp đến vốn hóa và uy tín của một doanh nghiệp bán lẻ trang sức lớn nhất Việt Nam."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "VN-Index đảo chiều ngoạn mục, thanh khoản cải thiện",
-        "why": "Phản ánh tâm lý thị trường chứng khoán Việt Nam sau phiên bán tháo."
+        "what_to_watch": "Bất động sản Vĩnh Long: Định hướng phát triển đô thị thế hệ mới 2026-2030",
+        "why": "Phản ánh xu hướng quy hoạch đô thị tại các tỉnh miền Tây sau sáp nhập."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Tâm lý thị trường bất động sản Việt Nam 2026: Người mua ưu tiên pháp lý và hạ tầng",
-        "why": "Phản ánh xu hướng dịch chuyển dòng vốn và tâm lý người mua nhà trong bối cảnh thị trường đang tái cấu trúc."
+        "what_to_watch": "Giá vàng thế giới và trong nước lao dốc mạnh",
+        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và thị trường tài sản trú ẩn."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Mô hình AI Kimi K3 của Trung Quốc gây chấn động thị trường bán dẫn",
+        "why": "Sự kiện có tác động trực tiếp đến tâm lý thị trường tài chính và định giá ngành AI."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Các tác nhân AI thúc đẩy nền kinh tế thanh toán tự động qua tiêu chuẩn x402",
+        "why": "Xu hướng mới trong việc tích hợp thanh toán vào AI."
       }
     ],
     "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ phía Iran ngoài các báo cáo từ phương Tây.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể của Ngân hàng Nhà nước Việt Nam trước biến động vàng/ngoại tệ.",
     "notable_articles": []
   }
 }
