@@ -26,6 +26,7 @@ from scripts.tech_common import (
     TECH_ROLLING_CANDIDATES,
     TECH_SOURCE_COVERAGE_MATRIX,
     TECH_SOURCE_PROFILES,
+    TECH_SOURCE_REGISTRY,
     TECH_WATCHLIST_STATUS,
     TECH_WATCHLIST_CONFIGURED_SOURCES,
     TECH_ACTIVE,
@@ -1573,6 +1574,16 @@ def load_source_profiles(path: Path = TECH_SOURCE_PROFILES) -> list[dict[str, An
     return [row for row in (payload.get("sources") or []) if isinstance(row, dict)]
 
 
+def load_source_registry(path: Path = TECH_SOURCE_REGISTRY) -> dict[str, Any]:
+    if not path.is_file():
+        return {}
+    try:
+        payload = load_json(path)
+    except Exception:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
 def active_url_source_count() -> int:
     if not TECH_ACTIVE.is_file():
         return 0
@@ -1602,6 +1613,8 @@ def is_main_candidate_eligible(candidate: dict[str, Any]) -> bool:
 
 def source_coverage_stats(candidates: list[dict[str, Any]], watchlist_status: dict[str, Any], api_payload: dict[str, Any] | None = None) -> dict[str, Any]:
     profiles = load_source_profiles()
+    registry = load_source_registry()
+    registry_summary = registry.get("summary") or {}
     enabled_profiles = [row for row in profiles if row.get("enabled") is True]
     disabled_profiles = [row for row in profiles if row.get("enabled") is False]
     method_counts = Counter(str(row.get("method") or "") for row in enabled_profiles)
@@ -1656,6 +1669,19 @@ def source_coverage_stats(candidates: list[dict[str, Any]], watchlist_status: di
         "weak_metadata_match_count": weak_metadata_match_count,
         "needs_manual_source_strategy": needs_manual,
         "needs_manual_source_strategy_count": len(needs_manual),
+        "source_registry_generated_at_utc": registry.get("generated_at_utc") or "",
+        "source_registry_p0_configured": int(registry_summary.get("p0_configured") or 0),
+        "source_registry_p0_checked": int(registry_summary.get("p0_checked") or 0),
+        "source_registry_p0_success": int(registry_summary.get("p0_success") or 0),
+        "source_registry_p0_failed": int(registry_summary.get("p0_failed") or 0),
+        "source_registry_p0_zero_hit": int(registry_summary.get("p0_zero_hit") or 0),
+        "missing_critical_entities": registry_summary.get("missing_critical_entities") or [],
+        "verified_timestamp_ratio": float(registry_summary.get("verified_timestamp_ratio") or 0),
+        "content_quality_ratio": registry_summary.get("content_quality_ratio") or {},
+        "primary_source_count": int(registry_summary.get("primary_source_count") or 0),
+        "independent_source_count": int(registry_summary.get("independent_source_count") or 0),
+        "community_source_count": int(registry_summary.get("community_source_count") or 0),
+        "source_registry_coverage_by_lane": registry_summary.get("coverage_by_lane") or {},
     }
     if api_payload:
         stats["api_candidate_count"] = int(api_payload.get("candidate_count") or len(api_payload.get("candidates") or []))
@@ -1723,6 +1749,8 @@ def write_source_coverage_matrix(candidates: list[dict[str, Any]], watchlist_sta
                 source_kind_counts[report_lane]["method:" + method] += 1
             source_kind_counts[report_lane]["quality:" + quality] += 1
     coverage = source_coverage_stats(candidates, watchlist_status, api_payload)
+    registry_by_lane = coverage.get("source_registry_coverage_by_lane") or {}
+    registry_sources = load_source_registry().get("sources") or []
     active_url_sources = int(coverage["active_url_sources"])
     active_watchlist_entities = int(coverage["active_watchlist_entities"])
     lines = [
@@ -1746,9 +1774,14 @@ def write_source_coverage_matrix(candidates: list[dict[str, Any]], watchlist_sta
         f"- official_org_candidate_count: {coverage['official_org_candidate_count']}",
         f"- weak_metadata_match_count: {coverage['weak_metadata_match_count']}",
         f"- needs_manual_source_strategy_count: {coverage['needs_manual_source_strategy_count']}",
+        f"- P0 configured/checked/success/failed/zero_hit: {coverage['source_registry_p0_configured']}/{coverage['source_registry_p0_checked']}/{coverage['source_registry_p0_success']}/{coverage['source_registry_p0_failed']}/{coverage['source_registry_p0_zero_hit']}",
+        f"- missing_critical_entities: {coverage['missing_critical_entities']}",
+        f"- verified_timestamp_ratio: {coverage['verified_timestamp_ratio']}",
+        f"- full_text/summary/metadata ratio: {coverage['content_quality_ratio']}",
+        f"- primary/independent/community source counts: {coverage['primary_source_count']}/{coverage['independent_source_count']}/{coverage['community_source_count']}",
         "",
-        "| lane | configured_url_sources | watchlist_entities | api_sources | rss_sources | sitemap_sources | candidates collected | content quality / method | blockers | priority fix |",
-        "|---|---:|---:|---:|---:|---:|---:|---|---|---|",
+        "| lane | configured_url_sources | P0 configured/checked/success/failed/zero_hit | watchlist_entities | api_sources | rss_sources | sitemap_sources | candidates collected | content quality / method | blockers | priority fix |",
+        "|---|---:|---|---:|---:|---:|---:|---:|---|---|---|",
     ]
     if int(coverage.get("manual_signal_count") or 0) > 0:
         lines.extend(["", "## RED WARNING", "", "- manual_signal is still present in the publication candidate pool. Configured watchlist URLs must stay in watchlist_status/debug artifacts only."])
@@ -1766,7 +1799,14 @@ def write_source_coverage_matrix(candidates: list[dict[str, Any]], watchlist_sta
             blocker = (blocker + "; " if blocker else "") + "watchlist entities are not URL crawl sources"
         fix = "add RSS/API/direct metadata strategy" if blocker else "monitor"
         quality_bits = ", ".join(f"{k}={v}" for k, v in sorted(source_kind_counts.get(lane, {}).items())) or "-"
-        lines.append(f"| {lane} | {configured_url} | {watchlist_entities} | {lane_api} | {lane_rss} | {lane_sitemap} | {count} | {quality_bits} | {blocker or '-'} | {fix} |")
+        reg = registry_by_lane.get(lane) or {}
+        p0_lane = [row for row in registry_sources if row.get("lane") == lane and str(row.get("priority") or "").lower() == "p0"]
+        p0_text = (
+            f"{len(p0_lane)}/{sum(1 for row in p0_lane if row.get('status') != 'pending')}/{sum(1 for row in p0_lane if row.get('status') == 'success')}/{sum(1 for row in p0_lane if row.get('status') == 'failed')}/{sum(1 for row in p0_lane if row.get('status') == 'zero_hit')}"
+            if p0_lane
+            else "0/0/0/0/0"
+        )
+        lines.append(f"| {lane} | {configured_url} | {p0_text} | {watchlist_entities} | {lane_api} | {lane_rss} | {lane_sitemap} | {count} | {quality_bits} | {blocker or '-'} | {fix} |")
     if coverage["needs_manual_source_strategy"]:
         lines.extend(["", "## Needs Manual Source Strategy", ""])
         for row in coverage["needs_manual_source_strategy"]:
@@ -1919,6 +1959,18 @@ def build_publication(clean_payload: dict[str, Any], gdelt_payload: dict[str, An
         "official_org_candidate_count": coverage_stats.get("official_org_candidate_count", 0),
         "weak_metadata_match_count": coverage_stats.get("weak_metadata_match_count", 0),
         "needs_manual_source_strategy_count": coverage_stats.get("needs_manual_source_strategy_count", 0),
+        "source_registry_generated_at_utc": coverage_stats.get("source_registry_generated_at_utc", ""),
+        "source_registry_p0_configured": coverage_stats.get("source_registry_p0_configured", 0),
+        "source_registry_p0_checked": coverage_stats.get("source_registry_p0_checked", 0),
+        "source_registry_p0_success": coverage_stats.get("source_registry_p0_success", 0),
+        "source_registry_p0_failed": coverage_stats.get("source_registry_p0_failed", 0),
+        "source_registry_p0_zero_hit": coverage_stats.get("source_registry_p0_zero_hit", 0),
+        "missing_critical_entities": coverage_stats.get("missing_critical_entities", []),
+        "verified_timestamp_ratio": coverage_stats.get("verified_timestamp_ratio", 0),
+        "content_quality_ratio": coverage_stats.get("content_quality_ratio", {}),
+        "primary_source_count": coverage_stats.get("primary_source_count", 0),
+        "independent_source_count": coverage_stats.get("independent_source_count", 0),
+        "community_source_count": coverage_stats.get("community_source_count", 0),
         "source_coverage_warning": "active_url_sources_below_10" if active_source_count and active_source_count < 10 else "",
         "render_checks": {
             "knowledge_fields_ready": True,

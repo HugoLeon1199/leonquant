@@ -9,6 +9,56 @@
 
 <!-- Cập nhật block này sau mỗi session -->
 
+## [2026-07-18 09:20] - [Codex]
+
+### Da lam
+- Harden input/acquisition/report/validator cho standalone Tech Radar; khong sua editorial, public publication artifact, hay UI.
+- Giu nguyen 63 RSS trong `tech/config/sources_active.txt` lam Tier 2 discovery; khong xoa hang loat.
+- Thay `tech/config/source_profiles.json` sang schema v2 co `entity`, `lane`, `priority`, `source_type`, `method`, fallback va method priority.
+- Them Tier 0 primary official cho OpenAI, Anthropic, Google AI, DeepMind, Gemini developer changelog, Meta AI/Llama, Mistral, Microsoft Research, Azure AI, AWS ML/Bedrock, Apple ML, NVIDIA, AMD, Intel, Arm, NIST AI, EU AI Office, CISA.
+- Them GitHub/API coverage toi thieu: transformers, diffusers, pytorch, llama.cpp, ollama, vLLM, SGLang, ComfyUI, LangGraph, LlamaIndex, MCP, OpenHands.
+- Tach arXiv theo `cs.AI`, `cs.CL`, `cs.LG`, `cs.CV`, `cs.RO`; them OpenReview ICLR/NeurIPS/ICML vao source profile va source health.
+- Them artifact `tech/data/source_registry.json` gom source health fields: entity/lane/priority/source_type/method/last_checked_at/last_success_at/latest_item_at/status/error/fallback_used.
+- GitHub release that (`evidence=github_release`) duoc tach khoi repo metadata (`metadata_only`), nen repo updated_at khong duoc coi la frontier event cho Must Read/main/top clusters.
+- Coverage matrix bao P0 configured/checked/success/failed/zero_hit, missing critical entities, timestamp ratio, quality ratio, source class counts va lane health.
+- Validator fail neu source registry thieu/cu, P0 chua checked, tat ca P0 method fail, hoac missing critical entity; khong fail chi vi mot lane zero news.
+- Workflow Tech commit them `tech/data/source_registry.json`.
+
+### Ket qua live/local
+- Live acquisition co `GITHUB_TOKEN` tu local `gh auth token`: `python tech/acquire_api_sources.py --hf-limit 1 --github-releases 1 --arxiv-results 10`.
+- `tech/data/api_candidates.json`: total=101; by_method `hf_api=14`, `github_api=30`, `arxiv_api=8`, `api=8`; quality `summary_only=53`, `metadata_only=48`.
+- `tech/data/source_registry.json`: source_count=109; P0 configured/checked/success/fail/zero_hit=`31/31/31/0/0`; missing_critical_entities=`[]`; verified_timestamp_ratio=`1.0`; primary/independent/community=`27/63/19`.
+- Temp publication build (output `.tmp_*`, removed after validation) refreshed rolling/status/coverage without changing `tech/data/publication.json` or `tech/web/publication.json`.
+- Coverage after temp build: real_candidate_count=498; manual_signal_count=0; watchlist_checked/hits=26/71; candidates_by_method includes `github_api=30`, `hf_api=14`, `rss=33`, `html=377`, `gdelt=20`, `arxiv_api=8`, `api=8`.
+
+### Verify
+- `.\.venv\Scripts\python.exe -m py_compile tech\acquire_api_sources.py scripts\build_tech_publication.py scripts\validate_tech_publication.py scripts\test_tech_pipeline.py tech\update_worklog.py scripts\tech_common.py` -> pass.
+- `.\.venv\Scripts\python.exe scripts\test_tech_pipeline.py` -> pass.
+- Temp `tech\publication.py --output .tmp_tech_publication.json --web-output .tmp_tech_publication_web.json` + `tech\validate_publication.py --input .tmp_tech_publication.json` -> pass.
+
+### File thay doi trong scope
+- `.github/workflows/tech-radar.yml`
+- `scripts/build_tech_publication.py`
+- `scripts/tech_common.py`
+- `scripts/test_tech_pipeline.py`
+- `scripts/validate_tech_publication.py`
+- `tech/acquire_api_sources.py`
+- `tech/config/source_profiles.json`
+- `tech/data/api_candidates.json`
+- `tech/data/source_registry.json`
+- `tech/data/candidates_rolling.json`
+- `tech/data/watchlist_configured_sources.json`
+- `tech/data/watchlist_status.json`
+- `tech/reports/source_coverage_matrix.md`
+- `tech/update_worklog.py`
+- `.ai/CURSOR_WORKLOG.md`
+- `HANDOFF.md`
+
+### Dang do / Viec tiep theo
+- OpenReview ICLR/NeurIPS/ICML da configured/checked nhu P1 research health nhung local acquisition hien zero-hit; can them parser OpenReview API neu muon lay paper candidates that.
+- Local `.venv` chua co `huggingface_hub`, nen HF dung REST fallback; workflow Actions van cai `huggingface_hub`.
+- Cac thay doi/untracked co san ngoai scope trong repo root/leon_web_intel exports khong dung toi.
+
 ## [2026-07-12 19:25] - [Codex]
 
 ### Da lam

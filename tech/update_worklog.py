@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from tech.common import API_CANDIDATES_JSON, GDELT_JSON, NEWS_CLEAN, PUBLICATION_JSON, VALIDATION_JSON, load_json
+from tech.common import API_CANDIDATES_JSON, DATA_DIR, GDELT_JSON, NEWS_CLEAN, PUBLICATION_JSON, VALIDATION_JSON, load_json
 
 WORKLOG = ROOT / ".ai" / "CURSOR_WORKLOG.md"
 
@@ -19,6 +19,7 @@ def main() -> int:
     crawl = load_json(NEWS_CLEAN, {})
     events = load_json(GDELT_JSON, {})
     api_candidates = load_json(API_CANDIDATES_JSON, {})
+    source_registry = load_json(DATA_DIR / "source_registry.json", {})
     publication = load_json(PUBLICATION_JSON, {})
     generated_at = str(publication.get("generated_at_utc") or "")
     marker = f"Tech72h generated_at={generated_at}"
@@ -60,6 +61,7 @@ def main() -> int:
     manual_signal_count = int(stats.get("manual_signal_count") or 0)
     weak_metadata_match_count = int(stats.get("weak_metadata_match_count") or 0)
     official_org_candidate_count = int(stats.get("official_org_candidate_count") or 0)
+    registry_summary = source_registry.get("summary") or {}
     pages_workflow = ROOT / ".github" / "workflows" / "pages.yml"
     pages_has_tech = "Tech Radar" in pages_workflow.read_text(encoding="utf-8") if pages_workflow.is_file() else False
     render_checks = stats.get("render_checks") or {}
@@ -79,6 +81,8 @@ def main() -> int:
         f"- Must Read theo category: {must_read_category}.\n"
         f"- Frontier Watchlist entities: {watchlist_entity_count}; candidates_from_watchlist={watchlist_candidate_count}; GLM-5.2 detected={'yes' if glm_detected else 'no'}.\n"
         f"- Data coverage: active_url_sources={stats.get('active_url_sources', stats.get('active_source_count', 0))}; active_api_sources={stats.get('active_api_sources', api_candidates.get('active_api_sources', 0))}; active_rss_sources={stats.get('active_rss_sources', 0)}; active_sitemap_sources={stats.get('active_sitemap_sources', 0)}; active_watchlist_entities={stats.get('active_watchlist_entities', watchlist_entity_count)}; metadata_only_sources={stats.get('metadata_only_sources', 0)}.\n"
+        f"- Source registry P0: configured={registry_summary.get('p0_configured', stats.get('source_registry_p0_configured', 0))}; checked={registry_summary.get('p0_checked', stats.get('source_registry_p0_checked', 0))}; success={registry_summary.get('p0_success', stats.get('source_registry_p0_success', 0))}; failed={registry_summary.get('p0_failed', stats.get('source_registry_p0_failed', 0))}; zero_hit={registry_summary.get('p0_zero_hit', stats.get('source_registry_p0_zero_hit', 0))}; missing_critical={registry_summary.get('missing_critical_entities', stats.get('missing_critical_entities', []))}.\n"
+        f"- Registry quality: verified_timestamp_ratio={registry_summary.get('verified_timestamp_ratio', stats.get('verified_timestamp_ratio', 0))}; content_quality_ratio={registry_summary.get('content_quality_ratio', stats.get('content_quality_ratio', {}))}; primary/independent/community={registry_summary.get('primary_source_count', stats.get('primary_source_count', 0))}/{registry_summary.get('independent_source_count', stats.get('independent_source_count', 0))}/{registry_summary.get('community_source_count', stats.get('community_source_count', 0))}.\n"
         f"- API candidates: total={api_candidates.get('candidate_count', stats.get('api_candidate_count', 0))}; by_method={api_candidates.get('candidates_by_method', {})}; notes={api_candidates.get('notes', [])[:3]}.\n"
         f"- Input quality: real_candidate_count={real_candidate_count}; manual_signal_count={manual_signal_count}; weak_metadata_match_count={weak_metadata_match_count}; official_org_candidate_count={official_org_candidate_count}.\n"
         f"- candidates_by_method={candidates_by_method}; content_quality_mix={content_quality_mix}; remaining CAPTCHA/paywall/JS-only sources={stats.get('needs_manual_source_strategy_count', 0)}.\n"

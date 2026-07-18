@@ -38,6 +38,7 @@ TECH_NEWS_FOR_AI_CLEAN = DATA_DIR / "news_for_ai_clean.json"
 TECH_GDELT_OUTPUT = DATA_DIR / "gdelt_pulse.json"
 TECH_GDELT_WEB_OUTPUT = WEB_DIR / "gdelt_pulse.json"
 TECH_API_CANDIDATES = DATA_DIR / "api_candidates.json"
+TECH_SOURCE_REGISTRY = DATA_DIR / "source_registry.json"
 TECH_PUBLICATION_OUTPUT = DATA_DIR / "publication.json"
 TECH_PUBLICATION_WEB_OUTPUT = WEB_DIR / "publication.json"
 TECH_FRONTIER_WATCHLIST = CONFIG_DIR / "frontier_watchlist.json"
@@ -100,6 +101,12 @@ OFFICIAL_HOST_HINTS = {
     "docker.com",
     "security.googleblog.com",
     "unit42.paloaltonetworks.com",
+    "amd.com",
+    "intel.com",
+    "arm.com",
+    "nist.gov",
+    "cisa.gov",
+    "digital-strategy.ec.europa.eu",
 }
 
 TECH_TOPIC_KEYWORDS: dict[str, tuple[str, ...]] = {

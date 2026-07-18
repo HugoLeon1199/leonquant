@@ -170,7 +170,7 @@ jobs:
         run: |
           git config user.name "tech-radar-bot"
           git config user.email "tech-radar-bot@users.noreply.github.com"
-          git add .ai/CURSOR_WORKLOG.md tech/config/frontier_watchlist.json tech/config/source_profiles.json tech/config/sources_active.txt tech/config/sources_disabled.txt tech/config/tech_tiers/*.txt tech/config/tech_tiers_manifest.json tech/reports/source_validation.json tech/reports/source_validation.md tech/reports/source_coverage_matrix.md tech/data/api_candidates.json tech/data/candidates_rolling.json tech/data/watchlist_status.json tech/data/watchlist_configured_sources.json tech/data/news_output_today.json tech/data/news_output_all.json tech/data/news_for_ai.json tech/data/news_for_ai_clean.json tech/data/gdelt_pulse.json tech/web/gdelt_pulse.json
+          git add .ai/CURSOR_WORKLOG.md tech/config/frontier_watchlist.json tech/config/source_profiles.json tech/config/sources_active.txt tech/config/sources_disabled.txt tech/config/tech_tiers/*.txt tech/config/tech_tiers_manifest.json tech/reports/source_validation.json tech/reports/source_validation.md tech/reports/source_coverage_matrix.md tech/data/api_candidates.json tech/data/source_registry.json tech/data/candidates_rolling.json tech/data/watchlist_status.json tech/data/watchlist_configured_sources.json tech/data/news_output_today.json tech/data/news_output_all.json tech/data/news_for_ai.json tech/data/news_for_ai_clean.json tech/data/gdelt_pulse.json tech/web/gdelt_pulse.json
           if [ "${{ steps.gate.outputs.run_publish }}" = "true" ]; then
             git add tech/data/publication.json tech/web/publication.json
           fi

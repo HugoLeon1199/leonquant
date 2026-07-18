@@ -980,6 +980,31 @@ Validation status snapshot live:
 - Section counts: local_ai=3, automation=10, open_source=1, knowledge=4, founder_ideas=10.
 - /tech/ render check: knowledge=True; founder_ideas=True.
 - Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
+
+## 2026-07-18 - Tech Radar input/source-health hardening
+
+- Scope: input/acquisition/report/validator only; no editorial, publication artifact, or UI changes.
+- Kept the existing 63 active RSS feeds as Tier 2 discovery in `tech/config/sources_active.txt`; no bulk deletion.
+- Added unified `tech/config/source_profiles.json` v2 with Tier 0 primary sources for OpenAI, Anthropic, Google AI, DeepMind, Gemini developer changelog, Meta AI/Llama, Mistral, Microsoft Research, Azure AI, AWS ML/Bedrock, Apple ML, NVIDIA, AMD, Intel, Arm, NIST AI, EU AI Office, and CISA.
+- Added source health artifact `tech/data/source_registry.json` with `entity`, `lane`, `priority`, `source_type`, `method`, `last_checked_at`, `last_success_at`, `latest_item_at`, `status`, `error`, and `fallback_used`.
+- Acquisition priority now supports RSS/Atom, API/GitHub/HF/arXiv, sitemap/metadata/changelog snapshot, then metadata fallback; official source health is not disabled just because article/full-text extraction fails.
+- Added minimum GitHub/API coverage for `transformers`, `diffusers`, `pytorch`, `llama.cpp`, `ollama`, `vLLM`, `SGLang`, `ComfyUI`, `LangGraph`, `LlamaIndex`, MCP, and OpenHands.
+- Research acquisition now splits arXiv across `cs.AI`, `cs.CL`, `cs.LG`, `cs.CV`, and `cs.RO` instead of one global 10-result query; OpenReview ICLR/NeurIPS/ICML endpoints are configured and health-checked as P1 research sources.
+- GitHub releases remain distinct from repo metadata: real release rows use `evidence=github_release`, while repo update fallback rows stay `metadata_only` and are not eligible for Must Read/main/top clusters.
+- Coverage matrix now reports P0 configured/checked/success/failed/zero_hit, coverage by lane, `missing_critical_entities`, `verified_timestamp_ratio`, full_text/summary/metadata ratio, and primary/independent/community source counts.
+- Validator now fails if `source_registry.json` is missing/stale, P0 is not fully checked, all P0 methods fail, or any critical entity is missing; it does not fail merely because a lane has zero news.
+
+### Live acquisition run
+
+- Command: `.venv\Scripts\python.exe tech\acquire_api_sources.py --hf-limit 1 --github-releases 1 --arxiv-results 10` with local `GITHUB_TOKEN` from `gh auth token`.
+- API candidates: total=101; by_method `{'hf_api': 14, 'github_api': 30, 'arxiv_api': 8, 'api': 8}`.
+- Source registry: source_count=109; P0 configured/checked/success/fail/zero_hit=`31/31/31/0/0`; missing_critical_entities=`[]`.
+- Registry quality: verified_timestamp_ratio=`1.0`; content_quality_ratio=`{'full_text': 0.0, 'summary_only': 0.5248, 'metadata_only': 0.4752}`; primary/independent/community source counts=`27/63/19`.
+- Lane health: official_ai_labs `11/11/11/0/0`; github_releases `8/8/8/0/0`; automation_agents `4/4/4/0/0`; chips_infra `4/4/4/0/0`; policy_risk `3/3/3/0/0`; model_hubs P0 `1/1/1/0/0`.
+- Candidate coverage after temp build: real_candidate_count=498; manual_signal_count=0; candidates_by_method includes `github_api=30`, `hf_api=14`, `rss=33`, `html=377`, `gdelt=20`, `arxiv_api=8`, `api=8`.
+- Watchlist checked/hits: 26/71.
+- Remaining gaps: OpenReview ICLR/NeurIPS/ICML are configured/checked but still zero-hit in local acquisition; local HF used REST fallback because `huggingface_hub` is not installed in `.venv`, while Actions installs it.
+- Verification: `py_compile` pass; `python scripts/test_tech_pipeline.py` pass; temp build `tech/publication.py --output .tmp_tech_publication.json --web-output .tmp_tech_publication_web.json` plus `tech/validate_publication.py --input .tmp_tech_publication.json` pass. Temp publication files were removed; committed/public `tech/data/publication.json`, `tech/web/publication.json`, and UI were not changed.
 ## 2026-07-12 - Tech direct-feed source expansion
 
 - Scope: input/acquisition only; no UI/editorial changes.

@@ -15,7 +15,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.build_tech_publication import build_publication  # noqa: E402
 from scripts.run_tech_gdelt import companies_from_blob  # noqa: E402
-from scripts.tech_common import PASS_STATUSES, TECH_PUBLICATION_SCHEMA, TECH_SOURCE_COVERAGE_MATRIX, TECH_WATCHLIST_CONFIGURED_SOURCES  # noqa: E402
+from scripts.tech_common import PASS_STATUSES, TECH_PUBLICATION_SCHEMA, TECH_SOURCE_COVERAGE_MATRIX, TECH_SOURCE_REGISTRY, TECH_WATCHLIST_CONFIGURED_SOURCES  # noqa: E402
 from scripts.validate_tech_publication import validate as validate_publication  # noqa: E402
 from scripts import validate_tech_sources as source_validation  # noqa: E402
 from tech.acquire_api_sources import arxiv_entry_candidate, candidate as api_candidate, github_release_candidate, github_repo_candidate, hf_model_candidate  # noqa: E402
@@ -298,8 +298,16 @@ def test_publication_build_and_validate() -> None:
     assert_true("real_candidate_count:" in matrix, "coverage matrix must report real_candidate_count")
     assert_true("manual_signal_count:" in matrix, "coverage matrix must report manual_signal_count")
     assert_true("weak_metadata_match_count:" in matrix, "coverage matrix must report weak_metadata_match_count")
+    assert_true("P0 configured/checked/success/failed/zero_hit:" in matrix, "coverage matrix must report P0 health")
+    assert_true("missing_critical_entities:" in matrix, "coverage matrix must report missing critical entities")
+    assert_true("verified_timestamp_ratio:" in matrix, "coverage matrix must report timestamp coverage")
+    assert_true("primary/independent/community source counts:" in matrix, "coverage matrix must report source class counts")
     assert_true("| official_ai_labs | 26 | 26 |" not in matrix, "coverage matrix must not present watchlist entities as active URL sources")
     assert_true("watchlist entities are not URL crawl sources" in matrix, "coverage matrix should explain watchlist/entity distinction")
+    if TECH_SOURCE_REGISTRY.is_file():
+        registry = __import__("json").loads(TECH_SOURCE_REGISTRY.read_text(encoding="utf-8"))
+        summary = registry.get("summary") or {}
+        assert_true(int(summary.get("p0_configured") or 0) > 0, "source registry must track P0 sources")
 
 
 def test_watchlist_configured_sources_are_debug_only() -> None:

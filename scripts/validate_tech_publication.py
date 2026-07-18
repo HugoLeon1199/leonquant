@@ -14,11 +14,13 @@ from typing import Any
 from urllib.parse import urlparse
 
 from scripts.tech_common import (
+    TECH_API_CANDIDATES,
     TECH_FRONTIER_WATCHLIST,
     TECH_GDELT_OUTPUT,
     TECH_NEWS_FOR_AI_CLEAN,
     TECH_PUBLICATION_OUTPUT,
     TECH_ROLLING_CANDIDATES,
+    TECH_SOURCE_REGISTRY,
     TECH_WATCHLIST_STATUS,
 )
 
@@ -61,7 +63,7 @@ ALLOWED_SOURCE_LANES = {
     "community",
 }
 ALLOWED_CONTENT_QUALITY = {"full_text", "summary_only", "metadata_only"}
-ALLOWED_RAW_SOURCE_METHODS = {"api", "rss", "sitemap", "html", "gdelt", "github_api", "hf_api", "arxiv_api", "manual_signal", "static_html", "json_ld"}
+ALLOWED_RAW_SOURCE_METHODS = {"api", "rss", "sitemap", "html", "gdelt", "github_api", "hf_api", "arxiv_api", "manual_signal", "static_html", "json_ld", "changelog_snapshot", "metadata"}
 ALLOWED_MATCH_STRENGTH = {"strong", "medium", "weak"}
 ACCENT_RE = re.compile(
     r"[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩ"
@@ -158,6 +160,12 @@ def _load_live_url_pool() -> set[str]:
             url = str(candidate.get("url") or "").strip()
             if url.startswith("http"):
                 urls.add(url)
+    if TECH_API_CANDIDATES.is_file():
+        payload = _load_json(TECH_API_CANDIDATES)
+        for candidate in payload.get("candidates") or []:
+            url = str(candidate.get("url") or "").strip()
+            if url.startswith("http"):
+                urls.add(url)
     if TECH_WATCHLIST_STATUS.is_file():
         payload = _load_json(TECH_WATCHLIST_STATUS)
         for entity in payload.get("entities") or []:
@@ -219,6 +227,30 @@ def validate(payload: dict, *, check_external: bool = True) -> list[str]:
         errs.append("top_signal_clusters must not be empty")
     if stats.get("gdelt_reused_previous_events") and int(stats.get("gdelt_fresh_event_count") or 0) != 0:
         errs.append("GDELT reused previous events but publication labels them fresh")
+    if check_external:
+        if not TECH_SOURCE_REGISTRY.is_file():
+            errs.append("source_registry.json missing")
+        else:
+            registry = _load_json(TECH_SOURCE_REGISTRY)
+            reg_summary = registry.get("summary") or {}
+            reg_dt = _parse_dt(registry.get("generated_at_utc"))
+            if reg_dt is None:
+                errs.append("source_registry generated_at_utc missing or invalid")
+            elif (datetime.now(timezone.utc) - reg_dt).total_seconds() > 30 * 3600:
+                errs.append("source_registry is older than 30h")
+            p0_configured = int(reg_summary.get("p0_configured") or 0)
+            p0_checked = int(reg_summary.get("p0_checked") or 0)
+            p0_success = int(reg_summary.get("p0_success") or 0)
+            p0_failed = int(reg_summary.get("p0_failed") or 0)
+            if p0_configured <= 0:
+                errs.append("source_registry has no configured P0 sources")
+            if p0_checked < p0_configured:
+                errs.append("P0 sources were not all checked")
+            if p0_configured > 0 and p0_success <= 0 and p0_failed >= p0_configured:
+                errs.append("all P0 source methods failed")
+            missing_critical = reg_summary.get("missing_critical_entities") or []
+            if missing_critical:
+                errs.append(f"missing critical entity in source registry: {', '.join(map(str, missing_critical[:12]))}")
 
     top_clusters = payload.get("top_signal_clusters")
     if not isinstance(top_clusters, list) or not top_clusters:
