@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-19T23:02:19.429420+00:00",
+  "generated_at": "2026-07-20T23:08:56.858107+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 468912,
+    "estimated_input_tokens": 713124,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 3,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 387,
-    "sent_article_count": 387,
+    "input_article_count": 585,
+    "sent_article_count": 585,
     "window": {
-      "end_date": "2026-07-20",
+      "end_date": "2026-07-21",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,122 +25,146 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và địa chính trị trong 48 giờ qua, tập trung vào các tín hiệu thanh khoản tại Việt Nam và sự dịch chuyển dòng vốn công nghệ toàn cầu.",
+    "editor_note": "Bản tin tổng hợp các biến động địa chính trị, chính sách kinh tế và đột phá công nghệ trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường và Việt Nam ghi nhận sự dịch chuyển dòng vốn mạnh mẽ từ các tài sản rủi ro cao sang các lĩnh vực có nền tảng thực tế. Tại Việt Nam, thị trường bán lẻ xa xỉ và bất động sản đang đối mặt với áp lực thanh khoản cục bộ, trong khi chính sách tài chính được thắt chặt để kiểm soát rủi ro hệ thống. Trên bình diện quốc tế, sự đảo chiều vị thế giữa Apple và Nvidia cho thấy nhà đầu tư đang tìm kiếm sự an toàn trong các hệ sinh thái công nghệ đã được kiểm chứng thay vì chỉ tập trung vào các nhà cung cấp chip AI đơn thuần.",
-        "most_mentioned": "Chủ đề về sự bất ổn của thị trường kim cương tại TP.HCM và biến động giá vàng trong nước được nhắc đến dày đặc, phản ánh tâm lý lo ngại của người tiêu dùng và nhà đầu tư trước các vụ án buôn lậu và áp lực thanh khoản. Sự kiện này không chỉ là vấn đề kinh doanh đơn thuần mà là tín hiệu về sự tắc nghẽn thanh khoản trong phân khúc xa xỉ.",
-        "top_stories": "Sự kiện an ninh quy mô lớn tại chung kết World Cup 2026 tại Mỹ và căng thẳng địa chính trị Mỹ-Iran đang chi phối tâm lý thị trường toàn cầu, gây áp lực lên giá năng lượng và tài sản trú ẩn. Các cuộc tập kích kho dầu tại Nga bởi Ukraine tiếp tục là biến số khó lường đối với giá năng lượng toàn cầu.",
-        "sector_impacts": "Các doanh nghiệp công nghệ Việt Nam đang nhận được sự hỗ trợ chiến lược để xây dựng hệ sinh thái AI và bán dẫn tại TP.HCM, trong khi các ngân hàng thương mại bắt đầu phân hóa lãi suất cho vay theo mức độ rủi ro, với 8 ngân hàng ghi nhận lãi suất bình quân vượt 10%/năm."
+        "main_picture": "Trong 48 giờ qua, thị trường toàn cầu chịu áp lực kép từ căng thẳng quân sự Mỹ-Iran tại eo biển Hormuz và sự điều chỉnh mạnh của các tài sản rủi ro. Tại Việt Nam, trọng tâm chính sách chuyển dịch sang việc minh bạch hóa thuế thương mại điện tử và tháo gỡ vướng mắc pháp lý cho các dự án bất động sản trọng điểm, trong khi thị trường chứng khoán ghi nhận áp lực bán tháo diện rộng do lo ngại lãi suất huy động tăng.",
+        "most_mentioned": "Căng thẳng địa chính trị Mỹ-Iran và biến động thị trường chứng khoán Việt Nam là hai chủ đề chiếm ưu thế. Sự kiện Mỹ thực hiện các cuộc không kích liên tiếp vào Iran và tuyên bố phong tỏa hàng hải của Houthi đã đẩy giá dầu Brent vượt mốc 90 USD/thùng, tạo ra hiệu ứng domino lên lạm phát và chi phí vận tải toàn cầu.",
+        "top_stories": "Phiên giảm điểm 44 điểm của VN-Index và các động thái tái cấu trúc của doanh nghiệp lớn như Novaland hay SHB cho thấy sự thận trọng cực độ của nhà đầu tư. Song song đó, cuộc đua hạ tầng AI với các hợp đồng tỷ đô từ Hut 8 và hệ thống Helios của AMD đang định hình lại dòng vốn đầu tư công nghệ.",
+        "sector_impacts": "Nhóm ngân hàng và bất động sản Việt Nam chịu áp lực trực tiếp từ lãi suất huy động tăng sát 8%/năm. Ngược lại, các doanh nghiệp công nghệ như Viettel đang tận dụng cơ hội hợp tác quốc tế để tham gia sâu hơn vào chuỗi giá trị bán dẫn và viễn thông 6G."
       },
-      "content": "Thị trường tài chính 48 giờ qua ghi nhận sự thận trọng cao độ. Tại Việt Nam, làn sóng đóng cửa hàng loạt tiệm kim cương tại TP.HCM và Cần Thơ và Cần Thơ, bao gồm các thương hiệu như PJA Diamond & Jewelry và Ngọc Châu Âu, không chỉ là vấn đề kinh doanh đơn thuần mà là tín hiệu về sự tắc nghẽn thanh khoản trong phân khúc xa xỉ. Song song đó, thanh khoản chứng khoán trên HoSE chạm đáy với giá trị giao dịch chỉ hơn 11.600 tỷ đồng và lãi suất cho vay tại nhiều ngân hàng nhỏ như ABBank, Bac A Bank vượt ngưỡng 10%/năm cho thấy chi phí vốn đang tăng lên, buộc nhà đầu tư phải tái cơ cấu danh mục. Trên bình diện quốc tế, sự đảo chiều vị thế giữa Apple và Nvidia cho thấy nhà đầu tư đang tìm kiếm sự an toàn trong các hệ sinh thái công nghệ đã được kiểm chứng thay vì chỉ tập trung vào các nhà cung cấp chip AI đơn thuần. Căng thẳng địa chính trị tại Trung Đông và các cuộc tập kích kho dầu tại Nga tiếp tục là biến số khó lường đối với giá năng lượng toàn cầu, trong khi World Cup 2026 trở thành tâm điểm của chiến dịch an ninh lớn nhất lịch sử Mỹ, thu hút sự quan tâm của cả giới an ninh và truyền thông.",
+      "content": "Bức tranh 48h qua được định hình bởi sự kết hợp giữa rủi ro địa chính trị và các nỗ lực cải cách nội tại. Căng thẳng Mỹ-Iran không chỉ là vấn đề quân sự mà đã trở thành biến số chính chi phối giá năng lượng và tâm lý tài sản rủi ro toàn cầu. Tại Việt Nam, thị trường chứng khoán phản ứng tiêu cực với mức giảm gần 44 điểm của VN-Index, phản ánh tâm lý thận trọng trước xu hướng lãi suất huy động tăng sát 8%/năm và những lo ngại về nợ xấu bất động sản. Tuy nhiên, ở góc độ chính sách, Chính phủ đang đẩy mạnh tháo gỡ điểm nghẽn thực thi, đặc biệt trong quản lý thuế thương mại điện tử và giải ngân đầu tư công. Trong lĩnh vực công nghệ, cuộc đua hạ tầng AI đang chuyển dịch từ mô hình phần mềm sang đầu tư phần cứng và trung tâm dữ liệu, với các doanh nghiệp như Viettel và các công ty khai thác Bitcoin đang tích cực tham gia vào chuỗi giá trị này. Nhà đầu tư cần theo dõi sát sao các biến số về lãi suất, giá dầu và tiến độ pháp lý tại Việt Nam trong những ngày tới.",
       "representative_sources": [
         {
-          "title": "Chiến dịch an ninh quy mô lớn tại chung kết World Cup 2026",
-          "source": "tienphong_vn",
-          "url": "https://tienphong.vn/tran-chung-ket-world-cup-2026-chien-dich-an-ninh-the-thao-lon-nhat-lich-su-nuoc-my-post1860988.tpo"
+          "title": "Moonshot AI IPO push follows Kimi, Alibaba AI releases that shook bitcoin",
+          "source": "coindesk_com",
+          "url": "https://coindesk.com/tech/2026/07/20/moonshot-ai-ipo-push-follows-kimi-alibaba-ai-releases-that-shook-bitcoin"
         },
         {
-          "title": "Trung Quốc ra mắt mô hình AI nguồn mở lớn nhất thế giới",
-          "source": "genk_vn",
-          "url": "https://genk.vn/trung-quoc-ra-mat-mo-hinh-ai-nguon-mo-lon-nhat-the-gioi-165260719080942297.chn",
-          "excerpt": "Chi tiết về mô hình Kimi K3 và năng lực xử lý của nó."
-        },
-        {
-          "title": "U.S. death toll rises again as Iran war escalates over the weekend",
-          "source": "cnbc_com",
-          "url": "https://cnbc.com/2026/07/19/us-says-it-targeted-iran-forces-after-deaths-of-two-american-troops.html"
-        },
-        {
-          "title": "Đội tuyển Việt Nam giành trọn 4 huy chương vàng Olympic Hóa học quốc tế 2026",
-          "source": "baoxaydung_vn",
-          "url": "https://baoxaydung.vn/doi-tuyen-viet-nam-gianh-tron-4-huy-chuong-vang-olympic-hoa-hoc-quoc-te-2026-192260719085109528.htm",
-          "excerpt": "Chi tiết về thành tích của đội tuyển Việt Nam."
+          "title": "Vietnam to Fine Crypto Traders Using Unlicensed Platforms",
+          "source": "cointelegraph_com",
+          "url": "https://cointelegraph.com/news/vietnam-crypto-traders-unlicensed-platforms-fines"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Khủng hoảng thị trường kim cương Việt Nam",
-          "why_mentioned": "Lặp lại dày đặc trên các báo tài chính về hiện tượng đóng cửa hàng loạt.",
-          "evidence_hint": "Hơn 10 tiệm kim cương tại TP.HCM và Cần Thơ thông báo dừng kinh doanh."
+          "topic": "Căng thẳng Mỹ-Iran",
+          "why_mentioned": "Tác động trực tiếp đến giá dầu và tâm lý thị trường toàn cầu.",
+          "evidence_hint": "Được đưa tin bởi CNBC, OilPrice và các báo lớn tại Việt Nam."
+        },
+        {
+          "topic": "Biến động VN-Index",
+          "why_mentioned": "Phản ánh tâm lý tiêu cực của nhà đầu tư trong nước.",
+          "evidence_hint": "Ghi nhận từ VietnamNet, Tuổi Trẻ và Dân Trí."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "An ninh World Cup 2026",
-          "why_hot": "Sự kiện thể thao lớn nhất lịch sử Mỹ với chiến dịch an ninh cấp độ 1.",
-          "impact": "Tác động đến tâm lý thị trường và an ninh toàn cầu.",
-          "evidence_hint": "Triển khai hệ thống chống máy bay không người lái toàn diện."
+          "topic": "Hạ tầng AI và Bán dẫn",
+          "why_hot": "Sự chuyển dịch chiến lược của các công ty công nghệ lớn.",
+          "impact": "Thay đổi cục diện cạnh tranh phần cứng toàn cầu.",
+          "evidence_hint": "Các hợp đồng tỷ đô của Hut 8 và hệ thống Helios của AMD."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Phân hóa lãi suất ngân hàng",
-          "why_watch": "8 ngân hàng công bố lãi suất cho vay vượt 10% cho thấy áp lực chi phí vốn."
+          "signal": "Tái định vị tài sản số sang hạ tầng AI",
+          "why_watch": "Dòng vốn đang rời bỏ đầu cơ để tìm đến các lĩnh vực có nền tảng thực."
         }
       ],
       "watch_next": [
-        "Diễn biến giá vàng trong nước",
-        "Tiến độ tái cơ cấu EVN",
-        "Phản ứng thị trường tài sản số"
+        "Diễn biến giá dầu Brent và phản ứng của thị trường tài chính",
+        "Tiến độ giải ngân đầu tư công tại các địa phương",
+        "Các văn bản hướng dẫn thuế thương mại điện tử mới"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Thị trường kim cương Việt Nam bất ổn: Nhiều cửa hàng đóng cửa",
-        "one_sentence": "Làn sóng đóng cửa hàng loạt tiệm kim cương tại TP.HCM và Cần Thơ phản ánh áp lực thanh khoản nghiêm trọng và sự đổ vỡ niềm tin sau các vụ án buôn lậu kim cương xuyên quốc gia.",
-        "why_it_matters": "Sự kiện gây chấn động thị trường bán lẻ xa xỉ và niềm tin nhà đầu tư tại Việt Nam.",
-        "watch_next": "Khả năng phục hồi của các doanh nghiệp trang sức sau tái cấu trúc.",
-        "source_urls": []
-      },
-      {
-        "rank": 2,
-        "title": "Chiến dịch an ninh quy mô lớn tại chung kết World Cup 2026",
-        "one_sentence": "Mỹ triển khai chiến dịch an ninh thể thao lớn nhất lịch sử tại trận chung kết World Cup 2026 với sự tham gia của hàng nghìn nhân viên an ninh và hệ thống chống máy bay không người lái.",
-        "why_it_matters": "Đây là sự kiện thể thao và an ninh lớn nhất toàn cầu trong 48 giờ qua.",
-        "watch_next": "Tác động của an ninh đến trải nghiệm người hâm mộ và kinh tế du lịch.",
+        "title": "Căng thẳng Mỹ-Iran leo thang gây áp lực lên thị trường năng lượng",
+        "one_sentence": "Xung đột quân sự tại eo biển Hormuz khiến giá dầu Brent vượt mốc 90 USD/thùng, đe dọa chuỗi cung ứng năng lượng toàn cầu và làm dấy lên lo ngại về lạm phát.",
+        "why_it_matters": "Sự kiện này trực tiếp tác động đến chi phí vận tải và tâm lý nhà đầu tư trên toàn cầu.",
+        "watch_next": "Theo dõi các phản ứng quân sự tiếp theo và biến động giá dầu Brent trong 24-48 giờ tới.",
         "source_urls": [
-          "https://tienphong.vn/tran-chung-ket-world-cup-2026-chien-dich-an-ninh-the-thao-lon-nhat-lich-su-nuoc-my-post1860988.tpo"
+          "https://cnbc.com/2026/07/20/iran-houthi-yemen-saudi-arabia.html"
         ]
       },
       {
-        "rank": 3,
-        "title": "Apple giành lại ngôi vị công ty giá trị nhất thế giới từ Nvidia",
-        "one_sentence": "Apple vượt Nvidia về vốn hóa nhờ khả năng khai thác AI vào hệ sinh thái phần cứng và dịch vụ, cho thấy nhà đầu tư đang mở rộng quan tâm ra ngoài các doanh nghiệp chip AI.",
-        "why_it_matters": "Sự thay đổi vị thế của các tập đoàn công nghệ lớn nhất thế giới có tác động trực tiếp đến dòng chú ý thị trường.",
-        "watch_next": "Khả năng duy trì vị thế của Apple trong cuộc đua AI.",
+        "rank": 2,
+        "title": "VN-Index giảm mạnh 44 điểm, áp lực bán lan rộng",
+        "one_sentence": "Thị trường chứng khoán Việt Nam ghi nhận phiên giảm mạnh nhất trong 6 tuần do lo ngại lãi suất huy động tăng sát 8% và rủi ro nợ xấu bất động sản.",
+        "why_it_matters": "Phản ánh tâm lý thận trọng và áp lực vĩ mô lên nhóm cổ phiếu trụ cột ngân hàng và bất động sản.",
+        "watch_next": "Theo dõi diễn biến lãi suất huy động tại các ngân hàng thương mại và phản ứng của khối ngoại.",
         "source_urls": []
+      },
+      {
+        "rank": 3,
+        "title": "Novaland tái khởi động dự án The Grand Manhattan",
+        "one_sentence": "Novaland đẩy nhanh tiến độ thi công và hoàn thiện pháp lý cho dự án The Grand Manhattan tại TP.HCM, đánh dấu bước ngoặt phục hồi của doanh nghiệp bất động sản lớn.",
+        "why_it_matters": "Đây là tín hiệu tích cực cho thấy sự tháo gỡ vướng mắc pháp lý trong ngành bất động sản Việt Nam.",
+        "watch_next": "Theo dõi tiến độ bàn giao sổ hồng và phản ứng của thị trường đối với các sản phẩm mở bán mới.",
+        "source_urls": []
+      },
+      {
+        "rank": 4,
+        "title": "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ",
+        "one_sentence": "",
+        "why_it_matters": "Sự kiện AI Trung Quốc làm rung chuyển thị trường tài chính toàn cầu.",
+        "watch_next": "",
+        "source_urls": [
+          "https://coindesk.com/tech/2026/07/20/moonshot-ai-ipo-push-follows-kimi-alibaba-ai-releases-that-shook-bitcoin"
+        ]
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Thị trường tài chính Việt Nam đang trải qua giai đoạn thanh lọc mạnh mẽ. Áp lực thanh khoản không chỉ xuất hiện ở thị trường kim cương mà còn lan sang chứng khoán, nơi dòng tiền đang trở nên cực kỳ thận trọng. Việc Ngân hàng Nhà nước siết chặt quy định chuyển tiền trực tuyến trên 400 triệu đồng và yêu cầu tái cơ cấu EVN cho thấy nỗ lực kiểm soát rủi ro hệ thống và cải cách thể chế đang được đẩy mạnh. Các ngân hàng nhỏ đang chịu áp lực chi phí vốn lớn, với 8 ngân hàng ghi nhận lãi suất cho vay bình quân vượt 10%/năm, tạo ra sự phân hóa rõ rệt trong khả năng tiếp cận vốn của doanh nghiệp.",
-        "subsector_briefs": [],
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh mạnh của thị trường chứng khoán Việt Nam và áp lực từ lãi suất huy động tăng. Điểm đáng chú ý là sự chuyển dịch dòng vốn từ các tài sản đầu cơ sang hạ tầng thực tế, trong khi chính sách quản lý thuế thương mại điện tử đang được đẩy mạnh để tăng tính minh bạch. Các doanh nghiệp lớn như Novaland và SHB đang có những bước đi quan trọng trong việc tháo gỡ pháp lý và tái cấu trúc vốn, cho thấy nỗ lực phục hồi trong bối cảnh vĩ mô nhiều thách thức.",
+        "subsector_briefs": [
+          {
+            "name": "Thị trường tài chính Việt Nam",
+            "overview": "Thị trường chứng khoán chịu áp lực bán tháo mạnh, trong khi lãi suất huy động tại các ngân hàng thương mại như ACB tăng sát 8%/năm.",
+            "key_points": [
+              "VN-Index giảm 44 điểm",
+              "Lãi suất huy động tăng",
+              "Áp lực nợ xấu bất động sản"
+            ],
+            "key_story_titles": [
+              "VN-Index giảm mạnh 44 điểm"
+            ],
+            "representative_sources": [
+              {
+                "title": "VN-Index bốc hơi 44 điểm, SHB giảm sàn, cổ phiếu giảm trên diện rộng",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/vn-index-boc-hoi-44-diem-shb-giam-san-co-phieu-lao-doc-dien-rong-2537457.html",
+                "excerpt": "Phiên giảm mạnh nhất trong 6 tuần do lo ngại lãi suất cao."
+              }
+            ]
+          }
+        ],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Thị trường tài sản",
-            "title": "Khủng hoảng niềm tin ngành kim cương",
-            "summary": "Thị trường kim cương tại TP.HCM đối mặt với làn sóng đóng cửa và các vụ khởi tố lãnh đạo doanh nghiệp, gây lo ngại về tính minh bạch và rủi ro thanh khoản. Nhiều thương hiệu lớn như PJA và Ngọc Châu Âu đã phải dừng hoạt động do áp lực từ thị trường và các vụ án buôn lậu xuyên quốc gia.",
+            "depth_level": "deep",
+            "sub_sector": "Bất động sản",
+            "title": "Novaland tái khởi động dự án The Grand Manhattan",
+            "summary": "Novaland đã hoàn tất các nghĩa vụ tài chính và đang đẩy nhanh tiến độ pháp lý cho dự án The Grand Manhattan tại TP.HCM để bàn giao từ quý III/2026. Đây là bước ngoặt quan trọng trong nỗ lực phục hồi của doanh nghiệp sau thời gian dài vướng mắc pháp lý.",
             "main_developments": [
-              "Công ty PJA dừng kinh doanh từ 17/7",
-              "Bà Hoàng Thị Thanh Nga bị khởi tố tội buôn lậu",
-              "Hệ thống Cao Hùng Diamond dừng dịch vụ thu đổi"
+              "Dự án gồm ba tòa tháp cao 38 tầng với hơn 1.000 căn hộ.",
+              "Novaland đang phối hợp với cơ quan chức năng để hoàn thiện sổ hồng cho cư dân.",
+              "Dự án được kỳ vọng tạo dòng tiền ổn định cho doanh nghiệp trong giai đoạn tới."
             ],
-            "why_it_matters": "Sự kiện gây chấn động thị trường bán lẻ xa xỉ và niềm tin nhà đầu tư tại Việt Nam, phản ánh sự đổ vỡ niềm tin thị trường và rủi ro thanh khoản trong ngành trang sức cao cấp.",
+            "why_it_matters": "Đánh dấu bước ngoặt phục hồi của một trong những doanh nghiệp bất động sản lớn nhất Việt Nam, giúp củng cố niềm tin thị trường.",
             "affected_groups": [
-              "Nhà đầu tư trang sức",
-              "Người tiêu dùng",
-              "Doanh nghiệp bán lẻ xa xỉ"
+              "Nhà đầu tư bất động sản",
+              "Cư dân dự án",
+              "Cổ đông Novaland"
             ],
             "watch_next": [
-              "Khả năng phục hồi của các doanh nghiệp trang sức sau tái cấu trúc",
-              "Phản ứng của cơ quan quản lý đối với thị trường kim cương"
+              "Tiến độ bàn giao sổ hồng",
+              "Phản ứng của thị trường đối với các sản phẩm mở bán mới"
             ],
             "representative_sources": []
           }
@@ -149,56 +173,34 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ AI đang chuyển dịch từ giai đoạn thử nghiệm sang triển khai hạ tầng thực tế. Apple giành lại vị thế công ty giá trị nhất thế giới cho thấy sức mạnh của hệ sinh thái phần cứng tích hợp AI, trong khi các startup như Moonshot AI đang đẩy nhanh cuộc đua định giá toàn cầu với mô hình Kimi K3. Tại Việt Nam, định hướng xây dựng hệ sinh thái AI và bán dẫn tại TP.HCM đang trở thành chiến lược trọng tâm, với sự tham gia tư vấn của các tập đoàn lớn như Intel và Nvidia. Tuy nhiên, các nghiên cứu mới cũng cảnh báo về tác động tiêu cực của AI đối với tư duy phản biện của người dùng.",
-        "subsector_briefs": [
-          {
-            "name": "Hạ tầng AI và Bán dẫn",
-            "overview": "Cuộc đua AI không chỉ nằm ở phần mềm mà còn ở hạ tầng bán dẫn và trung tâm dữ liệu.",
-            "key_points": [
-              "Apple vượt Nvidia về vốn hóa",
-              "Moonshot AI ra mắt Kimi K3"
-            ],
-            "key_story_titles": [
-              "Đột phá trong mô hình AI nguồn mở"
-            ],
-            "representative_sources": [
-              {
-                "title": "Công ty nào lớn nhất thế giới hiện nay?",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/cong-ty-nao-lon-nhat-the-gioi-hien-nay-post1860626.tpo",
-                "excerpt": "Apple vượt Nvidia về vốn hóa nhờ khả năng khai thác AI vào hệ sinh thái phần cứng."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Công nghệ & AI 48h qua nổi bật ở hạ tầng dữ liệu và bán dẫn, không chỉ ở cổ phiếu. Các tập đoàn lớn như AMD, Google và các startup AI Trung Quốc đang chạy đua xây dựng trung tâm dữ liệu quy mô lớn, cho thấy AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế trong vận hành. Tại Việt Nam, Viettel và Qualcomm đang hợp tác nghiên cứu 6G, khẳng định vị thế trong chuỗi giá trị công nghệ cao toàn cầu.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI và Bán dẫn",
-            "title": "Đột phá trong mô hình AI nguồn mở",
-            "summary": "Moonshot AI vừa ra mắt Kimi K3, mô hình AI nguồn mở với 2.800 tỷ tham số, đánh dấu bước tiến quan trọng của Trung Quốc trong việc thu hẹp khoảng cách công nghệ với Mỹ. Với cửa sổ ngữ cảnh lên tới 1 triệu token, Kimi K3 cho phép xử lý các tài liệu có dung lượng rất lớn, tiệm cận năng lực các mô hình AI nguồn đóng hàng đầu thế giới.",
+            "sub_sector": "Viễn thông",
+            "title": "Viettel hợp tác Qualcomm phát triển 6G",
+            "summary": "Viettel trở thành đối tác toàn cầu đầu tiên tham gia Chương trình Truy cập sớm nền tảng 6G của Qualcomm, hướng tới mục tiêu thực hiện cuộc gọi 6G tiền thương mại vào đầu năm 2029. Đây là bước tiến chiến lược trong việc làm chủ công nghệ viễn thông thế hệ mới.",
             "main_developments": [
-              "Kimi K3 sở hữu 2.800 tỷ tham số",
-              "Cửa sổ ngữ cảnh đạt 1 triệu token",
-              "Moonshot AI chuẩn bị IPO tại Hong Kong với định giá 30 tỷ USD"
+              "Viettel tham gia chương trình truy cập sớm nền tảng 6G của Qualcomm.",
+              "Khẳng định vị thế của doanh nghiệp Việt trong chuỗi giá trị công nghệ cao toàn cầu."
             ],
-            "why_it_matters": "Đột phá về quy mô mô hình AI nguồn mở này cho thấy sự cạnh tranh khốc liệt trong cuộc đua AI toàn cầu và khả năng Trung Quốc tự chủ công nghệ.",
+            "why_it_matters": "Khẳng định năng lực nghiên cứu và vị thế của doanh nghiệp Việt Nam trong việc làm chủ công nghệ viễn thông tương lai.",
             "affected_groups": [
-              "Startup AI",
-              "Nhà đầu tư công nghệ",
-              "Doanh nghiệp ứng dụng AI"
+              "Ngành viễn thông",
+              "Doanh nghiệp công nghệ Việt Nam"
             ],
             "watch_next": [
-              "Tiến độ IPO của Moonshot AI",
-              "Phản ứng của các đối thủ Mỹ trước Kimi K3"
+              "Tiến độ nghiên cứu 6G",
+              "Các cột mốc thử nghiệm công nghệ tiếp theo"
             ],
             "representative_sources": [
               {
-                "title": "Trung Quốc ra mắt mô hình AI nguồn mở lớn nhất thế giới",
-                "source": "genk_vn",
-                "url": "https://genk.vn/trung-quoc-ra-mat-mo-hinh-ai-nguon-mo-lon-nhat-the-gioi-165260719080942297.chn",
-                "excerpt": "Chi tiết về mô hình Kimi K3 và năng lực xử lý của nó."
+                "title": "Tự hào: Viettel là doanh nghiệp Việt Nam đầu tiên trên thế giới làm được điều này",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/tu-hao-viettel-la-doanh-nghiep-viet-nam-dau-tien-tren-the-gioi-lam-duoc-dieu-nay-188260720214750095.chn",
+                "excerpt": "Viettel ký kết chương trình truy cập sớm nền tảng 6G với Qualcomm."
               }
             ]
           }
@@ -207,81 +209,53 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Địa chính trị toàn cầu đang trở nên phức tạp với sự leo thang xung đột tại Trung Đông và các cuộc tập kích năng lượng tại Nga. Mỹ đang dồn lực cho chiến dịch an ninh World Cup 2026, trong khi Việt Nam tiếp tục đẩy mạnh cải cách hành chính thông qua việc tích hợp VNeID vào các giao dịch nhà đất. Các cuộc tấn công vào kho dầu tại Nga cho thấy xung đột đang lan rộng và ảnh hưởng trực tiếp đến thị trường năng lượng toàn cầu. Sự phối hợp an ninh cấp độ 1 tại Mỹ cho thấy tầm quan trọng của World Cup không chỉ ở khía cạnh thể thao mà còn là biểu tượng an ninh quốc gia.",
+        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua tập trung vào Hội nghị Trung ương 3 khóa XIV tại Việt Nam và căng thẳng địa chính trị Mỹ-Iran. Các quyết định về công tác cán bộ và kỷ luật đảng viên tại Việt Nam cho thấy sự quyết liệt trong quản trị quốc gia. Trên bình diện quốc tế, xung đột Mỹ-Iran đang đe dọa an ninh năng lượng toàn cầu, buộc các quốc gia phải đánh giá lại chiến lược an ninh và chuỗi cung ứng.",
         "subsector_briefs": [
           {
-            "name": "Địa chính trị và An ninh",
-            "overview": "Xung đột tại Trung Đông và Nga-Ukraine đang gây áp lực lên an ninh toàn cầu và giá năng lượng.",
+            "name": "Địa chính trị Trung Đông",
+            "overview": "Căng thẳng Mỹ-Iran leo thang quân sự, đe dọa tuyến đường hàng hải qua eo biển Hormuz.",
             "key_points": [
-              "Mỹ tấn công Iran",
-              "Ukraine tập kích kho dầu Nga"
+              "Mỹ không kích Iran",
+              "Houthi đe dọa phong tỏa hàng hải",
+              "Giá dầu Brent tăng"
             ],
             "key_story_titles": [
-              "Leo thang xung đột Mỹ - Iran"
+              "Căng thẳng Mỹ-Iran leo thang"
             ],
             "representative_sources": [
               {
-                "title": "Ukraine tập kích ba kho dầu sâu trong lãnh thổ Nga",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/ukraine-tap-kich-ba-kho-dau-sau-trong-lanh-tho-nga-188260719201440181.chn",
-                "excerpt": "Ukraine sử dụng máy bay không người lái tấn công các kho dầu tại vùng Stavropol."
+                "title": "Xung đột Mỹ - Iran có nguy cơ vượt khỏi tầm kiểm soát",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/xung-dot-my-iran-co-nguy-co-vuot-khoi-tam-kiem-soat-post1861220.tpo",
+                "excerpt": "Xung đột quân sự đe dọa an ninh năng lượng toàn cầu."
               }
             ]
           }
         ],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Địa chính trị",
-            "title": "Leo thang xung đột Mỹ - Iran",
-            "summary": "Xung đột quân sự giữa Mỹ và Iran bước vào giai đoạn mới với các cuộc tấn công trả đũa liên tục, gây thương vong cho binh sĩ Mỹ. Mỹ đã thực hiện các đợt không kích vào các cơ sở quân sự của Iran sau khi ghi nhận thêm thương vong quân sự trong các cuộc giao tranh gần đây tại khu vực.",
-            "main_developments": [
-              "Binh sĩ Mỹ thứ ba thiệt mạng",
-              "Mỹ không kích các cơ sở quân sự Iran",
-              "Căng thẳng leo thang quanh eo biển Hormuz"
-            ],
-            "why_it_matters": "Sự kiện địa chính trị ảnh hưởng trực tiếp đến an ninh toàn cầu và thị trường dầu mỏ, tạo ra rủi ro lớn cho chuỗi cung ứng năng lượng.",
-            "affected_groups": [
-              "Thị trường dầu mỏ",
-              "Các quốc gia Trung Đông",
-              "Quân đội Mỹ"
-            ],
-            "watch_next": [
-              "Phản ứng tiếp theo của Iran",
-              "Diễn biến giá dầu Brent"
-            ],
-            "representative_sources": [
-              {
-                "title": "U.S. death toll rises again as Iran war escalates over the weekend",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/07/19/us-says-it-targeted-iran-forces-after-deaths-of-two-american-troops.html"
-              }
-            ]
-          }
-        ]
+        "story_dossiers": []
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Giáo dục Việt Nam ghi dấu ấn với thành tích xuất sắc tại các kỳ thi Olympic quốc tế, khẳng định vị thế trên bản đồ tri thức thế giới với 4 huy chương vàng tại Olympic Hóa học quốc tế. Đồng thời, World Cup 2026 không chỉ là sự kiện thể thao mà còn là hiện tượng văn hóa, tác động sâu sắc đến tâm lý và kinh tế dịch vụ tại các đô thị lớn như TP.HCM. Các nghiên cứu khảo cổ học mới cũng mang lại những góc nhìn thú vị về văn hóa cổ đại, trong khi ẩm thực Việt Nam đang được định vị lại như một thương hiệu quốc gia để thúc đẩy du lịch.",
+        "sector_thesis": "Xu hướng & Đời sống 48h qua nổi bật với sự kiện World Cup 2026 khép lại và các xu hướng lối sống lành mạnh. Việc Tây Ban Nha vô địch không chỉ là câu chuyện thể thao mà còn là cú hích kinh tế lớn cho FIFA. Bên cạnh đó, các xu hướng như chế độ ăn Địa Trung Hải và việc ứng dụng công nghệ vào đời sống, giáo dục đang lan tỏa mạnh mẽ, cho thấy sự quan tâm ngày càng cao của cộng đồng đối với sức khỏe và phát triển bền vững.",
         "subsector_briefs": [
           {
-            "name": "Giáo dục và Văn hóa",
-            "overview": "Thành tích giáo dục quốc tế và tác động văn hóa của World Cup là những điểm sáng trong bức tranh xã hội.",
+            "name": "Thể thao và Văn hóa",
+            "overview": "World Cup 2026 khép lại với chức vô địch của Tây Ban Nha, tạo ra tác động kinh tế và văn hóa toàn cầu.",
             "key_points": [
-              "Việt Nam giành 4 HCV Olympic Hóa học",
-              "World Cup 2026 tác động kinh tế dịch vụ"
+              "Tây Ban Nha vô địch",
+              "Doanh thu FIFA kỷ lục",
+              "Tác động văn hóa đại chúng"
             ],
             "key_story_titles": [
-              "Thành tích Olympic Hóa học quốc tế"
+              "Tây Ban Nha vô địch World Cup 2026"
             ],
             "representative_sources": [
               {
-                "title": "Đội tuyển Việt Nam giành trọn 4 huy chương vàng Olympic Hóa học quốc tế 2026",
+                "title": "Tuyển Argentina có hành động khó hiểu sau thất bại trước Tây Ban Nha",
                 "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/doi-tuyen-viet-nam-gianh-tron-4-huy-chuong-vang-olympic-hoa-hoc-quoc-te-2026-192260719085109528.htm",
-                "excerpt": "Đội tuyển Việt Nam đạt thành tích xuất sắc tại IChO 2026."
+                "url": "https://baoxaydung.vn/tuyen-argentina-co-hanh-dong-kho-hieu-sau-that-bai-truoc-tay-ban-nha-192260720151321029.htm",
+                "excerpt": "Tây Ban Nha giành chức vô địch sau chiến thắng trước Argentina."
               }
             ]
           }
@@ -289,31 +263,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Giáo dục",
-            "title": "Thành tích Olympic Hóa học quốc tế",
-            "summary": "Đội tuyển Việt Nam đạt thành tích xuất sắc tại Kỳ thi Olympic Hóa học quốc tế lần thứ 58, giành bốn huy chương vàng và đồng hạng nhất về số lượng huy chương vàng cùng Trung Quốc và Ấn Độ. Đây là minh chứng cho chất lượng đào tạo mũi nhọn của Việt Nam trên đấu trường quốc tế.",
+            "depth_level": "brief",
+            "sub_sector": "Thể thao",
+            "title": "Tây Ban Nha vô địch World Cup 2026",
+            "summary": "Tây Ban Nha đã giành chức vô địch World Cup 2026 sau chiến thắng 1-0 trước Argentina trong trận chung kết. Giải đấu lớn nhất lịch sử khép lại với doanh thu dự kiến hơn 9 tỷ USD cho FIFA, khẳng định sức hút kinh tế và văn hóa của bóng đá toàn cầu.",
             "main_developments": [
-              "Việt Nam giành 4 huy chương vàng",
-              "Đồng hạng nhất với Trung Quốc và Ấn Độ",
-              "Khẳng định vị thế giáo dục mũi nhọn"
+              "Tây Ban Nha giành chức vô địch lần thứ hai.",
+              "FIFA dự kiến đạt doanh thu kỷ lục hơn 9 tỷ USD.",
+              "Giải đấu thu hút sự quan tâm lớn từ truyền thông và du lịch toàn cầu."
             ],
-            "why_it_matters": "Thành tích giáo dục quốc tế là điểm sáng tích cực trong bức tranh xã hội Việt Nam, góp phần nâng cao uy tín quốc gia.",
+            "why_it_matters": "World Cup 2026 không chỉ là sự kiện thể thao mà còn là cú hích kinh tế lớn cho nước chủ nhà và FIFA.",
             "affected_groups": [
-              "Học sinh",
-              "Ngành giáo dục",
-              "Cộng đồng học thuật"
+              "Người hâm mộ bóng đá",
+              "Ngành du lịch",
+              "FIFA"
             ],
             "watch_next": [
-              "Chính sách hỗ trợ học sinh giỏi",
-              "Định hướng nghề nghiệp cho các tài năng trẻ"
+              "Tác động kinh tế dài hạn của giải đấu",
+              "Các hoạt động hậu World Cup"
             ],
             "representative_sources": [
               {
-                "title": "Đội tuyển Việt Nam giành trọn 4 huy chương vàng Olympic Hóa học quốc tế 2026",
+                "title": "Tuyển Argentina có hành động khó hiểu sau thất bại trước Tây Ban Nha",
                 "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/doi-tuyen-viet-nam-gianh-tron-4-huy-chuong-vang-olympic-hoa-hoc-quoc-te-2026-192260719085109528.htm",
-                "excerpt": "Chi tiết về thành tích của đội tuyển Việt Nam."
+                "url": "https://baoxaydung.vn/tuyen-argentina-co-hanh-dong-kho-hieu-sau-that-bai-truoc-tay-ban-nha-192260720151321029.htm",
+                "excerpt": "Tây Ban Nha giành chức vô địch sau chiến thắng trước Argentina."
               }
             ]
           }
@@ -322,89 +296,69 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường tài sản",
-        "what_to_watch": "Diễn biến giá vàng và thanh khoản chứng khoán Việt Nam",
-        "why": "Áp lực thanh khoản và tâm lý thận trọng đang chi phối thị trường."
-      },
-      {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Phản ứng của Iran sau các cuộc không kích của Mỹ",
-        "why": "Rủi ro leo thang xung đột ảnh hưởng đến giá dầu toàn cầu."
+        "what_to_watch": "Phản ứng quân sự của Iran và biến động giá dầu Brent",
+        "why": "Xung đột tại eo biển Hormuz đe dọa nguồn cung năng lượng toàn cầu."
       },
       {
-        "theme": "Công nghệ AI",
-        "what_to_watch": "Tiến độ IPO của Moonshot AI",
-        "why": "Định giá startup AI Trung Quốc là biến số quan trọng trong cuộc đua công nghệ."
+        "theme": "Thị trường chứng khoán Việt Nam",
+        "what_to_watch": "Phản ứng của VN-Index trước áp lực lãi suất huy động",
+        "why": "Tâm lý nhà đầu tư đang thận trọng trước xu hướng lãi suất tăng."
       },
       {
-        "theme": "Chính sách năng lượng",
-        "what_to_watch": "Tiến độ tái cơ cấu EVN",
-        "why": "Cải cách thể chế năng lượng ảnh hưởng đến chi phí sản xuất."
+        "theme": "Chính sách thuế Việt Nam",
+        "what_to_watch": "Các văn bản hướng dẫn thuế thương mại điện tử mới",
+        "why": "Ảnh hưởng trực tiếp đến hàng triệu hộ kinh doanh online."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin đối mặt với rủi ro thanh khoản và tranh cãi kỹ thuật BIP-110",
-        "why": "Đây là sự kiện quan trọng nhất trong cộng đồng Bitcoin, ảnh hưởng trực tiếp đến cấu trúc quản trị và giá trị tài sản của mạng lưới lớn nhất thế giới."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thanh khoản chứng khoán Việt Nam chạm đáy, nhà đầu tư thận trọng",
-        "why": "Phản ánh tình trạng dòng tiền yếu và tâm lý thận trọng của nhà đầu tư trong bối cảnh vĩ mô biến động."
+        "theme": "Đầu tư công Việt Nam",
+        "what_to_watch": "Tiến độ giải ngân tại các địa phương trọng điểm",
+        "why": "Là động lực tăng trưởng kinh tế quan trọng trong năm 2026."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thị trường tài sản rủi ro và biến động thanh khoản",
-        "why": "Phản ánh trực tiếp tình trạng thị trường tài sản tại Việt Nam và xu hướng dòng chú ý thị trường."
+        "what_to_watch": "Chiến lược quản lý vốn của Strategy: Tăng dự trữ tiền mặt thay vì bán Bitcoin",
+        "why": "Đây là tín hiệu quan trọng về quản lý tài sản của tổ chức nắm giữ Bitcoin lớn nhất thế giới, ảnh hưởng trực tiếp đến tâm lý thị trường."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Novaland đưa The Grand Manhattan trở lại thị trường sau khi tháo gỡ vướng mắc pháp lý",
+        "why": "Đánh dấu bước ngoặt phục hồi của một trong những doanh nghiệp bất động sản lớn nhất Việt Nam."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Tác động của thuế và quản lý thương mại điện tử tại Việt Nam",
+        "why": "Đây là chủ đề trọng tâm trong bức tranh kinh tế Việt Nam 48 giờ qua."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Chi phí phóng tên lửa giảm 96% từ năm 1960: Xu hướng và thách thức tương lai",
+        "why": "Phân tích kinh tế về ngành công nghiệp vũ trụ đang tăng trưởng nóng."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Apple giành lại ngôi vị công ty giá trị nhất thế giới từ Nvidia",
-        "why": "Sự thay đổi vị thế của các tập đoàn công nghệ lớn nhất thế giới có tác động trực tiếp đến dòng chú ý thị trường."
+        "what_to_watch": "Mô hình AI Kimi K3 của Moonshot AI gây chấn động thị trường bán dẫn",
+        "why": "Sự kiện ảnh hưởng trực tiếp đến định giá cổ phiếu công nghệ và tâm lý nhà đầu tư."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "AI phát hiện hơn 250.000 bài báo nghiên cứu ung thư đáng ngờ",
-        "why": "Tác động lớn đến tính liêm chính của khoa học toàn cầu."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Moonshot AI ra mắt Kimi K3: Mô hình AI nguồn mở lớn nhất thế giới",
-        "why": "Đột phá về quy mô mô hình AI nguồn mở."
+        "what_to_watch": "Bộ Xây dựng ban hành quy định phân loại 8 nhóm xe điện",
+        "why": "Cập nhật quan trọng về khung pháp lý cho ngành công nghiệp xe điện tại Việt Nam."
       }
     ],
     "source_desk": [
       {
-        "topic": "Tài chính & Kinh doanh",
+        "topic": "Tài chính Việt Nam",
         "representative_sources": [
           {
-            "title": "Tiền vào chứng khoán chạm đáy, nhà đầu tư chờ đợi điều gì?",
-            "source": "tienphong_vn",
-            "url": "https://tienphong.vn/tien-vao-chung-khoan-cham-day-nha-dau-tu-cho-doi-dieu-gi-post1860910.tpo"
-          }
-        ]
-      },
-      {
-        "topic": "Công nghệ & AI",
-        "representative_sources": [
-          {
-            "title": "Công ty nào lớn nhất thế giới hiện nay?",
-            "source": "tienphong_vn",
-            "url": "https://tienphong.vn/cong-ty-nao-lon-nhat-the-gioi-hien-nay-post1860626.tpo"
-          }
-        ]
-      },
-      {
-        "topic": "Thời sự & Chính trị",
-        "representative_sources": [
-          {
-            "title": "Ukraine tập kích ba kho dầu sâu trong lãnh thổ Nga",
-            "source": "cafef_vn",
-            "url": "https://cafef.vn/ukraine-tap-kich-ba-kho-dau-sau-trong-lanh-tho-nga-188260719201440181.chn"
+            "title": "VN-Index bốc hơi 44 điểm, SHB giảm sàn, cổ phiếu giảm trên diện rộng",
+            "source": "vietnamnet_vn",
+            "url": "https://vietnamnet.vn/vn-index-boc-hoi-44-diem-shb-giam-san-co-phieu-lao-doc-dien-rong-2537457.html"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về nguyên nhân gốc rễ của việc đóng cửa hàng loạt tiệm kim cương tại Việt Nam (đang ở mức ghi nhận hiện tượng).",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng ngoại giao cụ thể từ các nước trung gian trong xung đột Mỹ-Iran.",
     "notable_articles": []
   }
 }
