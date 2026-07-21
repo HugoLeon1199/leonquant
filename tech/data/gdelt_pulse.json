@@ -1,33 +1,39 @@
 {
   "schema_version": "tech-gdelt-72h-v1",
-  "generated_at_utc": "2026-07-21T09:44:39.275419+00:00",
+  "generated_at_utc": "2026-07-21T15:21:13.979506+00:00",
   "query_window_hours": 72,
-  "estimated_bytes": 1113320523,
-  "processed_bytes": 1113320523,
+  "estimated_bytes": 1311206899,
+  "processed_bytes": 1311206899,
   "bytes_status": "known",
   "ran_successfully": true,
   "reused_previous_events": false,
-  "fresh_event_count": 26,
+  "fresh_event_count": 34,
   "previous_events_age_hours": 0,
   "raw_event_count": 120,
-  "ai_filtered_event_count": 26,
-  "rejected_non_ai_count": 94,
+  "ai_filtered_event_count": 34,
+  "rejected_non_ai_count": 86,
   "events": [
     {
       "event_id": "1314498732",
       "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: Amazon Web Services,3175;Tata Communications,637;Oracle,3544;Oracle,3594;Accenture,1417;Accenture,1669;Tata Consultancy Services,25;Google,338;Google,1295;Google,3699;Hemisphere Pr. Công ty liên quan: OpenAI, Google, Microsoft, NVIDIA. Chủ đề: chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "summary": "Tín hiệu tổ chức: Ministry Of Labor,1476;Youtube,2439;Samsung Electronics Sk Hynix,2058;Council Current,2315;United States,1901;Oil Brent,2165;United States,329;United States,1525;Forbes Nonprofit C. Công ty liên quan: OpenAI, Google, Microsoft, NVIDIA. Chủ đề: cybersecurity, robotics, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
+        "https://www.forbes.com/councils/forbesnonprofitcouncil/2026/07/21/how-rising-climate-costs-are-changing-how-companies-make-business-decisions/",
+        "https://www.tribunnews.com/internasional/7857264/lalu-lintas-kapal-di-selat-hormuz-semakin-menurun-ada-kapal-tanker-yang-kena-proyektil-tak-dikenal",
+        "https://dentonrc.com/online_features/press_releases/truly-investor-cap-highlights-darin-judis-leadership-in-real-estate-investment-lending/article_65a99dc4-c8c1-512b-83c8-3e2efe7e54af.html",
         "https://economictimes.indiatimes.com/epaper/delhicapital/2026/jul/21/et-front/tcs-acquires-land-in-vizag-pune-for-openai-data-sites/articleshow/132524167.cms",
         "https://indianexpress.com/article/business/pnb-ceo-ashok-chandra-interview-ai-jobs-fcnr-deposits-gold-loans-credit-growth-10796026/",
         "https://www.fnnews.com/news/202607210650475544",
         "https://economictimes.indiatimes.com/et-front/tcs-acquires-land-in-vizag-pune-for-openai-data-sites/articleshow/132524167.cms"
       ],
-      "source_count": 4,
-      "independent_domain_count": 3,
+      "source_count": 7,
+      "independent_domain_count": 6,
       "official_source_present": false,
       "topic_tags": [
+        "cybersecurity",
+        "robotics",
         "chinh_sach_cuoc_dua_toan_cau",
+        "open_source_developer_tools",
         "radar_khu_vuc"
       ],
       "company_tags": [
@@ -90,8 +96,8 @@
       "title": "ACTOR",
       "summary": "Tín hiệu tổ chức: Medtronic,2611;Abbott Laboratories,19;Abbott Laboratories,248. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
       "source_urls": [
-        "https://www.techradar.com/pro/security/this-one-was-different-from-anything-we-had-handled-before-hugging-face-confirms-it-was-hit-by-cyberattack-powered-by-an-ai-agent",
-        "https://www.techradar.com/pro/security/shinyhunters-hit-medial-giant-abbott-disrupting-cancer-drug-research-and-more"
+        "https://www.techradar.com/pro/security/shinyhunters-hit-medial-giant-abbott-disrupting-cancer-drug-research-and-more",
+        "https://www.techradar.com/pro/security/this-one-was-different-from-anything-we-had-handled-before-hugging-face-confirms-it-was-hit-by-cyberattack-powered-by-an-ai-agent"
       ],
       "source_count": 2,
       "independent_domain_count": 1,
@@ -115,9 +121,75 @@
       "primary_url": "https://www.techradar.com/pro/security/this-one-was-different-from-anything-we-had-handled-before-hugging-face-confirms-it-was-hit-by-cyberattack-powered-by-an-ai-agent"
     },
     {
+      "event_id": "1314509293",
+      "title": "INTELLIGENCE - SHANGHAI",
+      "summary": "Tín hiệu tổ chức: Express,2641;Google,3265. Công ty liên quan: Google, Intel, Alibaba, Qwen. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.shfanews.net/post/308869",
+        "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
+      ],
+      "source_count": 2,
+      "independent_domain_count": 2,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google",
+        "Intel",
+        "Alibaba",
+        "Qwen"
+      ],
+      "signal_keywords": [
+        "model",
+        "qwen"
+      ],
+      "reported_at": "20260721020000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": 5.41958041958042,
+      "num_articles": 10,
+      "primary_url": "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
+    },
+    {
+      "event_id": "1314508850",
+      "title": "SHANGHAI - INTELLIGENCE",
+      "summary": "Tín hiệu tổ chức: Express,2641;Google,3265. Công ty liên quan: Google, Intel, Alibaba, Qwen. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.shfanews.net/post/308869",
+        "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
+      ],
+      "source_count": 2,
+      "independent_domain_count": 2,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google",
+        "Intel",
+        "Alibaba",
+        "Qwen"
+      ],
+      "signal_keywords": [
+        "model",
+        "qwen"
+      ],
+      "reported_at": "20260721020000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": 5.41958041958042,
+      "num_articles": 10,
+      "primary_url": "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
+    },
+    {
       "event_id": "1314368838",
       "title": "EUROPE",
-      "summary": "Tín hiệu tổ chức: Young,275;Division Keep,5399;Reuters,1796;Visa,7379;Visa,7853;Mastercard,7946;Cnn,1802;Express,7899;Engines Of Research,4438;Engines Of Research,6190;A Committee European,78;A Comm. Công ty liên quan: Meta, Kimi. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "summary": "Tín hiệu tổ chức: Division Keep,5399;Reuters,1796;Visa,7379;Visa,7853;Mastercard,7946;Cnn,1802;Express,7899;Engines Of Research,4438;Engines Of Research,6190;A Committee European,78;A Committee Euro. Công ty liên quan: Meta, Kimi. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
       "source_urls": [
         "https://www.silicon.fr/data-ia-1372/agents-ia-autorite-concurrence-228336",
         "https://www.marca.com/motor/formula1/gp-belgica/2026/07/20/bano-kimi-antonelli.html"
@@ -179,6 +251,267 @@
       "primary_url": "https://www.techtimes.com/articles/320919/20260718/competing-ai-agent-protocols-face-ietf-standards-scrutiny-vienna-meeting.htm"
     },
     {
+      "event_id": "1314606811",
+      "title": "SINGAPORE - ASEAN",
+      "summary": "Tín hiệu tổ chức: United Nations Group Of Governmental Experts,929. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.channelnewsasia.com/singapore/digital-defence-symposium-technology-tool-actor-agentic-ai-6267791"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "agent"
+      ],
+      "reported_at": "20260721153000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 0.0,
+      "num_articles": 10,
+      "primary_url": "https://www.channelnewsasia.com/singapore/digital-defence-symposium-technology-tool-actor-agentic-ai-6267791"
+    },
+    {
+      "event_id": "1314606389",
+      "title": "ASEAN - SINGAPORE",
+      "summary": "Tín hiệu tổ chức: United Nations Group Of Governmental Experts,929. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.channelnewsasia.com/singapore/digital-defence-symposium-technology-tool-actor-agentic-ai-6267791"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "agent"
+      ],
+      "reported_at": "20260721153000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 0.0,
+      "num_articles": 10,
+      "primary_url": "https://www.channelnewsasia.com/singapore/digital-defence-symposium-technology-tool-actor-agentic-ai-6267791"
+    },
+    {
+      "event_id": "1314592939",
+      "title": "MICROSOFT - THE EUROPEAN UNION",
+      "summary": "Tín hiệu tổ chức: European Union,1917;Microsoft,9;Microsoft,101;Microsoft,287;Microsoft,533;Microsoft,682;Microsoft,788;Microsoft,894;Microsoft,1060;Microsoft,1628;Microsoft,1692;Microsoft,1794;Micr. Công ty liên quan: Microsoft, NVIDIA, Mistral. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "source_urls": [
+        "https://finance.yahoo.com/technology/ai/articles/microsoft-expands-mistral-partnership-multibillion-131409664.html"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "Microsoft",
+        "NVIDIA",
+        "Mistral"
+      ],
+      "signal_keywords": [
+        "nvidia",
+        "mistral"
+      ],
+      "reported_at": "20260721140000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.85035629453681,
+      "num_articles": 10,
+      "primary_url": "https://finance.yahoo.com/technology/ai/articles/microsoft-expands-mistral-partnership-multibillion-131409664.html"
+    },
+    {
+      "event_id": "1314585602",
+      "title": "BEIJING",
+      "summary": "Tín hiệu tổ chức: Nvidia,779;Nvidia,1008;Nvidia,1210;Nvidia,1367;Huawei,645;Huawei,744;Huawei,1185;Huawei,1870;Huawei,1894;Bloomberg,319;Bloomberg,2390;Blackwell,1228. Công ty liên quan: NVIDIA, Intel, Huawei. Chủ đề: chip_ha_tang, open_source_developer_tools",
+      "source_urls": [
+        "https://www.tomshardware.com/tech-industry/artificial-intelligence/z-ai-powers-up-1gw-ai-data-center-built-entirely-on-chinese-chips"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chip_ha_tang",
+        "open_source_developer_tools"
+      ],
+      "company_tags": [
+        "NVIDIA",
+        "Intel",
+        "Huawei"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260721131500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -0.63829787234042,
+      "num_articles": 10,
+      "primary_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/z-ai-powers-up-1gw-ai-data-center-built-entirely-on-chinese-chips"
+    },
+    {
+      "event_id": "1314573648",
+      "title": "UNITED STATES - CHINESE",
+      "summary": "Tín hiệu tổ chức: United States,702;United States,4909;United States Department Of Commerce,725;World Artificial Intelligence Cooperation Organisation,3323. Công ty liên quan: Meta, Intel, DeepSeek. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://countercurrents.org/2026/07/ban-on-deepseek-reveals-free-market-means-protect-american-monopoly/"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Meta",
+        "Intel",
+        "DeepSeek"
+      ],
+      "signal_keywords": [
+        "deepseek"
+      ],
+      "reported_at": "20260721114500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.07305034550839,
+      "num_articles": 10,
+      "primary_url": "https://countercurrents.org/2026/07/ban-on-deepseek-reveals-free-market-means-protect-american-monopoly/"
+    },
+    {
+      "event_id": "1314572381",
+      "title": "AFRICA - INTELLIGENCE",
+      "summary": "Tín hiệu tổ chức: United States,361;Diageo,2716;Frontline Research Group,41;Frontline Research Group,534;Frontline Research Group,4264;Frontline Research Group,4291;Heineken,2707;Unilever,2737. Công ty liên quan: Intel. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.africa-newsroom.com/press/native-acquires-frontline-research-group-to-build-the-agentic-artificial-intelligence-ai-data-layer-for-africas-17-trillion-traditional-trade-market"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent"
+      ],
+      "reported_at": "20260721114500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 1.82328190743338,
+      "num_articles": 10,
+      "primary_url": "https://www.africa-newsroom.com/press/native-acquires-frontline-research-group-to-build-the-agentic-artificial-intelligence-ai-data-layer-for-africas-17-trillion-traditional-trade-market"
+    },
+    {
+      "event_id": "1314564812",
+      "title": "TELECOM",
+      "summary": "Tín hiệu tổ chức: Deloitte,8053;Slas Service Level Agreements,4977;Tm Forum Level,3923;Appledore Research,7928;Vodafone,7469;Mckinsey Company,6764. Công ty liên quan: Google. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.rcrwireless.com/20260721/carriers/agentic-ai-telecom-operators-google-cloud"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "Google"
+      ],
+      "signal_keywords": [
+        "agent",
+        "automation"
+      ],
+      "reported_at": "20260721104500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -0.6425702811245,
+      "num_articles": 10,
+      "primary_url": "https://www.rcrwireless.com/20260721/carriers/agentic-ai-telecom-operators-google-cloud"
+    },
+    {
+      "event_id": "1314562773",
+      "title": "NVIDIA",
+      "summary": "Tín hiệu tổ chức: Meta Fundamental Ai Research Team,713;Britain Sovereign Ai Venture Fund,448;Nvidia,631;Nvidia,1689;Nvidia,1849;Nvidia,1981. Công ty liên quan: Meta, NVIDIA. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://finance.yahoo.com/technology/ai/articles/cuspai-launches-ai-materials-foundry-100457626.html"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Meta",
+        "NVIDIA"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260721103000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.83505154639175,
+      "num_articles": 10,
+      "primary_url": "https://finance.yahoo.com/technology/ai/articles/cuspai-launches-ai-materials-foundry-100457626.html"
+    },
+    {
+      "event_id": "1314562772",
+      "title": "NVIDIA",
+      "summary": "Tín hiệu tổ chức: Meta Fundamental Ai Research Team,713;Britain Sovereign Ai Venture Fund,448;Nvidia,631;Nvidia,1689;Nvidia,1849;Nvidia,1981. Công ty liên quan: Meta, NVIDIA. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://finance.yahoo.com/technology/ai/articles/cuspai-launches-ai-materials-foundry-100457626.html"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Meta",
+        "NVIDIA"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260721103000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.83505154639175,
+      "num_articles": 10,
+      "primary_url": "https://finance.yahoo.com/technology/ai/articles/cuspai-launches-ai-materials-foundry-100457626.html"
+    },
+    {
       "event_id": "1314553337",
       "title": "SERVER",
       "summary": "Tín hiệu tổ chức: Council Of Advisers On Science Technology,3905. Công ty liên quan: Intel. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
@@ -235,68 +568,6 @@
       "avg_tone": 0.52356020942408,
       "num_articles": 10,
       "primary_url": "https://wccftech.com/nvidia-is-secretly-acquiring-massive-dark-fiber-capacity-across-the-us-with-total-bandwidth-potentially-reaching-an-unbelievable-7-6-petabits-sec/"
-    },
-    {
-      "event_id": "1314509293",
-      "title": "INTELLIGENCE - SHANGHAI",
-      "summary": "Tín hiệu tổ chức: Google,3265. Công ty liên quan: Google, Intel, Alibaba, Qwen. Chủ đề: model_agent_moi",
-      "source_urls": [
-        "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi"
-      ],
-      "company_tags": [
-        "Google",
-        "Intel",
-        "Alibaba",
-        "Qwen"
-      ],
-      "signal_keywords": [
-        "model",
-        "qwen"
-      ],
-      "reported_at": "20260721020000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 5.41958041958042,
-      "num_articles": 10,
-      "primary_url": "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
-    },
-    {
-      "event_id": "1314508850",
-      "title": "SHANGHAI - INTELLIGENCE",
-      "summary": "Tín hiệu tổ chức: Google,3265. Công ty liên quan: Google, Intel, Alibaba, Qwen. Chủ đề: model_agent_moi",
-      "source_urls": [
-        "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi"
-      ],
-      "company_tags": [
-        "Google",
-        "Intel",
-        "Alibaba",
-        "Qwen"
-      ],
-      "signal_keywords": [
-        "model",
-        "qwen"
-      ],
-      "reported_at": "20260721020000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 5.41958041958042,
-      "num_articles": 10,
-      "primary_url": "https://myhostnews.com/alibaba-presents-qwen3-8-max-preview-its-new-ai-model-with-2-4-trillion-parameters/"
     },
     {
       "event_id": "1314508812",
@@ -449,8 +720,8 @@
       "primary_url": "https://www.suasnews.com/2026/07/dronedesk-launches-first-fully-automated-sora-implementation-a-key-enabler-for-bvlos-drone-operations/"
     },
     {
-      "event_id": "1314465221",
-      "title": "DEPUTY - MINIST",
+      "event_id": "1314465410",
+      "title": "CABINET",
       "summary": "Tín hiệu tổ chức: Parliament As Leader Of The Opposition,160;Foreign Affairs,358;Foreign Affairs,817;Malawi Congress Party,25;Constitutional Affairs,888. Công ty liên quan: MCP. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.malawivoice.com/2026/07/20/mcp-announces-shadow-cabinet-chithyola-to-lead-opposition/"
@@ -476,8 +747,8 @@
       "primary_url": "https://www.malawivoice.com/2026/07/20/mcp-announces-shadow-cabinet-chithyola-to-lead-opposition/"
     },
     {
-      "event_id": "1314465410",
-      "title": "CABINET",
+      "event_id": "1314465221",
+      "title": "DEPUTY - MINIST",
       "summary": "Tín hiệu tổ chức: Parliament As Leader Of The Opposition,160;Foreign Affairs,358;Foreign Affairs,817;Malawi Congress Party,25;Constitutional Affairs,888. Công ty liên quan: MCP. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.malawivoice.com/2026/07/20/mcp-announces-shadow-cabinet-chithyola-to-lead-opposition/"
@@ -764,39 +1035,6 @@
       "avg_tone": -3.67647058823529,
       "num_articles": 10,
       "primary_url": "https://www.rappler.com/technology/hugging-face-autonomous-ai-agent-cyberattack-july-2026/"
-    },
-    {
-      "event_id": "1314404474",
-      "title": "INTELLIGENCE",
-      "summary": "Tín hiệu tổ chức: Indian Institute Of Mass Communication,3752;Television Journalism,3704. Công ty liên quan: Intel, Alibaba, Qwen, Kimi. Chủ đề: model_agent_moi, radar_khu_vuc",
-      "source_urls": [
-        "https://www.livemint.com/ai/artificial-intelligence/after-kimi-k3-alibaba-unveils-qwen-3-8-claims-its-second-only-to-claude-fable-5-11784530852451.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Intel",
-        "Alibaba",
-        "Qwen",
-        "Kimi"
-      ],
-      "signal_keywords": [
-        "claude",
-        "qwen",
-        "kimi"
-      ],
-      "reported_at": "20260720114500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 4.40528634361233,
-      "num_articles": 10,
-      "primary_url": "https://www.livemint.com/ai/artificial-intelligence/after-kimi-k3-alibaba-unveils-qwen-3-8-claims-its-second-only-to-claude-fable-5-11784530852451.html"
     }
   ]
 }
