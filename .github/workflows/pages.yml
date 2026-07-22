@@ -110,6 +110,8 @@ jobs:
           cp tech/data/publication.json _site/tech/data/publication.json 2>/dev/null || true
           cp tech/web/publication.json _site/tech/web/publication.json 2>/dev/null || true
           cp tech/index.html _site/tech/index.html 2>/dev/null || true
+          mkdir -p _site/cars
+          cp cars/index.html _site/cars/index.html 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
           cp -r assets _site/assets 2>/dev/null || true
