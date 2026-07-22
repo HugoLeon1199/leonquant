@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>OMODA & JAECOO Hà Tĩnh</title>
+<style>
+  :root{
+    --blue:#1A5CFF;
+    --blue-dark:#0B2A5B;
+    --blue-light:#E8F0FF;
+    --text:#0B2A5B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    background:#fff;
+  }
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* Top bar */
+  .topbar{
+    background:var(--blue-dark);
+    color:#fff;
+    font-size:13px;
+    padding:8px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .topbar .contact{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+  .topbar .contact span{display:flex;align-items:center;gap:6px;}
+  .topbar .fb{
+    background:rgba(255,255,255,.15);
+    padding:4px 10px;
+    border-radius:6px;
+    display:flex;align-items:center;gap:6px;
+  }
+
+  /* Header */
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 24px;
+    border-bottom:1px solid #eef1f5;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .logo{display:flex;flex-direction:column;line-height:1.1;}
+  .logo .brands{font-weight:800;font-size:20px;letter-spacing:.5px;}
+  .logo .brands span:first-child{color:var(--blue-dark);}
+  .logo .brands span.sep{color:#ccc;margin:0 6px;}
+  .logo .brands span:last-child{color:var(--blue);}
+  .logo .place{font-size:11px;letter-spacing:2px;color:#8a96ab;font-weight:600;}
+  nav{display:flex;gap:22px;font-size:14px;font-weight:600;color:var(--text);flex-wrap:wrap;}
+  nav a.active{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:4px;}
+  .header-actions{display:flex;align-items:center;gap:14px;}
+  .btn-advise{
+    background:var(--blue-dark);
+    color:#fff;
+    padding:10px 20px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:14px;
+    border:none;
+    cursor:pointer;
+  }
+  .menu-icon{font-size:22px;cursor:pointer;}
+
+  /* Hero */
+  .hero-wrap{
+    display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center;
+    max-width:1400px;margin:0 auto;padding:48px 24px;
+  }
+  .hero h1{
+    font-size:44px;
+    font-weight:900;
+    line-height:1.05;
+    letter-spacing:-1px;
+  }
+  .hero h1 .accent{color:var(--blue);}
+  .hero-underline{width:70px;height:4px;background:var(--blue);margin:20px 0;border-radius:2px;}
+  .hero p{font-size:17px;line-height:1.6;color:#334;max-width:520px;margin-bottom:28px;}
+  .hero p b{color:var(--blue-dark);}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;}
+  .btn{
+    padding:14px 22px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    border:none;
+    display:flex;align-items:center;gap:8px;
+    justify-content:center;
+  }
+  .btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 24px rgba(26,92,255,.35);}
+  .btn-outline{background:#fff;border:1px solid #d9e3ff;color:var(--blue-dark);}
+  .btn-dark{background:var(--blue-dark);color:#fff;}
+  .hero-proof{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:13.5px;color:#556;}
+  .hero-proof .dots{display:flex;gap:8px;}
+  .hero-proof .dots span{width:8px;height:8px;border-radius:50%;background:#d7deec;}
+  .hero-proof .dots span.on{background:var(--blue);}
+  .hero-proof .rating{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--blue-dark);}
+  .hero-proof .rating .star{color:#f5a623;}
+
+  /* Banner / slideshow */
+  .hero-visual{position:relative;border-radius:20px;overflow:hidden;min-height:340px;}
+  .hero-visual .stage{
+    position:relative;height:340px;border-radius:20px;overflow:hidden;
+    background:linear-gradient(160deg,#dfe7f5 0%,#c9d6ec 55%,#aebedd 100%);
+  }
+  .hero-visual .stage::before{
+    content:"";position:absolute;left:0;right:0;bottom:34%;height:2px;
+    background:repeating-linear-gradient(90deg,#8fa2c7 0 14px,transparent 14px 26px);
+  }
+  .hero-visual .car-silhouette{
+    position:absolute;left:50%;bottom:22%;transform:translateX(-50%);
+    width:64%;height:34%;
+  }
+  .hero-visual .car-silhouette .body{
+    position:absolute;inset:0 0 30% 0;background:#0f1b2e;border-radius:14px 14px 6px 6px;
+    clip-path:polygon(8% 100%,4% 45%,22% 10%,78% 10%,96% 45%,92% 100%);
+  }
+  .hero-visual .car-silhouette .wheel{
+    position:absolute;bottom:0;width:15%;height:26%;border-radius:50%;background:#0a0f18;
+  }
+  .hero-visual .car-silhouette .wheel.l{left:16%;}
+  .hero-visual .car-silhouette .wheel.r{right:16%;}
+  .hero-visual .person{
+    position:absolute;right:8%;bottom:20%;width:15%;height:60%;
+    background:linear-gradient(180deg,#2a3550,#171d2c);
+    border-radius:40% 40% 10% 10%;
+  }
+  .hero-visual .badge{
+    position:absolute;top:20px;right:20px;
+    background:rgba(11,42,91,.92);color:#fff;padding:10px 16px;border-radius:12px;
+    font-size:12.5px;font-weight:700;line-height:1.4;text-align:center;
+  }
+  .hero-visual .stage-actions{
+    position:absolute;left:20px;bottom:20px;display:flex;flex-wrap:wrap;gap:8px;
+  }
+  .hero-visual .stage-actions .chip{
+    background:rgba(255,255,255,.9);color:var(--blue-dark);
+    padding:8px 12px;border-radius:9px;font-size:12px;font-weight:700;
+    display:flex;align-items:center;gap:6px;
+  }
+  .hero-visual .stage-actions .chip.blue{background:var(--blue);color:#fff;}
+  .hero-visual .dots-nav{
+    position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+    display:flex;gap:6px;
+  }
+  .hero-visual .dots-nav span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);}
+  .hero-visual .dots-nav span.on{background:#fff;}
+
+  .float-actions{
+    position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:60;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .float-actions a{
+    background:#fff;border-radius:50px;padding:10px 16px;font-size:12.5px;font-weight:700;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px;white-space:nowrap;
+  }
+  .float-actions a.zalo{color:#0068ff;}
+  .float-actions a.call{color:var(--blue-dark);}
+  .float-actions a.trial{color:var(--blue-dark);text-align:left;}
+
+  .perks{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:14px;
+    max-width:1400px;margin:44px auto 0;padding:0 24px;
+  }
+  .perk{
+    background:#fff;border:1px solid #eef1f5;border-radius:14px;
+    display:flex;align-items:center;gap:12px;padding:14px 16px;
+    box-shadow:0 4px 16px rgba(11,42,91,.04);
+    font-size:12.5px;font-weight:700;color:var(--blue-dark);
+  }
+  .perk .icon{
+    width:36px;height:36px;border-radius:50%;background:var(--blue-light);
+    display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+  }
+  .perk .sub{display:block;font-weight:500;color:#8a96ab;font-size:11px;margin-top:2px;}
+
+  /* Section titles */
+  .section{max-width:1280px;margin:64px auto;padding:0 24px;}
+  .section-title{font-size:28px;font-weight:900;text-align:center;letter-spacing:.5px;margin-bottom:8px;}
+  .section-title .accent{color:var(--blue);}
+  .section-sub{text-align:center;color:#667;font-size:14px;margin-bottom:36px;}
+
+  .car-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+  }
+  .car-card{
+    position:relative;
+    border-radius:16px;overflow:hidden;border:1px solid #eef1f5;
+    box-shadow:0 4px 24px rgba(11,42,91,.04);
+    background:#fff;
+  }
+  .car-card .badge{
+    position:absolute;top:14px;left:14px;z-index:2;
+    background:var(--blue-dark);color:#fff;font-size:10.5px;font-weight:800;
+    letter-spacing:.5px;padding:5px 10px;border-radius:6px;
+  }
+  .car-card .img{
+    height:150px;display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .car-card .img .shape{position:relative;width:70%;height:56px;}
+  .car-card .img .roof{
+    position:absolute;left:18%;right:18%;bottom:28px;top:0;
+    background:#233047;clip-path:polygon(20% 0,80% 0,100% 100%,0 100%);
+  }
+  .car-card .img .tag{
+    position:absolute;top:2px;left:0;right:0;text-align:center;
+    color:#fff;font-size:11px;font-weight:800;letter-spacing:1px;
+  }
+  .car-card .img .wheel{
+    position:absolute;bottom:8px;width:22%;height:20px;border-radius:10px;background:#3a4a68;
+  }
+  .car-card .img .wheel.l{left:6%;}
+  .car-card .img .wheel.r{right:6%;}
+  .car-card .info{padding:16px;text-align:center;}
+  .car-card .info .name{font-weight:800;font-size:16px;margin-bottom:4px;}
+  .car-card .info .tagline{color:#8a96ab;font-size:12.5px;margin-bottom:14px;}
+  .car-card .info .detail-btn{
+    display:block;width:100%;background:var(--blue-dark);color:#fff;padding:11px;
+    border-radius:8px;font-weight:800;font-size:12.5px;letter-spacing:.5px;text-align:center;border:none;
+  }
+
+  /* Advisor + Form + Map */
+  .grid-3{
+    display:grid;
+    grid-template-columns:320px 1fr 340px;
+    gap:0;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 12px 40px rgba(11,42,91,.08);
+  }
+  .advisor{background:var(--blue-dark);color:#fff;padding:32px;}
+  .advisor .avatar{
+    width:64px;height:64px;border-radius:50%;
+    background:#fff;color:var(--blue-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:24px;margin-bottom:16px;
+  }
+  .advisor .label{font-size:12px;letter-spacing:1.5px;color:#9db8ff;font-weight:700;margin-bottom:6px;}
+  .advisor h3{font-size:22px;font-weight:900;margin-bottom:4px;}
+  .advisor .role{font-size:12.5px;color:#cfe0ff;margin-bottom:22px;}
+  .advisor .contact-line{display:flex;align-items:center;gap:10px;font-size:13.5px;margin-bottom:14px;color:#e8effd;}
+  .advisor .actions{display:flex;gap:10px;margin-top:24px;}
+  .advisor .actions a{flex:1;text-align:center;padding:12px;border-radius:10px;font-weight:700;font-size:13.5px;}
+  .advisor .actions .call{background:#fff;color:var(--blue-dark);}
+  .advisor .actions .zalo{background:var(--blue);color:#fff;}
+
+  .form-box{padding:32px;border-left:1px solid #eef1f5;border-right:1px solid #eef1f5;}
+  .form-box h3{font-size:19px;font-weight:800;margin-bottom:18px;}
+  .form-box input, .form-box select, .form-box textarea{
+    width:100%;padding:13px 14px;border:1px solid #dfe6f2;border-radius:10px;
+    font-size:14px;margin-bottom:14px;font-family:inherit;color:var(--text);
+  }
+  .form-box textarea{resize:none;height:80px;}
+  .form-box button{
+    width:100%;background:var(--blue-dark);color:#fff;padding:14px;border:none;
+    border-radius:10px;font-weight:800;font-size:14px;letter-spacing:.5px;cursor:pointer;
+  }
+  .form-box .note{text-align:center;font-size:12px;color:#8a96ab;margin-top:12px;}
+
+  .map-box{padding:32px;}
+  .map-box h3{font-size:16px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .map-frame{
+    height:180px;border-radius:14px;
+    background:linear-gradient(135deg,#e8f0ff,#f7f9ff);
+    position:relative;overflow:hidden;margin-bottom:14px;
+    border:1px solid #e3ecff;
+  }
+  .map-frame .pin{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:34px;height:34px;border-radius:50%;background:var(--blue);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;
+    box-shadow:0 0 0 8px rgba(26,92,255,.15);
+  }
+  .map-frame .label{
+    position:absolute;top:10px;left:10px;background:#fff;padding:6px 10px;border-radius:8px;
+    font-size:11.5px;font-weight:700;box-shadow:0 4px 12px rgba(0,0,0,.08);display:flex;align-items:center;gap:6px;
+  }
+  .map-box .directions{
+    width:100%;background:var(--blue-dark);color:#fff;text-align:center;padding:13px;border-radius:10px;
+    font-weight:700;font-size:13.5px;display:block;
+  }
+
+  /* Stats */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+    max-width:1280px;margin:64px auto;padding:0 24px;
+  }
+  .stat{text-align:center;}
+  .stat .num{font-size:30px;font-weight:900;color:var(--blue-dark);}
+  .stat .lbl{font-size:13px;color:#667;font-weight:600;margin-top:4px;}
+
+  /* Footer */
+  footer{
+    background:var(--blue-dark);color:#cfe0ff;padding:28px 24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+    font-size:13px;
+  }
+  footer .f-logo{font-weight:800;color:#fff;font-size:15px;}
+  footer .f-contact{display:flex;gap:20px;flex-wrap:wrap;}
+  footer .f-contact span{display:flex;align-items:center;gap:6px;}
+  footer .copy{color:#7f97c9;font-size:12px;}
+
+  /* Sticky bottom bar */
+  .bottom-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    display:flex;background:#fff;box-shadow:0 -8px 24px rgba(0,0,0,.08);
+  }
+  .bottom-bar a{
+    flex:1;text-align:center;padding:16px 8px;font-weight:800;font-size:13.5px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .bottom-bar a.call{background:var(--blue-dark);color:#fff;}
+  .bottom-bar a.zalo{background:var(--blue);color:#fff;}
+  .bottom-bar a.quote{background:#0f3fbf;color:#fff;}
+
+  .bottom-bar{display:none;}
+
+  @media (max-width:1024px){
+    .grid-3{grid-template-columns:1fr;}
+    .form-box{border-left:none;border-right:none;border-top:1px solid #eef1f5;border-bottom:1px solid #eef1f5;}
+    .car-grid{grid-template-columns:repeat(2,1fr);}
+    .perks{grid-template-columns:repeat(2,1fr);}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .hero-wrap{grid-template-columns:1fr;}
+    nav{display:none;}
+    .bottom-bar{display:flex;}
+    body{padding-bottom:64px;}
+  }
+  @media (max-width:640px){
+    .hero h1{font-size:32px;}
+    .car-grid{grid-template-columns:1fr 1fr;}
+    .float-actions{right:10px;}
+    .float-actions a span{display:none;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div>Chào mừng bạn đến với OMODA &amp; JAECOO Hà Tĩnh</div>
+    <div class="contact">
+      <span>📞 0963 888 331</span>
+      <span>✉️ sangomodapkdht@gmail.com</span>
+      <span class="fb">📘 Facebook</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="logo">
+      <div class="brands"><span>OMODA</span><span class="sep">|</span><span>JAECOO</span></div>
+      <div class="place">HÀ TĨNH</div>
+    </div>
+    <nav>
+      <a href="#" class="active">TRANG CHỦ</a>
+      <a href="#">GIỚI THIỆU</a>
+      <a href="#">DÒNG XE</a>
+      <a href="#">BÁO GIÁ</a>
+      <a href="#">ĐĂNG KÝ LÁI THỬ</a>
+      <a href="#">KHUYẾN MÃI</a>
+      <a href="#">TIN TỨC</a>
+      <a href="#">LIÊN HỆ</a>
+    </nav>
+    <div class="header-actions">
+      <button class="btn-advise">Gọi tư vấn</button>
+      <div class="menu-icon">☰</div>
+    </div>
+  </header>
+
+  <div class="hero-wrap">
+    <div class="hero">
+      <h1>OMODA &amp; JAECOO<br><span class="accent">HÀ TĨNH</span></h1>
+      <div class="hero-underline"></div>
+      <h2 style="font-size:20px;font-weight:800;margin-bottom:18px;">KHÁM PHÁ CÔNG NGHỆ –<br>CHINH PHỤC MỌI HÀNH TRÌNH</h2>
+      <p>Cùng <b>Lê Văn Sáng</b> – Tư vấn bán hàng chuyên nghiệp, đồng hành cùng bạn trên mọi cung đường.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary">🚗 ĐĂNG KÝ LÁI THỬ</button>
+        <button class="btn btn-outline">📋 NHẬN BÁO GIÁ</button>
+        <button class="btn btn-dark">📞 GỌI NGAY<br><span style="font-weight:400">0963 888 331</span></button>
+      </div>
+      <div class="hero-proof">
+        <div class="dots"><span class="on"></span><span></span><span></span></div>
+        <span>Được tin tưởng bởi 500+ khách hàng Hà Tĩnh</span>
+        <span class="rating"><span class="star">★</span> 5.0 (127 đánh giá)</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="stage">
+        <div class="badge">VÒNG XUYẾN THẠCH LONG<br>HÀ TĨNH</div>
+        <div class="car-silhouette">
+          <div class="body"></div>
+          <div class="wheel l"></div>
+          <div class="wheel r"></div>
+        </div>
+        <div class="person"></div>
+        <div class="stage-actions">
+          <span class="chip blue">📞 Gọi ngay</span>
+          <span class="chip">💬 Chat Zalo</span>
+          <span class="chip">📝 Đăng ký lái thử</span>
+        </div>
+        <div class="dots-nav"><span class="on"></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="float-actions">
+    <a class="call" href="tel:0963888331">📞 Gọi ngay</a>
+    <a class="zalo" href="#">💬 Chat Zalo</a>
+    <a class="trial" href="#">📝 Đăng ký lái thử</a>
+  </div>
+
+  <div class="perks">
+    <div class="perk"><div class="icon">🏬</div><div>ĐẠI LÝ CHÍNH HÃNG<span class="sub">OMODA &amp; JAECOO</span></div></div>
+    <div class="perk"><div class="icon">🛡️</div><div>BẢO HÀNH TOÀN QUỐC<span class="sub">Dịch vụ uy tín</span></div></div>
+    <div class="perk"><div class="icon">%</div><div>HỖ TRỢ TRẢ GÓP<span class="sub">Lãi suất ưu đãi</span></div></div>
+    <div class="perk"><div class="icon">🔄</div><div>THU XE CŨ ĐỔI MỚI<span class="sub">Định giá minh bạch</span></div></div>
+    <div class="perk"><div class="icon">📍</div><div>LÁI THỬ TẬN NƠI<span class="sub">Tiện lợi – Nhanh chóng</span></div></div>
+  </div>
+
+  <section class="section">
+    <div class="section-title">DÒNG XE <span class="accent">OMODA &amp; JAECOO</span></div>
+    <div class="car-grid">
+      <div class="car-card">
+        <div class="badge">BEST SELLER</div>
+        <div class="img"><div class="shape"><div class="tag">C5</div><div class="roof"></div><div class="wheel l"></div><div class="wheel r"></div></div></div>
+        <div class="info">
+          <div class="name">OMODA C5</div>
+          <div class="tagline">Tương lai trong tầm tay</div>
+          <button class="detail-btn">XEM CHI TIẾT</button>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="badge">MỚI RA MẮT</div>
+        <div class="img"><div class="shape"><div class="tag">C7</div><div class="roof"></div><div class="wheel l"></div><div class="wheel r"></div></div></div>
+        <div class="info">
+          <div class="name">OMODA C7</div>
+          <div class="tagline">Phong cách dẫn đầu</div>
+          <button class="detail-btn">XEM CHI TIẾT</button>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="badge">OFF-ROAD</div>
+        <div class="img"><div class="shape"><div class="tag">J5</div><div class="roof"></div><div class="wheel l"></div><div class="wheel r"></div></div></div>
+        <div class="info">
+          <div class="name">JAECOO J5</div>
+          <div class="tagline">Bứt phá mọi giới hạn</div>
+          <button class="detail-btn">XEM CHI TIẾT</button>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="badge">FLAGSHIP</div>
+        <div class="img"><div class="shape"><div class="tag">J7</div><div class="roof"></div><div class="wheel l"></div><div class="wheel r"></div></div></div>
+        <div class="info">
+          <div class="name">JAECOO J7</div>
+          <div class="tagline">Đẳng cấp vượt trội</div>
+          <button class="detail-btn">XEM CHI TIẾT</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid-3">
+      <div class="advisor">
+        <div class="avatar">S</div>
+        <div class="label">GIỚI THIỆU</div>
+        <h3>LÊ VĂN SÁNG</h3>
+        <div class="role">TƯ VẤN BÁN HÀNG<br>OMODA &amp; JAECOO HÀ TĨNH</div>
+        <div class="contact-line">📞 0963 888 331</div>
+        <div class="contact-line">✉️ sangomodapkdht@gmail.com</div>
+        <div class="contact-line">📘 Lê Sáng Omoda&amp;Jaecoo Hà Tĩnh</div>
+        <div class="contact-line">📍 Vòng xuyến Thạch Long, Hà Tĩnh</div>
+        <div class="actions">
+          <a class="call" href="tel:0963888331">Gọi ngay</a>
+          <a class="zalo" href="#">Chat Zalo</a>
+        </div>
+      </div>
+
+      <div class="form-box">
+        <h3>NHẬN BÁO GIÁ NHANH</h3>
+        <input type="text" placeholder="Họ và tên*">
+        <input type="tel" placeholder="Số điện thoại*">
+        <select>
+          <option>Chọn dòng xe quan tâm</option>
+          <option>OMODA C5</option>
+          <option>OMODA E5</option>
+          <option>JAECOO J7</option>
+          <option>JAECOO J8</option>
+        </select>
+        <textarea placeholder="Nội dung cần tư vấn"></textarea>
+        <button type="button">NHẬN BÁO GIÁ</button>
+        <div class="note">Bảo mật thông tin · Phản hồi trong 5 phút</div>
+      </div>
+
+      <div class="map-box">
+        <h3>📍 ĐỊA CHỈ SHOWROOM</h3>
+        <div class="map-frame">
+          <div class="label">📍 Vòng xuyến Thạch Long, Hà Tĩnh</div>
+          <div class="pin">🚩</div>
+        </div>
+        <a class="directions" href="#">CHỈ ĐƯỜNG</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="num">500+</div><div class="lbl">Khách hàng hài lòng</div></div>
+    <div class="stat"><div class="num">200+</div><div class="lbl">Xe đã bàn giao</div></div>
+    <div class="stat"><div class="num">5★</div><div class="lbl">Đánh giá chất lượng</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">Cam kết chất lượng</div></div>
+  </div>
+
+  <footer>
+    <div class="f-logo">OMODA | JAECOO</div>
+    <div class="f-contact">
+      <span>📍 Vòng xuyến Thạch Long, Hà Tĩnh</span>
+      <span>📞 0963 888 331</span>
+      <span>✉️ sangomodapkdht@gmail.com</span>
+    </div>
+    <div class="copy">© 2024 OMODA &amp; JAECOO Hà Tĩnh. All rights reserved.</div>
+  </footer>
+
+  <div class="bottom-bar">
+    <a class="call" href="tel:0963888331">📞 Gọi ngay<br>0963 888 331</a>
+    <a class="zalo" href="#">💬 Chat Zalo</a>
+    <a class="quote" href="#">📋 Báo giá</a>
+  </div>
+
+</body>
+</html>
