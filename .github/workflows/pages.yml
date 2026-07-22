@@ -113,6 +113,7 @@ jobs:
           mkdir -p _site/cars _site/cars/v2
           cp cars/index.html _site/cars/index.html 2>/dev/null || true
           cp cars/v2/index.html _site/cars/v2/index.html 2>/dev/null || true
+          cp -r cars/v2/assets _site/cars/v2/assets 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
           cp -r assets _site/assets 2>/dev/null || true
