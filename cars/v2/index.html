@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OMODA & JAECOO Hà Tĩnh</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    @keyframes pulseCTA { 0% { box-shadow: 0 0 0 0 rgba(26,92,255,0.5) } 70% { box-shadow: 0 0 0 12px rgba(26,92,255,0) } 100% { box-shadow: 0 0 0 0 rgba(26,92,255,0) } }
+    .pulse-cta { animation: pulseCTA 1.8s infinite; }
+    @keyframes slideUp { from { transform: translate(-50%,20px); opacity: 0 } to { transform: translate(-50%,0); opacity: 1 } }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const cars = [
+      { id: "c5", name: "OMODA C5", tagline: "Tương lai trong tầm tay", color: "from-[#D8E9FF] to-[#A9CCFF]", badge: "BEST SELLER", price: "589tr", save: "Giảm 100tr + 100% trước bạ" },
+      { id: "c7", name: "OMODA C7", tagline: "Phong cách dẫn đầu", color: "from-[#EEF1F5] to-[#CBD5E1]", badge: "MỚI RA MẮT", price: "799tr", save: "Tặng 100% trước bạ" },
+      { id: "j5", name: "JAECOO J5", tagline: "Bứt phá mọi giới hạn", color: "from-[#D9E9D6] to-[#9DC89A]", badge: "OFF-ROAD", price: "699tr", save: "Ưu đãi 100% trước bạ" },
+      { id: "j7", name: "JAECOO J7", tagline: "Đẳng cấp vượt trội", color: "from-[#1E2E2A] to-[#0F1A18]", badge: "FLAGSHIP", price: "999tr", save: "HOT - Còn 3 suất 100% trước bạ" }
+    ];
+
+    const priceTable = [
+      { name: "OMODA C5", ver: "Luxury / Premium", priceFrom: "Từ 589 triệu", ltb: "Lăn bánh từ 669tr", gift: "100% lệ phí trước bạ + Film + BHVC", hot: true },
+      { name: "OMODA C7", ver: "Flagship PHEV", priceFrom: "Từ 799 triệu", ltb: "Lăn bánh từ 879tr", gift: "Tặng sạc + 100% trước bạ", hot: false },
+      { name: "JAECOO J5", ver: "SUV đô thị", priceFrom: "Từ 699 triệu", ltb: "Lăn bánh từ 779tr", gift: "100% trước bạ + Bảo hiểm", hot: true },
+      { name: "JAECOO J7", ver: "AWD Flagship", priceFrom: "Từ 999 triệu", ltb: "Lăn bánh từ 1.089 tỷ", gift: "100% trước bạ + BHVC + Camera 540", hot: true }
+    ];
+
+    const reviews = [
+      { name: "Anh Tuấn - TP Hà Tĩnh", car: "JAECOO J7 AWD", avatar: "T", text: "Mình lấy J7 bên Sáng tháng trước, tư vấn nhiệt tình, giá lăn bánh tốt nhất Hà Tĩnh. Xe đi êm, option ngập tràn. Sáng hỗ trợ thủ tục ngân hàng rất nhanh, 2 ngày có xe." },
+      { name: "Chị Hương - Thạch Hà", car: "OMODA C5 Premium", avatar: "H", text: "Ban đầu định lấy CX5 nhưng qua lái thử C5 là chốt luôn. Sáng báo giá minh bạch, không phát sinh. Giao xe tận nhà, tặng full phụ kiện. Rất ưng!" },
+      { name: "Anh Dũng - Hồng Lĩnh", car: "JAECOO J5", avatar: "D", text: "Dịch vụ sau bán hàng OK, Sáng còn hỗ trợ làm bảo hiểm, đăng kiểm. J5 đi phố nhỏ gọn mà gầm cao, tiết kiệm xăng. Bạn bè ai cũng khen xe đẹp." }
+    ];
+
+    function formatTime(s) {
+      const h = Math.floor(s / 3600).toString().padStart(2, "0");
+      const m = Math.floor((s % 3600) / 60).toString().padStart(2, "0");
+      const sec = (s % 60).toString().padStart(2, "0");
+      return `${h}:${m}:${sec}`;
+    }
+
+    function App() {
+      const [menuOpen, setMenuOpen] = useState(false);
+      const [toast, setToast] = useState(null);
+      const [form, setForm] = useState({ name: "", phone: "", model: "JAECOO J7", message: "" });
+      const [errors, setErrors] = useState({});
+      const [submitted, setSubmitted] = useState(false);
+      const [countdown, setCountdown] = useState(7 * 3600);
+      const [viewers, setViewers] = useState(3);
+      const formRef = useRef(null);
+      const carsRef = useRef(null);
+      const priceRef = useRef(null);
+      const contactRef = useRef(null);
+
+      useEffect(() => {
+        const t = setInterval(() => setCountdown(v => (v > 0 ? v - 1 : 0)), 1000);
+        const v = setInterval(() => setViewers(2 + Math.floor(Math.random() * 3)), 8000);
+        return () => { clearInterval(t); clearInterval(v); };
+      }, []);
+
+      const showToast = (msg) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 3500);
+      };
+
+      const scrollTo = (ref, msg) => {
+        ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        setMenuOpen(false);
+        if (msg) showToast(msg);
+      };
+
+      const handleNav = (label) => {
+        if (label.includes("TRANG CHỦ")) { window.scrollTo({ top: 0, behavior: "smooth" }); setMenuOpen(false); return; }
+        if (label.includes("DÒNG XE")) return scrollTo(carsRef, "Đang xem dòng xe nổi bật");
+        if (label.includes("BÁO GIÁ")) return scrollTo(priceRef, "Xem bảng giá lăn bánh");
+        if (label.includes("LÁI THỬ")) return scrollTo(formRef, "Đăng ký lái thử miễn phí - Sáng gọi lại ngay");
+        if (label.includes("LIÊN HỆ")) return scrollTo(contactRef, "Thông tin liên hệ tư vấn");
+        showToast("Liên hệ 0963 888 331 để được tư vấn nhanh");
+        setMenuOpen(false);
+      };
+
+      const validate = () => {
+        const e = {};
+        if (!form.name.trim()) e.name = "Nhập họ tên";
+        if (!form.phone.trim() || !/^0[0-9]{9,10}$/.test(form.phone.replace(/\s/g, ""))) e.phone = "SĐT chưa đúng";
+        setErrors(e);
+        return Object.keys(e).length === 0;
+      };
+
+      const handleSubmit = (ev) => {
+        ev.preventDefault();
+        if (!validate()) return;
+        setSubmitted(true);
+        setForm(f => ({ name: "", phone: "", model: f.model, message: "" }));
+      };
+
+      const BookingForm = ({ sticky }) => (
+        <div className={`${sticky ? "lg:sticky lg:top-[84px]" : ""} bg-white rounded-[20px] border border-black/5 shadow-[0_16px_48px_rgba(11,42,91,0.12)] overflow-hidden`}>
+          <div className="bg-gradient-to-r from-[#FF2D2D] to-[#FF5A5A] text-white px-5 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-2 text-[12px] font-bold">
+              <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span> CÒN SUẤT ƯU ĐÃI
+            </div>
+            <div className="text-[11px] font-mono bg-black/20 px-2 py-0.5 rounded">{formatTime(countdown)}</div>
+          </div>
+          <div className="p-5">
+            <h3 className="text-[15px] font-extrabold tracking-tight text-[#0B2A5B]">NHẬN BÁO GIÁ LĂN BÁNH THÁNG NÀY</h3>
+            <p className="text-[12px] text-black/60 mt-1 leading-snug">Tư vấn trả góp, lái thử tận nhà. Sáng gọi lại trong 5 phút.</p>
+            <form onSubmit={handleSubmit} className="mt-4 grid gap-3">
+              <div>
+                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Họ và tên *"
+                  className={`w-full h-[46px] rounded-xl bg-[#F5F7FB] border ${errors.name ? "border-red-400" : "border-black/5"} px-4 text-[14px] outline-none focus:border-[#1A5CFF]/40 focus:bg-white transition`} />
+                {errors.name && <p className="text-[11px] text-red-500 mt-1">{errors.name}</p>}
+              </div>
+              <div>
+                <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder="Số điện thoại *" inputMode="numeric"
+                  className={`w-full h-[46px] rounded-xl bg-[#F5F7FB] border ${errors.phone ? "border-red-400" : "border-black/5"} px-4 text-[14px] font-semibold outline-none focus:border-[#1A5CFF]/40 focus:bg-white transition`} />
+                {errors.phone && <p className="text-[11px] text-red-500 mt-1">{errors.phone}</p>}
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {cars.map(c => (
+                  <button key={c.id} type="button" onClick={() => setForm({ ...form, model: c.name })}
+                    className={`h-10 rounded-xl border text-[12px] font-bold transition ${form.model === c.name ? "bg-[#0B2A5B] text-white border-[#0B2A5B]" : "bg-[#F5F7FB] border-black/5 text-[#0B2A5B] hover:border-black/15"}`}>
+                    {c.name}
+                  </button>
+                ))}
+              </div>
+              <textarea value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
+                placeholder="Nhu cầu: trả góp, lái thử, đổi xe cũ..." rows="2"
+                className="w-full rounded-xl bg-[#F5F7FB] border border-black/5 px-4 py-3 text-[13px] outline-none focus:border-[#1A5CFF]/40 focus:bg-white transition resize-none"></textarea>
+              <button type="submit" className="pulse-cta h-[52px] rounded-xl bg-[#1A5CFF] text-white text-[14px] font-extrabold tracking-wide shadow-[0_12px_28px_rgba(26,92,255,0.38)] hover:bg-[#1548e0] transition-all flex items-center justify-center gap-2">
+                <span>🔥</span> NHẬN BÁO GIÁ LĂN BÁNH NGAY
+              </button>
+              <div className="flex items-center justify-center gap-2 text-[11px] text-black/50">
+                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Đang có {viewers} người xem báo giá này
+                <span className="w-px h-3 bg-black/10"></span> Bảo mật 100%
+              </div>
+              <div className="grid grid-cols-2 gap-2 pt-2">
+                <a href="tel:0963888331" className="h-11 rounded-xl border border-black/10 bg-white grid place-items-center text-[13px] font-bold hover:bg-[#F5F7FB] transition">📞 Gọi 0963 888 331</a>
+                <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="h-11 rounded-xl bg-[#0068FF] text-white grid place-items-center text-[13px] font-bold hover:bg-[#0050cc] transition">💬 Chat Zalo ngay</a>
+              </div>
+            </form>
+            <div className="mt-4 bg-[#F5F7FB] rounded-xl p-3 flex gap-3">
+              <div className="w-10 h-10 rounded-full bg-[#0B2A5B] text-white grid place-items-center font-bold shrink-0">S</div>
+              <div className="text-[11px] leading-[1.4]">
+                <div className="font-bold text-[#0B2A5B]">Lê Văn Sáng - Tư vấn chính hãng</div>
+                <div className="text-black/60">0963 888 331 · Vòng xuyến Thạch Long · Hỗ trợ 24/7</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+      return (
+        <div className="min-h-screen bg-[#F5F7FB] text-[#0B2A5B] antialiased selection:bg-[#1A5CFF] selection:text-white pb-24 lg:pb-0">
+          <div className="bg-[#FF1A1A] text-white text-[12px] sm:text-[13px] font-bold tracking-wide sticky top-0 z-50 shadow">
+            <div className="mx-auto max-w-[1280px] px-3 sm:px-6 h-[40px] flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 truncate">
+                <span className="hidden sm:inline-block w-5 h-5 rounded-full bg-white text-[#FF1A1A] grid place-items-center text-[10px]">!</span>
+                <span className="truncate">🔥 BÁO GIÁ LĂN BÁNH THÁNG NÀY - Ưu đãi 100% trước bạ cho J7 & C5</span>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="hidden sm:inline text-[11px] font-mono bg-black/20 px-2 py-1 rounded">Hết hạn sau: {formatTime(countdown)}</span>
+                <button onClick={() => scrollTo(formRef, "Đã giữ suất ưu đãi - Nhập SĐT để xác nhận")} className="h-7 px-3 rounded-full bg-white text-[#FF1A1A] text-[11px] font-extrabold hover:bg-yellow-50 transition">GIỮ SUẤT NGAY</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-[#0B2A5B] text-white text-[11px] sm:text-[12px]">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> Đang có {viewers} người xem</span>
+                <span className="hidden md:inline opacity-50">|</span>
+                <span className="hidden md:inline opacity-80">Chào mừng đến OMODA & JAECOO Hà Tĩnh - Đại lý chính hãng</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <a href="tel:0963888331" className="flex items-center gap-1 font-semibold hover:text-white/80">📞 0963 888 331</a>
+                <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1 bg-[#0068FF] px-2.5 py-1 rounded-full font-bold">Zalo: 0963 888 331</a>
+              </div>
+            </div>
+          </div>
+
+          <header className="sticky top-[40px] z-40 bg-white/95 backdrop-blur-xl border-b border-black/5 shadow-[0_4px_24px_rgba(11,42,91,0.04)]">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 h-[64px] flex items-center justify-between">
+              <div className="font-extrabold leading-none">
+                <div className="flex items-center gap-2 text-[16px] sm:text-[18px]">
+                  <span>OMODA</span><span className="w-px h-5 bg-black/20"></span><span>JAECOO</span>
+                </div>
+                <div className="text-[11px] font-semibold tracking-[0.18em] text-[#0B2A5B]/70 -mt-0.5">HÀ TĨNH</div>
+              </div>
+              <nav className="hidden lg:flex items-center gap-6 text-[13px] font-semibold">
+                {["TRANG CHỦ", "DÒNG XE", "BÁO GIÁ", "ĐĂNG KÝ LÁI THỬ", "LIÊN HỆ"].map(label => (
+                  <button key={label} onClick={() => handleNav(label)} className="hover:text-[#1A5CFF] transition">{label}</button>
+                ))}
+              </nav>
+              <div className="flex items-center gap-2">
+                <a href="tel:0963888331" className="hidden md:inline-flex h-9 px-4 rounded-full bg-[#0B2A5B] text-white text-[13px] font-semibold items-center hover:bg-black transition">Gọi tư vấn</a>
+                <button onClick={() => setMenuOpen(o => !o)} className="lg:hidden w-9 h-9 grid place-items-center rounded-full border border-black/10">
+                  <div className="space-y-1">
+                    <div className={`w-4 h-0.5 bg-black transition ${menuOpen ? "rotate-45 translate-y-1" : ""}`}></div>
+                    <div className={`w-4 h-0.5 bg-black transition ${menuOpen ? "opacity-0" : ""}`}></div>
+                    <div className={`w-4 h-0.5 bg-black transition ${menuOpen ? "-rotate-45 -translate-y-1" : ""}`}></div>
+                  </div>
+                </button>
+              </div>
+            </div>
+            {menuOpen && (
+              <div className="lg:hidden border-t border-black/5 bg-white">
+                <div className="px-4 py-3 grid gap-1">
+                  {["TRANG CHỦ", "DÒNG XE", "BÁO GIÁ", "ĐĂNG KÝ LÁI THỬ", "LIÊN HỆ"].map(label => (
+                    <button key={label} onClick={() => handleNav(label)} className="text-left py-3 px-3 rounded-xl text-[14px] font-semibold hover:bg-[#F5F7FB]">{label}</button>
+                  ))}
+                  <a href="tel:0963888331" className="mt-2 h-12 rounded-xl bg-[#1A5CFF] text-white grid place-items-center font-bold">📞 Gọi 0963 888 331</a>
+                </div>
+              </div>
+            )}
+          </header>
+
+          <section className="relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#EFF4FF] via-[#F7F9FF] to-[#E9EFFD]"></div>
+            <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+              <div className="grid lg:grid-cols-[560px_1fr] gap-6 items-center py-6 lg:py-8">
+                <div>
+                  <div className="inline-flex items-center gap-2 bg-white border border-black/5 shadow px-3 py-1.5 rounded-full text-[11px] font-bold">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Còn suất ưu đãi tháng này
+                  </div>
+                  <h2 className="text-[20px] sm:text-[26px] font-bold tracking-[-0.02em] text-[#0B2A5B] mt-4">OMODA &amp; JAECOO</h2>
+                  <h1 className="text-[44px] sm:text-[64px] font-extrabold tracking-[-0.04em] leading-[0.9] text-[#1A4DB7] mt-1">HÀ TĨNH</h1>
+                  <div className="w-16 h-1 bg-[#1A5CFF] rounded-full mt-4 mb-4"></div>
+                  <p className="text-[15px] sm:text-[18px] font-extrabold tracking-wide text-[#0B2A5B] leading-snug">KHÁM PHÁ CÔNG NGHỆ -<br/>CHINH PHỤC MỌI HÀNH TRÌNH</p>
+                  <p className="text-[13px] sm:text-[14px] leading-[1.6] text-[#0B2A5B]/70 mt-3 max-w-[420px]">
+                    Cùng <b className="text-[#0B2A5B]">Lê Văn Sáng</b> - Tư vấn chính hãng, báo giá lăn bánh tốt nhất Hà Tĩnh. Hỗ trợ trả góp 85%, giao xe tận nhà.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 mt-5">
+                    <button onClick={() => scrollTo(formRef, "Nhận báo giá lăn bánh")} className="pulse-cta h-[54px] px-6 rounded-xl bg-[#1A5CFF] text-white text-[14px] font-extrabold flex items-center justify-center gap-2 shadow-[0_12px_28px_rgba(26,92,255,0.38)]">
+                      🚀 NHẬN BÁO GIÁ LĂN BÁNH
+                    </button>
+                    <a href="tel:0963888331" className="h-[54px] px-5 rounded-xl bg-white border border-black/10 text-[13px] font-bold flex items-center justify-center gap-2">
+                      <span className="w-8 h-8 rounded-full bg-[#0B2A5B] text-white grid place-items-center">📞</span> GỌI NGAY 0963 888 331
+                    </a>
+                  </div>
+                  <div className="hidden lg:flex items-center gap-3 mt-6 text-[11px] font-semibold text-[#0B2A5B]/60">
+                    <div className="flex -space-x-2">
+                      {[1,2,3].map(n => <div key={n} className="w-7 h-7 rounded-full border-2 border-white bg-[#D9E3FF] grid place-items-center text-[10px] font-bold">{n}</div>)}
+                    </div>
+                    <span>500+ khách hàng Hà Tĩnh</span>
+                    <span className="w-1 h-1 bg-black/20 rounded-full"></span>
+                    <span className="text-[#1A5CFF]">★ 5.0 (127 đánh giá)</span>
+                  </div>
+                </div>
+
+                <div className="relative lg:h-[540px] h-[380px] lg:ml-6">
+                  <div className="absolute inset-0 lg:rounded-[24px] overflow-hidden bg-gradient-to-b from-[#D6E4FF]/60 to-[#B8CDF6]/40 shadow-[0_24px_64px_rgba(11,42,91,0.18)]">
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/20 to-transparent lg:from-white/60"></div>
+                  </div>
+                  <div className="absolute top-[14%] right-[4%] bg-[#0B2A5B]/90 backdrop-blur text-white px-3 py-2 rounded-lg text-[11px] font-bold shadow-xl border border-white/10">
+                    VÒNG XUYẾN THẠCH LONG<br/><span className="opacity-70">HÀ TĨNH - SHOWROOM CHÍNH HÃNG</span>
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4 lg:bottom-6 bg-white/95 backdrop-blur rounded-xl p-3 flex items-center justify-between shadow-xl border border-black/5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                      <span className="text-[11px] font-bold">🔴 Live: {viewers} người đang xem báo giá</span>
+                    </div>
+                    <span className="text-[10px] bg-[#1A5CFF] text-white px-2 py-1 rounded-full font-bold">TRỰC TIẾP</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="relative z-10 -mt-2">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+              <div className="bg-white rounded-[16px] shadow-[0_12px_40px_rgba(11,42,91,0.08)] border border-black/5 grid grid-cols-2 lg:grid-cols-5 divide-x divide-y lg:divide-y-0 divide-black/5">
+                {[
+                  { icon: "🛡️", title: "ĐẠI LÝ CHÍNH HÃNG", sub: "OMODA & JAECOO" },
+                  { icon: "✔️", title: "BẢO HÀNH 6 NĂM", sub: "1 đổi 1 động cơ" },
+                  { icon: "%", title: "TRẢ GÓP 85%", sub: "Chỉ từ 89tr nhận xe" },
+                  { icon: "↺", title: "THU CŨ ĐỔI MỚI", sub: "Giá cao nhất TT" },
+                  { icon: "📍", title: "GIAO TẬN NHÀ", sub: "Lái thử miễn phí" }
+                ].map(item => (
+                  <div key={item.title} className="flex items-center gap-3 px-4 py-3">
+                    <div className="w-9 h-9 rounded-full bg-[#E8F0FF] text-[#1A5CFF] grid place-items-center font-bold text-[14px] shrink-0">{item.icon}</div>
+                    <div className="leading-tight">
+                      <div className="text-[10px] font-extrabold">{item.title}</div>
+                      <div className="text-[10px] text-black/60">{item.sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="lg:hidden mx-auto max-w-[1280px] px-4 py-6">
+            <div ref={formRef}><BookingForm /></div>
+          </section>
+
+          <section className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-8 grid lg:grid-cols-[1fr_380px] gap-6 items-start">
+            <div className="min-w-0">
+              <div ref={carsRef}>
+                <div className="text-center">
+                  <h2 className="text-[20px] sm:text-[24px] font-extrabold tracking-tight">DÒNG XE <span className="text-[#1A5CFF]">OMODA &amp; JAECOO</span></h2>
+                  <div className="w-16 h-1 bg-[#1A5CFF] mx-auto mt-2 rounded-full"></div>
+                  <p className="text-[13px] text-black/60 mt-2">Chọn dòng xe để nhận báo giá lăn bánh chi tiết từ Lê Văn Sáng</p>
+                </div>
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {cars.map(c => (
+                    <article key={c.id} className="bg-white rounded-[18px] border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.04)] overflow-hidden hover:-translate-y-1 transition">
+                      <div className={`relative h-[190px] bg-gradient-to-br ${c.color} overflow-hidden`}>
+                        <div className="absolute top-3 left-3 z-10 flex gap-2">
+                          <span className="bg-[#0B2A5B] text-white text-[9px] font-bold tracking-widest px-2.5 py-1 rounded-full">{c.badge}</span>
+                          <span className="bg-[#FF1A1A] text-white text-[9px] font-bold px-2.5 py-1 rounded-full">TỪ {c.price.toUpperCase()}</span>
+                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="relative w-[82%] h-[56%]">
+                            <div className="absolute bottom-0 w-full h-[42%] bg-black/80 rounded-[14px]" style={{clipPath: "polygon(5% 40%, 22% 0%, 78% 0%, 95% 40%, 100% 85%, 0% 85%)"}}></div>
+                            <div className="absolute bottom-[42%] left-[10%] right-[10%] h-[22%] bg-black/60 rounded-t-[8px]" style={{clipPath: "polygon(8% 100%, 20% 0%, 80% 0%, 92% 100%)"}}></div>
+                            <div className="absolute -bottom-1 left-[14%] w-[18%] h-[18%] bg-[#0B2A5B] rounded-full border-2 border-white/30"></div>
+                            <div className="absolute -bottom-1 right-[14%] w-[18%] h-[18%] bg-[#0B2A5B] rounded-full border-2 border-white/30"></div>
+                          </div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-white to-transparent"></div>
+                      </div>
+                      <div className="p-4">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-extrabold text-[14px]">{c.name}</h3>
+                          <span className="text-[12px] font-bold text-[#FF1A1A]">Từ {c.price}</span>
+                        </div>
+                        <p className="text-[11px] text-black/60 mt-1">{c.tagline} · {c.save}</p>
+                        <div className="mt-3 grid grid-cols-2 gap-2">
+                          <button onClick={() => { setForm(f => ({ ...f, model: c.name })); showToast(`Đã chọn ${c.name} - Nhận báo giá`); scrollTo(priceRef); }}
+                            className="h-9 rounded-full bg-[#0B2A5B] text-white text-[11px] font-bold hover:bg-black transition">BÁO GIÁ LĂN BÁNH</button>
+                          <a href="tel:0963888331" className="h-9 rounded-full border border-black/10 bg-white grid place-items-center text-[11px] font-bold hover:bg-[#F5F7FB]">GỌI 0963 888 331</a>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+
+              <div ref={priceRef} className="mt-10 bg-white rounded-[20px] border border-black/5 shadow-[0_12px_40px_rgba(11,42,91,0.06)] p-5 sm:p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h2 className="text-[18px] sm:text-[20px] font-extrabold tracking-tight">📋 BẢNG GIÁ LĂN BÁNH THÁNG NÀY</h2>
+                  <span className="text-[11px] font-bold bg-[#FF1A1A] text-white px-3 py-1 rounded-full animate-pulse">ƯU ĐÃI 100% TRƯỚC BẠ</span>
+                </div>
+                <div className="mt-5 grid gap-3">
+                  {priceTable.map(p => (
+                    <div key={p.name} className={`rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${p.hot ? "border-[#FF1A1A]/20 bg-[#FFF5F5]" : "border-black/5 bg-[#F8FAFF]"}`}>
+                      <div className="flex gap-3 items-center">
+                        <div className="w-12 h-12 rounded-xl bg-[#0B2A5B] text-white grid place-items-center font-extrabold text-[11px]">{p.name.split(" ")[1]}</div>
+                        <div>
+                          <div className="font-extrabold text-[14px] flex items-center gap-2">
+                            {p.name} <span className="text-[10px] font-normal text-black/50">{p.ver}</span>
+                            {p.hot && <span className="bg-[#FF1A1A] text-white text-[8px] px-1.5 py-0.5 rounded">HOT</span>}
+                          </div>
+                          <div className="text-[12px] font-bold text-[#1A5CFF] mt-0.5">{p.priceFrom} · {p.ltb}</div>
+                          <div className="text-[11px] text-black/60 mt-0.5">🎁 {p.gift}</div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <button onClick={() => { setForm(f => ({ ...f, model: p.name })); scrollTo(formRef); showToast(`Báo giá ${p.name} lăn bánh`); }}
+                          className="flex-1 sm:flex-none h-10 px-5 rounded-full bg-[#1A5CFF] text-white text-[12px] font-bold shadow hover:bg-[#1448cc] transition">Nhận báo giá lăn bánh</button>
+                        <a href="tel:0963888331" className="h-10 w-10 rounded-full border border-black/10 bg-white grid place-items-center hover:bg-black hover:text-white transition">📞</a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 text-[11px] text-black/50 bg-[#F5F7FB] rounded-lg p-3 leading-relaxed">
+                  * Giá lăn bánh đã bao gồm: thuế trước bạ, đăng ký, đăng kiểm, bảo hiểm. Giá trên là giá từ cho phiên bản thấp nhất, liên hệ <b className="text-[#0B2A5B]">0963 888 331 (Lê Văn Sáng)</b> để nhận báo giá chính xác theo màu, phiên bản, tỉnh thành. Cam kết giá tốt nhất Hà Tĩnh.
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <h2 className="text-[18px] sm:text-[20px] font-extrabold text-center">KHÁCH HÀNG NÓI GÌ VỀ <span className="text-[#1A5CFF]">LÊ VĂN SÁNG</span></h2>
+                <div className="w-16 h-1 bg-[#1A5CFF] mx-auto mt-2 rounded-full"></div>
+                <div className="mt-6 grid sm:grid-cols-3 gap-4">
+                  {reviews.map((r, i) => (
+                    <div key={i} className="bg-white rounded-[16px] border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.04)] p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-[#E8F0FF] text-[#1A5CFF] grid place-items-center font-extrabold">{r.avatar}</div>
+                        <div>
+                          <div className="font-bold text-[13px]">{r.name}</div>
+                          <div className="text-[11px] text-black/60">{r.car}</div>
+                        </div>
+                      </div>
+                      <div className="flex gap-0.5 mt-3 text-[#FFB800] text-[12px]">★★★★★ <span className="text-[10px] text-black/40 ml-1">Đã mua xe</span></div>
+                      <p className="text-[12px] leading-[1.6] text-black/70 mt-2">"{r.text}"</p>
+                      <div className="mt-3 flex items-center gap-2 text-[10px] text-green-600 font-bold">
+                        <span className="w-4 h-4 rounded-full bg-green-100 grid place-items-center">✓</span> Đã xác thực mua xe tại OMODA & JAECOO Hà Tĩnh
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div ref={contactRef} className="mt-10 grid sm:grid-cols-2 gap-4">
+                <div className="bg-[#0B2A5B] rounded-[18px] p-5 text-white relative overflow-hidden">
+                  <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-white/5"></div>
+                  <div className="flex gap-4">
+                    <div className="w-[68px] h-[68px] rounded-full bg-gradient-to-br from-[#1A5CFF] to-[#0B2A5B] border-2 border-white/20 shrink-0 grid place-items-center text-[28px] font-bold">S</div>
+                    <div>
+                      <div className="text-[10px] tracking-widest opacity-70">TƯ VẤN CHÍNH HÃNG</div>
+                      <div className="font-extrabold text-[18px] leading-tight">LÊ VĂN SÁNG</div>
+                      <div className="text-[11px] font-semibold tracking-wide opacity-80 mt-0.5">OMODA & JAECOO HÀ TĨNH</div>
+                      <div className="flex items-center gap-1 mt-1">
+                        <span className="text-yellow-300 text-[11px]">★★★★★</span>
+                        <span className="text-[10px] opacity-70">5.0 (127 đánh giá)</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-5 grid gap-2.5 text-[12px]">
+                    <a href="tel:0963888331" className="flex items-center gap-2.5 hover:text-white/80">
+                      <span className="w-6 h-6 rounded-full bg-white/10 grid place-items-center">📞</span> 0963 888 331 (Zalo 24/7)
+                    </a>
+                    <div className="flex items-center gap-2.5 opacity-90">
+                      <span className="w-6 h-6 rounded-full bg-white/10 grid place-items-center">✉️</span> sangomodapkdht@gmail.com
+                    </div>
+                    <div className="flex items-center gap-2.5 opacity-90">
+                      <span className="w-6 h-6 rounded-full bg-white/10 grid place-items-center">📍</span> Vòng xuyến Thạch Long, Hà Tĩnh
+                    </div>
+                  </div>
+                  <div className="mt-5 grid grid-cols-2 gap-2">
+                    <a href="tel:0963888331" className="h-10 rounded-full bg-white text-[#0B2A5B] grid place-items-center text-[12px] font-bold hover:bg-[#F5F7FB] transition">📞 Gọi ngay</a>
+                    <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="h-10 rounded-full bg-[#1A5CFF] text-white grid place-items-center text-[12px] font-bold hover:bg-[#1448cc] transition">💬 Chat Zalo</a>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-[18px] border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.04)] p-4 flex flex-col">
+                  <h3 className="text-[13px] font-extrabold tracking-wide text-[#0B2A5B]">📍 ĐỊA CHỈ SHOWROOM - GOOGLE MAPS</h3>
+                  <div className="relative mt-3 rounded-xl overflow-hidden border border-black/5 bg-[#EAF1FF] h-[200px] grow">
+                    <iframe title="OMODA JAECOO Hà Tĩnh Map"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.0!2d105.902!3d18.342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVsOybmcgeHV54bq_biBUaOG6oWNoIExvbmcsIEjDoCBUxKluaA!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s"
+                      width="100%" height="100%" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
+                  <a href="https://www.google.com/maps/search/V%C3%B2ng+xuy%E1%BA%BFn+Th%E1%BA%A1ch+Long%2C+H%C3%A0+T%C4%A9nh" target="_blank" rel="noopener noreferrer"
+                    className="mt-3 h-10 w-full rounded-full bg-[#0B2A5B] text-white grid place-items-center text-[12px] font-bold hover:bg-[#123a7a] transition">🧭 Chỉ đường đến Showroom</a>
+                </div>
+              </div>
+
+              <div className="mt-6 bg-white rounded-[16px] border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.03)] grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-black/5">
+                {[
+                  { icon: "👥", value: "500+", label: "Khách hàng hài lòng" },
+                  { icon: "🚙", value: "200+", label: "Xe đã bàn giao" },
+                  { icon: "⭐", value: "5★", label: "Đánh giá chất lượng" },
+                  { icon: "🛡️", value: "100%", label: "Cam kết chính hãng" }
+                ].map(s => (
+                  <div key={s.label} className="flex items-center gap-3 px-5 py-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#EFF4FF] text-[#1A5CFF] grid place-items-center text-[18px]">{s.icon}</div>
+                    <div>
+                      <div className="font-extrabold text-[18px] leading-none text-[#0B2A5B]">{s.value}</div>
+                      <div className="text-[11px] text-black/60 mt-1">{s.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="hidden lg:block">
+              <div ref={formRef} className="hidden lg:block"><BookingForm sticky /></div>
+              <div className="mt-4 bg-[#0B2A5B] text-white rounded-[14px] p-4 text-[11px] leading-relaxed">
+                <div className="font-bold mb-1">🔒 Cam kết bảo mật</div>
+                Thông tin của Anh/Chị chỉ dùng để báo giá, không spam. Sáng sẽ gọi lại trong 5 phút kể cả ngoài giờ hành chính.
+              </div>
+            </div>
+          </section>
+
+          <footer className="bg-[#0B2A5B] text-white/80 mt-6">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row gap-4 items-center justify-between text-[12px]">
+              <div className="flex items-center gap-6 flex-wrap justify-center">
+                <div className="font-extrabold tracking-wide text-white">OMODA <span className="font-light">|</span> JAECOO</div>
+                <span className="flex items-center gap-1.5">📍 Vòng xuyến Thạch Long, Hà Tĩnh</span>
+                <a href="tel:0963888331" className="flex items-center gap-1.5 hover:text-white font-bold">📞 0963 888 331</a>
+                <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-[#0068FF] px-3 py-1 rounded-full text-white font-bold">Zalo: 0963 888 331</a>
+              </div>
+              <div className="text-[11px] opacity-60">© 2025 OMODA & JAECOO Hà Tĩnh</div>
+            </div>
+          </footer>
+
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-black/10 px-3 py-2.5 flex gap-2 shadow-[0_-8px_24px_rgba(0,0,0,0.08)]">
+            <a href="tel:0963888331" className="flex-1 h-12 rounded-full bg-[#0B2A5B] text-white grid place-items-center font-bold text-[13px] gap-1">
+              <span className="flex items-center gap-1.5">📞 Gọi ngay</span>
+            </a>
+            <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-full bg-[#0068FF] text-white grid place-items-center font-bold text-[13px]">Chat Zalo</a>
+            <button onClick={() => scrollTo(formRef)} className="flex-1 h-12 rounded-full bg-[#1A5CFF] text-white grid place-items-center font-bold text-[13px]">Báo giá</button>
+          </div>
+
+          {submitted && (
+            <div className="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-white rounded-[24px] max-w-[420px] w-full shadow-[0_24px_64px_rgba(0,0,0,0.3)] overflow-hidden" style={{animation: "slideUp 0.35s ease"}}>
+                <div className="bg-gradient-to-r from-[#1A5CFF] to-[#0B2A5B] p-6 text-white text-center">
+                  <div className="w-16 h-16 rounded-full bg-white text-[#1A5CFF] mx-auto grid place-items-center text-[28px] font-bold">✓</div>
+                  <h3 className="text-[20px] font-extrabold mt-4">Cảm ơn Anh/Chị!</h3>
+                  <p className="text-[13px] mt-2 opacity-90 leading-relaxed">Lê Văn Sáng sẽ gọi lại trong 5 phút để báo giá lăn bánh tốt nhất Hà Tĩnh. Vui lòng giữ máy!</p>
+                </div>
+                <div className="p-5">
+                  <div className="bg-[#F5F7FB] rounded-xl p-3 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0B2A5B] text-white grid place-items-center font-bold">S</div>
+                    <div className="text-[12px]">
+                      <div className="font-bold">Lê Văn Sáng - 0963 888 331</div>
+                      <div className="text-black/60">Đang chuẩn bị báo giá lăn bánh cho Anh/Chị...</div>
+                    </div>
+                    <span className="ml-auto w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 mt-5">
+                    <a href="tel:0963888331" className="h-12 rounded-full bg-[#0B2A5B] text-white grid place-items-center font-bold text-[13px] hover:bg-black transition">📞 Gọi ngay cho Sáng</a>
+                    <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="h-12 rounded-full bg-[#0068FF] text-white grid place-items-center font-bold text-[13px] hover:bg-[#0050cc] transition">💬 Chat Zalo ngay</a>
+                  </div>
+                  <button onClick={() => setSubmitted(false)} className="w-full mt-3 h-11 rounded-full border border-black/10 text-[13px] font-semibold hover:bg-[#F5F7FB]">Đóng và xem thêm xe</button>
+                  <p className="text-[11px] text-black/40 text-center mt-3">Thông tin đã lưu · Phản hồi trong 5 phút · Bảo mật 100%</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {toast && (
+            <div className="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 z-[70] bg-[#0B2A5B] text-white px-5 py-3 rounded-full shadow-[0_12px_32px_rgba(0,0,0,0.24)] text-[13px] font-medium flex items-center gap-2" style={{animation: "slideUp 0.35s ease"}}>
+              <span className="w-6 h-6 rounded-full bg-white/15 grid place-items-center">✓</span>
+              {toast}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
