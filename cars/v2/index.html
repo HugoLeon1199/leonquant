@@ -22,17 +22,17 @@
     const { useState, useEffect, useRef } = React;
 
     const cars = [
-      { id: "c5", name: "OMODA C5", tagline: "Tương lai trong tầm tay", color: "from-[#D8E9FF] to-[#A9CCFF]", badge: "BEST SELLER", price: "4xx triệu", save: "Giảm 100tr + 100% trước bạ", img: "./assets/c5.jpg" },
-      { id: "c7", name: "OMODA C7", tagline: "Phong cách dẫn đầu", color: "from-[#EEF1F5] to-[#CBD5E1]", badge: "MỚI RA MẮT", price: "Sắp có giá", save: "Tặng 100% trước bạ", img: "./assets/c7.jpg" },
-      { id: "j5", name: "JAECOO J5", tagline: "Bứt phá mọi giới hạn", color: "from-[#D9E9D6] to-[#9DC89A]", badge: "OFF-ROAD", price: "5xx triệu", save: "Ưu đãi 100% trước bạ", img: "./assets/j5.jpg" },
-      { id: "j7", name: "JAECOO J7", tagline: "Đẳng cấp vượt trội", color: "from-[#1E2E2A] to-[#0F1A18]", badge: "FLAGSHIP", price: "8xx triệu", save: "HOT - Còn 3 suất 100% trước bạ", img: "./assets/j7.jpg" }
+      { id: "c5", name: "OMODA C5", tagline: "Tương lai trong tầm tay", color: "from-[#D8E9FF] to-[#A9CCFF]", badge: "BEST SELLER", price: "4xx triệu", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/c5.jpg" },
+      { id: "c7", name: "OMODA C7", tagline: "Phong cách dẫn đầu", color: "from-[#EEF1F5] to-[#CBD5E1]", badge: "MỚI RA MẮT", price: "Sắp có giá", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/c7.jpg" },
+      { id: "j5", name: "JAECOO J5", tagline: "Bứt phá mọi giới hạn", color: "from-[#D9E9D6] to-[#9DC89A]", badge: "OFF-ROAD", price: "5xx triệu", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/j5.jpg" },
+      { id: "j7", name: "JAECOO J7", tagline: "Đẳng cấp vượt trội", color: "from-[#1E2E2A] to-[#0F1A18]", badge: "FLAGSHIP", price: "8xx triệu", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/j7.jpg" }
     ];
 
     const priceTable = [
-      { name: "OMODA C5", ver: "Luxury / Premium", priceFrom: "Từ 4xx triệu", gift: "100% lệ phí trước bạ + Film + BHVC", hot: true },
-      { name: "OMODA C7", ver: "Flagship PHEV", priceFrom: "Sắp có giá", gift: "Tặng sạc + 100% trước bạ", hot: false },
-      { name: "JAECOO J5", ver: "SUV đô thị", priceFrom: "Từ 5xx triệu", gift: "100% trước bạ + Bảo hiểm", hot: true },
-      { name: "JAECOO J7", ver: "AWD Flagship", priceFrom: "Từ 8xx triệu", gift: "100% trước bạ + BHVC + Camera 540", hot: true }
+      { name: "OMODA C5", ver: "Luxury / Premium", priceFrom: "Từ 4xx triệu", gift: "Hỗ trợ đăng ký đăng kiểm miễn phí", hot: true },
+      { name: "OMODA C7", ver: "Flagship PHEV", priceFrom: "Sắp có giá", gift: "Hỗ trợ đăng ký đăng kiểm miễn phí", hot: false },
+      { name: "JAECOO J5", ver: "SUV đô thị", priceFrom: "Từ 5xx triệu", gift: "Hỗ trợ đăng ký đăng kiểm miễn phí", hot: true },
+      { name: "JAECOO J7", ver: "AWD Flagship", priceFrom: "Từ 8xx triệu", gift: "Hỗ trợ đăng ký đăng kiểm miễn phí", hot: true }
     ];
 
     const reviews = [
@@ -309,14 +309,13 @@
                       <div className={`relative h-[190px] bg-gradient-to-br ${c.color} overflow-hidden`}>
                         <div className="absolute top-3 left-3 z-10 flex gap-2">
                           <span className="bg-[#0B2A5B] text-white text-[9px] font-bold tracking-widest px-2.5 py-1 rounded-full">{c.badge}</span>
-                          <span className="bg-[#FF1A1A] text-white text-[9px] font-bold px-2.5 py-1 rounded-full">TỪ {c.price.toUpperCase()}</span>
                         </div>
                         <img src={c.img} alt={c.name} className="absolute inset-0 w-full h-full object-cover" />
                       </div>
                       <div className="p-4">
                         <div className="flex items-center justify-between">
                           <h3 className="font-extrabold text-[14px]">{c.name}</h3>
-                          <span className="text-[12px] font-bold text-[#FF1A1A]">Từ {c.price}</span>
+                          <span className="text-[12px] font-bold text-[#FF1A1A]">{c.price === "Sắp có giá" ? c.price : `Từ ${c.price}`}</span>
                         </div>
                         <p className="text-[11px] text-black/60 mt-1">{c.tagline} · {c.save}</p>
                         <div className="mt-3 grid grid-cols-2 gap-2">
@@ -331,10 +330,7 @@
               </div>
 
               <div ref={priceRef} className="mt-10 bg-white rounded-[20px] border border-black/5 shadow-[0_12px_40px_rgba(11,42,91,0.06)] p-5 sm:p-6">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <h2 className="text-[18px] sm:text-[20px] font-extrabold tracking-tight">📋 BẢNG GIÁ LĂN BÁNH THÁNG NÀY</h2>
-                  <span className="text-[11px] font-bold bg-[#FF1A1A] text-white px-3 py-1 rounded-full animate-pulse">ƯU ĐÃI 100% TRƯỚC BẠ</span>
-                </div>
+                <h2 className="text-[18px] sm:text-[20px] font-extrabold tracking-tight">📋 BẢNG GIÁ LĂN BÁNH THÁNG NÀY</h2>
                 <div className="mt-5 grid gap-3">
                   {priceTable.map(p => (
                     <div key={p.name} className={`rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${p.hot ? "border-[#FF1A1A]/20 bg-[#FFF5F5]" : "border-black/5 bg-[#F8FAFF]"}`}>
@@ -345,7 +341,7 @@
                             {p.name} <span className="text-[10px] font-normal text-black/50">{p.ver}</span>
                             {p.hot && <span className="bg-[#FF1A1A] text-white text-[8px] px-1.5 py-0.5 rounded">HOT</span>}
                           </div>
-                          <div className="text-[12px] font-bold text-[#1A5CFF] mt-0.5">{p.priceFrom} · {p.ltb}</div>
+                          <div className="text-[12px] font-bold text-[#1A5CFF] mt-0.5">{p.priceFrom}</div>
                           <div className="text-[11px] text-black/60 mt-0.5">🎁 {p.gift}</div>
                         </div>
                       </div>
@@ -356,9 +352,6 @@
                       </div>
                     </div>
                   ))}
-                </div>
-                <div className="mt-4 text-[11px] text-black/50 bg-[#F5F7FB] rounded-lg p-3 leading-relaxed">
-                  * Giá lăn bánh đã bao gồm: thuế trước bạ, đăng ký, đăng kiểm, bảo hiểm. Giá trên là giá từ cho phiên bản thấp nhất, liên hệ <b className="text-[#0B2A5B]">0963 888 331 (Lê Văn Sáng)</b> để nhận báo giá chính xác theo màu, phiên bản, tỉnh thành. Cam kết giá tốt nhất Hà Tĩnh.
                 </div>
               </div>
 
