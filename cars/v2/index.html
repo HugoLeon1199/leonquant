@@ -32,7 +32,7 @@
     const reviews = [
       { name: "Anh Tuấn - TP Hà Tĩnh", car: "JAECOO J7 AWD", avatar: "T", text: "Mình lấy J7 bên Sáng tháng trước, tư vấn nhiệt tình, giá lăn bánh tốt nhất Hà Tĩnh. Xe đi êm, option ngập tràn. Sáng hỗ trợ thủ tục ngân hàng rất nhanh, 2 ngày có xe." },
       { name: "Chị Hương - Thạch Hà", car: "OMODA C5 Premium", avatar: "H", text: "Ban đầu định lấy CX5 nhưng qua lái thử C5 là chốt luôn. Sáng báo giá minh bạch, không phát sinh. Giao xe tận nhà, tặng full phụ kiện. Rất ưng!" },
-      { name: "Anh Dũng - Hồng Lĩnh", car: "JAECOO J5", avatar: "D", text: "Dịch vụ sau bán hàng OK, Sáng còn hỗ trợ làm bảo hiểm, đăng kiểm. J5 đi phố nhỏ gọn mà gầm cao, tiết kiệm xăng. Bạn bè ai cũng khen xe đẹp." }
+      { name: "Anh Dũng - Hồng Lĩnh", car: "JAECOO J7 PHEV", avatar: "D", text: "Dịch vụ sau bán hàng OK, Sáng còn hỗ trợ làm bảo hiểm, đăng kiểm. J7 đi phố nhỏ gọn mà gầm cao, tiết kiệm xăng. Bạn bè ai cũng khen xe đẹp." }
     ];
 
     function formatTime(s) {
@@ -420,7 +420,11 @@
           <footer className="bg-[#0B2A5B] text-white/80 mt-6">
             <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row gap-4 items-center justify-between text-[12px]">
               <div className="flex items-center gap-6 flex-wrap justify-center">
-                <div className="font-extrabold tracking-wide text-white">OMODA <span className="font-light">|</span> JAECOO</div>
+                <div className="flex flex-col items-center leading-none">
+                  <div className="font-extrabold tracking-wide text-white">OMODA <span className="font-light">|</span> JAECOO</div>
+                  <div className="w-full h-px bg-white/20 mt-1.5 mb-1"></div>
+                  <div className="text-[10px] font-semibold tracking-[0.18em] text-white/60">HÀ TĨNH</div>
+                </div>
                 <span className="flex items-center gap-1.5">📍 Vòng xuyến Thạch Long, Hà Tĩnh</span>
                 <a href="tel:0963888331" className="flex items-center gap-1.5 hover:text-white font-bold">📞 0963 888 331</a>
                 <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-[#0068FF] px-3 py-1 rounded-full text-white font-bold">Zalo: 0963 888 331</a>
