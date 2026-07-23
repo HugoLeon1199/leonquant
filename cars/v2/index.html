@@ -22,10 +22,10 @@
     const { useState, useEffect, useRef } = React;
 
     const cars = [
-      { id: "c5", name: "OMODA C5", tagline: "Tương lai trong tầm tay", color: "from-[#D8E9FF] to-[#A9CCFF]", badge: "BEST SELLER", price: "589tr", save: "Giảm 100tr + 100% trước bạ" },
-      { id: "c7", name: "OMODA C7", tagline: "Phong cách dẫn đầu", color: "from-[#EEF1F5] to-[#CBD5E1]", badge: "MỚI RA MẮT", price: "799tr", save: "Tặng 100% trước bạ" },
-      { id: "j5", name: "JAECOO J5", tagline: "Bứt phá mọi giới hạn", color: "from-[#D9E9D6] to-[#9DC89A]", badge: "OFF-ROAD", price: "699tr", save: "Ưu đãi 100% trước bạ" },
-      { id: "j7", name: "JAECOO J7", tagline: "Đẳng cấp vượt trội", color: "from-[#1E2E2A] to-[#0F1A18]", badge: "FLAGSHIP", price: "999tr", save: "HOT - Còn 3 suất 100% trước bạ" }
+      { id: "c5", name: "OMODA C5", tagline: "Tương lai trong tầm tay", color: "from-[#D8E9FF] to-[#A9CCFF]", badge: "BEST SELLER", price: "589tr", save: "Giảm 100tr + 100% trước bạ", img: "./assets/c5.jpg" },
+      { id: "c7", name: "OMODA C7", tagline: "Phong cách dẫn đầu", color: "from-[#EEF1F5] to-[#CBD5E1]", badge: "MỚI RA MẮT", price: "799tr", save: "Tặng 100% trước bạ", img: "./assets/c7.jpg" },
+      { id: "j5", name: "JAECOO J5", tagline: "Bứt phá mọi giới hạn", color: "from-[#D9E9D6] to-[#9DC89A]", badge: "OFF-ROAD", price: "699tr", save: "Ưu đãi 100% trước bạ", img: "./assets/j5.jpg" },
+      { id: "j7", name: "JAECOO J7", tagline: "Đẳng cấp vượt trội", color: "from-[#1E2E2A] to-[#0F1A18]", badge: "FLAGSHIP", price: "999tr", save: "HOT - Còn 3 suất 100% trước bạ", img: "./assets/j7.jpg" }
     ];
 
     const priceTable = [
@@ -311,15 +311,7 @@
                           <span className="bg-[#0B2A5B] text-white text-[9px] font-bold tracking-widest px-2.5 py-1 rounded-full">{c.badge}</span>
                           <span className="bg-[#FF1A1A] text-white text-[9px] font-bold px-2.5 py-1 rounded-full">TỪ {c.price.toUpperCase()}</span>
                         </div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="relative w-[82%] h-[56%]">
-                            <div className="absolute bottom-0 w-full h-[42%] bg-black/80 rounded-[14px]" style={{clipPath: "polygon(5% 40%, 22% 0%, 78% 0%, 95% 40%, 100% 85%, 0% 85%)"}}></div>
-                            <div className="absolute bottom-[42%] left-[10%] right-[10%] h-[22%] bg-black/60 rounded-t-[8px]" style={{clipPath: "polygon(8% 100%, 20% 0%, 80% 0%, 92% 100%)"}}></div>
-                            <div className="absolute -bottom-1 left-[14%] w-[18%] h-[18%] bg-[#0B2A5B] rounded-full border-2 border-white/30"></div>
-                            <div className="absolute -bottom-1 right-[14%] w-[18%] h-[18%] bg-[#0B2A5B] rounded-full border-2 border-white/30"></div>
-                          </div>
-                        </div>
-                        <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-white to-transparent"></div>
+                        <img src={c.img} alt={c.name} className="absolute inset-0 w-full h-full object-cover" />
                       </div>
                       <div className="p-4">
                         <div className="flex items-center justify-between">
