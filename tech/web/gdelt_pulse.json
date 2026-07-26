@@ -1,116 +1,74 @@
 {
   "schema_version": "tech-gdelt-72h-v1",
-  "generated_at_utc": "2026-07-25T20:19:47.117923+00:00",
+  "generated_at_utc": "2026-07-26T04:46:54.108907+00:00",
   "query_window_hours": 72,
-  "estimated_bytes": 1649836163,
-  "processed_bytes": 1649836163,
+  "estimated_bytes": 1085325660,
+  "processed_bytes": 1085325660,
   "bytes_status": "known",
   "ran_successfully": true,
   "reused_previous_events": false,
-  "fresh_event_count": 49,
+  "fresh_event_count": 23,
   "previous_events_age_hours": 0,
   "raw_event_count": 120,
-  "ai_filtered_event_count": 49,
-  "rejected_non_ai_count": 71,
+  "ai_filtered_event_count": 23,
+  "rejected_non_ai_count": 97,
   "events": [
     {
-      "event_id": "1314882744",
-      "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: European Commission,88;Google,34;Google,135;Google,376;Google,425;Google,514;Google,879;Google,1045;Google,1161;Google,6;Google,158;Google,362;Google,574;Bloomberg,731;Apple App,38. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "event_id": "1315213406",
+      "title": "UNITED STATES",
+      "summary": "Tín hiệu tổ chức: Jersey Supreme Court,3315;A Department To Justice,2343;A Administration American,3774;Office Oval,589;Spectator Summer Party,966;White House,1287;White House,1939;Cnn,2138;United S. Công ty liên quan: Google, Microsoft, NVIDIA, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau, open_source_developer_tools",
       "source_urls": [
-        "https://www.infoworld.com/article/4200818/google-ceo-distracts-from-gemini-3-5-pro-delay-with-talk-of-gemini-4-and-monthly-releases.html",
-        "https://www.wikitree.co.kr/articles/1148141",
-        "https://www.computerworld.com/article/4200823/google-ceo-distracts-from-gemini-3-5-pro-delay-with-talk-of-gemini-4-and-monthly-releases-2.html",
-        "https://finance.yahoo.com/technology/article/google-tumbles-more-than-6-on-capex-growth-expectations-despite-earnings-beat-202407124.html",
-        "https://www.searchenginejournal.com/pichai-says-google-needs-gemini-4-to-compete-at-the-frontier/583214/",
-        "https://www.digitaltrends.com/phones/your-favorite-android-apps-could-soon-work-better-on-foldables/",
-        "https://www.actualno.com/europe/blizo-miliard-evro-globa-za-gugyl-ot-es-probutvala-svoi-uslugi-v-tyrsachkata-news_2621092.html",
-        "https://www.ddaily.co.kr:443/page/view/2026072316425418196"
+        "https://www.wikitree.co.kr/articles/1148461",
+        "https://weeklyblitz.net/2026/07/26/america-must-counter-chinas-hostage-diplomacy-as-strategic-rivalry-deepens/",
+        "https://www.yahoo.com/news/us/articles/heartbroken-13-old-boy-proposes-115112249.html",
+        "https://www.klif.com/2026/07/25/on-this-day-in-1776-washington-said-british-troops-fought-to-enslave-us/",
+        "https://www.wbap.com/2026/07/25/on-this-day-in-1776-washington-said-british-troops-fought-to-enslave-us/",
+        "https://www.aol.co.uk/articles/bbc-star-drops-deteriorating-trump-115200000.html",
+        "https://kvia.com/news/us-world/stacker-news/2026/07/25/mapping-rural-data-center-development-finds-growing-opposition/",
+        "https://www.express.co.uk/showbiz/tv-radio/2232865/bbc-star-drops-deteriorating-trump-bombshell"
       ],
-      "source_count": 10,
-      "independent_domain_count": 10,
+      "source_count": 67,
+      "independent_domain_count": 20,
       "official_source_present": false,
       "topic_tags": [
-        "model_agent_moi",
         "cybersecurity",
         "chinh_sach_cuoc_dua_toan_cau",
         "open_source_developer_tools",
         "radar_khu_vuc"
       ],
       "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "model",
-        "agent",
-        "gemini"
-      ],
-      "reported_at": "20260723040000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": 4.01146131805157,
-      "num_articles": 10,
-      "primary_url": "http://www.businessghana.com/site/news/Technology/352609/Google-releases-three-new-Gemini-models-%E2%80%94-but-no-3.5-Pro"
-    },
-    {
-      "event_id": "1314866293",
-      "title": "EUROPEAN",
-      "summary": "Tín hiệu tổ chức: Nvidia,1147;Nvidia,7393;Nvidia,7515;Microsoft,10;Microsoft,306;Microsoft,337;Microsoft,727;Microsoft,804;Microsoft,1368;Microsoft,1439;Microsoft,1615;Microsoft,1768;Microsoft,1891;. Công ty liên quan: Microsoft, NVIDIA, Mistral. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://zeri.info/ekonomia/631038/euroja-ndryshon-pamje-pas-me-shume-se-20-vitesh/",
-        "https://www.zeri.info/ekonomia/631038/euroja-ndryshon-pamje-pas-me-shume-se-20-vitesh/",
-        "https://kohanews.com/euro-ndryshon-fytyre-banka-qendrore-evropiane-zbulon-projektet-per-kartemonedhat-e-reja/",
-        "https://orainfo.net/euroja-ndryshon-pamje-pas-me-shume-se-20-vitesh-ja-si-do-te-duket-monedha-evropiane/",
-        "https://abcnews.al/euro-ndryshon-fytyre-banka-qendrore-evropiane-zbulon-projektet-per-kartemonedhat-e-reja/",
-        "https://www.arbresh.info/bota/euroja-ndryshon-pamje-pas-me-shume-se-20-vitesh/",
-        "https://reporteri.net/lajme/bote/euroja-ndryshon-pamje-pas-me-shume-se-20-vitesh/",
-        "https://javanews.al/euro-ndryshon-fytyre-banka-qendrore-evropiane-zbulon-projektet-per-kartemonedhat-e-reja/"
-      ],
-      "source_count": 10,
-      "independent_domain_count": 9,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
+        "Google",
         "Microsoft",
         "NVIDIA",
-        "Mistral"
+        "Intel"
       ],
       "signal_keywords": [
-        "agent",
-        "automation",
-        "nvidia",
-        "mistral"
+        "nvidia"
       ],
-      "reported_at": "20260723011500",
+      "reported_at": "20260725000000",
       "freshness_hours": 72,
       "hot_candidate": true,
       "pool_kind": "pool_a",
-      "avg_tone": 4.4362292051756,
-      "num_articles": 10,
-      "primary_url": "https://www.thefastmode.com/technology-solutions/49776-microsoft-mistral-expand-ai-partnership-for-enterprise-and-regulated-industry-control"
+      "avg_tone": 1.90114068441064,
+      "num_articles": 24,
+      "primary_url": "https://midmichigannow.com/news/nation-world/white-house-expands-pledge-to-keep-electric-bills-under-control-amid-data-center-boom-ratepayer-protection-pledge-trump-tech-companies-artificial-intelligence"
     },
     {
       "event_id": "1315216883",
       "title": "OTTAWA",
-      "summary": "Tín hiệu tổ chức: Commercialization Office,2117;Ministry Of Foreign,3692;Royal Bank,1676;Vector Institute,2009;Business Council,695;Group Head,1727;Google,2857;International League,1750;Status Of Vi. Công ty liên quan: Google, Meta. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Commercialization Office,2117;Ministry Of Foreign,3692;Royal Bank,1676;Vector Institute,2009;Business Council,695;Group Head,1727;York Regional Police,5355;York Regional Police,544. Công ty liên quan: Google, Meta. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
+        "https://torontosun.com/news/local-news/mayor-seat-toronto-police-board-bradford",
         "https://www.niagarafallsreview.ca/thestar/politics/federal/federal-governent-grounds-billy-bishop-airport-expansion/article_ed83ca23-80c6-5faf-bdd1-3de2fcebec8f.html",
         "https://www.niagarafallsreview.ca/news/canada/raising-the-bar-rebuilding-canadas-immigration-consulting-profession/article_50852966-5cdf-528e-b5ec-850ecdbb2bf7.html",
         "http://www.middleeaststar.com/news/279209472/al-zeyoudi-chairs-uae-canada-business-roundtable-reinforcing-bilateral-trade-momentum",
         "https://www.wellandtribune.ca/thestar/politics/federal/federal-governent-grounds-billy-bishop-airport-expansion/article_ea6303b7-a1a9-5d07-8a6e-2e672db581d0.html",
         "https://www.stcatharinesstandard.ca/thestar/politics/federal/federal-governent-grounds-billy-bishop-airport-expansion/article_8397c24a-58ea-5615-8c1a-28a45ad3ff7e.html",
         "https://www.bulatlat.com/2026/07/25/canada-philippines-strategic-partnership-for-whom/",
-        "https://www.thepeterboroughexaminer.com/politics/federal/federal-governent-grounds-billy-bishop-airport-expansion/article_5c9ca520-79d6-57ea-ab6e-ce421b025af4.html",
-        "https://www.thestar.com/politics/federal/federal-governent-grounds-billy-bishop-airport-expansion/article_e6ed731e-b8f0-46b1-9caa-250220b52f38.html"
+        "https://www.thepeterboroughexaminer.com/politics/federal/federal-governent-grounds-billy-bishop-airport-expansion/article_5c9ca520-79d6-57ea-ab6e-ce421b025af4.html"
       ],
-      "source_count": 9,
-      "independent_domain_count": 8,
+      "source_count": 10,
+      "independent_domain_count": 9,
       "official_source_present": false,
       "topic_tags": [
         "model_agent_moi",
@@ -134,87 +92,47 @@
       "primary_url": "https://www.theglobeandmail.com/politics/article-ottawa-consults-on-ai-agents-shopping-bots-mislead/"
     },
     {
-      "event_id": "1314874133",
+      "event_id": "1315330545",
       "title": "INVESTOR",
-      "summary": "Tín hiệu tổ chức: Google,2761;Google,2908;Nvidia,2645;Microsoft,2899;United States,322;United States,3855;A Center,2610;Bloomberg,3329;Nvidia,594;Us Congress,84;Us Congress,322;United States,47;Unit. Công ty liên quan: Google, Meta, Microsoft, NVIDIA. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
+      "summary": "Tín hiệu tổ chức: Facebook,386;Facebook,977;Ministry Of Transportation,107;Ministry Of Transportation,361;Ministry Of Transportation,517;Ministry Of Transportation,955;Ministry Of Transportation,167. Công ty liên quan: Google. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
       "source_urls": [
-        "https://www.eldestapeweb.com/tecnologia/el-crecimiento-de-los-ingresos-de-google-en-el-sector-de-la-nube-supera-las-expectativas-202672217340",
-        "https://www.zerohedge.com/news/2026-07-22/cheap-ai-models-are-game-changer",
-        "https://www.donanimhaber.com/cpu-talebi-patladi-intel-ve-amd-ye-cin-de-gun-dogdu--208425",
-        "https://eurocapital.gr/stockmarket/markets/166713-telos-epochhs-gia-to-tech-rally-oi-neoi-protagonistes-sto-tamplo.html",
-        "https://wwwhatsnew.com/2026/07/23/openai-miedo-modelos-open-weight-chinos-kimi-seguridad-negocio-julio-2026-2/",
-        "https://sofokleous10.gr/2026/07/23/%CE%BD%CE%BF%CE%BC%CE%BF%CF%83%CF%87%CE%AD%CE%B4%CE%B9%CE%BF-%CE%B8%CE%B1-%CE%BC%CF%80%CE%BF%CF%81%CE%BF%CF%8D%CF%83%CE%B5-%CE%BD%CE%B1-%CE%B1%CF%80%CE%BF%CE%BA%CE%BB%CE%B5%CE%AF%CF%83%CE%B5%CE%B9/",
-        "https://www.thestar.com.my/tech/tech-news/2026/07/23/openai-models-pulled-off-hack-in-hours-that-usually-takes-weeks",
-        "https://www.moneycontrol.com/news/business/is-google-falling-behind-in-ai-sundar-pichai-points-to-gemini-4-and-near-monthly-model-launches-13981093.html"
+        "https://www.huffingtonpost.kr:443/article/259001",
+        "https://www.cretalive.gr/kosmos/lathos-poy-kanoyme-oloi-otan-bazoyme-laptop-sta-podia-mas",
+        "https://www.semana.com/vehiculos/articulo/cada-cuantos-kilometros-debe-cambiar-el-aceite-del-carro-para-evitar-danos-en-el-motor/202644/",
+        "https://twitchy.com/justmindy/2026/07/25/some-landlords-are-ridiculous-n2430622",
+        "https://www.yourtango.com/self/things-truly-narcissistic-people-usually-do-in-their-free-time",
+        "https://sapo.pt/artigo/metro-mondego-sofre-ataque-informatico-dados-pessoais-poderao-ter-sido-copiados-6a65545886e5f86c556c3434",
+        "https://www.unitaid.eu/app-complete-guide-secure-remote-p5fd.html",
+        "https://www.rcrwireless.com/20260725/ai/att-network-agentic-ai-wave"
       ],
-      "source_count": 8,
-      "independent_domain_count": 8,
+      "source_count": 9,
+      "independent_domain_count": 9,
       "official_source_present": false,
       "topic_tags": [
         "model_agent_moi",
         "chip_ha_tang",
         "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools"
+        "robotics",
+        "chinh_sach_cuoc_dua_toan_cau"
       ],
       "company_tags": [
-        "Google",
-        "Meta",
-        "Microsoft",
-        "NVIDIA"
-      ],
-      "signal_keywords": [
-        "model",
-        "agent",
-        "gemini",
-        "nvidia"
-      ],
-      "reported_at": "20260723023000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": 0.65573770491804,
-      "num_articles": 10,
-      "primary_url": "https://www.moneycontrol.com/news/business/is-google-falling-behind-in-ai-sundar-pichai-points-to-gemini-4-and-near-monthly-model-launches-13981093.html"
-    },
-    {
-      "event_id": "1314966450",
-      "title": "BUSINESS",
-      "summary": "Tín hiệu tổ chức: Beauty Association,8951;Disaster Relief Fund,9548;Cosmonde Business Development Manager,5261;Entrepreneur Academy,3167;Entrepreneur Academy,3211;Beacon Student Program,9437;Busines. Công ty liên quan: Meta. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "http://www.newjerseytelegraph.com/news/279206178/cosmoprof-north-america-las-vegas-2026-concludes-its-23rd-edition-affirming-it-as-the-fastest-path-to-the-us-beauty-market-and-what-next-in-beauty",
-        "http://www.tennesseedaily.com/news/279206178/cosmoprof-north-america-las-vegas-2026-concludes-its-23rd-edition-affirming-it-as-the-fastest-path-to-the-us-beauty-market-and-what-next-in-beauty",
-        "http://www.californiatelegraph.com/news/279206178/cosmoprof-north-america-las-vegas-2026-concludes-its-23rd-edition-affirming-it-as-the-fastest-path-to-the-us-beauty-market-and-what-next-in-beauty",
-        "http://www.hawaiitelegraph.com/news/279206178/cosmoprof-north-america-las-vegas-2026-concludes-its-23rd-edition-affirming-it-as-the-fastest-path-to-the-us-beauty-market-and-what-next-in-beauty",
-        "https://www.finanznachrichten.de/nachrichten-2026-07/69110314-informa-markets-usa-beauty-cosmoprof-north-america-las-vegas-2026-concludes-its-23rd-edition-affirming-it-as-the-fastest-path-to-the-u-s-beauty-m-200.htm",
-        "https://www.finanznachrichten.de/nachrichten-2026-07/69107996-nextenco-llc-caples-ai-launches-ai-agent-to-help-small-businesses-run-their-own-meta-ads-campaigns-296.htm"
-      ],
-      "source_count": 6,
-      "independent_domain_count": 5,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Meta"
+        "Google"
       ],
       "signal_keywords": [
         "agent"
       ],
-      "reported_at": "20260723144500",
+      "reported_at": "20260726001500",
       "freshness_hours": 72,
       "hot_candidate": true,
       "pool_kind": "pool_a",
-      "avg_tone": 2.17785843920145,
-      "num_articles": 10,
-      "primary_url": "https://www.finanznachrichten.de/nachrichten-2026-07/69107996-nextenco-llc-caples-ai-launches-ai-agent-to-help-small-businesses-run-their-own-meta-ads-campaigns-296.htm"
+      "avg_tone": 0.57140671712418,
+      "num_articles": 20,
+      "primary_url": "https://www.rcrwireless.com/20260725/ai/att-network-agentic-ai-wave"
     },
     {
       "event_id": "1315076042",
       "title": "AUTHORITIES",
-      "summary": "Tín hiệu tổ chức: Reuters,1153;Reuters,3114;Reuters,3628;Reuters,5608;White House,1438;Samsung,2757;Samsung,5654;Samsung,5820;China Ministry Of Industry,5967;Commerce Department,1106;Big Fund,2077;I. Công ty liên quan: Meta, NVIDIA, Intel, Huawei. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "summary": "Tín hiệu tổ chức: Memory Technologies Corp,2053;China Ministry Of Industry,9229;Reuters,1402;Reuters,2440;Reuters,2773;Reuters,3074;Reuters,4451;Reuters,6406;Reuters,6918;Reuters,8870;Big Fund,5387;. Công ty liên quan: Meta, NVIDIA, Intel, Huawei. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
       "source_urls": [
         "https://tribune.com.pk/story/2619963/chinas-memory-chip-makers-ride-ai-boom-to-new-power-and-us-scrutiny",
         "https://telecom.economictimes.indiatimes.com/news/devices/chinas-memory-chip-makers-ride-ai-boom-to-new-power-and-us-scrutiny/132598309",
@@ -282,7 +200,7 @@
     {
       "event_id": "1315273535",
       "title": "NVIDIA - THE US",
-      "summary": "Tín hiệu tổ chức: Nvidia,32;Nvidia,272;Nvidia,353;Nvidia,472;Nvidia,574;Nvidia,674;Nvidia,805;Nvidia,941;Nvidia,1505;Nvidia,1866;Sk Group,55;Sk Group,463;Korea Sk Group,55;Sk Telecom,324;Sk Telecom,. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "summary": "Tín hiệu tổ chức: Sk Telecom,299;Sk Telecom,597;Sk Telecom,1766;Sk Group,30;Sk Group,438;Nvidia,7;Nvidia,247;Nvidia,328;Nvidia,447;Nvidia,549;Nvidia,649;Nvidia,780;Nvidia,916;Nvidia,1480;Nvidia,1841. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
       "source_urls": [
         "http://www.northkoreatimes.com/news/279209317/nvidia-sk-group-announce-ai-semiconductor-partnership-worth-over-500-billion",
         "http://www.indiagazette.com/news/279209317/nvidia-sk-group-announce-ai-semiconductor-partnership-worth-over-500-billion",
@@ -315,7 +233,7 @@
     {
       "event_id": "1315215251",
       "title": "COMPANIES",
-      "summary": "Tín hiệu tổ chức: Reuters,65;Reuters,3377;Reuters,4148;Reuters,4647;World Ethical Data Foundation,2594;Palisade Research,5239;World Ethical Data Foundation,2726;Palisade Research,5545;Reuters,3549;R. Công ty liên quan: OpenAI. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Reuters,65;Reuters,3377;Reuters,4148;Reuters,4647;World Ethical Data Foundation,2594;Palisade Research,5239;Palisade Research,5345;World Ethical Data Foundation,2762;Reuters,348;Re. Công ty liên quan: OpenAI. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.rappler.com/technology/ai-agent-spent-days-hacking-openai-did-not-notice/",
         "https://www.elmawkefalarabi.com/news/info/news-20260725187644",
@@ -350,7 +268,7 @@
     {
       "event_id": "1315076188",
       "title": "CHINESE",
-      "summary": "Tín hiệu tổ chức: Nvidia,6939;China Ministry Of Industry,9298;Samsung,2234;Samsung,5976;Samsung,8985;Samsung,9151;White House,4606;Reuters,1108;Reuters,2154;Reuters,2501;Reuters,2806;Reuters,4230;Re. Công ty liên quan: Meta, NVIDIA, Intel, Huawei. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "summary": "Tín hiệu tổ chức: Memory Technologies Corp,2053;China Ministry Of Industry,9229;Reuters,1402;Reuters,2440;Reuters,2773;Reuters,3074;Reuters,4451;Reuters,6406;Reuters,6918;Reuters,8870;Big Fund,5387;. Công ty liên quan: Meta, NVIDIA, Intel, Huawei. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
       "source_urls": [
         "https://tribune.com.pk/story/2619963/chinas-memory-chip-makers-ride-ai-boom-to-new-power-and-us-scrutiny",
         "https://telecom.economictimes.indiatimes.com/news/devices/chinas-memory-chip-makers-ride-ai-boom-to-new-power-and-us-scrutiny/132598309",
@@ -383,81 +301,43 @@
       "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/chinas-memory-chip-makers-ride-ai-boom-to-new-power-and-us-scrutiny/articleshow/132596701.cms"
     },
     {
-      "event_id": "1314877152",
-      "title": "SERVER",
-      "summary": "Tín hiệu tổ chức: Palo Alto Networks,3124. Công ty liên quan: OpenAI, Intel. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
+      "event_id": "1315216888",
+      "title": "CANADIAN",
+      "summary": "Tín hiệu tổ chức: Pearson,3973;Porter Airlines,4415;York Regional Police,5355;York Regional Police,5445;York Regional Police,5559;Postmedia Network Inc,4116. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://www.clickondetroit.com/news/local/2026/07/23/openai-models-go-rogue-hack-another-company-heres-how/",
-        "https://www.techspot.com/news/113212-openai-ai-models-went-rogue-hacked-another-company.html",
-        "https://www.turnto23.com/science-and-tech/artificial-intelligence/an-openai-test-model-escaped-and-broke-into-a-real-companys-servers"
+        "https://panow.com/2026/07/25/feds-rejection-of-island-airport-plan-prevents-waterfront-destruction-advocates/",
+        "https://torontosun.com/news/local-news/mayor-seat-toronto-police-board-bradford",
+        "https://www.theglobeandmail.com/politics/article-ottawa-consults-on-ai-agents-shopping-bots-mislead/"
       ],
       "source_count": 3,
       "independent_domain_count": 3,
       "official_source_present": false,
       "topic_tags": [
         "model_agent_moi",
-        "chip_ha_tang",
         "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "OpenAI",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "model",
-        "agent",
-        "openai"
-      ],
-      "reported_at": "20260723030000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.01465201465202,
-      "num_articles": 10,
-      "primary_url": "https://www.turnto23.com/science-and-tech/artificial-intelligence/an-openai-test-model-escaped-and-broke-into-a-real-companys-servers"
-    },
-    {
-      "event_id": "1314874803",
-      "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: Amazon Web Services,1999;Nvidia,3105;Spacex,3844;Youtube,3496;Google,6;Google,15;Google,86;Google,222;Google,1154;Google,1238;Google,1349;Google,1743;Google,2616;Google,2979;Google. Công ty liên quan: Google, NVIDIA, Intel, Broadcom. Chủ đề: chinh_sach_cuoc_dua_toan_cau, open_source_developer_tools",
-      "source_urls": [
-        "https://thenextweb.com/news/amd-anthropic-5-billion-investment-2gw-helios-mi450",
-        "https://www.makeuseof.com/google-messages-doesnt-back-up-texts-by-default-setting-saves-them/",
-        "https://www.moneycontrol.com/artificial-intelligence/google-parent-hikes-2026-spending-to-205-billion-to-fuel-ai-ambitions-article-13981089.html"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 3,
-      "official_source_present": false,
-      "topic_tags": [
         "chinh_sach_cuoc_dua_toan_cau",
         "open_source_developer_tools"
       ],
-      "company_tags": [
-        "Google",
-        "NVIDIA",
-        "Intel",
-        "Broadcom"
-      ],
+      "company_tags": [],
       "signal_keywords": [
-        "nvidia"
+        "agent"
       ],
-      "reported_at": "20260723023000",
+      "reported_at": "20260725003000",
       "freshness_hours": 72,
       "hot_candidate": true,
       "pool_kind": "pool_a",
-      "avg_tone": 1.62481536189069,
+      "avg_tone": -2.37113402061855,
       "num_articles": 10,
-      "primary_url": "https://www.moneycontrol.com/artificial-intelligence/google-parent-hikes-2026-spending-to-205-billion-to-fuel-ai-ambitions-article-13981089.html"
+      "primary_url": "https://www.theglobeandmail.com/politics/article-ottawa-consults-on-ai-agents-shopping-bots-mislead/"
     },
     {
       "event_id": "1315092376",
       "title": "ENTREPRENEUR - NVIDIA",
-      "summary": "Tín hiệu tổ chức: Google,4345;Hong Kong Stock Exchange,6613;Nvidia,1978;Hong Kong International Arbitration Centre,5239;Council On Foreign Relations,7179;Tsinghua University,3319;Hong Kong Stock Exc. Công ty liên quan: Google, NVIDIA. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Hong Kong Stock Exchange,6613;Nvidia,1978;Google,4345;Hong Kong International Arbitration Centre,5239;Tsinghua University,3319;Council On Foreign Relations,7179;Tsinghua University. Công ty liên quan: Google, NVIDIA. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://www.smh.com.au/technology/the-mysterious-baby-faced-chinese-billionaire-who-sent-markets-into-a-panic-20260723-p60hsn.html",
         "https://www.theage.com.au/technology/the-mysterious-baby-faced-chinese-billionaire-who-sent-markets-into-a-panic-20260723-p60hsn.html",
-        "https://www.brisbanetimes.com.au/technology/the-mysterious-baby-faced-chinese-billionaire-who-sent-markets-into-a-panic-20260723-p60hsn.html"
+        "https://www.brisbanetimes.com.au/technology/the-mysterious-baby-faced-chinese-billionaire-who-sent-markets-into-a-panic-20260723-p60hsn.html",
+        "https://www.smh.com.au/technology/the-mysterious-baby-faced-chinese-billionaire-who-sent-markets-into-a-panic-20260723-p60hsn.html"
       ],
       "source_count": 3,
       "independent_domain_count": 3,
@@ -485,8 +365,8 @@
       "title": "YOGA",
       "summary": "Chủ đề: model_agent_moi, radar_khu_vuc",
       "source_urls": [
-        "https://economictimes.indiatimes.com/astrology/aries-taurus-gemini-horoscope-today-july-26-2026-major-money-decisions-powerful-partnerships-unexpected-love-messages/articleshow/132629240.cms",
-        "https://economictimes.indiatimes.com/astrology/horoscope/aries-taurus-gemini-horoscope-today-july-26-2026-major-money-decisions-powerful-partnerships-unexpected-love-messages/articleshow/132629030.cms"
+        "https://economictimes.indiatimes.com/astrology/horoscope/aries-taurus-gemini-horoscope-today-july-26-2026-major-money-decisions-powerful-partnerships-unexpected-love-messages/articleshow/132629030.cms",
+        "https://economictimes.indiatimes.com/astrology/aries-taurus-gemini-horoscope-today-july-26-2026-major-money-decisions-powerful-partnerships-unexpected-love-messages/articleshow/132629240.cms"
       ],
       "source_count": 2,
       "independent_domain_count": 1,
@@ -543,42 +423,6 @@
       "avg_tone": 2.15935873933984,
       "num_articles": 20,
       "primary_url": "https://indianexpress.com/article/technology/artificial-intelligence/nvidia-microsoft-meta-push-for-open-weight-ai-10803122/"
-    },
-    {
-      "event_id": "1314974817",
-      "title": "INTELLIGENCE",
-      "summary": "Tín hiệu tổ chức: United States,8254;United States,8270;Nous Research Hermes Agent,915;Audi Production Lab,5892;Nvidia,8427;Nvidia,8706;United States,8533;United States,8549;Nous Research Hermes Age. Công ty liên quan: NVIDIA, Intel, Flux. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, open_source_developer_tools",
-      "source_urls": [
-        "https://www.manilatimes.net/2026/07/23/tmt-newswire/globenewswire/black-forest-labs-unveils-flux-3-a-new-multimodal-frontier-model-for-visual-intelligence/2390494",
-        "https://www.finanznachrichten.de/nachrichten-2026-07/69108771-black-forest-labs-unveils-flux-3-a-new-multimodal-frontier-model-for-visual-intelligence-399.htm"
-      ],
-      "source_count": 2,
-      "independent_domain_count": 2,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools"
-      ],
-      "company_tags": [
-        "NVIDIA",
-        "Intel",
-        "Flux"
-      ],
-      "signal_keywords": [
-        "model",
-        "agent",
-        "automation",
-        "nvidia",
-        "flux"
-      ],
-      "reported_at": "20260723153000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": 4.42673633997032,
-      "num_articles": 20,
-      "primary_url": "https://www.finanznachrichten.de/nachrichten-2026-07/69108771-black-forest-labs-unveils-flux-3-a-new-multimodal-frontier-model-for-visual-intelligence-399.htm"
     },
     {
       "event_id": "1315076862",
@@ -645,147 +489,137 @@
       "primary_url": "https://indianexpress.com/article/technology/artificial-intelligence/satya-nadella-microsoft-mai-ai-models-outperform-frontier-ai-10801033/"
     },
     {
-      "event_id": "1314986500",
-      "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: Google,6;Google,158;Google,362;Google,574;Bloomberg,731;Bloomberg,731;Google,6;Google,158;Google,362;Google,574. Công ty liên quan: Google. Chủ đề: model_agent_moi",
+      "event_id": "1315071071",
+      "title": "FRENCH",
+      "summary": "Tín hiệu tổ chức: A Bank,397;A Bank,1267;A Bank,1541;A Bank,2002;Bank French,404;Bank French,1274;Bank French,2009;Division To,456;Intergovernmental Panel On Climate Change,12997. Công ty liên quan: Mistral. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://www.infoworld.com/article/4200818/google-ceo-distracts-from-gemini-3-5-pro-delay-with-talk-of-gemini-4-and-monthly-releases.html",
-        "https://www.computerworld.com/article/4200823/google-ceo-distracts-from-gemini-3-5-pro-delay-with-talk-of-gemini-4-and-monthly-releases-2.html"
+        "https://www.carbonbrief.org/state-of-the-climate-rapidly-developing-el-nino-raises-chance-of-record-warm-2026",
+        "https://www.economiadigital.es/empresas/bnp-mistral-banca-privada.html"
       ],
       "source_count": 2,
       "independent_domain_count": 2,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "gemini"
-      ],
-      "reported_at": "20260723164500",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": 3.14465408805032,
-      "num_articles": 10,
-      "primary_url": "https://www.computerworld.com/article/4200823/google-ceo-distracts-from-gemini-3-5-pro-delay-with-talk-of-gemini-4-and-monthly-releases-2.html"
-    },
-    {
-      "event_id": "1314973813",
-      "title": "INDUSTRY",
-      "summary": "Tín hiệu tổ chức: Perimeter Solutions,50;Perimeter Solutions,1011;Perimeter Solutions,1217;Perimeter Solutions,1255;Terms Of Service,953;Lunar Terrain Vehicle Services,4007;Terms Of Service,1345;Nok. Công ty liên quan: NVIDIA. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.manilatimes.net/2026/07/24/tmt-newswire/globenewswire/perimeter-announces-date-for-second-quarter-2026-earnings-call/2390746",
-        "https://www.manilatimes.net/2026/07/23/tmt-newswire/globenewswire/lunar-outpost-collaborates-with-nvidia-to-deploy-edge-ai-across-upcoming-moon-missions/2390498"
-      ],
-      "source_count": 2,
-      "independent_domain_count": 1,
       "official_source_present": false,
       "topic_tags": [
         "chinh_sach_cuoc_dua_toan_cau"
       ],
       "company_tags": [
-        "NVIDIA"
+        "Mistral"
       ],
       "signal_keywords": [
-        "nvidia"
+        "mistral"
       ],
-      "reported_at": "20260723153000",
+      "reported_at": "20260724051500",
       "freshness_hours": 72,
-      "hot_candidate": false,
+      "hot_candidate": true,
       "pool_kind": "pool_a",
-      "avg_tone": 3.30123796423658,
-      "num_articles": 10,
-      "primary_url": "https://www.manilatimes.net/2026/07/23/tmt-newswire/globenewswire/lunar-outpost-collaborates-with-nvidia-to-deploy-edge-ai-across-upcoming-moon-missions/2390498"
+      "avg_tone": 2.81456953642384,
+      "num_articles": 8,
+      "primary_url": "https://www.economiadigital.es/empresas/bnp-mistral-banca-privada.html"
     },
     {
-      "event_id": "1314969661",
-      "title": "EMPLOYEE",
-      "summary": "Tín hiệu tổ chức: Company Property,823;Company Property,4729;Company Property,4838;Company Property,5721;Company Property,10287. Công ty liên quan: Anthropic, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "event_id": "1315059669",
+      "title": "ENGINEER",
+      "summary": "Tín hiệu tổ chức: Intel,1826;Taiwan Semiconductor Manufacturing Co,717;Nvidia,428;Nvidia,1170;Nvidia,1840;Nvidia,2472;Nvidia,2593;Circuit Court,15062;Bureau Of Immigration,19046;United States,415;Un. Công ty liên quan: NVIDIA, AMD, Intel. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://natlawreview.com/article/workplace-safety-and-offboarding-process-strategies-managing-employment",
-        "https://economictimes.indiatimes.com/tech/artificial-intelligence/anthropic-mulls-mandatory-employee-stock-trading-plans-after-ipo-the-information-reports/articleshow/132584878.cms"
+        "https://ivn.us/trumps-birthright-citizenship-backfire-six-fatal-mistakes-and-one-big-failure-to-research-the-justices-own-family-histories/",
+        "https://telecom.economictimes.indiatimes.com/news/devices/amd-launches-full-production-ai-servers-to-compete-with-nvidia/132594865"
       ],
       "source_count": 2,
       "independent_domain_count": 2,
       "official_source_present": false,
       "topic_tags": [
-        "cybersecurity",
+        "model_agent_moi",
+        "chip_ha_tang",
         "chinh_sach_cuoc_dua_toan_cau",
+        "open_source_developer_tools",
         "radar_khu_vuc"
       ],
       "company_tags": [
-        "Anthropic",
+        "NVIDIA",
+        "AMD",
         "Intel"
       ],
       "signal_keywords": [
-        "anthropic"
+        "agent",
+        "semiconductor",
+        "nvidia"
       ],
-      "reported_at": "20260723150000",
+      "reported_at": "20260724033000",
       "freshness_hours": 72,
       "hot_candidate": true,
       "pool_kind": "pool_a",
-      "avg_tone": -2.66666666666667,
+      "avg_tone": 0.958904109589045,
+      "num_articles": 8,
+      "primary_url": "https://telecom.economictimes.indiatimes.com/news/devices/amd-launches-full-production-ai-servers-to-compete-with-nvidia/132594865"
+    },
+    {
+      "event_id": "1315047897",
+      "title": "COMPANY - CHINESE",
+      "summary": "Tín hiệu tổ chức: Ziff Davis,1350;Ziff Davis,1445;Uganda Security Centre,462;Chinese Business Community,100;Chinese Business Community,1030;Chinese Business Community,1424. Công ty liên quan: OpenAI, Meta. Chủ đề: model_agent_moi, cybersecurity, robotics",
+      "source_urls": [
+        "https://redpepper.co.ug/149859-2/149859/",
+        "https://www.cnet.com/news/openai-agent-escaped-testing-launched-autonomous-hack-hugging-face/"
+      ],
+      "source_count": 2,
+      "independent_domain_count": 2,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "robotics",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "open_source_developer_tools",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "OpenAI",
+        "Meta"
+      ],
+      "signal_keywords": [
+        "agent",
+        "openai"
+      ],
+      "reported_at": "20260724013000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": -2.11946050096339,
+      "num_articles": 8,
+      "primary_url": "https://www.cnet.com/news/openai-agent-escaped-testing-launched-autonomous-hack-hugging-face/"
+    },
+    {
+      "event_id": "1315344214",
+      "title": "WASHINGTON - COMPANIES",
+      "summary": "Tín hiệu tổ chức: Nvidia,6;Nvidia,564;Nvidia,3319;Nvidia,4624;Google,768;Google,2136;Microsoft,834;Microsoft,3741. Công ty liên quan: Anthropic, Google, Microsoft, NVIDIA. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, open_source_developer_tools",
+      "source_urls": [
+        "https://www.forbes.com/sites/sandycarter/2026/07/25/huangs-open-weights-letter-doubled-to-50-without-amazon-and-anthropic/"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "open_source_developer_tools"
+      ],
+      "company_tags": [
+        "Anthropic",
+        "Google",
+        "Microsoft",
+        "NVIDIA"
+      ],
+      "signal_keywords": [
+        "agent",
+        "anthropic",
+        "nvidia"
+      ],
+      "reported_at": "20260726040000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 0.40783034257748,
       "num_articles": 10,
-      "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/anthropic-mulls-mandatory-employee-stock-trading-plans-after-ipo-the-information-reports/articleshow/132584878.cms"
-    },
-    {
-      "event_id": "1314935016",
-      "title": "INTELLIGENCE - SHANGHAI",
-      "summary": "Tín hiệu tổ chức: Tars Pr Team,2824. Công ty liên quan: Intel. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.finanznachrichten.de/nachrichten-2026-07/69105232-tars-debuts-at-waic-2026-as-its-awe-embodied-foundation-model-wins-prestigious-sail-award-008.htm"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Intel"
-      ],
-      "signal_keywords": [
-        "model"
-      ],
-      "reported_at": "20260723111500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 7.29222617489967,
-      "num_articles": 30,
-      "primary_url": "https://www.finanznachrichten.de/nachrichten-2026-07/69105232-tars-debuts-at-waic-2026-as-its-awe-embodied-foundation-model-wins-prestigious-sail-award-008.htm"
-    },
-    {
-      "event_id": "1314934445",
-      "title": "SHANGHAI - INTELLIGENCE",
-      "summary": "Tín hiệu tổ chức: Tars Pr Team,2824. Công ty liên quan: Intel. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.finanznachrichten.de/nachrichten-2026-07/69105232-tars-debuts-at-waic-2026-as-its-awe-embodied-foundation-model-wins-prestigious-sail-award-008.htm"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Intel"
-      ],
-      "signal_keywords": [
-        "model"
-      ],
-      "reported_at": "20260723111500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 7.29222617489967,
-      "num_articles": 30,
-      "primary_url": "https://www.finanznachrichten.de/nachrichten-2026-07/69105232-tars-debuts-at-waic-2026-as-its-awe-embodied-foundation-model-wins-prestigious-sail-award-008.htm"
+      "primary_url": "https://www.forbes.com/sites/sandycarter/2026/07/25/huangs-open-weights-letter-doubled-to-50-without-amazon-and-anthropic/"
     },
     {
       "event_id": "1315309288",
@@ -939,616 +773,6 @@
       "avg_tone": -2.86343612334802,
       "num_articles": 10,
       "primary_url": "https://www.digit.in/news/general/openai-finds-ai-agent-leaving-escape-notes-for-its-future-versions-report.html"
-    },
-    {
-      "event_id": "1315245337",
-      "title": "INVESTOR",
-      "summary": "Tín hiệu tổ chức: Nvidia,3686;Nvidia,3956;Nvidia,5993;Nvidia,8453;Union Cabinet,129;India Semiconductor Mission,188;Counterpoint Research,2106;Indiaai Mission,8727;Indiaai Mission,8802;Indiaai Missi. Công ty liên quan: NVIDIA, Intel. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, open_source_developer_tools",
-      "source_urls": [
-        "https://www.moneycontrol.com/artificial-intelligence/beyond-fabs-why-semicon-2-0-could-become-india-s-most-important-ai-policy-article-13983282.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "chip_ha_tang",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "NVIDIA",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "semiconductor",
-        "automation",
-        "nvidia"
-      ],
-      "reported_at": "20260725063000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 3.81406436233611,
-      "num_articles": 10,
-      "primary_url": "https://www.moneycontrol.com/artificial-intelligence/beyond-fabs-why-semicon-2-0-could-become-india-s-most-important-ai-policy-article-13983282.html"
-    },
-    {
-      "event_id": "1315237183",
-      "title": "NVIDIA",
-      "summary": "Tín hiệu tổ chức: United States,801;United States,2480;Linux Foundation,681;Microsoft Corp,552;Ibm,558;White House,2465;Nvidia Corp,509;Meta Platforms Inc,584. Công ty liên quan: Meta, Microsoft, NVIDIA, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://siliconangle.com/2026/07/24/nvidia-tech-giants-caution-open-source-ai-ban-open-letter/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Meta",
-        "Microsoft",
-        "NVIDIA",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "nvidia"
-      ],
-      "reported_at": "20260725043000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.71646859083192,
-      "num_articles": 10,
-      "primary_url": "https://siliconangle.com/2026/07/24/nvidia-tech-giants-caution-open-source-ai-ban-open-letter/"
-    },
-    {
-      "event_id": "1315236950",
-      "title": "COMMUNITY",
-      "summary": "Tín hiệu tổ chức: United States,801;United States,2480;Linux Foundation,681;Microsoft Corp,552;Ibm,558;White House,2465;Nvidia Corp,509;Meta Platforms Inc,584. Công ty liên quan: Meta, Microsoft, NVIDIA, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://siliconangle.com/2026/07/24/nvidia-tech-giants-caution-open-source-ai-ban-open-letter/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Meta",
-        "Microsoft",
-        "NVIDIA",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "nvidia"
-      ],
-      "reported_at": "20260725043000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.71646859083192,
-      "num_articles": 10,
-      "primary_url": "https://siliconangle.com/2026/07/24/nvidia-tech-giants-caution-open-source-ai-ban-open-letter/"
-    },
-    {
-      "event_id": "1315237182",
-      "title": "NVIDIA",
-      "summary": "Tín hiệu tổ chức: United States,801;United States,2480;Linux Foundation,681;Microsoft Corp,552;Ibm,558;White House,2465;Nvidia Corp,509;Meta Platforms Inc,584. Công ty liên quan: Meta, Microsoft, NVIDIA, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://siliconangle.com/2026/07/24/nvidia-tech-giants-caution-open-source-ai-ban-open-letter/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Meta",
-        "Microsoft",
-        "NVIDIA",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "nvidia"
-      ],
-      "reported_at": "20260725043000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.71646859083192,
-      "num_articles": 10,
-      "primary_url": "https://siliconangle.com/2026/07/24/nvidia-tech-giants-caution-open-source-ai-ban-open-letter/"
-    },
-    {
-      "event_id": "1315228917",
-      "title": "INTELLIGENCE",
-      "summary": "Tín hiệu tổ chức: Google,181;Google,469;Google,1302;Google,1588;Google,1704;Google,1957;Google,2349;Google,2710;Google,3541;Election Commission,321;Maga Inc,1180;Daily Caller News Foundation,1782. Công ty liên quan: Anthropic, Google, Meta, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://dailycaller.com/2026/07/24/open-anthropic-google-meta-artificial-intelligence-donated-democrats-republicans-fec/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Anthropic",
-        "Google",
-        "Meta",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "anthropic"
-      ],
-      "reported_at": "20260725023000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -1.24333925399645,
-      "num_articles": 10,
-      "primary_url": "https://dailycaller.com/2026/07/24/open-anthropic-google-meta-artificial-intelligence-donated-democrats-republicans-fec/"
-    },
-    {
-      "event_id": "1315228959",
-      "title": "NEW YORK",
-      "summary": "Tín hiệu tổ chức: Google,181;Google,469;Google,1302;Google,1588;Google,1704;Google,1957;Google,2349;Google,2710;Google,3541;Election Commission,321;Maga Inc,1180;Daily Caller News Foundation,1782. Công ty liên quan: Anthropic, Google, Meta, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://dailycaller.com/2026/07/24/open-anthropic-google-meta-artificial-intelligence-donated-democrats-republicans-fec/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Anthropic",
-        "Google",
-        "Meta",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "anthropic"
-      ],
-      "reported_at": "20260725023000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -1.24333925399645,
-      "num_articles": 10,
-      "primary_url": "https://dailycaller.com/2026/07/24/open-anthropic-google-meta-artificial-intelligence-donated-democrats-republicans-fec/"
-    },
-    {
-      "event_id": "1315219819",
-      "title": "TORONTO",
-      "summary": "Tín hiệu tổ chức: Canadian Broadcasting Corporation,1202;Progressive Conservative Party,399. Chủ đề: model_agent_moi",
-      "source_urls": [
-        "https://arstechnica.com/ai/2026/07/canadian-legislator-reads-out-apparent-llm-response-in-floor-speech/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "llm"
-      ],
-      "reported_at": "20260725010000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -1.6,
-      "num_articles": 10,
-      "primary_url": "https://arstechnica.com/ai/2026/07/canadian-legislator-reads-out-apparent-llm-response-in-floor-speech/"
-    },
-    {
-      "event_id": "1315219832",
-      "title": "TORONTO - DELEGATE",
-      "summary": "Tín hiệu tổ chức: Canadian Broadcasting Corporation,1202;Progressive Conservative Party,399. Chủ đề: model_agent_moi",
-      "source_urls": [
-        "https://arstechnica.com/ai/2026/07/canadian-legislator-reads-out-apparent-llm-response-in-floor-speech/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "llm"
-      ],
-      "reported_at": "20260725010000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -1.6,
-      "num_articles": 10,
-      "primary_url": "https://arstechnica.com/ai/2026/07/canadian-legislator-reads-out-apparent-llm-response-in-floor-speech/"
-    },
-    {
-      "event_id": "1315216888",
-      "title": "CANADIAN",
-      "summary": "Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.theglobeandmail.com/politics/article-ottawa-consults-on-ai-agents-shopping-bots-mislead/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260725003000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.37113402061855,
-      "num_articles": 10,
-      "primary_url": "https://www.theglobeandmail.com/politics/article-ottawa-consults-on-ai-agents-shopping-bots-mislead/"
-    },
-    {
-      "event_id": "1315200009",
-      "title": "DEFENSE CONTRACTOR - WASHINGTON",
-      "summary": "Tín hiệu tổ chức: Daily Caller News Foundation,717;White House,612;Nvidia,124;Nvidia,583;Nvidia,1454;Nvidia,1531;Nvidia,1705;Nvidia,2529;Nvidia,2597. Công ty liên quan: NVIDIA, Intel. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://dailycaller.com/2026/07/24/tech-defense-open-letter-artificial-intelligence-regulation-foreign-nvidia-palantir/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "NVIDIA",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "nvidia"
-      ],
-      "reported_at": "20260724214500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 3.95256916996048,
-      "num_articles": 10,
-      "primary_url": "https://dailycaller.com/2026/07/24/tech-defense-open-letter-artificial-intelligence-regulation-foreign-nvidia-palantir/"
-    },
-    {
-      "event_id": "1315189754",
-      "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: Hitachi,20;Hitachi,328;Hitachi,433;Hitachi,503;Hitachi,672;Hitachi,687;Hitachi,1173;Hitachi,1531;Hitachi,1860;Hitachi,2248;Hitachi,2438;Hitachi,2625;Hitachi,2765;Hitachi,3651;Hitac. Chủ đề: model_agent_moi, radar_khu_vuc",
-      "source_urls": [
-        "https://jp.ibtimes.com/hitachi-launches-agentic-ai-platform-after-200-fold-productivity-result-102993"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260724201500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.5518341307815,
-      "num_articles": 10,
-      "primary_url": "https://jp.ibtimes.com/hitachi-launches-agentic-ai-platform-after-200-fold-productivity-result-102993"
-    },
-    {
-      "event_id": "1315190240",
-      "title": "JAPANESE",
-      "summary": "Tín hiệu tổ chức: Hitachi,20;Hitachi,328;Hitachi,433;Hitachi,503;Hitachi,672;Hitachi,687;Hitachi,1173;Hitachi,1531;Hitachi,1860;Hitachi,2248;Hitachi,2438;Hitachi,2625;Hitachi,2765;Hitachi,3651;Hitac. Chủ đề: model_agent_moi, radar_khu_vuc",
-      "source_urls": [
-        "https://jp.ibtimes.com/hitachi-launches-agentic-ai-platform-after-200-fold-productivity-result-102993"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260724201500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.5518341307815,
-      "num_articles": 10,
-      "primary_url": "https://jp.ibtimes.com/hitachi-launches-agentic-ai-platform-after-200-fold-productivity-result-102993"
-    },
-    {
-      "event_id": "1315155662",
-      "title": "THE US",
-      "summary": "Tín hiệu tổ chức: Gartner,1145;Enterprise Software Agreement,2277;Us Department Of Defense,2236;Us Department Of Veterans Affairs,37;Oracle,1764;Oracle,2073. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.theregister.com/ai-and-ml/2026/07/24/veterans-affairs-signs-16b-deal-for-an-army-of-salesforce-ai-agents/5278302"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent",
-        "automation"
-      ],
-      "reported_at": "20260724160000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.01511335012594,
-      "num_articles": 10,
-      "primary_url": "https://www.theregister.com/ai-and-ml/2026/07/24/veterans-affairs-signs-16b-deal-for-an-army-of-salesforce-ai-agents/5278302"
-    },
-    {
-      "event_id": "1315146667",
-      "title": "IRAQ",
-      "summary": "Tín hiệu tổ chức: Anthropic Institute,303;World Association Of News Publishers In Marseilles,1966;European Broadcasting Union,4920;Nuclear Forces Treaty,653;Cnn,960;Google,2222;Google,2479;New York . Công ty liên quan: Anthropic, Google, Intel. Chủ đề: radar_khu_vuc",
-      "source_urls": [
-        "https://thebulletin.org/2026/07/how-artificial-intelligence-threatens-the-news-industrys-ability-to-report-on-existential-risks-including-those-posed-by-nuclear-weapons-and-ai/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Anthropic",
-        "Google",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "anthropic"
-      ],
-      "reported_at": "20260724150000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.32991612301957,
-      "num_articles": 10,
-      "primary_url": "https://thebulletin.org/2026/07/how-artificial-intelligence-threatens-the-news-industrys-ability-to-report-on-existential-risks-including-those-posed-by-nuclear-weapons-and-ai/"
-    },
-    {
-      "event_id": "1315143909",
-      "title": "INTELLECTUAL",
-      "summary": "Tín hiệu tổ chức: United States,166. Công ty liên quan: NVIDIA, Intel. Chủ đề: radar_khu_vuc",
-      "source_urls": [
-        "https://economictimes.indiatimes.com/tech/artificial-intelligence/top-us-tech-players-back-open-weights-ai-nvidia-founder-jensen-huang-shares-letter-in-debut-x-post/articleshow/132607924.cms"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "NVIDIA",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "nvidia"
-      ],
-      "reported_at": "20260724144500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 6.25,
-      "num_articles": 10,
-      "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/top-us-tech-players-back-open-weights-ai-nvidia-founder-jensen-huang-shares-letter-in-debut-x-post/articleshow/132607924.cms"
-    },
-    {
-      "event_id": "1315137521",
-      "title": "DELEGATE",
-      "summary": "Tín hiệu tổ chức: Solutions Engineer,3585;Security Technology Private,876;Security Technology Private,2922;Ministry Of Electronics Information Technology,597. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://indiaeducationdiary.in/isaca-bangalore-chapter-hosts-the-29th-annual-karnataka-conference-with-the-theme-fortify-the-ai-backbone-and-agentic-ai-govern-secure-and-thrive/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260724140000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 4.55259026687598,
-      "num_articles": 10,
-      "primary_url": "https://indiaeducationdiary.in/isaca-bangalore-chapter-hosts-the-29th-annual-karnataka-conference-with-the-theme-fortify-the-ai-backbone-and-agentic-ai-govern-secure-and-thrive/"
-    },
-    {
-      "event_id": "1315136851",
-      "title": "DELEGATE",
-      "summary": "Tín hiệu tổ chức: Solutions Engineer,3585;Security Technology Private,876;Security Technology Private,2922;Ministry Of Electronics Information Technology,597. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://indiaeducationdiary.in/isaca-bangalore-chapter-hosts-the-29th-annual-karnataka-conference-with-the-theme-fortify-the-ai-backbone-and-agentic-ai-govern-secure-and-thrive/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260724140000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 4.55259026687598,
-      "num_articles": 10,
-      "primary_url": "https://indiaeducationdiary.in/isaca-bangalore-chapter-hosts-the-29th-annual-karnataka-conference-with-the-theme-fortify-the-ai-backbone-and-agentic-ai-govern-secure-and-thrive/"
-    },
-    {
-      "event_id": "1315104296",
-      "title": "AIRLINE",
-      "summary": "Tín hiệu tổ chức: Nigerian Civil Aviation Authority,1680;Public Affairs,1835. Công ty liên quan: Runway. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://saharareporters.com/2026/07/23/enugu-air-announces-flight-schedule-adjustments-after-aircraft-veered-runway-benin"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Runway"
-      ],
-      "signal_keywords": [
-        "runway"
-      ],
-      "reported_at": "20260724101500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.24719101123595,
-      "num_articles": 10,
-      "primary_url": "https://saharareporters.com/2026/07/23/enugu-air-announces-flight-schedule-adjustments-after-aircraft-veered-runway-benin"
-    },
-    {
-      "event_id": "1315047904",
-      "title": "COMPANIES - BLOG",
-      "summary": "Tín hiệu tổ chức: Ziff Davis,1350;Ziff Davis,1445. Công ty liên quan: OpenAI, Meta. Chủ đề: model_agent_moi, cybersecurity, robotics",
-      "source_urls": [
-        "https://www.cnet.com/news/openai-agent-escaped-testing-launched-autonomous-hack-hugging-face/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "robotics",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools"
-      ],
-      "company_tags": [
-        "OpenAI",
-        "Meta"
-      ],
-      "signal_keywords": [
-        "agent",
-        "openai"
-      ],
-      "reported_at": "20260724013000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.11946050096339,
-      "num_articles": 10,
-      "primary_url": "https://www.cnet.com/news/openai-agent-escaped-testing-launched-autonomous-hack-hugging-face/"
-    },
-    {
-      "event_id": "1315048431",
-      "title": "BLOG - COMPANIES",
-      "summary": "Tín hiệu tổ chức: Ziff Davis,1350;Ziff Davis,1445. Công ty liên quan: OpenAI, Meta. Chủ đề: model_agent_moi, cybersecurity, robotics",
-      "source_urls": [
-        "https://www.cnet.com/news/openai-agent-escaped-testing-launched-autonomous-hack-hugging-face/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "robotics",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools"
-      ],
-      "company_tags": [
-        "OpenAI",
-        "Meta"
-      ],
-      "signal_keywords": [
-        "agent",
-        "openai"
-      ],
-      "reported_at": "20260724013000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.11946050096339,
-      "num_articles": 10,
-      "primary_url": "https://www.cnet.com/news/openai-agent-escaped-testing-launched-autonomous-hack-hugging-face/"
-    },
-    {
-      "event_id": "1315026102",
-      "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: Frontier Model Forum Do,3913;Frontier Model Forum,3700;Frontier Model Forum,3910;Google,1303;Google,3739;Microsoft,3758;University Of Health Sciences,2911;Spacex,18;Spacex,1339;Spa. Công ty liên quan: Google, Microsoft. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://fortune.com/article/elon-musk-says-rival-ai-labs-should-peer-review-frontier-models-before-release-with-government-as-last-resort/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Google",
-        "Microsoft"
-      ],
-      "signal_keywords": [
-        "model",
-        "agent",
-        "automation"
-      ],
-      "reported_at": "20260723220000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 0.0,
-      "num_articles": 10,
-      "primary_url": "https://fortune.com/article/elon-musk-says-rival-ai-labs-should-peer-review-frontier-models-before-release-with-government-as-last-resort/"
     }
   ]
 }
