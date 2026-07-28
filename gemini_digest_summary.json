@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-27T22:57:42.414021+00:00",
+  "generated_at": "2026-07-28T22:58:00.689602+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 774701,
+    "estimated_input_tokens": 802747,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 655,
-    "sent_article_count": 655,
+    "input_article_count": 689,
+    "sent_article_count": 689,
     "window": {
-      "end_date": "2026-07-28",
+      "end_date": "2026-07-29",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,90 +24,106 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "15",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, công nghệ và chính sách trong 48 giờ qua, tập trung vào các dữ kiện có tác động trực tiếp đến thị trường và đời sống.",
+    "reading_time_minutes": "auto",
+    "editor_note": "Bản tin tổng hợp các chuyển động kinh tế, chính sách và công nghệ quan trọng nhất trong 48 giờ qua, tập trung vào các biến số vĩ mô và tác động thực tế đến thị trường.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường đang trong trạng thái chờ đợi quyết định lãi suất từ Cục Dự trữ Liên bang Mỹ (Fed) vào thứ Tư tới, trong khi căng thẳng địa chính trị tại eo biển Hormuz hạ nhiệt tạm thời giúp giá dầu Brent giảm hơn 6%. Sự dịch chuyển dòng vốn đang diễn ra rõ rệt từ các tài sản đầu cơ sang các lĩnh vực có nền tảng hạ tầng thực tế như bán dẫn và trung tâm dữ liệu.",
-        "most_mentioned": "An ninh AI và hạ tầng dữ liệu là chủ đề được nhắc nhiều nhất với sự ra đời của 'Open Secure AI Alliance' do Nvidia dẫn dắt, cùng các thương vụ tài chính hạ tầng quy mô lớn. Tại Việt Nam, các hoạt động tri ân Ngày Thương binh - Liệt sĩ và các quyết định về quy hoạch hạ tầng, chính sách đất đai là những điểm nhấn chính.",
-        "top_stories": "Thương vụ Nvidia đàm phán bảo lãnh khoản nợ 250 tỷ USD cho trung tâm dữ liệu của OpenAI nổi lên như một chỉ báo về sự phụ thuộc lẫn nhau trong hệ sinh thái AI. Song song đó, việc Việt Nam đẩy mạnh cơ chế đặc thù cho các dự án lấn biển tại Đà Nẵng và các chỉ đạo về quy hoạch hạ tầng cho thấy nỗ lực khơi thông nguồn lực kinh tế trong giai đoạn mới.",
-        "sector_impacts": "Sự phân hóa trên thị trường chứng khoán Việt Nam với cổ phiếu PNJ tăng trần sau biến cố pháp lý trong khi nhóm bán lẻ chịu áp lực bán tháo, cùng áp lực lãi suất vay mua nhà chạm ngưỡng 16%/năm đang tạo ra những thách thức thực tế cho người tiêu dùng và doanh nghiệp.",
-        "watch_24_72h": "HCM."
+        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn tái định giá mạnh mẽ khi dòng vốn rời bỏ các tài sản đầu cơ để tìm đến những doanh nghiệp có nền tảng tăng trưởng thực tế. Sự thận trọng bao trùm trước cuộc họp lãi suất của Cục Dự trữ Liên bang Mỹ (Fed), trong khi tại Việt Nam, các chính sách cải cách tài chính dài hạn và nỗ lực gỡ vướng pháp lý bất động sản đang trở thành tâm điểm chú ý.",
+        "most_mentioned": "Chủ đề AI và hạ tầng dữ liệu tiếp tục dẫn dắt dòng tin công nghệ, với sự chuyển dịch chiến lược của các công ty hạ tầng tiền điện tử sang trung tâm dữ liệu AI. Đồng thời, các rào cản thương mại mới từ Mỹ và rủi ro lao động cưỡng bức đang đặt ra thách thức lớn cho chuỗi cung ứng xuất khẩu Việt Nam.",
+        "top_stories": "Sự kiện PNJ mua lại lượng lớn kim cương từ khách hàng gây áp lực lên thanh khoản thị trường bán lẻ, cùng với việc bắt giữ Thứ trưởng Bộ Nông nghiệp và Môi trường Hoàng Trung, đang tạo ra những dư chấn về niềm tin thị trường và uy tín ngành nông sản Việt Nam.",
+        "sector_impacts": "Ngành tài chính đối mặt với áp lực lãi suất cao và rủi ro tự doanh, trong khi ngành công nghệ chứng kiến cuộc đua hạ tầng AI khốc liệt. Các doanh nghiệp xuất khẩu cần đặc biệt lưu ý đến các rào cản thương mại mới từ Mỹ."
       },
-      "content": "Thị trường tài chính toàn cầu đang trong trạng thái chờ đợi trước quyết định lãi suất của Fed, với kỳ vọng về sự rõ ràng hơn trong lộ trình chính sách tiền tệ. Sự hạ nhiệt của căng thẳng Mỹ-Iran tại eo biển Hormuz đã mang lại khoảng lặng cần thiết cho giá năng lượng, giúp giảm bớt áp lực lạm phát ngắn hạn. Tuy nhiên, các nhà đầu tư vẫn duy trì sự thận trọng cao độ, thể hiện qua việc xu hướng tài sản từ các tài sản đầu cơ sang các lĩnh vực có nền tảng hạ tầng thực tế như AI và bán dẫn.\n\nTại Việt Nam, chính sách đang chuyển dịch mạnh mẽ sang giai đoạn cụ thể hóa các luật mới. Việc Trung ương giao Bộ Chính trị chỉ đạo sửa đổi Luật Đất đai và thông qua chủ trương thành lập các thành phố mới tại Bắc Ninh là những bước đi chiến lược nhằm tái cấu trúc không gian phát triển. Đồng thời, các ngân hàng thương mại lớn như Techcombank đang đóng vai trò dẫn dắt vốn cho các dự án hạ tầng quốc gia, dù áp lực lãi suất vay vẫn là một biến số gây lo ngại cho thị trường bất động sản và người vay cá nhân.\n\nTrong lĩnh vực công nghệ, cuộc đua AI đã bước sang giai đoạn 'hạ tầng hóa'. Việc thành lập liên minh an ninh AI mã nguồn mở cho thấy các tập đoàn công nghệ như Nvidia, Microsoft và IBM đang ưu tiên tính minh bạch và bảo mật để duy trì niềm tin của người dùng và nhà quản lý. Đây là tín hiệu cho thấy AI đang dần chuyển từ giai đoạn thử nghiệm sang triển khai thực tế trong vận hành doanh nghiệp và an ninh mạng.",
+      "content": "Trong 48 giờ qua, thị trường tài chính thị trường chịu áp lực lớn từ sự phân hóa dòng vốn, với cổ phiếu công nghệ và AI đối mặt với làn sóng chốt lời mạnh mẽ, trong khi Apple đạt cột mốc vốn hóa 5 nghìn tỷ USD. Tại Việt Nam, trọng tâm chuyển dịch sang việc gỡ vướng pháp lý cho các dự án hạ tầng trọng điểm, cải cách thị trường tài chính và ứng phó với các rào cản thương mại mới từ Mỹ. Các sự kiện như việc phê duyệt Đề án cải cách tổng thể thị trường tài chính đến năm 2045 và những biến động tại PNJ cho thấy một giai đoạn tái cấu trúc mạnh mẽ trong nước. Trong 24-72 giờ tới, nhà đầu tư cần theo dõi sát sao quyết định lãi suất của Fed và các tín hiệu từ thị trường bán lẻ vàng bạc tại Việt Nam.",
       "representative_sources": [
         {
-          "title": "Bitcoin (BTC) price may fall to $52,000 as demand remains elusive, Nansen analyst says",
-          "source": "coindesk_com",
-          "url": "https://coindesk.com/markets/2026/07/27/bitcoin-shrugs-off-ai-selloff-but-high-stakes-fed-meeting-could-determine-what-s-next"
+          "title": "Phê duyệt Đề án cải cách tổng thể thị trường tài chính Việt Nam đến năm 2045",
+          "source": "baochinhphu_vn",
+          "url": "https://baochinhphu.vn/cai-cach-tong-the-thi-truong-tai-chinh-viet-nam-102260728152117405.htm"
         },
         {
-          "title": "Nvidia in talks to guarantee $250bn of OpenAI data centre debt",
-          "source": "thenextweb_com",
-          "url": "https://thenextweb.com/news/nvidia-openai-250-billion-backstop-ohio-data-centre",
-          "excerpt": "Thương vụ tài chính hạ tầng AI lớn nhất lịch sử, cho thấy sự phụ thuộc lẫn nhau giữa nhà cung cấp chip và khách hàng lớn."
+          "title": "PNJ chi hơn 7.000 tỷ đồng mua lại kim cương từ khách hàng",
+          "source": "dantri_com_vn",
+          "url": "https://dantri.com.vn/kinh-doanh/pnj-chi-hon-7000-ty-dong-mua-lai-kim-cuong-tu-khach-hang-20260728190111011.htm"
+        },
+        {
+          "title": "PNJ chi hơn 7.000 tỷ đồng mua lại kim cương từ khách hàng",
+          "source": "dantri_com_vn",
+          "url": "https://dantri.com.vn/kinh-doanh/pnj-chi-hon-7000-ty-dong-mua-lai-kim-cuong-tu-khach-hang-20260728190111011.htm",
+          "excerpt": "Làn sóng khách hàng bán lại trang sức kim cương tăng đột biến gây áp lực lên dòng tiền của PNJ."
+        },
+        {
+          "title": "Trung Quốc bắt đầu sản xuất hàng loạt máy quang khắc DUV: Cổ phiếu công nghệ Mỹ hoảng loạn, hơn 1.000 tỷ USD bốc hơi",
+          "source": "genk_vn",
+          "url": "https://genk.vn/trung-quoc-bat-dau-san-xuat-hang-loat-may-quang-khac-duv-co-phieu-cong-nghe-my-hoang-loan-hon-1000-ty-usd-boc-hoi-165260728111739082.chn",
+          "excerpt": "Sự kiện này đe dọa vị thế của các ông lớn bán dẫn toàn cầu."
+        },
+        {
+          "title": "Toàn cảnh từ trên cao trận động đất mạnh 7,1 độ rung chuyển Nhật Bản, nhiều người nghi thiệt mạng trong đống đổ nát của AEON Mall",
+          "source": "cafef_vn",
+          "url": "https://cafef.vn/toan-canh-tu-tren-cao-tran-dong-dat-manh-71-do-rung-chuyen-nhat-ban-nhieu-nguoi-nghi-thiet-mang-trong-dong-do-nat-cua-aeon-mall-188260728221542627.chn",
+          "excerpt": "Trận động đất tại Kumamoto gây sập công trình, mất điện diện rộng và ảnh hưởng đến các nhà máy sản xuất chip."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Quyết định lãi suất của Fed",
-          "why_mentioned": "Tác động trực tiếp đến dòng vốn toàn cầu và tâm lý nhà đầu tư.",
-          "evidence_hint": "Được nhắc đến trong các báo cáo thị trường từ CNBC, Coindesk và Cryptoslate."
+          "topic": "Chính sách tài chính Việt Nam",
+          "why_mentioned": "Định hướng chiến lược dài hạn cho thị trường tài chính quốc gia.",
+          "evidence_hint": "Đề án cải cách tổng thể thị trường tài chính đến năm 2045."
         },
         {
-          "topic": "An ninh AI và Liên minh mã nguồn mở",
-          "why_mentioned": "Phản ứng của ngành trước các rủi ro bảo mật và rò rỉ dữ liệu.",
-          "evidence_hint": "Sự kiện thành lập Open Secure AI Alliance với 37 thành viên."
+          "topic": "Đầu tư hạ tầng AI",
+          "why_mentioned": "Sự hoài nghi về hiệu quả vốn của các tập đoàn công nghệ lớn.",
+          "evidence_hint": "Báo cáo chi phí vốn (capex) của Alphabet, Microsoft."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Căng thẳng Mỹ-Iran và giá dầu",
-          "why_hot": "Tác động tức thời đến giá năng lượng và tâm lý thị trường.",
-          "impact": "Giá dầu Brent giảm hơn 6%, giúp giảm áp lực lạm phát toàn cầu.",
-          "evidence_hint": "Dữ liệu từ CNBC và Cafef về biến động giá dầu."
+          "topic": "Biến động thanh khoản PNJ",
+          "why_hot": "Ảnh hưởng trực tiếp đến niềm tin thị trường bán lẻ vàng bạc.",
+          "impact": "Áp lực lên dòng tiền và vốn hóa doanh nghiệp.",
+          "evidence_hint": "Thông tin mua lại 7.000 tỷ đồng kim cương từ khách hàng."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dịch chuyển dòng vốn sang hạ tầng AI",
-          "why_watch": "Nhà đầu tư đang ưu tiên các công ty có nền tảng hạ tầng thực tế thay vì chỉ dựa vào kỳ vọng phần mềm."
+          "signal": "Chuyển dịch hạ tầng tiền điện tử sang AI",
+          "why_watch": "Các công ty khai thác Bitcoin đang tái định vị tài sản sang trung tâm dữ liệu AI."
         }
       ],
       "watch_next": [
-        "Quyết định lãi suất của Fed vào thứ Tư",
-        "Diễn biến giá dầu Brent",
-        "Các văn bản hướng dẫn Luật Đất đai (sửa đổi)"
+        "Quyết định lãi suất của Fed",
+        "Diễn biến thanh khoản tại PNJ",
+        "Phản ứng của thị trường chứng khoán với báo cáo tài chính công nghệ"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Fed chuẩn bị cho quyết định lãi suất trong bối cảnh thị trường lo ngại về lạm phát",
-        "one_sentence": "Chủ tịch Kevin Warsh và FOMC sẽ công bố quyết định lãi suất vào thứ Tư, với xác suất tăng lãi suất 31% theo FedWatch Tool.",
-        "why_it_matters": "Đây là sự kiện vĩ mô then chốt định hình dòng chú ý thị trường trong nửa cuối năm 2026.",
-        "watch_next": "Tín hiệu từ Chủ tịch Fed về lộ trình chính sách tiền tệ tại cuộc họp FOMC.",
+        "title": "Phê duyệt Đề án cải cách tổng thể thị trường tài chính Việt Nam đến năm 2045",
+        "one_sentence": "Chính phủ Việt Nam đặt mục tiêu xây dựng thị trường tài chính hiện đại, minh bạch, trở thành động lực huy động vốn cho tăng trưởng kinh tế bền vững đến năm 2045.",
+        "why_it_matters": "Định hình lộ trình phát triển tài chính quốc gia dài hạn.",
+        "watch_next": "Các văn bản hướng dẫn thực thi đề án.",
         "source_urls": [
-          "https://cnbc.com/2026/07/27/stock-market-today-live-updates.html"
+          "https://baochinhphu.vn/cai-cach-tong-the-thi-truong-tai-chinh-viet-nam-102260728152117405.htm"
         ]
       },
       {
         "rank": 2,
-        "title": "Nvidia đàm phán bảo lãnh khoản nợ 250 tỷ USD cho trung tâm dữ liệu của OpenAI",
-        "one_sentence": "Thương vụ tài chính hạ tầng AI quy mô 500 tỷ USD này cho thấy sự phụ thuộc lẫn nhau giữa nhà cung cấp chip và khách hàng lớn.",
-        "why_it_matters": "Đây là thương vụ tài chính hạ tầng AI lớn nhất từ trước đến nay, gây lo ngại về rủi ro hệ thống nếu nhu cầu hạ tầng AI hạ nhiệt.",
-        "watch_next": "Tiến độ xây dựng trung tâm dữ liệu 10GW tại Ohio.",
+        "title": "PNJ chi hơn 7.000 tỷ đồng mua lại kim cương từ khách hàng",
+        "one_sentence": "Công ty Vàng bạc đá quý Phú Nhuận (PNJ) đối mặt áp lực thanh khoản do làn sóng bán lại kim cương tăng đột biến, buộc phải điều chỉnh chính sách thu đổi.",
+        "why_it_matters": "Sự kiện ảnh hưởng trực tiếp đến niềm tin thị trường và thanh khoản của một doanh nghiệp bán lẻ vàng bạc lớn.",
+        "watch_next": "Diễn biến giá cổ phiếu và báo cáo tài chính quý III của PNJ.",
         "source_urls": [
-          "https://thenextweb.com/news/nvidia-openai-250-billion-backstop-ohio-data-centre"
+          "https://dantri.com.vn/kinh-doanh/pnj-chi-hon-7000-ty-dong-mua-lai-kim-cuong-tu-khach-hang-20260728190111011.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Căng thẳng Mỹ-Iran hạ nhiệt tạm thời, giá dầu giảm mạnh",
-        "one_sentence": "Việc tạm dừng xung đột tại eo biển Hormuz giúp giá dầu Brent giảm hơn 6%, ổn định tâm lý thị trường tài chính toàn cầu.",
-        "why_it_matters": "Tác động trực tiếp đến giá năng lượng và kỳ vọng lạm phát toàn cầu.",
-        "watch_next": "Các cuộc đàm phán ngoại giao tiếp theo giữa Mỹ và Iran.",
+        "title": "Thị trường chứng khoán toàn cầu rung lắc trước áp lực chốt lời nhóm AI",
+        "one_sentence": "Nhà đầu tư lo ngại về hiệu quả của làn sóng đầu tư hạ tầng AI khổng lồ khi các công ty công nghệ lớn báo cáo chi phí tăng cao.",
+        "why_it_matters": "Phản ánh tâm lý lo ngại về sự bền vững của chu kỳ đầu tư AI.",
+        "watch_next": "Báo cáo tài chính của các tập đoàn công nghệ lớn.",
         "source_urls": []
       }
     ],
@@ -115,24 +131,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính 48 giờ qua nổi bật bởi sự thận trọng của dòng vốn trước quyết định lãi suất của Fed và những điều chỉnh chính sách quan trọng tại Việt Nam. Thị trường chứng khoán Việt Nam ghi nhận sự phân hóa mạnh mẽ, trong khi các ngân hàng lớn tiếp tục khẳng định vai trò dẫn dắt vốn cho hạ tầng quốc gia. Điểm đáng chú ý là sự dịch chuyển dòng vốn từ các tài sản đầu cơ sang các lĩnh vực có nền tảng thực tế, phản ánh tâm lý đánh giá lại rủi ro của nhà đầu tư. Lãi suất huy động duy trì mức 4-7,8%/năm, trong khi tiền gửi dân cư đạt kỷ lục 10,82 triệu tỷ đồng.",
+        "sector_thesis": "Ngành tài chính trong 48 giờ qua nổi bật bởi sự phân hóa dòng vốn và các chính sách cải cách vĩ mô. Trong khi thị trường toàn cầu thận trọng trước quyết định lãi suất của Fed, Việt Nam đã phê duyệt Đề án cải cách tổng thể thị trường tài chính đến năm 2045, đánh dấu bước ngoặt trong việc xây dựng hệ thống tài chính hiện đại. Các doanh nghiệp tài chính và bán lẻ đang đối mặt với áp lực thanh khoản và rủi ro từ danh mục tự doanh, đòi hỏi sự thận trọng trong quản trị rủi ro.",
         "subsector_briefs": [
           {
-            "name": "Thị trường tài chính & Ngân hàng",
-            "overview": "Thanh khoản hệ thống ngân hàng cải thiện với lãi suất liên ngân hàng giảm về 2,5%, trong khi các ngân hàng lớn như Techcombank ghi nhận lợi nhuận kỷ lục 18.540 tỷ đồng.",
+            "name": "Chính sách tài chính",
+            "overview": "Chính phủ Việt Nam tập trung vào cải cách dài hạn và minh bạch hóa thị trường tài chính.",
             "key_points": [
-              "Tiền gửi dân cư đạt kỷ lục 10,82 triệu tỷ đồng.",
-              "Lãi suất liên ngân hàng giảm về mức thấp nhất từ đầu năm."
+              "Phê duyệt Đề án cải cách tài chính 2045",
+              "Thúc đẩy thị trường chứng khoán"
             ],
             "key_story_titles": [
-              "Tiền gửi ngân hàng lập kỷ lục 10,82 triệu tỷ đồng"
+              "Phê duyệt Đề án cải cách tổng thể thị trường tài chính Việt Nam đến năm 2045"
             ],
             "representative_sources": [
               {
-                "title": "Lãi suất vượt 9%, tiền gửi ngân hàng lập kỷ lục 10,82 triệu tỷ đồng",
-                "source": "vietnamnet_vn",
-                "url": "https://vietnamnet.vn/tien-gui-ngan-hang-lap-ky-luc-vuot-10-82-trieu-ty-dong-2539428.html",
-                "excerpt": "Dòng tiền gửi từ dân cư tăng mạnh giúp quy mô vốn huy động toàn hệ thống đạt mức cao nhất từ trước đến nay."
+                "title": "Cải cách tổng thể thị trường tài chính Việt Nam",
+                "source": "baochinhphu_vn",
+                "url": "https://baochinhphu.vn/cai-cach-tong-the-thi-truong-tai-chinh-viet-nam-102260728152117405.htm",
+                "excerpt": "Mục tiêu tổng quát là xây dựng thị trường tài chính Việt Nam phát triển đồng bộ, hiện đại và hội nhập."
               }
             ]
           }
@@ -141,29 +157,30 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Thị trường chứng khoán",
-            "title": "Sự phân hóa mạnh mẽ trên thị trường chứng khoán Việt Nam",
-            "summary": "Thị trường chứng khoán Việt Nam ghi nhận sự phân hóa khi cổ phiếu PNJ tăng trần sau biến cố pháp lý, trong khi nhóm bán lẻ và chứng khoán chịu áp lực bán tháo.",
+            "sub_sector": "Bán lẻ vàng bạc",
+            "title": "Khủng hoảng thanh khoản tại PNJ",
+            "summary": "Công ty Vàng bạc đá quý Phú Nhuận (PNJ) đối mặt với áp lực thanh khoản lớn do làn sóng khách hàng bán lại kim cương tăng đột biến trong tháng 7, buộc doanh nghiệp phải chi hơn 7.000 tỷ đồng để mua lại hàng, gây ảnh hưởng trực tiếp đến giá trị vốn hóa và niềm tin của cổ đông.",
             "main_developments": [
-              "VN-Index giảm 17,1 điểm xuống 1.669,01 điểm.",
-              "Cổ phiếu PNJ tăng hết biên độ sau bốn phiên giảm sàn.",
-              "Dư nợ margin tăng lên 445.000 tỷ đồng trong khi thanh khoản giảm mạnh."
+              "Từ 1/7 đến 20/7, giá trị hàng mua lại lên tới 5.900 tỷ đồng trong khi doanh thu chỉ đạt 1.588 tỷ đồng.",
+              "Tổng giá trị PNJ mua lại từ đầu tháng 7 đến nay đã vượt 7.000 tỷ đồng.",
+              "Cổ phiếu PNJ giảm mạnh trong tháng 7, mất gần một nửa giá trị vốn hóa."
             ],
-            "why_it_matters": "Phản ánh tâm lý thận trọng và sự mất cân đối giữa dòng vốn vay và thanh khoản thực tế.",
+            "why_it_matters": "Sự kiện ảnh hưởng trực tiếp đến niềm tin thị trường và thanh khoản của một doanh nghiệp bán lẻ vàng bạc lớn, gây lo ngại về rủi ro hệ thống trong ngành bán lẻ trang sức.",
             "affected_groups": [
-              "Nhà đầu tư cá nhân",
-              "Công ty chứng khoán"
+              "Cổ đông PNJ",
+              "Nhà đầu tư vàng bạc",
+              "Thị trường bán lẻ"
             ],
             "watch_next": [
-              "Diễn biến thanh khoản trên sàn HoSE",
-              "Áp lực giải chấp margin khi thị trường biến động"
+              "Chính sách thu đổi kim cương của PNJ",
+              "Báo cáo tài chính quý III"
             ],
             "representative_sources": [
               {
-                "title": "PNJ tăng trần sau cú sốc, Thế Giới Di Động bất ngờ giảm sàn",
-                "source": "vietnamnet_vn",
-                "url": "https://vietnamnet.vn/pnj-tang-tran-sau-cu-soc-the-gioi-di-dong-bat-ngo-giam-san-2539572.html",
-                "excerpt": "Phản ánh tâm lý thận trọng và sự phân hóa dòng tiền của nhà đầu tư trong bối cảnh thị trường thiếu động lực tăng trưởng."
+                "title": "PNJ chi hơn 7.000 tỷ đồng mua lại kim cương từ khách hàng",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/pnj-chi-hon-7000-ty-dong-mua-lai-kim-cuong-tu-khach-hang-20260728190111011.htm",
+                "excerpt": "Làn sóng khách hàng bán lại trang sức kim cương tăng đột biến gây áp lực lên dòng tiền của PNJ."
               }
             ]
           }
@@ -172,54 +189,36 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI 48 giờ qua tập trung vào việc thiết lập các tiêu chuẩn an ninh và hạ tầng cho kỷ nguyên AI. Sự ra đời của các liên minh an ninh AI mã nguồn mở cho thấy ngành công nghệ đang chủ động đối phó với các rủi ro bảo mật. Đồng thời, cuộc đua về hạ tầng dữ liệu và chip AI đang đạt đến quy mô chưa từng có, với các thương vụ tài chính hàng trăm tỷ USD, khẳng định vị thế của AI như một động lực tăng trưởng hạ tầng cốt lõi.",
-        "subsector_briefs": [
-          {
-            "name": "An ninh AI & Hạ tầng",
-            "overview": "Liên minh Open Secure AI Alliance với 37 thành viên tập trung phát triển công cụ bảo mật mã nguồn mở để đối phó với các mối đe dọa an ninh mạng.",
-            "key_points": [
-              "Nvidia, Microsoft, IBM thành lập liên minh an ninh AI.",
-              "Amazon mở rộng mạng lưới internet vệ tinh trực tiếp đến thiết bị."
-            ],
-            "key_story_titles": [
-              "Nvidia thành lập liên minh an ninh AI với 37 thành viên"
-            ],
-            "representative_sources": [
-              {
-                "title": "Nvidia forms 37-member AI security alliance without OpenAI, Anthropic or Google",
-                "source": "coindesk_com",
-                "url": "https://coindesk.com/tech/2026/07/27/nvidia-forms-37-member-ai-security-alliance-without-openai-anthropic-or-google"
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua chứng kiến sự chuyển dịch mạnh mẽ sang hạ tầng dữ liệu và bán dẫn. Các tập đoàn công nghệ lớn đang đối mặt với sự giám sát chặt chẽ về chi phí đầu tư AI, trong khi các công ty hạ tầng tiền điện tử đang chuyển hướng sang AI để tìm kiếm tăng trưởng bền vững. Sự kiện Trung Quốc sản xuất hàng loạt máy quang khắc DUV nội địa cũng tạo ra những tác động địa chính trị và tài chính đáng kể đến chuỗi cung ứng bán dẫn toàn cầu.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Hạ tầng AI",
-            "title": "Cuộc đua hạ tầng AI: Nvidia và OpenAI",
-            "summary": "Nvidia đàm phán bảo lãnh khoản nợ 250 tỷ USD cho trung tâm dữ liệu của OpenAI tại Ohio, đánh dấu thương vụ tài chính hạ tầng AI lớn nhất từ trước đến nay.",
+            "sub_sector": "Bán dẫn",
+            "title": "Trung Quốc sản xuất hàng loạt máy quang khắc DUV nội địa",
+            "summary": "Một công ty có sự hậu thuẫn của nhà nước Trung Quốc tại Thượng Hải đã bắt đầu sản xuất hàng loạt máy quang khắc DUV, thiết bị quan trọng bậc nhất trong dây chuyền sản xuất chip bán dẫn, hoàn toàn từ nguồn linh kiện nội địa, gây chấn động thị trường chip thị trường và làm bốc hơi hơn 1.000 tỷ USD vốn hóa ngành công nghệ Mỹ.",
             "main_developments": [
-              "Thỏa thuận bảo lãnh 250 tỷ USD cho dự án trung tâm dữ liệu 10GW.",
-              "Tổng chi phí dự án ước tính hơn 500 tỷ USD.",
-              "Nvidia cung cấp bảo lãnh tài chính để đảm bảo nhu cầu chip dài hạn."
+              "Thiết bị quang khắc DUV được sản xuất hoàn toàn từ linh kiện nội địa Trung Quốc.",
+              "Sự kiện này thách thức các lệnh cấm vận công nghệ từ Mỹ.",
+              "Cổ phiếu công nghệ Mỹ phản ứng tiêu cực với thông tin này."
             ],
-            "why_it_matters": "Thương vụ này khẳng định sự phụ thuộc lẫn nhau giữa nhà cung cấp chip và khách hàng lớn, đồng thời gây lo ngại về rủi ro hệ thống.",
+            "why_it_matters": "Sự kiện có tác động địa chính trị và tài chính cực lớn đến chuỗi cung ứng bán dẫn toàn cầu, làm thay đổi cán cân quyền lực trong ngành chip.",
             "affected_groups": [
-              "Nhà đầu tư công nghệ",
-              "Nhà cung cấp hạ tầng dữ liệu"
+              "Ngành bán dẫn toàn cầu",
+              "Các công ty công nghệ Mỹ",
+              "Chuỗi cung ứng chip"
             ],
             "watch_next": [
-              "Tiến độ triển khai dự án trung tâm dữ liệu tại Ohio",
-              "Phản ứng của thị trường về tính bền vững của các giao dịch tài chính AI"
+              "Phản ứng chính sách từ Mỹ",
+              "Khả năng mở rộng sản xuất của Trung Quốc"
             ],
             "representative_sources": [
               {
-                "title": "Nvidia in talks to guarantee $250bn of OpenAI data centre debt",
-                "source": "thenextweb_com",
-                "url": "https://thenextweb.com/news/nvidia-openai-250-billion-backstop-ohio-data-centre",
-                "excerpt": "Thương vụ tài chính hạ tầng AI lớn nhất lịch sử, cho thấy sự phụ thuộc lẫn nhau giữa nhà cung cấp chip và khách hàng lớn."
+                "title": "Trung Quốc bắt đầu sản xuất hàng loạt máy quang khắc DUV: Cổ phiếu công nghệ Mỹ hoảng loạn, hơn 1.000 tỷ USD bốc hơi",
+                "source": "genk_vn",
+                "url": "https://genk.vn/trung-quoc-bat-dau-san-xuat-hang-loat-may-quang-khac-duv-co-phieu-cong-nghe-my-hoang-loan-hon-1000-ty-usd-boc-hoi-165260728111739082.chn",
+                "excerpt": "Sự kiện này đe dọa vị thế của các ông lớn bán dẫn toàn cầu."
               }
             ]
           }
@@ -228,54 +227,36 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48 giờ qua xoay quanh các hoạt động tri ân xã hội và những quyết định chính trị quan trọng tại Việt Nam. Việc Trung ương chỉ đạo sửa đổi Luật Đất đai và thông qua chủ trương thành lập các thành phố mới tại Bắc Ninh cho thấy sự quyết tâm trong việc hoàn thiện khung pháp lý quốc gia. Trên bình diện quốc tế, các cuộc gặp cấp cao tại Washington và những biến động địa chính trị tại Trung Đông tiếp tục là tâm điểm của chính sách đối ngoại toàn cầu.",
-        "subsector_briefs": [
-          {
-            "name": "Chính sách & Xã hội",
-            "overview": "Các hoạt động tri ân Ngày Thương binh - Liệt sĩ 27/7 diễn ra trên cả nước, cùng với các chỉ đạo quan trọng về quy hoạch đất đai và hạ tầng.",
-            "key_points": [
-              "Trung ương giao Bộ Chính trị chỉ đạo sửa đổi Luật Đất đai.",
-              "Bắc Ninh đạt tiêu chí đô thị loại I."
-            ],
-            "key_story_titles": [
-              "Hoạt động tri ân Ngày Thương binh - Liệt sĩ 27/7"
-            ],
-            "representative_sources": [
-              {
-                "title": "Trung ương giao Bộ Chính trị chỉ đạo sửa đổi Luật Đất đai",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/trung-uong-giao-bo-chinh-tri-chi-dao-sua-doi-luat-dat-dai-post1863047.tpo",
-                "excerpt": "Quyết định chính trị quan trọng ảnh hưởng đến khung pháp lý bất động sản và phát triển đô thị quốc gia."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Thời sự và chính trị trong 48 giờ qua tập trung vào các nỗ lực cải cách thể chế tại Việt Nam và các diễn biến địa chính trị quốc tế. Việc phê duyệt các dự án luật quan trọng và các cuộc gặp cấp cao với các tổ chức quốc tế như IMF, WTO cho thấy định hướng chiến lược của Việt Nam trong việc hội nhập và phát triển bền vững. Đồng thời, các sự kiện thiên tai tại Nhật Bản và các lệnh trừng phạt mới từ Mỹ cũng đang ảnh hưởng đến an ninh và kinh tế toàn cầu.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Chính trị xã hội",
-            "title": "Tri ân Ngày Thương binh - Liệt sĩ 27/7",
-            "summary": "Cả nước tổ chức các hoạt động tưởng niệm, trao bằng Tổ quốc ghi công và chăm lo cho các gia đình chính sách nhân kỷ niệm 79 năm ngày 27/7.",
+            "sub_sector": "Thiên tai",
+            "title": "Động đất 7,1 độ tại Nhật Bản",
+            "summary": "Trận động đất mạnh 7,1 độ richter tại tỉnh Kumamoto, Nhật Bản đã gây ra thiệt hại nghiêm trọng về hạ tầng, sập công trình, mất điện diện rộng và ảnh hưởng trực tiếp đến các nhà máy sản xuất chip bán dẫn trong khu vực, buộc các hãng như TSMC phải sơ tán nhân viên khẩn cấp.",
             "main_developments": [
-              "Trao bằng Tổ quốc ghi công cho thân nhân liệt sĩ.",
-              "Các doanh nghiệp như Agribank ủng hộ 300 tỷ đồng cho phong trào đền ơn đáp nghĩa.",
-              "Các đơn vị tổ chức dâng hương tại các nghĩa trang liệt sĩ trên cả nước."
+              "Hơn 50 người bị thương và nhiều công trình đổ sập.",
+              "Vụ nổ tại AEON Mall gây thương vong lớn.",
+              "Hãng sản xuất chip TSMC sơ tán nhân viên khỏi nhà máy."
             ],
-            "why_it_matters": "Đây là sự kiện chính trị - xã hội trọng tâm thể hiện đạo lý uống nước nhớ nguồn của Đảng và Nhà nước.",
+            "why_it_matters": "Sự kiện thiên tai lớn ảnh hưởng đến chuỗi cung ứng bán dẫn toàn cầu và an toàn công cộng, gây lo ngại về khả năng phục hồi hạ tầng tại Nhật Bản.",
             "affected_groups": [
-              "Gia đình chính sách",
-              "Người có công với cách mạng"
+              "Người dân Nhật Bản",
+              "Ngành bán dẫn toàn cầu",
+              "Chuỗi cung ứng chip"
             ],
             "watch_next": [
-              "Các hoạt động chăm lo đời sống người có công sau lễ kỷ niệm"
+              "Tiến độ phục hồi hạ tầng",
+              "Tác động đến sản lượng chip của TSMC"
             ],
             "representative_sources": [
               {
-                "title": "Trao bằng Tổ quốc ghi công cho thân nhân thiếu tá công an hy sinh khi làm nhiệm vụ",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/trao-bang-to-quoc-ghi-cong-cho-than-nhan-thieu-ta-cong-an-hy-sinh-khi-lam-nhiem-vu-192260727184923653.htm",
-                "excerpt": "Sự kiện chính trị - xã hội trọng tâm trong 48 giờ qua tại Việt Nam."
+                "title": "Toàn cảnh từ trên cao trận động đất mạnh 7,1 độ rung chuyển Nhật Bản, nhiều người nghi thiệt mạng trong đống đổ nát của AEON Mall",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/toan-canh-tu-tren-cao-tran-dong-dat-manh-71-do-rung-chuyen-nhat-ban-nhieu-nguoi-nghi-thiet-mang-trong-dong-do-nat-cua-aeon-mall-188260728221542627.chn",
+                "excerpt": "Trận động đất tại Kumamoto gây sập công trình, mất điện diện rộng và ảnh hưởng đến các nhà máy sản xuất chip."
               }
             ]
           }
@@ -284,34 +265,33 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua phản ánh sự thay đổi trong tâm lý xã hội đối với công nghệ và lối sống. Người trẻ đang có xu hướng tìm kiếm sự cân bằng, từ việc hoài niệm các thiết bị analog đến việc tối giản hóa các sự kiện quan trọng như đám cưới. Đồng thời, các cảnh báo về sức khỏe cộng đồng trước các trào lưu trên mạng xã hội cho thấy nhu cầu về thông tin y tế chính thống ngày càng trở nên cấp thiết.",
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua phản ánh sự quan tâm đến sức khỏe cộng đồng, an toàn công nghệ và các xu hướng thể thao mới. Việc thành lập Liên đoàn Pickleball Việt Nam và các khuyến cáo y tế về cúm mùa, Covid-19 cho thấy sự thay đổi trong lối sống và nhu cầu chăm sóc sức khỏe của người dân. Đồng thời, các cảnh báo về an ninh mạng và rủi ro từ các thiết bị giá rẻ cũng là những thông tin thiết thực cho người tiêu dùng trong kỷ nguyên số.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Lối sống",
-            "title": "Xu hướng đám cưới tối giản của giới trẻ",
-            "summary": "Các cặp đôi đang từ bỏ các đám cưới quy mô lớn để ưu tiên sự riêng tư và tiết kiệm tài chính cho cuộc sống sau hôn nhân.",
+            "depth_level": "brief",
+            "sub_sector": "Thể thao",
+            "title": "Thành lập Liên đoàn Pickleball Việt Nam",
+            "summary": "Đại hội thành lập Liên đoàn Pickleball Việt Nam nhiệm kỳ I (2026-2031) đã chính thức diễn ra, đánh dấu bước ngoặt chuyên nghiệp hóa cho môn thể thao đang gây sốt tại Việt Nam, với mục tiêu phát triển mạng lưới hội viên và hệ thống thi đấu chuyên nghiệp trên toàn quốc.",
             "main_developments": [
-              "Ưu tiên sự ổn định và hạnh phúc cá nhân thay vì hình thức hoành tráng.",
-              "Xu hướng du lịch kết hợp hôn lễ (destination wedding) quy mô nhỏ.",
-              "Tiết kiệm tài chính để đầu tư cho cuộc sống sau hôn nhân."
+              "Ông Lê Văn Thành được bầu làm Chủ tịch Liên đoàn.",
+              "Mục tiêu phát triển hệ thống thi đấu chuyên nghiệp trong 5 năm tới."
             ],
-            "why_it_matters": "Phản ánh sự thay đổi sâu sắc trong quan niệm về hôn nhân và tài chính cá nhân của thế hệ trẻ.",
+            "why_it_matters": "Phản ánh xu hướng thể thao mới có tác động văn hóa và kinh tế, thu hút sự quan tâm của đông đảo người dân.",
             "affected_groups": [
-              "Thế hệ trẻ",
-              "Ngành dịch vụ cưới hỏi"
+              "Người chơi thể thao",
+              "Cộng đồng Pickleball"
             ],
             "watch_next": [
-              "Sự thay đổi trong mô hình kinh doanh của ngành dịch vụ cưới hỏi"
+              "Các giải đấu chuyên nghiệp đầu tiên"
             ],
             "representative_sources": [
               {
-                "title": "Vì sao ngày càng nhiều gia đình không còn tổ chức đám cưới thật to? 2 kiểu hôn lễ đang được người trẻ lựa chọn",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/vi-sao-ngay-cang-nhieu-gia-dinh-khong-con-to-chuc-dam-cuoi-that-to-2-kieu-hon-le-dang-duoc-nguoi-tre-lua-chon-188260727221025943.chn",
-                "excerpt": "Phản ánh sự thay đổi sâu sắc trong quan niệm về hôn nhân và tài chính cá nhân của thế hệ trẻ."
+                "title": "Thành lập Liên đoàn Pickleball Việt Nam: Cú hích cho môn thể thao 'gây sốt' cả nước",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/thanh-lap-lien-doan-pickleball-viet-nam-cu-hich-cho-mon-the-thao-gay-sot-ca-nuoc-post1863381.tpo",
+                "excerpt": "Sự kiện đánh dấu bước ngoặt chuyên nghiệp hóa cho môn thể thao đang gây sốt tại Việt Nam."
               }
             ]
           }
@@ -320,58 +300,79 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Chính sách tiền tệ Fed",
-        "what_to_watch": "Quyết định lãi suất của Fed vào thứ Tư",
-        "why": "Ảnh hưởng trực tiếp đến dòng vốn toàn cầu và tâm lý thị trường."
+        "theme": "Chính sách tiền tệ Mỹ",
+        "what_to_watch": "Quyết định lãi suất của Fed",
+        "why": "Tác động trực tiếp đến dòng vốn toàn cầu và tâm lý nhà đầu tư."
       },
       {
-        "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến đàm phán Mỹ-Iran tại eo biển Hormuz",
-        "why": "Tác động trực tiếp đến giá năng lượng và lạm phát toàn cầu."
+        "theme": "Thanh khoản bán lẻ",
+        "what_to_watch": "Diễn biến thanh khoản tại PNJ",
+        "why": "Ảnh hưởng đến niềm tin thị trường bán lẻ vàng bạc."
       },
       {
-        "theme": "Quy hoạch đất đai Việt Nam",
-        "what_to_watch": "Các văn bản hướng dẫn Luật Đất đai (sửa đổi)",
-        "why": "Ảnh hưởng đến khung pháp lý bất động sản và phát triển đô thị."
+        "theme": "Địa chính trị bán dẫn",
+        "what_to_watch": "Phản ứng từ Mỹ về máy quang khắc DUV",
+        "why": "Thay đổi cán cân quyền lực công nghệ toàn cầu."
       },
       {
-        "theme": "Căng thẳng Mỹ-Iran hạ nhiệt tạm thời, giá dầu giảm mạnh",
-        "what_to_watch": "Các cuộc đàm phán ngoại giao tiếp theo giữa Mỹ và Iran.",
-        "why": "Tác động trực tiếp đến giá năng lượng và kỳ vọng lạm phát toàn cầu."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Chứng khoán Việt Nam rung lắc: PNJ tăng trần sau cú sốc, Thế Giới Di Động giảm sàn",
-        "why": "Phản ánh tâm lý thận trọng và sự phân hóa dòng tiền của nhà đầu tư trong bối cảnh thị trường thiếu động lực tăng trưởng."
+        "theme": "Phục hồi hạ tầng Nhật Bản",
+        "what_to_watch": "Tiến độ phục hồi sau động đất",
+        "why": "Ảnh hưởng đến chuỗi cung ứng chip toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thường vụ Quốc hội cho ý kiến thí điểm cơ chế đặc thù xây khu đô thị lấn biển tại Đà Nẵng",
-        "why": "Dự án quy mô lớn, tác động trực tiếp đến quy hoạch và tăng trưởng kinh tế vùng duyên hải miền Trung."
+        "what_to_watch": "Bitcoin duy trì ổn định trước quyết định lãi suất của Fed",
+        "why": "Phản ánh tâm lý thị trường trước sự kiện vĩ mô quan trọng nhất trong 48 giờ qua."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thách thức tài chính trong việc chi trả thuốc giảm cân GLP-1",
-        "why": "Phản ánh áp lực tài chính vĩ mô lên hệ thống bảo hiểm y tế do nhu cầu thuốc điều trị béo phì tăng cao."
+        "what_to_watch": "Fed đối mặt với quyết định lãi suất khó khăn nhất trong 2 năm",
+        "why": "Tác động trực tiếp đến dòng chú ý thị trường và tâm lý nhà đầu tư."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Doanh nghiệp chứng khoán và đầu tư tài chính 'đốt' lợi nhuận vì danh mục cổ phiếu",
+        "why": "Phản ánh rủi ro từ hoạt động tự doanh của các định chế tài chính trong giai đoạn thị trường chứng khoán điều chỉnh."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Bất động sản du lịch nghỉ dưỡng phục hồi và phân hóa mạnh mẽ trong năm 2026",
+        "why": "Phản ánh xu hướng dịch chuyển dòng vốn bất động sản sang các mô hình có giá trị thực."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Thách thức tài chính từ thuốc giảm cân GLP-1: Giá trị y tế đối đầu với ngân sách bảo hiểm",
+        "why": "Phân tích tác động kinh tế của nhóm thuốc đang gây sốt toàn cầu đối với hệ thống bảo hiểm y tế."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Nvidia thành lập liên minh an ninh AI với 37 thành viên",
-        "why": "Sự kiện này phản ánh xu hướng ưu tiên an ninh và tính minh bạch trong phát triển AI của các tập đoàn công nghệ hàng đầu."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Nvidia, Microsoft và IBM thành lập liên minh an ninh AI",
-        "why": "Sự hợp tác giữa các ông lớn công nghệ định hình tiêu chuẩn an ninh cho kỷ nguyên AI."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Blue Origin gặp sự cố trong nhiệm vụ hợp tác với NASA",
-        "why": "Sự kiện quan trọng trong lộ trình quay trở lại Mặt trăng của nhân loại."
+        "what_to_watch": "Core Scientific ký hợp đồng 15 năm với AMD cho hạ tầng AI",
+        "why": "Sự chuyển dịch chiến lược của các công ty hạ tầng tiền điện tử sang AI."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng cụ thể của thị trường chứng khoán Việt Nam sau các biến động vĩ mô quốc tế.",
+    "source_desk": [
+      {
+        "topic": "Kinh tế & Tài chính",
+        "representative_sources": [
+          {
+            "title": "Cải cách tổng thể thị trường tài chính Việt Nam",
+            "source": "baochinhphu_vn",
+            "url": "https://baochinhphu.vn/cai-cach-tong-the-thi-truong-tai-chinh-viet-nam-102260728152117405.htm"
+          }
+        ]
+      },
+      {
+        "topic": "Công nghệ & AI",
+        "representative_sources": [
+          {
+            "title": "Trung Quốc bắt đầu sản xuất hàng loạt máy quang khắc DUV: Cổ phiếu công nghệ Mỹ hoảng loạn, hơn 1.000 tỷ USD bốc hơi",
+            "source": "genk_vn",
+            "url": "https://genk.vn/trung-quoc-bat-dau-san-xuat-hang-loat-may-quang-khac-duv-co-phieu-cong-nghe-my-hoang-loan-hon-1000-ty-usd-boc-hoi-165260728111739082.chn"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các lệnh trừng phạt mới đối với chuỗi cung ứng bán dẫn tại Việt Nam.",
     "notable_articles": []
   }
 }
