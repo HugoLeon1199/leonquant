@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTSON GROUP - Công ty Cổ phần Tập đoàn HTSON</title>
+  <meta name="description" content="HTSON Group - Tập đoàn đa ngành: Bất động sản, Tài chính & Đầu tư, Du lịch & Khách sạn, Giáo dục. Kiến tạo giá trị - Midas Touch.">
+  <link rel="icon" href="./assets/logo.jpg">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    html, body { margin: 0; overflow-x: hidden; font-family: 'Be Vietnam Pro', Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: translateY(0) } }
+    .fade-in { animation: fadeSlide 0.6s ease both; }
+    @keyframes kenburns { 0% { transform: scale(1.08) } 100% { transform: scale(1) } }
+    .kenburns { animation: kenburns 12s ease-out forwards; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: #C9A24B; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const NAV = ["TRANG CHỦ", "GIỚI THIỆU", "LĨNH VỰC HOẠT ĐỘNG", "TIN TỨC", "LIÊN HỆ"];
+
+    const divisions = [
+      {
+        id: "bds",
+        icon: "🏙️",
+        name: "Bất động sản",
+        tagline: "Kiến tạo không gian sống & đầu tư bền vững",
+        desc: "Phát triển, đầu tư và quản lý các dự án bất động sản nhà ở, thương mại và đô thị, mang lại giá trị dài hạn cho khách hàng và cộng đồng.",
+        color: "from-[#F4E7C9] to-[#E3C482]"
+      },
+      {
+        id: "taichinh",
+        icon: "💰",
+        name: "Tài chính & Đầu tư",
+        tagline: "Midas Touch - Chạm tay hóa vàng",
+        desc: "Tư vấn đầu tư, quản lý tài sản và phát triển danh mục tài chính đa dạng, tối ưu hóa lợi nhuận và kiểm soát rủi ro cho đối tác.",
+        color: "from-[#F8ECC9] to-[#D9A441]"
+      },
+      {
+        id: "dulich",
+        icon: "🏖️",
+        name: "Du lịch & Khách sạn",
+        tagline: "Trải nghiệm nghỉ dưỡng đẳng cấp",
+        desc: "Đầu tư và vận hành các tổ hợp nghỉ dưỡng, khách sạn theo tiêu chuẩn quốc tế, hướng tới trải nghiệm khác biệt cho du khách.",
+        color: "from-[#EFE0C0] to-[#C7A24E]"
+      },
+      {
+        id: "giaoduc",
+        icon: "🎓",
+        name: "Giáo dục",
+        tagline: "Ươm mầm tri thức - Vun đắp tương lai",
+        desc: "Đầu tư hệ thống giáo dục chất lượng cao, chương trình đào tạo hiện đại, đồng hành cùng thế hệ trẻ phát triển toàn diện.",
+        color: "from-[#F2E8D5] to-[#CBAF74]"
+      }
+    ];
+
+    const news = [
+      { tag: "SỰ KIỆN", title: "HTSON Group công bố định hướng phát triển đa ngành giai đoạn mới", date: "2026", excerpt: "Tập đoàn tiếp tục mở rộng đầu tư vào 4 trụ cột chiến lược: Bất động sản, Tài chính, Du lịch và Giáo dục." },
+      { tag: "DỰ ÁN", title: "Khởi động dự án bất động sản trọng điểm tại Hà Tĩnh", date: "2026", excerpt: "Dự án được kỳ vọng góp phần thay đổi diện mạo đô thị và tạo giá trị bền vững cho khu vực." },
+      { tag: "HỢP TÁC", title: "HTSON mở rộng hợp tác chiến lược trong lĩnh vực tài chính - đầu tư", date: "2026", excerpt: "Các thỏa thuận hợp tác nhằm tăng cường năng lực quản lý tài sản và tối ưu hiệu quả đầu tư." }
+    ];
+
+    const stats = [
+      { value: "4", label: "Lĩnh vực hoạt động" },
+      { value: "100%", label: "Cam kết uy tín" },
+      { value: "HT", label: "Tỉnh Hà Tĩnh" },
+      { value: "★★★★★", label: "Chất lượng dịch vụ" }
+    ];
+
+    const CONTACT = {
+      companyFull: "CÔNG TY CỔ PHẦN TẬP ĐOÀN HTSON",
+      address: "102 Phú Hào, Phường Thành Sen, Tỉnh Hà Tĩnh",
+      phone1: "0985.291.568",
+      phone2: "0943.336.511",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=102+Ph%C3%BA+H%C3%A0o%2C+Ph%C6%B0%E1%BB%9Dng+Th%C3%A0nh+Sen%2C+H%C3%A0+T%C4%A9nh"
+    };
+
+    function Header({ menuOpen, setMenuOpen, activeSection, onNav }) {
+      return (
+        <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-black/5 shadow-[0_4px_24px_rgba(139,26,26,0.06)]">
+          <div className="bg-[#7A1315] text-white text-[11px] sm:text-[12px]">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 h-8 flex items-center justify-between">
+              <span className="hidden sm:inline opacity-90 tracking-wide">CÔNG TY CỔ PHẦN TẬP ĐOÀN HTSON — MIDAS TOUCH</span>
+              <div className="flex items-center gap-3 sm:gap-4">
+                <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="flex items-center gap-1 font-semibold hover:text-[#F1D998]">📞 {CONTACT.phone1}</a>
+                <span className="hidden md:inline opacity-50">|</span>
+                <a href={`tel:${CONTACT.phone2.replace(/\./g, "")}`} className="hidden md:flex items-center gap-1 font-semibold hover:text-[#F1D998]">📞 {CONTACT.phone2}</a>
+              </div>
+            </div>
+          </div>
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 h-[76px] flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src="./assets/logo.jpg" alt="HTSON Group" className="w-12 h-12 rounded-full object-cover border border-[#C9A24B]/40 shadow" />
+              <div className="leading-none">
+                <div className="font-extrabold text-[18px] sm:text-[20px] tracking-wide text-[#7A1315]">HTSON <span className="text-[#B8892C] font-light">GROUP</span></div>
+                <div className="text-[10px] font-semibold tracking-[0.2em] text-black/50 mt-1">MIDAS TOUCH</div>
+              </div>
+            </div>
+            <nav className="hidden lg:flex items-center gap-7 text-[13px] font-semibold text-[#3A2A1A]">
+              {NAV.map(label => (
+                <button key={label} onClick={() => onNav(label)}
+                  className={`hover:text-[#7A1315] transition ${activeSection === label ? "text-[#7A1315]" : ""}`}>{label}</button>
+              ))}
+            </nav>
+            <div className="flex items-center gap-2">
+              <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="hidden md:inline-flex h-10 px-5 rounded-full bg-[#7A1315] text-white text-[13px] font-semibold items-center hover:bg-[#5C0E0F] transition shadow">Liên hệ ngay</a>
+              <button onClick={() => setMenuOpen(o => !o)} className="lg:hidden w-9 h-9 grid place-items-center rounded-full border border-black/10">
+                <div className="space-y-1">
+                  <div className={`w-4 h-0.5 bg-[#7A1315] transition ${menuOpen ? "rotate-45 translate-y-1" : ""}`}></div>
+                  <div className={`w-4 h-0.5 bg-[#7A1315] transition ${menuOpen ? "opacity-0" : ""}`}></div>
+                  <div className={`w-4 h-0.5 bg-[#7A1315] transition ${menuOpen ? "-rotate-45 -translate-y-1" : ""}`}></div>
+                </div>
+              </button>
+            </div>
+          </div>
+          {menuOpen && (
+            <div className="lg:hidden border-t border-black/5 bg-white">
+              <div className="px-4 py-3 grid gap-1">
+                {NAV.map(label => (
+                  <button key={label} onClick={() => onNav(label)} className="text-left py-3 px-3 rounded-xl text-[14px] font-semibold hover:bg-[#FBF3E4] text-[#3A2A1A]">{label}</button>
+                ))}
+                <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="mt-2 h-12 rounded-xl bg-[#7A1315] text-white grid place-items-center font-bold">📞 Gọi {CONTACT.phone1}</a>
+              </div>
+            </div>
+          )}
+        </header>
+      );
+    }
+
+    function App() {
+      const [menuOpen, setMenuOpen] = useState(false);
+      const [slide, setSlide] = useState(0);
+      const heroRef = useRef(null);
+      const aboutRef = useRef(null);
+      const divisionsRef = useRef(null);
+      const newsRef = useRef(null);
+      const contactRef = useRef(null);
+
+      const slides = [
+        { title: "TẬP ĐOÀN HTSON", sub: "Kiến tạo giá trị - Vươn tầm bền vững" },
+        { title: "MIDAS TOUCH", sub: "Chạm tay hóa vàng trong từng lĩnh vực đầu tư" },
+        { title: "ĐA NGÀNH - ĐA GIÁ TRỊ", sub: "Bất động sản · Tài chính · Du lịch · Giáo dục" }
+      ];
+
+      useEffect(() => {
+        const t = setInterval(() => setSlide(s => (s + 1) % slides.length), 4500);
+        return () => clearInterval(t);
+      }, []);
+
+      const refMap = {
+        "TRANG CHỦ": heroRef,
+        "GIỚI THIỆU": aboutRef,
+        "LĨNH VỰC HOẠT ĐỘNG": divisionsRef,
+        "TIN TỨC": newsRef,
+        "LIÊN HỆ": contactRef
+      };
+
+      const onNav = (label) => {
+        setMenuOpen(false);
+        if (label === "TRANG CHỦ") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+        refMap[label]?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+
+      return (
+        <div className="min-h-screen bg-[#FFFDF9] text-[#3A2A1A] antialiased selection:bg-[#7A1315] selection:text-white">
+          <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} onNav={onNav} />
+
+          <section ref={heroRef} className="relative overflow-hidden h-[420px] sm:h-[520px] flex items-center">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#7A1315] via-[#5C0E0F] to-[#3A0A0B]"></div>
+            <div className="absolute inset-0 opacity-[0.08]" style={{backgroundImage: "radial-gradient(circle at 20% 20%, #C9A24B 0, transparent 40%), radial-gradient(circle at 80% 80%, #C9A24B 0, transparent 45%)"}}></div>
+            <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full">
+              <div key={slide} className="fade-in max-w-[720px]">
+                <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full text-[11px] font-bold text-[#F1D998] tracking-wide">
+                  <span className="w-2 h-2 bg-[#F1D998] rounded-full animate-pulse"></span> CÔNG TY CỔ PHẦN TẬP ĐOÀN HTSON
+                </div>
+                <h1 className="text-white font-extrabold tracking-tight mt-5 text-[32px] sm:text-[48px] leading-[1.1]">{slides[slide].title}</h1>
+                <p className="text-[#F1D998] text-[15px] sm:text-[18px] font-medium mt-3">{slides[slide].sub}</p>
+                <div className="flex flex-wrap gap-3 mt-7">
+                  <button onClick={() => onNav("LĨNH VỰC HOẠT ĐỘNG")} className="h-[50px] px-6 rounded-full bg-[#F1D998] text-[#5C0E0F] text-[14px] font-extrabold hover:bg-white transition shadow-lg">
+                    KHÁM PHÁ LĨNH VỰC
+                  </button>
+                  <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="h-[50px] px-6 rounded-full border border-white/30 text-white text-[14px] font-bold flex items-center gap-2 hover:bg-white/10 transition">
+                    📞 {CONTACT.phone1}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+              {slides.map((_, i) => (
+                <button key={i} onClick={() => setSlide(i)} className={`h-1.5 rounded-full transition-all ${slide === i ? "w-8 bg-[#F1D998]" : "w-1.5 bg-white/40"}`}></button>
+              ))}
+            </div>
+          </section>
+
+          <section className="relative z-10 -mt-8">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+              <div className="bg-white rounded-[18px] shadow-[0_16px_48px_rgba(122,19,21,0.12)] border border-black/5 grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-black/5">
+                {stats.map(s => (
+                  <div key={s.label} className="flex flex-col items-center justify-center gap-1 px-2 sm:px-4 py-4 sm:py-5 text-center min-w-0">
+                    <div className="font-extrabold text-[17px] sm:text-[22px] text-[#7A1315] truncate max-w-full">{s.value}</div>
+                    <div className="text-[10px] sm:text-[11px] text-black/60 font-medium truncate max-w-full">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section ref={aboutRef} className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 text-[#B8892C] text-[12px] font-bold tracking-[0.2em]">GIỚI THIỆU TẬP ĐOÀN</div>
+                <h2 className="text-[26px] sm:text-[34px] font-extrabold text-[#7A1315] mt-2 leading-tight">HTSON GROUP - <span className="text-[#B8892C]">Midas Touch</span></h2>
+                <div className="w-16 h-1 bg-[#C9A24B] rounded-full mt-4 mb-5"></div>
+                <p className="text-[14px] sm:text-[15px] leading-[1.8] text-black/70">
+                  Công ty Cổ phần Tập đoàn HTSON là tổ chức kinh tế đa ngành, hoạt động trên bốn trụ cột chiến lược: <b className="text-[#7A1315]">Bất động sản, Tài chính & Đầu tư, Du lịch & Khách sạn, Giáo dục</b>. Với triết lý "Midas Touch" - chạm tay hóa vàng, HTSON theo đuổi mục tiêu kiến tạo giá trị bền vững cho khách hàng, đối tác và cộng đồng tại Hà Tĩnh và các khu vực lân cận.
+                </p>
+                <p className="text-[14px] sm:text-[15px] leading-[1.8] text-black/70 mt-4">
+                  Chúng tôi cam kết phát triển bền vững, minh bạch và không ngừng đổi mới, hướng tới trở thành tập đoàn kinh tế uy tín hàng đầu khu vực miền Trung.
+                </p>
+                <div className="mt-7 grid grid-cols-2 gap-3">
+                  {["Uy tín - Minh bạch", "Đổi mới - Bền vững", "Đa ngành - Chuyên sâu", "Con người là trung tâm"].map(v => (
+                    <div key={v} className="flex items-center gap-2 text-[13px] font-semibold text-[#3A2A1A]">
+                      <span className="w-6 h-6 rounded-full bg-[#FBF3E4] text-[#B8892C] grid place-items-center text-[12px] shrink-0">✓</span> {v}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative">
+                <div className="aspect-[4/3] rounded-[24px] bg-gradient-to-br from-[#7A1315] via-[#8C1A1C] to-[#5C0E0F] shadow-[0_24px_64px_rgba(122,19,21,0.25)] flex items-center justify-center overflow-hidden relative">
+                  <div className="absolute inset-0 opacity-10" style={{backgroundImage: "radial-gradient(circle at 30% 30%, #F1D998 0, transparent 50%)"}}></div>
+                  <img src="./assets/logo.jpg" alt="HTSON Group logo" className="w-40 h-40 sm:w-56 sm:h-56 rounded-full object-cover shadow-2xl border-4 border-white/20" />
+                </div>
+                <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl border border-black/5 px-5 py-4 hidden sm:block">
+                  <div className="text-[11px] text-black/50 font-semibold">TẦM NHÌN</div>
+                  <div className="text-[14px] font-extrabold text-[#7A1315] mt-0.5">Tập đoàn đa ngành hàng đầu</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section ref={divisionsRef} className="bg-[#FBF3E4] py-14 sm:py-20">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+              <div className="text-center max-w-[600px] mx-auto">
+                <div className="text-[#B8892C] text-[12px] font-bold tracking-[0.2em]">LĨNH VỰC HOẠT ĐỘNG</div>
+                <h2 className="text-[26px] sm:text-[34px] font-extrabold text-[#7A1315] mt-2">4 Trụ cột <span className="text-[#B8892C]">chiến lược</span></h2>
+                <div className="w-16 h-1 bg-[#C9A24B] rounded-full mx-auto mt-4"></div>
+              </div>
+              <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {divisions.map(d => (
+                  <div key={d.id} className="bg-white rounded-[20px] border border-black/5 shadow-[0_8px_28px_rgba(122,19,21,0.06)] overflow-hidden hover:-translate-y-1.5 transition-transform">
+                    <div className={`h-[110px] bg-gradient-to-br ${d.color} flex items-center justify-center text-[40px]`}>{d.icon}</div>
+                    <div className="p-5">
+                      <h3 className="font-extrabold text-[15px] text-[#7A1315]">{d.name}</h3>
+                      <p className="text-[12px] font-semibold text-[#B8892C] mt-1">{d.tagline}</p>
+                      <p className="text-[12.5px] leading-[1.6] text-black/60 mt-2">{d.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section ref={newsRef} className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+            <div className="text-center max-w-[600px] mx-auto">
+              <div className="text-[#B8892C] text-[12px] font-bold tracking-[0.2em]">TIN TỨC & SỰ KIỆN</div>
+              <h2 className="text-[26px] sm:text-[34px] font-extrabold text-[#7A1315] mt-2">Hoạt động <span className="text-[#B8892C]">nổi bật</span></h2>
+              <div className="w-16 h-1 bg-[#C9A24B] rounded-full mx-auto mt-4"></div>
+            </div>
+            <div className="mt-10 grid sm:grid-cols-3 gap-5">
+              {news.map((n, i) => (
+                <article key={i} className="bg-white rounded-[18px] border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.04)] overflow-hidden hover:-translate-y-1 transition">
+                  <div className="h-[140px] bg-gradient-to-br from-[#7A1315] to-[#5C0E0F] flex items-center justify-center">
+                    <span className="text-[11px] font-bold tracking-widest text-[#F1D998] bg-black/20 px-3 py-1 rounded-full">{n.tag}</span>
+                  </div>
+                  <div className="p-4">
+                    <div className="text-[10px] text-black/40 font-semibold">{n.date}</div>
+                    <h3 className="font-extrabold text-[14px] text-[#3A2A1A] mt-1 leading-snug">{n.title}</h3>
+                    <p className="text-[12px] text-black/60 mt-2 leading-[1.6]">{n.excerpt}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section ref={contactRef} className="bg-[#7A1315] py-14 sm:py-20">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+              <div className="text-center max-w-[600px] mx-auto">
+                <div className="text-[#F1D998] text-[12px] font-bold tracking-[0.2em]">LIÊN HỆ</div>
+                <h2 className="text-[26px] sm:text-[34px] font-extrabold text-white mt-2">Kết nối với <span className="text-[#F1D998]">HTSON Group</span></h2>
+                <div className="w-16 h-1 bg-[#C9A24B] rounded-full mx-auto mt-4"></div>
+              </div>
+              <div className="mt-10 grid lg:grid-cols-2 gap-6">
+                <div className="bg-white/[0.06] border border-white/10 rounded-[20px] p-6 sm:p-8">
+                  <div className="flex items-center gap-4">
+                    <img src="./assets/logo.jpg" alt="HTSON" className="w-16 h-16 rounded-full object-cover border-2 border-[#F1D998]/40" />
+                    <div>
+                      <div className="text-white font-extrabold text-[16px] leading-tight">{CONTACT.companyFull}</div>
+                      <div className="text-[#F1D998] text-[11px] font-semibold tracking-widest mt-1">MIDAS TOUCH</div>
+                    </div>
+                  </div>
+                  <div className="mt-6 grid gap-3 text-[13px] text-white/85">
+                    <div className="flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-white/10 grid place-items-center shrink-0">📍</span> {CONTACT.address}</div>
+                    <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="flex items-center gap-3 hover:text-white"><span className="w-8 h-8 rounded-full bg-white/10 grid place-items-center shrink-0">📞</span> {CONTACT.phone1}</a>
+                    <a href={`tel:${CONTACT.phone2.replace(/\./g, "")}`} className="flex items-center gap-3 hover:text-white"><span className="w-8 h-8 rounded-full bg-white/10 grid place-items-center shrink-0">📞</span> {CONTACT.phone2}</a>
+                  </div>
+                  <div className="mt-7 grid grid-cols-2 gap-3">
+                    <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="h-12 rounded-full bg-[#F1D998] text-[#5C0E0F] grid place-items-center font-extrabold text-[13px] hover:bg-white transition">📞 Gọi ngay</a>
+                    <a href={CONTACT.mapUrl} target="_blank" rel="noopener noreferrer" className="h-12 rounded-full border border-white/30 text-white grid place-items-center font-bold text-[13px] hover:bg-white/10 transition">🧭 Chỉ đường</a>
+                  </div>
+                </div>
+                <a href={CONTACT.mapUrl} target="_blank" rel="noopener noreferrer"
+                  className="relative rounded-[20px] overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02] min-h-[240px] flex flex-col items-center justify-center text-center px-6 hover:bg-white/[0.08] transition">
+                  <div className="w-16 h-16 rounded-full bg-[#F1D998] text-[#5C0E0F] grid place-items-center text-3xl shadow-lg">📍</div>
+                  <div className="mt-4 text-[15px] font-extrabold text-white">Trụ sở HTSON Group</div>
+                  <div className="mt-1 text-[13px] text-white/70 leading-relaxed max-w-[320px]">{CONTACT.address}</div>
+                  <div className="mt-4 text-[12px] font-bold text-[#F1D998]">Mở vị trí trên Google Maps →</div>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <footer className="bg-[#3A0A0B] text-white/70">
+            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row gap-5 items-center justify-between text-[12px]">
+              <div className="flex items-center gap-3">
+                <img src="./assets/logo.jpg" alt="HTSON" className="w-9 h-9 rounded-full object-cover" />
+                <div className="leading-tight">
+                  <div className="font-extrabold text-white tracking-wide">HTSON GROUP</div>
+                  <div className="text-[10px] text-white/50 tracking-[0.2em]">MIDAS TOUCH</div>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-white/60">
+                <span>📍 {CONTACT.address}</span>
+                <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="hover:text-white font-semibold">📞 {CONTACT.phone1}</a>
+              </div>
+              <div className="text-white/40 text-[11px]">© 2026 Công ty Cổ phần Tập đoàn HTSON</div>
+            </div>
+          </footer>
+
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-black/10 px-3 py-2.5 flex gap-2 shadow-[0_-8px_24px_rgba(0,0,0,0.08)]">
+            <a href={`tel:${CONTACT.phone1.replace(/\./g, "")}`} className="flex-1 h-12 rounded-full bg-[#7A1315] text-white grid place-items-center font-bold text-[13px]">📞 Gọi {CONTACT.phone1}</a>
+            <button onClick={() => onNav("LIÊN HỆ")} className="flex-1 h-12 rounded-full bg-[#F1D998] text-[#5C0E0F] grid place-items-center font-bold text-[13px]">Liên hệ</button>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
