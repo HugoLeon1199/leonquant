@@ -24,7 +24,7 @@
     const cars = [
       { id: "c5", name: "OMODA C5", tagline: "Tương lai trong tầm tay", color: "from-[#D8E9FF] to-[#A9CCFF]", badge: "BEST SELLER", price: "4xx triệu", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/c5.jpg" },
       { id: "c7", name: "OMODA C7", tagline: "Phong cách dẫn đầu", color: "from-[#EEF1F5] to-[#CBD5E1]", badge: "MỚI RA MẮT", price: "Sắp có giá", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/c7.jpg" },
-      { id: "j5", name: "JAECOO J5", tagline: "Bứt phá mọi giới hạn", color: "from-[#D9E9D6] to-[#9DC89A]", badge: "OFF-ROAD", price: "5xx triệu", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/j5.jpg" },
+      { id: "j5", name: "JAECOO J5", tagline: "Bứt phá mọi giới hạn", color: "from-[#D9E9D6] to-[#9DC89A]", badge: "OFF-ROAD", price: "5xx triệu", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/j5.webp" },
       { id: "j7", name: "JAECOO J7", tagline: "Đẳng cấp vượt trội", color: "from-[#1E2E2A] to-[#0F1A18]", badge: "FLAGSHIP", price: "8xx triệu", save: "Hỗ trợ đăng ký đăng kiểm miễn phí", img: "./assets/j7.jpg" }
     ];
 
@@ -34,6 +34,9 @@
       { name: "Chị Hương - Thạch Hà", car: "OMODA C5 Premium", avatar: "H", text: "Ban đầu định lấy CX5 nhưng qua lái thử C5 là chốt luôn. Sáng báo giá minh bạch, không phát sinh. Giao xe tận nhà, tặng full phụ kiện. Rất ưng!" },
       { name: "Anh Dũng - Hồng Lĩnh", car: "JAECOO J7 PHEV", avatar: "D", text: "Dịch vụ sau bán hàng OK, Sáng còn hỗ trợ làm bảo hiểm, đăng kiểm. J7 đi phố nhỏ gọn mà gầm cao, tiết kiệm xăng. Bạn bè ai cũng khen xe đẹp." }
     ];
+
+    const showroomAddress = "Vòng xuyến Thạch Long, thôn Gia Ngãi 1, xã Thạch Hà, Hà Tĩnh";
+    const showroomMapUrl = "https://www.google.com/maps?q=Omoda+%26+Jaecoo+H%C3%A0+T%C4%A9nh,+V%C3%B2ng+Xuy%E1%BA%BFn,+Th%C3%B4n+Gia+Ng%C3%A3i+1,+x%C3%A3,+Th%E1%BA%A1ch+H%C3%A0,+H%C3%A0+T%C4%A9nh+480000&ftid=0x31384d0034f2c2b3:0x7fb3d47ba8ca22ad";
 
     function formatTime(s) {
       const h = Math.floor(s / 3600).toString().padStart(2, "0");
@@ -89,9 +92,17 @@
         return Object.keys(e).length === 0;
       };
 
+      const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzpfsfd-ZjjB47UznvytTfn-yeT8WSGWet20qiEzFFuU1rR_0BoMOLqeZALPyYoFsKF/exec";
+
       const handleSubmit = (ev) => {
         ev.preventDefault();
         if (!validate()) return;
+        fetch(SHEET_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(form)
+        }).catch(() => {});
         setSubmitted(true);
         setForm(f => ({ name: "", phone: "", model: f.model, message: "" }));
       };
@@ -145,7 +156,7 @@
               <div className="w-10 h-10 rounded-full bg-[#0B2A5B] text-white grid place-items-center font-bold shrink-0">S</div>
               <div className="text-[11px] leading-[1.4]">
                 <div className="font-bold text-[#0B2A5B]">Lê Văn Sáng - Tư vấn chính hãng</div>
-                <div className="text-black/60">0963 888 331 · Vòng xuyến Thạch Long · Hỗ trợ 24/7</div>
+                <div className="text-black/60">0963 888 331 · {showroomAddress} · Hỗ trợ 24/7</div>
               </div>
             </div>
           </div>
@@ -367,7 +378,7 @@
                       <span className="w-6 h-6 rounded-full bg-white/10 grid place-items-center">✉️</span> sangomodapkdht@gmail.com
                     </div>
                     <div className="flex items-center gap-2.5 opacity-90">
-                      <span className="w-6 h-6 rounded-full bg-white/10 grid place-items-center">📍</span> Vòng xuyến Thạch Long, Hà Tĩnh
+                      <span className="w-6 h-6 rounded-full bg-white/10 grid place-items-center">📍</span> {showroomAddress}
                     </div>
                   </div>
                   <div className="mt-5 grid grid-cols-2 gap-2">
@@ -378,12 +389,14 @@
 
                 <div className="bg-white rounded-[18px] border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.04)] p-4 flex flex-col">
                   <h3 className="text-[13px] font-extrabold tracking-wide text-[#0B2A5B]">📍 ĐỊA CHỈ SHOWROOM - GOOGLE MAPS</h3>
-                  <div className="relative mt-3 rounded-xl overflow-hidden border border-black/5 bg-[#EAF1FF] h-[200px] grow">
-                    <iframe title="OMODA JAECOO Hà Tĩnh Map"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.0!2d105.902!3d18.342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVsOybmcgeHV54bq_biBUaOG6oWNoIExvbmcsIEjDoCBUxKluaA!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s"
-                      width="100%" height="100%" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-                  </div>
-                  <a href="https://maps.app.goo.gl/GtDTFPr5GGr8wRwv7?g_st=ic" target="_blank" rel="noopener noreferrer"
+                  <a href={showroomMapUrl} target="_blank" rel="noopener noreferrer"
+                    className="relative mt-3 rounded-xl overflow-hidden border border-black/5 bg-gradient-to-br from-[#EAF1FF] via-white to-[#DDEBFF] h-[200px] grow flex flex-col items-center justify-center text-center px-5 hover:shadow-[0_16px_40px_rgba(11,42,91,0.12)] transition">
+                    <div className="w-14 h-14 rounded-full bg-[#1A5CFF] text-white grid place-items-center text-2xl shadow-lg">📍</div>
+                    <div className="mt-3 text-[13px] font-extrabold text-[#0B2A5B]">OMODA & JAECOO Hà Tĩnh</div>
+                    <div className="mt-1 text-[12px] text-black/65 leading-relaxed">{showroomAddress}</div>
+                    <div className="mt-3 text-[11px] font-bold text-[#1A5CFF]">Mở vị trí chính xác trên Google Maps</div>
+                  </a>
+                  <a href={showroomMapUrl} target="_blank" rel="noopener noreferrer"
                     className="mt-3 h-10 w-full rounded-full bg-[#0B2A5B] text-white grid place-items-center text-[12px] font-bold hover:bg-[#123a7a] transition">🧭 Chỉ đường đến Showroom</a>
                 </div>
               </div>
@@ -423,7 +436,7 @@
                   <div className="w-full h-px bg-white/20 mt-1.5 mb-1"></div>
                   <div className="text-[10px] font-semibold tracking-[0.18em] text-white/60">HÀ TĨNH</div>
                 </div>
-                <span className="flex items-center gap-1.5">📍 Vòng xuyến Thạch Long, Hà Tĩnh</span>
+                <span className="flex items-center gap-1.5">📍 {showroomAddress}</span>
                 <a href="tel:0963888331" className="flex items-center gap-1.5 hover:text-white font-bold">📞 0963 888 331</a>
                 <a href="https://zalo.me/0963888331" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-[#0068FF] px-3 py-1 rounded-full text-white font-bold">Zalo: 0963 888 331</a>
               </div>
