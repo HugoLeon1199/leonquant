@@ -110,10 +110,12 @@ jobs:
           cp tech/data/publication.json _site/tech/data/publication.json 2>/dev/null || true
           cp tech/web/publication.json _site/tech/web/publication.json 2>/dev/null || true
           cp tech/index.html _site/tech/index.html 2>/dev/null || true
-          mkdir -p _site/cars _site/cars/v2
+          mkdir -p _site/cars _site/cars/v2 _site/cars/htson
           cp cars/index.html _site/cars/index.html 2>/dev/null || true
           cp cars/v2/index.html _site/cars/v2/index.html 2>/dev/null || true
           cp -r cars/v2/assets _site/cars/v2/assets 2>/dev/null || true
+          cp cars/htson/index.html _site/cars/htson/index.html 2>/dev/null || true
+          cp -r cars/htson/assets _site/cars/htson/assets 2>/dev/null || true
           cp feed-config.json _site/ 2>/dev/null || true
           cp .nojekyll _site/
           cp -r assets _site/assets 2>/dev/null || true
