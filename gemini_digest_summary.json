@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-31T22:57:54.160931+00:00",
+  "generated_at": "2026-08-01T22:51:07.325988+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 727874,
+    "estimated_input_tokens": 533221,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 661,
-    "sent_article_count": 661,
+    "input_article_count": 440,
+    "sent_article_count": 440,
     "window": {
-      "end_date": "2026-08-01",
+      "end_date": "2026-08-02",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,111 +24,81 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "15",
-    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và địa chính trị trong 48 giờ qua, tập trung vào các sự kiện có tác động thực tế đến thị trường và chính sách.",
+    "reading_time_minutes": "auto",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và chính sách quan trọng trong 48 giờ qua, tập trung vào các tác động thực tế đến thị trường và đời sống.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường 48 giờ qua ghi nhận sự dịch chuyển dòng vốn từ các tài sản rủi ro sang hạ tầng vật lý và năng lượng, trong khi tại Việt Nam, các tập đoàn lớn đang công bố kết quả kinh doanh quý 2 với sự phân hóa rõ rệt giữa nhóm bất động sản, ngân hàng và bán lẻ.",
-        "most_mentioned": "Các chủ đề về hạ tầng AI, sự cố bảo mật tài sản số và kết quả kinh doanh của các doanh nghiệp đầu ngành (Vingroup, HDBank, PNJ) là những từ khóa được nhắc đến nhiều nhất, phản ánh sự quan tâm của giới đầu tư vào năng lực thực thi và sức khỏe tài chính doanh nghiệp.",
-        "top_stories": "Sự kiện thanh lý quỹ Situational Awareness và sự cố bảo mật tại Coldcard đã làm rung chuyển niềm tin vào tài sản số, trong khi tại Việt Nam, việc Ngân hàng Nhà nước nới lỏng quy định tiền gửi Kho bạc Nhà nước là điểm nhấn quan trọng giúp cải thiện thanh khoản hệ thống.",
-        "sector_impacts": "Nhóm công nghệ chịu áp lực từ các quy định an ninh mạng mới, trong khi ngành ngân hàng và bất động sản Việt Nam đang có những tín hiệu phục hồi trái chiều dựa trên khả năng huy động vốn và quản trị rủi ro.",
-        "watch_24_72h": "Cần theo dõi sát phản ứng của thị trường tài sản số sau sự cố bảo mật, diễn biến giá vàng trong nước, tiến độ các dự án hạ tầng trọng điểm tại Việt Nam và các thông báo mới về chính sách thuế đối với cá nhân kinh doanh."
+        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường và Việt Nam đối mặt với sự dịch chuyển mạnh mẽ của dòng vốn khi các tài sản trú ẩn như vàng và Bitcoin chịu áp lực điều chỉnh. Tâm lý nhà đầu tư trở nên thận trọng trước những thay đổi tiềm tàng trong cơ chế điều hành chính sách tiền tệ của Cục Dự trữ Liên bang Mỹ (Fed), trong khi tại Việt Nam, các nỗ lực làm sạch môi trường kinh doanh thông qua việc xử lý sai phạm thuế và các vụ án lừa đảo tài chính đang được đẩy mạnh.",
+        "most_mentioned": "Chủ đề về lãi suất và chính sách tiền tệ của Fed, cùng với sự biến động của giá vàng và các vụ án kinh tế lớn tại Việt Nam, là những nội dung được nhắc đến nhiều nhất. Các thảo luận xoay quanh việc liệu sự thay đổi tần suất họp của Fed có tạo ra thêm bất định cho lộ trình lãi suất hay không, và tác động của nó đến thị trường tài sản trú ẩn.",
+        "top_stories": "Sự kiện Chủ tịch Fed Kevin Warsh cân nhắc thay đổi tần suất họp FOMC đã tạo ra làn sóng bất định mới trên thị trường vốn toàn cầu. Tại Việt Nam, việc triệt phá đường dây mua bán hóa đơn khống 2.000 tỷ đồng tại Đà Nẵng và các sai phạm tại gói thầu 5.10 sân bay Long Thành cho thấy quyết tâm của cơ quan chức năng trong việc chấn chỉnh kỷ cương trong các dự án hạ tầng trọng điểm.",
+        "sector_impacts": "Ngành ngân hàng Việt Nam ghi nhận sự phân hóa khi nhóm quốc doanh đạt lợi nhuận kỷ lục, trong khi các ngân hàng tái cơ cấu như GPBank bắt đầu phục hồi. Trong lĩnh vực công nghệ, việc Thủ tướng ban hành danh mục 46 hệ thống AI rủi ro cao, đặc biệt trong giao thông vận tải, đánh dấu bước ngoặt trong quản lý công nghệ tại Việt Nam.",
+        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi sát sao phản ứng của thị trường tài sản số sau sự cố ví lạnh Coldcard, diễn biến giá vàng trong nước so với thế giới, tiến độ xử lý các sai phạm tại dự án sân bay Long Thành và các văn bản hướng dẫn cụ thể về quản lý tài sản mã hóa tại Việt Nam."
       },
-      "content": "Thị trường tài chính 48 giờ qua bị chi phối bởi sự điều chỉnh mạnh của nhóm tài sản số sau sự cố bảo mật tại ví phần cứng Coldcard, gây thiệt hại 38 triệu USD, làm dấy lên lo ngại về tính an toàn của việc tự lưu ký. Song song đó, sự phân hóa của nhóm cổ phiếu công nghệ lớn trên Phố Wall và việc thanh lý quỹ Situational Awareness đã tạo ra làn sóng bán tháo, buộc nhà đầu tư phải đánh giá lại khả năng sinh lời thực tế từ AI. Tại Việt Nam, bức tranh kinh doanh quý 2 cho thấy sự phân hóa rõ rệt: Vingroup đạt lợi nhuận 20.375 tỷ đồng nhờ xe điện và bất động sản, trong khi PNJ đối mặt với khoản lỗ 283 tỷ đồng do dự phòng rủi ro kim cương. Chính sách tiền tệ cũng có bước chuyển quan trọng khi Ngân hàng Nhà nước nới lỏng quy định tiền gửi Kho bạc Nhà nước, giúp các ngân hàng thương mại có thêm dư địa tăng trưởng tín dụng.",
+      "content": "Thị trường tài chính 48 giờ qua chứng kiến sự điều chỉnh mạnh mẽ của các tài sản rủi ro. Bitcoin đối mặt với áp lực bán sau sự cố bảo mật ví lạnh Coldcard khiến 1.082 Bitcoin bị mất, trong khi giá vàng thế giới và trong nước đồng loạt giảm sâu do căng thẳng địa chính trị tại Trung Đông gia tăng. Sự bất định về lộ trình lãi suất của Fed, đặc biệt sau đề xuất thay đổi tần suất họp chính sách của Chủ tịch Kevin Warsh, đã khiến dòng chú ý thị trường trở nên thận trọng hơn bao giờ hết.\n\nTại Việt Nam, bức tranh kinh tế nổi bật với kết quả kinh doanh khởi sắc của nhóm ngân hàng quốc doanh Big4, đạt gần 93.000 tỷ đồng lợi nhuận trước thuế sau nửa năm, dẫn đầu bởi Vietcombank. Tuy nhiên, sự lệch pha giữa lãi suất liên ngân hàng giảm xuống mức kỷ lục 0,7% và lãi suất huy động dân cư tăng cao cho thấy nhu cầu vốn tín dụng thực tế vẫn đang rất lớn. Chính phủ cũng đang đẩy mạnh các dự án hạ tầng trọng điểm và siết chặt quản lý thuế đối với các ngành nghề dịch vụ tự do như luật sư, bác sĩ, môi giới bất động sản nhằm đảm bảo tính minh bạch và chống thất thu ngân sách.\n\nCông nghệ và AI tiếp tục là động lực tăng trưởng chiến lược. Việc Thủ tướng ban hành danh mục 46 hệ thống AI rủi ro cao, đặc biệt trong lĩnh vực giao thông vận tải, đánh dấu bước tiến quan trọng trong quản lý công nghệ. Đồng thời, các doanh nghiệp Việt đang tích cực ứng dụng AI để tối ưu hóa vận hành, minh chứng qua sự tăng trưởng doanh thu của các đơn vị bán lẻ và logistics, cùng với đó là nỗ lực hợp tác bán dẫn với các đối tác Mỹ như Nvidia để nâng cao năng lực hấp thụ công nghệ quốc gia.",
       "representative_sources": [
         {
-          "title": "Bitcoin đối mặt rủi ro bảo mật sau sự cố Coldcard",
+          "title": "El ataque a billeteras frías de Bitcoin se extiende a 4,500 direcciones mientras las pérdidas se acercan a $89 millones",
           "source": "coindesk_com",
-          "url": "https://coindesk.com/tech/2026/07/31/major-bitcoin-wallet-flaw-drains-594-btc-in-25-minute-sweep"
-        },
-        {
-          "title": "Ngân hàng Nhà nước nới lỏng quy định tiền gửi Kho bạc",
-          "source": "tienphong_vn",
-          "url": "https://tienphong.vn/ngan-hang-nha-nuoc-noi-ty-le-cho-vay-huy-dong-tu-ngay-18-post1864207.tpo"
-        },
-        {
-          "title": "Mỹ trừng phạt mạng lưới bảo hiểm Bitcoin liên quan đến Iran",
-          "source": "coindesk_com",
-          "url": "https://coindesk.com/es/policy/2026/07/31/u-s-sanctions-iran-linked-bitcoin-insurance-scheme-for-strait-of-hormuz-ships"
-        },
-        {
-          "title": "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ",
-          "source": "coindesk_com",
-          "url": "https://coindesk.com/tech/2026/07/31/major-bitcoin-wallet-flaw-drains-594-btc-in-25-minute-sweep"
-        },
-        {
-          "title": "HDBank vào nhóm ngân hàng triệu tỷ, lãi vượt 13.200 tỷ đồng",
-          "source": "baochinhphu_vn",
-          "url": "https://baochinhphu.vn/hdbank-vao-nhom-ngan-hang-trieu-ty-lai-vuot-13200-ty-dong-102260731113618733.htm"
+          "url": "https://coindesk.com/es/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Hạ tầng AI và năng lượng",
-          "why_mentioned": "Nhu cầu điện năng khổng lồ cho trung tâm dữ liệu AI thúc đẩy đầu tư hạt nhân và hạ tầng điện.",
-          "evidence_hint": "Các báo cáo về đầu tư vào startup hạt nhân và doanh thu kỷ lục của Eaton."
+          "topic": "Lãi suất và chính sách tiền tệ",
+          "why_mentioned": "Tác động trực tiếp đến kỳ vọng thị trường toàn cầu.",
+          "evidence_hint": "Các bài viết về Fed và lãi suất liên ngân hàng."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Sự cố bảo mật tài sản số",
-          "why_hot": "Ảnh hưởng trực tiếp đến niềm tin nhà đầu tư và tính an toàn của hệ thống ví phần cứng.",
-          "impact": "Gây áp lực điều chỉnh giá Bitcoin và thúc đẩy xu hướng chuyển dịch sang các tài sản có nền tảng thực.",
-          "evidence_hint": "Sự cố Coldcard và phản ứng của thị trường."
+          "topic": "Biến động tài sản rủi ro",
+          "why_hot": "Sự điều chỉnh mạnh của Bitcoin và vàng.",
+          "impact": "Ảnh hưởng đến tâm lý nhà đầu tư cá nhân.",
+          "evidence_hint": "Dữ liệu về giá vàng và sự cố ví lạnh Bitcoin."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch dòng vốn từ tài sản số sang hạ tầng vật lý",
-          "why_watch": "Các công ty công nghệ đang bán tài sản số để tài trợ cho trung tâm dữ liệu AI."
+          "signal": "Quản lý AI rủi ro cao",
+          "why_watch": "Chính sách quản lý AI tại Việt Nam đang đi vào thực chất."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường tài sản số",
-        "Tiến độ giải ngân vốn đầu tư công tại Việt Nam",
-        "Biến động giá vàng trong nước"
+        "Lộ trình lãi suất của Fed",
+        "Diễn biến giá vàng trong nước",
+        "Tiến độ các dự án hạ tầng trọng điểm"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Bitcoin đối mặt rủi ro bảo mật sau sự cố Coldcard",
-        "one_sentence": "Sự cố bảo mật tại ví phần cứng Coldcard gây thiệt hại 38 triệu USD, làm dấy lên tranh cãi về tính an toàn của việc tự lưu ký tài sản số.",
-        "why_it_matters": "Ảnh hưởng trực tiếp đến niềm tin của nhà đầu tư vào việc tự quản lý tài sản số.",
-        "watch_next": "Phản ứng của thị trường tài sản số và các biện pháp bảo mật mới.",
+        "title": "Biến động tài sản rủi ro: Bitcoin chịu áp lực từ sự cố ví lạnh và chính sách lãi suất",
+        "one_sentence": "Sự cố bảo mật ví lạnh Coldcard gây thiệt hại 70 triệu USD cùng áp lực từ lãi suất Fed khiến Bitcoin đối mặt với rủi ro điều chỉnh giá mạnh trong ngắn hạn.",
+        "why_it_matters": "Sự cố bảo mật ví lạnh và áp lực lãi suất là hai yếu tố chính tác động đến tâm lý nhà đầu tư tiền ảo trong 48 giờ qua.",
+        "watch_next": "Phản ứng của thị trường với Bitcoin và tài sản số trong 24-72 giờ tới.",
         "source_urls": [
-          "https://coindesk.com/tech/2026/07/31/major-bitcoin-wallet-flaw-drains-594-btc-in-25-minute-sweep"
+          "https://coindesk.com/es/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million"
         ]
       },
       {
         "rank": 2,
-        "title": "Ngân hàng Nhà nước nới lỏng quy định tiền gửi Kho bạc",
-        "one_sentence": "Từ ngày 1/8, các ngân hàng được khấu trừ 50% số dư tiền gửi có kỳ hạn của Kho bạc Nhà nước khi tính tỷ lệ LDR, giúp tăng dư địa cho vay.",
-        "why_it_matters": "Chính sách tiền tệ quan trọng giúp cải thiện thanh khoản hệ thống ngân hàng Việt Nam.",
-        "watch_next": "Khả năng tăng trưởng tín dụng của các ngân hàng thương mại.",
+        "title": "Giá vàng giảm sâu do căng thẳng Trung Đông gia tăng",
+        "one_sentence": "Giá vàng thế giới và trong nước đồng loạt giảm mạnh sau tin tức về các cuộc không kích tiềm tàng tại Trung Đông, gây áp lực lên nhà đầu tư cá nhân.",
+        "why_it_matters": "Tác động trực tiếp của địa chính trị đến tài sản trú ẩn an toàn và tâm lý nhà đầu tư trong nước.",
+        "watch_next": "Diễn biến giá vàng trong nước so với thế giới.",
         "source_urls": [
-          "https://tienphong.vn/ngan-hang-nha-nuoc-noi-ty-le-cho-vay-huy-dong-tu-ngay-18-post1864207.tpo"
+          "https://tuoitre.vn/gia-vang-giam-sau-do-cang-thang-trung-dong-gia-tang-10026080118301983.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Mỹ trừng phạt mạng lưới bảo hiểm Bitcoin liên quan đến Iran",
-        "one_sentence": "Bộ Tài chính Mỹ trừng phạt các thực thể Iran sử dụng Bitcoin để né tránh lệnh trừng phạt tại eo biển Hormuz.",
-        "why_it_matters": "Tác động trực tiếp đến an ninh năng lượng và việc sử dụng tiền điện tử trong né tránh trừng phạt.",
-        "watch_next": "Phản ứng của thị trường năng lượng và các lệnh trừng phạt tiếp theo.",
-        "source_urls": [
-          "https://coindesk.com/es/policy/2026/07/31/u-s-sanctions-iran-linked-bitcoin-insurance-scheme-for-strait-of-hormuz-ships"
-        ]
-      },
-      {
-        "rank": 4,
         "title": "Bitcoin và tài sản rủi ro biến động mạnh trong 48 giờ",
         "one_sentence": "",
-        "why_it_matters": "Sự cố bảo mật nghiêm trọng nhất ảnh hưởng đến người dùng ví phần cứng Coldcard, gây thiệt hại lớn và làm lung lay niềm tin vào việc tự lưu ký.",
-        "watch_next": "Sự cố bảo mật nghiêm trọng nhất ảnh hưởng đến người dùng ví phần cứng Coldcard, gây thiệt hại lớn và làm lung lay niềm t",
+        "why_it_matters": "Vụ hack ví lạnh Coldcard gây thiệt hại lớn, đặt ra câu hỏi về an ninh trong lưu trữ tiền ảo.",
+        "watch_next": "",
         "source_urls": [
-          "https://coindesk.com/tech/2026/07/31/major-bitcoin-wallet-flaw-drains-594-btc-in-25-minute-sweep"
+          "https://coindesk.com/es/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million"
         ]
       }
     ],
@@ -136,24 +106,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48 giờ qua nổi bật với sự phân hóa kết quả kinh doanh của các doanh nghiệp đầu ngành và các chính sách tiền tệ hỗ trợ thanh khoản. Trong khi các ngân hàng như HDBank đạt cột mốc tài sản triệu tỷ, thì các doanh nghiệp tiêu dùng như PNJ lại đối mặt với khó khăn do trích lập dự phòng. Sự kiện bảo mật tài sản số toàn cầu cũng đang tạo ra những thay đổi trong tâm lý nhà đầu tư, buộc thị trường phải đánh giá lại rủi ro trong việc quản lý tài sản số.",
+        "sector_thesis": "Ngành tài chính 48 giờ qua nổi bật với sự phân hóa trong kết quả kinh doanh ngân hàng và những nỗ lực làm sạch môi trường kinh doanh thông qua các vụ án kinh tế lớn. Trong khi các ngân hàng quốc doanh đạt lợi nhuận kỷ lục, thị trường vẫn đối mặt với áp lực từ chính sách tiền tệ toàn cầu và các rủi ro lừa đảo tài chính. Việc siết chặt quản lý thuế đối với các ngành nghề dịch vụ tự do và tái cơ cấu hệ thống ngân hàng đang trở thành ưu tiên hàng đầu để củng cố nền tảng kinh tế nội địa.",
         "subsector_briefs": [
           {
-            "name": "Ngân hàng & Chính sách tiền tệ",
-            "overview": "Hệ thống ngân hàng Việt Nam đón nhận tin vui từ chính sách tiền tệ mới, giúp cải thiện dư địa cho vay.",
+            "name": "Ngân hàng & Tín dụng",
+            "overview": "Hệ thống ngân hàng ghi nhận kết quả kinh doanh khả quan với nhóm quốc doanh dẫn đầu, đồng thời tiến trình tái cơ cấu các ngân hàng yếu kém đang cho thấy những tín hiệu phục hồi tích cực.",
             "key_points": [
-              "Ngân hàng Nhà nước nới lỏng quy định LDR",
-              "HDBank gia nhập câu lạc bộ ngân hàng triệu tỷ"
+              "Lợi nhuận Big4 đạt 93.000 tỷ đồng",
+              "GPBank phục hồi sau chuyển giao bắt buộc"
             ],
             "key_story_titles": [
-              "HDBank gia nhập câu lạc bộ ngân hàng triệu tỷ"
+              "Ngân hàng quốc doanh đạt lợi nhuận kỷ lục"
             ],
             "representative_sources": [
               {
-                "title": "Ngân hàng Nhà nước nới tỷ lệ cho vay, huy động từ ngày 1/8",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/ngan-hang-nha-nuoc-noi-ty-le-cho-vay-huy-dong-tu-ngay-18-post1864207.tpo",
-                "excerpt": "Điều chỉnh tỷ lệ khấu trừ tiền gửi Kho bạc Nhà nước giúp ngân hàng tăng dư địa cho vay."
+                "title": "Agribank, BIDV, VietinBank, Vietcombank lãi gần 93.000 tỷ đồng sau nửa năm",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/agribank-bidv-vietinbank-vietcombank-lai-gan-93000-ty-dong-sau-nua-nam-20260801003434795.htm",
+                "excerpt": "Kết quả kinh doanh khởi sắc của nhóm ngân hàng quốc doanh phản ánh sức khỏe hệ thống tài chính chủ chốt."
               }
             ]
           }
@@ -162,61 +132,81 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Ngân hàng",
-            "title": "HDBank gia nhập câu lạc bộ ngân hàng triệu tỷ",
-            "summary": "HDBank công bố tổng tài sản vượt 1 triệu tỷ đồng và lợi nhuận trước thuế 6 tháng đạt hơn 13.200 tỷ đồng.",
+            "sub_sector": "Tài chính & Thuế",
+            "title": "Siết chặt quản lý thuế và xử lý sai phạm kinh tế",
+            "summary": "Cơ quan chức năng đang đẩy mạnh rà soát thuế đối với các ngành nghề dịch vụ tự do và triệt phá các đường dây hóa đơn khống quy mô lớn, nhằm đảm bảo tính minh bạch và chống thất thu ngân sách nhà nước. Các vụ án kinh tế nghiêm trọng như tại Tập đoàn Capel hay sai phạm tại dự án sân bay Long Thành cho thấy quyết tâm làm sạch môi trường kinh doanh của Chính phủ.",
             "main_developments": [
-              "Lợi nhuận trước thuế 6 tháng đạt 13.202 tỷ đồng, tăng 31% so với cùng kỳ.",
-              "Tổng tài sản đạt 1,045 triệu tỷ đồng, tăng 12,3% so với đầu năm."
+              "Triệt phá đường dây mua bán hóa đơn trái phép 2.000 tỷ đồng tại Đà Nẵng",
+              "Truy tố dàn lãnh đạo Tập đoàn Capel chiếm đoạt 420 tỷ đồng của 4.800 nhà đầu tư",
+              "Thanh tra Chính phủ chỉ ra sai phạm chuyển nhượng thầu tại dự án sân bay Long Thành"
             ],
-            "why_it_matters": "Đánh dấu cột mốc quan trọng của một ngân hàng thương mại cổ phần tư nhân trong bối cảnh thị trường tài chính biến động.",
+            "why_it_matters": "Việc xử lý nghiêm các sai phạm kinh tế và siết chặt quản lý thuế giúp củng cố niềm tin của nhà đầu tư và đảm bảo nguồn thu ngân sách bền vững.",
             "affected_groups": [
-              "HDBank",
-              "Hệ thống ngân hàng Việt Nam"
+              "Nhà đầu tư cá nhân",
+              "Doanh nghiệp xây dựng",
+              "Ngành dịch vụ tự do"
             ],
             "watch_next": [
-              "Khả năng duy trì tăng trưởng tín dụng trong nửa cuối năm"
+              "Tiến độ xử lý các sai phạm tại dự án sân bay Long Thành",
+              "Kết quả rà soát thuế đối với các ngành nghề dịch vụ tự do"
             ],
-            "representative_sources": [
-              {
-                "title": "HDBank vào nhóm ngân hàng triệu tỷ, lãi vượt 13.200 tỷ đồng",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/hdbank-vao-nhom-ngan-hang-trieu-ty-lai-vuot-13200-ty-dong-102260731113618733.htm"
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua tập trung vào hạ tầng dữ liệu và các rủi ro an ninh mạng. Việc Google tạm dừng tính năng AI trên Google Earth do lo ngại deepfake và sự cố bảo mật của Anthropic cho thấy các tập đoàn công nghệ đang phải đối mặt với áp lực lớn về đạo đức và an toàn. Đồng thời, cuộc đua robot hình người và nhu cầu năng lượng cho trung tâm dữ liệu AI đang thúc đẩy dòng vốn mạo hiểm vào các lĩnh vực hạ tầng vật lý.",
-        "subsector_briefs": [],
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua tập trung vào việc thiết lập khung pháp lý cho các hệ thống AI rủi ro cao và đẩy mạnh ứng dụng công nghệ vào thực tế sản xuất. Việc quản lý chặt chẽ các hệ thống AI trong giao thông vận tải và nỗ lực hợp tác bán dẫn với các đối tác quốc tế cho thấy Việt Nam đang từng bước xây dựng hạ tầng số an toàn và hiệu quả. Đồng thời, các doanh nghiệp Việt đang tận dụng AI để tối ưu hóa vận hành và vươn tầm quốc tế, trong khi an ninh mạng trở thành thách thức lớn đối với hạ tầng thiết yếu.",
+        "subsector_briefs": [
+          {
+            "name": "Quản lý AI & An ninh mạng",
+            "overview": "Chính phủ Việt Nam ban hành danh mục AI rủi ro cao, trong khi các cuộc tấn công mạng vào hạ tầng thiết yếu toàn cầu cảnh báo về rủi ro từ AI tự hành.",
+            "key_points": [
+              "31 hệ thống AI giao thông thuộc nhóm rủi ro cao",
+              "Cảnh báo tấn công mạng vào hạ tầng nước tại Mỹ"
+            ],
+            "key_story_titles": [
+              "Quản lý AI rủi ro cao tại Việt Nam"
+            ],
+            "representative_sources": [
+              {
+                "title": "31 hệ thống AI lĩnh vực giao thông vận tải thuộc nhóm rủi ro cao, cần quản lý nghiêm ngặt",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/31-he-thong-ai-linh-vuc-giao-thong-van-tai-thuoc-nhom-rui-ro-cao-can-quan-ly-nghiem-ngat-192260801123942057.htm",
+                "excerpt": "Quyết định quan trọng về quản lý AI, ảnh hưởng trực tiếp đến hạ tầng và an toàn giao thông."
+              }
+            ]
+          }
+        ],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI",
-            "title": "Google tạm dừng tính năng AI trên Google Earth",
-            "summary": "Google tạm dừng tính năng tạo ảnh AI trên Google Earth sau khi công cụ này bị lạm dụng để tạo ra các hình ảnh giả mạo gây tranh cãi.",
+            "sub_sector": "Công nghệ & AI",
+            "title": "Chiến lược phát triển bán dẫn và ứng dụng AI",
+            "summary": "Việt Nam đang tập trung đào tạo nhân lực và hấp thụ công nghệ từ các đối tác Mỹ như Nvidia để phát triển ngành bán dẫn quốc gia. Song song đó, các doanh nghiệp Việt đang đẩy mạnh ứng dụng AI để tối ưu hóa vận hành, giúp tăng trưởng doanh thu và nâng cao năng lực cạnh tranh trên thị trường quốc tế, minh chứng qua sự thành công của các doanh nghiệp bán lẻ và logistics.",
             "main_developments": [
-              "Tính năng bị gỡ bỏ chỉ sau một ngày ra mắt.",
-              "Nguy cơ tạo ra hình ảnh vệ tinh giả mạo thuyết phục về các sự kiện bạo lực."
+              "Đại sứ Việt Nam tại Mỹ thảo luận về hợp tác bán dẫn với Nvidia",
+              "Doanh nghiệp Việt ứng dụng AI giúp tăng trưởng doanh thu đáng kể",
+              "Cuộc đua robot hình người 5.000 tỷ USD giữa Mỹ và Trung Quốc"
             ],
-            "why_it_matters": "Phản ánh rủi ro thực tế của AI trong việc tạo nội dung giả mạo và trách nhiệm của các tập đoàn công nghệ lớn.",
+            "why_it_matters": "Việc làm chủ công nghệ bán dẫn và ứng dụng AI là chìa khóa để Việt Nam nâng cao vị thế trong chuỗi cung ứng toàn cầu và thúc đẩy tăng trưởng kinh tế bền vững.",
             "affected_groups": [
-              "Google",
-              "Người dùng Google Earth"
+              "Doanh nghiệp công nghệ",
+              "Ngành bán dẫn",
+              "Nhân lực kỹ thuật cao"
             ],
             "watch_next": [
-              "Các biện pháp bảo vệ mới từ Google"
+              "Tiến độ hợp tác bán dẫn với Nvidia",
+              "Các ứng dụng AI thực tế mới trong doanh nghiệp Việt"
             ],
             "representative_sources": [
               {
-                "title": "Google Yanks Google Earth AI Image Tool a Day After Launch Over Deepfake Fears - Decrypt",
-                "source": "decrypt_co",
-                "url": "https://decrypt.co/374805/google-yanks-google-earth-ai-image-tool-deepfake-fears",
-                "excerpt": "Tính năng tạo ảnh AI bị gỡ bỏ chỉ sau một ngày ra mắt vì nguy cơ tạo ra hình ảnh giả mạo gây hiểu lầm."
+                "title": "Đại sứ Việt Nam tại Mỹ nói về việc hợp tác với hãng chip Nvidia",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/dai-su-viet-nam-tai-my-noi-ve-viec-hop-tac-voi-hang-chip-nvidia-188260801203427421.chn",
+                "excerpt": "Chiến lược phát triển công nghệ bán dẫn quốc gia thông qua hợp tác quốc tế."
               }
             ]
           }
@@ -225,59 +215,43 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và chính trị 48 giờ qua xoay quanh các nỗ lực ngoại giao và các biện pháp trừng phạt kinh tế. Việc Mỹ trừng phạt các thực thể Iran sử dụng Bitcoin để né tránh lệnh cấm vận cho thấy sự giao thoa phức tạp giữa địa chính trị và công nghệ tài chính. Tại Việt Nam, các chính sách cải cách thủ tục hành chính và quy hoạch địa phương đang được đẩy mạnh để tạo động lực tăng trưởng mới.",
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua xoay quanh việc đẩy nhanh tiến độ các dự án hạ tầng trọng điểm và hoàn thiện hành lang pháp lý cho các đô thị lớn. Các sự kiện ngoại giao kinh tế cấp cao và những biến động địa chính trị quốc tế cũng đang tác động trực tiếp đến an ninh hàng hải và chuỗi cung ứng năng lượng. Chính phủ đang thể hiện quyết tâm cao trong việc quản lý hành chính, phát triển đô thị thông minh và đảm bảo an ninh quốc gia.",
         "subsector_briefs": [],
         "story_dossiers": []
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và đời sống 48 giờ qua tập trung vào các vấn đề an sinh xã hội và văn hóa. Việc bảo vệ người cao tuổi trước bẫy lừa đảo công nghệ trở thành chủ đề cấp thiết, trong khi các sự kiện thể thao như ASEAN Cup 2026 thu hút sự quan tâm lớn của công chúng Việt Nam. Ngoài ra, xu hướng tiêu dùng các thiết bị gia dụng thông minh và sự thay đổi trong hành vi giải trí cũng phản ánh lối sống hiện đại của người Việt.",
-        "subsector_briefs": [
-          {
-            "name": "An sinh xã hội",
-            "overview": "Cảnh báo về các chiêu trò lừa đảo nhắm vào người cao tuổi.",
-            "key_points": [
-              "Bảo vệ người cao tuổi trước bẫy lừa đảo"
-            ],
-            "key_story_titles": [
-              "Bảo vệ người cao tuổi trước bẫy lừa đảo"
-            ],
-            "representative_sources": [
-              {
-                "title": "Làm sao giúp người cao tuổi thoát bẫy lừa đảo?",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/lam-sao-giup-nguoi-cao-tuoi-thoat-bay-lua-dao-185260730200448555.htm",
-                "excerpt": "Các chuyên gia an ninh mạng cảnh báo về chiêu trò lừa đảo nhắm vào người cao tuổi."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua phản ánh sự thay đổi trong hành vi tiêu dùng và nỗ lực ứng phó với biến đổi khí hậu. Việc các mô hình kinh doanh truyền thống như phòng gym cao cấp thoái trào, trong khi kinh tế đêm và năng lượng tái tạo được đẩy mạnh, cho thấy một sự chuyển dịch sang lối sống bền vững và linh hoạt hơn. Đồng thời, các vấn đề giáo dục và du lịch vẫn là những chủ đề thu hút sự quan tâm lớn của dư luận, đặc biệt là các vụ việc liên quan đến tính minh bạch trong thi cử.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "brief",
-            "sub_sector": "An sinh xã hội",
-            "title": "Bảo vệ người cao tuổi trước bẫy lừa đảo",
-            "summary": "Các chuyên gia an ninh mạng cảnh báo về chiêu trò lừa đảo nhắm vào người cao tuổi và đề xuất giải pháp từ gia đình.",
+            "depth_level": "deep",
+            "sub_sector": "Môi trường & Lối sống",
+            "title": "Biến đổi khí hậu và chuyển dịch lối sống",
+            "summary": "El Nino cường độ mạnh đang gây ra thời tiết cực đoan tại Nam Bộ, đe dọa an ninh nguồn nước và sản xuất nông nghiệp tại ĐBSCL. Trong khi đó, doanh nghiệp Việt đang chạy đua lắp điện mặt trời mái nhà để giảm chi phí và đáp ứng tiêu chuẩn bền vững, đồng thời các mô hình kinh doanh dịch vụ truyền thống đang phải chuyển đổi để thích nghi với hành vi tiêu dùng mới.",
             "main_developments": [
-              "Tội phạm mạng lợi dụng sự thiếu hụt kiến thức công nghệ của người cao tuổi.",
-              "Khuyến nghị cài đặt hạn mức chuyển khoản thấp."
+              "El Nino gây nắng nóng và nguy cơ hạn hán, xâm nhập mặn tại ĐBSCL",
+              "Doanh nghiệp khu công nghiệp chạy đua lắp điện mặt trời mái nhà",
+              "Sự thoái trào của mô hình phòng gym cao cấp tại Việt Nam"
             ],
-            "why_it_matters": "Vấn đề an sinh xã hội cấp thiết trong bối cảnh lừa đảo công nghệ gia tăng.",
+            "why_it_matters": "Việc ứng phó với biến đổi khí hậu và chuyển đổi sang năng lượng bền vững là yêu cầu cấp thiết để đảm bảo an ninh lương thực và phát triển kinh tế bền vững.",
             "affected_groups": [
-              "Người cao tuổi",
-              "Gia đình"
+              "Nông dân ĐBSCL",
+              "Doanh nghiệp sản xuất",
+              "Người tiêu dùng"
             ],
             "watch_next": [
-              "Các kịch bản lừa đảo mới"
+              "Diễn biến thời tiết cực đoan tại Nam Bộ",
+              "Tiến độ lắp đặt điện mặt trời mái nhà tại các khu công nghiệp"
             ],
             "representative_sources": [
               {
-                "title": "Làm sao giúp người cao tuổi thoát bẫy lừa đảo?",
+                "title": "Mùa mưa bất thường ở Nam bộ vì El Nino",
                 "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/lam-sao-giup-nguoi-cao-tuoi-thoat-bay-lua-dao-185260730200448555.htm",
-                "excerpt": "Các chuyên gia an ninh mạng cảnh báo về chiêu trò lừa đảo nhắm vào người cao tuổi."
+                "url": "https://thanhnien.vn/mua-mua-bat-thuong-o-nam-bo-vi-el-nino-185260731183154313.htm",
+                "excerpt": "Tác động trực tiếp đến đời sống và sản xuất nông nghiệp tại Việt Nam."
               }
             ]
           }
@@ -286,69 +260,69 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Tài sản số",
-        "what_to_watch": "Phản ứng của thị trường sau sự cố Coldcard",
-        "why": "Niềm tin nhà đầu tư vào ví phần cứng đang bị lung lay."
-      },
-      {
-        "theme": "Chính sách tiền tệ Việt Nam",
-        "what_to_watch": "Khả năng tăng trưởng tín dụng của ngân hàng",
-        "why": "Quy định mới về LDR giúp cải thiện thanh khoản hệ thống."
+        "theme": "Chính sách tiền tệ Fed",
+        "what_to_watch": "Các manh mối tiếp theo về lộ trình lãi suất từ Fed và phản ứng của thị trường tài chính.",
+        "why": "Thay đổi trong cơ chế điều hành của Fed ảnh hưởng trực tiếp đến kỳ vọng lãi suất toàn cầu."
       },
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Phản ứng của Iran và các lệnh trừng phạt mới",
-        "why": "Căng thẳng tại eo biển Hormuz ảnh hưởng đến giá năng lượng."
+        "what_to_watch": "Diễn biến căng thẳng tại eo biển Hormuz và phản ứng giá dầu Brent.",
+        "why": "Ảnh hưởng trực tiếp đến giá dầu và an ninh năng lượng toàn cầu."
       },
       {
-        "theme": "Bitcoin đối mặt rủi ro bảo mật sau sự cố Coldcard",
-        "what_to_watch": "Phản ứng của thị trường tài sản số và các biện pháp bảo mật mới.",
-        "why": "Ảnh hưởng trực tiếp đến niềm tin của nhà đầu tư vào việc tự quản lý tài sản số."
+        "theme": "Hạ tầng trọng điểm Việt Nam",
+        "what_to_watch": "Tiến độ xử lý các sai phạm tại dự án sân bay Long Thành và các dự án hạ tầng tại Hà Nội.",
+        "why": "Các dự án hạ tầng trọng điểm ảnh hưởng trực tiếp đến phát triển kinh tế - xã hội."
       },
       {
-        "theme": "Ngân hàng Nhà nước nới lỏng quy định tiền gửi Kho bạc",
-        "what_to_watch": "Khả năng tăng trưởng tín dụng của các ngân hàng thương mại.",
-        "why": "Chính sách tiền tệ quan trọng giúp cải thiện thanh khoản hệ thống ngân hàng Việt Nam."
-      },
-      {
-        "theme": "Mỹ trừng phạt mạng lưới bảo hiểm Bitcoin liên quan đến Iran",
-        "what_to_watch": "Phản ứng của thị trường năng lượng và các lệnh trừng phạt tiếp theo.",
-        "why": "Tác động trực tiếp đến an ninh năng lượng và việc sử dụng tiền điện tử trong né tránh trừng phạt."
+        "theme": "Quản lý tài sản mã hóa",
+        "what_to_watch": "Các văn bản hướng dẫn cụ thể về quản lý tài sản mã hóa tại Việt Nam.",
+        "why": "Việc hoàn thiện hành lang pháp lý cho tài sản số là ưu tiên hàng đầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin đối mặt với rủi ro bảo mật và áp lực điều chỉnh trong tháng 8",
-        "why": "Sự cố bảo mật lớn ảnh hưởng trực tiếp đến niềm tin của nhà đầu tư vào việc tự quản lý tài sản số."
+        "what_to_watch": "Triệt phá đường dây mua bán hóa đơn trái phép 2.000 tỷ đồng tại Đà Nẵng",
+        "why": "Vụ án kinh tế nghiêm trọng với quy mô giao dịch lớn, ảnh hưởng đến trật tự quản lý thuế."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Tether báo lãi 1,5 tỷ USD quý 2/2026, tăng cường nắm giữ vàng",
-        "why": "Phản ánh sức khỏe tài chính của nhà phát hành stablecoin lớn nhất thị trường trong bối cảnh biến động."
+        "what_to_watch": "Biến động giá và chiến lược định giá của các doanh nghiệp công nghệ",
+        "why": "Phản ánh chiến lược cạnh tranh giá của các tập đoàn công nghệ và nỗ lực chuyển đổi số của doanh nghiệp Việt."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Ngân hàng Nhà nước nới tỷ lệ cho vay, huy động từ ngày 1/8",
-        "why": "Tác động trực tiếp đến thanh khoản và khả năng cho vay của hệ thống ngân hàng Việt Nam."
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "31 hệ thống AI lĩnh vực giao thông vận tải thuộc nhóm rủi ro cao",
+        "why": "Quyết định quan trọng về quản lý AI, ảnh hưởng trực tiếp đến hạ tầng và an toàn giao thông."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Ngành hàng hải Việt Nam bứt tốc với lợi nhuận nghìn tỷ",
-        "why": "Phản ánh sự phục hồi của ngành logistics và vận tải biển Việt Nam trong bối cảnh chuỗi cung ứng toàn cầu biến động."
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Tương lai của AI trong phẫu thuật và lập trình",
+        "why": "Góc nhìn trái chiều về khả năng thay thế con người của AI trong các lĩnh vực chuyên môn cao."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Tấn công mạng vào hạ tầng nước tại Mỹ",
+        "why": "Sự cố an ninh mạng nghiêm trọng ảnh hưởng đến hạ tầng thiết yếu quốc gia."
+      },
+      {
+        "theme": "Thời sự & Chính trị",
+        "what_to_watch": "Hà Nội đẩy nhanh tiến độ các dự án hạ tầng trọng điểm",
+        "why": "Dự án hạ tầng trọng điểm ảnh hưởng trực tiếp đến phát triển kinh tế - xã hội của Thủ đô."
       }
     ],
     "source_desk": [
       {
-        "topic": "Tài chính & Crypto",
+        "topic": "Tài chính & Ngân hàng",
         "representative_sources": [
           {
-            "title": "Major bitcoin wallet flaw drains 594 BTC in 25-minute sweep",
-            "source": "coindesk_com",
-            "url": "https://coindesk.com/tech/2026/07/31/major-bitcoin-wallet-flaw-drains-594-btc-in-25-minute-sweep"
+            "title": "Agribank, BIDV, VietinBank, Vietcombank lãi gần 93.000 tỷ đồng sau nửa năm",
+            "source": "dantri_com_vn",
+            "url": "https://dantri.com.vn/kinh-doanh/agribank-bidv-vietinbank-vietcombank-lai-gan-93000-ty-dong-sau-nua-nam-20260801003434795.htm"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động dài hạn của các chính sách thuế mới đối với hộ kinh doanh nhỏ lẻ tại Việt Nam.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ Ngân hàng Nhà nước Việt Nam sau các biến động lãi suất toàn cầu.",
     "notable_articles": []
   }
 }
