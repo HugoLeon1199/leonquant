@@ -1,22 +1,22 @@
 {
   "schema_version": "tech-gdelt-72h-v1",
-  "generated_at_utc": "2026-08-03T15:58:38.155814+00:00",
+  "generated_at_utc": "2026-08-03T20:42:41.475908+00:00",
   "query_window_hours": 72,
-  "estimated_bytes": 1136783710,
-  "processed_bytes": 1136783710,
+  "estimated_bytes": 1267880721,
+  "processed_bytes": 1267880721,
   "bytes_status": "known",
   "ran_successfully": true,
   "reused_previous_events": false,
-  "fresh_event_count": 18,
+  "fresh_event_count": 20,
   "previous_events_age_hours": 0,
   "raw_event_count": 120,
-  "ai_filtered_event_count": 18,
-  "rejected_non_ai_count": 102,
+  "ai_filtered_event_count": 20,
+  "rejected_non_ai_count": 100,
   "events": [
     {
       "event_id": "1316502142",
       "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: United States,1740;European Committee,1801;Rosenxt Holding United States,41;Technological Service,1037;Bank New,13456;United States,20367;Sc Bank,7514;Sc Bank,14562;Sc Bank,14708;S. Công ty liên quan: OpenAI, Broadcom. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
+      "summary": "Tín hiệu tổ chức: Broadcom,7058;Broadcom,7277;United States,9076;United States,12887;United States,13167;Us Commission,12960;Company Proofpoint,8950;United States,1740;European Committee,1801;Compan. Công ty liên quan: OpenAI, Broadcom. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
       "source_urls": [
         "https://adevarul.ro/stiri-interne/societate/romania-printre-tarile-cu-cea-mai-scazuta-2547142.html",
         "https://www.mesec.cz/clanky/air-bank-od-rijna-2026-zmeni-obchodni-podminky-prehled-hlavnich-zmen/",
@@ -125,7 +125,7 @@
     {
       "event_id": "1316329344",
       "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: United States,1218;United States,3994;Reuters,2176;Reuters,2989;Reuters,3200;European Commission,4198;White House,1203;Us Senate Intelligence Committee,4339;Us Senate Intelligence . Công ty liên quan: OpenAI, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Us Senate Intelligence Committee,4402;Reuters,2092;Reuters,2970;Reuters,3209;White House,1091;United States,1106;United States,4021;European Commission,4235;United States,1218;Unit. Công ty liên quan: OpenAI, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://tribune.com.pk/story/2621532/openai-finds-evidence-other-ai-agents-escaped-containment-as-it-widens-hacking-probe",
         "https://www.rappler.com/technology/openai-ai-agents-escaped-containment-hacking-probe/",
@@ -184,6 +184,67 @@
       "avg_tone": 0.50968399592253,
       "num_articles": 10,
       "primary_url": "https://sbr.com.sg/commentary/banks-need-rethink-identity-governance-ai-agents"
+    },
+    {
+      "event_id": "1316626921",
+      "title": "GOOGLE",
+      "summary": "Tín hiệu tổ chức: Google,447;Google,1654;Google,4550;Nvidia,4451;Nvidia,5813;Blackwell,5945;Oracle,3678. Công ty liên quan: Google, NVIDIA, Intel. Chủ đề: model_agent_moi",
+      "source_urls": [
+        "https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-companies-are-now-racing-to-the-bottom-crashing-token-prices-and-competitive-models-push-companies-to-cut-costs"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi"
+      ],
+      "company_tags": [
+        "Google",
+        "NVIDIA",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "model",
+        "nvidia"
+      ],
+      "reported_at": "20260803171500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 1.25361620057859,
+      "num_articles": 10,
+      "primary_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-companies-are-now-racing-to-the-bottom-crashing-token-prices-and-competitive-models-push-companies-to-cut-costs"
+    },
+    {
+      "event_id": "1316620888",
+      "title": "BANK - GOVERNMENT",
+      "summary": "Tín hiệu tổ chức: Amazon Bedrock Is Amazon Web Service,819. Công ty liên quan: Anthropic. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://indianewengland.com/anthropic-adds-in-country-claude-inference-in-india-through-amazon-bedrock/"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "Anthropic"
+      ],
+      "signal_keywords": [
+        "anthropic",
+        "claude"
+      ],
+      "reported_at": "20260803163000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 1.44508670520231,
+      "num_articles": 10,
+      "primary_url": "https://indianewengland.com/anthropic-adds-in-country-claude-inference-in-india-through-amazon-bedrock/"
     },
     {
       "event_id": "1316615346",
