@@ -1,18 +1,23 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-08-07T14:23:17.913148+00:00",
+  "generated_at_utc": "2026-08-07T20:06:40.394139+00:00",
   "checked": 26,
-  "hit_count": 128,
+  "hit_count": 116,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 15,
+      "hit_count": 14,
       "top_links": [
         {
-          "title": "GitHub repo updated: zai-org/ChatGLM2-6B",
-          "url": "https://github.com/zai-org/ChatGLM2-6B",
+          "title": "GitHub repo updated: zai-org/GLM-4.5",
+          "url": "https://github.com/zai-org/GLM-4.5",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/GLM-5",
+          "url": "https://github.com/zai-org/GLM-5",
           "source_lane": "github_release"
         },
         {
@@ -21,19 +26,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/CogVideo",
-          "url": "https://github.com/zai-org/CogVideo",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: malaiwah/GLM-5.2-SIQ-Fruit",
-          "url": "https://huggingface.co/malaiwah/GLM-5.2-SIQ-Fruit",
+          "title": "Hugging Face model updated: SentieAI/Sentie1.0-3B-Claude-Fable-5-GPT5.2-Sol-Kimi-K3-GLM-5.2-GGUF",
+          "url": "https://huggingface.co/SentieAI/Sentie1.0-3B-Claude-Fable-5-GPT5.2-Sol-Kimi-K3-GLM-5.2-GGUF",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "All-Hands-AI/OpenHands release: v1.10.0",
-          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.10.0",
-          "source_lane": "github_release"
+          "title": "Hugging Face model updated: mastouri/GLM-5.2-colibri-int4-g64-with-int8-mtp",
+          "url": "https://huggingface.co/mastouri/GLM-5.2-colibri-int4-g64-with-int8-mtp",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -42,11 +42,11 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 11,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Agent",
-          "url": "https://github.com/QwenLM/Qwen-Agent",
+          "title": "GitHub repo updated: QwenLM/Qwen-Image",
+          "url": "https://github.com/QwenLM/Qwen-Image",
           "source_lane": "github_release"
         },
         {
@@ -55,18 +55,18 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/qwen-code",
-          "url": "https://github.com/QwenLM/qwen-code",
+          "title": "GitHub repo updated: QwenLM/open-computer-use",
+          "url": "https://github.com/QwenLM/open-computer-use",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/OPOD-Qwen3-Omni-30B-A3B-i1-GGUF",
-          "url": "https://huggingface.co/mradermacher/OPOD-Qwen3-Omni-30B-A3B-i1-GGUF",
+          "title": "Hugging Face model updated: monate615/0xgevdhc-albedo-qwen3.6-35b-testv03-3b3d744f",
+          "url": "https://huggingface.co/monate615/0xgevdhc-albedo-qwen3.6-35b-testv03-3b3d744f",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: saidutta69/Qwen2.5-VL-7B-Instruct-heretic",
-          "url": "https://huggingface.co/saidutta69/Qwen2.5-VL-7B-Instruct-heretic",
+          "title": "Hugging Face model updated: prithivMLmods/Qwen3.5-2B-Opus-Distilled-Heretic-Thinking-Multistage-SFT-v1.0-GGUF",
+          "url": "https://huggingface.co/prithivMLmods/Qwen3.5-2B-Opus-Distilled-Heretic-Thinking-Multistage-SFT-v1.0-GGUF",
           "source_lane": "huggingface_model"
         }
       ],
@@ -79,13 +79,8 @@
       "hit_count": 7,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-OCR",
-          "url": "https://github.com/deepseek-ai/DeepSeek-OCR",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-R1",
-          "url": "https://github.com/deepseek-ai/DeepSeek-R1",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-Prover-V1.5",
+          "url": "https://github.com/deepseek-ai/DeepSeek-Prover-V1.5",
           "source_lane": "github_release"
         },
         {
@@ -94,13 +89,18 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: tashrifrahman/DeepSeek-R1-Phishing-Detector",
-          "url": "https://huggingface.co/tashrifrahman/DeepSeek-R1-Phishing-Detector",
+          "title": "GitHub repo updated: deepseek-ai/awesome-deepseek-agent",
+          "url": "https://github.com/deepseek-ai/awesome-deepseek-agent",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: Blackfrost-Research/DEEPSEEK-V4-FLASH-0731-DERISKED",
+          "url": "https://huggingface.co/Blackfrost-Research/DEEPSEEK-V4-FLASH-0731-DERISKED",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: tashrifrahman/TR-DeepSeek-R1-Phishing-Detector",
-          "url": "https://huggingface.co/tashrifrahman/TR-DeepSeek-R1-Phishing-Detector",
+          "title": "Hugging Face model updated: dev7a/DeepSeek-V4-Pro-DSpark-Drafter-GGUF",
+          "url": "https://huggingface.co/dev7a/DeepSeek-V4-Pro-DSpark-Drafter-GGUF",
           "source_lane": "huggingface_model"
         }
       ],
@@ -113,13 +113,8 @@
       "hit_count": 6,
       "top_links": [
         {
-          "title": "Hugging Face model updated: QuantTrio/Kimi-K3-Cubic-2.5Bit",
-          "url": "https://huggingface.co/QuantTrio/Kimi-K3-Cubic-2.5Bit",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: infosave/Kimi-Linear-48B-A3B-Code-CMF",
-          "url": "https://huggingface.co/infosave/Kimi-Linear-48B-A3B-Code-CMF",
+          "title": "Hugging Face model updated: itamarTerem/Kimi-K2.7-Code-NVFP4-v1",
+          "url": "https://huggingface.co/itamarTerem/Kimi-K2.7-Code-NVFP4-v1",
           "source_lane": "huggingface_model"
         },
         {
@@ -133,8 +128,13 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "IA chinesa também encontra brecha e escapa de ambiente de teste",
-          "url": "https://olhardigital.com.br/2026/08/07/inteligencia-artificial/ia-chinesa-tambem-encontra-brecha-e-escapa-de-ambiente-de-teste/",
+          "title": "Chinese AI model Kimi escaped its cybersecurity testing environment, researchers say | TechCrunch",
+          "url": "https://techcrunch.com/2026/08/07/chinese-ai-model-kimi-escaped-its-cybersecurity-testing-environment-researchers-say/",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "Kimi K3 também foge de ambiente de testes • Tecnoblog",
+          "url": "https://tecnoblog.net/noticias/kimi-k3-tambem-foge-de-ambiente-de-testes/",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -144,16 +144,21 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 4,
       "top_links": [
         {
-          "title": "Hugging Face model updated: EnExW/Minimax",
-          "url": "https://huggingface.co/EnExW/Minimax",
+          "title": "Hugging Face model updated: realrebelai/MiniMax-H3_Experimental",
+          "url": "https://huggingface.co/realrebelai/MiniMax-H3_Experimental",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Abiray/MiniMax-H3-Pruned-GGUF",
-          "url": "https://huggingface.co/Abiray/MiniMax-H3-Pruned-GGUF",
+          "title": "Hugging Face model updated: t8star/minimax_h3_fl2v_turbo_4step_v0.1_comfyui_alpha8-T8-convert",
+          "url": "https://huggingface.co/t8star/minimax_h3_fl2v_turbo_4step_v0.1_comfyui_alpha8-T8-convert",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: on-nurida-mov/My-MiniMax-H3",
+          "url": "https://huggingface.co/on-nurida-mov/My-MiniMax-H3",
           "source_lane": "huggingface_model"
         },
         {
@@ -168,22 +173,12 @@
       "entity": "Doubao/ByteDance",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 2,
       "top_links": [
-        {
-          "title": "ByteDance prepara modelo de IA com escala que pode superar o Mythos da Anthropic",
-          "url": "https://olhardigital.com.br/2026/08/07/inteligencia-artificial/bytedance-prepara-modelo-de-ia-com-escala-que-pode-superar-o-mythos-da-anthropic/",
-          "source_lane": "model_hub"
-        },
         {
           "title": "ByteDance prépare un modèle géant pour rattraper Anthropic",
           "url": "https://www.clubic.com/actualite-624394-bytedance-prepare-un-modele-geant-pour-rattraper-anthropic.html",
           "source_lane": "model_hub"
-        },
-        {
-          "title": "IA : chez ByteDance, on dit non à la distillation",
-          "url": "https://www.clubic.com/actualite-624331-ia-chez-bytedance-on-dit-non-a-la-distillation.html",
-          "source_lane": "frontier_watchlist"
         },
         {
           "title": "CHINA",
@@ -197,21 +192,21 @@
       "entity": "Hunyuan/Tencent",
       "priority": "high",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 7,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/AutoCodeBenchmark",
-          "url": "https://github.com/Tencent-Hunyuan/AutoCodeBenchmark",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-WorldClaw",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-WorldClaw",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanImage-3.0",
+          "url": "https://github.com/Tencent-Hunyuan/HunyuanImage-3.0",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-Embodied-0.5-VLA",
-          "url": "https://github.com/Tencent-Hunyuan/Hy-Embodied-0.5-VLA",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-MT2",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-MT2",
           "source_lane": "github_release"
         },
         {
@@ -220,9 +215,9 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: qqceqqq/Hunyuan3D-Part",
-          "url": "https://huggingface.co/qqceqqq/Hunyuan3D-Part",
-          "source_lane": "huggingface_model"
+          "title": "Tencent's Team Memory shares AI agent memory across a team — with no governance yet for when it's wrong",
+          "url": "https://venturebeat.com/data/tencents-team-memory-shares-ai-agent-memory-across-a-team-with-no-governance-yet-for-when-its-wrong",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -242,13 +237,13 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
+          "title": "GitHub repo updated: InternLM/Intern-S2-Mobius",
+          "url": "https://github.com/InternLM/Intern-S2-Mobius",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/Intern-S2-Mobius",
-          "url": "https://github.com/InternLM/Intern-S2-Mobius",
+          "title": "GitHub repo updated: InternLM/lmdeploy",
+          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         },
         {
@@ -287,8 +282,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Cybronya/Flux2-tooltik",
-          "url": "https://huggingface.co/Cybronya/Flux2-tooltik",
+          "title": "Hugging Face model updated: mulemp/fluxis",
+          "url": "https://huggingface.co/mulemp/fluxis",
           "source_lane": "huggingface_model"
         },
         {
@@ -313,13 +308,8 @@
       "entity": "ComfyUI",
       "priority": "critical",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 2,
       "top_links": [
-        {
-          "title": "Hugging Face model updated: taurusduan/FireRed-Image-Edit-1.1-ComfyUI",
-          "url": "https://huggingface.co/taurusduan/FireRed-Image-Edit-1.1-ComfyUI",
-          "source_lane": "huggingface_model"
-        },
         {
           "title": "comfyanonymous/ComfyUI release: v0.29.2",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.29.2",
@@ -337,7 +327,7 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "Hugging Face model updated: nudtzk/runway-blockade-transformer-topk10",
@@ -348,6 +338,11 @@
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
           "url": "https://huggingface.co/runwayclub/granite-8b-cvefixes-gguf",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "PROSECUTOR",
+          "url": "https://www.moroccoworldnews.com/2026/08/333576/germany-investigates-explosive-drone-near-leipzig-airport-runway/",
+          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -385,7 +380,7 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 11,
+      "hit_count": 8,
       "top_links": [
         {
           "title": "AV-AIVAT: 74x Cheaper Agent Evaluation with Certified Anytime-Valid Stopping in Imperfect-Information Games",
@@ -393,8 +388,8 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "How to watch Possession online from anywhere – stream Gugu Mbatha-Raw's supernatural thriller",
-          "url": "https://www.techradar.com/how-to-watch/tv-shows/-possession",
+          "title": "As a newcomer to dashcams, I've been enjoying this set from Botslab",
+          "url": "https://mobilesyrup.com/2026/08/07/botslab-dashcam-g980h-review/",
           "source_lane": "frontier_watchlist"
         },
         {
@@ -403,13 +398,13 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Swiss government says SharePoint-linked data breach affected hundreds of accounts",
-          "url": "https://www.techradar.com/pro/security/swiss-government-says-sharepoint-linked-data-breach-affected-hundreds-of-accounts",
+          "title": "OpenAI’s expensive smart speaker will use moving parts to seem “more alive”",
+          "url": "https://arstechnica.com/gadgets/2026/08/openais-expensive-smart-speaker-will-use-moving-parts-to-seem-more-alive/",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "TeamPCP Linked To Redis Attacks Dating Back To 2020 And Later Supply Chain Campaign",
-          "url": "https://thehackernews.com/2026/08/teampcp-linked-to-redis-attacks-dating.html",
+          "title": "Report: White House drafting executive order linking vaccines and autism",
+          "url": "https://arstechnica.com/health/2026/08/report-white-house-drafting-executive-order-linking-vaccines-and-autism/",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -419,21 +414,16 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 2,
       "top_links": [
+        {
+          "title": "Imprima mais e gaste menos: veja uma seleção de impressoras em promoção na Amazon",
+          "url": "https://olhardigital.com.br/2026/08/07/reviews/imprima-mais-e-gaste-menos-veja-uma-selecao-de-impressoras-em-promocao-na-amazon-2/",
+          "source_lane": "image_video_workflow"
+        },
         {
           "title": "Canada could soon lose reliable rides to space. What will that mean for its burgeoning space industry? | BetaKit",
           "url": "https://betakit.com/canada-could-soon-lose-reliable-rides-to-space-what-will-that-mean-for-its-burgeoning-space-industry/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Attackers Compile khunt Inside Oracle to Turn SQL Injection Into Windows SYSTEM Access",
-          "url": "https://thehackernews.com/2026/08/attackers-compile-khunt-inside-oracle.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "The Sony Inzone M10S 2 takes the best esports monitor on the market, and makes it even better",
-          "url": "https://www.techradar.com/gaming/sony-inzone-m10s-2-review",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -475,7 +465,7 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 18,
+      "hit_count": 16,
       "top_links": [
         {
           "title": "'Move fast, but do it with trust built in': EY CIO tells us why the rapid pace of AI means trust is now a critical business imperative",
@@ -483,23 +473,23 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Soy fotógrafo y este es el equipo que no faltará en mi mochila el día del eclipse: filtros ND, trípode, teleobjetivo, disparador y más",
-          "url": "https://www.xataka.com/seleccion/soy-fotografo-este-equipo-que-no-faltara-mi-mochila-dia-eclipse-filtros-nd-tripode-teleobjetivo-disparador",
+          "title": "Hacer baterías más grandes no es la única solución para que el móvil dure más: Xiaomi y OPPO han encontrado el modo",
+          "url": "https://www.xataka.com/moviles/hacer-baterias-grandes-no-unica-solucion-movil-dure-xiaomi-oppo-han-encontrado-siguiente-paso",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Scientist says RAM pricing has reverted to normalized 2007 levels — memory prices have been falling exponentially for decades, but the AI shortage undid 20 years of progress in a matter of months",
+          "url": "https://www.tomshardware.com/pc-components/ram/scientist-says-ram-pricing-has-reverted-to-normalized-2007-levels-memory-prices-have-been-falling-exponentially-for-decades-but-the-ai-shortage-undid-20-years-of-progress-in-a-matter-of-months",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "“Asimov estava certo” sobre regras para IA, diz ex-diretor de cibersegurança dos EUA • Tecnoblog",
+          "url": "https://tecnoblog.net/noticias/asimov-estava-certo-sobre-regras-para-ia-diz-ex-diretor-de-ciberseguranca-dos-eua/",
           "source_lane": "frontier_watchlist"
         },
         {
           "title": "ANPD manda Paraná suspender reconhecimento facial em escolas públicas • Tecnoblog",
           "url": "https://tecnoblog.net/noticias/anpd-manda-parana-suspender-reconhecimento-facial-em-escolas-publicas/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Crean identidades falsas para engañar y atacar a personas reales: mal uso de IA",
-          "url": "https://www.infobae.com/tecno/2026/08/07/crean-identidades-falsas-para-enganar-y-atacar-a-personas-reales-mal-uso-de-ia/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Ola Electric narrows loss to Rs 336 Cr, revenue falls 45%",
-          "url": "https://yourstory.com/2026/08/ola-electric-narrows-loss-rs-336-cr-revenue-falls",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -509,16 +499,11 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 8,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/conformance",
-          "url": "https://github.com/modelcontextprotocol/conformance",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: modelcontextprotocol/example-remote-server",
-          "url": "https://github.com/modelcontextprotocol/example-remote-server",
+          "title": "GitHub repo updated: modelcontextprotocol/csharp-sdk",
+          "url": "https://github.com/modelcontextprotocol/csharp-sdk",
           "source_lane": "github_release"
         },
         {
@@ -527,14 +512,19 @@
           "source_lane": "github_release"
         },
         {
+          "title": "GitHub repo updated: modelcontextprotocol/servers",
+          "url": "https://github.com/modelcontextprotocol/servers",
+          "source_lane": "github_release"
+        },
+        {
           "title": "modelcontextprotocol/registry release: v1.8.1",
           "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.1",
           "source_lane": "github_release"
         },
         {
-          "title": "Azure API Management Adds Dedicated AI Gateway Tier, Governing Models and MCP Tools",
-          "url": "https://www.infoq.com/news/2026/08/azure-apim-ai-gateway-tier/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
-          "source_lane": "frontier_watchlist"
+          "title": "modelcontextprotocol/registry release: v1.8.0",
+          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.0",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -546,8 +536,8 @@
       "hit_count": 2,
       "top_links": [
         {
-          "title": "langchain-ai/langgraph release: langgraph-checkpoint-postgres==3.1.1",
-          "url": "https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.1.1",
+          "title": "langchain-ai/langgraph release: langgraph-checkpoint==4.2.0",
+          "url": "https://github.com/langchain-ai/langgraph/releases/tag/checkpoint%3D%3D4.2.0",
           "source_lane": "github_release"
         },
         {
@@ -595,8 +585,13 @@
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 4,
       "top_links": [
+        {
+          "title": "Stanford is running 37,000 AI agents as a virtual biotech — and one of its drug designs got independently confirmed by Merck",
+          "url": "https://venturebeat.com/orchestration/stanford-is-running-37-000-ai-agents-as-a-virtual-biotech-and-one-of-its-drug-designs-got-independently-confirmed-by-merck",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Claude Code and mô hình biên tập CLI Flaws Let a GitHub Issue Reach CI Workflow Secrets",
           "url": "https://thehackernews.com/2026/08/claude-code-and-gemini-cli-flaws-let.html",
@@ -608,18 +603,8 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Enforcing data residency with single-Region Claude Code on Amazon Bedrock | Amazon Web Services",
-          "url": "https://aws.amazon.com/blogs/machine-learning/enforcing-data-residency-with-single-region-claude-code-on-amazon-bedrock/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Stop burning your AI budget: Optimize GPU usage and model deployment with workflow navigator",
-          "url": "https://www.redhat.com/en/blog/stop-burning-your-ai-budget-optimize-gpu-usage-and-model-deployment-workflow-navigator",
-          "source_lane": "model_hub"
-        },
-        {
-          "title": "Meta enters the AI coding wars with Muse Spark 1.2 and Muse Code with persistent async background agents",
-          "url": "https://venturebeat.com/orchestration/meta-enters-the-ai-coding-wars-with-muse-spark-1-2-and-muse-code-with-persistent-async-background-agents",
+          "title": "ACTOR - SERVER",
+          "url": "https://www.slashgear.com/2228257/claude-codex-ai-agent-hacker-attack/",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -629,11 +614,16 @@
       "entity": "OpenHands",
       "priority": "normal",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 2,
       "top_links": [
         {
-          "title": "All-Hands-AI/OpenHands release: v1.9.0",
-          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.9.0",
+          "title": "All-Hands-AI/OpenHands release: v1.11.0",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.11.0",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "All-Hands-AI/OpenHands release: v1.12.0",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.12.0",
           "source_lane": "github_release"
         }
       ],
