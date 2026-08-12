@@ -1,23 +1,23 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-08-12T14:36:33.118273+00:00",
+  "generated_at_utc": "2026-08-12T20:09:53.089160+00:00",
   "checked": 26,
-  "hit_count": 74,
+  "hit_count": 109,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 12,
+      "hit_count": 13,
       "top_links": [
         {
-          "title": "GitHub repo updated: zai-org/GLM-OCR",
-          "url": "https://github.com/zai-org/GLM-OCR",
+          "title": "GitHub repo updated: zai-org/GLM-4",
+          "url": "https://github.com/zai-org/GLM-4",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/SCAIL-2",
-          "url": "https://github.com/zai-org/SCAIL-2",
+          "title": "GitHub repo updated: zai-org/CodeGeeX2",
+          "url": "https://github.com/zai-org/CodeGeeX2",
           "source_lane": "github_release"
         },
         {
@@ -31,8 +31,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: EZCon/GLM-OCR-4bit-g32-mxfp4-mixed_4_8-mlx",
-          "url": "https://huggingface.co/EZCon/GLM-OCR-4bit-g32-mxfp4-mixed_4_8-mlx",
+          "title": "Hugging Face model updated: alyskyfall/gemma4-31B-it-sft-aug5_glm52_sc10b_r16_unfiltered",
+          "url": "https://huggingface.co/alyskyfall/gemma4-31B-it-sft-aug5_glm52_sc10b_r16_unfiltered",
           "source_lane": "huggingface_model"
         }
       ],
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 9,
       "top_links": [
-        {
-          "title": "GitHub repo updated: QwenLM/ParScale",
-          "url": "https://github.com/QwenLM/ParScale",
-          "source_lane": "github_release"
-        },
         {
           "title": "GitHub repo updated: QwenLM/Qwen-MM-Plugins",
           "url": "https://github.com/QwenLM/Qwen-MM-Plugins",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: QwenLM/Qwen-VL",
+          "url": "https://github.com/QwenLM/Qwen-VL",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: bodenmaurice/dendritex-qwen3.6-35b-stages-v1",
-          "url": "https://huggingface.co/bodenmaurice/dendritex-qwen3.6-35b-stages-v1",
-          "source_lane": "huggingface_model"
+          "title": "Serve Qwen3.8-2.4T-A95B, a 2.4T-Parameter Model, with Configurable Reasoning on NVIDIA GB300 NVL72",
+          "url": "https://developer.nvidia.com/blog/serve-qwen3-8-2-4t-a95b-a-2-4t-parameter-model-with-configurable-reasoning-on-nvidia-gb300-nvl72/",
+          "source_lane": "model_hub"
         },
         {
-          "title": "Hugging Face model updated: acchf/vision-global-tmdm-price-qlora-qwenvl3",
-          "url": "https://huggingface.co/acchf/vision-global-tmdm-price-qlora-qwenvl3",
+          "title": "Hugging Face model updated: mradermacher/Qwen3.5-4B-EBOS-GRPO-v3-i1-GGUF",
+          "url": "https://huggingface.co/mradermacher/Qwen3.5-4B-EBOS-GRPO-v3-i1-GGUF",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,16 +76,11 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 7,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepGEMM",
-          "url": "https://github.com/deepseek-ai/DeepGEMM",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-V3",
-          "url": "https://github.com/deepseek-ai/DeepSeek-V3",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-R1",
+          "url": "https://github.com/deepseek-ai/DeepSeek-R1",
           "source_lane": "github_release"
         },
         {
@@ -94,14 +89,19 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: Intel/DeepSeek-V4-Flash-0731-W4A16-AutoRound",
-          "url": "https://huggingface.co/Intel/DeepSeek-V4-Flash-0731-W4A16-AutoRound",
-          "source_lane": "huggingface_model"
+          "title": "GitHub repo updated: deepseek-ai/awesome-deepseek-integration",
+          "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
+          "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: philipjohnbasile/DeepSeek-V4-Flash-0731-MLX-M5Max-TargetOnly",
-          "url": "https://huggingface.co/philipjohnbasile/DeepSeek-V4-Flash-0731-MLX-M5Max-TargetOnly",
-          "source_lane": "huggingface_model"
+          "title": "OpenRouter model listed: deepseek/deepseek-v4-pro-0813",
+          "url": "https://openrouter.ai/deepseek/deepseek-v4-pro-0813",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "Compare GPT-4o, Claude, and mô hình biên tập Side by Side for $59.25",
+          "url": "https://www.techpowerup.com/351503/compare-gpt-4o-claude-and-gemini-side-by-side-for-usd-59-25",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -113,19 +113,19 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "Hugging Face model updated: avlp12/Kimi-K3-Alis-MLX-Dynamic-2.10bpw",
-          "url": "https://huggingface.co/avlp12/Kimi-K3-Alis-MLX-Dynamic-2.10bpw",
+          "title": "Hugging Face model updated: servantofares/Kimi-K2.7-Code",
+          "url": "https://huggingface.co/servantofares/Kimi-K2.7-Code",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "OpenRouter model listed: sakana/sakana-namazu",
-          "url": "https://openrouter.ai/sakana/sakana-namazu",
-          "source_lane": "model_hub"
+          "title": "Hugging Face model updated: vcruz305/Kimi-K3-GGUF",
+          "url": "https://huggingface.co/vcruz305/Kimi-K3-GGUF",
+          "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: nanguoyu/Kimi-K3-minirun",
-          "url": "https://huggingface.co/nanguoyu/Kimi-K3-minirun",
-          "source_lane": "huggingface_model"
+          "title": "SpaceXAI debuts Grok 4.6, overtaking Kimi K3's performance and matching GPT-5.6 Sol for world's third best on Artificial Analysis",
+          "url": "https://venturebeat.com/technology/spacexai-debuts-grok-4-6-overtaking-kimi-k3s-performance-and-matching-gpt-5-6-sol-for-worlds-third-best-on-artificial-analysis",
+          "source_lane": "frontier_watchlist"
         },
         {
           "title": "vllm-project/vllm release: v0.27.0",
@@ -147,13 +147,13 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: nikdevs/minimax-h3-loras",
-          "url": "https://huggingface.co/nikdevs/minimax-h3-loras",
+          "title": "Hugging Face model updated: convertor/minimax-h3-gguf",
+          "url": "https://huggingface.co/convertor/minimax-h3-gguf",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: lihaoyun6/MiniMax-H3-Ref-Patch",
-          "url": "https://huggingface.co/lihaoyun6/MiniMax-H3-Ref-Patch",
+          "title": "Hugging Face model updated: fal/MiniMax-H3-Realism-People-LoRA",
+          "url": "https://huggingface.co/fal/MiniMax-H3-Realism-People-LoRA",
           "source_lane": "huggingface_model"
         },
         {
@@ -168,9 +168,20 @@
       "entity": "Doubao/ByteDance",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 2,
+      "top_links": [
+        {
+          "title": "OpenRouter model listed: bytedance-seed/seed-2-1-turbo",
+          "url": "https://openrouter.ai/bytedance-seed/seed-2-1-turbo",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "OpenRouter model listed: bytedance-seed/seed-2.0-code",
+          "url": "https://openrouter.ai/bytedance-seed/seed-2.0-code",
+          "source_lane": "model_hub"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Hunyuan/Tencent",
@@ -179,18 +190,18 @@
       "hit_count": 5,
       "top_links": [
         {
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2.1",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
+          "source_lane": "github_release"
+        },
+        {
           "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-WorldClaw",
           "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-WorldClaw",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanImage-3.0",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanImage-3.0",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: Tencent-Hunyuan/UniRL",
-          "url": "https://github.com/Tencent-Hunyuan/UniRL",
           "source_lane": "github_release"
         },
         {
@@ -221,13 +232,13 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/Intern-S2-Mobius",
-          "url": "https://github.com/InternLM/Intern-S2-Mobius",
+          "title": "GitHub repo updated: InternLM/InternLM",
+          "url": "https://github.com/InternLM/InternLM",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/InternBootcamp",
-          "url": "https://github.com/InternLM/InternBootcamp",
+          "title": "GitHub repo updated: InternLM/lmdeploy",
+          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         },
         {
@@ -261,8 +272,13 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "Hugging Face model updated: mulemp/fluxis",
-          "url": "https://huggingface.co/mulemp/fluxis",
+          "title": "Hugging Face model updated: juergengunz/fluxer",
+          "url": "https://huggingface.co/juergengunz/fluxer",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: aleksa-codes/flux-ghibsky-illustration",
+          "url": "https://huggingface.co/aleksa-codes/flux-ghibsky-illustration",
           "source_lane": "huggingface_model"
         },
         {
@@ -273,11 +289,6 @@
         {
           "title": "Hugging Face model updated: black-forest-labs/FLUX.2-small-decoder",
           "url": "https://huggingface.co/black-forest-labs/FLUX.2-small-decoder",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: Aftian2429/test-flux-logo-bmc",
-          "url": "https://huggingface.co/Aftian2429/test-flux-logo-bmc",
           "source_lane": "huggingface_model"
         },
         {
@@ -300,13 +311,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: SOLRICKS/ltx-2-5-t2v-i2v-audio-comfyui-workflow",
-          "url": "https://huggingface.co/SOLRICKS/ltx-2-5-t2v-i2v-audio-comfyui-workflow",
+          "title": "Hugging Face model updated: nurida-senior/my-comfyui-models",
+          "url": "https://huggingface.co/nurida-senior/my-comfyui-models",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: DmitryDB/LTX-2.5-ComfyUI-Quants",
-          "url": "https://huggingface.co/DmitryDB/LTX-2.5-ComfyUI-Quants",
+          "title": "Hugging Face model updated: DeepNeuralNerd/Gemma-4-12B-it-uncensored-heretic-DeepNeuralNerd-LTX_2.5_ComfyUI",
+          "url": "https://huggingface.co/DeepNeuralNerd/Gemma-4-12B-it-uncensored-heretic-DeepNeuralNerd-LTX_2.5_ComfyUI",
           "source_lane": "huggingface_model"
         }
       ],
@@ -316,12 +327,27 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 5,
       "top_links": [
+        {
+          "title": "Save $106 on this 4TB Team Group SSD with Gen 4 speeds, now 10.2 cents per GB — Newegg coupon deal makes this T-Force G50 one of the cheapest PCIe 4.0 drives on sale right now with this amount of storage",
+          "url": "https://www.tomshardware.com/pc-components/ssds/save-usd106-on-this-4tb-team-group-ssd-with-gen-4-speeds-now-10-2-cents-per-gb-newegg-coupon-deal-makes-this-t-force-g50-one-of-the-cheapest-pcie-4-0-drives-on-sale-right-now-with-this-amount-of-storage",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Gamers et joueurs PS5 : ce SSD 2 To Lexar tombe sous les 230€ avant que les prix ne remontent",
+          "url": "https://www.clubic.com/bons-plans-624919-gamers-et-joueurs-ps5-ce-ssd-2-to-lexar-tombe-sous-les-230-avant-que-les-prix-ne-remontent.html",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Hugging Face model updated: nudtzk/runway-blockade-transformer-topk10",
           "url": "https://huggingface.co/nudtzk/runway-blockade-transformer-topk10",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "BANK",
+          "url": "https://www.ilmessaggero.it/economia/news/asset_class_calcolo_maxi_patto_nvidia_fondi_usa_oracle-9702818.html",
+          "source_lane": "frontier_watchlist"
         },
         {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
@@ -335,8 +361,13 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 2,
       "top_links": [
+        {
+          "title": "FLORIDA",
+          "url": "https://palembang.tribunnews.com/sumsel/1325390/ipad-penumpang-di-ka-sindang-marga-palembang-lubuklinggau-ini-kata-manager-humas-kai-divre-iii",
+          "source_lane": "image_video_workflow"
+        },
         {
           "title": "huggingface/transformers release: Patch release: v5.14.1",
           "url": "https://github.com/huggingface/transformers/releases/tag/v5.14.1",
@@ -349,8 +380,28 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 6,
       "top_links": [
+        {
+          "title": "737 Chrome VPN Extensions Caught Routing Traffic Through Proxies. Check If You Have One",
+          "url": "https://thehackernews.com/2026/08/737-chrome-vpn-extensions-caught.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Amazon gets out of the MMO game",
+          "url": "https://www.theverge.com/tech/979070/amazon-mmo-throne-and-liberty-lost-ark-live-operations",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Save over $600 on a massive 18-inch gaming laptop as it falls to a new all-time low price at Amazon — Acer's Predator Helios Neo 18 AI packs an RTX 5070 Ti and 32GB of memory",
+          "url": "https://www.tomshardware.com/laptops/gaming-laptops/save-over-usd600-on-a-massive-18-inch-gaming-laptop-as-it-falls-to-a-new-all-time-low-price-at-amazon-acers-predator-helios-neo-18-ai-packs-an-rtx-5070-ti-and-32gb-of-memory",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Vodacom taps former Airtel Africa CEO onto its board",
+          "url": "https://techcabal.com/2026/08/12/vodacom-taps-former-airtel-africa-ceo-to-board/",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "GESTO: Human-Centric Spatio-Temporal Memory for Reasoning in Dynamic Scenes",
           "url": "https://arxiv.org/abs/2608.10886v1",
@@ -363,39 +414,55 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 4,
+      "top_links": [
+        {
+          "title": "Pay with confidence: How Solv Labs built verifiable, auditable agent payments on Amazon Bedrock AgentCore payments | Amazon Web Services",
+          "url": "https://aws.amazon.com/blogs/machine-learning/pay-with-confidence-how-solv-labs-built-verifiable-auditable-agent-payments-on-amazon-bedrock-agentcore-payments/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Cómo convertir tu vehículo o batería externa en una estación de energía segura",
+          "url": "https://www.infobae.com/tecno/2026/08/12/como-convertir-tu-vehiculo-o-bateria-externa-en-una-estacion-de-energia-segura/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Economize com estilo: impressoras em promoção na Amazon que valem a pena",
+          "url": "https://olhardigital.com.br/2026/08/12/reviews/economize-com-estilo-impressoras-em-promocao-na-amazon-que-valem-a-pena/",
+          "source_lane": "image_video_workflow"
+        },
+        {
+          "title": "Freebox : Free offre jusqu’à 200€ pour faire venir les abonnés Orange, SFR et Bouygues",
+          "url": "https://www.clubic.com/actualite-625072-freebox-free-offre-jusqu-a-200-pour-faire-venir-les-abonnes-orange-sfr-et-bouygues.html",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenRouter",
       "priority": "high",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 4,
       "top_links": [
-        {
-          "title": "OpenRouter model listed: inclusionai/ling-3.0-tiny:free",
-          "url": "https://openrouter.ai/inclusionai/ling-3.0-tiny:free",
-          "source_lane": "model_hub"
-        },
         {
           "title": "OpenRouter model listed: liquid/lfm-2.5-2.6b:free",
           "url": "https://openrouter.ai/liquid/lfm-2.5-2.6b:free",
           "source_lane": "model_hub"
         },
         {
-          "title": "OpenRouter model listed: meta/muse-glimmer-30b",
-          "url": "https://openrouter.ai/meta/muse-glimmer-30b",
-          "source_lane": "model_hub"
-        },
-        {
-          "title": "OpenRouter model listed: meta/muse-spark-1.2",
-          "url": "https://openrouter.ai/meta/muse-spark-1.2",
-          "source_lane": "model_hub"
-        },
-        {
           "title": "OpenRouter model listed: nvidia/nemotron-3.5-lightning",
           "url": "https://openrouter.ai/nvidia/nemotron-3.5-lightning",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "OpenRouter model listed: nvidia/nemotron-3.5-lightning:free",
+          "url": "https://openrouter.ai/nvidia/nemotron-3.5-lightning:free",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "OpenRouter model listed: x-ai/grok-4.6",
+          "url": "https://openrouter.ai/x-ai/grok-4.6",
           "source_lane": "model_hub"
         }
       ],
@@ -413,12 +480,32 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 17,
       "top_links": [
         {
           "title": "ollama/ollama release: v0.32.9",
           "url": "https://github.com/ollama/ollama/releases/tag/v0.32.9",
           "source_lane": "github_release"
+        },
+        {
+          "title": "It looks like Apple’s iPhone 18 really will skip the fall launch this year",
+          "url": "https://www.theverge.com/tech/979231/apple-base-iphone-18-launch-delayed",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Compartir pantalla o escritorio en Zoom está en alerta por fallo que compromete la computadora",
+          "url": "https://www.infobae.com/tecno/2026/08/12/compartir-pantalla-o-escritorio-en-zoom-en-alerta-por-fallo-que-compromete-la-computadora/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Cuánto tiempo dura la comida en una nevera sin electricidad antes de dañarse",
+          "url": "https://www.infobae.com/tecno/2026/08/12/cuanto-tiempo-dura-la-comida-en-una-nevera-sin-electricidad-antes-de-danarse/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "El 911 está diseñado para funcionar cuando todo lo demás cae. Un malware acaba de poner esa promesa a prueba en California",
+          "url": "https://www.xataka.com/seguridad/911-esta-disenado-para-funcionar-cuando-todo-demas-cae-malware-acaba-poner-esa-promesa-a-prueba-california",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -427,21 +514,21 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 8,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/experimental-ext-skills",
-          "url": "https://github.com/modelcontextprotocol/experimental-ext-skills",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: modelcontextprotocol/java-sdk",
-          "url": "https://github.com/modelcontextprotocol/java-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/inspector",
+          "url": "https://github.com/modelcontextprotocol/inspector",
           "source_lane": "github_release"
         },
         {
           "title": "GitHub repo updated: modelcontextprotocol/servers",
           "url": "https://github.com/modelcontextprotocol/servers",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: modelcontextprotocol/conformance",
+          "url": "https://github.com/modelcontextprotocol/conformance",
           "source_lane": "github_release"
         },
         {
@@ -507,8 +594,13 @@
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 2,
       "top_links": [
+        {
+          "title": "Samsung ya está usando Claude Code para acelerar el desarrollo de sus chips para móviles",
+          "url": "https://hipertextual.com/inteligencia-artificial/samsung-claude-code-diseno-chips-anthropic/",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "ollama/ollama release: v0.32.8",
           "url": "https://github.com/ollama/ollama/releases/tag/v0.32.8",
