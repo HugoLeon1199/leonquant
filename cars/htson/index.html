@@ -44,7 +44,8 @@
         name: "Tài chính & Đầu tư",
         tagline: "Midas Touch - Chạm tay hóa vàng",
         desc: "Tư vấn đầu tư, quản lý tài sản và phát triển danh mục tài chính đa dạng, tối ưu hóa lợi nhuận và kiểm soát rủi ro cho đối tác.",
-        color: "from-[#F8ECC9] to-[#D9A441]"
+        color: "from-[#F8ECC9] to-[#D9A441]",
+        image: "./assets/tai-chinh-dau-tu.jpg"
       },
       {
         id: "dulich",
@@ -61,7 +62,9 @@
         name: "Giáo dục",
         tagline: "Ươm mầm tri thức - Vun đắp tương lai",
         desc: "Đầu tư hệ thống giáo dục chất lượng cao, chương trình đào tạo hiện đại, đồng hành cùng thế hệ trẻ phát triển toàn diện.",
-        color: "from-[#F2E8D5] to-[#CBAF74]"
+        color: "from-[#F2E8D5] to-[#CBAF74]",
+        image: "./assets/giao-duc.png",
+        imageFit: "contain"
       }
     ];
 
@@ -177,8 +180,9 @@
           <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} onNav={onNav} />
 
           <section ref={heroRef} className="relative overflow-hidden h-[420px] sm:h-[520px] flex items-center">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#7A1315] via-[#5C0E0F] to-[#3A0A0B]"></div>
-            <div className="absolute inset-0 opacity-[0.08]" style={{backgroundImage: "radial-gradient(circle at 20% 20%, #C9A24B 0, transparent 40%), radial-gradient(circle at 80% 80%, #C9A24B 0, transparent 45%)"}}></div>
+            <img src="./assets/hero-bg.png" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover object-center kenburns" />
+            <div className="absolute inset-0" style={{backgroundImage: "linear-gradient(100deg, rgba(92,14,15,0.94) 0%, rgba(122,19,21,0.82) 32%, rgba(122,19,21,0.42) 58%, rgba(122,19,21,0.10) 78%, rgba(122,19,21,0) 100%)"}}></div>
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#3A0A0B]/70 to-transparent"></div>
             <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full">
               <div key={slide} className="fade-in max-w-[720px]">
                 <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full text-[11px] font-bold text-[#F1D998] tracking-wide">
@@ -260,9 +264,15 @@
                 {divisions.map(d => (
                   <div key={d.id} className="bg-white rounded-[20px] border border-black/5 shadow-[0_8px_28px_rgba(122,19,21,0.06)] overflow-hidden hover:-translate-y-1.5 transition-transform">
                     {d.image ? (
-                      <div className="h-[170px] relative overflow-hidden bg-black/5">
-                        <img src={d.image} alt={d.name} className="w-full h-full object-cover object-bottom" />
-                      </div>
+                      d.imageFit === "contain" ? (
+                        <div className={`h-[170px] relative overflow-hidden bg-gradient-to-br ${d.color} flex items-center justify-center p-3`}>
+                          <img src={d.image} alt={d.name} className="h-full w-auto max-w-full object-contain drop-shadow" />
+                        </div>
+                      ) : (
+                        <div className="h-[170px] relative overflow-hidden bg-black/5">
+                          <img src={d.image} alt={d.name} className="w-full h-full object-cover object-bottom" />
+                        </div>
+                      )
                     ) : (
                       <div className={`h-[110px] bg-gradient-to-br ${d.color} flex items-center justify-center text-[40px]`}>{d.icon}</div>
                     )}
