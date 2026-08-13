@@ -73,7 +73,7 @@
         desc: "Đầu tư hệ thống giáo dục chất lượng cao với chương trình đào tạo hiện đại, đồng hành cùng thế hệ trẻ trên hành trình trưởng thành.",
         color: "from-[#F2E8D5] to-[#CBAF74]",
         image: "./assets/giao-duc.png",
-        imageFit: "contain"
+        lightArtwork: true
       }
     ];
 
@@ -383,18 +383,11 @@
                 {divisions.map(d => (
                   <div key={d.id} className="group bg-white rounded-[20px] border border-[#C9A24B]/20 shadow-[0_8px_28px_rgba(122,19,21,0.06)] overflow-hidden hover:-translate-y-1.5 hover:border-[#C9A24B]/60 hover:shadow-[0_16px_40px_rgba(122,19,21,0.14)] transition-all duration-300">
                     {d.image ? (
-                      d.imageFit === "contain" ? (
-                        <div className={`h-[170px] relative overflow-hidden bg-gradient-to-br ${d.color} flex items-center justify-center p-3`}>
-                          <div className="absolute inset-0 opacity-[0.18]" style={{backgroundImage: "repeating-linear-gradient(45deg, #B8892C 0 1px, transparent 1px 14px), repeating-linear-gradient(-45deg, #B8892C 0 1px, transparent 1px 14px)"}}></div>
-                          <div className="absolute inset-0" style={{backgroundImage: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.55) 0, transparent 60%)"}}></div>
-                          <img src={d.image} alt={d.name} className="relative h-full w-auto max-w-full object-contain drop-shadow-[0_4px_12px_rgba(122,19,21,0.18)] group-hover:scale-105 transition-transform duration-500" />
-                        </div>
-                      ) : (
-                        <div className="h-[170px] relative overflow-hidden bg-black/5">
-                          <img src={d.image} alt={d.name} className="w-full h-full object-cover object-bottom group-hover:scale-105 transition-transform duration-500" />
-                          <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/25 to-transparent"></div>
-                        </div>
-                      )
+                      <div className="h-[170px] relative overflow-hidden bg-black/5">
+                        <img src={d.image} alt={d.name} className="w-full h-full object-cover object-bottom group-hover:scale-105 transition-transform duration-500" />
+                        {/* Lớp phủ chỉ dùng cho ảnh chụp; logo nền sáng giữ nguyên độ trong trẻo */}
+                        {!d.lightArtwork && <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/25 to-transparent"></div>}
+                      </div>
                     ) : (
                       <div className={`h-[110px] bg-gradient-to-br ${d.color} flex items-center justify-center text-[40px]`}>{d.icon}</div>
                     )}
