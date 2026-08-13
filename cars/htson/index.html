@@ -51,7 +51,8 @@
         name: "Du lịch & Khách sạn",
         tagline: "Trải nghiệm nghỉ dưỡng đẳng cấp",
         desc: "Đầu tư và vận hành các tổ hợp nghỉ dưỡng, khách sạn theo tiêu chuẩn quốc tế, hướng tới trải nghiệm khác biệt cho du khách.",
-        color: "from-[#EFE0C0] to-[#C7A24E]"
+        color: "from-[#EFE0C0] to-[#C7A24E]",
+        image: "./assets/dulich-khach-san.jpg"
       },
       {
         id: "giaoduc",
@@ -257,7 +258,15 @@
               <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 {divisions.map(d => (
                   <div key={d.id} className="bg-white rounded-[20px] border border-black/5 shadow-[0_8px_28px_rgba(122,19,21,0.06)] overflow-hidden hover:-translate-y-1.5 transition-transform">
-                    <div className={`h-[110px] bg-gradient-to-br ${d.color} flex items-center justify-center text-[40px]`}>{d.icon}</div>
+                    {d.image ? (
+                      <div className="h-[110px] relative overflow-hidden">
+                        <img src={d.image} alt={d.name} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
+                        <span className="absolute bottom-2 left-3 text-[26px] drop-shadow">{d.icon}</span>
+                      </div>
+                    ) : (
+                      <div className={`h-[110px] bg-gradient-to-br ${d.color} flex items-center justify-center text-[40px]`}>{d.icon}</div>
+                    )}
                     <div className="p-5">
                       <h3 className="font-extrabold text-[15px] text-[#7A1315]">{d.name}</h3>
                       <p className="text-[12px] font-semibold text-[#B8892C] mt-1">{d.tagline}</p>
