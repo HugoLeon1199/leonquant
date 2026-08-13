@@ -35,7 +35,8 @@
         name: "Bất động sản",
         tagline: "Kiến tạo không gian sống & đầu tư bền vững",
         desc: "Phát triển, đầu tư và quản lý các dự án bất động sản nhà ở, thương mại và đô thị, mang lại giá trị dài hạn cho khách hàng và cộng đồng.",
-        color: "from-[#F4E7C9] to-[#E3C482]"
+        color: "from-[#F4E7C9] to-[#E3C482]",
+        image: "./assets/bat-dong-san.png"
       },
       {
         id: "taichinh",
@@ -261,8 +262,6 @@
                     {d.image ? (
                       <div className="h-[110px] relative overflow-hidden">
                         <img src={d.image} alt={d.name} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
-                        <span className="absolute bottom-2 left-3 text-[26px] drop-shadow">{d.icon}</span>
                       </div>
                     ) : (
                       <div className={`h-[110px] bg-gradient-to-br ${d.color} flex items-center justify-center text-[40px]`}>{d.icon}</div>
