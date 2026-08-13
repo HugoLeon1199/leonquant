@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-12T22:39:46.296591+00:00",
+  "generated_at": "2026-08-13T23:05:20.434643+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 859743,
+    "estimated_input_tokens": 707403,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 3,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 714,
-    "sent_article_count": 714,
+    "input_article_count": 606,
+    "sent_article_count": 606,
     "window": {
-      "end_date": "2026-08-13",
+      "end_date": "2026-08-14",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,97 +24,81 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, chính sách tín dụng tại Việt Nam, và các đột phá hạ tầng AI trong 48 giờ qua.",
+    "reading_time_minutes": "15",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và chính sách trọng yếu trong 48 giờ qua, tập trung vào các chỉ đạo điều hành tại Việt Nam và làn sóng đầu tư hạ tầng AI toàn cầu.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường phản ứng thận trọng với dữ liệu lạm phát Mỹ (CPI 3,4%), trong khi dòng vốn đầu tư có xu hướng dịch chuyển mạnh mẽ từ các tài sản đầu cơ sang hạ tầng AI và bán dẫn. Tại Việt Nam, trọng tâm chính sách là các gói tín dụng ưu đãi quy mô 220.000 tỷ đồng từ nhóm ngân hàng Big4 và nỗ lực tháo gỡ vướng mắc cho các dự án hạ tầng giao thông trọng điểm.",
-        "most_mentioned": "Chủ đề hạ tầng AI và bán dẫn chiếm ưu thế trong các nguồn tin công nghệ, với các thương vụ M&A tỷ USD và sự kiện ra mắt phần cứng mới của Google. Song song đó, các chính sách hỗ trợ tín dụng tại Việt Nam cũng là tâm điểm thu hút sự quan tâm của cộng đồng doanh nghiệp.",
-        "top_stories": "Sự cố UAV tại sân bay Tân Sơn Nhất và các thương vụ hợp tác công nghệ cao giữa doanh nghiệp Việt với SpaceX là những câu chuyện nổi bật, cho thấy sự giao thoa giữa an ninh hạ tầng và khát vọng vươn tầm công nghệ của Việt Nam.",
-        "sector_impacts": "Các ngân hàng thương mại Việt Nam đang đồng loạt giảm lãi suất và tung gói tín dụng 220.000 tỷ đồng, tạo áp lực tích cực lên chi phí vốn của doanh nghiệp trong bối cảnh kinh tế cần tăng tốc cuối năm.",
-        "watch_24_72h": "Cần theo dõi sát sao phản ứng của thị trường tài chính với dữ liệu CPI Mỹ, diễn biến giá dầu Brent trước căng thẳng eo biển Hormuz, và tiến độ giải ngân các gói tín dụng ưu đãi tại Việt Nam."
+        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường ghi nhận sự thận trọng trước dữ liệu lạm phát Mỹ, trong khi dòng vốn lớn tiếp tục đổ vào hạ tầng AI và bán dẫn. Tại Việt Nam, trọng tâm điều hành xoay quanh việc Thủ tướng chỉ đạo giảm thực chất lãi suất cho vay, siết chặt quản lý thị trường vàng và đẩy nhanh tiến độ các dự án hạ tầng trọng điểm.",
+        "most_mentioned": "Chủ đề AI và hạ tầng bán dẫn chiếm sóng với các khoản đầu tư quy mô hàng trăm tỷ USD từ Nvidia và SK Hynix, cho thấy AI đã chuyển từ giai đoạn thử nghiệm sang xây dựng hạ tầng vật lý quy mô lớn.",
+        "top_stories": "Sự kiện Thủ tướng chỉ đạo giảm lãi suất và siết chặt quản lý thị trường vàng, cùng với việc Starlink chính thức cung cấp dịch vụ tại Việt Nam, là những điểm nhấn quan trọng định hình lại bức tranh kinh tế và kết nối số trong nước.",
+        "sector_impacts": "Ngành ngân hàng đang đối mặt với áp lực thanh khoản và yêu cầu giảm lãi suất, trong khi ngành công nghệ Việt Nam đang dịch chuyển từ gia công sang tham gia sâu vào chuỗi giá trị bán dẫn và AI.",
+        "watch_24_72h": "Cần theo dõi sát sao phản ứng của VN-Index sau khi mất mốc 1.800 điểm, các văn bản hướng dẫn về tài sản số tại Việt Nam, và diễn biến giá dầu Brent trước những căng thẳng địa chính trị mới tại Trung Đông."
       },
-      "content": "Thị trường tài chính 48h qua ghi nhận sự phân hóa rõ rệt. Dữ liệu lạm phát Mỹ hạ nhiệt về 3,4% đã củng cố kỳ vọng Fed giữ nguyên lãi suất, giúp tâm lý nhà đầu tư ổn định trở lại. Tuy nhiên, rủi ro địa chính trị tại Trung Đông vẫn là biến số khó lường, gây áp lực lên giá năng lượng và chi phí vận tải biển. Tại Việt Nam, các ngân hàng thương mại nhà nước như Agribank, Vietcombank, BIDV và VietinBank đã đồng loạt triển khai các gói tín dụng ưu đãi với tổng quy mô 220.000 tỷ đồng, tập trung vào các lĩnh vực ưu tiên như công nghệ cao, bán dẫn và dự án xanh. Đây là động thái quan trọng nhằm khơi thông nguồn vốn trong bối cảnh doanh nghiệp đang đối mặt với nhiều thách thức về thanh khoản. Trong lĩnh vực công nghệ, Google đã chính thức ra mắt dòng Pixel 11 tích hợp sâu Gemini AI, khẳng định cuộc đua AI trên thiết bị di động đang bước vào giai đoạn triển khai thực tế. Đồng thời, sự hợp tác giữa các doanh nghiệp Việt như Vietjet, VinSpace với SpaceX của Elon Musk trong lĩnh vực Internet vệ tinh cho thấy Việt Nam đang tích cực tham gia vào chuỗi giá trị công nghệ vũ trụ toàn cầu.",
+      "content": "Trong 48 giờ qua, bức tranh kinh tế thị trường bị chi phối bởi sự thận trọng của nhà đầu tư trước các dữ liệu vĩ mô và sự bùng nổ của hạ tầng AI. Các tập đoàn công nghệ lớn như Nvidia và SK Hynix đang định hình lại chuỗi cung ứng thị trường với các khoản đầu tư hạ tầng khổng lồ, khẳng định niềm tin vào sự tăng trưởng dài hạn của AI. Tại Việt Nam, chính phủ đang đẩy mạnh các chỉ đạo quyết liệt nhằm khơi thông dòng vốn cho doanh nghiệp, giảm lãi suất thực chất và thúc đẩy các dự án hạ tầng trọng điểm. Sự kiện Starlink chính thức có mặt tại Việt Nam cũng đánh dấu bước tiến mới trong hạ tầng kết nối số, mở ra cơ hội cho các vùng sâu vùng xa. Trong khi đó, thị trường chứng khoán trong nước ghi nhận áp lực bán mạnh, phản ánh tâm lý chốt lời của nhà đầu tư tại các vùng kháng cự kỹ thuật quan trọng.",
       "representative_sources": [
         {
-          "title": "UAV gây náo loạn sân bay Tân Sơn Nhất",
-          "source": "tienphong_vn",
-          "url": "https://tienphong.vn/cong-an-quan-doi-vao-cuoc-vu-uav-uy-hiep-an-toan-san-bay-tan-son-nhat-post1867362.tpo"
-        },
-        {
-          "title": "Google's Pixel 11 has a 30-hour battery life and a slimmer camera bar - Engadget",
-          "source": "engadget_com",
-          "url": "https://engadget.com/2234844/google-pixel-11-announced-specs-availability"
-        },
-        {
-          "title": "Strait of Hormuz ship traffic near three-month low as U.S.-Iran deal in doubt",
-          "source": "cnbc_com",
-          "url": "https://cnbc.com/2026/08/12/strait-hormuz-ship-traffic-iran-war-deal.html"
-        },
-        {
-          "title": "ESG Company Tour 2026: Doanh nghiệp vào nhà máy học cách chuyển đổi xanh",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/esg-company-tour-2026-doanh-nghiep-vao-nha-may-hoc-cach-chuyen-doi-xanh-20260812113756852.htm",
-          "excerpt": "Chi tiết về chương trình ESG Company Tour 2026."
+          "title": "Nvidia's new $500B plan is risky but brilliant, especially for aging GPUs | TechCrunch",
+          "source": "techcrunch_com",
+          "url": "https://techcrunch.com/2026/08/13/nvidias-new-500b-plan-is-risky-but-brilliant-especially-for-aging-gpus"
         }
       ],
       "most_mentioned_topics": [
         {
           "topic": "Hạ tầng AI và Bán dẫn",
-          "why_mentioned": "Nhu cầu tính toán tăng vọt thúc đẩy đầu tư hạ tầng.",
-          "evidence_hint": "CoreWeave tăng trưởng doanh thu gấp đôi."
-        },
-        {
-          "topic": "Chính sách tín dụng Việt Nam",
-          "why_mentioned": "Nỗ lực khơi thông vốn cho doanh nghiệp cuối năm.",
-          "evidence_hint": "Gói 220.000 tỷ đồng từ nhóm Big4."
+          "why_mentioned": "Dòng vốn khổng lồ đổ vào trung tâm dữ liệu và sản xuất chip.",
+          "evidence_hint": "Các khoản đầu tư của Nvidia, SK Hynix và Databricks."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Sự cố an ninh hàng không",
-          "why_hot": "UAV gây gián đoạn sân bay Tân Sơn Nhất.",
-          "impact": "Đặt ra yêu cầu cấp bách về hệ thống chế áp UAV.",
-          "evidence_hint": "Hàng chục chuyến bay bị ảnh hưởng."
+          "topic": "Chính sách tiền tệ Việt Nam",
+          "why_hot": "Chỉ đạo trực tiếp từ Thủ tướng về lãi suất và tín dụng.",
+          "impact": "Ảnh hưởng trực tiếp đến chi phí vốn của doanh nghiệp và thanh khoản hệ thống.",
+          "evidence_hint": "Các chỉ đạo từ Thủ tướng Lê Minh Hưng."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Hợp tác công nghệ vũ trụ Việt - Mỹ",
-          "why_watch": "Doanh nghiệp Việt bắt tay SpaceX triển khai Internet vệ tinh."
+          "signal": "Dịch chuyển FDI công nghệ cao tại TPHCM",
+          "why_watch": "Vốn FDI tăng mạnh tập trung vào bán dẫn và AI."
         }
       ],
       "watch_next": [
-        "Diễn biến giá dầu Brent tại eo biển Hormuz",
-        "Tiến độ giải ngân gói tín dụng 220.000 tỷ đồng"
+        "VN-Index tại ngưỡng hỗ trợ kỹ thuật",
+        "Văn bản pháp lý về tài sản số tại Việt Nam",
+        "Diễn biến giá dầu Brent"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Lạm phát Mỹ hạ nhiệt về 3,4%",
-        "one_sentence": "Dữ liệu CPI tháng 7 khớp dự báo, giúp giảm xác suất Fed tăng lãi suất trong tháng 9 xuống còn 38%.",
-        "why_it_matters": "Tác động trực tiếp đến chính sách tiền tệ toàn cầu và tâm lý nhà đầu tư.",
-        "watch_next": "Quyết định lãi suất của Fed trong cuộc họp tháng 9.",
-        "source_urls": []
+        "title": "Thủ tướng chỉ đạo giảm thực chất lãi suất cho vay",
+        "one_sentence": "Chính phủ yêu cầu các tổ chức tín dụng tiết giảm chi phí vận hành để hạ lãi suất cho vay, nhằm hỗ trợ doanh nghiệp và thúc đẩy tăng trưởng kinh tế trong bối cảnh thanh khoản hệ thống đang chịu áp lực.",
+        "why_it_matters": "Đây là chỉ đạo then chốt ảnh hưởng trực tiếp đến chi phí vốn của toàn bộ nền kinh tế Việt Nam.",
+        "watch_next": "Phản ứng của các ngân hàng thương mại về lộ trình giảm lãi suất thực tế.",
+        "source_urls": [
+          "https://tienphong.vn/thu-tuong-yeu-cau-giam-thuc-chat-lai-suat-cho-vay-quan-ly-chat-thi-truong-vang-post1867674.tpo"
+        ]
       },
       {
         "rank": 2,
-        "title": "Ngân hàng Big4 tung 220.000 tỷ đồng vốn ưu đãi",
-        "one_sentence": "Agribank, VietinBank, BIDV và Vietcombank đồng loạt giảm lãi suất cho vay từ 1-2% để hỗ trợ doanh nghiệp.",
-        "why_it_matters": "Khơi thông nguồn vốn cho các lĩnh vực ưu tiên như công nghệ, bán dẫn và dự án xanh.",
-        "watch_next": "Tốc độ giải ngân thực tế tại các doanh nghiệp nhỏ và vừa.",
-        "source_urls": []
+        "title": "Nvidia huy động 500 tỷ USD xây dựng hạ tầng AI",
+        "one_sentence": "Nvidia đạt thỏa thuận với BlackRock và Goldman Sachs để huy động 500 tỷ USD, biến GPU thành tài sản thế chấp nhằm xây dựng mạng lưới trung tâm dữ liệu AI toàn cầu.",
+        "why_it_matters": "Động thái này định hình lại chuỗi cung ứng bán dẫn và thiết lập tiêu chuẩn mới cho định giá hạ tầng AI.",
+        "watch_next": "Tác động của nguồn cung GPU mới đến giá cổ phiếu các công ty công nghệ.",
+        "source_urls": [
+          "https://techcrunch.com/2026/08/13/nvidias-new-500b-plan-is-risky-but-brilliant-especially-for-aging-gpus"
+        ]
       },
       {
         "rank": 3,
-        "title": "UAV gây náo loạn sân bay Tân Sơn Nhất",
-        "one_sentence": "Sự cố UAV trái phép khiến hàng chục chuyến bay phải chuyển hướng hoặc hạ cánh khẩn nguy, thúc đẩy yêu cầu đầu tư hệ thống chế áp.",
-        "why_it_matters": "Sự cố an ninh hàng không nghiêm trọng ảnh hưởng trực tiếp đến an toàn bay và hạ tầng giao thông.",
-        "watch_next": "Tiến độ đầu tư hệ thống phát hiện và chế áp UAV tại các sân bay trọng điểm.",
+        "title": "Starlink chính thức cung cấp dịch vụ tại Việt Nam",
+        "one_sentence": "SpaceX triển khai dịch vụ Internet vệ tinh Starlink tại Việt Nam với giá từ 1,13 triệu đồng/tháng, tập trung vào việc kết nối các khu vực vùng sâu vùng xa thông qua đối tác FPT Telecom.",
+        "why_it_matters": "Sự kiện đánh dấu bước tiến quan trọng trong việc đa dạng hóa hạ tầng viễn thông và kết nối số tại Việt Nam.",
+        "watch_next": "Tốc độ phủ sóng thực tế và phản ứng của các nhà mạng viễn thông truyền thống.",
         "source_urls": [
-          "https://tienphong.vn/cong-an-quan-doi-vao-cuoc-vu-uav-uy-hiep-an-toan-san-bay-tan-son-nhat-post1867362.tpo"
+          "https://tuoitre.vn/internet-ve-tinh-starlink-chinh-thuc-co-mat-tai-viet-nam-gia-tu-113-trieu-dong-100260813093118169.htm"
         ]
       }
     ],
@@ -122,24 +106,25 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh của tài sản rủi ro và nỗ lực khơi thông tín dụng tại Việt Nam. Dữ liệu lạm phát Mỹ hạ nhiệt đã tạo dư địa cho Fed giữ nguyên lãi suất, trong khi tại Việt Nam, các ngân hàng thương mại nhà nước đang đóng vai trò chủ chốt trong việc cung ứng vốn giá rẻ. Sự phân hóa trong chiến lược huy động vốn và cho vay của các ngân hàng cho thấy thị trường đang tìm kiếm sự cân bằng giữa tăng trưởng và kiểm soát rủi ro.",
+        "sector_thesis": "Ngành tài chính 48 giờ qua tập trung vào việc điều hành chính sách tiền tệ linh hoạt tại Việt Nam và sự điều chỉnh của các tài sản rủi ro thị trường. Các chỉ đạo từ Thủ tướng về việc giảm thực chất lãi suất cho vay và quản lý thị trường vàng cho thấy nỗ lực ổn định vĩ mô trong bối cảnh áp lực lạm phát và biến động tỷ giá. Đồng thời, dòng vốn đang có sự dịch chuyển từ các tài sản đầu cơ sang các lĩnh vực có nền tảng tăng trưởng thực tế, phản ánh sự thận trọng của nhà đầu tư.",
         "subsector_briefs": [
           {
-            "name": "Chính sách tiền tệ và Tín dụng",
-            "overview": "Các ngân hàng thương mại nhà nước đồng loạt tung gói tín dụng 220.000 tỷ đồng với lãi suất ưu đãi giảm tối thiểu 1%/năm.",
+            "name": "Chính sách tiền tệ và Ngân hàng",
+            "overview": "Chính phủ Việt Nam đang quyết liệt yêu cầu các ngân hàng giảm lãi suất cho vay để hỗ trợ doanh nghiệp, trong khi tiền gửi dân cư đạt mức kỷ lục 11 triệu tỷ đồng.",
             "key_points": [
-              "Agribank, VietinBank, BIDV, Vietcombank tham gia gói tín dụng",
-              "Tập trung vào lĩnh vực ưu tiên, công nghệ cao và dự án xanh"
+              "Thủ tướng chỉ đạo giảm lãi suất thực chất",
+              "Tiền gửi dân cư vượt 11 triệu tỷ đồng",
+              "Siết chặt quy định chuyển khoản từ 2027"
             ],
             "key_story_titles": [
-              "Ngân hàng Big4 tung 220.000 tỷ đồng vốn ưu đãi"
+              "Thủ tướng chỉ đạo giảm thực chất lãi suất cho vay"
             ],
             "representative_sources": [
               {
-                "title": "Loạt ngân hàng đầu tiên giảm lãi suất cho vay, tung 220.000 tỷ đồng vốn ưu đãi",
-                "source": "vietnamnet_vn",
-                "url": "https://vietnamnet.vn/loat-ngan-hang-dau-tien-giam-lai-suat-cho-vay-tung-220-000-ty-dong-von-uu-dai-2544681.html",
-                "excerpt": "Các ngân hàng lớn hỗ trợ doanh nghiệp thông qua giảm lãi suất và gói tín dụng ưu đãi."
+                "title": "Thủ tướng yêu cầu giảm thực chất lãi suất cho vay, quản lý chặt thị trường vàng",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/thu-tuong-yeu-cau-giam-thuc-chat-lai-suat-cho-vay-quan-ly-chat-thi-truong-vang-post1867674.tpo",
+                "excerpt": "Chỉ đạo quan trọng nhất về điều hành kinh tế vĩ mô và chính sách tiền tệ trong 48h qua."
               }
             ]
           }
@@ -147,24 +132,24 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Chính sách tiền tệ",
-            "title": "Gói tín dụng 220.000 tỷ đồng hỗ trợ doanh nghiệp",
-            "summary": "Nhóm ngân hàng Big4 gồm Agribank, VietinBank, BIDV và Vietcombank đồng loạt triển khai các gói tín dụng ưu đãi với tổng quy mô 220.000 tỷ đồng. Động thái này nhằm giảm áp lực chi phí vốn cho doanh nghiệp trong các lĩnh vực ưu tiên như công nghệ, bán dẫn và nông nghiệp, đồng thời thúc đẩy tăng trưởng kinh tế cuối năm.",
+            "depth_level": "deep",
+            "sub_sector": "Thị trường chứng khoán",
+            "title": "Áp lực điều chỉnh trên thị trường chứng khoán Việt Nam",
+            "summary": "VN-Index mất mốc 1.800 điểm dưới áp lực bán tháo mạnh mẽ, phản ánh tâm lý chốt lời của nhà đầu tư tại vùng kháng cự kỹ thuật quan trọng. Dòng vốn ngoại tiếp tục rút ròng, gây áp lực lên nhóm cổ phiếu ngân hàng và bất động sản.",
             "main_developments": [
-              "Agribank triển khai gói 70.000 tỷ đồng, các ngân hàng còn lại mỗi đơn vị 50.000 tỷ đồng.",
-              "Lãi suất ưu đãi giảm từ 1-2 điểm phần trăm so với lãi suất cho vay thông thường.",
-              "Đối tượng ưu tiên bao gồm doanh nghiệp nhỏ và vừa, công nghiệp hỗ trợ và các dự án xanh."
+              "VN-Index giảm gần 28 điểm trong phiên 13/8, dừng ở mức 1.765,63 điểm.",
+              "Giá trị giao dịch trên HOSE tăng vọt lên 18.700 tỷ đồng, gấp 3 lần phiên sáng.",
+              "Khối ngoại rút ròng hơn 558 tỷ đồng, tập trung vào các mã vốn hóa lớn như VIC và VHM."
             ],
-            "why_it_matters": "Đây là chính sách tiền tệ quan trọng nhằm khơi thông nguồn vốn, giúp doanh nghiệp duy trì sản xuất trong bối cảnh thanh khoản hệ thống ngân hàng đang chịu áp lực.",
+            "why_it_matters": "Sự điều chỉnh này cho thấy thị trường đang kiểm tra lại các ngưỡng hỗ trợ quan trọng sau giai đoạn tăng nóng, ảnh hưởng trực tiếp đến tâm lý nhà đầu tư cá nhân.",
             "affected_groups": [
-              "Doanh nghiệp nhỏ và vừa",
-              "Ngành công nghệ cao",
-              "Ngành nông nghiệp"
+              "Nhà đầu tư cá nhân",
+              "Nhóm cổ phiếu ngân hàng",
+              "Nhóm cổ phiếu bất động sản"
             ],
             "watch_next": [
-              "Tốc độ giải ngân thực tế",
-              "Phản ứng của các ngân hàng thương mại cổ phần khác"
+              "Khả năng giữ vững ngưỡng hỗ trợ 1.750 điểm",
+              "Diễn biến dòng vốn ngoại trong các phiên tới"
             ],
             "representative_sources": []
           }
@@ -173,90 +158,42 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI 48h qua tập trung vào hạ tầng tính toán và các sản phẩm phần cứng tích hợp AI. Sự tăng trưởng mạnh mẽ của CoreWeave khẳng định nhu cầu hạ tầng AI vẫn là động lực chính của ngành. Đồng thời, Google với dòng Pixel 11 đã chính thức đưa Gemini AI vào trung tâm trải nghiệm người dùng, tạo ra áp lực cạnh tranh mới cho các nhà sản xuất smartphone.",
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu, mà còn ở hạ tầng dữ liệu, bán dẫn và trung tâm dữ liệu. Các khoản đầu tư khổng lồ từ Nvidia và SK Hynix cho thấy AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế trong vận hành. Tại Việt Nam, sự kiện Starlink có mặt tại thị trường và định hướng chiến lược bán dẫn của FPT cho thấy sự chuyển dịch mạnh mẽ trong hạ tầng kết nối và năng lực công nghệ cao.",
+        "subsector_briefs": [],
+        "story_dossiers": []
+      },
+      {
+        "code": "news",
+        "name": "Thời sự & Chính trị",
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua ghi nhận các hoạt động ngoại giao cấp cao và nỗ lực hoàn thiện thể chế tại Việt Nam. Các chỉ đạo về kiểm soát nhập siêu và thúc đẩy xuất khẩu, cùng với việc xử lý các vụ án gian lận thi cử và vi phạm bản quyền phần mềm, cho thấy quyết tâm của Chính phủ trong việc minh bạch hóa môi trường kinh doanh và giáo dục.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Phần cứng AI",
-            "title": "Google ra mắt dòng Pixel 11 tích hợp Gemini AI",
-            "summary": "Google chính thức công bố dòng Pixel 11, bao gồm các phiên bản Pro và Fold, với trọng tâm là chip Tensor G6 và tích hợp sâu trí tuệ nhân tạo Gemini. Đây là chiến lược của Google nhằm cạnh tranh trực tiếp với Apple Intelligence trong cuộc đua AI trên thiết bị di động, tập trung vào khả năng hiểu hành vi người dùng và xử lý tác vụ thời gian thực.",
+            "sub_sector": "Pháp luật",
+            "title": "Khởi tố vụ án cài đặt phần mềm lậu đầu tiên tại Việt Nam",
+            "summary": "Công an tỉnh Phú Thọ đã khởi tố vụ án hình sự đối với Công ty TNHH Thương mại và Dịch vụ Sông Lam về hành vi cài đặt phần mềm lậu, đánh dấu tiền lệ pháp lý quan trọng trong việc xử lý bản quyền phần mềm tại Việt Nam.",
             "main_developments": [
-              "Sử dụng chip Tensor G6 tăng 25% hiệu suất xử lý AI.",
-              "Tích hợp tính năng Gemini Intelligence giúp tự động hóa tác vụ trên ứng dụng.",
-              "Giá khởi điểm tăng 100 USD do chi phí linh kiện và bộ nhớ tăng cao."
+              "Công ty Sông Lam bị khởi tố về tội xâm phạm quyền tác giả.",
+              "Hành vi cài đặt Windows và Office lậu cho doanh nghiệp bị đưa ra ánh sáng.",
+              "Cơ quan chức năng làm rõ ngưỡng xử lý hình sự đối với hành vi này."
             ],
-            "why_it_matters": "Sự kiện này định hình chiến lược AI trên thiết bị di động của Google, tạo áp lực cạnh tranh lớn lên các nhà sản xuất smartphone khác.",
+            "why_it_matters": "Đây là vụ án đầu tiên trên cả nước bị khởi tố về hành vi cài đặt phần mềm lậu cho doanh nghiệp, tạo ra cảnh báo mạnh mẽ về tuân thủ bản quyền.",
             "affected_groups": [
-              "Người dùng smartphone",
-              "Nhà phát triển ứng dụng AI"
+              "Doanh nghiệp công nghệ",
+              "Các đơn vị cung cấp dịch vụ IT"
             ],
             "watch_next": [
-              "Phản ứng của thị trường với mức giá tăng",
-              "Hiệu quả thực tế của Gemini Intelligence"
+              "Phán quyết của tòa án",
+              "Tác động đến thị trường phần mềm bản quyền"
             ],
             "representative_sources": [
               {
-                "title": "Google's Pixel 11 has a 30-hour battery life and a slimmer camera bar - Engadget",
-                "source": "engadget_com",
-                "url": "https://engadget.com/2234844/google-pixel-11-announced-specs-availability"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "code": "news",
-        "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48h qua ghi nhận các hoạt động ngoại giao cấp cao của Việt Nam và những biến động địa chính trị tại Trung Đông. Việc thúc đẩy quan hệ đối tác chiến lược với New Zealand và Australia cho thấy chiến lược ngoại giao đa phương hóa, đa dạng hóa của Việt Nam. Trong khi đó, căng thẳng tại eo biển Hormuz tiếp tục là rủi ro lớn đối với an ninh năng lượng toàn cầu.",
-        "subsector_briefs": [
-          {
-            "name": "Địa chính trị Trung Đông",
-            "overview": "Căng thẳng tại eo biển Hormuz leo thang, lưu lượng tàu qua lại giảm mạnh, gây áp lực lên giá dầu Brent.",
-            "key_points": [
-              "Lưu lượng tàu qua eo biển Hormuz giảm 90%",
-              "Giá dầu Brent tăng lên 88,9 USD/thùng"
-            ],
-            "key_story_titles": [
-              "Căng thẳng eo biển Hormuz và an ninh năng lượng"
-            ],
-            "representative_sources": [
-              {
-                "title": "Strait of Hormuz ship traffic near three-month low as U.S.-Iran deal in doubt",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/08/12/strait-hormuz-ship-traffic-iran-war-deal.html"
-              }
-            ]
-          }
-        ],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Địa chính trị",
-            "title": "Căng thẳng eo biển Hormuz và an ninh năng lượng",
-            "summary": "Xung đột tại eo biển Hormuz đang làm gián đoạn nghiêm trọng chuỗi cung ứng năng lượng toàn cầu, với lưu lượng tàu qua lại giảm 90% so với trước xung đột. Iran tuyên bố duy trì các biện pháp cứng rắn cho đến khi Mỹ thay đổi hành vi, đẩy giá dầu Brent lên mức 88,9 USD/thùng, gây lo ngại về lạm phát năng lượng.",
-            "main_developments": [
-              "Lưu lượng tàu qua eo biển Hormuz giảm xuống mức thấp nhất trong 3 tháng.",
-              "Giá dầu Brent tăng mạnh do lo ngại nguồn cung bị gián đoạn.",
-              "Các bên liên quan chưa đạt được thỏa thuận hòa bình, làm tăng rủi ro địa chính trị."
-            ],
-            "why_it_matters": "Đây là rủi ro địa chính trị lớn nhất ảnh hưởng đến giá năng lượng toàn cầu, tác động trực tiếp đến chi phí vận chuyển và lạm phát.",
-            "affected_groups": [
-              "Ngành năng lượng",
-              "Ngành vận tải biển",
-              "Người tiêu dùng toàn cầu"
-            ],
-            "watch_next": [
-              "Diễn biến đàm phán giữa Mỹ và Iran",
-              "Phản ứng của thị trường dầu mỏ"
-            ],
-            "representative_sources": [
-              {
-                "title": "Strait of Hormuz ship traffic near three-month low as U.S.-Iran deal in doubt",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/08/12/strait-hormuz-ship-traffic-iran-war-deal.html"
+                "title": "Vụ khởi tố cài Windows Office lậu đầu tiên tại Việt Nam: luật sư chỉ rõ ngưỡng xử lý hình sự",
+                "source": "genk_vn",
+                "url": "https://genk.vn/vu-khoi-to-cai-windows-office-lau-dau-tien-tai-viet-nam-luat-su-chi-ro-nguong-xu-ly-hinh-su-165260813151209781.chn",
+                "excerpt": "Tiền lệ pháp lý quan trọng về bản quyền phần mềm tại Việt Nam."
               }
             ]
           }
@@ -265,33 +202,55 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48h qua nổi bật với sự kiện thiên văn Nhật thực toàn phần và các xu hướng quản trị bền vững (ESG) tại Việt Nam. ESG không còn là câu chuyện của các tập đoàn lớn mà đang trở thành tiêu chuẩn bắt buộc cho các doanh nghiệp SME. Bên cạnh đó, các xu hướng y tế cộng đồng và thay đổi tư duy tài chính của người Việt cũng cho thấy sự chuyển dịch tích cực trong đời sống xã hội.",
-        "subsector_briefs": [],
-        "story_dossiers": [
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua phản ánh sự thay đổi trong hành vi tiêu dùng và nhận thức về an toàn thông tin của người Việt. Các cảnh báo về lộ lọt thông tin cá nhân và xu hướng du lịch tinh gọn cho thấy người dân đang ngày càng chủ động hơn trong việc quản lý tài chính và bảo mật cá nhân. Đồng thời, các vấn đề an sinh xã hội như bảo vệ trẻ em cũng đang nhận được sự quan tâm lớn từ dư luận.",
+        "subsector_briefs": [
           {
-            "rank": 1,
-            "depth_level": "brief",
-            "sub_sector": "Phát triển bền vững",
-            "title": "ESG Company Tour 2026",
-            "summary": "Chương trình ESG Company Tour 2026 do báo Dân trí tổ chức nhằm hỗ trợ các doanh nghiệp SME học hỏi thực tế về kinh tế tuần hoàn và quản trị bền vững. Việc thực thi ESG đang trở thành yếu tố sống còn để doanh nghiệp Việt nâng cao năng lực cạnh tranh và tham gia chuỗi cung ứng toàn cầu.",
-            "main_developments": [
-              "Tổ chức tham quan nhà máy Prime Tiền Phong để học hỏi thực tế.",
-              "Tập trung vào giải pháp chuyển đổi xanh và quản trị hiệu quả cho SME."
+            "name": "An toàn thông tin và Tiêu dùng",
+            "overview": "Người dân được cảnh báo về lộ lọt thông tin cá nhân khi thanh toán điện nước, trong khi xu hướng du lịch tinh gọn đang lên ngôi.",
+            "key_points": [
+              "Cảnh báo lộ lọt thông tin cá nhân",
+              "Xu hướng du lịch tinh gọn của người Việt"
             ],
-            "why_it_matters": "ESG không còn là việc của các doanh nghiệp lớn mà là cơ hội để SME nâng cao năng lực cạnh tranh.",
-            "affected_groups": [
-              "Doanh nghiệp SME",
-              "Ngành sản xuất"
-            ],
-            "watch_next": [
-              "Tiến độ áp dụng ESG tại các doanh nghiệp SME"
+            "key_story_titles": [
+              "Cảnh báo lộ lọt thông tin cá nhân khi thanh toán điện, nước"
             ],
             "representative_sources": [
               {
-                "title": "ESG Company Tour 2026: Doanh nghiệp vào nhà máy học cách chuyển đổi xanh",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/esg-company-tour-2026-doanh-nghiep-vao-nha-may-hoc-cach-chuyen-doi-xanh-20260812113756852.htm",
-                "excerpt": "Chi tiết về chương trình ESG Company Tour 2026."
+                "title": "Công an yêu cầu người dân chuyển thanh toán tiền điện, nước đặc biệt lưu ý thông tin sau",
+                "source": "genk_vn",
+                "url": "https://genk.vn/cong-an-yeu-cau-nguoi-dan-chuyen-thanh-toan-tien-dien-nuoc-dac-biet-luu-y-thong-tin-sau-165260813170914909.chn",
+                "excerpt": "Cảnh báo an toàn thông tin thiết thực cho người dân."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "An sinh xã hội",
+            "title": "Phú Thọ rà soát cơ sở chăm sóc trẻ sau vụ việc tại chùa Bầu",
+            "summary": "Sở Y tế Phú Thọ đã tăng cường kiểm tra, rà soát toàn bộ các cơ sở nuôi dưỡng trẻ em trên địa bàn sau khi phát hiện dấu hiệu bạo hành tại chùa Bầu, nhằm đảm bảo an toàn và quyền lợi cho trẻ em.",
+            "main_developments": [
+              "Sở Y tế yêu cầu UBND các cấp rà soát cơ sở trợ giúp xã hội.",
+              "Kiểm tra các cơ sở tín ngưỡng, tôn giáo có hoạt động nuôi dưỡng trẻ.",
+              "Tăng cường giám sát quy trình chăm sóc trẻ tại các cơ sở ngoài công lập."
+            ],
+            "why_it_matters": "Vấn đề an sinh xã hội và bảo vệ trẻ em đang được dư luận quan tâm đặc biệt, đòi hỏi sự quản lý chặt chẽ hơn từ cơ quan chức năng.",
+            "affected_groups": [
+              "Trẻ em tại các cơ sở nuôi dưỡng",
+              "Các cơ sở tôn giáo"
+            ],
+            "watch_next": [
+              "Kết quả rà soát toàn diện",
+              "Các biện pháp quản lý mới"
+            ],
+            "representative_sources": [
+              {
+                "title": "Phú Thọ rà soát các cơ sở chăm sóc trẻ sau vụ việc tại chùa Bầu",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/phu-tho-ra-soat-cac-co-so-cham-soc-tre-sau-vu-viec-tai-chua-bau-post1867745.tpo",
+                "excerpt": "Vấn đề an sinh xã hội và bảo vệ trẻ em đang được dư luận quan tâm."
               }
             ]
           }
@@ -300,58 +259,69 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Chính sách tiền tệ Fed",
-        "what_to_watch": "Phản ứng của thị trường tài chính với dữ liệu CPI Mỹ",
-        "why": "Dữ liệu CPI 3,4% ảnh hưởng trực tiếp đến kỳ vọng lãi suất tháng 9."
+        "theme": "Chính sách tiền tệ Việt Nam",
+        "what_to_watch": "Phản ứng của các ngân hàng về lãi suất cho vay",
+        "why": "Ảnh hưởng trực tiếp đến chi phí vốn của doanh nghiệp."
+      },
+      {
+        "theme": "Thị trường chứng khoán",
+        "what_to_watch": "Ngưỡng hỗ trợ 1.750 điểm của VN-Index",
+        "why": "Xác định xu hướng ngắn hạn của thị trường."
       },
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến giá dầu Brent tại eo biển Hormuz",
-        "why": "Rủi ro nguồn cung dầu ảnh hưởng đến lạm phát toàn cầu."
+        "what_to_watch": "Diễn biến giá dầu Brent",
+        "why": "Tác động đến chi phí năng lượng toàn cầu."
       },
       {
-        "theme": "Tín dụng Việt Nam",
-        "what_to_watch": "Tiến độ giải ngân gói 220.000 tỷ đồng",
-        "why": "Khả năng tiếp cận vốn của doanh nghiệp cuối năm."
-      },
-      {
-        "theme": "Lạm phát Mỹ hạ nhiệt về 3,4%",
-        "what_to_watch": "Quyết định lãi suất của Fed trong cuộc họp tháng 9.",
-        "why": "Tác động trực tiếp đến chính sách tiền tệ toàn cầu và tâm lý nhà đầu tư."
-      },
-      {
-        "theme": "Ngân hàng Big4 tung 220.000 tỷ đồng vốn ưu đãi",
-        "what_to_watch": "Tốc độ giải ngân thực tế tại các doanh nghiệp nhỏ và vừa.",
-        "why": "Khơi thông nguồn vốn cho các lĩnh vực ưu tiên như công nghệ, bán dẫn và dự án xanh."
-      },
-      {
-        "theme": "UAV gây náo loạn sân bay Tân Sơn Nhất",
-        "what_to_watch": "Tiến độ đầu tư hệ thống phát hiện và chế áp UAV tại các sân bay trọng điểm.",
-        "why": "Sự cố an ninh hàng không nghiêm trọng ảnh hưởng trực tiếp đến an toàn bay và hạ tầng giao thông."
+        "theme": "Hạ tầng AI",
+        "what_to_watch": "Tiến độ đầu tư của Nvidia và SK Hynix",
+        "why": "Định hình chuỗi cung ứng công nghệ toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "CFTC can thiệp khẩn cấp bảo vệ sàn dự báo Kalshi trước kiện tụng từ New York",
-        "why": "Đây là cuộc chiến pháp lý quan trọng về thẩm quyền quản lý tài chính giữa liên bang và tiểu bang tại Mỹ."
+        "what_to_watch": "Tether hoàn tất kiểm toán tài chính đầu tiên bởi KPMG",
+        "why": "Sự kiện quan trọng giải tỏa lo ngại về tính minh bạch của stablecoin lớn nhất thế giới."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "TP.HCM đẩy mạnh 77 công trình trọng điểm với tổng vốn 1,78 triệu tỷ đồng",
-        "why": "Đây là thông tin quan trọng nhất về đầu tư công tại trung tâm kinh tế lớn nhất Việt Nam."
+        "what_to_watch": "Goldman Sachs thâu tóm NEOS Investments để dẫn đầu thị trường Bitcoin ETF thu nhập cao",
+        "why": "Đánh dấu bước tiến lớn của định chế tài chính truyền thống vào thị trường phái sinh crypto."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thép không gỉ mới giúp giảm 40 lần chi phí sản xuất hydro xanh",
-        "why": "Đột phá vật liệu có tác động trực tiếp đến chi phí năng lượng tái tạo."
+        "what_to_watch": "Thủ tướng chỉ đạo giảm thực chất lãi suất cho vay và quản lý chặt thị trường vàng",
+        "why": "Chỉ đạo trực tiếp từ Thủ tướng về chính sách tiền tệ ảnh hưởng lớn đến thanh khoản và chi phí vốn của doanh nghiệp."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Đột phá công nghệ fuel cell cho trung tâm dữ liệu",
-        "why": "Tác động trực tiếp đến hạ tầng AI và năng lượng, hai chủ đề dominant trong panorama."
+        "what_to_watch": "Ngân hàng Nhà nước siết chặt quy định chuyển khoản từ 1/3/2027",
+        "why": "Tác động trực tiếp đến trải nghiệm người dùng và an ninh tài chính cá nhân tại Việt Nam."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "VN-Index mất mốc 1.800 điểm dưới áp lực bán tháo",
+        "why": "Phản ánh tâm lý thị trường và ngưỡng cản kỹ thuật quan trọng của chỉ số đại diện chứng khoán Việt Nam."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Google và OpenAI ra mắt các mô hình AI siêu tốc",
+        "why": "Đánh dấu bước tiến mới trong việc ứng dụng AI vào các tác vụ tự động hóa doanh nghiệp."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các chính sách thuế mới đối với các doanh nghiệp FDI tại Việt Nam.",
+    "source_desk": [
+      {
+        "topic": "Tài chính & Ngân hàng",
+        "representative_sources": [
+          {
+            "title": "Thủ tướng yêu cầu giảm thực chất lãi suất cho vay, quản lý chặt thị trường vàng",
+            "source": "tienphong_vn",
+            "url": "https://tienphong.vn/thu-tuong-yeu-cau-giam-thuc-chat-lai-suat-cho-vay-quan-ly-chat-thi-truong-vang-post1867674.tpo"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của xung đột Iran đến chuỗi cung ứng hàng hóa tại Việt Nam ngoài giá xăng dầu.",
     "notable_articles": []
   }
 }
