@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-14T22:22:15.326412+00:00",
+  "generated_at": "2026-08-15T22:17:27.166792+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 733764,
+    "estimated_input_tokens": 579072,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 1,
+    "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 593,
-    "sent_article_count": 593,
+    "input_article_count": 436,
+    "sent_article_count": 436,
     "window": {
-      "end_date": "2026-08-15",
+      "end_date": "2026-08-16",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,77 +25,84 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, chính sách và công nghệ trong 48 giờ qua, tập trung vào sự dịch chuyển dòng vốn và các chỉ đạo điều hành trọng điểm.",
+    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, công nghệ và an ninh tài chính trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường đối mặt với áp lực điều chỉnh khi lợi suất trái phiếu 30 năm của Mỹ chạm mức 5,216% - cao nhất kể từ năm 2001, phản ánh lo ngại về lạm phát và nợ công. Sự bất ổn địa chính trị tại eo biển Hormuz, với việc Mỹ duy trì phong tỏa cảng Iran, đã đẩy giá dầu Brent hướng tới mốc 100 USD/thùng, tạo thêm áp lực lên chi phí năng lượng thị trường. Trong khi đó, dòng vốn thông minh đang có sự tái cấu trúc mạnh mẽ, khi các quỹ đầu tư lớn như Berkshire Hathaway tăng tỷ trọng tại Alphabet và các công ty công nghệ vốn hóa lớn, cho thấy niềm tin vào sự bền vững của làn sóng AI bất chấp biến động ngắn hạn.",
-        "most_mentioned": "Chủ đề AI và hạ tầng số tiếp tục dẫn dắt dòng tin, từ việc trợ lý Gemini của Google đạt mốc 1 tỷ người dùng đến các bước tiến trong nghiên cứu bán dẫn tại Việt Nam. Tuy nhiên, sự chú ý cũng chuyển dịch sang các thách thức về chi phí vận hành AI, điển hình là việc Canva phải điều chỉnh chiến lược triển khai tính năng để tối ưu hóa kiến trúc hệ thống, cho thấy ngành công nghệ đang bước vào giai đoạn thực tế hóa hiệu quả kinh tế.",
-        "top_stories": "Tại Việt Nam, thị trường chứng khoán ghi nhận đà giảm sâu với VN-Index mất hơn 64 điểm sau hai phiên, chịu áp lực bán mạnh từ nhóm bất động sản và ngân hàng. Song song đó, Chính phủ đang đẩy mạnh các chỉ đạo quyết liệt nhằm tháo gỡ điểm nghẽn về thể chế và thủ tục hành chính, với sự kiện Phó Thủ tướng Thường trực Phạm Gia Túc chủ trì hội nghị khơi thông nguồn lực cho doanh nghiệp công nghiệp và xây dựng.",
-        "sector_impacts": "Chính sách tiền tệ và quản lý thuế đang tạo ra bộ lọc điều chỉnh kỳ vọng cho doanh nghiệp, trong khi các hợp tác quốc tế về bán dẫn và AI giữa Việt Nam với các đối tác như Mỹ và Canada đang mở ra cơ hội nâng cao năng lực công nghệ lõi."
+        "main_picture": "Trong 48 giờ qua, bức tranh tài chính thị trường ghi nhận sự thận trọng từ dòng vốn tổ chức, khi các định chế lớn như UBS và Tudor Investment tăng cường tích lũy Bitcoin ETF, trong khi AMD huy động 4,75 tỷ USD trái phiếu để củng cố vị thế trong cuộc đua AI. Tại Việt Nam, trọng tâm điều hành vĩ mô được xác lập qua chỉ đạo của Thủ tướng Lê Minh Hưng về việc tiết giảm chi phí vốn và tập trung tín dụng vào các lĩnh vực động lực tăng trưởng như công nghệ cao và nhà ở xã hội.",
+        "most_mentioned": "Chủ đề AI và hạ tầng dữ liệu chiếm ưu thế trong các nguồn tin quốc tế, từ thương vụ SpaceX mua lại Cursor đến chiến lược AI riêng biệt của Apple tại Trung Quốc. Tại Việt Nam, các vấn đề về quản lý ngân hàng, sai phạm trong đầu tư công và cảnh báo an ninh mạng trở thành tâm điểm chú ý của dư luận.",
+        "top_stories": "Sự kiện Thủ tướng Lê Minh Hưng chỉ đạo điều hành tín dụng linh hoạt và việc AMD phát hành trái phiếu kỷ lục là hai câu chuyện quan trọng nhất, phản ánh nỗ lực củng cố sức mạnh tài chính của cả hệ thống ngân hàng Việt Nam và các tập đoàn bán dẫn toàn cầu.",
+        "sector_impacts": "Ngành ngân hàng Việt Nam đang đối mặt với áp lực chi phí vốn gia tăng, trong khi ngành thủy sản chịu tác động trực tiếp từ rào cản thuế chống bán phá giá tại Mỹ. Ngược lại, các giải pháp công nghệ như thanh toán số và hạ tầng sạc xe điện đang tạo ra những thay đổi tích cực trong vận hành kinh tế."
       },
-      "content": "Bức tranh 48h qua là sự cộng hưởng giữa rủi ro địa chính trị và sự chuyển dịch chiến lược của dòng chú ý thị trường. Việc lợi suất trái phiếu Mỹ đạt mức cao nhất từ năm 2001 đang tạo áp lực lên chi phí vay vốn toàn cầu, buộc các nhà đầu tư phải đánh giá lại danh mục. Tại Việt Nam, sự quyết liệt của Chính phủ trong việc xử lý các điểm nghẽn về quy hoạch và thủ tục hành chính đang được kỳ vọng sẽ tạo đà cho tăng trưởng trong nửa cuối năm. Trong khi đó, lĩnh vực công nghệ tiếp tục là điểm sáng với các cột mốc về AI và hạ tầng bán dẫn, dù các Big Tech đang đối mặt với thách thức về chi phí vận hành và quản trị an toàn.",
+      "content": "Bức tranh 48 giờ qua được định hình bởi sự thận trọng của dòng chú ý thị trường và nỗ lực ổn định vĩ mô tại Việt Nam. Việc các tổ chức tài chính lớn như UBS và Tudor Investment tăng tỷ trọng nắm giữ Bitcoin ETF cho thấy sự chuyển dịch từ đầu cơ sang tích lũy tài sản số thông qua các công cụ được quản lý. Song song đó, sự kiện AMD huy động 4,75 tỷ USD trái phiếu khẳng định cuộc đua AI vẫn đang đòi hỏi nguồn lực tài chính khổng lồ, bất chấp những lo ngại về rủi ro thanh khoản trên thị trường tiền số.\n\nTại Việt Nam, chỉ đạo của Thủ tướng Lê Minh Hưng về việc tiết giảm chi phí và tập trung tín dụng vào các lĩnh vực sản xuất, công nghệ cao và nhà ở xã hội là tín hiệu quan trọng cho thấy định hướng ưu tiên tăng trưởng thực chất. Tuy nhiên, hệ thống ngân hàng vẫn đang chịu áp lực lớn khi chi phí trả lãi tiền gửi tăng mạnh, cùng với đó là những thách thức trong việc xử lý các dự án tồn đọng lâu năm như VietinBank Tower tại Ciputra. Các cảnh báo về an ninh mạng và thủ đoạn lừa đảo trực tuyến tinh vi cũng đang đặt ra yêu cầu cấp thiết về việc nâng cao năng lực quản trị rủi ro cho cả doanh nghiệp và người dân.",
       "representative_sources": [
         {
-          "title": "Oil prices rise as U.S. threatens 'economic isolation' of Iran",
-          "source": "cnbc_com",
-          "url": "https://cnbc.com/2026/08/14/oil-prices-today-brent-wti-hormuz.html"
+          "title": "Apple Turns to Alibaba to Help Build AI Model for China - Decrypt",
+          "source": "decrypt_co",
+          "url": "https://decrypt.co/375724/apple-alibaba-build-ai-model-china"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "AI và Hạ tầng bán dẫn",
-          "why_mentioned": "Sự bùng nổ của các mô hình AI mới và nhu cầu đầu tư vào trung tâm dữ liệu.",
-          "evidence_hint": "Các tin về Gemini, OpenAI, FPT và các phòng thí nghiệm bán dẫn tại Việt Nam."
+          "topic": "Điều hành tín dụng và lãi suất",
+          "why_mentioned": "Là trọng tâm chỉ đạo của Chính phủ Việt Nam trong 48 giờ qua.",
+          "evidence_hint": "Các chỉ đạo từ Thủ tướng Lê Minh Hưng."
+        },
+        {
+          "topic": "AI và hạ tầng bán dẫn",
+          "why_mentioned": "Chiếm ưu thế trong các tin tức công nghệ toàn cầu.",
+          "evidence_hint": "Các thương vụ của AMD, Apple, SpaceX."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Biến động thị trường tài chính",
-          "why_hot": "VN-Index giảm sâu và Bitcoin điều chỉnh mạnh.",
-          "impact": "Tâm lý nhà đầu tư trở nên thận trọng, ưu tiên tài sản an toàn.",
-          "evidence_hint": "Dữ liệu giảm điểm của VN-Index và dòng vốn rút khỏi ETF Bitcoin."
+          "topic": "An ninh mạng và lừa đảo trực tuyến",
+          "why_hot": "Gia tăng các cảnh báo về thủ đoạn lừa đảo tinh vi tại Việt Nam.",
+          "impact": "Ảnh hưởng trực tiếp đến an toàn tài sản của người dân.",
+          "evidence_hint": "Cảnh báo từ ngân hàng MB và Công an TP.HCM."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch dòng vốn sang hạ tầng AI",
-          "why_watch": "Các quỹ lớn đang tái cơ cấu danh mục ưu tiên cổ phiếu công nghệ vốn hóa lớn."
+          "signal": "Chuyển dịch sang tài sản số có quản lý",
+          "why_watch": "Các tổ chức tài chính lớn đang tích cực tích lũy Bitcoin ETF."
         }
       ],
       "watch_next": [
-        "Diễn biến giá dầu Brent",
-        "Phản ứng của VN-Index",
-        "Văn bản pháp lý về tài sản số tại Việt Nam"
+        "Diễn biến giá vàng trong nước",
+        "Tiến độ các dự án hạ tầng giao thông",
+        "Quy định mới về tài sản số tại Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "VN-Index giảm mạnh 64 điểm sau 2 phiên",
-        "one_sentence": "Thị trường chứng khoán Việt Nam rung lắc mạnh do áp lực bán tháo từ nhóm cổ phiếu vốn hóa lớn, đặc biệt là bất động sản và ngân hàng.",
-        "why_it_matters": "Phản ánh tâm lý tiêu cực và sự điều chỉnh mạnh của dòng tiền nội địa trước các biến số vĩ mô.",
-        "watch_next": "Khả năng giữ vững vùng hỗ trợ tâm lý của chỉ số VN-Index.",
-        "source_urls": []
+        "title": "Thủ tướng chỉ đạo điều hành tín dụng linh hoạt",
+        "one_sentence": "Chính phủ yêu cầu Ngân hàng Nhà nước tiết giảm chi phí vốn và tập trung tín dụng vào các lĩnh vực động lực tăng trưởng như công nghệ cao và nhà ở xã hội.",
+        "why_it_matters": "Đây là văn bản chỉ đạo vĩ mô quan trọng nhất, định hướng toàn bộ hoạt động ngành ngân hàng Việt Nam.",
+        "watch_next": "Lãi suất cho vay thực tế tại các ngân hàng thương mại.",
+        "source_urls": [
+          "https://cafef.vn/ket-luan-cua-thu-tuong-le-minh-hung-tai-buoi-lam-viec-voi-ngan-hang-nha-nuoc-viet-nam-va-he-thong-cac-to-chuc-tin-dung-188260815212937613.chn"
+        ]
       },
       {
         "rank": 2,
-        "title": "Căng thẳng eo biển Hormuz đẩy giá dầu hướng tới 100 USD",
-        "one_sentence": "Xung đột Mỹ-Iran leo thang với việc phong tỏa cảng biển khiến giá dầu Brent tăng mạnh, gây áp lực lên lạm phát toàn cầu.",
-        "why_it_matters": "Tác động trực tiếp đến chi phí năng lượng và chuỗi cung ứng toàn cầu.",
-        "watch_next": "Diễn biến đàm phán Mỹ-Iran và lưu lượng tàu chở dầu qua eo biển Hormuz.",
+        "title": "AMD huy động 4,75 tỷ USD trái phiếu kỷ lục",
+        "one_sentence": "AMD thực hiện đợt phát hành trái phiếu lớn nhất lịch sử để củng cố bảng cân đối kế toán và hỗ trợ các cam kết đầu tư AI.",
+        "why_it_matters": "Sự kiện huy động vốn quy mô lớn phản ánh xu hướng các công ty chip tăng cường nguồn lực cho cuộc đua AI.",
+        "watch_next": "Các khoản đầu tư tiếp theo vào hạ tầng AI của AMD.",
         "source_urls": [
-          "https://cnbc.com/2026/08/14/oil-prices-today-brent-wti-hormuz.html"
+          "https://thenextweb.com/news/amd-4-75-billion-bond-sale-anthropic-ai-debt"
         ]
       },
       {
         "rank": 3,
-        "title": "Anthropic hướng tới IPO với định giá 2.000 tỷ USD",
-        "one_sentence": "Công ty AI Anthropic dự kiến IPO vào tháng 10 với mức định giá vượt SpaceX nhờ tăng trưởng doanh thu thần tốc.",
-        "why_it_matters": "Sự kiện IPO công nghệ lớn nhất lịch sử nếu thành công, định nghĩa lại giá trị của các công ty AI.",
-        "watch_next": "Các báo cáo tài chính chi tiết trước thềm niêm yết.",
+        "title": "Apple hợp tác Alibaba phát triển AI tại Trung Quốc",
+        "one_sentence": "Apple nỗ lực đưa Apple Intelligence vào thị trường Trung Quốc thông qua việc hợp tác với Alibaba để vượt qua rào cản pháp lý.",
+        "why_it_matters": "Đánh dấu bước ngoặt quan trọng trong chiến lược AI toàn cầu của Apple tại thị trường khó tính nhất thế giới.",
+        "watch_next": "Khả năng triển khai thực tế của Apple Intelligence tại Trung Quốc.",
         "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/vi-sao-mot-cong-ty-ai-5-nam-tuoi-duoc-dinh-gia-2000-ty-usd-lon-hon-spacex-20260814004348551.htm"
+          "https://decrypt.co/375724/apple-alibaba-build-ai-model-china"
         ]
       }
     ],
@@ -103,24 +110,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Thị trường tài chính 48h qua chịu áp lực điều chỉnh mạnh từ cả yếu tố vĩ mô quốc tế và tâm lý thận trọng trong nước. Việc lợi suất trái phiếu Mỹ chạm đỉnh 25 năm đã làm thay đổi khẩu vị rủi ro, khiến dòng vốn rút khỏi các tài sản đầu cơ như Bitcoin và gây áp lực lên thị trường chứng khoán Việt Nam. Tuy nhiên, các chính sách điều hành của Chính phủ về việc giảm lãi suất cho vay và tháo gỡ điểm nghẽn hạ tầng đang tạo ra những kỳ vọng mới cho sự phục hồi bền vững của doanh nghiệp. Các ngân hàng như Nam A Bank đã bắt đầu tiên phong giảm lãi suất huy động, tạo tiền đề cho làn sóng giảm lãi suất chung trong hệ thống.",
+        "sector_thesis": "Ngành tài chính Việt Nam đang đối mặt với áp lực chi phí vốn gia tăng, thể hiện qua việc chi phí lãi tiền gửi của 30 ngân hàng tăng 41,5% trong nửa đầu năm 2026. Trong bối cảnh đó, chỉ đạo của Chính phủ về việc tiết giảm chi phí và tập trung tín dụng vào các lĩnh vực động lực tăng trưởng trở thành kim chỉ nam cho hoạt động ngân hàng. Đồng thời, các thương vụ M&A lớn như việc VietinBank chuyển nhượng tòa tháp tại Ciputra cho thấy nỗ lực xử lý các dự án tồn đọng lâu năm, góp phần làm sạch bảng cân đối kế toán của hệ thống.",
         "subsector_briefs": [
           {
-            "name": "Thị trường vốn và Tiền tệ",
-            "overview": "Thị trường chứng khoán Việt Nam ghi nhận đà giảm sâu, trong khi tỷ giá trung tâm có dấu hiệu hạ nhiệt sau chuỗi tăng kỷ lục.",
+            "name": "Điều hành tiền tệ & Ngân hàng",
+            "overview": "Hệ thống ngân hàng Việt Nam đang chịu áp lực chi phí vốn lớn, buộc các tổ chức tín dụng phải tiết giảm chi phí vận hành và tối ưu hóa danh mục cho vay.",
             "key_points": [
-              "VN-Index giảm 64 điểm sau 2 phiên",
-              "Tỷ giá trung tâm giảm nhẹ 5 đồng"
+              "Chi phí lãi tiền gửi tăng 41,5%",
+              "Chỉ đạo tập trung tín dụng vào lĩnh vực động lực tăng trưởng"
             ],
             "key_story_titles": [
-              "VN-Index mất hơn 64 điểm sau 2 phiên"
+              "Thủ tướng chỉ đạo ổn định lãi suất và thúc đẩy tín dụng đúng đối tượng"
             ],
             "representative_sources": [
               {
-                "title": "Thêm một phiên giao dịch buồn của nhà đầu tư, VN-Index giảm tiếp 36 điểm",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/them-mot-phien-giao-dich-buon-cua-nha-dau-tu-vn-index-giam-tiep-36-diem-100260814153110237.htm",
-                "excerpt": "Thị trường chứng khoán Việt Nam giảm sâu do áp lực chốt lời và tâm lý thận trọng."
+                "title": "Chi phí trả lãi tiền gửi của 30 ngân hàng tăng vọt, có nhà băng tăng hơn 90%",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/chi-phi-tra-lai-tien-gui-cua-30-ngan-hang-tang-vot-co-nha-bang-tang-hon-90-2544553.html",
+                "excerpt": "Dữ liệu quan trọng về sức khỏe tài chính và áp lực chi phí vốn của hệ thống ngân hàng Việt Nam."
               }
             ]
           }
@@ -128,24 +135,24 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Thị trường vốn",
-            "title": "Chứng khoán Việt Nam rung lắc mạnh",
-            "summary": "Thị trường chứng khoán Việt Nam ghi nhận đà giảm sâu trong 48 giờ qua, với VN-Index mất hơn 64 điểm sau hai phiên giao dịch. Áp lực bán tháo tập trung mạnh vào nhóm cổ phiếu bất động sản và ngân hàng, phản ánh tâm lý thận trọng của nhà đầu tư trước các biến số vĩ mô toàn cầu.",
+            "depth_level": "major",
+            "sub_sector": "Điều hành tiền tệ & Ngân hàng",
+            "title": "Chỉ đạo điều hành tín dụng linh hoạt",
+            "summary": "Thủ tướng Chính phủ Lê Minh Hưng yêu cầu Ngân hàng Nhà nước điều hành chính sách tiền tệ chủ động, linh hoạt, đảm bảo vốn đến đúng lĩnh vực sản xuất và kiểm soát chặt rủi ro. Các tổ chức tín dụng phải tiết giảm chi phí, ổn định mặt bằng lãi suất và đưa tín dụng vào đúng lĩnh vực sản xuất, xuất khẩu, công nghệ cao.",
             "main_developments": [
-              "VN-Index giảm 36,55 điểm trong phiên 14/8, xuống mức 1.729,08 điểm.",
-              "Thanh khoản thị trường tăng 5,5% so với phiên trước, cho thấy áp lực bán gia tăng.",
-              "Số lượng mã giảm trên sàn HoSE nhiều gấp 4 lần số mã tăng."
+              "Yêu cầu củng cố ổn định vĩ mô và an toàn hệ thống ngân hàng.",
+              "Tập trung vốn vào các lĩnh vực ưu tiên như nhà ở xã hội và công nghệ cao.",
+              "Yêu cầu các tổ chức tín dụng tiết giảm chi phí để giảm lãi suất cho vay thực chất."
             ],
-            "why_it_matters": "Sự sụt giảm này cho thấy dòng tiền đang có xu hướng rút khỏi các tài sản rủi ro trong bối cảnh lãi suất ngân hàng vẫn ở mức cao.",
+            "why_it_matters": "Đây là văn bản chỉ đạo vĩ mô quan trọng nhất trong 48h qua, định hướng toàn bộ hoạt động ngành ngân hàng Việt Nam và ảnh hưởng trực tiếp đến chi phí vốn của doanh nghiệp.",
             "affected_groups": [
-              "Nhà đầu tư cá nhân",
-              "Nhóm cổ phiếu bất động sản",
-              "Nhóm cổ phiếu ngân hàng"
+              "Hệ thống ngân hàng",
+              "Doanh nghiệp sản xuất",
+              "Người vay vốn"
             ],
             "watch_next": [
-              "Khả năng giữ vững vùng hỗ trợ 1.700 điểm",
-              "Diễn biến thanh khoản trong các phiên tới"
+              "Lãi suất cho vay thực tế tại các ngân hàng thương mại",
+              "Tỷ lệ tăng trưởng tín dụng các lĩnh vực ưu tiên"
             ],
             "representative_sources": []
           }
@@ -154,54 +161,61 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua nổi bật ở hạ tầng dữ liệu và bán dẫn. Các tập đoàn lớn như Samsung đang tối ưu hóa chi phí sản xuất robot hình người, trong khi FPT và các đơn vị nghiên cứu tại Việt Nam đang đẩy mạnh hợp tác quốc tế để làm chủ công nghệ lõi. Dù vậy, thách thức về chi phí vận hành AI tại các doanh nghiệp như Canva cho thấy ngành đang bước vào giai đoạn thực tế hóa, nơi hiệu quả kinh tế được đặt lên hàng đầu. Các dự án hợp tác bán dẫn giữa Việt Nam và Mỹ tại Hòa Lạc cũng đang mở ra cơ hội lớn cho việc phát triển hệ sinh thái công nghệ cao.",
+        "sector_thesis": "Công nghệ và AI 48 giờ qua nổi bật với các chiến lược mở rộng hạ tầng và hợp tác quốc tế. Apple đang nỗ lực đưa AI vào thị trường Trung Quốc thông qua hợp tác với Alibaba, trong khi SpaceX củng cố hệ sinh thái bằng thương vụ mua lại startup Cursor. Các đột phá vật liệu như thép SS-H2 giúp giảm chi phí sản xuất hydro xanh cũng cho thấy AI và công nghệ đang chuyển dịch mạnh mẽ từ phần mềm sang các ứng dụng thực tế trong sản xuất và năng lượng.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "AI và Bán dẫn",
-            "title": "FPT hợp tác chiến lược với Mila",
-            "summary": "Tập đoàn FPT đã ký kết hợp tác chiến lược với Viện AI Mila (Canada) nhằm thúc đẩy nghiên cứu AI tiên tiến và đào tạo nhân lực chất lượng cao tại Việt Nam. Đây là bước đi quan trọng trong chiến lược làm chủ công nghệ lõi của FPT, tập trung vào các mô hình nền tảng và AI tác nhân.",
+            "depth_level": "major",
+            "sub_sector": "AI & Hạ tầng dữ liệu",
+            "title": "Apple hợp tác AI tại Trung Quốc",
+            "summary": "Apple đã huấn luyện một mô hình ngôn ngữ lớn cho thị trường Trung Quốc với sự hỗ trợ từ Alibaba. Động thái này giúp Apple trở thành công ty nước ngoài đầu tiên được phép vận hành mô hình AI độc quyền tại quốc gia này, nhằm tuân thủ quy định pháp lý và cạnh tranh với các đối thủ nội địa.",
             "main_developments": [
-              "FPT và Mila sẽ tập trung nghiên cứu các lĩnh vực AI tiên tiến.",
-              "Hợp tác bao gồm việc đào tạo nhân lực và chuyển giao công nghệ.",
-              "Dự án hướng tới các bài toán an toàn và an ninh mạng trong AI."
+              "Apple tự phát triển mô hình AI dành riêng cho thị trường Trung Quốc.",
+              "Hợp tác kỹ thuật với Alibaba để huấn luyện mô hình.",
+              "Động thái giúp Apple vượt qua rào cản pháp lý tại thị trường AI lớn thứ hai thế giới."
             ],
-            "why_it_matters": "Sự kiện khẳng định năng lực công nghệ của Việt Nam trên bản đồ AI thế giới và giúp FPT nâng cao vị thế trong chuỗi cung ứng AI toàn cầu.",
+            "why_it_matters": "Đánh dấu bước ngoặt quan trọng trong chiến lược AI toàn cầu của Apple tại thị trường khó tính nhất thế giới.",
             "affected_groups": [
-              "Tập đoàn FPT",
-              "Cộng đồng nghiên cứu AI Việt Nam"
+              "Apple",
+              "Alibaba",
+              "Thị trường AI Trung Quốc"
             ],
             "watch_next": [
-              "Tiến độ các dự án nghiên cứu chung",
-              "Khả năng ứng dụng thực tế của các mô hình AI mới"
+              "Khả năng triển khai thực tế của Apple Intelligence tại Trung Quốc"
             ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "Apple Turns to Alibaba to Help Build AI Model for China - Decrypt",
+                "source": "decrypt_co",
+                "url": "https://decrypt.co/375724/apple-alibaba-build-ai-model-china",
+                "excerpt": "Apple nỗ lực đưa Apple Intelligence vào thị trường Trung Quốc thông qua việc hợp tác với các đối tác địa phương."
+              }
+            ]
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và chính trị 48h qua tập trung vào các hoạt động ngoại giao cấp cao và công tác xây dựng Đảng. Chuyến thăm của Tổng Bí thư, Chủ tịch nước Tô Lâm tới Úc và New Zealand đã mở ra những hướng hợp tác chiến lược về công nghệ và chuyển đổi xanh. Đồng thời, các chỉ đạo quyết liệt của Chính phủ về tháo gỡ điểm nghẽn hạ tầng cho thấy quyết tâm của Việt Nam trong việc khơi thông nguồn lực phát triển kinh tế. Các vụ việc xử lý cán bộ vi phạm cũng cho thấy sự nghiêm minh trong công tác xây dựng Đảng.",
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua ghi nhận các nỗ lực cải cách hành chính tại Việt Nam, tiêu biểu là việc ban hành Nghị định mới về định danh và xác thực điện tử. Đồng thời, các vụ án liên quan đến sai phạm trong đầu tư công và quản lý tài chính đang được cơ quan chức năng xử lý quyết liệt, góp phần củng cố kỷ cương trong quản lý ngân sách Nhà nước.",
         "subsector_briefs": [
           {
-            "name": "Ngoại giao và Chính sách",
-            "overview": "Việt Nam đẩy mạnh ngoại giao kinh tế và củng cố tin cậy chính trị với các đối tác chiến lược.",
+            "name": "Cải cách hành chính",
+            "overview": "Chính phủ đẩy mạnh số hóa thủ tục hành chính thông qua việc tích hợp tài khoản an sinh xã hội vào ứng dụng định danh điện tử quốc gia.",
             "key_points": [
-              "Tổng Bí thư, Chủ tịch nước Tô Lâm thăm Úc và New Zealand",
-              "Chính phủ tháo gỡ điểm nghẽn hạ tầng"
+              "Nghị định 320/2026/NĐ-CP",
+              "Tích hợp tài khoản an sinh xã hội vào VNeID"
             ],
             "key_story_titles": [
-              "Ngoại giao cấp cao Việt Nam"
+              "Chính phủ ban hành Nghị định mới về định danh và xác thực điện tử"
             ],
             "representative_sources": [
               {
-                "title": "Việt - Úc rộng cửa hợp tác về trí tuệ nhân tạo, bán dẫn",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/viet-uc-rong-cua-hop-tac-ve-tri-tue-nhan-tao-ban-dan-post1867914.tpo",
-                "excerpt": "Chuyến thăm củng cố tin cậy chính trị và mở rộng hợp tác về AI, bán dẫn và chuyển đổi xanh."
+                "title": "Quy định mới về định danh và xác thực điện tử",
+                "source": "genk_vn",
+                "url": "https://genk.vn/quy-dinh-moi-ve-dinh-danh-va-xac-thuc-dien-tu-165260815182558659.chn",
+                "excerpt": "Nghị định 320/2026/NĐ-CP bổ sung quy định về tài khoản an sinh xã hội và mở rộng đối tượng người nước ngoài được cấp tài khoản định danh."
               }
             ]
           }
@@ -209,30 +223,29 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Ngoại giao và Chính sách",
-            "title": "Ngoại giao cấp cao Việt Nam",
-            "summary": "Tổng Bí thư, Chủ tịch nước Tô Lâm đã thực hiện chuyến thăm cấp Nhà nước tới Úc và New Zealand nhằm củng cố tin cậy chính trị và mở rộng hợp tác kinh tế - công nghệ. Đây là bước đi chiến lược nhằm đưa quan hệ song phương đi vào chiều sâu, tập trung vào các lĩnh vực then chốt như trí tuệ nhân tạo, bán dẫn và chuyển đổi xanh.",
+            "depth_level": "major",
+            "sub_sector": "Cải cách hành chính",
+            "title": "Nghị định mới về định danh điện tử",
+            "summary": "Chính phủ ban hành Nghị định số 320/2026/NĐ-CP, bổ sung quy định về tài khoản an sinh xã hội trên Ứng dụng định danh quốc gia (VNeID). Quy định này cho phép tích hợp tài khoản thanh toán, ví điện tử để tiếp nhận các khoản hỗ trợ, hưu trí, đồng thời nghiêm cấm yêu cầu xuất trình bản chính giấy tờ đã được tích hợp.",
             "main_developments": [
-              "Thúc đẩy hợp tác về trí tuệ nhân tạo và bán dẫn với Úc.",
-              "Tập trung vào giáo dục, nông nghiệp công nghệ cao với New Zealand.",
-              "Củng cố vị thế của Việt Nam trong chuỗi cung ứng công nghệ toàn cầu."
+              "Tích hợp tài khoản an sinh xã hội vào ứng dụng VNeID.",
+              "Mở rộng đối tượng người nước ngoài được cấp tài khoản định danh.",
+              "Quy định nghiêm cấm yêu cầu xuất trình bản chính giấy tờ đã được tích hợp."
             ],
-            "why_it_matters": "Chuyến thăm định hình hướng phát triển kinh tế - công nghệ của Việt Nam trong giai đoạn tới, mở ra cơ hội tiếp cận công nghệ tiên tiến.",
+            "why_it_matters": "Đây là bước tiến quan trọng trong cải cách thủ tục hành chính, giúp giảm nhũng nhiễu và tăng tốc độ xử lý hồ sơ cho người dân.",
             "affected_groups": [
-              "Chính phủ Việt Nam",
-              "Doanh nghiệp công nghệ Việt Nam"
+              "Người dân",
+              "Cơ quan hành chính nhà nước"
             ],
             "watch_next": [
-              "Các thỏa thuận hợp tác cụ thể được triển khai",
-              "Dòng vốn đầu tư từ Úc và New Zealand"
+              "Tiến độ triển khai tích hợp tài khoản an sinh xã hội trên VNeID"
             ],
             "representative_sources": [
               {
-                "title": "Việt - Úc rộng cửa hợp tác về trí tuệ nhân tạo, bán dẫn",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/viet-uc-rong-cua-hop-tac-ve-tri-tue-nhan-tao-ban-dan-post1867914.tpo",
-                "excerpt": "Chuyến thăm củng cố tin cậy chính trị và mở rộng hợp tác về AI, bán dẫn và chuyển đổi xanh."
+                "title": "Quy định mới về định danh và xác thực điện tử",
+                "source": "genk_vn",
+                "url": "https://genk.vn/quy-dinh-moi-ve-dinh-danh-va-xac-thuc-dien-tu-165260815182558659.chn",
+                "excerpt": "Nghị định 320/2026/NĐ-CP bổ sung quy định về tài khoản an sinh xã hội và mở rộng đối tượng người nước ngoài được cấp tài khoản định danh."
               }
             ]
           }
@@ -241,109 +254,115 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và đời sống 48h qua phản ánh sự thay đổi trong tư duy tiêu dùng và lối sống của người Việt. Từ việc ưu tiên thuê nhà thay vì mua nhà ở xa, đến xu hướng chuyển đổi xanh trong doanh nghiệp, tất cả đều cho thấy sự linh hoạt và thích ứng với bối cảnh kinh tế mới. Bên cạnh đó, các sự kiện thể thao và văn hóa cũng thu hút sự chú ý lớn, tạo nên những điểm nhấn về truyền thông và gắn kết cộng đồng. Việc giới trẻ thay đổi tư duy tài chính cũng là một tín hiệu cho thấy sự trưởng thành trong cách quản lý tài sản cá nhân.",
+        "sector_thesis": "Xu hướng đời sống 48 giờ qua phản ánh sự thay đổi trong hành vi tiêu dùng và tư duy nghề nghiệp. Thị trường thú cưng tăng trưởng mạnh mẽ, trong khi các ngành học mới như kỹ thuật tang lễ tại Trung Quốc đang trở thành lựa chọn hấp dẫn. Bên cạnh đó, các cảnh báo về sức khỏe cộng đồng liên quan đến thiếu hụt Vitamin D và tác động của mạng xã hội đến tâm lý người trẻ cũng là những chủ đề được quan tâm.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Lối sống và Tư duy",
-            "title": "Thay đổi tư duy tài chính của người trẻ",
-            "summary": "Áp lực giá nhà tại các đô thị lớn khiến nhiều người trẻ Việt Nam thay đổi tư duy tài chính, ưu tiên sự linh hoạt và tiện ích của việc thuê căn hộ thay vì gánh nặng nợ vay mua nhà ở xa. Đây là sự chuyển dịch quan trọng trong lối sống, phản ánh sự thích ứng với bối cảnh kinh tế mới.",
+            "depth_level": "major",
+            "sub_sector": "Tiêu dùng hiện đại",
+            "title": "Sự bùng nổ của kinh tế thú cưng",
+            "summary": "Thị trường thú cưng tại Việt Nam đang chứng kiến sự tăng trưởng mạnh mẽ, với quy mô thị trường thức ăn thú cưng dự kiến đạt gần 168 triệu USD vào năm 2026. Chủ nuôi ngày càng sẵn sàng chi hàng chục triệu đồng cho các thiết bị chăm sóc tự động và dịch vụ cao cấp, phản ánh sự thay đổi trong hành vi tiêu dùng hiện đại.",
             "main_developments": [
-              "Giá thuê căn hộ trung bình tại TP.HCM khoảng 10 triệu đồng/tháng.",
-              "Tiền trả góp mua nhà tương đương gấp khoảng 3 lần tiền thuê.",
-              "Người trẻ ưu tiên sự linh hoạt trong lịch trình di chuyển và làm việc."
+              "Quy mô thị trường thức ăn thú cưng tăng trưởng ổn định.",
+              "Xu hướng chi tiêu cho các thiết bị chăm sóc tự động như máy vệ sinh thông minh.",
+              "Sự phát triển của các dịch vụ chăm sóc thú cưng cao cấp."
             ],
-            "why_it_matters": "Sự thay đổi này giúp người trẻ giảm bớt áp lực tài chính và có thêm nguồn lực để đầu tư vào bản thân hoặc các kênh tài chính khác.",
+            "why_it_matters": "Phản ánh sự thay đổi trong hành vi tiêu dùng và sự phát triển của nền kinh tế thú cưng tại Việt Nam.",
             "affected_groups": [
-              "Người trẻ tại đô thị",
-              "Thị trường bất động sản cho thuê"
+              "Chủ nuôi thú cưng",
+              "Doanh nghiệp cung cấp dịch vụ thú cưng"
             ],
             "watch_next": [
-              "Xu hướng giá thuê căn hộ trong tương lai",
-              "Sự phát triển của các mô hình nhà ở linh hoạt"
+              "Xu hướng chi tiêu cho các dịch vụ thú cưng cao cấp"
             ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "\"Rich mèo\" có máy đi vệ sinh tự động hơn 12 triệu, được thuê hẳn phòng trọ riêng: Tình trạng túi tiền của các \"con sen\"",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/rich-meo-co-may-di-ve-sinh-tu-dong-hon-12-trieu-duoc-thue-han-phong-tro-rieng-tinh-trang-tui-tien-cua-cac-con-sen-188260815203135107.chn",
+                "excerpt": "Quy mô thị trường thức ăn thú cưng tại Việt Nam dự kiến tăng lên gần 168 triệu USD vào năm 2026."
+              }
+            ]
           }
         ]
       }
     ],
     "watchlist_24_72h": [
       {
+        "theme": "Chính sách tiền tệ Việt Nam",
+        "what_to_watch": "Lãi suất cho vay thực tế và tăng trưởng tín dụng các lĩnh vực ưu tiên.",
+        "why": "Ảnh hưởng trực tiếp đến chi phí vốn của doanh nghiệp."
+      },
+      {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến xung đột Mỹ-Iran và lưu lượng tàu qua eo biển Hormuz",
-        "why": "Ảnh hưởng trực tiếp đến giá dầu và tâm lý thị trường toàn cầu"
+        "what_to_watch": "Diễn biến quanh eo biển Hormuz và phản ứng giá dầu Brent.",
+        "why": "Rủi ro an ninh năng lượng toàn cầu."
       },
       {
-        "theme": "Thị trường chứng khoán Việt Nam",
-        "what_to_watch": "Khả năng giữ vùng hỗ trợ 1.700 điểm của VN-Index",
-        "why": "Phản ánh tâm lý nhà đầu tư trước các biến số vĩ mô"
+        "theme": "Thị trường tài sản số",
+        "what_to_watch": "Phản ứng của thị trường với các quy định pháp lý mới.",
+        "why": "Sự chuyển dịch dòng vốn của các tổ chức tài chính."
       },
       {
-        "theme": "Chính sách tài sản số",
-        "what_to_watch": "Tiến độ các văn bản pháp lý về tài sản số tại Việt Nam",
-        "why": "Định hình khung pháp lý cho kênh dẫn vốn mới"
-      },
-      {
-        "theme": "IPO Anthropic",
-        "what_to_watch": "Các báo cáo tài chính chi tiết trước thềm niêm yết",
-        "why": "Sự kiện IPO công nghệ lớn nhất lịch sử nếu thành công"
+        "theme": "Hạ tầng AI toàn cầu",
+        "what_to_watch": "Tiến độ đầu tư của các tập đoàn bán dẫn và công nghệ lớn.",
+        "why": "Quyết định xu hướng tăng trưởng công nghệ dài hạn."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin giảm dưới 63.000 USD, ETF đối mặt với áp lực rút vốn",
-        "why": "Phản ánh xu hướng điều chỉnh của tài sản rủi ro và tâm lý thận trọng của nhà đầu tư ETF."
+        "what_to_watch": "Tổ chức tài chính lớn tăng cường tiếp cận Bitcoin ETF",
+        "why": "Phản ánh xu hướng các tổ chức tài chính truyền thống (TradFi) đang tích cực tích lũy tài sản số thông qua các công cụ được quản lý."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Chính phủ đẩy mạnh tháo gỡ điểm nghẽn, khơi thông nguồn lực cho doanh nghiệp",
-        "why": "Đây là sự kiện chính sách quan trọng nhất trong 48h qua, ảnh hưởng trực tiếp đến môi trường kinh doanh tại Việt Nam."
+        "what_to_watch": "Bắt giám đốc Ban Quản lý dự án liên quan sai phạm tại dự án xử lý rác 85 tỷ đồng ở Huế",
+        "why": "Sự kiện quan trọng về quản lý ngân sách và trách nhiệm công vụ trong đầu tư công."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "VN-Index giảm mạnh 64 điểm sau 2 phiên do áp lực bán nhóm cổ phiếu trụ",
-        "why": "Phản ánh tâm lý tiêu cực và sự điều chỉnh mạnh của dòng tiền trên thị trường chứng khoán."
+        "what_to_watch": "Thép không gỉ mới giúp giảm 40 lần chi phí sản xuất hydro xanh",
+        "why": "Đột phá vật liệu có tác động trực tiếp đến chi phí năng lượng tái tạo."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thị trường tài sản rủi ro biến động mạnh trong bối cảnh địa chính trị phức tạp",
-        "why": "Đây là chủ đề bao trùm thị trường tài chính toàn cầu trong 48 giờ qua."
+        "what_to_watch": "Cảnh báo thủ đoạn đánh tráo chip thẻ tín dụng (chip swapping)",
+        "why": "Rủi ro an ninh tài chính trực tiếp ảnh hưởng đến người dùng thẻ tín dụng."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "VN-Index lao dốc mạnh phiên thứ hai liên tiếp",
-        "why": "Phản ánh xu hướng thị trường tài chính nội địa trong 48 giờ qua."
+        "what_to_watch": "AMD huy động 4,75 tỷ USD qua đợt phát hành trái phiếu lớn nhất lịch sử",
+        "why": "Sự kiện huy động vốn quy mô lớn của một tập đoàn bán dẫn hàng đầu, phản ánh xu hướng các công ty chip tăng cường nguồn lực cho cuộc đua AI."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Z.ai ra mắt mô hình lập trình GLM-5.3",
-        "why": "Đánh dấu bước tiến mới của AI Trung Quốc trong lĩnh vực lập trình chuyên sâu."
+        "what_to_watch": "Apple hợp tác với Alibaba phát triển AI tại Trung Quốc",
+        "why": "Đánh dấu bước ngoặt quan trọng trong chiến lược AI toàn cầu của Apple tại thị trường khó tính nhất thế giới."
       }
     ],
     "source_desk": [
       {
-        "topic": "Công nghệ & AI",
+        "topic": "Tài chính & Ngân hàng",
         "representative_sources": [
           {
-            "title": "FPT bắt tay viện AI hàng đầu thế giới, thúc đẩy nghiên cứu và chuyển giao công nghệ",
-            "source": "tuoitre_vn",
-            "url": "https://tuoitre.vn/fpt-bat-tay-vien-ai-hang-dau-the-gioi-thuc-day-nghien-cuu-va-chuyen-giao-cong-nghe-100260814070651573.htm"
+            "title": "Kết luận của Thủ tướng Lê Minh Hưng tại Buổi làm việc với Ngân hàng Nhà nước Việt Nam và hệ thống các tổ chức tín dụng",
+            "source": "baochinhphu_vn",
+            "url": "https://baochinhphu.vn/ket-luan-cua-thu-tuong-le-minh-hung-tai-buoi-lam-viec-voi-ngan-hang-nha-nuoc-viet-nam-va-he-thong-cac-to-chuc-tin-dung-102260815190625092.htm"
           }
         ]
       },
       {
-        "topic": "Thời sự & Chính trị",
+        "topic": "Chính sách & Xã hội",
         "representative_sources": [
           {
-            "title": "Việt - Úc rộng cửa hợp tác về trí tuệ nhân tạo, bán dẫn",
-            "source": "tienphong_vn",
-            "url": "https://tienphong.vn/viet-uc-rong-cua-hop-tac-ve-tri-tue-nhan-tao-ban-dan-post1867914.tpo"
+            "title": "Quy định mới về định danh và xác thực điện tử",
+            "source": "genk_vn",
+            "url": "https://genk.vn/quy-dinh-moi-ve-dinh-danh-va-xac-thuc-dien-tu-165260815182558659.chn"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các chính sách thuế mới đối với hộ kinh doanh tại Việt Nam; cần theo dõi thêm diễn biến thực tế của xung đột Iran-Mỹ.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các diễn biến địa chính trị cụ thể tại Trung Đông ngoài các tiêu đề chung; cần xác minh thêm về các báo cáo tài chính của các công ty công nghệ lớn.",
     "notable_articles": []
   }
 }
