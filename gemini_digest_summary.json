@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-16T22:16:59.982262+00:00",
+  "generated_at": "2026-08-17T22:22:59.179556+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 490563,
+    "estimated_input_tokens": 777973,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 3,
+    "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 408,
-    "sent_article_count": 408,
+    "input_article_count": 642,
+    "sent_article_count": 642,
     "window": {
-      "end_date": "2026-08-17",
+      "end_date": "2026-08-18",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,85 +24,108 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các chuyển động chính về tài chính, công nghệ và chính sách trong 48 giờ qua.",
+    "reading_time_minutes": "15",
+    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, địa chính trị và công nghệ trong 48 giờ qua, tập trung vào các tác động thực tế đến thị trường và chính sách.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính toàn cầu ghi nhận sự thận trọng rõ rệt khi các tài sản rủi ro như Bitcoin đối mặt với áp lực bán tháo từ các quỹ ETF và kho bạc doanh nghiệp. Trái ngược với sự trầm lắng của thị trường tài chính, lĩnh vực công nghệ AI đang chứng kiến những bước tiến mạnh mẽ về hạ tầng và mô hình mã nguồn mở, với sự trỗi dậy của Alibaba trong cuộc đua toàn cầu. Tại Việt Nam, trọng tâm chính sách đang chuyển dịch sang cải cách hành chính và đẩy nhanh tiến độ các dự án hạ tầng trọng điểm để chuẩn bị cho các sự kiện quốc tế.",
-        "most_mentioned": "Chủ đề AI và hạ tầng dữ liệu chiếm sóng với các thương vụ M&A lớn như việc Stripe thâu tóm OpenRouter với giá 7 tỷ USD, cùng sự phổ cập của mô hình Qwen từ Alibaba. Tại Việt Nam, các dự án hạ tầng như đường sắt Bến Thành - Cần Giờ và cải cách hành chính tại TP.HCM là những từ khóa được nhắc đến nhiều nhất trong các báo cáo kinh tế.",
-        "top_stories": "Sự cố kỹ thuật của chuyến bay VN34 (Vietnam Airlines) tại Munich và chiến thắng 2-0 của đội tuyển Việt Nam trước Malaysia tại AFF Cup 2026 là hai sự kiện xã hội nổi bật. Song song đó, chỉ đạo của Thủ tướng về việc giảm lãi suất thực chất và các động thái kiểm tra, giám sát cán bộ tại Đắk Lắk cho thấy sự quyết liệt trong điều hành và quản lý nhà nước.",
-        "sector_impacts": "Dòng vốn ngoại trên thị trường chứng khoán Việt Nam đang có dấu hiệu bán chậm lại, tạo kỳ vọng về sự ổn định khi Việt Nam hướng tới nâng hạng thị trường. Trong khi đó, các doanh nghiệp đang tích cực chuyển đổi sang năng lượng xanh thông qua điện mặt trời mái xưởng để tối ưu chi phí vận hành."
+        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường đối mặt với sự bất định từ căng thẳng địa chính trị tại Trung Đông, khi lệnh ngừng bắn giữa Mỹ và Iran hết hiệu lực mà không có thỏa thuận mới. Điều này đẩy giá dầu Brent vượt mốc 90 USD/thùng, tạo áp lực lạm phát lên các nền kinh tế lớn. Song song đó, dòng chú ý thị trường đang có sự chuyển dịch mạnh mẽ từ các nền tảng công nghệ thuần túy sang hạ tầng phần cứng AI, với các thương vụ đầu tư quy mô gigawatt từ Nvidia và OpenAI.",
+        "most_mentioned": "Chủ đề hạ tầng AI và bán dẫn chiếm sóng với các khoản đầu tư hàng tỷ USD, khẳng định AI đang bước vào giai đoạn triển khai thực tế. Tại Việt Nam, các thông tin về đấu giá đất Thủ Thiêm và nỗ lực giải ngân đầu tư công đang là tâm điểm thu hút sự chú ý của giới đầu tư chứng khoán và bất động sản.",
+        "top_stories": "Sự kiện đấu giá lô đất 6.446m2 tại Thủ Thiêm với giá khởi điểm 1.901 tỷ đồng đã tạo cú hích cho cổ phiếu nhóm bất động sản như CII. Đồng thời, căng thẳng Mỹ-Iran tại eo biển Hormuz đang trở thành biến số rủi ro lớn nhất cho an ninh năng lượng toàn cầu.",
+        "sector_impacts": "Các ngành bất động sản, năng lượng và công nghệ đang chịu tác động trực tiếp từ các chính sách quản lý mới và biến động địa chính trị, đòi hỏi sự linh hoạt trong chiến lược phân bổ vốn.",
+        "watch_24_72h": "HCM, và các văn bản pháp lý mới về tài sản số tại Việt Nam."
       },
-      "content": "Thị trường tài chính toàn cầu đang trải qua giai đoạn điều chỉnh khi các nhà đầu tư tổ chức thận trọng hơn với các tài sản rủi ro. Bitcoin và các quỹ ETF tiền số đối mặt với áp lực bán tháo, phản ánh sự thay đổi trong khẩu vị rủi ro. Tại Việt Nam, sự chú ý dồn vào các nỗ lực cải cách hành chính, điển hình là việc TP.HCM phân cấp hơn 1.000 nhiệm vụ để tinh gọn bộ máy, tạo tiền đề cho môi trường kinh doanh thông thoáng hơn. Trong lĩnh vực công nghệ, cuộc đua AI không còn là câu chuyện của riêng các tập đoàn Mỹ khi Alibaba đang đẩy mạnh mô hình mã nguồn mở, đe dọa vị thế của các đối thủ phương Tây. Các doanh nghiệp Việt cũng đang tích cực bắt tay với các đối tác quốc tế như SpaceX để phát triển hạ tầng vệ tinh, cho thấy tham vọng tham gia vào chuỗi giá trị công nghệ cao toàn cầu.",
+      "content": "Thị trường 48h qua bị chi phối bởi sự thận trọng trước biên bản cuộc họp FOMC và rủi ro địa chính trị leo thang tại Trung Đông. Giá dầu Brent đã vượt mốc 90 USD/thùng do lưu lượng vận tải qua eo biển Hormuz đình trệ, gây áp lực lên lạm phát thị trường. Trong khi đó, dòng vốn đầu tư vào AI tiếp tục bùng nổ với các dự án hạ tầng dữ liệu quy mô gigawatt, cho thấy các tập đoàn công nghệ lớn đang đặt cược dài hạn vào năng lực tính toán. Tại Việt Nam, sự kiện đấu giá đất Thủ Thiêm với giá khởi điểm hơn 1.900 tỷ đồng đã tạo cú hích cho nhóm cổ phiếu bất động sản, đồng thời phản ánh nỗ lực của chính quyền trong việc khơi thông nguồn lực đất đai. Song song đó, các chỉ đạo về quản lý UAV và siết chặt thuế thương mại điện tử cho thấy chính phủ đang đẩy mạnh việc chuẩn hóa hạ tầng số và quản lý kinh tế trong kỷ nguyên mới.",
       "representative_sources": [
         {
-          "title": "Slowing ETF demand and corporate treasury selling are breaking the math behind Wall Street's $16 trillion Bitcoin target",
-          "source": "cryptoslate_com",
-          "url": "https://cryptoslate.com/bitcoin-market-cap-16-trillion-2030-model-etf-reality-check-us"
+          "title": "Giá dầu Brent vượt 90 USD do căng thẳng eo biển Hormuz",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/08/17/oil-prices-iran-war-strait-hormuz.html"
         },
         {
-          "title": "Stripe will reportedly acquire AI gateway startup OpenRouter for $7B+ | TechCrunch",
-          "source": "techcrunch_com",
-          "url": "https://techcrunch.com/2026/08/16/stripe-will-reportedly-acquire-ai-gateway-startup-openrouter-for-7b"
+          "title": "TP.HCM đấu giá đất Thủ Thiêm với giá khởi điểm 1.900 tỷ đồng",
+          "source": "tuoitre_vn",
+          "url": "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm"
+        },
+        {
+          "title": "Nvidia đầu tư 105 tỷ USD vào hạ tầng dữ liệu AI của OpenAI",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/08/17/nvidia-financing-open-ai-data-center-ohio.html"
+        },
+        {
+          "title": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m² tại Thủ Thiêm, giá khởi điểm hơn 1.900 tỉ đồng",
+          "source": "tuoitre_vn",
+          "url": "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm",
+          "excerpt": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m2 tại Thủ Thiêm."
+        },
+        {
+          "title": "Tăng cường quản lý, giám sát thiết bị bay không người lái",
+          "source": "baoxaydung_vn",
+          "url": "https://baoxaydung.vn/tang-cuong-quan-ly-giam-sat-thiet-bi-bay-khong-nguoi-lai-192260817201537521.htm",
+          "excerpt": "Phó Thủ tướng yêu cầu các bộ ngành điều tra sự cố xâm nhập sân bay và hoàn thiện quy chế quản lý UAV."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "AI và hạ tầng công nghệ",
-          "why_mentioned": "Sự xuất hiện dày đặc của các mô hình AI mới và các thương vụ M&A lớn.",
-          "evidence_hint": "Các bài viết về Google, Alibaba, Stripe và các startup AI."
+          "topic": "Địa chính trị Trung Đông",
+          "why_mentioned": "Tác động trực tiếp đến giá dầu và an ninh hàng hải.",
+          "evidence_hint": "Căng thẳng Mỹ-Iran và eo biển Hormuz."
+        },
+        {
+          "topic": "Hạ tầng AI",
+          "why_mentioned": "Dòng vốn đầu tư khổng lồ vào trung tâm dữ liệu.",
+          "evidence_hint": "Các thương vụ của Nvidia và OpenAI."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Sự cố hàng không và thể thao",
-          "why_hot": "Tác động trực tiếp đến dư luận và tinh thần cộng đồng.",
-          "impact": "Ảnh hưởng đến uy tín hãng hàng không và tâm lý xã hội.",
-          "evidence_hint": "Tin về chuyến bay VN34 và AFF Cup 2026."
+          "topic": "Đấu giá đất Thủ Thiêm",
+          "why_hot": "Tác động mạnh đến cổ phiếu bất động sản Việt Nam.",
+          "impact": "Tăng thanh khoản và tâm lý tích cực cho nhóm BĐS.",
+          "evidence_hint": "Cổ phiếu CII tăng 5,73% sau tin tức."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch dòng vốn sang hạ tầng thực",
-          "why_watch": "Nhà đầu tư đang tìm kiếm các lĩnh vực có nền tảng tăng trưởng bền vững."
+          "signal": "Chuyển dịch đầu tư từ nền tảng sang hạ tầng phần cứng AI",
+          "why_watch": "Thay đổi chiến lược của các quỹ đầu tư lớn."
         }
       ],
       "watch_next": [
-        "Diễn biến giá Bitcoin và tài sản số",
-        "Tiến độ dự án hạ tầng tại TP.HCM",
-        "Phản ứng của thị trường chứng khoán Việt Nam"
+        "Giá dầu Brent và diễn biến tại eo biển Hormuz",
+        "Tiến độ giải ngân đầu tư công tại TP.HCM",
+        "Phản ứng của thị trường chứng khoán trước kỳ nâng hạng"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Bitcoin đối mặt áp lực bán tháo từ các quỹ ETF",
-        "one_sentence": "Dòng vốn ETF Bitcoin tại Mỹ trong tháng 7 đạt mức thấp nhất năm 2026, gây áp lực lên mục tiêu vốn hóa 16 nghìn tỷ USD vào năm 2030.",
-        "why_it_matters": "Phản ánh sự thay đổi trong tâm lý nhà đầu tư tổ chức và rủi ro thanh khoản của các doanh nghiệp nắm giữ Bitcoin.",
-        "watch_next": "Dòng vốn ETF trong tháng 8 và khả năng pha loãng cổ phiếu của các doanh nghiệp đào Bitcoin.",
+        "title": "Giá dầu Brent vượt 90 USD do căng thẳng eo biển Hormuz",
+        "one_sentence": "Giá dầu Brent tăng lên 90,87 USD/thùng khi lưu lượng tàu qua eo biển Hormuz giảm xuống mức thấp kỷ lục do xung đột Mỹ-Iran.",
+        "why_it_matters": "Sự đình trệ tại eo biển Hormuz đe dọa nguồn cung năng lượng toàn cầu, gây áp lực lạm phát và chi phí vận tải.",
+        "watch_next": "Diễn biến quân sự tại eo biển Hormuz và phản ứng của OPEC+.",
         "source_urls": [
-          "https://cryptoslate.com/bitcoin-market-cap-16-trillion-2030-model-etf-reality-check-us"
+          "https://cnbc.com/2026/08/17/oil-prices-iran-war-strait-hormuz.html"
         ]
       },
       {
         "rank": 2,
-        "title": "TP.HCM phân cấp hơn 1.000 nhiệm vụ cho cấp cơ sở",
-        "one_sentence": "TP.HCM thực hiện cải cách hành chính quy mô lớn, giảm 65% đầu mối cơ quan chuyên môn để nâng cao hiệu quả quản lý.",
-        "why_it_matters": "Đây là bước ngoặt trong quản trị hành chính công tại đô thị lớn nhất Việt Nam, ảnh hưởng trực tiếp đến môi trường kinh doanh.",
-        "watch_next": "Hiệu quả thực thi của các sở, ngành sau khi nhận phân cấp nhiệm vụ.",
+        "title": "TP.HCM đấu giá đất Thủ Thiêm với giá khởi điểm 1.900 tỷ đồng",
+        "one_sentence": "TP.HCM phê duyệt đấu giá lô đất 6.446m2 tại Thủ Thiêm trong tháng 9/2026, kỳ vọng tạo nguồn thu ngân sách và cú hích cho thị trường bất động sản.",
+        "why_it_matters": "Đây là tín hiệu quan trọng về việc khơi thông nguồn lực đất đai và tác động trực tiếp đến cổ phiếu nhóm bất động sản.",
+        "watch_next": "Kết quả phiên đấu giá và tác động đến mặt bằng giá đất khu vực.",
         "source_urls": [
-          "https://baoxaydung.vn/tphcm-tiep-tuc-tinh-gon-bo-may-phan-cap-hon-1000-nhiem-vu-cho-co-so-192260816080936145.htm"
+          "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Stripe thâu tóm startup AI OpenRouter với giá 7 tỷ USD",
-        "one_sentence": "Thương vụ M&A lớn trong lĩnh vực hạ tầng AI cho thấy xu hướng tích hợp sâu các mô hình ngôn ngữ vào nền tảng thanh toán tài chính.",
-        "why_it_matters": "Củng cố vị thế của Stripe trong hệ sinh thái AI và mở rộng khả năng tiếp cận đa dạng các mô hình cho doanh nghiệp.",
-        "watch_next": "Phản ứng của các đối thủ cạnh tranh trong lĩnh vực thanh toán số.",
+        "title": "Nvidia đầu tư 105 tỷ USD vào hạ tầng dữ liệu AI của OpenAI",
+        "one_sentence": "Nvidia cung cấp gói tài trợ 105 tỷ USD để xây dựng trung tâm dữ liệu AI công suất 4,25 gigawatts tại Ohio cho OpenAI.",
+        "why_it_matters": "Thương vụ khẳng định quy mô đầu tư khổng lồ vào hạ tầng tính toán, định hình lại cuộc đua AI toàn cầu.",
+        "watch_next": "Tiến độ xây dựng trung tâm dữ liệu và khả năng đáp ứng nhu cầu chip AI.",
         "source_urls": [
-          "https://techcrunch.com/2026/08/16/stripe-will-reportedly-acquire-ai-gateway-startup-openrouter-for-7b"
+          "https://cnbc.com/2026/08/17/nvidia-financing-open-ai-data-center-ohio.html"
         ]
       }
     ],
@@ -110,23 +133,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự thận trọng của dòng vốn và các nỗ lực cải cách hành chính trong nước. Thị trường tiền số chịu áp lực điều chỉnh mạnh, trong khi các chỉ đạo về giảm lãi suất và phân cấp quản lý tại Việt Nam cho thấy nỗ lực tháo gỡ khó khăn cho doanh nghiệp. Điểm đáng chú ý là sự phân hóa giữa nhóm vốn hóa lớn và nhỏ trên sàn chứng khoán, cùng với đó là triển vọng nâng hạng thị trường đang thu hút sự quan tâm trở lại của khối ngoại.",
+        "sector_thesis": "Ngành tài chính 48h qua ghi nhận sự phân hóa mạnh mẽ giữa các tài sản trú ẩn và tài sản rủi ro. Trong khi vàng và dầu tăng giá do rủi ro địa chính trị, thị trường chứng khoán Việt Nam đang tập trung vào câu chuyện nâng hạng và các dự án hạ tầng trọng điểm.",
         "subsector_briefs": [
           {
-            "name": "Thị trường tài chính và tiền số",
-            "overview": "Thị trường tiền số đối mặt với áp lực bán mạnh từ các quỹ ETF và kho bạc doanh nghiệp, phản ánh tâm lý thận trọng của nhà đầu tư.",
+            "name": "Thị trường tiền tệ & Trái phiếu",
+            "overview": "Các ngân hàng thương mại Việt Nam đẩy mạnh phát hành trái phiếu để bổ sung vốn cấp 2, với lãi suất tăng nóng lên 10%.",
             "key_points": [
-              "Dòng vốn ETF Bitcoin thấp nhất năm 2026",
-              "Áp lực bán từ các doanh nghiệp nắm giữ Bitcoin"
+              "Ngân hàng chiếm ưu thế trên thị trường trái phiếu",
+              "Lãi suất huy động phân hóa mạnh"
             ],
             "key_story_titles": [
-              "Bitcoin đối mặt áp lực từ nhu cầu ETF suy giảm"
+              "Ngân hàng Việt ồ ạt phát hành trái phiếu"
             ],
             "representative_sources": [
               {
-                "title": "Slowing ETF demand and corporate treasury selling are breaking the math behind Wall Street's $16 trillion Bitcoin target",
-                "source": "cryptoslate_com",
-                "url": "https://cryptoslate.com/bitcoin-market-cap-16-trillion-2030-model-etf-reality-check-us"
+                "title": "Ngân hàng ồ ạt phát hành trái phiếu, đạt gần 36.000 tỷ đồng trong 1 tháng",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/ngan-hang-o-at-phat-hanh-trai-phieu-dat-gan-36000-ty-dong-trong-1-thang-20260817090912512.htm",
+                "excerpt": "Nhóm ngân hàng chiếm ưu thế với 35.600 tỷ đồng trái phiếu phát hành trong tháng 7."
               }
             ]
           }
@@ -134,31 +158,30 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Thị trường tài chính",
-            "title": "Dòng vốn ngoại và triển vọng thị trường chứng khoán Việt Nam",
-            "summary": "Khối ngoại đã bán ròng 80.000 tỷ đồng từ đầu năm nhưng tốc độ đang chậm lại, mở ra kỳ vọng về sự cải thiện dòng vốn khi Việt Nam hướng tới nâng hạng thị trường.",
+            "depth_level": "major",
+            "sub_sector": "Bất động sản & Đầu tư công",
+            "title": "Đấu giá đất Thủ Thiêm và tác động thị trường",
+            "summary": "TP.HCM tái khởi động đấu giá lô đất 6.446m2 tại Thủ Thiêm với giá khởi điểm hơn 1.900 tỷ đồng, tạo cú hích cho cổ phiếu nhóm bất động sản và hạ tầng.",
             "main_developments": [
-              "Tốc độ bán ròng của khối ngoại giảm dần trong những tháng gần đây.",
-              "Các nhà đầu tư nước ngoài lớn bắt đầu quan tâm trở lại thị trường Việt Nam.",
-              "Lợi nhuận doanh nghiệp niêm yết phân hóa mạnh giữa nhóm vốn hóa lớn và nhỏ."
+              "Lô đất 1.K3.4.HH có giá khởi điểm khoảng 295 triệu đồng/m2.",
+              "Cổ phiếu CII tăng 5,73% ngay sau khi thông tin được công bố.",
+              "TP.HCM đặt mục tiêu giải ngân 100% vốn đầu tư công cuối năm 2026."
             ],
-            "why_it_matters": "Việc khối ngoại giảm bán ròng là tín hiệu tích cực cho thanh khoản và tâm lý nhà đầu tư trong nước, đặc biệt trong bối cảnh thị trường đang chờ đợi các quyết định nâng hạng.",
+            "why_it_matters": "Sự kiện này không chỉ là nguồn thu ngân sách mà còn là chỉ báo quan trọng cho niềm tin của nhà đầu tư vào thị trường bất động sản Việt Nam.",
             "affected_groups": [
-              "Nhà đầu tư cá nhân",
-              "Doanh nghiệp niêm yết",
-              "Khối ngoại"
+              "Nhóm cổ phiếu bất động sản",
+              "Nhà đầu tư hạ tầng"
             ],
             "watch_next": [
-              "Tiến độ nâng hạng thị trường chứng khoán",
-              "Dòng vốn ngoại trong quý III/2026"
+              "Kết quả phiên đấu giá tháng 9",
+              "Tiến độ giải ngân vốn đầu tư công tại TP.HCM"
             ],
             "representative_sources": [
               {
-                "title": "Tổng giám đốc Dragon Capital: Khối ngoại đã bán ròng 80.000 tỉ đồng và đang bán chậm lại",
+                "title": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m² tại Thủ Thiêm, giá khởi điểm hơn 1.900 tỉ đồng",
                 "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/tong-giam-doc-dragon-capital-khoi-ngoai-da-ban-rong-80000-ti-dong-va-dang-ban-cham-lai-100260815224926937.htm",
-                "excerpt": "Khối ngoại bán ròng 80.000 tỷ đồng nhưng tốc độ đang chậm lại."
+                "url": "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm",
+                "excerpt": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m2 tại Thủ Thiêm."
               }
             ]
           }
@@ -167,82 +190,54 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua chứng kiến sự bùng nổ của các mô hình mã nguồn mở và các thương vụ M&A hạ tầng AI. Alibaba với mô hình Qwen đang trở thành đối thủ đáng gờm của các đại gia công nghệ Mỹ, trong khi Stripe thâu tóm OpenRouter cho thấy xu hướng tích hợp AI vào các nền tảng thanh toán. Các đột phá khoa học cơ bản về vật lý hạt nhân và não bộ cũng mở ra những hướng đi mới cho công nghệ tương lai.",
-        "subsector_briefs": [
-          {
-            "name": "AI và hạ tầng dữ liệu",
-            "overview": "Sự cạnh tranh gay gắt giữa các mô hình AI mã nguồn mở và các nền tảng tích hợp AI vào dịch vụ tài chính.",
-            "key_points": [
-              "Alibaba mở nguồn Qwen3.8-27B",
-              "Stripe thâu tóm OpenRouter"
-            ],
-            "key_story_titles": [
-              "Cuộc đua AI toàn cầu: Alibaba đối đầu Thung lũng Silicon"
-            ],
-            "representative_sources": [
-              {
-                "title": "Alibaba tặng miễn phí thứ đáng lẽ phải bán",
-                "source": "genk_vn",
-                "url": "https://genk.vn/alibaba-tang-mien-phi-thu-dang-le-phai-ban-165260816101849012.chn",
-                "excerpt": "Alibaba mở nguồn mô hình AI Qwen3.8-27B."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Công nghệ và AI đang chuyển dịch từ các ứng dụng phần mềm sang hạ tầng phần cứng quy mô lớn. Các thương vụ đầu tư hàng tỷ USD vào trung tâm dữ liệu và chip nhớ cho thấy sự cạnh tranh khốc liệt trong việc xây dựng năng lực tính toán. Tại Việt Nam, việc thu hút các dự án trung tâm dữ liệu AI đang là ưu tiên chiến lược để bắt kịp làn sóng công nghệ toàn cầu.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI",
-            "title": "Cuộc đua AI toàn cầu: Alibaba đối đầu Thung lũng Silicon",
-            "summary": "Dòng mô hình AI Qwen của Alibaba đã vượt mốc 3 tỷ lượt tải xuống, khẳng định vị thế của các phòng thí nghiệm AI Trung Quốc trong hệ sinh thái mã nguồn mở toàn cầu.",
+            "sub_sector": "Hạ tầng dữ liệu",
+            "title": "Làn sóng đầu tư trung tâm dữ liệu AI tại TP.HCM",
+            "summary": "TP.HCM đang triển khai các siêu trung tâm dữ liệu AI với sự tham gia của các tập đoàn quốc tế như G42, Microsoft và FPT, với tổng vốn dự kiến khoảng 2 tỷ USD.",
             "main_developments": [
-              "Qwen3.8-27B được Alibaba mở nguồn cho phép sử dụng thương mại miễn phí.",
-              "Số lượt tải xuống của Qwen vượt qua các mô hình từ Meta và Google.",
-              "Alibaba tập trung vào hệ sinh thái mở để giảm sự phụ thuộc vào công nghệ phương Tây."
+              "Thành phố hiện có 20 Trung tâm dữ liệu và 9 dự án đang đề xuất.",
+              "Dự án tập trung vào hạ tầng tính toán cho AI và chuyển đổi số.",
+              "Sự tham gia của các đối tác quốc tế khẳng định vị thế của TP.HCM trong khu vực."
             ],
-            "why_it_matters": "Sự trỗi dậy của Qwen làm thay đổi cán cân quyền lực trong phát triển AI, tạo ra một đối trọng đáng kể đối với các tập đoàn công nghệ Mỹ.",
+            "why_it_matters": "Đây là bước đi chiến lược trong việc định hình hạ tầng tài chính và công nghệ mới tại Việt Nam, kết nối nguồn vốn toàn cầu.",
             "affected_groups": [
-              "Các tập đoàn công nghệ lớn",
-              "Cộng đồng phát triển AI",
-              "Doanh nghiệp ứng dụng AI"
+              "Doanh nghiệp công nghệ",
+              "Nhà đầu tư hạ tầng số"
             ],
             "watch_next": [
-              "Khả năng cạnh tranh của Qwen trong các tác vụ logic phức tạp",
-              "Phản ứng của các tập đoàn Mỹ"
+              "Tiến độ cấp phép các dự án trung tâm dữ liệu",
+              "Khả năng đáp ứng năng lượng cho các trung tâm này"
             ],
-            "representative_sources": [
-              {
-                "title": "Đạt 3 tỷ lượt tải, AI của Alibaba đe dọa thung lũng Silicon",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/dat-3-ty-luot-tai-ai-cua-alibaba-de-doa-thung-lung-silicon-20260816093119975.htm",
-                "excerpt": "Dòng mô hình AI Qwen của Alibaba đã vượt mốc 3 tỷ lượt tải trên toàn cầu."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua tập trung vào các sự cố hàng không và căng thẳng địa chính trị khu vực. Sự cố chuyến bay VN34 của Vietnam Airlines tại Đức đang được điều tra, trong khi căng thẳng ngoại giao giữa Philippines và Trung Quốc tiếp tục leo thang. Các hoạt động kiểm tra, giám sát chính trị tại địa phương cũng là điểm nhấn trong công tác xây dựng Đảng.",
+        "sector_thesis": "Địa chính trị Trung Đông và các chính sách quản lý an ninh quốc gia là hai trục chính trong 48h qua. Căng thẳng tại eo biển Hormuz không chỉ là vấn đề quân sự mà còn là rủi ro trực tiếp đến an ninh năng lượng toàn cầu. Tại Việt Nam, các chỉ đạo về quản lý UAV và phát triển nguồn nhân lực công nghệ cao cho thấy sự chủ động trong việc thích ứng với các thách thức an ninh mới.",
         "subsector_briefs": [
           {
-            "name": "An ninh và địa chính trị",
-            "overview": "Các sự cố hàng không và căng thẳng ngoại giao khu vực đang thu hút sự chú ý lớn.",
+            "name": "Địa chính trị & An ninh",
+            "overview": "Căng thẳng Mỹ-Iran leo thang tại eo biển Hormuz gây rủi ro lớn cho an ninh năng lượng toàn cầu.",
             "key_points": [
-              "Sự cố chuyến bay VN34 tại Munich",
-              "Căng thẳng Trung Quốc - Philippines"
+              "Mỹ cảnh báo Iran và Oman",
+              "Giá dầu Brent tăng mạnh"
             ],
             "key_story_titles": [
-              "Sự cố chuyến bay VN34 tại Munich"
+              "Căng thẳng tại eo biển Hormuz"
             ],
             "representative_sources": [
               {
-                "title": "Cục Hàng không Việt Nam phối hợp điều tra sự cố chuyến bay VN34 tại Munich",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/cuc-hang-khong-viet-nam-phoi-hop-dieu-tra-su-co-chuyen-bay-vn34-tai-munich-192260816222643886.htm",
-                "excerpt": "Chuyến bay VN34 gặp sự cố kỹ thuật tại Munich, toàn bộ hành khách an toàn."
+                "title": "Tổng thống Mỹ Trump tuyên bố chặn chương trình hạt nhân của Iran, dọa tấn công Oman",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/tong-thong-my-trump-tuyen-bo-chan-chuong-trinh-hat-nhan-cua-iran-doa-tan-cong-oman-post1868718.tpo",
+                "excerpt": "Tổng thống Trump tuyên bố ngăn chặn Iran sở hữu vũ khí hạt nhân và đe dọa hành động quân sự."
               }
             ]
           }
@@ -250,31 +245,30 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "An ninh hàng không",
-            "title": "Sự cố chuyến bay VN34 tại Munich",
-            "summary": "Chuyến bay VN34 của Vietnam Airlines từ Munich về Hà Nội phải quay đầu khẩn cấp do cảnh báo kỹ thuật, toàn bộ 271 hành khách và 16 thành viên phi hành đoàn đều an toàn.",
+            "depth_level": "major",
+            "sub_sector": "An ninh quốc gia",
+            "title": "Quản lý thiết bị bay không người lái (UAV)",
+            "summary": "Chính phủ Việt Nam chỉ đạo siết chặt quản lý, giám sát thiết bị bay không người lái sau các sự cố xâm nhập sân bay, hướng tới định danh số toàn bộ UAV vào năm 2030.",
             "main_developments": [
-              "Tổ lái nhận cảnh báo va quệt đuôi và áp suất lốp sau khi cất cánh.",
-              "Máy bay quay lại sân bay Munich để kiểm tra kỹ thuật.",
-              "Hành khách được sắp xếp hành trình thay thế theo quy định."
+              "Bộ Công an chủ trì điều tra các hành vi vi phạm.",
+              "Bộ Quốc phòng xây dựng quy chế quản lý và giám sát hành trình thời gian thực.",
+              "Hoàn thiện quy định về nhập khẩu và sử dụng UAV."
             ],
-            "why_it_matters": "Sự cố ảnh hưởng trực tiếp đến uy tín và an toàn bay của hãng hàng không quốc gia, đòi hỏi sự minh bạch trong điều tra kỹ thuật.",
+            "why_it_matters": "Việc quản lý UAV là vấn đề an ninh hàng không cấp bách trong bối cảnh công nghệ này ngày càng phổ biến.",
             "affected_groups": [
-              "Vietnam Airlines",
-              "Hành khách",
-              "Cơ quan quản lý hàng không"
+              "Ngành hàng không",
+              "Người sử dụng UAV"
             ],
             "watch_next": [
-              "Kết quả điều tra kỹ thuật từ phía Đức",
-              "Các biện pháp khắc phục của Vietnam Airlines"
+              "Tiến độ ban hành quy định mới",
+              "Hiệu quả giám sát tại các sân bay"
             ],
             "representative_sources": [
               {
-                "title": "Cục Hàng không Việt Nam phối hợp điều tra sự cố chuyến bay VN34 tại Munich",
+                "title": "Tăng cường quản lý, giám sát thiết bị bay không người lái",
                 "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/cuc-hang-khong-viet-nam-phoi-hop-dieu-tra-su-co-chuyen-bay-vn34-tai-munich-192260816222643886.htm",
-                "excerpt": "Chuyến bay VN34 gặp sự cố kỹ thuật tại Munich, toàn bộ hành khách an toàn."
+                "url": "https://baoxaydung.vn/tang-cuong-quan-ly-giam-sat-thiet-bi-bay-khong-nguoi-lai-192260817201537521.htm",
+                "excerpt": "Phó Thủ tướng yêu cầu các bộ ngành điều tra sự cố xâm nhập sân bay và hoàn thiện quy chế quản lý UAV."
               }
             ]
           }
@@ -283,24 +277,24 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống trong 48 giờ qua nổi bật với chiến thắng của đội tuyển Việt Nam tại AFF Cup 2026 và các xu hướng tiêu dùng bền vững. Doanh nghiệp Việt đang đẩy mạnh lắp đặt điện mặt trời mái xưởng để tiết kiệm chi phí, trong khi người trẻ đang tìm kiếm sự cân bằng tâm lý thông qua các xu hướng làm việc tại quán cà phê và sử dụng mùi hương trong không gian sống.",
+        "sector_thesis": "Xu hướng tiêu dùng và đời sống đang chuyển dịch mạnh mẽ theo hướng an toàn và bền vững. Việc siết chặt quản lý thuế thương mại điện tử và bảo vệ người tiêu dùng cho thấy sự trưởng thành của thị trường số Việt Nam. Đồng thời, các cảnh báo về sức khỏe cộng đồng và an toàn thông tin đang trở thành những chủ đề được quan tâm hàng đầu.",
         "subsector_briefs": [
           {
-            "name": "Thể thao và lối sống",
-            "overview": "Chiến thắng của đội tuyển Việt Nam tại AFF Cup 2026 tạo hiệu ứng tích cực cho tinh thần cộng đồng.",
+            "name": "Thương mại điện tử & Tiêu dùng",
+            "overview": "Cơ quan chức năng tăng cường quản lý thuế và bảo vệ người tiêu dùng trên các sàn thương mại điện tử.",
             "key_points": [
-              "Việt Nam thắng Malaysia 2-0",
-              "Xu hướng làm việc tại quán cà phê của Gen Z"
+              "Lazada bị phạt 350 triệu đồng",
+              "Siết chặt thuế TMĐT qua dữ liệu ngân hàng"
             ],
             "key_story_titles": [
-              "Tuyển Việt Nam tại AFF Cup 2026"
+              "Lazada bị phạt vì gây nhầm lẫn"
             ],
             "representative_sources": [
               {
-                "title": "VFF thưởng nóng 1,5 tỷ đồng cho tuyển Việt Nam sau chiến thắng Malaysia",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/vff-thuong-nong-15-ty-dong-cho-tuyen-viet-nam-sau-chien-thang-malaysia-post1868460.tpo",
-                "excerpt": "Tuyển Việt Nam thắng Malaysia 2-0 tại bán kết lượt đi AFF Cup 2026."
+                "title": "Lazada bị phạt 350 triệu đồng vì gây nhầm lẫn cho người tiêu dùng",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/lazada-bi-phat-350-trieu-dong-vi-gay-nham-lan-cho-nguoi-tieu-dung-100260817155321384.htm",
+                "excerpt": "Lazada bị xử phạt vì hành vi gây nhầm lẫn cho người tiêu dùng."
               }
             ]
           }
@@ -308,31 +302,29 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Thể thao",
-            "title": "Tuyển Việt Nam tại AFF Cup 2026",
-            "summary": "Đội tuyển Việt Nam giành lợi thế lớn trước trận bán kết lượt về AFF Cup 2026 sau chiến thắng 2-0 trên sân khách trước Malaysia, nhờ sự tỏa sáng của Xuân Son và hàng thủ.",
+            "depth_level": "brief",
+            "sub_sector": "Y tế cộng đồng",
+            "title": "Cảnh báo gia tăng trẻ mắc giang mai bẩm sinh",
+            "summary": "Bệnh viện Da liễu Trung ương cảnh báo tình trạng trẻ sơ sinh mắc giang mai bẩm sinh do mẹ không được sàng lọc trong thai kỳ, nhấn mạnh tầm quan trọng của việc điều trị sớm.",
             "main_developments": [
-              "Xuân Son ghi bàn mở tỷ số cho tuyển Việt Nam.",
-              "Đối thủ Malaysia phản lưới nhà, ấn định tỷ số 2-0.",
-              "Thủ môn Patrik Lê Giang có nhiều pha cứu thua xuất sắc."
+              "Giang mai bẩm sinh lây truyền từ mẹ sang con.",
+              "Phần lớn các trường hợp có thể phòng tránh bằng sàng lọc sớm."
             ],
-            "why_it_matters": "Chiến thắng này không chỉ tạo lợi thế lớn cho trận lượt về tại Mỹ Đình mà còn khơi dậy tinh thần đoàn kết và niềm tự hào trong cộng đồng người hâm mộ.",
+            "why_it_matters": "Đây là vấn đề y tế cộng đồng nghiêm trọng cần được cảnh báo rộng rãi để bảo vệ sức khỏe trẻ em.",
             "affected_groups": [
-              "Người hâm mộ",
-              "Liên đoàn bóng đá Việt Nam",
-              "Đội tuyển quốc gia"
+              "Phụ nữ mang thai",
+              "Trẻ sơ sinh"
             ],
             "watch_next": [
-              "Trận bán kết lượt về tại Mỹ Đình ngày 19/8",
-              "Tình hình lực lượng của đội tuyển"
+              "Tỷ lệ sàng lọc trong thai kỳ",
+              "Các biện pháp truyền thông y tế"
             ],
             "representative_sources": [
               {
-                "title": "VFF thưởng nóng 1,5 tỷ đồng cho tuyển Việt Nam sau chiến thắng Malaysia",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/vff-thuong-nong-15-ty-dong-cho-tuyen-viet-nam-sau-chien-thang-malaysia-post1868460.tpo",
-                "excerpt": "Tuyển Việt Nam thắng Malaysia 2-0 tại bán kết lượt đi AFF Cup 2026."
+                "title": "Cảnh báo nhiều trẻ mắc giang mai bẩm sinh",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/canh-bao-nhieu-tre-mac-giang-mai-bam-sinh-192260817151559035.htm",
+                "excerpt": "Bệnh viện Da liễu Trung ương cảnh báo về tình trạng trẻ sơ sinh mắc giang mai bẩm sinh."
               }
             ]
           }
@@ -341,69 +333,58 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường tài chính",
-        "what_to_watch": "Phản ứng của Bitcoin và các quỹ ETF tiền số",
-        "why": "Áp lực bán tháo từ các quỹ ETF và kho bạc doanh nghiệp đang gây rủi ro thanh khoản."
+        "theme": "Địa chính trị Trung Đông",
+        "what_to_watch": "Diễn biến tại eo biển Hormuz và phản ứng giá dầu Brent",
+        "why": "Rủi ro an ninh năng lượng toàn cầu đang ở mức cao."
       },
       {
-        "theme": "Hạ tầng Việt Nam",
-        "what_to_watch": "Tiến độ giải ngân các dự án hạ tầng trọng điểm",
-        "why": "Các dự án như đường sắt Bến Thành - Cần Giờ là động lực tăng trưởng kinh tế quan trọng."
+        "theme": "Thị trường BĐS Việt Nam",
+        "what_to_watch": "Kết quả đấu giá đất Thủ Thiêm và phản ứng cổ phiếu",
+        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và nguồn thu ngân sách."
+      },
+      {
+        "theme": "Hạ tầng AI",
+        "what_to_watch": "Tiến độ các dự án trung tâm dữ liệu tại TP.HCM",
+        "why": "Định hình năng lực cạnh tranh công nghệ quốc gia."
       },
       {
         "theme": "Chính sách tiền tệ",
-        "what_to_watch": "Chỉ đạo giảm lãi suất của Ngân hàng Nhà nước",
-        "why": "Việc giảm lãi suất thực chất là yếu tố then chốt để hỗ trợ doanh nghiệp trong bối cảnh khó khăn."
-      },
-      {
-        "theme": "Địa chính trị khu vực",
-        "what_to_watch": "Căng thẳng Trung Quốc - Philippines",
-        "why": "Các diễn biến ngoại giao ảnh hưởng trực tiếp đến an ninh và ổn định khu vực."
+        "what_to_watch": "Biên bản cuộc họp FOMC",
+        "why": "Ảnh hưởng đến kỳ vọng lãi suất và dòng vốn toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin đối mặt áp lực từ nhu cầu ETF suy giảm và hoạt động bán tháo từ kho bạc doanh nghiệp",
-        "why": "Phản ánh sự thay đổi trong tâm lý nhà đầu tư tổ chức và rủi ro thanh khoản của các doanh nghiệp nắm giữ Bitcoin."
+        "what_to_watch": "Hệ sinh thái TRON bước vào kỷ nguyên giảm phát với các chương trình mua lại và đốt token",
+        "why": "Tác động trực tiếp đến tokenomics và tâm lý nhà đầu tư trong hệ sinh thái DeFi lớn."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "TP.HCM phân cấp hơn 1.000 nhiệm vụ, đẩy mạnh tinh gọn bộ máy",
-        "why": "Đây là bước ngoặt lớn trong quản trị hành chính công tại đô thị lớn nhất Việt Nam, ảnh hưởng trực tiếp đến môi trường kinh doanh."
+        "what_to_watch": "TP.HCM đấu giá đất Thủ Thiêm với giá khởi điểm hơn 1.900 tỷ đồng",
+        "why": "Sự kiện quan trọng về quản lý đất đai và nguồn thu ngân sách của TP.HCM."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Biến động tài sản rủi ro và áp lực bán từ các quỹ ETF",
-        "why": "Phản ánh xu hướng dòng tiền và tâm lý thị trường tài chính trong 48 giờ qua."
+        "what_to_watch": "Cổ phiếu bất động sản 'nổi sóng' sau thông tin đấu giá đất Thủ Thiêm",
+        "why": "Sự kiện tác động trực tiếp đến tâm lý nhà đầu tư và biến động nhóm cổ phiếu bất động sản tại Việt Nam."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Mối liên hệ giữa béo phì và thiếu hụt Vitamin D làm tăng nguy cơ tử vong",
+        "why": "Cảnh báo sức khỏe cộng đồng có tác động lớn đến chi phí y tế và năng suất lao động."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Google ra mắt Gemini 3.7 Flash: Cải thiện hiệu suất lập trình với chi phí thấp",
-        "why": "Đánh giá quan trọng về năng lực của mô hình AI mới nhất từ Google trong bối cảnh cạnh tranh khốc liệt."
+        "what_to_watch": "Nvidia đầu tư hạ tầng AI quy mô lớn cùng OpenAI",
+        "why": "Thương vụ này khẳng định xu hướng đầu tư khổng lồ vào hạ tầng AI."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Phát hiện cấu trúc gluon ẩn bên trong proton",
-        "why": "Đột phá khoa học cơ bản có tiềm năng thay đổi hiểu biết về vật lý hạt nhân."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Đột phá trong nghiên cứu não bộ và AI",
-        "why": "Đánh dấu bước tiến quan trọng trong hiểu biết về trí tuệ sinh học và vũ trụ học."
+        "what_to_watch": "Chính phủ chỉ đạo tăng cường quản lý, giám sát thiết bị bay không người lái (UAV/drone)",
+        "why": "Sự cố an ninh hàng không ảnh hưởng trực tiếp đến hạ tầng trọng yếu."
       }
     ],
-    "source_desk": [
-      {
-        "topic": "Công nghệ",
-        "representative_sources": [
-          {
-            "title": "Alibaba tặng miễn phí thứ đáng lẽ phải bán",
-            "source": "genk_vn",
-            "url": "https://genk.vn/alibaba-tang-mien-phi-thu-dang-le-phai-ban-165260816101849012.chn"
-          }
-        ]
-      }
-    ],
-    "gaps_and_limits": "Thiếu các phân tích chuyên sâu về tác động của chính sách tiền tệ mới đối với doanh nghiệp vừa và nhỏ tại Việt Nam.",
+    "source_desk": [],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động của các chính sách mới đối với doanh nghiệp nhỏ và vừa tại Việt Nam.",
     "notable_articles": []
   }
 }
