@@ -1,6 +1,6 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-08-16T19:38:44.221655+00:00",
+  "generated_at_utc": "2026-08-17T02:37:32.319780+00:00",
   "checked": 26,
   "hit_count": 97,
   "entities": [
@@ -11,29 +11,29 @@
       "hit_count": 14,
       "top_links": [
         {
-          "title": "GitHub repo updated: zai-org/Open-AutoGLM",
-          "url": "https://github.com/zai-org/Open-AutoGLM",
+          "title": "GitHub repo updated: zai-org/GLM-5",
+          "url": "https://github.com/zai-org/GLM-5",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/SCAIL",
-          "url": "https://github.com/zai-org/SCAIL",
+          "title": "GitHub repo updated: zai-org/GLM-OCR",
+          "url": "https://github.com/zai-org/GLM-OCR",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: Atomic-Germ/Gemma4-E4B-GLM-FLASH-NPU2",
-          "url": "https://huggingface.co/Atomic-Germ/Gemma4-E4B-GLM-FLASH-NPU2",
+          "title": "GitHub repo updated: zai-org/GLM-skills",
+          "url": "https://github.com/zai-org/GLM-skills",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: cfao/GLM-5.2-Int4-MSE-Int8Mix",
+          "url": "https://huggingface.co/cfao/GLM-5.2-Int4-MSE-Int8Mix",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Atomic-Germ/Gemma4-E4B-GLM-NPU2",
-          "url": "https://huggingface.co/Atomic-Germ/Gemma4-E4B-GLM-NPU2",
+          "title": "Hugging Face model updated: eemin/GLM-5.2-MXFP8-NVFP4-NF3-Hybrid",
+          "url": "https://huggingface.co/eemin/GLM-5.2-MXFP8-NVFP4-NF3-Hybrid",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "GitHub repo updated: zai-org/Synapse",
-          "url": "https://github.com/zai-org/Synapse",
-          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -42,11 +42,11 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 16,
+      "hit_count": 14,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-Coder",
-          "url": "https://github.com/QwenLM/Qwen3-Coder",
+          "title": "GitHub repo updated: QwenLM/Qwen-AgentWorld",
+          "url": "https://github.com/QwenLM/Qwen-AgentWorld",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: agiws/Kimi-Audio-7B-Instruct-Q4",
-          "url": "https://huggingface.co/agiws/Kimi-Audio-7B-Instruct-Q4",
+          "title": "Hugging Face model updated: ReliquaryForge/qwen3.5-4b-reliquary-v4",
+          "url": "https://huggingface.co/ReliquaryForge/qwen3.5-4b-reliquary-v4",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: RadixArk/Kimi-K3-DSpark",
-          "url": "https://huggingface.co/RadixArk/Kimi-K3-DSpark",
+          "title": "Hugging Face model updated: agiws/Kimi-Audio-7B-Instruct-Q4",
+          "url": "https://huggingface.co/agiws/Kimi-Audio-7B-Instruct-Q4",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,11 +76,11 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 7,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-V3",
-          "url": "https://github.com/deepseek-ai/DeepSeek-V3",
+          "title": "GitHub repo updated: deepseek-ai/DeepSpec",
+          "url": "https://github.com/deepseek-ai/DeepSpec",
           "source_lane": "github_release"
         },
         {
@@ -94,14 +94,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: bcoding/compiler-llvm-deepseek-8b-grpo-checkpoints",
-          "url": "https://huggingface.co/bcoding/compiler-llvm-deepseek-8b-grpo-checkpoints",
+          "title": "Hugging Face model updated: 6block/DeepSeek-V4-Pro-0813-GGUF",
+          "url": "https://huggingface.co/6block/DeepSeek-V4-Pro-0813-GGUF",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "OpenRouter model listed: deepseek/deepseek-v4-pro-0813",
-          "url": "https://openrouter.ai/deepseek/deepseek-v4-pro-0813",
-          "source_lane": "model_hub"
+          "title": "Hugging Face model updated: Loke-60000/deepseek-v4-flash-0731-spark-vision-exp",
+          "url": "https://huggingface.co/Loke-60000/deepseek-v4-flash-0731-spark-vision-exp",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -110,8 +110,13 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: masafy/kimi-fii-lora",
+          "url": "https://huggingface.co/masafy/kimi-fii-lora",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "sgl-project/sglang release: v0.5.17",
           "url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.17",
@@ -132,13 +137,13 @@
       "hit_count": 2,
       "top_links": [
         {
-          "title": "Hugging Face model updated: EnExW/Minimax",
-          "url": "https://huggingface.co/EnExW/Minimax",
+          "title": "Hugging Face model updated: SimpleTuner/open-rvq-encoder-minimax-music3-169m-v4",
+          "url": "https://huggingface.co/SimpleTuner/open-rvq-encoder-minimax-music3-169m-v4",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: joeygambino/MiniMax-H3-Multishot-Workflow",
-          "url": "https://huggingface.co/joeygambino/MiniMax-H3-Multishot-Workflow",
+          "title": "Hugging Face model updated: cjab05/MiniMaxH3Lora",
+          "url": "https://huggingface.co/cjab05/MiniMaxH3Lora",
           "source_lane": "huggingface_model"
         }
       ],
@@ -170,18 +175,18 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/FlashVDM",
-          "url": "https://github.com/Tencent-Hunyuan/FlashVDM",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-WorldClaw",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-WorldClaw",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2.1",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-Buffalo1.0",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-Buffalo1.0",
           "source_lane": "github_release"
         },
         {
@@ -212,18 +217,18 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/archspace",
-          "url": "https://github.com/InternLM/archspace",
+          "title": "GitHub repo updated: InternLM/ARM-Thinker",
+          "url": "https://github.com/InternLM/ARM-Thinker",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/MindSearch",
-          "url": "https://github.com/InternLM/MindSearch",
+          "title": "GitHub repo updated: InternLM/WildClawBench",
+          "url": "https://github.com/InternLM/WildClawBench",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/xtuner",
-          "url": "https://github.com/InternLM/xtuner",
+          "title": "GitHub repo updated: InternLM/lmdeploy",
+          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         }
       ],
@@ -252,13 +257,13 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "Hugging Face model updated: fqaq12312wrfsdaw/Maya_Lora_Flux2",
-          "url": "https://huggingface.co/fqaq12312wrfsdaw/Maya_Lora_Flux2",
+          "title": "Hugging Face model updated: Gencarmo/FLUX.1-schnell",
+          "url": "https://huggingface.co/Gencarmo/FLUX.1-schnell",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: juergengunz/fluxer",
-          "url": "https://huggingface.co/juergengunz/fluxer",
+          "title": "Hugging Face model updated: beenga8/flux2-klein-4b-mirror",
+          "url": "https://huggingface.co/beenga8/flux2-klein-4b-mirror",
           "source_lane": "huggingface_model"
         },
         {
@@ -283,7 +288,7 @@
       "entity": "ComfyUI",
       "priority": "critical",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "Hugging Face model updated: ajeastellis/ComfyUI",
@@ -291,18 +296,13 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Evados/DiffSynth-Studio-Lora-Wan2.1-ComfyUI",
-          "url": "https://huggingface.co/Evados/DiffSynth-Studio-Lora-Wan2.1-ComfyUI",
-          "source_lane": "huggingface_model"
+          "title": "comfyanonymous/ComfyUI release: v0.32.0",
+          "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.32.0",
+          "source_lane": "github_release"
         },
         {
           "title": "comfyanonymous/ComfyUI release: v0.33.1",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.33.1",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "comfyanonymous/ComfyUI release: v0.32.0",
-          "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.32.0",
           "source_lane": "github_release"
         }
       ],
@@ -336,8 +336,13 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 2,
       "top_links": [
+        {
+          "title": "Mammotion LUBA 3 AWD robot mower review - can handle large yards of all shapes and sizes - Tech Guide",
+          "url": "https://www.techguide.com.au/reviews/gadgets-reviews/mammotion-luba-3-awd-robot-mower-can-handle-large-yards-of-all-shapes-and-sizes/",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "huggingface/transformers release: Patch release: v5.14.1",
           "url": "https://github.com/huggingface/transformers/releases/tag/v5.14.1",
@@ -398,7 +403,7 @@
       "entity": "OpenRouter",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 5,
       "top_links": [
         {
           "title": "OpenRouter model listed: dots-studio/dots-3-note-preview:free",
@@ -413,6 +418,16 @@
         {
           "title": "OpenRouter model listed: google/mô hình biên tập-3.7-flash:batch",
           "url": "https://openrouter.ai/google/gemini-3.7-flash:batch",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "Stripe reportedly finalizes deal to buy AI model router OpenRouter for more than $7B - SiliconANGLE",
+          "url": "https://siliconangle.com/2026/08/16/stripe-reportedly-finalizes-deal-buy-ai-model-router-openrouter-7b/",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "Stripe will reportedly acquire AI gateway startup OpenRouter for $7B+ | TechCrunch",
+          "url": "https://techcrunch.com/2026/08/16/stripe-will-reportedly-acquire-ai-gateway-startup-openrouter-for-7b/",
           "source_lane": "model_hub"
         }
       ],
@@ -430,7 +445,7 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 9,
       "top_links": [
         {
           "title": "Brasil lleva casi dos siglos buscando una solución para la sequía. Su respuesta es un río de hormigón de 145 kilómetros",
@@ -464,21 +479,21 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/ruby-sdk",
-          "url": "https://github.com/modelcontextprotocol/ruby-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/mcpb",
+          "url": "https://github.com/modelcontextprotocol/mcpb",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
-          "url": "https://github.com/modelcontextprotocol/rust-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/csharp-sdk",
+          "url": "https://github.com/modelcontextprotocol/csharp-sdk",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
-          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/servers",
+          "url": "https://github.com/modelcontextprotocol/servers",
           "source_lane": "github_release"
         },
         {
@@ -544,12 +559,17 @@
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 2,
       "top_links": [
         {
           "title": "Si eres programador, esta nueva IA de Microsoft es más rápida y barata que Claude Code",
           "url": "https://hipertextual.com/inteligencia-artificial/mai-code-1-1-flash-nuevo-modelo-microsoft/",
           "source_lane": "model_hub"
+        },
+        {
+          "title": "Anthropic confirms Claude is down in major outage affecting multiple services",
+          "url": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-confirms-claude-is-down-in-major-outage-affecting-multiple-services/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
