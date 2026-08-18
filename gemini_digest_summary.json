@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-17T22:22:59.179556+00:00",
+  "generated_at": "2026-08-18T22:22:10.851124+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 777973,
+    "estimated_input_tokens": 764084,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 642,
-    "sent_article_count": 642,
+    "input_article_count": 634,
+    "sent_article_count": 634,
     "window": {
-      "end_date": "2026-08-18",
+      "end_date": "2026-08-19",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,108 +24,115 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "15",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, địa chính trị và công nghệ trong 48 giờ qua, tập trung vào các tác động thực tế đến thị trường và chính sách.",
+    "reading_time_minutes": "auto",
+    "editor_note": "",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường đối mặt với sự bất định từ căng thẳng địa chính trị tại Trung Đông, khi lệnh ngừng bắn giữa Mỹ và Iran hết hiệu lực mà không có thỏa thuận mới. Điều này đẩy giá dầu Brent vượt mốc 90 USD/thùng, tạo áp lực lạm phát lên các nền kinh tế lớn. Song song đó, dòng chú ý thị trường đang có sự chuyển dịch mạnh mẽ từ các nền tảng công nghệ thuần túy sang hạ tầng phần cứng AI, với các thương vụ đầu tư quy mô gigawatt từ Nvidia và OpenAI.",
-        "most_mentioned": "Chủ đề hạ tầng AI và bán dẫn chiếm sóng với các khoản đầu tư hàng tỷ USD, khẳng định AI đang bước vào giai đoạn triển khai thực tế. Tại Việt Nam, các thông tin về đấu giá đất Thủ Thiêm và nỗ lực giải ngân đầu tư công đang là tâm điểm thu hút sự chú ý của giới đầu tư chứng khoán và bất động sản.",
-        "top_stories": "Sự kiện đấu giá lô đất 6.446m2 tại Thủ Thiêm với giá khởi điểm 1.901 tỷ đồng đã tạo cú hích cho cổ phiếu nhóm bất động sản như CII. Đồng thời, căng thẳng Mỹ-Iran tại eo biển Hormuz đang trở thành biến số rủi ro lớn nhất cho an ninh năng lượng toàn cầu.",
-        "sector_impacts": "Các ngành bất động sản, năng lượng và công nghệ đang chịu tác động trực tiếp từ các chính sách quản lý mới và biến động địa chính trị, đòi hỏi sự linh hoạt trong chiến lược phân bổ vốn.",
-        "watch_24_72h": "HCM, và các văn bản pháp lý mới về tài sản số tại Việt Nam."
+        "main_picture": "Trong 48 giờ qua, thị trường thị trường chịu áp lực kép từ căng thẳng địa chính trị tại eo biển Hormuz và sự leo thang của lợi suất trái phiếu chính phủ Mỹ. Giá dầu Brent duy trì trên ngưỡng 91 USD/thùng, trong khi lợi suất trái phiếu 30 năm của Mỹ chạm mức cao nhất kể từ năm 2007, buộc các nhà đầu tư phải định giá lại rủi ro đối với tài sản tài chính và chi phí vốn toàn cầu.",
+        "most_mentioned": "AI và hạ tầng dữ liệu tiếp tục là tâm điểm với các thương vụ chiến lược quy mô lớn. Nvidia không chỉ cung cấp chip mà đang chuyển dịch sang vai trò nhà tài trợ vốn cho các trung tâm dữ liệu của OpenAI và SpaceX, khẳng định vị thế thống trị trong chuỗi cung ứng AI. Tại Việt Nam, ứng dụng AI đã bắt đầu đi vào thực tế từ quản lý đất đai tại Gia Lai đến tối ưu hóa quy trình tín dụng tại MBBank.",
+        "top_stories": "Sự kiện IPO của các doanh nghiệp lớn như HAGL và DatVietVAC đang thu hút dòng vốn nội địa, trong khi thị trường trái phiếu bất động sản đối mặt với áp lực đáo hạn gần 100.000 tỷ đồng trong năm 2026. Song song đó, chính quyền TP.HCM đang quyết liệt thực hiện Chỉ thị 50 để đảm bảo mục tiêu thu ngân sách 1 triệu tỷ đồng thông qua quản lý dữ liệu số, cho thấy sự chuyển dịch từ quản lý thủ công sang dựa trên dữ liệu.",
+        "sector_impacts": "Ngành tài chính đang đối mặt với rủi ro thanh khoản từ trái phiếu bất động sản, trong khi ngành công nghệ Việt Nam ghi nhận sự trưởng thành khi các startup như EON Tech đạt chuẩn đối tác toàn cầu của OpenAI. Các sự cố an ninh mạng và lừa đảo Deepfake đang buộc ngành ngân hàng phải đẩy mạnh đầu tư vào bảo mật sinh trắc học.",
+        "watch_24_72h": "HCM và Hà Nội; và các văn bản hướng dẫn cụ thể về tài sản số tại Việt Nam."
       },
-      "content": "Thị trường 48h qua bị chi phối bởi sự thận trọng trước biên bản cuộc họp FOMC và rủi ro địa chính trị leo thang tại Trung Đông. Giá dầu Brent đã vượt mốc 90 USD/thùng do lưu lượng vận tải qua eo biển Hormuz đình trệ, gây áp lực lên lạm phát thị trường. Trong khi đó, dòng vốn đầu tư vào AI tiếp tục bùng nổ với các dự án hạ tầng dữ liệu quy mô gigawatt, cho thấy các tập đoàn công nghệ lớn đang đặt cược dài hạn vào năng lực tính toán. Tại Việt Nam, sự kiện đấu giá đất Thủ Thiêm với giá khởi điểm hơn 1.900 tỷ đồng đã tạo cú hích cho nhóm cổ phiếu bất động sản, đồng thời phản ánh nỗ lực của chính quyền trong việc khơi thông nguồn lực đất đai. Song song đó, các chỉ đạo về quản lý UAV và siết chặt thuế thương mại điện tử cho thấy chính phủ đang đẩy mạnh việc chuẩn hóa hạ tầng số và quản lý kinh tế trong kỷ nguyên mới.",
+      "content": "Bức tranh 48 giờ qua cho thấy sự giao thoa giữa rủi ro địa chính trị và nỗ lực điều hành kinh tế. Căng thẳng tại eo biển Hormuz không chỉ là vấn đề quân sự mà đã trực tiếp tác động đến chi phí năng lượng thị trường, buộc các thị trường tài chính phải định giá lại rủi ro. Tại Việt Nam, chính phủ đang quyết liệt xử lý các điểm nghẽn hành chính, đặc biệt trong lĩnh vực thuế và đất đai, nhằm tạo môi trường kinh doanh minh bạch hơn. Đồng thời, làn sóng đầu tư vào hạ tầng AI và dữ liệu đang trở thành động lực tăng trưởng mới, với sự tham gia tích cực của các doanh nghiệp trong nước vào hệ sinh thái thị trường. Các nhà đầu tư cần đặc biệt chú ý đến áp lực đáo hạn trái phiếu bất động sản trong năm 2026, khi lãi suất huy động của nhóm này đang bị đẩy lên cao để cạnh tranh vốn.",
       "representative_sources": [
         {
-          "title": "Giá dầu Brent vượt 90 USD do căng thẳng eo biển Hormuz",
+          "title": "Giá dầu Brent vượt 91 USD/thùng do căng thẳng eo biển Hormuz",
+          "source": "dantri_com_vn",
+          "url": "https://dantri.com.vn/kinh-doanh/gia-dau-nhich-len-gia-vang-the-gioi-giu-da-tang-20260818073857776.htm"
+        },
+        {
+          "title": "Nvidia rót 105 tỷ USD vào hạ tầng dữ liệu AI của OpenAI",
           "source": "cnbc_com",
-          "url": "https://cnbc.com/2026/08/17/oil-prices-iran-war-strait-hormuz.html"
+          "url": "https://cnbc.com/2026/08/18/nvidias-ai-moat-is-shifting-from-chips-to-capital.html"
         },
         {
-          "title": "TP.HCM đấu giá đất Thủ Thiêm với giá khởi điểm 1.900 tỷ đồng",
-          "source": "tuoitre_vn",
-          "url": "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm"
+          "title": "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI",
+          "source": "decrypt_co",
+          "url": "https://decrypt.co/375883/google-spirit-airlines-data-train-ai"
         },
         {
-          "title": "Nvidia đầu tư 105 tỷ USD vào hạ tầng dữ liệu AI của OpenAI",
+          "title": "Lãi suất trái phiếu bất động sản cao hơn gửi tiết kiệm ngân hàng",
+          "source": "tienphong_vn",
+          "url": "https://tienphong.vn/lai-suat-trai-phieu-bat-dong-san-cao-hon-gui-tiet-kiem-ngan-hang-post1868962.tpo",
+          "excerpt": "Phân tích về áp lực đáo hạn và xu hướng huy động vốn của nhóm ngành bất động sản."
+        },
+        {
+          "title": "Nvidia's AI moat is shifting from chips to capital",
           "source": "cnbc_com",
-          "url": "https://cnbc.com/2026/08/17/nvidia-financing-open-ai-data-center-ohio.html"
-        },
-        {
-          "title": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m² tại Thủ Thiêm, giá khởi điểm hơn 1.900 tỉ đồng",
-          "source": "tuoitre_vn",
-          "url": "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm",
-          "excerpt": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m2 tại Thủ Thiêm."
-        },
-        {
-          "title": "Tăng cường quản lý, giám sát thiết bị bay không người lái",
-          "source": "baoxaydung_vn",
-          "url": "https://baoxaydung.vn/tang-cuong-quan-ly-giam-sat-thiet-bi-bay-khong-nguoi-lai-192260817201537521.htm",
-          "excerpt": "Phó Thủ tướng yêu cầu các bộ ngành điều tra sự cố xâm nhập sân bay và hoàn thiện quy chế quản lý UAV."
+          "url": "https://cnbc.com/2026/08/18/nvidias-ai-moat-is-shifting-from-chips-to-capital.html"
         }
       ],
       "most_mentioned_topics": [
         {
           "topic": "Địa chính trị Trung Đông",
-          "why_mentioned": "Tác động trực tiếp đến giá dầu và an ninh hàng hải.",
-          "evidence_hint": "Căng thẳng Mỹ-Iran và eo biển Hormuz."
+          "why_mentioned": "Tác động trực tiếp đến giá dầu và tâm lý thị trường toàn cầu.",
+          "evidence_hint": "Nhiều bài báo về eo biển Hormuz và giá dầu Brent."
         },
         {
-          "topic": "Hạ tầng AI",
-          "why_mentioned": "Dòng vốn đầu tư khổng lồ vào trung tâm dữ liệu.",
-          "evidence_hint": "Các thương vụ của Nvidia và OpenAI."
+          "topic": "AI và Hạ tầng dữ liệu",
+          "why_mentioned": "Các thương vụ đầu tư lớn và ứng dụng thực tế trong quản lý nhà nước.",
+          "evidence_hint": "Các tin về Nvidia, OpenAI và ứng dụng AI tại Gia Lai."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Đấu giá đất Thủ Thiêm",
-          "why_hot": "Tác động mạnh đến cổ phiếu bất động sản Việt Nam.",
-          "impact": "Tăng thanh khoản và tâm lý tích cực cho nhóm BĐS.",
-          "evidence_hint": "Cổ phiếu CII tăng 5,73% sau tin tức."
+          "topic": "Biến động lợi suất trái phiếu",
+          "why_hot": "Lợi suất trái phiếu 30 năm của Mỹ đạt mức cao nhất 19 năm.",
+          "impact": "Gây áp lực lên chi phí vay vốn và định giá tài sản rủi ro.",
+          "evidence_hint": "Các báo cáo từ CNBC về Bond Vigilantes."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch đầu tư từ nền tảng sang hạ tầng phần cứng AI",
-          "why_watch": "Thay đổi chiến lược của các quỹ đầu tư lớn."
+          "signal": "Chuyển dịch sang đồ điện tử cũ",
+          "why_watch": "Người tiêu dùng thay đổi hành vi do giá thiết bị mới tăng cao."
         }
       ],
       "watch_next": [
-        "Giá dầu Brent và diễn biến tại eo biển Hormuz",
+        "Diễn biến giá dầu Brent",
         "Tiến độ giải ngân đầu tư công tại TP.HCM",
-        "Phản ứng của thị trường chứng khoán trước kỳ nâng hạng"
+        "Phản ứng của thị trường chứng khoán trước lợi suất trái phiếu"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Giá dầu Brent vượt 90 USD do căng thẳng eo biển Hormuz",
-        "one_sentence": "Giá dầu Brent tăng lên 90,87 USD/thùng khi lưu lượng tàu qua eo biển Hormuz giảm xuống mức thấp kỷ lục do xung đột Mỹ-Iran.",
-        "why_it_matters": "Sự đình trệ tại eo biển Hormuz đe dọa nguồn cung năng lượng toàn cầu, gây áp lực lạm phát và chi phí vận tải.",
-        "watch_next": "Diễn biến quân sự tại eo biển Hormuz và phản ứng của OPEC+.",
+        "title": "Giá dầu Brent vượt 91 USD/thùng do căng thẳng eo biển Hormuz",
+        "one_sentence": "Sự đổ vỡ của thỏa thuận ngừng bắn giữa Mỹ và Iran đã đẩy giá dầu Brent lên mức cao mới, đe dọa chuỗi cung ứng năng lượng toàn cầu.",
+        "why_it_matters": "Tác động trực tiếp đến lạm phát toàn cầu và chi phí năng lượng tại Việt Nam.",
+        "watch_next": "Phản ứng của thị trường năng lượng trong 24h tới.",
         "source_urls": [
-          "https://cnbc.com/2026/08/17/oil-prices-iran-war-strait-hormuz.html"
+          "https://dantri.com.vn/kinh-doanh/gia-dau-nhich-len-gia-vang-the-gioi-giu-da-tang-20260818073857776.htm"
         ]
       },
       {
         "rank": 2,
-        "title": "TP.HCM đấu giá đất Thủ Thiêm với giá khởi điểm 1.900 tỷ đồng",
-        "one_sentence": "TP.HCM phê duyệt đấu giá lô đất 6.446m2 tại Thủ Thiêm trong tháng 9/2026, kỳ vọng tạo nguồn thu ngân sách và cú hích cho thị trường bất động sản.",
-        "why_it_matters": "Đây là tín hiệu quan trọng về việc khơi thông nguồn lực đất đai và tác động trực tiếp đến cổ phiếu nhóm bất động sản.",
-        "watch_next": "Kết quả phiên đấu giá và tác động đến mặt bằng giá đất khu vực.",
-        "source_urls": [
-          "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm"
-        ]
+        "title": "Lợi suất trái phiếu Mỹ đạt đỉnh 19 năm gây áp lực lên chứng khoán",
+        "one_sentence": "Lợi suất trái phiếu 30 năm vượt 5,3% làm gia tăng chi phí vốn, buộc các nhà đầu tư phải tái định giá lại các cổ phiếu công nghệ tăng trưởng cao.",
+        "why_it_matters": "Gây áp lực lên định giá tài sản rủi ro trên toàn cầu.",
+        "watch_next": "Diễn biến dòng vốn vào các quỹ ETF.",
+        "source_urls": []
       },
       {
         "rank": 3,
-        "title": "Nvidia đầu tư 105 tỷ USD vào hạ tầng dữ liệu AI của OpenAI",
-        "one_sentence": "Nvidia cung cấp gói tài trợ 105 tỷ USD để xây dựng trung tâm dữ liệu AI công suất 4,25 gigawatts tại Ohio cho OpenAI.",
-        "why_it_matters": "Thương vụ khẳng định quy mô đầu tư khổng lồ vào hạ tầng tính toán, định hình lại cuộc đua AI toàn cầu.",
-        "watch_next": "Tiến độ xây dựng trung tâm dữ liệu và khả năng đáp ứng nhu cầu chip AI.",
+        "title": "Nvidia rót 105 tỷ USD vào hạ tầng dữ liệu AI của OpenAI",
+        "one_sentence": "Khoản đầu tư khổng lồ này đánh dấu sự chuyển dịch chiến lược của Nvidia từ nhà cung cấp chip sang nhà tài trợ vốn cho hạ tầng AI toàn cầu.",
+        "why_it_matters": "Định hình lại cách thức tài trợ hạ tầng AI và củng cố vị thế của Nvidia trong hệ sinh thái AI.",
+        "watch_next": "Tiến độ xây dựng trung tâm dữ liệu tại Ohio.",
         "source_urls": [
-          "https://cnbc.com/2026/08/17/nvidia-financing-open-ai-data-center-ohio.html"
+          "https://cnbc.com/2026/08/18/nvidias-ai-moat-is-shifting-from-chips-to-capital.html"
+        ]
+      },
+      {
+        "rank": 4,
+        "title": "Alphabet huy động vốn lớn để tài trợ làn sóng đầu tư AI",
+        "one_sentence": "",
+        "why_it_matters": "Phản ánh xu hướng thâu tóm dữ liệu doanh nghiệp để phát triển AI.",
+        "watch_next": "",
+        "source_urls": [
+          "https://decrypt.co/375883/google-spirit-airlines-data-train-ai"
         ]
       }
     ],
@@ -133,24 +140,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48h qua ghi nhận sự phân hóa mạnh mẽ giữa các tài sản trú ẩn và tài sản rủi ro. Trong khi vàng và dầu tăng giá do rủi ro địa chính trị, thị trường chứng khoán Việt Nam đang tập trung vào câu chuyện nâng hạng và các dự án hạ tầng trọng điểm.",
+        "sector_thesis": "Ngành tài chính 48 giờ qua ghi nhận sự phân hóa mạnh mẽ khi xu hướng tài sản từ các tài sản đầu cơ sang các lĩnh vực có nền tảng thực tế. Áp lực đáo hạn trái phiếu bất động sản, với khoảng 99.000 tỷ đồng sẽ đáo hạn trong năm 2026, đang là biến số rủi ro lớn nhất. Trong khi đó, các ngân hàng thương mại đang đẩy mạnh chuyển đổi số và ứng dụng AI để tối ưu hóa quy trình cấp vốn, giúp giảm thời gian xử lý hồ sơ từ 10 ngày xuống còn 2 ngày. Thị trường chứng khoán cũng đang chịu áp lực điều chỉnh từ biến động lợi suất trái phiếu toàn cầu, buộc nhà đầu tư phải thận trọng hơn với các cổ phiếu có đòn bẩy cao.",
         "subsector_briefs": [
           {
-            "name": "Thị trường tiền tệ & Trái phiếu",
-            "overview": "Các ngân hàng thương mại Việt Nam đẩy mạnh phát hành trái phiếu để bổ sung vốn cấp 2, với lãi suất tăng nóng lên 10%.",
+            "name": "Trái phiếu & Tín dụng",
+            "overview": "Thị trường trái phiếu doanh nghiệp đang đối mặt với áp lực đáo hạn lớn, đặc biệt là nhóm bất động sản.",
             "key_points": [
-              "Ngân hàng chiếm ưu thế trên thị trường trái phiếu",
-              "Lãi suất huy động phân hóa mạnh"
+              "Áp lực đáo hạn 99.000 tỷ đồng năm 2026",
+              "Lãi suất trái phiếu bất động sản lên tới 12,5%"
             ],
             "key_story_titles": [
-              "Ngân hàng Việt ồ ạt phát hành trái phiếu"
+              "Lãi suất trái phiếu bất động sản tăng cao, áp lực đáo hạn lớn trong năm 2026"
             ],
             "representative_sources": [
               {
-                "title": "Ngân hàng ồ ạt phát hành trái phiếu, đạt gần 36.000 tỷ đồng trong 1 tháng",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/ngan-hang-o-at-phat-hanh-trai-phieu-dat-gan-36000-ty-dong-trong-1-thang-20260817090912512.htm",
-                "excerpt": "Nhóm ngân hàng chiếm ưu thế với 35.600 tỷ đồng trái phiếu phát hành trong tháng 7."
+                "title": "Lãi suất trái phiếu bất động sản cao hơn gửi tiết kiệm ngân hàng",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/lai-suat-trai-phieu-bat-dong-san-cao-hon-gui-tiet-kiem-ngan-hang-post1868962.tpo",
+                "excerpt": "Doanh nghiệp bất động sản đẩy mạnh phát hành trái phiếu với lãi suất cao để cạnh tranh huy động vốn."
               }
             ]
           }
@@ -158,30 +165,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Bất động sản & Đầu tư công",
-            "title": "Đấu giá đất Thủ Thiêm và tác động thị trường",
-            "summary": "TP.HCM tái khởi động đấu giá lô đất 6.446m2 tại Thủ Thiêm với giá khởi điểm hơn 1.900 tỷ đồng, tạo cú hích cho cổ phiếu nhóm bất động sản và hạ tầng.",
+            "depth_level": "deep",
+            "sub_sector": "Trái phiếu & Tín dụng",
+            "title": "Áp lực đáo hạn trái phiếu bất động sản 2026",
+            "summary": "Thị trường trái phiếu doanh nghiệp đang đối mặt với thách thức lớn khi khối lượng đáo hạn trong năm 2026 lên tới 99.000 tỷ đồng. Các doanh nghiệp bất động sản buộc phải phát hành trái phiếu mới với lãi suất lên tới 12,5% để tái cấp vốn, tạo ra áp lực chi phí tài chính đáng kể trong bối cảnh tín dụng bị kiểm soát chặt chẽ.",
             "main_developments": [
-              "Lô đất 1.K3.4.HH có giá khởi điểm khoảng 295 triệu đồng/m2.",
-              "Cổ phiếu CII tăng 5,73% ngay sau khi thông tin được công bố.",
-              "TP.HCM đặt mục tiêu giải ngân 100% vốn đầu tư công cuối năm 2026."
+              "Tổng giá trị trái phiếu phát hành mới trong tháng 7 đạt 26.000 tỷ đồng.",
+              "VIS Rating dự báo áp lực đáo hạn tập trung mạnh vào nhóm bất động sản.",
+              "Lãi suất phát hành trái phiếu bất động sản hiện cao hơn đáng kể so với lãi suất tiết kiệm ngân hàng."
             ],
-            "why_it_matters": "Sự kiện này không chỉ là nguồn thu ngân sách mà còn là chỉ báo quan trọng cho niềm tin của nhà đầu tư vào thị trường bất động sản Việt Nam.",
+            "why_it_matters": "Rủi ro thanh khoản của nhóm bất động sản có thể ảnh hưởng đến chất lượng tài sản của hệ thống ngân hàng.",
             "affected_groups": [
-              "Nhóm cổ phiếu bất động sản",
-              "Nhà đầu tư hạ tầng"
+              "Doanh nghiệp bất động sản",
+              "Nhà đầu tư trái phiếu",
+              "Hệ thống ngân hàng"
             ],
             "watch_next": [
-              "Kết quả phiên đấu giá tháng 9",
-              "Tiến độ giải ngân vốn đầu tư công tại TP.HCM"
+              "Tỷ lệ chậm trả gốc lãi trong quý IV/2026",
+              "Khả năng tiếp cận vốn tín dụng mới của các doanh nghiệp địa ốc"
             ],
             "representative_sources": [
               {
-                "title": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m² tại Thủ Thiêm, giá khởi điểm hơn 1.900 tỉ đồng",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/tphcm-phe-duyet-phuong-an-dau-gia-lo-dat-hon-6400m-tai-thu-thiem-gia-khoi-diem-hon-1900-ti-dong-100260817125752136.htm",
-                "excerpt": "TP.HCM phê duyệt phương án đấu giá lô đất hơn 6.400m2 tại Thủ Thiêm."
+                "title": "Lãi suất trái phiếu bất động sản cao hơn gửi tiết kiệm ngân hàng",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/lai-suat-trai-phieu-bat-dong-san-cao-hon-gui-tiet-kiem-ngan-hang-post1868962.tpo",
+                "excerpt": "Phân tích về áp lực đáo hạn và xu hướng huy động vốn của nhóm ngành bất động sản."
               }
             ]
           }
@@ -190,111 +198,108 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI đang chuyển dịch từ các ứng dụng phần mềm sang hạ tầng phần cứng quy mô lớn. Các thương vụ đầu tư hàng tỷ USD vào trung tâm dữ liệu và chip nhớ cho thấy sự cạnh tranh khốc liệt trong việc xây dựng năng lực tính toán. Tại Việt Nam, việc thu hút các dự án trung tâm dữ liệu AI đang là ưu tiên chiến lược để bắt kịp làn sóng công nghệ toàn cầu.",
-        "subsector_briefs": [],
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ là câu chuyện cổ phiếu mà còn là sự chuyển dịch mạnh mẽ sang hạ tầng dữ liệu và bán dẫn. Các tập đoàn lớn như Nvidia đang định hình lại cách thức tài trợ hạ tầng AI thị trường thông qua việc rót vốn trực tiếp vào các trung tâm dữ liệu của OpenAI và SpaceX. Tại Việt Nam, các doanh nghiệp đang khẳng định vị thế trong hệ sinh thái AI quốc tế, với việc EON Tech đạt chuẩn đối tác toàn cầu của OpenAI. Tuy nhiên, việc quản lý an toàn AI và an ninh mạng trở thành ưu tiên hàng đầu khi các thủ đoạn lừa đảo công nghệ cao ngày càng tinh vi, buộc ngành ngân hàng phải đẩy mạnh bảo mật sinh trắc học và giám sát giao dịch theo thời gian thực.",
+        "subsector_briefs": [
+          {
+            "name": "Hạ tầng AI & Bán dẫn",
+            "overview": "Dòng vốn đầu tư khổng lồ đang đổ vào hạ tầng AI, với Nvidia đóng vai trò trung tâm.",
+            "key_points": [
+              "Nvidia rót 105 tỷ USD vào trung tâm dữ liệu OpenAI",
+              "Nvidia nắm giữ 21 tỷ USD cổ phần SpaceX"
+            ],
+            "key_story_titles": [
+              "Nvidia rót 105 tỷ USD vào hạ tầng dữ liệu AI của OpenAI"
+            ],
+            "representative_sources": [
+              {
+                "title": "Nvidia's AI moat is shifting from chips to capital",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/08/18/nvidias-ai-moat-is-shifting-from-chips-to-capital.html"
+              }
+            ]
+          }
+        ],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Hạ tầng dữ liệu",
-            "title": "Làn sóng đầu tư trung tâm dữ liệu AI tại TP.HCM",
-            "summary": "TP.HCM đang triển khai các siêu trung tâm dữ liệu AI với sự tham gia của các tập đoàn quốc tế như G42, Microsoft và FPT, với tổng vốn dự kiến khoảng 2 tỷ USD.",
+            "sub_sector": "Hạ tầng AI & Bán dẫn",
+            "title": "Chiến lược tài trợ hạ tầng AI của Nvidia",
+            "summary": "Nvidia đang thay đổi cuộc chơi trong ngành AI bằng cách sử dụng bảng cân đối kế toán mạnh mẽ để tài trợ vốn trực tiếp cho các trung tâm dữ liệu lớn. Khoản đầu tư 105 tỷ USD vào trung tâm dữ liệu của OpenAI tại Ohio và 21 tỷ USD vào SpaceX cho thấy Nvidia đang xây dựng một 'hào kỹ thuật' không chỉ bằng chip mà bằng cả nguồn vốn, đảm bảo nhu cầu GPU trong dài hạn.",
             "main_developments": [
-              "Thành phố hiện có 20 Trung tâm dữ liệu và 9 dự án đang đề xuất.",
-              "Dự án tập trung vào hạ tầng tính toán cho AI và chuyển đổi số.",
-              "Sự tham gia của các đối tác quốc tế khẳng định vị thế của TP.HCM trong khu vực."
+              "Nvidia cung cấp 105 tỷ USD cho trung tâm dữ liệu mới của OpenAI.",
+              "Nvidia nắm giữ 21 tỷ USD cổ phần tại SpaceX tính đến cuối quý II/2026.",
+              "Chiến lược này giúp Nvidia duy trì đà tăng trưởng trong kỷ nguyên AI."
             ],
-            "why_it_matters": "Đây là bước đi chiến lược trong việc định hình hạ tầng tài chính và công nghệ mới tại Việt Nam, kết nối nguồn vốn toàn cầu.",
+            "why_it_matters": "Định hình lại cách thức tài trợ hạ tầng AI toàn cầu và củng cố vị thế độc quyền của Nvidia.",
             "affected_groups": [
-              "Doanh nghiệp công nghệ",
-              "Nhà đầu tư hạ tầng số"
+              "Nvidia",
+              "OpenAI",
+              "SpaceX",
+              "Nhà đầu tư công nghệ"
             ],
             "watch_next": [
-              "Tiến độ cấp phép các dự án trung tâm dữ liệu",
-              "Khả năng đáp ứng năng lượng cho các trung tâm này"
+              "Hiệu quả vận hành của các trung tâm dữ liệu được Nvidia tài trợ",
+              "Phản ứng của các đối thủ cạnh tranh như AMD"
             ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "Nvidia's AI moat is shifting from chips to capital",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/08/18/nvidias-ai-moat-is-shifting-from-chips-to-capital.html"
+              }
+            ]
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Địa chính trị Trung Đông và các chính sách quản lý an ninh quốc gia là hai trục chính trong 48h qua. Căng thẳng tại eo biển Hormuz không chỉ là vấn đề quân sự mà còn là rủi ro trực tiếp đến an ninh năng lượng toàn cầu. Tại Việt Nam, các chỉ đạo về quản lý UAV và phát triển nguồn nhân lực công nghệ cao cho thấy sự chủ động trong việc thích ứng với các thách thức an ninh mới.",
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua tập trung vào các nỗ lực bảo vệ hòa bình và ổn định trong bối cảnh thế giới biến động. Tại Việt Nam, thông điệp về việc xây dựng quân đội tinh nhuệ và đẩy mạnh hạ tầng trọng điểm là ưu tiên hàng đầu. Các vấn đề an ninh mạng và quản lý hành chính công cũng được chú trọng nhằm bảo vệ người dân và doanh nghiệp trước các thủ đoạn lừa đảo ngày càng tinh vi. Căng thẳng tại eo biển Hormuz vẫn là điểm nóng địa chính trị lớn nhất, ảnh hưởng trực tiếp đến an ninh năng lượng toàn cầu và đòi hỏi các quốc gia phải có chiến lược ứng phó linh hoạt.",
         "subsector_briefs": [
           {
             "name": "Địa chính trị & An ninh",
-            "overview": "Căng thẳng Mỹ-Iran leo thang tại eo biển Hormuz gây rủi ro lớn cho an ninh năng lượng toàn cầu.",
+            "overview": "Căng thẳng tại eo biển Hormuz và các nỗ lực ổn định an ninh quốc gia là trọng tâm.",
             "key_points": [
-              "Mỹ cảnh báo Iran và Oman",
-              "Giá dầu Brent tăng mạnh"
+              "Iran nêu điều kiện mở cửa eo biển Hormuz",
+              "Tổng Bí thư, Chủ tịch nước Tô Lâm nhấn mạnh sức mạnh bảo vệ hòa bình"
             ],
             "key_story_titles": [
               "Căng thẳng tại eo biển Hormuz"
             ],
             "representative_sources": [
               {
-                "title": "Tổng thống Mỹ Trump tuyên bố chặn chương trình hạt nhân của Iran, dọa tấn công Oman",
+                "title": "Iran nêu điều kiện mở cửa eo biển Hormuz",
                 "source": "tienphong_vn",
-                "url": "https://tienphong.vn/tong-thong-my-trump-tuyen-bo-chan-chuong-trinh-hat-nhan-cua-iran-doa-tan-cong-oman-post1868718.tpo",
-                "excerpt": "Tổng thống Trump tuyên bố ngăn chặn Iran sở hữu vũ khí hạt nhân và đe dọa hành động quân sự."
+                "url": "https://tienphong.vn/iran-neu-dieu-kien-mo-cua-eo-bien-hormuz-post1868977.tpo",
+                "excerpt": "Iran yêu cầu Mỹ dỡ bỏ trừng phạt để đổi lấy việc mở cửa eo biển Hormuz."
               }
             ]
           }
         ],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "An ninh quốc gia",
-            "title": "Quản lý thiết bị bay không người lái (UAV)",
-            "summary": "Chính phủ Việt Nam chỉ đạo siết chặt quản lý, giám sát thiết bị bay không người lái sau các sự cố xâm nhập sân bay, hướng tới định danh số toàn bộ UAV vào năm 2030.",
-            "main_developments": [
-              "Bộ Công an chủ trì điều tra các hành vi vi phạm.",
-              "Bộ Quốc phòng xây dựng quy chế quản lý và giám sát hành trình thời gian thực.",
-              "Hoàn thiện quy định về nhập khẩu và sử dụng UAV."
-            ],
-            "why_it_matters": "Việc quản lý UAV là vấn đề an ninh hàng không cấp bách trong bối cảnh công nghệ này ngày càng phổ biến.",
-            "affected_groups": [
-              "Ngành hàng không",
-              "Người sử dụng UAV"
-            ],
-            "watch_next": [
-              "Tiến độ ban hành quy định mới",
-              "Hiệu quả giám sát tại các sân bay"
-            ],
-            "representative_sources": [
-              {
-                "title": "Tăng cường quản lý, giám sát thiết bị bay không người lái",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/tang-cuong-quan-ly-giam-sat-thiet-bi-bay-khong-nguoi-lai-192260817201537521.htm",
-                "excerpt": "Phó Thủ tướng yêu cầu các bộ ngành điều tra sự cố xâm nhập sân bay và hoàn thiện quy chế quản lý UAV."
-              }
-            ]
-          }
-        ]
+        "story_dossiers": []
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng tiêu dùng và đời sống đang chuyển dịch mạnh mẽ theo hướng an toàn và bền vững. Việc siết chặt quản lý thuế thương mại điện tử và bảo vệ người tiêu dùng cho thấy sự trưởng thành của thị trường số Việt Nam. Đồng thời, các cảnh báo về sức khỏe cộng đồng và an toàn thông tin đang trở thành những chủ đề được quan tâm hàng đầu.",
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua phản ánh sự thay đổi trong hành vi tiêu dùng và tư duy tài chính của người trẻ. Lối sống tối giản, xu hướng mua đồ điện tử cũ và các thói quen sống lành mạnh đang trở nên phổ biến. Đồng thời, các vấn đề an toàn thực phẩm và an ninh mạng nhắm vào sinh viên cũng là những chủ đề được xã hội quan tâm sâu sắc. Sự bùng nổ của xe điện tại Việt Nam, với mức tăng trưởng 74,2% trong 7 tháng đầu năm, cho thấy sự thay đổi rõ rệt trong cấu trúc thị trường ô tô và hành vi tiêu dùng của người Việt.",
         "subsector_briefs": [
           {
-            "name": "Thương mại điện tử & Tiêu dùng",
-            "overview": "Cơ quan chức năng tăng cường quản lý thuế và bảo vệ người tiêu dùng trên các sàn thương mại điện tử.",
+            "name": "Tiêu dùng & Lối sống",
+            "overview": "Người trẻ đang chuyển dịch sang lối sống tối giản và tiêu dùng bền vững.",
             "key_points": [
-              "Lazada bị phạt 350 triệu đồng",
-              "Siết chặt thuế TMĐT qua dữ liệu ngân hàng"
+              "Lối sống tối giản giúp tiết kiệm tài chính",
+              "Xe điện Việt Nam thiết lập kỷ lục doanh số"
             ],
             "key_story_titles": [
-              "Lazada bị phạt vì gây nhầm lẫn"
+              "Xe điện Việt Nam thiết lập kỷ lục mới trong 7 tháng đầu năm"
             ],
             "representative_sources": [
               {
-                "title": "Lazada bị phạt 350 triệu đồng vì gây nhầm lẫn cho người tiêu dùng",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/lazada-bi-phat-350-trieu-dong-vi-gay-nham-lan-cho-nguoi-tieu-dung-100260817155321384.htm",
-                "excerpt": "Lazada bị xử phạt vì hành vi gây nhầm lẫn cho người tiêu dùng."
+                "title": "Xe điện toàn cầu bùng nổ, Việt Nam lại thiết lập kỷ lục mới",
+                "source": "thanhnien_vn",
+                "url": "https://thanhnien.vn/xe-dien-toan-cau-bung-no-viet-nam-lai-thiet-lap-ky-luc-moi-185260818145933585.htm",
+                "excerpt": "VinFast giao 137.697 xe trong 7 tháng, tăng 74,2% so với cùng kỳ."
               }
             ]
           }
@@ -302,29 +307,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "brief",
-            "sub_sector": "Y tế cộng đồng",
-            "title": "Cảnh báo gia tăng trẻ mắc giang mai bẩm sinh",
-            "summary": "Bệnh viện Da liễu Trung ương cảnh báo tình trạng trẻ sơ sinh mắc giang mai bẩm sinh do mẹ không được sàng lọc trong thai kỳ, nhấn mạnh tầm quan trọng của việc điều trị sớm.",
+            "depth_level": "deep",
+            "sub_sector": "Tiêu dùng & Lối sống",
+            "title": "Sự bùng nổ của xe điện tại Việt Nam",
+            "summary": "Thị trường xe điện Việt Nam đang ghi nhận mức tăng trưởng ấn tượng, với VinFast giao 137.697 xe trong 7 tháng đầu năm 2026, tăng 74,2% so với cùng kỳ. Sự bùng nổ này được thúc đẩy bởi chính sách ưu đãi lệ phí trước bạ và hạ tầng trạm sạc phủ rộng, đánh dấu sự thay đổi rõ rệt trong hành vi tiêu dùng và cấu trúc thị trường ô tô trong nước.",
             "main_developments": [
-              "Giang mai bẩm sinh lây truyền từ mẹ sang con.",
-              "Phần lớn các trường hợp có thể phòng tránh bằng sàng lọc sớm."
+              "Doanh số xe điện tăng gấp 2,5 lần mức tăng trưởng bình quân của toàn thị trường ô tô.",
+              "Hạ tầng trạm sạc được mở rộng đáng kể trên toàn quốc.",
+              "Chính sách ưu đãi lệ phí trước bạ tiếp tục là động lực chính."
             ],
-            "why_it_matters": "Đây là vấn đề y tế cộng đồng nghiêm trọng cần được cảnh báo rộng rãi để bảo vệ sức khỏe trẻ em.",
+            "why_it_matters": "Đánh dấu bước ngoặt trong quá trình chuyển đổi xanh của ngành công nghiệp ô tô Việt Nam.",
             "affected_groups": [
-              "Phụ nữ mang thai",
-              "Trẻ sơ sinh"
+              "Người tiêu dùng Việt Nam",
+              "Ngành công nghiệp ô tô",
+              "Hệ thống hạ tầng năng lượng"
             ],
             "watch_next": [
-              "Tỷ lệ sàng lọc trong thai kỳ",
-              "Các biện pháp truyền thông y tế"
+              "Tỷ lệ thâm nhập của xe điện trong phân khúc xe phổ thông",
+              "Phản ứng của các hãng xe xăng truyền thống"
             ],
             "representative_sources": [
               {
-                "title": "Cảnh báo nhiều trẻ mắc giang mai bẩm sinh",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/canh-bao-nhieu-tre-mac-giang-mai-bam-sinh-192260817151559035.htm",
-                "excerpt": "Bệnh viện Da liễu Trung ương cảnh báo về tình trạng trẻ sơ sinh mắc giang mai bẩm sinh."
+                "title": "Xe điện toàn cầu bùng nổ, Việt Nam lại thiết lập kỷ lục mới",
+                "source": "thanhnien_vn",
+                "url": "https://thanhnien.vn/xe-dien-toan-cau-bung-no-viet-nam-lai-thiet-lap-ky-luc-moi-185260818145933585.htm",
+                "excerpt": "Phân tích về sự bùng nổ của thị trường xe điện Việt Nam."
               }
             ]
           }
@@ -335,56 +342,77 @@
       {
         "theme": "Địa chính trị Trung Đông",
         "what_to_watch": "Diễn biến tại eo biển Hormuz và phản ứng giá dầu Brent",
-        "why": "Rủi ro an ninh năng lượng toàn cầu đang ở mức cao."
+        "why": "Tác động trực tiếp đến an ninh năng lượng và lạm phát toàn cầu."
       },
       {
-        "theme": "Thị trường BĐS Việt Nam",
-        "what_to_watch": "Kết quả đấu giá đất Thủ Thiêm và phản ứng cổ phiếu",
-        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và nguồn thu ngân sách."
+        "theme": "Thị trường trái phiếu Mỹ",
+        "what_to_watch": "Lợi suất trái phiếu 30 năm và phản ứng của chứng khoán",
+        "why": "Ảnh hưởng đến chi phí vốn và định giá tài sản rủi ro."
       },
       {
-        "theme": "Hạ tầng AI",
-        "what_to_watch": "Tiến độ các dự án trung tâm dữ liệu tại TP.HCM",
-        "why": "Định hình năng lực cạnh tranh công nghệ quốc gia."
+        "theme": "Hạ tầng tại Việt Nam",
+        "what_to_watch": "Tiến độ giải ngân các dự án trọng điểm tại TP.HCM",
+        "why": "Động lực tăng trưởng kinh tế quan trọng của đầu tàu kinh tế."
       },
       {
-        "theme": "Chính sách tiền tệ",
-        "what_to_watch": "Biên bản cuộc họp FOMC",
-        "why": "Ảnh hưởng đến kỳ vọng lãi suất và dòng vốn toàn cầu."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Hệ sinh thái TRON bước vào kỷ nguyên giảm phát với các chương trình mua lại và đốt token",
-        "why": "Tác động trực tiếp đến tokenomics và tâm lý nhà đầu tư trong hệ sinh thái DeFi lớn."
+        "theme": "An ninh mạng",
+        "what_to_watch": "Các thủ đoạn lừa đảo Deepfake mới",
+        "why": "Ảnh hưởng trực tiếp đến an ninh tài chính của người dùng."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "TP.HCM đấu giá đất Thủ Thiêm với giá khởi điểm hơn 1.900 tỷ đồng",
-        "why": "Sự kiện quan trọng về quản lý đất đai và nguồn thu ngân sách của TP.HCM."
+        "what_to_watch": "Doanh nghiệp của bầu Đức và DatVietVAC chuẩn bị IPO với định giá cao",
+        "why": "Sự kiện IPO của các doanh nghiệp lớn tác động trực tiếp đến tâm lý nhà đầu tư và dòng vốn trên thị trường chứng khoán."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Cổ phiếu bất động sản 'nổi sóng' sau thông tin đấu giá đất Thủ Thiêm",
-        "why": "Sự kiện tác động trực tiếp đến tâm lý nhà đầu tư và biến động nhóm cổ phiếu bất động sản tại Việt Nam."
+        "what_to_watch": "Lãi suất trái phiếu bất động sản tăng cao, áp lực đáo hạn lớn trong năm 2026",
+        "why": "Phản ánh rủi ro thanh khoản và xu hướng huy động vốn của nhóm ngành bất động sản trong bối cảnh tín dụng bị kiểm soát."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Mối liên hệ giữa béo phì và thiếu hụt Vitamin D làm tăng nguy cơ tử vong",
-        "why": "Cảnh báo sức khỏe cộng đồng có tác động lớn đến chi phí y tế và năng suất lao động."
+        "what_to_watch": "Sự kết hợp nguy hiểm giữa béo bụng và thiếu hụt Vitamin D làm tăng gấp đôi nguy cơ tử vong",
+        "why": "Cảnh báo rủi ro sức khỏe cộng đồng có tác động lớn đến chi phí y tế và năng suất lao động."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Giá vàng trong nước đảo chiều giảm sau chuỗi ngày tăng",
+        "why": "Phản ánh biến động thị trường kim loại quý trong nước."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Nvidia đầu tư hạ tầng AI quy mô lớn cùng OpenAI",
-        "why": "Thương vụ này khẳng định xu hướng đầu tư khổng lồ vào hạ tầng AI."
+        "what_to_watch": "Google chi 10 triệu USD mua dữ liệu từ Spirit Airlines để đào tạo AI",
+        "why": "Cho thấy xu hướng các tập đoàn công nghệ lớn thu mua dữ liệu doanh nghiệp để duy trì lợi thế cạnh tranh AI."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Chính phủ chỉ đạo tăng cường quản lý, giám sát thiết bị bay không người lái (UAV/drone)",
-        "why": "Sự cố an ninh hàng không ảnh hưởng trực tiếp đến hạ tầng trọng yếu."
+        "what_to_watch": "Gia Lai ứng dụng AI hỗ trợ quản lý đất đai cấp xã",
+        "why": "Điểm sáng về chuyển đổi số và ứng dụng AI thực tế trong quản lý nhà nước tại địa phương."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động của các chính sách mới đối với doanh nghiệp nhỏ và vừa tại Việt Nam.",
+    "source_desk": [
+      {
+        "topic": "Công nghệ & AI",
+        "representative_sources": [
+          {
+            "title": "Nvidia's AI moat is shifting from chips to capital",
+            "source": "cnbc_com",
+            "url": "https://cnbc.com/2026/08/18/nvidias-ai-moat-is-shifting-from-chips-to-capital.html"
+          }
+        ]
+      },
+      {
+        "topic": "Thời sự & Chính trị",
+        "representative_sources": [
+          {
+            "title": "Giá dầu nhích lên, giá vàng thế giới giữ đà tăng",
+            "source": "dantri_com_vn",
+            "url": "https://dantri.com.vn/kinh-doanh/gia-dau-nhich-len-gia-vang-the-gioi-giu-da-tang-20260818073857776.htm"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng chính thức từ các tổ chức quốc tế lớn ngoài Mỹ/EU đối với căng thẳng tại eo biển Hormuz.",
     "notable_articles": []
   }
 }
