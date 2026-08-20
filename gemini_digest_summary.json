@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-19T22:24:20.725916+00:00",
+  "generated_at": "2026-08-20T22:31:21.172003+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 797908,
+    "estimated_input_tokens": 797211,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 676,
-    "sent_article_count": 676,
+    "input_article_count": 698,
+    "sent_article_count": 698,
     "window": {
-      "end_date": "2026-08-20",
+      "end_date": "2026-08-21",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,88 +24,82 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, công nghệ và chính sách quan trọng trong 48 giờ qua.",
+    "reading_time_minutes": "15",
+    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, chính sách tài khóa và xu hướng công nghệ trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường tài chính toàn cầu đang chịu áp lực lớn khi nợ công Mỹ lần đầu vượt mốc 40 nghìn tỷ USD, buộc Bộ Tài chính Mỹ phải tăng gấp đôi quy mô mua lại trái phiếu để hạ nhiệt lợi suất. Trong khi đó, tại Việt Nam, các chỉ đạo chiến lược về tái thiết cuộc sống trong quy hoạch bất động sản và việc đẩy mạnh chuyển đổi số trong an sinh xã hội đang định hình lại cách thức quản lý tài chính công và quyền lợi người dân.",
-        "most_mentioned": "Chủ đề AI và hạ tầng bán dẫn tiếp tục thống trị các nguồn tin công nghệ, với các thương vụ hợp tác chiến lược như Google-Marvell và sự kiện Unitree niêm yết thành công, cho thấy AI đang chuyển dịch từ mô hình phần mềm sang tích hợp phần cứng và robot.",
-        "top_stories": "Sự phân hóa giữa thị trường vàng quốc tế và nội địa, cùng với việc Google dời dây chuyền sản xuất sang Việt Nam và Ấn Độ, là những câu chuyện then chốt phản ánh sự tái cấu trúc chuỗi cung ứng toàn cầu và tâm lý nhà đầu tư.",
-        "sector_impacts": "Các chính sách về tài sản số, quản lý ngân sách và hạ tầng giao thông tại Việt Nam đang bước vào giai đoạn cụ thể hóa, tạo tiền đề cho sự minh bạch hóa thị trường trong thời gian tới."
+        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn tái định vị dòng vốn mạnh mẽ, khi lợi suất trái phiếu Mỹ tăng cao thúc đẩy nhà đầu tư tìm đến các tài sản rủi ro như Bitcoin, đồng thời gây áp lực lên các thị trường mới nổi. Tại Việt Nam, trọng tâm điều hành chuyển dịch sang các chính sách tài khóa cụ thể nhằm hỗ trợ doanh nghiệp nhỏ và vừa, cùng với đó là nỗ lực chuẩn hóa hạ tầng số và xuất khẩu nông sản.",
+        "most_mentioned": "Các chủ đề về chính sách thuế, biến động giá vàng và sự trỗi dậy của AI trong hạ tầng công nghiệp là những điểm nóng được nhắc lại nhiều nhất. Sự kiện Evergrande tại Trung Quốc và căng thẳng địa chính trị Mỹ-Iran cũng chi phối tâm lý thị trường toàn cầu.",
+        "top_stories": "Sự kiện Bitcoin vượt mốc 72.000 USD và các chính sách giảm thuế của Chính phủ Việt Nam là hai câu chuyện quyết định tâm lý nhà đầu tư. Việc FTSE Russell chuẩn bị công bố danh mục nâng hạng thị trường Việt Nam cũng là biến số lớn cần theo dõi.",
+        "sector_impacts": "Ngành tài chính đang chịu áp lực từ lãi suất, trong khi ngành công nghệ tập trung vào hạ tầng AI và chuyển đổi số đô thị. Xuất khẩu nông sản (sầu riêng) đang hưởng lợi từ các mã số vùng trồng mới.",
+        "watch_24_72h": "Theo dõi sát sao danh mục nâng hạng của FTSE Russell, diễn biến giá vàng trong nước, và các văn bản hướng dẫn giảm thuế cho doanh nghiệp nhỏ."
       },
-      "content": "Thị trường tài chính thị trường đang đối mặt với áp lực nợ công kỷ lục khi Mỹ chạm ngưỡng 40 nghìn tỷ USD, gây lo ngại về chi phí vốn dài hạn. Động thái can thiệp của Bộ Tài chính Mỹ thông qua việc tăng quy mô mua lại trái phiếu đã tạo ra những phản ứng trái chiều trên thị trường tài sản rủi ro, đặc biệt là Bitcoin. Tại Việt Nam, sự chú ý dồn vào các chỉ đạo của Thủ tướng về việc đổi mới tư duy bồi thường đất đai, một bước đi quan trọng nhằm tháo gỡ điểm nghẽn trong các dự án hạ tầng và bất động sản. Song song đó, ngành ngân hàng đang đẩy mạnh chuyển đổi số và ưu đãi lãi suất, phản ánh nỗ lực hỗ trợ tăng trưởng kinh tế trong bối cảnh thách thức từ xuất khẩu và lạm phát vẫn hiện hữu. Trong lĩnh vực công nghệ, cuộc đua AI đang chuyển sang giai đoạn mới với sự tham gia sâu rộng của phần cứng và robot, minh chứng qua thương vụ Google-Marvell và sự bùng nổ của cổ phiếu Unitree trên sàn Thượng Hải.",
+      "content": "Trong 48 giờ qua, bức tranh kinh tế thị trường chịu áp lực lớn từ biến động lợi suất trái phiếu Mỹ và nợ công vượt 40 nghìn tỷ USD, thúc đẩy dòng vốn tìm đến các tài sản rủi ro như Bitcoin. Tại Việt Nam, trọng tâm là các chính sách hỗ trợ doanh nghiệp, thúc đẩy xuất khẩu nông sản và các tranh cãi về phí dịch vụ số trong giao thông. Các doanh nghiệp nhỏ và vừa đang kỳ vọng vào đề xuất giảm 30% thuế thu nhập, trong khi thị trường chứng khoán chờ đợi quyết định từ FTSE Russell. Công nghệ AI không còn là câu chuyện phần mềm mà đang chuyển dịch sang hạ tầng bán dẫn và trung tâm dữ liệu, với sự tham gia tích cực của các tập đoàn lớn tại Việt Nam. Căng thẳng địa chính trị Mỹ-Iran leo thang với các đe dọa trừng phạt kinh tế từ Tổng thống Mỹ Donald Trump cũng đang đẩy giá dầu Brent vượt mốc 93 USD/thùng, tạo thêm áp lực lạm phát cho các nền kinh tế nhập khẩu.",
       "representative_sources": [
         {
-          "title": "Google rút hết dây chuyền điện thoại khỏi Trung Quốc, chuyển sang Việt Nam, Ấn Độ",
-          "source": "tuoitre_vn",
-          "url": "https://tuoitre.vn/google-rut-het-day-chuyen-dien-thoai-khoi-trung-quoc-chuyen-sang-viet-nam-an-do-100260819151721.htm"
-        },
-        {
-          "title": "US Debt Buyback Boost Sends Bitcoin To Multimonth High Above $69,000",
+          "title": "Bitcoin Price Breaks Above 200-Day Moving Average",
           "source": "cointelegraph_com",
-          "url": "https://cointelegraph.com/markets/bitcoin-price-hits-11-week-high-as-us-treasury-doubles-debt-buyback-size"
+          "url": "https://cointelegraph.com/markets/bitcoin-breaks-200-day-moving-average?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+          "excerpt": "Bitcoin phá vỡ ngưỡng kháng cự 200 ngày nhờ dòng vốn từ chương trình mua lại trái phiếu của Mỹ."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Nợ công Mỹ",
-          "why_mentioned": "Sự kiện lịch sử ảnh hưởng đến toàn bộ thị trường tài chính.",
-          "evidence_hint": "Lặp lại ở nhiều nguồn tin tài chính lớn."
-        },
-        {
-          "topic": "AI và Robot",
-          "why_mentioned": "Sự chuyển dịch từ phần mềm sang phần cứng và robot.",
-          "evidence_hint": "Tần suất xuất hiện dày đặc trên các trang công nghệ."
+          "topic": "Chính sách thuế và hỗ trợ doanh nghiệp",
+          "why_mentioned": "Nhiều báo cáo về đề xuất giảm thuế và khó khăn của doanh nghiệp tư nhân.",
+          "evidence_hint": "Các bài báo từ Tienphong, Baoxaydung."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Giá vàng",
-          "why_hot": "Sự phân hóa giữa thị trường quốc tế và nội địa.",
-          "impact": "Ảnh hưởng đến tâm lý nhà đầu tư và chính sách tiền tệ.",
-          "evidence_hint": "Biến động mạnh trong 48h qua."
+          "topic": "Bitcoin và tài sản rủi ro",
+          "why_hot": "Tăng trưởng mạnh mẽ sau các thông báo vĩ mô từ Mỹ.",
+          "impact": "Thay đổi khẩu vị rủi ro của nhà đầu tư toàn cầu.",
+          "evidence_hint": "Dữ liệu từ Cointelegraph, CNBC."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Tái cấu trúc chuỗi cung ứng công nghệ",
-          "why_watch": "Google chuyển sản xuất sang Việt Nam và Ấn Độ."
+          "signal": "Chuyển dịch sang quản trị bằng dữ liệu tại TP.HCM",
+          "why_watch": "Đánh dấu bước ngoặt trong quản lý đô thị thông minh."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường trái phiếu Mỹ",
-        "Tiến độ các dự án hạ tầng tại Việt Nam",
-        "Khung pháp lý tài sản số"
+        "Danh mục nâng hạng FTSE Russell",
+        "Diễn biến giá vàng trong nước",
+        "Phản ứng của thị trường với chính sách thuế mới"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Nợ công Mỹ vượt mốc 40 nghìn tỷ USD",
-        "one_sentence": "Tổng nợ công Mỹ đạt 40,05 nghìn tỷ USD, mức cao nhất lịch sử, gây áp lực lên chi phí vốn toàn cầu và chính sách tài khóa.",
-        "why_it_matters": "Tác động trực tiếp đến tâm lý nhà đầu tư và kỳ vọng lãi suất toàn cầu.",
-        "watch_next": "Phản ứng của thị trường trái phiếu và lợi suất kho bạc.",
-        "source_urls": []
+        "title": "Bitcoin vượt 72.000 USD sau khi Bộ Tài chính Mỹ mở rộng chương trình mua lại trái phiếu",
+        "one_sentence": "Dòng vốn tìm đến tài sản rủi ro tăng mạnh khi Mỹ tăng quy mô mua lại trái phiếu dài hạn, giúp Bitcoin phá vỡ ngưỡng kháng cự 200 ngày.",
+        "why_it_matters": "Đây là sự kiện tài chính quan trọng nhất trong 48 giờ qua, ảnh hưởng trực tiếp đến tâm lý thị trường toàn cầu.",
+        "watch_next": "Theo dõi diễn biến giá Bitcoin và các chỉ số tài chính Mỹ.",
+        "source_urls": [
+          "https://cointelegraph.com/markets/bitcoin-breaks-200-day-moving-average?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+        ]
       },
       {
         "rank": 2,
-        "title": "Giá vàng thế giới bật tăng dữ dội",
-        "one_sentence": "Giá vàng giao ngay tăng 151 USD/ounce do lợi suất trái phiếu Mỹ giảm, tạo sự phân hóa rõ rệt với đà giảm của vàng miếng SJC trong nước.",
-        "why_it_matters": "Phản ánh sự thay đổi trong kỳ vọng lãi suất và rủi ro địa chính trị.",
-        "watch_next": "Chênh lệch giá vàng nội địa và quốc tế.",
+        "title": "Mỹ tuyên bố chiến tranh kinh tế với Iran, giá dầu thế giới tăng mạnh",
+        "one_sentence": "Tổng thống Mỹ Donald Trump đe dọa các biện pháp trừng phạt khắc nghiệt nhất từ trước đến nay, đẩy giá dầu Brent vượt 93 USD/thùng.",
+        "why_it_matters": "Tác động trực tiếp đến an ninh năng lượng và ổn định địa chính trị toàn cầu.",
+        "watch_next": "Theo dõi phản ứng của thị trường dầu mỏ và các động thái từ Tehran.",
         "source_urls": [
-          "https://vietnamnet.vn/gia-vang-the-gioi-dot-ngot-bat-tang-du-doi-toi-gan-152-usd-ounce-2530211.html"
+          "https://cnbc.com/2026/08/20/oil-prices-brent-wti-hormuz-trump.html"
         ]
       },
       {
         "rank": 3,
-        "title": "Google dời sản xuất Pixel sang Việt Nam",
-        "one_sentence": "Google thông báo dời toàn bộ dây chuyền sản xuất Pixel khỏi Trung Quốc từ năm 2027, tận dụng hệ sinh thái sẵn có tại Việt Nam.",
-        "why_it_matters": "Sự kiện quan trọng về chuỗi cung ứng toàn cầu có tác động trực tiếp đến Việt Nam.",
-        "watch_next": "Tiến độ chuyển dịch và tác động đến các nhà cung ứng nội địa.",
+        "title": "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ",
+        "one_sentence": "Chính phủ trình Quốc hội giảm 30% thuế thu nhập cá nhân và doanh nghiệp có doanh thu dưới 10 tỷ đồng trong giai đoạn 2026-2027.",
+        "why_it_matters": "Chính sách tài khóa trực tiếp hỗ trợ doanh nghiệp nhỏ trong bối cảnh khó khăn.",
+        "watch_next": "Theo dõi tiến độ thông qua tại Quốc hội.",
         "source_urls": [
-          "https://tuoitre.vn/google-rut-het-day-chuyen-dien-thoai-khoi-trung-quoc-chuyen-sang-viet-nam-an-do-100260819151721.htm"
+          "https://tienphong.vn/de-xuat-giam-30-thue-cho-ho-kinh-doanh-doanh-nghiep-co-doanh-thu-duoi-10-ty-dong-post1869614.tpo"
         ]
       }
     ],
@@ -113,23 +107,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự biến động của nợ công Mỹ và những điều chỉnh chính sách quan trọng tại Việt Nam. Điểm đáng chú ý là sự phân hóa giữa thị trường vàng quốc tế và nội địa, cùng với nỗ lực số hóa của hệ thống ngân hàng nhằm thúc đẩy tăng trưởng tín dụng. Các tín hiệu này phản ánh một thị trường đang đánh giá lại rủi ro và kỳ vọng chính sách trong bối cảnh kinh tế toàn cầu nhiều bất định.",
+        "sector_thesis": "Ngành tài chính 48 giờ qua chứng kiến sự phân hóa rõ rệt giữa các tài sản rủi ro và chính sách tài khóa trong nước. Trong khi Bitcoin và các tài sản số hưởng lợi từ các động thái nới lỏng thanh khoản của Mỹ, thị trường Việt Nam lại tập trung vào việc tháo gỡ khó khăn cho doanh nghiệp nhỏ thông qua chính sách thuế và quản lý lãi suất. Sự kiện nâng hạng thị trường chứng khoán bởi FTSE Russell đang tạo ra tâm lý thận trọng nhưng đầy kỳ vọng về dòng vốn ngoại. Đặc biệt, việc giá vàng trong nước biến động mạnh theo đà thế giới, vượt mốc 146 triệu đồng/lượng, cho thấy nhà đầu tư vẫn ưu tiên các tài sản trú ẩn trong bối cảnh lạm phát và bất ổn địa chính trị.",
         "subsector_briefs": [
           {
-            "name": "Chính sách tiền tệ & Nợ công",
-            "overview": "Nợ công Mỹ đạt kỷ lục 40 nghìn tỷ USD, buộc Bộ Tài chính Mỹ phải can thiệp bằng cách tăng quy mô mua lại trái phiếu để ổn định thị trường.",
+            "name": "Chính sách tài khóa và tiền tệ",
+            "overview": "Chính phủ Việt Nam tập trung vào các biện pháp hỗ trợ doanh nghiệp nhỏ thông qua giảm thuế, trong khi Fed phát tín hiệu cứng rắn về lãi suất.",
             "key_points": [
-              "Nợ công Mỹ vượt 40 nghìn tỷ USD",
-              "Bộ Tài chính Mỹ tăng mua lại trái phiếu"
+              "Giảm 30% thuế cho doanh nghiệp nhỏ",
+              "Fed duy trì quan điểm diều hâu về lãi suất"
             ],
             "key_story_titles": [
-              "Nợ công Mỹ vượt mốc 40 nghìn tỷ USD"
+              "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ"
             ],
             "representative_sources": [
               {
-                "title": "U.S. government debt passes $40 trillion, more than doubling in a decade",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/08/19/us-government-debt-passes-40-trillion-mark-for-the-first-time.html"
+                "title": "Đề xuất giảm 30% thuế cho hộ kinh doanh, doanh nghiệp có doanh thu dưới 10 tỷ đồng",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/de-xuat-giam-30-thue-cho-ho-kinh-doanh-doanh-nghiep-co-doanh-thu-duoi-10-ty-dong-post1869614.tpo",
+                "excerpt": "Chính phủ trình Quốc hội giảm 30% thuế thu nhập cho doanh nghiệp có doanh thu dưới 10 tỷ đồng."
               }
             ]
           }
@@ -138,48 +133,55 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Chính sách tiền tệ",
-            "title": "Nợ công Mỹ và áp lực tài chính toàn cầu",
-            "summary": "Tổng nợ công Mỹ chính thức chạm ngưỡng 40 nghìn tỷ USD, gây áp lực lên chính sách tài khóa và kỳ vọng lạm phát toàn cầu. Động thái tăng quy mô mua lại trái phiếu của Bộ Tài chính Mỹ nhằm cung cấp thanh khoản cho thị trường trái phiếu dài hạn trong bối cảnh lợi suất tăng cao.",
+            "sub_sector": "Tài sản số",
+            "title": "Bitcoin và làn sóng tài sản rủi ro",
+            "summary": "Bitcoin đã vượt ngưỡng 72.000 USD nhờ sự kết hợp giữa chính sách mua lại trái phiếu của Bộ Tài chính Mỹ và kỳ vọng vào dự luật Clarity Act. Sự kiện này đánh dấu một bước ngoặt trong khẩu vị rủi ro của nhà đầu tư thị trường, khi dòng vốn bắt đầu dịch chuyển mạnh mẽ từ các tài sản truyền thống sang tài sản mã hóa trong bối cảnh thanh khoản được cải thiện.",
             "main_developments": [
-              "Tổng nợ công Mỹ đạt 40,047 nghìn tỷ USD vào chiều thứ Ba.",
-              "Bộ Tài chính Mỹ tăng quy mô mua lại trái phiếu dài hạn từ 2 tỷ USD lên ít nhất 4 tỷ USD mỗi đợt.",
-              "Chi phí lãi vay đã lên tới 1,2 nghìn tỷ USD trong năm nay."
+              "Bitcoin tăng 12% trong 48 giờ",
+              "Thanh khoản thị trường tăng nhờ chương trình mua lại trái phiếu Mỹ",
+              "Dự luật Clarity Act được đẩy mạnh tại Nhà Trắng"
             ],
-            "why_it_matters": "Sự kiện kinh tế vĩ mô quan trọng nhất trong 48 giờ qua, ảnh hưởng trực tiếp đến tâm lý thị trường thị trường và chi phí vốn.",
+            "why_it_matters": "Sự phục hồi của Bitcoin không chỉ là câu chuyện giá cả mà còn là chỉ báo cho thấy sự thay đổi trong dòng chú ý thị trường và niềm tin vào các tài sản phi tập trung.",
             "affected_groups": [
-              "Nhà đầu tư toàn cầu",
-              "Chính phủ Mỹ",
-              "Thị trường trái phiếu"
+              "Nhà đầu tư tiền số",
+              "Thị trường tài chính toàn cầu"
             ],
             "watch_next": [
-              "Phản ứng của thị trường trái phiếu Mỹ",
-              "Diễn biến lãi suất kho bạc"
+              "Diễn biến giá Bitcoin sau khi vượt ngưỡng 72.000 USD",
+              "Phản ứng của các cơ quan quản lý Mỹ đối với Clarity Act"
             ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "Bitcoin Price Breaks Above 200-Day Moving Average",
+                "source": "cointelegraph_com",
+                "url": "https://cointelegraph.com/markets/bitcoin-breaks-200-day-moving-average?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "excerpt": "Bitcoin phá vỡ ngưỡng kháng cự 200 ngày nhờ dòng vốn từ chương trình mua lại trái phiếu của Mỹ."
+              }
+            ]
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua không chỉ dừng lại ở các ứng dụng phần mềm mà đã chuyển dịch mạnh mẽ sang hạ tầng phần cứng và robot. Sự hợp tác chiến lược giữa các tập đoàn lớn như Google và Marvell, cùng với sự bùng nổ của các công ty robot như Unitree, cho thấy dòng vốn đang tập trung vào năng lực tính toán và tự động hóa. Đây là giai đoạn bản lề để AI chuyển từ thử nghiệm sang triển khai thực tế trong sản xuất và tài chính.",
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu, mà còn ở hạ tầng dữ liệu, bán dẫn và ứng dụng AI trong quản trị đô thị. Các bài viết về Samsung chuyển dịch dây chuyền sản xuất chip sang Việt Nam và nỗ lực chuyển đổi số của TP.HCM cho thấy Việt Nam đang dần khẳng định vị thế trong chuỗi cung ứng công nghệ toàn cầu. Bên cạnh đó, sự trỗi dậy của các hãng robot Trung Quốc như Unitree, bất chấp lệnh cấm từ Mỹ, cho thấy sự cạnh tranh khốc liệt trong lĩnh vực phần cứng AI và robot hình người.",
         "subsector_briefs": [
           {
-            "name": "Hạ tầng AI & Bán dẫn",
-            "overview": "Sự hợp tác giữa Google và Marvell trong phát triển chip AI tùy chỉnh đánh dấu bước ngoặt trong chuỗi cung ứng chip toàn cầu.",
+            "name": "Hạ tầng AI và Bán dẫn",
+            "overview": "Các tập đoàn công nghệ lớn đang đẩy mạnh đầu tư vào hạ tầng bán dẫn và trung tâm dữ liệu để phục vụ nhu cầu AI.",
             "key_points": [
-              "Google hợp tác Marvell phát triển chip AI",
-              "Đầu tư 12,2 tỷ USD vào chip tùy chỉnh"
+              "Samsung xem xét chuyển dây chuyền chip sang Việt Nam",
+              "Đột phá Caltech trong truyền dẫn ánh sáng trên chip"
             ],
             "key_story_titles": [
-              "Marvell và Google hợp tác phát triển chip AI"
+              "Samsung xem xét chuyển dây chuyền sản xuất chip nhớ sang Việt Nam"
             ],
             "representative_sources": [
               {
-                "title": "Marvell's stock pops 10% on AI chip deal that lets Google buy up to $12.2 billion in shares",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/08/19/marvell-google-ai-chips.html"
+                "title": "'Đại bàng' Samsung tính chuyển dây chuyền chip nhớ từ Hàn Quốc sang Việt Nam?",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/dai-bang-samsung-tinh-chuyen-day-chuyen-chip-nho-tu-han-quoc-sang-viet-nam-188260820215907031.chn",
+                "excerpt": "Samsung cân nhắc chuyển hoạt động đóng gói chip nhớ sang Việt Nam."
               }
             ]
           }
@@ -188,30 +190,29 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Hạ tầng AI",
-            "title": "Cuộc đua chip AI toàn cầu",
-            "summary": "Thương vụ hợp tác chiến lược giữa Google và Marvell nhằm phát triển chip AI tùy chỉnh với giá trị đầu tư lên tới 12,2 tỷ USD, giúp Google giảm sự phụ thuộc vào Nvidia. Đây là bước đi quan trọng trong việc tối ưu hóa hạ tầng tính toán cho các mô hình AI quy mô lớn.",
+            "sub_sector": "Robot và phần cứng AI",
+            "title": "Sự trỗi dậy của ngành robot Trung Quốc",
+            "summary": "Hãng robot Unitree đã niêm yết thành công tại Thượng Hải với định giá 50 tỷ USD, bất chấp lệnh cấm nhập khẩu từ Mỹ. Sự kiện này cho thấy sức mạnh nội tại của ngành công nghệ Trung Quốc trong việc phát triển robot hình người và phần cứng AI, đồng thời đặt ra những thách thức mới cho các rào cản thương mại quốc tế.",
             "main_developments": [
-              "Marvell Technology thông báo Google có quyền mua tới 12,2 tỷ USD cổ phiếu.",
-              "Thỏa thuận tập trung vào các bộ tăng tốc suy luận AI và bộ điều khiển giao diện mạng.",
-              "Mỹ nỗ lực kiểm soát việc tiếp cận chip AI từ xa qua các trung tâm dữ liệu ở Đông Nam Á."
+              "Unitree niêm yết trên sàn STAR Market",
+              "Giá cổ phiếu tăng 629% trong phiên đầu tiên",
+              "Định giá công ty đạt 50 tỷ USD"
             ],
-            "why_it_matters": "Thay đổi lớn trong chuỗi cung ứng chip AI toàn cầu, ảnh hưởng đến năng lực cạnh tranh của các tập đoàn công nghệ.",
+            "why_it_matters": "Sự trỗi dậy của Unitree chứng minh rằng các lệnh cấm thương mại có thể không ngăn cản được sự phát triển của các công ty công nghệ có nền tảng nội địa mạnh.",
             "affected_groups": [
-              "Google",
-              "Marvell",
-              "Nvidia",
-              "Ngành bán dẫn"
+              "Ngành robot toàn cầu",
+              "Nhà đầu tư công nghệ"
             ],
             "watch_next": [
-              "Tiến độ phát triển chip tùy chỉnh của Google",
-              "Các quy định kiểm soát xuất khẩu mới của Mỹ"
+              "Phản ứng của Mỹ đối với sự trỗi dậy của Unitree",
+              "Khả năng mở rộng thị trường của các hãng robot Trung Quốc"
             ],
             "representative_sources": [
               {
-                "title": "Marvell's stock pops 10% on AI chip deal that lets Google buy up to $12.2 billion in shares",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/08/19/marvell-google-ai-chips.html"
+                "title": "Mỹ vừa cấm cửa robot Trung Quốc được ba tuần, hãng robot lớn nhất nước này đã lên sàn và kiếm được 50 tỷ USD chỉ trong một ngày",
+                "source": "genk_vn",
+                "url": "https://genk.vn/my-vua-cam-cua-robot-trung-quoc-duoc-ba-tuan-hang-robot-lon-nhat-nuoc-nay-da-len-san-va-kiem-duoc-50-ty-usd-chi-trong-mot-ngay-16526082015512965.chn",
+                "excerpt": "Unitree niêm yết thành công tại Thượng Hải với định giá 50 tỷ USD."
               }
             ]
           }
@@ -220,55 +221,50 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua bị chi phối bởi căng thẳng địa chính trị tại Trung Đông và các chỉ đạo chiến lược về văn hóa, an sinh xã hội tại Việt Nam. Việc Iran đe dọa đóng cửa eo biển Hormuz và các phản ứng từ Mỹ, UAE đã đẩy giá năng lượng lên cao, gây áp lực lên lạm phát toàn cầu. Tại Việt Nam, các chính sách về an sinh xã hội và quản lý ngân sách đang được đẩy mạnh nhằm tăng tính chủ động cho các địa phương.",
-        "subsector_briefs": [],
-        "story_dossiers": [
+        "sector_thesis": "Thời sự và chính trị 48 giờ qua tập trung vào các nỗ lực ngoại giao của Việt Nam tại Biển Đông và căng thẳng kinh tế Mỹ-Iran. Trong nước, các chính sách an sinh xã hội và quản lý an ninh hàng không đang được Chính phủ chỉ đạo quyết liệt. Đặc biệt, sự kiện tỷ phú Hứa Gia Ấn của Evergrande bị kết án tù chung thân tại Trung Quốc đã khép lại một chương đen tối của thị trường bất động sản khu vực, đồng thời là lời cảnh báo về quản lý tài chính doanh nghiệp. Các nỗ lực ngoại giao của Việt Nam với Philippines và các nước ASEAN cũng cho thấy sự chủ động trong việc duy trì hòa bình và ổn định khu vực.",
+        "subsector_briefs": [
           {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Địa chính trị",
-            "title": "Leo thang căng thẳng tại Trung Đông",
-            "summary": "Căng thẳng địa chính trị tại Trung Đông leo thang sau khi Iran đe dọa đóng cửa eo biển Hormuz và UAE tạm dừng thương mại với Iran. Sự kiện này gây lo ngại lớn về nguồn cung năng lượng toàn cầu và đẩy giá dầu Brent lên mức cao nhất trong 3 tuần.",
-            "main_developments": [
-              "Iran đe dọa đóng cửa eo biển Hormuz nếu Mỹ không dỡ bỏ lệnh trừng phạt.",
-              "UAE tạm dừng mọi giao dịch thương mại với Iran sau cáo buộc phóng tên lửa.",
-              "Giá dầu Brent vượt 91 USD/thùng."
+            "name": "Địa chính trị và Ngoại giao",
+            "overview": "Căng thẳng Mỹ-Iran leo thang và các nỗ lực ngoại giao của Việt Nam tại Biển Đông là những điểm nóng chính.",
+            "key_points": [
+              "Mỹ đe dọa trừng phạt kinh tế Iran",
+              "Việt Nam phối hợp với Philippines tại Biển Đông"
             ],
-            "why_it_matters": "Tác động trực tiếp đến giá năng lượng, lạm phát toàn cầu và an ninh hàng hải.",
-            "affected_groups": [
-              "Thị trường năng lượng",
-              "Các quốc gia vùng Vịnh",
-              "Nền kinh tế toàn cầu"
+            "key_story_titles": [
+              "Mỹ tuyên bố chiến tranh kinh tế với Iran, giá dầu thế giới tăng mạnh"
             ],
-            "watch_next": [
-              "Diễn biến tại eo biển Hormuz",
-              "Phản ứng của Mỹ và các đồng minh"
-            ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "Oil prices rise after Treasury Secretary says U.S. will collapse Iran with economic pressure",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/08/20/oil-prices-brent-wti-hormuz-trump.html"
+              }
+            ]
           }
-        ]
+        ],
+        "story_dossiers": []
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua nổi bật với sự kiện thể thao ASEAN Cup 2026 và các hoạt động kích cầu tiêu dùng nội địa. Sự kiện tuyển Việt Nam vào chung kết đã tạo hiệu ứng xã hội tích cực, trong khi các chương trình mua sắm hàng Việt cho thấy nỗ lực của doanh nghiệp trong việc thúc đẩy tiêu dùng. Bên cạnh đó, các vấn đề về an toàn tiêu dùng và sức khỏe cộng đồng cũng nhận được sự quan tâm lớn.",
+        "sector_thesis": "Xu hướng và đời sống 48 giờ qua nổi bật với các sự kiện thể thao và giải trí lớn. Việc đội tuyển Việt Nam vào chung kết ASEAN Cup và concert của BigBang tại Hà Nội đang tạo ra làn sóng truyền thông mạnh mẽ, bên cạnh đó là các thay đổi trong thói quen tiêu dùng dịch vụ số. Các cảnh báo về an toàn trẻ em trên nền tảng số và xu hướng du lịch trải nghiệm cao cấp như dù lượn tại Sapa cho thấy sự chuyển dịch trong lối sống và nhận thức của người tiêu dùng Việt Nam. Những thay đổi này phản ánh một xã hội đang phát triển nhanh chóng, nơi các giá trị văn hóa và trải nghiệm cá nhân ngày càng được coi trọng.",
         "subsector_briefs": [
           {
-            "name": "Thể thao & Văn hóa",
-            "overview": "Đội tuyển Việt Nam vào chung kết ASEAN Cup 2026 sau chiến thắng thuyết phục trước Malaysia.",
+            "name": "Văn hóa và Thể thao",
+            "overview": "Sự kiện thể thao và giải trí đang thu hút sự quan tâm lớn của cộng đồng.",
             "key_points": [
-              "Việt Nam vào chung kết ASEAN Cup 2026",
-              "Nguyễn Xuân Son ghi cú đúp"
+              "Việt Nam vào chung kết ASEAN Cup",
+              "BigBang trở lại Việt Nam"
             ],
             "key_story_titles": [
-              "Tuyển Việt Nam vào chung kết ASEAN Cup 2026"
+              "Việt Nam vào chung kết ASEAN Cup 2026 gặp Thái Lan"
             ],
             "representative_sources": [
               {
-                "title": "Đội tuyển Việt Nam được thưởng khủng sau khi vào chung kết AFF Cup 2026",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/doi-tuyen-viet-nam-duoc-thuong-khung-sau-khi-vao-chung-ket-aff-cup-2026-192260819224130618.htm",
-                "excerpt": "Đội tuyển Việt Nam giành quyền vào chung kết ASEAN Cup 2026."
+                "title": "Xuân Son chạm cột mốc đặc biệt giữa đêm hội Mỹ Đình",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/xuan-son-cham-cot-moc-dac-biet-giua-dem-hoi-my-dinh-post1869610.tpo",
+                "excerpt": "Đội tuyển Việt Nam giành quyền vào chung kết ASEAN Cup sau khi thắng Malaysia."
               }
             ]
           }
@@ -277,30 +273,29 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Thể thao",
-            "title": "Việt Nam tiến vào chung kết ASEAN Cup 2026",
-            "summary": "Đội tuyển Việt Nam chính thức giành quyền vào chung kết ASEAN Cup 2026 sau khi đánh bại Malaysia với tổng tỷ số 4-0 sau hai lượt trận bán kết. Chiến thắng này tạo hiệu ứng xã hội tích cực và thúc đẩy các hoạt động truyền thông, tài trợ tại Việt Nam.",
+            "sub_sector": "Tiêu dùng số",
+            "title": "YouTube siết chặt gói Premium Family",
+            "summary": "YouTube đã bắt đầu chiến dịch thanh lọc các tài khoản dùng chung không cùng địa chỉ, gây ảnh hưởng lớn đến người dùng Việt Nam sử dụng dịch vụ mua chung trôi nổi. Chính sách này buộc người dùng phải tuân thủ nghiêm ngặt quy định về địa chỉ nhà, nếu không sẽ đối mặt với nguy cơ bị khóa tài khoản lên đến 12 tháng, làm thay đổi thói quen tiêu dùng dịch vụ số của người Việt.",
             "main_developments": [
-              "Việt Nam thắng Malaysia 2-0 ở trận bán kết lượt về.",
-              "Nguyễn Xuân Son ghi cú đúp trong trận đấu.",
-              "VFF và các nhà tài trợ thưởng nóng 5 tỷ đồng cho đội tuyển."
+              "YouTube siết chặt quy định gói Premium Family",
+              "Người dùng phải chứng minh cùng địa chỉ nhà",
+              "Nguy cơ khóa tài khoản 12 tháng"
             ],
-            "why_it_matters": "Sự kiện thể thao có tác động lớn đến tâm lý xã hội và các hoạt động kinh tế, truyền thông tại Việt Nam.",
+            "why_it_matters": "Việc siết chặt này cho thấy YouTube đang quyết liệt bảo vệ doanh thu từ các gói đăng ký, đồng thời chấm dứt kỷ nguyên mua chung dịch vụ giá rẻ tại Việt Nam.",
             "affected_groups": [
-              "Người hâm mộ",
-              "Nhà tài trợ",
-              "Ngành truyền thông"
+              "Người dùng YouTube Premium",
+              "Dịch vụ mua chung tài khoản"
             ],
             "watch_next": [
-              "Trận chung kết gặp Thái Lan",
-              "Phản ứng của người hâm mộ"
+              "Phản ứng của người dùng Việt Nam",
+              "Tỷ lệ hủy gói Premium sau khi siết chặt quy định"
             ],
             "representative_sources": [
               {
-                "title": "Đội tuyển Việt Nam được thưởng khủng sau khi vào chung kết AFF Cup 2026",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/doi-tuyen-viet-nam-duoc-thuong-khung-sau-khi-vao-chung-ket-aff-cup-2026-192260819224130618.htm",
-                "excerpt": "Đội tuyển Việt Nam giành quyền vào chung kết ASEAN Cup 2026."
+                "title": "YouTube \"siết\" gói Premium Family khác địa chỉ nhà: Dịch vụ mua chung trôi nổi vỡ trận, người dùng đối mặt nguy cơ bị khóa tài khoản 12 tháng",
+                "source": "genk_vn",
+                "url": "https://genk.vn/youtube-siet-goi-premium-family-khac-dia-chi-nha-dich-vu-mua-chung-troi-noi-vo-tran-nguoi-dung-doi-mat-nguy-co-bi-khoa-tai-khoan-12-thang-16526082008024296.chn",
+                "excerpt": "YouTube thực hiện chiến dịch thanh lọc tài khoản dùng chung không cùng địa chỉ."
               }
             ]
           }
@@ -309,58 +304,69 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến tại eo biển Hormuz và phản ứng của Mỹ.",
-        "why": "Ảnh hưởng trực tiếp đến giá dầu và an ninh năng lượng."
+        "theme": "Thị trường tài chính",
+        "what_to_watch": "Danh mục nâng hạng FTSE Russell và phản ứng của thị trường chứng khoán Việt Nam.",
+        "why": "Ảnh hưởng trực tiếp đến dòng vốn ngoại vào Việt Nam."
       },
       {
-        "theme": "Thị trường tài chính Mỹ",
-        "what_to_watch": "Lợi suất trái phiếu và phản ứng của thị trường chứng khoán.",
-        "why": "Tác động từ nợ công kỷ lục và chính sách tiền tệ."
+        "theme": "Địa chính trị",
+        "what_to_watch": "Diễn biến căng thẳng Mỹ-Iran và giá dầu Brent.",
+        "why": "Tác động đến an ninh năng lượng và lạm phát toàn cầu."
       },
       {
-        "theme": "Chính sách BĐS Việt Nam",
-        "what_to_watch": "Các văn bản hướng dẫn luật đất đai mới.",
-        "why": "Ảnh hưởng đến thị trường bất động sản và hạ tầng."
+        "theme": "Chính sách thuế",
+        "what_to_watch": "Tiến độ thông qua đề xuất giảm 30% thuế cho doanh nghiệp nhỏ.",
+        "why": "Hỗ trợ trực tiếp cho khu vực kinh tế tư nhân."
       },
       {
-        "theme": "Công nghệ AI",
-        "what_to_watch": "Tiến độ hợp tác chip AI và các quy định quản lý.",
-        "why": "Định hình lại chuỗi cung ứng công nghệ toàn cầu."
+        "theme": "Mỹ tuyên bố chiến tranh kinh tế với Iran, giá dầu thế giới tăng mạnh",
+        "what_to_watch": "Theo dõi phản ứng của thị trường dầu mỏ và các động thái từ Tehran.",
+        "why": "Tác động trực tiếp đến an ninh năng lượng và ổn định địa chính trị toàn cầu."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin tăng mạnh sau khi Bộ Tài chính Mỹ tăng quy mô mua lại trái phiếu",
-        "why": "Đây là sự kiện vĩ mô quan trọng nhất ảnh hưởng trực tiếp đến dòng vốn vào tài sản rủi ro trong 48 giờ qua."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thủ tướng: Chuyển tư duy 'bồi thường tài sản' sang 'tái thiết cuộc sống' khi tái định cư",
-        "why": "Định hướng chính sách quan trọng nhất ảnh hưởng đến hàng loạt dự án hạ tầng và bất động sản."
+        "theme": "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ",
+        "what_to_watch": "Theo dõi tiến độ thông qua tại Quốc hội.",
+        "why": "Chính sách tài khóa trực tiếp hỗ trợ doanh nghiệp nhỏ trong bối cảnh khó khăn."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thuốc huyết áp phổ biến liên quan đến 33% rủi ro thận cao hơn ở bệnh nhân tiểu đường loại 2",
-        "why": "Tác động trực tiếp đến chi phí y tế và quản lý bệnh mãn tính."
+        "what_to_watch": "Bitcoin vượt 72.000 USD sau khi Bộ Tài chính Mỹ mở rộng chương trình mua lại trái phiếu",
+        "why": "Đây là sự kiện tài chính quan trọng nhất trong 48 giờ qua, ảnh hưởng trực tiếp đến tâm lý thị trường toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Nợ công Mỹ vượt mốc 40 nghìn tỷ USD",
-        "why": "Đây là sự kiện kinh tế vĩ mô quan trọng nhất trong 48 giờ qua, ảnh hưởng trực tiếp đến tâm lý thị trường toàn cầu."
+        "what_to_watch": "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ",
+        "why": "Chính sách tài khóa trực tiếp hỗ trợ doanh nghiệp nhỏ trong bối cảnh khó khăn."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Giá vàng thế giới bật tăng dữ dội, vàng trong nước quay đầu giảm",
-        "why": "Phản ánh sự phân hóa giữa thị trường vàng quốc tế và nội địa dưới tác động của chính sách tiền tệ Mỹ."
+        "what_to_watch": "Nghịch lý tăng trưởng GDP và làn sóng doanh nghiệp rút lui khỏi thị trường",
+        "why": "Phản ánh bức tranh vĩ mô và sức khỏe thực tế của khu vực kinh tế tư nhân Việt Nam."
       },
       {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Tổng thống Mỹ Donald Trump khẳng định AI quan trọng hơn Internet",
-        "why": "Quan điểm của người đứng đầu chính phủ Mỹ về AI có tác động trực tiếp đến chiến lược đầu tư của các tập đoàn công nghệ lớn."
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Thuốc tim mạch giá rẻ giúp giảm 25% tỷ lệ nhập viện",
+        "why": "Tác động trực tiếp đến chi phí y tế công cộng và quản lý bệnh mãn tính."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Tháng 7 không nhà băng nào giảm lãi suất cho vay, nơi cao nhất tăng lên 11,34%/năm",
+        "why": "Phản ánh xu hướng lãi suất thực tế tại Việt Nam, ảnh hưởng trực tiếp đến chi phí tài chính của doanh nghiệp và người dân."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các diễn biến quân sự cụ thể tại Trung Đông ngoài các cảnh báo chung; cần xác minh thêm về tính khả thi của các dự án hạ tầng lớn tại Việt Nam.",
+    "source_desk": [
+      {
+        "topic": "Chính sách Việt Nam",
+        "representative_sources": [
+          {
+            "title": "Đề xuất giảm 30% thuế cho hộ kinh doanh, doanh nghiệp có doanh thu dưới 10 tỷ đồng",
+            "source": "tienphong_vn",
+            "url": "https://tienphong.vn/de-xuat-giam-30-thue-cho-ho-kinh-doanh-doanh-nghiep-co-doanh-thu-duoi-10-ty-dong-post1869614.tpo"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng cụ thể của thị trường chứng khoán Việt Nam sau khi FTSE Russell chốt danh mục.",
     "notable_articles": []
   }
 }
