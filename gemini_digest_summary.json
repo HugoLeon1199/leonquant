@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-20T22:31:21.172003+00:00",
+  "generated_at": "2026-08-21T22:25:46.430539+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 797211,
+    "estimated_input_tokens": 736111,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 698,
-    "sent_article_count": 698,
+    "input_article_count": 634,
+    "sent_article_count": 634,
     "window": {
-      "end_date": "2026-08-21",
+      "end_date": "2026-08-22",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,82 +24,81 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "15",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, chính sách tài khóa và xu hướng công nghệ trong 48 giờ qua.",
+    "reading_time_minutes": "auto",
+    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, chính sách kinh tế và đột phá công nghệ trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn tái định vị dòng vốn mạnh mẽ, khi lợi suất trái phiếu Mỹ tăng cao thúc đẩy nhà đầu tư tìm đến các tài sản rủi ro như Bitcoin, đồng thời gây áp lực lên các thị trường mới nổi. Tại Việt Nam, trọng tâm điều hành chuyển dịch sang các chính sách tài khóa cụ thể nhằm hỗ trợ doanh nghiệp nhỏ và vừa, cùng với đó là nỗ lực chuẩn hóa hạ tầng số và xuất khẩu nông sản.",
-        "most_mentioned": "Các chủ đề về chính sách thuế, biến động giá vàng và sự trỗi dậy của AI trong hạ tầng công nghiệp là những điểm nóng được nhắc lại nhiều nhất. Sự kiện Evergrande tại Trung Quốc và căng thẳng địa chính trị Mỹ-Iran cũng chi phối tâm lý thị trường toàn cầu.",
-        "top_stories": "Sự kiện Bitcoin vượt mốc 72.000 USD và các chính sách giảm thuế của Chính phủ Việt Nam là hai câu chuyện quyết định tâm lý nhà đầu tư. Việc FTSE Russell chuẩn bị công bố danh mục nâng hạng thị trường Việt Nam cũng là biến số lớn cần theo dõi.",
-        "sector_impacts": "Ngành tài chính đang chịu áp lực từ lãi suất, trong khi ngành công nghệ tập trung vào hạ tầng AI và chuyển đổi số đô thị. Xuất khẩu nông sản (sầu riêng) đang hưởng lợi từ các mã số vùng trồng mới.",
-        "watch_24_72h": "Theo dõi sát sao danh mục nâng hạng của FTSE Russell, diễn biến giá vàng trong nước, và các văn bản hướng dẫn giảm thuế cho doanh nghiệp nhỏ."
+        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn tái định vị dòng vốn mạnh mẽ, khi Bitcoin và vàng cùng tăng giá trong bối cảnh lo ngại về nợ công Mỹ và hiệu quả của các chính sách can thiệp trái phiếu. Tại Việt Nam, trọng tâm điều hành chuyển dịch sang việc cụ thể hóa các chính sách hỗ trợ doanh nghiệp và tháo gỡ vướng mắc pháp lý cho bất động sản, song song với việc nâng hạng thị trường chứng khoán.",
+        "most_mentioned": "Chính sách thuế và tín dụng bất động sản tại Việt Nam là chủ đề được nhắc đến nhiều nhất, phản ánh nỗ lực kích cầu kinh tế. Trên bình diện quốc tế, các biến động của lợi suất trái phiếu Mỹ và sự trỗi dậy của tài sản số là tâm điểm thu hút sự chú ý của giới đầu tư.",
+        "top_stories": "Sự kiện FTSE Russell chính thức nâng hạng chứng khoán Việt Nam và các đề xuất giảm 30% thuế cho doanh nghiệp nhỏ là những câu chuyện quan trọng nhất, định hình kỳ vọng về dòng vốn ngoại và sức khỏe khu vực kinh tế tư nhân trong thời gian tới.",
+        "sector_impacts": "Các ngành tài chính, bất động sản và công nghệ đang chịu tác động trực tiếp từ các quyết định chính sách. Trong khi đó, ngành hàng không đang đối mặt với thách thức an ninh mạng và an toàn bay sau các sự cố UAV, đòi hỏi sự phối hợp liên ngành chặt chẽ hơn.",
+        "watch_24_72h": "Trong 24–72 giờ tới, cần theo dõi sát sao diễn biến giá vàng và Bitcoin, các văn bản hướng dẫn cụ thể về chính sách thuế mới tại Việt Nam, cùng tiến độ khắc phục hậu quả mưa lũ tại các tỉnh phía Bắc."
       },
-      "content": "Trong 48 giờ qua, bức tranh kinh tế thị trường chịu áp lực lớn từ biến động lợi suất trái phiếu Mỹ và nợ công vượt 40 nghìn tỷ USD, thúc đẩy dòng vốn tìm đến các tài sản rủi ro như Bitcoin. Tại Việt Nam, trọng tâm là các chính sách hỗ trợ doanh nghiệp, thúc đẩy xuất khẩu nông sản và các tranh cãi về phí dịch vụ số trong giao thông. Các doanh nghiệp nhỏ và vừa đang kỳ vọng vào đề xuất giảm 30% thuế thu nhập, trong khi thị trường chứng khoán chờ đợi quyết định từ FTSE Russell. Công nghệ AI không còn là câu chuyện phần mềm mà đang chuyển dịch sang hạ tầng bán dẫn và trung tâm dữ liệu, với sự tham gia tích cực của các tập đoàn lớn tại Việt Nam. Căng thẳng địa chính trị Mỹ-Iran leo thang với các đe dọa trừng phạt kinh tế từ Tổng thống Mỹ Donald Trump cũng đang đẩy giá dầu Brent vượt mốc 93 USD/thùng, tạo thêm áp lực lạm phát cho các nền kinh tế nhập khẩu.",
+      "content": "Trong 48 giờ qua, thị trường tài chính thị trường ghi nhận sự biến động mạnh của các tài sản rủi ro khi Bitcoin vượt 79.000 USD nhờ dòng vốn ETF kỷ lục, trong khi vàng bùng nổ sát 4.600 USD/ounce do lo ngại nợ công Mỹ vượt 40.000 tỷ USD. Tại Việt Nam, FTSE Russell chính thức xác nhận nâng hạng chứng khoán Việt Nam lên thị trường mới nổi thứ cấp, dự kiến thu hút 1,35 tỷ USD từ năm 2027. Chính phủ cũng trình Quốc hội phương án giảm 30% thuế thu nhập cho doanh nghiệp và hộ kinh doanh có doanh thu dưới 10 tỷ đồng/năm nhằm thúc đẩy phục hồi kinh tế. Trong lĩnh vực công nghệ, sự cố UAV xâm nhập sân bay Tân Sơn Nhất gây gián đoạn 56 chuyến bay đã đặt ra yêu cầu cấp thiết về quản lý thiết bị bay không người lái, trong khi các đột phá về pin thể rắn của Geely và công nghệ truyền dẫn quang học trên chip silicon của Caltech đang định hình lại hạ tầng phần cứng cho tương lai. Dòng vốn đang có xu hướng dịch chuyển từ các tài sản đầu cơ sang các lĩnh vực có nền tảng thực tế như AI và hạ tầng dữ liệu, trong khi chính sách tài khóa tại Việt Nam đang chuyển từ định hướng sang giai đoạn thiết kế luật chơi cụ thể.",
       "representative_sources": [
         {
-          "title": "Bitcoin Price Breaks Above 200-Day Moving Average",
-          "source": "cointelegraph_com",
-          "url": "https://cointelegraph.com/markets/bitcoin-breaks-200-day-moving-average?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-          "excerpt": "Bitcoin phá vỡ ngưỡng kháng cự 200 ngày nhờ dòng vốn từ chương trình mua lại trái phiếu của Mỹ."
+          "title": "Bitcoin ETFs Just Had Their Biggest Day Since May—BlackRock Took 83% of It - Decrypt",
+          "source": "decrypt_co",
+          "url": "https://decrypt.co/376211/bitcoin-etfs-biggest-day-since-may"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Chính sách thuế và hỗ trợ doanh nghiệp",
-          "why_mentioned": "Nhiều báo cáo về đề xuất giảm thuế và khó khăn của doanh nghiệp tư nhân.",
-          "evidence_hint": "Các bài báo từ Tienphong, Baoxaydung."
+          "topic": "Chính sách thuế và tín dụng BĐS",
+          "why_mentioned": "Phản ánh ưu tiên của Chính phủ trong việc hỗ trợ doanh nghiệp và ổn định thị trường bất động sản.",
+          "evidence_hint": "Nhiều bài viết từ báo chính thống (Tuổi Trẻ, Dân Trí, Cafef)."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Bitcoin và tài sản rủi ro",
-          "why_hot": "Tăng trưởng mạnh mẽ sau các thông báo vĩ mô từ Mỹ.",
-          "impact": "Thay đổi khẩu vị rủi ro của nhà đầu tư toàn cầu.",
-          "evidence_hint": "Dữ liệu từ Cointelegraph, CNBC."
+          "topic": "Nâng hạng thị trường chứng khoán",
+          "why_hot": "Sự kiện có tác động trực tiếp đến dòng vốn ngoại và vị thế thị trường Việt Nam.",
+          "impact": "Kỳ vọng thu hút 1,35 tỷ USD trong giai đoạn 2027.",
+          "evidence_hint": "FTSE Russell công bố danh mục chính thức."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch sang quản trị bằng dữ liệu tại TP.HCM",
-          "why_watch": "Đánh dấu bước ngoặt trong quản lý đô thị thông minh."
+          "signal": "Dịch chuyển dòng vốn sang hạ tầng AI",
+          "why_watch": "Các tập đoàn lớn đang ưu tiên đầu tư vào trung tâm dữ liệu và bán dẫn thay vì phần mềm đơn thuần."
         }
       ],
       "watch_next": [
-        "Danh mục nâng hạng FTSE Russell",
-        "Diễn biến giá vàng trong nước",
-        "Phản ứng của thị trường với chính sách thuế mới"
+        "Diễn biến giá vàng và Bitcoin",
+        "Văn bản hướng dẫn chính sách thuế mới",
+        "Tiến độ khắc phục hậu quả mưa lũ tại Bắc Bộ"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Bitcoin vượt 72.000 USD sau khi Bộ Tài chính Mỹ mở rộng chương trình mua lại trái phiếu",
-        "one_sentence": "Dòng vốn tìm đến tài sản rủi ro tăng mạnh khi Mỹ tăng quy mô mua lại trái phiếu dài hạn, giúp Bitcoin phá vỡ ngưỡng kháng cự 200 ngày.",
-        "why_it_matters": "Đây là sự kiện tài chính quan trọng nhất trong 48 giờ qua, ảnh hưởng trực tiếp đến tâm lý thị trường toàn cầu.",
-        "watch_next": "Theo dõi diễn biến giá Bitcoin và các chỉ số tài chính Mỹ.",
+        "title": "FTSE Russell nâng hạng chứng khoán Việt Nam",
+        "one_sentence": "Việc chuyển từ thị trường cận biên lên mới nổi thứ cấp dự kiến thu hút 1,35 tỷ USD vốn ngoại trong giai đoạn 2027, đánh dấu cột mốc quan trọng cho vị thế tài chính quốc gia.",
+        "why_it_matters": "Tác động trực tiếp đến dòng vốn đầu tư gián tiếp và cấu trúc thị trường chứng khoán Việt Nam.",
+        "watch_next": "Tiến độ giải ngân vốn ngoại sau ngày 21/9.",
         "source_urls": [
-          "https://cointelegraph.com/markets/bitcoin-breaks-200-day-moving-average?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+          "https://dantri.com.vn/kinh-doanh/27-co-phieu-viet-nam-vao-ro-chi-so-moi-noi-cua-ftse-nang-hang-co-hieu-luc-tu-219-20260821192938821.htm"
         ]
       },
       {
         "rank": 2,
-        "title": "Mỹ tuyên bố chiến tranh kinh tế với Iran, giá dầu thế giới tăng mạnh",
-        "one_sentence": "Tổng thống Mỹ Donald Trump đe dọa các biện pháp trừng phạt khắc nghiệt nhất từ trước đến nay, đẩy giá dầu Brent vượt 93 USD/thùng.",
-        "why_it_matters": "Tác động trực tiếp đến an ninh năng lượng và ổn định địa chính trị toàn cầu.",
-        "watch_next": "Theo dõi phản ứng của thị trường dầu mỏ và các động thái từ Tehran.",
+        "title": "Bitcoin vượt 79.000 USD nhờ dòng vốn ETF kỷ lục",
+        "one_sentence": "Dòng vốn ETF đạt 606 triệu USD trong một ngày cùng các đợt thanh lý vị thế bán khống quy mô lớn đã đẩy Bitcoin lên mức cao mới, phản ánh sự quay trở lại của dòng tiền tổ chức.",
+        "why_it_matters": "Định hình lại tâm lý thị trường tài sản rủi ro toàn cầu trong bối cảnh vĩ mô bất ổn.",
+        "watch_next": "Khả năng duy trì đà tăng khi đối mặt với các ngưỡng kháng cự kỹ thuật.",
         "source_urls": [
-          "https://cnbc.com/2026/08/20/oil-prices-brent-wti-hormuz-trump.html"
+          "https://decrypt.co/376211/bitcoin-etfs-biggest-day-since-may"
         ]
       },
       {
         "rank": 3,
-        "title": "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ",
-        "one_sentence": "Chính phủ trình Quốc hội giảm 30% thuế thu nhập cá nhân và doanh nghiệp có doanh thu dưới 10 tỷ đồng trong giai đoạn 2026-2027.",
-        "why_it_matters": "Chính sách tài khóa trực tiếp hỗ trợ doanh nghiệp nhỏ trong bối cảnh khó khăn.",
-        "watch_next": "Theo dõi tiến độ thông qua tại Quốc hội.",
+        "title": "Chính phủ đề xuất giảm 30% thuế cho doanh nghiệp nhỏ",
+        "one_sentence": "Phương án giảm thuế thu nhập cho các đơn vị có doanh thu dưới 10 tỷ đồng/năm trong giai đoạn 2026-2027 nhằm tháo gỡ khó khăn cho khu vực kinh tế tư nhân và hộ kinh doanh.",
+        "why_it_matters": "Chính sách tài khóa trực tiếp hỗ trợ sức mua và dòng tiền của doanh nghiệp trong bối cảnh kinh tế cần phục hồi.",
+        "watch_next": "Quyết định phê duyệt chính thức từ Quốc hội.",
         "source_urls": [
-          "https://tienphong.vn/de-xuat-giam-30-thue-cho-ho-kinh-doanh-doanh-nghiep-co-doanh-thu-duoi-10-ty-dong-post1869614.tpo"
+          "https://baochinhphu.vn/de-xuat-giam-30-thue-cho-hang-trieu-ho-kinh-doanh-102260821165309545.htm"
         ]
       }
     ],
@@ -107,24 +106,25 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48 giờ qua chứng kiến sự phân hóa rõ rệt giữa các tài sản rủi ro và chính sách tài khóa trong nước. Trong khi Bitcoin và các tài sản số hưởng lợi từ các động thái nới lỏng thanh khoản của Mỹ, thị trường Việt Nam lại tập trung vào việc tháo gỡ khó khăn cho doanh nghiệp nhỏ thông qua chính sách thuế và quản lý lãi suất. Sự kiện nâng hạng thị trường chứng khoán bởi FTSE Russell đang tạo ra tâm lý thận trọng nhưng đầy kỳ vọng về dòng vốn ngoại. Đặc biệt, việc giá vàng trong nước biến động mạnh theo đà thế giới, vượt mốc 146 triệu đồng/lượng, cho thấy nhà đầu tư vẫn ưu tiên các tài sản trú ẩn trong bối cảnh lạm phát và bất ổn địa chính trị.",
+        "sector_thesis": "Ngành tài chính Việt Nam đang chứng kiến sự chuyển dịch mạnh mẽ nhờ các chính sách hỗ trợ thuế và sự kiện nâng hạng thị trường. Dòng vốn tín dụng bất động sản đạt hơn 2,5 triệu tỷ đồng, tăng 12,71% trong quý II, cho thấy sự tập trung vào các dự án có pháp lý hoàn thiện. Trong khi đó, thị trường vàng và tài sản số thị trường đang chịu áp lực điều chỉnh trước các biến số vĩ mô từ Mỹ, đặc biệt là khi lợi suất trái phiếu 30 năm vượt 5,3%. Việc thoái vốn nhà nước tại các doanh nghiệp tỷ USD như GAS và BSR cũng đang mở ra cơ hội lớn cho nhà đầu tư, định hình lại cấu trúc sở hữu doanh nghiệp trong giai đoạn 2026-2030.",
         "subsector_briefs": [
           {
-            "name": "Chính sách tài khóa và tiền tệ",
-            "overview": "Chính phủ Việt Nam tập trung vào các biện pháp hỗ trợ doanh nghiệp nhỏ thông qua giảm thuế, trong khi Fed phát tín hiệu cứng rắn về lãi suất.",
+            "name": "Thị trường vốn và Chính sách",
+            "overview": "Sự kiện nâng hạng FTSE và các đề xuất giảm thuế đang tạo động lực lớn cho dòng vốn nội địa và ngoại khối.",
             "key_points": [
-              "Giảm 30% thuế cho doanh nghiệp nhỏ",
-              "Fed duy trì quan điểm diều hâu về lãi suất"
+              "FTSE nâng hạng chứng khoán Việt Nam",
+              "Đề xuất giảm 30% thuế thu nhập doanh nghiệp"
             ],
             "key_story_titles": [
-              "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ"
+              "FTSE nâng hạng chứng khoán Việt Nam",
+              "Đề xuất giảm 30% thuế cho doanh nghiệp"
             ],
             "representative_sources": [
               {
-                "title": "Đề xuất giảm 30% thuế cho hộ kinh doanh, doanh nghiệp có doanh thu dưới 10 tỷ đồng",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/de-xuat-giam-30-thue-cho-ho-kinh-doanh-doanh-nghiep-co-doanh-thu-duoi-10-ty-dong-post1869614.tpo",
-                "excerpt": "Chính phủ trình Quốc hội giảm 30% thuế thu nhập cho doanh nghiệp có doanh thu dưới 10 tỷ đồng."
+                "title": "27 cổ phiếu Việt Nam vào rổ chỉ số mới nổi của FTSE, nâng hạng có hiệu lực từ 21/9",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/27-co-phieu-viet-nam-vao-ro-chi-so-moi-noi-cua-ftse-nang-hang-co-hieu-luc-tu-219-20260821192938821.htm",
+                "excerpt": "FTSE Russell công bố danh mục chính thức, xác nhận Việt Nam chuyển từ thị trường cận biên lên thị trường mới nổi thứ cấp."
               }
             ]
           }
@@ -132,30 +132,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Tài sản số",
-            "title": "Bitcoin và làn sóng tài sản rủi ro",
-            "summary": "Bitcoin đã vượt ngưỡng 72.000 USD nhờ sự kết hợp giữa chính sách mua lại trái phiếu của Bộ Tài chính Mỹ và kỳ vọng vào dự luật Clarity Act. Sự kiện này đánh dấu một bước ngoặt trong khẩu vị rủi ro của nhà đầu tư thị trường, khi dòng vốn bắt đầu dịch chuyển mạnh mẽ từ các tài sản truyền thống sang tài sản mã hóa trong bối cảnh thanh khoản được cải thiện.",
+            "depth_level": "major",
+            "sub_sector": "Thị trường vốn",
+            "title": "Việt Nam chính thức vào rổ chỉ số mới nổi của FTSE",
+            "summary": "FTSE Russell đã công bố danh mục chính thức đưa 27 cổ phiếu Việt Nam vào rổ chỉ số mới nổi thứ cấp, đánh dấu bước ngoặt trong việc thu hút dòng vốn ngoại. Sự kiện này không chỉ nâng cao vị thế thị trường mà còn kỳ vọng mang lại dòng vốn giải ngân quy mô lớn từ năm 2027.",
             "main_developments": [
-              "Bitcoin tăng 12% trong 48 giờ",
-              "Thanh khoản thị trường tăng nhờ chương trình mua lại trái phiếu Mỹ",
-              "Dự luật Clarity Act được đẩy mạnh tại Nhà Trắng"
+              "27 cổ phiếu được thêm mới vào chỉ số FTSE All-Cap",
+              "6 cổ phiếu lớn gồm VCB, VIC, VHM, BID, HPG, VPB vào FTSE All-World",
+              "Dòng vốn dự kiến giải ngân mạnh từ tháng 3/2027"
             ],
-            "why_it_matters": "Sự phục hồi của Bitcoin không chỉ là câu chuyện giá cả mà còn là chỉ báo cho thấy sự thay đổi trong dòng chú ý thị trường và niềm tin vào các tài sản phi tập trung.",
+            "why_it_matters": "Đây là sự kiện quan trọng nhất định hình dòng vốn ngoại và vị thế thị trường chứng khoán Việt Nam trong 48h qua.",
             "affected_groups": [
-              "Nhà đầu tư tiền số",
-              "Thị trường tài chính toàn cầu"
+              "Nhà đầu tư nước ngoài",
+              "Các doanh nghiệp vốn hóa lớn",
+              "Thị trường chứng khoán Việt Nam"
             ],
             "watch_next": [
-              "Diễn biến giá Bitcoin sau khi vượt ngưỡng 72.000 USD",
-              "Phản ứng của các cơ quan quản lý Mỹ đối với Clarity Act"
+              "Tiến độ giải ngân vốn ngoại sau ngày 21/9",
+              "Phản ứng của các quỹ đầu tư chỉ số"
             ],
             "representative_sources": [
               {
-                "title": "Bitcoin Price Breaks Above 200-Day Moving Average",
-                "source": "cointelegraph_com",
-                "url": "https://cointelegraph.com/markets/bitcoin-breaks-200-day-moving-average?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-                "excerpt": "Bitcoin phá vỡ ngưỡng kháng cự 200 ngày nhờ dòng vốn từ chương trình mua lại trái phiếu của Mỹ."
+                "title": "27 cổ phiếu Việt Nam vào rổ chỉ số mới nổi của FTSE, nâng hạng có hiệu lực từ 21/9",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/27-co-phieu-viet-nam-vao-ro-chi-so-moi-noi-cua-ftse-nang-hang-co-hieu-luc-tu-219-20260821192938821.htm",
+                "excerpt": "FTSE Russell công bố danh mục chính thức, xác nhận Việt Nam chuyển từ thị trường cận biên lên thị trường mới nổi thứ cấp."
               }
             ]
           }
@@ -164,24 +165,25 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu, mà còn ở hạ tầng dữ liệu, bán dẫn và ứng dụng AI trong quản trị đô thị. Các bài viết về Samsung chuyển dịch dây chuyền sản xuất chip sang Việt Nam và nỗ lực chuyển đổi số của TP.HCM cho thấy Việt Nam đang dần khẳng định vị thế trong chuỗi cung ứng công nghệ toàn cầu. Bên cạnh đó, sự trỗi dậy của các hãng robot Trung Quốc như Unitree, bất chấp lệnh cấm từ Mỹ, cho thấy sự cạnh tranh khốc liệt trong lĩnh vực phần cứng AI và robot hình người.",
+        "sector_thesis": "Công nghệ và AI đang chuyển mình từ giai đoạn thử nghiệm sang ứng dụng thực tế trong vận hành doanh nghiệp. Các đột phá về phần cứng như pin thể rắn của Geely với tuổi thọ 1 triệu kilomet và công nghệ truyền dẫn quang học trên chip silicon của Caltech đang mở ra kỷ nguyên mới cho hạ tầng AI. Đồng thời, sự cố UAV xâm nhập sân bay Tân Sơn Nhất đã thúc đẩy Bộ Công an tăng cường thiết bị giám sát, cho thấy tầm quan trọng của an ninh công nghệ trong hạ tầng trọng điểm. Các vấn đề về an ninh mạng và quyền riêng tư, như vụ kiện 400 triệu USD của TikTok, cũng trở thành thách thức lớn đối với các nền tảng số toàn cầu.",
         "subsector_briefs": [
           {
-            "name": "Hạ tầng AI và Bán dẫn",
-            "overview": "Các tập đoàn công nghệ lớn đang đẩy mạnh đầu tư vào hạ tầng bán dẫn và trung tâm dữ liệu để phục vụ nhu cầu AI.",
+            "name": "Hạ tầng AI và An ninh công nghệ",
+            "overview": "Sự kết hợp giữa phần cứng tiên tiến và quản lý an ninh mạng đang là ưu tiên hàng đầu của các doanh nghiệp công nghệ.",
             "key_points": [
-              "Samsung xem xét chuyển dây chuyền chip sang Việt Nam",
-              "Đột phá Caltech trong truyền dẫn ánh sáng trên chip"
+              "Đột phá pin thể rắn của Geely",
+              "Tăng cường an ninh hàng không bằng thiết bị giám sát drone"
             ],
             "key_story_titles": [
-              "Samsung xem xét chuyển dây chuyền sản xuất chip nhớ sang Việt Nam"
+              "Sự cố UAV xâm nhập sân bay Tân Sơn Nhất",
+              "Geely công bố pin thể rắn"
             ],
             "representative_sources": [
               {
-                "title": "'Đại bàng' Samsung tính chuyển dây chuyền chip nhớ từ Hàn Quốc sang Việt Nam?",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/dai-bang-samsung-tinh-chuyen-day-chuyen-chip-nho-tu-han-quoc-sang-viet-nam-188260820215907031.chn",
-                "excerpt": "Samsung cân nhắc chuyển hoạt động đóng gói chip nhớ sang Việt Nam."
+                "title": "Lãnh đạo ACV thông tin thiệt hại sau vụ UAV xâm nhập sân bay Tân Sơn Nhất",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/lanh-dao-acv-thong-tin-thiet-hai-sau-vu-uav-xam-nhap-san-bay-tan-son-nhat-20260821204826835.htm",
+                "excerpt": "Vụ UAV xuất hiện gần Tân Sơn Nhất khiến 56 chuyến bay bị ảnh hưởng, đặt ra yêu cầu cấp thiết về quản lý thiết bị bay không người lái."
               }
             ]
           }
@@ -190,29 +192,30 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Robot và phần cứng AI",
-            "title": "Sự trỗi dậy của ngành robot Trung Quốc",
-            "summary": "Hãng robot Unitree đã niêm yết thành công tại Thượng Hải với định giá 50 tỷ USD, bất chấp lệnh cấm nhập khẩu từ Mỹ. Sự kiện này cho thấy sức mạnh nội tại của ngành công nghệ Trung Quốc trong việc phát triển robot hình người và phần cứng AI, đồng thời đặt ra những thách thức mới cho các rào cản thương mại quốc tế.",
+            "sub_sector": "An ninh hàng không",
+            "title": "Sự cố UAV tại sân bay Tân Sơn Nhất",
+            "summary": "Việc UAV xâm nhập trái phép vùng cấm bay tại sân bay Tân Sơn Nhất đã gây gián đoạn nghiêm trọng cho 56 chuyến bay, làm dấy lên hồi chuông cảnh báo về an ninh hàng không. Sự kiện này buộc các cơ quan chức năng phải đẩy nhanh việc trang bị thiết bị phát hiện và truy vết drone hiện đại.",
             "main_developments": [
-              "Unitree niêm yết trên sàn STAR Market",
-              "Giá cổ phiếu tăng 629% trong phiên đầu tiên",
-              "Định giá công ty đạt 50 tỷ USD"
+              "56 chuyến bay bị ảnh hưởng, 24 chuyến phải chuyển hướng",
+              "Bộ Công an bàn giao thiết bị phát hiện drone cho Tân Sơn Nhất và Nội Bài",
+              "Kiến nghị hoàn thiện cơ chế phối hợp kiểm soát vùng cấm bay"
             ],
-            "why_it_matters": "Sự trỗi dậy của Unitree chứng minh rằng các lệnh cấm thương mại có thể không ngăn cản được sự phát triển của các công ty công nghệ có nền tảng nội địa mạnh.",
+            "why_it_matters": "Sự kiện an ninh hàng không có tác động trực tiếp đến vận tải và an toàn cộng đồng.",
             "affected_groups": [
-              "Ngành robot toàn cầu",
-              "Nhà đầu tư công nghệ"
+              "Ngành hàng không",
+              "Hành khách",
+              "Cơ quan an ninh"
             ],
             "watch_next": [
-              "Phản ứng của Mỹ đối với sự trỗi dậy của Unitree",
-              "Khả năng mở rộng thị trường của các hãng robot Trung Quốc"
+              "Tiến độ lắp đặt thiết bị giám sát tại các sân bay",
+              "Quy định mới về quản lý thiết bị bay không người lái"
             ],
             "representative_sources": [
               {
-                "title": "Mỹ vừa cấm cửa robot Trung Quốc được ba tuần, hãng robot lớn nhất nước này đã lên sàn và kiếm được 50 tỷ USD chỉ trong một ngày",
-                "source": "genk_vn",
-                "url": "https://genk.vn/my-vua-cam-cua-robot-trung-quoc-duoc-ba-tuan-hang-robot-lon-nhat-nuoc-nay-da-len-san-va-kiem-duoc-50-ty-usd-chi-trong-mot-ngay-16526082015512965.chn",
-                "excerpt": "Unitree niêm yết thành công tại Thượng Hải với định giá 50 tỷ USD."
+                "title": "Lãnh đạo ACV thông tin thiệt hại sau vụ UAV xâm nhập sân bay Tân Sơn Nhất",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/lanh-dao-acv-thong-tin-thiet-hai-sau-vu-uav-xam-nhap-san-bay-tan-son-nhat-20260821204826835.htm",
+                "excerpt": "Vụ UAV xuất hiện gần Tân Sơn Nhất khiến 56 chuyến bay bị ảnh hưởng, đặt ra yêu cầu cấp thiết về quản lý thiết bị bay không người lái."
               }
             ]
           }
@@ -221,23 +224,25 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và chính trị 48 giờ qua tập trung vào các nỗ lực ngoại giao của Việt Nam tại Biển Đông và căng thẳng kinh tế Mỹ-Iran. Trong nước, các chính sách an sinh xã hội và quản lý an ninh hàng không đang được Chính phủ chỉ đạo quyết liệt. Đặc biệt, sự kiện tỷ phú Hứa Gia Ấn của Evergrande bị kết án tù chung thân tại Trung Quốc đã khép lại một chương đen tối của thị trường bất động sản khu vực, đồng thời là lời cảnh báo về quản lý tài chính doanh nghiệp. Các nỗ lực ngoại giao của Việt Nam với Philippines và các nước ASEAN cũng cho thấy sự chủ động trong việc duy trì hòa bình và ổn định khu vực.",
+        "sector_thesis": "Thời sự 48 giờ qua tập trung vào các nỗ lực ứng phó thiên tai tại Việt Nam và căng thẳng địa chính trị Mỹ - Iran. Thủ tướng đã chỉ đạo quyết liệt việc sơ tán dân khỏi vùng nguy cơ lũ quét, sạt lở tại Bắc Bộ và Bắc Trung Bộ. Trên bình diện quốc tế, căng thẳng Mỹ - Iran leo thang với chiến dịch 'Economic D-Day' từ phía Mỹ, đe dọa áp đặt các biện pháp trừng phạt khắc nghiệt nhất lên Tehran, ảnh hưởng trực tiếp đến giá năng lượng toàn cầu. Ngoài ra, các chính sách quản lý không gian mạng thông qua Nghị định 328/2026/NĐ-CP và các vụ án kinh tế lớn như vụ cựu Chủ tịch UBND tỉnh Bạc Liêu Dương Thành Trung cũng là những điểm nhấn quan trọng trong bộ máy điều hành quốc gia.",
         "subsector_briefs": [
           {
-            "name": "Địa chính trị và Ngoại giao",
-            "overview": "Căng thẳng Mỹ-Iran leo thang và các nỗ lực ngoại giao của Việt Nam tại Biển Đông là những điểm nóng chính.",
+            "name": "Địa chính trị và An ninh xã hội",
+            "overview": "Sự kết hợp giữa ứng phó thiên tai trong nước và căng thẳng địa chính trị quốc tế đang định hình bức tranh thời sự.",
             "key_points": [
-              "Mỹ đe dọa trừng phạt kinh tế Iran",
-              "Việt Nam phối hợp với Philippines tại Biển Đông"
+              "Thủ tướng chỉ đạo ứng phó lũ quét",
+              "Căng thẳng Mỹ - Iran leo thang"
             ],
             "key_story_titles": [
-              "Mỹ tuyên bố chiến tranh kinh tế với Iran, giá dầu thế giới tăng mạnh"
+              "Thủ tướng yêu cầu sơ tán dân",
+              "Căng thẳng Mỹ - Iran"
             ],
             "representative_sources": [
               {
-                "title": "Oil prices rise after Treasury Secretary says U.S. will collapse Iran with economic pressure",
-                "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/08/20/oil-prices-brent-wti-hormuz-trump.html"
+                "title": "Thủ tướng yêu cầu sơ tán dân khỏi vùng nguy cơ lũ quét, sạt lở, ngập sâu",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/thu-tuong-yeu-cau-so-tan-dan-khoi-vung-nguy-co-lu-quet-sat-lo-ngap-sau-post1869942.tpo",
+                "excerpt": "Chính quyền địa phương tiếp tục rà soát, chủ động tổ chức sơ tán, di dời dân cư khỏi các khu vực nguy hiểm."
               }
             ]
           }
@@ -247,24 +252,25 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và đời sống 48 giờ qua nổi bật với các sự kiện thể thao và giải trí lớn. Việc đội tuyển Việt Nam vào chung kết ASEAN Cup và concert của BigBang tại Hà Nội đang tạo ra làn sóng truyền thông mạnh mẽ, bên cạnh đó là các thay đổi trong thói quen tiêu dùng dịch vụ số. Các cảnh báo về an toàn trẻ em trên nền tảng số và xu hướng du lịch trải nghiệm cao cấp như dù lượn tại Sapa cho thấy sự chuyển dịch trong lối sống và nhận thức của người tiêu dùng Việt Nam. Những thay đổi này phản ánh một xã hội đang phát triển nhanh chóng, nơi các giá trị văn hóa và trải nghiệm cá nhân ngày càng được coi trọng.",
+        "sector_thesis": "Xu hướng đời sống nổi bật với sự kiện thể thao AFF Cup 2026, nơi tuyển Việt Nam được đánh giá cao trước trận chung kết với Thái Lan. Các nghiên cứu khoa học mới về sức khỏe, như lợi ích của 3 phút chạy nước rút đối với protein trong máu hay kết quả nghiên cứu 8 năm về thời gian sử dụng màn hình ở trẻ em, đang thách thức các quan điểm truyền thống. Ngoài ra, xu hướng tiêu dùng thông minh trong lĩnh vực chăm sóc sức khỏe, như mô hình dưỡng lão bán trú tại Hà Nội và các giải pháp công nghệ không khí cho giấc ngủ, đang phản ánh nhu cầu thực tế của xã hội trong bối cảnh già hóa dân số và nhịp sống đô thị hối hả.",
         "subsector_briefs": [
           {
-            "name": "Văn hóa và Thể thao",
-            "overview": "Sự kiện thể thao và giải trí đang thu hút sự quan tâm lớn của cộng đồng.",
+            "name": "Thể thao và Sức khỏe cộng đồng",
+            "overview": "Sự kết hợp giữa các sự kiện thể thao lớn và các nghiên cứu khoa học mới đang định hình lối sống của người dân.",
             "key_points": [
-              "Việt Nam vào chung kết ASEAN Cup",
-              "BigBang trở lại Việt Nam"
+              "Chung kết AFF Cup 2026",
+              "Lợi ích sức khỏe của tập luyện cường độ cao"
             ],
             "key_story_titles": [
-              "Việt Nam vào chung kết ASEAN Cup 2026 gặp Thái Lan"
+              "Chung kết AFF Cup 2026",
+              "Nghiên cứu sức khỏe mới"
             ],
             "representative_sources": [
               {
-                "title": "Xuân Son chạm cột mốc đặc biệt giữa đêm hội Mỹ Đình",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/xuan-son-cham-cot-moc-dac-biet-giua-dem-hoi-my-dinh-post1869610.tpo",
-                "excerpt": "Đội tuyển Việt Nam giành quyền vào chung kết ASEAN Cup sau khi thắng Malaysia."
+                "title": "HLV Anthony Hudson thừa nhận tuyển Việt Nam được đánh giá cao trước chung kết AFF Cup 2026",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/hlv-thai-lan-noi-loi-bat-ngo-ve-tuyen-viet-nam-truoc-chung-ket-aff-cup-2026-192260821172344266.htm",
+                "excerpt": "Trận chung kết lượt đi AFF Cup 2026 giữa Thái Lan và Việt Nam diễn ra vào 20h ngày 22/8 tại sân Rajamangala."
               }
             ]
           }
@@ -273,29 +279,30 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Tiêu dùng số",
-            "title": "YouTube siết chặt gói Premium Family",
-            "summary": "YouTube đã bắt đầu chiến dịch thanh lọc các tài khoản dùng chung không cùng địa chỉ, gây ảnh hưởng lớn đến người dùng Việt Nam sử dụng dịch vụ mua chung trôi nổi. Chính sách này buộc người dùng phải tuân thủ nghiêm ngặt quy định về địa chỉ nhà, nếu không sẽ đối mặt với nguy cơ bị khóa tài khoản lên đến 12 tháng, làm thay đổi thói quen tiêu dùng dịch vụ số của người Việt.",
+            "sub_sector": "Thể thao",
+            "title": "Chung kết AFF Cup 2026",
+            "summary": "Trận chung kết lượt đi AFF Cup 2026 giữa Thái Lan và Việt Nam đang trở thành tâm điểm chú ý của truyền thông và người hâm mộ. HLV Anthony Hudson của Thái Lan thừa nhận tuyển Việt Nam được đánh giá cao hơn, trong khi HLV Kim Sang-sik khẳng định đội tuyển Việt Nam đã sẵn sàng cho mục tiêu lịch sử.",
             "main_developments": [
-              "YouTube siết chặt quy định gói Premium Family",
-              "Người dùng phải chứng minh cùng địa chỉ nhà",
-              "Nguy cơ khóa tài khoản 12 tháng"
+              "Trận lượt đi diễn ra tại sân Rajamangala",
+              "HLV hai đội bày tỏ sự tôn trọng và quyết tâm",
+              "Sự kiện thu hút lượng lớn khán giả và truyền thông khu vực"
             ],
-            "why_it_matters": "Việc siết chặt này cho thấy YouTube đang quyết liệt bảo vệ doanh thu từ các gói đăng ký, đồng thời chấm dứt kỷ nguyên mua chung dịch vụ giá rẻ tại Việt Nam.",
+            "why_it_matters": "Sự kiện thể thao có tác động lớn đến tinh thần cộng đồng và truyền thông.",
             "affected_groups": [
-              "Người dùng YouTube Premium",
-              "Dịch vụ mua chung tài khoản"
+              "Người hâm mộ bóng đá",
+              "Ngành truyền thông",
+              "Du lịch thể thao"
             ],
             "watch_next": [
-              "Phản ứng của người dùng Việt Nam",
-              "Tỷ lệ hủy gói Premium sau khi siết chặt quy định"
+              "Kết quả trận chung kết lượt đi",
+              "Phản ứng của người hâm mộ sau trận đấu"
             ],
             "representative_sources": [
               {
-                "title": "YouTube \"siết\" gói Premium Family khác địa chỉ nhà: Dịch vụ mua chung trôi nổi vỡ trận, người dùng đối mặt nguy cơ bị khóa tài khoản 12 tháng",
-                "source": "genk_vn",
-                "url": "https://genk.vn/youtube-siet-goi-premium-family-khac-dia-chi-nha-dich-vu-mua-chung-troi-noi-vo-tran-nguoi-dung-doi-mat-nguy-co-bi-khoa-tai-khoan-12-thang-16526082008024296.chn",
-                "excerpt": "YouTube thực hiện chiến dịch thanh lọc tài khoản dùng chung không cùng địa chỉ."
+                "title": "HLV Anthony Hudson thừa nhận tuyển Việt Nam được đánh giá cao trước chung kết AFF Cup 2026",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/hlv-thai-lan-noi-loi-bat-ngo-ve-tuyen-viet-nam-truoc-chung-ket-aff-cup-2026-192260821172344266.htm",
+                "excerpt": "Trận chung kết lượt đi AFF Cup 2026 giữa Thái Lan và Việt Nam diễn ra vào 20h ngày 22/8 tại sân Rajamangala."
               }
             ]
           }
@@ -304,69 +311,89 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường tài chính",
-        "what_to_watch": "Danh mục nâng hạng FTSE Russell và phản ứng của thị trường chứng khoán Việt Nam.",
-        "why": "Ảnh hưởng trực tiếp đến dòng vốn ngoại vào Việt Nam."
+        "theme": "Địa chính trị Trung Đông",
+        "what_to_watch": "Xác nhận chính thức thỏa thuận Mỹ-Iran và phản ứng giá dầu Brent",
+        "why": "Căng thẳng leo thang ảnh hưởng trực tiếp đến nguồn cung năng lượng toàn cầu."
       },
       {
-        "theme": "Địa chính trị",
-        "what_to_watch": "Diễn biến căng thẳng Mỹ-Iran và giá dầu Brent.",
-        "why": "Tác động đến an ninh năng lượng và lạm phát toàn cầu."
+        "theme": "Thị trường tài sản số",
+        "what_to_watch": "Khả năng duy trì đà tăng của Bitcoin và phản ứng của các quỹ ETF",
+        "why": "Dòng vốn ETF đang là động lực chính cho sự phục hồi của tài sản rủi ro."
       },
       {
-        "theme": "Chính sách thuế",
-        "what_to_watch": "Tiến độ thông qua đề xuất giảm 30% thuế cho doanh nghiệp nhỏ.",
-        "why": "Hỗ trợ trực tiếp cho khu vực kinh tế tư nhân."
+        "theme": "Chính sách thuế Việt Nam",
+        "what_to_watch": "Quyết định phê duyệt chính thức từ Quốc hội về giảm thuế",
+        "why": "Chính sách tài khóa trực tiếp hỗ trợ sức mua của doanh nghiệp và hộ kinh doanh."
       },
       {
-        "theme": "Mỹ tuyên bố chiến tranh kinh tế với Iran, giá dầu thế giới tăng mạnh",
-        "what_to_watch": "Theo dõi phản ứng của thị trường dầu mỏ và các động thái từ Tehran.",
-        "why": "Tác động trực tiếp đến an ninh năng lượng và ổn định địa chính trị toàn cầu."
-      },
-      {
-        "theme": "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ",
-        "what_to_watch": "Theo dõi tiến độ thông qua tại Quốc hội.",
-        "why": "Chính sách tài khóa trực tiếp hỗ trợ doanh nghiệp nhỏ trong bối cảnh khó khăn."
+        "theme": "An ninh hàng không",
+        "what_to_watch": "Tiến độ lắp đặt thiết bị giám sát drone tại các sân bay",
+        "why": "Sự cố UAV gây gián đoạn khai thác, đòi hỏi giải pháp an ninh cấp bách."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin vượt 72.000 USD sau khi Bộ Tài chính Mỹ mở rộng chương trình mua lại trái phiếu",
-        "why": "Đây là sự kiện tài chính quan trọng nhất trong 48 giờ qua, ảnh hưởng trực tiếp đến tâm lý thị trường toàn cầu."
+        "what_to_watch": "Bitcoin vượt 79.000 USD, dòng vốn ETF tăng mạnh nhất từ tháng 5",
+        "why": "Đây là sự kiện quan trọng nhất ảnh hưởng đến tâm lý thị trường tài sản rủi ro toàn cầu trong 48 giờ qua."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Đề xuất giảm 30% thuế cho hộ kinh doanh và doanh nghiệp nhỏ",
-        "why": "Chính sách tài khóa trực tiếp hỗ trợ doanh nghiệp nhỏ trong bối cảnh khó khăn."
+        "what_to_watch": "Ngân hàng cho vay bất động sản hơn 2,5 triệu tỷ đồng trong 6 tháng",
+        "why": "Phản ánh dòng vốn tín dụng thực tế vào thị trường BĐS trong bối cảnh lãi suất cao."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Nghịch lý tăng trưởng GDP và làn sóng doanh nghiệp rút lui khỏi thị trường",
-        "why": "Phản ánh bức tranh vĩ mô và sức khỏe thực tế của khu vực kinh tế tư nhân Việt Nam."
+        "what_to_watch": "Tín dụng bất động sản: Chuyển dịch từ \"siết/mở\" sang hiệu quả dòng vốn",
+        "why": "Phản ánh định hướng chính sách tín dụng quan trọng nhất đối với thị trường BĐS hiện nay."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thuốc tim mạch giá rẻ giúp giảm 25% tỷ lệ nhập viện",
-        "why": "Tác động trực tiếp đến chi phí y tế công cộng và quản lý bệnh mãn tính."
+        "what_to_watch": "Thuốc chẹn kênh canxi (DCCB) liên quan đến nguy cơ suy thận ở bệnh nhân tiểu đường",
+        "why": "Ảnh hưởng trực tiếp đến phác đồ điều trị y tế phổ biến và sức khỏe cộng đồng."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Tháng 7 không nhà băng nào giảm lãi suất cho vay, nơi cao nhất tăng lên 11,34%/năm",
-        "why": "Phản ánh xu hướng lãi suất thực tế tại Việt Nam, ảnh hưởng trực tiếp đến chi phí tài chính của doanh nghiệp và người dân."
+        "what_to_watch": "Vàng bùng nổ sát 4.600 USD/ounce, 3 yếu tố quyết định đà tăng tiếp theo",
+        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và xu hướng tài sản trú ẩn toàn cầu."
+      },
+      {
+        "theme": "Công nghệ & AI",
+        "what_to_watch": "Binance ra mắt Agent OS, cho phép AI tự động giao dịch",
+        "why": "Đánh dấu bước tiến mới trong việc ứng dụng AI vào hạ tầng tài chính tập trung."
       }
     ],
     "source_desk": [
       {
-        "topic": "Chính sách Việt Nam",
+        "topic": "Tài chính & Chứng khoán",
         "representative_sources": [
           {
-            "title": "Đề xuất giảm 30% thuế cho hộ kinh doanh, doanh nghiệp có doanh thu dưới 10 tỷ đồng",
+            "title": "27 cổ phiếu Việt Nam vào rổ chỉ số mới nổi của FTSE, nâng hạng có hiệu lực từ 21/9",
+            "source": "dantri_com_vn",
+            "url": "https://dantri.com.vn/kinh-doanh/27-co-phieu-viet-nam-vao-ro-chi-so-moi-noi-cua-ftse-nang-hang-co-hieu-luc-tu-219-20260821192938821.htm"
+          }
+        ]
+      },
+      {
+        "topic": "Công nghệ & AI",
+        "representative_sources": [
+          {
+            "title": "Lãnh đạo ACV thông tin thiệt hại sau vụ UAV xâm nhập sân bay Tân Sơn Nhất",
+            "source": "dantri_com_vn",
+            "url": "https://dantri.com.vn/kinh-doanh/lanh-dao-acv-thong-tin-thiet-hai-sau-vu-uav-xam-nhap-san-bay-tan-son-nhat-20260821204826835.htm"
+          }
+        ]
+      },
+      {
+        "topic": "Thời sự & Chính trị",
+        "representative_sources": [
+          {
+            "title": "Thủ tướng yêu cầu sơ tán dân khỏi vùng nguy cơ lũ quét, sạt lở, ngập sâu",
             "source": "tienphong_vn",
-            "url": "https://tienphong.vn/de-xuat-giam-30-thue-cho-ho-kinh-doanh-doanh-nghiep-co-doanh-thu-duoi-10-ty-dong-post1869614.tpo"
+            "url": "https://tienphong.vn/thu-tuong-yeu-cau-so-tan-dan-khoi-vung-nguy-co-lu-quet-sat-lo-ngap-sau-post1869942.tpo"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng cụ thể của thị trường chứng khoán Việt Nam sau khi FTSE Russell chốt danh mục.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính thức từ phía các cơ quan quản lý quốc tế đối với các đề xuất chính sách mới của Mỹ; thiếu dữ liệu sâu về tác động thực tế của các vụ cháy nhà xưởng đối với chuỗi cung ứng địa phương.",
     "notable_articles": []
   }
 }
