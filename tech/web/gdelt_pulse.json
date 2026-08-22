@@ -1,22 +1,57 @@
 {
   "schema_version": "tech-gdelt-72h-v1",
-  "generated_at_utc": "2026-08-21T19:51:31.958371+00:00",
+  "generated_at_utc": "2026-08-22T02:31:50.623654+00:00",
   "query_window_hours": 72,
-  "estimated_bytes": 1803639378,
-  "processed_bytes": 1803639378,
+  "estimated_bytes": 1295281861,
+  "processed_bytes": 1295281861,
   "bytes_status": "known",
   "ran_successfully": true,
   "reused_previous_events": false,
-  "fresh_event_count": 37,
+  "fresh_event_count": 28,
   "previous_events_age_hours": 0,
   "raw_event_count": 120,
-  "ai_filtered_event_count": 37,
-  "rejected_non_ai_count": 83,
+  "ai_filtered_event_count": 28,
+  "rejected_non_ai_count": 92,
   "events": [
+    {
+      "event_id": "1319110748",
+      "title": "SAN FRANCISCO - INTELLIGENCE",
+      "summary": "Tín hiệu tổ chức: Reuters,1323;Bloomberg,239;Bloomberg,449;Bloomberg,837;Bloomberg,239;Bloomberg,449;Bloomberg,837;Reuters,1323. Công ty liên quan: Anthropic, Intel. Chủ đề: chip_ha_tang",
+      "source_urls": [
+        "http://www.birminghamstar.com/news/279249871/anthropic-credit-line-could-exceed-usd10-billion-ahead-of-ipo",
+        "http://www.parisguardian.com/news/279249871/anthropic-credit-line-could-exceed-usd10-billion-ahead-of-ipo",
+        "http://www.philippinetimes.com/news/279249871/anthropic-credit-line-could-exceed-usd10-billion-ahead-of-ipo",
+        "http://www.australiannews.net/news/279249871/banks-vie-for-roles-in-anthropic-s-usd10-billion-plus-credit-line",
+        "http://www.haitisun.com/news/279249871/anthropic-credit-line-could-exceed-usd10-billion-ahead-of-ipo",
+        "http://www.vietnamtribune.com/news/279249871/anthropic-credit-line-could-exceed-usd10-billion-ahead-of-ipo",
+        "http://www.iranherald.com/news/279249871/anthropic-credit-line-could-exceed-usd10-billion-ahead-of-ipo",
+        "http://www.phoenixherald.com/news/279249871/anthropic-credit-line-could-exceed-usd10-billion-ahead-of-ipo"
+      ],
+      "source_count": 85,
+      "independent_domain_count": 20,
+      "official_source_present": false,
+      "topic_tags": [
+        "chip_ha_tang"
+      ],
+      "company_tags": [
+        "Anthropic",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "anthropic"
+      ],
+      "reported_at": "20260820080000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": 3.1343423019432,
+      "num_articles": 9,
+      "primary_url": "http://www.calcuttanews.net/news/279249871/banks-vie-for-roles-in-anthropic-s-usd10-billion-plus-credit-line"
+    },
     {
       "event_id": "1319080762",
       "title": "BANK",
-      "summary": "Tín hiệu tổ chức: India Computer Emergency Response Team,273;Google,4970;Shell,2125;Indian Companies,3332;Veda Jan End Associates,6155;Company A Actual,1592;Company Business News,6756;Why Companies . Công ty liên quan: Google, Intel. Chủ đề: chip_ha_tang, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Mutual Fund,6938;Mutual Fund,7529;Fund Managers,7684;Bloomberg,1336;Bajaj Finserv Asset Management,6905;Bajaj Asset Management,6857;Bajaj Finserv Flexi Cap Fund,36;Bajaj Finserv Fl. Công ty liên quan: Google, Intel. Chủ đề: chip_ha_tang, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://techstory.in/tcs-laptop-monitoring-tool-raises-questions-over-security-and-employee-surveillance/",
         "https://hindi.business-standard.com/opinion/india-should-align-esg-disclosures-with-global-reporting-standards-id-546137",
@@ -52,9 +87,53 @@
       "primary_url": "https://www.livemint.com/opinion/online-views/india-panel-banking-reforms-banks-fit-for-the-future-artificial-intelligence-public-sector-11787146753707.html"
     },
     {
+      "event_id": "1319070617",
+      "title": "UNITED STATES",
+      "summary": "Tín hiệu tổ chức: United States,289;Prada,4967;Prada,5018;Industrial Research,5673;India Council Of Scientific,5651;Instagram,1100;Recording Industry Association Of America,2296;Williams Sonoma,1449. Công ty liên quan: OpenAI, Anthropic, Meta, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.womansworld.com/entertainment/celebrities/what-is-trisha-yearwood-up-to-bar-recipes-marriage-to-garth-brooks",
+        "https://nypost.com/2026/08/20/business/popular-west-hollywood-bar-and-nightclub-closes-after-26-years/",
+        "https://twitchy.com/samj/2026/08/20/luke-rosiak-banned-from-nextdoor-for-warning-people-about-illegal-who-murdered-woman-there-n2431480",
+        "https://bocanewsnow.com/2026/08/20/boca-raton-man-gets-20-years-in-federal-prison/",
+        "https://organiser.org/2026/08/20/376218/world/they-stole-the-indian-saree-western-fast-fashion-label-jw-pei-slammed-for-cultural-extraction-heritage-rebranding/",
+        "https://www.thenews.com.pk/latest/1412935-jared-leto-gets-cancelled-after-sexual-misconduct-allegations",
+        "https://www.rttnews.com/3682581/treasury-irs-propose-rules-to-protect-refundable-tax-credits-from-abuse-by-illegal-immigrants.aspx",
+        "https://www.rttnews.com/story.aspx?Id=3682581"
+      ],
+      "source_count": 11,
+      "independent_domain_count": 10,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "open_source_developer_tools",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "OpenAI",
+        "Anthropic",
+        "Meta",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent",
+        "openai",
+        "anthropic",
+        "chatgpt"
+      ],
+      "reported_at": "20260820011500",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": -2.56410256410257,
+      "num_articles": 8,
+      "primary_url": "https://www.nbcnews.com/tech/tech-news/chatgpt-openai-ai-agent-rogue-anthropic-clause-security-cyber-rcna592417"
+    },
+    {
       "event_id": "1319238058",
       "title": "INVESTOR",
-      "summary": "Tín hiệu tổ chức: New York Times,950;New York Times,1495;Tech Insights Center,1279;Party Administrators,10956;Health Catalyst,3092;Health Catalyst,3918;Zacks Research,4132;Polar Capital Holdings Plc. Công ty liên quan: OpenRouter. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Exchange Commission,230;Zacks Research,2173;Hsbc Holdings,1380;Wisdomtree Company Profile,3950;Capital Management Corp,1120;Capital Management Corp,1216;Gsa Capital Partners,20;Mor. Công ty liên quan: OpenRouter. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.alleywatch.com/2026/08/aligned-marketplace-independent-primary-care-marketplace-self-insured-employer-healthcare-patrick-nelli/",
         "https://www.themarketsdaily.com/2026/08/21/ninepoint-partners-lp-makes-new-investment-in-corning-incorporated-glw.html",
@@ -85,6 +164,43 @@
       "avg_tone": 1.88284518828452,
       "num_articles": 10,
       "primary_url": "https://www.americanbanker.com/payments/news/stripe-buys-openrouter-as-it-encroaches-on-banking-with-ai"
+    },
+    {
+      "event_id": "1319249686",
+      "title": "ACTOR",
+      "summary": "Tín hiệu tổ chức: Bmw,2441;Us Department Of The Treasury,2332;Google Threat Intelligence Group,32;Google,6;Google,428;Google,4762;Google,4884;Google,4978;Google,5464;Google Agent Development Kit,478. Công ty liên quan: Google, Microsoft, Intel. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
+      "source_urls": [
+        "https://launion.com.ar/lomas-zamora/ahi-esta-la-parada-cornudo-un-pasajero-discutio-un-colectivero-y-terminaron-pinas-centenario-n5445230",
+        "https://www.techradar.com/pro/security/target-may-have-suffered-another-damaging-data-leak-as-hackers-claim-8-6gb-haul",
+        "https://www.heise.de/en/news/Warning-about-attacks-on-Microsoft-IKE-SharePoint-VMware-vCenter-and-macOS-11418824.html",
+        "https://itwire.com/business-it-news/security/google-publishes-agentic-ai-blueprint-after-system-finds-100-critical-vulnerabilities-in-48-hours"
+      ],
+      "source_count": 4,
+      "independent_domain_count": 4,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chip_ha_tang",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "open_source_developer_tools"
+      ],
+      "company_tags": [
+        "Google",
+        "Microsoft",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent",
+        "automation"
+      ],
+      "reported_at": "20260821020000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": -4.82509047044633,
+      "num_articles": 10,
+      "primary_url": "https://itwire.com/business-it-news/security/google-publishes-agentic-ai-blueprint-after-system-finds-100-critical-vulnerabilities-in-48-hours"
     },
     {
       "event_id": "1319073112",
@@ -118,17 +234,16 @@
       "primary_url": "https://www.wowt.com/2026/08/19/man-who-used-chatgpt-plan-omaha-bank-robbery-sentenced/"
     },
     {
-      "event_id": "1318906986",
-      "title": "BUSINESS",
-      "summary": "Tín hiệu tổ chức: Google,1266;Google,2228;Google,2914;Google,3245;Google,4506;Google,4630;Google,4790;Gemini Enterprise Experience Center,290;Gemini Enterprise Experience Center,602;Gemini Enterpris. Công ty liên quan: Google. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
+      "event_id": "1319270969",
+      "title": "GOOGLE - BANK",
+      "summary": "Tín hiệu tổ chức: Google,16;Google,149;Google,215;Google,280;Google,470;Google,639;Google,905;Google,1063;Google,1385;Google,1547;Google,1907;Starbucks,1785;Forbes Business Council,5241;Google,116;G. Công ty liên quan: Google. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://portal.sina.com.hk/finance/finance-mediaoutreachnewswire/media-outreach/2026/08/19/1891332/tridorian-launches-gemini-enterprise-experience-center-in-singapore-to-help-enterprises-turn-ai-ambition-into-business-outcomes/",
-        "https://businessdayghana.com/tridorian-launches-gemini-enterprise-experience-center-in-singapore-to-help-enterprises-turn-ai-ambition-into-business-outcomes/",
-        "https://www.manilatimes.net/2026/08/19/tmt-newswire/media-outreach-newswire/tridorian-launches-gemini-enterprise-experience-center-in-singapore-to-help-enterprises-turn-ai-ambition-into-business-outcomes/2408073",
-        "https://livenews.co.nz/2026/08/19/tridorian-launches-gemini-enterprise-experience-center-in-singapore-to-help-enterprises-turn-ai-ambition-into-business-outcomes/"
+        "https://www.techcentral.ie/checkout-google-now/",
+        "https://www.forbes.com/councils/forbesbusinesscouncil/2026/08/21/ai-agents-could-rewrite-e-commerce-heres-how-brands-can-prepare/",
+        "https://northplattebulletin.com/omaha-man-uses-chatgpt-to-plan-robbery/"
       ],
-      "source_count": 4,
-      "independent_domain_count": 4,
+      "source_count": 3,
+      "independent_domain_count": 3,
       "official_source_present": false,
       "topic_tags": [
         "model_agent_moi",
@@ -139,231 +254,20 @@
       ],
       "signal_keywords": [
         "agent",
-        "automation",
-        "gemini"
+        "chatgpt"
       ],
-      "reported_at": "20260819033000",
+      "reported_at": "20260821060000",
       "freshness_hours": 72,
       "hot_candidate": true,
       "pool_kind": "pool_a",
-      "avg_tone": 2.61393906221492,
+      "avg_tone": -5.64516129032258,
       "num_articles": 10,
-      "primary_url": "https://www.manilatimes.net/2026/08/19/tmt-newswire/media-outreach-newswire/tridorian-launches-gemini-enterprise-experience-center-in-singapore-to-help-enterprises-turn-ai-ambition-into-business-outcomes/2408073"
-    },
-    {
-      "event_id": "1318969069",
-      "title": "DUBAI",
-      "summary": "Tín hiệu tổ chức: Committee For Agentic,832;Tradearabia News Service,3064;National Association Of Software,225;Service Companies Nasscom,253;National Association Of Software,225;Service Companies Na. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IT",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IND"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260819123000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 6.74698795180723,
-      "num_articles": 18,
-      "primary_url": "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI"
-    },
-    {
-      "event_id": "1318969232",
-      "title": "DUBAI",
-      "summary": "Tín hiệu tổ chức: National Association Of Software,225;Service Companies Nasscom,253;Tradearabia News Service,3064;Committee For Agentic,832;Committee For Agentic,832;Tradearabia News Service,3064;N. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IT",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IND"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260819123000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 6.74698795180723,
-      "num_articles": 18,
-      "primary_url": "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI"
-    },
-    {
-      "event_id": "1318969233",
-      "title": "DUBAI - DUBAI",
-      "summary": "Tín hiệu tổ chức: Committee For Agentic,832;Tradearabia News Service,3064;National Association Of Software,225;Service Companies Nasscom,253;Committee For Agentic,832;Service Companies Nasscom,253;N. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IT",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IND"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260819123000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 6.74698795180723,
-      "num_articles": 18,
-      "primary_url": "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI"
-    },
-    {
-      "event_id": "1318969230",
-      "title": "DUBAI - UNITED ARAB EMIRATES",
-      "summary": "Tín hiệu tổ chức: Committee For Agentic,832;Service Companies Nasscom,253;National Association Of Software,225;Tradearabia News Service,3064;Committee For Agentic,832;Tradearabia News Service,3064;N. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IND",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IT"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260819123000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 6.74698795180723,
-      "num_articles": 12,
-      "primary_url": "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI"
-    },
-    {
-      "event_id": "1318969068",
-      "title": "DUBAI",
-      "summary": "Tín hiệu tổ chức: Committee For Agentic,832;Tradearabia News Service,3064;National Association Of Software,225;Service Companies Nasscom,253;Committee For Agentic,832;Service Companies Nasscom,253;N. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IND",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IT"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260819123000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 6.74698795180723,
-      "num_articles": 12,
-      "primary_url": "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI"
-    },
-    {
-      "event_id": "1318969228",
-      "title": "DUBAI",
-      "summary": "Tín hiệu tổ chức: Committee For Agentic,832;Tradearabia News Service,3064;National Association Of Software,225;Service Companies Nasscom,253;Committee For Agentic,832;Service Companies Nasscom,253;N. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
-      "source_urls": [
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IND",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI",
-        "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI/IT"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260819123000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 6.74698795180723,
-      "num_articles": 12,
-      "primary_url": "https://tradearabia.com:443/News/466722/Dubai-Chambers-in-deal-with-India-s-Nasscom-to-boost-co-operation-in-Agentic-AI"
-    },
-    {
-      "event_id": "1319249686",
-      "title": "ACTOR",
-      "summary": "Tín hiệu tổ chức: Bmw,2441;Us Department Of The Treasury,2332;Google Threat Intelligence Group,32;Google,6;Google,428;Google,4762;Google,4884;Google,4978;Google,5464;Google Agent Development Kit,478. Công ty liên quan: Google, Microsoft, Intel. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
-      "source_urls": [
-        "https://www.techradar.com/pro/security/target-may-have-suffered-another-damaging-data-leak-as-hackers-claim-8-6gb-haul",
-        "https://www.heise.de/en/news/Warning-about-attacks-on-Microsoft-IKE-SharePoint-VMware-vCenter-and-macOS-11418824.html",
-        "https://itwire.com/business-it-news/security/google-publishes-agentic-ai-blueprint-after-system-finds-100-critical-vulnerabilities-in-48-hours"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 3,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chip_ha_tang",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools"
-      ],
-      "company_tags": [
-        "Google",
-        "Microsoft",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "agent",
-        "automation"
-      ],
-      "reported_at": "20260821020000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": -4.82509047044633,
-      "num_articles": 10,
-      "primary_url": "https://itwire.com/business-it-news/security/google-publishes-agentic-ai-blueprint-after-system-finds-100-critical-vulnerabilities-in-48-hours"
+      "primary_url": "https://northplattebulletin.com/omaha-man-uses-chatgpt-to-plan-robbery/"
     },
     {
       "event_id": "1319092776",
       "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: Google,6;Google,20;Google,34;Google,114;Google,194;Google,209;Google,261;Google,519;Google,604;Google,631;Google,722;Google,780;Google,798;Google,916;Google,1069;Google,1088;Google. Công ty liên quan: Google. Chủ đề: model_agent_moi",
+      "summary": "Tín hiệu tổ chức: Disneyland Resort,1404;Google,72;Google,106;Google,251;Google,355;Google,671;Google,785;Google,850;Google,957;Google,1149;Google,1191;Google,1441;Google,1695;Google,1905;Google,192. Công ty liên quan: Google. Chủ đề: model_agent_moi",
       "source_urls": [
         "https://www.laughingplace.com/disney-parks/walt-disney-world-website-update-august-2026/",
         "https://www.itechpost.com/articles/237081/20260820/pixel-watch-1-google-health-support-isnt-ending-despite-alarming-support-warning.htm",
@@ -388,68 +292,6 @@
       "avg_tone": 2.3121387283237,
       "num_articles": 10,
       "primary_url": "https://www.itechpost.com/articles/237079/20260819/google-gemini-launches-student-hub-new-google-ai-student-plan.htm"
-    },
-    {
-      "event_id": "1318909033",
-      "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: United Kingdom Health Security Agency,281;British Free Range Egg Producers Association Bfrepa,1312;British Egg Industry Council,2234;Shell,436;Food Standards Agency,3725;Express,23. Công ty liên quan: OpenAI. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.fwi.co.uk/livestock/egg-producers-demand-action-after-salmonella-outbreak",
-        "https://www.express.co.uk/life-style/science-technology/2240423/UK-iphone-android-scam-number",
-        "https://www.nbcpalmsprings.com/2026/08/18/openai-launches-chatgpt-for-teens-with-new-youth-safety-protections"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 3,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "OpenAI"
-      ],
-      "signal_keywords": [
-        "openai",
-        "chatgpt"
-      ],
-      "reported_at": "20260819040000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": -1.51802656546489,
-      "num_articles": 10,
-      "primary_url": "https://www.nbcpalmsprings.com/2026/08/18/openai-launches-chatgpt-for-teens-with-new-youth-safety-protections"
-    },
-    {
-      "event_id": "1319270969",
-      "title": "GOOGLE - BANK",
-      "summary": "Tín hiệu tổ chức: Forbes Business Council,5241;Google,116;Google,3690;Pew Research Center,287;Google,2636;Federal Bureau Of Investigation,2836;District Court,918;Bureau Of Investigation,2836. Công ty liên quan: Google. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.forbes.com/councils/forbesbusinesscouncil/2026/08/21/ai-agents-could-rewrite-e-commerce-heres-how-brands-can-prepare/",
-        "https://northplattebulletin.com/omaha-man-uses-chatgpt-to-plan-robbery/"
-      ],
-      "source_count": 2,
-      "independent_domain_count": 2,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "agent",
-        "chatgpt"
-      ],
-      "reported_at": "20260821060000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": -5.64516129032258,
-      "num_articles": 10,
-      "primary_url": "https://northplattebulletin.com/omaha-man-uses-chatgpt-to-plan-robbery/"
     },
     {
       "event_id": "1319260995",
@@ -484,112 +326,29 @@
       "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/lawyers-square-off-in-fight-over-voice-data-used-to-train-ai/articleshow/133391894.cms"
     },
     {
-      "event_id": "1319021577",
-      "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: National Information Society Agency,10866;Nvidia,2553;Nvidia,8487;Nvidia,12114;Nvidia,12495;Korea Development Bank,8423;Kt Tech Innovation Group,3594;Kt Tech Innovation Group,18048. Công ty liên quan: Google, NVIDIA. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
+      "event_id": "1319408071",
+      "title": "DEUTSCHE BANK",
+      "summary": "Tín hiệu tổ chức: Capgemini,1120;Capgemini,1409;Capgemini,1720;Cap Gemini Company Profile,1043;Jefferies Financial Group,394;Deutsche Bank Aktiengesellschaft,508. Chủ đề: model_agent_moi",
       "source_urls": [
-        "https://www.ibtimes.com/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server-3806583",
-        "https://www.techtimes.com/articles/324976/20260819/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server.htm"
+        "https://www.dailypolitical.com/2026/08/21/cap-gemini-otcmktscgemy-share-price-crosses-above-fifty-day-moving-average-whats-next.html"
       ],
-      "source_count": 2,
-      "independent_domain_count": 2,
+      "source_count": 1,
+      "independent_domain_count": 1,
       "official_source_present": false,
       "topic_tags": [
-        "model_agent_moi",
-        "chip_ha_tang",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
+        "model_agent_moi"
       ],
-      "company_tags": [
-        "Google",
-        "NVIDIA"
-      ],
+      "company_tags": [],
       "signal_keywords": [
-        "llm",
-        "agent",
-        "automation",
-        "nvidia"
+        "gemini"
       ],
-      "reported_at": "20260819183000",
+      "reported_at": "20260822013000",
       "freshness_hours": 72,
-      "hot_candidate": true,
+      "hot_candidate": false,
       "pool_kind": "pool_a",
-      "avg_tone": 1.09103307193999,
+      "avg_tone": 1.78041543026706,
       "num_articles": 10,
-      "primary_url": "https://www.techtimes.com/articles/324976/20260819/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server.htm"
-    },
-    {
-      "event_id": "1319022245",
-      "title": "REBELLION - SERVER",
-      "summary": "Tín hiệu tổ chức: National Information Society Agency,10866;Nvidia,2553;Nvidia,8487;Nvidia,12114;Nvidia,12495;Korea Development Bank,8423;Kt Tech Innovation Group,3594;Kt Tech Innovation Group,18048. Công ty liên quan: Google, NVIDIA. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
-      "source_urls": [
-        "https://www.ibtimes.com/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server-3806583",
-        "https://www.techtimes.com/articles/324976/20260819/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server.htm"
-      ],
-      "source_count": 2,
-      "independent_domain_count": 2,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chip_ha_tang",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Google",
-        "NVIDIA"
-      ],
-      "signal_keywords": [
-        "llm",
-        "agent",
-        "automation",
-        "nvidia"
-      ],
-      "reported_at": "20260819183000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": 1.09103307193999,
-      "num_articles": 10,
-      "primary_url": "https://www.techtimes.com/articles/324976/20260819/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server.htm"
-    },
-    {
-      "event_id": "1319022154",
-      "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: National Information Society Agency,10866;Korea Financial Services Commission,6812;Korea Financial Services Commission,14622;Korea Telecom,13;Korea Ministry Of Science,10288;Mirae . Công ty liên quan: Google, NVIDIA. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
-      "source_urls": [
-        "https://www.ibtimes.com/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server-3806583",
-        "https://www.techtimes.com/articles/324976/20260819/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server.htm"
-      ],
-      "source_count": 2,
-      "independent_domain_count": 2,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chip_ha_tang",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Google",
-        "NVIDIA"
-      ],
-      "signal_keywords": [
-        "llm",
-        "agent",
-        "automation",
-        "nvidia"
-      ],
-      "reported_at": "20260819183000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": 1.09103307193999,
-      "num_articles": 10,
-      "primary_url": "https://www.techtimes.com/articles/324976/20260819/koreas-first-sovereign-ai-appliance-ships-domestic-chip-domestic-llm-one-server.htm"
+      "primary_url": "https://www.dailypolitical.com/2026/08/21/cap-gemini-otcmktscgemy-share-price-crosses-above-fifty-day-moving-average-whats-next.html"
     },
     {
       "event_id": "1319370353",
@@ -1101,32 +860,6 @@
       "avg_tone": -0.306278713629399,
       "num_articles": 10,
       "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/openai-introduces-new-safety-tool-to-protect-user-privacy/articleshow/133380728.cms"
-    },
-    {
-      "event_id": "1319150099",
-      "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: Facebook,7059;Service Companies,1132;Linkedin,7078;Instagram,7104;National Association Of Software,1112;Youtube,7090;Federation Of Indian Chambers Of Commerce,1649. Chủ đề: model_agent_moi, radar_khu_vuc",
-      "source_urls": [
-        "https://www.thehindu.com/brandhub/pr-release/dubai-chambers-signs-two-mous-in-bengaluru-to-advance-agentic-ai-collaboration-and-strengthen-trade-and-investment-ties-with-india/article71369068.ece"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260820124500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 5.34188034188034,
-      "num_articles": 10,
-      "primary_url": "https://www.thehindu.com/brandhub/pr-release/dubai-chambers-signs-two-mous-in-bengaluru-to-advance-agentic-ai-collaboration-and-strengthen-trade-and-investment-ties-with-india/article71369068.ece"
     }
   ]
 }
