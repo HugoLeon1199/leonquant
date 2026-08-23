@@ -1,22 +1,22 @@
 {
   "schema_version": "tech-gdelt-72h-v1",
-  "generated_at_utc": "2026-08-23T13:50:13.447663+00:00",
+  "generated_at_utc": "2026-08-23T19:40:21.346864+00:00",
   "query_window_hours": 72,
-  "estimated_bytes": 1195429915,
-  "processed_bytes": 1195429915,
+  "estimated_bytes": 1287240887,
+  "processed_bytes": 1287240887,
   "bytes_status": "known",
   "ran_successfully": true,
   "reused_previous_events": false,
-  "fresh_event_count": 16,
+  "fresh_event_count": 23,
   "previous_events_age_hours": 0,
   "raw_event_count": 120,
-  "ai_filtered_event_count": 16,
-  "rejected_non_ai_count": 104,
+  "ai_filtered_event_count": 23,
+  "rejected_non_ai_count": 97,
   "events": [
     {
       "event_id": "1319238058",
       "title": "INVESTOR",
-      "summary": "Tín hiệu tổ chức: United States,670;New York Times,950;New York Times,1495;Tech Insights Center,1279;Party Administrators,10956;Health Catalyst,3092;Health Catalyst,3918;Zacks Research,4132;Polar Ca. Công ty liên quan: OpenRouter. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Zacks Research,4132;Polar Capital Holdings Plc,1092;Polar Capital Holdings Plc,1180;Capital Research Global Investors,684;Capital Research Global Investors,779;York Mellon Corp,557. Công ty liên quan: OpenRouter. Chủ đề: cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.alleywatch.com/2026/08/aligned-marketplace-independent-primary-care-marketplace-self-insured-employer-healthcare-patrick-nelli/",
         "https://www.themarketsdaily.com/2026/08/21/ninepoint-partners-lp-makes-new-investment-in-corning-incorporated-glw.html",
@@ -49,9 +49,79 @@
       "primary_url": "https://www.americanbanker.com/payments/news/stripe-buys-openrouter-as-it-encroaches-on-banking-with-ai"
     },
     {
+      "event_id": "1319554492",
+      "title": "BUSINESS",
+      "summary": "Tín hiệu tổ chức: Microsoft,1196;Bloomberg,770;Nvidia,1216;Defense Department,2420;Spacex,309;Spacex,456;Spacex,740;Air India,3352;Air India,3448;New York Times,183;New York Times,946;Power Grid Cor. Công ty liên quan: Microsoft, NVIDIA, Intel. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "source_urls": [
+        "https://economictimes.indiatimes.com/opinion/bliss-of-everyday-life/polly-jean-harveys-yuri-g/articleshow/133444613.cms",
+        "https://economictimes.indiatimes.com/opinion/et-editorial/invest-dignity-first-for-anganwadis/articleshow/133443790.cms",
+        "https://economictimes.indiatimes.com/opinion/et-commentary/bses-nifty-50-entry-shows-how-the-index-can-move-markets-not-just-mirror-them/articleshow/133443711.cms",
+        "https://economictimes.indiatimes.com/opinion/et-commentary/india-needs-a-transparent-rulebook-for-the-business-of-influence/articleshow/133444093.cms",
+        "https://economictimes.indiatimes.com/tech/artificial-intelligence/anthropic-market-debut-could-break-spacex-ipo-record/articleshow/133442327.cms",
+        "https://economictimes.indiatimes.com/tech/artificial-intelligence/india-faces-capital-talent-gap-in-foundational-ai-race-menlo-ventures-deedy-das/articleshow/133438846.cms"
+      ],
+      "source_count": 6,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "Microsoft",
+        "NVIDIA",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent",
+        "nvidia"
+      ],
+      "reported_at": "20260823123000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.08092485549133,
+      "num_articles": 10,
+      "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/india-faces-capital-talent-gap-in-foundational-ai-race-menlo-ventures-deedy-das/articleshow/133438846.cms"
+    },
+    {
+      "event_id": "1319535983",
+      "title": "INVESTOR",
+      "summary": "Tín hiệu tổ chức: Hitachi,753;Hitachi,3560;Softbank Vision Fund,741;Softbank Corp,2860;Softbank,729;Softbank,2855;Softbank,3671;Softbank,4100;Lg Technology Ventures,787;Etf Is Samsung Electronics Sk. Công ty liên quan: Meta. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.kommersant.ru/doc/8906442",
+        "https://www.ddaily.co.kr:443/page/view/2026082315035837137",
+        "https://www.themarketsdaily.com/2026/08/23/newedge-wealth-llc-makes-new-687000-investment-in-burlington-stores-inc-burl.html",
+        "https://sentinel.ht/zenity-125-million-ai-agent-security/"
+      ],
+      "source_count": 4,
+      "independent_domain_count": 4,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "open_source_developer_tools"
+      ],
+      "company_tags": [
+        "Meta"
+      ],
+      "signal_keywords": [
+        "agent"
+      ],
+      "reported_at": "20260823090000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": -1.54277699859747,
+      "num_articles": 10,
+      "primary_url": "https://sentinel.ht/zenity-125-million-ai-agent-security/"
+    },
+    {
       "event_id": "1319249686",
       "title": "ACTOR",
-      "summary": "Tín hiệu tổ chức: Google Threat Intelligence Group,32;Google,6;Google,428;Google,4762;Google,4884;Google,4978;Google,5464;Google Agent Development Kit,4784;Daily La Union,252;Microsoft,166;Microsoft. Công ty liên quan: Google, Microsoft, Intel. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
+      "summary": "Tín hiệu tổ chức: Microsoft,166;Microsoft,444;Microsoft,747;Microsoft,1125;Microsoft,1183;Microsoft,1385;Microsoft,1527;Vmware,210;Vmware,1982;Microsoft Internet Key Exchange,188;Windows Internet Ke. Công ty liên quan: Google, Microsoft, Intel. Chủ đề: model_agent_moi, chip_ha_tang, cybersecurity",
       "source_urls": [
         "https://launion.com.ar/lomas-zamora/ahi-esta-la-parada-cornudo-un-pasajero-discutio-un-colectivero-y-terminaron-pinas-centenario-n5445230",
         "https://www.techradar.com/pro/security/target-may-have-suffered-another-damaging-data-leak-as-hackers-claim-8-6gb-haul",
@@ -86,38 +156,9 @@
       "primary_url": "https://itwire.com/business-it-news/security/google-publishes-agentic-ai-blueprint-after-system-finds-100-critical-vulnerabilities-in-48-hours"
     },
     {
-      "event_id": "1319535983",
-      "title": "INVESTOR",
-      "summary": "Tín hiệu tổ chức: Hitachi,753;Hitachi,3560;Softbank Vision Fund,741;Softbank Corp,2860;Softbank,729;Softbank,2855;Softbank,3671;Softbank,4100;Lg Technology Ventures,787;Etf Is Samsung Electronics Sk. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, open_source_developer_tools",
-      "source_urls": [
-        "https://www.ddaily.co.kr:443/page/view/2026082315035837137",
-        "https://www.themarketsdaily.com/2026/08/23/newedge-wealth-llc-makes-new-687000-investment-in-burlington-stores-inc-burl.html",
-        "https://sentinel.ht/zenity-125-million-ai-agent-security/"
-      ],
-      "source_count": 3,
-      "independent_domain_count": 3,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "open_source_developer_tools"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20260823090000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": -1.54277699859747,
-      "num_articles": 10,
-      "primary_url": "https://sentinel.ht/zenity-125-million-ai-agent-security/"
-    },
-    {
       "event_id": "1319270969",
       "title": "GOOGLE - BANK",
-      "summary": "Tín hiệu tổ chức: Forbes Business Council,5241;Google,116;Google,3690;Pew Research Center,287;Google,2636;Federal Bureau Of Investigation,2836;District Court,918;Bureau Of Investigation,2836;Google,. Công ty liên quan: Google. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Google,16;Google,149;Google,215;Google,280;Google,470;Google,639;Google,905;Google,1063;Google,1385;Google,1547;Google,1907;Starbucks,1785;Google,2636;Federal Bureau Of Investigati. Công ty liên quan: Google. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.techcentral.ie/checkout-google-now/",
         "https://www.forbes.com/councils/forbesbusinesscouncil/2026/08/21/ai-agents-could-rewrite-e-commerce-heres-how-brands-can-prepare/",
@@ -146,12 +187,41 @@
       "primary_url": "https://northplattebulletin.com/omaha-man-uses-chatgpt-to-plan-robbery/"
     },
     {
+      "event_id": "1319572505",
+      "title": "NVIDIA - INTELLIGENCE",
+      "summary": "Tín hiệu tổ chức: Sb Energy,873;Ai Factory Development,1987;Ai Factory Development,2286;Nvidia,23;Nvidia,305;Nvidia,685;Nvidia,800;Nvidia,1034;Nvidia,1358;Nvidia,1532;Nvidia,1739;Nvidia,2044;Data Ce. Công ty liên quan: NVIDIA, Intel. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.powermag.com/nvidia-cloverleaf-partnering-to-advance-data-center-development/",
+        "https://finance.yahoo.com/technology/ai/articles/nvidia-cloverleaf-partnering-advance-data-152523132.html"
+      ],
+      "source_count": 2,
+      "independent_domain_count": 2,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "NVIDIA",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260823160000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_b",
+      "avg_tone": 3.32562741580514,
+      "num_articles": 20,
+      "primary_url": "https://www.powermag.com/nvidia-cloverleaf-partnering-to-advance-data-center-development/"
+    },
+    {
       "event_id": "1319538461",
       "title": "JAPAN",
       "summary": "Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
       "source_urls": [
-        "http://www.educationtimes.com/article/campus-beat-college-life/99742607/what-japan-s-mass-graduate-hiring-system-taught-about-agentic-ai",
-        "https://www.educationtimes.com/article/campus-beat-college-life/99742607/what-japan-s-mass-graduate-hiring-system-taught-about-agentic-ai"
+        "https://www.educationtimes.com/article/campus-beat-college-life/99742607/what-japan-s-mass-graduate-hiring-system-taught-about-agentic-ai",
+        "http://www.educationtimes.com/article/campus-beat-college-life/99742607/what-japan-s-mass-graduate-hiring-system-taught-about-agentic-ai"
       ],
       "source_count": 2,
       "independent_domain_count": 1,
@@ -175,34 +245,32 @@
       "primary_url": "https://www.educationtimes.com/article/campus-beat-college-life/99742607/what-japan-s-mass-graduate-hiring-system-taught-about-agentic-ai"
     },
     {
-      "event_id": "1319371698",
-      "title": "BORDER PATROL",
-      "summary": "Tín hiệu tổ chức: Foundation Robotics,20;Research Agency,6256;Us Firm Deploys Humanoid Robots,6041;Ukraine Becomes World Ai Weapons Laboratory Zerohedge,5986;Foundation Phantom,1913. Chủ đề: model_agent_moi, robotics, chinh_sach_cuoc_dua_toan_cau",
+      "event_id": "1319560944",
+      "title": "BANK",
+      "summary": "Công ty liên quan: Anthropic. Chủ đề: tin_nong",
       "source_urls": [
-        "https://www.naturalnews.com/2026-08-21-us-robotics-humanoid-robots-could-patrol-border.html",
-        "https://newsone.com/6869933/what-happened-to-missing-grandmother-alisa-goods-in-las-vegas/"
+        "https://globalpunjabtv.com/haryana-cm-nayab-singh-saini-flags-off-first-freight-train-from-nangal-chaudhary-logistics-hub/",
+        "https://www.borsaitaliana.it/borsa/notizie/radiocor/finanza/dettaglio/wall-street-anthropic-punta-a-ipo-record-con-valutazione-da-2mila-mld-nyt-nRC_23082026_1102_171103758.html"
       ],
       "source_count": 2,
       "independent_domain_count": 2,
       "official_source_present": false,
       "topic_tags": [
-        "model_agent_moi",
-        "robotics",
-        "chinh_sach_cuoc_dua_toan_cau"
+        "tin_nong"
       ],
-      "company_tags": [],
+      "company_tags": [
+        "Anthropic"
+      ],
       "signal_keywords": [
-        "agent",
-        "robotics",
-        "automation"
+        "anthropic"
       ],
-      "reported_at": "20260821191500",
+      "reported_at": "20260823131500",
       "freshness_hours": 72,
       "hot_candidate": true,
-      "pool_kind": "pool_b",
-      "avg_tone": -1.83642930970269,
-      "num_articles": 12,
-      "primary_url": "https://www.naturalnews.com/2026-08-21-us-robotics-humanoid-robots-could-patrol-border.html"
+      "pool_kind": "pool_a",
+      "avg_tone": 0.0,
+      "num_articles": 10,
+      "primary_url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/finanza/dettaglio/wall-street-anthropic-punta-a-ipo-record-con-valutazione-da-2mila-mld-nyt-nRC_23082026_1102_171103758.html"
     },
     {
       "event_id": "1319556865",
@@ -264,7 +332,7 @@
     {
       "event_id": "1319260995",
       "title": "COMPANIES",
-      "summary": "Tín hiệu tổ chức: Motorola Solutions,4373;Samsung,205;Samsung,2484;Nvidia,195;Microsoft,186;Microsoft,2521;Us Supreme Court,6290;Google,3888;Google,4022;Allhiphop Daily News Service,565;Beverly Cent. Công ty liên quan: Google, Microsoft, NVIDIA, Intel. Chủ đề: chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "summary": "Tín hiệu tổ chức: Allhiphop Daily News Service,565;Beverly Center,1223;Motorola Solutions,4373;Samsung,205;Samsung,2484;Nvidia,195;Microsoft,186;Microsoft,2521;Us Supreme Court,6290;Google,3888;Goog. Công ty liên quan: Google, Microsoft, NVIDIA, Intel. Chủ đề: chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
       "source_urls": [
         "https://allhiphop.com/news/lil-durk-jury-selection-resumes-as-16-person-panel-takes-shape/",
         "https://economictimes.indiatimes.com/tech/artificial-intelligence/lawyers-square-off-in-fight-over-voice-data-used-to-train-ai/articleshow/133391894.cms"
@@ -294,31 +362,175 @@
       "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/lawyers-square-off-in-fight-over-voice-data-used-to-train-ai/articleshow/133391894.cms"
     },
     {
-      "event_id": "1319560944",
-      "title": "BANK",
-      "summary": "Công ty liên quan: Anthropic. Chủ đề: tin_nong",
+      "event_id": "1319589219",
+      "title": "OFFICIAL SOURCE",
+      "summary": "Tín hiệu tổ chức: Google,2720;Google,8289. Công ty liên quan: Google, OpenRouter. Chủ đề: model_agent_moi, open_source_developer_tools",
       "source_urls": [
-        "https://www.borsaitaliana.it/borsa/notizie/radiocor/finanza/dettaglio/wall-street-anthropic-punta-a-ipo-record-con-valutazione-da-2mila-mld-nyt-nRC_23082026_1102_171103758.html"
+        "https://thecherrycreeknews.com/ox-alpha-stealth-model-openrouter-benchmarks-analysis-cherry_creek/"
       ],
       "source_count": 1,
       "independent_domain_count": 1,
       "official_source_present": false,
       "topic_tags": [
-        "tin_nong"
+        "model_agent_moi",
+        "open_source_developer_tools"
       ],
       "company_tags": [
-        "Anthropic"
+        "Google",
+        "OpenRouter"
       ],
       "signal_keywords": [
-        "anthropic"
+        "model",
+        "openrouter"
       ],
-      "reported_at": "20260823131500",
+      "reported_at": "20260823194500",
       "freshness_hours": 72,
       "hot_candidate": false,
       "pool_kind": "pool_a",
-      "avg_tone": 0.0,
+      "avg_tone": 2.0470053070508,
       "num_articles": 10,
-      "primary_url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/finanza/dettaglio/wall-street-anthropic-punta-a-ipo-record-con-valutazione-da-2mila-mld-nyt-nRC_23082026_1102_171103758.html"
+      "primary_url": "https://thecherrycreeknews.com/ox-alpha-stealth-model-openrouter-benchmarks-analysis-cherry_creek/"
+    },
+    {
+      "event_id": "1319589220",
+      "title": "OFFICIAL SOURCE",
+      "summary": "Tín hiệu tổ chức: Google,2720;Google,8289. Công ty liên quan: Google, OpenRouter. Chủ đề: model_agent_moi, open_source_developer_tools",
+      "source_urls": [
+        "https://thecherrycreeknews.com/ox-alpha-stealth-model-openrouter-benchmarks-analysis-cherry_creek/"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "open_source_developer_tools"
+      ],
+      "company_tags": [
+        "Google",
+        "OpenRouter"
+      ],
+      "signal_keywords": [
+        "model",
+        "openrouter"
+      ],
+      "reported_at": "20260823194500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.0470053070508,
+      "num_articles": 10,
+      "primary_url": "https://thecherrycreeknews.com/ox-alpha-stealth-model-openrouter-benchmarks-analysis-cherry_creek/"
+    },
+    {
+      "event_id": "1319569037",
+      "title": "GOOGLE",
+      "summary": "Tín hiệu tổ chức: Google,125;Google,235;Google,368;Google,725;Google,860;Google,946;Google,1048;Google,1202;Google,1377;Google,1396;Google,1597;Google,1680;Google,2184;Google,2439;Google,2743;Google. Công ty liên quan: Google. Chủ đề: model_agent_moi",
+      "source_urls": [
+        "https://www.pcmag.com/explainers/google-gemini-upgraded-morning-commute-9-way-use-android-auto-car"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi"
+      ],
+      "company_tags": [
+        "Google"
+      ],
+      "signal_keywords": [
+        "gemini"
+      ],
+      "reported_at": "20260823151500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.92119565217391,
+      "num_articles": 10,
+      "primary_url": "https://www.pcmag.com/explainers/google-gemini-upgraded-morning-commute-9-way-use-android-auto-car"
+    },
+    {
+      "event_id": "1319566826",
+      "title": "BANK",
+      "summary": "Tín hiệu tổ chức: Reuters,513;College Of Boston,2093. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "agent",
+        "chatgpt"
+      ],
+      "reported_at": "20260823143000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -7.29166666666666,
+      "num_articles": 10,
+      "primary_url": "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
+    },
+    {
+      "event_id": "1319566827",
+      "title": "BANK",
+      "summary": "Tín hiệu tổ chức: Reuters,513;College Of Boston,2093. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "agent",
+        "chatgpt"
+      ],
+      "reported_at": "20260823143000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -7.29166666666666,
+      "num_articles": 10,
+      "primary_url": "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
+    },
+    {
+      "event_id": "1319566838",
+      "title": "BANK - A US",
+      "summary": "Tín hiệu tổ chức: Reuters,513;College Of Boston,2093. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "agent",
+        "chatgpt"
+      ],
+      "reported_at": "20260823143000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -7.29166666666666,
+      "num_articles": 10,
+      "primary_url": "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
     },
     {
       "event_id": "1319495813",
