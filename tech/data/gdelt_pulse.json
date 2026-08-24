@@ -1,17 +1,17 @@
 {
   "schema_version": "tech-gdelt-72h-v1",
-  "generated_at_utc": "2026-08-24T02:40:28.974027+00:00",
+  "generated_at_utc": "2026-08-24T08:08:16.304190+00:00",
   "query_window_hours": 72,
-  "estimated_bytes": 762596350,
-  "processed_bytes": 762596350,
+  "estimated_bytes": 869285426,
+  "processed_bytes": 869285426,
   "bytes_status": "known",
   "ran_successfully": true,
   "reused_previous_events": false,
-  "fresh_event_count": 18,
+  "fresh_event_count": 24,
   "previous_events_age_hours": 0,
   "raw_event_count": 120,
-  "ai_filtered_event_count": 18,
-  "rejected_non_ai_count": 102,
+  "ai_filtered_event_count": 24,
+  "rejected_non_ai_count": 96,
   "events": [
     {
       "event_id": "1319554492",
@@ -54,7 +54,7 @@
     {
       "event_id": "1319535983",
       "title": "INVESTOR",
-      "summary": "Tín hiệu tổ chức: Office Elena,2099;Jones Financial Companies Lllp,724;Jones Financial Companies Lllp,835;Barclays,3198;Quarter For Burlington Stores,6306;Newedge Wealth,14;Eversource Wealth Advisor. Công ty liên quan: Meta. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Office Elena,2099;Hitachi,753;Hitachi,3560;Softbank Vision Fund,741;Softbank Corp,2860;Softbank,729;Softbank,2855;Softbank,3671;Softbank,4100;Lg Technology Ventures,787;Etf Is Sams. Công ty liên quan: Meta. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.kommersant.ru/doc/8906577",
         "https://www.kommersant.ru/doc/8906442",
@@ -86,12 +86,42 @@
       "primary_url": "https://sentinel.ht/zenity-125-million-ai-agent-security/"
     },
     {
+      "event_id": "1319637691",
+      "title": "GOVERNMENT",
+      "summary": "Tín hiệu tổ chức: Kotak Mahindra Mutual Fund,304;United States,1497;Kotak Mahindra Mutual Fund,271;United States,1500;United States,1472;Kotak Mahindra Mutual Fund,279. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "source_urls": [
+        "https://www.thehindubusinessline.com/info-tech/indias-semiconductor-market-seen-reaching-155-billion-by-2031-report/article71383324.ece",
+        "https://news.webindia123.com/news/Articles/Business/20260824/4490304.html",
+        "https://aninews.in/news/business/indias-semiconductor-market-seen-reaching-usd-155-bn-by-cy31-share-of-global-consumption-to-rise-to-9-pc-report20260824104834/",
+        "http://www.cambodiantimes.com/news/279261457/india-semiconductor-market-seen-reaching-usd-155-bn-by-cy31-share-of-global-consumption-to-rise-to-9-pc-report"
+      ],
+      "source_count": 4,
+      "independent_domain_count": 4,
+      "official_source_present": false,
+      "topic_tags": [
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "semiconductor"
+      ],
+      "reported_at": "20260824073000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_b",
+      "avg_tone": 2.48817966903073,
+      "num_articles": 30,
+      "primary_url": "http://www.cambodiantimes.com/news/279261457/india-semiconductor-market-seen-reaching-usd-155-bn-by-cy31-share-of-global-consumption-to-rise-to-9-pc-report"
+    },
+    {
       "event_id": "1319572505",
       "title": "NVIDIA - INTELLIGENCE",
       "summary": "Tín hiệu tổ chức: Sb Energy,873;Ai Factory Development,1987;Ai Factory Development,2286;Nvidia,23;Nvidia,305;Nvidia,685;Nvidia,800;Nvidia,1034;Nvidia,1358;Nvidia,1532;Nvidia,1739;Nvidia,2044;Data Ce. Công ty liên quan: NVIDIA, Intel. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://www.powermag.com/nvidia-cloverleaf-partnering-to-advance-data-center-development/",
-        "https://finance.yahoo.com/technology/ai/articles/nvidia-cloverleaf-partnering-advance-data-152523132.html"
+        "https://finance.yahoo.com/technology/ai/articles/nvidia-cloverleaf-partnering-advance-data-152523132.html",
+        "https://www.powermag.com/nvidia-cloverleaf-partnering-to-advance-data-center-development/"
       ],
       "source_count": 2,
       "independent_domain_count": 2,
@@ -229,6 +259,266 @@
       "primary_url": "https://hotnews.ro/razboiul-ai-ajunge-pe-bursa-anthropic-in-pole-position-sa-doboare-recordul-spacex-2330641"
     },
     {
+      "event_id": "1319627390",
+      "title": "SINGTEL",
+      "summary": "Tín hiệu tổ chức: Singtel,230. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://itwire.com/guest-articles/guest-opinion/an-ai-agent-can-do-the-work-but-who-answers-for-it"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "agent",
+        "automation"
+      ],
+      "reported_at": "20260824054500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -1.5,
+      "num_articles": 10,
+      "primary_url": "https://itwire.com/guest-articles/guest-opinion/an-ai-agent-can-do-the-work-but-who-answers-for-it"
+    },
+    {
+      "event_id": "1319624258",
+      "title": "NVIDIA - REUTERS",
+      "summary": "Tín hiệu tổ chức: Nvidia,17;Nvidia,373;Nvidia,451;Nvidia,1297;Nvidia,1872;Bloomberg,1615;Reuters,442;Japan Softbank Group,1931;Air India,3092;Air India,3188;Microsoft,1541;Power Grid Corp,2344;Power. Công ty liên quan: Microsoft, NVIDIA, Intel. Chủ đề: model_agent_moi, radar_khu_vuc",
+      "source_urls": [
+        "https://economictimes.indiatimes.com/tech/artificial-intelligence/nvidia-discusses-perplexity-investment-at-30-billion-plus-valuation/articleshow/133450280.cms"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "Microsoft",
+        "NVIDIA",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent",
+        "automation",
+        "nvidia"
+      ],
+      "reported_at": "20260824050000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -0.82508250825082,
+      "num_articles": 10,
+      "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/nvidia-discusses-perplexity-investment-at-30-billion-plus-valuation/articleshow/133450280.cms"
+    },
+    {
+      "event_id": "1319624363",
+      "title": "REUTERS - NVIDIA",
+      "summary": "Tín hiệu tổ chức: Nvidia,17;Nvidia,373;Nvidia,451;Nvidia,1297;Nvidia,1872;Bloomberg,1615;Reuters,442;Japan Softbank Group,1931;Air India,3092;Air India,3188;Microsoft,1541;Power Grid Corp,2344;Power. Công ty liên quan: Microsoft, NVIDIA, Intel. Chủ đề: model_agent_moi, radar_khu_vuc",
+      "source_urls": [
+        "https://economictimes.indiatimes.com/tech/artificial-intelligence/nvidia-discusses-perplexity-investment-at-30-billion-plus-valuation/articleshow/133450280.cms"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "Microsoft",
+        "NVIDIA",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent",
+        "automation",
+        "nvidia"
+      ],
+      "reported_at": "20260824050000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -0.82508250825082,
+      "num_articles": 10,
+      "primary_url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/nvidia-discusses-perplexity-investment-at-30-billion-plus-valuation/articleshow/133450280.cms"
+    },
+    {
+      "event_id": "1319621617",
+      "title": "COMPANY",
+      "summary": "Tín hiệu tổ chức: National Day,408. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://sbr.com.sg/information-technology/news/safeguards-pushed-ai-agents-gain-autonomy"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [],
+      "signal_keywords": [
+        "agent"
+      ],
+      "reported_at": "20260824043000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -0.738007380073801,
+      "num_articles": 10,
+      "primary_url": "https://sbr.com.sg/information-technology/news/safeguards-pushed-ai-agents-gain-autonomy"
+    },
+    {
+      "event_id": "1319619905",
+      "title": "NVIDIA - COMPANY",
+      "summary": "Tín hiệu tổ chức: Nvidia,342;Nvidia,569;Nvidia,614;Nvidia,758;Nvidia,798;Nvidia,2218;Nvidia,2361;Nvidia,2471;Nvidia,2546;Nvidia,2656. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "NVIDIA"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260824040000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.4390243902439,
+      "num_articles": 10,
+      "primary_url": "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+    },
+    {
+      "event_id": "1319619663",
+      "title": "COMPANY - NVIDIA",
+      "summary": "Tín hiệu tổ chức: Nvidia,342;Nvidia,569;Nvidia,614;Nvidia,758;Nvidia,798;Nvidia,2218;Nvidia,2361;Nvidia,2471;Nvidia,2546;Nvidia,2656. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "NVIDIA"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260824040000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.4390243902439,
+      "num_articles": 10,
+      "primary_url": "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+    },
+    {
+      "event_id": "1319619662",
+      "title": "COMPANY - NVIDIA",
+      "summary": "Tín hiệu tổ chức: Nvidia,342;Nvidia,569;Nvidia,614;Nvidia,758;Nvidia,798;Nvidia,2218;Nvidia,2361;Nvidia,2471;Nvidia,2546;Nvidia,2656. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "NVIDIA"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260824040000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.4390243902439,
+      "num_articles": 10,
+      "primary_url": "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+    },
+    {
+      "event_id": "1319619904",
+      "title": "NVIDIA - COMPANY",
+      "summary": "Tín hiệu tổ chức: Nvidia,342;Nvidia,569;Nvidia,614;Nvidia,758;Nvidia,798;Nvidia,2218;Nvidia,2361;Nvidia,2471;Nvidia,2546;Nvidia,2656. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chip_ha_tang",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "NVIDIA"
+      ],
+      "signal_keywords": [
+        "nvidia"
+      ],
+      "reported_at": "20260824040000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.4390243902439,
+      "num_articles": 10,
+      "primary_url": "https://www.thefastmode.com/technology-solutions/50321-starcloud-raises-250-million-to-expand-orbital-computing-and-data-centers"
+    },
+    {
+      "event_id": "1319619071",
+      "title": "INTELLIGENCE",
+      "summary": "Tín hiệu tổ chức: Anthropic Cyber Verification Program,855. Công ty liên quan: Anthropic, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://itbrief.co.nz/story/trendai-adopts-claude-opus-5-for-vulnerability-triage"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Anthropic",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "anthropic",
+        "claude"
+      ],
+      "reported_at": "20260824034500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -1.44092219020173,
+      "num_articles": 10,
+      "primary_url": "https://itbrief.co.nz/story/trendai-adopts-claude-opus-5-for-vulnerability-triage"
+    },
+    {
       "event_id": "1319596213",
       "title": "WALL STREET JOURNAL",
       "summary": "Tín hiệu tổ chức: United States,219. Công ty liên quan: NVIDIA. Chủ đề: model_agent_moi, open_source_developer_tools",
@@ -345,8 +635,8 @@
       "primary_url": "https://www.pcmag.com/explainers/google-gemini-upgraded-morning-commute-9-way-use-android-auto-car"
     },
     {
-      "event_id": "1319566827",
-      "title": "BANK",
+      "event_id": "1319566838",
+      "title": "BANK - A US",
       "summary": "Tín hiệu tổ chức: Reuters,513;College Of Boston,2093. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
@@ -373,8 +663,8 @@
       "primary_url": "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
     },
     {
-      "event_id": "1319566838",
-      "title": "BANK - A US",
+      "event_id": "1319566827",
+      "title": "BANK",
       "summary": "Tín hiệu tổ chức: Reuters,513;College Of Boston,2093. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
@@ -427,117 +717,6 @@
       "avg_tone": -7.29166666666666,
       "num_articles": 10,
       "primary_url": "https://www.zazoom.it/2026-08-23/usa-chatgpt-per-pianificare-una-rapina-in-banca-arrestato-e-condannato-a-oltre-10-anni/19597727/"
-    },
-    {
-      "event_id": "1319495813",
-      "title": "INVESTOR - NVIDIA",
-      "summary": "Tín hiệu tổ chức: Blackrock,891;Nvidia,183;Nvidia,344;Nvidia,585;Nvidia,664;Nvidia,1023;Nvidia,1195;Nvidia,1403;Nvidia,1519;Nvidia,2152;Nvidia,2274;Goldman Sachs,933. Công ty liên quan: Meta, NVIDIA. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://finance.yahoo.com/technology/ai/articles/nvidia-banker-ai-gold-rush-202810790.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Meta",
-        "NVIDIA"
-      ],
-      "signal_keywords": [
-        "nvidia"
-      ],
-      "reported_at": "20260822210000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 1.98019801980198,
-      "num_articles": 10,
-      "primary_url": "https://finance.yahoo.com/technology/ai/articles/nvidia-banker-ai-gold-rush-202810790.html"
-    },
-    {
-      "event_id": "1319439826",
-      "title": "ROBBER - BANK",
-      "summary": "Tín hiệu tổ chức: Court Robert,266;Department Justice State,408. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://focus.ua/worldfun/765370-ispolzoval-chat-chatgpt-samyy-glupyy-grabitel-v-istorii-ssha-poluchil-tyuremnyy-srok"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "chatgpt"
-      ],
-      "reported_at": "20260822084500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -8.2417582417582,
-      "num_articles": 10,
-      "primary_url": "https://focus.ua/worldfun/765370-ispolzoval-chat-chatgpt-samyy-glupyy-grabitel-v-istorii-ssha-poluchil-tyuremnyy-srok"
-    },
-    {
-      "event_id": "1319426818",
-      "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: Counterpoint Research,5664;Google,269;Google,1044;Google,3989;Google,5268;Robotics Technology Park,1009. Công ty liên quan: Google, Intel. Chủ đề: model_agent_moi, robotics, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.moneycontrol.com/artificial-intelligence/inside-iisc-s-sravaani-the-push-to-take-voice-ai-beyond-india-s-22-mainstream-languages-article-14012715.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "robotics",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Google",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "agent",
-        "robotics"
-      ],
-      "reported_at": "20260822061500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.26354082457559,
-      "num_articles": 10,
-      "primary_url": "https://www.moneycontrol.com/artificial-intelligence/inside-iisc-s-sravaani-the-push-to-take-voice-ai-beyond-india-s-22-mainstream-languages-article-14012715.html"
-    },
-    {
-      "event_id": "1319408071",
-      "title": "DEUTSCHE BANK",
-      "summary": "Tín hiệu tổ chức: Capgemini,1120;Capgemini,1409;Capgemini,1720;Cap Gemini Company Profile,1043;Jefferies Financial Group,394;Deutsche Bank Aktiengesellschaft,508. Chủ đề: model_agent_moi",
-      "source_urls": [
-        "https://www.dailypolitical.com/2026/08/21/cap-gemini-otcmktscgemy-share-price-crosses-above-fifty-day-moving-average-whats-next.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "gemini"
-      ],
-      "reported_at": "20260822013000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 1.78041543026706,
-      "num_articles": 10,
-      "primary_url": "https://www.dailypolitical.com/2026/08/21/cap-gemini-otcmktscgemy-share-price-crosses-above-fifty-day-moving-average-whats-next.html"
     }
   ]
 }
