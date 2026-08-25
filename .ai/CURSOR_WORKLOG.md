@@ -1377,3 +1377,31 @@ Validation status snapshot live:
 - Section counts: local_ai=8, automation=6, open_source=2, knowledge=4, founder_ideas=10.
 - /tech/ render check: knowledge=True; founder_ideas=True.
 - Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
+
+## 2026-08-25 - Technology & AI 72h live run
+
+- Tech72h generated_at=2026-08-25T08:05:09.645877+00:00
+- Scope: standalone `tech/`; Tin48h, Invest and World LIVE logic unchanged.
+- Format: AI Frontier Radar 72h.
+- Schedule: once every 3 days; data window: latest 72 hours.
+- Active sources: 63 / 84.
+- Clean web articles: 568.
+- Candidate live: 707; noise bi loai: 23; bai qua han 72h bi loai khoi section chinh: 30.
+- Event candidates: 43; GDELT ran_successfully=True; raw=120; ai_filtered=43; rejected_non_ai=77.
+- Query estimate: 1,111,027,987 bytes; processed: 1,111,027,987 bytes; bytes_status=known; cap: 2,000,000,000 bytes.
+- Published stories: 568; must_read=20; full_link_radar=150.
+- Must Read theo source type: {'independent': 14, 'official': 6}.
+- Must Read theo category: {'model': 2, 'local_ai': 1, 'tool': 8, 'automation': 1, 'opensource': 1, 'business': 3, 'industry': 4}.
+- Frontier Watchlist entities: 26; candidates_from_watchlist=106; GLM-5.2 detected=no.
+- Data coverage: active_url_sources=63; active_api_sources=27; active_rss_sources=63; active_sitemap_sources=0; active_watchlist_entities=26; metadata_only_sources=46.
+- Source registry P0: configured=31; checked=31; success=31; failed=0; zero_hit=0; missing_critical=[].
+- Registry quality: verified_timestamp_ratio=1.0; content_quality_ratio={'full_text': 0.0, 'summary_only': 0.4957, 'metadata_only': 0.5043}; primary/independent/community=27/63/19.
+- API candidates: total=115; by_method={'hf_api': 26, 'github_api': 42, 'arxiv_api': 0, 'api': 8}; notes=['profile AMD AI Blog: HTTP Error 404: Not Found', 'profile Intel AI Blog: HTTP Error 403: Forbidden', 'profile Arm AI Blog: The read operation timed out'].
+- Input quality: real_candidate_count=707; manual_signal_count=0; weak_metadata_match_count=14; official_org_candidate_count=60.
+- candidates_by_method={'github_api': 42, 'hf_api': 26, 'api': 8, 'changelog_snapshot': 5, 'metadata': 4, 'rss': 27, 'html': 565, 'gdelt': 30}; content_quality_mix={'metadata_only': 58, 'summary_only': 84, 'full_text': 565}; remaining CAPTCHA/paywall/JS-only sources=0.
+- Source mix main candidates: official=7, independent=70, community=0.
+- Pages workflow includes Tech Radar: yes.
+- Gemini curator: success=44; fallback=56; ai_main=25; fallback_main=52.
+- Section counts: local_ai=12, automation=2, open_source=12, knowledge=4, founder_ideas=10.
+- /tech/ render check: knowledge=True; founder_ideas=True.
+- Tests: `python tech/test_pipeline.py` and `python tech/validate_publication.py` passed.
