@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-25T22:24:31.697524+00:00",
+  "generated_at": "2026-08-27T02:35:32.090104+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 781762,
+    "estimated_input_tokens": 852207,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 661,
-    "sent_article_count": 661,
+    "input_article_count": 693,
+    "sent_article_count": 693,
     "window": {
-      "end_date": "2026-08-26",
+      "end_date": "2026-08-27",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,106 +25,112 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các diễn biến tài chính, công nghệ và địa chính trị quan trọng trong 48 giờ qua, tập trung vào các tác động thực tế đến thị trường và chính sách.",
+    "editor_note": "Bản tin tổng hợp các chuyển động kinh tế, công nghệ và xã hội quan trọng nhất trong 48 giờ qua, tập trung vào các sự kiện có tác động thực tế đến thị trường và chính sách.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh tin tức toàn cầu bị chi phối bởi sự leo thang căng thẳng thương mại giữa Mỹ và Canada, cùng với đó là những biến động mạnh mẽ của tài sản số khi Bitcoin vượt ngưỡng 80.000 USD. Tại Việt Nam, trọng tâm chính sách đang chuyển dịch sang việc hoàn thiện khung pháp lý cho các siêu dự án đô thị và đẩy mạnh chuyển đổi số trong quản lý an sinh xã hội.",
-        "most_mentioned": "Chủ đề về Bitcoin và tài sản số được nhắc đến nhiều nhất, phản ánh tâm lý nhà đầu tư đang tìm kiếm kênh trú ẩn và tăng trưởng mới trong bối cảnh lạm phát và nợ công Mỹ gia tăng.",
-        "top_stories": "Sự kiện Canada áp thuế trả đũa 50% lên hàng hóa Mỹ sau khi đàm phán thương mại đổ vỡ là câu chuyện địa chính trị quan trọng nhất, ảnh hưởng trực tiếp đến chuỗi cung ứng Bắc Mỹ và tâm lý thị trường năng lượng.",
-        "sector_impacts": "Công nghệ và AI tiếp tục là động lực tăng trưởng chính với các đột phá về chip 2nm của Apple và hạ tầng dữ liệu, trong khi ngành bất động sản Việt Nam đang đón nhận những thay đổi lớn về cơ chế cho các dự án lấn biển."
+        "main_picture": "Trong 48 giờ qua, thị trường tài chính thị trường bị chi phối bởi báo cáo doanh thu kỷ lục 96.2 tỷ USD của Nvidia, xác lập vị thế trung tâm của hạ tầng AI trong dòng vốn đầu tư. Tại Việt Nam, tâm điểm là sự kiện đội tuyển bóng đá quốc gia vô địch AFF Cup 2026, tạo ra hiệu ứng lan tỏa mạnh mẽ trong đời sống xã hội và các hoạt động thương mại liên quan.",
+        "most_mentioned": "Chủ đề AI và bán dẫn chiếm ưu thế tuyệt đối trên các phương tiện truyền thông tài chính quốc tế sau kết quả kinh doanh vượt kỳ vọng của Nvidia. Song song đó, các thương vụ bán vốn ngân hàng tại Việt Nam như Techcombank đang thu hút sự chú ý lớn từ giới đầu tư ngoại.",
+        "top_stories": "Sự kiện Techcombank đàm phán bán 15% cổ phần với định giá 2 tỷ USD và chiến thắng của tuyển Việt Nam tại AFF Cup 2026 là hai câu chuyện định hình tâm lý thị trường và xã hội trong nước, phản ánh sự kết hợp giữa kỳ vọng tăng trưởng kinh tế và niềm tự hào dân tộc.",
+        "sector_impacts": "Ngành ngân hàng và công nghệ tại Việt Nam đang hưởng lợi từ dòng vốn ngoại và nhu cầu chuyển đổi số. Trong khi đó, các chính sách hạ tầng trọng điểm tại TP.HCM và Quảng Ninh đang tạo ra động lực mới cho thị trường bất động sản và công nghiệp.",
+        "watch_24_72h": "HCM, và diễn biến giá vàng trong bối cảnh Fed phát tín hiệu về lãi suất."
       },
-      "content": "Thị trường tài chính thị trường đang trải qua giai đoạn tái định vị dòng vốn mạnh mẽ. Bitcoin vượt mốc 80.000 USD không chỉ là câu chuyện đầu cơ mà còn là tín hiệu của dòng tiền ETF kỷ lục, với hơn 2,26 tỷ USD đổ vào trong 6 phiên giao dịch gần nhất. Song song đó, căng thẳng thương mại Mỹ – Canada với các gói thuế quan trả đũa 50% đang tạo ra cú sốc cho chuỗi cung ứng khu vực Bắc Mỹ, buộc các doanh nghiệp phải đánh giá lại chiến lược logistics. Tại Việt Nam, Chính phủ đang đẩy mạnh cắt giảm thủ tục hành chính và ban hành khung pháp lý cho các siêu dự án đô thị lấn biển quy mô trên 100.000 tỷ đồng, tạo tiền đề thu hút dòng vốn đầu tư lớn vào hạ tầng. Trong lĩnh vực công nghệ, Apple vừa gây bất ngờ với chip M6 tiến trình 2nm và M5 Ultra, khẳng định vị thế dẫn đầu trong cuộc đua hiệu năng AI trên thiết bị, trong khi SpaceX công bố dự án Starbase Louisiana trị giá 100 tỷ USD, đánh dấu bước tiến mới trong hạ tầng không gian thương mại.",
+      "content": "Trong 48 giờ qua, bức tranh kinh tế thị trường ghi nhận sự thống trị của Nvidia với doanh thu 96.2 tỷ USD, khẳng định vị thế không thể thay thế của hạ tầng AI. Sự kiện này không chỉ thúc đẩy cổ phiếu công nghệ mà còn định hình lại chiến lược đầu tư của các tập đoàn lớn như Amazon. Tại Việt Nam, thị trường tài chính sôi động với thông tin Techcombank đàm phán bán vốn cho đối tác ngoại, tạo cú hích cho nhóm cổ phiếu ngân hàng. Song song đó, chức vô địch AFF Cup 2026 của đội tuyển Việt Nam đã tạo ra làn sóng ăn mừng và các hoạt động thương mại lan tỏa khắp cả nước, khẳng định sức mạnh của các sự kiện thể thao trong việc kích cầu tiêu dùng. Trong 24-72 giờ tới, nhà đầu tư cần theo dõi sát sao các văn bản hướng dẫn Luật Phát triển đô thị tại TP.HCM và các động thái chính sách tiền tệ từ Fed.",
       "representative_sources": [
         {
-          "title": "Thị trường tiền số 25/8: Bitcoin vượt 80.000 USD, còn tăng được bao xa?",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/thi-truong-tien-so-258-bitcoin-vuot-80000-usd-con-tang-duoc-bao-xa-20260825185033121.htm",
-          "excerpt": "Bitcoin duy trì đà tăng mạnh nhờ dòng vốn ETF và tâm lý lạc quan của nhà đầu tư."
+          "title": "Nvidia earnings takeaways: Huang forecasts 70% fiscal 2028 revenue growth, far above estimates",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/08/26/nvidia-nvda-earnings-report-q2-2027-live-updates.html"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Bitcoin và tài sản số",
-          "why_mentioned": "Tác động mạnh đến tâm lý thị trường và dòng vốn ETF toàn cầu.",
-          "evidence_hint": "Dòng vốn ETF Bitcoin đạt 2,26 tỷ USD trong 6 phiên giao dịch."
+          "topic": "Cơn sốt AI và Nvidia",
+          "why_mentioned": "Báo cáo doanh thu kỷ lục 96.2 tỷ USD của Nvidia.",
+          "evidence_hint": "Lặp lại dày đặc trên các nguồn tài chính quốc tế."
+        },
+        {
+          "topic": "Chiến thắng AFF Cup 2026",
+          "why_mentioned": "Hiệu ứng xã hội và thương mại lan tỏa.",
+          "evidence_hint": "Chiếm ưu thế trong các tin tức đời sống tại Việt Nam."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Thương chiến Mỹ – Canada",
-          "why_hot": "Ảnh hưởng trực tiếp đến chuỗi cung ứng và giá năng lượng.",
-          "impact": "Gây bất ổn cho thị trường hàng hóa Bắc Mỹ.",
-          "evidence_hint": "Canada áp thuế 20 tỷ USD lên hàng hóa Mỹ."
+          "topic": "Thương vụ M&A Techcombank",
+          "why_hot": "Định giá 2 tỷ USD cho 15% cổ phần.",
+          "impact": "Tác động trực tiếp đến tâm lý thị trường chứng khoán Việt Nam.",
+          "evidence_hint": "Thanh khoản đột biến trên cổ phiếu TCB."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch sang chip 2nm",
-          "why_watch": "Đánh dấu bước tiến mới trong công nghệ bán dẫn toàn cầu."
+          "signal": "Chuyển dịch đầu tư sang công nghệ cao tại Việt Nam",
+          "why_watch": "Chỉ đạo của Thủ tướng về việc thu hút FDI chất lượng cao."
         }
       ],
       "watch_next": [
-        "Diễn biến giá dầu Brent",
-        "Phản ứng của thị trường chứng khoán với thuế quan",
-        "Tiến độ dự án lấn biển tại Việt Nam"
+        "Phản ứng của thị trường với các thương vụ M&A ngân hàng",
+        "Tiến độ giải ngân các dự án hạ tầng trọng điểm tại TP.HCM",
+        "Diễn biến giá vàng trong bối cảnh Fed phát tín hiệu về lãi suất"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Bitcoin vượt mốc 80.000 USD nhờ dòng vốn ETF kỷ lục",
-        "one_sentence": "Dòng vốn ETF Bitcoin đạt 2,26 tỷ USD trong 6 phiên giao dịch, thúc đẩy giá vượt 80.000 USD dù đối mặt áp lực chốt lời.",
-        "why_it_matters": "Phản ánh sự dịch chuyển dòng vốn vào tài sản số trước rủi ro vĩ mô.",
-        "watch_next": "Khả năng duy trì mốc 83.000 USD để xác nhận xu hướng tăng mới.",
-        "source_urls": []
-      },
-      {
-        "rank": 2,
-        "title": "Canada áp thuế trả đũa 50% lên hàng hóa Mỹ",
-        "one_sentence": "Canada công bố gói thuế quan 20 tỷ USD lên 700 mặt hàng của Mỹ sau khi đàm phán thương mại đổ vỡ.",
-        "why_it_matters": "Sự kiện địa chính trị lớn nhất 48h qua, đe dọa chuỗi cung ứng Bắc Mỹ.",
-        "watch_next": "Phản ứng tiếp theo từ chính quyền Mỹ và tác động đến giá năng lượng.",
+        "title": "Nvidia công bố doanh thu kỷ lục 96.2 tỷ USD",
+        "one_sentence": "Doanh thu tăng 106% so với cùng kỳ, khẳng định vị thế dẫn đầu của Nvidia trong kỷ nguyên hạ tầng AI toàn cầu.",
+        "why_it_matters": "Đây là sự kiện tài chính quan trọng nhất ảnh hưởng đến tâm lý thị trường công nghệ toàn cầu trong 48 giờ qua.",
+        "watch_next": "Dự báo tăng trưởng 70% trong năm tài chính 2028.",
         "source_urls": [
-          "https://cnbc.com/2026/08/25/canada-trump-tariffs-trade-carney-leblanc.html"
+          "https://cnbc.com/2026/08/26/nvidia-nvda-earnings-report-q2-2027-live-updates.html"
         ]
       },
       {
-        "rank": 3,
-        "title": "Việt Nam ban hành khung pháp lý cho siêu dự án lấn biển",
-        "one_sentence": "Quốc hội thông qua cơ chế đặc thù cho các dự án lấn biển quy mô trên 100.000 tỷ đồng nhằm thu hút nhà đầu tư chiến lược.",
-        "why_it_matters": "Thay đổi thể chế quan trọng ảnh hưởng đến chiến lược kinh tế biển.",
-        "watch_next": "Tiến độ triển khai các dự án hạ tầng đô thị lấn biển đầu tiên.",
+        "rank": 2,
+        "title": "Techcombank đàm phán bán 15% cổ phần cho đối tác ngoại",
+        "one_sentence": "Thương vụ M&A ngân hàng lớn nhất trong 48h qua với định giá khoảng 2 tỷ USD, tác động mạnh đến tâm lý thị trường chứng khoán Việt Nam.",
+        "why_it_matters": "Phản ánh xu hướng M&A sôi động trong ngành ngân hàng Việt Nam, tác động trực tiếp đến giá cổ phiếu và dòng vốn ngoại.",
+        "watch_next": "Phản ứng của thị trường chứng khoán với các thương vụ M&A ngân hàng.",
         "source_urls": []
+      },
+      {
+        "rank": 3,
+        "title": "Tuyển Việt Nam vô địch AFF Cup 2026",
+        "one_sentence": "Đội tuyển Việt Nam bảo vệ thành công chức vô địch Đông Nam Á sau khi vượt qua Thái Lan với tổng tỷ số 4-2, nhận mức thưởng kỷ lục gần 30 tỷ đồng.",
+        "why_it_matters": "Sự kiện văn hóa-thể thao có tác động xã hội và kinh tế mạnh mẽ nhất tại Việt Nam trong 48 giờ qua.",
+        "watch_next": "Hiệu ứng lan tỏa của chiến thắng đến tâm lý tiêu dùng và các hoạt động tài trợ.",
+        "source_urls": [
+          "https://baoxaydung.vn/hlv-kim-sang-sik-ngo-ngang-vi-lien-tiep-vo-dich-cung-bong-da-viet-nam-192260827030019252.htm"
+        ]
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48h qua nổi bật với sự phân hóa dòng vốn. Trong khi Bitcoin thu hút dòng tiền ETF, thị trường chứng khoán Việt Nam đang chịu áp lực chốt lời sau nhịp tăng nóng, với VN-Index biến động mạnh quanh mốc 1.800 điểm. Các ngân hàng như Techcombank và HDBank đang đẩy mạnh tăng vốn điều lệ thông qua chia cổ tức và phát hành cổ phiếu để củng cố bộ đệm vốn. Đồng thời, việc xử lý nợ xấu tại các tổ chức tín dụng liên quan đến Xuyên Việt Oil đang được đẩy nhanh. Chính sách mới cho các siêu dự án lấn biển mở ra cơ hội lớn cho hạ tầng đô thị, trong khi các doanh nghiệp bất động sản vẫn đối mặt với áp lực lãi suất vay thả nổi cao, gây khó khăn cho người mua nhà.",
+        "sector_thesis": "Ngành tài chính Việt Nam đang chứng kiến sự sôi động từ các thương vụ M&A ngân hàng lớn và nỗ lực nâng hạng thị trường. Việc Techcombank đàm phán bán vốn cho đối tác ngoại cùng với sự kiện SSB vào rổ FTSE Global All Cap cho thấy sức hút của thị trường Việt Nam đối với dòng vốn quốc tế.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Bất động sản & Hạ tầng",
-            "title": "Cơ chế đặc thù cho siêu dự án lấn biển",
-            "summary": "Quốc hội Việt Nam đã chính thức thông qua khung pháp lý đặc thù cho các dự án lấn biển quy mô từ 100.000 tỷ đồng. Chính sách này đơn giản hóa thủ tục hành chính, cho phép thời hạn hoạt động dự án lên đến 70 năm và quy định rõ tiêu chuẩn vốn chủ sở hữu tối thiểu cho nhà đầu tư, nhằm tháo gỡ rào cản pháp lý và thu hút dòng vốn đầu tư chiến lược vào hạ tầng đô thị biển.",
+            "depth_level": "major",
+            "sub_sector": "M&A Ngân hàng",
+            "title": "Thương vụ M&A Techcombank",
+            "summary": "Techcombank đang tiến hành đàm phán bán 15% cổ phần cho BNP Paribas và KB Kookmin Bank với định giá khoảng 2 tỷ USD. Thương vụ này đánh dấu bước tiến quan trọng trong chiến lược thu hút vốn ngoại của ngân hàng, đồng thời tạo cú hích lớn cho cổ phiếu TCB trên thị trường chứng khoán trong bối cảnh Việt Nam đang nỗ lực nâng hạng thị trường.",
             "main_developments": [
-              "Quy định vốn chủ sở hữu tối thiểu 15% cho dự án 100.000 - 200.000 tỷ đồng.",
-              "Cắt giảm tối đa các bước lập quy hoạch và thủ tục hành chính trùng lặp.",
-              "Thời hạn hoạt động dự án được kéo dài lên đến 70 năm."
+              "Cổ phiếu TCB tăng kịch trần 6,87% với thanh khoản đột biến.",
+              "BNP Paribas và KB Kookmin Bank đàm phán riêng biệt để mua cổ phần.",
+              "Định giá thương vụ ước tính khoảng 2 tỷ USD."
             ],
-            "why_it_matters": "Đây là thay đổi quan trọng về thể chế, ảnh hưởng trực tiếp đến chiến lược kinh tế biển và thu hút dòng vốn đầu tư lớn vào hạ tầng đô thị.",
+            "why_it_matters": "Thương vụ M&A ngân hàng lớn nhất trong 48h qua, tác động mạnh đến tâm lý thị trường chứng khoán và dòng vốn ngoại vào Việt Nam.",
             "affected_groups": [
-              "Nhà đầu tư bất động sản",
-              "Doanh nghiệp hạ tầng",
-              "Địa phương ven biển"
+              "Nhà đầu tư chứng khoán",
+              "Ngành ngân hàng"
             ],
             "watch_next": [
-              "Tiến độ phê duyệt các dự án lấn biển đầu tiên",
-              "Phản ứng của các nhà đầu tư chiến lược"
+              "Phản ứng của thị trường với các thương vụ M&A ngân hàng",
+              "Tiến độ đàm phán chính thức"
             ],
             "representative_sources": []
           }
@@ -133,50 +139,23 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ 48h qua tập trung vào hạ tầng AI và bán dẫn. Apple tạo đột phá với chip M6 tiến trình 2nm và M5 Ultra, khẳng định vị thế dẫn đầu trong cuộc đua hiệu năng AI trên thiết bị. SpaceX công bố dự án Starbase Louisiana trị giá 100 tỷ USD, đánh dấu bước tiến mới trong hạ tầng không gian thương mại. Các ứng dụng AI trong y học, như việc giải mã thành công 'công tắc' khởi động gen người, cho thấy sự chuyển dịch từ thử nghiệm sang triển khai thực tế. Đồng thời, các tập đoàn công nghệ lớn như Google đang đẩy mạnh chiến lược dữ liệu thông qua việc mua lại dữ liệu từ các doanh nghiệp phá sản để huấn luyện AI, tạo ra những thay đổi lớn trong cách tiếp cận tài nguyên dữ liệu toàn cầu.",
+        "sector_thesis": "Ngành công nghệ toàn cầu đang bị chi phối bởi cơn sốt hạ tầng AI, với Nvidia là tâm điểm. Các tập đoàn lớn như Amazon và OpenAI đang đẩy mạnh đầu tư vào chip và trung tâm dữ liệu để duy trì lợi thế cạnh tranh. Tại Việt Nam, chính phủ đang định hướng thu hút FDI vào công nghệ cao, tạo tiền đề cho sự phát triển của hệ sinh thái bán dẫn và AI trong tương lai.",
         "subsector_briefs": [
           {
-            "name": "Phần cứng AI & Bán dẫn",
-            "overview": "Apple ra mắt chip M6 tiến trình 2nm và M5 Ultra, tập trung vào hiệu năng AI và xử lý video 8K.",
+            "name": "Hạ tầng AI",
+            "overview": "Sự thống trị của Nvidia và các khoản đầu tư lớn vào chip AI.",
             "key_points": [
-              "Chip M6 tiến trình 2nm",
-              "Kiến trúc quad-die M5 Ultra"
+              "Nvidia doanh thu kỷ lục",
+              "Amazon tăng đơn hàng chip"
             ],
             "key_story_titles": [
-              "Apple ra mắt chip M6 và M5 Ultra"
+              "Nvidia công bố doanh thu kỷ lục 96.2 tỷ USD"
             ],
             "representative_sources": [
               {
-                "title": "Apple Refreshes the Mac Mini and Mac Studio, Both With New AI-Ready Chips",
-                "source": "wired_com",
-                "url": "https://wired.com/story/apple-announces-m6-and-m5-ultra-mac-mini-mac-studio"
-              }
-            ]
-          }
-        ],
-        "story_dossiers": []
-      },
-      {
-        "code": "news",
-        "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự 48h qua xoay quanh căng thẳng thương mại Mỹ – Canada và các chính sách cải cách hành chính tại Việt Nam. Việc Canada áp thuế trả đũa 50% lên hàng hóa Mỹ sau khi đàm phán đổ vỡ đã tạo ra một cú sốc địa chính trị lớn. Tại Việt Nam, Chính phủ đẩy mạnh cắt giảm thủ tục hành chính, giúp giảm 53% thời gian và 55% chi phí tuân thủ cho doanh nghiệp. Ngoài ra, các vấn đề an ninh hàng không thông qua việc diễn tập ứng phó UAV tại sân bay Nội Bài và các chính sách quản lý an sinh xã hội số hóa theo vòng đời cũng là những điểm nóng chính trị quan trọng cần theo dõi sát sao trong bối cảnh chuyển đổi số quốc gia.",
-        "subsector_briefs": [
-          {
-            "name": "Địa chính trị & Thương mại",
-            "overview": "Căng thẳng thương mại Mỹ – Canada leo thang với các gói thuế quan trả đũa 50%.",
-            "key_points": [
-              "Canada áp thuế 20 tỷ USD lên hàng hóa Mỹ",
-              "Đàm phán thương mại đổ vỡ"
-            ],
-            "key_story_titles": [
-              "Canada đáp trả Mỹ bằng thuế quan 50%"
-            ],
-            "representative_sources": [
-              {
-                "title": "Canada đáp trả Mỹ bằng thuế quan 50%, thương chiến đã bắt đầu?",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/canada-dap-tra-my-bang-thue-quan-50-thuong-chien-da-bat-dau-100260825231426933.htm",
-                "excerpt": "Canada áp thuế trả đũa lên hàng trăm mặt hàng của Mỹ."
+                "title": "Nvidia earnings takeaways: Huang forecasts 70% fiscal 2028 revenue growth, far above estimates",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/08/26/nvidia-nvda-earnings-report-q2-2027-live-updates.html"
               }
             ]
           }
@@ -184,30 +163,66 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Cải cách hành chính",
-            "title": "Cải cách thủ tục hành chính tại Việt Nam",
-            "summary": "Chính phủ Việt Nam đang thực hiện đợt cắt giảm thủ tục hành chính lớn nhất từ trước đến nay nhằm tối ưu hóa môi trường kinh doanh. Thông qua 11 nghị quyết, Chính phủ đã đạt được mục tiêu giảm 53% thời gian và 55% chi phí tuân thủ cho doanh nghiệp. Đây là nỗ lực trọng tâm nhằm tháo gỡ điểm nghẽn, nâng cao năng lực cạnh tranh quốc gia và tạo điều kiện thuận lợi cho các doanh nghiệp nhỏ và vừa phát triển bền vững.",
+            "depth_level": "major",
+            "sub_sector": "Hạ tầng AI",
+            "title": "Sự thống trị của Nvidia",
+            "summary": "Nvidia vừa công bố doanh thu quý đạt mức kỷ lục 96.2 tỷ USD, tăng trưởng 106% so với cùng kỳ năm trước. Kết quả này khẳng định vị thế thống trị của công ty trong chuỗi cung ứng hạ tầng AI toàn cầu, bất chấp những lo ngại về chi phí đầu tư hạ tầng. Dự báo tăng trưởng 70% trong năm tài chính 2028 cho thấy nhu cầu về chip AI vẫn đang ở mức rất cao.",
             "main_developments": [
-              "Ban hành 11 nghị quyết về cắt giảm, đơn giản hóa thủ tục hành chính.",
-              "Đẩy mạnh số hóa quy trình hành chính để tiết kiệm chi phí vận hành."
+              "Doanh thu trung tâm dữ liệu đạt 89 tỷ USD, tăng 117%.",
+              "Dự báo tăng trưởng 70% cho năm tài chính 2028.",
+              "Amazon tăng gấp ba đơn hàng chip Nvidia."
             ],
-            "why_it_matters": "Cải cách hành chính là đòn bẩy quan trọng để thu hút đầu tư và thúc đẩy tăng trưởng kinh tế trong bối cảnh cạnh tranh toàn cầu.",
+            "why_it_matters": "Nvidia là tâm điểm của cơn sốt AI thị trường, ảnh hưởng trực tiếp đến tâm lý thị trường chứng khoán và dòng vốn vào ngành bán dẫn.",
             "affected_groups": [
-              "Doanh nghiệp nhỏ và vừa",
-              "Nhà đầu tư nước ngoài",
-              "Cơ quan quản lý nhà nước"
+              "Nhà đầu tư công nghệ",
+              "Ngành bán dẫn"
             ],
             "watch_next": [
-              "Tiến độ thực thi các nghị quyết tại các địa phương",
-              "Phản hồi từ cộng đồng doanh nghiệp"
+              "Khả năng đáp ứng nguồn cung chip",
+              "Biến động cổ phiếu công nghệ"
             ],
             "representative_sources": [
               {
-                "title": "Thủ tướng nói về mức cắt giảm thủ tục kinh doanh lớn nhất từ trước đến nay",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/thu-tuong-noi-ve-muc-cat-giam-thu-tuc-kinh-doanh-lon-nhat-tu-truoc-den-nay-20260825115440835.htm",
-                "excerpt": "Chi tiết về nỗ lực cắt giảm thủ tục hành chính của Chính phủ."
+                "title": "Nvidia earnings takeaways: Huang forecasts 70% fiscal 2028 revenue growth, far above estimates",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/08/26/nvidia-nvda-earnings-report-q2-2027-live-updates.html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "news",
+        "name": "Thời sự & Chính trị",
+        "sector_thesis": "Các sự kiện địa chính trị và chính sách công đang có tác động lớn đến an ninh và phát triển kinh tế. Từ tuyên bố của Tổng thống Mỹ Donald Trump về Iran đến các vụ tấn công mạng vào cơ quan chính phủ Mỹ, tình hình quốc tế đang diễn biến phức tạp. Tại Việt Nam, việc hoàn thiện thể chế và đẩy mạnh các dự án hạ tầng trọng điểm là ưu tiên hàng đầu để tạo động lực tăng trưởng.",
+        "subsector_briefs": [],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "Địa chính trị",
+            "title": "Căng thẳng Mỹ - Iran",
+            "summary": "Tổng thống Mỹ Donald Trump vừa đưa ra tuyên bố gây tranh cãi về tình hình Iran, gợi nhắc đến các cuộc xung đột quân sự trong quá khứ. Tuyên bố này diễn ra trong bối cảnh căng thẳng địa chính trị tại Trung Đông vẫn đang diễn biến phức tạp, ảnh hưởng trực tiếp đến an ninh khu vực và giá năng lượng toàn cầu. Các nỗ lực ngoại giao và quân sự của Mỹ tại khu vực đang được cộng đồng quốc tế theo dõi sát sao.",
+            "main_developments": [
+              "Trump đăng hình ảnh mô tả các cuộc không kích tại Iran.",
+              "Cộng đồng quốc tế lo ngại về sự leo thang quân sự.",
+              "Giá dầu Brent biến động theo diễn biến địa chính trị."
+            ],
+            "why_it_matters": "Sự kiện địa chính trị lớn ảnh hưởng đến quan hệ quốc tế, an ninh khu vực và tâm lý thị trường năng lượng toàn cầu.",
+            "affected_groups": [
+              "Thị trường năng lượng",
+              "Quan hệ quốc tế"
+            ],
+            "watch_next": [
+              "Phản ứng từ phía Iran",
+              "Diễn biến giá dầu Brent"
+            ],
+            "representative_sources": [
+              {
+                "title": "Tổng thống Mỹ Trump tuyên bố ‘hoàn tất sứ mệnh’ ở Iran",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/tong-thong-my-trump-tuyen-bo-hoan-tat-su-menh-o-iran-post1871561.tpo",
+                "excerpt": "Tuyên bố gây tranh cãi về tình hình Iran, gợi nhắc đến các cuộc xung đột quân sự trong quá khứ."
               }
             ]
           }
@@ -216,24 +231,24 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Đời sống 48h qua nổi bật với các vấn đề an toàn thực phẩm và thay đổi trong tư duy tiêu dùng. Vụ việc ngộ độc thực phẩm tại Gia Lai với hơn 100 người nhập viện và vụ lừa dối khách hàng của Hải Sapa TV là những hồi chuông cảnh báo về quản lý hàng hóa trên nền tảng số. Bên cạnh đó, xu hướng người trẻ bán nhà để quay lại thuê nhằm tối ưu hóa dòng tiền và sự linh hoạt đang trở thành một chủ đề xã hội đáng chú ý. Các ứng dụng công nghệ trong quản lý suất ăn học đường và xu hướng tuyển dụng nhân sự làm phim AI tại Trung Quốc cho thấy sự chuyển dịch mạnh mẽ của công nghệ vào đời sống hàng ngày, thay đổi cách chúng ta làm việc và tiêu dùng.",
+        "sector_thesis": "Sự kiện thể thao AFF Cup 2026 đã tạo ra hiệu ứng xã hội mạnh mẽ, khẳng định sức mạnh của bóng đá trong việc kết nối cộng đồng. Bên cạnh đó, các xu hướng sống khỏe và quản lý tài chính cá nhân đang được giới trẻ quan tâm, phản ánh sự thay đổi trong lối sống và tâm lý tiêu dùng trong bối cảnh kinh tế biến động.",
         "subsector_briefs": [
           {
-            "name": "An toàn thực phẩm",
-            "overview": "Vấn đề an toàn vệ sinh thực phẩm trở nên cấp bách sau các vụ ngộ độc và lừa dối khách hàng.",
+            "name": "Thể thao & Văn hóa",
+            "overview": "Hiệu ứng xã hội từ chức vô địch AFF Cup 2026.",
             "key_points": [
-              "Ngộ độc thực phẩm tại Gia Lai",
-              "Vụ lừa dối khách hàng của Hải Sapa TV"
+              "Tuyển Việt Nam vô địch",
+              "Hiệu ứng lan tỏa xã hội"
             ],
             "key_story_titles": [
-              "Vụ việc Hải Sapa TV và quản lý livestream"
+              "Tuyển Việt Nam vô địch AFF Cup 2026"
             ],
             "representative_sources": [
               {
-                "title": "105 người bị sốt và nôn ói sau khi ăn bánh mì",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/105-nguoi-bi-sot-va-non-oi-sau-khi-an-banh-mi-post1870975.tpo",
-                "excerpt": "Vụ ngộ độc thực phẩm nghiêm trọng tại Gia Lai."
+                "title": "HLV Kim Sang-sik ngỡ ngàng vì liên tiếp vô địch cùng bóng đá Việt Nam",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/hlv-kim-sang-sik-ngo-ngang-vi-lien-tiep-vo-dich-cung-bong-da-viet-nam-192260827030019252.htm",
+                "excerpt": "Đội tuyển Việt Nam bảo vệ thành công chức vô địch Đông Nam Á."
               }
             ]
           }
@@ -241,31 +256,30 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Thương mại điện tử",
-            "title": "Vụ việc Hải Sapa TV và quản lý livestream",
-            "summary": "Vụ việc YouTuber Hải Sapa TV bị khởi tố vì hành vi lừa dối khách hàng khi quảng cáo thịt trâu đông lạnh Ấn Độ dưới mác 'đặc sản Tây Bắc' đã gây bức xúc dư luận. Vụ việc này làm dấy lên hồi chuông cảnh báo về sự thiếu minh bạch trong quản lý hàng hóa trên các nền tảng livestream và thương mại điện tử, đồng thời thúc đẩy các cơ quan chức năng tăng cường kiểm soát chất lượng hàng hóa bán online.",
+            "depth_level": "major",
+            "sub_sector": "Thể thao & Văn hóa",
+            "title": "Vô địch AFF Cup 2026",
+            "summary": "Đội tuyển Việt Nam đã bảo vệ thành công chức vô địch AFF Cup 2026 sau khi vượt qua Thái Lan với tổng tỷ số 4-2 trong trận chung kết. Chiến thắng này không chỉ ghi dấu ấn lịch sử cho HLV Kim Sang-sik mà còn tạo ra hiệu ứng xã hội mạnh mẽ, với hàng triệu người hâm mộ ăn mừng trên khắp cả nước. Tổng mức thưởng cho đội tuyển hiện đã vượt mốc 28 tỷ đồng.",
             "main_developments": [
-              "Khởi tố, bắt tạm giam Vũ Hoàng Hải (Hải Sapa TV) về tội Lừa dối khách hàng.",
-              "Phát hiện hành vi chế biến thịt trâu đông lạnh nhập khẩu thành đặc sản địa phương.",
-              "Doanh số thịt trâu gác bếp trên các sàn TMĐT đạt gần 120 tỷ đồng, gây rủi ro lớn cho người tiêu dùng."
+              "Hòa 2-2 trong trận chung kết lượt về tại sân Mỹ Đình.",
+              "Thắng chung cuộc 4-2 sau hai lượt trận.",
+              "Hiệu ứng lan tỏa mạnh mẽ đến các hoạt động thương mại và tiêu dùng."
             ],
-            "why_it_matters": "Vụ việc là bài học lớn về quản lý an toàn thực phẩm và minh bạch nguồn gốc hàng hóa trong kỷ nguyên thương mại điện tử.",
+            "why_it_matters": "Sự kiện văn hóa-thể thao có tác động xã hội và kinh tế mạnh mẽ nhất tại Việt Nam trong 48 giờ qua, kích cầu tiêu dùng và gắn kết cộng đồng.",
             "affected_groups": [
-              "Người tiêu dùng online",
-              "Các sàn thương mại điện tử",
-              "Cơ quan quản lý thị trường"
+              "Người hâm mộ",
+              "Doanh nghiệp tài trợ"
             ],
             "watch_next": [
-              "Các biện pháp siết chặt quản lý livestream",
-              "Phản ứng của các sàn TMĐT đối với hàng hóa không rõ nguồn gốc"
+              "Các hoạt động ăn mừng và diễu hành",
+              "Tác động đến doanh thu các nhãn hàng tài trợ"
             ],
             "representative_sources": [
               {
-                "title": "Con số bất ngờ về lượng thịt trâu Ấn Độ giá siêu rẻ từ vụ \"Hải Sapa TV\"",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/con-so-bat-ngo-ve-luong-thit-trau-an-do-gia-sieu-re-tu-vu-hai-sapa-tv-20260825111955354.htm",
-                "excerpt": "Chi tiết về vụ việc lừa dối khách hàng của Hải Sapa TV."
+                "title": "HLV Kim Sang-sik ngỡ ngàng vì liên tiếp vô địch cùng bóng đá Việt Nam",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/hlv-kim-sang-sik-ngo-ngang-vi-lien-tiep-vo-dich-cung-bong-da-viet-nam-192260827030019252.htm",
+                "excerpt": "Đội tuyển Việt Nam bảo vệ thành công chức vô địch Đông Nam Á."
               }
             ]
           }
@@ -274,58 +288,58 @@
     ],
     "watchlist_24_72h": [
       {
+        "theme": "Chính sách tiền tệ",
+        "what_to_watch": "Động thái lãi suất từ Fed và Ngân hàng Trung ương Hàn Quốc",
+        "why": "Ảnh hưởng trực tiếp đến thị trường tài chính toàn cầu và dòng vốn."
+      },
+      {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Phản ứng giá dầu Brent và các biện pháp trừng phạt Iran",
-        "why": "Tác động trực tiếp đến giá năng lượng và ổn định tài chính toàn cầu."
+        "what_to_watch": "Phản ứng của Iran và diễn biến giá dầu Brent",
+        "why": "Rủi ro leo thang quân sự tác động đến an ninh năng lượng."
       },
       {
-        "theme": "Thị trường tài sản số",
-        "what_to_watch": "Khả năng duy trì mốc 80.000 USD của Bitcoin",
-        "why": "Tâm lý nhà đầu tư đang dịch chuyển mạnh mẽ vào tài sản số."
+        "theme": "Thị trường chứng khoán Việt Nam",
+        "what_to_watch": "Tiến độ các thương vụ M&A ngân hàng lớn",
+        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và giá cổ phiếu."
       },
       {
-        "theme": "Chính sách thương mại",
-        "what_to_watch": "Phản ứng của Mỹ đối với thuế quan của Canada",
-        "why": "Ảnh hưởng trực tiếp đến chuỗi cung ứng Bắc Mỹ."
-      },
-      {
-        "theme": "Hạ tầng Việt Nam",
-        "what_to_watch": "Tiến độ dự án lấn biển và giải ngân đầu tư công",
-        "why": "Động lực tăng trưởng kinh tế quan trọng trong nước."
+        "theme": "Hạ tầng AI",
+        "what_to_watch": "Nhu cầu chip và tiến độ triển khai trung tâm dữ liệu",
+        "why": "Động lực tăng trưởng chính của ngành công nghệ toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin vượt mốc 80.000 USD và sự trỗi dậy của tài sản số",
-        "why": "Đây là sự kiện tài chính quan trọng nhất trong 48 giờ qua, tác động trực tiếp đến tâm lý nhà đầu tư toàn cầu."
+        "what_to_watch": "Nvidia công bố doanh thu kỷ lục 96.2 tỷ USD, thúc đẩy làn sóng lạc quan về hạ tầng AI",
+        "why": "Đây là sự kiện tài chính quan trọng nhất ảnh hưởng đến tâm lý thị trường công nghệ toàn cầu trong 48 giờ qua."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "TP.HCM tái cấu trúc mô hình siêu đô thị: Cơ hội và thách thức từ quy hoạch 100 năm",
-        "why": "Phản ánh chiến lược phát triển đô thị lớn nhất cả nước và tác động trực tiếp đến thị trường BĐS."
+        "what_to_watch": "Cổ phiếu SSB của SeABank vào rổ FTSE Global All Cap",
+        "why": "Sự kiện quan trọng về nâng hạng thị trường chứng khoán Việt Nam và dòng vốn ngoại."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "VN-Index biến động mạnh trước áp lực chốt lời",
-        "why": "Phản ánh tâm lý thận trọng của nhà đầu tư sau đợt tăng điểm mạnh."
+        "what_to_watch": "Quảng Ninh trao quyết định đầu tư 16 dự án với tổng vốn hơn 16.000 tỷ đồng",
+        "why": "Sự kiện đầu tư quy mô lớn phản ánh nỗ lực phát triển hạ tầng và kinh tế của địa phương trọng điểm."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Apple đối mặt áp lực tăng giá iPhone 18 do chi phí chip nhớ leo thang",
-        "why": "Tác động trực tiếp đến người tiêu dùng và chiến lược giá của Apple trong bối cảnh lạm phát linh kiện."
+        "what_to_watch": "Tác động dài hạn của dinh dưỡng thời thơ ấu đến sức khỏe và kinh tế",
+        "why": "Cung cấp góc nhìn kinh tế y tế về chi phí dài hạn của chính sách dinh dưỡng cộng đồng."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Hợp chất thử nghiệm TOFA giúp giảm mỡ mà không gây mất cơ",
+        "why": "Đột phá tiềm năng trong điều trị béo phì, có tác động lớn đến thị trường dược phẩm và chi phí y tế."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Tổng Bí thư, Chủ tịch nước Tô Lâm: Xây dựng hồ sơ an sinh xã hội số hóa theo vòng đời",
-        "why": "Chính sách chuyển đổi số quốc gia quan trọng trong quản lý xã hội."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Bộ Xây dựng hoàn thành 4/17 nhiệm vụ chuyển đổi số",
-        "why": "Cập nhật tiến độ quan trọng trong lộ trình chuyển đổi số quốc gia."
+        "what_to_watch": "Bill Gates đề xuất đánh thuế robot và bảo vệ các công việc dành riêng cho con người",
+        "why": "Góc nhìn quan trọng từ một nhân vật có tầm ảnh hưởng lớn về tương lai của AI và việc làm."
       }
     ],
     "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các lệnh trừng phạt lên chuỗi cung ứng tại Việt Nam; cần theo dõi thêm về phản ứng của các ngân hàng trung ương đối với biến động giá vàng.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các diễn biến cụ thể của cuộc xung đột tại Iran và các tác động trực tiếp của nó đến chuỗi cung ứng năng lượng toàn cầu ngoài các báo cáo sơ bộ.",
     "notable_articles": []
   }
 }
