@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-09-06T23:27:15.191692+00:00",
+  "generated_at": "2026-09-07T23:59:23.463743+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 522237,
+    "estimated_input_tokens": 577282,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 1,
+    "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 412,
-    "sent_article_count": 412,
+    "input_article_count": 498,
+    "sent_article_count": 498,
     "window": {
-      "end_date": "2026-09-07",
+      "end_date": "2026-09-08",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,106 +25,127 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các sự kiện kinh tế, công nghệ và chính trị trọng yếu trong 48 giờ qua, tập trung vào các biến số có tác động thực tế đến thị trường và chính sách.",
+    "editor_note": "Bản tin tổng hợp các biến động chiến lược về kinh tế, công nghệ và địa chính trị trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh tin tức được định hình bởi sự kết hợp giữa các nỗ lực ngoại giao kinh tế cấp cao của Việt Nam và làn sóng đột phá công nghệ thị trường. Các cuộc gặp gỡ cấp cao giữa Thủ tướng Lê Minh Hưng và phía Nhật Bản đã xác lập mô hình 'đồng kiến tạo' trong hạ tầng và chuyển đổi số, trong khi thị trường tài chính thị trường đang phản ứng thận trọng trước các biến động địa chính trị tại Vịnh Ba Tư và sự phân hóa dòng vốn vào các quỹ ETF Bitcoin.",
-        "most_mentioned": "Công nghệ AI tiếp tục là tâm điểm với sự ra mắt của GPT-6 Astra từ OpenAI, kéo theo các thảo luận về hạ tầng bán dẫn và nhu cầu CPU cho Intel và AMD. Song song đó, các chính sách quản lý bất động sản thông qua Nghị định 339 tại Việt Nam và các báo cáo thu nhập doanh nghiệp hàng không cũng được nhắc đến dày đặc.",
-        "top_stories": "Sự kiện ngoại giao Việt Nam - Nhật Bản và đề xuất mở rộng cao tốc Bắc - Nam của Tập đoàn Đèo Cả đang tạo ra những kỳ vọng lớn về dòng vốn đầu tư tư nhân. Đồng thời, sự leo thang căng thẳng tại Vịnh Ba Tư giữa Mỹ và Iran đang trở thành biến số rủi ro chính cho thị trường năng lượng và tâm lý nhà đầu tư toàn cầu.",
-        "sector_impacts": "Các doanh nghiệp công nghệ và hạ tầng đang chịu ảnh hưởng trực tiếp từ xu hướng đầu tư AI và các quy định pháp lý mới. Thị trường chứng khoán Việt Nam cho thấy sự phân hóa sâu sắc, nơi dòng vốn tập trung vào các mã vốn hóa lớn như VIC và VHM trong khi phần lớn cổ phiếu vẫn nằm dưới đường trung bình 200 phiên."
+        "main_picture": "Trong 48 giờ qua, bức tranh kinh tế - xã hội ghi nhận sự phân hóa rõ rệt. Tại Việt Nam, trọng tâm dồn vào các dự án hạ tầng giao thông trọng điểm, nỗ lực gỡ vướng pháp lý cho bất động sản và các chính sách hỗ trợ thuế cho doanh nghiệp. Trong khi đó, thị trường tài chính toàn cầu đang phản ứng với những biến động địa chính trị tại Trung Đông và áp lực từ chính sách tiền tệ, cùng với đó là sự bùng nổ của các thảo luận về hạ tầng AI và an ninh mạng.",
+        "most_mentioned": "Hạ tầng giao thông và bất động sản Việt Nam là chủ đề được nhắc nhiều nhất, với sự tập trung vào tiến độ các dự án cao tốc và hệ thống dữ liệu nhà ở quốc gia. Song song đó, các biến động tài chính toàn cầu do xung đột Trung Đông và kỳ vọng lãi suất Fed cũng chiếm sóng lớn trên các mặt báo kinh tế.",
+        "top_stories": "Câu chuyện nổi bật nhất là sự kiện Vingroup dẫn đầu đóng góp ngân sách quốc gia, đánh dấu cột mốc quan trọng của kinh tế tư nhân. Đồng thời, sự kiện VN-Index điều chỉnh mạnh và các nỗ lực ngoại giao cấp cao của Việt Nam tại Nga cũng tạo ra những luồng tin có tác động lớn đến tâm lý thị trường và vị thế quốc tế.",
+        "sector_impacts": "Ngành tài chính chịu áp lực điều chỉnh từ thị trường chứng khoán và biến động giá vàng. Ngành công nghệ tiếp tục đẩy mạnh ứng dụng AI vào giáo dục và y tế, trong khi ngành xây dựng và hạ tầng đang chạy đua với thời gian để hoàn thiện các dự án trọng điểm quốc gia.",
+        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi sát sao diễn biến giá dầu thế giới, phản ứng của thị trường chứng khoán Việt Nam sau phiên điều chỉnh, tiến độ các dự án cao tốc trọng điểm và các văn bản hướng dẫn mới về tài sản số."
       },
-      "content": "Trong 48 giờ qua, dòng tin nổi bật không nằm ở một sự kiện đơn lẻ, mà ở sự dịch chuyển đồng thời của ba trục lớn: thị trường tài sản rủi ro thận trọng hơn, công nghệ AI tiếp tục hút vốn, và chính sách tại Việt Nam bước vào giai đoạn cụ thể hóa mạnh hơn. Crypto, vàng, AI, bán dẫn, tài sản số, hạ tầng và năng lượng cùng xuất hiện dày đặc, cho thấy thị trường đang vừa phòng thủ trước biến động ngắn hạn, vừa tìm kiếm các câu chuyện tăng trưởng có nền tảng dài hạn. Ở lớp thị trường, Bitcoin và nhóm tài sản số được nhắc nhiều vì đang chịu áp lực điều chỉnh sau giai đoạn tăng mạnh. Dòng vốn vào các quỹ Bitcoin ETF tại Mỹ tập trung chủ yếu vào IBIT của BlackRock, phản ánh xu hướng ưu tiên thương hiệu và thanh khoản của nhà đầu tư. Tại Việt Nam, nhóm tin quan trọng xoay quanh việc hoàn thiện hành lang pháp lý cho tài sản số, siết tiêu chí doanh nghiệp tham gia thị trường bất động sản thông qua Nghị định 339, thúc đẩy trung tâm tài chính quốc tế, tháo gỡ điểm nghẽn bất động sản và đẩy nhanh hạ tầng. Các tin này cùng cho thấy chính sách đang chuyển từ giai đoạn định hướng sang giai đoạn thiết kế luật chơi. Trong công nghệ, AI không còn chỉ là câu chuyện ứng dụng phần mềm. Các bài viết nổi bật cho thấy AI đang kéo theo nhu cầu về bán dẫn, dữ liệu, trung tâm dữ liệu, năng lực lưu trữ và khả năng triển khai trong ngân hàng, tài chính, sản xuất và dịch vụ. Nvidia đã cam kết hơn 70 tỷ USD đầu tư vào các công ty khởi nghiệp và khoảng 300 tỷ USD hỗ trợ tài chính cho khách hàng, cho thấy AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế trong vận hành.",
+      "content": "Bức tranh 48 giờ qua cho thấy sự chuyển dịch mạnh mẽ trong ưu tiên của cả chính phủ và doanh nghiệp. Tại Việt Nam, việc đẩy nhanh các dự án hạ tầng như cao tốc Bến Lức - Long Thành và Vành đai 4 không chỉ là nhiệm vụ kinh tế mà còn là đòn bẩy cho kết nối vùng. Sự kiện Vingroup dẫn đầu bảng xếp hạng nộp ngân sách năm 2025 phản ánh sức khỏe của các tập đoàn tư nhân lớn trong cơ cấu thu ngân sách quốc gia. Trên bình diện quốc tế, xung đột Trung Đông tiếp tục là biến số khó lường, đẩy giá dầu lên cao và gây áp lực lên lạm phát toàn cầu, buộc các ngân hàng trung ương phải thận trọng hơn trong chính sách tiền tệ. Trong lĩnh vực công nghệ, AI đang chuyển mình từ giai đoạn thử nghiệm sang ứng dụng thực tế trong y tế và giáo dục, với các dự án thí điểm tại Hà Nội và Cần Thơ là minh chứng rõ nét.",
       "representative_sources": [
         {
-          "title": "AI Is Already Making Us Less Human",
-          "source": "theatlantic_com",
-          "url": "https://theatlantic.com/ideas/2026/09/open-ai-consciousness-morality/688535?utm_source=feed"
+          "title": "Vingroup dẫn đầu đóng góp ngân sách quốc gia",
+          "source": "vietnamnet_vn",
+          "url": "https://vietnamnet.vn/vingroup-dung-dau-bang-xep-hang-200-doanh-nghiep-nop-ngan-sach-lon-nhat-viet-nam-2552802.html"
+        },
+        {
+          "title": "Xung đột Trung Đông đẩy giá dầu lên cao",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/09/07/oil-prices-rise-to-6-week-high-after-iran-and-us-trade-blows-saudi-aramco-facilities-reportedly-hit.html"
+        },
+        {
+          "title": "Đảng cực hữu AfD thắng lớn tại Đức",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/09/07/afd-germany-economy-merz.html"
+        },
+        {
+          "title": "Vingroup đứng đầu bảng xếp hạng 200 doanh nghiệp nộp ngân sách lớn nhất Việt Nam",
+          "source": "vietnamnet_vn",
+          "url": "https://vietnamnet.vn/vingroup-dung-dau-bang-xep-hang-200-doanh-nghiep-nop-ngan-sach-lon-nhat-viet-nam-2552802.html",
+          "excerpt": "Vingroup dẫn đầu bảng xếp hạng VNTAX 200 với gần 148.800 tỷ đồng."
+        },
+        {
+          "title": "CEO NVIDIA Jensen Huang chúc mừng OpenAI, nói AGI đã đến: Không quên nhắc mọi người GPT-6 được huấn luyện trên chip AI nào",
+          "source": "genk_vn",
+          "url": "https://genk.vn/ceo-nvidia-jensen-huang-chuc-mung-openai-noi-agi-da-den-khong-quen-nhac-moi-nguoi-gpt-6-duoc-huan-luyen-tren-chip-ai-nao-165260907154605777.chn",
+          "excerpt": "Jensen Huang chúc mừng OpenAI và nhấn mạnh vai trò của chip NVIDIA."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Hợp tác Việt Nam - Nhật Bản",
-          "why_mentioned": "Trọng tâm ngoại giao và kinh tế trong 48h qua.",
-          "evidence_hint": "Nhiều nguồn tin chính thống đưa tin về các cuộc gặp cấp cao."
-        },
-        {
-          "topic": "Đột phá AI (GPT-6 Astra)",
-          "why_mentioned": "Tác động mạnh mẽ đến thị trường công nghệ và bán dẫn.",
-          "evidence_hint": "Dòng tin dày đặc từ các trang công nghệ quốc tế."
+          "topic": "Hạ tầng giao thông Việt Nam",
+          "why_mentioned": "Tiến độ các dự án cao tốc và quy hoạch đường sắt là ưu tiên hàng đầu của Chính phủ.",
+          "evidence_hint": "Dày đặc tin tức về cao tốc Bến Lức - Long Thành và Vành đai 4."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Căng thẳng địa chính trị Vịnh Ba Tư",
-          "why_hot": "Ảnh hưởng trực tiếp đến giá năng lượng và an ninh toàn cầu.",
-          "impact": "Gây áp lực lên giá dầu và tâm lý nhà đầu tư.",
-          "evidence_hint": "Tin tức leo thang quân sự giữa Mỹ và Iran."
+          "topic": "Xung đột Trung Đông & Giá dầu",
+          "why_hot": "Tác động trực tiếp đến chi phí năng lượng và lạm phát toàn cầu.",
+          "impact": "Gây áp lực lên chính sách tiền tệ của các ngân hàng trung ương.",
+          "evidence_hint": "Giá dầu Brent đạt mức cao nhất trong 6 tuần."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dòng vốn dịch chuyển sang hạ tầng AI",
-          "why_watch": "Nhà đầu tư ưu tiên các doanh nghiệp có nền tảng hạ tầng thực tế thay vì đầu cơ."
+          "signal": "Ứng dụng AI trong giáo dục và y tế tại Việt Nam",
+          "why_watch": "Đánh dấu bước chuyển từ lý thuyết sang triển khai thực tế."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường dầu mỏ với căng thẳng Trung Đông",
-        "Tiến độ các dự án cao tốc Bắc - Nam theo hình thức PPP"
+        "Diễn biến giá dầu Brent và WTI",
+        "Phản ứng của VN-Index sau phiên giảm mạnh",
+        "Tiến độ thông xe cao tốc Bến Lức - Long Thành"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Thủ tướng Lê Minh Hưng thúc đẩy hợp tác chiến lược Việt Nam - Nhật Bản",
-        "one_sentence": "Diễn đàn Hợp tác địa phương Việt Nam - Nhật Bản tại Huế tập trung vào việc kiến tạo tương lai số, xanh và bền vững, tháo gỡ các điểm nghẽn về hạ tầng và thủ tục hành chính.",
-        "why_it_matters": "Sự kiện ngoại giao và kinh tế quan trọng của Việt Nam, xác lập mô hình đồng kiến tạo giữa hai quốc gia.",
-        "watch_next": "Các thỏa thuận cụ thể về chuyển giao công nghệ và hạ tầng sau diễn đàn.",
+        "title": "Vingroup dẫn đầu đóng góp ngân sách quốc gia",
+        "one_sentence": "Vingroup trở thành doanh nghiệp tư nhân đầu tiên dẫn đầu bảng xếp hạng VNTAX 200 với gần 150.000 tỷ đồng, chiếm 5,6% tổng thu ngân sách nhà nước năm 2025.",
+        "why_it_matters": "Đánh dấu bước ngoặt của kinh tế tư nhân trong việc đóng góp trực tiếp vào ngân sách quốc gia.",
+        "watch_next": "Tác động của mức đóng góp này đến các chính sách ưu đãi cho doanh nghiệp tư nhân lớn.",
         "source_urls": [
-          "https://baochinhphu.vn/thu-tuong-le-minh-hung-viet-nam-nhat-ban-cung-xac-dinh-la-doi-tac-tang-truong-chat-luong-cao-va-tu-chu-chien-luoc-102260906160041479.htm"
+          "https://vietnamnet.vn/vingroup-dung-dau-bang-xep-hang-200-doanh-nghiep-nop-ngan-sach-lon-nhat-viet-nam-2552802.html"
         ]
       },
       {
         "rank": 2,
-        "title": "OpenAI ra mắt GPT-6 Astra với khả năng điều khiển máy tính",
-        "one_sentence": "GPT-6 Astra mang lại đột phá trong việc tự động hóa các tác vụ máy tính và xây dựng mô hình 3D, dù hiệu suất viết lách bị đánh giá thấp hơn phiên bản tiền nhiệm.",
-        "why_it_matters": "Sự kiện công nghệ quan trọng nhất trong 48 giờ qua, tác động trực tiếp đến thị trường bán dẫn và xu hướng AI tự động hóa.",
-        "watch_next": "Phản ứng của các đối thủ cạnh tranh như Google và Anthropic trong việc nâng cấp mô hình.",
+        "title": "Xung đột Trung Đông đẩy giá dầu lên cao",
+        "one_sentence": "Giá dầu Brent đạt mức cao nhất trong 6 tuần do lo ngại gián đoạn nguồn cung tại eo biển Hormuz sau các cuộc tấn công quân sự giữa Mỹ và Iran.",
+        "why_it_matters": "Tác động trực tiếp đến chi phí năng lượng và kỳ vọng lãi suất của Fed.",
+        "watch_next": "Diễn biến quân sự tại eo biển Hormuz và phản ứng của giá dầu Brent.",
         "source_urls": [
-          "https://decrypt.co/377514/openai-gpt-6-astra-review-shockingly-good"
+          "https://cnbc.com/2026/09/07/oil-prices-rise-to-6-week-high-after-iran-and-us-trade-blows-saudi-aramco-facilities-reportedly-hit.html"
         ]
       },
       {
         "rank": 3,
-        "title": "Đèo Cả đề xuất mở rộng 350km cao tốc Bắc - Nam lên 6 làn xe",
-        "one_sentence": "Tập đoàn Đèo Cả kiến nghị Bộ Xây dựng cho phép lập hồ sơ mở rộng các đoạn cao tốc trọng điểm theo hình thức PPP, không sử dụng vốn ngân sách Nhà nước.",
-        "why_it_matters": "Dự án hạ tầng quy mô lớn, tác động trực tiếp đến chính sách đầu tư công và huy động vốn tư nhân.",
-        "watch_next": "Phản hồi từ Bộ Xây dựng và các cơ quan quản lý về tính khả thi của phương án PPP.",
-        "source_urls": []
+        "title": "Đảng cực hữu AfD thắng lớn tại Đức",
+        "one_sentence": "Đảng AfD giành 43,8% phiếu bầu tại bang Saxony-Anhalt, tạo ra cơn địa chấn chính trị gây áp lực lớn lên liên minh cầm quyền của Thủ tướng Friedrich Merz.",
+        "why_it_matters": "Sự trỗi dậy của cực hữu tại nền kinh tế lớn nhất châu Âu có thể làm thay đổi chính sách đối ngoại và kinh tế khu vực.",
+        "watch_next": "Phản ứng của liên minh cầm quyền Đức và tác động đến chính sách nhập cư.",
+        "source_urls": [
+          "https://cnbc.com/2026/09/07/afd-germany-economy-merz.html"
+        ]
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự phân hóa dòng vốn và các thay đổi pháp lý quan trọng. Trong khi thị trường chứng khoán Việt Nam ghi nhận đà tăng từ nhóm vốn hóa lớn như VIC và VHM, sự thận trọng vẫn bao trùm khi phần lớn cổ phiếu vẫn nằm dưới đường trung bình 200 phiên. Các chính sách mới về bất động sản thông qua Nghị định 339 và quản lý tài sản số đang tạo ra khung pháp lý rõ ràng hơn, ảnh hưởng trực tiếp đến chiến lược của các doanh nghiệp và nhà đầu tư. Dòng vốn vào các quỹ Bitcoin ETF tại Mỹ tập trung vào IBIT của BlackRock, cho thấy xu hướng ưu tiên thương hiệu trong bối cảnh thị trường tài sản số điều chỉnh.",
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh của thị trường chứng khoán và nỗ lực đóng góp ngân sách của khối doanh nghiệp tư nhân. Sự kiện Vingroup dẫn đầu bảng xếp hạng nộp ngân sách cho thấy sức mạnh của các tập đoàn lớn, trong khi VN-Index giảm mạnh phản ánh tâm lý thận trọng trước các biến động vĩ mô. Dòng vốn đang có sự dịch chuyển khi các ngân hàng đẩy mạnh phát hành chứng chỉ tiền gửi để cân đối thanh khoản.",
         "subsector_briefs": [
           {
-            "name": "Thị trường chứng khoán & Tài sản số",
-            "overview": "Thị trường chứng khoán Việt Nam phân hóa sâu sắc, trong khi tài sản số chịu áp lực điều chỉnh với dòng vốn tập trung vào các quỹ ETF lớn.",
+            "name": "Thị trường vốn & Ngân hàng",
+            "overview": "Thị trường chứng khoán điều chỉnh mạnh, trong khi các ngân hàng đẩy mạnh huy động vốn qua chứng chỉ tiền gửi.",
             "key_points": [
-              "VIC và VHM đóng góp gần 89% mức tăng của VN-Index phiên 4/9",
-              "Dòng vốn Bitcoin ETF tập trung vào IBIT của BlackRock"
+              "VN-Index giảm 31 điểm",
+              "HDBank xử lý nợ xấu"
             ],
             "key_story_titles": [
-              "VN-Index vượt 1.850 điểm nhưng thị trường phân hóa sâu sắc"
+              "VN-Index giảm mạnh 31 điểm"
             ],
             "representative_sources": [
               {
-                "title": "VN-Index vượt 1.850 điểm, nhưng 3/4 lượng cổ phiếu trên sàn vẫn 'lạ' lắm",
+                "title": "2 cổ phiếu trụ kéo VN-Index mất 18 điểm, một cổ phiếu sữa ngược dòng tăng kịch trần",
                 "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/vn-index-vuot-1850-diem-nhung-3-4-luong-co-phieu-tren-san-van-la-lam-100260906151644048.htm",
-                "excerpt": "Thống kê cho thấy 75,1% cổ phiếu vẫn nằm dưới đường trung bình 200 phiên, cho thấy sự phục hồi chưa lan tỏa."
+                "url": "https://tuoitre.vn/2-co-phieu-tru-keo-vn-index-mat-18-diem-mot-co-phieu-sua-nguoc-dong-tang-kich-tran-100260907153951644.htm",
+                "excerpt": "VN-Index giảm 1,7% do áp lực bán từ các mã vốn hóa lớn."
               }
             ]
           }
@@ -132,31 +153,29 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Thị trường chứng khoán",
-            "title": "Dòng vốn ngoại và sự phân hóa trên thị trường chứng khoán Việt Nam",
-            "summary": "Thị trường chứng khoán Việt Nam ghi nhận đà tăng ấn tượng của chỉ số VN-Index vượt mốc 1.850 điểm, tuy nhiên sự tăng trưởng này chủ yếu dựa vào nhóm cổ phiếu vốn hóa lớn như VIC và VHM. Sự phân hóa sâu sắc giữa các nhóm ngành và cổ phiếu cho thấy dòng tiền vẫn chưa lan tỏa rộng rãi, với phần lớn cổ phiếu vẫn nằm dưới đường trung bình 200 phiên.",
+            "depth_level": "major",
+            "sub_sector": "Doanh nghiệp & Ngân sách",
+            "title": "Vingroup dẫn đầu đóng góp ngân sách quốc gia",
+            "summary": "Vingroup trở thành doanh nghiệp tư nhân đầu tiên dẫn đầu bảng xếp hạng VNTAX 200 năm 2025 với gần 148.800 tỷ đồng nộp ngân sách, gấp 2,65 lần năm trước. Đây là cột mốc quan trọng khẳng định vai trò của kinh tế tư nhân trong cơ cấu thu ngân sách quốc gia, đóng góp khoảng 5,6% tổng thu ngân sách nhà nước.",
             "main_developments": [
-              "Khối ngoại mua ròng gần 119 tỷ đồng vào phiên ngày 4/9, tập trung mạnh vào VIC và VHM.",
-              "Các quỹ ETF dự kiến mua ròng khoảng 80,67 triệu USD VIC và 25,43 triệu USD VHM trong kỳ cơ cấu tháng 9/2026.",
-              "Chỉ số VN-Index tăng 25,36 điểm trong phiên 4/9, nhưng 75,1% cổ phiếu vẫn nằm dưới đường trung bình 200 phiên."
+              "Vingroup nộp gần 148.800 tỷ đồng ngân sách năm 2025.",
+              "Tổng cộng 5 năm, tập đoàn đã nộp gần 307.000 tỷ đồng.",
+              "Khối 200 doanh nghiệp hàng đầu đóng góp hơn 37% tổng thu ngân sách."
             ],
-            "why_it_matters": "Sự phân hóa này phản ánh tâm lý thận trọng của nhà đầu tư và sự phụ thuộc vào các mã vốn hóa lớn, gây rủi ro cho sự bền vững của đà tăng.",
+            "why_it_matters": "Đánh dấu bước ngoặt của kinh tế tư nhân trong việc đóng góp trực tiếp vào ngân sách quốc gia, giảm bớt sự phụ thuộc vào các tập đoàn nhà nước.",
             "affected_groups": [
-              "Nhà đầu tư cá nhân",
-              "Quỹ đầu tư nước ngoài",
-              "Nhóm cổ phiếu bất động sản"
+              "Doanh nghiệp tư nhân",
+              "Ngân sách nhà nước"
             ],
             "watch_next": [
-              "Dòng tiền khối ngoại trong các phiên tới",
-              "Khả năng lan tỏa đà tăng sang nhóm cổ phiếu vốn hóa vừa và nhỏ"
+              "Tác động của mức đóng góp này đến các chính sách ưu đãi cho doanh nghiệp tư nhân lớn."
             ],
             "representative_sources": [
               {
-                "title": "Cổ phiếu nhà tỷ phú Phạm Nhật Vượng hút mạnh vốn ngoại, chờ dòng tiền mới",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/co-phieu-nha-ty-phu-pham-nhat-vuong-hut-manh-von-ngoai-cho-dong-tien-moi-20260905224720271.htm",
-                "excerpt": "Khối ngoại mua ròng mạnh VIC và VHM, kỳ vọng vào kỳ cơ cấu danh mục của các quỹ ETF."
+                "title": "Vingroup đứng đầu bảng xếp hạng 200 doanh nghiệp nộp ngân sách lớn nhất Việt Nam",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/vingroup-dung-dau-bang-xep-hang-200-doanh-nghiep-nop-ngan-sach-lon-nhat-viet-nam-2552802.html",
+                "excerpt": "Vingroup dẫn đầu bảng xếp hạng VNTAX 200 với gần 148.800 tỷ đồng."
               }
             ]
           }
@@ -165,56 +184,35 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện phần mềm, mà còn ở hạ tầng bán dẫn và trung tâm dữ liệu. Sự ra mắt của GPT-6 Astra đánh dấu bước tiến mới trong tự động hóa, kéo theo nhu cầu khổng lồ về năng lực tính toán và CPU cho máy khách. Các doanh nghiệp công nghệ lớn như Nvidia đang chuyển dịch chiến lược sang đầu tư hạ tầng và thâu tóm công nghệ để củng cố vị thế trong chuỗi cung ứng AI toàn cầu. Đồng thời, các nghiên cứu về năng lượng nhiệt hạch và chip mới của Huawei cho thấy nỗ lực giải quyết các bài toán về hiệu suất và năng lượng trong kỷ nguyên AI.",
-        "subsector_briefs": [
-          {
-            "name": "AI & Bán dẫn",
-            "overview": "Sự bùng nổ của các mô hình AI tự động hóa đang thúc đẩy nhu cầu hạ tầng bán dẫn và năng lực tính toán toàn cầu.",
-            "key_points": [
-              "GPT-6 Astra tạo ra nhu cầu xử lý song song lớn trên CPU",
-              "Nvidia cam kết 70 tỷ USD đầu tư vào khởi nghiệp AI"
-            ],
-            "key_story_titles": [
-              "OpenAI ra mắt GPT-6 Astra với khả năng điều khiển máy tính"
-            ],
-            "representative_sources": [
-              {
-                "title": "OpenAI ra mắt GPT-6 Astra, Intel và AMD bất ngờ đón tin mừng",
-                "source": "genk_vn",
-                "url": "https://genk.vn/openai-ra-mat-gpt-6-astra-intel-va-amd-bat-ngo-don-tin-mung-165260906184836114.chn",
-                "excerpt": "Kiến trúc tác nhân tự động của GPT-6 Astra tạo ra nhu cầu xử lý song song lớn trên CPU máy khách."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Công nghệ & AI 48h qua nổi bật với các bước tiến trong ứng dụng AI vào y tế và giáo dục tại Việt Nam, cùng với đó là sự kiện GPT-6 Astra đánh dấu bước ngoặt AGI toàn cầu. Các địa phương như Hà Nội và Cần Thơ đang tích cực đầu tư vào hạ tầng AI và bán dẫn, cho thấy sự chuyển dịch từ lý thuyết sang triển khai thực tế. Tuy nhiên, sự thiếu hụt linh kiện bộ nhớ toàn cầu đang đặt ra thách thức về chi phí cho các thiết bị tiêu dùng.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI & Bán dẫn",
-            "title": "Chiến lược đầu tư hạ tầng AI của Nvidia",
-            "summary": "Nvidia đang chuyển dịch mạnh mẽ từ vị thế nhà sản xuất chip đơn thuần sang nhà đầu tư hạ tầng AI chiến lược. Với cam kết hàng trăm tỷ USD, hãng không chỉ củng cố chuỗi cung ứng mà còn thâu tóm các công nghệ phần mềm quan trọng để duy trì vị thế dẫn đầu trong cuộc đua AI toàn cầu.",
+            "sub_sector": "AI toàn cầu",
+            "title": "GPT-6 Astra và cột mốc AGI",
+            "summary": "OpenAI chính thức ra mắt GPT-6 Astra, mô hình được huấn luyện trên hạ tầng NVIDIA Grace Blackwell, đánh dấu bước tiến quan trọng hướng tới Trí tuệ nhân tạo tổng quát (AGI). CEO NVIDIA Jensen Huang đã xác nhận sự kiện này là cột mốc AGI đã đến, mở ra kỷ nguyên mới cho khả năng tính toán và ứng dụng AI trong thực tế.",
             "main_developments": [
-              "Cam kết hơn 70 tỷ USD đầu tư vào các công ty khởi nghiệp AI.",
-              "Hỗ trợ tài chính khoảng 300 tỷ USD cho khách hàng để thúc đẩy triển khai hạ tầng.",
-              "Thỏa thuận chi khoảng 12,9 tỷ USD mua Hugging Face để tiếp cận hạ tầng phần mềm."
+              "GPT-6 Astra được huấn luyện trên chip NVIDIA Grace Blackwell.",
+              "Jensen Huang tuyên bố AGI đã xuất hiện.",
+              "Giới khoa học vẫn thận trọng với các tiêu chuẩn đánh giá benchmark."
             ],
-            "why_it_matters": "Chiến lược này giúp Nvidia kiểm soát cả phần cứng và phần mềm, tạo ra rào cản gia nhập lớn cho các đối thủ cạnh tranh.",
+            "why_it_matters": "Sự kiện này thay đổi hoàn toàn kỳ vọng về khả năng của AI, thúc đẩy dòng vốn đầu tư khổng lồ vào hạ tầng chip và trung tâm dữ liệu.",
             "affected_groups": [
-              "Nhà sản xuất chip",
-              "Công ty khởi nghiệp AI",
-              "Nhà đầu tư công nghệ"
+              "Nhà đầu tư công nghệ",
+              "Doanh nghiệp AI"
             ],
             "watch_next": [
-              "Hiệu quả từ các khoản đầu tư vào Hugging Face",
-              "Phản ứng của các đối thủ như AMD và Intel"
+              "Phản ứng của các đối thủ cạnh tranh với OpenAI",
+              "Khả năng thực thi của GPT-6 Astra trong các tác vụ phức tạp."
             ],
             "representative_sources": [
               {
-                "title": "Những tỷ USD kéo Nvidia sâu hơn vào cuộc đua AI đầy rủi ro",
+                "title": "CEO NVIDIA Jensen Huang chúc mừng OpenAI, nói AGI đã đến: Không quên nhắc mọi người GPT-6 được huấn luyện trên chip AI nào",
                 "source": "genk_vn",
-                "url": "https://genk.vn/nhung-ty-usd-keo-nvidia-sau-hon-vao-cuoc-dua-ai-day-rui-ro-165260906132038575.chn",
-                "excerpt": "Nvidia cam kết đầu tư hàng trăm tỷ USD để củng cố vị thế trong chuỗi cung ứng AI."
+                "url": "https://genk.vn/ceo-nvidia-jensen-huang-chuc-mung-openai-noi-agi-da-den-khong-quen-nhac-moi-nguoi-gpt-6-duoc-huan-luyen-tren-chip-ai-nao-165260907154605777.chn",
+                "excerpt": "Jensen Huang chúc mừng OpenAI và nhấn mạnh vai trò của chip NVIDIA."
               }
             ]
           }
@@ -223,54 +221,24 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và Chính trị 48 giờ qua tập trung vào các nỗ lực ngoại giao chiến lược của Việt Nam và các điểm nóng địa chính trị toàn cầu. Việc thúc đẩy quan hệ đối tác với Nhật Bản và các nước khu vực cho thấy định hướng ưu tiên phát triển hạ tầng và công nghệ. Trong khi đó, căng thẳng tại Vịnh Ba Tư đang đặt ra những thách thức mới về an ninh năng lượng và ổn định khu vực, đòi hỏi sự theo dõi sát sao từ cộng đồng quốc tế.",
-        "subsector_briefs": [],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Địa chính trị",
-            "title": "Căng thẳng quân sự Mỹ - Iran tại Vịnh Ba Tư",
-            "summary": "Căng thẳng giữa Mỹ và Iran tại Vịnh Ba Tư và Vịnh Oman đã leo thang nghiêm trọng trong 48 giờ qua. Các hành động quân sự đáp trả lẫn nhau giữa hai bên đang đe dọa trực tiếp đến an ninh hàng hải và giá năng lượng toàn cầu, tạo ra một biến số rủi ro lớn cho thị trường tài chính.",
-            "main_developments": [
-              "Vệ binh Cách mạng Hồi giáo Iran phóng tên lửa đạn đạo nhằm vào tàu sân bay và tàu khu trục Mỹ.",
-              "Mỹ đáp trả bằng cách tấn công các tàu chở dầu của Iran tại khu vực.",
-              "Căng thẳng lan rộng ra toàn bộ khu vực Vịnh Ba Tư và Vịnh Oman."
-            ],
-            "why_it_matters": "Sự leo thang này đe dọa nguồn cung dầu mỏ toàn cầu và có thể gây ra những cú sốc giá năng lượng, ảnh hưởng đến lạm phát và tăng trưởng kinh tế.",
-            "affected_groups": [
-              "Thị trường năng lượng",
-              "Các quốc gia nhập khẩu dầu",
-              "Nhà đầu tư tài chính"
-            ],
-            "watch_next": [
-              "Phản ứng của các đồng minh Mỹ và Iran",
-              "Diễn biến giá dầu Brent trong các phiên giao dịch tới"
-            ],
-            "representative_sources": []
-          }
-        ]
-      },
-      {
-        "code": "trends",
-        "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và Đời sống 48 giờ qua ghi nhận những bước tiến trong y học lão khoa và các thay đổi trong lối sống hiện đại. Các nghiên cứu về đảo ngược lão hóa và tác động của việc ngồi lâu đang thu hút sự quan tâm lớn, phản ánh nhu cầu ngày càng cao về sức khỏe và chất lượng cuộc sống. Đồng thời, các sự kiện văn hóa và giáo dục cũng cho thấy sự chuyển dịch trong tư duy tiêu dùng và học tập của người dân, với việc đưa AI vào chương trình giáo dục phổ thông và xu hướng tiêu dùng dịch vụ cao cấp.",
+        "sector_thesis": "Thời sự & Chính trị 48h qua tập trung vào các hoạt động ngoại giao cấp cao của Việt Nam và những biến động chính trị tại châu Âu. Chuyến thăm của Tổng Bí thư, Chủ tịch nước Tô Lâm tới Nga khẳng định vị thế chiến lược của Việt Nam. Trong khi đó, sự trỗi dậy của đảng cực hữu AfD tại Đức đang tạo ra những áp lực mới lên chính phủ của Thủ tướng Friedrich Merz, báo hiệu một giai đoạn bất ổn chính trị tại châu Âu.",
         "subsector_briefs": [
           {
-            "name": "Y tế & Lối sống",
-            "overview": "Các nghiên cứu y học mới về lão hóa và tác động của lối sống ít vận động đang định hình lại cách con người chăm sóc sức khỏe.",
+            "name": "Ngoại giao & Chính trị",
+            "overview": "Ngoại giao Việt Nam đẩy mạnh quan hệ chiến lược, trong khi chính trị châu Âu đối mặt với sự trỗi dậy của cực hữu.",
             "key_points": [
-              "Chặn thụ thể EP2 giúp đảo ngược lão hóa ở chuột",
-              "Ngồi lâu làm tăng 9% nguy cơ tử vong do ung thư"
+              "Tô Lâm thăm Nga",
+              "AfD thắng lớn tại Đức"
             ],
             "key_story_titles": [
-              "Ức chế thụ thể miễn dịch giúp đảo ngược lão hóa"
+              "Đảng cực hữu AfD thắng lớn tại Đức"
             ],
             "representative_sources": [
               {
-                "title": "One immune switch may help drive aging across the body",
-                "source": "sciencedaily_com",
-                "url": "https://sciencedaily.com/releases/2026/09/260901010717.htm"
+                "title": "Tổng Bí thư, Chủ tịch nước Tô Lâm cùng Phu nhân bắt đầu thăm cấp Nhà nước Liên bang Nga",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/tong-bi-thu-chu-tich-nuoc-to-lam-cung-phu-nhan-bat-dau-tham-cap-nha-nuoc-lien-bang-nga-post1874463.tpo",
+                "excerpt": "Chuyến thăm nhằm củng cố quan hệ Đối tác chiến lược toàn diện Việt Nam - Nga."
               }
             ]
           }
@@ -278,29 +246,64 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "brief",
-            "sub_sector": "Y tế",
-            "title": "Đột phá trong nghiên cứu đảo ngược lão hóa",
-            "summary": "Nghiên cứu mới từ Đại học Stanford đã chỉ ra rằng việc ức chế thụ thể EP2 trên đại thực bào có thể giúp đảo ngược quá trình lão hóa ở chuột. Đây là một bước tiến quan trọng trong y học lão khoa, mở ra tiềm năng mới cho việc cải thiện sức khỏe và kéo dài tuổi thọ con người.",
+            "depth_level": "major",
+            "sub_sector": "Chính trị quốc tế",
+            "title": "Đảng cực hữu AfD thắng lớn tại Đức",
+            "summary": "Đảng cực hữu Alternative for Germany (AfD) đã giành chiến thắng vang dội với 43,8% phiếu bầu tại bang Saxony-Anhalt, vượt xa đảng CDU cầm quyền của Thủ tướng Friedrich Merz. Kết quả này được coi là một cơn địa chấn chính trị, phản ánh sự bất mãn sâu sắc của cử tri Đức đối với tình hình kinh tế và chính sách nhập cư hiện tại.",
             "main_developments": [
-              "Chặn thụ thể EP2 giúp đại thực bào khôi phục khả năng dọn dẹp tế bào bạch cầu trung tính bị lão hóa.",
-              "Chuột già sau thí nghiệm duy trì được cơ bắp, trí nhớ và giảm viêm nhiễm toàn thân."
+              "AfD giành 43,8% phiếu bầu tại Saxony-Anhalt.",
+              "Đảng CDU cầm quyền chỉ đạt 17,2% phiếu bầu.",
+              "Kết quả gây áp lực lớn lên liên minh cầm quyền của Thủ tướng Merz."
             ],
-            "why_it_matters": "Kết quả này cung cấp một mục tiêu điều trị mới cho các bệnh liên quan đến lão hóa, có tác động sâu rộng đến sức khỏe cộng đồng.",
+            "why_it_matters": "Sự trỗi dậy của cực hữu tại nền kinh tế lớn nhất châu Âu có thể làm thay đổi chính sách đối ngoại và kinh tế, gây bất ổn cho liên minh cầm quyền hiện tại.",
             "affected_groups": [
-              "Cộng đồng y khoa",
-              "Người cao tuổi",
-              "Nhà nghiên cứu sinh học"
+              "Chính phủ Đức",
+              "Liên minh châu Âu"
             ],
             "watch_next": [
-              "Khả năng ứng dụng trên con người",
-              "Các thử nghiệm lâm sàng tiếp theo"
+              "Phản ứng của liên minh cầm quyền Đức",
+              "Tác động đến chính sách nhập cư và kinh tế của Đức."
             ],
             "representative_sources": [
               {
-                "title": "One immune switch may help drive aging across the body",
-                "source": "sciencedaily_com",
-                "url": "https://sciencedaily.com/releases/2026/09/260901010717.htm"
+                "title": "Far-right AfD landslide in German state piles pressure on federal government",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/09/07/afd-germany-economy-merz.html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "trends",
+        "name": "Xu hướng & Đời sống",
+        "sector_thesis": "Xu hướng & Đời sống 48h qua xoay quanh trách nhiệm của người có ảnh hưởng (KOL) và các xu hướng sống khỏe. Hội nghị KOL toàn quốc nhấn mạnh trách nhiệm kiến tạo niềm tin số, trong khi các xu hướng như chế độ ăn Địa Trung Hải và săn hàng giảm giá cuối ngày phản ánh sự thay đổi trong tâm lý tiêu dùng và lối sống của người trẻ.",
+        "subsector_briefs": [],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "brief",
+            "sub_sector": "Truyền thông",
+            "title": "Trách nhiệm của KOL trong kỷ nguyên số",
+            "summary": "Hội nghị KOL toàn quốc 2026 đã quy tụ hơn 1.500 nhà sáng tạo nội dung để cam kết tuân thủ bộ tiêu chuẩn tín nhiệm số. Các cơ quan quản lý nhấn mạnh KOL cần minh bạch trong quảng bá sản phẩm, tránh nói quá công dụng và chịu trách nhiệm với thông tin cung cấp cho cộng đồng.",
+            "main_developments": [
+              "Khởi động chương trình 'Tín nhiệm người có ảnh hưởng'.",
+              "Cục thương mại điện tử yêu cầu KOL không cung cấp thông tin gian dối."
+            ],
+            "why_it_matters": "Ảnh hưởng của KOL đến hành vi tiêu dùng ngày càng lớn, việc chuẩn hóa hành vi là xu hướng tất yếu để bảo vệ người tiêu dùng.",
+            "affected_groups": [
+              "KOL",
+              "Người tiêu dùng"
+            ],
+            "watch_next": [
+              "Hiệu quả thực thi của bộ tiêu chuẩn tín nhiệm số."
+            ],
+            "representative_sources": [
+              {
+                "title": "KOL Summit 2026: 34 CLB Niềm tin số và 1.500 khách mời ký cam kết đồng hành kiến tạo niềm tin số",
+                "source": "genk_vn",
+                "url": "https://genk.vn/kol-summit-2026-34-clb-niem-tin-so-va-1500-khach-moi-ky-cam-ket-dong-hanh-kien-tao-niem-tin-so-165260907221726163.chn",
+                "excerpt": "Cam kết tuân thủ bộ tiêu chuẩn tín nhiệm để xây dựng môi trường số an toàn."
               }
             ]
           }
@@ -310,57 +313,68 @@
     "watchlist_24_72h": [
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến quân sự tại Vịnh Ba Tư và phản ứng giá dầu Brent",
-        "why": "Căng thẳng Mỹ - Iran leo thang đe dọa nguồn cung năng lượng toàn cầu."
+        "what_to_watch": "Xác nhận chính thức thỏa thuận Mỹ-Iran và phản ứng giá dầu Brent",
+        "why": "Ảnh hưởng trực tiếp đến nguồn cung năng lượng toàn cầu."
       },
       {
-        "theme": "Hạ tầng giao thông",
-        "what_to_watch": "Phản hồi của Bộ Xây dựng về đề xuất cao tốc của Đèo Cả",
-        "why": "Dự án PPP quy mô lớn ảnh hưởng đến chiến lược đầu tư công."
+        "theme": "Thị trường chứng khoán Việt Nam",
+        "what_to_watch": "Phản ứng của VN-Index sau phiên giảm mạnh 31 điểm",
+        "why": "Tâm lý nhà đầu tư đang bị ảnh hưởng bởi các mã vốn hóa lớn."
       },
       {
-        "theme": "Thị trường chứng khoán",
-        "what_to_watch": "Dòng tiền khối ngoại và sự lan tỏa của đà tăng",
-        "why": "Sự phân hóa sâu sắc cần được theo dõi để đánh giá tính bền vững."
+        "theme": "Chính sách tài chính Việt Nam",
+        "what_to_watch": "Các văn bản hướng dẫn mới về tài sản số",
+        "why": "Ảnh hưởng đến khung pháp lý cho nhà đầu tư."
       },
       {
-        "theme": "Công nghệ AI",
-        "what_to_watch": "Phản ứng của các đối thủ với GPT-6 Astra",
-        "why": "Tốc độ phát triển AI đang tạo ra áp lực cạnh tranh lớn."
+        "theme": "Vingroup dẫn đầu đóng góp ngân sách quốc gia",
+        "what_to_watch": "Tác động của mức đóng góp này đến các chính sách ưu đãi cho doanh nghiệp tư nhân lớn.",
+        "why": "Đánh dấu bước ngoặt của kinh tế tư nhân trong việc đóng góp trực tiếp vào ngân sách quốc gia."
+      },
+      {
+        "theme": "Xung đột Trung Đông đẩy giá dầu lên cao",
+        "what_to_watch": "Diễn biến quân sự tại eo biển Hormuz và phản ứng của giá dầu Brent.",
+        "why": "Tác động trực tiếp đến chi phí năng lượng và kỳ vọng lãi suất của Fed."
+      },
+      {
+        "theme": "Đảng cực hữu AfD thắng lớn tại Đức",
+        "what_to_watch": "Phản ứng của liên minh cầm quyền Đức và tác động đến chính sách nhập cư.",
+        "why": "Sự trỗi dậy của cực hữu tại nền kinh tế lớn nhất châu Âu có thể làm thay đổi chính sách đối ngoại và kinh tế khu vực."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Dòng vốn Bitcoin ETF tập trung vào BlackRock trong bối cảnh thị trường phân hóa",
-        "why": "Phản ánh sự thay đổi trong cấu trúc dòng vốn của thị trường tài sản số."
+        "what_to_watch": "Bitcoin đối mặt áp lực từ kỳ vọng lãi suất Fed và dữ liệu việc làm Mỹ",
+        "why": "Tác động trực tiếp của chính sách tiền tệ Mỹ đến tài sản rủi ro."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Đèo Cả đề xuất mở rộng 350km cao tốc Bắc - Nam lên 6 làn xe, không dùng vốn ngân sách",
-        "why": "Dự án hạ tầng quy mô lớn, tác động trực tiếp đến chính sách đầu tư công và huy động vốn tư nhân."
+        "what_to_watch": "Hà Nội đẩy nhanh tiến độ Vành đai 4 và quy hoạch đường sắt quốc gia",
+        "why": "Hạ tầng giao thông là động lực chính của kinh tế Việt Nam hiện nay, ảnh hưởng trực tiếp đến kết nối vùng và giải ngân đầu tư công."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Nvidia mở rộng hệ sinh thái AI thông qua các khoản đầu tư tài chính chiến lược",
-        "why": "Phản ánh chiến lược thâu tóm và đầu tư chéo của Nvidia nhằm củng cố vị thế trong chuỗi cung ứng AI toàn cầu."
+        "what_to_watch": "VN-Index đảo chiều mạnh, tỷ phú Phạm Nhật Vượng vẫn trong top 60 thế giới",
+        "why": "Sự kiện quan trọng nhất ảnh hưởng đến tâm lý nhà đầu tư và tài sản của người giàu nhất Việt Nam."
       },
       {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "OpenAI ra mắt GPT-6 Astra với khả năng điều khiển máy tính và nhận diện không gian",
-        "why": "Sự kiện công nghệ quan trọng nhất trong 48 giờ qua."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "AI Is Already Making Us Less Human",
-        "why": "Phân tích sâu về tác động xã hội của AI, một chủ đề nóng trong 48h qua."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "AI điều khiển plasma nhiệt hạch nhanh hơn con người",
-        "why": "Đột phá quan trọng trong việc kiểm soát năng lượng nhiệt hạch, một lĩnh vực then chốt cho tương lai năng lượng sạch."
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "VN-Index giảm mạnh 31 điểm, nhóm vốn hóa lớn gây áp lực",
+        "why": "Phản ánh biến động mạnh nhất của thị trường chứng khoán trong 48h qua."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng cụ thể của thị trường chứng khoán Việt Nam trước các thay đổi về chính sách thuế mới được ban hành.",
+    "source_desk": [
+      {
+        "topic": "Kinh tế & Tài chính",
+        "representative_sources": [
+          {
+            "title": "Vingroup đứng đầu bảng xếp hạng 200 doanh nghiệp nộp ngân sách lớn nhất Việt Nam",
+            "source": "vietnamnet_vn",
+            "url": "https://vietnamnet.vn/vingroup-dung-dau-bang-xep-hang-200-doanh-nghiep-nop-ngan-sach-lon-nhat-viet-nam-2552802.html"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu dữ liệu chi tiết về các phản ứng chính sách cụ thể của các ngân hàng trung ương lớn ngoài Fed và UBS.",
     "notable_articles": []
   }
 }
