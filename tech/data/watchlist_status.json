@@ -1,23 +1,23 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-09-11T12:16:18.537412+00:00",
+  "generated_at_utc": "2026-09-11T17:05:47.849622+00:00",
   "checked": 26,
-  "hit_count": 110,
+  "hit_count": 103,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 12,
       "top_links": [
-        {
-          "title": "Hugging Face model updated: zai-org/GLM-OCR",
-          "url": "https://huggingface.co/zai-org/GLM-OCR",
-          "source_lane": "huggingface_model"
-        },
         {
           "title": "GitHub repo updated: zai-org/GLM-5",
           "url": "https://github.com/zai-org/GLM-5",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/GLM-OCR",
+          "url": "https://github.com/zai-org/GLM-OCR",
           "source_lane": "github_release"
         },
         {
@@ -26,13 +26,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/CogVideo",
-          "url": "https://github.com/zai-org/CogVideo",
-          "source_lane": "github_release"
+          "title": "Hugging Face model updated: zai-org/GLM-OCR",
+          "url": "https://huggingface.co/zai-org/GLM-OCR",
+          "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: kongyi/GLM-5.3",
-          "url": "https://huggingface.co/kongyi/GLM-5.3",
+          "title": "Hugging Face model updated: stisiTT/glm-4-7-flash-p150",
+          "url": "https://huggingface.co/stisiTT/glm-4-7-flash-p150",
           "source_lane": "huggingface_model"
         }
       ],
@@ -45,13 +45,13 @@
       "hit_count": 10,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image",
-          "url": "https://github.com/QwenLM/Qwen-Image",
+          "title": "GitHub repo updated: QwenLM/Qwen3-VL",
+          "url": "https://github.com/QwenLM/Qwen3-VL",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-VL",
-          "url": "https://github.com/QwenLM/Qwen3-VL",
+          "title": "GitHub repo updated: QwenLM/open-computer-use",
+          "url": "https://github.com/QwenLM/open-computer-use",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: yuxuanw8/qwen3b-rlvr-hotpot-checkpoint-240",
-          "url": "https://huggingface.co/yuxuanw8/qwen3b-rlvr-hotpot-checkpoint-240",
+          "title": "Hugging Face model updated: blackcoderx/qwen-tulu-rm",
+          "url": "https://huggingface.co/blackcoderx/qwen-tulu-rm",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Ali-Mhrez/Qwen3-4B-Instruct-2507-SD-AraStance-512-44",
-          "url": "https://huggingface.co/Ali-Mhrez/Qwen3-4B-Instruct-2507-SD-AraStance-512-44",
+          "title": "Hugging Face model updated: msdos34/qwen-summarizer-persian",
+          "url": "https://huggingface.co/msdos34/qwen-summarizer-persian",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,11 +76,16 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-V3",
-          "url": "https://github.com/deepseek-ai/DeepSeek-V3",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-Coder",
+          "url": "https://github.com/deepseek-ai/DeepSeek-Coder",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: deepseek-ai/awesome-deepseek-integration",
+          "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
           "source_lane": "github_release"
         },
         {
@@ -89,18 +94,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/deepseek-recipe",
-          "url": "https://github.com/deepseek-ai/deepseek-recipe",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: JigSawPT/DeepSeek-V4.1-Flash-DSpark-GGUF",
-          "url": "https://huggingface.co/JigSawPT/DeepSeek-V4.1-Flash-DSpark-GGUF",
+          "title": "Hugging Face model updated: Yuro1991/DeepSeek-V4.1-Flash",
+          "url": "https://huggingface.co/Yuro1991/DeepSeek-V4.1-Flash",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: JigSawPT/DeepSeek-V4.1-Flash-GGUF",
-          "url": "https://huggingface.co/JigSawPT/DeepSeek-V4.1-Flash-GGUF",
+          "title": "Hugging Face model updated: bot-lab-21/DeepSeek-V4.1-Flash-EXL3-3.5bpw-Pollard",
+          "url": "https://huggingface.co/bot-lab-21/DeepSeek-V4.1-Flash-EXL3-3.5bpw-Pollard",
           "source_lane": "huggingface_model"
         }
       ],
@@ -110,7 +110,7 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "Hugging Face model updated: jashansinghTT/kimi-linear-48b-a3b-instruct-blackhole",
@@ -121,11 +121,6 @@
           "title": "Hugging Face model updated: meshllm/Kimi-K3-UD-Q4_K_XL-layers",
           "url": "https://huggingface.co/meshllm/Kimi-K3-UD-Q4_K_XL-layers",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Anthropic berichtet: Kimi nutzte 5.380 Fake-Accounts, um Claude anzuzapfen",
-          "url": "https://t3n.de/news/anthropic-china-claude-firmen-ki-1762722/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
-          "source_lane": "frontier_watchlist"
         },
         {
           "title": "vllm-project/vllm release: v0.28.0",
@@ -139,21 +134,16 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 4,
       "top_links": [
         {
-          "title": "Hugging Face model updated: Wanamingo/MiniMax-H3-LoRAs",
-          "url": "https://huggingface.co/Wanamingo/MiniMax-H3-LoRAs",
+          "title": "Hugging Face model updated: Smite79/MiniMax-H3-Longvideos",
+          "url": "https://huggingface.co/Smite79/MiniMax-H3-Longvideos",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: slmonker/minimax-h3-fl2v-turbo-comfyui-fp8",
-          "url": "https://huggingface.co/slmonker/minimax-h3-fl2v-turbo-comfyui-fp8",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: OpenVDN/vdn-minimax-h3",
-          "url": "https://huggingface.co/OpenVDN/vdn-minimax-h3",
+          "title": "Hugging Face model updated: yichengup/MiniMax-H3-LoRAs",
+          "url": "https://huggingface.co/yichengup/MiniMax-H3-LoRAs",
           "source_lane": "huggingface_model"
         },
         {
@@ -189,13 +179,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HY-WU",
-          "url": "https://github.com/Tencent-Hunyuan/HY-WU",
+          "title": "GitHub repo updated: Tencent-Hunyuan/AutoCodeBenchmark",
+          "url": "https://github.com/Tencent-Hunyuan/AutoCodeBenchmark",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/UniRL",
-          "url": "https://github.com/Tencent-Hunyuan/UniRL",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HY-WU",
+          "url": "https://github.com/Tencent-Hunyuan/HY-WU",
           "source_lane": "github_release"
         },
         {
@@ -226,18 +216,18 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/Kernel-Smith",
-          "url": "https://github.com/InternLM/Kernel-Smith",
+          "title": "GitHub repo updated: InternLM/EndoCoT",
+          "url": "https://github.com/InternLM/EndoCoT",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: InternLM/SciDocBench",
+          "url": "https://github.com/InternLM/SciDocBench",
           "source_lane": "github_release"
         },
         {
           "title": "GitHub repo updated: InternLM/lmdeploy",
           "url": "https://github.com/InternLM/lmdeploy",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: InternLM/xtuner",
-          "url": "https://github.com/InternLM/xtuner",
           "source_lane": "github_release"
         }
       ],
@@ -277,8 +267,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: D33pStateTech/aznten-flux-schnell-mimicpc",
-          "url": "https://huggingface.co/D33pStateTech/aznten-flux-schnell-mimicpc",
+          "title": "Hugging Face model updated: Yuro1991/FLUX.2-klein-9B-GGUF",
+          "url": "https://huggingface.co/Yuro1991/FLUX.2-klein-9B-GGUF",
           "source_lane": "huggingface_model"
         },
         {
@@ -303,8 +293,13 @@
       "entity": "ComfyUI",
       "priority": "critical",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: comfyuiman/various",
+          "url": "https://huggingface.co/comfyuiman/various",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "comfyanonymous/ComfyUI release: v0.35.0",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0",
@@ -322,22 +317,17 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 3,
       "top_links": [
         {
-          "title": "Exclusive: Cfo.ai launches an agentic CFO for business founders - SiliconANGLE",
-          "url": "https://siliconangle.com/2026/09/10/exclusive-ai-finance-cfo-ai-launches-an-agentic-cfo-for-business-founders/",
+          "title": "Quer mais velocidade no PC? Confira SSDs NVMe Gen4 em promoção na Amazon",
+          "url": "https://olhardigital.com.br/2026/09/11/reviews/quer-mais-velocidade-no-pc-confira-ssds-nvme-gen4-em-promocao-na-amazon/",
           "source_lane": "frontier_watchlist"
         },
         {
           "title": "Hugging Face model updated: nudtzk/runway-blockade-transformer-topk10",
           "url": "https://huggingface.co/nudtzk/runway-blockade-transformer-topk10",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Six Hours on the Runway: Lessons in AI and Air Traffic Control- EE Times",
-          "url": "https://www.eetimes.com/what-six-hours-on-the-runway-told-me-about-air-traffic-control-resilience-and-ai/",
-          "source_lane": "image_video_workflow"
         },
         {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
@@ -351,9 +341,15 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "BANK",
+          "url": "https://www.tv2east.dk/guldborgsund/bank-skyder-10-millioner-kroner-i-lokal-erhvervsudvikling-9b763",
+          "source_lane": "image_video_workflow"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Veo",
@@ -367,6 +363,16 @@
           "source_lane": "frontier_watchlist"
         },
         {
+          "title": "'Lanterns' episode 5 release date and launch time: when does the Green Lantern TV show's next chapter come out on HBO Max?",
+          "url": "https://www.techradar.com/streaming/hbo-max/what-is-the-release-date-and-launch-time-for-lanterns-episode-5-on-hbo-max",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Could United Launch Alliance's money problems finally force its owners to sell?",
+          "url": "https://arstechnica.com/space/2026/09/could-united-launch-alliances-money-problems-finally-force-its-owners-to-sell/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
           "title": "'I was shocked when I saw myself in the mirror': Sabrina Impacciatore on the moment that made The Paper season 2 ending the most hilarious episode yet",
           "url": "https://www.techradar.com/streaming/the-paper-season-2-ending-esmeralda",
           "source_lane": "frontier_watchlist"
@@ -375,16 +381,6 @@
           "title": "AI is changing work faster than education can adapt, Africa may offer a different model - Disrupt Africa",
           "url": "https://disruptafrica.com/2026/09/11/ai-is-changing-work-faster-than-education-can-adapt-africa-may-offer-a-different-model/?utm_source=rss&utm_medium=rss&utm_campaign=ai-is-changing-work-faster-than-education-can-adapt-africa-may-offer-a-different-model",
           "source_lane": "model_hub"
-        },
-        {
-          "title": "Kenya’s Ashacare Medical Solutions is built to fix Africa’s healthcare workforce challenges - Disrupt Africa",
-          "url": "https://disruptafrica.com/2026/09/11/kenyas-ashacare-medical-solutions-is-built-to-fix-africas-healthcare-workforce-challenges/?utm_source=rss&utm_medium=rss&utm_campaign=kenyas-ashacare-medical-solutions-is-built-to-fix-africas-healthcare-workforce-challenges",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Uber recibe el permiso de la DGT para coches autónomos en España y prevé operar en Madrid a final de este año",
-          "url": "https://elpais.com/tecnologia/2026-09-10/uber-recibe-el-primer-permiso-de-la-dgt-para-coches-autonomos-en-espana-y-preve-operar-en-madrid-a-final-de-este-ano.html",
-          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -393,7 +389,7 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 2,
       "top_links": [
         {
           "title": "JBL's new Cove speakers can be linked to form a whole-home audio system - Tech Guide",
@@ -404,11 +400,6 @@
           "title": "Ce robot de piscine a presque tout du Beatbot Sora 70 pour 600 € de moins",
           "url": "https://www.lesnumeriques.com/robot-piscine/beatbot-sora-30-p78078/test.html",
           "source_lane": "image_video_workflow"
-        },
-        {
-          "title": "Estos son mis tres imprescindibles para poder trabajar desde casa mejor que en la oficina",
-          "url": "https://hipertextual.com/brands/imprescindibles-trabajar-desde-casa/",
-          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -417,11 +408,11 @@
       "entity": "OpenRouter",
       "priority": "high",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 8,
       "top_links": [
         {
-          "title": "OpenRouter model listed: inception/mercury-2.5",
-          "url": "https://openrouter.ai/inception/mercury-2.5",
+          "title": "OpenRouter model listed: inclusionai/ling-3.0-flash-vl",
+          "url": "https://openrouter.ai/inclusionai/ling-3.0-flash-vl",
           "source_lane": "model_hub"
         },
         {
@@ -430,18 +421,18 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "OpenRouter model listed: openai/gpt-6-astra",
-          "url": "https://openrouter.ai/openai/gpt-6-astra",
+          "title": "OpenRouter model listed: ~openai/gpt-astra-latest",
+          "url": "https://openrouter.ai/~openai/gpt-astra-latest",
           "source_lane": "model_hub"
         },
         {
-          "title": "OpenRouter model listed: nex-agi/nex-n2.5-mini:free",
-          "url": "https://openrouter.ai/nex-agi/nex-n2.5-mini:free",
+          "title": "OpenRouter model listed: ~openai/gpt-luna-latest",
+          "url": "https://openrouter.ai/~openai/gpt-luna-latest",
           "source_lane": "model_hub"
         },
         {
-          "title": "OpenRouter model listed: nex-agi/nex-n2.5-pro:free",
-          "url": "https://openrouter.ai/nex-agi/nex-n2.5-pro:free",
+          "title": "OpenRouter model listed: ~openai/gpt-sol-latest",
+          "url": "https://openrouter.ai/~openai/gpt-sol-latest",
           "source_lane": "model_hub"
         }
       ],
@@ -459,12 +450,12 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 12,
       "top_links": [
         {
-          "title": "AMD intègre son nouveau processeur Ryzen AI Max+ Pro 495 et 192 Go de RAM dans un premier PC portable.",
-          "url": "https://www.frandroid.com/marques/amd/3244169_192-go-de-ram-pour-repondre-aux-modeles-rtx-spark-le-ryzen-ai-max-pro-495-arrive-sur-pc-portable",
-          "source_lane": "model_hub"
+          "title": "China demuestra que no hace falta cambiar de química para mejorar las baterías de sus coches: llegan las baterías LFP de 200 Wh/kg",
+          "url": "https://www.xataka.com/movilidad/china-demuestra-que-no-hace-falta-cambiar-quimica-para-mejorar-baterias-sus-coches-llegan-baterias-lfp-200-wh-kg",
+          "source_lane": "frontier_watchlist"
         },
         {
           "title": "Difunden versiones falsas de GTA 6 con todo tipo de malware: desde acceso remoto hasta robo de información",
@@ -477,13 +468,13 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Infrastructure as a weapon: Why the US action against Italy’s Autistici/Inventati puts global digital rights on notice",
-          "url": "https://www.techradar.com/vpn/vpn-privacy-security/infrastructure-as-a-weapon-why-the-us-action-against-italys-autistici-inventati-puts-global-digital-rights-on-notice",
+          "title": "Anime reaction YouTubers are at war with copyright enforcers",
+          "url": "https://www.theverge.com/tech/993898/nicholaslighttv-remove-your-media-youtube-crunchyroll-viz-media",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Alte Ideen im neuen Gewand: Was hat sich Apple beim Surface Duo abgeschaut?",
-          "url": "https://t3n.de/news/iphone-duo-surface-microsoft-1762820/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "title": "Infrastructure as a weapon: Why the US action against Italy’s Autistici/Inventati puts global digital rights on notice",
+          "url": "https://www.techradar.com/vpn/vpn-privacy-security/infrastructure-as-a-weapon-why-the-us-action-against-italys-autistici-inventati-puts-global-digital-rights-on-notice",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -493,21 +484,21 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/csharp-sdk",
-          "url": "https://github.com/modelcontextprotocol/csharp-sdk",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: modelcontextprotocol/go-sdk",
-          "url": "https://github.com/modelcontextprotocol/go-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/registry",
+          "url": "https://github.com/modelcontextprotocol/registry",
           "source_lane": "github_release"
         },
         {
           "title": "GitHub repo updated: modelcontextprotocol/servers",
           "url": "https://github.com/modelcontextprotocol/servers",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
           "source_lane": "github_release"
         },
         {
@@ -560,15 +551,9 @@
       "entity": "Cursor",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "Microsoft says September updates fix mouse settings reset issues",
-          "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-resolves-mouse-settings-reset-bug-windows-11-update/",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Claude Code",
