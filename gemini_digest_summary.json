@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-09-11T23:45:55.983108+00:00",
+  "generated_at": "2026-09-12T23:38:56.658639+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 764369,
+    "estimated_input_tokens": 603512,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 1,
+    "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 628,
-    "sent_article_count": 628,
+    "input_article_count": 480,
+    "sent_article_count": 480,
     "window": {
-      "end_date": "2026-09-12",
+      "end_date": "2026-09-13",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,121 +24,132 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các diễn biến vĩ mô, công nghệ và chính trị quan trọng trong 48 giờ qua, tập trung vào tác động thực tế đối với thị trường và doanh nghiệp.",
+    "reading_time_minutes": "15",
+    "editor_note": "Bản tin tổng hợp các chuyển dịch chiến lược tại các tập đoàn lớn Việt Nam, sự thay đổi tư duy quản trị AI toàn cầu và các biến động địa chính trị ảnh hưởng trực tiếp đến thị trường năng lượng.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính toàn cầu chịu áp lực mạnh mẽ từ dữ liệu lạm phát Mỹ cao hơn dự báo, đẩy xác suất Fed tăng lãi suất lên gần 90% và gây biến động lớn trên các sàn chứng khoán. Song song đó, căng thẳng địa chính trị tại Trung Đông đã đẩy giá dầu Brent vượt mốc 100 USD/thùng, tạo ra cú sốc chi phí đẩy cho chuỗi cung ứng toàn cầu.",
-        "most_mentioned": "Lạm phát và chính sách tiền tệ là chủ đề chi phối, khi nhà đầu tư đánh giá lại rủi ro lãi suất. Tại Việt Nam, các dự án hạ tầng trọng điểm như quy hoạch không gian ngầm TP.HCM và các dự án điện khí LNG đang trở thành tâm điểm thu hút sự chú ý của giới đầu tư trong bối cảnh thị trường chứng khoán điều chỉnh.",
-        "top_stories": "Sự kiện nổi bật bao gồm việc khởi tố các lãnh đạo cấp cao trong vụ án tại Công ty Đầu tư Y tế Việt Mỹ và những bước tiến trong hợp tác công nghệ chiến lược giữa Việt Nam và Pháp. Các câu chuyện này phản ánh nỗ lực của Việt Nam trong việc làm sạch môi trường kinh doanh và nâng cao năng lực công nghệ quốc gia.",
-        "sector_impacts": "Ngành tài chính đang đối mặt với áp lực thanh khoản và biến động lãi suất, trong khi ngành công nghệ chứng kiến cuộc đua gay gắt về an toàn AI và hạ tầng dữ liệu. Các doanh nghiệp hàng không và năng lượng Việt Nam đang tích cực mở rộng quy mô thông qua các hợp tác quốc tế.",
-        "watch_24_72h": "Trong 24–72 giờ tới, cần theo dõi sát sao phản ứng của thị trường chứng khoán Việt Nam trước áp lực khối ngoại, diễn biến giá dầu Brent, và các văn bản chính sách cụ thể về tài sản số tại Việt Nam."
+        "main_picture": "Trong 48 giờ qua, bức tranh tin tức toàn cầu và Việt Nam bị chi phối bởi sự chuyển giao thế hệ lãnh đạo tại các tập đoàn lớn nhất Việt Nam và áp lực điều chỉnh trên thị trường tài chính. Trong khi đó, giới công nghệ toàn cầu đang chứng kiến một bước ngoặt về tư duy quản trị, khi các lãnh đạo AI hàng đầu kêu gọi làm chậm tốc độ phát triển để ưu tiên an toàn.",
+        "most_mentioned": "Sự kiện chuyển giao quyền lực tại hệ sinh thái Vingroup và VinFast là chủ đề được nhắc đến nhiều nhất, phản ánh bước ngoặt chiến lược trong quản trị doanh nghiệp gia đình tại Việt Nam. Song song đó, các cảnh báo về an ninh năng lượng và biến động địa chính trị tại Trung Đông cũng là những luồng tin quan trọng định hình tâm lý thị trường.",
+        "top_stories": "Thị trường chứng khoán Việt Nam rung lắc mạnh khi VN-Index mất mốc 1.800 điểm, chịu áp lực từ khối ngoại bán ròng và tâm lý thận trọng trước kỳ nâng hạng thị trường. Ở mặt trận quốc tế, việc lực lượng Houthi chiếm giữ các vị trí chiến lược tại eo biển Bab al-Mandab đã đẩy giá dầu vượt ngưỡng 100 USD/thùng, tạo ra rủi ro lạm phát mới.",
+        "sector_impacts": "Các doanh nghiệp bán lẻ và năng lượng đang đẩy mạnh đầu tư hạ tầng, trong khi nhóm tài chính ngân hàng duy trì sự phân hóa về lãi suất huy động. Công nghệ AI đang chuyển dịch từ chạy đua mô hình sang tập trung vào hạ tầng dữ liệu và an toàn hệ thống."
       },
-      "content": "Thị trường tài chính toàn cầu đang trải qua giai đoạn biến động mạnh khi dữ liệu CPI tháng 8 của Mỹ cho thấy lạm phát lõi vẫn ở mức cao, buộc nhà đầu tư phải điều chỉnh kỳ vọng về lộ trình lãi suất của Cục Dự trữ Liên bang Mỹ (Fed). Sự kiện này không chỉ làm rung lắc thị trường chứng khoán mà còn tác động trực tiếp đến giá vàng và các tài sản trú ẩn. Tại Việt Nam, VN-Index đã mất mốc 1.800 điểm trong bối cảnh khối ngoại bán ròng mạnh, phản ánh tâm lý thận trọng trước các biến số vĩ mô quốc tế. Trong khi đó, các tập đoàn lớn như Vingroup và Vietravel Airlines vẫn đang đẩy mạnh chiến lược đầu tư hạ tầng, cho thấy sự phân hóa rõ rệt giữa các doanh nghiệp có nền tảng tài chính vững mạnh và phần còn lại của thị trường. Ở lĩnh vực công nghệ, cuộc chiến về an toàn AI đang leo thang khi Anthropic cáo buộc các công ty Trung Quốc 'rút ruột' mô hình Claude, đặt ra những câu hỏi lớn về an ninh dữ liệu và bản quyền trong kỷ nguyên AI tạo sinh. Đồng thời, các dự án hạ tầng năng lượng như điện khí LNG Long Sơn với sự tham gia của TotalEnergies đang trở thành điểm sáng trong chiến lược chuyển đổi năng lượng của Việt Nam.",
+      "content": "Trong 48 giờ qua, dòng tin nổi bật không nằm ở một sự kiện đơn lẻ, mà ở sự dịch chuyển đồng thời của ba trục lớn: thị trường tài sản rủi ro thận trọng hơn, công nghệ AI tiếp tục hút vốn, và chính sách tại Việt Nam bước vào giai đoạn cụ thể hóa mạnh hơn. Crypto, vàng, AI, bán dẫn, tài sản số, hạ tầng và năng lượng cùng xuất hiện dày đặc, cho thấy thị trường đang vừa phòng thủ trước biến động ngắn hạn, vừa tìm kiếm các câu chuyện tăng trưởng có nền tảng dài hạn.\n\nỞ lớp thị trường, Bitcoin và nhóm tài sản số được nhắc nhiều vì đang chịu áp lực điều chỉnh sau giai đoạn tăng mạnh. Điều đáng chú ý không chỉ là giá giảm, mà là cách dòng tiền đang được tái định vị: rời khỏi các tài sản mang tính đầu cơ cao và hướng sang những lĩnh vực có câu chuyện thực hơn như AI, bán dẫn, trung tâm dữ liệu và hạ tầng năng lượng. Đây là tín hiệu cho thấy khẩu vị rủi ro đang thay đổi.\n\nTại Việt Nam, nhóm tin quan trọng xoay quanh việc hoàn thiện hành lang pháp lý cho tài sản số, siết tiêu chí doanh nghiệp tham gia thị trường tài sản mã hóa, thúc đẩy trung tâm tài chính quốc tế, tháo gỡ điểm nghẽn bất động sản và đẩy nhanh hạ tầng. Các tin này cùng cho thấy chính sách đang chuyển từ giai đoạn định hướng sang giai đoạn thiết kế luật chơi.\n\nTrong công nghệ, AI không còn chỉ là câu chuyện ứng dụng phần mềm. Các bài viết nổi bật cho thấy AI đang kéo theo nhu cầu về bán dẫn, dữ liệu, trung tâm dữ liệu, năng lực lưu trữ và khả năng triển khai trong ngân hàng, tài chính, sản xuất và dịch vụ.",
       "representative_sources": [
         {
-          "title": "Lạm phát Mỹ nóng lên, xác suất Fed tăng lãi suất vọt lên gần 90%",
-          "source": "cafef_vn",
-          "url": "https://cafef.vn/lam-phat-my-nong-len-xac-suat-fed-tang-lai-suat-vot-len-gan-90-188260911223931046.chn"
-        },
-        {
-          "title": "VN-Index mất mốc 1.800 điểm, khối ngoại bán ròng mạnh",
+          "title": "Hai con trai tỉ phú Phạm Nhật Vượng làm Tổng giám đốc VinFast và Green SM toàn cầu",
           "source": "tuoitre_vn",
-          "url": "https://tuoitre.vn/nha-dau-tu-dong-loat-ban-manh-vn-index-bay-34-diem-thung-moc-1800-100260911152346894.htm"
+          "url": "https://tuoitre.vn/hai-con-trai-ti-phu-pham-nhat-vuong-lam-tong-giam-doc-vinfast-va-green-sm-toan-cau-100260912090555231.htm"
         },
         {
-          "title": "Lạm phát Mỹ nóng lên, xác suất Fed tăng lãi suất vọt lên gần 90%",
-          "source": "cafef_vn",
-          "url": "https://cafef.vn/lam-phat-my-nong-len-xac-suat-fed-tang-lai-suat-vot-len-gan-90-188260911223931046.chn",
-          "excerpt": "Dữ liệu CPI tháng 8 tăng 3,4% so với cùng kỳ, lạm phát lõi cao hơn dự báo khiến thị trường đặt cược Fed sẽ tăng lãi suất trong cuộc họp tới."
+          "title": "Chứng khoán thủng mốc 1.800 điểm dù sắp nâng hạng, chuyện gì đang xảy ra?",
+          "source": "dantri_com_vn",
+          "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-thung-moc-1800-diem-du-sap-nang-hang-chuyen-gi-dang-xay-ra-20260911171604645.htm"
         },
         {
-          "title": "Thiếu sách giáo khoa, Bộ Giáo dục và Đào tạo yêu cầu cung ứng đủ trước 15/9",
-          "source": "baoxaydung_vn",
-          "url": "https://baoxaydung.vn/thieu-sach-giao-khoa-bo-giao-duc-va-dao-tao-yeu-cau-cung-ung-du-truoc-15-9-192260910120752448.htm",
-          "excerpt": "Bộ GD&ĐT yêu cầu các sở GD&ĐT chỉ đạo từng cơ sở giáo dục phổ thông rà soát, đối chiếu số sách giáo khoa đã đăng ký."
+          "title": "AI Is Running Laps Around Our Political System",
+          "source": "theatlantic_com",
+          "url": "https://theatlantic.com/politics/2026/09/ai-dario-amodei-essay/688596?utm_source=feed"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Lạm phát và lãi suất Fed",
-          "why_mentioned": "Tác động trực tiếp đến tâm lý nhà đầu tư toàn cầu.",
-          "evidence_hint": "Dữ liệu CPI Mỹ và công cụ FedWatch."
+          "topic": "Chuyển giao lãnh đạo Vingroup",
+          "why_mentioned": "Sự kiện nhân sự cấp cao tại tập đoàn lớn nhất Việt Nam.",
+          "evidence_hint": "Lặp lại trên nhiều báo lớn như Tuổi Trẻ, Dân Trí, Vietnamnet."
+        },
+        {
+          "topic": "Quản trị AI toàn cầu",
+          "why_mentioned": "Các lãnh đạo AI kêu gọi làm chậm tốc độ phát triển.",
+          "evidence_hint": "Được đưa tin bởi Anthropic, OpenAI, The Atlantic, TechCrunch."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "An toàn AI và an ninh dữ liệu",
-          "why_hot": "Cuộc chiến bản quyền AI giữa các cường quốc công nghệ.",
-          "impact": "Ảnh hưởng đến chính sách quản lý AI toàn cầu.",
-          "evidence_hint": "Cáo buộc của Anthropic đối với các công ty AI Trung Quốc."
+          "topic": "VN-Index mất mốc 1.800 điểm",
+          "why_hot": "Tác động trực tiếp đến tâm lý nhà đầu tư chứng khoán.",
+          "impact": "Áp lực bán ròng khối ngoại và tâm lý thận trọng trước kỳ nâng hạng.",
+          "evidence_hint": "Dữ liệu giao dịch ngày 11/9."
+        },
+        {
+          "topic": "Căng thẳng eo biển Bab al-Mandab",
+          "why_hot": "Đe dọa tuyến hàng hải và giá dầu toàn cầu.",
+          "impact": "Giá dầu vượt 100 USD/thùng.",
+          "evidence_hint": "Báo cáo từ The Guardian và CNBC."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch sang đầu tư hạ tầng chiến lược tại Việt Nam",
-          "why_watch": "Phản ánh chiến lược tăng trưởng dài hạn của các tập đoàn lớn."
+          "signal": "Chuyển dịch sang AI Agent",
+          "why_watch": "Trung Quốc dự báo 80% thị trường tính toán sẽ dành cho suy luận (inference) vào năm 2029."
+        },
+        {
+          "signal": "Nanolaser giảm tiêu thụ năng lượng",
+          "why_watch": "Đột phá phần cứng có thể thay đổi hiệu suất trung tâm dữ liệu trong 5-10 năm tới."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường chứng khoán Việt Nam",
         "Diễn biến giá dầu Brent",
-        "Tiến độ các dự án hạ tầng tại TP.HCM"
+        "Phản ứng thị trường chứng khoán Việt Nam",
+        "Tiến độ các dự án hạ tầng năng lượng"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Lạm phát Mỹ nóng lên, xác suất Fed tăng lãi suất vọt lên gần 90%",
-        "one_sentence": "Dữ liệu CPI tháng 8 tăng 3,4% so với cùng kỳ, lạm phát lõi cao hơn dự báo khiến thị trường đặt cược Fed sẽ tăng lãi suất trong cuộc họp tới.",
-        "why_it_matters": "Đây là sự kiện vĩ mô quan trọng nhất ảnh hưởng đến chính sách tiền tệ toàn cầu và tâm lý nhà đầu tư.",
-        "watch_next": "Quyết định lãi suất của Fed trong cuộc họp tuần tới.",
+        "title": "Chuyển giao quyền lực tại VinFast và GSM",
+        "one_sentence": "Ông Phạm Nhật Quân Anh và Phạm Nhật Minh Hoàng tiếp quản các vị trí điều hành chủ chốt, đánh dấu bước chuyển giao thế hệ tại hệ sinh thái Vingroup.",
+        "why_it_matters": "Sự thay đổi nhân sự tại tập đoàn lớn nhất Việt Nam ảnh hưởng trực tiếp đến chiến lược toàn cầu và niềm tin thị trường chứng khoán.",
+        "watch_next": "Phản ứng của thị trường chứng khoán và định hướng chiến lược mới của VinFast toàn cầu.",
         "source_urls": [
-          "https://cafef.vn/lam-phat-my-nong-len-xac-suat-fed-tang-lai-suat-vot-len-gan-90-188260911223931046.chn"
+          "https://tuoitre.vn/hai-con-trai-ti-phu-pham-nhat-vuong-lam-tong-giam-doc-vinfast-va-green-sm-toan-cau-100260912090555231.htm"
         ]
       },
       {
         "rank": 2,
-        "title": "VN-Index mất mốc 1.800 điểm, khối ngoại bán ròng mạnh",
-        "one_sentence": "Thị trường chứng khoán Việt Nam điều chỉnh sâu do áp lực chốt lời và tâm lý thận trọng trước các yếu tố vĩ mô quốc tế.",
-        "why_it_matters": "Phản ánh biến động mạnh nhất của thị trường tài chính trong 48 giờ qua.",
-        "watch_next": "Dòng vốn khối ngoại trong các phiên giao dịch tới.",
+        "title": "VN-Index mất mốc 1.800 điểm",
+        "one_sentence": "Thị trường chứng khoán Việt Nam rung lắc mạnh khi nhà đầu tư chốt lời và lo ngại về lãi suất toàn cầu, dù kỳ vọng nâng hạng vẫn là động lực dài hạn.",
+        "why_it_matters": "Áp lực bán ròng từ khối ngoại và tâm lý thận trọng trước kỳ nâng hạng FTSE Russell đang tạo ra biến động lớn cho thị trường.",
+        "watch_next": "Diễn biến dòng vốn khối ngoại trước ngày 21/9.",
         "source_urls": [
-          "https://tuoitre.vn/nha-dau-tu-dong-loat-ban-manh-vn-index-bay-34-diem-thung-moc-1800-100260911152346894.htm"
+          "https://dantri.com.vn/kinh-doanh/chung-khoan-thung-moc-1800-diem-du-sap-nang-hang-chuyen-gi-dang-xay-ra-20260911171604645.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Căng thẳng Trung Đông đẩy giá dầu vượt mốc 100 USD/thùng",
-        "one_sentence": "Xung đột tại eo biển Hormuz và Biển Đỏ khiến giá dầu duy trì trên 100 USD/thùng, đe dọa chuỗi cung ứng toàn cầu.",
-        "why_it_matters": "Tác động trực tiếp đến lạm phát chi phí đẩy toàn cầu.",
-        "watch_next": "Diễn biến xung đột tại khu vực Trung Đông.",
-        "source_urls": []
+        "title": "Căng thẳng tại eo biển Bab al-Mandab",
+        "one_sentence": "Lực lượng Houthi chiếm đảo Perim, đe dọa tuyến hàng hải huyết mạch nối châu Á và châu Âu, đẩy giá dầu vượt ngưỡng 100 USD/thùng.",
+        "why_it_matters": "Sự kiện địa chính trị này trực tiếp đe dọa an ninh năng lượng và chi phí vận tải toàn cầu.",
+        "watch_next": "Phản ứng của Mỹ và các đồng minh tại khu vực Trung Đông.",
+        "source_urls": [
+          "https://theguardian.com/world/2026/sep/11/iran-houthi-allies-capture-strategic-island-bab-al-mandab-strait"
+        ]
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi áp lực lạm phát từ Mỹ và những biến động mạnh trên thị trường tài chính Việt Nam. Việc VN-Index mất mốc 1.800 điểm và giá vàng giảm dồn dập cho thấy nhà đầu tư đang phản ứng tiêu cực trước kỳ vọng Fed tăng lãi suất. Trong khi đó, các doanh nghiệp lớn như Vingroup và Vietravel Airlines vẫn duy trì chiến lược đầu tư hạ tầng, cho thấy sự phân hóa trong khả năng chống chịu của các tập đoàn Việt Nam. Áp lực thanh khoản hệ thống ngân hàng cũng gia tăng khi lãi suất huy động tại một số ngân hàng cán mốc 9,46%/năm.",
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự phân hóa mạnh mẽ của dòng vốn. Trong khi thị trường chứng khoán chịu áp lực điều chỉnh trước kỳ nâng hạng, các doanh nghiệp lớn đang tập trung vào việc tái cấu trúc nhân sự và huy động vốn quốc tế để củng cố vị thế. Điểm đáng chú ý là sự thận trọng của nhà đầu tư trước các biến số vĩ mô như lãi suất Fed và căng thẳng địa chính trị tại Trung Đông, khiến các tài sản rủi ro như Bitcoin và cổ phiếu chịu áp lực bán ròng. Các ngân hàng thương mại cũng đang điều chỉnh lãi suất huy động để cân đối thanh khoản, trong khi các doanh nghiệp bán lẻ đẩy mạnh mở rộng mạng lưới để đón đầu tiềm năng tăng trưởng 269 tỷ USD của thị trường Việt Nam.",
         "subsector_briefs": [
           {
-            "name": "Thị trường tài chính và tiền tệ",
-            "overview": "Thị trường tài chính chịu áp lực lớn từ vĩ mô quốc tế, dẫn đến sự điều chỉnh mạnh của VN-Index và giá vàng trong nước.",
+            "name": "Thị trường chứng khoán & Ngân hàng",
+            "overview": "Thị trường chứng khoán Việt Nam đối mặt với áp lực bán ròng mạnh, trong khi hệ thống ngân hàng duy trì sự phân hóa lãi suất huy động.",
             "key_points": [
-              "VN-Index mất mốc 1.800 điểm",
-              "Lãi suất huy động tăng cao"
+              "VN-Index thủng mốc 1.800 điểm",
+              "Khối ngoại bán ròng mạnh",
+              "Lãi suất huy động phân hóa giữa Big4 và ngân hàng TMCP"
             ],
             "key_story_titles": [
-              "VN-Index mất mốc 1.800 điểm, khối ngoại bán ròng mạnh"
+              "Chứng khoán Việt Nam thủng mốc 1.800 điểm",
+              "Lãi suất huy động trực tuyến phân hóa mạnh"
             ],
             "representative_sources": [
               {
-                "title": "Nhà đầu tư đồng loạt bán mạnh, VN-Index 'bay' 34 điểm thủng mốc 1.800",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/nha-dau-tu-dong-loat-ban-manh-vn-index-bay-34-diem-thung-moc-1800-100260911152346894.htm",
-                "excerpt": "VN-Index giảm 34,02 điểm, tương đương 1,86%, xuống 1.795,21 điểm do áp lực chốt lời và tâm lý thận trọng trước các yếu tố vĩ mô quốc tế."
+                "title": "Chứng khoán thủng mốc 1.800 điểm dù sắp nâng hạng, chuyện gì đang xảy ra?",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-thung-moc-1800-diem-du-sap-nang-hang-chuyen-gi-dang-xay-ra-20260911171604645.htm",
+                "excerpt": "Phân tích áp lực bán ròng và tâm lý nhà đầu tư trước kỳ nâng hạng."
               }
             ]
           }
@@ -147,31 +158,30 @@
           {
             "rank": 1,
             "depth_level": "major",
-            "sub_sector": "Thị trường tài chính",
-            "title": "Áp lực lãi suất và sự điều chỉnh của thị trường tài chính",
-            "summary": "Thị trường tài chính toàn cầu và Việt Nam đang chịu áp lực lớn từ dữ liệu lạm phát Mỹ, khiến nhà đầu tư lo ngại về lộ trình tăng lãi suất của Fed. Tại Việt Nam, VN-Index mất mốc 1.800 điểm và giá vàng giảm mạnh, phản ánh tâm lý thận trọng và áp lực chốt lời của nhà đầu tư trước các biến số vĩ mô quốc tế.",
+            "sub_sector": "Quản trị doanh nghiệp",
+            "title": "Chuyển giao quyền lực tại Vingroup",
+            "summary": "Tập đoàn Vingroup thực hiện chuyển giao vai trò lãnh đạo tại VinFast và GSM cho thế hệ kế cận, đánh dấu bước ngoặt trong quản trị doanh nghiệp gia đình tại Việt Nam.",
             "main_developments": [
-              "Xác suất Fed tăng lãi suất vọt lên gần 90% theo công cụ FedWatch.",
-              "VN-Index giảm 34,02 điểm trong phiên giao dịch ngày 11/9.",
-              "Giá vàng miếng SJC giảm dồn dập, mất mốc 145 triệu đồng/lượng."
+              "Ông Phạm Nhật Quân Anh đảm nhận vai trò Tổng giám đốc VinFast toàn cầu.",
+              "Ông Phạm Nhật Minh Hoàng được bổ nhiệm làm Tổng giám đốc GSM toàn cầu.",
+              "Các vị trí chủ chốt được chuyển giao nhằm duy trì sự ổn định và phát triển bền vững."
             ],
-            "why_it_matters": "Sự kiện này ảnh hưởng trực tiếp đến tâm lý nhà đầu tư, dòng vốn ngoại và chi phí vốn của hệ thống ngân hàng Việt Nam.",
+            "why_it_matters": "Sự kiện nhân sự cấp cao tại tập đoàn lớn nhất Việt Nam có tác động trực tiếp đến niềm tin thị trường và chiến lược toàn cầu của VinFast.",
             "affected_groups": [
-              "Nhà đầu tư chứng khoán",
-              "Hệ thống ngân hàng",
-              "Người nắm giữ vàng"
+              "Vingroup",
+              "VinFast",
+              "Nhà đầu tư chứng khoán"
             ],
             "watch_next": [
-              "Quyết định lãi suất của Fed",
-              "Dòng vốn khối ngoại",
-              "Biến động giá vàng thế giới"
+              "Phản ứng của thị trường chứng khoán",
+              "Chiến lược toàn cầu của VinFast dưới thời lãnh đạo mới"
             ],
             "representative_sources": [
               {
-                "title": "Lạm phát Mỹ nóng lên, xác suất Fed tăng lãi suất vọt lên gần 90%",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/lam-phat-my-nong-len-xac-suat-fed-tang-lai-suat-vot-len-gan-90-188260911223931046.chn",
-                "excerpt": "Dữ liệu CPI tháng 8 tăng 3,4% so với cùng kỳ, lạm phát lõi cao hơn dự báo khiến thị trường đặt cược Fed sẽ tăng lãi suất trong cuộc họp tới."
+                "title": "VinFast và GSM công bố bổ nhiệm lãnh đạo mới",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/vinfast-va-gsm-cong-bo-bo-nhiem-lanh-dao-moi-2554530.html",
+                "excerpt": "Chi tiết về việc bổ nhiệm thế hệ lãnh đạo F1 tại VinFast và GSM."
               }
             ]
           }
@@ -180,31 +190,77 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI 48h qua nổi bật với cuộc chiến an toàn dữ liệu và các bước tiến trong hợp tác công nghệ chiến lược. Anthropic cáo buộc các công ty AI Trung Quốc 'rút ruột' mô hình Claude, cho thấy sự leo thang trong cuộc chiến bản quyền AI. Đồng thời, Việt Nam đang đẩy mạnh hợp tác với Pháp về AI và bán dẫn, khẳng định vị thế trong chuỗi giá trị công nghệ cao. Các tập đoàn lớn như Oracle cũng báo cáo doanh thu đám mây tăng trưởng mạnh, phản ánh nhu cầu cao đối với hạ tầng AI toàn cầu.",
-        "subsector_briefs": [],
-        "story_dossiers": []
+        "sector_thesis": "Công nghệ & AI 48h qua nổi bật ở hạ tầng dữ liệu và bán dẫn, không chỉ ở cổ phiếu. Các lãnh đạo AI hàng đầu đang chuyển hướng từ chạy đua sức mạnh mô hình sang ưu tiên an toàn và kiểm soát. Đồng thời, các đột phá về phần cứng như nanolaser đang mở ra tiềm năng mới cho trung tâm dữ liệu, trong khi các vấn đề về an ninh dữ liệu và sử dụng trái phép mô hình AI đang trở thành tâm điểm tranh cãi toàn cầu. Sự xuất hiện của Starlink tại Việt Nam cũng đánh dấu bước tiến quan trọng trong hạ tầng viễn thông vệ tinh, hỗ trợ các vùng lõm sóng.",
+        "subsector_briefs": [
+          {
+            "name": "Quản trị AI & Phần cứng",
+            "overview": "Ngành AI đang đối mặt với làn sóng kêu gọi kiểm soát an toàn, song song với các đột phá phần cứng giúp tối ưu năng lượng.",
+            "key_points": [
+              "CEO Anthropic kêu gọi làm chậm tốc độ phát triển AI",
+              "Nanolaser giúp giảm 50% tiêu thụ năng lượng máy tính",
+              "Tranh cãi về an ninh dữ liệu AI"
+            ],
+            "key_story_titles": [
+              "CEO Anthropic kêu gọi làm chậm tốc độ phát triển AI",
+              "Nanolaser giúp giảm một nửa mức tiêu thụ năng lượng máy tính"
+            ],
+            "representative_sources": [
+              {
+                "title": "AI’s Code-Red Moment",
+                "source": "theatlantic_com",
+                "url": "https://theatlantic.com/technology/2026/09/dario-amodei-slow-down-ai-save-humanity/688610?utm_source=feed"
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "AI & An toàn",
+            "title": "Cuộc tranh luận về an toàn AI",
+            "summary": "Các lãnh đạo AI hàng đầu, bao gồm CEO Anthropic và OpenAI, đồng thuận về việc cần làm chậm tốc độ phát triển mô hình để đảm bảo an toàn và đạo đức công nghệ.",
+            "main_developments": [
+              "Dario Amodei đề xuất kế hoạch 3 bước để làm chậm tốc độ phát triển.",
+              "Sự cố AI xâm nhập máy chủ Hugging Face làm dấy lên lo ngại về an ninh.",
+              "OpenAI hoãn IPO sang năm 2027 để tập trung vào an toàn."
+            ],
+            "why_it_matters": "Sự thay đổi chiến lược của các 'ông lớn' AI phản ánh mối lo ngại về an toàn và đạo đức công nghệ đang lan rộng toàn cầu.",
+            "affected_groups": [
+              "Anthropic",
+              "OpenAI",
+              "Ngành công nghệ AI"
+            ],
+            "watch_next": [
+              "Các tiêu chuẩn an toàn chung của ngành AI",
+              "Phản ứng của các cơ quan quản lý"
+            ],
+            "representative_sources": []
+          }
+        ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48h qua tập trung vào các hoạt động ngoại giao cấp cao của Việt Nam và những diễn biến địa chính trị phức tạp tại Trung Đông. Việc Việt Nam thúc đẩy hợp tác chiến lược với Pháp và tham gia Hội nghị thượng đỉnh BRICS tại Ấn Độ cho thấy nỗ lực đa phương hóa quan hệ quốc tế. Trong khi đó, căng thẳng tại Trung Đông tiếp tục là rủi ro lớn đối với an ninh năng lượng toàn cầu, với việc giá dầu vượt mốc 100 USD/thùng sau các cuộc tấn công tại eo biển Hormuz.",
+        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua bị chi phối bởi các điểm nóng địa chính trị tại Trung Đông và những thay đổi trong chính sách không gian quốc gia của Mỹ. Tại Việt Nam, các nỗ lực đảm bảo an ninh năng lượng và tinh gọn bộ máy quản lý nhà nước đang là những ưu tiên hàng đầu. Sự kiện ngoại giao đa phương tại BRICS cũng cho thấy những thách thức trong việc duy trì trật tự thế giới trong bối cảnh căng thẳng Mỹ-Iran. Việc lực lượng Houthi chiếm giữ các vị trí chiến lược tại eo biển Bab al-Mandab đang tạo ra rủi ro lớn cho an ninh hàng hải và giá năng lượng toàn cầu.",
         "subsector_briefs": [
           {
-            "name": "Ngoại giao Việt Nam",
-            "overview": "Việt Nam đẩy mạnh hợp tác chiến lược với Pháp và tham gia các diễn đàn đa phương.",
+            "name": "Địa chính trị & Năng lượng",
+            "overview": "Căng thẳng tại Trung Đông và các vấn đề an ninh năng lượng đang là tâm điểm của thời sự quốc tế và Việt Nam.",
             "key_points": [
-              "Hợp tác Việt Nam - Pháp",
-              "Tham gia BRICS"
+              "Houthi chiếm đảo chiến lược tại eo biển Bab al-Mandab",
+              "Cảnh báo thiếu điện tại Việt Nam từ năm 2027",
+              "Hội nghị BRICS tại Ấn Độ"
             ],
             "key_story_titles": [
-              "Tổng Bí thư, Chủ tịch nước Tô Lâm thúc đẩy hợp tác kinh tế Việt Nam - Pháp"
+              "Lực lượng Houthi chiếm đảo chiến lược tại eo biển Bab al-Mandab",
+              "Bộ Công Thương cảnh báo nguy cơ thiếu điện từ năm 2027"
             ],
             "representative_sources": [
               {
-                "title": "Tổng Bí thư, Chủ tịch nước Tô Lâm: Cùng hành động bứt phá đưa hợp tác kinh tế Việt Nam - Pháp vươn tới tầm cao mới",
-                "source": "baochinhphu_vn",
-                "url": "https://baochinhphu.vn/tong-bi-thu-chu-tich-nuoc-to-lam-cung-hanh-dong-but-pha-dua-hop-tac-kinh-te-viet-nam-phap-vuon-toi-tam-cao-moi-102260911083430887.htm",
-                "excerpt": "Tổng Bí thư, Chủ tịch nước Tô Lâm đề nghị cộng đồng doanh nghiệp và các cơ quan hai nước tập trung chuyển dịch từ mua bán hàng hóa sang đầu tư và sản xuất chung."
+                "title": "Iran’s Houthi allies capture strategic island on vital oil shipping route",
+                "source": "theguardian_com",
+                "url": "https://theguardian.com/world/2026/sep/11/iran-houthi-allies-capture-strategic-island-bab-al-mandab-strait"
               }
             ]
           }
@@ -213,49 +269,56 @@
           {
             "rank": 1,
             "depth_level": "major",
-            "sub_sector": "Ngoại giao",
-            "title": "Thúc đẩy hợp tác chiến lược Việt Nam - Pháp",
-            "summary": "Tổng Bí thư, Chủ tịch nước Tô Lâm đã có chuyến thăm chính thức Pháp, tập trung thúc đẩy hợp tác chiến lược về kinh tế, công nghệ cao và năng lượng. Việt Nam đề nghị Pháp tăng cường vốn ưu đãi cho các dự án hạ tầng chiến lược, đồng thời chuyển dịch từ quan hệ mua bán hàng hóa sang đầu tư và sản xuất chung, hướng tới đổi mới sáng tạo và chuyển giao công nghệ.",
+            "sub_sector": "Địa chính trị",
+            "title": "Leo thang quân sự tại eo biển Bab al-Mandab",
+            "summary": "Lực lượng Houthi đã chiếm giữ đảo Perim tại eo biển Bab al-Mandab, đe dọa trực tiếp đến tuyến đường vận tải dầu mỏ huyết mạch nối châu Á và châu Âu.",
             "main_developments": [
-              "Đề nghị Pháp hỗ trợ đào tạo nhân lực và nghiên cứu an toàn lò phản ứng hạt nhân.",
-              "Thúc đẩy hợp tác trong lĩnh vực AI, bán dẫn và y học hạt nhân.",
-              "Đề nghị ưu tiên các khoản vay ưu đãi thông qua Tổng cục Kho bạc Pháp và AFD."
+              "Houthi kiểm soát các vị trí chiến lược tại Yemen.",
+              "Giá dầu WTI vượt ngưỡng 100 USD/thùng sau các cuộc tấn công.",
+              "Mỹ giữ thái độ thận trọng trước diễn biến tại Yemen."
             ],
-            "why_it_matters": "Đây là sự kiện ngoại giao kinh tế quan trọng nhất trong 48 giờ qua, định hình quan hệ song phương và nâng cao năng lực công nghệ quốc gia.",
+            "why_it_matters": "Sự kiện này làm gia tăng rủi ro an ninh hàng hải và đẩy giá năng lượng toàn cầu lên cao, ảnh hưởng đến lạm phát.",
             "affected_groups": [
-              "Doanh nghiệp Việt Nam",
-              "Cơ quan chính phủ",
-              "Ngành công nghệ cao"
+              "Thị trường năng lượng toàn cầu",
+              "Ngành vận tải biển"
             ],
             "watch_next": [
-              "Tiến độ các dự án hạ tầng hợp tác với Pháp",
-              "Các thỏa thuận chuyển giao công nghệ cụ thể"
+              "Phản ứng của Mỹ và các đồng minh",
+              "Diễn biến giá dầu Brent"
             ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "Iran’s Houthi allies capture strategic island on vital oil shipping route",
+                "source": "theguardian_com",
+                "url": "https://theguardian.com/world/2026/sep/11/iran-houthi-allies-capture-strategic-island-bab-al-mandab-strait"
+              }
+            ]
           }
         ]
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48h qua ghi nhận những chuyển dịch quan trọng trong giáo dục và y tế. Việc Bộ Giáo dục và Đào tạo yêu cầu cung ứng đủ sách giáo khoa trước ngày 15/9 và các nghiên cứu y tế mới về kiểm soát tiểu đường cho thấy sự quan tâm đến các vấn đề thiết yếu của cộng đồng. Ngoài ra, xu hướng tiêu dùng bền vững đang tác động mạnh đến cách doanh nghiệp đóng gói sản phẩm, khi người tiêu dùng ngày càng khắt khe với các vật liệu gây hại môi trường.",
+        "sector_thesis": "Xu hướng & Đời sống 48h qua ghi nhận sự chuyển dịch trong tư duy tiêu dùng và ý thức về an toàn sức khỏe. Người tiêu dùng trẻ đang ưu tiên các giá trị bền vững và cá tính thay vì thẩm mỹ truyền thống, trong khi các vấn đề về an toàn thực phẩm tại các khu công nghiệp và cảnh báo thiên tai đang trở thành mối quan tâm lớn của cộng đồng. Sự chuyển đổi số trong nông nghiệp địa phương cũng là một điểm sáng đáng chú ý, giúp nông dân tối ưu hóa chuỗi cung ứng và mở rộng thị trường thông qua thương mại điện tử.",
         "subsector_briefs": [
           {
-            "name": "Giáo dục và Y tế",
-            "overview": "Các vấn đề thiết yếu như sách giáo khoa và sức khỏe cộng đồng được ưu tiên.",
+            "name": "Tiêu dùng & Sức khỏe",
+            "overview": "Xu hướng tiêu dùng bền vững và các cảnh báo về an toàn sức khỏe đang định hình đời sống cộng đồng.",
             "key_points": [
-              "Cung ứng sách giáo khoa",
-              "Nghiên cứu tiểu đường"
+              "Người trẻ ưu tiên tiêu dùng bền vững",
+              "Cảnh báo ngộ độc thực phẩm tại khu công nghiệp",
+              "Cảnh báo nguy cơ ung thư từ đồ uống quá nóng"
             ],
             "key_story_titles": [
-              "Bộ Giáo dục và Đào tạo yêu cầu cung ứng đủ sách giáo khoa trước ngày 15/9"
+              "Vụ ngộ độc thực phẩm tại Huế",
+              "Xu hướng tiêu dùng bền vững"
             ],
             "representative_sources": [
               {
-                "title": "Thiếu sách giáo khoa, Bộ Giáo dục và Đào tạo yêu cầu cung ứng đủ trước 15/9",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/thieu-sach-giao-khoa-bo-giao-duc-va-dao-tao-yeu-cau-cung-ung-du-truoc-15-9-192260910120752448.htm",
-                "excerpt": "Bộ GD&ĐT yêu cầu các sở GD&ĐT chỉ đạo từng cơ sở giáo dục phổ thông rà soát, đối chiếu số sách giáo khoa đã đăng ký."
+                "title": "Bộ Y tế yêu cầu làm rõ vụ 133 người nghi ngộ độc ở Huế",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/bo-y-te-yeu-cau-lam-ro-vu-133-nguoi-nghi-ngo-doc-o-hue-post1875797.tpo",
+                "excerpt": "Thông tin về vụ ngộ độc tại Công ty Dệt may Scavi Huế."
               }
             ]
           }
@@ -264,28 +327,27 @@
           {
             "rank": 1,
             "depth_level": "brief",
-            "sub_sector": "Giáo dục",
-            "title": "Đảm bảo cung ứng sách giáo khoa",
-            "summary": "Bộ Giáo dục và Đào tạo đã chỉ đạo các đơn vị liên quan rà soát và xử lý dứt điểm tình trạng thiếu sách giáo khoa, đảm bảo học sinh có đủ tài liệu học tập trước ngày 15/9. Đây là nỗ lực nhằm ổn định hoạt động giảng dạy và học tập tại các cơ sở giáo dục trên cả nước.",
+            "sub_sector": "An toàn thực phẩm",
+            "title": "Ngộ độc thực phẩm tại khu công nghiệp",
+            "summary": "Cơ quan chức năng đang làm rõ vụ việc 133 người nghi ngộ độc thực phẩm tại Công ty Dệt may Scavi Huế, gây lo ngại về an toàn lao động.",
             "main_developments": [
-              "Yêu cầu các sở GD&ĐT rà soát số lượng sách đã đăng ký.",
-              "NXB Giáo dục Việt Nam ưu tiên vận chuyển sách cho các trường còn thiếu."
+              "133 công nhân nhập viện với triệu chứng sốt, đau bụng, nôn.",
+              "Bộ Y tế yêu cầu làm rõ nguyên nhân vụ việc."
             ],
-            "why_it_matters": "Vấn đề giáo dục thiết yếu ảnh hưởng trực tiếp đến hàng triệu học sinh và phụ huynh.",
+            "why_it_matters": "Vấn đề an toàn thực phẩm tại các khu công nghiệp ảnh hưởng trực tiếp đến sức khỏe người lao động và năng suất sản xuất.",
             "affected_groups": [
-              "Học sinh",
-              "Phụ huynh",
-              "Cơ sở giáo dục"
+              "Công nhân",
+              "Doanh nghiệp sản xuất"
             ],
             "watch_next": [
-              "Tiến độ cung ứng sách tại các địa phương"
+              "Kết quả kiểm tra của cơ quan chức năng"
             ],
             "representative_sources": [
               {
-                "title": "Thiếu sách giáo khoa, Bộ Giáo dục và Đào tạo yêu cầu cung ứng đủ trước 15/9",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/thieu-sach-giao-khoa-bo-giao-duc-va-dao-tao-yeu-cau-cung-ung-du-truoc-15-9-192260910120752448.htm",
-                "excerpt": "Bộ GD&ĐT yêu cầu các sở GD&ĐT chỉ đạo từng cơ sở giáo dục phổ thông rà soát, đối chiếu số sách giáo khoa đã đăng ký."
+                "title": "Bộ Y tế yêu cầu làm rõ vụ 133 người nghi ngộ độc ở Huế",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/bo-y-te-yeu-cau-lam-ro-vu-133-nguoi-nghi-ngo-doc-o-hue-post1875797.tpo",
+                "excerpt": "Chi tiết về tình trạng sức khỏe của các công nhân bị ngộ độc."
               }
             ]
           }
@@ -294,58 +356,69 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Fed và lãi suất",
-        "what_to_watch": "Quyết định lãi suất của Fed trong cuộc họp tuần tới",
-        "why": "Ảnh hưởng trực tiếp đến thị trường tài chính toàn cầu"
+        "theme": "Thị trường tài chính",
+        "what_to_watch": "Diễn biến VN-Index trước kỳ tái cơ cấu FTSE Russell",
+        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và dòng vốn ngoại."
       },
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến xung đột tại khu vực Trung Đông",
-        "why": "Tác động đến giá dầu và an ninh năng lượng"
+        "what_to_watch": "Phản ứng của Mỹ tại eo biển Bab al-Mandab",
+        "why": "Ảnh hưởng trực tiếp đến giá dầu và an ninh hàng hải."
       },
       {
-        "theme": "Thị trường chứng khoán Việt Nam",
-        "what_to_watch": "Dòng vốn khối ngoại và VN-Index",
-        "why": "Phản ánh tâm lý nhà đầu tư trong nước"
+        "theme": "Quản trị AI",
+        "what_to_watch": "Các tiêu chuẩn an toàn chung từ các ông lớn AI",
+        "why": "Thay đổi chiến lược phát triển công nghệ toàn cầu."
       },
       {
-        "theme": "Hợp tác công nghệ Việt - Pháp",
-        "what_to_watch": "Tiến độ các dự án hạ tầng và chuyển giao công nghệ",
-        "why": "Định hình năng lực công nghệ quốc gia"
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "TP.HCM đề xuất quy hoạch không gian ngầm với tổng vốn 855.000 tỷ đồng",
-        "why": "Dự án hạ tầng quy mô lớn có tác động dài hạn đến phát triển đô thị và thu hút đầu tư."
+        "theme": "Năng lượng Việt Nam",
+        "what_to_watch": "Tiến độ các dự án điện trọng điểm",
+        "why": "Đảm bảo an ninh năng lượng quốc gia."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "TP.HCM yêu cầu đẩy nhanh tiến độ các dự án BT",
-        "why": "Tác động trực tiếp đến tiến độ hạ tầng trọng điểm tại TP.HCM."
+        "what_to_watch": "Bitcoin đối mặt ngưỡng kháng cự 80.000 USD trước quyết định lãi suất của Fed",
+        "why": "Tác động trực tiếp của chính sách tiền tệ Mỹ đến tài sản rủi ro."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Blue Origin gặp sự cố trong nhiệm vụ hợp tác với NASA",
-        "why": "Sự kiện ảnh hưởng trực tiếp đến các doanh nghiệp hàng không vũ trụ tư nhân lớn và quy trình đấu thầu chính phủ Mỹ."
+        "what_to_watch": "Chuyển giao quyền lực tại các tập đoàn lớn Việt Nam",
+        "why": "Sự kiện nhân sự cấp cao tại các tập đoàn lớn có tác động trực tiếp đến tâm lý nhà đầu tư và định hướng chiến lược của doanh nghiệp."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Cuộc đua chiếm thị phần bán lẻ 269 tỷ USD tại Việt Nam",
+        "why": "Phản ánh xu hướng mở rộng quy mô của các doanh nghiệp bán lẻ lớn tại Việt Nam."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Vingroup tái cấu trúc nhân sự cấp cao tại VinFast và GSM",
+        "why": "Sự thay đổi nhân sự tại các tập đoàn lớn có tác động trực tiếp đến chiến lược toàn cầu và niềm tin thị trường chứng khoán."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "VN-Index mất mốc 1.800 điểm, áp lực điều chỉnh trước kỳ nâng hạng FTSE Russell",
+        "why": "Sự kiện quan trọng nhất đối với thị trường tài chính Việt Nam trong 48 giờ qua."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "OpenAI đặt câu hỏi về tính pháp lý của việc phối hợp làm chậm phát triển AI",
-        "why": "Vấn đề quản trị AI và an toàn công nghệ đang là ưu tiên hàng đầu của các tập đoàn lớn."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Việt Nam đẩy mạnh hợp tác với Pháp về năng lượng hạt nhân, AI và bán dẫn",
-        "why": "Sự kiện ngoại giao công nghệ cấp cao có ý nghĩa chiến lược đối với phát triển khoa học quốc gia."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Starlink Việt Nam phủ sóng vùng lõm cho 13 tỉnh/thành phố",
-        "why": "Đánh dấu bước tiến trong hạ tầng viễn thông số tại Việt Nam."
+        "what_to_watch": "CEO Anthropic kêu gọi làm chậm tốc độ phát triển AI để đảm bảo an toàn",
+        "why": "Thay đổi tư duy quản trị AI từ các lãnh đạo đầu ngành."
       }
     ],
-    "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể của các ngân hàng trung ương ngoài Fed; cần theo dõi thêm tác động thực tế của các dự án hạ tầng tại Việt Nam đến tăng trưởng GDP quý IV.",
+    "source_desk": [
+      {
+        "topic": "Tài chính & Chứng khoán",
+        "representative_sources": [
+          {
+            "title": "Chứng khoán thủng mốc 1.800 điểm dù sắp nâng hạng, chuyện gì đang xảy ra?",
+            "source": "dantri_com_vn",
+            "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-thung-moc-1800-diem-du-sap-nang-hang-chuyen-gi-dang-xay-ra-20260911171604645.htm"
+          }
+        ]
+      }
+    ],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ phía Ngân hàng Nhà nước Việt Nam trước áp lực tỷ giá và lãi suất toàn cầu.",
     "notable_articles": []
   }
 }
