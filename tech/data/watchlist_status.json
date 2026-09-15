@@ -1,18 +1,23 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-09-15T12:46:41.083367+00:00",
+  "generated_at_utc": "2026-09-15T18:11:51.393366+00:00",
   "checked": 26,
-  "hit_count": 106,
+  "hit_count": 78,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 15,
+      "hit_count": 13,
       "top_links": [
         {
           "title": "GitHub repo updated: zai-org/GLM-5",
           "url": "https://github.com/zai-org/GLM-5",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/GLM-OCR",
+          "url": "https://github.com/zai-org/GLM-OCR",
           "source_lane": "github_release"
         },
         {
@@ -21,18 +26,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/SCAIL-2",
-          "url": "https://github.com/zai-org/SCAIL-2",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: nesoai/GLM-5.2",
-          "url": "https://huggingface.co/nesoai/GLM-5.2",
+          "title": "Hugging Face model updated: dfp-official/GLM-5.3-Flash-oQ8e-mtp",
+          "url": "https://huggingface.co/dfp-official/GLM-5.3-Flash-oQ8e-mtp",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/GLM-5.3-0.6B-A0.4B-GGUF",
-          "url": "https://huggingface.co/mradermacher/GLM-5.3-0.6B-A0.4B-GGUF",
+          "title": "Hugging Face model updated: zai-org/GLM-5.3-Flash",
+          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
           "source_lane": "huggingface_model"
         }
       ],
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 10,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/FlashQLA",
-          "url": "https://github.com/QwenLM/FlashQLA",
+          "title": "GitHub repo updated: QwenLM/Qwen-Image-Layered",
+          "url": "https://github.com/QwenLM/Qwen-Image-Layered",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Agent",
-          "url": "https://github.com/QwenLM/Qwen-Agent",
+          "title": "GitHub repo updated: QwenLM/Qwen3-TTS",
+          "url": "https://github.com/QwenLM/Qwen3-TTS",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: logic65/Qwen3.8-Whittle-MoE-27B-A17.8B",
-          "url": "https://huggingface.co/logic65/Qwen3.8-Whittle-MoE-27B-A17.8B",
+          "title": "Hugging Face model updated: Stage-org/appworld-qwen35-4b-meta-sft-from-qwen38-epoch1",
+          "url": "https://huggingface.co/Stage-org/appworld-qwen35-4b-meta-sft-from-qwen38-epoch1",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: logic65/Qwen3.8-Whittle-MoE-27B-A17.8B-GGUF",
-          "url": "https://huggingface.co/logic65/Qwen3.8-Whittle-MoE-27B-A17.8B-GGUF",
+          "title": "Hugging Face model updated: adityag-india/deepseek-r1-qwen7b-medical-sft",
+          "url": "https://huggingface.co/adityag-india/deepseek-r1-qwen7b-medical-sft",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,7 +76,7 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "GitHub repo updated: deepseek-ai/DeepEP",
@@ -84,8 +84,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/awesome-deepseek-integration",
-          "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-R1",
+          "url": "https://github.com/deepseek-ai/DeepSeek-R1",
           "source_lane": "github_release"
         },
         {
@@ -94,14 +94,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: meganovaai/DeepSeek-V3.2-Exp-AWQ",
-          "url": "https://huggingface.co/meganovaai/DeepSeek-V3.2-Exp-AWQ",
+          "title": "Hugging Face model updated: wrldsuksgo2mars/DeepSeek-V4.1-EXL3-K3.25-v1",
+          "url": "https://huggingface.co/wrldsuksgo2mars/DeepSeek-V4.1-EXL3-K3.25-v1",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: smalinin/DeepSeek-V4.1-Flash-GGUF",
-          "url": "https://huggingface.co/smalinin/DeepSeek-V4.1-Flash-GGUF",
-          "source_lane": "huggingface_model"
+          "title": "OpenRouter model listed: ~deepseek/deepseek-flash-latest",
+          "url": "https://openrouter.ai/~deepseek/deepseek-flash-latest",
+          "source_lane": "model_hub"
         }
       ],
       "no_signal_reason": ""
@@ -137,13 +137,13 @@
       "hit_count": 4,
       "top_links": [
         {
-          "title": "Hugging Face model updated: jinksa77/Minimax_H3",
-          "url": "https://huggingface.co/jinksa77/Minimax_H3",
+          "title": "Hugging Face model updated: Smite79/MiniMax-H3-Longvideos",
+          "url": "https://huggingface.co/Smite79/MiniMax-H3-Longvideos",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: xtanqn/MiniMax-H3-fl2va-ref2va-b25-49-r1024-r0",
-          "url": "https://huggingface.co/xtanqn/MiniMax-H3-fl2va-ref2va-b25-49-r1024-r0",
+          "title": "Hugging Face model updated: StefanFalkok/Minimax_H3_Workflows",
+          "url": "https://huggingface.co/StefanFalkok/Minimax_H3_Workflows",
           "source_lane": "huggingface_model"
         },
         {
@@ -179,13 +179,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HY-World-2.0",
-          "url": "https://github.com/Tencent-Hunyuan/HY-World-2.0",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/UniRL",
-          "url": "https://github.com/Tencent-Hunyuan/UniRL",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-WorldClaw",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-WorldClaw",
           "source_lane": "github_release"
         },
         {
@@ -205,15 +205,9 @@
       "entity": "StepFun",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "Implementing Durable Workflows on Postgres Without an External Orchestrator",
-          "url": "https://www.infoq.com/articles/durable-workflows-postgres/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "InternLM",
@@ -222,18 +216,18 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: InternLM/xtuner",
-          "url": "https://github.com/InternLM/xtuner",
+          "title": "GitHub repo updated: InternLM/OpenAOE",
+          "url": "https://github.com/InternLM/OpenAOE",
           "source_lane": "github_release"
         },
         {
           "title": "GitHub repo updated: InternLM/WildClawBench",
           "url": "https://github.com/InternLM/WildClawBench",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: InternLM/lmdeploy",
+          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         }
       ],
@@ -259,16 +253,16 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 6,
       "top_links": [
-        {
-          "title": "Hugging Face model updated: go4coxxxx/flux-2-klein-9b-base-nsfw-standard",
-          "url": "https://huggingface.co/go4coxxxx/flux-2-klein-9b-base-nsfw-standard",
-          "source_lane": "huggingface_model"
-        },
         {
           "title": "Hugging Face model updated: juergengunz/fluxer",
           "url": "https://huggingface.co/juergengunz/fluxer",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: junepriv01/flux2-klein-lora",
+          "url": "https://huggingface.co/junepriv01/flux2-klein-lora",
           "source_lane": "huggingface_model"
         },
         {
@@ -282,9 +276,9 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "CISA warns hackers are exploiting this max severity GitLab flaw",
-          "url": "https://www.techradar.com/pro/security/cisa-warns-hackers-are-exploiting-max-severity-gitlab-flaw-urges-all-businesses-to-patch-immediately",
-          "source_lane": "frontier_watchlist"
+          "title": "pytorch/pytorch release: PyTorch 2.13.0 Release",
+          "url": "https://github.com/pytorch/pytorch/releases/tag/v2.13.0",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -296,13 +290,13 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: smthem/SolarWM-H3-ComfyUI",
-          "url": "https://huggingface.co/smthem/SolarWM-H3-ComfyUI",
+          "title": "Hugging Face model updated: Wesley1234/Comfyui-Onekey-Comprehensive-Edition-T8",
+          "url": "https://huggingface.co/Wesley1234/Comfyui-Onekey-Comprehensive-Edition-T8",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: samiyoya/ComfyUI",
-          "url": "https://huggingface.co/samiyoya/ComfyUI",
+          "title": "Hugging Face model updated: 0bsidian00/my-comfyui-workflow",
+          "url": "https://huggingface.co/0bsidian00/my-comfyui-workflow",
           "source_lane": "huggingface_model"
         },
         {
@@ -317,17 +311,12 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 2,
       "top_links": [
         {
           "title": "Hugging Face model updated: DarkKnight1217/RunwayGuard-rtdetr-l",
           "url": "https://huggingface.co/DarkKnight1217/RunwayGuard-rtdetr-l",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Moins de 200 € pour ce smartphone Xiaomi avec 2 jours d'autonomie — Frandroid",
-          "url": "https://www.frandroid.com/bons-plans/3247783_le-xiaomi-poco-m8-pro-5g-promet-une-autonomie-de-2-jours-pour-moins-de-200-e",
-          "source_lane": "frontier_watchlist"
         },
         {
           "title": "Hugging Face model updated: nudtzk/runway-blockade-transformer-topk10",
@@ -341,51 +330,25 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
-      "top_links": [
-        {
-          "title": "Q-Day: Der gefürchtete Tag, an dem Quantencomputer unsere Verschlüsselung knacken, rückt näher",
-          "url": "https://t3n.de/news/q-day-der-gefuerchtete-tag-an-dem-quantencomputer-unsere-verschluesselung-knacken-rueckt-naeher-1762807/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Nvidia expands CUDA-Q platform to support fault-tolerant quantum processors - SiliconANGLE",
-          "url": "https://siliconangle.com/2026/09/14/nvidia-expands-cuda-q-platform-to-support-fault-tolerant-quantum-processors/",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 2,
       "top_links": [
-        {
-          "title": "BYD sort un camion électrique à 600 km d’autonomie en Europe en même temps que le Tesla Semi — Frandroid",
-          "url": "https://www.frandroid.com/marques/byd/3247653_byd-sort-un-camion-electrique-a-600-km-dautonomie-en-europe-en-meme-temps-que-le-tesla-semi",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Microsoft confirms KB5002914 Excel update breaks copy and paste",
-          "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-september-kb5002914-security-update-breaks-excel-copy-and-paste/",
-          "source_lane": "frontier_watchlist"
-        },
         {
           "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
           "url": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Sources say Automattic's board is out after failed attempt to oust CEO Matt Mullenweg | TechCrunch",
-          "url": "https://techcrunch.com/2026/09/14/sources-say-automattics-board-is-out-after-failed-attempt-to-oust-ceo-matt-mullenweg/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Google Drive sur Android : voici comment tester les nouveautés avant tout le monde (il va falloir faire vite)",
-          "url": "https://www.01net.com/actualites/google-drive-android-comment-tester-nouveautes-avant-tout-le-monde.html",
-          "source_lane": "frontier_watchlist"
+          "title": "run-llama/llama_index release: v0.14.24",
+          "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.24",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -394,32 +357,12 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 1,
       "top_links": [
         {
-          "title": "LiteSpeed Enterprise Flaw Could Let One Hosting Account Gain Root Access on a Shared Server",
-          "url": "https://thehackernews.com/2026/09/litespeed-enterprise-flaw-could-let-one.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "ATK Updates Blazing Sky Zero Gaming Mouse With Flagship PAW 3955 Sensor and New MCU",
-          "url": "https://www.techpowerup.com/352701/atk-updates-blazing-sky-zero-gaming-mouse-with-flagship-paw-3955-sensor-and-new-mcu",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Fujitsu Launches Made-in-Japan Next-Generation CPU Fujitsu-MONAKA and Fujitsu MONAKA Server",
-          "url": "https://www.techpowerup.com/352682/fujitsu-launches-made-in-japan-next-generation-cpu-fujitsu-monaka-and-fujitsu-monaka-server",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Save $1,289 when you build an extreme PC with these top-tier components — combo deal features AMD's Ryzen 9 9950X3D2 processor along with an 8TB 9100 Pro SSD, MSI X870E motherboard, and 32GB of DDR5-6000 memory",
-          "url": "https://www.tomshardware.com/pc-components/save-usd1-289-when-you-build-an-extreme-pc-with-these-top-tier-components-combo-deal-features-amds-ryzen-9-9950x3d2-processor-along-with-an-8tb-9100-pro-ssd-msi-x870e-motherboard-and-32gb-of-ddr5-6000-memory",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "With iOS 27, I'm actually using Siri again | TechCrunch",
-          "url": "https://techcrunch.com/2026/09/14/with-ios-27-im-actually-using-siri-again/",
-          "source_lane": "frontier_watchlist"
+          "title": "ggml-org/llama.cpp release: b10985",
+          "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b10985",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -470,32 +413,22 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 16,
+      "hit_count": 3,
       "top_links": [
         {
-          "title": "Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care",
-          "url": "https://blogs.nvidia.com/blog/childrens-hospital-open-source-ai-cardiac-care/",
+          "title": "Corrupt Plans, Clean Traces: Evading Chain-of-Thought Monitoring with Plan Injection",
+          "url": "https://arxiv.org/abs/2609.15989v1",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "La actualización de One UI 9.5 llega a estos móviles Samsung antes de lo esperado: ya son más de 60 modelos compatibles",
-          "url": "https://hipertextual.com/mobile/la-actualizacion-de-one-ui-9-5-llega-a-estos-moviles-samsung-antes-de-lo-esperado-ya-son-mas-de-60-modelos-compatibles/",
-          "source_lane": "model_hub"
+          "title": "SlipSense: Multimodal Tactile Learning for Low-Latency and Generalized Slip Detection",
+          "url": "https://arxiv.org/abs/2609.15910v1",
+          "source_lane": "research_papers"
         },
         {
-          "title": "Lead Without a Ladder: How I Climbed Into Engineering Leadership",
-          "url": "https://www.infoq.com/presentations/engineering-leadership/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "realme acaba de lanzar el teléfono perfecto para todos los fans de Harry Potter",
-          "url": "https://hipertextual.com/tecnologia/realme-harry-potter/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Fiesta de Ofertas Prime 2026 en España: qué es, cuándo se celebra y quién puede beneficiarse de los chollos",
-          "url": "https://www.xataka.com/seleccion/fiesta-ofertas-prime-2026-espana-que-cuando-se-celebra-quien-puede-beneficiarse-chollos",
-          "source_lane": "frontier_watchlist"
+          "title": "Stellar Colosseum: A Many-Agent Harness for Long-Horizon Research in Mathematics and Theoretical Computer Science",
+          "url": "https://arxiv.org/abs/2609.15983v1",
+          "source_lane": "research_papers"
         }
       ],
       "no_signal_reason": ""
@@ -507,18 +440,18 @@
       "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/ext-skills",
-          "url": "https://github.com/modelcontextprotocol/ext-skills",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: modelcontextprotocol/go-sdk",
-          "url": "https://github.com/modelcontextprotocol/go-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/mcpb",
+          "url": "https://github.com/modelcontextprotocol/mcpb",
           "source_lane": "github_release"
         },
         {
           "title": "GitHub repo updated: modelcontextprotocol/servers",
           "url": "https://github.com/modelcontextprotocol/servers",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: modelcontextprotocol/servers-archived",
+          "url": "https://github.com/modelcontextprotocol/servers-archived",
           "source_lane": "github_release"
         },
         {
@@ -571,15 +504,9 @@
       "entity": "Cursor",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "El cursor de tu PC con Windows 11 cambiaría para siempre: esta imagen de Microsoft muestra el diseño",
-          "url": "https://www.infobae.com/tecno/2026/09/14/el-cursor-de-tu-pc-con-windows-11-cambiaria-para-siempre-esta-imagen-de-microsoft-muestra-el-diseno/",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Claude Code",
