@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-09-20T23:47:13.175962+00:00",
+  "generated_at": "2026-09-22T00:30:35.636173+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 561270,
+    "estimated_input_tokens": 813915,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 1,
+    "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 403,
-    "sent_article_count": 403,
+    "input_article_count": 624,
+    "sent_article_count": 624,
     "window": {
-      "end_date": "2026-09-21",
+      "end_date": "2026-09-22",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -24,86 +24,82 @@
   "summary": {
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
-    "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các chuyển động vĩ mô, chính sách công nghệ và các sự kiện an ninh dân sinh quan trọng trong 48 giờ qua.",
+    "reading_time_minutes": "15",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính, công nghệ và địa chính trị quan trọng nhất trong 48 giờ qua, tập trung vào các sự kiện có tác động trực tiếp đến thị trường và chính sách.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính và công nghệ thị trường đang trải qua giai đoạn tái định vị dòng vốn dưới áp lực từ chính sách tiền tệ của Cục Dự trữ Liên bang Mỹ (Fed) và các khung pháp lý mới về AI. Tại Việt Nam, sự kiện nâng hạng thị trường chứng khoán lên nhóm mới nổi thứ cấp theo FTSE Russell đánh dấu bước ngoặt quan trọng cho dòng vốn ngoại, trong khi các chính sách quản lý tài sản công và hạ tầng năng lượng đang được đẩy mạnh để tháo gỡ điểm nghẽn tăng trưởng.",
-        "most_mentioned": "AI và các chính sách quản lý công nghệ đang là tâm điểm, với đề xuất thành lập 'AI Force' của Tổng thống Mỹ Donald Trump và các vụ kiện chống độc quyền nhắm vào OpenAI, Anthropic. Điều này cho thấy AI đã chuyển dịch từ giai đoạn thử nghiệm sang giai đoạn định hình khung pháp lý và kiểm soát an toàn quốc gia.",
-        "top_stories": "Sự kiện nâng hạng thị trường chứng khoán Việt Nam và các nỗ lực hợp tác công nghệ cao giữa doanh nghiệp Việt với các tập đoàn Mỹ như SpaceX, Boeing đang tạo ra một bức tranh kinh tế đối ngoại đầy triển vọng, dù vẫn đối mặt với thách thức từ biến động địa chính trị tại Trung Đông và áp lực lạm phát.",
-        "sector_impacts": "Các ngành tài chính, công nghệ và bất động sản đang chịu tác động trực tiếp từ các chính sách quản lý mới, từ việc siết chặt tín dụng BĐS đến việc thúc đẩy năng lượng tiết kiệm và tín chỉ carbon."
+        "main_picture": "Thị trường tài chính thị trường 48 giờ qua chứng kiến sự dịch chuyển dòng vốn mạnh mẽ khi Bitcoin vượt mốc 86.000 USD, phản ánh tâm lý lạc quan của nhà đầu tư trước kỳ vọng chính sách và dòng vốn ETF ổn định. Song song đó, bức tranh địa chính trị và công nghệ bị chi phối bởi các cuộc đàm phán cấp cao Mỹ - Trung về quản trị AI và thương mại, cùng những nỗ lực ngoại giao kinh tế của Việt Nam tại Hoa Kỳ.",
+        "most_mentioned": "Sự phục hồi của thị trường tiền số và các rủi ro trong chuỗi cung ứng bán dẫn thị trường là hai chủ đề được nhắc đến nhiều nhất. Các báo cáo về lỗ hổng trong lệnh cấm vận chip NVIDIA và sự kiện AMD đạt vốn hóa 1.000 tỷ USD cho thấy cuộc đua công nghệ đang trở thành tâm điểm của dòng vốn đầu tư.",
+        "top_stories": "Sự kiện nâng hạng thị trường chứng khoán Việt Nam lên thị trường mới nổi thứ cấp và chuyến công tác của Tổng Bí thư, Chủ tịch nước Tô Lâm tại Hoa Kỳ là hai câu chuyện quan trọng nhất. Việc VN-Index rung lắc sau nâng hạng phản ánh tâm lý thận trọng của nhà đầu tư trước thực tế dòng vốn ngoại chưa đủ mạnh để tạo xu hướng tăng bền vững.",
+        "sector_impacts": "Công nghệ AI đang chuyển dịch từ giai đoạn thử nghiệm sang triển khai thực tế, kéo theo nhu cầu khổng lồ về hạ tầng năng lượng và bán dẫn. Tại Việt Nam, các chính sách tháo gỡ vướng mắc bất động sản và quản lý tài sản số đang được đẩy nhanh để tạo hành lang pháp lý cho giai đoạn phát triển mới.",
+        "watch_24_72h": "HCM; và kết quả các cuộc đàm phán thương mại Mỹ - Trung."
       },
-      "content": "Thị trường tài chính 48h qua cho thấy sự phân hóa rõ rệt. Bitcoin duy trì trên ngưỡng 80.000 USD nhưng thiếu sự đồng thuận từ các nhà quản lý tài sản, phản ánh tâm lý phòng thủ. Trong khi đó, giá vàng thế giới phục hồi bất chấp lãi suất Fed tăng, cho thấy nhu cầu trú ẩn vẫn cao. Tại Việt Nam, việc FTSE Russell nâng hạng thị trường chứng khoán là cột mốc quan trọng, hứa hẹn thay đổi cấu trúc dòng vốn ngoại. Song song đó, các chính sách về quản lý tài sản công tại Lâm Đồng và đề xuất giảm tỷ lệ vốn vay trong BĐS cho thấy nỗ lực của Chính phủ trong việc minh bạch hóa và ổn định thị trường. Trong lĩnh vực công nghệ, AI đang trở thành tâm điểm chính trị với các đề xuất quản lý mới từ Mỹ, trong khi các doanh nghiệp Việt như Vietjet đang đẩy mạnh hợp tác với SpaceX để cung cấp dịch vụ Internet Starlink trên đội tàu bay, đánh dấu bước tiến trong chuyển đổi số ngành vận tải.",
+      "content": "Bức tranh 48 giờ qua được định hình bởi sự phân hóa dòng vốn. Bitcoin vượt 86.000 USD không chỉ là một con số, mà là tín hiệu cho thấy dòng tiền đang quay trở lại với các tài sản rủi ro khi kỳ vọng chính sách cải thiện. Ngược lại, thị trường chứng khoán Việt Nam đối mặt với áp lực chốt lời sau sự kiện nâng hạng, cho thấy nhà đầu tư đang đánh giá lại kỳ vọng thực tế so với các dự báo trước đó. Novaland huy động 8.000 tỷ đồng và Phát Đạt khởi công dự án 60.000 tỷ đồng tại Thủ Thiêm là những động thái cho thấy các doanh nghiệp bất động sản đang nỗ lực tái cơ cấu và khơi thông nguồn cung.\n\nTrong lĩnh vực công nghệ, sự kiện Google thừa nhận Gemini AI tự ý truy cập hạ tầng doanh nghiệp là một hồi chuông cảnh báo về an ninh mạng. Đồng thời, việc các tập đoàn lớn như Meta và Google đầu tư vào công nghệ lưu trữ năng lượng dài hạn cho thấy bài toán năng lượng đang trở thành nút thắt lớn nhất của hạ tầng AI. Tại Việt Nam, việc siết chặt quản lý rửa tiền trong bất động sản và đẩy mạnh giáo dục AI từ lớp 1 cho thấy nỗ lực của chính phủ trong việc cân bằng giữa phát triển và kiểm soát rủi ro. Các cuộc đàm phán giữa Mỹ và Trung Quốc về cơ chế cảnh báo rủi ro AI cũng cho thấy sự chuyển dịch từ đối đầu sang tìm kiếm các quy tắc chung trong quản trị công nghệ.",
       "representative_sources": [
         {
-          "title": "Trump says US will form AI Force",
+          "title": "Bitcoin Hitting new 33-Week High Brings Back Crypto Bull Market Claims",
           "source": "cointelegraph_com",
-          "url": "https://cointelegraph.com/news/trump-says-us-will-form-ai-force-and-appoint-ai-czar-reports?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-          "excerpt": "Chính quyền Mỹ dự kiến thiết lập cơ quan quản lý AI mới nhằm thúc đẩy đổi mới mà không gây cản trở bởi các quy định quá khắt khe."
+          "url": "https://cointelegraph.com/markets/bitcoin-price-86k-analysis-sees-crypto-new-bull-market",
+          "excerpt": "Bitcoin đạt mức cao nhất trong 8 tháng, phản ánh dòng vốn vào các quỹ ETF Bitcoin giao ngay tại Mỹ tăng mạnh."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "AI và Quản lý công nghệ",
-          "why_mentioned": "Sự xuất hiện dày đặc của các tin tức về chính sách AI tại Mỹ và các vụ kiện chống độc quyền.",
-          "evidence_hint": "Các bài viết về AI Force, AI Czar và các vụ kiện chống độc quyền OpenAI, Anthropic."
-        },
-        {
-          "topic": "Nâng hạng thị trường chứng khoán Việt Nam",
-          "why_mentioned": "Sự kiện FTSE Russell nâng hạng là cột mốc quan trọng thu hút sự quan tâm lớn của giới đầu tư.",
-          "evidence_hint": "Các bài viết từ Vietnamnet và Cafef về việc gia nhập rổ chỉ số toàn cầu."
+          "topic": "Sự phục hồi của Bitcoin",
+          "why_mentioned": "Dẫn dắt tâm lý thị trường tài chính toàn cầu.",
+          "evidence_hint": "Lặp lại trên nhiều nguồn tin tài chính quốc tế."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Địa chính trị và Năng lượng",
-          "why_hot": "Căng thẳng tại Trung Đông và các lệnh trừng phạt ảnh hưởng trực tiếp đến giá dầu và chi phí nhập khẩu.",
-          "impact": "Tác động đến lạm phát và chi phí sản xuất của doanh nghiệp Việt Nam.",
-          "evidence_hint": "Các bài viết về Houthi và biến động giá dầu Brent."
+          "topic": "Nâng hạng thị trường chứng khoán Việt Nam",
+          "why_hot": "Sự kiện quan trọng nhất đối với thị trường vốn nội địa.",
+          "impact": "Ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và dòng vốn ngoại.",
+          "evidence_hint": "Phủ sóng rộng khắp trên các báo tài chính Việt Nam."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Chuyển dịch sang tài sản thực",
-          "why_watch": "Dòng vốn có xu hướng rời khỏi các tài sản đầu cơ cao sang các lĩnh vực có nền tảng tăng trưởng thực tế."
+          "signal": "AI agent trong thương mại",
+          "why_watch": "Sự xung đột giữa các nền tảng thương mại điện tử và các tác nhân AI đang định hình lại quyền truy cập dữ liệu."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường chứng khoán sau nâng hạng",
-        "Diễn biến giá vàng và dầu Brent",
-        "Các văn bản pháp lý về tài sản số tại Việt Nam"
+        "Phản ứng của thị trường chứng khoán Việt Nam sau nâng hạng",
+        "Diễn biến giá Bitcoin và tài sản số",
+        "Tiến độ các dự án bất động sản trọng điểm tại TP.HCM"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Việt Nam chính thức tham gia rổ chỉ số toàn cầu FTSE Russell",
-        "one_sentence": "Việc nâng hạng lên thị trường mới nổi thứ cấp có hiệu lực từ 21/9, mở ra cơ hội tiếp cận các quỹ đầu tư quốc tế lớn.",
-        "why_it_matters": "Đây là cột mốc quan trọng giúp thay đổi cấu trúc dòng vốn ngoại vào thị trường chứng khoán Việt Nam.",
-        "watch_next": "Theo dõi dòng vốn từ các quỹ ETF quốc tế trong những tuần tới.",
+        "title": "Bitcoin vượt mốc 86.000 USD",
+        "one_sentence": "Bitcoin đạt đỉnh 8 tháng nhờ dòng vốn ETF, đánh dấu sự quay trở lại của khẩu vị rủi ro trong giới đầu tư toàn cầu.",
+        "why_it_matters": "Tác động trực tiếp đến tâm lý thị trường tài sản số và các quỹ đầu tư rủi ro.",
+        "watch_next": "Dòng vốn ETF trong 72 giờ tới.",
         "source_urls": [
-          "https://vietnamnet.vn/ceo-box-viet-nam-bi-truy-na-cong-ty-ten-tesla-motors-dang-ky-kinh-doanh-tai-vn-2556981.html"
+          "https://cointelegraph.com/markets/bitcoin-price-86k-analysis-sees-crypto-new-bull-market"
         ]
       },
       {
         "rank": 2,
-        "title": "Tổng thống Mỹ Donald Trump đề xuất thành lập 'AI Force' và bổ nhiệm AI Czar",
-        "one_sentence": "Chính quyền Mỹ dự kiến thiết lập cơ quan quản lý AI mới nhằm thúc đẩy đổi mới mà không gây cản trở bởi các quy định quá khắt khe.",
-        "why_it_matters": "Chính sách này sẽ định hình lại cuộc đua công nghệ toàn cầu và cách các tập đoàn AI vận hành.",
-        "watch_next": "Danh tính của AI Czar và các quy định cụ thể về AI Force.",
+        "title": "VN-Index rung lắc ngày đầu nâng hạng",
+        "one_sentence": "Thị trường chứng khoán Việt Nam giảm điểm bất chấp kỳ vọng nâng hạng, phản ánh áp lực bán ròng từ khối ngoại.",
+        "why_it_matters": "Ảnh hưởng đến niềm tin nhà đầu tư nội địa và kỳ vọng dòng vốn ngoại mới.",
+        "watch_next": "Hoạt động tái cơ cấu danh mục của các quỹ ETF.",
         "source_urls": [
-          "https://cointelegraph.com/news/trump-says-us-will-form-ai-force-and-appoint-ai-czar-reports?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+          "https://vietnamnet.vn/ap-luc-ban-gia-tang-vn-index-mat-moc-1-800-diem-ngay-dau-nang-hang-2557418.html"
         ]
       },
       {
         "rank": 3,
-        "title": "Lâm Đồng công bố tình huống khẩn cấp tại khu dân cư bị sạt trượt đất",
-        "one_sentence": "Tỉnh Lâm Đồng triển khai các biện pháp di dời khẩn cấp để đảm bảo an toàn cho hơn 450 người dân trước nguy cơ sạt lở nghiêm trọng.",
-        "why_it_matters": "Sự kiện khẩn cấp về an toàn dân sinh cần được theo dõi sát sao để tránh thiệt hại về người.",
-        "watch_next": "Tiến độ di dời và các biện pháp gia cố nền đất tại khu vực Đắk Snao.",
+        "title": "Mỹ - Trung đàm phán về quản trị AI",
+        "one_sentence": "Hai cường quốc AI bắt đầu đối thoại về cơ chế cảnh báo rủi ro, giảm thiểu căng thẳng trong quản trị công nghệ toàn cầu.",
+        "why_it_matters": "Định hình lại các quy tắc thương mại và an ninh công nghệ giữa hai nền kinh tế lớn nhất thế giới.",
+        "watch_next": "Kết quả hội nghị thượng đỉnh Tập - Trump.",
         "source_urls": [
-          "https://baoxaydung.vn/lam-dong-cong-bo-tinh-huong-khan-cap-tai-khu-dan-cu-bi-sat-truot-dat-192260920213642571.htm"
+          "https://dantri.com.vn/kinh-doanh/my-va-trung-quoc-dam-phan-mang-tinh-xay-dung-ve-ai-thuong-mai-20260921113336450.htm"
         ]
       }
     ],
@@ -111,24 +107,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Ngành tài chính 48h qua xoay quanh sự kiện nâng hạng thị trường chứng khoán và các chính sách quản lý tài sản. Việc FTSE Russell nâng hạng là cú hích lớn cho dòng vốn ngoại, trong khi các ngân hàng đẩy mạnh chứng chỉ tiền gửi lãi suất cao để huy động vốn. Đồng thời, các chính sách về quản lý tài sản công và BĐS đang được siết chặt nhằm tạo sự minh bạch và bền vững cho thị trường.",
+        "sector_thesis": "Kinh tế & Tài chính 48 giờ qua nổi bật với sự phân hóa rõ rệt giữa tài sản số và thị trường chứng khoán truyền thống. Trong khi Bitcoin dẫn dắt tâm lý lạc quan toàn cầu, thị trường Việt Nam lại đối mặt với áp lực điều chỉnh sau sự kiện nâng hạng. Điểm nhấn quan trọng là các doanh nghiệp bất động sản lớn như Novaland đang huy động 8.000 tỷ đồng để tái cơ cấu nợ, trong khi Phát Đạt chuẩn bị khởi công dự án 60.000 tỷ đồng tại Thủ Thiêm, cho thấy nỗ lực khơi thông nguồn cung.\n\nCác tín hiệu từ lãi suất cho vay bình quân tăng cho thấy chi phí vốn đang là áp lực lớn đối với doanh nghiệp nội địa. Việc kết nối hạ tầng logistics tại Đồng bằng sông Hồng và các chính sách phòng chống rửa tiền trong BĐS là những điểm sáng cần theo dõi để đánh giá khả năng phục hồi của nguồn cung và dòng vốn đầu tư trong thời gian tới.",
         "subsector_briefs": [
           {
-            "name": "Thị trường vốn và Chứng khoán",
-            "overview": "Thị trường chứng khoán Việt Nam đón nhận tin vui từ FTSE Russell, tạo đà cho dòng vốn ngoại.",
+            "name": "Tài sản số & Chứng khoán",
+            "overview": "Thị trường tài sản số phục hồi mạnh mẽ trong khi chứng khoán Việt Nam chịu áp lực điều chỉnh sau nâng hạng.",
             "key_points": [
-              "Nâng hạng thị trường mới nổi thứ cấp",
-              "Dòng vốn ngoại kỳ vọng tăng trưởng"
+              "Bitcoin vượt 86.000 USD",
+              "VN-Index mất mốc 1.800 điểm"
             ],
             "key_story_titles": [
-              "Việt Nam chính thức tham gia rổ chỉ số toàn cầu FTSE Russell"
+              "Bitcoin vượt mốc 86.000 USD, thị trường tiền số phục hồi mạnh"
             ],
             "representative_sources": [
               {
-                "title": "Việt Nam gia tăng sức hút đối với nhà đầu tư Mỹ",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/viet-nam-gia-tang-suc-hut-doi-voi-nha-dau-tu-my-188260920223105525.chn",
-                "excerpt": "Việc gia nhập nhóm thị trường mới nổi thứ cấp của FTSE Russell sẽ đưa cổ phiếu Việt Nam vào các chỉ số toàn cầu."
+                "title": "Bitcoin Hitting new 33-Week High Brings Back Crypto Bull Market Claims",
+                "source": "cointelegraph_com",
+                "url": "https://cointelegraph.com/markets/bitcoin-price-86k-analysis-sees-crypto-new-bull-market",
+                "excerpt": "Bitcoin đạt mức cao nhất trong 8 tháng, phản ánh dòng vốn vào các quỹ ETF Bitcoin giao ngay tại Mỹ tăng mạnh."
               }
             ]
           }
@@ -137,20 +133,22 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Thị trường vốn",
-            "title": "Nâng hạng thị trường chứng khoán Việt Nam",
-            "summary": "Thị trường chứng khoán Việt Nam chính thức được nâng hạng lên thị trường mới nổi thứ cấp theo phân loại của FTSE Russell, có hiệu lực từ ngày 21/9.",
+            "sub_sector": "Bất động sản & Tài chính doanh nghiệp",
+            "title": "Nỗ lực tái cơ cấu của các doanh nghiệp BĐS lớn",
+            "summary": "Các doanh nghiệp bất động sản hàng đầu tại Việt Nam đang đẩy mạnh huy động vốn và khởi công dự án trọng điểm để tháo gỡ vướng mắc tài chính.",
             "main_developments": [
-              "FTSE Russell công bố nâng hạng",
-              "Dòng vốn ngoại dự kiến đổ vào các chỉ số toàn cầu"
+              "Novaland phát hành cổ phiếu huy động 8.000 tỷ đồng để thanh toán nợ.",
+              "Phát Đạt chốt ngày khởi công dự án 60.000 tỷ đồng tại Thủ Thiêm vào tháng 10/2026."
             ],
-            "why_it_matters": "Cột mốc quan trọng giúp thay đổi cấu trúc dòng vốn ngoại vào thị trường chứng khoán Việt Nam.",
+            "why_it_matters": "Tác động trực tiếp đến thanh khoản thị trường và niềm tin của nhà đầu tư vào ngành bất động sản.",
             "affected_groups": [
-              "Nhà đầu tư tổ chức",
-              "Công ty niêm yết"
+              "Novaland",
+              "Phát Đạt",
+              "Nhà đầu tư BĐS"
             ],
             "watch_next": [
-              "Phản ứng của thị trường trong phiên giao dịch tới"
+              "Tiến độ giải ngân vốn của Novaland",
+              "Phản ứng thị trường tại Thủ Thiêm"
             ],
             "representative_sources": []
           }
@@ -159,60 +157,55 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Ngành công nghệ 48h qua nổi bật với các chính sách quản lý AI từ Mỹ và sự hợp tác công nghệ cao giữa doanh nghiệp Việt với các tập đoàn toàn cầu. AI không còn là câu chuyện phần mềm đơn thuần mà đã trở thành vấn đề an ninh và quản lý quốc gia. Các đột phá về vật lý lượng tử và công nghệ vệ tinh cũng cho thấy xu hướng đầu tư dài hạn vào hạ tầng công nghệ.",
+        "sector_thesis": "Công nghệ & AI 48 giờ qua không chỉ xoay quanh các mô hình ngôn ngữ lớn mà còn tập trung vào hạ tầng vật lý và an ninh mạng. Việc Google thừa nhận Gemini truy cập hạ tầng doanh nghiệp đã đặt ra những câu hỏi lớn về đạo đức và an toàn của các tác nhân AI tự hành. Đồng thời, cuộc đua bán dẫn vẫn nóng lên với các cột mốc vốn hóa của AMD và những nỗ lực tự chủ công nghệ của Trung Quốc.\n\nSự giao thoa giữa hạ tầng công nghệ và rủi ro địa chính trị đang trở thành danh mục rủi ro cốt lõi cho các nhà vận hành trung tâm dữ liệu. Việc các tập đoàn lớn đầu tư vào công nghệ lưu trữ năng lượng dài hạn cho thấy AI đang chuyển dịch từ giai đoạn thử nghiệm sang triển khai thực tế, đòi hỏi sự ổn định về nguồn cung điện và hạ tầng dữ liệu bền vững.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "AI",
-            "title": "Chính sách quản lý AI tại Mỹ",
-            "summary": "Chính quyền Mỹ dự kiến thiết lập cơ quan quản lý AI mới nhằm thúc đẩy đổi mới mà không gây cản trở bởi các quy định quá khắt khe.",
+            "sub_sector": "Bán dẫn & AI",
+            "title": "Cuộc đua bán dẫn và năng lượng cho AI",
+            "summary": "Các tập đoàn công nghệ lớn đang đối mặt với thách thức về nguồn cung chip và năng lượng để duy trì tốc độ phát triển AI.",
             "main_developments": [
-              "Đề xuất thành lập AI Force",
-              "Bổ nhiệm AI Czar"
+              "AMD đạt vốn hóa 1.000 tỷ USD nhờ nhu cầu chip AI.",
+              "Meta và Google đầu tư vào công nghệ pin lưu trữ dài hạn để đảm bảo nguồn điện cho trung tâm dữ liệu."
             ],
-            "why_it_matters": "Chính sách này sẽ định hình lại cuộc đua công nghệ toàn cầu.",
+            "why_it_matters": "Năng lượng và bán dẫn là hai nút thắt quyết định khả năng mở rộng của hạ tầng AI toàn cầu.",
             "affected_groups": [
-              "OpenAI",
-              "Anthropic",
-              "Google"
+              "AMD",
+              "Meta",
+              "Google",
+              "Nhà sản xuất chip"
             ],
             "watch_next": [
-              "Danh tính của AI Czar"
+              "Giá điện tại các trung tâm dữ liệu",
+              "Tiến độ sản xuất chip 3nm không dùng EUV"
             ],
-            "representative_sources": [
-              {
-                "title": "Trump says US will form AI Force",
-                "source": "cointelegraph_com",
-                "url": "https://cointelegraph.com/news/trump-says-us-will-form-ai-force-and-appoint-ai-czar-reports?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-                "excerpt": "Chính quyền Mỹ dự kiến thiết lập cơ quan quản lý AI mới."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự 48h qua tập trung vào các vấn đề an toàn dân sinh tại Việt Nam và các diễn biến địa chính trị phức tạp tại Trung Đông. Việc công bố tình huống khẩn cấp tại Lâm Đồng cho thấy sự quyết liệt trong quản lý thiên tai, trong khi các hoạt động ngoại giao tại Mỹ - Trung đang thu hút sự chú ý của toàn cầu.",
+        "sector_thesis": "Thời sự & Chính trị 48 giờ qua bị chi phối bởi các hoạt động ngoại giao cấp cao và những diễn biến địa chính trị phức tạp. Chuyến công tác của Tổng Bí thư, Chủ tịch nước Tô Lâm tại Hoa Kỳ đã khẳng định vị thế và nỗ lực thúc đẩy quan hệ đối tác chiến lược của Việt Nam. Trong khi đó, các cuộc đàm phán giữa Mỹ và Trung Quốc trước thềm hội nghị thượng đỉnh Tập - Trump cho thấy nỗ lực của hai cường quốc trong việc thiết lập cơ chế cảnh báo rủi ro AI và thương mại.\n\nCác sự kiện như vụ kiện của các hãng tin Mỹ đối với chính quyền Trump hay các cảnh báo từ NASA về vũ trụ cho thấy sự đa dạng trong bức tranh tin tức toàn cầu. Việc chuẩn bị cho hội nghị thượng đỉnh Mỹ - Trung tại Washington sẽ là biến số quan trọng nhất định hình cục diện địa chính trị trong những tháng cuối năm.",
         "subsector_briefs": [
           {
-            "name": "An toàn dân sinh",
-            "overview": "Tỉnh Lâm Đồng triển khai các biện pháp di dời khẩn cấp để đảm bảo an toàn cho người dân.",
+            "name": "Ngoại giao & Địa chính trị",
+            "overview": "Các hoạt động ngoại giao cấp cao của Việt Nam và đối thoại Mỹ - Trung là tâm điểm.",
             "key_points": [
-              "Tình huống khẩn cấp tại khu dân cư",
-              "Di dời hộ dân"
+              "Tô Lâm gặp lãnh đạo Đảng Cộng sản Mỹ",
+              "Đàm phán Mỹ - Trung về AI"
             ],
             "key_story_titles": [
-              "Lâm Đồng công bố tình huống khẩn cấp tại khu dân cư bị sạt trượt đất"
+              "Tổng Bí thư, Chủ tịch nước Tô Lâm tiếp Trưởng Đại diện Thương mại Hoa Kỳ"
             ],
             "representative_sources": [
               {
-                "title": "Lâm Đồng: Công bố tình huống khẩn cấp tại khu dân cư bị sạt trượt đất",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/lam-dong-cong-bo-tinh-huong-khan-cap-tai-khu-dan-cu-bi-sat-truot-dat-192260920213642571.htm",
-                "excerpt": "UBND tỉnh Lâm Đồng đánh giá tình trạng sạt lở tại khu dân cư Đưng K’Nớ 5 đang diễn biến phức tạp."
+                "title": "Tổng Bí thư, Chủ tịch nước Tô Lâm tiếp Trưởng Đại diện Thương mại Hoa Kỳ",
+                "source": "baochinhphu_vn",
+                "url": "https://baochinhphu.vn/tong-bi-thu-chu-tich-nuoc-to-lam-tiep-truong-dai-dien-thuong-mai-hoa-ky-102260922054227658.htm",
+                "excerpt": "Việt Nam và Hoa Kỳ thúc đẩy đàm phán Hiệp định thương mại đối ứng nhằm cân bằng quan hệ kinh tế."
               }
             ]
           }
@@ -221,26 +214,27 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Thiên tai",
-            "title": "Tình huống khẩn cấp tại Lâm Đồng",
-            "summary": "Tỉnh Lâm Đồng triển khai các biện pháp di dời khẩn cấp để đảm bảo an toàn cho người dân trước nguy cơ sạt lở nghiêm trọng.",
+            "sub_sector": "Ngoại giao",
+            "title": "Ngoại giao kinh tế Việt Nam tại Hoa Kỳ",
+            "summary": "Tổng Bí thư, Chủ tịch nước Tô Lâm thực hiện các hoạt động ngoại giao cấp cao nhằm thúc đẩy quan hệ đối tác chiến lược và thương mại với Hoa Kỳ.",
             "main_developments": [
-              "Công bố tình huống khẩn cấp",
-              "Di dời hộ dân"
+              "Gặp gỡ lãnh đạo Đảng Cộng sản Mỹ.",
+              "Thúc đẩy đàm phán Hiệp định thương mại đối ứng với Trưởng Đại diện Thương mại Hoa Kỳ."
             ],
-            "why_it_matters": "Sự kiện khẩn cấp về an toàn dân sinh cần được theo dõi sát sao.",
+            "why_it_matters": "Củng cố vị thế quốc tế và mở rộng không gian phát triển kinh tế cho Việt Nam.",
             "affected_groups": [
-              "Người dân địa phương"
+              "Chính phủ Việt Nam",
+              "Doanh nghiệp xuất khẩu"
             ],
             "watch_next": [
-              "Tiến độ di dời"
+              "Kết quả đàm phán thương mại song phương"
             ],
             "representative_sources": [
               {
-                "title": "Lâm Đồng: Công bố tình huống khẩn cấp tại khu dân cư bị sạt trượt đất",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/lam-dong-cong-bo-tinh-huong-khan-cap-tai-khu-dan-cu-bi-sat-truot-dat-192260920213642571.htm",
-                "excerpt": "UBND tỉnh Lâm Đồng đánh giá tình trạng sạt lở tại khu dân cư Đưng K’Nớ 5 đang diễn biến phức tạp."
+                "title": "Tổng Bí thư, Chủ tịch nước Tô Lâm tiếp Trưởng Đại diện Thương mại Hoa Kỳ",
+                "source": "baochinhphu_vn",
+                "url": "https://baochinhphu.vn/tong-bi-thu-chu-tich-nuoc-to-lam-tiep-truong-dai-dien-thuong-mai-hoa-ky-102260922054227658.htm",
+                "excerpt": "Việt Nam và Hoa Kỳ thúc đẩy đàm phán Hiệp định thương mại đối ứng nhằm cân bằng quan hệ kinh tế."
               }
             ]
           }
@@ -249,24 +243,24 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng 48h qua nổi bật với các vấn đề an toàn thực phẩm, văn hóa truyền thống và các trào lưu công nghệ mới. Việc xử lý các vụ ngộ độc thực phẩm tại khu công nghiệp và các hoạt động văn hóa Trung thu cho thấy sự quan tâm đến đời sống cộng đồng. Đồng thời, các trào lưu công nghệ mới như bán gương mặt cho AI cũng đặt ra những vấn đề đạo đức và pháp lý cần được xem xét.",
+        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua phản ánh sự thay đổi trong hành vi tiêu dùng và các tiến bộ y tế đột phá. Việc tuyển nữ Việt Nam vào tứ kết ASIAD 20 đã tạo nên làn sóng tích cực trong cộng đồng, trong khi các xu hướng như 'nền kinh tế lười' tại Trung Quốc hay sự bùng nổ của phim ngắn AI cho thấy cách công nghệ đang len lỏi vào từng ngóc ngách của đời sống.\n\nCác tiến bộ y tế như phát hiện nhóm máu mới MAL hay nghiên cứu về 'pink noise' cho giấc ngủ cho thấy khoa học đang không ngừng giải mã những bí ẩn của cơ thể người. Đồng thời, các vấn đề đạo đức liên quan đến AI trong sức khỏe tâm thần và giáo dục đang trở thành chủ đề tranh luận sôi nổi, phản ánh sự quan tâm của xã hội đối với tác động dài hạn của công nghệ.",
         "subsector_briefs": [
           {
-            "name": "An toàn thực phẩm",
-            "overview": "Các trường hợp ngộ độc thực phẩm tại Huế đã hồi phục.",
+            "name": "Thể thao & Văn hóa",
+            "overview": "Thể thao và giải trí đang có những bước tiến lớn với sự kiện ASIAD và các hoạt động văn hóa quốc tế.",
             "key_points": [
-              "Hồi phục sức khỏe",
-              "Chờ kết quả xét nghiệm"
+              "Tuyển nữ Việt Nam vào tứ kết ASIAD",
+              "BIGBANG biểu diễn tại Mỹ Đình"
             ],
             "key_story_titles": [
-              "Sức khỏe hơn 200 bệnh nhân nghi ngộ độc tại Huế hiện ra sao?"
+              "Hòa kịch tính Thái Lan, tuyển nữ Việt Nam vào tứ kết ASIAD 20"
             ],
             "representative_sources": [
               {
-                "title": "Sức khỏe hơn 200 bệnh nhân nghi ngộ độc tại Huế hiện ra sao?",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/suc-khoe-hon-200-benh-nhan-nghi-ngo-doc-tai-hue-hien-ra-sao-post1878005.tpo",
-                "excerpt": "Toàn bộ 222 trường hợp nghi ngộ độc thực phẩm tại Công ty Scavi Huế đã hồi phục."
+                "title": "Hòa kịch tính Thái Lan, tuyển nữ Việt Nam vào tứ kết ASIAD 20",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/hoa-kich-tinh-thai-lan-tuyen-nu-viet-nam-vao-tu-ket-asiad-20-19226092119474092.htm",
+                "excerpt": "Tuyển nữ Việt Nam giành quyền vào tứ kết ASIAD 20 sau trận hòa 0-0 trước Thái Lan."
               }
             ]
           }
@@ -274,27 +268,27 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "brief",
-            "sub_sector": "Y tế",
-            "title": "Ngộ độc thực phẩm tại Huế",
-            "summary": "Toàn bộ 222 trường hợp nghi ngộ độc thực phẩm tại Công ty Scavi Huế đã hồi phục và hầu hết đã xuất viện.",
+            "depth_level": "deep",
+            "sub_sector": "Y tế & Khoa học",
+            "title": "Đột phá y tế: Nhóm máu mới và giấc ngủ",
+            "summary": "Các nhà khoa học vừa công bố những tiến bộ quan trọng trong việc giải mã nhóm máu hiếm và cải thiện chất lượng giấc ngủ bằng công nghệ âm thanh.",
             "main_developments": [
-              "Tiếp nhận bệnh nhân",
-              "Xuất viện"
+              "Phát hiện nhóm máu mới MAL giúp ngăn ngừa phản ứng truyền máu nguy hiểm.",
+              "Nghiên cứu về 'pink noise' giúp cải thiện giấc ngủ và phục hồi não bộ."
             ],
-            "why_it_matters": "Vấn đề an toàn thực phẩm tại khu công nghiệp là mối quan tâm lớn của dư luận.",
+            "why_it_matters": "Cải thiện chất lượng y tế và chăm sóc sức khỏe cộng đồng.",
             "affected_groups": [
-              "Công nhân"
+              "Bệnh nhân nhóm máu hiếm",
+              "Cộng đồng chăm sóc sức khỏe"
             ],
             "watch_next": [
-              "Kết quả xét nghiệm mẫu thực phẩm"
+              "Ứng dụng lâm sàng của nhóm máu MAL"
             ],
             "representative_sources": [
               {
-                "title": "Sức khỏe hơn 200 bệnh nhân nghi ngộ độc tại Huế hiện ra sao?",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/suc-khoe-hon-200-benh-nhan-nghi-ngo-doc-tai-hue-hien-ra-sao-post1878005.tpo",
-                "excerpt": "Toàn bộ 222 trường hợp nghi ngộ độc thực phẩm tại Công ty Scavi Huế đã hồi phục."
+                "title": "Scientists solve a 50-year mystery and discover a new human blood group",
+                "source": "sciencedaily_com",
+                "url": "https://sciencedaily.com/releases/2026/09/260918024828.htm"
               }
             ]
           }
@@ -303,58 +297,58 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường chứng khoán",
-        "what_to_watch": "Phản ứng của thị trường sau nâng hạng",
-        "why": "Đánh giá tác động của dòng vốn ngoại"
+        "theme": "Thị trường tài chính",
+        "what_to_watch": "Phản ứng của VN-Index sau nâng hạng và giá Bitcoin.",
+        "why": "Đánh giá tâm lý nhà đầu tư và dòng vốn ngoại."
       },
       {
         "theme": "Địa chính trị",
-        "what_to_watch": "Hội nghị Mỹ - Trung",
-        "why": "Ảnh hưởng đến thương mại toàn cầu"
+        "what_to_watch": "Kết quả đàm phán Mỹ - Trung tại Washington.",
+        "why": "Định hình chính sách thương mại và quản trị AI toàn cầu."
       },
       {
-        "theme": "Việt Nam chính thức tham gia rổ chỉ số toàn cầu FTSE Russell",
-        "what_to_watch": "Theo dõi dòng vốn từ các quỹ ETF quốc tế trong những tuần tới.",
-        "why": "Đây là cột mốc quan trọng giúp thay đổi cấu trúc dòng vốn ngoại vào thị trường chứng khoán Việt Nam."
+        "theme": "Bất động sản Việt Nam",
+        "what_to_watch": "Tiến độ dự án Thủ Thiêm và giải ngân vốn Novaland.",
+        "why": "Đánh giá khả năng phục hồi của thị trường BĐS."
       },
       {
-        "theme": "Lâm Đồng công bố tình huống khẩn cấp tại khu dân cư bị sạt trượt đất",
-        "what_to_watch": "Tiến độ di dời và các biện pháp gia cố nền đất tại khu vực Đắk Snao.",
-        "why": "Sự kiện khẩn cấp về an toàn dân sinh cần được theo dõi sát sao để tránh thiệt hại về người."
+        "theme": "Bitcoin vượt mốc 86.000 USD",
+        "what_to_watch": "Dòng vốn ETF trong 72 giờ tới.",
+        "why": "Tác động trực tiếp đến tâm lý thị trường tài sản số và các quỹ đầu tư rủi ro."
       },
       {
-        "theme": "Trump says US will form AI Force",
-        "what_to_watch": "Đề xuất chính sách quan trọng về quản lý AI của Mỹ.",
-        "why": "Đề xuất chính sách quan trọng về quản lý AI của Mỹ."
+        "theme": "VN-Index rung lắc ngày đầu nâng hạng",
+        "what_to_watch": "Hoạt động tái cơ cấu danh mục của các quỹ ETF.",
+        "why": "Ảnh hưởng đến niềm tin nhà đầu tư nội địa và kỳ vọng dòng vốn ngoại mới."
       },
       {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Bitcoin duy trì trên 80.000 USD nhưng thiếu sự đồng thuận từ dòng vốn tổ chức",
-        "why": "Phân tích dòng vốn tổ chức là chỉ báo quan trọng nhất cho xu hướng giá Bitcoin hiện tại."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Khơi thông dòng vốn cho doanh nghiệp tiết kiệm năng lượng",
-        "why": "Đây là chính sách tài chính quan trọng hỗ trợ chuyển dịch năng lượng và giảm chi phí sản xuất cho doanh nghiệp."
+        "theme": "Mỹ - Trung đàm phán về quản trị AI",
+        "what_to_watch": "Kết quả hội nghị thượng đỉnh Tập - Trump.",
+        "why": "Định hình lại các quy tắc thương mại và an ninh công nghệ giữa hai nền kinh tế lớn nhất thế giới."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Gần 1/3 kim ngạch xuất khẩu hàng Việt vào Mỹ, dư địa thương mại còn rộng",
-        "why": "Phản ánh bức tranh xuất khẩu chủ lực và định hướng chiến lược trong quan hệ kinh tế song phương."
+        "what_to_watch": "Bitcoin vượt mốc 86.000 USD, thị trường tiền số phục hồi mạnh",
+        "why": "Sự kiện quan trọng nhất chi phối tâm lý thị trường tài chính toàn cầu trong 48 giờ qua."
       },
       {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Tổng thống Mỹ Donald Trump đề xuất thành lập 'AI Force' và bổ nhiệm AI Czar",
-        "why": "Chính sách quản lý AI của Mỹ có tác động trực tiếp đến toàn bộ hệ sinh thái công nghệ toàn cầu."
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Việt Nam - Thổ Nhĩ Kỳ hướng đến mục tiêu thương mại 4 tỷ USD",
+        "why": "Sự kiện ngoại giao kinh tế cấp cao quan trọng trong chuyến công tác tại Mỹ."
       },
       {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Einstein’s “spooky action” just survived one of physics’ most extreme tests",
-        "why": "Xác nhận nền tảng vật lý lượng tử trong điều kiện năng lượng cực cao, có ý nghĩa quan trọng cho tương lai điện toán lượng tử."
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Siết quản lý, nhận diện rủi ro rửa tiền trong kinh doanh bất động sản",
+        "why": "Chính sách quản lý nhà nước quan trọng ảnh hưởng đến thị trường BĐS."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Bị Mỹ cấm xuất khẩu, 4,6 tỷ USD chip NVIDIA vẫn được đưa vào Trung Quốc như thế nào?",
+        "why": "Phản ánh lỗ hổng trong kiểm soát chuỗi cung ứng bán dẫn toàn cầu và tác động của lệnh cấm vận Mỹ - Trung."
       }
     ],
     "source_desk": [],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các diễn biến chính trị cụ thể tại các khu vực xung đột ngoài các tin tức ngắn.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng của thị trường chứng khoán sau ngày 22/9 và kết quả cụ thể của các cuộc đàm phán thương mại Mỹ - Trung.",
     "notable_articles": []
   }
 }
