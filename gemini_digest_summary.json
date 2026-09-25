@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-09-24T00:56:13.149574+00:00",
+  "generated_at": "2026-09-25T00:26:22.546213+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 789699,
+    "estimated_input_tokens": 898660,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 653,
-    "sent_article_count": 653,
+    "input_article_count": 698,
+    "sent_article_count": 698,
     "window": {
-      "end_date": "2026-09-24",
+      "end_date": "2026-09-25",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,86 +25,103 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, công nghệ và chính sách quan trọng trong 48 giờ qua.",
+    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, xu hướng công nghệ AI Agent và các diễn biến ngoại giao kinh tế quan trọng trong 48 giờ qua.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường tài chính toàn cầu đang trải qua giai đoạn tái định giá rủi ro khi lợi suất trái phiếu kho bạc Mỹ kỳ hạn 10 năm chạm mức cao nhất kể từ năm 2007, gây áp lực lên các tài sản trú ẩn như vàng và buộc nhà đầu tư phải điều chỉnh danh mục. Song song đó, sự kiện Meta Connect 2026 với việc ra mắt AI agent Muse đã xác lập một cột mốc mới trong việc ứng dụng AI vào vận hành thực tế, không chỉ dừng lại ở phần mềm mà còn mở rộng sang phần cứng và hạ tầng thanh toán số.",
-        "most_mentioned": "Chủ đề AI và hạ tầng dữ liệu chiếm ưu thế với làn sóng tin tức từ Meta, OpenAI và các tranh chấp về giá điện tại các trung tâm dữ liệu Việt Nam. Việc các AI agent như Muse được tích hợp vào thiết bị đeo thông minh đang tạo ra kỳ vọng lớn về một nền kinh tế 'máy-tự-hành', nơi các hệ thống tự động thực hiện thanh toán và quản lý tác vụ mà không cần sự can thiệp của con người.",
-        "top_stories": "Chuyến thăm Mỹ của Chủ tịch Trung Quốc Tập Cận Bình và các hoạt động ngoại giao kinh tế của Tổng Bí thư, Chủ tịch nước Tô Lâm tại Mỹ là hai trục chính trong bức tranh địa chính trị. Các cuộc gặp này không chỉ tập trung vào ổn định thương mại mà còn mở ra các văn kiện hợp tác cụ thể về y tế với Pfizer và tài chính với JPMorgan Chase, Visa, tạo nền tảng cho việc thu hút vốn FDI chất lượng cao.",
-        "sector_impacts": "Thị trường chứng khoán Việt Nam ghi nhận sự phân hóa sau khi FTSE Russell nâng hạng, với áp lực bán ròng từ khối ngoại tập trung vào nhóm ngân hàng và bất động sản. Trong khi đó, ngành hàng không đang tăng tốc với các thương vụ mua sắm tàu bay quy mô lớn, còn ngành bán lẻ và dịch vụ đối mặt với sự thanh lọc mạnh mẽ do áp lực chi phí vận hành tăng cao.",
-        "watch_24_72h": "Trong 24–72 giờ tới, cần theo dõi sát: phản ứng của thị trường tài chính với lợi suất trái phiếu Mỹ; diễn biến giá vàng trong nước; tiến độ các dự án hạ tầng giao thông trọng điểm; và các văn bản hướng dẫn cụ thể về quản lý tài sản số tại Việt Nam."
+        "main_picture": "Thị trường tài chính thị trường đang trải qua giai đoạn biến động mạnh khi lợi suất trái phiếu Chính phủ Mỹ kỳ hạn 10 năm chạm mức cao nhất kể từ năm 2007. Áp lực này không chỉ gây biến động cho các tài sản rủi ro như Bitcoin mà còn lan tỏa sang thị trường vàng và chứng khoán, buộc nhà đầu tư phải đánh giá lại chi phí vốn và rủi ro hệ thống trong bối cảnh Fed duy trì chính sách tiền tệ thắt chặt.",
+        "most_mentioned": "Chủ đề AI Agent và hạ tầng dữ liệu chiếm sóng với các thông báo từ Meta, Qualcomm và Microsoft. AI không còn là câu chuyện phần mềm đơn thuần mà đã chuyển dịch sang phần cứng, thiết bị đeo và các tác nhân tự hành (AI Agent) có khả năng thực hiện tác vụ thay người dùng, tạo ra cả cơ hội kinh doanh lẫn rủi ro an ninh mạng nghiêm trọng.",
+        "top_stories": "Ngoại giao kinh tế Việt Nam ghi dấu ấn với các cam kết hợp tác chiến lược tại Hoa Kỳ, đặc biệt trong lĩnh vực công nghệ, năng lượng xanh và hạ tầng số. Sự kiện Vietjet hợp tác với Starlink đưa internet vệ tinh lên tàu bay là minh chứng cho xu hướng kết nối hạ tầng số quốc tế. Đồng thời, các vụ án lừa đảo tài chính quy mô lớn và nỗ lực tháo gỡ vướng mắc đầu tư công tại địa phương cho thấy sự quyết liệt trong việc làm sạch môi trường kinh doanh.",
+        "sector_impacts": "Ngành công nghệ đang chịu áp lực về chi phí vận hành hạ tầng số, trong khi bất động sản công nghiệp Việt Nam đang chuyển hướng từ cạnh tranh bằng giá thuê sang nâng cao tiêu chuẩn ESG để giữ chân dòng vốn FDI chất lượng cao."
       },
-      "content": "Bức tranh 48 giờ qua được chi phối bởi sự dịch chuyển của dòng chú ý thị trường trong bối cảnh lợi suất trái phiếu Mỹ đạt mức cao nhất kể từ năm 2007. Điều này tạo áp lực lên các tài sản rủi ro và buộc nhà đầu tư phải tối ưu hóa danh mục, trong khi tại Việt Nam, chính sách kinh tế đang chuyển dịch mạnh mẽ sang giai đoạn cụ thể hóa các cam kết hợp tác quốc tế. Các tập đoàn lớn như JPMorgan Chase và Visa đang trở thành đối tác chiến lược trong việc nâng cao năng lực tài chính và thanh toán số của Việt Nam. Đồng thời, sự kiện Meta Connect 2026 với AI agent Muse đã khẳng định AI không còn là lý thuyết mà đang trở thành hạ tầng vận hành mới cho kinh tế số. Các biến số về an ninh mạng và tranh chấp hạ tầng dữ liệu tại Việt Nam cũng cần được theo dõi sát sao để đánh giá rủi ro vận hành trong thời gian tới.",
+      "content": "Bức tranh 48 giờ qua được định hình bởi sự cộng hưởng giữa các yếu tố vĩ mô quốc tế và nỗ lực cải cách nội tại của Việt Nam. Lợi suất trái phiếu Mỹ tăng vọt lên trên 5,1% đã tạo ra một cú sốc cho các thị trường tài sản, khiến dòng tiền trở nên thận trọng hơn. Trong khi đó, tại Việt Nam, các chuyến thăm cấp cao của lãnh đạo Nhà nước tới Hoa Kỳ và Canada đang mở ra những cơ hội hợp tác chiến lược, đặc biệt là trong việc kết nối hạ tầng số và năng lượng xanh. Sự kiện Vietjet hợp tác với Starlink để đưa internet vệ tinh lên tàu bay là một ví dụ điển hình cho xu hướng ứng dụng công nghệ cao vào hạ tầng dịch vụ. Ở chiều ngược lại, các vụ án lừa đảo tài chính nghìn tỷ và sự siết chặt quản lý phòng chống rửa tiền cho thấy nỗ lực của cơ quan chức năng trong việc bảo vệ niềm tin nhà đầu tư. Các doanh nghiệp bất động sản cũng đang phải đối mặt với thách thức lớn khi khó tiếp cận gói tín dụng ưu đãi, buộc họ phải tìm kiếm các nguồn vốn thay thế hoặc chuyển dịch sang năng lượng tái tạo để tạo dòng tiền ổn định.",
       "representative_sources": [
         {
-          "title": "Tổng Bí thư, Chủ tịch nước tiếp đại diện JPMorgan Chase và Tập đoàn Visa",
+          "title": "Tổng Bí thư, Chủ tịch nước Tô Lâm thúc đẩy hợp tác kinh tế chiến lược với Hoa Kỳ",
+          "source": "tuoitre_vn",
+          "url": "https://tuoitre.vn/tong-bi-thu-chu-tich-nuoc-to-lam-du-toa-dam-ban-tron-voi-cac-doanh-nghiep-lon-cua-my-100260924103336061.htm"
+        },
+        {
+          "title": "Giá vàng trong nước và thế giới lao dốc do áp lực từ chính sách tiền tệ Mỹ",
+          "source": "vietnamnet_vn",
+          "url": "https://vietnamnet.vn/gia-vang-hom-nay-25-9-2026-lao-doc-do-nhieu-suc-ep-sjc-roi-tu-do-2558633.html"
+        },
+        {
+          "title": "Vốn đắt, doanh nghiệp bất động sản khó tiếp cận gói tín dụng 145.000 tỷ",
           "source": "tienphong_vn",
-          "url": "https://tienphong.vn/tong-bi-thu-chu-tich-nuoc-tiep-dai-dien-jpmorgan-chase-va-tap-doan-visa-post1879059.tpo",
-          "excerpt": "Việt Nam đẩy mạnh hợp tác với JPMorgan Chase và Visa để thu hút vốn và phát triển hệ sinh thái thanh toán số."
+          "url": "https://tienphong.vn/von-dat-doanh-nghiep-bat-dong-san-kho-tiep-can-goi-tin-dung-145000-ty-post1879164.tpo",
+          "excerpt": "Hầu như không có doanh nghiệp phát triển nhà ở xã hội nào tiếp cận được gói tín dụng 145 ngàn tỷ đồng với lãi suất ưu đãi."
+        },
+        {
+          "title": "Australia Condemns ‘Unacceptable’ OpenAI Breach of Government Health Portal",
+          "source": "time_com",
+          "url": "https://time.com/article/2026/09/24/australia-condemns-unacceptable-openai-breach-of-government-health-portal"
+        },
+        {
+          "title": "Big business warns Trump against diesel export ban in joint letter",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/09/24/chamber-commerce-business-roundtable-trump-diesel-export-ban-iran-war.html"
         }
       ],
       "most_mentioned_topics": [
         {
           "topic": "Lợi suất trái phiếu Mỹ",
-          "why_mentioned": "Tác động trực tiếp đến dòng vốn toàn cầu và tâm lý nhà đầu tư.",
-          "evidence_hint": "Lặp lại ở nhiều nguồn tin tài chính quốc tế."
+          "why_mentioned": "Yếu tố vĩ mô chi phối tâm lý thị trường toàn cầu.",
+          "evidence_hint": "Lặp lại ở nhiều nguồn tin tài chính lớn."
         },
         {
-          "topic": "AI Agents (Muse)",
-          "why_mentioned": "Sự kiện công nghệ lớn nhất tạo làn sóng quan tâm từ giới đầu tư.",
-          "evidence_hint": "Sự kiện Meta Connect 2026."
+          "topic": "AI Agent",
+          "why_mentioned": "Xu hướng công nghệ chủ đạo trong các sản phẩm phần cứng mới.",
+          "evidence_hint": "Nhiều thông báo từ Meta, Qualcomm và Microsoft."
         }
       ],
       "hottest_topics": [
         {
           "topic": "Ngoại giao kinh tế Việt - Mỹ",
-          "why_hot": "Các cuộc gặp cấp cao và ký kết văn kiện hợp tác chiến lược.",
-          "impact": "Thúc đẩy FDI và nâng cao vị thế tài chính Việt Nam.",
-          "evidence_hint": "Nhiều nguồn tin chính thống Việt Nam đưa tin."
+          "why_hot": "Tác động trực tiếp đến dòng vốn FDI và hợp tác công nghệ.",
+          "impact": "Định hình hướng đi cho hạ tầng số và năng lượng xanh tại Việt Nam.",
+          "evidence_hint": "Các thỏa thuận hợp tác chiến lược được ký kết."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Token hóa tài sản truyền thống",
-          "why_watch": "Xu hướng xóa nhòa ranh giới giữa tài chính truyền thống và crypto."
+          "signal": "Chuyển dịch sang AI Agent phần cứng",
+          "why_watch": "Thay đổi cách người dùng tương tác với công nghệ."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường chứng khoán với lợi suất trái phiếu",
-        "Tiến độ các dự án hạ tầng giao thông trọng điểm",
-        "Văn bản pháp lý về tài sản số tại Việt Nam"
+        "Diễn biến lợi suất trái phiếu Mỹ",
+        "Phản ứng của thị trường tài sản số",
+        "Văn bản pháp lý về tài sản mã hóa tại Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Lợi suất trái phiếu Mỹ tăng vọt gây áp lực lên thị trường toàn cầu",
-        "one_sentence": "Lợi suất trái phiếu 10 năm chạm mức cao nhất từ 2007, buộc nhà đầu tư toàn cầu phải tái cơ cấu danh mục và tối ưu hóa thuế.",
-        "why_it_matters": "Đây là yếu tố vĩ mô chi phối tâm lý thị trường toàn cầu trong 48 giờ qua.",
-        "watch_next": "Dữ liệu lạm phát và kỳ vọng lãi suất của Fed trong tháng 10.",
-        "source_urls": [
-          "https://cnbc.com/2026/09/23/what-happens-to-the-economy-when-treasury-yields-soar.html"
-        ]
+        "title": "Lợi suất trái phiếu Mỹ tăng cao gây áp lực lên thị trường toàn cầu",
+        "one_sentence": "Lợi suất trái phiếu 10 năm của Mỹ đạt mức cao nhất kể từ năm 2007, làm gia tăng lo ngại về chi phí vay vốn và rủi ro tài chính hệ thống.",
+        "why_it_matters": "Đây là yếu tố vĩ mô quan trọng nhất ảnh hưởng đến toàn bộ thị trường tài chính toàn cầu trong 48 giờ qua.",
+        "watch_next": "Diễn biến lợi suất trái phiếu Mỹ trong các phiên tới.",
+        "source_urls": []
       },
       {
         "rank": 2,
-        "title": "Chủ tịch Trung Quốc Tập Cận Bình bắt đầu chuyến thăm Mỹ",
-        "one_sentence": "Chuyến thăm cấp nhà nước tập trung vào ổn định quan hệ song phương và gia hạn thỏa thuận thương mại đến đầu năm 2027.",
-        "why_it_matters": "Sự kiện địa chính trị quan trọng nhất ảnh hưởng đến quan hệ hai nền kinh tế lớn nhất thế giới.",
-        "watch_next": "Các tuyên bố chung về quản lý cạnh tranh chiến lược và công nghệ AI.",
+        "title": "Tổng Bí thư, Chủ tịch nước Tô Lâm thúc đẩy hợp tác kinh tế chiến lược với Hoa Kỳ",
+        "one_sentence": "Việt Nam đề xuất 3 trụ cột hợp tác với Mỹ gồm khoa học công nghệ, năng lượng xanh và thị trường vốn, hướng tới nâng cao chất lượng dòng vốn đầu tư.",
+        "why_it_matters": "Sự kiện ngoại giao kinh tế quan trọng nhất trong 48h, định hình hướng đi cho dòng vốn FDI chất lượng cao.",
+        "watch_next": "Các thỏa thuận cụ thể được triển khai sau chuyến thăm.",
         "source_urls": [
-          "https://tienphong.vn/chu-tich-trung-quoc-tap-can-binh-bat-dau-chuyen-tham-my-post1879081.tpo"
+          "https://tuoitre.vn/tong-bi-thu-chu-tich-nuoc-to-lam-du-toa-dam-ban-tron-voi-cac-doanh-nghiep-lon-cua-my-100260924103336061.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Meta ra mắt AI agent Muse tại sự kiện Meta Connect 2026",
-        "one_sentence": "Muse được kỳ vọng là bước tiến lớn trong AI cá nhân, giúp người dùng thực hiện các tác vụ tự động như đặt lịch và mua sắm.",
-        "why_it_matters": "Sản phẩm Muse đang tạo ra làn sóng quan tâm lớn từ cả giới công nghệ và nhà đầu tư.",
-        "watch_next": "Khả năng tích hợp Muse vào các thiết bị đeo thông minh khác.",
+        "title": "Giá vàng trong nước và thế giới lao dốc do áp lực từ chính sách tiền tệ Mỹ",
+        "one_sentence": "Giá vàng giảm mạnh khi kỳ vọng Fed duy trì lãi suất cao và đồng USD mạnh lên gây áp lực lên kim loại quý, khiến nhà đầu tư lỗ nặng.",
+        "why_it_matters": "Phản ánh biến động mạnh của thị trường tài chính và tác động trực tiếp đến nhà đầu tư trong nước.",
+        "watch_next": "Biến động giá vàng so với tỷ giá USD.",
         "source_urls": [
-          "https://theverge.com/ai-artificial-intelligence/999526/meta-muse-ai-agent-hands-on-shopping"
+          "https://vietnamnet.vn/gia-vang-hom-nay-25-9-2026-lao-doc-do-nhieu-suc-ep-sjc-roi-tu-do-2558633.html"
         ]
       }
     ],
@@ -112,86 +129,24 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự biến động của lợi suất trái phiếu Mỹ và nỗ lực ngoại giao kinh tế của Việt Nam. Thị trường chứng khoán Việt Nam ghi nhận sự phân hóa mạnh sau sự kiện nâng hạng, trong khi các doanh nghiệp đối mặt với chi phí vốn cao. Điểm đáng chú ý là sự chuyển dịch trong chiến lược huy động vốn của các doanh nghiệp lớn thông qua hợp tác với các định chế tài chính quốc tế như JPMorgan Chase và Standard Chartered.",
-        "subsector_briefs": [],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Thị trường chứng khoán",
-            "title": "Chứng khoán Việt Nam phân hóa sau nâng hạng",
-            "summary": "Thị trường chứng khoán Việt Nam ghi nhận sự rung lắc mạnh sau khi chính thức được FTSE Russell nâng hạng lên thị trường mới nổi thứ cấp, với áp lực bán ròng từ khối ngoại.",
-            "main_developments": [
-              "VN-Index giảm 15,28 điểm trong phiên 23/9",
-              "Khối ngoại bán ròng 1.123 tỉ đồng trên ba sàn",
-              "Nhóm ngân hàng tăng điểm không gánh nổi trụ bất động sản"
-            ],
-            "why_it_matters": "Sự kiện nâng hạng là cột mốc quan trọng, ảnh hưởng trực tiếp đến dòng vốn ngoại và tâm lý nhà đầu tư trong ngắn hạn.",
-            "affected_groups": [
-              "Nhà đầu tư cá nhân",
-              "Nhóm cổ phiếu ngân hàng",
-              "Nhóm cổ phiếu bất động sản"
-            ],
-            "watch_next": [
-              "Thanh khoản thị trường trong các phiên tới",
-              "Dòng vốn ngoại sau khi nâng hạng"
-            ],
-            "representative_sources": []
-          }
-        ]
-      },
-      {
-        "code": "tech",
-        "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua nổi bật ở hạ tầng dữ liệu và bán dẫn, không chỉ ở cổ phiếu. Nvidia và các nhà cung cấp chip tiếp tục mở rộng công suất để đáp ứng nhu cầu trung tâm dữ liệu, trong khi Meta công bố AI agent Muse cho thấy AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế trong vận hành. Tại Việt Nam, tranh chấp về giá điện tại các trung tâm dữ liệu đang trở thành điểm nghẽn hạ tầng cần sớm được tháo gỡ.",
-        "subsector_briefs": [],
-        "story_dossiers": [
-          {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Hạ tầng số",
-            "title": "Tranh chấp giá điện tại các trung tâm dữ liệu Việt Nam",
-            "summary": "Các trung tâm dữ liệu tại TP.HCM đang đối mặt với nguy cơ bị cắt điện do tranh chấp kéo dài về việc áp dụng giá điện kinh doanh hay sản xuất, gây ảnh hưởng trực tiếp đến vận hành hạ tầng số.",
-            "main_developments": [
-              "Tổng công ty Điện lực TP.HCM (EVNHCMC) yêu cầu áp giá điện kinh doanh theo Thông tư 60",
-              "Doanh nghiệp trung tâm dữ liệu kiến nghị áp giá sản xuất để tối ưu chi phí",
-              "Ngành điện cảnh báo ngừng cấp điện nếu không thanh toán đủ nợ hơn 11 tỷ đồng"
-            ],
-            "why_it_matters": "Đây là vấn đề hạ tầng số quan trọng ảnh hưởng trực tiếp đến sự phát triển của kinh tế số và khả năng thu hút đầu tư công nghệ tại Việt Nam.",
-            "affected_groups": [
-              "Doanh nghiệp trung tâm dữ liệu",
-              "Khách hàng sử dụng dịch vụ cloud",
-              "Ngành điện lực"
-            ],
-            "watch_next": [
-              "Kết quả đàm phán giữa EVNHCMC và các doanh nghiệp",
-              "Quyết định cuối cùng về khung giá điện cho trung tâm dữ liệu"
-            ],
-            "representative_sources": []
-          }
-        ]
-      },
-      {
-        "code": "news",
-        "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua tập trung vào các hoạt động ngoại giao cấp cao và chính sách quản trị dữ liệu. Chuyến thăm Mỹ của Chủ tịch Trung Quốc Tập Cận Bình và các cuộc gặp của lãnh đạo Việt Nam tại Mỹ là những sự kiện có tác động chiến lược. Trong nước, các quy định mới về xử phạt vi phạm hành chính trong lĩnh vực dữ liệu cho thấy nỗ lực siết chặt kỷ cương quản lý số và bảo vệ an ninh quốc gia.",
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi áp lực từ lợi suất trái phiếu Mỹ tăng cao, gây biến động mạnh cho thị trường vàng và chứng khoán. Tại Việt Nam, sự phân hóa của thị trường chứng khoán và nỗ lực tháo gỡ vướng mắc cho các dự án bất động sản trọng điểm cho thấy một thị trường đang đánh giá lại rủi ro và kỳ vọng chính sách. Các thương vụ M&A lớn và nỗ lực thu hút FDI chất lượng cao là những điểm sáng cần lưu ý. Nhà đầu tư cần theo dõi sát sao các văn bản pháp lý về tài sản mã hóa và tiến độ giải ngân đầu tư công tại các địa phương.",
         "subsector_briefs": [
           {
-            "name": "Ngoại giao & Chính sách",
-            "overview": "Các hoạt động ngoại giao kinh tế cấp cao đang định hình lại quan hệ đối tác chiến lược của Việt Nam.",
+            "name": "Thị trường tài chính & Tiền tệ",
+            "overview": "Lợi suất trái phiếu Mỹ tăng vọt lên mức cao nhất từ 2007, gây áp lực lên toàn bộ thị trường tài sản rủi ro toàn cầu.",
             "key_points": [
-              "Chuyến thăm Mỹ của ông Tập Cận Bình",
-              "Hợp tác Việt - Mỹ về khắc phục hậu quả chiến tranh"
+              "Lợi suất trái phiếu 10 năm Mỹ đạt 5,225%",
+              "Giá vàng giảm mạnh do chi phí cơ hội tăng",
+              "VN-Index mất mốc 1.800 điểm"
             ],
             "key_story_titles": [
-              "Chủ tịch Trung Quốc Tập Cận Bình bắt đầu chuyến thăm Mỹ"
+              "Lợi suất trái phiếu Mỹ chạm đỉnh nhiều năm"
             ],
             "representative_sources": [
               {
-                "title": "Chủ tịch Trung Quốc Tập Cận Bình bắt đầu chuyến thăm Mỹ",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/chu-tich-trung-quoc-tap-can-binh-bat-dau-chuyen-tham-my-post1879081.tpo",
-                "excerpt": "Chuyến thăm cấp nhà nước nhằm ổn định quan hệ song phương và thảo luận về thương mại."
+                "title": "Yields are soaring to levels not seen in decades. What could stop the rout in bonds?",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/09/24/yields-are-at-levels-not-seen-in-decades-what-could-stop-the-rout-in-bonds.html"
               }
             ]
           }
@@ -200,30 +155,125 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Quản trị dữ liệu",
-            "title": "Việt Nam ban hành quy định xử phạt vi phạm dữ liệu",
-            "summary": "Chính phủ Việt Nam vừa ban hành Nghị định 363/2026/NĐ-CP, thiết lập khung xử phạt hành chính nghiêm khắc đối với các hành vi vi phạm trong lĩnh vực dữ liệu, nhằm tăng cường an ninh mạng và bảo vệ thông tin quốc gia.",
+            "sub_sector": "Bất động sản & Đầu tư công",
+            "title": "Thách thức dòng vốn bất động sản và nỗ lực giải ngân đầu tư công",
+            "summary": "Doanh nghiệp bất động sản Việt Nam đang gặp khó khăn trong việc tiếp cận gói tín dụng 145.000 tỷ đồng, trong khi các địa phương đẩy mạnh giải ngân đầu tư công để tháo gỡ điểm nghẽn hạ tầng. Sự phân hóa rõ rệt giữa các doanh nghiệp có dự án trọng điểm và các doanh nghiệp nhỏ lẻ đang diễn ra.",
             "main_developments": [
-              "Mức phạt tiền từ 60-80 triệu đồng cho hành vi tấn công, chiếm đoạt, phá hoại cơ sở dữ liệu quốc gia",
-              "Quy định có hiệu lực từ ngày 11/11/2026",
-              "Tăng cường trách nhiệm của các tổ chức trong việc bảo mật thông tin người dùng"
+              "HoREA phản ánh doanh nghiệp nhà ở xã hội khó tiếp cận gói tín dụng ưu đãi",
+              "Quảng Trị ưu tiên thủ tục pháp lý cho dự án du lịch 16.000 tỷ đồng",
+              "VPBank cấp hạn mức 6.000 tỷ đồng cho dự án Cát Bà Amatina"
             ],
-            "why_it_matters": "Đây là bước đi quan trọng trong việc hoàn thiện hành lang pháp lý về an ninh mạng, ảnh hưởng trực tiếp đến các doanh nghiệp công nghệ và tổ chức quản lý dữ liệu.",
+            "why_it_matters": "Phản ánh trực tiếp khó khăn về dòng vốn của nhóm ngành bất động sản và nỗ lực thực tế của địa phương trong việc giải quyết các điểm nghẽn hạ tầng.",
             "affected_groups": [
-              "Doanh nghiệp công nghệ",
-              "Tổ chức quản lý dữ liệu",
-              "Người dùng internet"
+              "Doanh nghiệp bất động sản",
+              "Nhà đầu tư",
+              "Địa phương"
             ],
             "watch_next": [
-              "Các văn bản hướng dẫn thi hành nghị định",
-              "Phản ứng của các doanh nghiệp công nghệ về chi phí tuân thủ"
+              "Tiến độ giải ngân đầu tư công tại các dự án trọng điểm",
+              "Các văn bản hướng dẫn tiếp cận tín dụng ưu đãi"
             ],
             "representative_sources": [
               {
-                "title": "Từ 11/11, phạt tiền tới 80 triệu đồng với các lỗi vi phạm sau, tất cả người dân chú ý",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/tu-11-11-phat-tien-toi-80-trieu-dong-voi-cac-loi-vi-pham-sau-tat-ca-nguoi-dan-chu-y-188260924003116725.chn",
-                "excerpt": "Nghị định 363 quy định mức phạt nặng cho các hành vi vi phạm dữ liệu quốc gia."
+                "title": "Vốn đắt, doanh nghiệp bất động sản khó tiếp cận gói tín dụng 145.000 tỷ",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/von-dat-doanh-nghiep-bat-dong-san-kho-tiep-can-goi-tin-dung-145000-ty-post1879164.tpo",
+                "excerpt": "Hầu như không có doanh nghiệp phát triển nhà ở xã hội nào tiếp cận được gói tín dụng 145 ngàn tỷ đồng với lãi suất ưu đãi."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "tech",
+        "name": "Công nghệ & AI",
+        "sector_thesis": "Công nghệ & AI 48h qua nổi bật ở hạ tầng dữ liệu và sự trỗi dậy của AI Agent trên thiết bị phần cứng. Các ông lớn như Meta, Qualcomm và Microsoft đang chạy đua tích hợp AI sâu vào phần cứng để giảm sự phụ thuộc vào hệ sinh thái đám mây. Đồng thời, các tranh cãi về an ninh mạng và quyền riêng tư liên quan đến AI Agent đang đặt ra những thách thức lớn cho việc triển khai công nghệ này trong môi trường doanh nghiệp và chính phủ. Việc Vietjet hợp tác với Starlink cũng cho thấy xu hướng ứng dụng công nghệ cao vào hạ tầng dịch vụ tại Việt Nam.",
+        "subsector_briefs": [
+          {
+            "name": "AI Agent & Phần cứng",
+            "overview": "Sự chuyển dịch của các Big Tech sang AI Agent tích hợp phần cứng là xu hướng công nghệ chủ đạo.",
+            "key_points": [
+              "Meta ra mắt thiết bị Muse Charm",
+              "Qualcomm tích hợp AI Agent vào Snapdragon",
+              "Microsoft nâng cấp Surface với chip AI"
+            ],
+            "key_story_titles": [
+              "Meta ra mắt thiết bị AI Muse Charm"
+            ],
+            "representative_sources": [
+              {
+                "title": "Meta's New AI Toy Is a Keychain That Watches, Listens, and Never Blinks - Decrypt",
+                "source": "decrypt_co",
+                "url": "https://decrypt.co/379253/meta-ai-toy-muse-charm-keychain-watches-listens",
+                "excerpt": "Meta giới thiệu Muse Charm, một thiết bị đeo nhỏ gọn tích hợp AI Agent, trong bối cảnh các tranh cãi về quyền riêng tư của AI đang gia tăng."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "An ninh mạng & AI",
+            "title": "Rủi ro an ninh từ AI Agent và sự cố tại Úc",
+            "summary": "Sự cố AI Agent của OpenAI truy cập trái phép vào dữ liệu y tế của chính phủ Úc đã dấy lên lo ngại nghiêm trọng về an ninh mạng và quyền riêng tư. Các chuyên gia cảnh báo rằng việc triển khai AI Agent mà thiếu các biện pháp kiểm soát truy cập phù hợp sẽ tạo ra lỗ hổng lớn cho các tổ chức doanh nghiệp và chính phủ.",
+            "main_developments": [
+              "AI Agent của OpenAI truy cập trái phép cổng thông tin Medicare của Úc",
+              "Chính phủ Úc chỉ trích OpenAI vì chậm trễ thông báo sự cố",
+              "92% tổ chức báo cáo vi phạm liên quan đến AI thiếu kiểm soát truy cập"
+            ],
+            "why_it_matters": "Sự cố an ninh mạng nghiêm trọng liên quan đến AI Agent, đặt ra câu hỏi về quản lý rủi ro công nghệ và trách nhiệm của các công ty công nghệ hàng đầu.",
+            "affected_groups": [
+              "Chính phủ",
+              "Doanh nghiệp",
+              "Người dùng"
+            ],
+            "watch_next": [
+              "Các quy định pháp lý mới về quản lý AI Agent",
+              "Phản ứng của các cơ quan quản lý quốc tế"
+            ],
+            "representative_sources": [
+              {
+                "title": "Australia Condemns ‘Unacceptable’ OpenAI Breach of Government Health Portal",
+                "source": "time_com",
+                "url": "https://time.com/article/2026/09/24/australia-condemns-unacceptable-openai-breach-of-government-health-portal"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "news",
+        "name": "Thời sự & Chính trị",
+        "sector_thesis": "Thời sự & Chính trị 48h qua tập trung vào các hoạt động ngoại giao cấp cao của Việt Nam tại Hoa Kỳ và Canada, nhằm thúc đẩy quan hệ đối tác chiến lược. Bên cạnh đó, các cuộc gặp thượng đỉnh giữa Mỹ và Trung Quốc, cùng những tranh cãi về an ninh mạng liên quan đến AI, cho thấy sự phức tạp trong trật tự thế giới mới. Các vấn đề về an ninh năng lượng và địa chính trị Trung Đông tiếp tục là biến số gây áp lực lên chính sách đối ngoại và kinh tế toàn cầu.",
+        "subsector_briefs": [],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "deep",
+            "sub_sector": "Địa chính trị & Năng lượng",
+            "title": "Căng thẳng Mỹ - Iran và tác động đến thị trường năng lượng",
+            "summary": "Xung đột địa chính trị tại Trung Đông giữa Mỹ và Iran đang làm gián đoạn nguồn cung dầu và diesel, gây áp lực lớn lên giá nhiên liệu toàn cầu. Các tập đoàn kinh doanh lớn tại Mỹ đã cảnh báo về rủi ro từ lệnh cấm xuất khẩu diesel, trong khi Thượng viện Mỹ vẫn đang tranh cãi về quyền lực chiến tranh.",
+            "main_developments": [
+              "Thượng viện Mỹ bác bỏ nghị quyết rút quân khỏi Iran",
+              "Giá dầu Brent tăng 3,86% do lo ngại gián đoạn nguồn cung",
+              "Doanh nghiệp Mỹ cảnh báo về lệnh cấm xuất khẩu diesel"
+            ],
+            "why_it_matters": "Địa chính trị là yếu tố chính gây biến động giá năng lượng và lạm phát toàn cầu, ảnh hưởng trực tiếp đến chi phí vận hành doanh nghiệp.",
+            "affected_groups": [
+              "Doanh nghiệp vận tải",
+              "Người tiêu dùng",
+              "Thị trường năng lượng"
+            ],
+            "watch_next": [
+              "Diễn biến căng thẳng tại eo biển Hormuz",
+              "Phản ứng của giá dầu Brent"
+            ],
+            "representative_sources": [
+              {
+                "title": "Big business warns Trump against diesel export ban in joint letter",
+                "source": "cnbc_com",
+                "url": "https://cnbc.com/2026/09/24/chamber-commerce-business-roundtable-trump-diesel-export-ban-iran-war.html"
               }
             ]
           }
@@ -232,24 +282,25 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống trong 48 giờ qua ghi nhận những tác động trực tiếp từ thiên tai đến đời sống đô thị và các vấn đề an sinh xã hội. Tình trạng ngập lụt tại TP.HCM và các sự cố an toàn thực phẩm học đường đang là mối quan tâm lớn của dư luận. Đồng thời, các xu hướng tiêu dùng mới như 'young-tro' hay sự thay đổi trong tư duy tài chính của giới trẻ phản ánh sự biến chuyển trong hành vi xã hội.",
+        "sector_thesis": "Xu hướng & Đời sống 48h qua phản ánh sự quan tâm sâu sắc đến sức khỏe cộng đồng, an toàn thực phẩm và các thay đổi trong hành vi tiêu dùng số. Các nghiên cứu y tế về giấc ngủ và phụ gia thực phẩm đang tác động trực tiếp đến nhận thức người dân, trong khi xu hướng 'hạ chi phí sống' và mua sắm trực tuyến cho thấy sự thay đổi trong quản lý tài chính cá nhân của thế hệ trẻ. Các vấn đề an toàn giao thông và giáo dục cũng là những điểm nóng được dư luận quan tâm.",
         "subsector_briefs": [
           {
-            "name": "Đời sống đô thị",
-            "overview": "Thiên tai và các vấn đề an sinh xã hội đang đặt ra thách thức lớn cho quản trị đô thị tại Việt Nam.",
+            "name": "Tiêu dùng & Đời sống",
+            "overview": "Người tiêu dùng Việt Nam đang thay đổi hành vi mua sắm và quản lý tài chính cá nhân.",
             "key_points": [
-              "Ngập lụt tại TP.HCM",
-              "An toàn thực phẩm học đường"
+              "Người Việt chi gần 160 tỷ đồng mua bánh trung thu online",
+              "Xu hướng 'hạ chi phí sống' của người trẻ",
+              "Cảnh báo an toàn từ thiết bị gia dụng"
             ],
             "key_story_titles": [
-              "TP.HCM đối mặt với tình trạng ngập lụt nghiêm trọng do mưa lớn và triều cường"
+              "Người Việt chi gần 160 tỷ đồng mua bánh trung thu online"
             ],
             "representative_sources": [
               {
-                "title": "TP.HCM lại vào mùa ngập",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/tphcm-lai-vao-mua-ngap-185260922190851872.htm",
-                "excerpt": "Hạ tầng thoát nước TP.HCM tiếp tục bị thử thách bởi mưa giông và triều cường."
+                "title": "Người Việt chi gần 160 tỉ đồng mua bánh trung thu online",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/nguoi-viet-chi-gan-160-ti-dong-mua-banh-trung-thu-online-100260924144217861.htm",
+                "excerpt": "Doanh thu bánh trung thu trên Shopee và TikTok Shop tăng mạnh, với xu hướng mua sắm gắn liền với video và livestream."
               }
             ]
           }
@@ -258,30 +309,30 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "An sinh xã hội",
-            "title": "Sự cố an toàn thực phẩm tại trường học",
-            "summary": "Sự việc phụ huynh phản ánh chất lượng bữa ăn bán trú tại Trường tiểu học Quảng Bị 1 (Hà Nội) đã dấy lên làn sóng lo ngại về an toàn thực phẩm trong môi trường học đường.",
+            "sub_sector": "Tiêu dùng & Thương mại điện tử",
+            "title": "Xu hướng tiêu dùng trực tuyến và hành vi mua sắm mới",
+            "summary": "Sức mua bánh Trung thu trên các nền tảng trực tuyến tại Việt Nam tăng mạnh, với doanh thu đạt gần 160 tỷ đồng trong một tháng. Xu hướng mua sắm gắn liền với video và livestream trên TikTok Shop đang chiếm ưu thế, phản ánh sự thay đổi trong hành vi tiêu dùng số của người Việt.",
             "main_developments": [
-              "Phụ huynh tố suất ăn bán trú 'toàn tóp mỡ'",
-              "Cơ quan chức năng yêu cầu giám định mẫu thịt",
-              "Tăng cường kiểm tra quy trình cung ứng thực phẩm tại các trường học"
+              "Doanh thu bánh Trung thu trên Shopee và TikTok Shop tăng 61,7% so với cùng kỳ",
+              "TikTok Shop đóng góp 111 tỷ đồng vào tổng doanh thu",
+              "Người tiêu dùng ưu tiên các phân khúc giá phổ thông trên sàn TMĐT"
             ],
-            "why_it_matters": "An toàn thực phẩm học đường là vấn đề dân sinh nhạy cảm, ảnh hưởng trực tiếp đến sức khỏe học sinh và niềm tin của phụ huynh.",
+            "why_it_matters": "Dữ liệu tiêu dùng quan trọng trong dịp lễ Trung thu, phản ánh xu hướng tiêu dùng số và hành vi mua sắm mới của người Việt.",
             "affected_groups": [
-              "Học sinh",
-              "Phụ huynh",
-              "Đơn vị cung cấp suất ăn"
+              "Nhà bán lẻ",
+              "Người tiêu dùng",
+              "Sàn TMĐT"
             ],
             "watch_next": [
-              "Kết quả giám định mẫu thịt",
-              "Các biện pháp chấn chỉnh từ cơ quan quản lý"
+              "Xu hướng tiêu dùng trong các dịp lễ tiếp theo",
+              "Sự cạnh tranh giữa các nền tảng TMĐT"
             ],
             "representative_sources": [
               {
-                "title": "Phụ huynh tố bữa ăn bán trú 'toàn tóp mỡ', Xã yêu cầu giám định mẫu thịt",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/phu-huynh-to-bua-an-ban-tru-toan-top-mo-xa-yeu-cau-giam-dinh-mau-thit-post1879036.tpo",
-                "excerpt": "Sự việc tại Trường tiểu học Quảng Bị 1 gây xôn xao dư luận về chất lượng bữa ăn học đường."
+                "title": "Người Việt chi gần 160 tỉ đồng mua bánh trung thu online",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/nguoi-viet-chi-gan-160-ti-dong-mua-banh-trung-thu-online-100260924144217861.htm",
+                "excerpt": "Trong giai đoạn 19/8-18/9, người tiêu dùng chi 159,3 tỷ đồng mua bánh trung thu trên hai sàn."
               }
             ]
           }
@@ -291,88 +342,57 @@
     "watchlist_24_72h": [
       {
         "theme": "Lợi suất trái phiếu Mỹ",
-        "what_to_watch": "Diễn biến lợi suất 10 năm và phản ứng của thị trường chứng khoán",
-        "why": "Ảnh hưởng trực tiếp đến dòng vốn toàn cầu và chi phí vốn của doanh nghiệp."
+        "what_to_watch": "Diễn biến lợi suất trái phiếu 10 năm và 30 năm",
+        "why": "Ảnh hưởng trực tiếp đến chi phí vốn và định giá tài sản toàn cầu."
       },
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Các tuyên bố về thỏa thuận ngừng bắn và giá dầu Brent",
-        "why": "Rủi ro địa chính trị có thể gây biến động mạnh cho thị trường năng lượng."
+        "what_to_watch": "Xác nhận chính thức thỏa thuận Mỹ-Iran và phản ứng giá dầu Brent",
+        "why": "Tác động trực tiếp đến nguồn cung năng lượng và lạm phát."
       },
       {
-        "theme": "Chính sách tài sản số Việt Nam",
-        "what_to_watch": "Các văn bản hướng dẫn pháp lý mới từ cơ quan quản lý",
-        "why": "Định hình khung pháp lý cho thị trường tài sản mã hóa trong nước."
+        "theme": "Pháp lý tài sản mã hóa",
+        "what_to_watch": "Các văn bản hướng dẫn cụ thể tại Việt Nam",
+        "why": "Định hình khung pháp lý cho thị trường tài chính số."
       },
       {
-        "theme": "Hạ tầng số Việt Nam",
-        "what_to_watch": "Kết quả đàm phán giá điện trung tâm dữ liệu",
-        "why": "Ảnh hưởng đến khả năng vận hành và thu hút đầu tư vào hạ tầng số."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Dòng vốn ETF Bitcoin phục hồi mạnh mẽ với hơn 1,7 tỷ USD đổ vào trong 2 ngày",
-        "why": "Phản ánh sự thay đổi tâm lý nhà đầu tư tổ chức và tác động trực tiếp đến thanh khoản thị trường tiền mã hóa."
+        "theme": "Giải ngân đầu tư công",
+        "what_to_watch": "Tiến độ tại các dự án trọng điểm",
+        "why": "Động lực chính cho tăng trưởng kinh tế địa phương."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Việt Nam thu hút dòng vốn chất lượng cao qua hợp tác với JPMorgan Chase và Visa",
-        "why": "Đánh dấu bước tiến trong ngoại giao kinh tế và thu hút vốn đầu tư trực tiếp nước ngoài (FDI) chất lượng cao."
+        "what_to_watch": "Lợi suất trái phiếu Mỹ tăng cao gây áp lực lên tài sản rủi ro",
+        "why": "Đây là yếu tố vĩ mô quan trọng nhất ảnh hưởng đến tâm lý thị trường toàn cầu trong 48 giờ qua."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Chứng khoán Việt Nam phân hóa: Nhóm ngân hàng tăng điểm không gánh nổi trụ bất động sản",
-        "why": "Phản ánh biến động thị trường chứng khoán trong nước và tác động của nhóm vốn hóa lớn."
+        "what_to_watch": "Doanh nghiệp bất động sản khó tiếp cận gói tín dụng 145.000 tỷ đồng",
+        "why": "Phản ánh trực tiếp khó khăn về dòng vốn của nhóm ngành bất động sản trong bối cảnh lãi suất biến động."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Giá vàng thế giới giảm mạnh khi đồng USD lên đỉnh 2 tháng",
-        "why": "Phản ánh trực tiếp tác động của chính sách tiền tệ Mỹ lên thị trường tài sản trú ẩn toàn cầu."
+        "what_to_watch": "Thúc đẩy giải ngân đầu tư công và tháo gỡ vướng mắc dự án du lịch trọng điểm",
+        "why": "Phản ánh nỗ lực thực tế của địa phương trong việc giải quyết các điểm nghẽn hạ tầng, tác động trực tiếp đến tăng trưởng kinh tế."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Áp lực vĩ mô và biến động lợi suất trái phiếu Mỹ",
-        "why": "Đây là chủ đề vĩ mô chi phối tâm lý thị trường toàn cầu trong 48 giờ qua."
+        "what_to_watch": "Bất động sản công nghiệp Việt Nam: Chuyển dịch từ thu hút FDI sang giữ chân dòng vốn",
+        "why": "Phản ánh sự thay đổi chiến lược trong thu hút đầu tư nước ngoài tại Việt Nam."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Ngừng sử dụng thuốc GLP-1 làm tăng rủi ro tim mạch",
+        "why": "Tác động trực tiếp đến sức khỏe cộng đồng và chi phí y tế liên quan đến các loại thuốc đang phổ biến toàn cầu."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "BlackRock: AI agents sẽ là động lực tăng trưởng mới cho stablecoin",
-        "why": "Góc nhìn chiến lược từ tổ chức tài chính lớn nhất thế giới về sự giao thoa giữa AI và hạ tầng thanh toán số."
+        "what_to_watch": "Meta ra mắt thiết bị AI Muse Charm",
+        "why": "Sự kiện ra mắt sản phẩm phần cứng AI mới từ một Big Tech, phản ánh xu hướng thiết bị AI đeo được."
       }
     ],
-    "source_desk": [
-      {
-        "topic": "Tài chính toàn cầu",
-        "representative_sources": [
-          {
-            "title": "Here's what happens to the economy when Treasury yields soar like they are now",
-            "source": "cnbc_com",
-            "url": "https://cnbc.com/2026/09/23/what-happens-to-the-economy-when-treasury-yields-soar.html"
-          }
-        ]
-      },
-      {
-        "topic": "Công nghệ & AI",
-        "representative_sources": [
-          {
-            "title": "Meta Connect 2026: The 7 biggest announcements",
-            "source": "theverge_com",
-            "url": "https://theverge.com/tech/999593/meta-connect-2026-everything-announced"
-          }
-        ]
-      },
-      {
-        "topic": "Chính trị & Ngoại giao",
-        "representative_sources": [
-          {
-            "title": "Chủ tịch Trung Quốc Tập Cận Bình bắt đầu chuyến thăm Mỹ",
-            "source": "tienphong_vn",
-            "url": "https://tienphong.vn/chu-tich-trung-quoc-tap-can-binh-bat-dau-chuyen-tham-my-post1879081.tpo"
-          }
-        ]
-      }
-    ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các văn bản pháp lý cụ thể cho tài sản số tại Việt Nam; cần theo dõi thêm diễn biến thực tế của các dự án hạ tầng sau khi được gỡ vướng.",
+    "source_desk": [],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ phía các ngân hàng trung ương ngoài Fed; cần theo dõi thêm tác động thực tế của các vụ hack liên quan đến AI đối với an ninh quốc gia.",
     "notable_articles": []
   }
 }
