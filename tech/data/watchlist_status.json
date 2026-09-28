@@ -1,15 +1,20 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-09-28T07:04:06.227601+00:00",
+  "generated_at_utc": "2026-09-28T15:35:32.945303+00:00",
   "checked": 26,
-  "hit_count": 74,
+  "hit_count": 105,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 15,
+      "hit_count": 19,
       "top_links": [
+        {
+          "title": "GitHub repo updated: zai-org/CodeGeeX4",
+          "url": "https://github.com/zai-org/CodeGeeX4",
+          "source_lane": "github_release"
+        },
         {
           "title": "GitHub repo updated: zai-org/CogVideo",
           "url": "https://github.com/zai-org/CogVideo",
@@ -21,18 +26,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/zcode-plugins",
-          "url": "https://github.com/zai-org/zcode-plugins",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: RAS-LAB/GLM-4.7-Flash-24B-A3B-KREAP",
-          "url": "https://huggingface.co/RAS-LAB/GLM-4.7-Flash-24B-A3B-KREAP",
+          "title": "Hugging Face model updated: jarrelscy/GLM-5.3-NestQuant-2-4bit",
+          "url": "https://huggingface.co/jarrelscy/GLM-5.3-NestQuant-2-4bit",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: RAS-LAB/GLM-4.7-Flash-24B-A3B-KREAP-Code",
-          "url": "https://huggingface.co/RAS-LAB/GLM-4.7-Flash-24B-A3B-KREAP-Code",
+          "title": "Hugging Face model updated: BitdeerAI/GLM-5.3-W4AFP8-AWQ",
+          "url": "https://huggingface.co/BitdeerAI/GLM-5.3-W4AFP8-AWQ",
           "source_lane": "huggingface_model"
         }
       ],
@@ -42,31 +42,31 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 12,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image-Bench",
-          "url": "https://github.com/QwenLM/Qwen-Image-Bench",
+          "title": "GitHub repo updated: QwenLM/Qwen-Agent",
+          "url": "https://github.com/QwenLM/Qwen-Agent",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-VL",
-          "url": "https://github.com/QwenLM/Qwen3-VL",
+          "title": "GitHub repo updated: QwenLM/Qwen-MM-Plugins",
+          "url": "https://github.com/QwenLM/Qwen-MM-Plugins",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3.8",
-          "url": "https://github.com/QwenLM/Qwen3.8",
+          "title": "GitHub repo updated: QwenLM/qwen-code",
+          "url": "https://github.com/QwenLM/qwen-code",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: BlairQ/qwen3.8_27b_idiotSavant_sm_86",
-          "url": "https://huggingface.co/BlairQ/qwen3.8_27b_idiotSavant_sm_86",
+          "title": "Hugging Face model updated: Nickyang/Qwen3.6-35B-A3B-Razor-19B-A4B-E128of256",
+          "url": "https://huggingface.co/Nickyang/Qwen3.6-35B-A3B-Razor-19B-A4B-E128of256",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: arpicato/qwen38-27b-hca-checkpoints",
-          "url": "https://huggingface.co/arpicato/qwen38-27b-hca-checkpoints",
+          "title": "Hugging Face model updated: Yuuyuuyuuyuu/Qwen3.8-27B-OrcaRouter-NVFP4-DFlash2-ninfer",
+          "url": "https://huggingface.co/Yuuyuuyuuyuu/Qwen3.8-27B-OrcaRouter-NVFP4-DFlash2-ninfer",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,11 +76,16 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/awesome-deepseek-agent",
-          "url": "https://github.com/deepseek-ai/awesome-deepseek-agent",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-OCR",
+          "url": "https://github.com/deepseek-ai/DeepSeek-OCR",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-V3",
+          "url": "https://github.com/deepseek-ai/DeepSeek-V3",
           "source_lane": "github_release"
         },
         {
@@ -89,19 +94,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/profile-data",
-          "url": "https://github.com/deepseek-ai/profile-data",
+          "title": "Hugging Face model updated: wenzhouwu/YoungAi-DeepSeek-V4.1-Flash",
+          "url": "https://huggingface.co/wenzhouwu/YoungAi-DeepSeek-V4.1-Flash",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "vllm-project/vllm release: v0.30.0",
+          "url": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
           "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: trl-internal-testing/tiny-DeepseekV3ForCausalLM-0528",
-          "url": "https://huggingface.co/trl-internal-testing/tiny-DeepseekV3ForCausalLM-0528",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: AbuYahya2/deepseek-marsad",
-          "url": "https://huggingface.co/AbuYahya2/deepseek-marsad",
-          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -113,18 +113,18 @@
       "hit_count": 3,
       "top_links": [
         {
+          "title": "Hugging Face model updated: kimi206380/bus",
+          "url": "https://huggingface.co/kimi206380/bus",
+          "source_lane": "huggingface_model"
+        },
+        {
           "title": "OpenRouter model listed: fireworks/ember-1",
           "url": "https://openrouter.ai/fireworks/ember-1",
           "source_lane": "model_hub"
         },
         {
-          "title": "Hugging Face model updated: Riyan200324200324/Kimi-K3-GGUF",
-          "url": "https://huggingface.co/Riyan200324200324/Kimi-K3-GGUF",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: open-inference/Kimi-K3-W4A8-K512-GPTQ-Mixed-Cal72-Seq1024",
-          "url": "https://huggingface.co/open-inference/Kimi-K3-W4A8-K512-GPTQ-Mixed-Cal72-Seq1024",
+          "title": "Hugging Face model updated: RawenH/Kimi-K3-0.40B",
+          "url": "https://huggingface.co/RawenH/Kimi-K3-0.40B",
           "source_lane": "huggingface_model"
         }
       ],
@@ -134,17 +134,27 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 5,
       "top_links": [
         {
-          "title": "Hugging Face model updated: iamgroot1212/minimax-h3-loras",
-          "url": "https://huggingface.co/iamgroot1212/minimax-h3-loras",
+          "title": "Hugging Face model updated: SEVUNX/minimax_H3_merged",
+          "url": "https://huggingface.co/SEVUNX/minimax_H3_merged",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: RunningHubAI/rh-minimax-h3-turbo-v4-step600-ema-comfyui-b-lora",
-          "url": "https://huggingface.co/RunningHubAI/rh-minimax-h3-turbo-v4-step600-ema-comfyui-b-lora",
+          "title": "Hugging Face model updated: chengxi1014/minimax-h3-comfyui-slim",
+          "url": "https://huggingface.co/chengxi1014/minimax-h3-comfyui-slim",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: QuantFunc/Minimax-H3-Quantfunc-4bit",
+          "url": "https://huggingface.co/QuantFunc/Minimax-H3-Quantfunc-4bit",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Steve Jobs tras dejar la universidad: “dormía en el suelo y recolectaba botellas por 5 centavos”",
+          "url": "https://www.infobae.com/tecno/2026/09/27/steve-jobs-tras-dejar-la-universidad-dormia-en-el-suelo-y-recolectaba-botellas-por-5-centavos/",
+          "source_lane": "frontier_watchlist"
         },
         {
           "title": "huggingface/diffusers release: Diffusers 0.40.0: New hệ thốngs, tensor-parallel support, improved CLI, and more",
@@ -169,23 +179,23 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/AuK",
-          "url": "https://github.com/Tencent-Hunyuan/AuK",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hy4-preview",
+          "url": "https://github.com/Tencent-Hunyuan/Hy4-preview",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/UniRL",
-          "url": "https://github.com/Tencent-Hunyuan/UniRL",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-MT2",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-MT2",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: RKNNAI/RK1828-LLM-Hunyuan-MT-7B",
-          "url": "https://huggingface.co/RKNNAI/RK1828-LLM-Hunyuan-MT-7B",
+          "title": "Hugging Face model updated: muhammad-taqi512/SLORA-HUNYUAN",
+          "url": "https://huggingface.co/muhammad-taqi512/SLORA-HUNYUAN",
           "source_lane": "huggingface_model"
         },
         {
@@ -216,13 +226,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/SciDocBench",
-          "url": "https://github.com/InternLM/SciDocBench",
+          "title": "GitHub repo updated: InternLM/RNGBench",
+          "url": "https://github.com/InternLM/RNGBench",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/WildClawBench",
-          "url": "https://github.com/InternLM/WildClawBench",
+          "title": "GitHub repo updated: InternLM/Visual-ERM",
+          "url": "https://github.com/InternLM/Visual-ERM",
           "source_lane": "github_release"
         }
       ],
@@ -248,17 +258,22 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 7,
       "top_links": [
         {
-          "title": "Hugging Face model updated: juergengunz/fluxer",
-          "url": "https://huggingface.co/juergengunz/fluxer",
+          "title": "Hugging Face model updated: Cyronius/FLUX.2-klein-4B-NPU2",
+          "url": "https://huggingface.co/Cyronius/FLUX.2-klein-4B-NPU2",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: RunningHubAI/rh-flux2-klein-9b-lora-2034141908104126466",
-          "url": "https://huggingface.co/RunningHubAI/rh-flux2-klein-9b-lora-2034141908104126466",
+          "title": "Hugging Face model updated: datenstrudel/unbehaun-flux-lora",
+          "url": "https://huggingface.co/datenstrudel/unbehaun-flux-lora",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Des miniatures YouTube qui disparaissent sur mobile ? Ce qui coince et comment résoudre le problème",
+          "url": "https://www.clubic.com/actualite-631465-des-miniatures-youtube-qui-disparaissent-sur-mobile-ce-qui-coince-et-comment-resoudre-le-probleme.html",
+          "source_lane": "frontier_watchlist"
         },
         {
           "title": "Hugging Face model updated: black-forest-labs/flux-3-action-droid",
@@ -269,11 +284,6 @@
           "title": "Hugging Face model updated: black-forest-labs/flux-3-action-so101",
           "url": "https://huggingface.co/black-forest-labs/flux-3-action-so101",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "pytorch/pytorch release: PyTorch 2.13.0 Release",
-          "url": "https://github.com/pytorch/pytorch/releases/tag/v2.13.0",
-          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -285,8 +295,8 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: testerinfinitysaw/comfyui-checkpoints-models",
-          "url": "https://huggingface.co/testerinfinitysaw/comfyui-checkpoints-models",
+          "title": "Hugging Face model updated: Tanu6546/comfyui-backup",
+          "url": "https://huggingface.co/Tanu6546/comfyui-backup",
           "source_lane": "huggingface_model"
         },
         {
@@ -306,8 +316,13 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 4,
       "top_links": [
+        {
+          "title": "Quer mais velocidade no PC? Confira uma seleção de SSDs NVMe Gen4 em promoção na Amazon",
+          "url": "https://olhardigital.com.br/2026/09/28/reviews/quer-mais-velocidade-no-pc-confira-uma-selecao-de-ssds-nvme-gen4-em-promocao-na-amazon/",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Hugging Face model updated: DarkKnight1217/RunwayGuard-rtdetr-l",
           "url": "https://huggingface.co/DarkKnight1217/RunwayGuard-rtdetr-l",
@@ -317,6 +332,11 @@
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
           "url": "https://huggingface.co/runwayclub/granite-8b-cvefixes-gguf",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "SCIENTIST",
+          "url": "https://www.business-standard.com/technology/artificial-intelligence/did-anthropic-s-ai-really-make-a-scientific-discovery-on-its-own-126092800073_1.html",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -325,20 +345,46 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "Mavi bets on the AI boom creating demand for a new kind of accountant | TechCrunch",
+          "url": "https://techcrunch.com/2026/09/28/mavi-bets-on-the-ai-boom-creating-demand-for-a-new-kind-of-accountant/",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 9,
       "top_links": [
         {
-          "title": "run-llama/llama_index release: v0.14.24",
-          "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.24",
-          "source_lane": "github_release"
+          "title": "Lidl’s new cheap heating appliances are launching this week — and they could help you save on your heating bills this winter",
+          "url": "https://www.techradar.com/home/small-appliances/lidl-is-launching-two-cheap-heating-devices-this-week-grab-this-gbp18-snuggly-electric-cushion-and-a-gbp15-heating-pad-for-your-back-before-the-temperature-drops",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Nvidia says its new AI safety platform can contain rogue agents within ‘milliseconds’",
+          "url": "https://www.theverge.com/tech/1001287/nvidia-ai-safety-platform-rogue-agents",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "OLED 120 Hz, Panther Lake, châssis alu et touches rondes... Wiko tient une alternative originale au MacBook Air",
+          "url": "https://www.clubic.com/actualite-631534-oled-120-hz-panther-lake-chassis-alu-et-touches-rondes-wiko-tient-une-alternative-originale-au-macbook-air.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Cet aspirateur balai qui mêle aspiration et lavage des sols perd 130€ de son prix sur Amazon",
+          "url": "https://www.clubic.com/bons-plans-631528-cet-aspirateur-balai-qui-mele-aspiration-et-lavage-des-sols-perd-130-euros-de-son-prix-sur-amazon.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Singapore Defense Tech Hackathon names winners, with promising teams set for venture incubation (Sponsored) | EU-Startups",
+          "url": "https://www.eu-startups.com/2026/09/singapore-defense-tech-hackathon-names-winners-with-promising-teams-set-for-venture-incubation-sponsored/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -347,9 +393,25 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 3,
+      "top_links": [
+        {
+          "title": "KI-Großprojekt: Dieser Oracle-Move zeigt ein grundlegendes Problem der Branche",
+          "url": "https://t3n.de/news/oracle-probleme-ki-projekte-1765379/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Las radios de Francia exigen a la Unión Europea garantizar la presencia del receptor tradicional en los coches nuevos",
+          "url": "https://www.infobae.com/tecno/2026/09/27/las-radios-de-francia-exigen-a-la-union-europea-garantizar-la-presencia-del-receptor-tradicional-en-los-coches-nuevos/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "WEBSITE",
+          "url": "https://hu.euronews.com/2026/09/28/trump-az-anthropic-vezetojevel-vacsorazik-a-feher-hazban-honapoknyi-nyilt-konfliktus-ellen",
+          "source_lane": "image_video_workflow"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenRouter",
@@ -387,29 +449,55 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 10,
+      "top_links": [
+        {
+          "title": "Data center developer offers $10,000 checks to 4,500 households if the 1,300-acre facility is approved — locals push back over noise and 'bribe' concerns",
+          "url": "https://www.tomshardware.com/tech-industry/data-centers/data-center-developer-offers-usd10-000-checks-to-4-500-households-if-the-1-300-acre-facility-is-approved-locals-push-back-over-noise-and-bribe-concerns",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Galaxy Watch 9 com nova função surge com 34% OFF por até 12x sem juros • Tecnoblog",
+          "url": "https://tecnoblog.net/achados/galaxy-watch-9-com-nova-funcao-surge-com-34-off-por-ate-12x-sem-juros/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "KI-Training gestoppt: OpenAI muss nach Sicherheitsvorfall erneut nachbessern",
+          "url": "https://t3n.de/news/openai-pausiert-ki-training-neue-modelle-1765374/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "Le Rafale, fleuron de l'armée française, dégradé à deux reprises dans son usine : ce que soupçonnent les gendarmes",
+          "url": "https://www.01net.com/actualites/un-rafale-degrade-a-deux-reprises-dans-son-usine-ce-que-soupconnent-les-gendarmes.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Mac Mini mit M6: Mit dieser Entscheidung sendet Apple das völlig falsch Signal",
+          "url": "https://t3n.de/news/mac-mini-m6-speicher-teuer-nachhaltigkeit-1765372/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/csharp-sdk",
-          "url": "https://github.com/modelcontextprotocol/csharp-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/example-remote-server",
+          "url": "https://github.com/modelcontextprotocol/example-remote-server",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/modelcontextprotocol",
-          "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
+          "url": "https://github.com/modelcontextprotocol/rust-sdk",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/python-sdk",
-          "url": "https://github.com/modelcontextprotocol/python-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
           "source_lane": "github_release"
         },
         {
@@ -470,9 +558,25 @@
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 3,
+      "top_links": [
+        {
+          "title": "Cette IA écoute votre journée en continu pour donner une mémoire à Claude et Codex",
+          "url": "https://www.clubic.com/actualite-631510-cette-ia-ecoute-votre-journee-en-continu-pour-donner-une-memoire-a-claude-et-codex.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "'I broke something': A Claude Code AI agent deleted 48,000 files in just over 100 seconds — then apologized for doing so",
+          "url": "https://www.techradar.com/pro/security/i-broke-something-a-claude-code-ai-agent-deleted-48-000-files-in-just-over-100-seconds-then-apologized-for-doing-so",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "JAPAN",
+          "url": "https://jp.ibtimes.com/nssol-signs-japan-ai-partnership-anthropic-deploys-claude-code-104548",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenHands",
@@ -481,13 +585,13 @@
       "hit_count": 2,
       "top_links": [
         {
-          "title": "All-Hands-AI/OpenHands release: v1.24.0",
-          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.24.0",
+          "title": "All-Hands-AI/OpenHands release: v1.23.0",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.23.0",
           "source_lane": "github_release"
         },
         {
-          "title": "All-Hands-AI/OpenHands release: v1.23.0",
-          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.23.0",
+          "title": "All-Hands-AI/OpenHands release: v1.24.0",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.24.0",
           "source_lane": "github_release"
         }
       ],
