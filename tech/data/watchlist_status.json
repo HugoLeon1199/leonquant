@@ -1,23 +1,23 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-10-01T14:34:29.775634+00:00",
+  "generated_at_utc": "2026-10-01T23:16:51.005142+00:00",
   "checked": 26,
-  "hit_count": 107,
+  "hit_count": 99,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 15,
+      "hit_count": 12,
       "top_links": [
-        {
-          "title": "GitHub repo updated: zai-org/ChatGLM2-6B",
-          "url": "https://github.com/zai-org/ChatGLM2-6B",
-          "source_lane": "github_release"
-        },
         {
           "title": "GitHub repo updated: zai-org/Open-AutoGLM",
           "url": "https://github.com/zai-org/Open-AutoGLM",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/SCAIL",
+          "url": "https://github.com/zai-org/SCAIL",
           "source_lane": "github_release"
         },
         {
@@ -26,13 +26,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: gsultani/llama31-8b-kimi-glm-bookkeeping-lora",
-          "url": "https://huggingface.co/gsultani/llama31-8b-kimi-glm-bookkeeping-lora",
+          "title": "Hugging Face model updated: SixVolts/GLM-5.2-ewaste-edition-GGUF",
+          "url": "https://huggingface.co/SixVolts/GLM-5.2-ewaste-edition-GGUF",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: zai-org/GLM-5.3-Flash",
-          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+          "title": "Hugging Face model updated: SixVolts/GLM-5.3-ewaste-edition-GGUF",
+          "url": "https://huggingface.co/SixVolts/GLM-5.3-ewaste-edition-GGUF",
           "source_lane": "huggingface_model"
         }
       ],
@@ -42,11 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 9,
+      "hit_count": 11,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image-2.1",
-          "url": "https://github.com/QwenLM/Qwen-Image-2.1",
+          "title": "GitHub repo updated: QwenLM/ParScale",
+          "url": "https://github.com/QwenLM/ParScale",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: QwenLM/Qwen3.8-Flash-Next",
+          "url": "https://github.com/QwenLM/Qwen3.8-Flash-Next",
           "source_lane": "github_release"
         },
         {
@@ -55,19 +60,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/qwen-code-docs",
-          "url": "https://github.com/QwenLM/qwen-code-docs",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: RKNNAI/RK3576-LLM-Qwen2.5-0.5B",
-          "url": "https://huggingface.co/RKNNAI/RK3576-LLM-Qwen2.5-0.5B",
+          "title": "Hugging Face model updated: wutt6678/Qwen3-VL-4B-Instruct-IDUnlearn-Bench-forget5-R2MU",
+          "url": "https://huggingface.co/wutt6678/Qwen3-VL-4B-Instruct-IDUnlearn-Bench-forget5-R2MU",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "comfyanonymous/ComfyUI release: v0.38.0",
-          "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.38.0",
-          "source_lane": "github_release"
+          "title": "Hugging Face model updated: twoody/DeepSeek-R1-0528-Qwen3-8B-GGUF",
+          "url": "https://huggingface.co/twoody/DeepSeek-R1-0528-Qwen3-8B-GGUF",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -79,8 +79,8 @@
       "hit_count": 8,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepEP-Ascend",
-          "url": "https://github.com/deepseek-ai/DeepEP-Ascend",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-OCR",
+          "url": "https://github.com/deepseek-ai/DeepSeek-OCR",
           "source_lane": "github_release"
         },
         {
@@ -89,19 +89,19 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/open-infra-index",
-          "url": "https://github.com/deepseek-ai/open-infra-index",
+          "title": "GitHub repo updated: deepseek-ai/dsh-libreoffice-kit",
+          "url": "https://github.com/deepseek-ai/dsh-libreoffice-kit",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: local-inference-lab/DeepSeek-V4.1-Flash-MXFP4-CSF",
-          "url": "https://huggingface.co/local-inference-lab/DeepSeek-V4.1-Flash-MXFP4-CSF",
-          "source_lane": "huggingface_model"
+          "title": "DeepSeek and Huawei release open-source Ascend AI programming tools to reduce reliance on Nvidia CUDA ecosystem — tools include compute and communication libraries, as well as Ascend support for TileLang",
+          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/deepseek-and-huawei-release-open-source-ascend-ai-programming-tools-to-reduce-reliance-on-nvidia-ecosystem-tools-include-compute-and-communication-libraries-as-well-as-ascend-support-for-tilelang",
+          "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Hugging Face model updated: manateelazycat/DeepSeek-V4-Flash-Vision-Runtime",
-          "url": "https://huggingface.co/manateelazycat/DeepSeek-V4-Flash-Vision-Runtime",
-          "source_lane": "huggingface_model"
+          "title": "DeepSeek acaba de presentar en público la alternativa a CUDA que está construyendo de la mano de Huawei",
+          "url": "https://www.xataka.com/robotica-e-ia/deepseek-acaba-presentar-publico-alternativa-a-cuda-que-esta-construyendo-mano-huawei",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -110,7 +110,7 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 4,
       "top_links": [
         {
           "title": "Hugging Face model updated: local-inference-lab/Kimi-K3-MXFP4-CSF",
@@ -118,24 +118,19 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "OpenRouter model listed: fireworks/ember-1",
-          "url": "https://openrouter.ai/fireworks/ember-1",
-          "source_lane": "model_hub"
-        },
-        {
           "title": "OpenAI Disrupts Reasoning Extraction Campaign Linked to Moonshot AI Associates",
           "url": "https://thehackernews.com/2026/10/openai-disrupts-reasoning-extraction.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "OpenAI acusa a Moonshot AI de lanzar más de 10.000 ataques para descubrir cómo razona ChatGPT",
+          "url": "https://www.infobae.com/tecno/2026/10/01/openai-acusa-a-moonshot-ai-de-lanzar-mas-de-10000-ataques-para-descubrir-como-razona-chatgpt/",
           "source_lane": "frontier_watchlist"
         },
         {
           "title": "OpenAI says actors linked to China-based Moonshot AI spearheaded a campaign to extract its models’ hidden reasoning — logged 16,000 extraction requests across 4,000 accounts before cutoff",
           "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/openai-says-actors-linked-to-moonshot-ai-spearheaded-a-campaign-to-extract-its-models-hidden-reasoning-logged-attempts-peaked-at-16-000-users-over-two-days",
           "source_lane": "model_hub"
-        },
-        {
-          "title": "OpenAI dispara contra los creadores de Kimi por supuestamente copiar su IA",
-          "url": "https://hipertextual.com/inteligencia-artificial/openai-destilacion-kimi/",
-          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -144,21 +139,16 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: Jojocodex/ComfyUI-H3-WushuBridge",
-          "url": "https://huggingface.co/Jojocodex/ComfyUI-H3-WushuBridge",
+          "title": "Hugging Face model updated: addlabsviral/minimax-h3-combined",
+          "url": "https://huggingface.co/addlabsviral/minimax-h3-combined",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: EnExW/Minimax",
-          "url": "https://huggingface.co/EnExW/Minimax",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: EnExW/Minimax-FL2VA",
-          "url": "https://huggingface.co/EnExW/Minimax-FL2VA",
+          "title": "Hugging Face model updated: Shishir1996/Minimax-H3-T2VA-Veda-8NFE-600Step-Preview",
+          "url": "https://huggingface.co/Shishir1996/Minimax-H3-T2VA-Veda-8NFE-600Step-Preview",
           "source_lane": "huggingface_model"
         },
         {
@@ -189,23 +179,23 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
-          "source_lane": "github_release"
-        },
-        {
           "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
           "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: WindstormLabs/hunyuan",
-          "url": "https://huggingface.co/WindstormLabs/hunyuan",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo-1.5",
+          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: fal/HunyuanImage-3-Instruct-verbatim-flashpack",
+          "url": "https://huggingface.co/fal/HunyuanImage-3-Instruct-verbatim-flashpack",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: muhammad-taqi512/SLORA-HUNYUAN",
-          "url": "https://huggingface.co/muhammad-taqi512/SLORA-HUNYUAN",
+          "title": "Hugging Face model updated: WindstormLabs/hunyuan",
+          "url": "https://huggingface.co/WindstormLabs/hunyuan",
           "source_lane": "huggingface_model"
         }
       ],
@@ -231,8 +221,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/agentlego",
-          "url": "https://github.com/InternLM/agentlego",
+          "title": "GitHub repo updated: InternLM/MindSearch",
+          "url": "https://github.com/InternLM/MindSearch",
           "source_lane": "github_release"
         },
         {
@@ -266,8 +256,18 @@
       "hit_count": 6,
       "top_links": [
         {
+          "title": "Hugging Face model updated: black-forest-labs/flux-3-action-base",
+          "url": "https://huggingface.co/black-forest-labs/flux-3-action-base",
+          "source_lane": "huggingface_model"
+        },
+        {
           "title": "Hugging Face model updated: juergengunz/fluxer",
           "url": "https://huggingface.co/juergengunz/fluxer",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: Ballsworthy/flux-belle-princess",
+          "url": "https://huggingface.co/Ballsworthy/flux-belle-princess",
           "source_lane": "huggingface_model"
         },
         {
@@ -279,16 +279,6 @@
           "title": "Hugging Face model updated: black-forest-labs/flux-3-action-droid",
           "url": "https://huggingface.co/black-forest-labs/flux-3-action-droid",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: black-forest-labs/flux-3-action-so101",
-          "url": "https://huggingface.co/black-forest-labs/flux-3-action-so101",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Resident Evil 5 and 6 Remakes Seemingly Confirmed by Capcom Exec",
-          "url": "https://www.techpowerup.com/353276/resident-evil-5-and-6-remakes-seemingly-confirmed-by-capcom-exec",
-          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -297,11 +287,16 @@
       "entity": "ComfyUI",
       "priority": "critical",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 4,
       "top_links": [
         {
           "title": "Hugging Face model updated: PacifistH/ComfyUI-Mila-Sync",
           "url": "https://huggingface.co/PacifistH/ComfyUI-Mila-Sync",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: dnotme/ComfyUI",
+          "url": "https://huggingface.co/dnotme/ComfyUI",
           "source_lane": "huggingface_model"
         },
         {
@@ -324,14 +319,14 @@
       "hit_count": 4,
       "top_links": [
         {
+          "title": "Steam Frame OS Update Extends Battery Life by up to 12%",
+          "url": "https://www.techpowerup.com/353315/steam-frame-os-update-extends-battery-life-by-up-to-12",
+          "source_lane": "frontier_watchlist"
+        },
+        {
           "title": "Hugging Face model updated: DarkKnight1217/RunwayGuard-rtdetr-l",
           "url": "https://huggingface.co/DarkKnight1217/RunwayGuard-rtdetr-l",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Infineon Advances USB 20 Gbps Ecosystem with PCIe Reference Design for 5-Meter Cabling and 36W Power Delivery",
-          "url": "https://www.techpowerup.com/353247/infineon-advances-usb-20-gbps-ecosystem-with-pcie-reference-design-for-5-meter-cabling-and-36w-power-delivery",
-          "source_lane": "frontier_watchlist"
         },
         {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
@@ -350,30 +345,19 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
-      "top_links": [
-        {
-          "title": "Google's early attempt to pay websites for AI answers is struggling",
-          "url": "https://arstechnica.com/google/2026/09/google-is-paying-100-websites-for-contributions-to-ai-overviews-but-the-amounts-are-tiny/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "BNP PARIBAS",
-          "url": "https://infotechlead.com/security/ciso-strategy-2026-how-enterprises-are-tackling-ai-agents-cyberattacks-and-quantum-risks-98550",
-          "source_lane": "image_video_workflow"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 9,
+      "hit_count": 4,
       "top_links": [
         {
-          "title": "Forget coffee pods — Lavazza’s new Tabli uses 100% compressed coffee tablets for a more eco-friendly brew, and the flavor beats Nespresso hands-down",
-          "url": "https://www.techradar.com/home/coffee-machines/hands-on-with-the-lavazza-tabli-the-pod-free-espresso-maker-that-swaps-wasteful-capsules-for-compressed-100-percent-coffee-tablets-and-they-actually-taste-great",
+          "title": "Google’s new Guided Vision feature can help you read the fine print",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1003756/google-gemini-live-guided-vision",
           "source_lane": "frontier_watchlist"
         },
         {
@@ -387,14 +371,9 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "Apple's new CEO wants to move faster, cut jobs, and squeeze more out of services",
-          "url": "https://www.techspot.com/news/114038-apple-new-ceo-wants-move-faster-cut-jobs.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Florida attorney general asks judge to bar OpenAI from developing new AI models without third-party approval — OpenAI says it already paused training its most capable models last week",
-          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/florida-attorney-general-asks-judge-to-bar-openai-from-developing-new-ai-models-without-third-party-approval-openai-says-it-already-paused-training-its-most-capable-models-last-week",
-          "source_lane": "model_hub"
+          "title": "run-llama/llama_index release: v0.14.24",
+          "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.24",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -403,16 +382,11 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 1,
       "top_links": [
         {
-          "title": "Data resiliency: how Oracle protects enterprise data - SiliconANGLE",
-          "url": "https://siliconangle.com/2026/09/30/data-resiliency-oracle-cyberattacks-thecube-oraclaicybersecurity/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Is Neko Health’s body scan worth it? Spotify billionaire’s startup has come to America | TechCrunch",
-          "url": "https://techcrunch.com/video/is-neko-healths-body-scan-worth-it-spotify-billionaires-startup-has-come-to-america/",
+          "title": "Après l'IA, une nouvelle crise de la RAM se profile à cause d'une technologie en plein essor",
+          "url": "https://www.clubic.com/actualite-632170-apres-l-ia-une-nouvelle-crise-de-la-ram-se-profile-a-cause-d-une-technologie-en-plein-essor.html",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -422,7 +396,7 @@
       "entity": "OpenRouter",
       "priority": "high",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 8,
       "top_links": [
         {
           "title": "OpenRouter model listed: unbiased/pareto-26.10-preview",
@@ -464,11 +438,21 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 12,
+      "hit_count": 15,
       "top_links": [
         {
           "title": "Fall Into 25 New Games on GeForce NOW This October",
           "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-october-2026-games-list/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Hackers robaron los datos de más de tres millones de militares estadounidenses durante nueve meses",
+          "url": "https://www.infobae.com/tecno/2026/10/01/hackers-robaron-los-datos-de-mas-de-tres-millones-de-militares-estadounidenses-durante-nueve-meses/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Suivez en direct le décollage de SpaceX Crew-13, en attendant le retour de Sophie Adenot",
+          "url": "https://www.numerama.com/sciences/2344325-suivez-en-direct-le-decollage-de-spacex-crew-13-en-attendant-le-retour-de-sophie-adenot.html",
           "source_lane": "frontier_watchlist"
         },
         {
@@ -479,16 +463,6 @@
         {
           "title": "AI is getting cheaper faster than almost any technology in history",
           "url": "https://www.techspot.com/news/114055-cost-ai-performance-falling-fast-could-reshape-entire.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Bill Gates says robots should pay FICA taxes when they replace human workers",
-          "url": "https://www.techspot.com/news/114059-bill-gates-robots-pay-fica-taxes-when-they.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "„Wie biologische Überbrückungskabel“: So wollen Forscher Querschnittsgelähmten helfen",
-          "url": "https://t3n.de/news/therapien-bei-querschnittslaehmung-wie-forscher-um-jede-kleine-bewegung-kaempfen-1765543/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -501,8 +475,8 @@
       "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/modelcontextprotocol",
-          "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+          "title": "GitHub repo updated: modelcontextprotocol/quickstart-resources",
+          "url": "https://github.com/modelcontextprotocol/quickstart-resources",
           "source_lane": "github_release"
         },
         {
@@ -511,18 +485,18 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
-          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/swift-sdk",
+          "url": "https://github.com/modelcontextprotocol/swift-sdk",
           "source_lane": "github_release"
-        },
-        {
-          "title": "En plus de l'Arizona, TSMC préparerait un nouveau méga-site de production au Texas",
-          "url": "https://www.clubic.com/actualite-632107-en-plus-de-l-arizona-tsmc-preparerait-un-nouveau-mega-site-de-production-au-texas.html",
-          "source_lane": "frontier_watchlist"
         },
         {
           "title": "modelcontextprotocol/registry release: v1.8.0",
           "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.0",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "modelcontextprotocol/registry release: v1.8.1",
+          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.1",
           "source_lane": "github_release"
         }
       ],
@@ -565,29 +539,17 @@
       "entity": "Cursor",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "Cursor Uses S3 WAL to Scale Git Storage to More than 300 Pushes per Second",
-          "url": "https://www.infoq.com/news/2026/09/cursor-continuity-git-storage/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "Metaview wants to eliminate recruiting grunt work and speed up hiring after raising $60M - SiliconANGLE",
-          "url": "https://siliconangle.com/2026/09/30/metaview-wants-to-eliminate-recruiting-grunt-work-and-speed-up-hiring-after-raising-60m-in-funding/",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "OpenHands",
