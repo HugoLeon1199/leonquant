@@ -1,17 +1,17 @@
 {
   "schema_version": "tech-gdelt-72h-v1",
-  "generated_at_utc": "2026-10-02T07:06:49.373903+00:00",
+  "generated_at_utc": "2026-10-02T13:56:37.702245+00:00",
   "query_window_hours": 72,
-  "estimated_bytes": 1452111155,
-  "processed_bytes": 1452111155,
+  "estimated_bytes": 1650141113,
+  "processed_bytes": 1650141113,
   "bytes_status": "known",
   "ran_successfully": true,
   "reused_previous_events": false,
-  "fresh_event_count": 53,
+  "fresh_event_count": 56,
   "previous_events_age_hours": 0,
   "raw_event_count": 120,
-  "ai_filtered_event_count": 53,
-  "rejected_non_ai_count": 67,
+  "ai_filtered_event_count": 56,
+  "rejected_non_ai_count": 64,
   "events": [
     {
       "event_id": "1325529938",
@@ -59,11 +59,11 @@
         "https://www.2lt.com.au/australian-senate-seeks-testimony-from-openai-anthropic-ceos/",
         "http://www.singaporestar.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
         "http://www.newyorkstatesman.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
+        "http://www.memphissun.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
+        "http://www.brazilsun.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
         "http://www.nigeriasun.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
         "http://www.jamaicantimes.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
-        "http://www.brazilsun.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
-        "http://www.memphissun.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe",
-        "http://www.taiwansun.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe"
+        "http://www.caribbeanherald.com/news/279334917/openai-anthropic-chiefs-asked-to-appear-at-australian-probe"
       ],
       "source_count": 69,
       "independent_domain_count": 20,
@@ -92,7 +92,7 @@
     {
       "event_id": "1325715989",
       "title": "BUSINESS",
-      "summary": "Tín hiệu tổ chức: American Express,428;American Express,641;American Express,1780;Aaron,2191;Aaron,4395;Fiserv,3489;Square Financial Services,3902;Efficiency Through Automated Solutions,484;Halifax . Công ty liên quan: Google, Meta, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Kotak Mahindra Bank,91;Kotak Mahindra Bank,479;Kotak Mahindra Bank,2033;Kotak Mahindra Bank,2427;Aaron,2191;Aaron,4395;Fiserv,3489;Square Financial Services,3902;Us Navy,2480;Unite. Công ty liên quan: Google, Meta, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.potatopro.com/news/2026/deprez-announces-commercial-partnership-exeter-engineering",
         "https://www.americanbanker.com/payments/news/stripe-agrees-to-acquire-small-business-lender-parafin",
@@ -128,6 +128,43 @@
       "avg_tone": 1.35364410123443,
       "num_articles": 20,
       "primary_url": "https://www.americanbanker.com/payments/news/amex-plans-agentic-ai-tools-for-business-clients"
+    },
+    {
+      "event_id": "1325901666",
+      "title": "CANADIAN",
+      "summary": "Tín hiệu tổ chức: Kennedy Space Center,1863;Canadian Space Agency,2665;Canadian Space Agency,3705;Canadian Space Agency,4358;Canadian Space Agency,4557;Canadian Space Agency,2279;Canadian Space Agen. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.cbc.ca/news/canada/sudbury/defamation-lawyer-legal-civil-residential-school-9.7366403",
+        "https://www.chroniclejournal.com/news/national/canadian-astronaut-reaches-international-space-station-for-six-month-mission/article_8e8d02fa-b583-562b-bf5b-8d2305f61f0a.html",
+        "https://globalnews.ca/news/12085087/kutryk-astronaut-international-space-station/",
+        "https://lethbridgeherald.com/news/national-news/2026/10/01/canadian-astronaut-reaches-international-space-station-for-six-month-mission/",
+        "https://www.kelownadailycourier.ca/news/national_news/article_e3dca7cd-a6b2-5728-a303-fb1b3526f1fb.html",
+        "https://www.wellandtribune.ca/business/canadian-astronaut-joshua-kutryk-set-to-launch-to-international-space-station/article_26770116-a375-56df-babd-d8290e68c1a7.html",
+        "https://medicinehatnews.com/news/national-news/2026/10/01/canadian-astronaut-reaches-international-space-station-for-six-month-mission/",
+        "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
+      ],
+      "source_count": 8,
+      "independent_domain_count": 8,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "Google"
+      ],
+      "signal_keywords": [
+        "agent"
+      ],
+      "reported_at": "20261002000000",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": -1.96428571428571,
+      "num_articles": 10,
+      "primary_url": "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
     },
     {
       "event_id": "1325714858",
@@ -171,45 +208,9 @@
       "primary_url": "https://techcrunch.com/2026/09/30/google-releases-gemini-4-argon-called-its-most-powerful-model-yet/"
     },
     {
-      "event_id": "1325901666",
-      "title": "CANADIAN",
-      "summary": "Tín hiệu tổ chức: Canadian Space Agency,2234;Canadian Space Agency,3299;Canadian Space Agency,3947;Canadian Space Agency,4132;Kennedy Space Center,1439;Canadian Space Agency,2491;Canadian Space Agen. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://globalnews.ca/news/12085087/kutryk-astronaut-international-space-station/",
-        "https://www.chroniclejournal.com/news/national/canadian-astronaut-reaches-international-space-station-for-six-month-mission/article_8e8d02fa-b583-562b-bf5b-8d2305f61f0a.html",
-        "https://lethbridgeherald.com/news/national-news/2026/10/01/canadian-astronaut-reaches-international-space-station-for-six-month-mission/",
-        "https://www.kelownadailycourier.ca/news/national_news/article_e3dca7cd-a6b2-5728-a303-fb1b3526f1fb.html",
-        "https://www.wellandtribune.ca/business/canadian-astronaut-joshua-kutryk-set-to-launch-to-international-space-station/article_26770116-a375-56df-babd-d8290e68c1a7.html",
-        "https://medicinehatnews.com/news/national-news/2026/10/01/canadian-astronaut-reaches-international-space-station-for-six-month-mission/",
-        "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
-      ],
-      "source_count": 7,
-      "independent_domain_count": 7,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20261002000000",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": -1.96428571428571,
-      "num_articles": 10,
-      "primary_url": "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
-    },
-    {
       "event_id": "1325721126",
       "title": "ADMINISTRATION - GOOGLE",
-      "summary": "Tín hiệu tổ chức: Reuters,1851;Google,37;Google,276;Google,553;Google,1032;Google,1066;Google,1252;Google,1638;Google,1681;Google,16;Google,256;Google,532;Google,15;Google,254;Google,571;Google,1082. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, robotics",
+      "summary": "Tín hiệu tổ chức: Reuters,1851;Google,37;Google,276;Google,553;Google,1032;Google,1066;Google,1252;Google,1638;Google,1681;Google,16;Google,287;Google,604;Google,1124;Google,1166;Google,1360;Google,. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, robotics",
       "source_urls": [
         "https://tribune.com.pk/story/2632456/google-announces-gemini-4-flagship-ai-model-after-months-of-delays",
         "https://www.thehindubusinessline.com/info-tech/google-launches-new-ai-model-to-anchor-gemini-4-after-months-of-delays/article71531297.ece",
@@ -247,8 +248,8 @@
       "summary": "Tín hiệu tổ chức: Commission Joint To Rural To Start,534. Chủ đề: model_agent_moi",
       "source_urls": [
         "https://www.eldiariomontanes.es/economia/banca/llama-sector-banca-movilizarse-docena-ciudades-20261001103553-ntrc.html",
-        "https://www.diariosur.es/economia/banca/llama-sector-banca-movilizarse-docena-ciudades-20261001103553-ntrc.html",
-        "https://www.ideal.es/economia/banca/llama-sector-banca-movilizarse-docena-ciudades-20261001103553-ntrc.html"
+        "https://www.ideal.es/economia/banca/llama-sector-banca-movilizarse-docena-ciudades-20261001103553-ntrc.html",
+        "https://www.diariosur.es/economia/banca/llama-sector-banca-movilizarse-docena-ciudades-20261001103553-ntrc.html"
       ],
       "source_count": 3,
       "independent_domain_count": 3,
@@ -300,12 +301,78 @@
       "primary_url": "https://www.cnbc.com/2026/10/02/interpol-cyberattack-cyberthreat-agentic-ai.html"
     },
     {
+      "event_id": "1325904753",
+      "title": "GOOGLE",
+      "summary": "Tín hiệu tổ chức: Bloomberg,315;Bloomberg,756;Google,259;Google,341;Google,498;Google,527;Google,558;Google,702;Google,1087;Google Fairwind Program,515;Huawei,872;Facebook,986;Google,275;Google,73;G. Công ty liên quan: Google, Huawei. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://fortune.com/2026/10/02/google-journey-back-to-ai-frontier/",
+        "https://www.thestar.com.my/tech/tech-news/2026/10/02/mydigital-id-app-now-supports-new-mykad-for-registrations",
+        "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
+      ],
+      "source_count": 3,
+      "independent_domain_count": 3,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google",
+        "Huawei"
+      ],
+      "signal_keywords": [
+        "automation",
+        "gemini"
+      ],
+      "reported_at": "20261002001500",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.27703984819734,
+      "num_articles": 10,
+      "primary_url": "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
+    },
+    {
+      "event_id": "1325904754",
+      "title": "GOOGLE",
+      "summary": "Tín hiệu tổ chức: Google,6;Google,188;Google,216;Google,294;Google,503;Google,695;Google,972;Google,1316;Google,1370;Google,1804;Google,2026;Google,2244;Google,2267;Google,2919;Google,2994;Google,30. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://fortune.com/2026/10/02/google-journey-back-to-ai-frontier/",
+        "https://infotechlead.com/artificial-intelligence/google-gemini-4-argon-targets-enterprise-ai-with-coding-cybersecurity-and-cost-strategy-98603",
+        "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
+      ],
+      "source_count": 3,
+      "independent_domain_count": 3,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google"
+      ],
+      "signal_keywords": [
+        "agent",
+        "automation",
+        "gemini"
+      ],
+      "reported_at": "20261002001500",
+      "freshness_hours": 72,
+      "hot_candidate": true,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.27703984819734,
+      "num_articles": 10,
+      "primary_url": "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
+    },
+    {
       "event_id": "1325892912",
       "title": "NVIDIA",
-      "summary": "Tín hiệu tổ chức: Agency Source,3797;Nvidia,1066;Software Announcements,311;Software Announcements,3695;Software Warnings,3977;Software Announcements,311;Software Announcements,3695;Software Warning. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Software Announcements,311;Software Announcements,3695;Software Warnings,3977;Nvidia,1066;Agency Source,3797;Agency Source,3797;Nvidia,1066;Software Announcements,311;Software Anno. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://www.newswiretoday.com/news/186982/",
-        "https://www.newswiretoday.com/news/186982/Sidero-Labs-Introduces-Talos-Linux-for-AI-and-Talos-Cupar-for-Running-Sovereign-AI-on-Private-Infrastructure/"
+        "https://www.newswiretoday.com/news/186982/Sidero-Labs-Introduces-Talos-Linux-for-AI-and-Talos-Cupar-for-Running-Sovereign-AI-on-Private-Infrastructure/",
+        "https://www.newswiretoday.com/news/186982/"
       ],
       "source_count": 2,
       "independent_domain_count": 1,
@@ -327,37 +394,6 @@
       "avg_tone": 2.4045261669024,
       "num_articles": 20,
       "primary_url": "https://www.newswiretoday.com/news/186982/Sidero-Labs-Introduces-Talos-Linux-for-AI-and-Talos-Cupar-for-Running-Sovereign-AI-on-Private-Infrastructure/"
-    },
-    {
-      "event_id": "1325904753",
-      "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: Huawei,872;Facebook,986;Google,275;Google,73;Google,261;Google,412;Google,666;Google,834;Google,1141;Google,1224;Google,1606;Google,1980;Google,2167;Google,2526;Google,3095;Google,. Công ty liên quan: Google, Huawei. Chủ đề: model_agent_moi, cybersecurity",
-      "source_urls": [
-        "https://www.thestar.com.my/tech/tech-news/2026/10/02/mydigital-id-app-now-supports-new-mykad-for-registrations",
-        "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
-      ],
-      "source_count": 2,
-      "independent_domain_count": 2,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity"
-      ],
-      "company_tags": [
-        "Google",
-        "Huawei"
-      ],
-      "signal_keywords": [
-        "automation",
-        "gemini"
-      ],
-      "reported_at": "20261002001500",
-      "freshness_hours": 72,
-      "hot_candidate": true,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.27703984819734,
-      "num_articles": 10,
-      "primary_url": "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
     },
     {
       "event_id": "1325799858",
@@ -483,7 +519,7 @@
     {
       "event_id": "1325741511",
       "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: White House,3100;Spacex,1520;Reuters,1806;Reuters,4270;White House,3897;Google,6;Google,212;Google,433;Google,643;Google,939;Google,1274;Google,1348;Google,1703;Google,1815;Google,. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "summary": "Tín hiệu tổ chức: Reuters,1806;Reuters,4270;White House,3897;Google,6;Google,212;Google,433;Google,643;Google,939;Google,1274;Google,1348;Google,1703;Google,1815;Google,2129;Google,2277;Google,2858;. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.fredzone.org/reorientation-semantique-de-lintelligence-artificielle-par-lexecutif-americain/",
         "https://www.moneycontrol.com/technology/google-unveils-gemini-4-argon-ai-model-restricts-access-to-cybersecurity-experts-over-hacking-risks-article-14042354.html"
@@ -604,32 +640,384 @@
       "primary_url": "https://www.bostonglobe.com/2026/09/30/business/ai-agents-amazon-insurify-wayfair/"
     },
     {
-      "event_id": "1325683478",
-      "title": "THIEVES",
-      "summary": "Tín hiệu tổ chức: Department Of Homeland Security,35;Trump Administration,234. Công ty liên quan: NVIDIA. Chủ đề: chip_ha_tang",
+      "event_id": "1326001517",
+      "title": "PARLIAMENT",
+      "summary": "Tín hiệu tổ chức: Malawi Congress Party,871;Malawi Congress Party,2539. Công ty liên quan: MCP. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
-        "https://www.breitbart.com/politics/2026/09/30/exclusive-dhs-adds-5000-more-criminal-illegal-aliens-public-database-including-convictred-killers-sex-offenders-gang-members/",
-        "https://www.dagospia.com/cronache/nvidia-e-brutta-bestia-banda-ladri-assalta-camion-colosso-tech-488652"
+        "https://www.nyasatimes.com/mcp-power-struggle-why-toppling-chithyola-banda-is-step-one-to-ousting-chakwera/"
       ],
-      "source_count": 2,
-      "independent_domain_count": 2,
+      "source_count": 1,
+      "independent_domain_count": 1,
       "official_source_present": false,
       "topic_tags": [
-        "chip_ha_tang"
+        "chinh_sach_cuoc_dua_toan_cau"
       ],
       "company_tags": [
-        "NVIDIA"
+        "MCP"
       ],
       "signal_keywords": [
-        "nvidia"
+        "mcp"
       ],
-      "reported_at": "20260930190000",
+      "reported_at": "20261002134500",
       "freshness_hours": 72,
-      "hot_candidate": true,
+      "hot_candidate": false,
       "pool_kind": "pool_a",
-      "avg_tone": -4.56852791878172,
+      "avg_tone": -6.47482014388489,
       "num_articles": 10,
-      "primary_url": "https://www.dagospia.com/cronache/nvidia-e-brutta-bestia-banda-ladri-assalta-camion-colosso-tech-488652"
+      "primary_url": "https://www.nyasatimes.com/mcp-power-struggle-why-toppling-chithyola-banda-is-step-one-to-ousting-chakwera/"
+    },
+    {
+      "event_id": "1325998146",
+      "title": "GOOGLE",
+      "summary": "Tín hiệu tổ chức: Google,6;Google,148;Google,415;Google,747;Google,1397;Google,1641;Google,1699;Google,1931;Google,2256;Google,2718;Google,3461;Google,3494;Google,3849;Google,4054;Google,4253;Google. Công ty liên quan: Google, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.business-standard.com/technology/artificial-intelligence/from-coding-to-cyber-defence-what-makes-google-s-gemini-4-argon-different-126100200530_1.html"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "gemini"
+      ],
+      "reported_at": "20261002131500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 1.78571428571429,
+      "num_articles": 10,
+      "primary_url": "https://www.business-standard.com/technology/artificial-intelligence/from-coding-to-cyber-defence-what-makes-google-s-gemini-4-argon-different-126100200530_1.html"
+    },
+    {
+      "event_id": "1325986948",
+      "title": "REUTERS - COMPANY",
+      "summary": "Tín hiệu tổ chức: Fairwind Program,758;Fairwind Program,4131;Reuters,1130;Enterprise Workloads Take Center Stage,2833;Google,24;Google,195;Google,210;Google,513;Google,839;Google,944;Google,994;Goog. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.itechpost.com/articles/237478/20261002/google-announces-gemini-4-argon-ai-model-after-months-delays-major-new-capabilities.htm"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google"
+      ],
+      "signal_keywords": [
+        "model",
+        "agent",
+        "automation",
+        "gemini"
+      ],
+      "reported_at": "20261002120000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 2.05761316872428,
+      "num_articles": 10,
+      "primary_url": "https://www.itechpost.com/articles/237478/20261002/google-announces-gemini-4-argon-ai-model-after-months-delays-major-new-capabilities.htm"
+    },
+    {
+      "event_id": "1325986950",
+      "title": "THE ASSOCIATED PRESS - WEBSITE",
+      "summary": "Tín hiệu tổ chức: Reuters,5462;Associated Press,5941;Exchange Commission,6092. Công ty liên quan: OpenAI. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.itechpost.com/articles/237479/20261002/openai-warns-over-100-organizations-about-misaligned-ai-agent-activity.htm"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "OpenAI"
+      ],
+      "signal_keywords": [
+        "agent",
+        "openai"
+      ],
+      "reported_at": "20261002120000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 0.0,
+      "num_articles": 10,
+      "primary_url": "https://www.itechpost.com/articles/237479/20261002/openai-warns-over-100-organizations-about-misaligned-ai-agent-activity.htm"
+    },
+    {
+      "event_id": "1325982140",
+      "title": "COMPANY",
+      "summary": "Công ty liên quan: OpenAI. Chủ đề: model_agent_moi",
+      "source_urls": [
+        "https://www.freepressjournal.in/tech/openai-alerts-over-100-organisations-about-unauthorised-ai-agent-activity-reviews-50-petabytes-of-data"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi"
+      ],
+      "company_tags": [
+        "OpenAI"
+      ],
+      "signal_keywords": [
+        "agent",
+        "openai"
+      ],
+      "reported_at": "20261002113000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -2.02312138728324,
+      "num_articles": 10,
+      "primary_url": "https://www.freepressjournal.in/tech/openai-alerts-over-100-organisations-about-unauthorised-ai-agent-activity-reviews-50-petabytes-of-data"
+    },
+    {
+      "event_id": "1325978431",
+      "title": "GOVERNMENT",
+      "summary": "Tín hiệu tổ chức: Home Affairs,2551;Wildlife Service,428;Australian Institute Of Health,1611;Victorian Department Of Health,1572;Department Of Climate,1073;News Corp Australia,1041;Services Australi. Công ty liên quan: OpenAI. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.perthnow.com.au/news/nsw-government-launches-cyber-probe-after-rogue-openai-model-breaches-national-parks-system-c-22962430"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "OpenAI"
+      ],
+      "signal_keywords": [
+        "model",
+        "agent",
+        "openai"
+      ],
+      "reported_at": "20261002110000",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -0.88691796008869,
+      "num_articles": 10,
+      "primary_url": "https://www.perthnow.com.au/news/nsw-government-launches-cyber-probe-after-rogue-openai-model-breaches-national-parks-system-c-22962430"
+    },
+    {
+      "event_id": "1325967440",
+      "title": "GOOGLE",
+      "summary": "Tín hiệu tổ chức: Google,6;Google,188;Google,216;Google,294;Google,503;Google,695;Google,972;Google,1316;Google,1370;Google,1804;Google,2026;Google,2244;Google,2267;Google,2919;Google,2994;Google,30. Công ty liên quan: Google, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://infotechlead.com/artificial-intelligence/google-gemini-4-argon-targets-enterprise-ai-with-coding-cybersecurity-and-cost-strategy-98603"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent",
+        "gemini"
+      ],
+      "reported_at": "20261002094500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 5.11307767944936,
+      "num_articles": 10,
+      "primary_url": "https://infotechlead.com/artificial-intelligence/google-gemini-4-argon-targets-enterprise-ai-with-coding-cybersecurity-and-cost-strategy-98603"
+    },
+    {
+      "event_id": "1325968071",
+      "title": "GOOGLE",
+      "summary": "Tín hiệu tổ chức: Google,6;Google,188;Google,216;Google,294;Google,503;Google,695;Google,972;Google,1316;Google,1370;Google,1804;Google,2026;Google,2244;Google,2267;Google,2919;Google,2994;Google,30. Công ty liên quan: Google, Intel. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://infotechlead.com/artificial-intelligence/google-gemini-4-argon-targets-enterprise-ai-with-coding-cybersecurity-and-cost-strategy-98603"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "model_agent_moi",
+        "cybersecurity",
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Google",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "agent",
+        "gemini"
+      ],
+      "reported_at": "20261002094500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 5.11307767944936,
+      "num_articles": 10,
+      "primary_url": "https://infotechlead.com/artificial-intelligence/google-gemini-4-argon-targets-enterprise-ai-with-coding-cybersecurity-and-cost-strategy-98603"
+    },
+    {
+      "event_id": "1325967379",
+      "title": "BRISBANE",
+      "summary": "Tín hiệu tổ chức: Australian Bureau Of Statistics,1784. Công ty liên quan: Runway. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.pedestrian.tv/style/dangerous-females-brisbane-fashion-month-fundraising-runway"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Runway"
+      ],
+      "signal_keywords": [
+        "runway"
+      ],
+      "reported_at": "20261002094500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -3.72578241430701,
+      "num_articles": 10,
+      "primary_url": "https://www.pedestrian.tv/style/dangerous-females-brisbane-fashion-month-fundraising-runway"
+    },
+    {
+      "event_id": "1325967508",
+      "title": "BRISBANE",
+      "summary": "Tín hiệu tổ chức: Australian Bureau Of Statistics,1784. Công ty liên quan: Runway. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
+      "source_urls": [
+        "https://www.pedestrian.tv/style/dangerous-females-brisbane-fashion-month-fundraising-runway"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau"
+      ],
+      "company_tags": [
+        "Runway"
+      ],
+      "signal_keywords": [
+        "runway"
+      ],
+      "reported_at": "20261002094500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": -3.72578241430701,
+      "num_articles": 10,
+      "primary_url": "https://www.pedestrian.tv/style/dangerous-females-brisbane-fashion-month-fundraising-runway"
+    },
+    {
+      "event_id": "1325959015",
+      "title": "INVESTOR - INTELLIGENCE",
+      "summary": "Tín hiệu tổ chức: Softbank,8;Softbank,261;Softbank,481;Softbank,559;Softbank,725;Softbank,849;Softbank,991;Softbank,1475;Softbank,1675;Softbank,1974;Softbank,2113;Softbank Group,14;Softbank Group,26. Công ty liên quan: OpenAI, Intel. Chủ đề: chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "source_urls": [
+        "http://www.econotimes.com/SoftBank-Shares-Fall-After-10-Billion-OpenAI-Investment-1753761"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "OpenAI",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "openai"
+      ],
+      "reported_at": "20261002084500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 1.23839009287926,
+      "num_articles": 10,
+      "primary_url": "http://www.econotimes.com/SoftBank-Shares-Fall-After-10-Billion-OpenAI-Investment-1753761"
+    },
+    {
+      "event_id": "1325959014",
+      "title": "INVESTOR - INTELLIGENCE",
+      "summary": "Tín hiệu tổ chức: Softbank,8;Softbank,261;Softbank,481;Softbank,559;Softbank,725;Softbank,849;Softbank,991;Softbank,1475;Softbank,1675;Softbank,1974;Softbank,2113;Softbank Group,14;Softbank Group,26. Công ty liên quan: OpenAI, Intel. Chủ đề: chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "source_urls": [
+        "http://www.econotimes.com/SoftBank-Shares-Fall-After-10-Billion-OpenAI-Investment-1753761"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "OpenAI",
+        "Intel"
+      ],
+      "signal_keywords": [
+        "openai"
+      ],
+      "reported_at": "20261002084500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 1.23839009287926,
+      "num_articles": 10,
+      "primary_url": "http://www.econotimes.com/SoftBank-Shares-Fall-After-10-Billion-OpenAI-Investment-1753761"
+    },
+    {
+      "event_id": "1325958999",
+      "title": "CONGLOMERATE",
+      "summary": "Tín hiệu tổ chức: Softbank,8;Softbank,261;Softbank,481;Softbank,559;Softbank,725;Softbank,849;Softbank,991;Softbank,1475;Softbank,1675;Softbank,1974;Softbank,2113;Softbank Group,14;Softbank Group,26. Công ty liên quan: OpenAI. Chủ đề: chinh_sach_cuoc_dua_toan_cau, radar_khu_vuc",
+      "source_urls": [
+        "http://www.econotimes.com/SoftBank-Shares-Fall-After-10-Billion-OpenAI-Investment-1753761"
+      ],
+      "source_count": 1,
+      "independent_domain_count": 1,
+      "official_source_present": false,
+      "topic_tags": [
+        "chinh_sach_cuoc_dua_toan_cau",
+        "radar_khu_vuc"
+      ],
+      "company_tags": [
+        "OpenAI"
+      ],
+      "signal_keywords": [
+        "openai"
+      ],
+      "reported_at": "20261002084500",
+      "freshness_hours": 72,
+      "hot_candidate": false,
+      "pool_kind": "pool_a",
+      "avg_tone": 1.23839009287926,
+      "num_articles": 10,
+      "primary_url": "http://www.econotimes.com/SoftBank-Shares-Fall-After-10-Billion-OpenAI-Investment-1753761"
     },
     {
       "event_id": "1325948645",
@@ -802,35 +1190,6 @@
       "primary_url": "https://www.investmentwatchblog.com/sam-altman-releases-personal-ai-agent-google-releases-argon-ai-does-this-look-like-any-of-these-companies-are-slowing-down/"
     },
     {
-      "event_id": "1325904754",
-      "title": "GOOGLE",
-      "summary": "Tín hiệu tổ chức: Google,73;Google,261;Google,412;Google,666;Google,834;Google,1141;Google,1224;Google,1606;Google,1980;Google,2167;Google,2526;Google,3095;Google,3411. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity",
-      "source_urls": [
-        "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "automation",
-        "gemini"
-      ],
-      "reported_at": "20261002001500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 2.27703984819734,
-      "num_articles": 10,
-      "primary_url": "https://americanbazaaronline.com/2026/10/01/google-unveils-gemini-4-argon-with-coding-and-security-capabilities-489212/"
-    },
-    {
       "event_id": "1325902303",
       "title": "GOVERNMENT - CANADIAN",
       "summary": "Tín hiệu tổ chức: United Nations Security Council,2721;Education Department,2548;Medicare Statistics Reporting Service,2301;Google,2074;Google,3268;Canadian Centre For Cyber Security,967;Canadian Ce. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
@@ -860,8 +1219,8 @@
       "primary_url": "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
     },
     {
-      "event_id": "1325901690",
-      "title": "CANADIAN - GOVERNMENT",
+      "event_id": "1325901679",
+      "title": "CANADIAN",
       "summary": "Tín hiệu tổ chức: United Nations Security Council,2721;Education Department,2548;Medicare Statistics Reporting Service,2301;Google,2074;Google,3268;Canadian Centre For Cyber Security,967;Canadian Ce. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
@@ -889,8 +1248,8 @@
       "primary_url": "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
     },
     {
-      "event_id": "1325901679",
-      "title": "CANADIAN",
+      "event_id": "1325901690",
+      "title": "CANADIAN - GOVERNMENT",
       "summary": "Tín hiệu tổ chức: United Nations Security Council,2721;Education Department,2548;Medicare Statistics Reporting Service,2301;Google,2074;Google,3268;Canadian Centre For Cyber Security,967;Canadian Ce. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.stcatharinesstandard.ca/news/canada/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_f38ee924-944e-5da7-bb5e-bf074dd6dc1c.html"
@@ -1122,8 +1481,8 @@
       "primary_url": "https://economictimes.indiatimes.com/news/international/global-trends/ai-agents-can-now-improvise-when-blocked-autonomous-systems-finding-ways-around-digital-barriers-on-their-own-may-be-their-biggest-cybersecurity-risk-yet/articleshow/134625622.cms"
     },
     {
-      "event_id": "1325869836",
-      "title": "NVIDIA",
+      "event_id": "1325869829",
+      "title": "SAMSUNG",
       "summary": "Tín hiệu tổ chức: Blackwell,12178;Qualcomm,8773;Japan Electronics,10577;Intel,3098;Intel,3215;Intel,3605;Intel,11310;Intel,11407;Intel,12378;Intel,14329;Microsoft,12477;Nvidia,8762;Nvidia,9206;Nvidi. Công ty liên quan: Microsoft, NVIDIA, AMD, Intel. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.techtimes.com/articles/328325/20260930/amd-epyc-venice-supply-exhausted-2027-agentic-ai-drives-server-cpu-crunch.htm"
@@ -1156,8 +1515,8 @@
       "primary_url": "https://www.techtimes.com/articles/328325/20260930/amd-epyc-venice-supply-exhausted-2027-agentic-ai-drives-server-cpu-crunch.htm"
     },
     {
-      "event_id": "1325869829",
-      "title": "SAMSUNG",
+      "event_id": "1325869836",
+      "title": "NVIDIA",
       "summary": "Tín hiệu tổ chức: Blackwell,12178;Qualcomm,8773;Japan Electronics,10577;Intel,3098;Intel,3215;Intel,3605;Intel,11310;Intel,11407;Intel,12378;Intel,14329;Microsoft,12477;Nvidia,8762;Nvidia,9206;Nvidi. Công ty liên quan: Microsoft, NVIDIA, AMD, Intel. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://www.techtimes.com/articles/328325/20260930/amd-epyc-venice-supply-exhausted-2027-agentic-ai-drives-server-cpu-crunch.htm"
@@ -1273,8 +1632,8 @@
       "primary_url": "https://www.insidearm.com/news/00096152-tcn-acquires-abstrakt-to-expand-ai-agent/"
     },
     {
-      "event_id": "1325847058",
-      "title": "MISSOURI",
+      "event_id": "1325846741",
+      "title": "WEBSITE - REGULATOR",
       "summary": "Tín hiệu tổ chức: Openai Research,2843;Reuters,1674;Daily Caller News Foundation,2464;Canadian Centre For Cyber Security,1392. Công ty liên quan: OpenAI. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://dailycaller.com/2026/10/01/canada-ai-agents-archives-website-hacking-attempt-australia-hugging-face/"
@@ -1303,8 +1662,8 @@
       "primary_url": "https://dailycaller.com/2026/10/01/canada-ai-agents-archives-website-hacking-attempt-australia-hugging-face/"
     },
     {
-      "event_id": "1325846741",
-      "title": "WEBSITE - REGULATOR",
+      "event_id": "1325847058",
+      "title": "MISSOURI",
       "summary": "Tín hiệu tổ chức: Openai Research,2843;Reuters,1674;Daily Caller News Foundation,2464;Canadian Centre For Cyber Security,1392. Công ty liên quan: OpenAI. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
       "source_urls": [
         "https://dailycaller.com/2026/10/01/canada-ai-agents-archives-website-hacking-attempt-australia-hugging-face/"
@@ -1361,269 +1720,6 @@
       "avg_tone": -2.9126213592233,
       "num_articles": 10,
       "primary_url": "https://dailycaller.com/2026/10/01/canada-ai-agents-archives-website-hacking-attempt-australia-hugging-face/"
-    },
-    {
-      "event_id": "1325843580",
-      "title": "GOVERNMENT",
-      "summary": "Tín hiệu tổ chức: Ai Agents Target Library,894;Reuters,2819;Canadian Centre For Cyber Security,626;Canadian Centre For Cyber Security,3327;Canadian Centre For Cyber Security,6492;Canadian Centre For. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.itechpost.com/articles/237470/20261001/ai-agents-target-canadian-government-rudimentary-hacking-attempt-cyberattack.htm"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [],
-      "signal_keywords": [
-        "agent",
-        "automation"
-      ],
-      "reported_at": "20261001163000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -3.30434782608696,
-      "num_articles": 10,
-      "primary_url": "https://www.itechpost.com/articles/237470/20261001/ai-agents-target-canadian-government-rudimentary-hacking-attempt-cyberattack.htm"
-    },
-    {
-      "event_id": "1325843203",
-      "title": "CANADIAN - GOVERNMENT",
-      "summary": "Tín hiệu tổ chức: Canadian Centre For Cyber Security,941;Canadian Centre For Cyber Security,1407;United Nations Security Council,2643;Google,1996;Education Department,2470;Medicare Statistics Report. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.chroniclejournal.com/news/national/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_e6116046-4829-5e4c-8337-e65b85da2441.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20261001163000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.52631578947369,
-      "num_articles": 10,
-      "primary_url": "https://www.chroniclejournal.com/news/national/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_e6116046-4829-5e4c-8337-e65b85da2441.html"
-    },
-    {
-      "event_id": "1325843188",
-      "title": "CANADIAN",
-      "summary": "Tín hiệu tổ chức: Canadian Centre For Cyber Security,941;Canadian Centre For Cyber Security,1407;United Nations Security Council,2643;Google,1996;Education Department,2470;Medicare Statistics Report. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.chroniclejournal.com/news/national/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_e6116046-4829-5e4c-8337-e65b85da2441.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20261001163000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.52631578947369,
-      "num_articles": 10,
-      "primary_url": "https://www.chroniclejournal.com/news/national/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_e6116046-4829-5e4c-8337-e65b85da2441.html"
-    },
-    {
-      "event_id": "1325843624",
-      "title": "GOVERNMENT - CANADIAN",
-      "summary": "Tín hiệu tổ chức: Canadian Centre For Cyber Security,941;Canadian Centre For Cyber Security,1407;United Nations Security Council,2643;Google,1996;Education Department,2470;Medicare Statistics Report. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.chroniclejournal.com/news/national/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_e6116046-4829-5e4c-8337-e65b85da2441.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20261001163000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.52631578947369,
-      "num_articles": 10,
-      "primary_url": "https://www.chroniclejournal.com/news/national/ai-agent-attempted-to-hack-library-and-archives-canada-says-u-s-research-group/article_e6116046-4829-5e4c-8337-e65b85da2441.html"
-    },
-    {
-      "event_id": "1325828988",
-      "title": "COMPANY",
-      "summary": "Tín hiệu tổ chức: Microsoft,3052;Instagram,6494;Facebook,5490;Facebook,6482;Facebook,6920;Bloomberg,1420. Công ty liên quan: OpenAI, Meta, Microsoft, Intel. Chủ đề: model_agent_moi, chip_ha_tang, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.theverge.com/ai-artificial-intelligence/1003399/meta-openai-ai-agents-muse-dots-battle"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chip_ha_tang",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "OpenAI",
-        "Meta",
-        "Microsoft",
-        "Intel"
-      ],
-      "signal_keywords": [
-        "agent",
-        "openai"
-      ],
-      "reported_at": "20261001150000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 1.28410914927769,
-      "num_articles": 10,
-      "primary_url": "https://www.theverge.com/ai-artificial-intelligence/1003399/meta-openai-ai-agents-muse-dots-battle"
-    },
-    {
-      "event_id": "1325814631",
-      "title": "TENNESSEE - COMPANY",
-      "summary": "Tín hiệu tổ chức: Florida Power Light,1553;Natural Gas Pipeline Company Of America,5050;Southern Company,1513;Southern Company,1921. Công ty liên quan: Runway. Chủ đề: chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.tickerreport.com/banking-finance/13604044/kinder-morgan-sees-6b-7b-growth-runway-as-southeast-gas-demand-surges.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Runway"
-      ],
-      "signal_keywords": [
-        "runway"
-      ],
-      "reported_at": "20261001133000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 3.61904761904762,
-      "num_articles": 10,
-      "primary_url": "https://www.tickerreport.com/banking-finance/13604044/kinder-morgan-sees-6b-7b-growth-runway-as-southeast-gas-demand-surges.html"
-    },
-    {
-      "event_id": "1325813585",
-      "title": "COMPANY - AUTHORITIES",
-      "summary": "Tín hiệu tổ chức: Google,6;Google,264;Google,493;Google,622;Google,1187;Google,1194;Google,1268;Google,1521;Google,1670;Google,2159;Google,2206;Google,2623;Google,2749;Fairwind Program,379;Fairwind . Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.digit.in/news/general/google-introduces-gemini-4-argon-ai-model-claims-it-outperforms-gpt-6-astra-on-several-benchmarks.html"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "model",
-        "gemini"
-      ],
-      "reported_at": "20261001133000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 3.46232179226069,
-      "num_articles": 10,
-      "primary_url": "https://www.digit.in/news/general/google-introduces-gemini-4-argon-ai-model-claims-it-outperforms-gpt-6-astra-on-several-benchmarks.html"
-    },
-    {
-      "event_id": "1325814527",
-      "title": "INTELLIGENCE",
-      "summary": "Tín hiệu tổ chức: National Drug Codes,6093;World Economic Forum Technology Pioneer,8320;A Layered Foundation For Enterprise Context,2947;National Correct Coding Initiative,5582;Cigna Group Ventures,. Công ty liên quan: Intel. Chủ đề: model_agent_moi, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://www.manilatimes.net/2026/10/01/tmt-newswire/globenewswire/autonomize-introduces-autonomize-context-ai-the-missing-context-foundation-that-makes-ai-agents-grounded-useful-and-scalable-for-healthcare-enterprises/2437186"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "chinh_sach_cuoc_dua_toan_cau"
-      ],
-      "company_tags": [
-        "Intel"
-      ],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20261001133000",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": 1.96917808219178,
-      "num_articles": 10,
-      "primary_url": "https://www.manilatimes.net/2026/10/01/tmt-newswire/globenewswire/autonomize-introduces-autonomize-context-ai-the-missing-context-foundation-that-makes-ai-agents-grounded-useful-and-scalable-for-healthcare-enterprises/2437186"
-    },
-    {
-      "event_id": "1325815345",
-      "title": "MINISTRY - CANADA",
-      "summary": "Tín hiệu tổ chức: Center Canadian,3518;White House,1064;United States,73;United States,167;United States,1079;United States,1683;United States,1938;United States,2010;Ministry Education,547;Ministry. Công ty liên quan: Google. Chủ đề: model_agent_moi, cybersecurity, chinh_sach_cuoc_dua_toan_cau",
-      "source_urls": [
-        "https://arabic.euronews.com/2026/10/01/rogue-ai-agents-attempted-and-failed-to-hack-us-and-canadian-government-websites"
-      ],
-      "source_count": 1,
-      "independent_domain_count": 1,
-      "official_source_present": false,
-      "topic_tags": [
-        "model_agent_moi",
-        "cybersecurity",
-        "chinh_sach_cuoc_dua_toan_cau",
-        "radar_khu_vuc"
-      ],
-      "company_tags": [
-        "Google"
-      ],
-      "signal_keywords": [
-        "agent"
-      ],
-      "reported_at": "20261001131500",
-      "freshness_hours": 72,
-      "hot_candidate": false,
-      "pool_kind": "pool_a",
-      "avg_tone": -2.28471001757469,
-      "num_articles": 10,
-      "primary_url": "https://arabic.euronews.com/2026/10/01/rogue-ai-agents-attempted-and-failed-to-hack-us-and-canadian-government-websites"
     }
   ]
 }
