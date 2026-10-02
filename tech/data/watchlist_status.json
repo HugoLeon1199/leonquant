@@ -1,18 +1,23 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-10-02T13:56:41.059150+00:00",
+  "generated_at_utc": "2026-10-02T23:05:24.067714+00:00",
   "checked": 26,
-  "hit_count": 120,
+  "hit_count": 108,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 12,
+      "hit_count": 13,
       "top_links": [
         {
           "title": "GitHub repo updated: zai-org/GLM-5",
           "url": "https://github.com/zai-org/GLM-5",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/Open-AutoGLM",
+          "url": "https://github.com/zai-org/Open-AutoGLM",
           "source_lane": "github_release"
         },
         {
@@ -21,19 +26,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/zcode-plugins",
-          "url": "https://github.com/zai-org/zcode-plugins",
+          "title": "Hugging Face model updated: heyimmitzu/glm-oss-8b-scripts",
+          "url": "https://huggingface.co/heyimmitzu/glm-oss-8b-scripts",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "ggml-org/llama.cpp release: b11352",
+          "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11352",
           "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: SLORA/GLM-5.1",
-          "url": "https://huggingface.co/SLORA/GLM-5.1",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: zai-org/GLM-5.3-Flash",
-          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
-          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -42,16 +42,11 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 11,
+      "hit_count": 10,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Drive-1.0",
-          "url": "https://github.com/QwenLM/Qwen-Drive-1.0",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image-2.1",
-          "url": "https://github.com/QwenLM/Qwen-Image-2.1",
+          "title": "GitHub repo updated: QwenLM/Qwen-Live-Harness",
+          "url": "https://github.com/QwenLM/Qwen-Live-Harness",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +55,18 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: BlairQ/broadcast-reactivo-qwen3.5-4b-v2-GGUF",
-          "url": "https://huggingface.co/BlairQ/broadcast-reactivo-qwen3.5-4b-v2-GGUF",
+          "title": "GitHub repo updated: QwenLM/Qwen3-TTS",
+          "url": "https://github.com/QwenLM/Qwen3-TTS",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: 12384-0ashntoi/Qwen3-4B-Think-GRPO-MLX",
+          "url": "https://huggingface.co/12384-0ashntoi/Qwen3-4B-Think-GRPO-MLX",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Wa1k3r/Qwen3.8-27b-CODER-4q_xs-24GB-262k-Optimalcardfit",
-          "url": "https://huggingface.co/Wa1k3r/Qwen3.8-27b-CODER-4q_xs-24GB-262k-Optimalcardfit",
+          "title": "Hugging Face model updated: 12384-0ashntoi/Qwen3-4B-Think-SFT-MLX",
+          "url": "https://huggingface.co/12384-0ashntoi/Qwen3-4B-Think-SFT-MLX",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,16 +76,16 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 9,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-Coder",
-          "url": "https://github.com/deepseek-ai/DeepSeek-Coder",
+          "title": "GitHub repo updated: deepseek-ai/DeepGEMM",
+          "url": "https://github.com/deepseek-ai/DeepGEMM",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-OCR",
-          "url": "https://github.com/deepseek-ai/DeepSeek-OCR",
+          "title": "GitHub repo updated: deepseek-ai/DeepGEMM-Ascend",
+          "url": "https://github.com/deepseek-ai/DeepGEMM-Ascend",
           "source_lane": "github_release"
         },
         {
@@ -94,14 +94,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: manishkumar2101114/deepseek-r1-8b-tool-adapter",
-          "url": "https://huggingface.co/manishkumar2101114/deepseek-r1-8b-tool-adapter",
+          "title": "Hugging Face model updated: Butanium/wp-inkblot-deepseek-v31-toaster_tinker_native",
+          "url": "https://huggingface.co/Butanium/wp-inkblot-deepseek-v31-toaster_tinker_native",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "DeepSeek and Huawei release open-source Ascend AI programming tools to reduce reliance on Nvidia CUDA ecosystem — tools include compute and communication libraries, as well as Ascend support for TileLang",
-          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/deepseek-and-huawei-release-open-source-ascend-ai-programming-tools-to-reduce-reliance-on-nvidia-ecosystem-tools-include-compute-and-communication-libraries-as-well-as-ascend-support-for-tilelang",
-          "source_lane": "frontier_watchlist"
+          "title": "sgl-project/sglang release: v0.5.21",
+          "url": "https://github.com/sgl-project/sglang/releases/tag/v0.5.21",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -110,7 +110,7 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 2,
       "top_links": [
         {
           "title": "Hugging Face model updated: local-inference-lab/Kimi-K3-MXFP4-CSF",
@@ -118,19 +118,9 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "OpenAI Disrupts Reasoning Extraction Campaign Linked to Moonshot AI Associates",
-          "url": "https://thehackernews.com/2026/10/openai-disrupts-reasoning-extraction.html",
+          "title": "Investigan en la empresa china Moonshot AI por qué uno de sus modelos daba indicaciones para planear ataques terroristas y asesinatos",
+          "url": "https://www.infobae.com/tecno/2026/10/02/moonshot-ia-china-es-investigada-tras-descubrirse-que-daba-indicaciones-para-planear-ataques-terroristas-y-asesinatos/",
           "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "OpenAI acusa a Moonshot AI de lanzar más de 10.000 ataques para descubrir cómo razona ChatGPT",
-          "url": "https://www.infobae.com/tecno/2026/10/01/openai-acusa-a-moonshot-ai-de-lanzar-mas-de-10000-ataques-para-descubrir-como-razona-chatgpt/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "OpenAI says actors linked to China-based Moonshot AI spearheaded a campaign to extract its models’ hidden reasoning — logged 16,000 extraction requests across 4,000 accounts before cutoff",
-          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/openai-says-actors-linked-to-moonshot-ai-spearheaded-a-campaign-to-extract-its-models-hidden-reasoning-logged-attempts-peaked-at-16-000-users-over-two-days",
-          "source_lane": "model_hub"
         }
       ],
       "no_signal_reason": ""
@@ -139,22 +129,17 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 3,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: Kijai/MiniMax-H3-experimental",
+          "url": "https://huggingface.co/Kijai/MiniMax-H3-experimental",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "Hugging Face model updated: addlabsviral/minimax-h3-combined",
           "url": "https://huggingface.co/addlabsviral/minimax-h3-combined",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: silveroxides/MiniMax-H3_tests",
-          "url": "https://huggingface.co/silveroxides/MiniMax-H3_tests",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "EEUU requisó el mayor transatlántico del mundo para llevar soldados a la guerra. Lo hizo tan rápido que lo tumbó antes de estrenarlo",
-          "url": "https://www.xataka.com/magnet/eeuu-requiso-mayor-transatlantico-mundo-para-llevar-soldados-a-guerra-hizo-rapido-que-tumbo-antes-estrenarlo",
-          "source_lane": "frontier_watchlist"
         },
         {
           "title": "huggingface/diffusers release: Diffusers 0.40.0: New hệ thốngs, tensor-parallel support, improved CLI, and more",
@@ -179,28 +164,28 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/AuK",
-          "url": "https://github.com/Tencent-Hunyuan/AuK",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HY-World-2.0",
+          "url": "https://github.com/Tencent-Hunyuan/HY-World-2.0",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanOCR",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanOCR",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan-GameCraft-1.0",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan-GameCraft-1.0",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/SRPO",
-          "url": "https://github.com/Tencent-Hunyuan/SRPO",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2.1",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
           "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: Nikula8/hunyuan-dating-bundle",
+          "url": "https://huggingface.co/Nikula8/hunyuan-dating-bundle",
+          "source_lane": "huggingface_model"
         },
         {
           "title": "Hugging Face model updated: fal/HunyuanImage-3-Instruct-verbatim-flashpack",
           "url": "https://huggingface.co/fal/HunyuanImage-3-Instruct-verbatim-flashpack",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: WindstormLabs/hunyuan",
-          "url": "https://huggingface.co/WindstormLabs/hunyuan",
           "source_lane": "huggingface_model"
         }
       ],
@@ -221,8 +206,8 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/Challenge-Cup-2026",
-          "url": "https://github.com/InternLM/Challenge-Cup-2026",
+          "title": "GitHub repo updated: InternLM/AcmeTrace",
+          "url": "https://github.com/InternLM/AcmeTrace",
           "source_lane": "github_release"
         },
         {
@@ -231,8 +216,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
+          "title": "GitHub repo updated: InternLM/lagent",
+          "url": "https://github.com/InternLM/lagent",
           "source_lane": "github_release"
         }
       ],
@@ -258,8 +243,18 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 5,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: khazic/ovb-flux3_nominsnr_30k",
+          "url": "https://huggingface.co/khazic/ovb-flux3_nominsnr_30k",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: khazic/ovb-flux3_nominsnr_lr1e-4_15k",
+          "url": "https://huggingface.co/khazic/ovb-flux3_nominsnr_lr1e-4_15k",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "Hugging Face model updated: black-forest-labs/flux-3-action-droid",
           "url": "https://huggingface.co/black-forest-labs/flux-3-action-droid",
@@ -271,19 +266,9 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: khazic/ovb-flux3_lr1e-4_15k",
-          "url": "https://huggingface.co/khazic/ovb-flux3_lr1e-4_15k",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: khazic/ovb-flux3_nominsnr_lr1e-4_15k",
-          "url": "https://huggingface.co/khazic/ovb-flux3_nominsnr_lr1e-4_15k",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Reddit ferme le robinet du RSS : ses flux disparaissent, l’accès à l’API publique suivra en 2027",
-          "url": "https://www.clubic.com/actualite-632173-reddit-ferme-le-robinet-du-rss-ses-flux-disparaissent-l-acces-a-l-api-publique-suivra-en-2027.html",
-          "source_lane": "image_video_workflow"
+          "title": "pytorch/pytorch release: PyTorch 2.14.0 Release",
+          "url": "https://github.com/pytorch/pytorch/releases/tag/v2.14.0",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -295,8 +280,8 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: PacifistH/ComfyUI-Mila-Sync",
-          "url": "https://huggingface.co/PacifistH/ComfyUI-Mila-Sync",
+          "title": "Hugging Face model updated: awdqwdasdg/Anima-Lightning-Comfyui",
+          "url": "https://huggingface.co/awdqwdasdg/Anima-Lightning-Comfyui",
           "source_lane": "huggingface_model"
         },
         {
@@ -305,8 +290,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: RunningHubAI/rh-qianwen-text-to-image-realistic-unet",
-          "url": "https://huggingface.co/RunningHubAI/rh-qianwen-text-to-image-realistic-unet",
+          "title": "Hugging Face model updated: radiatingreverberations/Gemma-4-12B-It-Uncensored-Heretic-INT8-ConvRot-ComfyUI",
+          "url": "https://huggingface.co/radiatingreverberations/Gemma-4-12B-It-Uncensored-Heretic-INT8-ConvRot-ComfyUI",
           "source_lane": "huggingface_model"
         }
       ],
@@ -316,22 +301,12 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 3,
       "top_links": [
-        {
-          "title": "Volkswagen n'avait pas vu ça depuis 2017 en France : le carton plein de la nouvelle ID. Polo électrique — Frandroid",
-          "url": "https://www.frandroid.com/marques/volkswagen/3270513_volkswagen-navait-pas-vu-ca-depuis-2017-en-france-le-carton-plein-de-la-nouvelle-id-polo-electrique",
-          "source_lane": "frontier_watchlist"
-        },
         {
           "title": "Hugging Face model updated: DarkKnight1217/RunwayGuard-rtdetr-l",
           "url": "https://huggingface.co/DarkKnight1217/RunwayGuard-rtdetr-l",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Steam Frame OS Update Extends Battery Life by up to 12%",
-          "url": "https://www.techpowerup.com/353315/steam-frame-os-update-extends-battery-life-by-up-to-12",
-          "source_lane": "frontier_watchlist"
         },
         {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
@@ -358,31 +333,31 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "ScholarCatalyst: A Benchmark for Retrieving Papers That Inspire New Research",
-          "url": "https://arxiv.org/abs/2610.02202v1",
+          "title": "7 new movies and shows to watch on Netflix, Prime Video, and more this weekend (October 2) — Florence Pugh's East of Eden, Sienna Miller's War, and more",
+          "url": "https://www.techradar.com/streaming/7-new-movies-and-tv-shows-to-watch-on-netflix-prime-video-hbo-max-and-more-this-weekend-october-2",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Amazon writes scary blog warning communities not to block data centers",
-          "url": "https://www.theverge.com/tech/1003929/amazon-ai-data-center-blog-warning",
+          "title": "Netflix is pivoting away from prestige",
+          "url": "https://www.theverge.com/streaming/1004323/netflix-david-fincher-shawn-levy-mike-flanagan-duffer-brothers-greta-gerwig",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Friday Five — October 2, 2026 | Red Hat",
-          "url": "https://www.redhat.com/en/blog/friday-five-october-2-2026-red-hat",
+          "title": "It's not AI anymore, it's ‘super intelligence’ (according to the White House) | TechCrunch",
+          "url": "https://techcrunch.com/video/its-not-ai-anymore-its-super-intelligence-according-to-the-white-house/",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Google’s new Guided Vision feature can help you read the fine print",
-          "url": "https://www.theverge.com/ai-artificial-intelligence/1003756/google-gemini-live-guided-vision",
+          "title": "Slovenia's .si domain sees a surge in registrations after Trump's 'super intelligence' order | TechCrunch",
+          "url": "https://techcrunch.com/2026/10/02/slovenias-si-domain-sees-a-surge-in-registrations-after-trumps-super-intelligence-order/",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Luno is turning its crypto exchange into an institutional infrastructure business",
-          "url": "https://techcabal.com/2026/10/01/lunos-plan-for-crypto-as-a-service/",
+          "title": "I wore the Apple Watch Ultra 3 for months — the best smartwatch of last year just hit a lowest-ever price, and I recommend you buy",
+          "url": "https://www.techradar.com/seasonal-sales/in-my-review-i-called-the-apple-watch-ultra-3-a-garmin-rivaling-powerhouse-you-can-now-get-up-to-usd200-off-and-i-recommend-snapping-it-up",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -392,7 +367,7 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 2,
       "top_links": [
         {
           "title": "The base PlayStation 5 can now do AI upscaling, and it actually looks great",
@@ -400,13 +375,8 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Sucessora da Oi retorna à telefonia móvel (com rede da TIM) • Tecnoblog",
-          "url": "https://tecnoblog.net/noticias/sucessora-da-oi-retorna-a-telefonia-movel/",
-          "source_lane": "image_video_workflow"
-        },
-        {
-          "title": "Après l'IA, une nouvelle crise de la RAM se profile à cause d'une technologie en plein essor",
-          "url": "https://www.clubic.com/actualite-632170-apres-l-ia-une-nouvelle-crise-de-la-ram-se-profile-a-cause-d-une-technologie-en-plein-essor.html",
+          "title": "This screen-free compact camera can attach to a pair of binoculars — and the Portal AFN7 might just be my perfect hiking sidekick",
+          "url": "https://www.techradar.com/cameras/compact-cameras/the-ultimate-hiking-camera-the-screen-free-portal-afn7-attaches-directly-to-binoculars-and-has-ip56-weather-sealing-for-outdoor-adventures",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -434,13 +404,13 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "OpenRouter model listed: openai/gpt-6.1-sol-pro",
-          "url": "https://openrouter.ai/openai/gpt-6.1-sol-pro",
+          "title": "OpenRouter model listed: inclusionai/ling-3.1-flash",
+          "url": "https://openrouter.ai/inclusionai/ling-3.1-flash",
           "source_lane": "model_hub"
         },
         {
-          "title": "OpenRouter model listed: typesafe/jev-router",
-          "url": "https://openrouter.ai/typesafe/jev-router",
+          "title": "OpenRouter model listed: openai/gpt-6.1-sol-pro",
+          "url": "https://openrouter.ai/openai/gpt-6.1-sol-pro",
           "source_lane": "model_hub"
         }
       ],
@@ -458,31 +428,31 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 27,
+      "hit_count": 25,
       "top_links": [
+        {
+          "title": "Laytr's new app lets you save anything you find online, not just articles to read | TechCrunch",
+          "url": "https://techcrunch.com/2026/10/02/laytrs-new-app-lets-you-save-anything-you-find-online-not-just-articles-to-read/",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "NVIDIA GeForce NOW Gets 25 New Games in October",
           "url": "https://www.techpowerup.com/353325/nvidia-geforce-now-gets-25-new-games-in-october",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Chip Industry Week In Review",
-          "url": "https://semiengineering.com/chip-industry-week-in-review-158/",
+          "title": "Rocket Report: SpaceX completes launch triple-header; Rocket Lab nets big contract",
+          "url": "https://arstechnica.com/space/2026/10/rocket-report-spacex-completes-launch-triple-header-rocket-lab-nets-big-contract/",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Fall Into 25 New Games on GeForce NOW This October",
-          "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-october-2026-games-list/",
+          "title": "Army Bomb de BTS: cómo se sincroniza en los conciertos y cómo identificar una falsa",
+          "url": "https://www.infobae.com/tecno/2026/10/02/army-bomb-de-bts-como-se-sincroniza-en-los-conciertos-y-como-identificar-una-falsa/",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Google ya tiene un chip de IA en órbita: lo ha lanzado SpaceX para comprobar si los centros de datos espaciales son viables",
-          "url": "https://www.xataka.com/espacio/google-tiene-chip-ia-orbita-ha-lanzado-spacex-para-comprobar-centros-datos-espaciales-viables",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Stellantis va a parar cuatro de sus plantas este mes por falta de baterías para sus coches",
-          "url": "https://www.xataka.com/movilidad/stellantis-va-a-parar-cuatro-sus-plantas-este-mes-falta-baterias-para-sus-coches",
+          "title": "California tech CEO arrested, faces up to 20 years in prison for smuggling $300 million in Nvidia AI servers to China — federal prosecutors say chips were routed through Malaysia and Singapore using false paperwork",
+          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/california-tech-ceo-arrested-faces-up-to-20-years-in-prison-for-smuggling-usd300-million-in-nvidia-ai-servers-to-china-federal-prosecutors-say-chips-were-routed-through-malaysia-and-singapore-using-false-paperwork",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -492,31 +462,31 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 8,
       "top_links": [
+        {
+          "title": "GitHub repo updated: modelcontextprotocol/modelcontextprotocol",
+          "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+          "source_lane": "github_release"
+        },
         {
           "title": "GitHub repo updated: modelcontextprotocol/python-sdk",
           "url": "https://github.com/modelcontextprotocol/python-sdk",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/servers",
-          "url": "https://github.com/modelcontextprotocol/servers",
+          "title": "GitHub repo updated: modelcontextprotocol/registry",
+          "url": "https://github.com/modelcontextprotocol/registry",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
-          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
-          "source_lane": "github_release"
+          "title": "GitHub's advice for its new Copilot feature is to try something else first",
+          "url": "https://thenewstack.io/github-copilot-computer-use-desktop/",
+          "source_lane": "model_hub"
         },
         {
           "title": "modelcontextprotocol/registry release: v1.8.0",
           "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.0",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "modelcontextprotocol/registry release: v1.8.1",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.1",
           "source_lane": "github_release"
         }
       ],
