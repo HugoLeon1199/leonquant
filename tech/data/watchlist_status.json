@@ -1,14 +1,14 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-10-12T07:27:44.805443+00:00",
+  "generated_at_utc": "2026-10-12T21:48:27.460964+00:00",
   "checked": 26,
-  "hit_count": 101,
+  "hit_count": 105,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 12,
+      "hit_count": 14,
       "top_links": [
         {
           "title": "GitHub repo updated: zai-org/ChatGLM-6B",
@@ -16,8 +16,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/CodeGeeX2",
-          "url": "https://github.com/zai-org/CodeGeeX2",
+          "title": "GitHub repo updated: zai-org/GLM-Image",
+          "url": "https://github.com/zai-org/GLM-Image",
           "source_lane": "github_release"
         },
         {
@@ -26,13 +26,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: jmkim329/glm4.1v-9b-thinking-int4-ov",
-          "url": "https://huggingface.co/jmkim329/glm4.1v-9b-thinking-int4-ov",
+          "title": "Hugging Face model updated: zai-org/GLM-5.3",
+          "url": "https://huggingface.co/zai-org/GLM-5.3",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: nibor1896/GLM-5.3-Flash-MUL1K3",
-          "url": "https://huggingface.co/nibor1896/GLM-5.3-Flash-MUL1K3",
+          "title": "Hugging Face model updated: zai-org/GLM-5.3-Flash",
+          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
           "source_lane": "huggingface_model"
         }
       ],
@@ -42,7 +42,7 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 11,
+      "hit_count": 10,
       "top_links": [
         {
           "title": "GitHub repo updated: QwenLM/Qwen-Image-2.1",
@@ -50,23 +50,23 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image-Layered",
-          "url": "https://github.com/QwenLM/Qwen-Image-Layered",
+          "title": "GitHub repo updated: QwenLM/Qwen3-TTS",
+          "url": "https://github.com/QwenLM/Qwen3-TTS",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-Omni",
-          "url": "https://github.com/QwenLM/Qwen3-Omni",
+          "title": "GitHub repo updated: QwenLM/qwen-code",
+          "url": "https://github.com/QwenLM/qwen-code",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: self-hpo/Self-HPO-Qwen3.5-35B-A3B",
-          "url": "https://huggingface.co/self-hpo/Self-HPO-Qwen3.5-35B-A3B",
+          "title": "Hugging Face model updated: GBP-DE/Qwen3.8-Flash-Next-oQ4e-WLSRefit-MTP",
+          "url": "https://huggingface.co/GBP-DE/Qwen3.8-Flash-Next-oQ4e-WLSRefit-MTP",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: sfereido/cs329x_Qwen2.5-1.5B-Instruct-DPO",
-          "url": "https://huggingface.co/sfereido/cs329x_Qwen2.5-1.5B-Instruct-DPO",
+          "title": "Hugging Face model updated: MrXkuy/my-qwen-code",
+          "url": "https://huggingface.co/MrXkuy/my-qwen-code",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,16 +76,21 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 9,
       "top_links": [
+        {
+          "title": "All-Hands-AI/OpenHands release: v1.27.0",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.27.0",
+          "source_lane": "github_release"
+        },
         {
           "title": "GitHub repo updated: deepseek-ai/DeepSeek-OCR",
           "url": "https://github.com/deepseek-ai/DeepSeek-OCR",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSpec",
-          "url": "https://github.com/deepseek-ai/DeepSpec",
+          "title": "GitHub repo updated: deepseek-ai/DeepSeek-R1",
+          "url": "https://github.com/deepseek-ai/DeepSeek-R1",
           "source_lane": "github_release"
         },
         {
@@ -94,13 +99,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: MohammadGholizadeh/deepseek-llm-7b-chat-cat-gen2-s43",
-          "url": "https://huggingface.co/MohammadGholizadeh/deepseek-llm-7b-chat-cat-gen2-s43",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: Adolphsson/DeepSeek-V4.1-Flash-UNCENSORED-GGUF",
-          "url": "https://huggingface.co/Adolphsson/DeepSeek-V4.1-Flash-UNCENSORED-GGUF",
+          "title": "Hugging Face model updated: MohammadGholizadeh/deepseek-llm-7b-chat-cat_control-gen7-s43",
+          "url": "https://huggingface.co/MohammadGholizadeh/deepseek-llm-7b-chat-cat_control-gen7-s43",
           "source_lane": "huggingface_model"
         }
       ],
@@ -110,17 +110,22 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: yuruny/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs360",
-          "url": "https://huggingface.co/yuruny/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs360",
+          "title": "Hugging Face model updated: yyuan244/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs460",
+          "url": "https://huggingface.co/yyuan244/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs460",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: yuruny/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs380",
-          "url": "https://huggingface.co/yuruny/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs380",
+          "title": "Hugging Face model updated: yyuan244/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs480",
+          "url": "https://huggingface.co/yyuan244/asyncrl-m4b_async_s5_mb8_kimi_b0p05_truncneg1_ev128-gs480",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "👨🏿🚀TechCabal Daily – OPay's new Standard - TechCabal",
+          "url": "https://techcabal.com/2026/10/12/%f0%9f%91%a8%f0%9f%8f%bf%f0%9f%9a%80techcabal-daily-opays-new-standard/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -129,16 +134,21 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "Hugging Face model updated: EnExW/Minimax",
-          "url": "https://huggingface.co/EnExW/Minimax",
+          "title": "Hugging Face model updated: Alissonerdx/Minimax-H3-ComfyUI",
+          "url": "https://huggingface.co/Alissonerdx/Minimax-H3-ComfyUI",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: agapes/minimax_h3_4step_lora_flashgen_v1.0_768p_ref2va_pruned_avg_rank_13_bf16",
-          "url": "https://huggingface.co/agapes/minimax_h3_4step_lora_flashgen_v1.0_768p_ref2va_pruned_avg_rank_13_bf16",
+          "title": "Hugging Face model updated: DeepBeepMeep/MiniMax-H3",
+          "url": "https://huggingface.co/DeepBeepMeep/MiniMax-H3",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: johndpope/MiniMax-H3-LoT",
+          "url": "https://huggingface.co/johndpope/MiniMax-H3-LoT",
           "source_lane": "huggingface_model"
         },
         {
@@ -147,9 +157,9 @@
           "source_lane": "github_release"
         },
         {
-          "title": "huggingface/diffusers release: Diffusers 0.40.0: New hệ thốngs, tensor-parallel support, improved CLI, and more",
-          "url": "https://github.com/huggingface/diffusers/releases/tag/v0.40.0",
-          "source_lane": "github_release"
+          "title": "La CIA tenía una pista aérea secreta para combatir al comunismo. 50 años después, China la está llenando de aviones para la guerra",
+          "url": "https://www.xataka.com/magnet/cia-tenia-pista-aerea-secreta-para-combatir-al-comunismo-50-anos-despues-china-esta-llenando-aviones-para-guerra",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -169,13 +179,13 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-WorldClaw",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-WorldClaw",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HY-World-2.0",
+          "url": "https://github.com/Tencent-Hunyuan/HY-World-2.0",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-MT2",
-          "url": "https://github.com/Tencent-Hunyuan/Hy-MT2",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
+          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
           "source_lane": "github_release"
         },
         {
@@ -222,13 +232,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/SpatialASM",
-          "url": "https://github.com/InternLM/SpatialASM",
+          "title": "GitHub repo updated: InternLM/ResOPD",
+          "url": "https://github.com/InternLM/ResOPD",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/xtuner",
-          "url": "https://github.com/InternLM/xtuner",
+          "title": "GitHub repo updated: InternLM/MindSearch",
+          "url": "https://github.com/InternLM/MindSearch",
           "source_lane": "github_release"
         }
       ],
@@ -262,8 +272,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: limxdynamics/FluxVLAEngine",
-          "url": "https://huggingface.co/limxdynamics/FluxVLAEngine",
+          "title": "Hugging Face model updated: DeadDuck123/FLUX.2-klein-4B-CoreAI",
+          "url": "https://huggingface.co/DeadDuck123/FLUX.2-klein-4B-CoreAI",
           "source_lane": "huggingface_model"
         },
         {
@@ -296,13 +306,8 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 2,
       "top_links": [
-        {
-          "title": "Honor Pad 20 Pro : cette nouvelle tablette perd déjà 100 € et arrive avec plusieurs cadeaux — Frandroid",
-          "url": "https://www.frandroid.com/bons-plans/3280127_honor-pad-20-pro-cette-nouvelle-tablette-perd-deja-100-e-et-arrive-avec-plusieurs-cadeaux",
-          "source_lane": "frontier_watchlist"
-        },
         {
           "title": "Hugging Face model updated: DarkKnight1217/RunwayGuard-rtdetr-l",
           "url": "https://huggingface.co/DarkKnight1217/RunwayGuard-rtdetr-l",
@@ -320,25 +325,34 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "How to watch Treasure Island (2026) online — stream swashbuckling drama from anywhere",
-          "url": "https://www.techradar.com/how-to-watch/tv-shows/how-to-watch-treasure-island-2026-online-stream-swashbuckling-drama-from-anywhere",
-          "source_lane": "image_video_workflow"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 5,
       "top_links": [
         {
-          "title": "Som que envolve: os melhores headsets 7.1 surround em promoção na Amazon",
-          "url": "https://olhardigital.com.br/2026/10/11/reviews/som-que-envolve-os-melhores-headsets-7-1-surround-em-promocao-na-amazon-19/",
+          "title": "MENA startup funding jumps to $1.65 billion in Q3, with Saudi Arabia taking the lead",
+          "url": "https://wamda.com:443/2026/10/mena-startup-funding-jumps-165-billion-q3-saudi-arabia-taking-lead",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "FBI Arrests Suspect in FBI-Hacking Case - Schneier on Security",
+          "url": "https://www.schneier.com/blog/archives/2026/10/fbi-arrests-suspect-in-fbi-hacking-case.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Tonbo Imaging’s Rs 852 Cr IPO offers investor exit",
+          "url": "https://yourstory.com/2026/10/tonbo-imagings-rs-852-crore-ipo-offers-investor-exit",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "TP-Link's 10Gbps tri-band Wi-Fi 7 router is a $250 multi-gig upgrade",
+          "url": "https://www.techradar.com/pro/tp-links-archer-be670-tri-band-wi-fi-7-router-with-a-10gbps-port-is-a-future-proof-multi-gig-upgrade-at-usd250",
           "source_lane": "frontier_watchlist"
         },
         {
@@ -356,29 +370,29 @@
       "hit_count": 8,
       "top_links": [
         {
-          "title": "AMD EPYC 8005 SKU List and Value Analysis: Mainstream Sorano's Big Stride",
-          "url": "https://www.servethehome.com/amd-epyc-8005-sku-list-and-value-analysis-mainstream-soranos-big-stride/",
+          "title": "ggml-org/llama.cpp release: b11575",
+          "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11575",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Deploy decision models with llama.cpp on Amazon SageMaker AI | Amazon Web Services",
+          "url": "https://aws.amazon.com/blogs/machine-learning/deploy-decision-models-with-llama-cpp-on-amazon-sagemaker-ai/",
+          "source_lane": "model_hub"
+        },
+        {
+          "title": "Google Traduction veut faire le ménage dans nos hésitations orales",
+          "url": "https://www.01net.com/actualites/google-traduction-veut-faire-le-menage-dans-nos-hesitations-orales.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Impressão sem complicação: veja uma seleção de impressoras em promoção na Amazon",
+          "url": "https://olhardigital.com.br/2026/10/12/reviews/impressao-sem-complicacao-veja-uma-selecao-de-impressoras-em-promocao-na-amazon-2/",
           "source_lane": "image_video_workflow"
         },
         {
-          "title": "Comme Disneyland Paris, Orange vend aussi des Fast Pass, et ce n'est pas forcément pour des attractions",
-          "url": "https://www.clubic.com/actualite-633676-comme-disneyland-paris-orange-vend-aussi-des-fast-pass-et-ce-n-est-pas-forcement-pour-des-attractions.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Orange vend 5 euros la promesse de ne plus ramer dans la foule : comment ça marche ?",
-          "url": "https://www.01net.com/actualites/orange-vend-5-euros-la-promesse-de-ne-plus-ramer-dans-la-foule-comment-ca-marche.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "He viajado en el primer y único maglev comercial de alta velocidad del mundo: del centro de Shanghai al aeropuerto en 7 minutos",
-          "url": "https://www.xataka.com/movilidad/he-viajado-primer-unico-maglev-comercial-alta-velocidad-mundo-centro-shanghai-al-aeropuerto-7-minutos",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Asustor's AS6702T v2 NAS has faster networking but rivals have moved on",
-          "url": "https://www.techradar.com/computing/asustor-lockerstor-2-gen2-as6702t-v2-nas-review",
-          "source_lane": "frontier_watchlist"
+          "title": "AMD EPYC 8005 SKU List and Value Analysis: Mainstream Sorano's Big Stride",
+          "url": "https://www.servethehome.com/amd-epyc-8005-sku-list-and-value-analysis-mainstream-soranos-big-stride/",
+          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -389,11 +403,6 @@
       "checked": true,
       "hit_count": 7,
       "top_links": [
-        {
-          "title": "OpenRouter model listed: unbiased/pareto-26.10-preview",
-          "url": "https://openrouter.ai/unbiased/pareto-26.10-preview",
-          "source_lane": "model_hub"
-        },
         {
           "title": "OpenRouter model listed: inclusionai/ling-3.1-flash",
           "url": "https://openrouter.ai/inclusionai/ling-3.1-flash",
@@ -410,6 +419,11 @@
           "source_lane": "model_hub"
         },
         {
+          "title": "OpenRouter model listed: meta/muse-wonder",
+          "url": "https://openrouter.ai/meta/muse-wonder",
+          "source_lane": "model_hub"
+        },
+        {
           "title": "OpenRouter model listed: mistralai/mistral-large-4-0",
           "url": "https://openrouter.ai/mistralai/mistral-large-4-0",
           "source_lane": "model_hub"
@@ -421,45 +435,39 @@
       "entity": "Replicate",
       "priority": "normal",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "Creator of free Adobe clones unveils open-source Microsoft Office Excel, PowerPoint, and Word replications — Autodesk tools and other subscription-based services may come next",
-          "url": "https://www.tomshardware.com/software/microsoft-office/creator-of-free-adobe-clones-unveils-open-source-microsoft-office-excel-powerpoint-and-word-replications-autodesk-tools-and-other-subscription-based-services-may-come-next",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 17,
+      "hit_count": 14,
       "top_links": [
+        {
+          "title": "ggml-org/llama.cpp release: b11576",
+          "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11576",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Syrian healthtech Alo Hakeem raises $165,000 pre-seed led by EBLA Ventures",
+          "url": "http://wamda.com/2026/10/syrian-healthtech-alo-hakeem-raises-165000-pre-seed-led-ebla-ventures",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "CRA & Chip Design: The New Compliance Standard - EE Times",
           "url": "https://www.eetimes.com/security-becomes-a-sign-off-item/",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Cómo usar ChatGPT para detectar errores ocultos en Windows",
-          "url": "https://hipertextual.com/inteligencia-artificial/chatgpt-detectar-errores-windows-visor-eventos/",
+          "title": "TrendForce expects declining global laptop shipments to slow manufacturing exodus from China — rising CPU, DRAM, and SSD costs will make up 68% of mainstream notebook BOM",
+          "url": "https://www.tomshardware.com/laptops/trendforce-expects-declining-global-laptop-shipments-to-slow-manufacturing-exodus-from-china-rising-cpu-dram-and-ssd-costs-will-make-up-68-percent-of-mainstream-notebook-bom",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Internet-Shutdown, Stromausfall, Krise: Was bleibt von deiner Kommunikation, wenn die Infrastruktur ausfällt?",
-          "url": "https://t3n.de/news/bitchat-airdrop-usb-sticks-internet-1765492/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Amazon's new Alexa tablets ditch Fire OS for regular Android",
-          "url": "https://www.techspot.com/news/114161-amazon-new-alexa-tablets-ditch-fire-os-regular.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Can the AI industry persuade data center opponents by getting rid of NDAs? | TechCrunch",
-          "url": "https://techcrunch.com/2026/10/11/can-the-ai-industry-persuade-data-center-opponents-by-getting-rid-of-ndas/",
+          "title": "A man asked ChatGPT to help him get out of a parking fine — and the AI helped him win the legal battle three years later",
+          "url": "https://www.techradar.com/ai-platforms-assistants/chatgpt/i-did-it-all-with-the-help-of-ai-a-driver-used-chatgpt-to-help-him-with-a-three-year-parking-ticket-dispute-and-won",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -469,11 +477,16 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 7,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/conformance",
-          "url": "https://github.com/modelcontextprotocol/conformance",
+          "title": "GitHub repo updated: modelcontextprotocol/kotlin-sdk",
+          "url": "https://github.com/modelcontextprotocol/kotlin-sdk",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: modelcontextprotocol/php-sdk",
+          "url": "https://github.com/modelcontextprotocol/php-sdk",
           "source_lane": "github_release"
         },
         {
@@ -482,18 +495,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
-          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
-          "source_lane": "github_release"
+          "title": "GitHub Copilot app for Beginners: How to teach Copilot about your codebase",
+          "url": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-how-to-teach-copilot-about-your-codebase/",
+          "source_lane": "model_hub"
         },
         {
           "title": "modelcontextprotocol/registry release: v1.8.0",
           "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.0",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "modelcontextprotocol/registry release: v1.8.1",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.1",
           "source_lane": "github_release"
         }
       ],
@@ -536,38 +544,38 @@
       "entity": "Cursor",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
+    },
+    {
+      "entity": "Claude Code",
+      "priority": "high",
+      "checked": true,
+      "hit_count": 2,
       "top_links": [
         {
-          "title": "State of California sues 3D printer filament company Polymaker for promoting ghost guns by marketing to 3D-printed gun community — state alleges company turns harmless PLA filament into a regulated 'firearm precursor",
-          "url": "https://www.tomshardware.com/3d-printing/state-of-california-sues-3d-printer-filament-company-polymaker-for-promoting-ghost-guns-by-marketing-to-3d-printed-gun-community-state-alleges-company-turns-harmless-pla-filament-into-a-regulated-firearm-precursor-part",
+          "title": "CyberXero Uses Claude Code in Campaign That Stole Over 628,000 Ukrainian Records",
+          "url": "https://thehackernews.com/2026/10/cyberxero-uses-claude-code-in-campaign.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Linus Torvalds, qui réduisait l’IA à « 90 % de marketing », publie un patch du noyau Linux écrit avec Claude Code — Frandroid",
+          "url": "https://www.frandroid.com/os/gnu-linux/3282511_linus-torvalds-qui-reduisait-lia-a-90-de-marketing-publie-un-patch-du-noyau-linux-ecrit-avec-claude-code",
           "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
     },
     {
-      "entity": "Claude Code",
-      "priority": "high",
-      "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
-    },
-    {
       "entity": "OpenHands",
       "priority": "normal",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 1,
       "top_links": [
         {
-          "title": "All-Hands-AI/OpenHands release: v1.25.0",
-          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.25.0",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "All-Hands-AI/OpenHands release: v1.26.0",
-          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.26.0",
+          "title": "All-Hands-AI/OpenHands release: v1.27.1",
+          "url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.27.1",
           "source_lane": "github_release"
         }
       ],
