@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-10-18T00:01:27.457813+00:00",
+  "generated_at": "2026-10-19T00:05:56.659641+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 607892,
+    "estimated_input_tokens": 579670,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 2,
     "refetch_urls": false,
-    "input_article_count": 439,
-    "sent_article_count": 439,
+    "input_article_count": 425,
+    "sent_article_count": 425,
     "window": {
-      "end_date": "2026-10-18",
+      "end_date": "2026-10-19",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,157 +25,114 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các chuyển động vĩ mô, công nghệ và xã hội trong 48 giờ qua, tập trung vào các chính sách điều hành tại Việt Nam và các đột phá kỹ thuật toàn cầu.",
+    "editor_note": "Bản tin tổng hợp các sự kiện kinh tế, công nghệ và chính trị quan trọng trong 48 giờ qua, tập trung vào các thay đổi chính sách và biến động thị trường.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, bức tranh kinh tế Việt Nam ghi nhận sự quyết liệt trong điều hành vĩ mô, với trọng tâm là giảm lãi suất hỗ trợ sản xuất và siết chặt quản lý thị trường vàng. Song song đó, thế giới chứng kiến những bước tiến kỹ thuật quan trọng trong điện toán lượng tử và AI, cùng với các rủi ro địa chính trị tiếp tục gây áp lực lên chi phí năng lượng toàn cầu.",
-        "most_mentioned": "Chủ đề về chính sách hỗ trợ doanh nghiệp nhỏ và vừa (DNNVV) cùng các quy định mới về thanh toán vàng được nhắc đến dày đặc trên các phương tiện truyền thông chính thống, phản ánh nỗ lực của Chính phủ trong việc khơi thông nguồn lực và ổn định thị trường tài chính nội địa.",
-        "top_stories": "Sự kiện nổi bật nhất là chỉ đạo giảm lãi suất cho vay 1,5-2% và quy định thanh toán không dùng tiền mặt cho giao dịch vàng từ 5 triệu đồng. Các tin tức này liên kết chặt chẽ với nỗ lực thúc đẩy tăng trưởng kinh tế cuối năm của TP.HCM và các địa phương, tạo thành một luồng thông tin nhất quán về điều hành kinh tế.",
-        "sector_impacts": "Nhóm tài chính chịu tác động trực tiếp từ chính sách tiền tệ và quản lý vàng; nhóm công nghệ tiếp tục thu hút sự chú ý qua các đột phá về chip lượng tử và AI agent; trong khi đó, các vấn đề y tế cộng đồng như chùm ca não mô cầu tại TP.HCM đang trở thành tâm điểm đời sống."
+        "main_picture": "Trong 48 giờ qua, bức tranh kinh tế Việt Nam ghi nhận sự can thiệp trực tiếp từ Ngân hàng Nhà nước nhằm hạ lãi suất huy động và cho vay, song song với dấu mốc chiến lược khi Việt Nam chính thức ký kết Hiệp định Thương mại tự do (FTA) với khối EFTA. Sự kết hợp giữa chính sách tiền tệ nới lỏng và mở rộng không gian thương mại quốc tế đang tạo ra những biến số mới cho dòng vốn đầu tư và xuất khẩu trong giai đoạn cuối năm.",
+        "most_mentioned": "Chủ đề lãi suất và chính sách tiền tệ tại Việt Nam chiếm ưu thế trong các nguồn tin, phản ánh nỗ lực của cơ quan quản lý trong việc giảm chi phí vốn cho doanh nghiệp sản xuất và lĩnh vực ưu tiên, đồng thời siết chặt kỷ luật tín dụng để đảm bảo thanh khoản hệ thống.",
+        "top_stories": "Việc ký kết FTA với khối EFTA (Thụy Sĩ, Na Uy, Iceland, Liechtenstein) và chỉ đạo giảm lãi suất của Ngân hàng Nhà nước là hai câu chuyện quyết định tâm lý thị trường, kết nối giữa mục tiêu hội nhập dài hạn và ổn định vĩ mô ngắn hạn.",
+        "sector_impacts": "Các chính sách này tác động trực tiếp đến biên lợi nhuận ngân hàng, chi phí vốn của doanh nghiệp sản xuất và kỳ vọng của nhà đầu tư chứng khoán trước mùa báo cáo tài chính quý III, trong khi căng thẳng Trung Đông tiếp tục gây áp lực lên chi phí vận tải toàn cầu."
       },
-      "content": "Trong 48 giờ qua, Chính phủ Việt Nam đã ban hành các chỉ đạo quan trọng nhằm tháo gỡ điểm nghẽn cho doanh nghiệp nhỏ và vừa, đồng thời yêu cầu các ngân hàng thương mại giảm lãi suất cho vay từ 1,5-2% để hỗ trợ sản xuất kinh doanh. Đây là động thái then chốt nhằm giảm chi phí vốn trong bối cảnh áp lực lạm phát vẫn hiện hữu. Cùng với đó, quy định thanh toán không dùng tiền mặt cho các giao dịch vàng từ 5 triệu đồng trở lên đã chính thức được áp dụng, đánh dấu bước ngoặt trong việc minh bạch hóa thị trường vàng. Trên bình diện quốc tế, Google đã đạt bước tiến lớn với chip lượng tử Willow, giảm đáng kể tỷ lệ sai số, trong khi cuộc đua AI agent trên smartphone đang nóng lên với các sản phẩm mới từ các startup Trung Quốc. Trong 24-72 giờ tới, thị trường sẽ tập trung vào phản ứng của giá vàng trong nước, tiến độ giải ngân các dự án hạ tầng trọng điểm và các diễn biến mới từ thị trường năng lượng toàn cầu.",
+      "content": "Chính sách tiền tệ Việt Nam đang bước vào giai đoạn quyết liệt khi Ngân hàng Nhà nước yêu cầu các tổ chức tín dụng giảm lãi suất huy động tối thiểu 0,5% và lãi suất cho vay từ 1,5-2% cho lĩnh vực sản xuất. Động thái này nhằm tháo gỡ khó khăn cho doanh nghiệp, đồng thời siết chặt kỷ luật tín dụng để đảm bảo thanh khoản. Song song đó, việc ký kết FTA với khối EFTA mở ra cơ hội lớn cho xuất khẩu và thu hút đầu tư chất lượng cao, đánh dấu cột mốc quan trọng trong quan hệ kinh tế quốc tế của Việt Nam. Trên bình diện quốc tế, căng thẳng địa chính trị tại Trung Đông tiếp tục gây áp lực lên chi phí vận tải và giá dầu, buộc các nhà sản xuất phải điều chỉnh chiến lược giá. Thị trường tài sản rủi ro, đặc biệt là Bitcoin, đang cho thấy sự phân hóa khi dòng vốn có xu hướng tìm đến các tài sản có nền tảng thực tế hơn như hạ tầng AI và bán dẫn.",
       "representative_sources": [
         {
-          "title": "Chính phủ chỉ đạo giảm lãi suất cho vay 1,5-2% hỗ trợ sản xuất",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/pho-thu-tuong-yeu-cau-giam-lai-suat-cho-vay-15-2-voi-san-xuat-kinh-doanh-20261017092740338.htm"
-        },
-        {
-          "title": "Quy định mới: Mua bán vàng từ 5 triệu đồng phải thanh toán không dùng tiền mặt",
-          "source": "vietnamnet_vn",
-          "url": "https://vietnamnet.vn/quy-dinh-moi-mua-ban-vang-tu-5-trieu-dong-phai-thanh-toan-khong-dung-tien-mat-2565833.html"
-        },
-        {
-          "title": "Google đạt bước tiến kỷ lục với chip lượng tử Willow",
-          "source": "genk_vn",
-          "url": "https://genk.vn/chip-luong-tu-willow-cua-google-giam-bon-muoi-lan-sai-so-va-dat-do-trung-thuc-ky-luc-165261017100856116.chn"
-        },
-        {
-          "title": "Phó Thủ tướng yêu cầu giảm lãi suất cho vay 1,5-2% với sản xuất, kinh doanh",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/pho-thu-tuong-yeu-cau-giam-lai-suat-cho-vay-15-2-voi-san-xuat-kinh-doanh-20261017092740338.htm",
-          "excerpt": "Chỉ đạo quyết liệt về giảm lãi suất cho vay."
-        },
-        {
-          "title": "Chip lượng tử Willow của Google giảm bốn mươi lần sai số và đạt độ trung thực kỷ lục",
-          "source": "genk_vn",
-          "url": "https://genk.vn/chip-luong-tu-willow-cua-google-giam-bon-muoi-lan-sai-so-va-dat-do-trung-thuc-ky-luc-165261017100856116.chn",
-          "excerpt": "Chi tiết về đột phá kỹ thuật của chip Willow."
+          "title": "Ảrập Xêút đóng cửa tòa nhà biểu tượng giữa làn sóng tấn công của Houthi, hai phi công thiệt mạng",
+          "source": "tienphong_vn",
+          "url": "https://tienphong.vn/arap-xeut-dong-cua-toa-nha-bieu-tuong-giua-lan-song-tan-cong-cua-houthi-hai-phi-cong-thiet-mang-post1886434.tpo"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Chính sách hỗ trợ doanh nghiệp và lãi suất",
-          "why_mentioned": "Là trọng tâm điều hành kinh tế của Chính phủ trong 48h qua.",
-          "evidence_hint": "Các chỉ đạo từ Phó Thủ tướng và thảo luận tại Quốc hội."
+          "topic": "Chính sách lãi suất tại Việt Nam",
+          "why_mentioned": "Tác động trực tiếp đến chi phí vốn và thanh khoản thị trường.",
+          "evidence_hint": "Nhiều báo lớn đồng loạt đưa tin về chỉ đạo của NHNN."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Quy định mới về giao dịch vàng",
-          "why_hot": "Tác động trực tiếp đến thói quen tiêu dùng và quản lý thị trường vàng.",
-          "impact": "Thay đổi cách thức thanh toán vàng từ 5 triệu đồng trở lên.",
-          "evidence_hint": "Nghị định 390/2026/NĐ-CP."
+          "topic": "Địa chính trị Trung Đông",
+          "why_hot": "Gây áp lực lên giá dầu và chuỗi cung ứng toàn cầu.",
+          "impact": "Tăng chi phí vận tải và rủi ro lạm phát.",
+          "evidence_hint": "Các báo cáo từ OilPrice và CNBC về chi phí vận chuyển."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Sự chuyển dịch sang cho vay dựa trên dòng tiền",
-          "why_watch": "Thay đổi căn bản trong cách tiếp cận vốn của DNNVV."
+          "signal": "Dòng vốn dịch chuyển sang hạ tầng AI",
+          "why_watch": "Nhà đầu tư ưu tiên các tài sản có nền tảng tăng trưởng thực tế."
         }
       ],
       "watch_next": [
-        "Phản ứng giá vàng trong nước",
-        "Tiến độ giải ngân đầu tư công",
-        "Biến động giá dầu Brent"
+        "Phản ứng lãi suất tại các ngân hàng thương mại",
+        "Diễn biến giá dầu Brent",
+        "Tiến độ báo cáo tài chính quý III"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Chính phủ chỉ đạo giảm lãi suất cho vay 1,5-2% hỗ trợ sản xuất",
-        "one_sentence": "Chỉ đạo của Phó Thủ tướng Nguyễn Văn Thắng yêu cầu Ngân hàng Nhà nước khẩn trương triển khai giảm lãi suất cho vay đối với các lĩnh vực ưu tiên nhằm tháo gỡ khó khăn cho doanh nghiệp cuối năm.",
-        "why_it_matters": "Tác động trực tiếp đến chi phí vốn của doanh nghiệp và tăng trưởng kinh tế Việt Nam.",
-        "watch_next": "Tiến độ triển khai thực tế tại các ngân hàng thương mại.",
+        "title": "Ngân hàng Nhà nước yêu cầu giảm lãi suất huy động và cho vay",
+        "one_sentence": "NHNN ban hành văn bản 9608 yêu cầu các TCTD giảm lãi suất huy động tối thiểu 0,5% và lãi suất cho vay 1,5-2% cho lĩnh vực sản xuất, nhằm hỗ trợ doanh nghiệp và ổn định thanh khoản.",
+        "why_it_matters": "Đây là chính sách vĩ mô quan trọng nhất ảnh hưởng trực tiếp đến chi phí vốn của doanh nghiệp và thanh khoản thị trường trong 48 giờ qua.",
+        "watch_next": "Theo dõi phản ứng điều chỉnh lãi suất thực tế tại các ngân hàng thương mại trong tuần tới.",
         "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/pho-thu-tuong-yeu-cau-giam-lai-suat-cho-vay-15-2-voi-san-xuat-kinh-doanh-20261017092740338.htm"
+          "https://vietnamnet.vn/buoc-cac-ngan-hang-giam-ngay-tu-0-5-lai-suat-huy-dong-khong-dua-tang-lai-suat-2566013.html"
         ]
       },
       {
         "rank": 2,
-        "title": "Quy định mới: Mua bán vàng từ 5 triệu đồng phải thanh toán không dùng tiền mặt",
-        "one_sentence": "Nghị định 390/2026/NĐ-CP chính thức yêu cầu mọi giao dịch mua bán vàng từ 5 triệu đồng trong ngày trở lên phải thực hiện qua phương thức thanh toán không dùng tiền mặt để minh bạch hóa thị trường.",
-        "why_it_matters": "Thay đổi thói quen tiêu dùng và siết chặt quản lý nhà nước đối với thị trường vàng.",
-        "watch_next": "Phản ứng của người tiêu dùng và các đơn vị kinh doanh vàng.",
+        "title": "Việt Nam ký kết Hiệp định Thương mại tự do với khối EFTA",
+        "one_sentence": "Việt Nam và 4 nước EFTA (Thụy Sĩ, Na Uy, Iceland, Liechtenstein) chính thức ký kết FTA sau 14 năm đàm phán, mở ra cơ hội lớn cho xuất khẩu và thu hút đầu tư chất lượng cao.",
+        "why_it_matters": "Dấu mốc chiến lược trong hội nhập kinh tế quốc tế, tác động trực tiếp đến dòng vốn FDI và xuất khẩu của Việt Nam.",
+        "watch_next": "Các văn bản hướng dẫn thực thi FTA và phản ứng từ cộng đồng doanh nghiệp hai bên.",
         "source_urls": [
-          "https://vietnamnet.vn/quy-dinh-moi-mua-ban-vang-tu-5-trieu-dong-phai-thanh-toan-khong-dung-tien-mat-2565833.html"
+          "https://tuoitre.vn/viet-nam-ky-fta-cung-luc-voi-4-nuoc-chau-au-sau-14-nam-dam-phan-100261018121025267.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Google đạt bước tiến kỷ lục với chip lượng tử Willow",
-        "one_sentence": "Chip lượng tử Willow của Google đã giảm tỷ lệ sai số tới 40 lần thông qua kỹ thuật nuôi cấy trạng thái ma thuật, đạt độ trung thực logic 99,99%, mở ra kỷ nguyên mới cho điện toán lượng tử.",
-        "why_it_matters": "Đột phá kỹ thuật quan trọng có tiềm năng thay đổi năng lực tính toán toàn cầu.",
-        "watch_next": "Khả năng ứng dụng thực tế của chip Willow trong các bài toán phức tạp.",
-        "source_urls": [
-          "https://genk.vn/chip-luong-tu-willow-cua-google-giam-bon-muoi-lan-sai-so-va-dat-do-trung-thuc-ky-luc-165261017100856116.chn"
-        ]
+        "title": "Căng thẳng địa chính trị tại Trung Đông và tác động đến an ninh khu vực",
+        "one_sentence": "Căng thẳng leo thang tại Trung Đông với các vụ tấn công bằng UAV và tên lửa từ lực lượng Houthi gây áp lực lên an ninh hạ tầng năng lượng và hàng hải toàn cầu.",
+        "why_it_matters": "Ảnh hưởng trực tiếp đến giá dầu và an ninh năng lượng toàn cầu, gây áp lực lên chi phí vận tải.",
+        "watch_next": "Diễn biến giá dầu Brent và các báo cáo về an ninh hàng hải tại eo biển Hormuz.",
+        "source_urls": []
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự quyết liệt trong điều hành vĩ mô. Chính phủ tập trung vào việc giảm lãi suất cho vay và siết chặt quản lý thị trường vàng thông qua các quy định thanh toán mới. Đây là những động thái nhằm ổn định kinh tế vĩ mô và hỗ trợ doanh nghiệp trong bối cảnh áp lực chi phí vốn tăng cao. Đồng thời, các thảo luận về Luật Phát triển DNNVV cho thấy sự chuyển dịch trong tư duy quản lý, hướng tới việc hỗ trợ doanh nghiệp dựa trên dòng tiền thay vì tài sản thế chấp truyền thống.",
-        "subsector_briefs": [
-          {
-            "name": "Chính sách tiền tệ và quản lý thị trường",
-            "overview": "Chính phủ đẩy mạnh các biện pháp hỗ trợ doanh nghiệp thông qua giảm lãi suất và minh bạch hóa giao dịch vàng.",
-            "key_points": [
-              "Giảm lãi suất 1,5-2% cho sản xuất",
-              "Thanh toán vàng không dùng tiền mặt từ 5 triệu đồng"
-            ],
-            "key_story_titles": [
-              "Quy định mới về thanh toán vàng và hỗ trợ lãi suất tại Việt Nam"
-            ],
-            "representative_sources": [
-              {
-                "title": "Mua bán vàng trong ngày từ 5 triệu đồng phải thanh toán không dùng tiền mặt",
-                "source": "cafef_vn",
-                "url": "https://cafef.vn/mua-ban-vang-trong-ngay-tu-5-trieu-dong-phai-thanh-toan-khong-dung-tien-mat-188261017224648206.chn",
-                "excerpt": "Chính phủ chỉ đạo giảm lãi suất và siết chặt quản lý giao dịch vàng."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự can thiệp mạnh mẽ của Ngân hàng Nhà nước vào mặt bằng lãi suất và dấu mốc hội nhập kinh tế với khối EFTA. Các tín hiệu này phản ánh nỗ lực ổn định vĩ mô trong bối cảnh thị trường bất động sản vẫn đối mặt với sự lệch pha kỳ vọng và thanh khoản yếu. Dòng vốn đang có xu hướng thận trọng, chờ đợi kết quả kinh doanh quý III để xác định xu hướng tiếp theo.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
+            "depth_level": "major",
             "sub_sector": "Chính sách tiền tệ",
-            "title": "Chỉ đạo giảm lãi suất hỗ trợ sản xuất",
-            "summary": "Phó Thủ tướng Nguyễn Văn Thắng yêu cầu Ngân hàng Nhà nước triển khai các giải pháp giảm lãi suất cho vay từ 1,5-2% đối với sản xuất kinh doanh. Đây là nỗ lực nhằm tháo gỡ khó khăn về chi phí vốn cho doanh nghiệp trong giai đoạn cuối năm, đồng thời kiểm soát chặt chẽ nợ xấu và sở hữu chéo trong hệ thống ngân hàng.",
+            "title": "Chỉ đạo giảm lãi suất của Ngân hàng Nhà nước",
+            "summary": "Ngân hàng Nhà nước ban hành văn bản 9608 yêu cầu các tổ chức tín dụng giảm lãi suất huy động và cho vay để hỗ trợ kinh tế. Đây là động thái quyết liệt nhằm tháo gỡ khó khăn cho doanh nghiệp sản xuất và ổn định chi phí vốn trong bối cảnh cuối năm.",
             "main_developments": [
-              "Ngân hàng BIDV đã tiên phong triển khai gói tín dụng ưu đãi lãi suất từ 6%/năm.",
-              "Các đại biểu Quốc hội đề xuất chuyển đổi phương thức cho vay dựa trên dòng tiền thay vì tài sản thế chấp."
+              "Yêu cầu giảm lãi suất huy động tối thiểu 0,5% cho kỳ hạn từ 6 tháng trở lên.",
+              "Giảm lãi suất cho vay 1,5-2% đối với lĩnh vực sản xuất và ưu tiên.",
+              "Cảnh báo siết chỉ tiêu tăng trưởng tín dụng đối với các ngân hàng không tuân thủ."
             ],
-            "why_it_matters": "Giảm áp lực chi phí vốn, hỗ trợ doanh nghiệp phục hồi sản xuất và thúc đẩy tăng trưởng kinh tế.",
+            "why_it_matters": "Chính sách này trực tiếp ảnh hưởng đến chi phí vốn của doanh nghiệp và thanh khoản thị trường, đóng vai trò quan trọng trong việc duy trì đà tăng trưởng kinh tế.",
             "affected_groups": [
               "Doanh nghiệp sản xuất",
-              "Hệ thống ngân hàng",
-              "Người vay vốn"
+              "Ngân hàng thương mại",
+              "Nhà đầu tư chứng khoán"
             ],
             "watch_next": [
-              "Tốc độ giải ngân gói tín dụng ưu đãi",
-              "Phản ứng của mặt bằng lãi suất thị trường"
+              "Phản ứng lãi suất tại các ngân hàng thương mại",
+              "Tác động đến biên lợi nhuận ngân hàng"
             ],
             "representative_sources": [
               {
-                "title": "Phó Thủ tướng yêu cầu giảm lãi suất cho vay 1,5-2% với sản xuất, kinh doanh",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/pho-thu-tuong-yeu-cau-giam-lai-suat-cho-vay-15-2-voi-san-xuat-kinh-doanh-20261017092740338.htm",
-                "excerpt": "Chỉ đạo quyết liệt về giảm lãi suất cho vay."
+                "title": "NHNN buộc các ngân hàng giảm ngay lãi suất huy động, không đua tăng lãi suất",
+                "source": "vietnamnet_vn",
+                "url": "https://vietnamnet.vn/buoc-cac-ngan-hang-giam-ngay-tu-0-5-lai-suat-huy-dong-khong-dua-tang-lai-suat-2566013.html",
+                "excerpt": "NHNN yêu cầu các TCTD điều chỉnh giảm lãi suất tiền gửi niêm yết tối thiểu 0,5%/năm đối với các kỳ hạn từ 6 tháng trở lên."
               }
             ]
           }
@@ -184,24 +141,25 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua ghi nhận những đột phá kỹ thuật quan trọng. Google đạt bước tiến lớn trong điện toán lượng tử với chip Willow, trong khi các startup Trung Quốc đang định hình lại trải nghiệm smartphone với AI Agent. Đồng thời, sự cạnh tranh trong lĩnh vực bán dẫn giữa Mỹ và Trung Quốc vẫn tiếp tục gay gắt, với việc Huawei gia tăng thị phần tại Trung Quốc trong khi Nvidia sụt giảm.",
+        "sector_thesis": "Công nghệ & AI trong 48 giờ qua tập trung vào việc thương mại hóa hạ tầng AI và ứng dụng AI trong quản lý đô thị. Các doanh nghiệp công nghệ Việt Nam đang đẩy mạnh nội địa hóa và tham gia chuỗi cung ứng toàn cầu, trong khi các tập đoàn lớn trên thế giới đang chuyển trọng tâm sang hạ tầng trung tâm dữ liệu và năng lượng hạt nhân để đáp ứng nhu cầu tính toán khổng lồ.",
         "subsector_briefs": [
           {
-            "name": "Điện toán lượng tử và AI",
-            "overview": "Các đột phá kỹ thuật đang thay đổi năng lực tính toán và trải nghiệm người dùng.",
+            "name": "Hạ tầng AI & Trung tâm dữ liệu",
+            "overview": "Các doanh nghiệp công nghệ đang tập trung đầu tư vào hạ tầng AI và trung tâm dữ liệu để đáp ứng nhu cầu tính toán ngày càng tăng.",
             "key_points": [
-              "Chip lượng tử Willow giảm sai số 40 lần",
-              "AI Agent thay thế ứng dụng truyền thống"
+              "FPT ra mắt hệ sinh thái AI EOS",
+              "NVIDIA chuyển trọng tâm sang hạ tầng AI",
+              "Thách thức năng lượng cho trung tâm dữ liệu"
             ],
             "key_story_titles": [
-              "Chip lượng tử Willow của Google giảm bốn mươi lần sai số và đạt độ trung thực kỷ lục"
+              "FPT ra mắt hệ sinh thái FPT AI EOS và hạ tầng Kubernetes với GPU"
             ],
             "representative_sources": [
               {
-                "title": "Chip lượng tử Willow của Google giảm bốn mươi lần sai số và đạt độ trung thực kỷ lục",
+                "title": "FPT ra mắt FPT AI EOS, Kubernetes Engine với GPU và Token Factory, đưa AI từ thử nghiệm vào vận hành",
                 "source": "genk_vn",
-                "url": "https://genk.vn/chip-luong-tu-willow-cua-google-giam-bon-muoi-lan-sai-so-va-dat-do-trung-thuc-ky-luc-165261017100856116.chn",
-                "excerpt": "Đột phá kỹ thuật trong điện toán lượng tử."
+                "url": "https://genk.vn/fpt-ra-mat-fpt-ai-eos-kubernetes-engine-voi-gpu-va-token-factory-dua-ai-tu-thu-nghiem-vao-van-hanh-165261018121707151.chn",
+                "excerpt": "FPT giới thiệu các giải pháp hạ tầng và điều phối AI nhằm đưa công nghệ này từ thử nghiệm vào vận hành thực tế cho doanh nghiệp."
               }
             ]
           }
@@ -210,29 +168,30 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Điện toán lượng tử",
-            "title": "Đột phá chip lượng tử Willow của Google",
-            "summary": "Google công bố chip lượng tử Willow với khả năng giảm tỷ lệ sai số tới 40 lần nhờ kỹ thuật nuôi cấy trạng thái ma thuật. Đây là bước tiến quan trọng giúp đạt độ trung thực logic 99,99%, vượt qua các giới hạn kỹ thuật trước đây trong việc thiết lập các trạng thái lượng tử đặc biệt.",
+            "sub_sector": "Hạ tầng AI",
+            "title": "FPT đẩy mạnh thương mại hóa hạ tầng AI",
+            "summary": "FPT giới thiệu hệ sinh thái FPT AI EOS và các giải pháp hạ tầng Kubernetes với GPU, nhằm hỗ trợ doanh nghiệp đưa AI từ giai đoạn thử nghiệm vào vận hành thực tế. Đây là bước tiến quan trọng trong việc nội địa hóa hạ tầng công nghệ cao tại Việt Nam.",
             "main_developments": [
-              "Chip Willow sử dụng kỹ thuật nuôi cấy trạng thái ma thuật để ổn định hệ thống.",
-              "Độ trung thực logic đạt mức kỷ lục 99,99%."
+              "Ra mắt FPT AI EOS, FPT Kubernetes Engine với GPU và FPT Token Factory.",
+              "Khả năng khởi tạo cụm Kubernetes với GPU trong 5 phút.",
+              "Tối ưu hóa quy trình đưa tác vụ vào môi trường vận hành trong 30 giây."
             ],
-            "why_it_matters": "Khẳng định vị thế dẫn đầu của Google trong cuộc đua điện toán lượng tử, mở ra khả năng giải quyết các bài toán phức tạp mà máy tính truyền thống không thể thực hiện.",
+            "why_it_matters": "Động thái này khẳng định năng lực của doanh nghiệp công nghệ Việt Nam trong việc cung cấp hạ tầng AI, giúp doanh nghiệp trong nước tiếp cận công nghệ tiên tiến với chi phí tối ưu.",
             "affected_groups": [
-              "Ngành điện toán",
-              "Nghiên cứu khoa học",
-              "Bảo mật thông tin"
+              "Doanh nghiệp công nghệ",
+              "Doanh nghiệp sản xuất",
+              "Nhà phát triển AI"
             ],
             "watch_next": [
-              "Khả năng mở rộng quy mô chip lượng tử",
-              "Ứng dụng thực tế trong các lĩnh vực khoa học"
+              "Khả năng tích hợp của hệ sinh thái vào quy trình vận hành doanh nghiệp",
+              "Nhu cầu thị trường đối với các giải pháp hạ tầng AI nội địa"
             ],
             "representative_sources": [
               {
-                "title": "Chip lượng tử Willow của Google giảm bốn mươi lần sai số và đạt độ trung thực kỷ lục",
+                "title": "FPT ra mắt FPT AI EOS, Kubernetes Engine với GPU và Token Factory, đưa AI từ thử nghiệm vào vận hành",
                 "source": "genk_vn",
-                "url": "https://genk.vn/chip-luong-tu-willow-cua-google-giam-bon-muoi-lan-sai-so-va-dat-do-trung-thuc-ky-luc-165261017100856116.chn",
-                "excerpt": "Chi tiết về đột phá kỹ thuật của chip Willow."
+                "url": "https://genk.vn/fpt-ra-mat-fpt-ai-eos-kubernetes-engine-voi-gpu-va-token-factory-dua-ai-tu-thu-nghiem-vao-van-hanh-165261018121707151.chn",
+                "excerpt": "FPT giới thiệu các giải pháp hạ tầng và điều phối AI nhằm đưa công nghệ này từ thử nghiệm vào vận hành thực tế cho doanh nghiệp."
               }
             ]
           }
@@ -241,34 +200,36 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48 giờ qua tập trung vào các hoạt động ngoại giao cấp cao và các chỉ đạo về quản lý nhà nước. Việt Nam thúc đẩy hợp tác thương mại với Thụy Sĩ, trong khi các vấn đề an ninh mạng và địa chính trị quốc tế cũng thu hút sự quan tâm lớn. Các chỉ đạo của lãnh đạo cấp cao về bảo vệ quyền lợi người tiêu dùng và quản lý đảng viên tham gia kinh doanh cho thấy quyết tâm trong việc minh bạch hóa và nâng cao hiệu quả quản lý nhà nước.",
+        "sector_thesis": "Thời sự & Chính trị 48 giờ qua xoay quanh chuyến thăm cấp Nhà nước của Tổng Bí thư, Chủ tịch nước Tô Lâm tới Đan Mạch và EU, cùng với những diễn biến phức tạp tại Trung Đông. Các sự kiện này định hình quan hệ đối tác chiến lược của Việt Nam và phản ánh rủi ro địa chính trị toàn cầu đang gây áp lực lên an ninh năng lượng và hàng hải.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
+            "depth_level": "major",
             "sub_sector": "Ngoại giao",
-            "title": "Việt Nam - Thụy Sĩ thúc đẩy hợp tác",
-            "summary": "Tổng Bí thư, Chủ tịch nước Tô Lâm và Thủ tướng Lê Minh Hưng đã có các cuộc hội đàm quan trọng với Tổng thống Thụy Sĩ Guy Parmelin. Hai bên nhất trí thúc đẩy hợp tác về tài chính số, công nghệ chuỗi khối (blockchain) và chuẩn bị cho Hiệp định thương mại tự do Việt Nam - EFTA, nhằm tăng gấp đôi kim ngạch thương mại song phương.",
+            "title": "Chuyến thăm cấp Nhà nước của Tổng Bí thư, Chủ tịch nước Tô Lâm",
+            "summary": "Tổng Bí thư, Chủ tịch nước Tô Lâm bắt đầu chuyến thăm cấp Nhà nước tới Đan Mạch và làm việc tại EU, Bỉ từ ngày 19-24/10. Chuyến thăm nhằm thúc đẩy quan hệ ngoại giao, kinh tế và khẳng định vị thế của Việt Nam trong quan hệ đối tác chiến lược với các quốc gia châu Âu.",
             "main_developments": [
-              "Thúc đẩy hợp tác trong lĩnh vực tài chính xanh và công nghệ sinh học.",
-              "Đưa khoa học - công nghệ trở thành trụ cột hợp tác quan trọng giữa hai nước."
+              "Đoàn đại biểu cấp cao Việt Nam rời Hà Nội lên đường thăm Đan Mạch, EU và Bỉ.",
+              "Tập trung vào các nội dung hợp tác kinh tế, thương mại và đầu tư.",
+              "Khẳng định cam kết của Việt Nam trong việc tăng cường quan hệ đối tác chiến lược."
             ],
-            "why_it_matters": "Củng cố quan hệ ngoại giao và mở ra cơ hội hợp tác kinh tế, công nghệ với một trong những trung tâm tài chính hàng đầu thế giới.",
+            "why_it_matters": "Đây là sự kiện ngoại giao quan trọng nhất trong 48 giờ qua, định hình quan hệ đối tác chiến lược của Việt Nam với các nền kinh tế phát triển tại châu Âu.",
             "affected_groups": [
-              "Doanh nghiệp hai nước",
-              "Cơ quan quản lý tài chính"
+              "Chính phủ Việt Nam",
+              "Doanh nghiệp xuất khẩu",
+              "Nhà đầu tư châu Âu"
             ],
             "watch_next": [
-              "Tiến độ đàm phán Hiệp định thương mại tự do",
-              "Các dự án đầu tư tài chính số"
+              "Kết quả các cuộc hội đàm và ký kết hợp tác",
+              "Tác động đến dòng vốn đầu tư từ EU vào Việt Nam"
             ],
             "representative_sources": [
               {
-                "title": "Thúc đẩy các cơ quan chuyên môn Việt Nam- Thụy Sĩ hợp tác về tài chính số, công nghệ blockchain",
+                "title": "Thủ tướng khuyến khích doanh nghiệp Liechtenstein đầu tư vào Việt Nam",
                 "source": "tienphong_vn",
-                "url": "https://tienphong.vn/thuc-day-cac-co-quan-chuyen-mon-viet-nam-thuy-si-hop-tac-ve-tai-chinh-so-cong-nghe-blockchain-post1886155.tpo",
-                "excerpt": "Chi tiết về nội dung hội đàm cấp cao."
+                "url": "https://tienphong.vn/thu-tuong-khuyen-khich-doanh-nghiep-liechtenstein-dau-tu-vao-viet-nam-post1886413.tpo",
+                "excerpt": "Tổng Bí thư, Chủ tịch nước Tô Lâm bắt đầu chuyến thăm cấp Nhà nước tới Đan Mạch và làm việc tại EU, Bỉ nhằm thúc đẩy quan hệ ngoại giao và kinh tế."
               }
             ]
           }
@@ -277,35 +238,57 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua ghi nhận các vấn đề y tế cộng đồng cấp thiết và sự thay đổi trong hành vi tiêu dùng. Chùm ca não mô cầu tại TP.HCM đang được ngành y tế kiểm soát chặt chẽ. Đồng thời, xu hướng tiêu dùng công nghệ và bất động sản cũng có những chuyển dịch đáng chú ý, với việc người mua nhà chuyển hướng sang phân khúc chung cư cũ do giá căn hộ mới quá cao.",
-        "subsector_briefs": [],
-        "story_dossiers": [
+        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua ghi nhận sự mở rộng của hạ tầng bán lẻ hiện đại tại Việt Nam với sự kiện khai trương AEON MALL Thanh Hóa, cùng với các cảnh báo y tế quan trọng về sức khỏe cộng đồng. Các xu hướng tiêu dùng và quản lý tài chính cá nhân cũng đang có sự thay đổi rõ rệt trong bối cảnh kinh tế hiện nay.",
+        "subsector_briefs": [
           {
-            "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Y tế",
-            "title": "Kiểm soát chùm ca não mô cầu tại TP.HCM",
-            "summary": "Ngành y tế TP.HCM đang tích cực triển khai các biện pháp kiểm soát sau khi ghi nhận 4 trường hợp nhiễm não mô cầu tại Trường THCS Hai Bà Trưng, trong đó có 1 ca tử vong. Các biện pháp bao gồm giám sát người tiếp xúc gần, triển khai kháng sinh dự phòng và tăng cường vệ sinh môi trường tại trường học.",
-            "main_developments": [
-              "Các bệnh nhân được xác định dương tính với não mô cầu nhóm B.",
-              "Ngành y tế đã triển khai kháng sinh dự phòng cho toàn bộ học sinh và giáo viên tiếp xúc gần."
+            "name": "Tiêu dùng & Bán lẻ",
+            "overview": "Sự kiện khai trương AEON MALL Thanh Hóa thu hút hàng trăm nghìn lượt khách, phản ánh tiềm năng tiêu dùng tại các địa phương.",
+            "key_points": [
+              "AEON MALL Thanh Hóa khai trương",
+              "Thu hút hơn 200.000 lượt khách",
+              "Tiềm năng tiêu dùng địa phương"
             ],
-            "why_it_matters": "Đảm bảo an toàn sức khỏe cộng đồng và ngăn chặn sự lây lan của dịch bệnh trong môi trường học đường.",
-            "affected_groups": [
-              "Học sinh",
-              "Phụ huynh",
-              "Cộng đồng dân cư"
-            ],
-            "watch_next": [
-              "Kết quả giám sát sức khỏe các trường hợp tiếp xúc",
-              "Thông tin từ Bộ Y tế về tình hình dịch bệnh"
+            "key_story_titles": [
+              "Khai trương AEON MALL Thanh Hóa với quy mô lớn"
             ],
             "representative_sources": [
               {
-                "title": "TPHCM: Học sinh thứ 4 mắc não mô cầu sau khi tiếp xúc gần ca bệnh",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/tphcm-hoc-sinh-thu-4-mac-nao-mo-cau-sau-khi-tiep-xuc-gan-ca-benh-post1886182.tpo",
-                "excerpt": "Cập nhật tình hình kiểm soát dịch bệnh."
+                "title": "Thanh Hóa: Khai trương Trung tâm thương mại AEON MALL, quy tụ 133 cửa hàng",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/thanh-hoa-khai-truong-trung-tam-thuong-mai-aeon-mall-quy-tu-133-cua-hang-192261018113950023.htm",
+                "excerpt": "AEON MALL Thanh Hóa có tổng mức đầu tư 4.157 tỷ đồng, quy tụ 133 cửa hàng và đã đón hơn 200.000 lượt khách chỉ sau 3 ngày mở cửa."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "brief",
+            "sub_sector": "Tiêu dùng",
+            "title": "Khai trương AEON MALL Thanh Hóa",
+            "summary": "Trung tâm thương mại AEON MALL Thanh Hóa chính thức đi vào hoạt động với tổng mức đầu tư hơn 4.100 tỷ đồng. Sự kiện thu hút hơn 200.000 lượt khách chỉ sau 3 ngày mở cửa, cho thấy sức mua và tiềm năng tiêu dùng hiện đại tại khu vực Bắc Trung bộ.",
+            "main_developments": [
+              "Quy tụ 133 cửa hàng đa dạng ngành hàng.",
+              "Đón hơn 200.000 lượt khách sau 3 ngày khai trương.",
+              "Khẳng định chiến lược mở rộng của AEON tại các địa phương Việt Nam."
+            ],
+            "why_it_matters": "Sự kiện phản ánh xu hướng phát triển hạ tầng bán lẻ hiện đại và tiềm năng tiêu dùng tại các địa phương ngoài các thành phố lớn.",
+            "affected_groups": [
+              "Người tiêu dùng địa phương",
+              "Nhà bán lẻ",
+              "Doanh nghiệp địa phương"
+            ],
+            "watch_next": [
+              "Tác động đến thói quen tiêu dùng của người dân Thanh Hóa",
+              "Khả năng thu hút thêm các nhà đầu tư bán lẻ khác"
+            ],
+            "representative_sources": [
+              {
+                "title": "Thanh Hóa: Khai trương Trung tâm thương mại AEON MALL, quy tụ 133 cửa hàng",
+                "source": "baoxaydung_vn",
+                "url": "https://baoxaydung.vn/thanh-hoa-khai-truong-trung-tam-thuong-mai-aeon-mall-quy-tu-133-cua-hang-192261018113950023.htm",
+                "excerpt": "AEON MALL Thanh Hóa có tổng mức đầu tư 4.157 tỷ đồng, quy tụ 133 cửa hàng và đã đón hơn 200.000 lượt khách chỉ sau 3 ngày mở cửa."
               }
             ]
           }
@@ -314,69 +297,69 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường vàng",
-        "what_to_watch": "Phản ứng của giá vàng và các đơn vị kinh doanh sau quy định thanh toán mới.",
-        "why": "Tác động trực tiếp đến thói quen tiêu dùng và quản lý thị trường."
+        "theme": "Lãi suất ngân hàng",
+        "what_to_watch": "Phản ứng điều chỉnh lãi suất thực tế tại các ngân hàng thương mại",
+        "why": "Ảnh hưởng trực tiếp đến chi phí vốn của doanh nghiệp và thanh khoản thị trường."
       },
       {
-        "theme": "Chính sách tiền tệ",
-        "what_to_watch": "Tiến độ triển khai giảm lãi suất tại các ngân hàng thương mại.",
-        "why": "Ảnh hưởng đến chi phí vốn của doanh nghiệp."
+        "theme": "Địa chính trị Trung Đông",
+        "what_to_watch": "Diễn biến giá dầu Brent và an ninh hàng hải tại eo biển Hormuz",
+        "why": "Rủi ro địa chính trị lớn ảnh hưởng đến giá năng lượng và chi phí vận tải toàn cầu."
       },
       {
-        "theme": "Địa chính trị",
-        "what_to_watch": "Diễn biến giá dầu Brent và các rủi ro nguồn cung.",
-        "why": "Tác động đến lạm phát và chi phí vận hành toàn cầu."
+        "theme": "Báo cáo tài chính",
+        "what_to_watch": "Tiến độ công bố báo cáo tài chính quý III của các doanh nghiệp niêm yết",
+        "why": "Dòng tiền thị trường chứng khoán sẽ phân hóa dựa trên kết quả kinh doanh thực tế."
       },
       {
-        "theme": "Y tế cộng đồng",
-        "what_to_watch": "Tình hình kiểm soát dịch não mô cầu tại TP.HCM.",
-        "why": "Đảm bảo an toàn sức khỏe học đường."
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Các ngân hàng lớn toàn cầu coi token hóa là cơ hội tăng trưởng",
-        "why": "Phản ánh xu hướng chuyển đổi số tài chính toàn cầu của các định chế tài chính lớn."
+        "theme": "Ngoại giao Việt Nam",
+        "what_to_watch": "Kết quả các cuộc hội đàm trong chuyến thăm của Tổng Bí thư, Chủ tịch nước Tô Lâm",
+        "why": "Định hình quan hệ đối tác chiến lược và dòng vốn đầu tư từ EU."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Đề xuất cơ chế quản trị tối giản và hỗ trợ thuế cho doanh nghiệp nhỏ và vừa",
-        "why": "Đây là chính sách vĩ mô quan trọng ảnh hưởng trực tiếp đến khối doanh nghiệp chiếm tỷ trọng lớn trong nền kinh tế."
+        "what_to_watch": "Ngân hàng Nhà nước yêu cầu các tổ chức tín dụng giảm lãi suất huy động và cho vay",
+        "why": "Chính sách tiền tệ trực tiếp ảnh hưởng đến chi phí vốn của doanh nghiệp và thị trường chứng khoán Việt Nam."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Quy định mới: Mua bán vàng từ 5 triệu đồng phải thanh toán không dùng tiền mặt",
-        "why": "Tác động trực tiếp đến thói quen giao dịch và quản lý thị trường vàng tại Việt Nam."
+        "what_to_watch": "Việt Nam ký kết Hiệp định Thương mại tự do với khối EFTA",
+        "why": "Dấu mốc chiến lược trong hội nhập kinh tế quốc tế, tác động trực tiếp đến dòng vốn FDI và xuất khẩu."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Ăn đêm làm tăng 20-30% nguy cơ mắc bệnh gan",
+        "why": "Tác động trực tiếp đến sức khỏe cộng đồng và chi phí y tế, ảnh hưởng đến lối sống và kinh tế hộ gia đình."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Công an điều tra các giao dịch chuyển khoản từ 10 triệu đồng tại BIDV, Vietcombank, VietinBank, MB",
+        "why": "Sự kiện an ninh tài chính quan trọng, ảnh hưởng đến quy trình kiểm soát giao dịch của các ngân hàng lớn."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Ngân hàng Nhà nước Việt Nam yêu cầu giảm lãi suất huy động và cho vay",
+        "why": "Chính sách tiền tệ trực tiếp ảnh hưởng đến chi phí vốn của doanh nghiệp và thị trường chứng khoán."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Startup Trung Quốc StepFun ra mắt điện thoại tích hợp AI Agent",
-        "why": "Đánh dấu bước tiến mới trong trải nghiệm người dùng smartphone với AI."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Thuốc mới điều trị bệnh gan nhiễm mỡ bằng cách phục hồi hệ vi sinh đường ruột",
-        "why": "Đột phá y học có tiềm năng lớn trong điều trị bệnh chuyển hóa."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Stanford phát triển kính hiển vi mới quan sát tế bào sống không cần nhãn huỳnh quang",
-        "why": "Đột phá kỹ thuật quan trọng trong hình ảnh sinh học, hỗ trợ nghiên cứu ung thư và phát triển thuốc."
+        "what_to_watch": "TP.HCM ứng dụng AI điều hành giao thông và quản lý đô thị thông minh",
+        "why": "Ứng dụng thực tiễn của AI trong quản lý hạ tầng đô thị tại Việt Nam."
       }
     ],
     "source_desk": [
       {
-        "topic": "Kinh tế & Chính sách",
+        "topic": "Chính sách tiền tệ",
         "representative_sources": [
           {
-            "title": "Phó Thủ tướng yêu cầu giảm lãi suất cho vay 1,5-2% với sản xuất, kinh doanh",
-            "source": "dantri_com_vn",
-            "url": "https://dantri.com.vn/kinh-doanh/pho-thu-tuong-yeu-cau-giam-lai-suat-cho-vay-15-2-voi-san-xuat-kinh-doanh-20261017092740338.htm"
+            "title": "NHNN buộc các ngân hàng giảm ngay lãi suất huy động, không đua tăng lãi suất",
+            "source": "vietnamnet_vn",
+            "url": "https://vietnamnet.vn/buoc-cac-ngan-hang-giam-ngay-tu-0-5-lai-suat-huy-dong-khong-dua-tang-lai-suat-2566013.html"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động dài hạn của các chính sách mới đối với thị trường bất động sản.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của việc giảm lãi suất lên biên lợi nhuận ngân hàng trong dài hạn.",
     "notable_articles": []
   }
 }
