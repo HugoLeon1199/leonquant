@@ -1,8 +1,8 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-10-19T22:57:44.643055+00:00",
+  "generated_at_utc": "2026-10-20T06:07:14.344797+00:00",
   "checked": 26,
-  "hit_count": 113,
+  "hit_count": 115,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
@@ -11,8 +11,13 @@
       "hit_count": 12,
       "top_links": [
         {
-          "title": "GitHub repo updated: zai-org/GLM-OCR",
-          "url": "https://github.com/zai-org/GLM-OCR",
+          "title": "GitHub repo updated: zai-org/CodeGeeX",
+          "url": "https://github.com/zai-org/CodeGeeX",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/SCAIL-2",
+          "url": "https://github.com/zai-org/SCAIL-2",
           "source_lane": "github_release"
         },
         {
@@ -21,19 +26,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: butler-compute/GLM-5.3-FP8-NVFP4",
-          "url": "https://huggingface.co/butler-compute/GLM-5.3-FP8-NVFP4",
+          "title": "Hugging Face model updated: AlayaNeW/GLM-5.3-INT4-FP8Mix",
+          "url": "https://huggingface.co/AlayaNeW/GLM-5.3-INT4-FP8Mix",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: RedHatAI/GLM-5.3-MXFP4xFP8",
-          "url": "https://huggingface.co/RedHatAI/GLM-5.3-MXFP4xFP8",
+          "title": "Hugging Face model updated: inference-optimization/GLM-4.7-Flash-1.0B-A0.9B-small",
+          "url": "https://huggingface.co/inference-optimization/GLM-4.7-Flash-1.0B-A0.9B-small",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "GitHub repo updated: zai-org/Synapse",
-          "url": "https://github.com/zai-org/Synapse",
-          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 8,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image-Layered",
-          "url": "https://github.com/QwenLM/Qwen-Image-Layered",
+          "title": "GitHub repo updated: QwenLM/FlashQLA",
+          "url": "https://github.com/QwenLM/FlashQLA",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3",
-          "url": "https://github.com/QwenLM/Qwen3",
+          "title": "GitHub repo updated: QwenLM/Qwen",
+          "url": "https://github.com/QwenLM/Qwen",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: N14QM/Neuron-distill-hunyuan-Hy4-preview-reasoning-VietNam",
-          "url": "https://huggingface.co/N14QM/Neuron-distill-hunyuan-Hy4-preview-reasoning-VietNam",
+          "title": "Hugging Face model updated: ReliquaryForge/qwen3-4b-base-dapo-v4",
+          "url": "https://huggingface.co/ReliquaryForge/qwen3-4b-base-dapo-v4",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: OzzyGT/Flux_3_Image_Klein_pup_sdnq_dynamic_4bit",
-          "url": "https://huggingface.co/OzzyGT/Flux_3_Image_Klein_pup_sdnq_dynamic_4bit",
+          "title": "Hugging Face model updated: mradermacher/Qwen2.5-3B-YesMan-GGUF",
+          "url": "https://huggingface.co/mradermacher/Qwen2.5-3B-YesMan-GGUF",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,11 +76,16 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 12,
+      "hit_count": 14,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-LLM",
-          "url": "https://github.com/deepseek-ai/DeepSeek-LLM",
+          "title": "GitHub repo updated: deepseek-ai/DeepEP",
+          "url": "https://github.com/deepseek-ai/DeepEP",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: deepseek-ai/DeepGEMM",
+          "url": "https://github.com/deepseek-ai/DeepGEMM",
           "source_lane": "github_release"
         },
         {
@@ -89,19 +94,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/deepseek-recipe",
-          "url": "https://github.com/deepseek-ai/deepseek-recipe",
-          "source_lane": "github_release"
-        },
-        {
           "title": "Hugging Face model updated: DevQuasar/deepseek-ai.DeepSeek-V4.1-Flash-1017-GGUF",
           "url": "https://huggingface.co/DevQuasar/deepseek-ai.DeepSeek-V4.1-Flash-1017-GGUF",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: ayourtch/deepseek-v4.1-flash-1017-gguf",
-          "url": "https://huggingface.co/ayourtch/deepseek-v4.1-flash-1017-gguf",
-          "source_lane": "huggingface_model"
+          "title": "OpenRouter model listed: deepseek/deepseek-v4.1-flash-1017",
+          "url": "https://openrouter.ai/deepseek/deepseek-v4.1-flash-1017",
+          "source_lane": "model_hub"
         }
       ],
       "no_signal_reason": ""
@@ -113,13 +113,13 @@
       "hit_count": 4,
       "top_links": [
         {
-          "title": "Hugging Face model updated: RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho0p5_mu4_start100_ev128-gs360",
-          "url": "https://huggingface.co/RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho0p5_mu4_start100_ev128-gs360",
+          "title": "Hugging Face model updated: RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs100",
+          "url": "https://huggingface.co/RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs100",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: RyanYr/asyncrl-sync_mb8_kimi_truncneg1_rerun_ev128-gs380",
-          "url": "https://huggingface.co/RyanYr/asyncrl-sync_mb8_kimi_truncneg1_rerun_ev128-gs380",
+          "title": "Hugging Face model updated: RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs120",
+          "url": "https://huggingface.co/RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs120",
           "source_lane": "huggingface_model"
         },
         {
@@ -142,13 +142,13 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "Hugging Face model updated: craftcinema/minimax_h3",
-          "url": "https://huggingface.co/craftcinema/minimax_h3",
+          "title": "Hugging Face model updated: aptech0081/MiniMax-H3-PDD-ComfyUI",
+          "url": "https://huggingface.co/aptech0081/MiniMax-H3-PDD-ComfyUI",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/MiniMax-M2.1-REAP-139B-A10B-GGUF",
-          "url": "https://huggingface.co/mradermacher/MiniMax-M2.1-REAP-139B-A10B-GGUF",
+          "title": "Hugging Face model updated: udero/minimax-h3-turbo-gguf",
+          "url": "https://huggingface.co/udero/minimax-h3-turbo-gguf",
           "source_lane": "huggingface_model"
         },
         {
@@ -184,13 +184,13 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2.1",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-WorldClaw",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-WorldClaw",
           "source_lane": "github_release"
         },
         {
@@ -226,18 +226,18 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/SpatialASM",
-          "url": "https://github.com/InternLM/SpatialASM",
+          "title": "GitHub repo updated: InternLM/InternLumina-U2",
+          "url": "https://github.com/InternLM/InternLumina-U2",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/WildClawBench",
-          "url": "https://github.com/InternLM/WildClawBench",
+          "title": "GitHub repo updated: InternLM/lmdeploy",
+          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/Intern-Decision",
-          "url": "https://github.com/InternLM/Intern-Decision",
+          "title": "GitHub repo updated: InternLM/xtuner",
+          "url": "https://github.com/InternLM/xtuner",
           "source_lane": "github_release"
         }
       ],
@@ -263,8 +263,13 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 8,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: juergengunz/fluxer",
+          "url": "https://huggingface.co/juergengunz/fluxer",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "comfyanonymous/ComfyUI release: v0.42.0",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.42.0",
@@ -276,19 +281,14 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Save $500 on this 1440p gaming PC with an RTX 5070, now under $1,800 — ABS Flux II Aqua rig ships with a 20-core Intel CPU, 32GB DDR5, and a 1TB SSD",
-          "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-usd500-on-this-1440p-gaming-pc-with-an-rtx-5070-now-under-usd1-800-abs-flux-ii-aqua-rig-ships-with-a-20-core-intel-cpu-32gb-ddr5-and-a-1tb-ssd",
-          "source_lane": "image_video_workflow"
-        },
-        {
-          "title": "huggingface/transformers release: Patch release v5.20.2",
-          "url": "https://github.com/huggingface/transformers/releases/tag/v5.20.2",
-          "source_lane": "github_release"
-        },
-        {
           "title": "Hugging Face model updated: black-forest-labs/flux-3-image-klein-base",
           "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-base",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Save $500 on this 1440p gaming PC with an RTX 5070, now under $1,800 — ABS Flux II Aqua rig ships with a 20-core Intel CPU, 32GB DDR5, and a 1TB SSD",
+          "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-usd500-on-this-1440p-gaming-pc-with-an-rtx-5070-now-under-usd1-800-abs-flux-ii-aqua-rig-ships-with-a-20-core-intel-cpu-32gb-ddr5-and-a-1tb-ssd",
+          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -300,14 +300,14 @@
       "hit_count": 2,
       "top_links": [
         {
-          "title": "Hugging Face model updated: silveroxides/ComfyUI-UtilsCollection-Models",
-          "url": "https://huggingface.co/silveroxides/ComfyUI-UtilsCollection-Models",
-          "source_lane": "huggingface_model"
-        },
-        {
           "title": "comfyanonymous/ComfyUI release: v0.42.1",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.42.1",
           "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: realrebelai/MOSS-Imagine_ComfyUI",
+          "url": "https://huggingface.co/realrebelai/MOSS-Imagine_ComfyUI",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -316,16 +316,11 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 5,
       "top_links": [
         {
           "title": "Tolan snags $30M for its AI companion that helps users navigate life | TechCrunch",
           "url": "https://techcrunch.com/2026/10/19/tolan-snags-30m-for-its-ai-companion-that-helps-users-navigate-life/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "TeamGroup's 4TB SSD is $554 less than Samsung 990 Pro",
-          "url": "https://www.techradar.com/pro/this-is-the-cheapest-4tb-ssd-you-can-buy-team-group-t-force-g50-evo-gen4-ssd-costs-usd370-or-usd0-09-per-gb-usd554-less-than-samsung-990-pro",
           "source_lane": "frontier_watchlist"
         },
         {
@@ -334,9 +329,19 @@
           "source_lane": "huggingface_model"
         },
         {
+          "title": "TeamGroup's 4TB SSD is $554 less than Samsung 990 Pro",
+          "url": "https://www.techradar.com/pro/this-is-the-cheapest-4tb-ssd-you-can-buy-team-group-t-force-g50-evo-gen4-ssd-costs-usd370-or-usd0-09-per-gb-usd554-less-than-samsung-990-pro",
+          "source_lane": "frontier_watchlist"
+        },
+        {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
           "url": "https://huggingface.co/runwayclub/granite-8b-cvefixes-gguf",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "VICTORIA",
+          "url": "https://economictimes.indiatimes.com/magazines/panache/barbara-palvin-walks-victorias-secret-runway-6-weeks-after-welcoming-baby-proud-husband-dylan-sprouses-reaction-wins-the-internet/articleshow/135060429.cms",
+          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -454,8 +459,13 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 11,
+      "hit_count": 13,
       "top_links": [
+        {
+          "title": "Panne de train Transdev : ce que les voyageurs peuvent vraiment se faire rembourser",
+          "url": "https://www.clubic.com/actualite-634942-panne-de-train-transdev-ce-que-les-voyageurs-peuvent-vraiment-se-faire-rembourser.html",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Cómo usar Windows RE: el salvavidas oculto de Microsoft cuando cuando Windows deja de funcionar en el PC",
           "url": "https://www.infobae.com/tecno/2026/10/19/como-usar-windows-re-el-salvavidas-oculto-de-microsoft-cuando-cuando-windows-deja-de-funcionar-en-el-pc/",
@@ -475,11 +485,6 @@
           "title": "'AI is no longer just supporting the business — it has become the business model': IBM VP tells us how your business can balance AI excitement with realism as governance becomes more important than ever",
           "url": "https://www.techradar.com/pro/ai-is-no-longer-just-supporting-the-business-it-has-become-the-business-model-ibm-vp-tells-us-how-your-business-can-balance-ai-excitement-with-realism-as-governance-becomes-more-important-than-ever",
           "source_lane": "model_hub"
-        },
-        {
-          "title": "Disney found a way to buy Character.AI without buying its lawsuits",
-          "url": "https://arstechnica.com/tech-policy/2026/10/disney-found-a-way-to-buy-character-ai-without-buying-its-lawsuits/",
-          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -496,24 +501,24 @@
           "source_lane": "github_release"
         },
         {
+          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
+          "url": "https://github.com/modelcontextprotocol/rust-sdk",
+          "source_lane": "github_release"
+        },
+        {
           "title": "GitHub repo updated: modelcontextprotocol/servers",
           "url": "https://github.com/modelcontextprotocol/servers",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
-          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
+          "title": "modelcontextprotocol/registry release: v1.8.0",
+          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.0",
           "source_lane": "github_release"
         },
         {
-          "title": "Axonius launches AI Workforce virtual workers as AI Companion and MCP Server go live - SiliconANGLE",
-          "url": "https://siliconangle.com/2026/10/19/axonius-launches-ai-workforce-virtual-workers-as-ai-companion-and-mcp-server-go-live/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Buildkite Adds Scoped Secrets and New Agentic CI Tools",
-          "url": "https://www.infoq.com/news/2026/10/buildkite-ci-secrets-agentic/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
-          "source_lane": "frontier_watchlist"
+          "title": "modelcontextprotocol/registry release: v1.8.1",
+          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.1",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
