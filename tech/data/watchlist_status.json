@@ -1,18 +1,18 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-10-20T12:51:17.295459+00:00",
+  "generated_at_utc": "2026-10-20T18:03:01.544866+00:00",
   "checked": 26,
-  "hit_count": 71,
+  "hit_count": 132,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 12,
       "top_links": [
         {
-          "title": "GitHub repo updated: zai-org/GLM-5",
-          "url": "https://github.com/zai-org/GLM-5",
+          "title": "GitHub repo updated: zai-org/GLM-OCR",
+          "url": "https://github.com/zai-org/GLM-OCR",
           "source_lane": "github_release"
         },
         {
@@ -26,8 +26,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: monsoon-nlp/tomatotomato-gLM2-150M-v0.1",
-          "url": "https://huggingface.co/monsoon-nlp/tomatotomato-gLM2-150M-v0.1",
+          "title": "Hugging Face model updated: gabrahamyants/glm-george-lora-v4",
+          "url": "https://huggingface.co/gabrahamyants/glm-george-lora-v4",
           "source_lane": "huggingface_model"
         },
         {
@@ -42,7 +42,7 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 9,
+      "hit_count": 8,
       "top_links": [
         {
           "title": "GitHub repo updated: QwenLM/BlenderWorld",
@@ -50,8 +50,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image-2.1",
-          "url": "https://github.com/QwenLM/Qwen-Image-2.1",
+          "title": "GitHub repo updated: QwenLM/Qwen3-TTS",
+          "url": "https://github.com/QwenLM/Qwen3-TTS",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: bambocher/Qwen3.6-35B-A3B-oQ3e-mtp",
-          "url": "https://huggingface.co/bambocher/Qwen3.6-35B-A3B-oQ3e-mtp",
+          "title": "Hugging Face model updated: neural-nova/Qwen3-30B-A3B-optimized",
+          "url": "https://huggingface.co/neural-nova/Qwen3-30B-A3B-optimized",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF",
-          "url": "https://huggingface.co/DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF",
+          "title": "Hugging Face model updated: bambocher/Qwen3.8-27B-oQ8-mtp",
+          "url": "https://huggingface.co/bambocher/Qwen3.8-27B-oQ8-mtp",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,11 +76,16 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 28,
       "top_links": [
         {
           "title": "GitHub repo updated: deepseek-ai/DeepInfer",
           "url": "https://github.com/deepseek-ai/DeepInfer",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: deepseek-ai/FlashMLA",
+          "url": "https://github.com/deepseek-ai/FlashMLA",
           "source_lane": "github_release"
         },
         {
@@ -89,18 +94,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/deepseek-recipe",
-          "url": "https://github.com/deepseek-ai/deepseek-recipe",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: XURMATRONIX/DeepSeek-V4.1-Flash-1017",
-          "url": "https://huggingface.co/XURMATRONIX/DeepSeek-V4.1-Flash-1017",
+          "title": "Hugging Face model updated: agentionai/DeepSeek-V4.1-Flash-Skeleton-GGUF",
+          "url": "https://huggingface.co/agentionai/DeepSeek-V4.1-Flash-Skeleton-GGUF",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: shivrajgurjar/Arjuna-48B-A8B-1.58bit-DeepSeek-V4.1-Distilled",
-          "url": "https://huggingface.co/shivrajgurjar/Arjuna-48B-A8B-1.58bit-DeepSeek-V4.1-Distilled",
+          "title": "Hugging Face model updated: icecubetr/DeepSeek-V4.1-Flash-1017-dsx-2.6bit",
+          "url": "https://huggingface.co/icecubetr/DeepSeek-V4.1-Flash-1017-dsx-2.6bit",
           "source_lane": "huggingface_model"
         }
       ],
@@ -110,7 +110,7 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
         {
           "title": "Hugging Face model updated: SamarthRawtole/Kimi-K3",
@@ -121,6 +121,11 @@
           "title": "Hugging Face model updated: inference-optimization/Kimi-K3-4.6B-A4.5B-small",
           "url": "https://huggingface.co/inference-optimization/Kimi-K3-4.6B-A4.5B-small",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "👨🏿🚀TechCabal Daily – Nedbank checks into Nairobi - TechCabal",
+          "url": "https://techcabal.com/2026/10/20/%f0%9f%91%a8%f0%9f%8f%bf%f0%9f%9a%80techcabal-daily-nedbank-checks-into-nairobi/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -129,11 +134,16 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 7,
       "top_links": [
         {
-          "title": "Hugging Face model updated: udero/minimax-h3-turbo-gguf",
-          "url": "https://huggingface.co/udero/minimax-h3-turbo-gguf",
+          "title": "Hugging Face model updated: Gonzaluigi/minimax-h3-refmods",
+          "url": "https://huggingface.co/Gonzaluigi/minimax-h3-refmods",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: Granddyser/minimax-h3-technicolor-dreams",
+          "url": "https://huggingface.co/Granddyser/minimax-h3-technicolor-dreams",
           "source_lane": "huggingface_model"
         },
         {
@@ -142,9 +152,14 @@
           "source_lane": "model_hub"
         },
         {
-          "title": "huggingface/diffusers release: Diffusers 0.40.0: New hệ thốngs, tensor-parallel support, improved CLI, and more",
-          "url": "https://github.com/huggingface/diffusers/releases/tag/v0.40.0",
-          "source_lane": "github_release"
+          "title": "Pick up this DDR5 gaming PC for only $899 — save $300 off the iBuypower Slate PC with 10GB of graphics VRAM",
+          "url": "https://www.tomshardware.com/desktops/gaming-pcs/pick-up-this-ddr5-gaming-pc-for-only-usd899-save-usd300-off-the-ibuypower-slate-pc-with-10gb-of-graphics-vram",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "[Community Release] MiniMax-H3-PTD-LoRAs: 4-Step & 8-Step Video Generation Accelerators",
+          "url": "https://discuss.huggingface.co/t/community-release-minimax-h3-ptd-loras-4-step-8-step-video-generation-accelerators/190841",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -161,16 +176,11 @@
       "entity": "Hunyuan/Tencent",
       "priority": "high",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HY-Motion-1.0",
-          "url": "https://github.com/Tencent-Hunyuan/HY-Motion-1.0",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
+          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
           "source_lane": "github_release"
         },
         {
@@ -179,14 +189,19 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: zjwfufu/SMD-Hunyuan3D-2.1-Shape",
-          "url": "https://huggingface.co/zjwfufu/SMD-Hunyuan3D-2.1-Shape",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Prism",
+          "url": "https://github.com/Tencent-Hunyuan/Prism",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: vanzl/DiffusionART-HunyuanVideo",
+          "url": "https://huggingface.co/vanzl/DiffusionART-HunyuanVideo",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "huggingface/transformers release: Release v5.20.1",
-          "url": "https://github.com/huggingface/transformers/releases/tag/v5.20.1",
-          "source_lane": "github_release"
+          "title": "Hugging Face model updated: zjwfufu/SMD-Hunyuan3D-2.1-Shape",
+          "url": "https://huggingface.co/zjwfufu/SMD-Hunyuan3D-2.1-Shape",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -206,18 +221,18 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: InternLM/xtuner",
-          "url": "https://github.com/InternLM/xtuner",
-          "source_lane": "github_release"
-        },
-        {
           "title": "GitHub repo updated: InternLM/Intern-Decision",
           "url": "https://github.com/InternLM/Intern-Decision",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: InternLM/MindSearch",
+          "url": "https://github.com/InternLM/MindSearch",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: InternLM/lmdeploy",
+          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         }
       ],
@@ -243,16 +258,16 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 10,
       "top_links": [
         {
-          "title": "Hugging Face model updated: juergengunz/fluxer",
-          "url": "https://huggingface.co/juergengunz/fluxer",
+          "title": "Hugging Face model updated: Aftian2429/g56lab-1019-flux-base-s0",
+          "url": "https://huggingface.co/Aftian2429/g56lab-1019-flux-base-s0",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: DiffSynth-Studio/flux-3-image-klein-entropack",
-          "url": "https://huggingface.co/DiffSynth-Studio/flux-3-image-klein-entropack",
+          "title": "Hugging Face model updated: juergengunz/fluxer",
+          "url": "https://huggingface.co/juergengunz/fluxer",
           "source_lane": "huggingface_model"
         },
         {
@@ -261,14 +276,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: mingyi456/flux-3-image-klein-DF11-ComfyUI",
-          "url": "https://huggingface.co/mingyi456/flux-3-image-klein-DF11-ComfyUI",
-          "source_lane": "huggingface_model"
+          "title": "An 'enormous influx' of new Garmin Connect IQ apps and watch faces spark fears of poor-quality AI slop flooding the store",
+          "url": "https://www.techradar.com/health-fitness/fitness-trackers/poorly-made-ai-generated-watch-faces-will-consume-everything-garmins-connect-iq-store-has-been-hit-by-an-enormous-influx-of-submissions-and-garmin-users-could-soon-be-grappling-with-a-wave-of-ai-slop",
+          "source_lane": "image_video_workflow"
         },
         {
-          "title": "Hugging Face model updated: black-forest-labs/flux-3-image-klein-base",
-          "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-base",
-          "source_lane": "huggingface_model"
+          "title": "Estudio de videojuegos canceló su demo en Steam por miedo a que la IA la copiara en horas",
+          "url": "https://www.infobae.com/tecno/2026/10/20/estudio-de-videojuegos-cancelo-su-demo-en-steam-por-miedo-a-que-la-ia-la-copiara-en-horas/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -277,17 +292,22 @@
       "entity": "ComfyUI",
       "priority": "critical",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: akhaliq/Fibo-2.0-edit-turbo-ComfyUI",
+          "url": "https://huggingface.co/akhaliq/Fibo-2.0-edit-turbo-ComfyUI",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: akhaliq/Fibo-2.0-ComfyUI",
+          "url": "https://huggingface.co/akhaliq/Fibo-2.0-ComfyUI",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "comfyanonymous/ComfyUI release: v0.42.1",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.42.1",
           "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: meloncafe/comfyui-models",
-          "url": "https://huggingface.co/meloncafe/comfyui-models",
-          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -296,12 +316,27 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 6,
       "top_links": [
+        {
+          "title": "The cash cost of a 60-day customer (Sponsored) | EU-Startups",
+          "url": "https://www.eu-startups.com/2026/10/the-cash-cost-of-a-60-day-customer-sponsored/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "SpaceX alum's aviation startup, Reliable Robotics, lands $115M, topping $1B valuation | TechCrunch",
+          "url": "https://techcrunch.com/2026/10/20/spacex-alums-aviation-startup-reliable-robotics-lands-115m-topping-1b-valuation/",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Hugging Face model updated: DarkKnight1217/RunwayGuard-rtdetr-l",
           "url": "https://huggingface.co/DarkKnight1217/RunwayGuard-rtdetr-l",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "VICTORIA",
+          "url": "https://economictimes.indiatimes.com/magazines/panache/barbara-palvin-walks-victorias-secret-runway-6-weeks-after-welcoming-baby-proud-husband-dylan-sprouses-reaction-wins-the-internet/articleshow/135060429.cms",
+          "source_lane": "image_video_workflow"
         },
         {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
@@ -315,20 +350,51 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 2,
+      "top_links": [
+        {
+          "title": "AI companies don't know how to fix the problems they're creating, so they're throwing money at kids — which still won't fix the problem",
+          "url": "https://www.techradar.com/ai-platforms-assistants/elon-musks-stock-grants-and-anthropics-public-fund-are-band-aids-on-an-open-sore-and-do-not-address-ais-most-fundamental-and-pressing-problems",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "INVESTOR",
+          "url": "https://www.boerse-express.com/news/articles/commerzbank-aktie-klingbeil-meldet-konstruktive-unicredit-gespraeche-954399",
+          "source_lane": "image_video_workflow"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "run-llama/llama_index release: v0.14.24",
-          "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.24",
-          "source_lane": "github_release"
+          "title": "Hackers Hijack Five OVHcloud CLI Releases to Distribute Secret-Stealing Malware",
+          "url": "https://thehackernews.com/2026/10/hackers-hijack-five-ovhcloud-cli.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "La última sensación viral de la IA es eliminar anuncios y bloatware de las Smart TV: he \"tontificado\" mi Chromecast y es maravilloso",
+          "url": "https://www.xataka.com/televisores/ultima-sensacion-viral-ia-eliminar-anuncios-bloatware-smart-tv-he-tontificado-mi-chromecast-maravilloso",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "OPINION: Europe needs more than just successful exits | EU-Startups",
+          "url": "https://www.eu-startups.com/2026/10/opinion-europe-needs-more-than-just-successful-exits/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "El Kindle para leer cómics vuelve de oferta: un lector de libros electrónicos con pantalla a color y sin reflejos",
+          "url": "https://www.xataka.com/seleccion/kindle-para-leer-comics-vuelve-oferta-lector-libros-electronicos-pantalla-a-color-reflejos",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Revolut outage disrupts online banking operations worldwide",
+          "url": "https://www.bleepingcomputer.com/news/security/revolut-outage-disrupts-online-banking-operations-worldwide/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -337,12 +403,32 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 8,
       "top_links": [
         {
-          "title": "ollama/ollama release: v0.40.6",
-          "url": "https://github.com/ollama/ollama/releases/tag/v0.40.6",
-          "source_lane": "github_release"
+          "title": "Buy a complete RTX 5070 Ti gaming PC from Newegg and save $450 — get a 16GB GPU, 32GB of RAM, an i9-14900KF processor, a 2TB SSD, and more for only $2,549",
+          "url": "https://www.tomshardware.com/pc-components/buy-a-complete-rtx-5070-ti-gaming-pc-from-newegg-and-save-usd450-get-a-16gb-gpu-32gb-of-ram-an-i9-14900kf-processor-a-2tb-ssd-and-more-for-only-usd2-549",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "New on Disney+ Canada: November 2026",
+          "url": "https://mobilesyrup.com/2026/10/20/new-on-disney-plus-canada-november-2026/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "\"I have to stop this\": Retired professor arrested for blocking delivery robots she says are taking human jobs",
+          "url": "https://www.techspot.com/news/114268-have-stop-retired-professor-arrested-blocking-delivery-robots.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Aldi recibe este fin de semana un minicompresor de aire portátil por 24,99 euros que te ahorrará tener que ir a la gasolinera",
+          "url": "https://www.xataka.com/seleccion/aldi-recibe-este-fin-semana-minicompresor-aire-portatil-24-99-euros-que-te-ahorrara-tener-que-ir-a-gasolinera",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Face à Starlink, Orange et les géants européens s’allient pour connecter directement nos smartphones par satellite",
+          "url": "https://www.numerama.com/tech/2356627-face-a-starlink-orange-et-les-geants-europeens-sallient-pour-connecter-nos-smartphones-par-satellite.html",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -385,32 +471,59 @@
       "entity": "Replicate",
       "priority": "normal",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "BUSINESS",
+          "url": "https://www.punjabkesari.in/business/news/akash-ambani-is-preparing-to-replicate-dhirubhai-ambani-s-legacy-2391635",
+          "source_lane": "image_video_workflow"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 8,
+      "top_links": [
+        {
+          "title": "How to study a swiftly melting climate disaster",
+          "url": "https://www.technologyreview.com/2026/10/20/1147135/how-to-study-a-swiftly-melting-climate-disaster/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Comitê da Meta aponta falhas na moderação durante eleições no Brasil",
+          "url": "https://olhardigital.com.br/2026/10/20/internet-e-redes-sociais/comite-da-meta-aponta-falhas-na-moderacao-durante-eleicoes-no-brasil/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Hackers explotan una falla en Plex para instalar mineros de criptomonedas en miles de servidores",
+          "url": "https://www.infobae.com/tecno/2026/10/20/hackers-explotan-una-falla-en-plex-para-instalar-mineros-de-criptomonedas-en-miles-de-servidores/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Millions of California students have sensitive data stolen — names, SSIDs, home addresses and more taken in attack on nonprofit",
+          "url": "https://www.techradar.com/pro/security/millions-of-california-students-have-sensitive-data-stolen-names-ssids-home-addresses-and-more-taken-in-attack-on-nonprofit",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Sicherheitslücke in Routern entdeckt: Wie ein 16 Jahre alter Fehler erneut zum Problem wird",
+          "url": "https://t3n.de/news/sicherheitsluecke-router-16-jahre-alter-fehler-1769016/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 9,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/python-sdk",
-          "url": "https://github.com/modelcontextprotocol/python-sdk",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: modelcontextprotocol/registry",
-          "url": "https://github.com/modelcontextprotocol/registry",
+          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
+          "url": "https://github.com/modelcontextprotocol/rust-sdk",
           "source_lane": "github_release"
         },
         {
@@ -419,14 +532,19 @@
           "source_lane": "github_release"
         },
         {
-          "title": "modelcontextprotocol/registry release: v1.8.0",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.0",
+          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
           "source_lane": "github_release"
         },
         {
-          "title": "modelcontextprotocol/registry release: v1.8.1",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.1",
-          "source_lane": "github_release"
+          "title": "How Eon built multi-cloud investigation with an MCP Gateway on Amazon Bedrock AgentCore | Amazon Web Services",
+          "url": "https://aws.amazon.com/blogs/machine-learning/how-eon-built-multi-cloud-investigation-with-an-mcp-gateway-on-amazon-bedrock-agentcore/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Celigo launches MCP tool management for enterprise AI assistants and agent access - SiliconANGLE",
+          "url": "https://siliconangle.com/2026/10/20/celigo-launches-mcp-tool-management-for-enterprise-ai-assistants-and-agent-access/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -476,9 +594,15 @@
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "Ils confient leur Android TV à une IA pour supprimer les pubs, et ça marche (presque) toujours",
+          "url": "https://www.01net.com/actualites/au-revoir-les-pubs-et-les-lenteurs-sur-votre-tv-comment-lia-peut-faire-le-menage-en-quelques-minutes.html",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenHands",
