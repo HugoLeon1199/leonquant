@@ -1,23 +1,18 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-10-20T06:07:14.344797+00:00",
+  "generated_at_utc": "2026-10-20T12:51:17.295459+00:00",
   "checked": 26,
-  "hit_count": 115,
+  "hit_count": 71,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 12,
+      "hit_count": 10,
       "top_links": [
         {
-          "title": "GitHub repo updated: zai-org/CodeGeeX",
-          "url": "https://github.com/zai-org/CodeGeeX",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: zai-org/SCAIL-2",
-          "url": "https://github.com/zai-org/SCAIL-2",
+          "title": "GitHub repo updated: zai-org/GLM-5",
+          "url": "https://github.com/zai-org/GLM-5",
           "source_lane": "github_release"
         },
         {
@@ -31,9 +26,14 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: inference-optimization/GLM-4.7-Flash-1.0B-A0.9B-small",
-          "url": "https://huggingface.co/inference-optimization/GLM-4.7-Flash-1.0B-A0.9B-small",
+          "title": "Hugging Face model updated: monsoon-nlp/tomatotomato-gLM2-150M-v0.1",
+          "url": "https://huggingface.co/monsoon-nlp/tomatotomato-gLM2-150M-v0.1",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/Synapse",
+          "url": "https://github.com/zai-org/Synapse",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 9,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/FlashQLA",
-          "url": "https://github.com/QwenLM/FlashQLA",
+          "title": "GitHub repo updated: QwenLM/BlenderWorld",
+          "url": "https://github.com/QwenLM/BlenderWorld",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen",
-          "url": "https://github.com/QwenLM/Qwen",
+          "title": "GitHub repo updated: QwenLM/Qwen-Image-2.1",
+          "url": "https://github.com/QwenLM/Qwen-Image-2.1",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: ReliquaryForge/qwen3-4b-base-dapo-v4",
-          "url": "https://huggingface.co/ReliquaryForge/qwen3-4b-base-dapo-v4",
+          "title": "Hugging Face model updated: bambocher/Qwen3.6-35B-A3B-oQ3e-mtp",
+          "url": "https://huggingface.co/bambocher/Qwen3.6-35B-A3B-oQ3e-mtp",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/Qwen2.5-3B-YesMan-GGUF",
-          "url": "https://huggingface.co/mradermacher/Qwen2.5-3B-YesMan-GGUF",
+          "title": "Hugging Face model updated: DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF",
+          "url": "https://huggingface.co/DavidAU/Qwen3.8-27B-Jumbo-Fusion-IQ-747-900-Turbo-Brilliance-50X-Reasoning-Instruct-NEO-MAX-MTP-GGUF",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,16 +76,11 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 14,
+      "hit_count": 8,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepEP",
-          "url": "https://github.com/deepseek-ai/DeepEP",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: deepseek-ai/DeepGEMM",
-          "url": "https://github.com/deepseek-ai/DeepGEMM",
+          "title": "GitHub repo updated: deepseek-ai/DeepInfer",
+          "url": "https://github.com/deepseek-ai/DeepInfer",
           "source_lane": "github_release"
         },
         {
@@ -94,14 +89,19 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: DevQuasar/deepseek-ai.DeepSeek-V4.1-Flash-1017-GGUF",
-          "url": "https://huggingface.co/DevQuasar/deepseek-ai.DeepSeek-V4.1-Flash-1017-GGUF",
+          "title": "GitHub repo updated: deepseek-ai/deepseek-recipe",
+          "url": "https://github.com/deepseek-ai/deepseek-recipe",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: XURMATRONIX/DeepSeek-V4.1-Flash-1017",
+          "url": "https://huggingface.co/XURMATRONIX/DeepSeek-V4.1-Flash-1017",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "OpenRouter model listed: deepseek/deepseek-v4.1-flash-1017",
-          "url": "https://openrouter.ai/deepseek/deepseek-v4.1-flash-1017",
-          "source_lane": "model_hub"
+          "title": "Hugging Face model updated: shivrajgurjar/Arjuna-48B-A8B-1.58bit-DeepSeek-V4.1-Distilled",
+          "url": "https://huggingface.co/shivrajgurjar/Arjuna-48B-A8B-1.58bit-DeepSeek-V4.1-Distilled",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -110,27 +110,17 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 2,
       "top_links": [
         {
-          "title": "Hugging Face model updated: RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs100",
-          "url": "https://huggingface.co/RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs100",
+          "title": "Hugging Face model updated: SamarthRawtole/Kimi-K3",
+          "url": "https://huggingface.co/SamarthRawtole/Kimi-K3",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs120",
-          "url": "https://huggingface.co/RyanYr/asyncrl-sync_mb8_kimi_truncneg1_replay_posw2_rho1_mu4_start100_ev128-gs120",
+          "title": "Hugging Face model updated: inference-optimization/Kimi-K3-4.6B-A4.5B-small",
+          "url": "https://huggingface.co/inference-optimization/Kimi-K3-4.6B-A4.5B-small",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "👨🏿🚀TechCabal Daily – A bigger piece of Cairo - TechCabal",
-          "url": "https://techcabal.com/2026/10/19/%f0%9f%91%a8%f0%9f%8f%bf%f0%9f%9a%80techcabal-daily-a-bigger-piece-of-cairo/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "MonoRace: Wie eine KI mit billiger Hardware die besten Drohnenpiloten der Welt abhängt",
-          "url": "https://t3n.de/news/monorace-wie-eine-ki-mit-billiger-hardware-die-besten-drohnenpiloten-der-welt-abhaengt-1768866/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
-          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -139,13 +129,8 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 3,
       "top_links": [
-        {
-          "title": "Hugging Face model updated: aptech0081/MiniMax-H3-PDD-ComfyUI",
-          "url": "https://huggingface.co/aptech0081/MiniMax-H3-PDD-ComfyUI",
-          "source_lane": "huggingface_model"
-        },
         {
           "title": "Hugging Face model updated: udero/minimax-h3-turbo-gguf",
           "url": "https://huggingface.co/udero/minimax-h3-turbo-gguf",
@@ -154,11 +139,6 @@
         {
           "title": "OpenRouter model listed: minimax/minimax-m3.1-flash:free",
           "url": "https://openrouter.ai/minimax/minimax-m3.1-flash:free",
-          "source_lane": "model_hub"
-        },
-        {
-          "title": "MiniMax launches M3.1 Flash model, says it cuts AI agent costs by 70% - SiliconANGLE",
-          "url": "https://siliconangle.com/2026/10/19/minimax-launches-m3-1-flash-model-says-it-cuts-ai-agent-costs-by-70/",
           "source_lane": "model_hub"
         },
         {
@@ -184,13 +164,13 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2.1",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HY-Motion-1.0",
+          "url": "https://github.com/Tencent-Hunyuan/HY-Motion-1.0",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-WorldClaw",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-WorldClaw",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         },
         {
@@ -226,11 +206,6 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/InternLumina-U2",
-          "url": "https://github.com/InternLM/InternLumina-U2",
-          "source_lane": "github_release"
-        },
-        {
           "title": "GitHub repo updated: InternLM/lmdeploy",
           "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
@@ -238,6 +213,11 @@
         {
           "title": "GitHub repo updated: InternLM/xtuner",
           "url": "https://github.com/InternLM/xtuner",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: InternLM/Intern-Decision",
+          "url": "https://github.com/InternLM/Intern-Decision",
           "source_lane": "github_release"
         }
       ],
@@ -271,24 +251,24 @@
           "source_lane": "huggingface_model"
         },
         {
+          "title": "Hugging Face model updated: DiffSynth-Studio/flux-3-image-klein-entropack",
+          "url": "https://huggingface.co/DiffSynth-Studio/flux-3-image-klein-entropack",
+          "source_lane": "huggingface_model"
+        },
+        {
           "title": "comfyanonymous/ComfyUI release: v0.42.0",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.42.0",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: black-forest-labs/flux-3-image-klein-comfy",
-          "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy",
+          "title": "Hugging Face model updated: mingyi456/flux-3-image-klein-DF11-ComfyUI",
+          "url": "https://huggingface.co/mingyi456/flux-3-image-klein-DF11-ComfyUI",
           "source_lane": "huggingface_model"
         },
         {
           "title": "Hugging Face model updated: black-forest-labs/flux-3-image-klein-base",
           "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-base",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Save $500 on this 1440p gaming PC with an RTX 5070, now under $1,800 — ABS Flux II Aqua rig ships with a 20-core Intel CPU, 32GB DDR5, and a 1TB SSD",
-          "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-usd500-on-this-1440p-gaming-pc-with-an-rtx-5070-now-under-usd1-800-abs-flux-ii-aqua-rig-ships-with-a-20-core-intel-cpu-32gb-ddr5-and-a-1tb-ssd",
-          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -305,8 +285,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: realrebelai/MOSS-Imagine_ComfyUI",
-          "url": "https://huggingface.co/realrebelai/MOSS-Imagine_ComfyUI",
+          "title": "Hugging Face model updated: meloncafe/comfyui-models",
+          "url": "https://huggingface.co/meloncafe/comfyui-models",
           "source_lane": "huggingface_model"
         }
       ],
@@ -316,32 +296,17 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 2,
       "top_links": [
-        {
-          "title": "Tolan snags $30M for its AI companion that helps users navigate life | TechCrunch",
-          "url": "https://techcrunch.com/2026/10/19/tolan-snags-30m-for-its-ai-companion-that-helps-users-navigate-life/",
-          "source_lane": "frontier_watchlist"
-        },
         {
           "title": "Hugging Face model updated: DarkKnight1217/RunwayGuard-rtdetr-l",
           "url": "https://huggingface.co/DarkKnight1217/RunwayGuard-rtdetr-l",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "TeamGroup's 4TB SSD is $554 less than Samsung 990 Pro",
-          "url": "https://www.techradar.com/pro/this-is-the-cheapest-4tb-ssd-you-can-buy-team-group-t-force-g50-evo-gen4-ssd-costs-usd370-or-usd0-09-per-gb-usd554-less-than-samsung-990-pro",
-          "source_lane": "frontier_watchlist"
-        },
-        {
           "title": "Hugging Face model updated: runwayclub/granite-8b-cvefixes-gguf",
           "url": "https://huggingface.co/runwayclub/granite-8b-cvefixes-gguf",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "VICTORIA",
-          "url": "https://economictimes.indiatimes.com/magazines/panache/barbara-palvin-walks-victorias-secret-runway-6-weeks-after-welcoming-baby-proud-husband-dylan-sprouses-reaction-wins-the-internet/articleshow/135060429.cms",
-          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -350,46 +315,20 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "INVESTOR",
-          "url": "https://www.boerse-express.com/news/articles/commerzbank-aktie-klingbeil-meldet-konstruktive-unicredit-gespraeche-954399",
-          "source_lane": "image_video_workflow"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 8,
+      "hit_count": 1,
       "top_links": [
         {
-          "title": "32GB DDR5 RAM drops to $420 when you stack Newegg gift cards",
-          "url": "https://www.techradar.com/pro/how-to-stack-newegg-gift-cards-to-cut-fast-32gb-ddr5-ram-deals-down-to-usd420",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Review: Lanterns is a truly unique twist on the superhero genre",
-          "url": "https://arstechnica.com/culture/2026/10/review-lanterns-is-a-truly-unique-twist-on-the-superhero-genre/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "NestJS 12: ESM Packages, Standard Schema Validation and Native Observability",
-          "url": "https://www.infoq.com/news/2026/10/nestjs-12-observability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Elon Musk’s proposed SpaceX stock giveaway would go into ‘Trump Accounts’",
-          "url": "https://www.theverge.com/tech/1014115/elon-musk-spacex-trump-account",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Musk pledges to give 'every kid in America' one of his SpaceX shares | TechCrunch",
-          "url": "https://techcrunch.com/2026/10/19/musk-pledges-to-give-every-kid-in-america-one-of-his-spacex-shares/",
-          "source_lane": "frontier_watchlist"
+          "title": "run-llama/llama_index release: v0.14.24",
+          "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.24",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -398,13 +337,8 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 1,
       "top_links": [
-        {
-          "title": "Bloquear robots que hacen domicilios puede llevarte a la cárcel: el caso de Uber Eats",
-          "url": "https://www.infobae.com/tecno/2026/10/19/bloquear-robots-que-hacen-domicilios-puede-llevarte-a-la-carcel-el-caso-de-uber-eats/",
-          "source_lane": "frontier_watchlist"
-        },
         {
           "title": "ollama/ollama release: v0.40.6",
           "url": "https://github.com/ollama/ollama/releases/tag/v0.40.6",
@@ -459,50 +393,24 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 13,
-      "top_links": [
-        {
-          "title": "Panne de train Transdev : ce que les voyageurs peuvent vraiment se faire rembourser",
-          "url": "https://www.clubic.com/actualite-634942-panne-de-train-transdev-ce-que-les-voyageurs-peuvent-vraiment-se-faire-rembourser.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Cómo usar Windows RE: el salvavidas oculto de Microsoft cuando cuando Windows deja de funcionar en el PC",
-          "url": "https://www.infobae.com/tecno/2026/10/19/como-usar-windows-re-el-salvavidas-oculto-de-microsoft-cuando-cuando-windows-deja-de-funcionar-en-el-pc/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Cómo vaciar la papelera de reciclaje de WhatsApp sin eliminar chats",
-          "url": "https://www.infobae.com/tecno/2026/10/19/como-vaciar-la-papelera-de-reciclaje-de-whatsapp-sin-eliminar-chats/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Versteckte Lügen und falsche Anweisungen: Diese Programmiersprache soll KI verwirren",
-          "url": "https://t3n.de/news/programmiersprache-ki-verwirren-1768844/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "'AI is no longer just supporting the business — it has become the business model': IBM VP tells us how your business can balance AI excitement with realism as governance becomes more important than ever",
-          "url": "https://www.techradar.com/pro/ai-is-no-longer-just-supporting-the-business-it-has-become-the-business-model-ibm-vp-tells-us-how-your-business-can-balance-ai-excitement-with-realism-as-governance-becomes-more-important-than-ever",
-          "source_lane": "model_hub"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/inspector",
-          "url": "https://github.com/modelcontextprotocol/inspector",
+          "title": "GitHub repo updated: modelcontextprotocol/python-sdk",
+          "url": "https://github.com/modelcontextprotocol/python-sdk",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
-          "url": "https://github.com/modelcontextprotocol/rust-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/registry",
+          "url": "https://github.com/modelcontextprotocol/registry",
           "source_lane": "github_release"
         },
         {
@@ -560,39 +468,17 @@
       "entity": "Cursor",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "Hackers hit AI coding tool OpenCode, running up charges on users’ AI accounts | TechCrunch",
-          "url": "https://techcrunch.com/2026/10/19/hackers-hit-ai-coding-tool-opencode-running-up-charges-on-users-ai-accounts/",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
-      "top_links": [
-        {
-          "title": "Anthropic rend Claude encore plus rapide... grâce à une technologie de 1992",
-          "url": "https://www.01net.com/actualites/anthropic-rend-claude-encore-plus-rapide-grace-a-une-technologie-de-1992.html",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Usuários recorrem à IA para remover anúncios e mudar interfaces de TVs • Tecnoblog",
-          "url": "https://tecnoblog.net/noticias/usuarios-usam-ia-para-remover-anuncios-e-mudar-interfaces-de-tvs/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Claude Code AI agent caught a crypto miner hiding on a developer’s overheating Mac — XMRig task was hogging ‘about 1175% CPU, roughly 12 cores’ pushing temps to 112 degrees",
-          "url": "https://www.tomshardware.com/tech-industry/cryptomining/claude-code-ai-agent-caught-a-crypto-miner-hiding-on-a-developers-overheating-mac-xmrig-task-was-hogging-about-1175-percent-cpu-roughly-12-cores-pushing-temps-to-112-degrees",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "OpenHands",
