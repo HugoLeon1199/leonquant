@@ -1,39 +1,39 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-10-22T18:03:46.061689+00:00",
+  "generated_at_utc": "2026-10-22T22:24:49.156975+00:00",
   "checked": 26,
-  "hit_count": 123,
+  "hit_count": 122,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 12,
       "top_links": [
-        {
-          "title": "GitHub repo updated: zai-org/ChatGLM2-6B",
-          "url": "https://github.com/zai-org/ChatGLM2-6B",
-          "source_lane": "github_release"
-        },
         {
           "title": "GitHub repo updated: zai-org/Open-AutoGLM",
           "url": "https://github.com/zai-org/Open-AutoGLM",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/ZCode",
-          "url": "https://github.com/zai-org/ZCode",
+          "title": "GitHub repo updated: zai-org/SCAIL-2",
+          "url": "https://github.com/zai-org/SCAIL-2",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: ayse-solmaz/glm53-flash-from-scratch",
-          "url": "https://huggingface.co/ayse-solmaz/glm53-flash-from-scratch",
+          "title": "Hugging Face model updated: mayankbhaskarr/glm-4-9b-alpaca-lora",
+          "url": "https://huggingface.co/mayankbhaskarr/glm-4-9b-alpaca-lora",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: steampunque/GLM-4.6V-MP-GGUF",
-          "url": "https://huggingface.co/steampunque/GLM-4.6V-MP-GGUF",
+          "title": "Hugging Face model updated: lapadatbogdan/GLM-5.3-Flash-Coder-RCO-152E-GGUF",
+          "url": "https://huggingface.co/lapadatbogdan/GLM-5.3-Flash-Coder-RCO-152E-GGUF",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/Synapse",
+          "url": "https://github.com/zai-org/Synapse",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 8,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen",
-          "url": "https://github.com/QwenLM/Qwen",
+          "title": "GitHub repo updated: QwenLM/Qwen-Agent",
+          "url": "https://github.com/QwenLM/Qwen-Agent",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-Coder",
-          "url": "https://github.com/QwenLM/Qwen3-Coder",
+          "title": "GitHub repo updated: QwenLM/Qwen-Live-Harness",
+          "url": "https://github.com/QwenLM/Qwen-Live-Harness",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/OPSD-Qwen3-4B-i1-GGUF",
-          "url": "https://huggingface.co/mradermacher/OPSD-Qwen3-4B-i1-GGUF",
+          "title": "Hugging Face model updated: Racktic/swecl-qwen35-ckpt",
+          "url": "https://huggingface.co/Racktic/swecl-qwen35-ckpt",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/Qwen3-Coder-30B-A3B-Instruct-Westernized-i1-GGUF",
-          "url": "https://huggingface.co/mradermacher/Qwen3-Coder-30B-A3B-Instruct-Westernized-i1-GGUF",
+          "title": "Hugging Face model updated: tusherbhomik/rl-testbed-grpo_plain-qwen3-1.7b-base-s0",
+          "url": "https://huggingface.co/tusherbhomik/rl-testbed-grpo_plain-qwen3-1.7b-base-s0",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,8 +76,13 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 17,
+      "hit_count": 13,
       "top_links": [
+        {
+          "title": "GitHub repo updated: deepseek-ai/DeepEP",
+          "url": "https://github.com/deepseek-ai/DeepEP",
+          "source_lane": "github_release"
+        },
         {
           "title": "GitHub repo updated: deepseek-ai/DeepInfer",
           "url": "https://github.com/deepseek-ai/DeepInfer",
@@ -89,18 +94,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/deepseek-recipe",
-          "url": "https://github.com/deepseek-ai/deepseek-recipe",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: JERRYNPC/deepseek-v4.1-flash-engram-v100",
-          "url": "https://huggingface.co/JERRYNPC/deepseek-v4.1-flash-engram-v100",
+          "title": "Hugging Face model updated: JERRYNPC/deepseek-v4.1-flash-int3-v100",
+          "url": "https://huggingface.co/JERRYNPC/deepseek-v4.1-flash-int3-v100",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: JERRYNPC/deepseek-v4.1-flash-int3-v100",
-          "url": "https://huggingface.co/JERRYNPC/deepseek-v4.1-flash-int3-v100",
+          "title": "Hugging Face model updated: lxe/DeepSeek-V4.1-Flash-1017-Volta",
+          "url": "https://huggingface.co/lxe/DeepSeek-V4.1-Flash-1017-Volta",
           "source_lane": "huggingface_model"
         }
       ],
@@ -137,13 +137,13 @@
       "hit_count": 4,
       "top_links": [
         {
-          "title": "Hugging Face model updated: Geargate1/MinimaxH3_Actions",
-          "url": "https://huggingface.co/Geargate1/MinimaxH3_Actions",
+          "title": "Hugging Face model updated: kanye9118/MiniMax-H3-FL2VA",
+          "url": "https://huggingface.co/kanye9118/MiniMax-H3-FL2VA",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: kanye9118/MiniMax-H3-FL2VA",
-          "url": "https://huggingface.co/kanye9118/MiniMax-H3-FL2VA",
+          "title": "Hugging Face model updated: Geargate1/MinimaxH3_Actions",
+          "url": "https://huggingface.co/Geargate1/MinimaxH3_Actions",
           "source_lane": "huggingface_model"
         },
         {
@@ -163,9 +163,15 @@
       "entity": "Doubao/ByteDance",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "Canva releases its first image generation model | TechCrunch",
+          "url": "https://techcrunch.com/2026/10/22/canva-releases-its-first-image-generation-model/",
+          "source_lane": "model_hub"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Hunyuan/Tencent",
@@ -174,13 +180,13 @@
       "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-MT2",
-          "url": "https://github.com/Tencent-Hunyuan/Hy-MT2",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HY-WorldPlay",
+          "url": "https://github.com/Tencent-Hunyuan/HY-WorldPlay",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-Memory",
-          "url": "https://github.com/Tencent-Hunyuan/Hy-Memory",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
+          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
           "source_lane": "github_release"
         },
         {
@@ -256,13 +262,13 @@
       "hit_count": 8,
       "top_links": [
         {
-          "title": "Hugging Face model updated: G21998/r1019-68a2d8b0-flux-ctrl-s42-94f21b9c",
-          "url": "https://huggingface.co/G21998/r1019-68a2d8b0-flux-ctrl-s42-94f21b9c",
+          "title": "Hugging Face model updated: Aftian2429/g56lab-1019-flux-fill03-s0",
+          "url": "https://huggingface.co/Aftian2429/g56lab-1019-flux-fill03-s0",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: unsloth/FLUX.2-dev-FP8",
-          "url": "https://huggingface.co/unsloth/FLUX.2-dev-FP8",
+          "title": "Hugging Face model updated: Comfy-Org/Flux-2-Dev",
+          "url": "https://huggingface.co/Comfy-Org/Flux-2-Dev",
           "source_lane": "huggingface_model"
         },
         {
@@ -290,8 +296,8 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: dragonlimited/comfyui-molab",
-          "url": "https://huggingface.co/dragonlimited/comfyui-molab",
+          "title": "Hugging Face model updated: masuuu112/h3-comfyui-setup",
+          "url": "https://huggingface.co/masuuu112/h3-comfyui-setup",
           "source_lane": "huggingface_model"
         },
         {
@@ -314,8 +320,8 @@
       "hit_count": 4,
       "top_links": [
         {
-          "title": "Hora de turbinar o armazenamento do seu PC com SSDs NVMe Gen4 em promoção",
-          "url": "https://olhardigital.com.br/2026/10/22/reviews/hora-de-turbinar-o-armazenamento-do-seu-pc-com-ssds-nvme-gen4-em-promocao/",
+          "title": "Lenovo Idea Tab Pro Gen 2 para jogos tem oferta em até 12x sem juros • Tecnoblog",
+          "url": "https://tecnoblog.net/achados/lenovo-idea-tab-pro-gen-2-para-jogos-tem-oferta-em-ate-12x-sem-juros/",
           "source_lane": "frontier_watchlist"
         },
         {
@@ -348,7 +354,7 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 11,
       "top_links": [
         {
           "title": "NVIDIA Open Models Power a New Wave of European Public Sector Projects",
@@ -382,7 +388,7 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "Reino Unido enviará \"embajadores digitales\" a Reddit para frenar los consejos erróneos de la IA sobre impuestos",
@@ -395,14 +401,19 @@
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "“Nuestra humanidad corre peligro”: advertencia de una profesora del MIT contra la dependencia emocional de la IA",
-          "url": "https://www.infobae.com/tecno/2026/10/22/nuestra-humanidad-corre-peligro-advertencia-de-una-profesora-del-mit-contra-la-dependencia-emocional-de-la-ia/",
+          "title": "Impressoras em promoção na Amazon: selecionamos as melhores opções para casa e escritório",
+          "url": "https://olhardigital.com.br/2026/10/22/reviews/impressoras-em-promocao-na-amazon-selecionamos-as-melhores-opcoes-para-casa-e-escritorio/",
           "source_lane": "image_video_workflow"
         },
         {
-          "title": "Panne Orange : voici comment l'opérateur va dédommager ses clients",
-          "url": "https://www.01net.com/actualites/panne-orange-voici-comment-loperateur-va-dedommager-ses-clients.html",
+          "title": "Presentan un robot guardaespaldas que se interpone ante un agresor armado para salvar vidas",
+          "url": "https://www.infobae.com/tecno/2026/10/22/presentan-un-robot-guardaespaldas-que-se-interpone-ante-un-agresor-armado-para-salvar-vidas/",
           "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "“Nuestra humanidad corre peligro”: advertencia de una profesora del MIT contra la dependencia emocional de la IA",
+          "url": "https://www.infobae.com/tecno/2026/10/22/nuestra-humanidad-corre-peligro-advertencia-de-una-profesora-del-mit-contra-la-dependencia-emocional-de-la-ia/",
+          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -459,31 +470,31 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 18,
+      "hit_count": 20,
       "top_links": [
+        {
+          "title": "Millones de ciberataques en pocas horas, tras descubrir la IA un fallo en el corazón del 70% de las webs",
+          "url": "https://elpais.com/tecnologia/2026-10-22/millones-de-intentos-de-ataque-en-pocas-horas-tras-destaparse-fallos-graves-en-miles-de-webs.html",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "AI isn't having much of an effect on company profits — which is putting more scrutiny on why bosses should pay for it",
           "url": "https://www.techradar.com/pro/ai-isnt-having-much-of-an-effect-on-company-profits-which-is-putting-more-scrutiny-on-why-bosses-should-pay-for-it",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "El Gobierno abre la puerta para que los afectados por la dana Adam se consideren accidente laboral, aunque todavía falta un paso",
+          "title": "Afectados por la Dana Adam, el Consejo de Ministros aprueba por decreto ley la incapacidad temporal por catástrofe",
           "url": "https://www.xataka.com/magnet/gobierno-ha-abierto-puerta-para-afectados-dana-adam-pueden-considerarse-accidente-laboral-todavia-falta-paso",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "Elon Musk says Tesla will sell 5 million cars by 2030 — math says otherwise",
-          "url": "https://www.theverge.com/transportation/1016055/elon-musk-tesla-5-million-cars-2030-reality-check",
+          "title": "Der Auslöser lag im Norden, die CO2-Falle am Südpol – wie 13 Prozent kalter Ozean für eine Eiszeit reichten",
+          "url": "https://t3n.de/news/eiszeit-nordatlantik-tiefsee-co2-suedpolarmeer-1769551/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
           "source_lane": "frontier_watchlist"
         },
         {
-          "title": "La IA no ha encontrado un fallo nuevo en PHP, sino algo peor: la forma de aprovechar uno viejo",
-          "url": "https://www.xataka.com/servicios/ia-no-ha-encontrado-fallo-nuevo-php-sino-algo-peor-forma-aprovechar-uno-viejo",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Millones de ciberataques en pocas horas, tras descubrir la IA un fallo en el corazón del 70% de las webs",
-          "url": "https://elpais.com/tecnologia/2026-10-22/millones-de-intentos-de-ataque-en-pocas-horas-tras-destaparse-fallos-graves-en-miles-de-webs.html",
+          "title": "Anthropic muestra el efecto de la IA en el empleo junior: del 27% al 9% de nuevas contrataciones",
+          "url": "https://www.xataka.com/robotica-e-ia/anthropic-muestra-efecto-ia-empleo-junior-27-al-9-nuevas-contrataciones",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -501,18 +512,18 @@
           "source_lane": "github_release"
         },
         {
+          "title": "GitHub repo updated: modelcontextprotocol/example-remote-server",
+          "url": "https://github.com/modelcontextprotocol/example-remote-server",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: modelcontextprotocol/ext-apps",
+          "url": "https://github.com/modelcontextprotocol/ext-apps",
+          "source_lane": "github_release"
+        },
+        {
           "title": "GitHub repo updated: modelcontextprotocol/go-sdk",
           "url": "https://github.com/modelcontextprotocol/go-sdk",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: modelcontextprotocol/inspector",
-          "url": "https://github.com/modelcontextprotocol/inspector",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
-          "url": "https://github.com/modelcontextprotocol/rust-sdk",
           "source_lane": "github_release"
         },
         {
