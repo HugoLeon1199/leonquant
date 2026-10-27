@@ -1,6 +1,6 @@
 # Tech Source Coverage Matrix
 
-- generated_at_utc: 2026-10-27T18:46:00.963333+00:00
+- generated_at_utc: 2026-10-27T23:01:19.295848+00:00
 - active_url_sources: 63
 - active_watchlist_entities: 26
 - active_api_sources: 27
@@ -8,15 +8,15 @@
 - active_sitemap_sources: 0
 - metadata_only_sources: 46
 - watchlist_checked: 26
-- watchlist_hit_count: 103
-- candidates_by_method: {'github_api': 42, 'hf_api': 26, 'api': 8, 'changelog_snapshot': 4, 'rss': 27, 'metadata': 5, 'arxiv_api': 7, 'html': 500, 'gdelt': 47}
-- content_quality_mix: {'summary_only': 108, 'metadata_only': 58, 'full_text': 500}
-- real_candidate_count: 666
+- watchlist_hit_count: 106
+- candidates_by_method: {'github_api': 42, 'hf_api': 26, 'api': 8, 'changelog_snapshot': 4, 'metadata': 5, 'rss': 27, 'arxiv_api': 7, 'html': 566, 'gdelt': 47}
+- content_quality_mix: {'summary_only': 108, 'metadata_only': 58, 'full_text': 566}
+- real_candidate_count: 732
 - manual_signal_count: 0
 - manual_signal_share: 0.0
 - real_api_candidate_count: 83
 - official_org_candidate_count: 63
-- weak_metadata_match_count: 13
+- weak_metadata_match_count: 11
 - needs_manual_source_strategy_count: 0
 - P0 configured/checked/success/failed/zero_hit: 31/31/31/0/0
 - missing_critical_entities: []
@@ -26,16 +26,16 @@
 
 | lane | configured_url_sources | P0 configured/checked/success/failed/zero_hit | watchlist_entities | api_sources | rss_sources | sitemap_sources | candidates collected | content quality / method | blockers | priority fix |
 |---|---:|---|---:|---:|---:|---:|---:|---|---|---|
-| official_ai_labs | 7 | 11/11/11/0/0 | 26 | 0 | 7 | 0 | 98 | method:api=5, method:changelog_snapshot=3, method:github_api=32, method:hf_api=26, method:html=6, method:metadata=5, method:rss=21, quality:full_text=6, quality:metadata_only=54, quality:summary_only=38 | watchlist entities are not URL crawl sources | add RSS/API/direct metadata strategy |
-| independent_ai_news | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 565 | method:api=3, method:arxiv_api=7, method:changelog_snapshot=1, method:gdelt=47, method:github_api=10, method:html=494, method:rss=3, quality:full_text=494, quality:metadata_only=4, quality:summary_only=67 | - | monitor |
-| china_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 46 | method:api=3, method:gdelt=1, method:github_api=22, method:hf_api=15, method:html=5, quality:full_text=5, quality:metadata_only=33, quality:summary_only=8 | - | monitor |
-| model_hubs | 0 | 1/1/1/0/0 | 26 | 2 | 0 | 0 | 40 | method:api=8, method:gdelt=2, method:hf_api=26, method:html=3, method:rss=1, quality:full_text=3, quality:metadata_only=34, quality:summary_only=3 | - | monitor |
+| official_ai_labs | 7 | 11/11/11/0/0 | 26 | 0 | 7 | 0 | 100 | method:api=5, method:changelog_snapshot=3, method:github_api=33, method:hf_api=26, method:html=7, method:metadata=5, method:rss=21, quality:full_text=7, quality:metadata_only=54, quality:summary_only=39 | watchlist entities are not URL crawl sources | add RSS/API/direct metadata strategy |
+| independent_ai_news | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 629 | method:api=3, method:arxiv_api=7, method:changelog_snapshot=1, method:gdelt=47, method:github_api=9, method:html=559, method:rss=3, quality:full_text=559, quality:metadata_only=4, quality:summary_only=66 | - | monitor |
+| china_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 47 | method:api=3, method:gdelt=2, method:github_api=22, method:hf_api=15, method:html=5, quality:full_text=5, quality:metadata_only=33, quality:summary_only=9 | - | monitor |
+| model_hubs | 0 | 1/1/1/0/0 | 26 | 2 | 0 | 0 | 41 | method:api=8, method:gdelt=3, method:hf_api=26, method:html=3, method:rss=1, quality:full_text=3, quality:metadata_only=34, quality:summary_only=4 | - | monitor |
 | github_releases | 0 | 8/8/8/0/0 | 26 | 13 | 0 | 0 | 42 | method:github_api=42, quality:metadata_only=18, quality:summary_only=24 | - | monitor |
-| image_video_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 167 | method:api=5, method:arxiv_api=1, method:changelog_snapshot=4, method:gdelt=5, method:github_api=2, method:hf_api=8, method:html=126, method:metadata=5, method:rss=11, quality:full_text=126, quality:metadata_only=18, quality:summary_only=23 | - | monitor |
-| automation_agents | 0 | 4/4/4/0/0 | 26 | 4 | 0 | 0 | 119 | method:gdelt=29, method:github_api=12, method:hf_api=2, method:html=72, method:rss=4, quality:full_text=72, quality:metadata_only=5, quality:summary_only=42 | - | monitor |
-| chips_infra | 1 | 4/4/4/0/0 | 0 | 0 | 1 | 0 | 32 | method:gdelt=8, method:html=22, method:rss=2, quality:full_text=22, quality:summary_only=10 | - | monitor |
-| business_funding | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 15 | method:gdelt=4, method:html=10, method:rss=1, quality:full_text=10, quality:summary_only=5 | - | monitor |
+| image_video_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 172 | method:api=5, method:arxiv_api=1, method:changelog_snapshot=4, method:gdelt=5, method:github_api=2, method:hf_api=8, method:html=130, method:metadata=5, method:rss=12, quality:full_text=130, quality:metadata_only=18, quality:summary_only=24 | - | monitor |
+| automation_agents | 0 | 4/4/4/0/0 | 26 | 4 | 0 | 0 | 130 | method:gdelt=29, method:github_api=12, method:hf_api=2, method:html=83, method:rss=4, quality:full_text=83, quality:metadata_only=5, quality:summary_only=42 | - | monitor |
+| chips_infra | 1 | 4/4/4/0/0 | 0 | 0 | 1 | 0 | 35 | method:gdelt=7, method:html=25, method:rss=3, quality:full_text=25, quality:summary_only=10 | - | monitor |
+| business_funding | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 16 | method:gdelt=4, method:html=11, method:rss=1, quality:full_text=11, quality:summary_only=5 | - | monitor |
 | policy_risk | 2 | 3/3/3/0/0 | 0 | 0 | 2 | 0 | 0 | - | - | monitor |
 | research_papers | 0 | 0/0/0/0/0 | 0 | 8 | 0 | 0 | 6 | method:arxiv_api=6, quality:summary_only=6 | - | monitor |
 | community_forums | 1 | 0/0/0/0/0 | 0 | 0 | 1 | 0 | 3 | method:rss=3, quality:summary_only=3 | - | monitor |
-| gdelt | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 43 | method:gdelt=43, quality:summary_only=43 | - | monitor |
+| gdelt | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 42 | method:gdelt=42, quality:summary_only=42 | - | monitor |
