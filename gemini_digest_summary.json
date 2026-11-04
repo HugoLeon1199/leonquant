@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-03T03:31:50.372825+00:00",
+  "generated_at": "2026-11-04T02:12:58.539514+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 867392,
+    "estimated_input_tokens": 799538,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 741,
-    "sent_article_count": 741,
+    "input_article_count": 650,
+    "sent_article_count": 650,
     "window": {
-      "end_date": "2026-11-03",
+      "end_date": "2026-11-04",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,81 +25,116 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "",
+    "editor_note": "Bản tin tổng hợp các sự kiện tài chính, công nghệ và chính trị quan trọng nhất trong 48 giờ qua, tập trung vào các biến số vĩ mô và hạ tầng chiến lược.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Bức tranh 48 giờ qua bị chi phối bởi sự kết hợp giữa rủi ro an ninh mạng quy mô lớn và sự điều chỉnh của thị trường tài chính thị trường. Vụ hack Binance trị giá 6,4 tỷ USD không chỉ gây thiệt hại trực tiếp mà còn đặt ra những thách thức nghiêm trọng về an ninh mạng cho toàn bộ ngành tài chính số, khiến dòng vốn có dấu hiệu dịch chuyển khỏi các tài sản rủi ro cao. Tại Việt Nam, thị trường chứng khoán khởi đầu tháng 11 với áp lực bán tháo mạnh, trong khi Chính phủ đẩy mạnh các chính sách giảm chi phí đầu vào cho doanh nghiệp để hỗ trợ sản xuất cuối năm.",
-        "most_mentioned": "Vụ hack Binance và an ninh mạng là chủ đề được nhắc đến nhiều nhất trên các nguồn tin quốc tế, phản ánh rủi ro hệ thống trong kỷ nguyên tài chính số. Tại Việt Nam, sự sụt giảm của VN-Index và các chính sách hỗ trợ doanh nghiệp như giảm thuế xăng dầu và giá điện là tâm điểm thảo luận của giới đầu tư.",
-        "top_stories": "Sự kiện quan trọng nhất là vụ hack Binance gây chấn động thị trường tiền số thị trường, cùng với đó là phiên giảm sâu của VN-Index tại Việt Nam, phản ánh tâm lý thận trọng của nhà đầu tư trước áp lực bán ròng từ khối ngoại và triển vọng lãi suất. Song song đó, các Big Tech như Apple và Palantir công bố kết quả kinh doanh, định hình lại kỳ vọng về dòng vốn đầu tư vào AI.",
-        "sector_impacts": "Các ngành tài chính, công nghệ và năng lượng đang chịu tác động trực tiếp từ các biến động địa chính trị và chính sách tiền tệ. Việc giá dầu giảm mạnh sau tín hiệu ngoại giao Mỹ - Iran đang tạo ra sự phân hóa rõ rệt trong dòng vốn đầu tư vào các ngành sản xuất và vận tải.",
-        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi sát sao phản ứng của thị trường crypto sau vụ hack Binance, diễn biến giá vàng trong nước so với thế giới, các văn bản chính sách cụ thể về tài sản mã hóa tại Việt Nam và tiến độ các dự án hạ tầng trọng điểm."
+        "main_picture": "Trong 48 giờ qua, bức tranh thị trường bị chi phối bởi sự kiện an ninh mạng kỷ lục tại Binance và những biến động chính trị từ bầu cử giữa nhiệm kỳ Mỹ. Dòng vốn tài chính đang có sự tái định vị mạnh mẽ, rời bỏ các tài sản rủi ro cao để tìm đến hạ tầng AI và bán dẫn. Tại Việt Nam, kinh tế vĩ mô ghi nhận cột mốc lịch sử khi kim ngạch xuất nhập khẩu vượt 1.000 tỷ USD, đồng thời các doanh nghiệp công nghệ như FPT đang đẩy mạnh năng lực tự chủ trong chuỗi giá trị bán dẫn toàn cầu.",
+        "most_mentioned": "Vụ hack 6,3 tỷ USD tại Binance và bầu cử giữa nhiệm kỳ Mỹ là hai chủ đề chiếm sóng dày đặc. Vụ hack không chỉ gây thiệt hại tài chính mà còn đặt ra câu hỏi lớn về an ninh hạ tầng ví tiền số, trong khi bầu cử Mỹ tạo ra sự thận trọng trên thị trường chứng khoán và các tài sản rủi ro toàn cầu.",
+        "top_stories": "Sự kiện Binance hack và bầu cử Mỹ liên kết chặt chẽ qua tâm lý nhà đầu tư. Dòng vốn đang có xu hướng tái định vị khỏi các tài sản đầu cơ cao, hướng về các lĩnh vực có nền tảng thực như hạ tầng AI và bán dẫn, phản ánh sự thay đổi trong khẩu vị rủi ro của giới đầu tư.",
+        "sector_impacts": "Ngành tài chính đối mặt với rủi ro an ninh mạng gia tăng, trong khi ngành công nghệ tiếp tục chạy đua đầu tư vào hạ tầng AI. Tại Việt Nam, chính sách nhà ở xã hội và thu hút FDI vào bán dẫn đang là các điểm nhấn quan trọng, khẳng định vị thế điểm đến đầu tư chiến lược."
       },
-      "content": "Bức tranh 48 giờ qua được định hình bởi sự kết hợp giữa rủi ro an ninh mạng quy mô lớn và sự điều chỉnh của thị trường tài chính. Vụ hack Binance trị giá 6,4 tỷ USD không chỉ gây thiệt hại trực tiếp mà còn đặt ra những thách thức nghiêm trọng về an ninh mạng cho toàn bộ ngành tài chính số. Tại Việt Nam, thị trường chứng khoán khởi đầu tháng 11 với phiên giảm sâu, phản ánh tâm lý thận trọng của nhà đầu tư trước áp lực bán ròng từ khối ngoại và triển vọng lãi suất. Song song đó, Chính phủ đang đẩy mạnh các chính sách giảm chi phí đầu vào cho doanh nghiệp, bao gồm việc giảm thuế tiêu thụ đặc biệt xăng dầu về 0% và giảm 2% giá điện bình quân, nhằm hỗ trợ sản xuất và kiểm soát lạm phát. Trong lĩnh vực công nghệ, các tập đoàn lớn như NVIDIA và Marvell đang chạy đua trong việc phát triển hạ tầng AI và bán dẫn, trong khi các cảnh báo về an ninh mạng đối với hạ tầng thiết yếu tại châu Âu cho thấy rủi ro công nghệ đang ngày càng lan rộng.",
+      "content": "Thị trường tài chính 48 giờ qua bị chi phối bởi vụ hack 6,3 tỷ USD tại Binance, sự kiện an ninh mạng lớn nhất lịch sử tiền số. Hacker đã sử dụng các kỹ thuật tinh vi, bao gồm phỏng vấn tuyển dụng giả mạo và công cụ AI để xâm nhập hệ thống ví. Sự kiện này đã gây ra làn sóng rút vốn ồ ạt hơn 11 tỷ USD, đặt ra thách thức lớn về niềm tin và an ninh hạ tầng tiền số toàn cầu. Song song đó, bầu cử giữa nhiệm kỳ Mỹ đang là tâm điểm chính trị - kinh tế, với chi phí chiến dịch kỷ lục 12 tỷ USD, tạo ra tâm lý thận trọng trên Phố Wall khi nhà đầu tư chờ đợi kết quả kiểm soát Quốc hội.\n\nTại Việt Nam, kinh tế vĩ mô ghi nhận cột mốc lịch sử khi tổng kim ngạch xuất nhập khẩu vượt 1.000 tỷ USD sau 10 tháng, tăng 32,3% so với cùng kỳ. Đây là minh chứng cho sức hút của Việt Nam trong bối cảnh chuỗi cung ứng thị trường dịch chuyển. Bên cạnh đó, Chính phủ đang đẩy mạnh thu hút FDI vào các ngành công nghệ cao như bán dẫn và AI, với việc FPT vận hành thử nghiệm nhà máy kiểm thử chip tại Bắc Ninh và ra mắt chip bảo mật VGC v1.0, khẳng định năng lực tự chủ công nghệ lõi. Đồng thời, Ngân hàng Nhà nước đang gấp rút triển khai gói tái cấp vốn cho nhà ở xã hội, với tổng số tiền cam kết cho vay đạt khoảng 50.300 tỷ đồng, nhằm tháo gỡ khó khăn cho thị trường bất động sản.",
       "representative_sources": [
         {
-          "title": "Chứng khoán lại giảm mạnh, cổ phiếu ngân hàng bị bán tháo",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-lai-giam-manh-co-phieu-ngan-hang-bi-ban-thao-20261102155021622.htm",
-          "excerpt": "Thị trường chứng khoán Việt Nam chịu áp lực bán tháo diện rộng, đặc biệt là nhóm ngân hàng, khiến VN-Index lùi sâu về sát mốc 1.700 điểm."
+          "title": "Binance đối mặt với vụ hack kỷ lục 6,3 tỷ USD",
+          "source": "cointelegraph_com",
+          "url": "https://cointelegraph.com/news/binance-fake-job-interviews-compromised-ai-tool-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+        },
+        {
+          "title": "Xuất nhập khẩu Việt Nam vượt mốc 1.000 tỷ USD",
+          "source": "vietnamnet_vn",
+          "url": "https://vietnamnet.vn/von-ngoai-vao-viet-nam-dat-gan-55-ty-usd-trong-10-thang-cao-nhat-17-nam-qua-2571091.html"
+        },
+        {
+          "title": "Giá dầu thế giới giảm mạnh nhất hơn 3 tháng",
+          "source": "vietnamnet_vn",
+          "url": "https://vietnamnet.vn/gia-dau-giam-manh-nhat-hon-3-thang-vang-phuc-hoi-truoc-tin-hieu-moi-2570885.html"
+        },
+        {
+          "title": "Binance co-CEO Richard Teng says hackers used fake job interviews, AI tool to steal $6.3 billion in crypto",
+          "source": "cnbc_com",
+          "url": "https://cnbc.com/2026/11/03/binance-co-ceo-teng-says-hackers-used-fake-job-interviews-to-steal-6point3-billion-in-crypto.html"
+        },
+        {
+          "title": "FPT vận hành thử nghiệm nhà máy kiểm thử công suất 300 triệu chip/năm",
+          "source": "tuoitre_vn",
+          "url": "https://tuoitre.vn/fpt-van-hanh-thu-nghiem-nha-may-kiem-thu-cong-suat-300-trieu-chip-nam-100261103150033706.htm",
+          "excerpt": "Nhà máy có công suất thiết kế 300 triệu chip mỗi năm."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Vụ hack Binance 6,4 tỷ USD",
-          "why_mentioned": "Sự kiện an ninh mạng lớn nhất ngành tài chính số, gây ảnh hưởng toàn cầu.",
-          "evidence_hint": "Lặp lại dày đặc trên các nguồn tin quốc tế (Cointelegraph, Decrypt, CNBC, SCMP)"
+          "topic": "Vụ hack Binance 6,3 tỷ USD",
+          "why_mentioned": "Sự kiện an ninh mạng lớn nhất lịch sử tiền số.",
+          "evidence_hint": "Lặp lại dày đặc trên các nguồn tin tài chính toàn cầu."
+        },
+        {
+          "topic": "Bầu cử giữa nhiệm kỳ Mỹ",
+          "why_mentioned": "Tác động trực tiếp đến tâm lý thị trường và chính sách kinh tế.",
+          "evidence_hint": "Tâm điểm của các báo cáo tài chính và chính trị."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Biến động thị trường tài chính Việt Nam",
-          "why_hot": "Tác động trực tiếp đến nhà đầu tư trong nước (VN-Index, giá vàng, lãi suất)",
-          "impact": "Ảnh hưởng đến tâm lý nhà đầu tư và dòng vốn trên thị trường chứng khoán.",
-          "evidence_hint": "Tác động trực tiếp đến nhà đầu tư trong nước"
+          "topic": "An ninh mạng tiền số",
+          "why_hot": "Rủi ro hệ thống từ các cuộc tấn công tinh vi.",
+          "impact": "Ảnh hưởng niềm tin nhà đầu tư và quy định pháp lý.",
+          "evidence_hint": "Vụ hack Binance 6,3 tỷ USD."
+        },
+        {
+          "topic": "Hạ tầng AI và Bán dẫn",
+          "why_hot": "Xu hướng đầu tư chiến lược của các tập đoàn công nghệ.",
+          "impact": "Thay đổi cấu trúc chuỗi cung ứng linh kiện.",
+          "evidence_hint": "Đầu tư của Meta và FPT."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Sự chuyển dịch dòng vốn sang hạ tầng AI",
-          "why_watch": "Dòng tiền đang rời khỏi các tài sản đầu cơ cao để hướng tới các lĩnh vực có nền tảng tăng trưởng thực tế."
+          "signal": "Sự dịch chuyển dòng vốn khỏi tài sản đầu cơ cao",
+          "why_watch": "Nhà đầu tư tìm kiếm các lĩnh vực có nền tảng tăng trưởng thực tế hơn."
+        },
+        {
+          "signal": "Tăng cường tự chủ công nghệ lõi tại Việt Nam",
+          "why_watch": "Các bước tiến trong ngành bán dẫn và chip bảo mật."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường crypto sau vụ hack Binance",
-        "Diễn biến giá vàng trong nước so với thế giới",
-        "Các văn bản chính sách về tài sản mã hóa tại Việt Nam"
+        "Phản ứng của thị trường tiền số sau vụ hack Binance",
+        "Kết quả chính thức bầu cử Mỹ",
+        "Diễn biến giá dầu Brent",
+        "Tiến độ các dự án hạ tầng bán dẫn tại Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Vụ hack Binance 6,4 tỷ USD gây chấn động thị trường tài chính số",
-        "one_sentence": "Vụ hack lớn nhất lịch sử nhắm vào Binance khiến 6,4 tỷ USD bị đánh cắp, buộc sàn giao dịch phải tạm dừng rút tiền và đối mặt với làn sóng rút vốn mạnh mẽ từ nhà đầu tư toàn cầu.",
-        "why_it_matters": "Sự kiện này làm lung lay niềm tin vào an ninh mạng của các sàn giao dịch tập trung và gây áp lực giảm giá lên toàn bộ thị trường tiền mã hóa.",
-        "watch_next": "Tiến độ bù đắp tài sản từ quỹ SAFU và các biện pháp siết chặt quản lý từ cơ quan chức năng.",
+        "title": "Binance đối mặt với vụ hack kỷ lục 6,3 tỷ USD",
+        "one_sentence": "Vụ tấn công quy mô lớn diễn ra trong 20 phút, FBI xác định nhóm tin tặc TraderTraitor của Triều Tiên là thủ phạm, gây áp lực thanh khoản hơn 11 tỷ USD rút vốn.",
+        "why_it_matters": "Đây là sự kiện an ninh mạng lớn nhất trong lịch sử tiền số, ảnh hưởng trực tiếp đến niềm tin thị trường và hạ tầng an ninh tiền số toàn cầu.",
+        "watch_next": "Khả năng phục hồi thanh khoản và các biện pháp an ninh bổ sung của Binance.",
         "source_urls": [
-          "https://scmp.com/business/cryptocurrency/article/3372910/binance-sees-spike-withdrawals-exchange-returns-online-after-us63-billion-hack"
+          "https://cointelegraph.com/news/binance-fake-job-interviews-compromised-ai-tool-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
         ]
       },
       {
         "rank": 2,
-        "title": "VN-Index giảm sâu, nhóm ngân hàng chịu áp lực bán tháo",
-        "one_sentence": "Thị trường chứng khoán Việt Nam khởi đầu tháng 11 với phiên giảm hơn 30 điểm, khi khối ngoại bán ròng kỷ lục và nhóm cổ phiếu ngân hàng đồng loạt suy yếu.",
-        "why_it_matters": "Áp lực bán ròng từ khối ngoại và tâm lý thận trọng trước triển vọng lãi suất đang tạo ra rào cản lớn cho đà phục hồi của VN-Index.",
-        "watch_next": "Khả năng giữ mốc hỗ trợ 1.700 điểm và diễn biến dòng tiền khối ngoại trong các phiên tới.",
+        "title": "Xuất nhập khẩu Việt Nam vượt mốc 1.000 tỷ USD",
+        "one_sentence": "Tổng kim ngạch xuất nhập khẩu đạt 1.010,55 tỷ USD sau 10 tháng, tăng 32,3% so với cùng kỳ, khẳng định vị thế hội nhập sâu rộng của kinh tế Việt Nam.",
+        "why_it_matters": "Dữ liệu vĩ mô quan trọng phản ánh sức hút của Việt Nam trong bối cảnh chuỗi cung ứng thị trường dịch chuyển.",
+        "watch_next": "Khả năng duy trì đà tăng trưởng trong quý cuối năm và mục tiêu xuất khẩu cả năm.",
         "source_urls": [
-          "https://tuoitre.vn/chung-khoan-3-11-vn-index-co-the-lui-ve-1680-diem-uu-tien-giu-tien-mat-100261103065704786.htm"
+          "https://vietnamnet.vn/von-ngoai-vao-viet-nam-dat-gan-55-ty-usd-trong-10-thang-cao-nhat-17-nam-qua-2571091.html"
         ]
       },
       {
         "rank": 3,
-        "title": "Giá dầu giảm mạnh sau tín hiệu ngoại giao Mỹ - Iran",
-        "one_sentence": "Giá dầu Brent và WTI giảm hơn 7% khi Washington và Tehran cân nhắc giải pháp ngoại giao cho xung đột tại Trung Đông, làm giảm bớt rủi ro địa chính trị.",
-        "why_it_matters": "Sự hạ nhiệt của giá năng lượng giúp giảm áp lực lạm phát toàn cầu và thay đổi kỳ vọng về chính sách tiền tệ của các ngân hàng trung ương.",
-        "watch_next": "Kết quả các cuộc đàm phán chính thức giữa Mỹ và Iran trong 48 giờ tới.",
+        "title": "Giá dầu thế giới giảm mạnh nhất hơn 3 tháng",
+        "one_sentence": "Triển vọng đàm phán Mỹ-Iran làm dịu lo ngại gián đoạn nguồn cung tại eo biển Hormuz, kéo giá dầu WTI và Brent giảm sâu hơn 7%.",
+        "why_it_matters": "Sự kiện địa chính trị tác động trực tiếp đến giá năng lượng toàn cầu và kỳ vọng lạm phát.",
+        "watch_next": "Diễn biến đàm phán Mỹ-Iran và phản ứng của thị trường năng lượng.",
         "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/dau-tho-rot-gia-hon-7-gia-vang-lap-tuc-quay-dau-bat-tang-20261103080521754.htm"
+          "https://vietnamnet.vn/gia-dau-giam-manh-nhat-hon-3-thang-vang-phuc-hoi-truoc-tin-hieu-moi-2570885.html"
         ]
       }
     ],
@@ -107,56 +142,35 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh mạnh của thị trường chứng khoán Việt Nam và dư chấn từ vụ hack Binance. Các tín hiệu vĩ mô cho thấy Chính phủ đang tập trung vào việc giảm chi phí đầu vào cho doanh nghiệp, trong khi dòng vốn đầu tư đang có sự phân hóa rõ rệt giữa các tài sản rủi ro và các lĩnh vực có nền tảng tăng trưởng thực tế. Việc MSB tăng vốn điều lệ lên 46.800 tỷ đồng và Sacombank tung gói tín dụng 10.000 tỷ đồng cho thấy các ngân hàng đang nỗ lực củng cố năng lực tài chính và hỗ trợ doanh nghiệp xuất nhập khẩu. Trong khi đó, giá vàng trong nước biến động mạnh theo đà phục hồi của thế giới, phản ánh tâm lý trú ẩn của nhà đầu tư cá nhân trước các bất ổn địa chính trị.",
-        "subsector_briefs": [
-          {
-            "name": "Thị trường chứng khoán và Ngân hàng",
-            "overview": "Thị trường chứng khoán Việt Nam chịu áp lực bán tháo mạnh, đặc biệt ở nhóm ngân hàng, trong khi các ngân hàng lớn như MSB và Sacombank đẩy mạnh tăng vốn và tín dụng.",
-            "key_points": [
-              "VN-Index giảm hơn 30 điểm",
-              "Khối ngoại bán ròng kỷ lục",
-              "MSB tăng vốn lên 46.800 tỷ đồng"
-            ],
-            "key_story_titles": [
-              "VN-Index giảm mạnh hơn 30 điểm, cổ phiếu ngân hàng bị bán tháo"
-            ],
-            "representative_sources": [
-              {
-                "title": "Chứng khoán lại giảm mạnh, cổ phiếu ngân hàng bị bán tháo",
-                "source": "dantri_com_vn",
-                "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-lai-giam-manh-co-phieu-ngan-hang-bi-ban-thao-20261102155021622.htm",
-                "excerpt": "Thị trường chứng khoán Việt Nam chịu áp lực bán tháo diện rộng, đặc biệt là nhóm ngân hàng."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Kinh tế & Tài chính 48 giờ qua bị chi phối bởi vụ hack Binance và các biến động vĩ mô. Thị trường đang đánh giá lại rủi ro khi dòng vốn rời khỏi các tài sản đầu cơ để tìm đến các lĩnh vực có nền tảng thực. Tại Việt Nam, việc xuất nhập khẩu vượt 1.000 tỷ USD và nỗ lực tháo gỡ nợ xấu ngân hàng là những điểm nhấn quan trọng. Các dữ liệu FDI cho thấy Việt Nam vẫn là điểm đến chiến lược, với bất động sản thu hút 7 tỷ USD, trong khi các ngân hàng thương mại đang đối mặt với áp lực nợ xấu gia tăng, đặc biệt là nợ nhóm 5 chiếm gần 80% tổng nợ xấu tại một số ngân hàng lớn như SeABank. Sự thay đổi trong chiến lược điều hành của Fed, với kế hoạch giảm số phiên họp lãi suất từ năm 2027, cũng đang buộc thị trường tài chính toàn cầu phải thích nghi với sự bất định mới.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Thị trường tài chính số",
-            "title": "Dư chấn vụ hack Binance 6,4 tỷ USD",
-            "summary": "Vụ hack Binance trị giá 6,4 tỷ USD gây chấn động thị trường tiền số thị trường, buộc sàn giao dịch phải tạm dừng rút tiền và đối mặt với làn sóng rút vốn mạnh mẽ từ nhà đầu tư.",
+            "depth_level": "major",
+            "sub_sector": "Thị trường tiền số",
+            "title": "Vụ hack Binance 6,3 tỷ USD",
+            "summary": "Binance xác nhận vụ hack 6,3 tỷ USD xuất phát từ các cuộc tấn công kỹ thuật tinh vi nhắm vào nhân viên và hạ tầng ví, với sự tham gia của các tác nhân nhà nước. Vụ tấn công diễn ra trong 20 phút, gây ra làn sóng rút vốn ồ ạt hơn 11 tỷ USD, đặt ra thách thức lớn về niềm tin và an ninh hạ tầng tiền số toàn cầu.",
             "main_developments": [
-              "Binance cam kết bù đắp 95% tài sản bị mất từ quỹ dự phòng SAFU.",
-              "FBI xác định nhóm tin tặc TraderTraitor của Triều Tiên đứng sau vụ tấn công.",
-              "Hacker sử dụng hàng nghìn ví và giao thức DeFi để tẩu tán tài sản."
+              "Hacker sử dụng công cụ AI và phỏng vấn giả mạo để tiếp cận kỹ sư phần mềm.",
+              "FBI xác định nhóm tin tặc TraderTraitor của Triều Tiên là thủ phạm.",
+              "Binance đã hoàn trả 98% số tiền bị đánh cắp cho người dùng."
             ],
-            "why_it_matters": "Sự kiện này làm lung lay niềm tin vào an ninh mạng của các sàn giao dịch tập trung và gây áp lực giảm giá lên toàn bộ thị trường tiền mã hóa.",
+            "why_it_matters": "Đây là sự kiện an ninh mạng lớn nhất trong lịch sử tiền số, ảnh hưởng trực tiếp đến niềm tin thị trường và hạ tầng an ninh tiền số toàn cầu.",
             "affected_groups": [
-              "Nhà đầu tư tiền mã hóa",
-              "Sàn giao dịch tập trung",
-              "Cơ quan quản lý tài chính"
+              "Binance",
+              "Nhà đầu tư tiền số",
+              "Hệ thống blockchain"
             ],
             "watch_next": [
-              "Tiến độ bù đắp tài sản từ quỹ SAFU",
-              "Các biện pháp siết chặt quản lý từ cơ quan chức năng"
+              "Khả năng phục hồi thanh khoản",
+              "Các biện pháp an ninh bổ sung của Binance"
             ],
             "representative_sources": [
               {
-                "title": "North Korea denies links to Binance hack as researchers trace stolen billions",
+                "title": "Binance co-CEO Richard Teng says hackers used fake job interviews, AI tool to steal $6.3 billion in crypto",
                 "source": "cnbc_com",
-                "url": "https://cnbc.com/2026/11/03/north-korea-binance-elliptic-chainalysis.html"
+                "url": "https://cnbc.com/2026/11/03/binance-co-ceo-teng-says-hackers-used-fake-job-interviews-to-steal-6point3-billion-in-crypto.html"
               }
             ]
           }
@@ -165,125 +179,105 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI trong 48 giờ qua nổi bật với các tiến bộ trong hạ tầng bán dẫn và các cảnh báo về an ninh mạng. Các tập đoàn công nghệ lớn tiếp tục đầu tư mạnh vào AI, trong khi các sự cố tấn công mạng nhắm vào hạ tầng thiết yếu tại châu Âu cho thấy rủi ro an ninh mạng đang trở thành mối đe dọa trực tiếp đến đời sống xã hội. LITE-ON tăng vốn 320 triệu USD đầu tư nhà máy tại Quảng Ninh, khẳng định sức hút của Việt Nam trong chuỗi cung ứng điện toán đám mây toàn cầu. Đồng thời, các hãng AI như OpenAI và Google đang thống nhất tiêu chuẩn chặn thu thập dữ liệu huấn luyện, đánh dấu bước ngoặt trong chính sách bản quyền AI.",
+        "sector_thesis": "Công nghệ & AI 48 giờ qua nổi bật với các khoản đầu tư khổng lồ vào hạ tầng dữ liệu và bán dẫn. Các tập đoàn lớn như Meta và FPT đang đẩy mạnh năng lực tính toán và kiểm thử chip, cho thấy AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế trong sản xuất và an ninh. Việt Nam đã đạt dấu mốc quan trọng với việc ra mắt chip bảo mật VGC v1.0, sử dụng kiến trúc RISC-V, đánh dấu bước tiến trong năng lực làm chủ vi mạch bán dẫn. Trong khi đó, các startup hạ tầng AI như Fal đang đạt định giá 16 tỷ USD, cho thấy nhu cầu về dịch vụ suy luận AI đang tăng vọt. Các doanh nghiệp công nghệ toàn cầu cũng đang đối mặt với rủi ro an ninh mạng từ AI tự hành, dẫn đến việc CrowdStrike ra mắt công cụ 'kill switch' để kiểm soát các tác nhân AI hoạt động sai lệch, đảm bảo an toàn cho hệ thống hạ tầng thiết yếu.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "An ninh mạng",
-            "title": "Tấn công mạng nhắm vào hạ tầng thiết yếu",
-            "summary": "Các siêu thị tại châu Âu bị tin tặc tấn công hệ thống làm lạnh, gây thiệt hại lớn về thực phẩm và dấy lên lo ngại về an ninh hạ tầng thiết yếu.",
+            "sub_sector": "Bán dẫn & Chip",
+            "title": "Bước tiến bán dẫn của FPT",
+            "summary": "FPT chính thức bước vào chuỗi giá trị bán dẫn với nhà máy kiểm thử chip tại Bắc Ninh, có công suất thiết kế 300 triệu chip mỗi năm. Đây là bước tiến quan trọng trong việc làm chủ công nghệ bán dẫn tại Việt Nam, với đơn hàng đầu tiên đến từ đối tác Hàn Quốc, khẳng định năng lực sản xuất và kiểm thử chip nội địa.",
             "main_developments": [
-              "Hệ thống làm lạnh tại các siêu thị ở 7 quốc gia châu Âu bị ảnh hưởng.",
-              "Các tập đoàn bán lẻ như Ahold Delhaize và Colruyt xác nhận bị hack.",
-              "Cảnh báo về rủi ro an ninh mạng đối với hạ tầng thiết yếu."
+              "Nhà máy có diện tích 1.600 m2 với 6 dây chuyền sản xuất.",
+              "Công suất thiết kế tối đa đạt 300 triệu chip mỗi năm.",
+              "Đơn hàng đầu tiên đã được ký kết với đối tác Hàn Quốc."
             ],
-            "why_it_matters": "Sự cố cho thấy rủi ro an ninh mạng đang ngày càng lan rộng, không chỉ dừng lại ở dữ liệu số mà còn ảnh hưởng trực tiếp đến hạ tầng vật lý.",
+            "why_it_matters": "Sự kiện chiến lược trong ngành bán dẫn, phù hợp với định hướng phát triển công nghệ lõi của quốc gia và khẳng định vị thế của doanh nghiệp Việt trong chuỗi cung ứng toàn cầu.",
             "affected_groups": [
-              "Tập đoàn bán lẻ",
-              "Người tiêu dùng",
-              "Cơ quan an ninh mạng"
+              "FPT",
+              "Ngành bán dẫn Việt Nam",
+              "Đối tác công nghệ quốc tế"
             ],
             "watch_next": [
-              "Kết quả điều tra nguồn gốc cuộc tấn công",
-              "Các biện pháp bảo mật mới cho hạ tầng làm lạnh"
+              "Tiến độ mở rộng dây chuyền sản xuất",
+              "Khả năng thu hút thêm đối tác quốc tế"
             ],
-            "representative_sources": []
+            "representative_sources": [
+              {
+                "title": "FPT vận hành thử nghiệm nhà máy kiểm thử công suất 300 triệu chip/năm",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/fpt-van-hanh-thu-nghiem-nha-may-kiem-thu-cong-suat-300-trieu-chip-nam-100261103150033706.htm",
+                "excerpt": "Nhà máy có công suất thiết kế 300 triệu chip mỗi năm."
+              }
+            ]
           }
         ]
       },
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48 giờ qua tập trung vào bầu cử giữa nhiệm kỳ Mỹ và các diễn biến địa chính trị tại Trung Đông. Các tín hiệu ngoại giao giữa Mỹ và Iran đã làm giảm áp lực lên giá dầu, trong khi tại Việt Nam, Quốc hội đang thảo luận các chính sách quan trọng về đầu tư và logistics để thúc đẩy tăng trưởng kinh tế. Việc sửa đổi Luật Đầu tư được kỳ vọng sẽ khơi thông nguồn lực và nâng cao năng lực cạnh tranh trong thu hút vốn đầu tư nước ngoài. Đồng thời, công tác phòng chống ma túy và an ninh cơ sở cũng được tăng cường để đảm bảo kỷ cương và an ninh trật tự tại địa phương.",
-        "subsector_briefs": [
-          {
-            "name": "Địa chính trị và Bầu cử Mỹ",
-            "overview": "Cuộc bầu cử giữa nhiệm kỳ Mỹ và căng thẳng địa chính trị Trung Đông là những sự kiện chính trị có tác động lớn nhất đến tâm lý thị trường toàn cầu.",
-            "key_points": [
-              "Bầu cử Mỹ ngày 3/11",
-              "Mỹ và Iran cân nhắc giải pháp ngoại giao"
-            ],
-            "key_story_titles": [
-              "Bầu cử giữa nhiệm kỳ Mỹ và căng thẳng địa chính trị"
-            ],
-            "representative_sources": [
-              {
-                "title": "Mỹ tấn công hòn đảo của Iran ngay trước bầu cử giữa kỳ",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/my-tan-cong-hon-dao-cua-iran-ngay-truoc-bau-cu-giua-ky-post1890966.tpo",
-                "excerpt": "Khoảng 210 triệu cử tri Mỹ sẽ bỏ phiếu quyết định quyền kiểm soát Quốc hội."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Thời sự & Chính trị 48 giờ qua tập trung vào bầu cử giữa nhiệm kỳ Mỹ và các chính sách đối ngoại quan trọng. Kết quả bầu cử đang tạo ra sự bất định lớn, với chi phí chiến dịch kỷ lục 12 tỷ USD, trong khi các thay đổi trong viện trợ quân sự và đàm phán hòa bình tại Ukraine cho thấy sự dịch chuyển trong chính sách đối ngoại của Mỹ. Tại Việt Nam, Chính phủ đang đẩy mạnh các giải pháp quản trị thương mại để phòng ngừa rủi ro và ngăn chặn gian lận thương mại, đồng thời tập trung vào các dự án trọng điểm quốc gia như tái định cư tại Phú Quốc phục vụ APEC 2027. Các vấn đề an sinh xã hội như nhà ở xã hội cũng được các địa phương đẩy mạnh, với nhiều nơi hoàn thành vượt chỉ tiêu trong năm 2026, khẳng định cam kết của Chính phủ trong việc đảm bảo đời sống dân sinh.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "major",
-            "sub_sector": "Chính sách vĩ mô",
-            "title": "Thúc đẩy năng lực logistics quốc gia",
-            "summary": "Tổng Bí thư, Chủ tịch nước Tô Lâm chỉ đạo xây dựng năng lực logistics quốc gia, chuyển đổi tư duy từ phát triển dịch vụ sang xây dựng năng lực vận hành toàn diện.",
+            "sub_sector": "Bầu cử Mỹ",
+            "title": "Bầu cử giữa nhiệm kỳ Mỹ 2026",
+            "summary": "Cuộc bầu cử giữa nhiệm kỳ Mỹ 2026 đang diễn ra với sự quan tâm lớn đến chính sách của Tổng thống Donald Trump và khả năng kiểm soát Quốc hội. Đây là cuộc đua đắt đỏ nhất lịch sử với 12 tỷ USD chi phí, gây áp lực lên tâm lý nhà đầu tư chứng khoán và định hình lại lộ trình pháp lý cho ngành tài chính số.",
             "main_developments": [
-              "Logistics được xác định là năng lực tổ chức, kết nối và vận hành của cả nền kinh tế.",
-              "Quốc hội thảo luận sửa đổi Luật Đầu tư để thu hút FDI.",
-              "Chính phủ đẩy mạnh giảm chi phí đầu vào cho doanh nghiệp."
+              "Đảng Dân chủ giành thêm ghế Hạ viện ở Florida và giữ vững các ghế Thượng viện quan trọng.",
+              "Bộ Tư pháp Mỹ triển khai 1.000 giám sát viên tới 126 hạt và thành phố.",
+              "Các nhóm thuyết âm mưu lan truyền tin giả về gian lận cử tri tại một số điểm bỏ phiếu."
             ],
-            "why_it_matters": "Đây là chiến lược quan trọng để tăng sức cạnh tranh của nền kinh tế Việt Nam trong bối cảnh hội nhập sâu rộng.",
+            "why_it_matters": "Kết quả bầu cử Mỹ là biến số vĩ mô ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và lộ trình pháp lý cho ngành tài chính số toàn cầu.",
             "affected_groups": [
-              "Doanh nghiệp logistics",
-              "Doanh nghiệp FDI",
-              "Nền kinh tế quốc gia"
+              "Chính phủ Mỹ",
+              "Nhà đầu tư toàn cầu",
+              "Ngành tài chính số"
             ],
             "watch_next": [
-              "Các văn bản hướng dẫn thi hành Luật Đầu tư sửa đổi",
-              "Tiến độ các dự án hạ tầng logistics trọng điểm"
+              "Kết quả kiểm soát Quốc hội",
+              "Tác động đến chính sách kinh tế và đối ngoại"
             ],
-            "representative_sources": [
-              {
-                "title": "Chuyển từ tư duy phát triển dịch vụ logistics sang xây dựng năng lực logistics quốc gia",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/chuyen-tu-tu-duy-phat-trien-dich-vu-logistics-sang-xay-dung-nang-luc-logistics-quoc-gia-192261102153049943.htm",
-                "excerpt": "Phát triển logistics không phải chỉ là câu chuyện của một ngành kinh tế mà là câu chuyện về năng lực tổ chức."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua ghi nhận những thay đổi trong mô hình bệnh tật tại Việt Nam, với ung thư phổi trở thành loại ung thư phổ biến nhất ở nam giới, cảnh báo về lối sống và môi trường. Bên cạnh đó, các vấn đề dân sinh như bãi đỗ xe ngầm tại Hà Nội và an toàn trực tuyến cho trẻ em cũng nhận được sự quan tâm lớn từ dư luận. Sự kiện concert của HIEUTHUHAI tại Hà Nội cho thấy sức lan tỏa mạnh mẽ của nghệ sĩ trẻ, trong khi xu hướng tiêu dùng tại Trung Quốc đang chuyển dịch từ hàng hóa sang dịch vụ và trải nghiệm. Những thông tin y tế cộng đồng như cảnh báo tắc ruột khi ăn hồng hay chiến dịch bảo vệ trẻ em trên không gian mạng cũng đóng vai trò quan trọng trong việc nâng cao nhận thức xã hội.",
+        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua ghi nhận sự quan tâm đến an toàn thông tin cá nhân và các vấn đề dân sinh như giá xăng dầu, nhà ở xã hội. Các trào lưu công nghệ như 'đi chùa online' hay cảnh báo lừa đảo qua loa báo tiền cho thấy sự giao thoa mạnh mẽ giữa công nghệ và đời sống. Người dân đang đối mặt với các thách thức từ biến đổi khí hậu như El Nino ảnh hưởng đến nông nghiệp, trong khi các vấn đề về quyền lợi khách hàng tại các hệ thống phòng tập lớn như California Fitness & Yoga đang gây bức xúc dư luận. Chính phủ và các tổ chức đang đẩy mạnh các chiến dịch an toàn số để bảo vệ người dùng trước các thủ đoạn lừa đảo tinh vi, đồng thời tập trung phát triển nhà ở xã hội tại các đô thị lớn như TP.HCM để đảm bảo an sinh xã hội.",
         "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Văn hóa và Xã hội",
-            "title": "Chiến dịch bảo vệ trẻ em trên không gian mạng",
-            "summary": "Chiến dịch 'Không một mình 2026' được triển khai trên toàn quốc nhằm trang bị kỹ năng an toàn số và bảo vệ thanh thiếu niên trước các thủ đoạn lừa đảo trực tuyến.",
+            "sub_sector": "An toàn đời sống",
+            "title": "Cảnh báo an toàn thông tin cá nhân",
+            "summary": "Công an cảnh báo người dân không đăng tải hình ảnh Căn cước công dân lên mạng xã hội để tránh bị kẻ xấu lợi dụng danh tính. Chỉ một hình ảnh rõ nét cũng có thể để lộ họ tên, ngày tháng năm sinh, số định danh cá nhân và mã QR, tạo điều kiện cho các hành vi giả mạo danh tính và lừa đảo tài chính.",
             "main_developments": [
-              "Tập trung chia sẻ kiến thức nhận diện các thủ đoạn lừa đảo trực tuyến.",
-              "Thông điệp 'Kết nối không tổn thương' được lan tỏa mạnh mẽ.",
-              "Hợp tác giữa các đơn vị công nghệ và tổ chức xã hội."
+              "Hình ảnh CCCD chứa nhiều thông tin nhạy cảm dễ bị kẻ xấu khai thác.",
+              "Các thủ đoạn lừa đảo giả mạo danh tính đang gia tăng trên không gian mạng.",
+              "Cơ quan chức năng khuyến cáo người dân bảo mật thông tin cá nhân tuyệt đối."
             ],
-            "why_it_matters": "An toàn trực tuyến đang là mối quan tâm lớn của xã hội, đặc biệt với giới trẻ trong bối cảnh các thủ đoạn lừa đảo ngày càng tinh vi.",
+            "why_it_matters": "Vấn đề an toàn thông tin cá nhân đang là mối quan tâm lớn của cộng đồng trong bối cảnh lừa đảo mạng gia tăng.",
             "affected_groups": [
-              "Trẻ em",
-              "Thanh thiếu niên",
-              "Phụ huynh"
+              "Người dân",
+              "Cơ quan quản lý",
+              "Các tổ chức tài chính"
             ],
             "watch_next": [
-              "Kết quả lan tỏa của chiến dịch",
-              "Các biện pháp bảo vệ trẻ em mới từ các nền tảng số"
+              "Các biện pháp bảo mật mới từ cơ quan chức năng",
+              "Diễn biến các vụ lừa đảo giả mạo danh tính"
             ],
             "representative_sources": [
               {
-                "title": "Trước những cạm bẫy online: MoMo đồng hành cùng chiến dịch ‘Không một mình 2026’",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/truoc-nhung-cam-bay-online-momo-dong-hanh-cung-chien-dich-khong-mot-minh-2026-185261103082443338.htm",
-                "excerpt": "Chiến dịch nhằm trang bị kỹ năng an toàn số và bảo vệ thanh thiếu niên trước các thủ đoạn lừa đảo trực tuyến."
+                "title": "Cảnh báo nguy cơ lộ thông tin cá nhân khi \"đu trend\" khoe Căn cước công dân",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/canh-bao-nguy-co-lo-thong-tin-ca-nhan-khi-188261104074833369.chn",
+                "excerpt": "Công an cảnh báo người dân không đăng tải hình ảnh CCCD lên mạng xã hội."
               }
             ]
           }
@@ -292,79 +286,79 @@
     ],
     "watchlist_24_72h": [
       {
-        "theme": "Thị trường tiền số",
-        "what_to_watch": "Phản ứng của giá Bitcoin và các altcoin sau vụ hack Binance",
-        "why": "Tâm lý nhà đầu tư đang bị lung lay sau sự cố an ninh mạng lớn nhất lịch sử."
+        "theme": "An ninh mạng tiền số",
+        "what_to_watch": "Phản ứng của thị trường tiền số sau vụ hack Binance và các biện pháp an ninh bổ sung.",
+        "why": "Vụ hack Binance 6,3 tỷ USD là sự kiện an ninh mạng lớn nhất lịch sử tiền số, ảnh hưởng trực tiếp đến niềm tin nhà đầu tư."
+      },
+      {
+        "theme": "Bầu cử Mỹ",
+        "what_to_watch": "Kết quả kiểm soát Quốc hội và tác động đến chính sách kinh tế.",
+        "why": "Kết quả bầu cử Mỹ là biến số vĩ mô ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và lộ trình pháp lý cho ngành tài chính số."
       },
       {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Kết quả đàm phán Mỹ - Iran",
-        "why": "Tác động trực tiếp đến giá dầu và ổn định năng lượng toàn cầu."
+        "what_to_watch": "Diễn biến đàm phán Mỹ-Iran và phản ứng của thị trường năng lượng.",
+        "why": "Sự kiện địa chính trị tác động trực tiếp đến giá năng lượng toàn cầu và kỳ vọng lạm phát."
       },
       {
-        "theme": "Chính sách tiền tệ",
-        "what_to_watch": "Diễn biến lãi suất và phản ứng của Fed",
-        "why": "Ảnh hưởng đến dòng vốn toàn cầu và thị trường chứng khoán Việt Nam."
-      },
-      {
-        "theme": "Thị trường chứng khoán Việt Nam",
-        "what_to_watch": "Khả năng giữ mốc hỗ trợ 1.700 điểm của VN-Index",
-        "why": "Tâm lý nhà đầu tư đang rất thận trọng trước áp lực bán ròng từ khối ngoại."
+        "theme": "Hạ tầng bán dẫn Việt Nam",
+        "what_to_watch": "Tiến độ mở rộng dây chuyền sản xuất của FPT và các dự án FDI bán dẫn.",
+        "why": "Định hướng chiến lược của Việt Nam trong việc chuyển dịch cơ cấu kinh tế sang công nghệ cao."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Dư chấn vụ hack Binance 6,3 tỷ USD và làn sóng rút vốn",
-        "why": "Sự kiện tài chính lớn nhất 48h qua, ảnh hưởng trực tiếp đến thanh khoản và niềm tin thị trường crypto."
+        "what_to_watch": "Binance đối mặt với vụ hack kỷ lục 6,3 tỷ USD: Nguyên nhân và hệ quả",
+        "why": "Đây là sự kiện tài chính quan trọng nhất trong 48 giờ qua, ảnh hưởng trực tiếp đến niềm tin thị trường và hạ tầng an ninh tiền số toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thị trường chứng khoán Việt Nam khởi đầu tháng 11 với phiên giảm sâu",
-        "why": "Phản ánh tâm lý thị trường tài chính trong nước đầu tháng 11."
+        "what_to_watch": "Thúc đẩy gói tín dụng và chính sách cho nhà ở xã hội",
+        "why": "Tác động trực tiếp đến an sinh xã hội và thị trường bất động sản Việt Nam."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Dư chấn vụ hack Binance 6,4 tỷ USD: Ma trận rửa tiền và thách thức truy vết",
-        "why": "Sự kiện tài chính quốc tế quan trọng nhất trong 48h, ảnh hưởng trực tiếp đến thị trường crypto toàn cầu."
+        "what_to_watch": "Phố Wall biến động trước bầu cử giữa nhiệm kỳ Mỹ",
+        "why": "Sự kiện bầu cử Mỹ là tâm điểm tài chính toàn cầu, ảnh hưởng trực tiếp đến tâm lý nhà đầu tư và chính sách kinh tế."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "VN-Index giảm sâu, cổ phiếu ngân hàng đồng loạt suy yếu",
-        "why": "Phản ánh tâm lý nhà đầu tư trước lo ngại về biên lãi ròng (NIM) và nợ xấu trong tương lai."
+        "what_to_watch": "Binance đối mặt vụ hack 6,3 tỷ USD: Tin tặc Triều Tiên bị cáo buộc đứng sau",
+        "why": "Sự kiện an ninh mạng gây chấn động thị trường tiền mã hóa toàn cầu, ảnh hưởng trực tiếp đến niềm tin nhà đầu tư."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Tỷ phú Phạm Nhật Vượng mở rộng đầu tư hạ tầng, thúc đẩy tăng trưởng Vingroup",
-        "why": "Tác động lớn đến thị trường chứng khoán và định hướng hạ tầng quốc gia."
+        "what_to_watch": "Vốn ngoại vào Việt Nam đạt gần 55 tỷ USD trong 10 tháng, cao nhất 17 năm qua",
+        "why": "Dữ liệu vĩ mô quan trọng phản ánh sức hút của Việt Nam trong bối cảnh chuỗi cung ứng thị trường dịch chuyển."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Tin đồn về Claude 5.5 và GPT 6.2 Astra",
-        "why": "Cập nhật quan trọng về tiến độ của các Big Tech trong lĩnh vực AI."
+        "what_to_watch": "OpenAI triển khai chương trình bảo vệ lưới điện cho các trung tâm dữ liệu AI",
+        "why": "Phản ánh xu hướng giải quyết bài toán năng lượng của các tập đoàn AI lớn trước áp lực dư luận và hạ tầng."
       }
     ],
     "source_desk": [
       {
-        "topic": "Công nghệ & AI",
+        "topic": "Công nghệ & Bán dẫn",
         "representative_sources": [
           {
-            "title": "Đơn hàng từ Bắc Mỹ kéo tới, một tập đoàn công nghệ bất ngờ duyệt thêm 8.300 tỷ đồng vào Việt Nam, xây nhà xưởng ở Quảng Ninh lớn gấp 4 lần cơ sở tại Hải Phòng",
-            "source": "cafef_vn",
-            "url": "https://cafef.vn/don-hang-tu-bac-my-keo-toi-mot-tap-doan-cong-nghe-bat-ngo-duyet-them-8300-ty-dong-vao-viet-nam-xay-nha-xuong-o-quang-ninh-lon-gap-4-lan-co-so-tai-hai-phong-188261103083625936.chn"
+            "title": "Những hình ảnh về con chip bảo mật đầu tiên do Việt Nam thiết kế chính thức được tiết lộ",
+            "source": "genk_vn",
+            "url": "https://genk.vn/nhung-hinh-anh-ve-con-chip-bao-mat-dau-tien-do-viet-nam-thiet-ke-chinh-thuc-duoc-tiet-lo-165261103163052666.chn"
           }
         ]
       },
       {
-        "topic": "Thời sự & Chính trị",
+        "topic": "Chính trị & Bầu cử",
         "representative_sources": [
           {
-            "title": "Mỹ tấn công hòn đảo của Iran ngay trước bầu cử giữa kỳ",
-            "source": "tienphong_vn",
-            "url": "https://tienphong.vn/my-tan-cong-hon-dao-cua-iran-ngay-truoc-bau-cu-giua-ky-post1890966.tpo"
+            "title": "When Will We Know the Results of the Midterm Elections?",
+            "source": "time_com",
+            "url": "https://time.com/article/2026/11/03/2026-midterm-elections-polls-close-results-when"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các biện pháp khắc phục cụ thể của các ngân hàng Việt Nam trước rủi ro an ninh mạng từ các vụ hack quốc tế.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ phía các ngân hàng trung ương ngoài Fed đối với biến động thị trường tiền số.",
     "notable_articles": []
   }
 }
