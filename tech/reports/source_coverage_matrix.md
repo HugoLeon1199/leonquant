@@ -1,6 +1,6 @@
 # Tech Source Coverage Matrix
 
-- generated_at_utc: 2026-11-07T14:08:17.513217+00:00
+- generated_at_utc: 2026-11-07T22:49:40.865060+00:00
 - active_url_sources: 63
 - active_watchlist_entities: 26
 - active_api_sources: 27
@@ -8,34 +8,34 @@
 - active_sitemap_sources: 0
 - metadata_only_sources: 46
 - watchlist_checked: 26
-- watchlist_hit_count: 108
-- candidates_by_method: {'github_api': 42, 'hf_api': 27, 'api': 8, 'rss': 30, 'changelog_snapshot': 5, 'metadata': 3, 'html': 556, 'arxiv_api': 8, 'gdelt': 38}
-- content_quality_mix: {'metadata_only': 62, 'summary_only': 99, 'full_text': 556}
-- real_candidate_count: 717
+- watchlist_hit_count: 86
+- candidates_by_method: {'github_api': 42, 'hf_api': 27, 'api': 8, 'changelog_snapshot': 5, 'rss': 30, 'metadata': 4, 'html': 288, 'arxiv_api': 8, 'gdelt': 38}
+- content_quality_mix: {'metadata_only': 62, 'summary_only': 100, 'full_text': 288}
+- real_candidate_count: 450
 - manual_signal_count: 0
 - manual_signal_share: 0.0
 - real_api_candidate_count: 85
-- official_org_candidate_count: 64
-- weak_metadata_match_count: 11
+- official_org_candidate_count: 65
+- weak_metadata_match_count: 12
 - needs_manual_source_strategy_count: 0
 - P0 configured/checked/success/failed/zero_hit: 31/31/31/0/0
 - missing_critical_entities: []
 - verified_timestamp_ratio: 1.0
-- full_text/summary/metadata ratio: {'full_text': 0.0, 'summary_only': 0.5079, 'metadata_only': 0.4921}
+- full_text/summary/metadata ratio: {'full_text': 0.0, 'summary_only': 0.5, 'metadata_only': 0.5}
 - primary/independent/community source counts: 27/63/19
 
 | lane | configured_url_sources | P0 configured/checked/success/failed/zero_hit | watchlist_entities | api_sources | rss_sources | sitemap_sources | candidates collected | content quality / method | blockers | priority fix |
 |---|---:|---|---:|---:|---:|---:|---:|---|---|---|
-| official_ai_labs | 7 | 11/11/11/0/0 | 26 | 0 | 7 | 0 | 105 | method:api=6, method:changelog_snapshot=4, method:github_api=31, method:hf_api=27, method:html=10, method:metadata=3, method:rss=24, quality:full_text=10, quality:metadata_only=59, quality:summary_only=36 | watchlist entities are not URL crawl sources | add RSS/API/direct metadata strategy |
-| independent_ai_news | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 609 | method:api=2, method:arxiv_api=8, method:changelog_snapshot=1, method:gdelt=38, method:github_api=11, method:html=546, method:rss=3, quality:full_text=546, quality:metadata_only=3, quality:summary_only=60 | - | monitor |
-| china_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 46 | method:api=2, method:gdelt=2, method:github_api=22, method:hf_api=16, method:html=4, quality:full_text=4, quality:metadata_only=33, quality:summary_only=9 | - | monitor |
-| model_hubs | 0 | 1/1/1/0/0 | 26 | 2 | 0 | 0 | 37 | method:api=8, method:gdelt=1, method:hf_api=27, method:html=1, quality:full_text=1, quality:metadata_only=35, quality:summary_only=1 | - | monitor |
+| official_ai_labs | 7 | 11/11/11/0/0 | 26 | 0 | 7 | 0 | 95 | method:api=6, method:changelog_snapshot=4, method:github_api=31, method:hf_api=27, method:metadata=4, method:rss=23, quality:metadata_only=59, quality:summary_only=36 | watchlist entities are not URL crawl sources | add RSS/API/direct metadata strategy |
+| independent_ai_news | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 352 | method:api=2, method:arxiv_api=8, method:changelog_snapshot=1, method:gdelt=38, method:github_api=11, method:html=288, method:rss=4, quality:full_text=288, quality:metadata_only=3, quality:summary_only=61 | - | monitor |
+| china_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 43 | method:api=2, method:gdelt=2, method:github_api=22, method:hf_api=17, quality:metadata_only=34, quality:summary_only=9 | - | monitor |
+| model_hubs | 0 | 1/1/1/0/0 | 26 | 2 | 0 | 0 | 36 | method:api=8, method:gdelt=1, method:hf_api=27, quality:metadata_only=35, quality:summary_only=1 | - | monitor |
 | github_releases | 0 | 8/8/8/0/0 | 26 | 13 | 0 | 0 | 42 | method:github_api=42, quality:metadata_only=18, quality:summary_only=24 | - | monitor |
-| image_video_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 180 | method:api=6, method:changelog_snapshot=5, method:gdelt=6, method:github_api=2, method:hf_api=9, method:html=137, method:metadata=3, method:rss=12, quality:full_text=137, quality:metadata_only=19, quality:summary_only=24 | - | monitor |
-| automation_agents | 0 | 4/4/4/0/0 | 26 | 4 | 0 | 0 | 101 | method:arxiv_api=3, method:gdelt=21, method:github_api=13, method:hf_api=2, method:html=56, method:rss=6, quality:full_text=56, quality:metadata_only=5, quality:summary_only=40 | - | monitor |
-| chips_infra | 1 | 4/4/4/0/0 | 0 | 0 | 1 | 0 | 24 | method:gdelt=3, method:html=15, method:rss=6, quality:full_text=15, quality:metadata_only=3, quality:summary_only=6 | - | monitor |
-| business_funding | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 8 | method:gdelt=2, method:html=5, method:rss=1, quality:full_text=5, quality:summary_only=3 | - | monitor |
+| image_video_ai | 0 | 0/0/0/0/0 | 26 | 0 | 0 | 0 | 126 | method:api=6, method:changelog_snapshot=5, method:gdelt=7, method:github_api=2, method:hf_api=9, method:html=83, method:metadata=4, method:rss=10, quality:full_text=83, quality:metadata_only=20, quality:summary_only=23 | - | monitor |
+| automation_agents | 0 | 4/4/4/0/0 | 26 | 4 | 0 | 0 | 59 | method:arxiv_api=3, method:gdelt=18, method:github_api=13, method:hf_api=1, method:html=17, method:rss=7, quality:full_text=17, quality:metadata_only=4, quality:summary_only=38 | - | monitor |
+| chips_infra | 1 | 4/4/4/0/0 | 0 | 0 | 1 | 0 | 17 | method:gdelt=3, method:html=8, method:rss=6, quality:full_text=8, quality:metadata_only=3, quality:summary_only=6 | - | monitor |
+| business_funding | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 7 | method:gdelt=2, method:html=4, method:rss=1, quality:full_text=4, quality:summary_only=3 | - | monitor |
 | policy_risk | 2 | 3/3/3/0/0 | 0 | 0 | 2 | 0 | 0 | - | - | monitor |
-| research_papers | 0 | 0/0/0/0/0 | 0 | 8 | 0 | 0 | 14 | method:arxiv_api=8, method:html=6, quality:full_text=6, quality:summary_only=8 | - | monitor |
+| research_papers | 0 | 0/0/0/0/0 | 0 | 8 | 0 | 0 | 9 | method:arxiv_api=8, method:html=1, quality:full_text=1, quality:summary_only=8 | - | monitor |
 | community_forums | 1 | 0/0/0/0/0 | 0 | 0 | 1 | 0 | 3 | method:rss=3, quality:summary_only=3 | - | monitor |
-| gdelt | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 34 | method:gdelt=34, quality:summary_only=34 | - | monitor |
+| gdelt | 0 | 0/0/0/0/0 | 0 | 0 | 0 | 0 | 33 | method:gdelt=33, quality:summary_only=33 | - | monitor |
