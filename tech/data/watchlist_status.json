@@ -1,15 +1,20 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-11-08T18:25:12.538806+00:00",
+  "generated_at_utc": "2026-11-08T23:02:37.919082+00:00",
   "checked": 26,
-  "hit_count": 91,
+  "hit_count": 72,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 12,
       "top_links": [
+        {
+          "title": "GitHub repo updated: zai-org/GLM-V",
+          "url": "https://github.com/zai-org/GLM-V",
+          "source_lane": "github_release"
+        },
         {
           "title": "GitHub repo updated: zai-org/Open-AutoGLM",
           "url": "https://github.com/zai-org/Open-AutoGLM",
@@ -21,19 +26,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/ZCode",
-          "url": "https://github.com/zai-org/ZCode",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: sstoica12/acquisition_generator_AS_answer_variance_combine_WGM_MP_glm",
-          "url": "https://huggingface.co/sstoica12/acquisition_generator_AS_answer_variance_combine_WGM_MP_glm",
+          "title": "Hugging Face model updated: Donatilius/GLM-5.3",
+          "url": "https://huggingface.co/Donatilius/GLM-5.3",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: sstoica12/acquisition_student_AS_confidence_combine_WGM_MP_glm_5000",
-          "url": "https://huggingface.co/sstoica12/acquisition_student_AS_confidence_combine_WGM_MP_glm_5000",
-          "source_lane": "huggingface_model"
+          "title": "OpenRouter model listed: z-ai/glm-5.3-flashx-legal",
+          "url": "https://openrouter.ai/z-ai/glm-5.3-flashx-legal",
+          "source_lane": "model_hub"
         }
       ],
       "no_signal_reason": ""
@@ -42,11 +42,11 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 9,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-Coder",
-          "url": "https://github.com/QwenLM/Qwen3-Coder",
+          "title": "GitHub repo updated: QwenLM/Qwen3",
+          "url": "https://github.com/QwenLM/Qwen3",
           "source_lane": "github_release"
         },
         {
@@ -60,8 +60,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: hweller1/wayfinder-qwen-35b-a3b",
-          "url": "https://huggingface.co/hweller1/wayfinder-qwen-35b-a3b",
+          "title": "Hugging Face model updated: expjack/r1-0528-qwen3-8b-tokenizer",
+          "url": "https://huggingface.co/expjack/r1-0528-qwen3-8b-tokenizer",
           "source_lane": "huggingface_model"
         },
         {
@@ -76,16 +76,16 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/deepseek-harness",
-          "url": "https://github.com/deepseek-ai/deepseek-harness",
+          "title": "GitHub repo updated: deepseek-ai/DeepInfer",
+          "url": "https://github.com/deepseek-ai/DeepInfer",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: deepseek-ai/deepseek-recipe",
-          "url": "https://github.com/deepseek-ai/deepseek-recipe",
+          "title": "GitHub repo updated: deepseek-ai/deepseek-harness",
+          "url": "https://github.com/deepseek-ai/deepseek-harness",
           "source_lane": "github_release"
         },
         {
@@ -94,14 +94,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: Tkaa/DeepSeek-V4.1-Flash-1017-GX10",
-          "url": "https://huggingface.co/Tkaa/DeepSeek-V4.1-Flash-1017-GX10",
+          "title": "Hugging Face model updated: yushengsu/deepseek-v4.1-flash-dspark-8000step",
+          "url": "https://huggingface.co/yushengsu/deepseek-v4.1-flash-dspark-8000step",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "pytorch/pytorch release: PyTorch 2.15.0 Release",
-          "url": "https://github.com/pytorch/pytorch/releases/tag/v2.15.0",
-          "source_lane": "github_release"
+          "title": "Hugging Face model updated: rumplestilzken/DeepSeek-V4.1-1017-abliterated-NVFP4",
+          "url": "https://huggingface.co/rumplestilzken/DeepSeek-V4.1-1017-abliterated-NVFP4",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -110,32 +110,17 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 2,
       "top_links": [
+        {
+          "title": "Hugging Face model updated: Jamesl0l/Kimi-K3",
+          "url": "https://huggingface.co/Jamesl0l/Kimi-K3",
+          "source_lane": "huggingface_model"
+        },
         {
           "title": "Hugging Face model updated: Grawnch/Kimi-K3.1-Pro-Coder",
           "url": "https://huggingface.co/Grawnch/Kimi-K3.1-Pro-Coder",
           "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: KarLexAI/Kimi-K3.1-Pro-GGUF",
-          "url": "https://huggingface.co/KarLexAI/Kimi-K3.1-Pro-GGUF",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Just a moonshot? Google energy head claims data centers in space would cost up to 100x more than on Earth",
-          "url": "https://www.techradar.com/pro/just-a-moonshot-google-energy-head-claims-data-centers-in-space-would-cost-up-to-100x-more-than-on-earth",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "BANK",
-          "url": "https://echo.msk.ru/news/avto/s-2027-goda-zaemschikam-s-nizkimi-platezhami-pridetsya-gotovitsya-k-izmeneniyam-v-avtokreditah-uznayte-chto-vas-zhdet/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "CHINESE - NVIDIA",
-          "url": "https://dailycaller.com/2026/11/06/moonshot-china-artificial-intelligence-nvidia-chip-ban/",
-          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -147,8 +132,8 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: RunningHubAI/rh-minimax-h3-lora-2097938247459631105",
-          "url": "https://huggingface.co/RunningHubAI/rh-minimax-h3-lora-2097938247459631105",
+          "title": "Hugging Face model updated: Asirus/MiniMax-H3-Ref2VA-NEXORA",
+          "url": "https://huggingface.co/Asirus/MiniMax-H3-Ref2VA-NEXORA",
           "source_lane": "huggingface_model"
         },
         {
@@ -189,8 +174,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-Memory",
-          "url": "https://github.com/Tencent-Hunyuan/Hy-Memory",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-Nomas",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas",
           "source_lane": "github_release"
         },
         {
@@ -221,13 +206,13 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/Intern-Decision",
-          "url": "https://github.com/InternLM/Intern-Decision",
+          "title": "GitHub repo updated: InternLM/lmdeploy",
+          "url": "https://github.com/InternLM/lmdeploy",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
+          "title": "GitHub repo updated: InternLM/Intern-Decision",
+          "url": "https://github.com/InternLM/Intern-Decision",
           "source_lane": "github_release"
         },
         {
@@ -258,7 +243,7 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 5,
       "top_links": [
         {
           "title": "Hugging Face model updated: juergengunz/fluxer",
@@ -266,13 +251,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: ramusgill/comfyui-colab-flash",
-          "url": "https://huggingface.co/ramusgill/comfyui-colab-flash",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: dwe5682/FLUX.2-klein-4B-GGUF",
-          "url": "https://huggingface.co/dwe5682/FLUX.2-klein-4B-GGUF",
+          "title": "Hugging Face model updated: andreaskrein/flux-2-klein-4B_I2I_1024px",
+          "url": "https://huggingface.co/andreaskrein/flux-2-klein-4B_I2I_1024px",
           "source_lane": "huggingface_model"
         },
         {
@@ -284,6 +264,11 @@
           "title": "Hugging Face model updated: softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex",
           "url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "huggingface/diffusers release: Diffusers 0.42.0: FLUX.3, Fibo 2.0, Kandinsky 6, and more",
+          "url": "https://github.com/huggingface/diffusers/releases/tag/v0.42.0",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -292,11 +277,16 @@
       "entity": "ComfyUI",
       "priority": "critical",
       "checked": true,
-      "hit_count": 3,
+      "hit_count": 4,
       "top_links": [
         {
           "title": "Hugging Face model updated: AI-KSK/ksk-video-276-comfyui-workflows",
           "url": "https://huggingface.co/AI-KSK/ksk-video-276-comfyui-workflows",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: MisterNatural/Jan-v1-4B-ComfyUI",
+          "url": "https://huggingface.co/MisterNatural/Jan-v1-4B-ComfyUI",
           "source_lane": "huggingface_model"
         },
         {
@@ -335,27 +325,16 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "KI-Texte entlarven: Diese Phrasen verraten ChatGPT und Claude sofort",
-          "url": "https://t3n.de/news/ki-texte-erkennen-chatgpt-claude-phrasen-1766310/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 1,
       "top_links": [
-        {
-          "title": "SPAIN",
-          "url": "https://www.cope.es/programas/la-linterna/clases-de-economia/audios/yolanda-gomez-experta-economica-sobre-retirada-aceite-gobierno-llama-atencion-primera-vez-aprueba-agricultores-llevaban-pidiendolo-20261106_3470712.html",
-          "source_lane": "frontier_watchlist"
-        },
         {
           "title": "run-llama/llama_index release: v0.14.24",
           "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.24",
@@ -368,25 +347,9 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 3,
-      "top_links": [
-        {
-          "title": "The Next Wave: Kenyan banks have forgotten how to lose money",
-          "url": "https://techcabal.com/2026/11/08/next-wave-no-bad-year-for-kenyan-banks/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Jurista propone que cada respuesta de un chatbot basada en noticias genere un pago a los medios",
-          "url": "https://www.infobae.com/tecno/2026/11/08/jurista-propone-que-cada-respuesta-de-un-chatbot-basada-en-noticias-genere-un-pago-a-los-medios/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "The end of an era as Linux 7.5 purges the last 30-year-old Intel MMX optimizations from Pentium age — open-source OS retires ancient 1997 Pentium instructions to streamline code",
-          "url": "https://www.tomshardware.com/software/linux/the-end-of-an-era-as-linux-7-5-purges-the-last-30-year-old-intel-mmx-optimizations-from-pentium-age-open-source-os-retires-ancient-1997-pentium-instructions-to-streamline-code",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "OpenRouter",
@@ -426,59 +389,27 @@
       "entity": "Replicate",
       "priority": "normal",
       "checked": true,
-      "hit_count": 1,
-      "top_links": [
-        {
-          "title": "Cloudflare Scales D1 Control Plane to Millions of Databases",
-          "url": "https://www.infoq.com/news/2026/11/cloudflare-d1-control-plane/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 8,
-      "top_links": [
-        {
-          "title": "Así es GhostMap, el fallo que hace que un celular Android se reinicie en bucle con instalar un app",
-          "url": "https://www.infobae.com/tecno/2026/11/08/asi-es-ghostmap-el-fallo-que-hace-que-un-celular-android-se-reinicie-en-bucle-con-instalar-un-app/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Como criminosos usaram rostos falsos para desviar mais de R$ 700 milhões",
-          "url": "https://olhardigital.com.br/2026/11/08/seguranca/como-criminosos-usaram-rostos-falsos-para-desviar-mais-de-r-700-milhoes/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Diktieren statt Tippen: So baut ein Produktmanager seinen KI-Workflow auf",
-          "url": "https://t3n.de/news/ki-workflow-diktieren-claude-code-produktivitaet-1770271/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "Lo que faltaba: este bug de Paint deja tu PC con Windows 11 a merced de los hackers",
-          "url": "https://hipertextual.com/software/lo-que-faltaba-este-bug-de-paint-deja-tu-pc-con-windows-11-a-merced-de-los-hackers/",
-          "source_lane": "frontier_watchlist"
-        },
-        {
-          "title": "El cangrejo azul no tenía depredadores naturales en el mediterráneo, hasta que el pulpo empezó a tener hambre",
-          "url": "https://www.xataka.com/ecologia-y-naturaleza/cangrejo-azul-no-tenia-depredadores-naturales-mediterraneo-que-pulpo-empezo-a-tener-hambre",
-          "source_lane": "frontier_watchlist"
-        }
-      ],
-      "no_signal_reason": ""
+      "hit_count": 0,
+      "top_links": [],
+      "no_signal_reason": "no candidate matched in current rolling inputs"
     },
     {
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 7,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/csharp-sdk",
-          "url": "https://github.com/modelcontextprotocol/csharp-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/inspector",
+          "url": "https://github.com/modelcontextprotocol/inspector",
           "source_lane": "github_release"
         },
         {
@@ -487,8 +418,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/rust-sdk",
-          "url": "https://github.com/modelcontextprotocol/rust-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
           "source_lane": "github_release"
         },
         {
