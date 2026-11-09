@@ -1,39 +1,39 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-11-08T23:02:37.919082+00:00",
+  "generated_at_utc": "2026-11-09T08:03:17.223129+00:00",
   "checked": 26,
-  "hit_count": 72,
+  "hit_count": 86,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 12,
+      "hit_count": 13,
       "top_links": [
-        {
-          "title": "GitHub repo updated: zai-org/GLM-V",
-          "url": "https://github.com/zai-org/GLM-V",
-          "source_lane": "github_release"
-        },
         {
           "title": "GitHub repo updated: zai-org/Open-AutoGLM",
           "url": "https://github.com/zai-org/Open-AutoGLM",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/CogVideo",
-          "url": "https://github.com/zai-org/CogVideo",
+          "title": "GitHub repo updated: zai-org/RealVideo",
+          "url": "https://github.com/zai-org/RealVideo",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: Donatilius/GLM-5.3",
-          "url": "https://huggingface.co/Donatilius/GLM-5.3",
+          "title": "GitHub repo updated: zai-org/ZCode",
+          "url": "https://github.com/zai-org/ZCode",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "Hugging Face model updated: moreh/GLM-5.2-TT-BLOCKFP4",
+          "url": "https://huggingface.co/moreh/GLM-5.2-TT-BLOCKFP4",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "OpenRouter model listed: z-ai/glm-5.3-flashx-legal",
-          "url": "https://openrouter.ai/z-ai/glm-5.3-flashx-legal",
-          "source_lane": "model_hub"
+          "title": "Hugging Face model updated: moreh/GLM-5.3-TT-BLOCKFP4",
+          "url": "https://huggingface.co/moreh/GLM-5.3-TT-BLOCKFP4",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 9,
+      "hit_count": 12,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3",
-          "url": "https://github.com/QwenLM/Qwen3",
+          "title": "GitHub repo updated: QwenLM/Qwen-Image-Layered",
+          "url": "https://github.com/QwenLM/Qwen-Image-Layered",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-TTS",
-          "url": "https://github.com/QwenLM/Qwen3-TTS",
+          "title": "GitHub repo updated: QwenLM/Qwen3-ASR",
+          "url": "https://github.com/QwenLM/Qwen3-ASR",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: expjack/r1-0528-qwen3-8b-tokenizer",
-          "url": "https://huggingface.co/expjack/r1-0528-qwen3-8b-tokenizer",
+          "title": "Hugging Face model updated: whereismyusername/qwen3-vl-embedding-loss-ablations",
+          "url": "https://huggingface.co/whereismyusername/qwen3-vl-embedding-loss-ablations",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: namkiett/phowhisper-qwen-adapter",
-          "url": "https://huggingface.co/namkiett/phowhisper-qwen-adapter",
+          "title": "Hugging Face model updated: loom-fun/unsloth-Qwen3-8B-loom",
+          "url": "https://huggingface.co/loom-fun/unsloth-Qwen3-8B-loom",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,11 +76,11 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 4,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepInfer",
-          "url": "https://github.com/deepseek-ai/DeepInfer",
+          "title": "GitHub repo updated: deepseek-ai/awesome-deepseek-integration",
+          "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
           "source_lane": "github_release"
         },
         {
@@ -94,14 +94,9 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: yushengsu/deepseek-v4.1-flash-dspark-8000step",
-          "url": "https://huggingface.co/yushengsu/deepseek-v4.1-flash-dspark-8000step",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: rumplestilzken/DeepSeek-V4.1-1017-abliterated-NVFP4",
-          "url": "https://huggingface.co/rumplestilzken/DeepSeek-V4.1-1017-abliterated-NVFP4",
-          "source_lane": "huggingface_model"
+          "title": "pytorch/pytorch release: PyTorch 2.15.0 Release",
+          "url": "https://github.com/pytorch/pytorch/releases/tag/v2.15.0",
+          "source_lane": "github_release"
         }
       ],
       "no_signal_reason": ""
@@ -110,17 +105,27 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 4,
       "top_links": [
         {
-          "title": "Hugging Face model updated: Jamesl0l/Kimi-K3",
-          "url": "https://huggingface.co/Jamesl0l/Kimi-K3",
+          "title": "Hugging Face model updated: Blackfrost-Research/Kimi-K3.1-Pro-DERISKED",
+          "url": "https://huggingface.co/Blackfrost-Research/Kimi-K3.1-Pro-DERISKED",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Grawnch/Kimi-K3.1-Pro-Coder",
-          "url": "https://huggingface.co/Grawnch/Kimi-K3.1-Pro-Coder",
+          "title": "Hugging Face model updated: moreh/Kimi-K3-DSpark-Block5-TT-BLOCKFP8",
+          "url": "https://huggingface.co/moreh/Kimi-K3-DSpark-Block5-TT-BLOCKFP8",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Just a moonshot? Google energy head claims data centers in space would cost up to 100x more than on Earth",
+          "url": "https://www.techradar.com/pro/just-a-moonshot-google-energy-head-claims-data-centers-in-space-would-cost-up-to-100x-more-than-on-earth",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "CHINESE - NVIDIA",
+          "url": "https://dailycaller.com/2026/11/06/moonshot-china-artificial-intelligence-nvidia-chip-ban/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -132,8 +137,8 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "Hugging Face model updated: Asirus/MiniMax-H3-Ref2VA-NEXORA",
-          "url": "https://huggingface.co/Asirus/MiniMax-H3-Ref2VA-NEXORA",
+          "title": "Hugging Face model updated: PantherMax/MiniMax-H3-FL-Singularity-Experimental",
+          "url": "https://huggingface.co/PantherMax/MiniMax-H3-FL-Singularity-Experimental",
           "source_lane": "huggingface_model"
         },
         {
@@ -164,18 +169,18 @@
       "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2.1",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HY-World-2.0",
+          "url": "https://github.com/Tencent-Hunyuan/HY-World-2.0",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HYDRA",
+          "url": "https://github.com/Tencent-Hunyuan/HYDRA",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-Nomas",
-          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         },
         {
@@ -206,13 +211,13 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
+          "title": "GitHub repo updated: InternLM/MindSearch",
+          "url": "https://github.com/InternLM/MindSearch",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/Intern-Decision",
-          "url": "https://github.com/InternLM/Intern-Decision",
+          "title": "GitHub repo updated: InternLM/Sage-SciPerception",
+          "url": "https://github.com/InternLM/Sage-SciPerception",
           "source_lane": "github_release"
         },
         {
@@ -251,8 +256,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: andreaskrein/flux-2-klein-4B_I2I_1024px",
-          "url": "https://huggingface.co/andreaskrein/flux-2-klein-4B_I2I_1024px",
+          "title": "Hugging Face model updated: DenRakEiw/FLUX3-Image-Klein-Native-RGBA-Transparent-LoRA",
+          "url": "https://huggingface.co/DenRakEiw/FLUX3-Image-Klein-Native-RGBA-Transparent-LoRA",
           "source_lane": "huggingface_model"
         },
         {
@@ -306,8 +311,13 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 3,
       "top_links": [
+        {
+          "title": "Mais velocidade e espaço: selecionamos os melhores SSDs NVMe em promoção na Amazon",
+          "url": "https://olhardigital.com.br/2026/11/08/reviews/mais-velocidade-e-espaco-selecionamos-os-melhores-ssds-nvme-em-promocao-na-amazon/",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Hugging Face model updated: AnSeongYun/runway-hr-models",
           "url": "https://huggingface.co/AnSeongYun/runway-hr-models",
@@ -325,9 +335,15 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "KI-Texte entlarven: Diese Phrasen verraten ChatGPT und Claude sofort",
+          "url": "https://t3n.de/news/ki-texte-erkennen-chatgpt-claude-phrasen-1766310/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Veo",
@@ -347,9 +363,25 @@
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 3,
+      "top_links": [
+        {
+          "title": "The Next Wave: Kenyan banks have forgotten how to lose money",
+          "url": "https://techcabal.com/2026/11/08/next-wave-no-bad-year-for-kenyan-banks/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Jurista propone que cada respuesta de un chatbot basada en noticias genere un pago a los medios",
+          "url": "https://www.infobae.com/tecno/2026/11/08/jurista-propone-que-cada-respuesta-de-un-chatbot-basada-en-noticias-genere-un-pago-a-los-medios/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "The end of an era as Linux 7.5 purges the last 30-year-old Intel MMX optimizations from Pentium age — open-source OS retires ancient 1997 Pentium instructions to streamline code",
+          "url": "https://www.tomshardware.com/software/linux/the-end-of-an-era-as-linux-7-5-purges-the-last-30-year-old-intel-mmx-optimizations-from-pentium-age-open-source-os-retires-ancient-1997-pentium-instructions-to-streamline-code",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenRouter",
@@ -389,37 +421,69 @@
       "entity": "Replicate",
       "priority": "normal",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "Cloudflare Scales D1 Control Plane to Millions of Databases",
+          "url": "https://www.infoq.com/news/2026/11/cloudflare-d1-control-plane/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 5,
+      "top_links": [
+        {
+          "title": "Así es GhostMap, el fallo que hace que un celular Android se reinicie en bucle con instalar un app",
+          "url": "https://www.infobae.com/tecno/2026/11/08/asi-es-ghostmap-el-fallo-que-hace-que-un-celular-android-se-reinicie-en-bucle-con-instalar-un-app/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Lo que faltaba: este bug de Paint deja tu PC con Windows 11 a merced de los hackers",
+          "url": "https://hipertextual.com/software/lo-que-faltaba-este-bug-de-paint-deja-tu-pc-con-windows-11-a-merced-de-los-hackers/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "El cangrejo azul no tenía depredadores naturales en el mediterráneo, hasta que el pulpo empezó a tener hambre",
+          "url": "https://www.xataka.com/ecologia-y-naturaleza/cangrejo-azul-no-tenia-depredadores-naturales-mediterraneo-que-pulpo-empezo-a-tener-hambre",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Wie Apple die Textvorschläge der iPhone-Tastatur einschränkt",
+          "url": "https://t3n.de/news/apple-textvorschlaege-iphone-1772247/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "PRESIDENT",
+          "url": "https://economictimes.indiatimes.com/news/international/us/from-tv-journalist-to-private-banker-to-ai-chip-executive-the-unusual-career-of-alice-huang-the-alleged-spy-linked-to-nvidia-ceo-jensen-huang/articleshow/135637982.cms",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/inspector",
-          "url": "https://github.com/modelcontextprotocol/inspector",
+          "title": "GitHub repo updated: modelcontextprotocol/ext-apps",
+          "url": "https://github.com/modelcontextprotocol/ext-apps",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/php-sdk",
-          "url": "https://github.com/modelcontextprotocol/php-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/kotlin-sdk",
+          "url": "https://github.com/modelcontextprotocol/kotlin-sdk",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/typescript-sdk",
-          "url": "https://github.com/modelcontextprotocol/typescript-sdk",
+          "title": "GitHub repo updated: modelcontextprotocol/python-sdk",
+          "url": "https://github.com/modelcontextprotocol/python-sdk",
           "source_lane": "github_release"
         },
         {
