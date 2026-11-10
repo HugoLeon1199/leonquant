@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-09T01:31:40.292153+00:00",
+  "generated_at": "2026-11-10T04:12:18.897835+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 609676,
+    "estimated_input_tokens": 869820,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 2,
+    "api_calls": 3,
     "refetch_urls": false,
-    "input_article_count": 461,
-    "sent_article_count": 461,
+    "input_article_count": 700,
+    "sent_article_count": 700,
     "window": {
-      "end_date": "2026-11-09",
+      "end_date": "2026-11-10",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,110 +25,104 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động địa chính trị, chính sách kinh tế và đột phá công nghệ trong 48 giờ qua.",
+    "editor_note": "Bản tin tổng hợp các sự kiện kinh tế, công nghệ và chính trị trọng yếu trong 48 giờ qua, tập trung vào các tác động thực tế đến thị trường và chính sách.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Bức tranh 48 giờ qua được định hình bởi sự giao thoa giữa rủi ro an ninh công nghệ và các nỗ lực điều hành kinh tế vĩ mô. Trong khi Nvidia đối mặt với cuộc khủng hoảng uy tín nghiêm trọng từ nghi vấn gián điệp liên quan đến CEO Jensen Huang, thị trường tài chính toàn cầu cũng đang tái định giá các tài sản rủi ro như Bitcoin và vàng. Tại Việt Nam, trọng tâm điều hành chuyển dịch mạnh mẽ sang ổn định thị trường bất động sản và ứng phó khẩn cấp với thiên tai tại miền Trung.",
-        "most_mentioned": "Nvidia và CEO Jensen Huang là chủ đề được nhắc đến nhiều nhất trên các nguồn tin quốc tế và Việt Nam, tạo ra làn sóng lo ngại về an ninh công nghệ. Tại Việt Nam, các chỉ đạo về thị trường bất động sản và công tác ứng phó mưa lũ tại miền Trung chiếm ưu thế trong dòng tin thời sự.",
-        "top_stories": "Chuyến thăm chính thức Nhật Bản của Tổng Bí thư, Chủ tịch nước Tô Lâm đánh dấu bước tiến mới trong ngoại giao kinh tế, tập trung vào bán dẫn và AI. Song song đó, các chính sách giảm thuế cho doanh nghiệp nhỏ và hỗ trợ vốn vay nhà ở xã hội tại TP.HCM đang tạo ra những tín hiệu tích cực cho khu vực kinh tế tư nhân.",
-        "sector_impacts": "Nhóm tài chính đang chịu áp lực từ nợ xấu bất động sản và biến động tỷ giá, trong khi nhóm công nghệ đối mặt với rủi ro quản trị. Các chính sách tài khóa mới được kỳ vọng sẽ là động lực hỗ trợ thanh khoản cho thị trường trong giai đoạn cuối năm."
+        "main_picture": "Thị trường 48 giờ qua chứng kiến sự cộng hưởng giữa các cú sốc quản trị doanh nghiệp toàn cầu và nỗ lực định hình lại chiến lược kinh tế tại Việt Nam. Bê bối đời tư của CEO Nvidia Jensen Huang đã tạo ra làn sóng chấn động trong ngành chip AI, buộc hội đồng quản trị phải mở cuộc điều tra độc lập về rủi ro an ninh quốc gia. Trong khi đó, dữ liệu xuất nhập khẩu tháng 10 của Trung Quốc tăng trưởng vượt kỳ vọng, cho thấy nhu cầu phần cứng AI toàn cầu vẫn là động lực chính của thương mại quốc tế.",
+        "most_mentioned": "Bê bối của Jensen Huang là chủ đề chi phối truyền thông công nghệ và tài chính thị trường. Sự kiện này không chỉ gây áp lực lên vốn hóa Nvidia mà còn đặt ra những câu hỏi về tính ổn định của chuỗi cung ứng chip AI trong bối cảnh cạnh tranh địa chính trị gay gắt giữa Mỹ và Trung Quốc.",
+        "top_stories": "Tại Việt Nam, trọng tâm là chuyến thăm Nhật Bản của Tổng Bí thư, Chủ tịch nước Tô Lâm, đánh dấu bước chuyển từ hợp tác kỹ thuật sang đồng kiến tạo công nghệ chiến lược. Song song đó, Thanh tra Chính phủ đã chuyển hồ sơ 7 vụ việc sai phạm xăng dầu sang Bộ Công an, cho thấy quyết tâm mạnh mẽ trong việc làm sạch thị trường năng lượng và chống thất thu thuế.",
+        "sector_impacts": "Dòng vốn trên thị trường chứng khoán Việt Nam đang có sự phân hóa mạnh mẽ: khối tự doanh gom mạnh cổ phiếu ngân hàng như VPB, trong khi khối ngoại duy trì đà bán ròng kỷ lục. Ngành công nghệ Việt Nam đang tận dụng các liên doanh với đối tác Nhật Bản như NTT DOCOMO để đẩy mạnh hạ tầng AI và truyền thông số."
       },
-      "content": "Trong 48 giờ qua, thị trường tài chính thị trường chứng kiến sự thận trọng khi Bitcoin và vàng cùng chịu áp lực bán, phản ánh tâm lý tái định vị dòng vốn của nhà đầu tư trước các rủi ro địa chính trị. Tại Việt Nam, Chính phủ đã yêu cầu Bộ Xây dựng báo cáo tổng thể thị trường bất động sản trong tháng 11 nhằm ngăn chặn tác động dây chuyền đến hệ thống ngân hàng, đồng thời TP.HCM đề xuất nâng mức vốn vay hỗ trợ lãi suất cho nhà ở xã hội lên 300 tỷ đồng mỗi dự án. Đây là những bước đi cụ thể nhằm tháo gỡ điểm nghẽn thanh khoản cuối năm.\n\nTrong lĩnh vực công nghệ, Nvidia đang đối mặt với cuộc điều tra độc lập liên quan đến CEO Jensen Huang, một sự kiện gây chấn động ngành bán dẫn và an ninh quốc gia Mỹ. Song song đó, các đột phá về vật liệu nano trong y tế và giới hạn không-thời gian lượng tử đang mở ra những hướng đi mới cho điện tử siêu nhanh, cho thấy AI và công nghệ hạ tầng vẫn là động lực tăng trưởng cốt lõi bất chấp các rủi ro quản trị. OpenAI cũng vừa hoàn tất vòng gọi vốn 11 tỷ USD, khẳng định niềm tin của dòng vốn tổ chức vào tương lai của AI.\n\nTại miền Trung Việt Nam, chính quyền các địa phương đang kích hoạt phương án ứng phó khẩn cấp với mưa lũ lớn, với dự báo lượng mưa lên tới 550mm. Đây là biến số thời sự cấp thiết cần theo dõi sát sao trong 24-72 giờ tới, bên cạnh các diễn biến ngoại giao kinh tế giữa Việt Nam và Nhật Bản trong chuyến thăm của Tổng Bí thư, Chủ tịch nước Tô Lâm nhằm thúc đẩy hợp tác trong lĩnh vực bán dẫn và năng lượng sạch.",
+      "content": "Thị trường 48 giờ qua phản ánh sự giằng co giữa các cú sốc doanh nghiệp lớn và nỗ lực ổn định vĩ mô. Bê bối của CEO Nvidia Jensen Huang đã tạo ra một 'cú sốc' niềm tin, khiến vốn hóa tập đoàn biến động mạnh và đặt ra câu hỏi về rủi ro an ninh trong chuỗi cung ứng chip AI. Tuy nhiên, dữ liệu thương mại Trung Quốc cho thấy nhu cầu phần cứng AI vẫn là động lực tăng trưởng chính, giúp thị trường công nghệ thị trường duy trì sự quan tâm. Tại Việt Nam, các cam kết hợp tác kinh tế với Nhật Bản trong lĩnh vực bán dẫn và năng lượng sạch đang định hình lại dòng vốn FDI, trong khi các chính sách quản lý xăng dầu và ngân sách 2027 cho thấy quyết tâm của Chính phủ trong việc làm sạch thị trường và ưu tiên đầu tư công trọng điểm. Sự phân hóa dòng tiền giữa khối tự doanh và nhà đầu tư nước ngoài trên thị trường chứng khoán cũng cho thấy tâm lý thận trọng trước các biến động vĩ mô toàn cầu.",
       "representative_sources": [
         {
-          "title": "Tỷ phú Jensen Huang thừa nhận ngoại tình, Nvidia điều tra nghi vấn gián điệp",
-          "source": "tienphong_vn",
-          "url": "https://tienphong.vn/ty-phu-jensen-huang-thua-nhan-ngoai-tinh-nvidia-dieu-tra-nghi-van-gian-diep-post1892626.tpo",
-          "excerpt": "Nvidia thành lập ủy ban độc lập điều tra các cáo buộc về mối quan hệ giữa CEO Jensen Huang và một nữ doanh nhân bị nghi ngờ liên quan đến tình báo Trung Quốc."
+          "title": "CEO NVIDIA: Hành trình từ người rửa bát đến tỷ phú chip AI và cú sốc ngang địa chấn",
+          "source": "vietnamnet_vn",
+          "url": "https://vietnamnet.vn/ceo-nvidia-jensen-huang-tu-nguoi-rua-bat-den-de-che-chip-ai-va-cu-soc-2573092.html",
+          "excerpt": "Hội đồng quản trị Nvidia khởi động cuộc điều tra độc lập về các nghi vấn liên quan đến an ninh và chuỗi cung ứng sau bê bối của CEO."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Nghi vấn gián điệp tại Nvidia",
-          "why_mentioned": "Tác động trực tiếp đến uy tín và vốn hóa của tập đoàn công nghệ hàng đầu.",
-          "evidence_hint": "Lặp lại trên nhiều nguồn tin quốc tế và Việt Nam."
-        },
-        {
-          "topic": "Thiên tai tại miền Trung",
-          "why_mentioned": "Mức độ cấp thiết cao, ảnh hưởng trực tiếp đến an toàn dân sinh.",
-          "evidence_hint": "Các báo cáo khẩn cấp từ Đà Nẵng và các tỉnh miền Trung."
+          "topic": "Bê bối CEO Nvidia",
+          "why_mentioned": "Ảnh hưởng trực tiếp đến tập đoàn AI quan trọng nhất thế giới.",
+          "evidence_hint": "Xuất hiện trên hầu hết các nguồn tin công nghệ và tài chính."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Chính sách bất động sản Việt Nam",
-          "why_hot": "Các chỉ đạo mới về vốn vay và rà soát thị trường.",
-          "impact": "Ảnh hưởng trực tiếp đến thanh khoản và hệ thống ngân hàng.",
-          "evidence_hint": "Chỉ đạo từ Chính phủ và đề xuất của TP.HCM."
+          "topic": "Hợp tác kinh tế Việt Nam - Nhật Bản",
+          "why_hot": "Định hình dòng vốn FDI và chiến lược công nghệ tương lai.",
+          "impact": "Thúc đẩy bán dẫn, AI và hạ tầng tài chính.",
+          "evidence_hint": "Nhiều thỏa thuận hợp tác cấp cao được ký kết."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dịch chuyển dòng vốn khỏi tài sản rủi ro",
-          "why_watch": "Nhà đầu tư đang tìm kiếm các lĩnh vực có nền tảng tăng trưởng thực tế hơn."
+          "signal": "Dịch chuyển dòng vốn tự doanh",
+          "why_watch": "Khối tự doanh gom mạnh cổ phiếu ngân hàng trong khi khối ngoại bán ròng kỷ lục."
         }
       ],
       "watch_next": [
-        "Diễn biến mưa lũ tại miền Trung",
-        "Kết quả điều tra tại Nvidia",
-        "Dữ liệu lạm phát Mỹ",
-        "Văn bản hướng dẫn giảm thuế tại Việt Nam"
+        "Diễn biến giá cổ phiếu Nvidia",
+        "Phản ứng của thị trường tài chính với chính sách tiền tệ mới",
+        "Tiến độ giải phóng mặt bằng dự án hạ tầng Hà Nội"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Nvidia điều tra nghi vấn gián điệp liên quan đến CEO Jensen Huang",
-        "one_sentence": "Hội đồng quản trị Nvidia đã thành lập ủy ban độc lập để điều tra các cáo buộc về mối quan hệ giữa CEO Jensen Huang và một nữ doanh nhân bị nghi ngờ liên quan đến tình báo Trung Quốc, gây áp lực lớn lên cổ phiếu công nghệ.",
-        "why_it_matters": "Sự kiện đe dọa uy tín và giá trị vốn hóa của tập đoàn bán dẫn hàng đầu thế giới trong bối cảnh căng thẳng công nghệ Mỹ-Trung.",
-        "watch_next": "Kết quả điều tra độc lập và phản ứng của các cổ đông lớn.",
+        "title": "CEO Nvidia Jensen Huang đối mặt điều tra sau bê bối đời tư",
+        "one_sentence": "Hội đồng quản trị Nvidia mở cuộc điều tra độc lập sau khi CEO Jensen Huang thừa nhận ngoại tình với một nhân vật bị nghi là gián điệp Trung Quốc, gây lo ngại về an ninh quốc gia.",
+        "why_it_matters": "Sự kiện gây chấn động thị trường công nghệ thị trường, ảnh hưởng trực tiếp đến giá trị vốn hóa của tập đoàn chip AI lớn nhất thế giới.",
+        "watch_next": "Kết quả điều tra của hội đồng quản trị và phản ứng của các đối tác cung ứng chip.",
         "source_urls": [
-          "https://tienphong.vn/ty-phu-jensen-huang-thua-nhan-ngoai-tinh-nvidia-dieu-tra-nghi-van-gian-diep-post1892626.tpo"
+          "https://theguardian.com/technology/2026/nov/09/jensen-huang-image-nvidia"
         ]
       },
       {
         "rank": 2,
-        "title": "Chính phủ yêu cầu báo cáo tổng thể thị trường bất động sản trong tháng 11",
-        "one_sentence": "Thủ tướng Chính phủ yêu cầu Bộ Xây dựng rà soát toàn diện nguồn cung, thanh khoản và tồn kho bất động sản để ngăn chặn rủi ro dây chuyền đến hệ thống tài chính ngân hàng.",
-        "why_it_matters": "Đây là động thái quyết liệt nhằm ổn định thị trường bất động sản cuối năm, giảm thiểu rủi ro nợ xấu cho hệ thống ngân hàng.",
-        "watch_next": "Các văn bản hướng dẫn cụ thể từ Bộ Xây dựng và phản ứng của các doanh nghiệp bất động sản.",
+        "title": "Việt Nam và Nhật Bản đẩy mạnh hợp tác kinh tế, tài chính và công nghệ",
+        "one_sentence": "Tổng Bí thư, Chủ tịch nước Tô Lâm khẳng định Việt Nam là đối tác đồng sáng tạo của Nhật Bản, tập trung vào bán dẫn, AI và năng lượng sạch với hàng chục văn kiện hợp tác được trao.",
+        "why_it_matters": "Sự kiện ngoại giao kinh tế cấp cao quan trọng nhất trong 48h, định hình dòng vốn FDI và hợp tác công nghệ tương lai.",
+        "watch_next": "Tiến độ triển khai các dự án bán dẫn và năng lượng sạch đã ký kết.",
         "source_urls": [
-          "https://tuoitre.vn/chinh-phu-yeu-cau-bao-cao-tong-the-tinh-hinh-thi-truong-bat-dong-san-ngay-trong-thang-11-100261107231600845.htm"
+          "https://tuoitre.vn/tong-bi-thu-chu-tich-nuoc-to-lam-viet-nam-khong-chi-la-noi-dau-tu-ma-la-doi-tac-dong-sang-tao-cua-nhat-ban-100261109142323745.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Đà Nẵng và miền Trung kích hoạt phương án ứng phó mưa lũ lớn",
-        "one_sentence": "Chính quyền Đà Nẵng và các tỉnh miền Trung đã kích hoạt phương án ứng phó khẩn cấp với dự báo mưa lớn diện rộng lên tới 550mm, sẵn sàng sơ tán dân tại các khu vực ven sông và vùng trũng thấp.",
-        "why_it_matters": "Thiên tai đe dọa trực tiếp đến an toàn tính mạng và hạ tầng tại các khu vực trọng điểm kinh tế miền Trung.",
-        "watch_next": "Diễn biến lượng mưa và công tác vận hành các hồ thủy điện.",
-        "source_urls": [
-          "https://tienphong.vn/canh-bao-mua-lon-den-550mm-da-nang-yeu-cau-san-sang-so-tan-dan-post1892629.tpo"
-        ]
+        "title": "Thanh tra Chính phủ chuyển Bộ Công an 7 vụ việc sai phạm xăng dầu",
+        "one_sentence": "Phát hiện đường dây sử dụng hóa đơn từ các công ty 'ma' để hợp thức hóa hàng chục nghìn tỷ đồng xăng dầu lậu, Thanh tra Chính phủ đã chuyển hồ sơ sang Bộ Công an xử lý hình sự.",
+        "why_it_matters": "Sự kiện quan trọng về quản lý thị trường năng lượng và chống thất thu thuế, ảnh hưởng đến an ninh kinh tế.",
+        "watch_next": "Kết quả điều tra từ Bộ Công an đối với các doanh nghiệp xăng dầu liên quan.",
+        "source_urls": []
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự thận trọng của dòng vốn và các nỗ lực điều hành chính sách cụ thể tại Việt Nam. Thị trường tài sản rủi ro như Bitcoin và vàng đang chịu áp lực điều chỉnh, trong khi các doanh nghiệp bất động sản lớn như Novaland vẫn đối mặt với áp lực nợ gốc quá hạn. Điểm sáng nằm ở các chính sách hỗ trợ thuế và vốn vay cho nhà ở xã hội, cho thấy nỗ lực của Chính phủ trong việc tháo gỡ khó khăn cho khu vực kinh tế tư nhân. Các ngân hàng như VPBank và MB đang bứt phá về tăng trưởng tín dụng, cho thấy sự thay đổi trong cấu trúc thị trường tài chính Việt Nam.",
+        "sector_thesis": "Ngành tài chính 48 giờ qua nổi bật với sự phân hóa dòng tiền và các nỗ lực quản lý vĩ mô. Trong khi khối tự doanh chứng khoán Việt Nam gom mạnh cổ phiếu ngân hàng như VPB, khối ngoại lại bán ròng kỷ lục, phản ánh tâm lý thận trọng trước biến động toàn cầu. Đồng thời, việc Quốc hội thông qua dự toán ngân sách 2027 và Ngân hàng Nhà nước triển khai mua ngoại tệ giao ngay cho thấy nỗ lực ổn định vĩ mô và thúc đẩy đầu tư công trọng điểm.",
         "subsector_briefs": [
           {
-            "name": "Thị trường bất động sản và tín dụng",
-            "overview": "Chính phủ đang đẩy mạnh rà soát thị trường bất động sản và hỗ trợ vốn vay cho nhà ở xã hội nhằm ổn định hệ thống tài chính.",
+            "name": "Thị trường vốn và Ngân hàng",
+            "overview": "Sự phân hóa dòng tiền giữa khối tự doanh và nhà đầu tư nước ngoài đang định hình lại xu hướng thị trường chứng khoán.",
             "key_points": [
-              "TP.HCM đề xuất nâng vốn vay hỗ trợ lãi suất nhà ở xã hội lên 300 tỷ đồng/dự án.",
-              "Novaland nỗ lực tái cấu trúc nợ gốc quá hạn gần 15.000 tỷ đồng."
+              "Tự doanh gom mạnh VPB",
+              "Khối ngoại bán ròng kỷ lục",
+              "Lãi suất huy động tiếp tục hạ nhiệt"
             ],
             "key_story_titles": [
-              "Chính phủ yêu cầu báo cáo tổng thể thị trường bất động sản"
+              "Tự doanh gom mạnh VPB, khối ngoại bán ròng kỷ lục"
             ],
             "representative_sources": [
               {
-                "title": "Chính phủ yêu cầu báo cáo tổng thể tình hình thị trường bất động sản ngay trong tháng 11",
+                "title": "Tự doanh gom mạnh VPB, khối ngoại bán ròng kỷ lục: Thị trường đang phát tín hiệu gì?",
                 "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/chinh-phu-yeu-cau-bao-cao-tong-the-tinh-hinh-thi-truong-bat-dong-san-ngay-trong-thang-11-100261107231600845.htm"
+                "url": "https://tuoitre.vn/tu-doanh-gom-manh-vpb-khoi-ngoai-ban-rong-ky-luc-thi-truong-dang-phat-tin-hieu-gi-100261109075301459.htm",
+                "excerpt": "Tự doanh mua ròng 5.005 tỉ đồng cổ phiếu VPB từ tháng 9 đến tháng 11, mức cao nhất kể từ cuối năm 2025."
               }
             ]
           }
@@ -137,56 +131,50 @@
           {
             "rank": 1,
             "depth_level": "major",
-            "sub_sector": "Thị trường bất động sản",
-            "title": "Nỗ lực tháo gỡ điểm nghẽn bất động sản",
-            "summary": "Chính phủ và các địa phương đang triển khai hàng loạt biện pháp nhằm tháo gỡ khó khăn cho thị trường bất động sản, từ việc rà soát nguồn cung đến hỗ trợ vốn vay cho nhà ở xã hội.",
+            "sub_sector": "Quản lý thị trường năng lượng",
+            "title": "Sai phạm trong kinh doanh xăng dầu",
+            "summary": "Thanh tra Chính phủ phát hiện hàng loạt sai phạm tại 260 doanh nghiệp xăng dầu, bao gồm đường dây sử dụng hóa đơn công ty 'ma' để hợp thức hóa hàng chục nghìn tỷ đồng. 7 vụ việc có dấu hiệu hình sự đã được chuyển sang Bộ Công an.",
             "main_developments": [
-              "TP.HCM đề xuất nâng mức vốn vay hỗ trợ lãi suất lên 300 tỷ đồng/dự án nhà ở xã hội.",
-              "Novaland phát hành cổ phiếu riêng lẻ để hoán đổi nợ gốc quá hạn.",
-              "Chính phủ yêu cầu báo cáo tổng thể thị trường trong tháng 11."
+              "Công ty TNHH kinh doanh thương mại xăng dầu Thanh Bình sử dụng 4.692 hóa đơn từ 12 công ty 'ma'.",
+              "Giá trị hàng hóa hợp thức hóa lên tới 42.600 tỷ đồng.",
+              "Tổng Thanh tra Chính phủ Nguyễn Quốc Đoàn đã ký kết luận thanh tra toàn diện."
             ],
-            "why_it_matters": "Các biện pháp này nhằm ngăn chặn rủi ro nợ xấu dây chuyền và đảm bảo an sinh xã hội thông qua nhà ở xã hội.",
+            "why_it_matters": "Sự kiện quan trọng về quản lý nhà nước và an ninh kinh tế trong lĩnh vực năng lượng tại Việt Nam, ảnh hưởng trực tiếp đến chống thất thu thuế.",
             "affected_groups": [
-              "Doanh nghiệp bất động sản",
-              "Hệ thống ngân hàng",
-              "Người mua nhà ở xã hội"
+              "Doanh nghiệp xăng dầu",
+              "Cơ quan quản lý thuế",
+              "Thị trường năng lượng"
             ],
             "watch_next": [
-              "Tiến độ giải ngân vốn vay hỗ trợ lãi suất",
-              "Kết quả báo cáo tổng thể thị trường của Bộ Xây dựng"
+              "Kết quả điều tra từ Bộ Công an",
+              "Các biện pháp xử lý tiếp theo đối với các doanh nghiệp vi phạm"
             ],
-            "representative_sources": [
-              {
-                "title": "TP.HCM: Đề xuất nâng mức vốn vay được hỗ trợ lãi suất lên 300 tỷ đồng/dự án nhà ở xã hội",
-                "source": "baoxaydung_vn",
-                "url": "https://batdongsan.baoxaydung.vn/tphcm-de-xuat-nang-muc-von-vay-duoc-ho-tro-lai-suat-len-300-ty-dong-du-an-nha-o-xa-hoi-19226110815391351.htm",
-                "excerpt": "Đề xuất nâng mức vốn vay hỗ trợ lãi suất và kéo dài thời gian hỗ trợ lên 10 năm."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ & AI 48 giờ qua bị chi phối bởi các rủi ro an ninh và sự bùng nổ của hạ tầng dữ liệu. Nvidia đang là tâm điểm với các cuộc điều tra liên quan đến CEO, trong khi OpenAI huy động thành công 11 tỷ USD, cho thấy dòng vốn vẫn đổ mạnh vào AI bất chấp tâm lý thị trường hạ nhiệt. Các đột phá về vật liệu nano và công nghệ lượng tử cho thấy AI đang chuyển dịch từ phần mềm sang các ứng dụng vật lý và y tế chuyên sâu. Sự cạnh tranh về hạ tầng dữ liệu và năng lượng đang trở thành yếu tố quyết định trong cuộc đua công nghệ toàn cầu.",
+        "sector_thesis": "Ngành công nghệ 48 giờ qua bị chi phối bởi bê bối của CEO Nvidia, gây ra những lo ngại về quản trị và an ninh trong ngành chip AI. Tuy nhiên, các hoạt động hợp tác quốc tế của doanh nghiệp Việt Nam với Nhật Bản trong lĩnh vực bán dẫn và AI cho thấy nỗ lực xây dựng hạ tầng công nghệ chủ quyền vẫn đang được đẩy mạnh. Cuộc đua phần cứng AI cũng nóng lên với các dòng chip mới từ Google và Anthropic.",
         "subsector_briefs": [
           {
-            "name": "Hạ tầng AI và Bán dẫn",
-            "overview": "Sự bùng nổ của AI thúc đẩy nhu cầu hạ tầng dữ liệu và bán dẫn, đồng thời đặt ra thách thức về quản trị an ninh.",
+            "name": "Chip AI và Hạ tầng dữ liệu",
+            "overview": "Sự bùng nổ của AI kéo theo nhu cầu khổng lồ về bán dẫn và năng lượng, buộc các công ty phải tự chủ hạ tầng.",
             "key_points": [
-              "Nvidia đối mặt với cuộc điều tra độc lập về CEO Jensen Huang.",
-              "OpenAI hoàn tất vòng gọi vốn 11 tỷ USD."
+              "Nvidia đối mặt điều tra",
+              "Google ra mắt chip TPU mới",
+              "Anthropic đầu tư 3,4 tỷ USD vào năng lượng"
             ],
             "key_story_titles": [
-              "Nvidia điều tra nghi vấn gián điệp liên quan đến CEO Jensen Huang"
+              "Bê bối CEO Nvidia Jensen Huang"
             ],
             "representative_sources": [
               {
-                "title": "Tỷ phú Jensen Huang thừa nhận ngoại tình, Nvidia điều tra nghi vấn gián điệp",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/ty-phu-jensen-huang-thua-nhan-ngoai-tinh-nvidia-dieu-tra-nghi-van-gian-diep-post1892626.tpo",
-                "excerpt": "Nvidia thành lập ủy ban độc lập điều tra các cáo buộc về mối quan hệ giữa CEO Jensen Huang và một nữ doanh nhân bị nghi ngờ liên quan đến tình báo Trung Quốc."
+                "title": "Cổ phiếu Nvidia giảm mạnh vì bê bối ngoại tình của CEO Jensen Huang",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/co-phieu-nvidia-giam-manh-vi-be-boi-ngoai-tinh-cua-ceo-jensen-huang-20261109164204044.htm",
+                "excerpt": "Cổ phiếu Nvidia giảm hơn 5% sau khi CEO Jensen Huang thừa nhận bê bối cá nhân."
               }
             ]
           }
@@ -195,30 +183,29 @@
           {
             "rank": 1,
             "depth_level": "major",
-            "sub_sector": "Hạ tầng AI và Bán dẫn",
-            "title": "Khủng hoảng quản trị tại Nvidia",
-            "summary": "Nvidia đang đối mặt với cuộc khủng hoảng uy tín nghiêm trọng sau khi hội đồng quản trị mở cuộc điều tra độc lập về các cáo buộc liên quan đến CEO Jensen Huang và nghi vấn gián điệp Trung Quốc.",
+            "sub_sector": "Quản trị doanh nghiệp công nghệ",
+            "title": "Bê bối CEO Nvidia Jensen Huang",
+            "summary": "CEO Nvidia Jensen Huang thừa nhận ngoại tình với một nữ doanh nhân bị nghi là tình báo Trung Quốc, khiến Nvidia phải mở cuộc điều tra độc lập. Sự kiện này gây chấn động ngành chip AI toàn cầu và ảnh hưởng trực tiếp đến giá cổ phiếu Nvidia.",
             "main_developments": [
-              "Hội đồng quản trị Nvidia khởi động cuộc điều tra độc lập.",
-              "Các cáo buộc về mối quan hệ cá nhân của CEO Jensen Huang với một nữ giám đốc bị nghi là gián điệp.",
-              "Áp lực lên cổ phiếu công nghệ và tâm lý nhà đầu tư toàn cầu."
+              "Hội đồng quản trị Nvidia khởi động cuộc điều tra độc lập về rủi ro an ninh quốc gia.",
+              "Cổ phiếu Nvidia giảm mạnh, bốc hơi hơn 330 tỷ USD vốn hóa trong phiên giao dịch.",
+              "CEO Jensen Huang gửi thư xin lỗi toàn bộ nhân viên tập đoàn."
             ],
-            "why_it_matters": "Sự kiện đe dọa trực tiếp đến uy tín và giá trị vốn hóa của tập đoàn công nghệ hàng đầu thế giới trong bối cảnh căng thẳng công nghệ Mỹ-Trung.",
+            "why_it_matters": "Sự kiện gây chấn động ngành công nghệ toàn cầu, ảnh hưởng trực tiếp đến uy tín tập đoàn chip AI lớn nhất thế giới và chuỗi cung ứng chip.",
             "affected_groups": [
-              "Cổ đông Nvidia",
-              "Ngành bán dẫn toàn cầu",
-              "Nhà đầu tư công nghệ"
+              "Nhà đầu tư Nvidia",
+              "Ngành chip AI toàn cầu",
+              "Đối tác công nghệ"
             ],
             "watch_next": [
-              "Kết quả điều tra độc lập",
-              "Phản ứng của các đối tác chiến lược"
+              "Kết quả điều tra độc lập của hội đồng quản trị",
+              "Phản ứng của các cơ quan quản lý Mỹ về rủi ro an ninh"
             ],
             "representative_sources": [
               {
-                "title": "Tỷ phú Jensen Huang thừa nhận ngoại tình, Nvidia điều tra nghi vấn gián điệp",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/ty-phu-jensen-huang-thua-nhan-ngoai-tinh-nvidia-dieu-tra-nghi-van-gian-diep-post1892626.tpo",
-                "excerpt": "Nvidia thành lập ủy ban độc lập điều tra các cáo buộc về mối quan hệ giữa CEO Jensen Huang và một nữ doanh nhân bị nghi ngờ liên quan đến tình báo Trung Quốc."
+                "title": "Jensen Huang’s image has been shattered. Could he be pushed out at Nvidia?",
+                "source": "theguardian_com",
+                "url": "https://theguardian.com/technology/2026/nov/09/jensen-huang-image-nvidia"
               }
             ]
           }
@@ -227,110 +214,66 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị trong 48 giờ qua tập trung vào các nỗ lực ứng phó thiên tai tại miền Trung Việt Nam và các hoạt động ngoại giao cấp cao. Chuyến thăm Nhật Bản của Tổng Bí thư, Chủ tịch nước Tô Lâm là điểm nhấn ngoại giao, nhằm cụ thể hóa quan hệ Đối tác chiến lược toàn diện. Đồng thời, các vấn đề về quản lý đất đai và an ninh mạng cũng được chính quyền các địa phương đẩy mạnh xử lý. Tình hình địa chính trị toàn cầu vẫn căng thẳng với các diễn biến mới tại Mỹ và Iran.",
-        "subsector_briefs": [
-          {
-            "name": "Ngoại giao và Thiên tai",
-            "overview": "Việt Nam đẩy mạnh ngoại giao kinh tế với Nhật Bản trong khi khẩn trương ứng phó với mưa lũ tại miền Trung.",
-            "key_points": [
-              "Tổng Bí thư, Chủ tịch nước Tô Lâm thăm chính thức Nhật Bản.",
-              "Đà Nẵng và miền Trung kích hoạt phương án ứng phó mưa lũ lớn."
-            ],
-            "key_story_titles": [
-              "Tổng Bí thư, Chủ tịch nước Tô Lâm thăm chính thức Nhật Bản"
-            ],
-            "representative_sources": [
-              {
-                "title": "Ấn Độ khó chịu vì Mỹ ‘tiêu chuẩn kép’ với Iran và Pakistan",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/an-do-kho-chiu-vi-my-tieu-chuan-kep-voi-iran-va-pakistan-post1892574.tpo",
-                "excerpt": "Chuyến thăm nhằm thúc đẩy quan hệ đối tác chiến lược toàn diện giữa Việt Nam và Nhật Bản."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Thời sự 48 giờ qua tập trung vào các hoạt động ngoại giao kinh tế cấp cao của Việt Nam với Nhật Bản và các diễn biến địa chính trị toàn cầu. Việc Tổng Bí thư, Chủ tịch nước Tô Lâm thăm Nhật Bản khẳng định vị thế đối tác chiến lược, trong khi các nỗ lực đàm phán hòa bình tại Trung Đông và Ukraine cho thấy những thay đổi trong chính sách đối ngoại của Mỹ sau bầu cử giữa kỳ.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "major",
-            "sub_sector": "Thiên tai",
-            "title": "Ứng phó khẩn cấp mưa lũ miền Trung",
-            "summary": "Chính quyền các tỉnh miền Trung Việt Nam đang kích hoạt phương án ứng phó khẩn cấp với dự báo mưa lớn diện rộng, đảm bảo an toàn cho người dân và hạ tầng địa phương.",
+            "sub_sector": "Ngoại giao cấp cao",
+            "title": "Chuyến thăm Nhật Bản của Tổng Bí thư, Chủ tịch nước Tô Lâm",
+            "summary": "Tổng Bí thư, Chủ tịch nước Tô Lâm thăm chính thức Nhật Bản nhằm củng cố quan hệ đối tác chiến lược toàn diện. Chuyến thăm tập trung vào việc thúc đẩy hợp tác bán dẫn, năng lượng sạch và tài chính, đưa đồng sáng tạo trở thành động lực mới.",
             "main_developments": [
-              "Đà Nẵng yêu cầu sẵn sàng sơ tán dân tại các khu vực ven sông, suối.",
-              "Các hồ thủy điện đồng loạt xả tràn để đón lũ.",
-              "Dự báo lượng mưa lên tới 550mm tại một số khu vực."
+              "Việt Nam và Nhật Bản triển khai các nhiệm vụ nghiên cứu chung về bán dẫn trong năm 2026.",
+              "Nhật Bản cam kết cung cấp hơn 43,1 tỉ yen cho dự án Trường đại học Việt Nhật và Nhà máy nhiệt điện Ô Môn III.",
+              "Hàng chục văn kiện hợp tác giữa các doanh nghiệp hai nước đã được trao."
             ],
-            "why_it_matters": "Thiên tai đe dọa trực tiếp đến an toàn tính mạng và tài sản của người dân tại khu vực miền Trung.",
+            "why_it_matters": "Sự kiện ngoại giao kinh tế cấp cao quan trọng nhất trong 48 giờ qua, định hình dòng vốn đầu tư Nhật Bản vào Việt Nam và chiến lược công nghệ tương lai.",
             "affected_groups": [
-              "Người dân miền Trung",
-              "Hạ tầng giao thông",
-              "Ngành nông nghiệp"
+              "Chính phủ Việt Nam",
+              "Doanh nghiệp Nhật Bản",
+              "Ngành bán dẫn Việt Nam"
             ],
             "watch_next": [
-              "Diễn biến lượng mưa trong 24-48 giờ tới",
-              "Công tác vận hành hồ chứa"
+              "Tiến độ triển khai các dự án hạ tầng đã ký kết",
+              "Các bước tiếp theo trong hợp tác bán dẫn"
             ],
-            "representative_sources": [
-              {
-                "title": "Cảnh báo mưa lớn đến 550mm, Đà Nẵng yêu cầu sẵn sàng sơ tán dân",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/canh-bao-mua-lon-den-550mm-da-nang-yeu-cau-san-sang-so-tan-dan-post1892629.tpo",
-                "excerpt": "Chính quyền Đà Nẵng yêu cầu sẵn sàng sơ tán dân trước dự báo mưa lớn diện rộng lên tới 550mm."
-              }
-            ]
+            "representative_sources": []
           }
         ]
       },
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48 giờ qua nổi bật với các sự kiện văn hóa, y tế và tiêu dùng bền vững. Việc Nguyễn Yến Trang đăng quang Hoa hậu Việt Nam 2026 thu hút sự quan tâm lớn, trong khi các nghiên cứu y tế về vaccine cúm và nhịn ăn gián đoạn đang định hình lại lối sống lành mạnh. Xu hướng tiêu dùng xanh cũng được lan tỏa mạnh mẽ qua các sự kiện như Ngày hội Việt Nam Xanh 2026. Các vấn đề về quản trị đô thị và an toàn không gian mạng cũng là những chủ đề được cộng đồng quan tâm.",
-        "subsector_briefs": [
-          {
-            "name": "Văn hóa và Y tế",
-            "overview": "Các sự kiện văn hóa giải trí và nghiên cứu y tế mới đang thu hút sự quan tâm của cộng đồng.",
-            "key_points": [
-              "Nguyễn Yến Trang đăng quang Hoa hậu Việt Nam 2026.",
-              "Nghiên cứu mới về vaccine cúm liều cao và bệnh Alzheimer."
-            ],
-            "key_story_titles": [
-              "Nguyễn Yến Trang đăng quang Hoa hậu Việt Nam 2026"
-            ],
-            "representative_sources": [
-              {
-                "title": "Vì sao Nguyễn Yến Trang được chọn là Hoa hậu Việt Nam?",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/vi-sao-nguyen-yen-trang-duoc-chon-la-hoa-hau-viet-nam-post1892552.tpo",
-                "excerpt": "Ban giám khảo chọn Nguyễn Yến Trang đăng quang Hoa hậu Việt Nam 2026 sau khi đánh giá toàn bộ hành trình dự thi."
-              }
-            ]
-          }
-        ],
+        "sector_thesis": "Xu hướng 48 giờ qua nổi bật với các cảnh báo an ninh mạng dịp cuối năm và các xu hướng tiêu dùng bền vững. Việc cơ quan chức năng cảnh báo các chiêu trò lừa đảo sử dụng AI cho thấy sự cần thiết của việc nâng cao nhận thức an ninh mạng, trong khi các hoạt động sống xanh đang lan tỏa mạnh mẽ trong cộng đồng thông qua các ngày hội kinh tế tuần hoàn.",
+        "subsector_briefs": [],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "brief",
-            "sub_sector": "Y tế",
-            "title": "Đột phá trong phòng ngừa bệnh Alzheimer",
-            "summary": "Nghiên cứu mới cho thấy vaccine cúm liều cao có khả năng giảm tới 55% nguy cơ mắc bệnh Alzheimer ở người cao tuổi, mở ra hướng đi mới trong y tế dự phòng.",
+            "sub_sector": "An ninh mạng",
+            "title": "Cảnh báo các chiêu trò lừa đảo trực tuyến mới",
+            "summary": "Bộ Công an cảnh báo về các kịch bản lừa đảo tinh vi dịp cuối năm, đặc biệt là việc sử dụng AI để giả mạo giọng nói và hình ảnh người thân nhằm vay tiền. Người dân được khuyến cáo nâng cao cảnh giác với các yêu cầu xác thực định danh điện tử không rõ nguồn gốc.",
             "main_developments": [
-              "Nghiên cứu trên 200.000 người cao tuổi.",
-              "Vaccine cúm liều cao hiệu quả hơn vaccine tiêu chuẩn trong việc bảo vệ não bộ."
+              "Công an TP.Hà Nội lưu ý thủ đoạn dàn dựng nhiều tình huống trung gian để chiếm lòng tin.",
+              "Các đối tượng giả danh công ty chứng khoán để lừa đảo thông tin cá nhân thông qua VNeID."
             ],
-            "why_it_matters": "Phát hiện này có tác động lớn đến chính sách y tế công cộng và chất lượng sống của người cao tuổi.",
+            "why_it_matters": "Vấn đề an ninh mạng ảnh hưởng trực tiếp đến an toàn tài sản của người dân trong bối cảnh các thủ đoạn lừa đảo ngày càng tinh vi.",
             "affected_groups": [
-              "Người cao tuổi",
-              "Ngành y tế dự phòng"
+              "Người dân",
+              "Nhà đầu tư chứng khoán",
+              "Người dùng mạng xã hội"
             ],
             "watch_next": [
-              "Các hướng dẫn y tế mới về tiêm phòng cúm"
+              "Các thông báo mới từ Bộ Công an",
+              "Biện pháp bảo mật tài khoản cá nhân"
             ],
             "representative_sources": [
               {
-                "title": "Stronger flu shot linked to nearly 55% lower Alzheimer's risk",
-                "source": "sciencedaily_com",
-                "url": "https://sciencedaily.com/releases/2026/11/261105224609.htm"
+                "title": "Cảnh báo thủ đoạn lừa đảo mới nhắm vào nhà đầu tư chứng khoán",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/canh-bao-thu-doan-lua-dao-moi-nham-vao-nha-dau-tu-chung-khoan-188261110094951292.chn",
+                "excerpt": "Cơ quan công an cảnh báo tình trạng giả danh cán bộ để lừa đảo chiếm đoạt tài sản thông qua việc yêu cầu xác thực định danh điện tử."
               }
             ]
           }
@@ -339,79 +282,58 @@
     ],
     "watchlist_24_72h": [
       {
+        "theme": "Nvidia và Chip AI",
+        "what_to_watch": "Kết quả điều tra của hội đồng quản trị Nvidia và phản ứng của thị trường chứng khoán.",
+        "why": "Ảnh hưởng trực tiếp đến tập đoàn công nghệ giá trị nhất thế giới và chuỗi cung ứng chip AI."
+      },
+      {
         "theme": "Địa chính trị Trung Đông",
-        "what_to_watch": "Diễn biến đàm phán Mỹ-Iran và phản ứng giá dầu Brent",
-        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng toàn cầu."
+        "what_to_watch": "Diễn biến đàm phán hòa bình và phản ứng giá dầu Brent.",
+        "why": "Tác động trực tiếp đến ổn định năng lượng và thị trường tài chính toàn cầu."
       },
       {
-        "theme": "Thị trường tài chính Mỹ",
-        "what_to_watch": "Dữ liệu lạm phát CPI và kết quả kinh doanh các công ty AI",
-        "why": "Định hình xu hướng dòng vốn toàn cầu."
+        "theme": "Chính sách tiền tệ Việt Nam",
+        "what_to_watch": "Động thái mua ngoại tệ của Ngân hàng Nhà nước và thanh khoản tiền đồng.",
+        "why": "Ảnh hưởng đến tỷ giá và chi phí vốn của hệ thống ngân hàng."
       },
       {
-        "theme": "Thiên tai miền Trung",
-        "what_to_watch": "Lượng mưa và công tác vận hành hồ thủy điện",
-        "why": "Đảm bảo an toàn dân sinh và hạ tầng."
-      },
-      {
-        "theme": "Quản trị doanh nghiệp công nghệ",
-        "what_to_watch": "Kết quả điều tra tại Nvidia",
-        "why": "Ảnh hưởng đến uy tín và giá trị vốn hóa của Nvidia."
+        "theme": "Hạ tầng giao thông Hà Nội",
+        "what_to_watch": "Tiến độ giải phóng mặt bằng các dự án cầu vượt sông Hồng.",
+        "why": "Dự án trọng điểm ảnh hưởng đến quy hoạch và kết nối giao thông Thủ đô."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thị trường tài sản rủi ro: Bitcoin và vàng cùng chịu áp lực bán trong tháng 10",
-        "why": "Phản ánh xu hướng dịch chuyển dòng vốn giữa các loại tài sản trú ẩn và rủi ro trong bối cảnh kinh tế vĩ mô bất ổn."
+        "what_to_watch": "Biến động thị trường tài chính và áp lực từ bê bối Nvidia",
+        "why": "Sự kiện Nvidia ảnh hưởng trực tiếp đến tâm lý nhà đầu tư công nghệ và tài chính toàn cầu."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "TP.HCM đề xuất nâng mức vốn vay được hỗ trợ lãi suất lên 300 tỷ đồng cho dự án nhà ở xã hội",
-        "why": "Chính sách quan trọng ảnh hưởng trực tiếp đến nguồn cung nhà ở xã hội tại đô thị lớn nhất cả nước."
+        "what_to_watch": "Thanh tra Chính phủ chuyển Bộ Công an 7 vụ việc sai phạm trong kinh doanh xăng dầu",
+        "why": "Sự kiện quan trọng về quản lý thị trường năng lượng và chống thất thu thuế."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Công nghệ lọc dầu mới: Giảm 32% năng lượng và 38% khí thải carbon",
-        "why": "Tác động kinh tế và môi trường trực tiếp đến một trong những ngành công nghiệp năng lượng lớn nhất thế giới."
+        "what_to_watch": "Tiến độ 7 cầu vượt sông Hồng: Cầu Trần Hưng Đạo bứt phá, 4 dự án vướng mặt bằng",
+        "why": "Dự án hạ tầng trọng điểm ảnh hưởng trực tiếp đến quy hoạch và kết nối giao thông Thủ đô."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Nghiên cứu mới: Thuốc loãng xương có thể giảm 24% nguy cơ mất trí nhớ",
+        "why": "Phát hiện quan trọng về việc tận dụng thuốc sẵn có để phòng ngừa bệnh nan y, tác động trực tiếp đến chi phí y tế và chất lượng sống."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "FPT thúc đẩy hợp tác AI và hạ tầng số với Nhật Bản",
+        "why": "Sự kiện ngoại giao kinh tế cấp cao quan trọng, định hình chiến lược công nghệ của doanh nghiệp Việt tại thị trường Nhật."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Nvidia điều tra nghi vấn gián điệp liên quan đến CEO Jensen Huang",
-        "why": "Sự kiện tác động trực tiếp đến uy tín và giá trị vốn hóa của tập đoàn công nghệ hàng đầu thế giới."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "MIT phát triển hạt nano tái lập trình tế bào miễn dịch để tiêu diệt ung thư",
-        "why": "Đột phá y học có tiềm năng thay đổi cách điều trị ung thư và bệnh tự miễn."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Giới hạn không-thời gian lượng tử: Chìa khóa cho điện tử nhanh gấp 100.000 lần",
-        "why": "Đột phá vật lý có tiềm năng thay đổi hoàn toàn kiến trúc phần cứng điện tử tương lai."
+        "what_to_watch": "Google và Anthropic ra mắt chip và mô hình AI mới",
+        "why": "Cuộc đua phần cứng và mô hình AI đang định hình lại thị trường công nghệ."
       }
     ],
-    "source_desk": [
-      {
-        "topic": "Công nghệ & Bán dẫn",
-        "representative_sources": [
-          {
-            "title": "Tỷ phú Jensen Huang thừa nhận ngoại tình, Nvidia điều tra nghi vấn gián điệp",
-            "source": "tienphong_vn",
-            "url": "https://tienphong.vn/ty-phu-jensen-huang-thua-nhan-ngoai-tinh-nvidia-dieu-tra-nghi-van-gian-diep-post1892626.tpo"
-          }
-        ]
-      },
-      {
-        "topic": "Bất động sản & Tài chính",
-        "representative_sources": [
-          {
-            "title": "Chính phủ yêu cầu báo cáo tổng thể tình hình thị trường bất động sản ngay trong tháng 11",
-            "source": "tuoitre_vn",
-            "url": "https://tuoitre.vn/chinh-phu-yeu-cau-bao-cao-tong-the-tinh-hinh-thi-truong-bat-dong-san-ngay-trong-thang-11-100261107231600845.htm"
-          }
-        ]
-      }
-    ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ phía các ngân hàng trung ương sau các biến động thị trường gần đây.",
+    "source_desk": [],
+    "gaps_and_limits": "Thiếu thông tin chi tiết về phản ứng cụ thể của các đối tác cung ứng chip tại Đông Nam Á đối với bê bối của Nvidia.",
     "notable_articles": []
   }
 }
