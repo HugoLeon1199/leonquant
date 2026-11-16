@@ -1,18 +1,23 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-11-15T19:27:38.241660+00:00",
+  "generated_at_utc": "2026-11-16T08:05:17.010398+00:00",
   "checked": 26,
-  "hit_count": 73,
+  "hit_count": 91,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 13,
+      "hit_count": 16,
       "top_links": [
         {
           "title": "GitHub repo updated: zai-org/GLM-OCR",
           "url": "https://github.com/zai-org/GLM-OCR",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: zai-org/Open-AutoGLM",
+          "url": "https://github.com/zai-org/Open-AutoGLM",
           "source_lane": "github_release"
         },
         {
@@ -21,18 +26,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/zcode-plugins",
-          "url": "https://github.com/zai-org/zcode-plugins",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "Hugging Face model updated: wrldsuksgo2mars/GLM-5.3-Flash-EXL3-K3.25-MC",
-          "url": "https://huggingface.co/wrldsuksgo2mars/GLM-5.3-Flash-EXL3-K3.25-MC",
+          "title": "Hugging Face model updated: trl-internal-testing/tiny-Glm5NextForConditionalGeneration",
+          "url": "https://huggingface.co/trl-internal-testing/tiny-Glm5NextForConditionalGeneration",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: wrldsuksgo2mars/GLM-5.3-Flash-EXL3-K4-MC",
-          "url": "https://huggingface.co/wrldsuksgo2mars/GLM-5.3-Flash-EXL3-K4-MC",
+          "title": "Hugging Face model updated: intel-ai/GLM-5.2-MXFP4-FP8KV-CT-AutoRound",
+          "url": "https://huggingface.co/intel-ai/GLM-5.2-MXFP4-FP8KV-CT-AutoRound",
           "source_lane": "huggingface_model"
         }
       ],
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 9,
       "top_links": [
         {
-          "title": "GitHub repo updated: QwenLM/Qwen-Image-Layered",
-          "url": "https://github.com/QwenLM/Qwen-Image-Layered",
+          "title": "GitHub repo updated: QwenLM/Qwen3-Coder",
+          "url": "https://github.com/QwenLM/Qwen3-Coder",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: QwenLM/Qwen3-Embedding",
-          "url": "https://github.com/QwenLM/Qwen3-Embedding",
+          "title": "GitHub repo updated: QwenLM/Qwen3-TTS",
+          "url": "https://github.com/QwenLM/Qwen3-TTS",
           "source_lane": "github_release"
         },
         {
@@ -60,13 +60,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: er1123090/20261112_prbench_finance_static_qwen3-4b_whole_rubric_s42",
-          "url": "https://huggingface.co/er1123090/20261112_prbench_finance_static_qwen3-4b_whole_rubric_s42",
+          "title": "Hugging Face model updated: PRB1/Qwen2.5-Coder-7B-ManimCE-SFT-16bit",
+          "url": "https://huggingface.co/PRB1/Qwen2.5-Coder-7B-ManimCE-SFT-16bit",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/Qwen3.5-4B-SMS-SoftMoE-GGUF",
-          "url": "https://huggingface.co/mradermacher/Qwen3.5-4B-SMS-SoftMoE-GGUF",
+          "title": "Hugging Face model updated: jonathanjordan21/qwen35-0.8b-seo-eeat-moe",
+          "url": "https://huggingface.co/jonathanjordan21/qwen35-0.8b-seo-eeat-moe",
           "source_lane": "huggingface_model"
         }
       ],
@@ -76,7 +76,7 @@
       "entity": "DeepSeek",
       "priority": "critical",
       "checked": true,
-      "hit_count": 5,
+      "hit_count": 6,
       "top_links": [
         {
           "title": "GitHub repo updated: deepseek-ai/chat-demo",
@@ -94,14 +94,14 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: mradermacher/DeepSeek-V2.5-1210-GGUF",
-          "url": "https://huggingface.co/mradermacher/DeepSeek-V2.5-1210-GGUF",
+          "title": "Hugging Face model updated: immanuelpeter/DeepSeek-ViT",
+          "url": "https://huggingface.co/immanuelpeter/DeepSeek-ViT",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "pytorch/pytorch release: PyTorch 2.15.0 Release",
-          "url": "https://github.com/pytorch/pytorch/releases/tag/v2.15.0",
-          "source_lane": "github_release"
+          "title": "Hugging Face model updated: immiq/DeepSeek-V4.1-Flash-1017-Orinfer-A2-W4A8",
+          "url": "https://huggingface.co/immiq/DeepSeek-V4.1-Flash-1017-Orinfer-A2-W4A8",
+          "source_lane": "huggingface_model"
         }
       ],
       "no_signal_reason": ""
@@ -113,14 +113,14 @@
       "hit_count": 2,
       "top_links": [
         {
-          "title": "Hugging Face model updated: 10arjan/Kimi-K3.1-Pro",
-          "url": "https://huggingface.co/10arjan/Kimi-K3.1-Pro",
-          "source_lane": "huggingface_model"
-        },
-        {
           "title": "Hugging Face model updated: litert-community/Kimi-Linear-48B-A3B-Instruct",
           "url": "https://huggingface.co/litert-community/Kimi-Linear-48B-A3B-Instruct",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Helsing backer Plural raises $1.1B to fund Europe's next moonshots | TechCrunch",
+          "url": "https://techcrunch.com/2026/11/15/helsing-backer-plural-raises-1-1b-to-fund-europes-next-moonshots/",
+          "source_lane": "frontier_watchlist"
         }
       ],
       "no_signal_reason": ""
@@ -129,31 +129,31 @@
       "entity": "MiniMax",
       "priority": "high",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "Hugging Face model updated: sandpies/ComfyUI-Hand-Tie-Clips",
-          "url": "https://huggingface.co/sandpies/ComfyUI-Hand-Tie-Clips",
+          "title": "Hugging Face model updated: DiffSynth-Studio/MiniMax-H3-Image-EntroPack",
+          "url": "https://huggingface.co/DiffSynth-Studio/MiniMax-H3-Image-EntroPack",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: Alissonerdx/Minimax-H3-ComfyUI",
-          "url": "https://huggingface.co/Alissonerdx/Minimax-H3-ComfyUI",
+          "title": "Hugging Face model updated: ibyteohdear/MiniMax-H3-Pruned-LightX8-hybrid-Fused",
+          "url": "https://huggingface.co/ibyteohdear/MiniMax-H3-Pruned-LightX8-hybrid-Fused",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: EliovpAI/MiniMax-H3-FP8-Paiton-RDNA4",
-          "url": "https://huggingface.co/EliovpAI/MiniMax-H3-FP8-Paiton-RDNA4",
+          "title": "Hugging Face model updated: tuanlai001/H3-IMAGE-PE-HERETIC-NVFP4-COMFYUI",
+          "url": "https://huggingface.co/tuanlai001/H3-IMAGE-PE-HERETIC-NVFP4-COMFYUI",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: SimpleTuner/minimax-h3-image-LoRA-experiments",
-          "url": "https://huggingface.co/SimpleTuner/minimax-h3-image-LoRA-experiments",
+          "title": "Hugging Face model updated: BennyDaBall/HyperFlow-H3-Flash-INT8-ComfyUI",
+          "url": "https://huggingface.co/BennyDaBall/HyperFlow-H3-Flash-INT8-ComfyUI",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "ggml-org/llama.cpp release: b12420",
-          "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12420",
+          "title": "huggingface/diffusers release: Diffusers 0.43.0: MiniMax-H3-Image, Pika H3 Flex, P-H3-Image, Kandinsky S2V, and PAN 2",
+          "url": "https://github.com/huggingface/diffusers/releases/tag/v0.43.0",
           "source_lane": "github_release"
         }
       ],
@@ -174,18 +174,18 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HYDRA",
-          "url": "https://github.com/Tencent-Hunyuan/HYDRA",
+          "title": "GitHub repo updated: Tencent-Hunyuan/FlashTopK",
+          "url": "https://github.com/Tencent-Hunyuan/FlashTopK",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
-          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HY-Motion-1.0",
+          "url": "https://github.com/Tencent-Hunyuan/HY-Motion-1.0",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-Nomas",
-          "url": "https://github.com/Tencent-Hunyuan/Hy-Nomas",
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hy-Memory",
+          "url": "https://github.com/Tencent-Hunyuan/Hy-Memory",
           "source_lane": "github_release"
         },
         {
@@ -216,18 +216,18 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/Sage-SciPerception",
-          "url": "https://github.com/InternLM/Sage-SciPerception",
+          "title": "GitHub repo updated: InternLM/Intern-Decision",
+          "url": "https://github.com/InternLM/Intern-Decision",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
+          "title": "GitHub repo updated: InternLM/Sage-S2.1-Flash",
+          "url": "https://github.com/InternLM/Sage-S2.1-Flash",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/InternBootcamp",
-          "url": "https://github.com/InternLM/InternBootcamp",
+          "title": "GitHub repo updated: InternLM/InternLM",
+          "url": "https://github.com/InternLM/InternLM",
           "source_lane": "github_release"
         }
       ],
@@ -261,8 +261,8 @@
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: CADAARQUITECTURA/Flux_2_KLEIN_BASE_9B",
-          "url": "https://huggingface.co/CADAARQUITECTURA/Flux_2_KLEIN_BASE_9B",
+          "title": "Hugging Face model updated: M-T-DCH/trained-flux-lora",
+          "url": "https://huggingface.co/M-T-DCH/trained-flux-lora",
           "source_lane": "huggingface_model"
         },
         {
@@ -329,17 +329,34 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 2,
+      "top_links": [
+        {
+          "title": "I've been tracking Amazon's Black Friday early deals all month — these are the 30+ best discounts available now",
+          "url": "https://www.techradar.com/seasonal-sales/live/amazon-black-friday-deals-2026-live",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Los enlaces para compartir archivos en Google Drive o iCloud siguen activos hasta que el dueño los cierre",
+          "url": "https://www.infobae.com/tecno/2026/11/15/los-enlaces-para-compartir-archivos-en-google-drive-o-icloud-siguen-activos-hasta-que-el-dueno-los-cierre/",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "Elizabeth Wakefield, asesora financiera: “Tener todo el dinero en una cuenta corriente es uno de los principales errores que mucha gente comete”",
+          "url": "https://www.genbeta.com/laboral/elizabeth-wakefield-asesora-financiera-tener-todo-dinero-cuenta-corriente-uno-principales-errores-que-mucha-gente-comete",
+          "source_lane": "image_video_workflow"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenRouter",
@@ -387,11 +404,31 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 11,
       "top_links": [
         {
-          "title": "Building the next generation of multimodal AI experiences with fal in Microsoft Foundry",
-          "url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/building-the-next-generation-of-multimodal-ai-experiences-with-fal-in-microsoft-/4570032",
+          "title": "El cohete Vulcan falló y destruyó 40 satélites de internet de Amazon, rival de Starlink",
+          "url": "https://www.infobae.com/tecno/2026/11/16/el-cohete-vulcan-fallo-y-destruyo-40-satelites-de-internet-de-amazon-rival-de-starlink/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Was eigentlich hinter dem Protest gegen KI-Rechenzentren steckt – und warum Big Tech falsch liegt",
+          "url": "https://t3n.de/news/der-grosse-irrglaube-der-ki-firmen-fuer-buerger-geht-es-bei-rechenzentren-nur-um-einen-aspekt-1772777/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "292,24 € d'économie sur ce smartphone Samsung noté 4,5/5 par notre labo",
+          "url": "https://www.lesnumeriques.com/telephone-portable/bon-plan-le-smartphone-samsung-galaxy-s25-ultra-512-go-a-1-136-90-20-n267585.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Cómo solucionar los fallos de conexión en los auriculares inalámbricos paso a paso",
+          "url": "https://www.infobae.com/tecno/2026/11/15/como-solucionar-los-fallos-de-conexion-en-los-auriculares-inalambricos-paso-a-paso/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "SNL gathers all the tech tycoons for a lesson in dating and spycraft | TechCrunch",
+          "url": "https://techcrunch.com/2026/11/15/snl-gathers-all-the-tech-tycoons-for-a-lesson-in-dating-and-spycraft/",
           "source_lane": "frontier_watchlist"
         }
       ],
@@ -401,16 +438,16 @@
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 7,
+      "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: modelcontextprotocol/quickstart-resources",
-          "url": "https://github.com/modelcontextprotocol/quickstart-resources",
+          "title": "GitHub repo updated: modelcontextprotocol/modelcontextprotocol",
+          "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/registry",
-          "url": "https://github.com/modelcontextprotocol/registry",
+          "title": "GitHub repo updated: modelcontextprotocol/python-sdk",
+          "url": "https://github.com/modelcontextprotocol/python-sdk",
           "source_lane": "github_release"
         },
         {
@@ -419,13 +456,13 @@
           "source_lane": "github_release"
         },
         {
-          "title": "modelcontextprotocol/registry release: v1.8.8",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.8",
-          "source_lane": "github_release"
+          "title": "À l'occasion du Black Friday 2026, ce processeur Intel noté 5/5 tombe à 264,99 €",
+          "url": "https://www.lesnumeriques.com/cpu-processeur/black-friday-2026-le-cpu-processeur-intel-core-ultra-7-270k-plus-boite-5-etoiles-a-264-99-19-n267572.html",
+          "source_lane": "frontier_watchlist"
         },
         {
-          "title": "modelcontextprotocol/registry release: v1.8.9",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.9",
+          "title": "modelcontextprotocol/registry release: v1.8.8",
+          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.8",
           "source_lane": "github_release"
         }
       ],
@@ -473,17 +510,39 @@
       "entity": "Cursor",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "Cursor Says Stolen Fireworks AI Key Led to Trojanized Claude Code Extension Incident",
+          "url": "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 3,
+      "top_links": [
+        {
+          "title": "El creador de Claude Code prevé que los empleos de ingeniero de software empiecen a desaparecer este año",
+          "url": "https://www.infobae.com/tecno/2026/11/16/el-creador-de-claude-code-preve-que-los-empleos-de-ingeniero-de-software-empiecen-a-desaparecer-este-ano/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Anthropic Outlines its AI-Powered Code Review Process for Claude Code",
+          "url": "https://www.infoq.com/news/2026/11/claude-code-review/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "KI nur noch für Entwickler: Warum Goldman Sachs den Zugang beschränkt",
+          "url": "https://t3n.de/news/goldman-sachs-zugang-ki-1771271/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenHands",
