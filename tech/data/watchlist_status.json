@@ -1,18 +1,18 @@
 {
   "schema_version": "watchlist-status-v1",
-  "generated_at_utc": "2026-11-22T08:08:26.706174+00:00",
+  "generated_at_utc": "2026-11-22T20:24:58.716834+00:00",
   "checked": 26,
-  "hit_count": 72,
+  "hit_count": 96,
   "entities": [
     {
       "entity": "Zhipu/Z.ai",
       "priority": "critical",
       "checked": true,
-      "hit_count": 10,
+      "hit_count": 11,
       "top_links": [
         {
-          "title": "GitHub repo updated: zai-org/GLM-ASR",
-          "url": "https://github.com/zai-org/GLM-ASR",
+          "title": "GitHub repo updated: zai-org/GLM-OCR",
+          "url": "https://github.com/zai-org/GLM-OCR",
           "source_lane": "github_release"
         },
         {
@@ -21,18 +21,18 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: zai-org/CodeGeeX",
-          "url": "https://github.com/zai-org/CodeGeeX",
+          "title": "GitHub repo updated: zai-org/ZCode",
+          "url": "https://github.com/zai-org/ZCode",
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: zai-org/GLM-5.3-BF16",
-          "url": "https://huggingface.co/zai-org/GLM-5.3-BF16",
+          "title": "Hugging Face model updated: manateelazycat/GLM-5.3-Flash-vLLM-NVFP4-Thor-TP4",
+          "url": "https://huggingface.co/manateelazycat/GLM-5.3-Flash-vLLM-NVFP4-Thor-TP4",
           "source_lane": "huggingface_model"
         },
         {
-          "title": "Hugging Face model updated: zai-org/GLM-5.3-Flash-BF16",
-          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash-BF16",
+          "title": "Hugging Face model updated: TEDI-AI/GLM-LORA",
+          "url": "https://huggingface.co/TEDI-AI/GLM-LORA",
           "source_lane": "huggingface_model"
         }
       ],
@@ -42,16 +42,16 @@
       "entity": "Qwen/Alibaba",
       "priority": "critical",
       "checked": true,
-      "hit_count": 11,
+      "hit_count": 10,
       "top_links": [
-        {
-          "title": "GitHub repo updated: QwenLM/Qwen",
-          "url": "https://github.com/QwenLM/Qwen",
-          "source_lane": "github_release"
-        },
         {
           "title": "GitHub repo updated: QwenLM/Qwen3",
           "url": "https://github.com/QwenLM/Qwen3",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: QwenLM/Qwen3-TTS",
+          "url": "https://github.com/QwenLM/Qwen3-TTS",
           "source_lane": "github_release"
         },
         {
@@ -60,8 +60,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "Hugging Face model updated: Eraly-ml/Qwen3-VL-8B-Instruct-llama-t4-runtime",
-          "url": "https://huggingface.co/Eraly-ml/Qwen3-VL-8B-Instruct-llama-t4-runtime",
+          "title": "Hugging Face model updated: asher577/bsf-qwen3-8b-l24",
+          "url": "https://huggingface.co/asher577/bsf-qwen3-8b-l24",
           "source_lane": "huggingface_model"
         },
         {
@@ -79,11 +79,6 @@
       "hit_count": 6,
       "top_links": [
         {
-          "title": "GitHub repo updated: deepseek-ai/DeepSeek-OCR",
-          "url": "https://github.com/deepseek-ai/DeepSeek-OCR",
-          "source_lane": "github_release"
-        },
-        {
           "title": "GitHub repo updated: deepseek-ai/awesome-deepseek-integration",
           "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
           "source_lane": "github_release"
@@ -91,6 +86,11 @@
         {
           "title": "GitHub repo updated: deepseek-ai/deepseek-harness",
           "url": "https://github.com/deepseek-ai/deepseek-harness",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: deepseek-ai/dsh-superagent-prototype",
+          "url": "https://github.com/deepseek-ai/dsh-superagent-prototype",
           "source_lane": "github_release"
         },
         {
@@ -110,9 +110,15 @@
       "entity": "Kimi/Moonshot",
       "priority": "critical",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 1,
+      "top_links": [
+        {
+          "title": "Hugging Face model updated: local-inference-lab/kimi-k3.1-pro-dspark-flare",
+          "url": "https://huggingface.co/local-inference-lab/kimi-k3.1-pro-dspark-flare",
+          "source_lane": "huggingface_model"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "MiniMax",
@@ -121,24 +127,24 @@
       "hit_count": 7,
       "top_links": [
         {
-          "title": "Hugging Face model updated: bp-5193/MiniMax-H3-Small",
-          "url": "https://huggingface.co/bp-5193/MiniMax-H3-Small",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: minguri98/minimaxh3",
-          "url": "https://huggingface.co/minguri98/minimaxh3",
-          "source_lane": "huggingface_model"
-        },
-        {
-          "title": "Hugging Face model updated: H3-Tiny/H3-Tiny-ComfyUI",
-          "url": "https://huggingface.co/H3-Tiny/H3-Tiny-ComfyUI",
+          "title": "Hugging Face model updated: iamgroot1212/minimax-h3-loras",
+          "url": "https://huggingface.co/iamgroot1212/minimax-h3-loras",
           "source_lane": "huggingface_model"
         },
         {
           "title": "comfyanonymous/ComfyUI release: v0.46.0",
           "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.46.0",
           "source_lane": "github_release"
+        },
+        {
+          "title": "Notée 5/5, cette batterie externe UGreen passe sous les 50 € pendant le Black Friday 2026",
+          "url": "https://www.lesnumeriques.com/batterie-externe/black-friday-2026-la-batterie-externe-ugreen-25000-mah-nexode-power-bank-5-etoiles-a-49-99-23-n268254.html",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Por primera vez, Rockstar premia en 'GTA VI' una relación de pareja saludable. La machosfera está que trina",
+          "url": "https://www.xataka.com/videojuegos/primera-vez-rockstar-premia-gta-vi-relacion-pareja-saludable-machosfera-esta-que-trina",
+          "source_lane": "frontier_watchlist"
         },
         {
           "title": "huggingface/diffusers release: Diffusers 0.43.0: MiniMax-H3-Image, Pika H3 Flex, P-H3-Image, Kandinsky S2V, and PAN 2",
@@ -163,18 +169,18 @@
       "hit_count": 5,
       "top_links": [
         {
-          "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanVideo-1.5",
-          "url": "https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5",
+          "title": "GitHub repo updated: Tencent-Hunyuan/HYDRA",
+          "url": "https://github.com/Tencent-Hunyuan/HYDRA",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: Tencent-Hunyuan/Hunyuan3D-2",
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2",
           "source_lane": "github_release"
         },
         {
           "title": "GitHub repo updated: Tencent-Hunyuan/HunyuanWorld-1.0",
           "url": "https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "GitHub repo updated: Tencent-Hunyuan/MovieRoll",
-          "url": "https://github.com/Tencent-Hunyuan/MovieRoll",
           "source_lane": "github_release"
         },
         {
@@ -205,18 +211,18 @@
       "hit_count": 3,
       "top_links": [
         {
-          "title": "GitHub repo updated: InternLM/lmdeploy",
-          "url": "https://github.com/InternLM/lmdeploy",
+          "title": "GitHub repo updated: InternLM/Intern-Decision",
+          "url": "https://github.com/InternLM/Intern-Decision",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/xtuner",
-          "url": "https://github.com/InternLM/xtuner",
+          "title": "GitHub repo updated: InternLM/InternLumina-U2",
+          "url": "https://github.com/InternLM/InternLumina-U2",
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: InternLM/Sage-S2.1-Flash",
-          "url": "https://github.com/InternLM/Sage-S2.1-Flash",
+          "title": "GitHub repo updated: InternLM/ResOPD",
+          "url": "https://github.com/InternLM/ResOPD",
           "source_lane": "github_release"
         }
       ],
@@ -242,16 +248,21 @@
       "entity": "Flux/Black Forest Labs",
       "priority": "critical",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 5,
       "top_links": [
-        {
-          "title": "Hugging Face model updated: Conyrideyak/Ine_FLUXv2.5",
-          "url": "https://huggingface.co/Conyrideyak/Ine_FLUXv2.5",
-          "source_lane": "huggingface_model"
-        },
         {
           "title": "Hugging Face model updated: juergengunz/fluxer",
           "url": "https://huggingface.co/juergengunz/fluxer",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: Dull55/Erickv2-FLUX3-Klein-LoRA",
+          "url": "https://huggingface.co/Dull55/Erickv2-FLUX3-Klein-LoRA",
+          "source_lane": "huggingface_model"
+        },
+        {
+          "title": "Hugging Face model updated: UmeAiRT/ComfyUI-Auto-Installer-Assets",
+          "url": "https://huggingface.co/UmeAiRT/ComfyUI-Auto-Installer-Assets",
           "source_lane": "huggingface_model"
         },
         {
@@ -285,8 +296,18 @@
       "entity": "Runway",
       "priority": "high",
       "checked": true,
-      "hit_count": 2,
+      "hit_count": 5,
       "top_links": [
+        {
+          "title": "Amazon brade ce robot aspirateur-laveur Ecovacs à moitié prix pour le Black Friday",
+          "url": "https://www.frandroid.com/bons-plans/3334005_amazon-brade-ce-robot-aspirateur-laveur-ecovacs-a-moitie-prix-pour-le-black-friday",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Max Out Your Gen 4 Slot: Predator GM7 NVMe SSD (Up to 7400 MB/s)",
+          "url": "https://www.techpowerup.com/354313/max-out-your-gen-4-slot-predator-gm7-nvme-ssd-up-to-7400-mb-s",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Hugging Face model updated: runwayml/praxis-1-so101",
           "url": "https://huggingface.co/runwayml/praxis-1-so101",
@@ -296,6 +317,11 @@
           "title": "Hugging Face model updated: runwayml/praxis-1-so101-nvfp4",
           "url": "https://huggingface.co/runwayml/praxis-1-so101-nvfp4",
           "source_lane": "huggingface_model"
+        },
+        {
+          "title": "SIKH",
+          "url": "https://www.desiblitz.com/content/sikh-model-navjot-kaurs-turban-look-draws-runway-praise",
+          "source_lane": "image_video_workflow"
         }
       ],
       "no_signal_reason": ""
@@ -304,12 +330,17 @@
       "entity": "Kling",
       "priority": "high",
       "checked": true,
-      "hit_count": 4,
+      "hit_count": 5,
       "top_links": [
         {
           "title": "OpenRouter model listed: thinkingmachines/inkling-2-mini",
           "url": "https://openrouter.ai/thinkingmachines/inkling-2-mini",
           "source_lane": "image_video_workflow"
+        },
+        {
+          "title": "How to watch The Witch Farm for free — stream supernatural drama from anywhere",
+          "url": "https://www.techradar.com/entertainment/how-to-watch/how-to-watch-the-witch-farm",
+          "source_lane": "frontier_watchlist"
         },
         {
           "title": "huggingface/transformers release: Release v5.24.0",
@@ -333,16 +364,37 @@
       "entity": "Veo",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 2,
+      "top_links": [
+        {
+          "title": "How to watch New Wave online — stream music documentary from anywhere",
+          "url": "https://www.techradar.com/entertainment/tv-shows/how-to-watch-new-wave-online-stream-music-documentary-from-anywhere",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "PostgreSQL 19 Released with Online Table Repacking and Query Planning Controls",
+          "url": "https://www.infoq.com/news/2026/11/postgresql-19-released/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "Sora",
       "priority": "high",
       "checked": true,
-      "hit_count": 1,
+      "hit_count": 3,
       "top_links": [
+        {
+          "title": "One of the best gaming headsets plummets to just $78 at Amazon in unmissable Black Friday deal — Razer BlackShark V2 Pro outshines its successor at less than half the price",
+          "url": "https://www.tomshardware.com/peripherals/gaming-headsets/one-of-the-best-gaming-headsets-plummets-to-just-usd78-at-amazon-in-unmissable-black-friday-deal-razer-blackshark-v2-pro-outshines-its-successor-at-less-than-half-the-price",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Sony MDR-3R : un casque rétro au charme ravageur, mais au son ancré dans le passé",
+          "url": "https://www.lesnumeriques.com/casque-hifi/sony-mdr-3r-un-casque-retro-au-charme-ravageur-mais-au-son-ancre-dans-le-passe-n268133.html",
+          "source_lane": "frontier_watchlist"
+        },
         {
           "title": "Microsoft and Oracle bring agentic AI into flow of enterprise work",
           "url": "https://azure.microsoft.com/en-us/blog/microsoft-and-oracle-bring-agentic-ai-into-flow-of-enterprise-work/",
@@ -355,7 +407,7 @@
       "entity": "OpenRouter",
       "priority": "high",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 7,
       "top_links": [
         {
           "title": "OpenRouter model listed: openai/gpt-6.2-astra",
@@ -397,19 +449,55 @@
       "entity": "fal.ai",
       "priority": "normal",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 12,
+      "top_links": [
+        {
+          "title": "Amazon identifica falla en un software médico, tomaron servidor en 11 minutos y lo atribuyen a China",
+          "url": "https://www.infobae.com/tecno/2026/11/22/amazon-identifica-falla-en-un-software-medico-tomaron-servidor-en-11-minutos-y-lo-atribuyen-a-china/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Cajas de TV Android baratas e infectadas generaron 40.000 millones de solicitudes publicitarias falsas por día",
+          "url": "https://www.infobae.com/tecno/2026/11/22/cajas-de-tv-android-baratas-e-infectadas-generaron-40000-millones-de-solicitudes-publicitarias-falsas-por-dia/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Cómo activar Auto Blocker en un Samsung Galaxy para frenar apps falsas y estafas por llamada",
+          "url": "https://www.infobae.com/tecno/2026/11/22/como-activar-auto-blocker-en-un-samsung-galaxy-para-frenar-apps-falsas-y-estafas-por-llamada/",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Fast richtige Überlebenstipps: Warum diese Survival-KI keine gute Idee ist",
+          "url": "https://t3n.de/news/survival-llm-keine-gute-idee-1773996/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Xiaomi Clip review: simply the best open earbuds you can buy, and I've tested scores of them",
+          "url": "https://www.techradar.com/audio/earbuds-airpods/xiaomi-clip-review",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "MCP",
       "priority": "critical",
       "checked": true,
-      "hit_count": 6,
+      "hit_count": 5,
       "top_links": [
+        {
+          "title": "modelcontextprotocol/registry release: v1.8.13",
+          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.13",
+          "source_lane": "github_release"
+        },
         {
           "title": "GitHub repo updated: modelcontextprotocol/ext-events",
           "url": "https://github.com/modelcontextprotocol/ext-events",
+          "source_lane": "github_release"
+        },
+        {
+          "title": "GitHub repo updated: modelcontextprotocol/java-sdk",
+          "url": "https://github.com/modelcontextprotocol/java-sdk",
           "source_lane": "github_release"
         },
         {
@@ -418,18 +506,8 @@
           "source_lane": "github_release"
         },
         {
-          "title": "GitHub repo updated: modelcontextprotocol/servers",
-          "url": "https://github.com/modelcontextprotocol/servers",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "modelcontextprotocol/registry release: v1.8.11",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.11",
-          "source_lane": "github_release"
-        },
-        {
-          "title": "modelcontextprotocol/registry release: v1.8.10",
-          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.10",
+          "title": "modelcontextprotocol/registry release: v1.8.12",
+          "url": "https://github.com/modelcontextprotocol/registry/releases/tag/v1.8.12",
           "source_lane": "github_release"
         }
       ],
@@ -485,9 +563,20 @@
       "entity": "Claude Code",
       "priority": "high",
       "checked": true,
-      "hit_count": 0,
-      "top_links": [],
-      "no_signal_reason": "no candidate matched in current rolling inputs"
+      "hit_count": 2,
+      "top_links": [
+        {
+          "title": "Claude Code Has Been Leaking Secrets Through Its \"Don't Ask Again\" Feature",
+          "url": "https://www.infoq.com/news/2026/11/claude-code-leaking-secrets/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global",
+          "source_lane": "frontier_watchlist"
+        },
+        {
+          "title": "Praktisch, aber kein Excel-Killer: Claudes Office-Funktionen in der Praxis",
+          "url": "https://t3n.de/news/claude-office-microsoft-copilot-test-1773849/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
+          "source_lane": "frontier_watchlist"
+        }
+      ],
+      "no_signal_reason": ""
     },
     {
       "entity": "OpenHands",
