@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-22T01:58:37.898911+00:00",
+  "generated_at": "2026-11-23T02:16:55.296203+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 658286,
+    "estimated_input_tokens": 506115,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
-    "api_calls": 3,
+    "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 455,
-    "sent_article_count": 455,
+    "input_article_count": 396,
+    "sent_article_count": 396,
     "window": {
-      "end_date": "2026-11-22",
+      "end_date": "2026-11-23",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,85 +25,81 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động vĩ mô, chính sách lập pháp và xu hướng công nghệ trong 48 giờ qua.",
+    "editor_note": "Bản tin tổng hợp các biến động tài chính toàn cầu, các cột mốc hạ tầng trọng điểm tại Việt Nam và những bước tiến mới trong công nghệ AI.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Trong 48 giờ qua, thị trường tài chính toàn cầu chứng kiến đợt điều chỉnh mạnh khi các tài sản trú ẩn như vàng giảm sâu và cổ phiếu công nghệ AI đối mặt với áp lực chốt lời. Tại Việt Nam, Quốc hội khóa XVI đã khép lại kỳ họp thứ hai với khối lượng lập pháp đồ sộ, đặt nền móng pháp lý cho mục tiêu tăng trưởng GDP từ 10% trong năm 2027.",
-        "most_mentioned": "Các chủ đề về biến động giá vàng, chính sách lập pháp của Quốc hội Việt Nam và sự trỗi dậy của AI agents là những tâm điểm được nhắc đến nhiều nhất, phản ánh sự giao thoa giữa quản trị vĩ mô và xu hướng công nghệ tương lai.",
-        "top_stories": "Sự kiện Quốc hội thông qua 38 luật và 18 nghị quyết là cột mốc chính trị quan trọng nhất, định hình khung pháp lý cho năm 2027. Song song đó, đà giảm sâu của giá vàng và sự điều chỉnh của cổ phiếu công nghệ AI cho thấy nhà đầu tư đang tái định vị dòng vốn trước những rủi ro vĩ mô.",
-        "sector_impacts": "Chính sách mới về đất đai và du lịch sẽ tác động trực tiếp đến môi trường đầu tư bất động sản tại Việt Nam, trong khi các cảnh báo về an ninh mạng và deepfake đặt ra thách thức lớn cho doanh nghiệp trong việc quản trị dữ liệu nội bộ.",
-        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi: phản ứng của thị trường vàng sau tuần giảm sốc; các văn bản hướng dẫn thi hành luật mới từ Quốc hội; và diễn biến an ninh mạng liên quan đến các vụ tấn công dữ liệu gần đây."
+        "main_picture": "Thị trường tài chính thị trường đang trải qua đợt điều chỉnh mạnh mẽ khi làn sóng bán tháo cổ phiếu công nghệ và AI khiến vốn hóa toàn cầu bốc hơi gần 9.000 tỷ USD. Sự thận trọng của nhà đầu tư được củng cố bởi những cảnh báo từ Bộ trưởng Tài chính Mỹ Scott Bessent về rủi ro thắt chặt tiền tệ quá mức từ Fed. Trong khi đó, Việt Nam đang nỗ lực củng cố nội lực thông qua việc thông qua các luật quan trọng và đẩy nhanh các dự án hạ tầng trọng điểm, tạo nền tảng cho giai đoạn tăng trưởng mới.",
+        "most_mentioned": "Chủ đề về 'biến động thị trường tài chính' và 'hạ tầng chiến lược' chiếm ưu thế. Sự quan tâm dồn vào việc Fed nhận cảnh báo về chính sách lãi suất, trong khi trong nước, các dự án như đường sắt tốc độ cao và quy hoạch đất công trở thành tâm điểm thảo luận về năng lực thực thi chính sách.",
+        "top_stories": "Sự kiện liên danh 8 nhà thầu trúng thầu tư vấn đường sắt tốc độ cao Bắc - Nam và việc thông qua Luật Kinh doanh bất động sản sửa đổi là hai cột mốc quan trọng nhất, định hình lại kỳ vọng của thị trường về hạ tầng và bất động sản Việt Nam.",
+        "sector_impacts": "Dòng vốn ngoại tiếp tục rút khỏi nhóm cổ phiếu ngân hàng Việt Nam, trong khi các doanh nghiệp lớn như FPT duy trì chính sách cổ tức cao, cho thấy sự phân hóa rõ rệt giữa các nhóm ngành trong bối cảnh vĩ mô biến động.",
+        "watch_24_72h": "Theo dõi sát diễn biến tỷ giá trung tâm, phản ứng của thị trường vàng sau đợt điều chỉnh mạnh và các văn bản hướng dẫn thi hành Luật Kinh doanh bất động sản mới."
       },
-      "content": "Trong 48 giờ qua, dòng tin nổi bật không nằm ở một sự kiện đơn lẻ, mà ở sự dịch chuyển đồng thời của ba trục lớn: thị trường tài sản rủi ro thận trọng hơn, công nghệ AI tiếp tục hút vốn, và chính sách tại Việt Nam bước vào giai đoạn cụ thể hóa mạnh hơn. Crypto, vàng, AI, bán dẫn, tài sản số, hạ tầng và năng lượng cùng xuất hiện dày đặc, cho thấy thị trường đang vừa phòng thủ trước biến động ngắn hạn, vừa tìm kiếm các câu chuyện tăng trưởng có nền tảng dài hạn.\n\nỞ lớp thị trường, Bitcoin và nhóm tài sản số được nhắc nhiều vì đang chịu áp lực điều chỉnh sau giai đoạn tăng mạnh. Điều đáng chú ý không chỉ là giá giảm, mà là cách dòng tiền đang được tái định vị: rời khỏi các tài sản mang tính đầu cơ cao và hướng sang những lĩnh vực có câu chuyện thực hơn như AI, bán dẫn, trung tâm dữ liệu và hạ tầng năng lượng. Đây là tín hiệu cho thấy khẩu vị rủi ro đang thay đổi.\n\nTại Việt Nam, nhóm tin quan trọng xoay quanh việc hoàn thiện hành lang pháp lý cho tài sản số, siết tiêu chí doanh nghiệp tham gia thị trường tài sản mã hóa, thúc đẩy trung tâm tài chính quốc tế, tháo gỡ điểm nghẽn bất động sản và đẩy nhanh hạ tầng. Các tin này cùng cho thấy chính sách đang chuyển từ giai đoạn định hướng sang giai đoạn thiết kế luật chơi.\n\nTrong công nghệ, AI không còn chỉ là câu chuyện ứng dụng phần mềm. Các bài viết nổi bật cho thấy AI đang kéo theo nhu cầu về bán dẫn, dữ liệu, trung tâm dữ liệu, năng lực lưu trữ và khả năng triển khai trong ngân hàng, tài chính, sản xuất và dịch vụ.",
+      "content": "Thị trường tài chính toàn cầu đang đối mặt với áp lực điều chỉnh lớn khi các cổ phiếu AI dẫn đầu như Nvidia và AMD sụt giảm mạnh, kéo theo chỉ số S&P 500 rơi vào vùng điều chỉnh. Sự thận trọng của nhà đầu tư được củng cố bởi những cảnh báo về rủi ro thắt chặt tiền tệ quá mức từ Fed. Trong khi đó, Việt Nam đang nỗ lực củng cố nội lực thông qua việc thông qua các luật quan trọng và đẩy nhanh các dự án hạ tầng trọng điểm. Việc chọn được liên danh tư vấn cho dự án đường sắt tốc độ cao Bắc - Nam không chỉ là bước tiến về kỹ thuật mà còn là tín hiệu cho thấy quyết tâm của Chính phủ trong việc giải ngân đầu tư công.",
       "representative_sources": [
         {
-          "title": "Is the AI Bubble Finally Popping? Nvidia Crashes 48% as Wall Street Experts Sound the Alarm - Decrypt",
-          "source": "decrypt_co",
-          "url": "https://decrypt.co/383754/ai-bubble-finally-popping-nvidia-crashes-48-wall-street-alarm"
+          "title": "Chứng khoán toàn cầu lao dốc, gần 9.000 tỷ USD vốn hóa bốc hơi",
+          "source": "dantri_com_vn",
+          "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-toan-cau-lao-doc-gan-9000-ty-usd-von-hoa-boc-hoi-20261123050219322.htm",
+          "excerpt": "Thị trường chứng khoán toàn cầu bị thổi bay gần 9.000 tỷ USD vốn hóa, chỉ số S&P 500 rơi vào vùng điều chỉnh."
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Chính sách pháp lý Việt Nam",
-          "why_mentioned": "Tác động trực tiếp từ các quyết định của Quốc hội về đất đai, thuế và đầu tư.",
-          "evidence_hint": "Hơn 60 bài viết về các luật và nghị quyết mới."
-        },
-        {
-          "topic": "Biến động giá vàng",
-          "why_mentioned": "Giá vàng giảm sâu gây áp lực lên tâm lý nhà đầu tư.",
-          "evidence_hint": "Lặp lại ở nhiều nguồn tin lớn về giá vàng giảm sốc."
+          "topic": "Biến động thị trường tài chính",
+          "why_mentioned": "Làn sóng bán tháo cổ phiếu AI và áp lực lãi suất toàn cầu.",
+          "evidence_hint": "S&P 500 rơi vào vùng điều chỉnh, vốn hóa toàn cầu giảm 9.000 tỷ USD."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "AI & Công nghệ tương lai",
-          "why_hot": "Sự quan tâm lớn đến AI agents, các vụ hack dữ liệu và đầu tư hạ tầng năng lượng cho AI.",
-          "impact": "Ảnh hưởng đến an ninh dữ liệu và chiến lược đầu tư hạ tầng số.",
-          "evidence_hint": "Các báo cáo về Anthropic IPO và rủi ro an ninh mạng."
+          "topic": "Hạ tầng giao thông Việt Nam",
+          "why_hot": "Dự án đường sắt tốc độ cao Bắc - Nam chọn được nhà thầu tư vấn.",
+          "impact": "Tạo động lực giải ngân đầu tư công và kết nối vùng kinh tế.",
+          "evidence_hint": "Gói thầu tư vấn 10.200 tỷ đồng đã có chủ."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dòng vốn rời khỏi tài sản rủi ro",
-          "why_watch": "Nhà đầu tư đang tái định vị sang các kênh an toàn hơn trước biến động vĩ mô."
+          "signal": "Dòng vốn ngoại rút khỏi cổ phiếu ngân hàng",
+          "why_watch": "Hơn 47.000 tỷ đồng đã bị bán ròng từ đầu năm 2026."
         }
       ],
       "watch_next": [
-        "Phản ứng của thị trường chứng khoán sau Anthropic IPO",
-        "Văn bản hướng dẫn thi hành Luật Đất đai sửa đổi",
-        "Diễn biến giá vàng trong nước so với thế giới"
+        "Tỷ giá trung tâm và áp lực lên đồng VND",
+        "Phản ứng của thị trường vàng trong nước",
+        "Tiến độ triển khai các dự án hạ tầng trọng điểm"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Quốc hội thông qua 38 luật và 18 nghị quyết",
-        "one_sentence": "Việc thông qua 62 luật và 16 nghị quyết trong năm đầu nhiệm kỳ Quốc hội khóa XVI tạo hành lang pháp lý quan trọng cho mục tiêu tăng trưởng GDP từ 10% vào năm 2027.",
-        "why_it_matters": "Định hình khung pháp lý toàn diện cho kinh tế, đất đai và đầu tư trong giai đoạn mới.",
-        "watch_next": "Các văn bản hướng dẫn thi hành luật mới.",
+        "title": "Chứng khoán thị trường lao dốc, gần 9.000 tỷ USD vốn hóa bốc hơi",
+        "one_sentence": "Chỉ số S&P 500 rơi vào vùng điều chỉnh khi làn sóng bán tháo cổ phiếu AI và lo ngại về lãi suất Fed khiến vốn hóa toàn cầu sụt giảm mạnh.",
+        "why_it_matters": "Sự kiện tài chính quan trọng nhất trong 48h qua, ảnh hưởng trực tiếp đến tâm lý nhà đầu tư toàn cầu và Việt Nam.",
+        "watch_next": "Theo dõi phản ứng của thị trường chứng khoán Việt Nam trước áp lực bán ròng của khối ngoại.",
         "source_urls": [
-          "https://baoxaydung.vn/quoc-hoi-thong-qua-38-luat-va-18-nghi-quyet-tai-ky-hop-thu-hai-192261121154403054.htm"
+          "https://dantri.com.vn/kinh-doanh/chung-khoan-toan-cau-lao-doc-gan-9000-ty-usd-von-hoa-boc-hoi-20261123050219322.htm"
         ]
       },
       {
         "rank": 2,
-        "title": "Giá vàng thế giới và trong nước giảm sâu",
-        "one_sentence": "Giá vàng thế giới mất gần 9% trong tuần, kéo theo giá vàng SJC trong nước giảm mạnh 6 triệu đồng/lượng, phản ánh sự điều chỉnh dòng vốn mạnh mẽ của nhà đầu tư.",
-        "why_it_matters": "Tác động trực tiếp đến tài sản của nhà đầu tư và tâm lý thị trường tài chính.",
-        "watch_next": "Diễn biến giá vàng trong nước so với thế giới.",
+        "title": "Liên danh 8 nhà thầu trúng thầu tư vấn đường sắt tốc độ cao Bắc - Nam",
+        "one_sentence": "Dự án hạ tầng giao thông trọng điểm quốc gia đạt bước tiến quan trọng với gói thầu tư vấn trị giá hơn 10.200 tỷ đồng.",
+        "why_it_matters": "Đây là dự án hạ tầng giao thông quan trọng nhất của Việt Nam trong giai đoạn hiện nay, tạo động lực giải ngân đầu tư công.",
+        "watch_next": "Tiến độ triển khai thực tế của liên danh sau khi trúng thầu.",
         "source_urls": [
-          "https://vietnamnet.vn/gia-vang-hom-nay-22-11-sjc-mat-6-trieu-dong-luong-chieu-mua-2577390.html"
+          "https://baoxaydung.vn/lo-dien-lien-danh-8-nha-thau-tu-van-du-an-duong-sat-toc-do-cao-bac-nam-192261122220219614.htm"
         ]
       },
       {
         "rank": 3,
-        "title": "Anthropic gia nhập câu lạc bộ doanh nghiệp nghìn tỷ USD",
-        "one_sentence": "Startup AI Anthropic IPO thành công với định giá 1,8 nghìn tỷ USD, đánh dấu thương vụ lớn nhất lịch sử venture capital bất chấp đà bán tháo cổ phiếu công nghệ.",
-        "why_it_matters": "Phản ánh dòng vốn khổng lồ vẫn tiếp tục đổ vào AI bất chấp lo ngại bong bóng.",
-        "watch_next": "Phản ứng của thị trường chứng khoán sau Anthropic IPO.",
+        "title": "Giá vàng thế giới bật tăng mạnh sau tuần giảm sốc",
+        "one_sentence": "Giá vàng phục hồi gần 40 USD/ounce ngay đầu tuần, phản ánh tâm lý thị trường sau đợt bán tháo tài sản rủi ro.",
+        "why_it_matters": "Tác động trực tiếp đến tâm lý nhà đầu tư và biến động tài sản trú ẩn.",
+        "watch_next": "Diễn biến giá vàng trong nước so với thế giới.",
         "source_urls": [
-          "https://cnbc.com/2026/11/21/anthropic-ipo-tech-selloff.html"
+          "https://vietnamnet.vn/gia-vang-hom-nay-23-11-bat-tang-gan-40-usd-ngay-khi-mo-cua-tuan-moi-2577570.html"
         ]
       }
     ],
@@ -111,24 +107,55 @@
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính trong 48 giờ qua nổi bật bởi sự điều chỉnh mạnh mẽ của các tài sản trú ẩn và sự hoàn thiện khung pháp lý trong nước. Giá vàng giảm sâu và sự phân hóa dòng vốn cho thấy nhà đầu tư đang thận trọng hơn trước các biến động vĩ mô. Đồng thời, việc Quốc hội thông qua các luật quan trọng về đất đai và đấu thầu tạo nền tảng cho sự bứt phá kinh tế năm 2027. Các doanh nghiệp xuất khẩu cà phê cũng đang chuyển dịch chuỗi giá trị sang bán lẻ, phản ánh xu hướng gia tăng giá trị nội địa.",
+        "sector_thesis": "Kinh tế & Tài chính 48h qua nổi bật với sự phân hóa dòng vốn. Trong khi thị trường thị trường chịu áp lực bán tháo cổ phiếu AI, Việt Nam tập trung vào việc hoàn thiện khung pháp lý cho bất động sản và doanh nghiệp nhỏ. Các ngân hàng đang đẩy mạnh huy động vốn để cân đối thanh khoản, trong khi tỷ giá trung tâm lập kỷ lục mới, tạo áp lực lên điều hành vĩ mô. Việc thông qua Luật Kinh doanh bất động sản sửa đổi và Luật Phát triển doanh nghiệp nhỏ và vừa cho thấy nỗ lực cụ thể hóa chính sách nhằm tháo gỡ điểm nghẽn cho thị trường nội địa. Các ngân hàng thương mại như Techcombank đang tích cực phát hành trái phiếu để cân đối thanh khoản, trong khi khối ngoại tiếp tục bán ròng mạnh nhóm cổ phiếu ngân hàng, tạo ra sự phân hóa rõ rệt trong danh mục đầu tư của nhà đầu tư nước ngoài.",
+        "subsector_briefs": [],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "major",
+            "sub_sector": "Bất động sản & Hạ tầng",
+            "title": "Cột mốc mới cho hạ tầng và bất động sản Việt Nam",
+            "summary": "Việc thông qua Luật Kinh doanh bất động sản sửa đổi và chọn được liên danh tư vấn cho dự án đường sắt tốc độ cao Bắc - Nam đánh dấu bước ngoặt quan trọng trong quản lý và phát triển hạ tầng. Các quy định mới siết chặt điều kiện kinh doanh bất động sản, trong khi dự án đường sắt tốc độ cao được kỳ vọng sẽ là đòn bẩy lớn cho kết nối vùng và giải ngân đầu tư công trong những năm tới.",
+            "main_developments": [
+              "Liên danh 8 nhà thầu Việt Nam - Pháp - Hàn Quốc trúng thầu tư vấn dự án đường sắt tốc độ cao Bắc - Nam với giá hơn 10.200 tỷ đồng.",
+              "Luật Kinh doanh bất động sản sửa đổi quy định chủ đầu tư chỉ được thu tiền đặt cọc không quá 5% giá bán.",
+              "TP.HCM rà soát hơn 10.000 cơ sở nhà, đất công để sắp xếp và xử lý tài sản công."
+            ],
+            "why_it_matters": "Những thay đổi này định hình lại khung pháp lý và kỳ vọng tăng trưởng cho thị trường bất động sản và hạ tầng giao thông Việt Nam.",
+            "affected_groups": [
+              "Chủ đầu tư bất động sản",
+              "Nhà thầu hạ tầng",
+              "Nhà đầu tư cá nhân"
+            ],
+            "watch_next": [
+              "Tiến độ triển khai dự án đường sắt tốc độ cao",
+              "Các văn bản hướng dẫn thi hành Luật Kinh doanh bất động sản mới"
+            ],
+            "representative_sources": []
+          }
+        ]
+      },
+      {
+        "code": "tech",
+        "name": "Công nghệ & AI",
+        "sector_thesis": "Ngành công nghệ 48h qua chứng kiến sự rung lắc mạnh khi các cổ phiếu AI bị bán tháo. Tuy nhiên, về mặt kỹ thuật, các bước tiến trong điện toán lượng tử và ứng dụng AI trong y tế vẫn diễn ra đều đặn. Tại Việt Nam, chính sách áp giá điện sản xuất cho trung tâm dữ liệu cho thấy nỗ lực thúc đẩy hạ tầng số quốc gia. Sự kiện VinFuture 2026 cũng khẳng định vị thế của Việt Nam trong việc hội tụ các công nghệ đột phá tương lai. Dù Nvidia gặp khó khăn về định giá, các Big Tech như Google vẫn tiếp tục đầu tư mạnh vào hạ tầng AI và điện toán lượng tử, cho thấy làn sóng công nghệ vẫn đang trong giai đoạn phát triển mạnh mẽ bất chấp biến động ngắn hạn trên thị trường chứng khoán.",
         "subsector_briefs": [
           {
-            "name": "Thị trường tài sản & Vàng",
-            "overview": "Giá vàng thế giới và trong nước lao dốc mạnh do áp lực từ đồng USD và kỳ vọng lãi suất, gây lỗ nặng cho nhà đầu tư bắt đỉnh.",
+            "name": "Hạ tầng AI & Bán dẫn",
+            "overview": "Ngành bán dẫn đối mặt với rủi ro địa chính trị mới, trong khi hạ tầng trung tâm dữ liệu được ưu tiên phát triển.",
             "key_points": [
-              "Giá vàng SJC giảm 6 triệu đồng/lượng.",
-              "Chênh lệch mua-bán đạt kỷ lục 6 triệu đồng/lượng."
+              "TSMC và Samsung dừng giao chip cho Trung Quốc",
+              "Đề xuất giá điện sản xuất cho trung tâm dữ liệu"
             ],
             "key_story_titles": [
-              "Giá vàng thế giới và trong nước giảm sâu"
+              "TSMC và Samsung dừng giao chip cho khách hàng Trung Quốc"
             ],
             "representative_sources": [
               {
-                "title": "Giá vàng hôm nay 22/11: SJC mất 6 triệu đồng/lượng chỉ trong ít ngày",
-                "source": "vietnamnet_vn",
-                "url": "https://vietnamnet.vn/gia-vang-hom-nay-22-11-sjc-mat-6-trieu-dong-luong-chieu-mua-2577390.html",
-                "excerpt": "Giá vàng thế giới giảm gần 9% trong tuần, kéo theo giá vàng SJC trong nước giảm mạnh 6 triệu đồng/lượng."
+                "title": "Mỹ áp quy định xuất khẩu mới, TSMC và Samsung dừng giao chip cho khách hàng Trung Quốc",
+                "source": "genk_vn",
+                "url": "https://genk.vn/my-ap-quy-dinh-xuat-khau-moi-tsmc-va-samsung-dung-giao-chip-cho-khach-hang-trung-quoc-165261122093020803.chn",
+                "excerpt": "Các hãng chip tạm dừng đơn hàng để xin giấy phép từ Bộ Thương mại Mỹ."
               }
             ]
           }
@@ -136,69 +163,31 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Chính sách kinh tế",
-            "title": "Khung pháp lý mới cho tăng trưởng 2027",
-            "summary": "Quốc hội Việt Nam thông qua 38 luật và 18 nghị quyết, tập trung vào đất đai, đấu thầu và du lịch, nhằm tháo gỡ điểm nghẽn và thúc đẩy tăng trưởng GDP từ 10% trong năm 2027. Đây là bước đi chiến lược nhằm cụ thể hóa các mục tiêu phát triển kinh tế dài hạn.",
-            "main_developments": [
-              "Thông qua Luật Đất đai sửa đổi với quy định thu hồi đất nông nghiệp bỏ hoang 24 tháng.",
-              "Ban hành Nghị quyết 59/2026/QH16 về cơ chế đặc thù phát triển du lịch.",
-              "Đặt mục tiêu tăng trưởng GDP năm 2027 đạt từ 10% trở lên."
-            ],
-            "why_it_matters": "Tạo hành lang pháp lý đồng bộ, tháo gỡ vướng mắc cho doanh nghiệp và thu hút đầu tư, trực tiếp ảnh hưởng đến môi trường kinh doanh tại Việt Nam.",
-            "affected_groups": [
-              "Doanh nghiệp bất động sản",
-              "Nhà đầu tư du lịch",
-              "Người dân"
-            ],
-            "watch_next": [
-              "Các văn bản hướng dẫn thi hành luật mới.",
-              "Tiến độ giải ngân đầu tư công cuối năm."
-            ],
-            "representative_sources": [
-              {
-                "title": "Quốc hội thông qua 38 luật và 18 nghị quyết tại Kỳ họp thứ hai",
-                "source": "baoxaydung_vn",
-                "url": "https://baoxaydung.vn/quoc-hoi-thong-qua-38-luat-va-18-nghi-quyet-tai-ky-hop-thu-hai-192261121154403054.htm",
-                "excerpt": "Quốc hội khóa XVI thông qua 62 luật, 16 nghị quyết trong năm đầu nhiệm kỳ, khẳng định quyết tâm đổi mới công tác lập pháp."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "code": "tech",
-        "name": "Công nghệ & AI",
-        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ nổi bật ở câu chuyện cổ phiếu công nghệ, mà còn ở hạ tầng dữ liệu, bán dẫn và an ninh mạng. Các sự kiện như Anthropic IPO và các vụ tấn công mạng vào cơ quan chính phủ Mỹ cho thấy AI đang chuyển từ giai đoạn thử nghiệm sang triển khai thực tế, đồng thời đặt ra những thách thức lớn về an toàn dữ liệu. Nhu cầu điện cho trung tâm dữ liệu dự báo tăng gấp đôi vào năm 2030, gây áp lực lên lưới điện toàn cầu.",
-        "subsector_briefs": [],
-        "story_dossiers": [
-          {
-            "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "An ninh mạng",
-            "title": "Rủi ro an ninh mạng trong kỷ nguyên AI",
-            "summary": "Các cơ quan trọng yếu của Mỹ như FBI và Bộ Nông nghiệp bị tấn công mạng, trong khi tại Việt Nam, tỷ lệ tấn công deepfake cao gấp đôi mức trung bình toàn cầu. Điều này đặt ra thách thức lớn về quản trị dữ liệu và an ninh mạng trong bối cảnh AI được ứng dụng rộng rãi.",
+            "sub_sector": "Hạ tầng số",
+            "title": "Sự mong manh của hạ tầng số toàn cầu",
+            "summary": "Sự cố gián đoạn dịch vụ và các lỗ hổng bảo mật liên tiếp cho thấy sự mong manh của hạ tầng số cũ kỹ khi đối mặt với tốc độ phát triển chóng mặt của AI. Việc các trung tâm dữ liệu khổng lồ trở thành tâm điểm chỉ trích về môi trường và áp lực lên lưới điện đang buộc các chính phủ phải xem xét lại chiến lược phát triển hạ tầng số, đồng thời thúc đẩy các giải pháp công nghệ bền vững hơn.",
             "main_developments": [
-              "FBI bị tấn công mạng nhắm vào Trung tâm Thông tin Tội phạm Quốc gia (NCIC).",
-              "Tỷ lệ tấn công deepfake tại Việt Nam chiếm 21%, cao hơn mức trung bình toàn cầu 11%.",
-              "Các chuyên gia cảnh báo doanh nghiệp về việc đưa dữ liệu nội bộ lên AI thiếu kiểm soát."
+              "AI đang đẩy nhanh tốc độ phát hiện lỗ hổng bảo mật, khiến hệ thống cũ không thể đáp ứng kịp thời.",
+              "Bộ Công Thương Việt Nam đề xuất áp giá điện sản xuất cho trung tâm dữ liệu để giảm chi phí vận hành.",
+              "Google hợp tác với Blue Origin phóng cụm máy chủ AI lên vũ trụ để tận dụng năng lượng mặt trời."
             ],
-            "why_it_matters": "Sự cố an ninh mạng nghiêm trọng ảnh hưởng đến cơ sở dữ liệu thực thi pháp luật và quyền riêng tư của người dùng, đòi hỏi doanh nghiệp phải kiểm soát chặt chẽ dữ liệu nội bộ.",
+            "why_it_matters": "Hạ tầng số là xương sống của nền kinh tế hiện đại, nhưng sự phụ thuộc vào công nghệ cũ và áp lực từ AI đang tạo ra những rủi ro an ninh mạng và môi trường nghiêm trọng.",
             "affected_groups": [
-              "Cơ quan chính phủ",
-              "Doanh nghiệp",
-              "Người dùng cá nhân"
+              "Nhà cung cấp dịch vụ đám mây",
+              "Doanh nghiệp công nghệ",
+              "Người dùng internet"
             ],
             "watch_next": [
-              "Các biện pháp bảo mật mới từ các cơ quan chính phủ.",
-              "Diễn biến các vụ tấn công dữ liệu tiếp theo."
+              "Phản ứng của các chính phủ đối với quy định về trung tâm dữ liệu",
+              "Tiến độ vá lỗi bảo mật trên các hệ thống hạ tầng cũ"
             ],
             "representative_sources": [
               {
-                "title": "Mỹ: Tin tặc tấn công FBI, xâm nhập cơ sở dữ liệu tội phạm",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/my-tin-tac-tan-cong-fbi-xam-nhap-co-so-du-lieu-toi-pham-post1896413.tpo",
-                "excerpt": "Các cơ quan trọng yếu của Mỹ bị tấn công mạng, làm dấy lên lo ngại về an ninh dữ liệu quốc gia."
+                "title": "Đề xuất áp giá điện sản xuất cho trung tâm dữ liệu",
+                "source": "thanhnien_vn",
+                "url": "https://thanhnien.vn/de-xuat-ap-gia-dien-san-xuat-cho-trung-tam-du-lieu-185261122111538388.htm",
+                "excerpt": "Bộ Công Thương đề xuất đưa trung tâm dữ liệu vào nhóm giá điện sản xuất."
               }
             ]
           }
@@ -207,51 +196,24 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự và Chính trị trong 48 giờ qua tập trung vào căng thẳng quân sự tại Trung Đông và các quyết sách lập pháp tại Việt Nam. Sự kiện Iran tuyên bố tấn công tiêm kích Mỹ làm gia tăng rủi ro địa chính trị, trong khi Quốc hội Việt Nam hoàn thành chương trình nghị sự quan trọng, tạo nền tảng cho sự phát triển quốc gia. Các vấn đề an ninh nguồn nước và hợp tác khu vực cũng được chú trọng.",
+        "sector_thesis": "Thời sự & Chính trị 48h qua tập trung vào các điểm nóng địa chính trị tại eo biển Hormuz và khu vực Baltic. Trong nước, công tác xét xử các vụ án kinh tế lớn và các quyết định về quy hoạch đặc khu kinh tế Vân Phong cho thấy sự quyết liệt trong quản lý nhà nước và định hướng phát triển kinh tế biển. Việc Việt Nam tiếp nhận vai trò chủ nhà APEC 2027 cũng khẳng định cam kết thúc đẩy hợp tác khu vực và nâng cao vị thế quốc tế. Các sự kiện này cùng cho thấy một bức tranh chính trị đang chuyển dịch mạnh mẽ, nơi an ninh năng lượng và sự tự cường kinh tế trở thành ưu tiên hàng đầu của các quốc gia trong bối cảnh xung đột địa chính trị ngày càng phức tạp.",
         "subsector_briefs": [
           {
-            "name": "Địa chính trị Trung Đông",
-            "overview": "Căng thẳng quân sự giữa Mỹ và Iran gia tăng sau tuyên bố của Tehran về việc tấn công tiêm kích Mỹ trên vùng Vịnh.",
+            "name": "Địa chính trị & Ngoại giao",
+            "overview": "Căng thẳng tại eo biển Hormuz và khu vực Baltic đang làm gia tăng rủi ro địa chính trị toàn cầu.",
             "key_points": [
-              "Iran tuyên bố bắn trúng tiêm kích F-16 của Mỹ.",
-              "CENTCOM bác bỏ tuyên bố của Iran."
+              "Iran gia tăng sức ép tại eo biển Hormuz",
+              "Việt Nam chủ nhà APEC 2027"
             ],
             "key_story_titles": [
-              "Iran nói tên lửa bắn trúng tiêm kích F-16 của Mỹ"
+              "Căng thẳng tại eo biển Hormuz leo thang"
             ],
             "representative_sources": [
               {
-                "title": "Iran nói tên lửa bắn trúng tiêm kích F-16 của Mỹ, CENTCOM lên tiếng",
+                "title": "Vì sao Iran bất ngờ đẩy mạnh sức ép quân sự, gia tăng thách thức Mỹ ở eo biển Hormuz?",
                 "source": "tienphong_vn",
-                "url": "https://tienphong.vn/iran-noi-ten-lua-ban-trung-tiem-kich-f-16-cua-my-centcom-len-tieng-post1896443.tpo",
-                "excerpt": "Căng thẳng quân sự giữa Mỹ và Iran gia tăng sau tuyên bố của Tehran về việc tấn công tiêm kích Mỹ trên vùng Vịnh."
-              }
-            ]
-          }
-        ],
-        "story_dossiers": []
-      },
-      {
-        "code": "trends",
-        "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng và Đời sống trong 48 giờ qua phản ánh sự kết hợp giữa các sự kiện thể thao lớn và những thay đổi trong lối sống, sức khỏe. Đại hội Thể thao toàn quốc 2026 thu hút sự quan tâm lớn, trong khi các nghiên cứu về dinh dưỡng và lối sống lành mạnh tiếp tục là chủ đề được cộng đồng chú ý. Ngoài ra, các mô hình nông nghiệp kết hợp du lịch đang trở thành xu hướng phát triển kinh tế bền vững tại Việt Nam, giúp nông dân chuyển đổi mô hình sản xuất hiệu quả.",
-        "subsector_briefs": [
-          {
-            "name": "Văn hóa & Thể thao",
-            "overview": "Đại hội Thể thao toàn quốc 2026 khai mạc bùng nổ tại TP.HCM, thu hút sự quan tâm lớn của công chúng với quy mô hoành tráng.",
-            "key_points": [
-              "Quy tụ 12.000 vận động viên và cán bộ.",
-              "Tranh tài ở 48 môn thể thao."
-            ],
-            "key_story_titles": [
-              "Đại hội Thể thao toàn quốc 2026 khai mạc bùng nổ bên bờ sông Sài Gòn"
-            ],
-            "representative_sources": [
-              {
-                "title": "Đại hội Thể thao toàn quốc 2026 khai mạc bùng nổ bên bờ sông Sài Gòn",
-                "source": "tienphong_vn",
-                "url": "https://tienphong.vn/dai-hoi-the-thao-toan-quoc-2026-khai-mac-bung-no-ben-bo-song-sai-gon-post1896436.tpo",
-                "excerpt": "Sự kiện thể thao lớn nhất cả nước chính thức khai mạc tại TP.HCM với quy mô hoành tráng, kết hợp nghệ thuật và thể thao."
+                "url": "https://tienphong.vn/vi-sao-iran-bat-ngo-day-manh-suc-ep-quan-su-gia-tang-thach-thuc-my-o-eo-bien-hormuz-post1896678.tpo",
+                "excerpt": "Iran gia tăng sức ép quân sự tại eo biển Hormuz, gây gián đoạn nguồn cung dầu mỏ."
               }
             ]
           }
@@ -259,29 +221,69 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "deep",
-            "sub_sector": "Sức khỏe & Lối sống",
-            "title": "Xu hướng dinh dưỡng và sức khỏe cộng đồng",
-            "summary": "Các nghiên cứu mới về chế độ ăn Keto và tác động của việc đọc sách đối với sức khỏe não bộ đang thu hút sự chú ý. Chế độ Keto giúp giảm 67% mỡ gan trong 4 tháng, trong khi đọc sách giúp giảm 33% nguy cơ mắc bệnh Alzheimer, khẳng định tầm quan trọng của lối sống lành mạnh.",
+            "depth_level": "major",
+            "sub_sector": "Quản lý nhà nước",
+            "title": "Quyết liệt trong quản lý và phát triển",
+            "summary": "Công tác xét xử các vụ án kinh tế lớn như Sen Tài Thu và việc Bộ Chính trị đồng ý chủ trương thành lập Khu kinh tế đặc biệt Vân Phong cho thấy sự quyết liệt của Chính phủ trong việc làm sạch môi trường kinh doanh và định hướng phát triển kinh tế biển. Các quyết định này không chỉ nhằm xử lý sai phạm mà còn tạo ra cơ chế ưu đãi cao nhất để thu hút đầu tư, thúc đẩy tăng trưởng kinh tế trong giai đoạn mới.",
             "main_developments": [
-              "Chế độ ăn Keto giúp giảm 67% mỡ gan trong 4 tháng.",
-              "Đọc sách giúp giảm 33% nguy cơ mắc bệnh Alzheimer.",
-              "Vi nhựa tương tác với nước tạo ra các gốc tự do gây hại cho tế bào."
+              "TAND TP Hà Nội xét xử vụ án lừa đảo chiếm đoạt 757 tỷ đồng tại Sen Tài Thu.",
+              "Bộ Chính trị đồng ý chủ trương thành lập Khu kinh tế đặc biệt Vân Phong với cơ chế ưu đãi tối đa.",
+              "Việt Nam chính thức tiếp nhận vai trò chủ nhà APEC 2027."
             ],
-            "why_it_matters": "Các xu hướng dinh dưỡng và lối sống lành mạnh có tác động trực tiếp đến sức khỏe cộng đồng và chi tiêu y tế, đồng thời cảnh báo về các rủi ro môi trường tiềm ẩn.",
+            "why_it_matters": "Sự quyết liệt trong quản lý nhà nước giúp củng cố niềm tin của nhà đầu tư và tạo nền tảng pháp lý vững chắc cho sự phát triển bền vững.",
             "affected_groups": [
-              "Cộng đồng",
-              "Ngành y tế"
+              "Nhà đầu tư",
+              "Doanh nghiệp",
+              "Cơ quan quản lý nhà nước"
             ],
             "watch_next": [
-              "Các nghiên cứu tiếp theo về tác động của vi nhựa.",
-              "Xu hướng dinh dưỡng mới trong năm 2027."
+              "Kết quả xét xử vụ án Sen Tài Thu",
+              "Tiến độ triển khai Khu kinh tế đặc biệt Vân Phong"
             ],
             "representative_sources": [
               {
-                "title": "Keto diet slashes liver fat by 67% in just 4 months",
-                "source": "sciencedaily_com",
-                "url": "https://sciencedaily.com/releases/2026/11/261120070904.htm"
+                "title": "Bộ Chính trị đồng ý chủ trương thành lập Khu kinh tế đặc biệt Vân Phong: Đòn bẩy phát triển kinh tế biển",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/bo-chinh-tri-dong-y-chu-truong-thanh-lap-khu-kinh-te-dac-biet-van-phong-don-bay-phat-trien-kinh-te-bien-100261122082523387.htm",
+                "excerpt": "Khánh Hòa được phép áp dụng cơ chế ưu đãi cao nhất để phát triển Vân Phong."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "trends",
+        "name": "Xu hướng & Đời sống",
+        "sector_thesis": "Xu hướng & Đời sống 48h qua phản ánh sự quan tâm đến sức khỏe cộng đồng và các thay đổi trong lối sống. Từ việc nghiên cứu giấc ngủ đến các sự kiện văn hóa lớn, người tiêu dùng Việt Nam đang có xu hướng tìm kiếm sự cân bằng và các giá trị bền vững trong bối cảnh kinh tế nhiều thách thức. Việc Luật Nhà ở sửa đổi cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú cũng mở ra những cơ hội mới cho kinh tế chia sẻ. Các xu hướng này cho thấy một cộng đồng đang dần thích nghi với những thay đổi về công nghệ và chính sách, đồng thời chú trọng hơn đến chất lượng cuộc sống và sức khỏe cá nhân trong một thế giới đầy biến động.",
+        "subsector_briefs": [],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "major",
+            "sub_sector": "Chính sách & Đời sống",
+            "title": "Thay đổi trong lối sống và quyền lợi người dân",
+            "summary": "Việc Luật Nhà ở sửa đổi cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú cùng với các xu hướng sống tối giản và chú trọng sức khỏe cho thấy sự thay đổi rõ rệt trong lối sống và quyền lợi của người dân. Những thay đổi này không chỉ ảnh hưởng đến thị trường lưu trú mà còn phản ánh nhu cầu tìm kiếm sự cân bằng và giá trị bền vững của người tiêu dùng trong bối cảnh kinh tế nhiều thách thức.",
+            "main_developments": [
+              "Luật Nhà ở 2026 sửa đổi cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú.",
+              "Xu hướng sống tối giản giúp giới trẻ tích lũy tài chính hiệu quả hơn.",
+              "Đại hội Thể thao toàn quốc lần thứ X tại TP.HCM tạo động lực cho dịch vụ và du lịch."
+            ],
+            "why_it_matters": "Những thay đổi này tác động trực tiếp đến quyền lợi người sở hữu căn hộ và định hình lại các xu hướng tiêu dùng, giải trí trong xã hội.",
+            "affected_groups": [
+              "Người sở hữu căn hộ",
+              "Giới trẻ",
+              "Cộng đồng người tiêu dùng"
+            ],
+            "watch_next": [
+              "Phản ứng của thị trường lưu trú sau khi Luật Nhà ở sửa đổi có hiệu lực",
+              "Các xu hướng tiêu dùng bền vững mới"
+            ],
+            "representative_sources": [
+              {
+                "title": "Luật Nhà ở sửa đổi chính thức cho phép sử dụng căn hộ chung cư để cho thuê lưu trú",
+                "source": "tuoitre_vn",
+                "url": "https://tuoitre.vn/luat-nha-o-sua-doi-chinh-thuc-cho-phep-su-dung-can-ho-chung-cu-de-cho-thue-luu-tru-100261122102130507.htm",
+                "excerpt": "Quy định mới làm rõ ranh giới pháp lý, cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú."
               }
             ]
           }
@@ -291,68 +293,78 @@
     "watchlist_24_72h": [
       {
         "theme": "Thị trường tài chính",
-        "what_to_watch": "Phản ứng của thị trường vàng và cổ phiếu công nghệ sau đợt điều chỉnh.",
-        "why": "Nhà đầu tư đang tái định vị dòng vốn trước biến động vĩ mô."
-      },
-      {
-        "theme": "Chính sách Việt Nam",
-        "what_to_watch": "Các văn bản hướng dẫn thi hành luật mới từ Quốc hội.",
-        "why": "Định hình khung pháp lý cho tăng trưởng năm 2027."
-      },
-      {
-        "theme": "An ninh mạng",
-        "what_to_watch": "Diễn biến các vụ tấn công dữ liệu và biện pháp bảo mật mới.",
-        "why": "Rủi ro an ninh mạng gia tăng trong kỷ nguyên AI."
+        "what_to_watch": "Phản ứng của thị trường chứng khoán toàn cầu và Việt Nam",
+        "why": "Áp lực bán tháo cổ phiếu AI và rủi ro lãi suất Fed"
       },
       {
         "theme": "Địa chính trị",
-        "what_to_watch": "Phản ứng của các bên liên quan trong căng thẳng Mỹ - Iran.",
-        "why": "Nguy cơ xung đột leo thang tại Trung Đông."
+        "what_to_watch": "Diễn biến căng thẳng tại eo biển Hormuz",
+        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng toàn cầu"
+      },
+      {
+        "theme": "Chính sách Việt Nam",
+        "what_to_watch": "Văn bản hướng dẫn Luật Kinh doanh bất động sản",
+        "why": "Tác động trực tiếp đến thị trường bất động sản"
+      },
+      {
+        "theme": "Công nghệ",
+        "what_to_watch": "Tiến độ triển khai hạ tầng trung tâm dữ liệu",
+        "why": "Ảnh hưởng đến chi phí vận hành và phát triển hạ tầng số"
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thị trường tài chính toàn cầu rung lắc: Cổ phiếu AI và Bitcoin đồng loạt giảm sâu",
-        "why": "Phản ánh xu hướng điều chỉnh dòng chú ý thị trường từ tài sản rủi ro sang các kênh an toàn hơn."
+        "what_to_watch": "Dự án đường sắt tốc độ cao Bắc - Nam chọn được liên danh tư vấn",
+        "why": "Đây là dự án hạ tầng giao thông quan trọng nhất của Việt Nam trong giai đoạn hiện nay."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Quốc hội thông qua 38 luật và 18 nghị quyết tại Kỳ họp thứ hai",
-        "why": "Đây là sự kiện chính trị-kinh tế quan trọng nhất trong 48h qua, định hình khung pháp lý cho tăng trưởng năm 2027."
+        "what_to_watch": "Doanh nghiệp lớn chốt quyền trả cổ tức tiền mặt hàng nghìn tỷ đồng",
+        "why": "Phản ánh dòng tiền và chính sách chi trả cổ tức của các doanh nghiệp niêm yết lớn."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Thuốc giảm cân thực nghiệm retatrutide giúp giảm 25% trọng lượng và 50% đau khớp gối",
-        "why": "Tác động trực tiếp đến thị trường dược phẩm và xu hướng điều trị béo phì đang nóng."
+        "what_to_watch": "Giá vàng thế giới bật tăng mạnh sau tuần giảm sốc",
+        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và biến động tài sản trú ẩn."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Cảnh báo an ninh: AI agents và rủi ro từ các mô hình bị can thiệp",
-        "why": "Tác động trực tiếp đến quyền riêng tư và an toàn dữ liệu người dùng trong kỷ nguyên AI."
+        "what_to_watch": "Google đạt bước tiến mới trong điện toán lượng tử",
+        "why": "Đánh dấu bước tiến kỹ thuật quan trọng trong lĩnh vực điện toán lượng tử."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Mỹ: Tin tặc tấn công FBI, xâm nhập cơ sở dữ liệu tội phạm",
-        "why": "Sự cố an ninh mạng nghiêm trọng ảnh hưởng đến cơ sở dữ liệu thực thi pháp luật quốc gia."
+        "what_to_watch": "AI phát hiện dấu hiệu cảnh báo ung thư bàng quang trước 5 năm",
+        "why": "Bước tiến quan trọng trong ứng dụng AI vào chẩn đoán sớm bệnh hiểm nghèo."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "AI có thể không hoạt động giống não người như các nhà khoa học từng nghĩ",
-        "why": "Thách thức nền tảng đối với sự phát triển của AI và nghiên cứu thần kinh học."
+        "what_to_watch": "Google hợp tác với Blue Origin phóng cụm máy chủ AI lên vũ trụ",
+        "why": "Bước tiến đột phá trong hạ tầng AI và cuộc đua không gian giữa các Big Tech."
       }
     ],
     "source_desk": [
       {
-        "topic": "Kinh tế & Chính sách",
+        "topic": "Tài chính & Kinh tế",
         "representative_sources": [
           {
-            "title": "Quốc hội thông qua 38 luật và 18 nghị quyết tại Kỳ họp thứ hai",
-            "source": "baoxaydung_vn",
-            "url": "https://baoxaydung.vn/quoc-hoi-thong-qua-38-luat-va-18-nghi-quyet-tai-ky-hop-thu-hai-192261121154403054.htm"
+            "title": "Chứng khoán toàn cầu lao dốc, gần 9.000 tỷ USD vốn hóa bốc hơi",
+            "source": "dantri_com_vn",
+            "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-toan-cau-lao-doc-gan-9000-ty-usd-von-hoa-boc-hoi-20261123050219322.htm"
+          }
+        ]
+      },
+      {
+        "topic": "Thời sự & Chính trị",
+        "representative_sources": [
+          {
+            "title": "Vì sao Iran bất ngờ đẩy mạnh sức ép quân sự, gia tăng thách thức Mỹ ở eo biển Hormuz?",
+            "source": "tienphong_vn",
+            "url": "https://tienphong.vn/vi-sao-iran-bat-ngo-day-manh-suc-ep-quan-su-gia-tang-thach-thuc-my-o-eo-bien-hormuz-post1896678.tpo"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về tác động cụ thể của các vụ hack FBI/USDA đối với an ninh quốc gia; cần theo dõi thêm phản ứng của thị trường chứng khoán sau khi Anthropic IPO.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ phía các ngân hàng trung ương lớn đối với đợt bán tháo thị trường vừa qua.",
     "notable_articles": []
   }
 }
