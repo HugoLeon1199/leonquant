@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-23T02:16:55.296203+00:00",
+  "generated_at": "2026-11-24T06:03:45.743585+00:00",
   "meta": {
     "input_file": "/home/runner/work/leonquant/leonquant/news_for_ai_clean.json",
     "enriched_file": "/home/runner/work/leonquant/leonquant/enriched_news.json",
     "model": "gemini-3.1-flash-lite",
-    "estimated_input_tokens": 506115,
+    "estimated_input_tokens": 772569,
     "prompt_chars": null,
     "mode": "digest",
     "batch_digest": true,
     "outline_first": true,
     "api_calls": 1,
     "refetch_urls": false,
-    "input_article_count": 396,
-    "sent_article_count": 396,
+    "input_article_count": 604,
+    "sent_article_count": 604,
     "window": {
-      "end_date": "2026-11-23",
+      "end_date": "2026-11-24",
       "timezone": "Asia/Ho_Chi_Minh",
       "recent_calendar_days": 2,
       "mode": "rolling",
@@ -25,111 +25,138 @@
     "brief_format": "newsroom-brief-v1",
     "title": "Tổng hợp tin tức toàn cầu và Việt Nam 48 giờ",
     "reading_time_minutes": "auto",
-    "editor_note": "Bản tin tổng hợp các biến động tài chính toàn cầu, các cột mốc hạ tầng trọng điểm tại Việt Nam và những bước tiến mới trong công nghệ AI.",
+    "editor_note": "Bản tin tổng hợp các sự kiện tài chính, công nghệ và thời sự trọng điểm trong 48 giờ qua, tập trung vào tác động của việc phục chức CEO Nvidia và các diễn biến hạ tầng, chính sách tại Việt Nam.",
     "executive_briefing": {
       "title": "Tóm tắt tổng quan 48h",
       "sections": {
-        "main_picture": "Thị trường tài chính thị trường đang trải qua đợt điều chỉnh mạnh mẽ khi làn sóng bán tháo cổ phiếu công nghệ và AI khiến vốn hóa toàn cầu bốc hơi gần 9.000 tỷ USD. Sự thận trọng của nhà đầu tư được củng cố bởi những cảnh báo từ Bộ trưởng Tài chính Mỹ Scott Bessent về rủi ro thắt chặt tiền tệ quá mức từ Fed. Trong khi đó, Việt Nam đang nỗ lực củng cố nội lực thông qua việc thông qua các luật quan trọng và đẩy nhanh các dự án hạ tầng trọng điểm, tạo nền tảng cho giai đoạn tăng trưởng mới.",
-        "most_mentioned": "Chủ đề về 'biến động thị trường tài chính' và 'hạ tầng chiến lược' chiếm ưu thế. Sự quan tâm dồn vào việc Fed nhận cảnh báo về chính sách lãi suất, trong khi trong nước, các dự án như đường sắt tốc độ cao và quy hoạch đất công trở thành tâm điểm thảo luận về năng lực thực thi chính sách.",
-        "top_stories": "Sự kiện liên danh 8 nhà thầu trúng thầu tư vấn đường sắt tốc độ cao Bắc - Nam và việc thông qua Luật Kinh doanh bất động sản sửa đổi là hai cột mốc quan trọng nhất, định hình lại kỳ vọng của thị trường về hạ tầng và bất động sản Việt Nam.",
-        "sector_impacts": "Dòng vốn ngoại tiếp tục rút khỏi nhóm cổ phiếu ngân hàng Việt Nam, trong khi các doanh nghiệp lớn như FPT duy trì chính sách cổ tức cao, cho thấy sự phân hóa rõ rệt giữa các nhóm ngành trong bối cảnh vĩ mô biến động.",
-        "watch_24_72h": "Theo dõi sát diễn biến tỷ giá trung tâm, phản ứng của thị trường vàng sau đợt điều chỉnh mạnh và các văn bản hướng dẫn thi hành Luật Kinh doanh bất động sản mới."
+        "main_picture": "Thị trường tài chính và công nghệ thị trường đã trải qua 48 giờ đầy biến động sau khi hội đồng quản trị Nvidia phục chức cho tỷ phú Jensen Huang. Sự kiện này không chỉ giúp Nvidia lấy lại hơn 1 nghìn tỷ USD vốn hóa mà còn kích hoạt làn sóng phục hồi mạnh mẽ trên các chỉ số chứng khoán Mỹ và tài sản rủi ro như Bitcoin. Tại Việt Nam, tâm điểm xoay quanh các dự án hạ tầng giao thông trọng điểm, sự kiện thời sự nghiêm trọng tại Hà Nội và những thay đổi nhân sự cấp cao tại các ngân hàng lớn.",
+        "most_mentioned": "Sự trở lại của Jensen Huang tại Nvidia là chủ đề thống trị mọi nguồn tin tài chính và công nghệ. Việc này được coi là 'liều thuốc' trấn an nhà đầu tư về sự ổn định của chuỗi cung ứng AI, vốn đang là động lực tăng trưởng chính của thị trường bán dẫn toàn cầu.",
+        "top_stories": "Bên cạnh sự kiện Nvidia, Việt Nam ghi nhận những bước tiến quan trọng trong quy hoạch hạ tầng với việc phê duyệt trục đại lộ cảnh quan sông Hồng và mở rộng các dự án cao tốc. Đồng thời, vụ nổ khí gas tại phố Nguyễn Văn Tuyết, Hà Nội đã trở thành tâm điểm thời sự, thu hút sự quan tâm lớn của dư luận về an toàn phòng cháy chữa cháy.",
+        "sector_impacts": "dòng chú ý thị trường đang có dấu hiệu dịch chuyển từ các tài sản phòng thủ như vàng sang các lĩnh vực tăng trưởng thực tế như hạ tầng AI và bán dẫn. Tại Việt Nam, các chính sách thuế mới và việc kiện toàn bộ máy lãnh đạo tại các ngân hàng lớn như LPBank và SCB cho thấy nỗ lực ổn định và phát triển hệ thống tài chính.",
+        "watch_24_72h": "Trong 24-72 giờ tới, cần theo dõi: phản ứng của thị trường với Bitcoin sau đợt phục hồi; tiến độ điều tra nguyên nhân vụ nổ tại Hà Nội; các văn bản hướng dẫn cụ thể về thuế mới tại Việt Nam; và diễn biến giá vàng trong nước so với thế giới."
       },
-      "content": "Thị trường tài chính toàn cầu đang đối mặt với áp lực điều chỉnh lớn khi các cổ phiếu AI dẫn đầu như Nvidia và AMD sụt giảm mạnh, kéo theo chỉ số S&P 500 rơi vào vùng điều chỉnh. Sự thận trọng của nhà đầu tư được củng cố bởi những cảnh báo về rủi ro thắt chặt tiền tệ quá mức từ Fed. Trong khi đó, Việt Nam đang nỗ lực củng cố nội lực thông qua việc thông qua các luật quan trọng và đẩy nhanh các dự án hạ tầng trọng điểm. Việc chọn được liên danh tư vấn cho dự án đường sắt tốc độ cao Bắc - Nam không chỉ là bước tiến về kỹ thuật mà còn là tín hiệu cho thấy quyết tâm của Chính phủ trong việc giải ngân đầu tư công.",
+      "content": "Thị trường tài chính thị trường đã trải qua 48 giờ đầy biến động nhưng tích cực sau khi tỷ phú Jensen Huang được phục chức CEO Nvidia. Sự kiện này không chỉ giúp Nvidia lấy lại 1 nghìn tỷ USD vốn hóa mà còn kích hoạt làn sóng phục hồi mạnh mẽ trên các chỉ số chứng khoán Mỹ và tài sản rủi ro như Bitcoin. Tại Việt Nam, tâm điểm xoay quanh các dự án hạ tầng giao thông trọng điểm và sự kiện thời sự nghiêm trọng tại Hà Nội. Sự trở lại của Jensen Huang tại Nvidia là chủ đề thống trị mọi nguồn tin tài chính và công nghệ. Việc này được coi là 'liều thuốc' trấn an nhà đầu tư về sự ổn định của chuỗi cung ứng AI, vốn đang là động lực tăng trưởng chính của thị trường bán dẫn thị trường. Bên cạnh sự kiện Nvidia, Việt Nam ghi nhận những bước tiến quan trọng trong quy hoạch hạ tầng với việc phê duyệt trục đại lộ cảnh quan sông Hồng và mở rộng các dự án cao tốc. Đồng thời, vụ nổ khí gas tại phố Nguyễn Văn Tuyết, Hà Nội đã trở thành tâm điểm thời sự, thu hút sự quan tâm lớn của dư luận về an toàn phòng cháy chữa cháy. dòng chú ý thị trường đang có dấu hiệu dịch chuyển từ các tài sản phòng thủ như vàng sang các lĩnh vực tăng trưởng thực tế như hạ tầng AI và bán dẫn. Tại Việt Nam, các chính sách thuế mới và việc kiện toàn bộ máy lãnh đạo tại các ngân hàng lớn như LPBank và SCB cho thấy nỗ lực ổn định và phát triển hệ thống tài chính.",
       "representative_sources": [
         {
-          "title": "Chứng khoán toàn cầu lao dốc, gần 9.000 tỷ USD vốn hóa bốc hơi",
-          "source": "dantri_com_vn",
-          "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-toan-cau-lao-doc-gan-9000-ty-usd-von-hoa-boc-hoi-20261123050219322.htm",
-          "excerpt": "Thị trường chứng khoán toàn cầu bị thổi bay gần 9.000 tỷ USD vốn hóa, chỉ số S&P 500 rơi vào vùng điều chỉnh."
+          "title": "Ông Jensen Huang quay trở lại, cổ phiếu NVIDIA bật tăng 30%, vốn hóa tăng thêm 900 tỷ USD",
+          "source": "genk_vn",
+          "url": "https://genk.vn/ong-jensen-huang-quay-tro-lai-ghe-ceo-co-phieu-nvidia-mo-phien-tang-vot-30-keo-pho-wall-phuc-hoi-16526112321562947.chn"
+        },
+        {
+          "title": "Nvidia Reinstates Jensen Huang as CEO Amid Intelligence Probe",
+          "source": "cointelegraph_com",
+          "url": "https://cointelegraph.com/news/nvidia-reinstates-jensen-huang-ceo-intelligence-probe"
+        },
+        {
+          "title": "Ông Jensen Huang bất ngờ trở lại ghế CEO Nvidia",
+          "source": "baoxaydung_vn",
+          "url": "https://baoxaydung.vn/ong-jensen-huang-bat-ngo-tro-lai-ghe-ceo-nvidia-192261123230008981.htm"
         }
       ],
       "most_mentioned_topics": [
         {
-          "topic": "Biến động thị trường tài chính",
-          "why_mentioned": "Làn sóng bán tháo cổ phiếu AI và áp lực lãi suất toàn cầu.",
-          "evidence_hint": "S&P 500 rơi vào vùng điều chỉnh, vốn hóa toàn cầu giảm 9.000 tỷ USD."
+          "topic": "Sự trở lại của Jensen Huang tại Nvidia",
+          "why_mentioned": "Tác động trực tiếp đến vốn hóa thị trường và tâm lý nhà đầu tư toàn cầu.",
+          "evidence_hint": "Xuất hiện trên hầu hết các báo tài chính quốc tế và Việt Nam."
         }
       ],
       "hottest_topics": [
         {
-          "topic": "Hạ tầng giao thông Việt Nam",
-          "why_hot": "Dự án đường sắt tốc độ cao Bắc - Nam chọn được nhà thầu tư vấn.",
-          "impact": "Tạo động lực giải ngân đầu tư công và kết nối vùng kinh tế.",
-          "evidence_hint": "Gói thầu tư vấn 10.200 tỷ đồng đã có chủ."
+          "topic": "Vụ nổ tại phố Nguyễn Văn Tuyết",
+          "why_hot": "Sự kiện thời sự nghiêm trọng gây chú ý dư luận trong nước.",
+          "impact": "Đặt ra vấn đề về an toàn phòng cháy chữa cháy tại các khu dân cư.",
+          "evidence_hint": "Được đưa tin dày đặc trên các báo lớn tại Việt Nam trong 24h qua."
         }
       ],
       "emerging_signals": [
         {
-          "signal": "Dòng vốn ngoại rút khỏi cổ phiếu ngân hàng",
-          "why_watch": "Hơn 47.000 tỷ đồng đã bị bán ròng từ đầu năm 2026."
+          "signal": "Dòng vốn dịch chuyển từ vàng sang hạ tầng AI",
+          "why_watch": "Phản ánh sự thay đổi khẩu vị rủi ro của nhà đầu tư toàn cầu."
         }
       ],
       "watch_next": [
-        "Tỷ giá trung tâm và áp lực lên đồng VND",
-        "Phản ứng của thị trường vàng trong nước",
-        "Tiến độ triển khai các dự án hạ tầng trọng điểm"
+        "Phản ứng của thị trường Bitcoin",
+        "Tiến độ điều tra vụ nổ tại Hà Nội",
+        "Các văn bản thuế mới tại Việt Nam"
       ]
     },
     "front_page": [
       {
         "rank": 1,
-        "title": "Chứng khoán thị trường lao dốc, gần 9.000 tỷ USD vốn hóa bốc hơi",
-        "one_sentence": "Chỉ số S&P 500 rơi vào vùng điều chỉnh khi làn sóng bán tháo cổ phiếu AI và lo ngại về lãi suất Fed khiến vốn hóa toàn cầu sụt giảm mạnh.",
-        "why_it_matters": "Sự kiện tài chính quan trọng nhất trong 48h qua, ảnh hưởng trực tiếp đến tâm lý nhà đầu tư toàn cầu và Việt Nam.",
-        "watch_next": "Theo dõi phản ứng của thị trường chứng khoán Việt Nam trước áp lực bán ròng của khối ngoại.",
+        "title": "Jensen Huang trở lại vị trí CEO Nvidia",
+        "one_sentence": "Việc phục chức cho Jensen Huang giúp Nvidia lấy lại 1 nghìn tỷ USD vốn hóa, ổn định chuỗi cung ứng AI và thúc đẩy đà tăng mạnh mẽ của thị trường chứng khoán toàn cầu.",
+        "why_it_matters": "Sự kiện then chốt định hình tâm lý thị trường tài chính và công nghệ toàn cầu trong 48 giờ qua.",
+        "watch_next": "Theo dõi các phản ứng tiếp theo từ chính quyền Mỹ về kiểm soát xuất khẩu chip AI.",
         "source_urls": [
-          "https://dantri.com.vn/kinh-doanh/chung-khoan-toan-cau-lao-doc-gan-9000-ty-usd-von-hoa-boc-hoi-20261123050219322.htm"
+          "https://genk.vn/ong-jensen-huang-quay-tro-lai-ghe-ceo-co-phieu-nvidia-mo-phien-tang-vot-30-keo-pho-wall-phuc-hoi-16526112321562947.chn"
         ]
       },
       {
         "rank": 2,
-        "title": "Liên danh 8 nhà thầu trúng thầu tư vấn đường sắt tốc độ cao Bắc - Nam",
-        "one_sentence": "Dự án hạ tầng giao thông trọng điểm quốc gia đạt bước tiến quan trọng với gói thầu tư vấn trị giá hơn 10.200 tỷ đồng.",
-        "why_it_matters": "Đây là dự án hạ tầng giao thông quan trọng nhất của Việt Nam trong giai đoạn hiện nay, tạo động lực giải ngân đầu tư công.",
-        "watch_next": "Tiến độ triển khai thực tế của liên danh sau khi trúng thầu.",
+        "title": "Vụ nổ khí gas nghiêm trọng tại Hà Nội",
+        "one_sentence": "Sự cố nổ khí gas tại phố Nguyễn Văn Tuyết, quận Đống Đa khiến 3 người tử vong và nhiều người bị thương, đặt ra yêu cầu cấp bách về an toàn phòng cháy chữa cháy tại các khu dân cư.",
+        "why_it_matters": "Sự kiện thời sự nóng nhất tại Việt Nam, thu hút sự quan tâm lớn của dư luận về an toàn công cộng.",
+        "watch_next": "Kết quả điều tra chính thức từ Công an thành phố Hà Nội.",
         "source_urls": [
-          "https://baoxaydung.vn/lo-dien-lien-danh-8-nha-thau-tu-van-du-an-duong-sat-toc-do-cao-bac-nam-192261122220219614.htm"
+          "https://tienphong.vn/vu-no-lon-o-ha-noi-da-co-3-nguoi-chet-post1897037.tpo"
         ]
       },
       {
         "rank": 3,
-        "title": "Giá vàng thế giới bật tăng mạnh sau tuần giảm sốc",
-        "one_sentence": "Giá vàng phục hồi gần 40 USD/ounce ngay đầu tuần, phản ánh tâm lý thị trường sau đợt bán tháo tài sản rủi ro.",
-        "why_it_matters": "Tác động trực tiếp đến tâm lý nhà đầu tư và biến động tài sản trú ẩn.",
-        "watch_next": "Diễn biến giá vàng trong nước so với thế giới.",
-        "source_urls": [
-          "https://vietnamnet.vn/gia-vang-hom-nay-23-11-bat-tang-gan-40-usd-ngay-khi-mo-cua-tuan-moi-2577570.html"
-        ]
+        "title": "Việt Nam đẩy mạnh hạ tầng giao thông trọng điểm",
+        "one_sentence": "Các dự án cao tốc như Cao Lãnh - An Hữu và Vành đai 3 TP.HCM đang chịu áp lực tiến độ lớn, trong khi dự án đường sắt tốc độ cao Bắc - Nam được thiết lập các cột mốc quan trọng.",
+        "why_it_matters": "Hạ tầng giao thông là động lực chính cho tăng trưởng kinh tế và đầu tư công của Việt Nam trong năm 2026.",
+        "watch_next": "Tiến độ đấu thầu và triển khai các dự án cao tốc trong năm 2027.",
+        "source_urls": []
       }
     ],
     "sector_deep_briefs": [
       {
         "code": "finance",
         "name": "Kinh tế & Tài chính",
-        "sector_thesis": "Kinh tế & Tài chính 48h qua nổi bật với sự phân hóa dòng vốn. Trong khi thị trường thị trường chịu áp lực bán tháo cổ phiếu AI, Việt Nam tập trung vào việc hoàn thiện khung pháp lý cho bất động sản và doanh nghiệp nhỏ. Các ngân hàng đang đẩy mạnh huy động vốn để cân đối thanh khoản, trong khi tỷ giá trung tâm lập kỷ lục mới, tạo áp lực lên điều hành vĩ mô. Việc thông qua Luật Kinh doanh bất động sản sửa đổi và Luật Phát triển doanh nghiệp nhỏ và vừa cho thấy nỗ lực cụ thể hóa chính sách nhằm tháo gỡ điểm nghẽn cho thị trường nội địa. Các ngân hàng thương mại như Techcombank đang tích cực phát hành trái phiếu để cân đối thanh khoản, trong khi khối ngoại tiếp tục bán ròng mạnh nhóm cổ phiếu ngân hàng, tạo ra sự phân hóa rõ rệt trong danh mục đầu tư của nhà đầu tư nước ngoài.",
-        "subsector_briefs": [],
+        "sector_thesis": "Ngành tài chính 48 giờ qua chứng kiến sự phân hóa mạnh mẽ khi xu hướng tài sản từ các tài sản phòng thủ như vàng sang các lĩnh vực tăng trưởng thực tế. Sự kiện Jensen Huang trở lại Nvidia đã tạo cú hích cho thị trường chứng khoán toàn cầu, trong khi tại Việt Nam, các chính sách thuế mới và việc kiện toàn bộ máy lãnh đạo tại các ngân hàng lớn như LPBank và SCB đang là tâm điểm chú ý. Các nhà đầu tư đang đánh giá lại rủi ro và tìm kiếm cơ hội trong bối cảnh chính sách tài khóa tại Việt Nam bước vào giai đoạn cụ thể hóa.",
+        "subsector_briefs": [
+          {
+            "name": "Thị trường tài chính và ngân hàng",
+            "overview": "Các ngân hàng lớn tại Việt Nam đang đẩy mạnh kiện toàn bộ máy lãnh đạo và đổi mới tiêu chí xếp hạng an toàn theo chuẩn Basel III.",
+            "key_points": [
+              "LPBank bổ nhiệm Quyền Tổng Giám đốc mới",
+              "SCB bổ nhiệm Chủ tịch HĐQT mới",
+              "Ngân hàng Nhà nước đề xuất đổi mới tiêu chí xếp hạng ngân hàng"
+            ],
+            "key_story_titles": [
+              "Thay đổi nhân sự cấp cao tại các ngân hàng lớn"
+            ],
+            "representative_sources": [
+              {
+                "title": "LPBank bổ nhiệm bà Vũ Nam Hương giữ chức Quyền Tổng Giám đốc",
+                "source": "dantri_com_vn",
+                "url": "https://dantri.com.vn/kinh-doanh/lpbank-bo-nhiem-ba-vu-nam-huong-giu-chuc-quyen-tong-giam-doc-20261123143028014.htm",
+                "excerpt": "Bà Vũ Nam Hương được bổ nhiệm làm Quyền Tổng Giám đốc LPBank để kiện toàn bộ máy lãnh đạo."
+              }
+            ]
+          }
+        ],
         "story_dossiers": [
           {
             "rank": 1,
             "depth_level": "major",
-            "sub_sector": "Bất động sản & Hạ tầng",
-            "title": "Cột mốc mới cho hạ tầng và bất động sản Việt Nam",
-            "summary": "Việc thông qua Luật Kinh doanh bất động sản sửa đổi và chọn được liên danh tư vấn cho dự án đường sắt tốc độ cao Bắc - Nam đánh dấu bước ngoặt quan trọng trong quản lý và phát triển hạ tầng. Các quy định mới siết chặt điều kiện kinh doanh bất động sản, trong khi dự án đường sắt tốc độ cao được kỳ vọng sẽ là đòn bẩy lớn cho kết nối vùng và giải ngân đầu tư công trong những năm tới.",
+            "sub_sector": "Chính sách thuế và tài chính",
+            "title": "Chính sách thuế mới hỗ trợ doanh nghiệp",
+            "summary": "Quốc hội Việt Nam vừa thông qua loạt chính sách thuế mới nhằm hỗ trợ doanh nghiệp nhỏ và vừa, bao gồm việc miễn thuế thu nhập doanh nghiệp trong 3 năm đầu và áp thuế 0,2% đối với đất bỏ hoang nhằm ngăn chặn đầu cơ. Đây là nỗ lực quan trọng nhằm thúc đẩy tăng trưởng kinh tế và minh bạch hóa thị trường bất động sản.",
             "main_developments": [
-              "Liên danh 8 nhà thầu Việt Nam - Pháp - Hàn Quốc trúng thầu tư vấn dự án đường sắt tốc độ cao Bắc - Nam với giá hơn 10.200 tỷ đồng.",
-              "Luật Kinh doanh bất động sản sửa đổi quy định chủ đầu tư chỉ được thu tiền đặt cọc không quá 5% giá bán.",
-              "TP.HCM rà soát hơn 10.000 cơ sở nhà, đất công để sắp xếp và xử lý tài sản công."
+              "Miễn thuế thu nhập doanh nghiệp 3 năm cho doanh nghiệp nhỏ và vừa.",
+              "Áp thuế 0,2% đối với đất bỏ hoang từ ngày 1/7/2027.",
+              "Áp thuế 0,15% đối với đất sử dụng sai mục đích."
             ],
-            "why_it_matters": "Những thay đổi này định hình lại khung pháp lý và kỳ vọng tăng trưởng cho thị trường bất động sản và hạ tầng giao thông Việt Nam.",
+            "why_it_matters": "Các chính sách này giúp giảm chi phí đầu vào cho doanh nghiệp và tăng tính hiệu quả trong quản lý đất đai, ảnh hưởng trực tiếp đến cộng đồng doanh nghiệp và nhà đầu tư bất động sản.",
             "affected_groups": [
-              "Chủ đầu tư bất động sản",
-              "Nhà thầu hạ tầng",
-              "Nhà đầu tư cá nhân"
+              "Doanh nghiệp nhỏ và vừa",
+              "Nhà đầu tư bất động sản"
             ],
             "watch_next": [
-              "Tiến độ triển khai dự án đường sắt tốc độ cao",
-              "Các văn bản hướng dẫn thi hành Luật Kinh doanh bất động sản mới"
+              "Văn bản hướng dẫn chi tiết từ Bộ Tài chính",
+              "Phản ứng của thị trường bất động sản trước chính sách thuế mới"
             ],
             "representative_sources": []
           }
@@ -138,24 +165,25 @@
       {
         "code": "tech",
         "name": "Công nghệ & AI",
-        "sector_thesis": "Ngành công nghệ 48h qua chứng kiến sự rung lắc mạnh khi các cổ phiếu AI bị bán tháo. Tuy nhiên, về mặt kỹ thuật, các bước tiến trong điện toán lượng tử và ứng dụng AI trong y tế vẫn diễn ra đều đặn. Tại Việt Nam, chính sách áp giá điện sản xuất cho trung tâm dữ liệu cho thấy nỗ lực thúc đẩy hạ tầng số quốc gia. Sự kiện VinFuture 2026 cũng khẳng định vị thế của Việt Nam trong việc hội tụ các công nghệ đột phá tương lai. Dù Nvidia gặp khó khăn về định giá, các Big Tech như Google vẫn tiếp tục đầu tư mạnh vào hạ tầng AI và điện toán lượng tử, cho thấy làn sóng công nghệ vẫn đang trong giai đoạn phát triển mạnh mẽ bất chấp biến động ngắn hạn trên thị trường chứng khoán.",
+        "sector_thesis": "Công nghệ và AI trong 48 giờ qua không chỉ xoay quanh câu chuyện cổ phiếu Nvidia mà còn ghi nhận những bước tiến quan trọng trong hạ tầng số và ứng dụng AI. Việc Phison giới thiệu SSD tích hợp NPU và các dự án sản xuất vật liệu bán dẫn tại Việt Nam cho thấy sự chuyển dịch mạnh mẽ sang sản xuất phần cứng hỗ trợ AI. Các doanh nghiệp công nghệ Việt Nam đang tích cực tham gia vào chuỗi cung ứng toàn cầu, khẳng định vị thế trong lĩnh vực công nghệ cao.",
         "subsector_briefs": [
           {
-            "name": "Hạ tầng AI & Bán dẫn",
-            "overview": "Ngành bán dẫn đối mặt với rủi ro địa chính trị mới, trong khi hạ tầng trung tâm dữ liệu được ưu tiên phát triển.",
+            "name": "Hạ tầng AI và bán dẫn",
+            "overview": "Sự phát triển của hạ tầng AI đang kéo theo nhu cầu lớn về phần cứng chuyên dụng và vật liệu bán dẫn.",
             "key_points": [
-              "TSMC và Samsung dừng giao chip cho Trung Quốc",
-              "Đề xuất giá điện sản xuất cho trung tâm dữ liệu"
+              "Phison ra mắt SSD tích hợp NPU",
+              "Dự án sản xuất oxit đất hiếm tại Hải Phòng",
+              "Đầu tư nhà máy pin tại Đà Nẵng"
             ],
             "key_story_titles": [
-              "TSMC và Samsung dừng giao chip cho khách hàng Trung Quốc"
+              "Đột phá công nghệ phần cứng hỗ trợ AI"
             ],
             "representative_sources": [
               {
-                "title": "Mỹ áp quy định xuất khẩu mới, TSMC và Samsung dừng giao chip cho khách hàng Trung Quốc",
+                "title": "Phison hé lộ SSD có “bộ não” AI riêng, tích hợp NPU và 64GB bộ nhớ",
                 "source": "genk_vn",
-                "url": "https://genk.vn/my-ap-quy-dinh-xuat-khau-moi-tsmc-va-samsung-dung-giao-chip-cho-khach-hang-trung-quoc-165261122093020803.chn",
-                "excerpt": "Các hãng chip tạm dừng đơn hàng để xin giấy phép từ Bộ Thương mại Mỹ."
+                "url": "https://genk.vn/phison-he-lo-ssd-co-bo-nao-ai-rieng-tich-hop-npu-va-64gb-bo-nho-165261123124857467.chn",
+                "excerpt": "Phison giới thiệu thiết kế SSD doanh nghiệp tích hợp NPU, cho phép xử lý các tác vụ AI ngay tại ổ lưu trữ."
               }
             ]
           }
@@ -164,30 +192,29 @@
           {
             "rank": 1,
             "depth_level": "deep",
-            "sub_sector": "Hạ tầng số",
-            "title": "Sự mong manh của hạ tầng số toàn cầu",
-            "summary": "Sự cố gián đoạn dịch vụ và các lỗ hổng bảo mật liên tiếp cho thấy sự mong manh của hạ tầng số cũ kỹ khi đối mặt với tốc độ phát triển chóng mặt của AI. Việc các trung tâm dữ liệu khổng lồ trở thành tâm điểm chỉ trích về môi trường và áp lực lên lưới điện đang buộc các chính phủ phải xem xét lại chiến lược phát triển hạ tầng số, đồng thời thúc đẩy các giải pháp công nghệ bền vững hơn.",
+            "sub_sector": "AI và Bán dẫn",
+            "title": "Đột phá công nghệ phần cứng hỗ trợ AI",
+            "summary": "Các doanh nghiệp công nghệ đang tập trung phát triển phần cứng chuyên dụng để tối ưu hóa hiệu suất AI, từ SSD tích hợp NPU đến sản xuất vật liệu đất hiếm độ tinh khiết cao. Những bước tiến này không chỉ giúp giảm lượng dữ liệu phải di chuyển trong hệ thống mà còn củng cố chuỗi cung ứng bán dẫn toàn cầu.",
             "main_developments": [
-              "AI đang đẩy nhanh tốc độ phát hiện lỗ hổng bảo mật, khiến hệ thống cũ không thể đáp ứng kịp thời.",
-              "Bộ Công Thương Việt Nam đề xuất áp giá điện sản xuất cho trung tâm dữ liệu để giảm chi phí vận hành.",
-              "Google hợp tác với Blue Origin phóng cụm máy chủ AI lên vũ trụ để tận dụng năng lượng mặt trời."
+              "Phison ra mắt SSD doanh nghiệp tích hợp NPU.",
+              "Khởi công nhà máy sản xuất oxit đất hiếm tại Hải Phòng.",
+              "Doanh nghiệp Mỹ đầu tư 117 triệu USD xây nhà máy pin tại Đà Nẵng."
             ],
-            "why_it_matters": "Hạ tầng số là xương sống của nền kinh tế hiện đại, nhưng sự phụ thuộc vào công nghệ cũ và áp lực từ AI đang tạo ra những rủi ro an ninh mạng và môi trường nghiêm trọng.",
+            "why_it_matters": "Việc làm chủ công nghệ phần cứng và vật liệu bán dẫn là yếu tố then chốt để Việt Nam tham gia sâu hơn vào chuỗi cung ứng công nghệ cao toàn cầu.",
             "affected_groups": [
-              "Nhà cung cấp dịch vụ đám mây",
-              "Doanh nghiệp công nghệ",
-              "Người dùng internet"
+              "Ngành bán dẫn",
+              "Doanh nghiệp công nghệ cao"
             ],
             "watch_next": [
-              "Phản ứng của các chính phủ đối với quy định về trung tâm dữ liệu",
-              "Tiến độ vá lỗi bảo mật trên các hệ thống hạ tầng cũ"
+              "Tiến độ triển khai nhà máy đất hiếm tại Hải Phòng",
+              "Tác động của SSD tích hợp NPU đến hiệu suất trung tâm dữ liệu"
             ],
             "representative_sources": [
               {
-                "title": "Đề xuất áp giá điện sản xuất cho trung tâm dữ liệu",
-                "source": "thanhnien_vn",
-                "url": "https://thanhnien.vn/de-xuat-ap-gia-dien-san-xuat-cho-trung-tam-du-lieu-185261122111538388.htm",
-                "excerpt": "Bộ Công Thương đề xuất đưa trung tâm dữ liệu vào nhóm giá điện sản xuất."
+                "title": "Doanh nghiệp Việt đứng sau mỏ đất hiếm gần 400 ha tại Lào Cai vừa khởi công nhà máy 1.580 tỷ đồng ở Hải Phòng",
+                "source": "cafef_vn",
+                "url": "https://cafef.vn/doanh-nghiep-viet-dung-sau-mo-dat-hiem-gan-400-ha-tai-lao-cai-vua-khoi-cong-nha-may-1580-ty-dong-o-hai-phong-188261124083949069.chn",
+                "excerpt": "Nhà máy ứng dụng AI trong sản xuất oxit đất hiếm độ tinh khiết cao phục vụ ngành bán dẫn."
               }
             ]
           }
@@ -196,24 +223,25 @@
       {
         "code": "news",
         "name": "Thời sự & Chính trị",
-        "sector_thesis": "Thời sự & Chính trị 48h qua tập trung vào các điểm nóng địa chính trị tại eo biển Hormuz và khu vực Baltic. Trong nước, công tác xét xử các vụ án kinh tế lớn và các quyết định về quy hoạch đặc khu kinh tế Vân Phong cho thấy sự quyết liệt trong quản lý nhà nước và định hướng phát triển kinh tế biển. Việc Việt Nam tiếp nhận vai trò chủ nhà APEC 2027 cũng khẳng định cam kết thúc đẩy hợp tác khu vực và nâng cao vị thế quốc tế. Các sự kiện này cùng cho thấy một bức tranh chính trị đang chuyển dịch mạnh mẽ, nơi an ninh năng lượng và sự tự cường kinh tế trở thành ưu tiên hàng đầu của các quốc gia trong bối cảnh xung đột địa chính trị ngày càng phức tạp.",
+        "sector_thesis": "Thời sự trong 48 giờ qua tập trung vào các vấn đề an ninh trật tự và chính sách phát triển kinh tế. Vụ nổ tại Hà Nội là sự kiện gây chú ý nhất, trong khi các chính sách thuế mới và quy hoạch đô thị tại TP.HCM cho thấy nỗ lực của chính phủ trong việc hỗ trợ doanh nghiệp và định hình tương lai phát triển dài hạn. Các diễn biến ngoại giao quốc tế cũng đang được theo dõi sát sao.",
         "subsector_briefs": [
           {
-            "name": "Địa chính trị & Ngoại giao",
-            "overview": "Căng thẳng tại eo biển Hormuz và khu vực Baltic đang làm gia tăng rủi ro địa chính trị toàn cầu.",
+            "name": "An ninh và Quy hoạch",
+            "overview": "Các vấn đề an ninh trật tự và quy hoạch đô thị đang là tâm điểm chú ý tại các thành phố lớn.",
             "key_points": [
-              "Iran gia tăng sức ép tại eo biển Hormuz",
-              "Việt Nam chủ nhà APEC 2027"
+              "Vụ nổ khí gas tại Hà Nội",
+              "Quy hoạch siêu đô thị TP.HCM",
+              "Kiểm tra vi phạm tại Ninh Bình"
             ],
             "key_story_titles": [
-              "Căng thẳng tại eo biển Hormuz leo thang"
+              "Vụ nổ khí gas tại phố Nguyễn Văn Tuyết"
             ],
             "representative_sources": [
               {
-                "title": "Vì sao Iran bất ngờ đẩy mạnh sức ép quân sự, gia tăng thách thức Mỹ ở eo biển Hormuz?",
+                "title": "Vụ nổ lớn ở Hà Nội: Đã có 3 người chết",
                 "source": "tienphong_vn",
-                "url": "https://tienphong.vn/vi-sao-iran-bat-ngo-day-manh-suc-ep-quan-su-gia-tang-thach-thuc-my-o-eo-bien-hormuz-post1896678.tpo",
-                "excerpt": "Iran gia tăng sức ép quân sự tại eo biển Hormuz, gây gián đoạn nguồn cung dầu mỏ."
+                "url": "https://tienphong.vn/vu-no-lon-o-ha-noi-da-co-3-nguoi-chet-post1897037.tpo",
+                "excerpt": "Sự cố nổ khí gas tại một cửa hàng ăn nhẹ ở quận Đống Đa, Hà Nội gây thiệt hại nghiêm trọng về người và tài sản."
               }
             ]
           }
@@ -221,31 +249,30 @@
         "story_dossiers": [
           {
             "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Quản lý nhà nước",
-            "title": "Quyết liệt trong quản lý và phát triển",
-            "summary": "Công tác xét xử các vụ án kinh tế lớn như Sen Tài Thu và việc Bộ Chính trị đồng ý chủ trương thành lập Khu kinh tế đặc biệt Vân Phong cho thấy sự quyết liệt của Chính phủ trong việc làm sạch môi trường kinh doanh và định hướng phát triển kinh tế biển. Các quyết định này không chỉ nhằm xử lý sai phạm mà còn tạo ra cơ chế ưu đãi cao nhất để thu hút đầu tư, thúc đẩy tăng trưởng kinh tế trong giai đoạn mới.",
+            "depth_level": "deep",
+            "sub_sector": "An ninh trật tự",
+            "title": "Vụ nổ khí gas tại phố Nguyễn Văn Tuyết",
+            "summary": "Sự cố nổ khí gas tại một cửa hàng ăn nhẹ trên phố Nguyễn Văn Tuyết, quận Đống Đa, Hà Nội đã gây thiệt hại nghiêm trọng về người và tài sản. Lực lượng chức năng đang khẩn trương cứu hộ và điều tra nguyên nhân ban đầu.",
             "main_developments": [
-              "TAND TP Hà Nội xét xử vụ án lừa đảo chiếm đoạt 757 tỷ đồng tại Sen Tài Thu.",
-              "Bộ Chính trị đồng ý chủ trương thành lập Khu kinh tế đặc biệt Vân Phong với cơ chế ưu đãi tối đa.",
-              "Việt Nam chính thức tiếp nhận vai trò chủ nhà APEC 2027."
+              "Vụ nổ xảy ra vào sáng ngày 24/11.",
+              "Sơ bộ xác minh nguyên nhân do nổ khí gas.",
+              "Chủ tịch UBND TP Hà Nội trực tiếp chỉ đạo tại hiện trường."
             ],
-            "why_it_matters": "Sự quyết liệt trong quản lý nhà nước giúp củng cố niềm tin của nhà đầu tư và tạo nền tảng pháp lý vững chắc cho sự phát triển bền vững.",
+            "why_it_matters": "Sự kiện an ninh trật tự nghiêm trọng này đặt ra vấn đề cấp bách về an toàn phòng cháy chữa cháy và quản lý sử dụng khí gas tại các khu dân cư đông đúc.",
             "affected_groups": [
-              "Nhà đầu tư",
-              "Doanh nghiệp",
-              "Cơ quan quản lý nhà nước"
+              "Người dân quận Đống Đa",
+              "Cơ quan quản lý an toàn PCCC"
             ],
             "watch_next": [
-              "Kết quả xét xử vụ án Sen Tài Thu",
-              "Tiến độ triển khai Khu kinh tế đặc biệt Vân Phong"
+              "Kết quả điều tra chính thức từ Công an thành phố Hà Nội",
+              "Các biện pháp kiểm tra an toàn khí gas trên toàn thành phố"
             ],
             "representative_sources": [
               {
-                "title": "Bộ Chính trị đồng ý chủ trương thành lập Khu kinh tế đặc biệt Vân Phong: Đòn bẩy phát triển kinh tế biển",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/bo-chinh-tri-dong-y-chu-truong-thanh-lap-khu-kinh-te-dac-biet-van-phong-don-bay-phat-trien-kinh-te-bien-100261122082523387.htm",
-                "excerpt": "Khánh Hòa được phép áp dụng cơ chế ưu đãi cao nhất để phát triển Vân Phong."
+                "title": "Nổ lớn trên phố Nguyễn Văn Tuyết, Chủ tịch TP Hà Nội chỉ đạo trực tiếp tại hiện trường",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/no-lon-tren-pho-nguyen-van-tuyet-chu-tich-tp-ha-noi-chi-dao-truc-tiep-tai-hien-truong-post1897011.tpo",
+                "excerpt": "Chủ tịch UBND TP Hà Nội trực tiếp chỉ đạo tại hiện trường vụ nổ."
               }
             ]
           }
@@ -254,36 +281,54 @@
       {
         "code": "trends",
         "name": "Xu hướng & Đời sống",
-        "sector_thesis": "Xu hướng & Đời sống 48h qua phản ánh sự quan tâm đến sức khỏe cộng đồng và các thay đổi trong lối sống. Từ việc nghiên cứu giấc ngủ đến các sự kiện văn hóa lớn, người tiêu dùng Việt Nam đang có xu hướng tìm kiếm sự cân bằng và các giá trị bền vững trong bối cảnh kinh tế nhiều thách thức. Việc Luật Nhà ở sửa đổi cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú cũng mở ra những cơ hội mới cho kinh tế chia sẻ. Các xu hướng này cho thấy một cộng đồng đang dần thích nghi với những thay đổi về công nghệ và chính sách, đồng thời chú trọng hơn đến chất lượng cuộc sống và sức khỏe cá nhân trong một thế giới đầy biến động.",
-        "subsector_briefs": [],
-        "story_dossiers": [
+        "sector_thesis": "Xu hướng đời sống 48 giờ qua nổi bật với các hoạt động văn hóa nhân Ngày Văn hóa Việt Nam và những cảnh báo về biến đổi khí hậu. Người dân đang dành nhiều sự quan tâm hơn đến các giá trị truyền thống và sức khỏe cộng đồng. Đồng thời, các xu hướng du lịch và tiêu dùng cuối năm tại TP.HCM cho thấy sức phục hồi mạnh mẽ của ngành dịch vụ.",
+        "subsector_briefs": [
           {
-            "rank": 1,
-            "depth_level": "major",
-            "sub_sector": "Chính sách & Đời sống",
-            "title": "Thay đổi trong lối sống và quyền lợi người dân",
-            "summary": "Việc Luật Nhà ở sửa đổi cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú cùng với các xu hướng sống tối giản và chú trọng sức khỏe cho thấy sự thay đổi rõ rệt trong lối sống và quyền lợi của người dân. Những thay đổi này không chỉ ảnh hưởng đến thị trường lưu trú mà còn phản ánh nhu cầu tìm kiếm sự cân bằng và giá trị bền vững của người tiêu dùng trong bối cảnh kinh tế nhiều thách thức.",
-            "main_developments": [
-              "Luật Nhà ở 2026 sửa đổi cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú.",
-              "Xu hướng sống tối giản giúp giới trẻ tích lũy tài chính hiệu quả hơn.",
-              "Đại hội Thể thao toàn quốc lần thứ X tại TP.HCM tạo động lực cho dịch vụ và du lịch."
+            "name": "Văn hóa và Đời sống",
+            "overview": "Các hoạt động văn hóa và du lịch đang thu hút sự quan tâm lớn của người dân trong dịp cuối năm.",
+            "key_points": [
+              "Ngày Văn hóa Việt Nam 24/11",
+              "Chương trình kích cầu Vibrant HCMC",
+              "Nắng nóng bất thường tại Nam Bộ"
             ],
-            "why_it_matters": "Những thay đổi này tác động trực tiếp đến quyền lợi người sở hữu căn hộ và định hình lại các xu hướng tiêu dùng, giải trí trong xã hội.",
-            "affected_groups": [
-              "Người sở hữu căn hộ",
-              "Giới trẻ",
-              "Cộng đồng người tiêu dùng"
-            ],
-            "watch_next": [
-              "Phản ứng của thị trường lưu trú sau khi Luật Nhà ở sửa đổi có hiệu lực",
-              "Các xu hướng tiêu dùng bền vững mới"
+            "key_story_titles": [
+              "Hưởng ứng Ngày Văn hóa Việt Nam"
             ],
             "representative_sources": [
               {
-                "title": "Luật Nhà ở sửa đổi chính thức cho phép sử dụng căn hộ chung cư để cho thuê lưu trú",
-                "source": "tuoitre_vn",
-                "url": "https://tuoitre.vn/luat-nha-o-sua-doi-chinh-thuc-cho-phep-su-dung-can-ho-chung-cu-de-cho-thue-luu-tru-100261122102130507.htm",
-                "excerpt": "Quy định mới làm rõ ranh giới pháp lý, cho phép căn hộ chung cư được sử dụng cho mục đích lưu trú."
+                "title": "Thứ trưởng Trịnh Thị Thủy: Đầu tư cho văn hóa phải đến được với từng người dân",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/thu-truong-trinh-thi-thuy-dau-tu-cho-van-hoa-phai-den-duoc-voi-tung-nguoi-dan-post1897000.tpo",
+                "excerpt": "Ngày 24/11, người lao động được nghỉ làm hưởng nguyên lương; nhiều cơ sở văn hóa áp dụng miễn phí tham quan."
+              }
+            ]
+          }
+        ],
+        "story_dossiers": [
+          {
+            "rank": 1,
+            "depth_level": "brief",
+            "sub_sector": "Văn hóa",
+            "title": "Ngày Văn hóa Việt Nam 24/11",
+            "summary": "Ngày 24/11 chính thức trở thành Ngày Văn hóa Việt Nam, với nhiều hoạt động nghệ thuật, triển lãm và miễn phí tham quan di tích trên cả nước. Đây là dịp để người dân dành sự quan tâm nhiều hơn đến các giá trị truyền thống và bản sắc dân tộc.",
+            "main_developments": [
+              "Lễ kỷ niệm 80 năm Hội nghị Văn hóa toàn quốc lần thứ nhất.",
+              "Nhiều địa phương tổ chức miễn phí tham quan di tích.",
+              "Người lao động được nghỉ làm hưởng nguyên lương."
+            ],
+            "why_it_matters": "Sự kiện này góp phần nâng cao nhận thức về văn hóa và tinh thần cộng đồng trong xã hội.",
+            "affected_groups": [
+              "Người dân cả nước"
+            ],
+            "watch_next": [
+              "Các hoạt động văn hóa tiếp theo trong năm"
+            ],
+            "representative_sources": [
+              {
+                "title": "Một ngày nghỉ lễ đặc biệt, người dân chọn làm gì?",
+                "source": "tienphong_vn",
+                "url": "https://tienphong.vn/mot-ngay-nghi-le-dac-biet-nguoi-dan-chon-lam-gi-post1896981.tpo",
+                "excerpt": "Ngày 24/11 đánh dấu lần đầu tiên người dân đón Ngày Văn hóa Việt Nam."
               }
             ]
           }
@@ -293,78 +338,68 @@
     "watchlist_24_72h": [
       {
         "theme": "Thị trường tài chính",
-        "what_to_watch": "Phản ứng của thị trường chứng khoán toàn cầu và Việt Nam",
-        "why": "Áp lực bán tháo cổ phiếu AI và rủi ro lãi suất Fed"
+        "what_to_watch": "Phản ứng của thị trường Bitcoin và cổ phiếu công nghệ sau đợt phục hồi",
+        "why": "Đánh giá tâm lý nhà đầu tư sau sự kiện Nvidia"
       },
       {
-        "theme": "Địa chính trị",
-        "what_to_watch": "Diễn biến căng thẳng tại eo biển Hormuz",
-        "why": "Ảnh hưởng trực tiếp đến an ninh năng lượng toàn cầu"
+        "theme": "An ninh trật tự",
+        "what_to_watch": "Kết quả điều tra vụ nổ tại phố Nguyễn Văn Tuyết",
+        "why": "Đảm bảo an toàn công cộng và phòng cháy chữa cháy"
       },
       {
-        "theme": "Chính sách Việt Nam",
-        "what_to_watch": "Văn bản hướng dẫn Luật Kinh doanh bất động sản",
-        "why": "Tác động trực tiếp đến thị trường bất động sản"
+        "theme": "Chính sách thuế",
+        "what_to_watch": "Văn bản hướng dẫn chi tiết về thuế mới tại Việt Nam",
+        "why": "Ảnh hưởng trực tiếp đến doanh nghiệp và nhà đầu tư"
       },
       {
-        "theme": "Công nghệ",
-        "what_to_watch": "Tiến độ triển khai hạ tầng trung tâm dữ liệu",
-        "why": "Ảnh hưởng đến chi phí vận hành và phát triển hạ tầng số"
-      },
-      {
-        "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Dự án đường sắt tốc độ cao Bắc - Nam chọn được liên danh tư vấn",
-        "why": "Đây là dự án hạ tầng giao thông quan trọng nhất của Việt Nam trong giai đoạn hiện nay."
+        "theme": "Hạ tầng giao thông",
+        "what_to_watch": "Tiến độ triển khai các dự án cao tốc trọng điểm",
+        "why": "Động lực tăng trưởng kinh tế và đầu tư công"
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Doanh nghiệp lớn chốt quyền trả cổ tức tiền mặt hàng nghìn tỷ đồng",
-        "why": "Phản ánh dòng tiền và chính sách chi trả cổ tức của các doanh nghiệp niêm yết lớn."
+        "what_to_watch": "Jensen Huang trở lại Nvidia: Cổ phiếu công nghệ và Bitcoin phục hồi mạnh",
+        "why": "Sự kiện quan trọng nhất ảnh hưởng đến tâm lý thị trường toàn cầu trong 48 giờ qua."
       },
       {
         "theme": "Kinh tế & Tài chính",
-        "what_to_watch": "Giá vàng thế giới bật tăng mạnh sau tuần giảm sốc",
-        "why": "Tác động trực tiếp đến tâm lý nhà đầu tư và biến động tài sản trú ẩn."
+        "what_to_watch": "Jensen Huang tái bổ nhiệm CEO Nvidia, cổ phiếu công nghệ toàn cầu tăng vọt",
+        "why": "Sự kiện tác động trực tiếp đến thị trường tài chính và công nghệ toàn cầu, là chủ đề dominant trong 48h qua."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Biến động giá vàng và chính sách tiền tệ",
+        "why": "Phản ánh xu hướng tích trữ tài sản của người dân và chênh lệch giá vàng trong nước - quốc tế."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Chế độ ăn Keto giảm 67% mỡ gan và cải thiện sức khỏe chuyển hóa",
+        "why": "Kết quả nghiên cứu có tác động trực tiếp đến xu hướng dinh dưỡng và quản lý bệnh chuyển hóa."
+      },
+      {
+        "theme": "Kinh tế & Tài chính",
+        "what_to_watch": "Ông Jensen Huang quay trở lại ghế CEO, cổ phiếu NVIDIA bật tăng 30%",
+        "why": "Sự kiện quan trọng nhất ảnh hưởng trực tiếp đến tâm lý thị trường toàn cầu trong 48 giờ qua."
       },
       {
         "theme": "Công nghệ & AI",
-        "what_to_watch": "Google đạt bước tiến mới trong điện toán lượng tử",
-        "why": "Đánh dấu bước tiến kỹ thuật quan trọng trong lĩnh vực điện toán lượng tử."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "AI phát hiện dấu hiệu cảnh báo ung thư bàng quang trước 5 năm",
-        "why": "Bước tiến quan trọng trong ứng dụng AI vào chẩn đoán sớm bệnh hiểm nghèo."
-      },
-      {
-        "theme": "Công nghệ & AI",
-        "what_to_watch": "Google hợp tác với Blue Origin phóng cụm máy chủ AI lên vũ trụ",
-        "why": "Bước tiến đột phá trong hạ tầng AI và cuộc đua không gian giữa các Big Tech."
+        "what_to_watch": "Phát triển hạ tầng số và viễn thông",
+        "why": "Đánh dấu bước tiến quan trọng trong hạ tầng viễn thông quốc gia."
       }
     ],
     "source_desk": [
       {
-        "topic": "Tài chính & Kinh tế",
+        "topic": "Hạ tầng & Quy hoạch",
         "representative_sources": [
           {
-            "title": "Chứng khoán toàn cầu lao dốc, gần 9.000 tỷ USD vốn hóa bốc hơi",
-            "source": "dantri_com_vn",
-            "url": "https://dantri.com.vn/kinh-doanh/chung-khoan-toan-cau-lao-doc-gan-9000-ty-usd-von-hoa-boc-hoi-20261123050219322.htm"
-          }
-        ]
-      },
-      {
-        "topic": "Thời sự & Chính trị",
-        "representative_sources": [
-          {
-            "title": "Vì sao Iran bất ngờ đẩy mạnh sức ép quân sự, gia tăng thách thức Mỹ ở eo biển Hormuz?",
-            "source": "tienphong_vn",
-            "url": "https://tienphong.vn/vi-sao-iran-bat-ngo-day-manh-suc-ep-quan-su-gia-tang-thach-thuc-my-o-eo-bien-hormuz-post1896678.tpo"
+            "title": "Thiết lập 4 cột mốc tiến độ lập dự án đường sắt tốc độ cao Bắc - Nam",
+            "source": "baoxaydung_vn",
+            "url": "https://baoxaydung.vn/thiet-lap-4-cot-moc-tien-do-lap-du-an-duong-sat-toc-do-cao-bac-nam-192261124103226227.htm"
           }
         ]
       }
     ],
-    "gaps_and_limits": "Thiếu thông tin chi tiết về các phản ứng chính sách cụ thể từ phía các ngân hàng trung ương lớn đối với đợt bán tháo thị trường vừa qua.",
+    "gaps_and_limits": "Thiếu thông tin chi tiết về nguyên nhân kỹ thuật sâu xa của vụ nổ tại Hà Nội (đang trong quá trình điều tra) và tác động dài hạn của việc phục chức CEO Nvidia đối với các đối tác chuỗi cung ứng tại Việt Nam.",
     "notable_articles": []
   }
 }
